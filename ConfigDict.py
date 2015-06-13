@@ -2,31 +2,53 @@ from __future__ import print_function
 
 import ruamel.yaml
 import os.path
-
-from cloudmesh_base.util import path_expand
+import json
+import re
 
 class todo(object):
     @classmethod
     def implemet(cls):
         raise NotImplementedError("Please implement")
 
+def path_expand(path):
+    current_dir = "." + os.path.sep
+    if path.startswith(current_dir):
+        cwd = str(os.getcwd())
+        path = path.replace(current_dir, cwd, 1)
+    location = os.path.expandvars(os.path.expanduser(path))
+    return location
+
 class ConfigDict(object):
 
-    def __init__(self, filename, load_order=None):
+    def __init__(self,
+                 filename,
+                 load_order=None,
+                 verbose=False):
         """
-        not yet completed
+        Creates a dictionary from a yaml configuration file
+        while using the filename to load it in the specified load_order.
+        The load order is an array of paths in which the file is searched.
+        By default the load order is set to . and ~/.cloudmesh
 
-        :param filename:
-        :param load_order:
-        :return:
+        :param filename: the filename
+        :type filename: string
+        :param load_order: an array with path names in with the filename is looked for.
+        :type load_order: list of strings
+        :return: an instance of ConfigDict
+        :rtype: ConfigDict
         """
         if load_order is None:
             self.load_order = [".", "~/.cloudmesh"]
         for path in self.load_order:
-            name = path_expand("{:}/{:}".format(path, filename))
+            name = path_expand(path + os.path.sep + filename)
+            if verbose:
+                    print ("try Loading ConfigDict", name)
             if os.path.isfile(name):
+                if verbose:
+                    print ("Loading ConfigDict", name)
                 self.load(name)
                 self.filename = name
+                return
 
     def load(self, filename):
         """loads the filename"""
@@ -44,6 +66,17 @@ class ConfigDict(object):
         content = ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper)
         with open(path_expand(self.filename),'w') as f:
             f.write(content)
+
+    def __setitem__(self, item, value):
+        if "." in item:
+            keys = item.split(".")
+        else:
+            element = self.data[item]
+
+        element = self.data[keys[0]]
+        for key in keys[1:]:
+            element = element[key]
+        element = value
 
     def __getitem__(self, item):
         if "." in item:
@@ -70,6 +103,15 @@ class ConfigDict(object):
         print (type(self.data))
         print (self.data)
 
+    @property
+    def json(self):
+        """
+        string of the json formated object
+
+        :return: json string version
+        """
+        return (json.dumps(self.data, indent=4))
+
     @classmethod
     def check(cls, filename):
         """
@@ -89,11 +131,16 @@ def main():
     print (d["meta.kind"])
     print (d["meta"]["kind"])
 
+    # this does not yet work
     d.data["meta"]["test"] = 'Gregor'
+    print (d)
     d.save()
-    
+
     import os
     os.system("cat cmd3.yaml")
+
+    print(d.json)
+    print(d.filename)
 
 if __name__ == "__main__":
     main()
