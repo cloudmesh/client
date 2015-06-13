@@ -84,11 +84,16 @@ def main():
     d = ConfigDict("cmd3.yaml")
     print (d, end='')
     d.info()
-    d.save()
 
     print (d["meta"])
     print (d["meta.kind"])
     print (d["meta"]["kind"])
+
+    d.data["meta"]["test"] = 'Gregor'
+    d.save()
+    
+    import os
+    os.system("cat cmd3.yaml")
 
 if __name__ == "__main__":
     main()
