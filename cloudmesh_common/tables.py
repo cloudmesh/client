@@ -1,4 +1,6 @@
 """Convenient methods and classes to print tables"""
+from __future__ import print_function
+
 from pytimeparse.timeparse import timeparse
 from prettytable import PrettyTable
 from datetime import datetime

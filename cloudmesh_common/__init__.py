@@ -1,1 +1,1 @@
-__author__ = 'big'
+version = "0.1"
