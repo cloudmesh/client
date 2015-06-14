@@ -4,7 +4,7 @@ from sqlalchemy import update
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from prettytable import PrettyTable
-from cloudmesh_base.tables import dict_printer
+from cloudmesh_common.tables import dict_printer
 import uuid
 import os
 import getpass
@@ -103,11 +103,11 @@ class DB (object):
 db = DB()
 
 # create instances of my user object
-vm = []
-vm.append(VM('gregor1'))
-vm.append(VM('gregor2'))
+vms = []
+vms.append(VM('gregor1'))
+vms.append(VM('gregor2'))
 
-db.add(vm)
+db.add(vms)
 db.save()
 
 # When you query the data back it returns instances of your class:
@@ -118,21 +118,25 @@ for v in db.data.query(VM):
 pprint (db.dict(VM))
 pprint (db.json(VM))
 
+for output in ["dict", "json", "yaml", "table"]:
+    print (dict_printer(db.dict(VM), output=output))
 
-print (dict_printer(db.dict(VM)))
 
 
-d = [DEFAULT(name="user", value="albert")]
-db.add(d)
-db.save()
+# d = [DEFAULT(name="user", value="albert")]
+# db.add(d)
+# db.save()
 
-db.default("hallo", "gregor")
-db.default("user", "xyz")
+db.default("cloud", "india")
+db.default("user", getpass.getuser())
 
 for v in db.data.query(DEFAULT):
     print v.name, v.value
 
-print (dict_printer(db.dict(DEFAULT)))
+print (dict_printer(db.dict(DEFAULT), output='yaml'))
 
-#                    order=['name', 'value'],
+print (dict_printer(db.dict(DEFAULT),
+                    order=['id', 'name', 'value']))
+
+#                    ,
 #                    header=['Name', 'Value']))
