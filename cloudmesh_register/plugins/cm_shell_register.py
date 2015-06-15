@@ -1,12 +1,10 @@
 from __future__ import print_function
-import os
-from cmd3.console import Console
 from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_default.command_default import command_default
+from cloudmesh_base.util import path_expand
+
 
 class cm_shell_register:
-
     def activate_cm_shell_register(self):
         self.register_command_topic('mycommands', 'register')
 
@@ -77,7 +75,15 @@ class cm_shell_register:
                   command
         """
         pprint(arguments)
+
+        def _get_file(filename):
+            return path_expand(filename)
+
+        if arguments["edit"]:
+            filename = _get_file(arguments["--yaml"])
+            print ("edit", filename)
         pass
+
 
 if __name__ == '__main__':
     command = cm_shell_register()

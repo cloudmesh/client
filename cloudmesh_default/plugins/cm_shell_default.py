@@ -7,7 +7,7 @@ from cloudmesh_default.command_default import command_default
 
 class cm_shell_default:
 
-    def activate_cm_shell_default(self):
+    def activate_cm_shell_cloud(self):
         self.register_command_topic('mycommands', 'default')
 
     @command
