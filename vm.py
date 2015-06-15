@@ -22,6 +22,7 @@ class DEFAULT(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     value = Column(String)
+    user = Column(String)
 
 
 class VM(Base):

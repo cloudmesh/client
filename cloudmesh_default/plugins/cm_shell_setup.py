@@ -5,20 +5,18 @@ from cmd3.shell import command
 from pprint import pprint
 from cloudmesh_default.command_default import command_default
 
-class cm_shell_default:
+class cm_shell_setup:
 
-    def activate_cm_shell_default(self):
-        self.register_command_topic('mycommands', 'default')
+    def activate_cm_shell_setup(self):
+        self.register_command_topic('mycommands', 'setup')
 
     @command
-    def do_default(self, args, arguments):
+    def do_setup(self, args, arguments):
         """
         ::
 
           Usage:
-              default list [--output=FORMAT]
-              default KEY
-              default KEY=VALUE
+             setup username host OPENRC
 
           managing the defaults
 
@@ -46,7 +44,5 @@ class cm_shell_default:
         pass
 
 if __name__ == '__main__':
-    command = cm_shell_default()
-    command.do_default("list")
-    command.do_default("a=x")
-    command.do_default("x")
+    command = cm_shell_register()
+    command.do_register("list")
