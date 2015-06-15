@@ -1,12 +1,14 @@
 from __future__ import print_function
 from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_base.util import path_expand
+from cloudmesh_common.ConfigDict import find_file
+from cloudmesh_common.ConfigDict import path_expand
+import os
+import os.path
 
-
-class cm_shell_register:
-    def activate_cm_shell_register(self):
-        self.register_command_topic('mycommands', 'register')
+class cm_shell_cloud:
+    def activate_cm_shell_cloud(self):
+        self.register_command_topic('cloud', 'register')
 
     @command
     def do_register(self, args, arguments):
@@ -14,15 +16,17 @@ class cm_shell_register:
         ::
 
           Usage:
-              register list
+              register info
+              register list [--yaml=FILENAME]
+              register cat [--yaml=FILENAME]
+              register edit [--yaml=FILENAME]
+              register form [--yaml=FILENAME]
+              register check [--yaml=FILENAME]
+              register test [--yaml=FILENAME]
               register --rc OPENRC [--host=HOST] [--user=USER]
               register USER@HOST OPENRC
               register --yaml FILENAME
               register
-              register edit
-              register form
-              register check
-              register test
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in ~/.cloudmesh.
@@ -76,12 +80,25 @@ class cm_shell_register:
         """
         pprint(arguments)
 
-        def _get_file(filename):
-            return path_expand(filename)
+        def _get_file(arguments):
+            if arguments["--yaml"]:
+                filename = find_file(arguments["--yaml"])
+            else:
+                filename = find_file("cloudmesh.yaml")
+            return filename
 
-        if arguments["edit"]:
-            filename = _get_file(arguments["--yaml"])
+        if arguments["info"]:
+            filename = _get_file(arguments)
+            print ("File", filename, end=' ')
+            if os.path.isfile(filename):
+                print ("exists")
+        elif arguments["cat"]:
+            filename = _get_file(arguments)
+            os.system("cat {:}".format(filename))
+        elif arguments["edit"]:
+            filename = _get_file(arguments)
             print ("edit", filename)
+            self.do_edit(filename)
         pass
 
 

@@ -2,7 +2,7 @@ from __future__ import print_function
 from cmd3.console import Console
 
 
-class command_register(object):
+class command_cloud(object):
     @classmethod
     def list(cls):
         Console.ok("list")

@@ -18,6 +18,20 @@ def path_expand(path):
     location = os.path.expandvars(os.path.expanduser(path))
     return location
 
+
+def find_file(filename, load_order=None, verbose=False):
+    if load_order is None:
+        load_order = [".", "~/.cloudmesh"]
+    for path in load_order:
+        name = path_expand(path + os.path.sep + filename)
+        if verbose:
+            print ("try finding file", name)
+        if os.path.isfile(name):
+            if verbose:
+                print ("Found File", name)
+            return name
+    return None
+
 class ConfigDict(object):
 
     def __init__(self,
