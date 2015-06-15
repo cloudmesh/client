@@ -9,3 +9,7 @@ nose
 python-hostlist
 prettytable
 pytimeparse
+sqlalchemy
+pbr
+apache-libcloud
+ruamel.yaml
