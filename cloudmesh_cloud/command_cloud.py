@@ -16,3 +16,9 @@ class command_cloud(object):
     def get(cls, key):
         Console.ok("Get")
         print(key)
+
+    @classmethod
+    def register_from_remote_openrc(cls, user, host, filename):
+        Console.ok("register")
+        print(user, host, filename)
+

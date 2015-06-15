@@ -99,8 +99,47 @@ class cm_shell_cloud:
             filename = _get_file(arguments)
             print ("edit", filename)
             self.do_edit(filename)
+        elif arguments['USER@HOST']:
+            user, host = arguments['USER@HOST'].split('@', 1)
+            filename = arguments['OPENRC']
+            print (user, host, filename)
+        elif arguments['list']:
+            filename = _get_file(arguments)
+            print ("list", filename)
+            self.do_list(filename)
+        elif arguments['check']:
+            filename = _get_file(arguments)
+            self.do_check_yaml_for_complitness(filename)
+        elif arguments['--rc']:
+            filename = arguments['OPENRC']
+            host = arguments['--host']
+            user = arguments['--user']
+            print ("--rc", filename,host, user)
+        elif arguments ['--yaml']:
+            filename = arguments['FILENAME']
+            print ("--yaml", filename)
+        elif arguments['test']:
+            filename = _get_file(arguments)
+            self.do_test(filename)
+        elif arguments['form']:
+            filename = _get_file(arguments)
+            self.do_fill_out_form(filename)
         pass
 
+    def do_check_yaml_for_complitness(self, filename):
+        print ("TODO check", filename)
+
+    def do_test(self, filename):
+        print ("TODO test", filename)
+
+    def do_list(self, filename):
+        print ("TODO list", filename)
+
+    def do_edit(self, filename):
+        print ("TODO edit", filename)
+
+    def do_fill_out_form(self, filename):
+        print ("TODO form", filename)
 
 if __name__ == '__main__':
     command = cm_shell_register()
