@@ -97,9 +97,6 @@ class ConfigDict(object):
 
     def load(self, filename):
         """loads the filename"""
-        #with open(path_expand(filename),'r') as f:
-        #    content = f.read()
-        #self.data = ruamel.yaml.load(content, ruamel.yaml.RoundTripLoader)
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
 
     def save(self, filename=None):
@@ -143,10 +140,7 @@ class ConfigDict(object):
 
     @property
     def yaml(self):
-        # return ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper)
         return self.data.yaml()
-        #def write(self, filename=None, output="dict", attribute_indent=attribute_indent):
-
 
     def info(self):
         """

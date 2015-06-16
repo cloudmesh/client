@@ -12,4 +12,3 @@ pytimeparse
 sqlalchemy
 pbr
 apache-libcloud
-ruamel.yaml
