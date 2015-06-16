@@ -42,8 +42,10 @@ class Config(object):
     def path_expand(cls, path):
         """
 
-        :param path:
-        :return:
+        :param path: the path to be expanded
+        :type path: string
+        :return:the new path
+        :rtype: string
         """
         current_dir = "." + os.path.sep
         if path.startswith(current_dir):
@@ -56,10 +58,14 @@ class Config(object):
     def find_file(cls, filename, load_order=None, verbose=False):
         """
 
-        :param filename:
-        :param load_order:
+        :param filename: the file name
+        :type filename: str
+        :param load_order: an array with path names in with the filename is looked for.
+        :type load_order: list of str
         :param verbose:
-        :return:
+        :type verbose: bool
+        :return: file name if successful
+        :rtype: string if the file exists or None otherwise
         """
         if load_order is None:
             load_order = [".", "~/.cloudmesh"]
@@ -116,6 +122,7 @@ class ConfigDict(object):
         loads the configuration from the yaml filename
 
         :param filename:
+        :type filename: string
         :return:
         """
 
@@ -125,7 +132,8 @@ class ConfigDict(object):
         """
         saves the configuration in the given filename, if it is none the filename at load time is used.
 
-        :param filename:
+        :param filename: the file name
+        :type filename: string
         :return:
         """
         content = self.data.yaml()
@@ -134,9 +142,11 @@ class ConfigDict(object):
 
     def __setitem__(self, item, value):
         """
-
+        TODO
         :param item:
+        :type item:
         :param value:
+        :type value:
         :return:
         """
         if "." in item:
@@ -151,8 +161,9 @@ class ConfigDict(object):
 
     def __getitem__(self, item):
         """
-
+        TODO
         :param item:
+        :type item:
         :return:
         """
         if "." in item:
@@ -167,7 +178,8 @@ class ConfigDict(object):
     def __str__(self):
         """
 
-        :return:
+        :return: returns the yaml output of the dict
+        :rtype: string
         """
         return self.data.yaml()
 
@@ -175,13 +187,14 @@ class ConfigDict(object):
     def yaml(self):
         """
 
-        :return:
+        :return: returns the yaml output of the dict
+        :rtype: string:
         """
         return self.data.yaml()
 
     def info(self):
         """
-
+        prints out the dict type and its content
         :return:
         """
         print (type(self.data))
@@ -193,6 +206,7 @@ class ConfigDict(object):
         string of the json formated object
 
         :return: json string version
+        :rtype: string
         """
         return (json.dumps(self.data, indent=4))
 
@@ -202,6 +216,7 @@ class ConfigDict(object):
         checks the filename if it is syntactically corrrect and does not include tabs
 
         :param filename:
+        :type filename: string
         :return:
         """
         todo.implement()
