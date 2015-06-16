@@ -4,7 +4,7 @@ from pprint import pprint
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.tables import dict_printer
 from cloudmesh_base.Shell import Shell
-
+from cloudmesh_base.util import path_expand
 import textwrap
 
 class command_cloud(object):
@@ -18,6 +18,14 @@ class command_cloud(object):
         for key in clouds.keys():
             Console.ok("  " + key)
 
+    @classmethod
+    def list_ssh(cls):
+        result = Shell.fgrep("Host ", path_expand("~/.ssh/config")).replace("Host ", "").replace(" ","")
+        Console.ok("The following hosts are defined in ~/.ssh/config")
+        print ("")
+        for line in result.split("\n"):
+            Console.ok("  " + line)
+ 
     @classmethod
     def  read_rc_file(cls, host, filename=None):
         if host == "india" and filename is None:

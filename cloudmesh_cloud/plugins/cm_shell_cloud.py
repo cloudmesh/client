@@ -19,14 +19,14 @@ class cm_shell_cloud:
           Usage:
               register info
               register list [--yaml=FILENAME]
+              register list ssh
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register form [--yaml=FILENAME]
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
               register rc HOST [OPENRC]
-              register --yaml FILENAME
-              register
+              register [--yaml=FILENAME]
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in ~/.cloudmesh.
@@ -53,7 +53,6 @@ class cm_shell_cloud:
               register list [--yaml=FILENAME]
                   lists the registration yaml file
 
-
               register rc HOST [OPENRC]
 
                     reads the Openstack OPENRC file from a host that is described in ./ssh/config and adds it to the
@@ -70,9 +69,10 @@ class cm_shell_cloud:
                     for the openrc file. To obtain the information from india simply type in
 
                         register rc india
-                        
-              register --yaml=FILENAME
-                  read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml
+
+              register [--yaml=FILENAME]
+                  read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml which is used when the
+                  yaml filename is ommitted.
 
               register edit [--yaml=FILENAME]
                   edits the cloudmesh yaml file
@@ -109,6 +109,9 @@ class cm_shell_cloud:
             filename = _get_file(arguments)
             print ("edit", filename)
             self.do_edit(filename)
+        elif arguments['list'] and arguments['ssh']:
+            print ("list ssh")
+            command_cloud.list_ssh()
         elif arguments['list']:
             filename = _get_file(arguments)
             print ("list", filename)
