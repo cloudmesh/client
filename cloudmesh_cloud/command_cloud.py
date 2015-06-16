@@ -11,6 +11,13 @@ class command_cloud(object):
 
     @classmethod
     def list(cls, filename):
+        """
+        lists clouds from cloudmesh.yaml file
+
+        :param filename:
+        :type filename: string
+        :return:
+        """
         config = ConfigDict("cloudmesh.yaml")
         clouds = config["cloudmesh"]["clouds"]
         Console.ok("Clouds in the configuration file")
@@ -20,6 +27,11 @@ class command_cloud(object):
 
     @classmethod
     def list_ssh(cls):
+        """
+        lists hosts from ~/.ssh/config
+
+        :return:
+        """
         result = Shell.fgrep("Host ", Config.path_expand("~/.ssh/config")).replace("Host ", "").replace(" ","")
         Console.ok("The following hosts are defined in ~/.ssh/config")
         print ("")
@@ -28,6 +40,14 @@ class command_cloud(object):
 
     @classmethod
     def  read_rc_file(cls, host, filename=None):
+        """
+
+        :param host: the host name
+        :type host: string
+        :param filename: the file name
+        :type filename: string
+        :return:
+        """
         if host == "india" and filename is None:
             filename = ".cloudmesh/clouds/india/juno/openrc.sh"
 
@@ -45,6 +65,13 @@ class command_cloud(object):
 
     @classmethod
     def check_yaml_for_completeness(cls, filename):
+        """
+        outputs how many values has to be fixed in cloudmesh.yaml file
+
+        :param filename: the file name
+        :type filename: string
+        :return:
+        """
         config = ConfigDict("cloudmesh.yaml")
 
         content = config.yaml
@@ -65,12 +92,24 @@ class command_cloud(object):
 
     @classmethod
     def register(cls, filename):
+        """
+        TODO
+        :param filename:
+        :type filename: string
+        :return:
+        """
         Console.ok("register")
         print(filename)
         raise NotImplementedError("Not implemented")
 
     @classmethod
     def test(cls, filename):
+        """
+        TODO
+        :param filename:
+        :type filename: string
+        :return:
+        """
         config = ConfigDict("cloudmesh.yaml")
         print (config)
         Console.ok("register")
@@ -80,6 +119,12 @@ class command_cloud(object):
 
     @classmethod
     def fill_out_form(cls, filename):
+        """
+        edits profile and clouds from cloudmesh.yaml
+        :param filename:
+        :type filename: string
+        :return:
+        """
         Console.ok("form")
         print(filename)
         config = ConfigDict("cloudmesh.yaml")
@@ -89,8 +134,10 @@ class command_cloud(object):
 
         profile = config["cloudmesh"]["profile"]
         keys = profile.keys()
+        raise NotImplementedError("raw_input does not work in python 3.x")
         for key in keys:
              result = raw_input("Please enter {:}[{:}]:".format(key,profile[key])) or profile[key]
+
              profile[key] = result
         config["cloudmesh"]["profile"] = profile
         config.save()
