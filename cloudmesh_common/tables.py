@@ -13,6 +13,21 @@ from cloudmesh_base.util import convert_from_unicode
 
 
 def dict_printer(d, order=None, header=None, output="table", sort_keys=True):
+    """
+    TODO
+    :param d: A a dict with dicts of the same type.
+    :type d: dict
+    :param order:The order in which the columns are printed.
+                The order is specified by the key names of the dict.
+    :type order:
+    :param header: The Header of each of the columns
+    :type header: list or tuple of field names
+    :param output: type of output (table, csv, json, yaml or dict)
+    :type output: string
+    :param sort_keys:
+    :type sort_keys: bool
+    :return:
+    """
     if output == "table":
         return dict_table_printer(d, order=order, header=header, sort_keys=sort_keys)
     elif output == "csv":
