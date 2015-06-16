@@ -1,8 +1,7 @@
 from __future__ import print_function
 from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_common.ConfigDict import find_file
-from cloudmesh_common.ConfigDict import path_expand
+from cloudmesh_common.ConfigDict import Config
 import os
 import os.path
 from cloudmesh_cloud.command_cloud import command_cloud
@@ -92,9 +91,9 @@ class cm_shell_cloud:
 
         def _get_file(arguments):
             if arguments["--yaml"]:
-                filename = find_file(arguments["--yaml"])
+                filename = Config.find_file(arguments["--yaml"])
             else:
-                filename = find_file("cloudmesh.yaml")
+                filename = Config.find_file("cloudmesh.yaml")
             return filename
 
         if arguments["info"]:

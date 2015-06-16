@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-import ruamel.yaml
+import yaml
 import os.path
 import json
 import re
@@ -10,27 +10,32 @@ class todo(object):
     def implemet(cls):
         raise NotImplementedError("Please implement")
 
-def path_expand(path):
-    current_dir = "." + os.path.sep
-    if path.startswith(current_dir):
-        cwd = str(os.getcwd())
-        path = path.replace(current_dir, cwd, 1)
-    location = os.path.expandvars(os.path.expanduser(path))
-    return location
+class Config(object):
 
+    @classmethod
+    def path_expand(path):
+        current_dir = "." + os.path.sep
+        if path.startswith(current_dir):
+            cwd = str(os.getcwd())
+            path = path.replace(current_dir, cwd, 1)
+        location = os.path.expandvars(os.path.expanduser(path))
+        return location
 
-def find_file(filename, load_order=None, verbose=False):
-    if load_order is None:
-        load_order = [".", "~/.cloudmesh"]
-    for path in load_order:
-        name = path_expand(path + os.path.sep + filename)
-        if verbose:
-            print ("try finding file", name)
-        if os.path.isfile(name):
+    @classmethod
+    def find_file(filename, load_order=None, verbose=False):
+        if load_order is None:
+            load_order = [".", "~/.cloudmesh"]
+        for path in load_order:
+            name = path_expand(path + os.path.sep + filename)
             if verbose:
-                print ("Found File", name)
-            return name
-    return None
+                print ("try finding file", name)
+            if os.path.isfile(name):
+                if verbose:
+                    print ("Found File", name)
+                return name
+        return None
+
+
 
 class ConfigDict(object):
 
