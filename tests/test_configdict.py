@@ -20,11 +20,23 @@ class Test_pass:
         pass
 
     def test_001_read(self):
+        """my comment about this test"""
         HEADING()
-        d = ConfigDict("cloudmesh_etc/cloudmesh.yaml")
-        print (d.json())
+        d = ConfigDict("cloudmesh.yaml",
+                       load_order=["cloudmesh_etc"],
+                       verbose=True)
 
-        assert True
+        assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
+
+        try:
+            d = ConfigDict("cloudmesh.yam",
+                           load_order=["cloudmesh_etc"],
+                           verbose=True)
+            print ("the file cloudmesh.yam should not exists")
+            assert False
+        except Exception, e:
+            assert str(e).startswith("could not find")
+
 	
 """	def main():
     d = ConfigDict("cmd3.yaml")

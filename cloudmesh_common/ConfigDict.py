@@ -96,6 +96,8 @@ class ConfigDict(object):
         """
         if load_order is None:
             self.load_order = [".", "~/.cloudmesh"]
+        else:
+            self.load_order = load_order
         for path in self.load_order:
             name = Config.path_expand(path + os.path.sep + filename)
             if verbose:
@@ -106,6 +108,8 @@ class ConfigDict(object):
                 self.load(name)
                 self.filename = name
                 return
+        raise Exception("could not find file {:} in {:}"
+                        .format(filename, self.load_order))
 
     def load(self, filename):
         """
