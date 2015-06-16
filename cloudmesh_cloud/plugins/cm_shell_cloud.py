@@ -53,14 +53,24 @@ class cm_shell_cloud:
               register list [--yaml=FILENAME]
                   lists the registration yaml file
 
-              register --type CLOUDTYPE --name NAME --rc OPENRC [--host=HOST] [--user=USER]
-                  reads the openrc file and registers it under the given name
-                  if this name already exists its values will be overwritten with
-                  values from the OPENRC file
 
-              register CLOUDTYPE NAME USER@HOST OPENRC
-                  just as the above command with less verbose options
+              register rc HOST [OPENRC]
 
+                    reads the Openstack OPENRC file from a host that is described in ./ssh/config and adds it to the
+                    configuration cloudmehs.yaml file. We assume that the file has already a template for this
+                    host. If nt it can be created from other examples before you run this command.
+
+                    The hostname can be specified as follows in the ./ssh/config file.
+
+                    Host india
+                        Hostname india.futuresystems.org
+                        User yourusername
+
+                    If the host is india and the OPENRC file is ommitted, it will automatically fill out the location
+                    for the openrc file. To obtain the information from india simply type in
+
+                        register rc india
+                        
               register --yaml=FILENAME
                   read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml
 
