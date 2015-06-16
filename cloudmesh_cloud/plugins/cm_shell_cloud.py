@@ -5,6 +5,7 @@ from cloudmesh_common.ConfigDict import find_file
 from cloudmesh_common.ConfigDict import path_expand
 import os
 import os.path
+from cloudmesh_cloud.command_cloud import command_cloud
 
 class cm_shell_cloud:
     def activate_cm_shell_cloud(self):
@@ -47,10 +48,10 @@ class cm_shell_cloud:
 
           Description:
 
-              register edit
+              register edit [--yaml=FILENAME]
                   edits the cloudmesh.yaml file
 
-              register list
+              register list [--yaml=FILENAME]
                   lists the registration yaml file
 
               register --type CLOUDTYPE --name NAME --rc OPENRC [--host=HOST] [--user=USER]
@@ -103,43 +104,32 @@ class cm_shell_cloud:
             user, host = arguments['USER@HOST'].split('@', 1)
             filename = arguments['OPENRC']
             print (user, host, filename)
+            command_cloud.read_rc_file(host, user, filename)
         elif arguments['list']:
             filename = _get_file(arguments)
             print ("list", filename)
-            self.do_list(filename)
+            command_cloud.list(filename)
         elif arguments['check']:
             filename = _get_file(arguments)
-            self.do_check_yaml_for_complitness(filename)
+            command_cloud.check_yaml_for_completeness(filename)
         elif arguments['--rc']:
             filename = arguments['OPENRC']
             host = arguments['--host']
             user = arguments['--user']
             print ("--rc", filename,host, user)
+            command_cloud.read_rc_file(host, user, filename)
         elif arguments ['--yaml']:
             filename = arguments['FILENAME']
             print ("--yaml", filename)
+            command_cloud.register(filename)
         elif arguments['test']:
             filename = _get_file(arguments)
-            self.do_test(filename)
+            command_cloud.test(filename)
         elif arguments['form']:
             filename = _get_file(arguments)
-            self.do_fill_out_form(filename)
+            command_cloud.fill_out_form(filename)
         pass
 
-    def do_check_yaml_for_complitness(self, filename):
-        print ("TODO check", filename)
-
-    def do_test(self, filename):
-        print ("TODO test", filename)
-
-    def do_list(self, filename):
-        print ("TODO list", filename)
-
-    def do_edit(self, filename):
-        print ("TODO edit", filename)
-
-    def do_fill_out_form(self, filename):
-        print ("TODO form", filename)
 
 if __name__ == '__main__':
     command = cm_shell_register()
