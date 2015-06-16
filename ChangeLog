@@ -1,1 +1,39 @@
+CHANGES
+=======
 
+* simple tox.ini
+* adding cm register list ssh command to list the hosts defined in .ssh/config
+* added registration documentation
+* added cm register rc host openrc
+* checks in registration command
+* uncomment the profile editor
+* adding a simple form for openstack credentials
+* fix the register command
+* cm register commands
+* dealing with public ip
+* reorganizing
+* added libcloud example; added more requirements
+* reorganization
+* adding first commands
+* remove version so we use git tags
+
+0.2.2
+-----
+
+* testing pbr
+
+0.2
+---
+
+* testing new version of pbr
+* simple default command
+* setup
+* print()
+* move confidict
+* simple dict printer with corrections
+* added defaults
+* introducing os.path.sep instead of /
+* set test
+* simple configdict based on ruaml.yaml
+* new config dict
+* Initial commit

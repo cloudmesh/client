@@ -25,7 +25,7 @@ class command_cloud(object):
         print ("")
         for line in result.split("\n"):
             Console.ok("  " + line)
- 
+
     @classmethod
     def  read_rc_file(cls, host, filename=None):
         if host == "india" and filename is None:
@@ -67,6 +67,7 @@ class command_cloud(object):
     def register(cls, filename):
         Console.ok("register")
         print(filename)
+        raise NotImplementedError("Not implemented")
 
     @classmethod
     def test(cls, filename):
@@ -74,6 +75,8 @@ class command_cloud(object):
         print (config)
         Console.ok("register")
         print(filename)
+        raise NotImplementedError("Not implemented")
+
 
     @classmethod
     def fill_out_form(cls, filename):
