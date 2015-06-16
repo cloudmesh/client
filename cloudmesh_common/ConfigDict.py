@@ -4,6 +4,7 @@ import yaml
 import os.path
 import json
 import re
+from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 
 class todo(object):
     @classmethod
@@ -13,7 +14,32 @@ class todo(object):
 class Config(object):
 
     @classmethod
-    def path_expand(path):
+    def check_file_for_tabs(cls, filename, verbose=True):
+        """identifies if the file contains tabs and returns True if it
+        does. It also prints the location of the lines and columns. If
+        verbose is set to False, the location is not printed.
+
+        :param filename: the filename
+        :type filename: str
+        :rtype: True if there are tabs in the file
+        """
+        file_contains_tabs = False
+        with file(filename) as f:
+            lines = f.read().split("\n")
+
+        line_no = 1
+        for line in lines:
+            if "\t" in line:
+                file_contains_tabs = True
+                location = [
+                    i for i in range(len(line)) if line.startswith('\t', i)]
+                if verbose:
+                    print("Tab found in line", line_no, "and column(s)", location)
+            line_no += 1
+        return file_contains_tabs
+
+    @classmethod
+    def path_expand(cls, path):
         current_dir = "." + os.path.sep
         if path.startswith(current_dir):
             cwd = str(os.getcwd())
@@ -26,7 +52,7 @@ class Config(object):
         if load_order is None:
             load_order = [".", "~/.cloudmesh"]
         for path in load_order:
-            name = path_expand(path + os.path.sep + filename)
+            name = Config.path_expand(path + os.path.sep + filename)
             if verbose:
                 print ("try finding file", name)
             if os.path.isfile(name):
@@ -59,7 +85,7 @@ class ConfigDict(object):
         if load_order is None:
             self.load_order = [".", "~/.cloudmesh"]
         for path in self.load_order:
-            name = path_expand(path + os.path.sep + filename)
+            name = Config.path_expand(path + os.path.sep + filename)
             if verbose:
                     print ("try Loading ConfigDict", name)
             if os.path.isfile(name):
@@ -71,9 +97,10 @@ class ConfigDict(object):
 
     def load(self, filename):
         """loads the filename"""
-        with open(path_expand(filename),'r') as f:
-            content = f.read()
-        self.data = ruamel.yaml.load(content, ruamel.yaml.RoundTripLoader)
+        #with open(path_expand(filename),'r') as f:
+        #    content = f.read()
+        #self.data = ruamel.yaml.load(content, ruamel.yaml.RoundTripLoader)
+        self.data = BaseConfigDict(filename=Config.path_expand(filename))
 
     def save(self, filename=None):
         """
@@ -82,8 +109,8 @@ class ConfigDict(object):
         :param filename:
         :return:
         """
-        content = ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper)
-        with open(path_expand(self.filename),'w') as f:
+        content = self.data.yaml()
+        with open(Config.path_expand(self.filename),'w') as f:
             f.write(content)
 
     def __setitem__(self, item, value):
@@ -112,11 +139,14 @@ class ConfigDict(object):
 
         :return:
         """
-        return (ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper))
+        return self.data.yaml()
 
     @property
     def yaml(self):
-        return ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper)
+        # return ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper)
+        return self.data.yaml()
+        #def write(self, filename=None, output="dict", attribute_indent=attribute_indent):
+
 
     def info(self):
         """
@@ -146,7 +176,7 @@ class ConfigDict(object):
         todo.implement()
 
 def main():
-    d = ConfigDict("cmd3.yaml")
+    d = ConfigDict("cloudmesh.yaml")
     print (d, end='')
     d.info()
 
@@ -155,7 +185,7 @@ def main():
     print (d["meta"]["kind"])
 
     # this does not yet work
-    d.data["meta"]["test"] = 'Gregor'
+    d.data["cloudmesh"]["profile"]["firstname"] = 'ABC'
     print (d)
     d.save()
 
@@ -164,6 +194,8 @@ def main():
 
     print(d.json)
     print(d.filename)
+    print("YAML")
+    print(d.yaml)
 
 if __name__ == "__main__":
     main()
