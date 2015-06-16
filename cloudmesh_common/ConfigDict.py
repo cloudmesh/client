@@ -48,7 +48,7 @@ class Config(object):
         return location
 
     @classmethod
-    def find_file(filename, load_order=None, verbose=False):
+    def find_file(cls, filename, load_order=None, verbose=False):
         if load_order is None:
             load_order = [".", "~/.cloudmesh"]
         for path in load_order:
