@@ -3,6 +3,8 @@ from cmd3.console import Console
 from pprint import pprint
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.tables import dict_printer
+from cloudmesh_base.Shell import Shell
+
 import textwrap
 
 class command_cloud(object):
@@ -17,9 +19,21 @@ class command_cloud(object):
             Console.ok("  " + key)
 
     @classmethod
-    def  read_rc_file(cls, host, user, filename):
+    def  read_rc_file(cls, host, filename=None):
+        if host == "india" and filename is None:
+            filename = ".cloudmesh/clouds/india/juno/openrc.sh"
+
         Console.ok("register")
-        print(user, host, filename)
+        print(host, filename)
+        result = Shell.ssh(host, "cat", filename)
+        print(result)
+        lines = result.split("\n")
+        config = ConfigDict("cloudmesh.yaml")
+        for line in lines:
+            line = line.replace("export ", "")
+            key, value = line.split("=", 1)
+            config["cloudmesh"]["clouds"][host]["credentials"][key] = value
+        config.save()
 
     @classmethod
     def check_yaml_for_completeness(cls, filename):

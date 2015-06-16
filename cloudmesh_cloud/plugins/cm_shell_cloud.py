@@ -24,7 +24,7 @@ class cm_shell_cloud:
               register form [--yaml=FILENAME]
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
-              register USER HOST OPENRC
+              register rc HOST [OPENRC]
               register --yaml FILENAME
               register
 
@@ -116,17 +116,10 @@ class cm_shell_cloud:
         elif arguments['form']:
             filename = _get_file(arguments)
             command_cloud.fill_out_form(filename)
-        elif arguments['USER@HOST']:
-            user, host = arguments['USER@HOST'].split('@', 1)
+        elif arguments['rc']:
             filename = arguments['OPENRC']
-            print (user, host, filename)
-            command_cloud.read_rc_file(host, user, filename)
-        elif arguments['--rc']:
-            filename = arguments['OPENRC']
-            host = arguments['--host']
-            user = arguments['--user']
-            print ("--rc", filename,host, user)
-            command_cloud.read_rc_file(host, user, filename)
+            host = arguments['HOST']
+            command_cloud.read_rc_file(host, filename)
         pass
 
 
