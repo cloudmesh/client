@@ -40,6 +40,11 @@ class Config(object):
 
     @classmethod
     def path_expand(cls, path):
+        """
+
+        :param path:
+        :return:
+        """
         current_dir = "." + os.path.sep
         if path.startswith(current_dir):
             cwd = str(os.getcwd())
@@ -49,6 +54,13 @@ class Config(object):
 
     @classmethod
     def find_file(cls, filename, load_order=None, verbose=False):
+        """
+
+        :param filename:
+        :param load_order:
+        :param verbose:
+        :return:
+        """
         if load_order is None:
             load_order = [".", "~/.cloudmesh"]
         for path in load_order:
@@ -96,7 +108,13 @@ class ConfigDict(object):
                 return
 
     def load(self, filename):
-        """loads the filename"""
+        """
+        loads the configuration from the yaml filename
+
+        :param filename:
+        :return:
+        """
+
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
 
     def save(self, filename=None):
@@ -111,6 +129,12 @@ class ConfigDict(object):
             f.write(content)
 
     def __setitem__(self, item, value):
+        """
+
+        :param item:
+        :param value:
+        :return:
+        """
         if "." in item:
             keys = item.split(".")
         else:
@@ -122,6 +146,11 @@ class ConfigDict(object):
         element = value
 
     def __getitem__(self, item):
+        """
+
+        :param item:
+        :return:
+        """
         if "." in item:
             keys = item.split(".")
         else:
@@ -140,6 +169,10 @@ class ConfigDict(object):
 
     @property
     def yaml(self):
+        """
+
+        :return:
+        """
         return self.data.yaml()
 
     def info(self):
