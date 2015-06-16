@@ -2,13 +2,19 @@ from __future__ import print_function
 from cmd3.console import Console
 from pprint import pprint
 from cloudmesh_common.ConfigDict import ConfigDict
+from cloudmesh_common.tables import dict_printer
+import textwrap
 
 class command_cloud(object):
 
     @classmethod
     def list(cls, filename):
-        Console.ok("list")
-        print(filename)
+        config = ConfigDict("cloudmesh.yaml")
+        clouds = config["cloudmesh"]["clouds"]
+        Console.ok("Clouds in the configuration file")
+        print("")
+        for key in clouds.keys():
+            Console.ok("  " + key)
 
     @classmethod
     def  read_rc_file(cls, host, user, filename):
@@ -17,8 +23,23 @@ class command_cloud(object):
 
     @classmethod
     def check_yaml_for_completeness(cls, filename):
-        Console.ok("check")
-        print(filename)
+        config = ConfigDict("cloudmesh.yaml")
+
+        content = config.yaml
+
+        Console.ok("Checking the yaml file")
+        count = 0
+        output = []
+        for line in content.split("\n"):
+            if "TBD" in line:
+                output.append(textwrap.dedent(line))
+                count = count + 1
+        if count > 0:
+            Console.error("The file has {:} values to be fixed".format(count))
+            print ("")
+            for line in output:
+                Console.error("  " + line, prefix=False)
+
 
     @classmethod
     def register(cls, filename):

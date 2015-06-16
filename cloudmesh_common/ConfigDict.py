@@ -109,6 +109,10 @@ class ConfigDict(object):
         """
         return (ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper))
 
+    @property
+    def yaml(self):
+        return ruamel.yaml.dump(self.data, Dumper=ruamel.yaml.RoundTripDumper)
+
     def info(self):
         """
 
