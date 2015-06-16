@@ -41,13 +41,14 @@ class command_cloud(object):
         # edit profile
         # -----------------------------------------
 
-        # profile = config["cloudmesh"]["profile"]
-        # keys = profile.keys()
-        # for key in keys:
-        #     result = raw_input("Please enter {:}[{:}]:".format(key,profile[key])) or profile[key]
-        #     profile[key] = result
-        # config["cloudmesh"]["profile"] = profile
-        # config.save()
+        profile = config["cloudmesh"]["profile"]
+        keys = profile.keys()
+        for key in keys:
+             result = raw_input("Please enter {:}[{:}]:".format(key,profile[key])) or profile[key]
+             profile[key] = result
+        config["cloudmesh"]["profile"] = profile
+        config.save()
+
         # -----------------------------------------
         # edit clouds
         # -----------------------------------------
