@@ -24,8 +24,7 @@ class cm_shell_cloud:
               register form [--yaml=FILENAME]
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
-              register --rc OPENRC [--host=HOST] [--user=USER]
-              register USER@HOST OPENRC
+              register USER HOST OPENRC
               register --yaml FILENAME
               register
 
@@ -100,11 +99,6 @@ class cm_shell_cloud:
             filename = _get_file(arguments)
             print ("edit", filename)
             self.do_edit(filename)
-        elif arguments['USER@HOST']:
-            user, host = arguments['USER@HOST'].split('@', 1)
-            filename = arguments['OPENRC']
-            print (user, host, filename)
-            command_cloud.read_rc_file(host, user, filename)
         elif arguments['list']:
             filename = _get_file(arguments)
             print ("list", filename)
@@ -112,12 +106,6 @@ class cm_shell_cloud:
         elif arguments['check']:
             filename = _get_file(arguments)
             command_cloud.check_yaml_for_completeness(filename)
-        elif arguments['--rc']:
-            filename = arguments['OPENRC']
-            host = arguments['--host']
-            user = arguments['--user']
-            print ("--rc", filename,host, user)
-            command_cloud.read_rc_file(host, user, filename)
         elif arguments ['--yaml']:
             filename = arguments['FILENAME']
             print ("--yaml", filename)
@@ -128,6 +116,17 @@ class cm_shell_cloud:
         elif arguments['form']:
             filename = _get_file(arguments)
             command_cloud.fill_out_form(filename)
+        elif arguments['USER@HOST']:
+            user, host = arguments['USER@HOST'].split('@', 1)
+            filename = arguments['OPENRC']
+            print (user, host, filename)
+            command_cloud.read_rc_file(host, user, filename)
+        elif arguments['--rc']:
+            filename = arguments['OPENRC']
+            host = arguments['--host']
+            user = arguments['--user']
+            print ("--rc", filename,host, user)
+            command_cloud.read_rc_file(host, user, filename)
         pass
 
 

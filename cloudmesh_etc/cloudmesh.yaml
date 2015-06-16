@@ -5,10 +5,7 @@ cloudmesh:
     profile:
         firstname: TBD
         lastname: TBD
-        address:
-        - TBD
         email: TBD
-        phone: TBD
     active:
     - india
     clouds:
