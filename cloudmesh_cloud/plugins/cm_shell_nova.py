@@ -92,6 +92,3 @@ class cm_shell_nova:
             result = Shell.execute("nova", args)
             print(command_nova.remove_subjectAltName_warning(result))
             return
-
-
-
