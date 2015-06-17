@@ -43,11 +43,34 @@ def dict_printer(d, order=None, header=None, output="table", sort_keys=True):
 
 
 def dict_csv_printer(d, order=None, header=None, output="table", sort_keys=True):
+    first_element = d.keys()[0]
+
+    def _keys():
+        return d[first_element].keys()
+
+    def _get(element, key):
+        try:
+            tmp = str(d[element][key])
+        except:
+            tmp = ' '
+        return tmp
+
+    if d is None or d == {}:
+        return None
+
+    if order is None:
+        order = _keys()
+
+    if header is None and order is not None:
+        header = order
+    elif header is None:
+        header = _keys()
+
     table = ""
     content = []
     for attribute in order:
         content.append(attribute)
-    table = table + ",".join(content) + "\n"
+    table = table + ",".join([str(e) for e in content]) + "\n"
 
     for job in d:
         content = []
@@ -56,7 +79,7 @@ def dict_csv_printer(d, order=None, header=None, output="table", sort_keys=True)
                 content.append(d[job][attribute])
             except:
                 content.append("None")
-        table = table + ",".join(content) + "\n"
+        table = table + ",".join([str(e) for e in content]) + "\n"
     return table
 
 
