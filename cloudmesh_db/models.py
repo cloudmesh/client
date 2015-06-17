@@ -22,10 +22,6 @@ debug = False
 
 filename = Config.path_expand("~/.cloudmesh/cloudmesh.db")
 endpoint = 'sqlite:///{:}'.format(filename)
-
-print(filename)
-print(endpoint)
-
 engine = create_engine(endpoint)
 Base = declarative_base(bind=engine)
 
@@ -68,7 +64,7 @@ class VM(Base):
         self.uuid = str(uuid.uuid4())
 
 
-class DB(object):
+class CloudmeshDatabase(object):
 
     def __init__(self):
         Base.metadata.create_all()
@@ -114,43 +110,3 @@ class DB(object):
     def json(self, table):
         d = self.dict(table)
         return json.dumps(d)
-
-
-db = DB()
-
-# create instances of my user object
-vms = []
-vms.append(VM('gregor1'))
-vms.append(VM('gregor2'))
-
-db.add(vms)
-db.save()
-
-# When you query the data back it returns instances of your class:
-
-for v in db.data.query(VM):
-    print (v.name, v.label, v.uuid, v.id)
-
-pprint(db.dict(VM))
-pprint(db.json(VM))
-
-for output in ["dict", "json", "yaml", "table"]:
-    print (dict_printer(db.dict(VM), output=output))
-
-# d = [DEFAULT(name="user", value="albert")]
-# db.add(d)
-# db.save()
-
-db.default("cloud", "india")
-db.default("user", getpass.getuser())
-
-for v in db.data.query(DEFAULT):
-    print (v.name, v.value)
-
-print (dict_printer(db.dict(DEFAULT), output='yaml'))
-
-print (dict_printer(db.dict(DEFAULT),
-                    order=['id', 'name', 'value']))
-
-#                    ,
-#                    header=['Name', 'Value']))
