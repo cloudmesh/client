@@ -9,6 +9,7 @@ from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 class todo(object):
     @classmethod
     def implemet(cls):
+        """temporary function to use to indicate that the code is not yet implemented"""
         raise NotImplementedError("Please implement")
 
 class Config(object):
@@ -41,6 +42,7 @@ class Config(object):
     @classmethod
     def path_expand(cls, path):
         """
+        expands the path while replacing environment variables, ./, and ~/
 
         :param path: the path to be expanded
         :type path: string
@@ -57,6 +59,7 @@ class Config(object):
     @classmethod
     def find_file(cls, filename, load_order=None, verbose=False):
         """
+        find the specified file in the list of directories that are given in thearray load_order
 
         :param filename: the file name
         :type filename: str
@@ -130,7 +133,8 @@ class ConfigDict(object):
 
     def save(self, filename=None):
         """
-        saves the configuration in the given filename, if it is none the filename at load time is used.
+        saves the configuration in the given filename,
+        if it is none the filename at load time is used.
 
         :param filename: the file name
         :type filename: string
@@ -142,7 +146,10 @@ class ConfigDict(object):
 
     def __setitem__(self, item, value):
         """
-        TODO
+        sets an item with the given value while using . formatted keys
+
+        set('a.b.c", value)
+
         :param item:
         :type item:
         :param value:
@@ -161,7 +168,10 @@ class ConfigDict(object):
 
     def __getitem__(self, item):
         """
-        TODO
+        gets an item form the dict. The key is . separated
+
+        use it as follows get("a.b.c")
+
         :param item:
         :type item:
         :return:
@@ -177,6 +187,7 @@ class ConfigDict(object):
 
     def __str__(self):
         """
+        returns the dict in yaml format
 
         :return: returns the yaml output of the dict
         :rtype: string
@@ -186,6 +197,7 @@ class ConfigDict(object):
     @property
     def yaml(self):
         """
+        returns the dict in yaml format
 
         :return: returns the yaml output of the dict
         :rtype: string:
@@ -195,7 +207,6 @@ class ConfigDict(object):
     def info(self):
         """
         prints out the dict type and its content
-        :return:
         """
         print (type(self.data))
         print (self.data)
@@ -203,7 +214,7 @@ class ConfigDict(object):
     @property
     def json(self):
         """
-        string of the json formated object
+        returns the dict in json format
 
         :return: json string version
         :rtype: string
