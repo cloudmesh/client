@@ -1,4 +1,10 @@
+import hostlist
+
 class Cloud(object):
+
+    t_flavour = "flavour"
+    t_image = "image"
+    t_vm = "vm"
 
     """
     Design decision. Bellow we like to implement actually a type detection that based on
@@ -21,7 +27,16 @@ class Cloud(object):
     We start simply with a print msg
 
     """
-    def list(self, kind, clouds, output="table"):
+    @classmethod
+    def vms(cls, clouds):
+        if isinstance(clouds, str):
+            return cls.vms(kind, [clouds], output)
+
+        for cloud in clouds:
+            print ("get vm ids from ", cloud)
+
+    @classmethod
+    def list(cls, kind, clouds, output="table"):
         """
         Lists the IaaS objects such as flavors, images, vms in the specified output format.
 
@@ -33,10 +48,22 @@ class Cloud(object):
         :type output: str
         :return:
         """
-        print("list some important objects from a cloud")
-        pass
+        if isinstance(clouds, str):
+            return cls.list(kind, [clouds], output)
 
-    def boot(self, image, flavor, key, cloud, arguments):
+        for cloud in clouds:
+            if kind in ["f", "flavour"]:
+                print ("flavor", cloud)
+            elif kind in ["v", "vm"]:
+                print ("vm", cloud)
+            elif kind in ["i", "image"]:
+                print ("image", cloud)
+            else:
+                print ("kind", kind, "not supported")
+        return "done"
+
+    @classmethod
+    def boot(cls, image, flavor, key, cloud, arguments):
         """
         Boots the image on a specified cloud
 
@@ -53,17 +80,25 @@ class Cloud(object):
         :return: the id of the vm
         :rtype: str
         """
-        print("bot an image")
+        print("bot an image", image, flavor, key, cloud, arguments)
         pass
 
-    def delete(self, ids):
+    @classmethod
+    def delete(cls, ids):
         """
         delete the vms
 
-        :param ids:
+        Example:
+
+            delete("gregor-[001-010]")
+
+        :param ids: host ids specified in hostlist format
         :return:
         """
-        pass
+        names = hostlist.expand_hostlist(ids)
+        for name in names:
+            print ("delete", name)
+
 
     @classmethod
     def _generate_name(cls, prefix, number, padding):
@@ -112,7 +147,7 @@ class Cloud(object):
         :return: the new name
         :rtype: str
         """
-        prefix, n, padding = cls.parse_name(name)
+        prefix, n, padding = cls._parse_name(name)
         n = n + 1
         return cls._generate_name(prefix, n, padding)
 
@@ -145,8 +180,14 @@ class Cloud(object):
 
 
 def main():
-    c = Cloud()
     print(Cloud.next_name("Gregor-001"))
+
+    Cloud.list("flavour", ["india", "hp"], output="table")
+    Cloud.list("flavour", "india", output="table")
+
+    Cloud.delete("gregor-001")
+
+    Cloud.delete("gregor-[002-005]")
 
 if __name__ == "__main__":
     main()
