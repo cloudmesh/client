@@ -3,12 +3,12 @@ import os
 from cmd3.console import Console
 from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_default.command_default import command_default
+from cloudmesh_cloud import command_default
 
 
 class cm_shell_default:
-    def activate_cm_shell_cloud(self):
-        self.register_command_topic('mycommands', 'default')
+    def activate_cm_shell_default(self):
+        self.register_command_topic('cloud', 'default')
 
     @command
     def do_default(self, args, arguments):
