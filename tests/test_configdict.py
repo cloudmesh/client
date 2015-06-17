@@ -11,8 +11,8 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from cloudmesh_common.ConfigDict import ConfigDict
 
-class Test_pass:
 
+class Test_pass:
     def setup(self):
         pass
 
@@ -32,12 +32,12 @@ class Test_pass:
             d = ConfigDict("cloudmesh.yam",
                            load_order=["cloudmesh_etc"],
                            verbose=True)
-            print ("the file cloudmesh.yam should not exists")
+            print("the file cloudmesh.yam should not exists")
             assert False
         except Exception, e:
             assert str(e).startswith("could not find")
 
-	
+
 """	def main():
     d = ConfigDict("cmd3.yaml")
     print (d, end='')

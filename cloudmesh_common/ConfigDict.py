@@ -6,14 +6,15 @@ import json
 import re
 from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 
+
 class todo(object):
     @classmethod
     def implemet(cls):
         """temporary function to use to indicate that the code is not yet implemented"""
         raise NotImplementedError("Please implement")
 
-class Config(object):
 
+class Config(object):
     @classmethod
     def check_file_for_tabs(cls, filename, verbose=True):
         """identifies if the file contains tabs and returns True if it
@@ -75,17 +76,15 @@ class Config(object):
         for path in load_order:
             name = Config.path_expand(path + os.path.sep + filename)
             if verbose:
-                print ("try finding file", name)
+                print("try finding file", name)
             if os.path.isfile(name):
                 if verbose:
-                    print ("Found File", name)
+                    print("Found File", name)
                 return name
         return None
 
 
-
 class ConfigDict(object):
-
     def __init__(self,
                  filename,
                  load_order=None,
@@ -110,10 +109,10 @@ class ConfigDict(object):
         for path in self.load_order:
             name = Config.path_expand(path + os.path.sep + filename)
             if verbose:
-                    print ("try Loading ConfigDict", name)
+                print("try Loading ConfigDict", name)
             if os.path.isfile(name):
                 if verbose:
-                    print ("Loading ConfigDict", name)
+                    print("Loading ConfigDict", name)
                 self.load(name)
                 self.filename = name
                 return
@@ -141,7 +140,7 @@ class ConfigDict(object):
         :return:
         """
         content = self.data.yaml()
-        with open(Config.path_expand(self.filename),'w') as f:
+        with open(Config.path_expand(self.filename), 'w') as f:
             f.write(content)
 
     def __setitem__(self, item, value):
@@ -156,6 +155,7 @@ class ConfigDict(object):
         :type value:
         :return:
         """
+        keys = None
         if "." in item:
             keys = item.split(".")
         else:
@@ -208,8 +208,8 @@ class ConfigDict(object):
         """
         prints out the dict type and its content
         """
-        print (type(self.data))
-        print (self.data)
+        print(type(self.data))
+        print(self.data)
 
     @property
     def json(self):
@@ -219,7 +219,7 @@ class ConfigDict(object):
         :return: json string version
         :rtype: string
         """
-        return (json.dumps(self.data, indent=4))
+        return json.dumps(self.data, indent=4)
 
     @classmethod
     def check(cls, filename):
@@ -232,27 +232,30 @@ class ConfigDict(object):
         """
         todo.implement()
 
+
 def main():
     d = ConfigDict("cloudmesh.yaml")
-    print (d, end='')
+    print(d, end='')
     d.info()
 
-    print (d["meta"])
-    print (d["meta.kind"])
-    print (d["meta"]["kind"])
+    print(d["meta"])
+    print(d["meta.kind"])
+    print(d["meta"]["kind"])
 
     # this does not yet work
     d.data["cloudmesh"]["profile"]["firstname"] = 'ABC'
-    print (d)
+    print(d)
     d.save()
 
     import os
+
     os.system("cat cmd3.yaml")
 
     print(d.json)
     print(d.filename)
     print("YAML")
     print(d.yaml)
+
 
 if __name__ == "__main__":
     main()

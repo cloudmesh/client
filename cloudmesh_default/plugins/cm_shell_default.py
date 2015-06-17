@@ -5,8 +5,8 @@ from cmd3.shell import command
 from pprint import pprint
 from cloudmesh_default.command_default import command_default
 
-class cm_shell_default:
 
+class cm_shell_default:
     def activate_cm_shell_cloud(self):
         self.register_command_topic('mycommands', 'default')
 
@@ -44,6 +44,7 @@ class cm_shell_default:
             key = arguments["KEY"]
             command_default.get(key)
         pass
+
 
 if __name__ == '__main__':
     command = cm_shell_default()
