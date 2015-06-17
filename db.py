@@ -10,9 +10,10 @@ import uuid
 
 debug = False
 
-#engine = create_engine('sqlite:////tmp/test.db', echo=debug)
+# engine = create_engine('sqlite:////tmp/test.db', echo=debug)
 engine = create_engine('sqlite://')
 Base = declarative_base(bind=engine)
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -34,8 +35,6 @@ Base.metadata.create_all()
 
 Session = sessionmaker(bind=engine)
 s = Session()
-
-
 
 # create instances of my user object
 u = User('gregor')

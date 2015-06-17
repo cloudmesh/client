@@ -13,7 +13,7 @@ OpenStack = get_driver(Provider.OPENSTACK)
 confd = ConfigDict("cloudmesh.yaml")
 cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
 
-pprint (cloudcred)
+pprint(cloudcred)
 
 # set path to cacert and enable ssl connection
 libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
