@@ -16,6 +16,7 @@ file.
    use
    man/man
    modules/modules
+   develop
 
 
 Indices and tables
