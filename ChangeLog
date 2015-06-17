@@ -1,9 +1,54 @@
 CHANGES
 =======
 
-Version 0.5
------------
+* simplify CHangelog
 
-* ConfigDict improvements, documentation, nosetests
-* cm nova first version just for india
-* cm register still needs from yaml file
+0.5
+---
+
+* clean requirements
+* add nosetests to tox
+* imporved documentation
+* fixing the nova command fixing libcoud example be using path_expand removing timeparse from requirements
+* changed table.py doc
+* created command_cloud.py doc
+* updated ConfigDict.py doc
+* simple tests for configdict
+* tests created
+* add tests template
+* rtd theme
+* adding sphinx placeholder
+* add comment placeholder
+* method needed cls
+* remove ruamel as it doe snot work well on cygwin
+* remove ruamel
+* introduce a Config class
+* adding not implemented errors
+* simple tox.ini
+* adding cm register list ssh command to list the hosts defined in .ssh/config
+* added registration documentation
+* added cm register rc host openrc
+* checks in registration command
+* uncomment the profile editor
+* adding a simple form for openstack credentials
+* fix the register command
+* cm register commands
+* dealing with public ip
+* reorganizing
+* added libcloud example; added more requirements
+* reorganization
+* adding first commands
+* remove version so we use git tags
+* testing pbr
+* testing new version of pbr
+* simple default command
+* setup
+* print()
+* move confidict
+* simple dict printer with corrections
+* added defaults
+* introducing os.path.sep instead of /
+* set test
+* simple configdict based on ruaml.yaml
+* new config dict
+* Initial commit

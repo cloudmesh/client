@@ -1,16 +1,21 @@
-.. cloudmesh_client documentation master file, created by
-   sphinx-quickstart on Tue Jun 16 13:55:43 2015.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to cloudmesh_client's documentation!
+cloudmesh_client
 ============================================
 
-Contents:
+The cloudmesh client is a single user lightweight client interface of
+cloudmesh that does not require to run the user services on the
+machine where the client is hosted. It is developed while using a file
+based database and stores the cloud credentials in a configuration
+file.
 
 .. toctree::
-   :maxdepth: 2
+   :numbered:
 
+   prefix
+   installation
+   configuration
+   use
+   man/man
+   modules/modules
 
 
 Indices and tables
