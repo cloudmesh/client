@@ -60,19 +60,37 @@ class Cloud(object):
         """
         delete the vms
 
-        :param id:
+        :param ids:
         :return:
         """
         pass
 
     @classmethod
     def _generate_name(cls, prefix, number, padding):
-        """method to create a vm name from a prefix, with given padding of 0"""
+        """
+        method to create a vm name from a prefix, with given padding of 0
+
+        :param prefix: the prefix of the name
+        :type prefix: str
+        :param number: the number
+        :type number: str or int
+        :param padding: the number of 0 that are used for padding
+        :type padding: str or int
+        :return:
+        """
         format_string = prefix + "-{0:0" + str(padding) + "}"
         return format_string.format(number)
 
     @classmethod
     def _parse_name(cls, name):
+        """
+        returns the prefix, the number and the padding length
+
+        :param name: the name to parse
+        :type name: str
+        :return: prefix, number, padding length
+        :rtype: str, int, int
+        """
         prefix, number = name.rsplit('-', 1)
         n = int(number)
         padding = len(number)
@@ -80,6 +98,20 @@ class Cloud(object):
 
     @classmethod
     def next_name(cls, name):
+        """
+        generates the next name.
+
+        Example:
+
+            next_name("gregor-0001")
+            
+            gregor-0002
+
+        :param name: the name
+        :type name: str
+        :return: the new name
+        :rtype: str
+        """
         prefix, n, padding = cls.parse_name(name)
         n = n + 1
         return cls._generate_name(prefix, n, padding)
@@ -95,6 +127,11 @@ class Cloud(object):
 
     @classmethod
     def set_name(cls, name):
+        """
+
+        :param name:
+        :return:
+        """
         """sets the name of a vm.
         The name is ended by a simple number. The number of 0 in it wil be used for padding.
 
