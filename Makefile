@@ -11,3 +11,6 @@ rmtag:
 
 publish:
 	ghp-import -n -p docs/build/html
+
+view:
+	open docs/build/html/index.html
