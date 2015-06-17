@@ -8,7 +8,6 @@ simplejson
 nose
 python-hostlist
 prettytable
-pytimeparse
 sqlalchemy
-pbr
+pbr>=0.11,<2.0
 apache-libcloud

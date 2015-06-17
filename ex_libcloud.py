@@ -3,7 +3,9 @@ from libcloud.compute.providers import get_driver
 import libcloud.security
 
 from cloudmesh_common.ConfigDict import ConfigDict
+from cloudmesh_common.ConfigDict import Config
 from time import sleep
+from pprint import pprint
 
 OpenStack = get_driver(Provider.OPENSTACK)
 
@@ -11,13 +13,16 @@ OpenStack = get_driver(Provider.OPENSTACK)
 confd = ConfigDict("cloudmesh.yaml")
 cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
 
+pprint (cloudcred)
+
 # set path to cacert and enable ssl connection
-libcloud.security.CA_CERTS_PATH = [cloudcred['OS_CACERT']]
+libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
 libcloud.security.VERIFY_SSL_CERT = True
 
 auth_url = "%s/tokens/" % cloudcred['OS_AUTH_URL']
 
-driver = OpenStack(cloudcred['OS_USERNAME'], cloudcred['OS_PASSWORD'],
+driver = OpenStack(cloudcred['OS_USERNAME'],
+                   cloudcred['OS_PASSWORD'],
                    ex_force_auth_url=auth_url,
                    ex_tenant_name=cloudcred['OS_TENANT_NAME'],
                    ex_force_auth_version='2.0_password',
