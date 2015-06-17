@@ -63,3 +63,53 @@ class Cloud(object):
         :param id:
         :return:
         """
+        pass
+
+    @classmethod
+    def _generate_name(cls, prefix, number, padding):
+        """method to create a vm name from a prefix, with given padding of 0"""
+        format_string = prefix + "-{0:0" + str(padding) + "}"
+        return format_string.format(number)
+
+    @classmethod
+    def _parse_name(cls, name):
+        prefix, number = name.rsplit('-', 1)
+        n = int(number)
+        padding = len(number)
+        return prefix, n, padding
+
+    @classmethod
+    def next_name(cls, name):
+        prefix, n, padding = cls.parse_name(name)
+        n = n + 1
+        return cls._generate_name(prefix, n, padding)
+
+    @classmethod
+    def get_name(cls):
+        """gets the next name of a vm while increasing its index."""
+        # the name format is written to the database based on a set_name
+        # the database will contain an index that stores the current index.
+        # if no name hase bee defined and this is accessed first the name
+        # username-0001 will be used where username is your username
+        return "notimplemented-0001"
+
+    @classmethod
+    def set_name(cls, name):
+        """sets the name of a vm.
+        The name is ended by a simple number. The number of 0 in it wil be used for padding.
+
+        set_name("gregor-001")
+        This information will be used when getting the next index. If the next index exceeds the padding
+        we simply just increase the number.
+
+        """
+        prefix, n, padding = cls.parse_name(name)
+
+
+
+def main():
+    c = Cloud()
+    print(Cloud.next_name("Gregor-001"))
+
+if __name__ == "__main__":
+    main()
