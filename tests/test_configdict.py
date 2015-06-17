@@ -10,7 +10,9 @@ nosetests -v tests/test_configdict.py
 from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from cloudmesh_common.ConfigDict import ConfigDict
+from cloudmesh_base.Shell import Shell
 
+import os
 
 class Test_pass:
     def setup(self):
@@ -91,12 +93,16 @@ class Test_pass:
         # read yaml file from file
         #  check if d.filename is the same as the filename we have
         HEADING()
-        name = "cloudmesh.yaml"
-        d = ConfigDict("cloudmesh.yaml",
-                       load_order=["cloudmesh_etc"],
-                       verbose=True)
-        assert d.filename == name
+        filename = "cloudmesh.yaml"
+        path = "cloudmesh_etc"
 
+        d = ConfigDict(filename,
+                       load_order=[path],
+                       verbose=True)
+
+        assert d.filename == (path+os.path.sep+filename)
+
+       
 
 
 """	def main():
