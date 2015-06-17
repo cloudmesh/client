@@ -10,6 +10,7 @@ nosetests -v
 
 from cloudmesh_base.util import HEADING
 
+from cloudmesh_common.table import dict_printer
 
 class Test_tables:
 
@@ -38,6 +39,7 @@ class Test_tables:
 
     def test_001_yaml(self):
         HEADING()
+        output = dict_printer(d, order=None, header=None, output="table", sort_keys=True)
         assert False
 
     def test_002_json(self):

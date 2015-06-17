@@ -1,3 +1,15 @@
+UNAME := $(shell uname)
+
+BROWSER=firefox
+ifeq ($(UNAME), Darwin)
+BROWSER=open
+endif
+ifeq ($(UNAME), Windows)
+BROWSER=firefox
+endif
+
+
+
 doc:
 	cd docs; Make html
 
@@ -13,4 +25,6 @@ publish:
 	ghp-import -n -p docs/build/html
 
 view:
-	open docs/build/html/index.html
+	$(BROWSER) docs/build/html/index.html
+
+

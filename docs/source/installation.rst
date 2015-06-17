@@ -27,6 +27,11 @@ pip 7.0.3
 
 Python 2.7.10
 
+Windows
+^^^^^^^
+
+Special instructions for Windows are available in the Section :ref:`windows-install`
+
 Pip
 ---
 
