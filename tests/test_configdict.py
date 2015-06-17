@@ -20,7 +20,7 @@ class Test_pass:
         pass
 
     def test_001_read(self):
-        """my comment about this test"""
+        """test if cloudmesh.yaml is loaded"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
                        load_order=["cloudmesh_etc"],
@@ -44,38 +44,59 @@ class Test_pass:
         d = ConfigDict("cloudmesh.yaml",
                        load_order=["/tmp"],
                        verbose=True)
-        d["cloudmesh"]["profile"]["firstname"] = Gregor
+        d["cloudmesh"]["profile"]["firstname"] = "Gregor"
         d.save()
-        # check with Shell.fgrep if firstname: has Gregor in it
-        #
-        assert False
+
+        d = ConfigDict("cloudmesh.yaml",
+                       load_order=["/tmp"],
+                       verbose=True)
+        assert d["cloudmesh"]["profile"]["firstname"] == "Gregor"
+
 
     def test_003_json(self):
         """test if json is produced"""
-        # read yaml
-        # convert yaml to json
-        # read the jason in try except
-        assert False
+        HEADING()
+        d = ConfigDict("cloudmesh.yaml",
+                       load_order=["cloudmesh_etc"],
+                       verbose=True)
+
+        assert d.json.startswith('{')
+
+        try:
+            assert  not isinstance(d.json, str)
+            print ("json should be string")
+            assert False
+        except Exception, e:
+            assert isinstance(d.json, str)
 
     def test_004_yaml(self):
         """test if yaml is produced"""
-        # read yaml
-        # result = d.yaml
-        # read the result in try except
-        assert False
+        HEADING()
+        d = ConfigDict("cloudmesh.yaml",
+                       load_order=["cloudmesh_etc"],
+                       verbose=True)
+        result = d.yaml
 
-    def test_005_yaml(self):
-        """test if yaml is produced"""
-        # read yaml
-        # result = d.yaml
-        # read the result in try except
-        assert False
+        try:
+            assert result.startswith("meta")
+        except Exception, e:
+            print ("not valid yaml file.")
+            assert False
 
-    def test_006_info(self):
+
+
+
+    def test_005_info(self):
         """test if some general information is there"""
         # read yaml file from file
         #  check if d.filename is the same as the filename we have
-        assert False
+        HEADING()
+        name = "cloudmesh.yaml"
+        d = ConfigDict("cloudmesh.yaml",
+                       load_order=["cloudmesh_etc"],
+                       verbose=True)
+        assert d.filename == name
+
 
 
 """	def main():
