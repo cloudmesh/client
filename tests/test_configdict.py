@@ -37,6 +37,46 @@ class Test_pass:
         except Exception, e:
             assert str(e).startswith("could not find")
 
+    def test_002_set(self):
+        """testing to set a value in the dict"""
+        HEADING()
+        # copy the cloudmesh_etc/cloudmesh.yaml file to /tmp
+        d = ConfigDict("cloudmesh.yaml",
+                       load_order=["/tmp"],
+                       verbose=True)
+        d["cloudmesh"]["profile"]["firstname"] = Gregor
+        d.save()
+        # check with Shell.fgrep if firstname: has Gregor in it
+        #
+        assert False
+
+    def test_003_json(self):
+        """test if json is produced"""
+        # read yaml
+        # convert yaml to json
+        # read the jason in try except
+        assert False
+
+    def test_004_yaml(self):
+        """test if yaml is produced"""
+        # read yaml
+        # result = d.yaml
+        # read the result in try except
+        assert False
+
+    def test_005_yaml(self):
+        """test if yaml is produced"""
+        # read yaml
+        # result = d.yaml
+        # read the result in try except
+        assert False
+
+    def test_006_info(self):
+        """test if some general information is there"""
+        # read yaml file from file
+        #  check if d.filename is the same as the filename we have
+        assert False
+
 
 """	def main():
     d = ConfigDict("cmd3.yaml")
@@ -48,7 +88,6 @@ class Test_pass:
     print (d["meta"]["kind"])
 
     # this does not yet work
-    d.data["meta"]["test"] = 'Gregor'
     print (d)
     d.save()
 
