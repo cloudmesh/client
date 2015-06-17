@@ -27,8 +27,16 @@ class Test_tables:
 
     """
     def setup(self):
-        self.d = {""} # put your dict here, may be generated than you can use as self.d
-        pass
+        self.d = {
+            "a:" : {
+                "x": 1,
+                "y": 2,
+                },
+            "a:" : {
+                "x": 3,
+                "y": 4,
+                },
+            }
 
     def tearDown(self):
         pass
