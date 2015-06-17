@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>7. Developers Manual &mdash; cloudmesh_client 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/>
+        <link rel="prev" title="6.7. vm module" href="modules/vm.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> cloudmesh_client
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">1. Prefix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#authors">1.1. Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#changelog">1.2. Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prepare-the-system">2.1. Prepare the system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#osx">2.1.1. OSX</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip">2.2. Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#source">2.3. Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">2.3.1. User and Contributor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-reporsitory">2.3.2. Developer with ssh access to git reporsitory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing">2.4. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">3. Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#cloudmesh-yaml">3.1. cloudmesh.yaml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#example">3.1.1. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">4. Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">5. Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">5.1. EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">5.2. banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">5.3. clear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#edit">5.4. edit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">5.5. exec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exp">5.6. exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#generate">5.7. generate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#help">5.8. help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#info">5.9. info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#load">5.10. load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#man">5.11. man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#open">5.12. open</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">5.13. pause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#plugins">5.14. plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#py">5.15. py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#q">5.16. q</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">5.17. quit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#script">5.18. script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#setup">5.19. setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#setup-yaml">5.20. setup_yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#timer">5.21. timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#use">5.22. use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#var">5.23. var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#verbose">5.24. verbose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#version">5.25. version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#volume">5.26. volume</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">6. Modules and Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_cloud.html">6.1. cloudmesh_cloud package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_cloud.html#subpackages">6.1.1. Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_cloud.plugins.html">6.1.1.1. cloudmesh_cloud.plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_cloud.html#submodules">6.1.2. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_cloud.html#cloudmesh-cloud-command-cloud-module">6.1.3. cloudmesh_cloud.command_cloud module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_cloud.html#cloudmesh-cloud-command-nova-module">6.1.4. cloudmesh_cloud.command_nova module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_cloud.html#module-cloudmesh_cloud">6.1.5. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_common.html">6.2. cloudmesh_common package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_common.html#submodules">6.2.1. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_common.html#cloudmesh-common-configdict-module">6.2.2. cloudmesh_common.ConfigDict module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_common.html#module-cloudmesh_common.tables">6.2.3. cloudmesh_common.tables module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_common.html#module-cloudmesh_common">6.2.4. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_default.html">6.3. cloudmesh_default package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_default.html#subpackages">6.3.1. Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_default.plugins.html">6.3.1.1. cloudmesh_default.plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_default.html#submodules">6.3.2. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_default.html#module-cloudmesh_default.command_default">6.3.3. cloudmesh_default.command_default module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_default.html#module-cloudmesh_default">6.3.4. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/db.html">6.4. db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/ex_libcloud.html">6.5. ex_libcloud module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/setup.html">6.6. setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/vm.html">6.7. vm module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">7. Developers Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#editor">7.1. Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tags">7.2. Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">7.3. Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#publish-on-github">7.3.1. Publish on Github</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>7. Developers Manual</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/develop.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="developers-manual">
+<h1>7. Developers Manual<a class="headerlink" href="#developers-manual" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="editor">
+<h2>7.1. Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h2>
+<p>Use PyChram.</p>
+<p>We made bad experience with people using editors other than emacs, vi, and PyCharm. When working on Windows make sure your editor handles newlines properly with git.</p>
+</div>
+<div class="section" id="tags">
+<h2>7.2. Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<p>Create a tag. Always use x.y.z</p>
+<div class="highlight-python"><div class="highlight"><pre>make tag
+</pre></div>
+</div>
+<p>Remove a tag</p>
+<div class="highlight-python"><div class="highlight"><pre>make rmtag
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>7.3. Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>make doc
+</pre></div>
+</div>
+<p>View the documentation</p>
+<p>OSX</p>
+<div class="highlight-python"><div class="highlight"><pre>open docs/build/html/index.html
+</pre></div>
+</div>
+<p>Other:</p>
+<div class="highlight-python"><div class="highlight"><pre>firefox docs/build/html/index.html
+</pre></div>
+</div>
+<div class="section" id="publish-on-github">
+<h3>7.3.1. Publish on Github<a class="headerlink" href="#publish-on-github" title="Permalink to this headline">¶</a></h3>
+<p>TBD with ghp-import</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules/vm.html" class="btn btn-neutral" title="6.7. vm module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

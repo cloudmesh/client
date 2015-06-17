@@ -1,0 +1,861 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5. Commands &mdash; cloudmesh_client 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
+        <link rel="next" title="6. Modules and Classes" href="../modules/modules.html"/>
+        <link rel="prev" title="4. Use" href="../use.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="../index.html" class="icon icon-home"> cloudmesh_client
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">1. Prefix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../prefix.html#authors">1.1. Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../prefix.html#changelog">1.2. Changelog</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">2. Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#prepare-the-system">2.1. Prepare the system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#osx">2.1.1. OSX</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#pip">2.2. Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#source">2.3. Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#user-and-contributor">2.3.1. User and Contributor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-reporsitory">2.3.2. Developer with ssh access to git reporsitory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#testing">2.4. Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">3. Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../configuration.html#cloudmesh-yaml">3.1. cloudmesh.yaml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../configuration.html#example">3.1.1. Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../use.html">4. Use</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">5. Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#eof">5.1. EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#banner">5.2. banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clear">5.3. clear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#edit">5.4. edit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exec">5.5. exec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exp">5.6. exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generate">5.7. generate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#help">5.8. help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#info">5.9. info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load">5.10. load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#man">5.11. man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#open">5.12. open</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pause">5.13. pause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugins">5.14. plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#py">5.15. py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#q">5.16. q</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quit">5.17. quit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#script">5.18. script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup">5.19. setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#setup-yaml">5.20. setup_yaml</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timer">5.21. timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#use">5.22. use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#var">5.23. var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verbose">5.24. verbose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#version">5.25. version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#volume">5.26. volume</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">6. Modules and Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cloudmesh_cloud.html">6.1. cloudmesh_cloud package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_cloud.html#subpackages">6.1.1. Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/cloudmesh_cloud.plugins.html">6.1.1.1. cloudmesh_cloud.plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_cloud.html#submodules">6.1.2. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_cloud.html#cloudmesh-cloud-command-cloud-module">6.1.3. cloudmesh_cloud.command_cloud module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_cloud.html#cloudmesh-cloud-command-nova-module">6.1.4. cloudmesh_cloud.command_nova module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_cloud.html#module-cloudmesh_cloud">6.1.5. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cloudmesh_common.html">6.2. cloudmesh_common package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_common.html#submodules">6.2.1. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_common.html#cloudmesh-common-configdict-module">6.2.2. cloudmesh_common.ConfigDict module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_common.html#module-cloudmesh_common.tables">6.2.3. cloudmesh_common.tables module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_common.html#module-cloudmesh_common">6.2.4. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/cloudmesh_default.html">6.3. cloudmesh_default package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_default.html#subpackages">6.3.1. Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../modules/cloudmesh_default.plugins.html">6.3.1.1. cloudmesh_default.plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_default.html#submodules">6.3.2. Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_default.html#module-cloudmesh_default.command_default">6.3.3. cloudmesh_default.command_default module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../modules/cloudmesh_default.html#module-cloudmesh_default">6.3.4. Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/db.html">6.4. db module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/ex_libcloud.html">6.5. ex_libcloud module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/setup.html">6.6. setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../modules/vm.html">6.7. vm module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../develop.html">7. Developers Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../develop.html#editor">7.1. Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop.html#tags">7.2. Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../develop.html#documentation">7.3. Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../develop.html#publish-on-github">7.3.1. Publish on Github</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>5. Commands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/man/man.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="commands">
+<h1>5. Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="eof">
+<h2>5.1. EOF<a class="headerlink" href="#eof" title="Permalink to this headline">¶</a></h2>
+<p>Command - EOF:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    EOF
+
+Command to the shell to terminate reading a script.
+</pre></div>
+</div>
+</div>
+<div class="section" id="banner">
+<h2>5.2. banner<a class="headerlink" href="#banner" title="Permalink to this headline">¶</a></h2>
+<p>Command - banner:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT
+
+Arguments:
+    TEXT   The text message from which to create the banner
+    CHAR   The character for the frame.
+    WIDTH  Width of the banner
+    INDENT indentation of the banner
+    COLOR  the color
+
+Options:
+    -c CHAR   The character for the frame. [default: #]
+    -n WIDTH  The width of the banner. [default: 70]
+    -i INDENT  The width of the banner. [default: 0]
+    -r COLOR  The color of the banner. [default: BLACK]
+
+Prints a banner form a one line text message.
+</pre></div>
+</div>
+</div>
+<div class="section" id="clear">
+<h2>5.3. clear<a class="headerlink" href="#clear" title="Permalink to this headline">¶</a></h2>
+<p>Command - clear:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    clear
+
+Clears the screen.
+</pre></div>
+</div>
+</div>
+<div class="section" id="edit">
+<h2>5.4. edit<a class="headerlink" href="#edit" title="Permalink to this headline">¶</a></h2>
+<p>Command - edit:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+        edit FILENAME
+
+Edits the file with the given name
+
+Arguments:
+    FILENAME  the file to edit
+</pre></div>
+</div>
+</div>
+<div class="section" id="exec">
+<h2>5.5. exec<a class="headerlink" href="#exec" title="Permalink to this headline">¶</a></h2>
+<p>Command - exec:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+   exec FILENAME
+
+executes the commands in the file. See also the script command.
+
+Arguments:
+  FILENAME   The name of the file
+</pre></div>
+</div>
+</div>
+<div class="section" id="exp">
+<h2>5.6. exp<a class="headerlink" href="#exp" title="Permalink to this headline">¶</a></h2>
+<p>Command - exp:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+       exp NOTIMPLEMENTED clean
+       exp NOTIMPLEMENTED delete NAME
+       exp NOTIMPLEMENTED create [NAME]
+       exp NOTIMPLEMENTED info [NAME]
+       exp NOTIMPLEMENTED cloud NAME
+       exp NOTIMPLEMENTED image NAME
+       exp NOTIMPLEMENTED flavour NAME
+       exp NOTIMPLEMENTED index NAME
+       exp NOTIMPLEMENTED count N
+
+Manages the vm
+
+Arguments:
+
+  NAME           The name of a service or server
+  N              The number of VMs to be started
+
+
+Options:
+
+   -v       verbose mode
+</pre></div>
+</div>
+</div>
+<div class="section" id="generate">
+<h2>5.7. generate<a class="headerlink" href="#generate" title="Permalink to this headline">¶</a></h2>
+<p>Command - generate:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    generate command COMMAND [--path=PATH] [--topic=TOPIC]
+
+the command will generate the package and code for a sample cmd3 module.
+
+Arguments:
+
+    COMMAND   the name of the command.
+
+    PATH      path where to place the directory [default: ~]
+
+    TOPIC     the topic listed in cm [default: mycommands]
+
+Options:
+     -v       verbose mode
+
+Example:
+
+    The command
+
+        generate command example
+
+    would create in the home directory  the following files
+
+        ├── LICENSE
+        ├── Makefile
+        ├── __init__.py
+        ├── __init__.pyc
+        ├── cloudmesh_example
+        │   ├── __init__.py
+        │   ├── command_example.py
+        │   └── plugins
+        │       ├── __init__.py
+        │       └── cm_shell_example.py
+        ├── requirements.txt
+        ├── setup.cfg
+        └── setup.py
+
+    To install the plugin go to the directory and say
+
+        python setup.py install
+
+    Next register it in cm with
+
+        cm plugins add cloudmesh_example
+
+    Now say
+
+        cm help
+
+    and you see the command example in cm.
+    To modify the command, yous change the docopts and the logic in
+    cm_shell_example.py and command_example.py
+</pre></div>
+</div>
+</div>
+<div class="section" id="help">
+<h2>5.8. help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p>Command - help::
+List available commands with &#8220;help&#8221; or detailed help with &#8220;help cmd&#8221;.</p>
+</div>
+<div class="section" id="info">
+<h2>5.9. info<a class="headerlink" href="#info" title="Permalink to this headline">¶</a></h2>
+<p>Command - info:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+       info [--all]
+
+Options:
+       --all  -a   more extensive information
+
+Prints some internal information about the shell
+</pre></div>
+</div>
+</div>
+<div class="section" id="load">
+<h2>5.10. load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h2>
+<p>Command - load:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    load MODULE
+
+Loads the plugin given a specific module name. The plugin must be ina plugin directory.
+
+Arguments:
+   MODULE  The name of the module.
+</pre></div>
+</div>
+</div>
+<div class="section" id="man">
+<h2>5.11. man<a class="headerlink" href="#man" title="Permalink to this headline">¶</a></h2>
+<p>Command - man:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+       man COMMAND
+       man [--noheader]
+
+Options:
+       --norule   no rst header
+
+Arguments:
+       COMMAND   the command to be printed
+
+Description:
+    man
+        Prints out the help pages
+    man COMMAND
+        Prints out the help page for a specific command
+</pre></div>
+</div>
+</div>
+<div class="section" id="open">
+<h2>5.12. open<a class="headerlink" href="#open" title="Permalink to this headline">¶</a></h2>
+<p>Command - open:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+        open FILENAME
+
+ARGUMENTS:
+    FILENAME  the file to open in the cwd if . is
+              specified. If file in in cwd
+              you must specify it with ./FILENAME
+
+Opens the given URL in a browser window.
+</pre></div>
+</div>
+</div>
+<div class="section" id="pause">
+<h2>5.13. pause<a class="headerlink" href="#pause" title="Permalink to this headline">¶</a></h2>
+<p>Command - pause:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    pause [MESSAGE]
+
+Displays the specified text then waits for the user to press RETURN.
+
+Arguments:
+   MESSAGE  message to be displayed
+</pre></div>
+</div>
+</div>
+<div class="section" id="plugins">
+<h2>5.14. plugins<a class="headerlink" href="#plugins" title="Permalink to this headline">¶</a></h2>
+<p>Command - plugins:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    plugins add COMMAND [--dryrun] [-q]
+    plugins delete COMMAND [--dryrun] [-q]
+    plugins list [--output=FORMAT] [-q]
+    plugins activate
+
+Arguments:
+
+    FORMAT   format is either yaml, json, or list [default=yaml]
+
+Options:
+
+    -q        stands for quiet and suppresses additional messages
+
+Description:
+
+    Please note that adding and deleting plugins requires restarting
+    cm to activate them
+
+    plugins list
+
+        lists the plugins in the yaml file
+
+    plugins add COMMAND
+    plugins delete COMMAND
+
+        cmd3 contains a ~/.cloudmesh/cmd3.yaml file.
+        This command will add/delete a plugin for a given command
+        that has been generated with cm-generate-command
+        To the yaml this command will add to the modules
+
+            - cloudmesh_COMMAND.plugins
+
+        where COMMAND is the name of the command. In case we add
+        a command and the command is out commented the comment
+        will be removed so the command is enabled.
+
+    plugins activate
+
+        NOT YET SUPPORTED.
+
+Example:
+
+    plugins add pbs
+</pre></div>
+</div>
+</div>
+<div class="section" id="py">
+<h2>5.15. py<a class="headerlink" href="#py" title="Permalink to this headline">¶</a></h2>
+<p>Command - py:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    py
+    py COMMAND
+
+Arguments:
+    COMMAND   the command to be executed
+
+Description:
+
+    The command without a parameter will be executed and the
+    interactive python mode is entered. The python mode can be
+    ended with ``Ctrl-D`` (Unix) / ``Ctrl-Z`` (Windows),
+    ``quit()``,&#39;`exit()``. Non-python commands can be issued with
+    ``cmd(&quot;your command&quot;)``.  If the python code is located in an
+    external file it can be run with ``run(&quot;filename.py&quot;)``.
+
+    In case a COMMAND is provided it will be executed and the
+    python interpreter will return to the command shell.
+
+    This code is copied from Cmd2.
+</pre></div>
+</div>
+</div>
+<div class="section" id="q">
+<h2>5.16. q<a class="headerlink" href="#q" title="Permalink to this headline">¶</a></h2>
+<p>Command - q:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    quit
+
+Action to be performed whne quit is typed
+</pre></div>
+</div>
+</div>
+<div class="section" id="quit">
+<h2>5.17. quit<a class="headerlink" href="#quit" title="Permalink to this headline">¶</a></h2>
+<p>Command - quit:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    quit
+
+Action to be performed whne quit is typed
+</pre></div>
+</div>
+</div>
+<div class="section" id="script">
+<h2>5.18. script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h2>
+<p>Command - script:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+       script
+       script load
+       script load LABEL FILENAME
+       script load REGEXP
+       script list
+       script LABEL
+
+Arguments:
+       load       indicates that we try to do actions toload files.
+                  Without parameters, loads scripts from default locations
+        NAME      specifies a label for a script
+        LABEL     an identification name, it must be unique
+        FILENAME  the filename in which the script is located
+        REGEXP    Not supported yet.
+                  If specified looks for files identified by the REGEXP.
+
+NOT SUPPORTED YET
+
+   script load LABEL FILENAME
+   script load FILENAME
+   script load REGEXP
+
+Process FILE and optionally apply some options
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>5.19. setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>Command - setup:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+  setup init [--force]
+  setup test
+
+Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-yaml">
+<h2>5.20. setup_yaml<a class="headerlink" href="#setup-yaml" title="Permalink to this headline">¶</a></h2>
+<p>Command - setup_yaml:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    setup_yaml  [--force]
+
+Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="timer">
+<h2>5.21. timer<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h2>
+<p>Command - timer:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    timer on
+    timer off
+    timer list
+    timer start NAME
+    timer stop NAME
+    timer resume NAME
+    timer reset [NAME]
+
+Description (NOT IMPLEMENTED YET):
+
+     timer on | off
+         switches timers on and off not yet implemented.
+         If the timer is on each command will be timed and its
+         time is printed after the command. Please note that
+         background command times are not added.
+
+    timer list
+        list all timers
+
+    timer start NAME
+        starts the timer with the name. A start resets the timer to 0.
+
+    timer stop NAME
+        stops the timer
+
+    timer resume NAME
+        resumes the timer
+
+    timer reset NAME
+        resets the named timer to 0. If no name is specified all
+        timers are reset
+
+    Implementation note: we have a stopwatch in cloudmesh,
+                         that we could copy into cmd3
+</pre></div>
+</div>
+</div>
+<div class="section" id="use">
+<h2>5.22. use<a class="headerlink" href="#use" title="Permalink to this headline">¶</a></h2>
+<p>Command - use:</p>
+<div class="highlight-python"><div class="highlight"><pre>USAGE:
+
+    use list           lists the available scopes
+
+    use add SCOPE      adds a scope &lt;scope&gt;
+
+    use delete SCOPE   removes the &lt;scope&gt;
+
+    use                without parameters allows an
+                       interactive selection
+
+DESCRIPTION
+   Often we have to type in a command multiple times. To save
+   us typng the name of the command, we have defined a simple
+   scope that can be activated with the use command
+
+ARGUMENTS:
+    list         list the available scopes
+    add          add a scope with a name
+    delete       delete a named scope
+    use          activate a scope
+</pre></div>
+</div>
+</div>
+<div class="section" id="var">
+<h2>5.23. var<a class="headerlink" href="#var" title="Permalink to this headline">¶</a></h2>
+<p>Command - var:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    var list
+    var delete NAMES
+    var NAME=VALUE
+    var NAME
+
+Arguments:
+    NAME    Name of the variable
+    NAMES   Names of the variable separated by spaces
+    VALUE   VALUE to be assigned
+
+special vars date and time are defined
+</pre></div>
+</div>
+</div>
+<div class="section" id="verbose">
+<h2>5.24. verbose<a class="headerlink" href="#verbose" title="Permalink to this headline">¶</a></h2>
+<p>Command - verbose:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    verbose (True | False)
+    verbose
+
+If it sets to True, a command will be printed before execution.
+In the interactive mode, you may want to set it to False.
+When you use scripts, we recommend to set it to True.
+
+The default is set to False
+
+If verbose is specified without parameter the flag is
+toggled.
+</pre></div>
+</div>
+</div>
+<div class="section" id="version">
+<h2>5.25. version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h2>
+<p>Command - version:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+   version
+
+Prints out the version number
+</pre></div>
+</div>
+</div>
+<div class="section" id="volume">
+<h2>5.26. volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
+<p>Command - volume:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    volume list
+    volume create &lt;size&gt;
+                  [--snapshot-id=&lt;snapshot-id&gt;]
+                  [--image-id=&lt;image-id&gt;]
+                  [--display-name=&lt;display-name&gt;]
+                  [--display-description=&lt;display-description&gt;]
+                  [--volume-type=&lt;volume-type&gt;]
+                  [--availability-zone=&lt;availability-zone&gt;]
+    volume delete &lt;volume&gt;
+    volume attach &lt;server&gt; &lt;volume&gt; &lt;device&gt;
+    volume detach &lt;server&gt; &lt;volume&gt;
+    volume show &lt;volume&gt;
+    volume snapshot-list
+    volume snapshot-create &lt;volume-id&gt;
+                           [--force]
+                           [--display-name=&lt;display-name&gt;]
+                           [--display-description=&lt;display-description&gt;]
+    volume snapshot-delete &lt;snapshot&gt;
+    volume snapshot-show &lt;snapshot&gt;
+    volume help
+
+
+volume management
+
+Arguments:
+    &lt;size&gt;            Size of volume in GB
+    &lt;volume&gt;          Name or ID of the volume to delete
+    &lt;volume-id&gt;       ID of the volume to snapshot
+    &lt;server&gt;          Name or ID of server(VM).
+    &lt;device&gt;          Name of the device e.g. /dev/vdb. Use &quot;auto&quot; for
+                      autoassign (if supported)
+    &lt;snapshot&gt;        Name or ID of the snapshot
+
+Options:
+    --snapshot-id &lt;snapshot-id&gt;
+                            Optional snapshot id to create the volume from.
+                            (Default=None)
+    --image-id &lt;image-id&gt;
+                            Optional image id to create the volume from.
+                            (Default=None)
+    --display-name &lt;display-name&gt;
+                            Optional volume name. (Default=None)
+    --display-description &lt;display-description&gt;
+                            Optional volume description. (Default=None)
+    --volume-type &lt;volume-type&gt;
+                            Optional volume type. (Default=None)
+    --availability-zone &lt;availability-zone&gt;
+                            Optional Availability Zone for volume. (Default=None)
+    --force                 Optional flag to indicate whether to snapshot a volume
+                            even if its attached to an instance. (Default=False)
+
+Description:
+    volume list
+        List all the volumes
+    volume create &lt;size&gt; [options...]
+        Add a new volume
+    volume delete &lt;volume&gt;
+        Remove a volume
+    volume attach &lt;server&gt; &lt;volume&gt; &lt;device&gt;
+        Attach a volume to a server
+    volume-detach &lt;server&gt; &lt;volume&gt;
+        Detach a volume from a server
+    volume show &lt;volume&gt;
+        Show details about a volume
+    volume snapshot-list
+        List all the snapshots
+    volume snapshot-create &lt;volume-id&gt; [options...]
+        Add a new snapshot
+    volume snapshot-delete &lt;snapshot&gt;
+        Remove a snapshot
+    volume-snapshot-show &lt;snapshot&gt;
+        Show details about a snapshot
+    volume help
+        Prints the nova manual
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../modules/modules.html" class="btn btn-neutral float-right" title="6. Modules and Classes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../use.html" class="btn btn-neutral" title="4. Use" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
