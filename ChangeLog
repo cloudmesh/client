@@ -1,6 +1,22 @@
 CHANGES
 =======
 
+0.5.6
+-----
+
+* renaming the files for better readability
+* moving examples to the examples dir
+* moving examples to the example dir
+* reorganizing the database code
+* fixed test_005 in test_configdict
+
+0.5.5
+-----
+
+* register default command
+* reorganizing the cloudmesh_default directory
+* improving the test dict
+* add a sample dict for test printing
 * created Configdict test
 * adding parameter parsing
 * format the input to tt to make it more visible in the text
@@ -21,10 +37,6 @@ CHANGES
 * pep8 cleanup
 * add developer notes
 * tag management via makefile
-
-0.5.3
------
-
 * makefile for make doc
 * adding sphinx documentation framework
 * simplify CHangelog
