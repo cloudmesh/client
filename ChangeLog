@@ -1,6 +1,22 @@
 CHANGES
 =======
 
+* imporved documentation
+* fixing the nova command fixing libcoud example be using path_expand removing timeparse from requirements
+* changed table.py doc
+* created command_cloud.py doc
+* updated ConfigDict.py doc
+* simple tests for configdict
+* tests created
+* add tests template
+* rtd theme
+* adding sphinx placeholder
+* add comment placeholder
+* method needed cls
+* remove ruamel as it doe snot work well on cygwin
+* remove ruamel
+* introduce a Config class
+* adding not implemented errors
 * simple tox.ini
 * adding cm register list ssh command to list the hosts defined in .ssh/config
 * added registration documentation
@@ -16,15 +32,7 @@ CHANGES
 * reorganization
 * adding first commands
 * remove version so we use git tags
-
-0.2.2
------
-
 * testing pbr
-
-0.2
----
-
 * testing new version of pbr
 * simple default command
 * setup
