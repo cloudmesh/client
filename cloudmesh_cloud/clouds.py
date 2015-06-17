@@ -104,7 +104,7 @@ class Cloud(object):
         Example:
 
             next_name("gregor-0001")
-            
+
             gregor-0002
 
         :param name: the name
