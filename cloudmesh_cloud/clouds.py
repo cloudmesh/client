@@ -1,8 +1,8 @@
 class Cloud(object):
 
     """
-    Design decissions. Bellow we like to implement actualy a type detection that based on
-    one specifiying a single string or a list does the right things
+    Design decision. Bellow we like to implement actually a type detection that based on
+    one specifying a single string or a list does the right things
     I am not yet sure how to reflect this in the :type: but we can probably sat
     str or list of str
 
@@ -16,10 +16,10 @@ class Cloud(object):
     are doing all the same thing
 
     the way we do this is we implement for lists and than mak the other call
-    recursivly to a list
+    recursively to a list
 
     We start simply with a print msg
-    
+
     """
     def list(self, kind, clouds, output="table"):
         """
