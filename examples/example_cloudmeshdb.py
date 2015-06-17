@@ -28,17 +28,24 @@ for output in ["dict", "json", "yaml", "table"]:
 # db.add(d)
 # db.save()
 
-database.default("cloud", "india")
-database.default("user", getpass.getuser())
+database.default("cloud", "india", cloud="india")
+database.default("user", getpass.getuser(), cloud="india")
 
 for v in database.data.query(cloudmesh_db.DEFAULT):
-    print (v.name, v.value)
+    print (v.name, v.value, v.cloud)
 
 print (dict_printer(database.dict(cloudmesh_db.DEFAULT), output='yaml'))
 
 print (dict_printer(database.dict(cloudmesh_db.DEFAULT),
-                    order=['id', 'name', 'value']))
+                    order=['id', 'cloud', 'name', 'value']))
 
-#                    ,
-#                    header=['Name', 'Value']))
+database.name("gregor-001")
+print (database.get_name())
+
+database.name("gregor-002")
+print (database.get_name())
+print (database.next_name())
+
+
+
 

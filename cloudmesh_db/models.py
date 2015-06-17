@@ -12,7 +12,7 @@ import getpass
 import json
 from pprint import pprint
 import sys
-
+from cloudmesh_cloud.clouds import Cloud
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
 
@@ -48,8 +48,8 @@ class VM(Base):
     def __init__(self,
                  name,
                  label=None,
-                 group=None,
-                 cloud=None,
+                 group='default',
+                 cloud='india',
                  user=None):
 
         self.name = name
@@ -57,8 +57,6 @@ class VM(Base):
 
         if label is None:
             self.label = name
-        if group is None:
-            self.group = 'default'
         if user is None:
             self.user = getpass.getuser()
 
@@ -82,14 +80,26 @@ class CloudmeshDatabase(object):
     def save(self):
         self.session.commit()
 
-    def default(self, key, value):
+    def name(self, value):
+        self.default("name", value, "global")
+
+    def get_name(self):
+        current = self.session.query(DEFAULT).filter_by(name="name", cloud="global").first()
+        return current.value
+
+    def next_name(self):
+        name = self.get_name()
+        return Cloud.next_name(name)
+
+    def default(self, key, value, cloud):
         # find
-        d = [DEFAULT(name=key, value=value)]
+        d = [DEFAULT(cloud=cloud, name=key, value=value)]
         current = self.session.query(DEFAULT).filter_by(name=key).first()
         if current is None:
             self.session.add_all(d)
         else:
             current.value = value
+            current.cloud = cloud
             self.save()
         self.save()
 
