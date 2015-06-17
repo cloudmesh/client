@@ -11,6 +11,7 @@ nosetests -v
 from cloudmesh_base.util import HEADING
 
 from cloudmesh_common.tables import dict_printer
+from pprint import pprint
 
 class Test_tables:
 
@@ -43,31 +44,34 @@ class Test_tables:
     def tearDown(self):
         pass
 
-    def test_dummy(self):
-        HEADING()
-        assert True
-
     def test_001_yaml(self):
         HEADING()
-        
-        output = dict_printer(self.d, order=None, header=None, output="table", sort_keys=True)
-        print (output)
-        assert False
+        output = dict_printer(self.d, order=None, header=None, output="yaml", sort_keys=True)
+        print(output)
+        assert ":" in output
 
     def test_002_json(self):
         HEADING()
-        assert False
+        output = dict_printer(self.d, order=None, header=None, output="json", sort_keys=True)
+        print(output)
+        assert "{" in output
 
     def test_003_table(self):
         HEADING()
-        assert False
+        output = dict_printer(self.d, order=None, header=None, output="table", sort_keys=True)
+        print(output)
+        assert "id" in str(output)
 
     def test_004_dict(self):
         HEADING()
-        assert False
+        output = dict(dict_printer(self.d, order=None, header=None, output="dict", sort_keys=True))
+        pprint(output)
+        assert "id" in str(output)
 
     def test_005_csv(self):
         HEADING()
-        assert False
+        output = dict_printer(self.d, order=None, header=None, output="csv", sort_keys=True)
+        print(output)
+        assert "id" in str(output)
 
 
