@@ -32,6 +32,7 @@ class DEFAULT(Base):
     name = Column(String)
     value = Column(String)
     user = Column(String)
+    cloud = Column(String)
 
 
 class VM(Base):

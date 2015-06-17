@@ -1,3 +1,3 @@
-from models import CloudmeshDatabase
-from models import VM
-from models import DEFAULT
+from cloudmesh_db.models import CloudmeshDatabase
+from cloudmesh_db.models import VM
+from cloudmesh_db.models import DEFAULT
