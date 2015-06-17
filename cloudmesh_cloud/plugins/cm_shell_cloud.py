@@ -6,6 +6,7 @@ import os
 import os.path
 from cloudmesh_cloud.command_cloud import command_cloud
 
+
 class cm_shell_cloud:
     def activate_cm_shell_cloud(self):
         self.register_command_topic('cloud', 'register')
@@ -98,29 +99,29 @@ class cm_shell_cloud:
 
         if arguments["info"]:
             filename = _get_file(arguments)
-            print ("File", filename, end=' ')
+            print("File", filename, end=' ')
             if os.path.isfile(filename):
-                print ("exists")
+                print("exists")
         elif arguments["cat"]:
             filename = _get_file(arguments)
             os.system("cat {:}".format(filename))
         elif arguments["edit"]:
             filename = _get_file(arguments)
-            print ("edit", filename)
+            print("edit", filename)
             self.do_edit(filename)
         elif arguments['list'] and arguments['ssh']:
-            print ("list ssh")
+            print("list ssh")
             command_cloud.list_ssh()
         elif arguments['list']:
             filename = _get_file(arguments)
-            print ("list", filename)
+            print("list", filename)
             command_cloud.list(filename)
         elif arguments['check']:
             filename = _get_file(arguments)
             command_cloud.check_yaml_for_completeness(filename)
-        elif arguments ['--yaml']:
+        elif arguments['--yaml']:
             filename = arguments['FILENAME']
-            print ("--yaml", filename)
+            print("--yaml", filename)
             command_cloud.register(filename)
         elif arguments['test']:
             filename = _get_file(arguments)

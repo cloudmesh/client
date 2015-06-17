@@ -13,9 +13,10 @@ from pprint import pprint
 
 debug = False
 
-#engine = create_engine('sqlite:////tmp/test.db', echo=debug)
+# engine = create_engine('sqlite:////tmp/test.db', echo=debug)
 engine = create_engine('sqlite://')
 Base = declarative_base(bind=engine)
+
 
 class DEFAULT(Base):
     __tablename__ = 'default'
@@ -54,8 +55,8 @@ class VM(Base):
 
         self.uuid = str(uuid.uuid4())
 
-class DB (object):
 
+class DB(object):
     def add(self, items):
         self.session.add_all(items)
 
@@ -101,6 +102,7 @@ class DB (object):
         d = self.dict(table)
         return json.dumps(d)
 
+
 db = DB()
 
 # create instances of my user object
@@ -116,13 +118,11 @@ db.save()
 for v in db.data.query(VM):
     print v.name, v.label, v.uuid, v.id
 
-pprint (db.dict(VM))
-pprint (db.json(VM))
+pprint(db.dict(VM))
+pprint(db.json(VM))
 
 for output in ["dict", "json", "yaml", "table"]:
     print (dict_printer(db.dict(VM), output=output))
-
-
 
 # d = [DEFAULT(name="user", value="albert")]
 # db.add(d)

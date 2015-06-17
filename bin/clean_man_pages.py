@@ -17,4 +17,3 @@ with open(filename) as file:
 content = "\n".join(output)
 with open(filename, 'w') as file:
     file.write(content)
-    

@@ -8,3 +8,6 @@ tag:
 rmtag:
 	git tag
 	@echo "rm Tag?"; read TAG; git tag -d $$TAG; git push origin :refs/tags/$$TAG
+
+publish:
+	ghp-import -n -p docs/build/html

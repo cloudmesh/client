@@ -43,7 +43,6 @@ def dict_printer(d, order=None, header=None, output="table", sort_keys=True):
 
 
 def dict_csv_printer(d, order=None, header=None, output="table", sort_keys=True):
-
     table = ""
     content = []
     for attribute in order:
@@ -71,7 +70,7 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True):
     
     """
     first_element = d.keys()[0]
-            
+
     def _keys():
         return d[first_element].keys()
 
@@ -81,7 +80,7 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True):
         except:
             tmp = ' '
         return tmp
-        
+
     if d is None or d == {}:
         return None
 
@@ -96,7 +95,7 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True):
     x = PrettyTable(header)
 
     if sort_keys:
-        sorted_list  = sorted(d, key=d.get)
+        sorted_list = sorted(d, key=d.get)
     else:
         sorted_list = d
 

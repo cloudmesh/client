@@ -7,8 +7,8 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_common.ConfigDict import Config
 import textwrap
 
-class command_cloud(object):
 
+class command_cloud(object):
     @classmethod
     def list(cls, filename):
         """
@@ -32,14 +32,14 @@ class command_cloud(object):
 
         :return:
         """
-        result = Shell.fgrep("Host ", Config.path_expand("~/.ssh/config")).replace("Host ", "").replace(" ","")
+        result = Shell.fgrep("Host ", Config.path_expand("~/.ssh/config")).replace("Host ", "").replace(" ", "")
         Console.ok("The following hosts are defined in ~/.ssh/config")
-        print ("")
+        print("")
         for line in result.split("\n"):
             Console.ok("  " + line)
 
     @classmethod
-    def  read_rc_file(cls, host, filename=None):
+    def read_rc_file(cls, host, filename=None):
         """
 
         :param host: the host name
@@ -85,10 +85,9 @@ class command_cloud(object):
                 count = count + 1
         if count > 0:
             Console.error("The file has {:} values to be fixed".format(count))
-            print ("")
+            print("")
             for line in output:
                 Console.error("  " + line, prefix=False)
-
 
     @classmethod
     def register(cls, filename):
@@ -111,11 +110,10 @@ class command_cloud(object):
         :return:
         """
         config = ConfigDict("cloudmesh.yaml")
-        print (config)
+        print(config)
         Console.ok("register")
         print(filename)
         raise NotImplementedError("Not implemented")
-
 
     @classmethod
     def fill_out_form(cls, filename):
@@ -134,11 +132,15 @@ class command_cloud(object):
 
         profile = config["cloudmesh"]["profile"]
         keys = profile.keys()
-        raise NotImplementedError("raw_input does not work in python 3.x")
+        # get input that works in python 2 and 3
+        try:
+            input = raw_input
+        except NameError:
+            pass
         for key in keys:
-             result = raw_input("Please enter {:}[{:}]:".format(key,profile[key])) or profile[key]
+            result = input("Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
 
-             profile[key] = result
+            profile[key] = result
         config["cloudmesh"]["profile"] = profile
         config.save()
 
@@ -147,13 +149,12 @@ class command_cloud(object):
         # -----------------------------------------
         clouds = config["cloudmesh"]["clouds"]
         for cloud in clouds.keys():
-            print ("Editing the credentials for cloud", cloud)
+            print("Editing the credentials for cloud", cloud)
             credentials = clouds[cloud]["credentials"]
 
             for key in credentials:
                 if key not in ["OS_VERSION", "OS_AUTH_URL"]:
-                    result = raw_input("Please enter {:}[{:}]:".format(key,credentials[key])) or credentials[key]
+                    result = raw_input("Please enter {:}[{:}]:".format(key, credentials[key])) or credentials[key]
                     credentials[key] = result
         config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()
-
