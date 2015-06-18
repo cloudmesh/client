@@ -16,8 +16,8 @@ clouddefault = confd['cloudmesh']['clouds']['azure']['default']
 
 pprint(cloudcred)
 
-driver = cls(subscription_id='',
-             key_file='')
+driver = cls(subscription_id=cloudcred['subscriptionid'],
+             key_file=cloudcred['managementcertfile'])
 
 # list VMs
 nodes = driver.list_nodes()
