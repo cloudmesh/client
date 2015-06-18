@@ -25,5 +25,20 @@ cloudmesh:
             default:
                 flavor: TBD
                 image: TBD
+        aws:
+            cm_heading: Amazon Cloud, AWS
+            cm_host: aws.amazon.com
+            cm_label: aws
+            cm_type: ec2
+            cm_type_version: null
+            credentials:
+                EC2_ACCESS_KEY: TBD
+                EC2_SECRET_KEY: TBD
+                keyname: TBD
+                userid: TBD
+            default:
+                flavor: t1.micro
+                image: ami-d85e75b0
+                location: us-east-1
     keys:
         idrsa: ~/.ssh/id_rsa.pub
