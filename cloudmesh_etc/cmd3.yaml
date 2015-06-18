@@ -8,4 +8,3 @@ cmd3:
     modules:
     - cloudmesh_cmd3.plugins
     - cloudmesh_cloud.plugins
-    nnnn
