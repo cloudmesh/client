@@ -2,7 +2,7 @@ from __future__ import print_function
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
-
+import datetime
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
 from time import sleep
@@ -10,7 +10,9 @@ from pprint import pprint
 
 class OpenStack_libcloud(object):
 
-    def __init__(self, cloudname):
+    def __init__(self, cloudname, user=None):
+        self.cloudname = cloudname
+        self.user = user
         OpenStack = get_driver(Provider.OPENSTACK)
         self.credential = \
             ConfigDict("cloudmesh.yaml")['cloudmesh']['clouds'][cloudname]['credentials']
@@ -29,6 +31,7 @@ class OpenStack_libcloud(object):
             ex_force_service_region='regionOne')
 
     def _list(self, nodes, kind=dict):
+        now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + " UTC"
         result = None
         if kind == list:
             result = []
@@ -38,6 +41,9 @@ class OpenStack_libcloud(object):
             values = dict(node.__dict__)
             del values["_uuid"]
             del values["driver"]
+            values["cm_cloud"] = self.cloudname
+            values["cm_update"] = now
+            values["cm_user"] = self.user
             if kind == list:
                 result.append(values)
             elif kind == dict:

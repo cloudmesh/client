@@ -91,15 +91,21 @@ class VM(Base):
             self.label = name
         if user is None:
             self.user = getpass.getuser()
-
+        else:
+            self.user = user
         self.uuid = str(uuid.uuid4())
 
 
 class CloudmeshDatabase(object):
 
-    def __init__(self):
+    def __init__(self, user=None):
+
         Base.metadata.create_all()
         self.session = self.connect()
+        if user is None:
+            self.user = getpass.getuser()
+        else:
+            self.user = user
 
     def connect(self):
         """
@@ -257,7 +263,7 @@ class CloudmeshDatabase(object):
         :param cloud: name of the cloud
         :return:
         """
-        cloud = OpenStack_libcloud(cloud)
+        cloud = OpenStack_libcloud(cloud, user=self.user)
 
         if kind.lower() == "vm":
             result = cloud.list_nodes(kind=dict)
