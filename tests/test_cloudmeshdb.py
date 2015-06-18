@@ -14,7 +14,7 @@ from cloudmesh_db.models import VM, DEFAULT
 
 class Test_cloudmeshdb:
     def setup(self):
-        self.cm = cloudmesh_db.CloudmeshDatabase()
+        self.cm = cloudmesh_db.CloudmeshDatabase(user="gregor")
         pass
 
     def tearDown(self):
