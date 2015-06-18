@@ -274,7 +274,10 @@ class CloudmeshDatabase(object):
         banner(kind, c="-")
         pprint (result)
 
-
+    def get_flavor(self, cloud, name):
+        cloud = OpenStack_libcloud(cloud, user=self.user)
+        f = cloud.get_flavor(name, kind='libcloud')
+        print ("XXXX", f)
 
     def info(self, kind, name):
         """
@@ -284,3 +287,7 @@ class CloudmeshDatabase(object):
         :return: dict
         """
         pass
+
+    def boot(self, cloud, user, name, image, flavor, key, meta):
+        cloud = OpenStack_libcloud(cloud, user=self.user)
+        return cloud.boot(cloud, user, name, image, flavor, key, meta)

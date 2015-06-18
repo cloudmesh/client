@@ -11,6 +11,7 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 import cloudmesh_db
 from cloudmesh_db.models import VM, DEFAULT
+from pprint import pprint
 
 class Test_cloudmeshdb:
     def setup(self):
@@ -126,6 +127,20 @@ class Test_cloudmeshdb:
         cm.update("vm", "india")
         cm.update("images", "india")
         cm.update("flavor", "india")
+
+    def test_007_boot(self):
+        HEADING()
+        cm = self.cm
+
+        cloud = "india"
+        user = "gregor"
+        name = "gregor"
+        image = "futuresystems/ubuntu-14.04"
+        flavor = "m1.tiny"
+        key = "~/.ssh/id_rsa.pub"
+        meta = None
+        r = cm.boot(cloud, user, name, image, flavor, key, meta)
+        pprint (r)
 
 """
 pprint(cm.dict(cloudmesh_db.VM))
