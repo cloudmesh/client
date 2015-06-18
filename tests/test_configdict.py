@@ -11,10 +11,10 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_base.Shell import Shell
-
+import shutil
 import os
 
-class Test_pass:
+class Test_configdict:
     def setup(self):
         pass
 
@@ -42,7 +42,7 @@ class Test_pass:
     def test_002_set(self):
         """testing to set a value in the dict"""
         HEADING()
-        # copy the cloudmesh_etc/cloudmesh.yaml file to /tmp
+        shutil.copy("cloudmesh_etc/cloudmesh.yaml","/tmp/cloudmesh.yaml")
         d = ConfigDict("cloudmesh.yaml",
                        load_order=["/tmp"],
                        verbose=True)
