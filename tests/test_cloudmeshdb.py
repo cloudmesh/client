@@ -7,7 +7,7 @@ or
 nosetests -v
 
 """
-
+from __future__ import print_function
 from cloudmesh_base.util import HEADING
 import cloudmesh_db
 from cloudmesh_db.models import VM, DEFAULT
@@ -36,7 +36,10 @@ class Test_cloudmeshdb:
         HEADING()
         cm = self.cm
 
+        cm.delete_all("VM")
+
         vms = []
+        vms.append(VM('gregor1'))
         vms.append(VM('gregor1'))
         vms.append(VM('gregor2'))
 
@@ -52,7 +55,7 @@ class Test_cloudmeshdb:
                 found2 = found2 + 1
 
         print ("found", found1, found2)
-        assert found1 == 1 and found2 == 1
+        assert found1 == 2 and found2 == 1
 
     def test_003_find(self):
         """finding a specific vm"""
@@ -64,6 +67,59 @@ class Test_cloudmeshdb:
         for vm in cursor:
             print (vm.name, vm.id, vm.cloud)
         assert True
+
+    def test_004_find_by_name(self):
+        """finding a specific vm"""
+        HEADING()
+        cm = self.cm
+
+        cursor = cm.find_vm_by_name(name="gregor1")
+        print (cursor is not None)
+        cursor = cm.find_vm_by_name(name="doesnotexist")
+        assert cursor is None
+
+    def test_005_delete(self):
+        """delete vms"""
+        HEADING()
+        cm = self.cm
+
+        cm.delete_all()
+
+
+    def test_006_replace(self):
+        HEADING()
+        cm = self.cm
+
+        for erase_type in [True, False]:
+            print ("Erase Type", erase_type)
+            cm.delete_all("VM")
+
+            vm = VM('gregor1')
+            vm.cloud = "india"
+            cm.add([vm])
+            cm.save()
+
+            vm = VM('gregor1')
+            vm.group = "hallo"
+            cm.replace(VM, [vm], erase=erase_type)
+            cm.save()
+
+            found_vm = None
+            found1 = 0
+            for v in cm.data.query(VM):
+                if v.name == "gregor1":
+                    found1 = found1 + 1
+                    found_vm = v
+
+            print ("found", found1)
+            print (v.name, v.group, v.cloud)
+            assert found1 == 1 and v.group == "hallo"
+            if erase_type:
+                assert v.cloud is None
+            else:
+                assert v.cloud == "india"
+
+
 
 """
 pprint(cm.dict(cloudmesh_db.VM))

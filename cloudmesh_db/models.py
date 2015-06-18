@@ -4,6 +4,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import update
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import inspect
 from prettytable import PrettyTable
 from cloudmesh_common.tables import dict_printer
 import uuid
@@ -74,6 +75,9 @@ class CloudmeshDatabase(object):
         self.session = Session()
         return self.session
 
+    def find_vm_by_name(self, name):
+        return self.find(VM, name=name).first()
+
     def find (self, kind, **kwargs):
         """
         NOT TESTED
@@ -90,7 +94,7 @@ class CloudmeshDatabase(object):
         :param name:
         :return:
         """
-        item = self.find (kind, name=name)
+        item = self.find (kind, name=name).first()
         self.delete(item)
 
     def delete(self, item):
@@ -102,11 +106,38 @@ class CloudmeshDatabase(object):
         result = self.session.delete(item)
         self.save()
 
+    def get_kind_from_str(self, str):
+        if str == "VM":
+            t = VM
+        elif str == "DEFAULT":
+            t = DEFAULT
+        else:
+            None
+        return t
+
+    def delete_all(self, kind=None):
+        if kind == None:
+            clean = ["VM", "DEFAULT"]
+            self.delete_all(clean)
+        elif isinstance(kind, str):
+            clean =  [kind]
+            self.delete_all(clean)
+        else:
+            for k in kind:
+                t = self.get_kind_from_str(k)
+                if t is not None:
+                    for e in self.data.query(t):
+                        self.delete(e)
+
+
+    def merge(self, kind, items):
+        self.replace(kind, item, erase_type=False)
+
     def replace(self, kind, items, erase=False):
         """
         NOT TESTED
 
-        :param kind: """
+        :param kind:
         :param items:
         :param erase:
         :return:
@@ -114,18 +145,17 @@ class CloudmeshDatabase(object):
         if erase:
             names = []
             for item in items:
-                print (item.name)
-                self.delete(item)
+                print ("delete", item.name)
+                self.delete_by_name(kind, item.name)
             self.save()
             self.session.add_all(items)
         else:
             # overwrite existing elements
             for item in items:
-                print (item.name)
-                existing_item = self.find(kind, name=item.name)
-                for key in item.keys:
-                    existing_item[key] = item[key]
-        self.save()
+                existing_item = self.find(kind, name=item.name).first()
+                item.id = existing_item.id
+                self.session.merge(item)
+            self.save()
 
     def add(self, items):
         self.session.add_all(items)
