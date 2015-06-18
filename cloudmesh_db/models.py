@@ -148,6 +148,10 @@ class CloudmeshDatabase(object):
             t = VM
         elif str == "DEFAULT":
             t = DEFAULT
+        elif str == "IMAGE":
+            t = IMAGE
+        elif str == "FLAVOR":
+            t = FLAVOR
         else:
             None
         return t
