@@ -35,6 +35,25 @@ class DEFAULT(Base):
     user = Column(String)
     cloud = Column(String)
 
+class IMAGE(BASE):
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    label = Column(String)
+    group = Column(String)
+    uuid = Column(String)
+    cloud = Column(String)
+    user = Column(String)
+    cloud_uuid = Column(String)
+
+class FLAVOR(BASE):
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    label = Column(String)
+    group = Column(String)
+    uuid = Column(String)
+    cloud = Column(String)
+    user = Column(String)
+    cloud_uuid = Column(String)
 
 class VM(Base):
     __tablename__ = 'vm'
@@ -45,6 +64,15 @@ class VM(Base):
     uuid = Column(String)
     cloud = Column(String)
     user = Column(String)
+    cloud_uuid = Column(String)
+    cloud_user = Column(String)
+    cloud_meta = Column(String)
+    cloud_image = Column(String)
+    cloud_flavor = Column(String)
+    cloud_status = Column(String)
+    cloud_power_state = Column(String)
+    cloud_task_state = Column(String)
+    cloud_networks = Column(String)
 
     def __init__(self,
                  name,
@@ -71,11 +99,20 @@ class CloudmeshDatabase(object):
         self.session = self.connect()
 
     def connect(self):
+        """
+
+        :return:
+        """
         Session = sessionmaker(bind=engine)
         self.session = Session()
         return self.session
 
     def find_vm_by_name(self, name):
+        """
+
+        :param name:
+        :return:
+        """
         return self.find(VM, name=name).first()
 
     def find (self, kind, **kwargs):
