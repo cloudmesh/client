@@ -16,7 +16,8 @@ import sys
 from cloudmesh_cloud.clouds import Cloud
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
-
+from cloudmesh_iaas.openstack_libcloud import OpenStack_libcloud
+from cloudmesh_base.util import banner
 debug = False
 
 # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
@@ -35,7 +36,8 @@ class DEFAULT(Base):
     user = Column(String)
     cloud = Column(String)
 
-class IMAGE(BASE):
+class IMAGE(Base):
+    __tablename__ = 'image'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     label = Column(String)
@@ -45,7 +47,8 @@ class IMAGE(BASE):
     user = Column(String)
     cloud_uuid = Column(String)
 
-class FLAVOR(BASE):
+class FLAVOR(Base):
+    __tablename__ = 'flavor'
     id = Column(Integer, primary_key=True)
     name = Column(String)
     label = Column(String)
@@ -245,3 +248,33 @@ class CloudmeshDatabase(object):
     def json(self, table):
         d = self.dict(table)
         return json.dumps(d)
+
+    def update(self, kind, cloud):
+        """
+        updates the data in the database
+
+        :param kind: vm, image, flavor
+        :param cloud: name of the cloud
+        :return:
+        """
+        cloud = OpenStack_libcloud(cloud)
+
+        if kind.lower() == "vm":
+            result = cloud.list_nodes(kind=dict)
+        elif kind.lower() in ["images", "image"]:
+            result = cloud.list_images(kind=dict)
+        elif kind.lower() in ["flavor", "size"]:
+            result = cloud.list_flavors(kind=dict)
+        banner(kind, c="-")
+        pprint (result)
+
+
+
+    def info(self, kind, name):
+        """
+
+        :param kind: vm, image, flavor
+        :param name: name of the object or id
+        :return: dict
+        """
+        pass

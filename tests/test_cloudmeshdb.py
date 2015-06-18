@@ -119,7 +119,13 @@ class Test_cloudmeshdb:
             else:
                 assert v.cloud == "india"
 
+    def test_006_update(self):
+        HEADING()
+        cm = self.cm
 
+        cm.update("vm", "india")
+        cm.update("images", "india")
+        cm.update("flavor", "india")
 
 """
 pprint(cm.dict(cloudmesh_db.VM))
