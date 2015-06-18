@@ -40,5 +40,20 @@ cloudmesh:
                 flavor: t1.micro
                 image: ami-d85e75b0
                 location: us-east-1
+        azure:
+            cm_heading: Microsoft Azure Virtual Machines
+            cm_host: windowsazure.com
+            cm_label: waz
+            cm_type: azure
+            cm_type_version: null
+            credentials:
+                managementcertfile: TBD
+                servicecertfile: TBD
+                subscriptionid: TBD
+                thumbprint: TBD
+            default:
+                flavor: ExtraSmall
+                image: TBD
+                location: East US
     keys:
         idrsa: ~/.ssh/id_rsa.pub
