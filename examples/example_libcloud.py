@@ -48,7 +48,8 @@ size = [s for s in sizes if s.name == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
 # launch a new VM
-node = driver.create_node(name='node from libcloud', image=image, size=size)
+name = "{:}-libcloud".format(cloudcred['OS_USERNAME'])
+node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
@@ -65,7 +66,7 @@ pool = driver.ex_list_floating_ip_pools()[0]
 floating_ip = pool.create_floating_ip()
 
 # get the node
-mynodeid = [n for n in nodes if n.name == 'node from libcloud'][0].id
+mynodeid = [n for n in nodes if n.name == name][0].id
 # print mynodeid
 node = driver.ex_get_node_details(mynodeid)
 # print node
