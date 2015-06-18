@@ -74,6 +74,59 @@ class CloudmeshDatabase(object):
         self.session = Session()
         return self.session
 
+    def find (self, kind, **kwargs):
+        """
+        NOT TESTED
+        :param kind:
+        :param kwargs:
+        :return:
+        """
+        return self.session.query(kind).filter_by(**kwargs)
+
+    def delete_by_name(self, kind, name):
+        """
+        NOTTESTED
+        :param kind:
+        :param name:
+        :return:
+        """
+        item = self.find (kind, name=name)
+        self.delete(item)
+
+    def delete(self, item):
+        """
+        NOTTESTED
+        :param item:
+        :return:
+        """
+        result = self.session.delete(item)
+        self.save()
+
+    def replace(self, kind, items, erase=False):
+        """
+        NOT TESTED
+
+        :param kind: """
+        :param items:
+        :param erase:
+        :return:
+        """
+        if erase:
+            names = []
+            for item in items:
+                print (item.name)
+                self.delete(item)
+            self.save()
+            self.session.add_all(items)
+        else:
+            # overwrite existing elements
+            for item in items:
+                print (item.name)
+                existing_item = self.find(kind, name=item.name)
+                for key in item.keys:
+                    existing_item[key] = item[key]
+        self.save()
+
     def add(self, items):
         self.session.add_all(items)
 
