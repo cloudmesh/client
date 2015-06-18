@@ -51,10 +51,30 @@ class OpenStack_libcloud(object):
         return result
 
     def list_nodes(self, kind=dict):
-        return self._list(self.driver.list_nodes(), kind)
+        self.nodes = self.driver.list_nodes()
+        return self._list(self.nodes, kind)
 
     def list_images(self, kind=dict):
-        return self._list(self.driver.list_images(), kind)
+        self.images = self.driver.list_images()
+        return self._list(self.images, kind)
 
     def list_flavors(self, kind=dict):
-        return self._list(self.driver.list_sizes(), kind)
+        self.flavors = self.driver.list_sizes()
+        return self._list(self.flavors, kind)
+
+    def boot(self, cloud, user, name, image, flavor, key, meta):
+        self.images = self.driver.list_images()
+        self.flavors = self.driver.list_sizes()
+
+        size = [s for s in self.flavors if s.name == flavor][0]
+        image = [i for i in self.images if i.name == image][0]
+
+        name = "{:}-{:}".format(user, "cm_test")
+        node = dict(self.driver.create_node(name=name, image=image, size=size).__dict__)
+        del node["_uuid"]
+        del node["driver"]
+        return node
+
+
+
+
