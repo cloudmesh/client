@@ -31,7 +31,7 @@ class cm_shell_nova:
                  nova set CLOUD
                  nova info [CLOUD] [--password]
                  nova help
-                 nova ARGUMENTS               
+                 nova ARGUMENTS...
 
           A simple wrapper for the openstack nova command
 
@@ -88,7 +88,7 @@ class cm_shell_nova:
 
         else:
             command_nova.set_os_environ(cloud)
-            args = arguments["ARGUMENTS"].split(" ")
+            args = arguments["ARGUMENTS"]
             result = Shell.execute("nova", args)
             print(command_nova.remove_subjectAltName_warning(result))
             return
