@@ -5,9 +5,14 @@ ifeq ($(UNAME), Darwin)
 BROWSER=open
 endif
 ifeq ($(UNAME), Windows)
-BROWSER=firefox
+BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+endif
+ifeq ($(UNAME), CYGWIN_NT-6.3)
+BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
+test:
+	echo $(UNAME)
 
 
 doc:

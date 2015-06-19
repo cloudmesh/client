@@ -8,7 +8,7 @@ Configuration
 
 ::
 
-   cm plugins add cloudmesh_client
+   cm plugins add cloudmesh_cloud
 
 
 ::
@@ -84,5 +84,6 @@ See manual page ...
 ::
 
    register list
+
 
 
