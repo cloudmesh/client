@@ -7,12 +7,63 @@ from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
 from time import sleep
 from pprint import pprint
+from cloudmesh_common.FlatDict import key_prefix_replace, flatten
+import cloudmesh_db.models
+
+class Mapping(object):
+
+
+    @classmethod
+    def merge_dict(cls, element, d):
+        for key, value in d.iteritems():
+            setattr(element, key, value)
+        print ("CCCC", element.__dict__)
+        return element
+
+    @classmethod
+    def flavor(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        f = cloudmesh_db.models.FLAVOR(d["name"])
+        f = cls.merge_dict(f, d)
+        f.cm_cloud = str(cloud)
+        f.cm_user = user
+        f.group = group
+        cm = cloudmesh_db.CloudmeshDatabase(cm_user="gregor")
+        cm.add([f])
+        cm.save()
+
+
+        # f.uuid =
+        # f.cm_user =
+        # f.cloud =
+        # f.group =
+
+        # id = Column(Integer, primary_key=True)
+        # name = Column(String)
+        # label = Column(String)
+        # group = Column(String)
+        # cm_uuid = Column(String)
+        # cloud = Column(String)
+        # cm_user = Column(String)
+        # cm_update = Column(String)
+        # uuid = Column(String)
+        # bandwidth = Column(String)
+        # update = Column(String)
+        # disk = Column(String)
+        # extra = Column(String)
+        # internal_id = Column(String)
+        # price = Column(String)
+        # ram = Column(String)
+        # vcpus = Column(String)
 
 class OpenStack_libcloud(object):
 
-    def __init__(self, cloudname, user=None):
+    def __init__(self, cloudname, cm_user=None):
         self.cloudname = cloudname
-        self.user = user
+        self.user = cm_user
         OpenStack = get_driver(Provider.OPENSTACK)
         self.credential = \
             ConfigDict("cloudmesh.yaml")['cloudmesh']['clouds'][cloudname]['credentials']
@@ -30,12 +81,12 @@ class OpenStack_libcloud(object):
             ex_force_auth_version='2.0_password',
             ex_force_service_region='regionOne')
 
-    def _list(self, nodes, kind=dict):
+    def _list(self, nodetype, nodes, kind=dict):
         now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + " UTC"
         result = None
         if kind == list:
             result = []
-        elif kind == dict:
+        elif kind in [dict, "flat"]:
             result = {}
         for node in nodes:
             values = dict(node.__dict__)
@@ -46,21 +97,30 @@ class OpenStack_libcloud(object):
             values["cm_user"] = self.user
             if kind == list:
                 result.append(values)
-            elif kind == dict:
+            elif kind in [dict, "flat"]:
                 result[values["id"]] = values
+        print ("OOOOOO")
+        pprint (result)
+        print ("OOOOOO")
+
+        if kind == "flat":
+            if nodetype == "vm":
+                result = OpenStack_libcloud.flatten_vms(result)
+            elif nodetype == "images":
+                result = OpenStack_libcloud.flatten_images(result)
         return result
 
     def list_nodes(self, kind=dict):
         self.nodes = self.driver.list_nodes()
-        return self._list(self.nodes, kind)
+        return self._list("vm", self.nodes, kind)
 
     def list_images(self, kind=dict):
         self.images = self.driver.list_images()
-        return self._list(self.images, kind)
+        return self._list("images", self.images, kind)
 
     def list_flavors(self, kind=dict):
         self.flavors = self.driver.list_sizes()
-        return self._list(self.flavors, kind)
+        return self._list("flavors", self.flavors, kind)
 
     def boot(self, cloud, user, name, image, flavor, key, meta):
         self.images = self.driver.list_images()
@@ -75,6 +135,44 @@ class OpenStack_libcloud(object):
         del node["driver"]
         return node
 
+    @classmethod
+    def flatten_image(cls, d):
+        """
+        flattens the data from a single image returned with libcloud.
 
+        :param d: the data for that image
+        :type d: dict
+        :return: the flattened dict
+        :rtype: dict
+        """
+        n = key_prefix_replace(flatten(d), ["extra__metadata__", "extra__"], "")
+        return n
 
+    @classmethod
+    def flatten_vm(cls, d):
+        """
+        flattens the data from a single vm returned by libloud
 
+        :param d: the data for that vm
+        :type d: dict
+        :return: the flattened dict
+        :rtype: dict
+        """
+        n = key_prefix_replace(flatten(d), ["extra__"], "")
+        return n
+
+    @classmethod
+    def flatten_vms(cls, d):
+        return cls.flatten(cls.flatten_vm, d)
+
+    @classmethod
+    def flatten_images(cls, d):
+        return cls.flatten(cls.flatten_image, d)
+
+    @classmethod
+    def flatten(cls, transform, d):
+        result = {}
+        for element in d:
+            n = transform(d[element])
+            result[element] = dict(n)
+        return result

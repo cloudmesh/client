@@ -16,7 +16,7 @@ import sys
 from cloudmesh_cloud.clouds import Cloud
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
-from cloudmesh_iaas.openstack_libcloud import OpenStack_libcloud
+from cloudmesh_iaas.openstack_libcloud import OpenStack_libcloud, Mapping
 from cloudmesh_base.util import banner
 debug = False
 
@@ -35,6 +35,7 @@ class DEFAULT(Base):
     value = Column(String)
     user = Column(String)
     cloud = Column(String)
+    cm_uuid = Column(String)
 
 class IMAGE(Base):
     __tablename__ = 'image'
@@ -42,9 +43,9 @@ class IMAGE(Base):
     name = Column(String)
     label = Column(String)
     group = Column(String)
-    uuid = Column(String)
+    cm_uuid = Column(String)
     cloud = Column(String)
-    user = Column(String)
+    cm_user = Column(String)
     cloud_uuid = Column(String)
 
 class FLAVOR(Base):
@@ -53,10 +54,38 @@ class FLAVOR(Base):
     name = Column(String)
     label = Column(String)
     group = Column(String)
-    uuid = Column(String)
+    cm_uuid = Column(String)
+    cm_user = Column(String)
+    cm_update = Column(String)
     cloud = Column(String)
-    user = Column(String)
-    cloud_uuid = Column(String)
+    uuid = Column(String)
+    bandwidth = Column(String)
+    update = Column(String)
+    disk = Column(String)
+    internal_id = Column(String)
+    price = Column(String)
+    ram = Column(String)
+    vcpus = Column(String)
+    # extra = Column(String)
+
+
+    def __init__(self,
+                 name,
+                 label=None,
+                 group='default',
+                 cloud='india',
+                 cm_user=None):
+
+        self.name = name
+        self.label = label
+
+        if label is None:
+            self.label = name
+        if cm_user is None:
+            self.cm_user = getpass.getuser()
+        else:
+            self.cm_user = cm_user
+        self.cm_uuid = str(uuid.uuid4())
 
 class VM(Base):
     __tablename__ = 'vm'
@@ -64,48 +93,48 @@ class VM(Base):
     name = Column(String)
     label = Column(String)
     group = Column(String)
-    uuid = Column(String)
+    cm_uuid = Column(String)
     cloud = Column(String)
+    cm_user = Column(String)
+    uuid = Column(String)
     user = Column(String)
-    cloud_uuid = Column(String)
-    cloud_user = Column(String)
-    cloud_meta = Column(String)
-    cloud_image = Column(String)
-    cloud_flavor = Column(String)
-    cloud_status = Column(String)
-    cloud_power_state = Column(String)
-    cloud_task_state = Column(String)
-    cloud_networks = Column(String)
+    meta = Column(String)
+    image = Column(String)
+    flavor = Column(String)
+    status = Column(String)
+    power_state = Column(String)
+    task_state = Column(String)
+    networks = Column(String)
 
     def __init__(self,
                  name,
                  label=None,
                  group='default',
                  cloud='india',
-                 user=None):
+                 cm_user=None):
 
         self.name = name
         self.label = label
 
         if label is None:
             self.label = name
-        if user is None:
-            self.user = getpass.getuser()
+        if cm_user is None:
+            self.cm_user = getpass.getuser()
         else:
-            self.user = user
-        self.uuid = str(uuid.uuid4())
+            self.cm_user = cm_user
+        self.cm_uuid = str(uuid.uuid4())
 
 
 class CloudmeshDatabase(object):
 
-    def __init__(self, user=None):
+    def __init__(self, cm_user=None):
 
         Base.metadata.create_all()
         self.session = self.connect()
-        if user is None:
-            self.user = getpass.getuser()
+        if cm_user is None:
+            self.cm_user = getpass.getuser()
         else:
-            self.user = user
+            self.cm_user = cm_user
 
     def connect(self):
         """
@@ -240,6 +269,39 @@ class CloudmeshDatabase(object):
     def data(self):
         return self.session
 
+    def servers(self, clouds=None, cm_user=None):
+        '''
+        returns all the servers from all clouds
+        '''
+        if clouds is None and cm_user is None:
+            return self.get(VM)
+        else:
+            raise Exception("get filter not yet implemented")
+
+    def flavors(self, clouds=None, cm_user=None):
+        '''
+        returns all the flavors from the various clouds
+        '''
+        if clouds is None and cm_user is None:
+            return self.get(FLAVOR)
+        else:
+            raise Exception("get filter not yet implemented")
+
+    def images(self, clouds=None, cm_user=None):
+        '''
+        returns all the images from various clouds
+        '''
+        if clouds is None and cm_user is None:
+            return self.get(IMAGE)
+        else:
+            raise Exception("get filter not yet implemented")
+
+    def get_by_filter(self, **kwargs):
+        self.session.query(table).filter_by(kwargs).all()
+
+    def get(self, table):
+        return self.dict(table)
+
     def dict(self, table):
         result = dict()
         for u in self.session.query(table).all():
@@ -257,25 +319,35 @@ class CloudmeshDatabase(object):
 
     def update(self, kind, cloud):
         """
+        GREGOR WORKS ON THIS
+        
         updates the data in the database
 
         :param kind: vm, image, flavor
         :param cloud: name of the cloud
         :return:
         """
-        cloud = OpenStack_libcloud(cloud, user=self.user)
+        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
 
         if kind.lower() == "vm":
-            result = cloud.list_nodes(kind=dict)
+            result = cloud.list_nodes(kind="flat")
         elif kind.lower() in ["images", "image"]:
-            result = cloud.list_images(kind=dict)
+            result = cloud.list_images(kind="flat")
         elif kind.lower() in ["flavor", "size"]:
-            result = cloud.list_flavors(kind=dict)
+            result = cloud.list_flavors(kind="flat")
         banner(kind, c="-")
         pprint (result)
 
+        group = "default"
+        for element in result:
+            r = Mapping.flavor("india", self.cm_user, group, result[element])
+        self.save()
+
+        current = self.session.query(FLAVOR).filter_by(group="default").first()
+        print("UUUUU", current)
+
     def get_flavor(self, cloud, name):
-        cloud = OpenStack_libcloud(cloud, user=self.user)
+        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
         f = cloud.get_flavor(name, kind='libcloud')
         print ("XXXX", f)
 
@@ -288,6 +360,6 @@ class CloudmeshDatabase(object):
         """
         pass
 
-    def boot(self, cloud, user, name, image, flavor, key, meta):
-        cloud = OpenStack_libcloud(cloud, user=self.user)
-        return cloud.boot(cloud, user, name, image, flavor, key, meta)
+    def boot(self, cloud, cm_user, name, image, flavor, key, meta):
+        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
+        return cloud.boot(cloud, cm_user, name, image, flavor, key, meta)

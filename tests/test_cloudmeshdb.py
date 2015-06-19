@@ -10,12 +10,12 @@ nosetests -v
 from __future__ import print_function
 from cloudmesh_base.util import HEADING
 import cloudmesh_db
-from cloudmesh_db.models import VM, DEFAULT
+from cloudmesh_db.models import VM, DEFAULT, FLAVOR
 from pprint import pprint
 
 class Test_cloudmeshdb:
     def setup(self):
-        self.cm = cloudmesh_db.CloudmeshDatabase(user="gregor")
+        self.cm = cloudmesh_db.CloudmeshDatabase(cm_user="gregor")
         pass
 
     def tearDown(self):
@@ -37,19 +37,24 @@ class Test_cloudmeshdb:
         HEADING()
         cm = self.cm
 
+        print ("Delete all vms ...")
         cm.delete_all("VM")
 
+        print ("Create 3 vms ...")
         vms = []
         vms.append(VM('gregor1'))
         vms.append(VM('gregor1'))
         vms.append(VM('gregor2'))
 
+        print ("Add vms ...")
         cm.add(vms)
+        print ("Save vms ...")
         cm.save()
 
         found1 = 0
         found2 = 0
         for v in cm.data.query(VM):
+            print (v.name, v.cm_uuid)
             if v.name == "gregor1":
                 found1 = found1 + 1
             if v.name == "gregor2":
@@ -124,23 +129,31 @@ class Test_cloudmeshdb:
         HEADING()
         cm = self.cm
 
-        cm.update("vm", "india")
-        cm.update("images", "india")
+        #cm.update("vm", "india")
+        #cm.update("images", "india")
         cm.update("flavor", "india")
+        d = cm.dict(FLAVOR)
+        print("9999")
+        pprint(d)
 
     def test_007_boot(self):
         HEADING()
         cm = self.cm
 
         cloud = "india"
-        user = "gregor"
+        cm_user = "gregor"
         name = "gregor"
         image = "futuresystems/ubuntu-14.04"
         flavor = "m1.tiny"
         key = "~/.ssh/id_rsa.pub"
         meta = None
-        r = cm.boot(cloud, user, name, image, flavor, key, meta)
-        pprint (r)
+        ## r = cm.boot(cloud, cm_user, name, image, flavor, key, meta)
+        # pprint (r)
+
+    def test_008_flatten(self):
+        HEADING()
+        cm = self.cm
+
 
 """
 pprint(cm.dict(cloudmesh_db.VM))

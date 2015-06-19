@@ -1,6 +1,5 @@
 from __future__ import print_function
 from pprint import pprint
-
 import collections
 
 
@@ -11,7 +10,7 @@ def key_prefix_replace(d, prefix, new_prefix=""):
     :param d: the flattened dict
     :param prefix: a list of prefixes that are replaced with a new prefix. Typically this will be ""
     :type prefix: list of str
-    :param new_prefix: The new prefix. By defualt it is set to ""
+    :param new_prefix: The new prefix. By default it is set to ""
     :return: the dict with the keys replaced as specified
     """
     items = []
@@ -29,7 +28,7 @@ def flatten(d, parent_key='', sep='__'):
 
     :param d: multidimensional dict
     :param parent_key: replaces from the parent key
-    :param sep: the separation character used when falttening. the defaul is __
+    :param sep: the separation character used when fattening. the default is __
     :return: the flattened dict
     """
     # http://stackoverflow.com/questions/6027558/flatten-nested-python-dictionaries-compressing-keys
@@ -98,31 +97,6 @@ class FlatDict(dict):
     def __getattr__(self, attr):
         return self.get(attr)
 
-
-def flatten_libcloud_image(d):
-    """
-    flattens the data from a single image returned with libcloud.
-
-    :param d: the data for that image
-    :type d: dict
-    :return: the flattened dict
-    :rtype: dict
-    """
-    n = key_prefix_replace(flatten(d), ["extra__metadata__", "extra__"], "")
-    return n
-
-
-def flatten_libcloud_vm(d):
-    """
-    flattens the data from a single vm returned by libloud
-
-    :param d: the data for that vm
-    :type d: dict
-    :return: the flattened dict
-    :rtype: dict
-    """
-    n = key_prefix_replace(flatten(d), ["extra__"], "")
-    return n
 
 
 def main():
@@ -200,11 +174,11 @@ def main():
     f.cm_user = 'GREGOR'
     print(f.cm_user)
 
-    pprint(flatten_libcloud_image(d))
+    #pprint(OpenStack_libcloud.flatten_image(d))
 
-    pprint(flatten(vm))
+    #pprint(flatten(vm))
 
-    pprint(flatten_libcloud_vm(vm))
+    #pprint(OpenStack_libcloud.flatten_vm(vm))
 
 
 if __name__ == "__main__":
