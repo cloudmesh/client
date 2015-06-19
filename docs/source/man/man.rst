@@ -45,6 +45,52 @@ Command - clear::
 
     Clears the screen.
 
+cool
+----------------------------------------------------------------------
+
+Command - cool::
+
+    Usage:
+        cool NAME
+        cool start
+        cool stop
+        cool daniel FILE
+
+    tests via ping if the host ith the give NAME is reachable
+
+    Arguments:
+
+      NAME      Name of the machine to test
+      FILE      file name
+    Options:
+
+       -v       verbose mode
+
+
+
+default
+----------------------------------------------------------------------
+
+Command - default::
+
+    Usage:
+        default list [--output=FORMAT]
+        default KEY
+        default KEY=VALUE
+
+    managing the defaults
+
+    Arguments:
+
+      KEY    the name of the default
+      VALUE  the value to set the key to
+
+    Options:
+
+       -v       verbose mode
+
+
+
 edit
 ----------------------------------------------------------------------
 
@@ -170,6 +216,8 @@ Command - load::
     Arguments:
        MODULE  The name of the module.
 
+    THIS COMMAND IS NOT IMPLEMENTED
+
 
 man
 ----------------------------------------------------------------------
@@ -191,6 +239,34 @@ Command - man::
             Prints out the help pages
         man COMMAND
             Prints out the help page for a specific command
+
+
+nova
+----------------------------------------------------------------------
+
+Command - nova::
+
+    Usage:
+           nova set CLOUD
+           nova info [CLOUD] [--password]
+           nova help
+           nova ARGUMENTS...
+
+    A simple wrapper for the openstack nova command
+
+    Arguments:
+
+      ARGUMENTS      The arguments passed to nova
+      help           Prints the nova manual
+      set            reads the information from the current cloud
+                     and updates the environment variables if
+                     the cloud is an openstack cloud
+      info           the environment values for OS
+
+    Options:
+       --password    Prints the password
+       -v            verbose mode
+
 
 
 open
@@ -321,6 +397,84 @@ Command - quit::
         quit
 
     Action to be performed whne quit is typed
+
+
+register
+----------------------------------------------------------------------
+
+Command - register::
+
+    Usage:
+        register info
+        register list [--yaml=FILENAME]
+        register list ssh
+        register cat [--yaml=FILENAME]
+        register edit [--yaml=FILENAME]
+        register form [--yaml=FILENAME]
+        register check [--yaml=FILENAME]
+        register test [--yaml=FILENAME]
+        register rc HOST [OPENRC]
+        register [--yaml=FILENAME]
+
+    managing the registered clouds in the cloudmesh.yaml file.
+    It looks for it in the current directory, and than in ~/.cloudmesh.
+    If the file with the cloudmesh.yaml name is there it will use it.
+    If neither location has one a new file will be created in
+    ~/.cloudmesh/cloudmesh.yaml. Some defaults will be provided.
+    However you will still need to fill it out with valid entries.
+
+    Arguments:
+
+      HOST   the host name
+      USER   the user name
+      OPENRC  the location of the openrc file
+
+    Options:
+
+       -v       verbose mode
+
+    Description:
+
+        register edit [--yaml=FILENAME]
+            edits the cloudmesh.yaml file
+
+        register list [--yaml=FILENAME]
+            lists the registration yaml file
+
+        register rc HOST [OPENRC]
+
+              reads the Openstack OPENRC file from a host that is described in ./ssh/config and adds it to the
+              configuration cloudmehs.yaml file. We assume that the file has already a template for this
+              host. If nt it can be created from other examples before you run this command.
+
+              The hostname can be specified as follows in the ./ssh/config file.
+
+              Host india
+                  Hostname india.futuresystems.org
+                  User yourusername
+
+              If the host is india and the OPENRC file is ommitted, it will automatically fill out the location
+              for the openrc file. To obtain the information from india simply type in
+
+                  register rc india
+
+        register [--yaml=FILENAME]
+            read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml which is used when the
+            yaml filename is ommitted.
+
+        register edit [--yaml=FILENAME]
+            edits the cloudmesh yaml file
+
+        register form [--yaml=FILENAME]
+            interactively fills out the form wherever we find TBD.
+
+        register check [--yaml=FILENAME]
+            checks the yaml file for completness
+
+        register test [--yaml=FILENAME]
+            checks the yaml file and executes tests to check if we
+            can use the cloud. TODO: maybe this should be in a test
+            command
 
 
 script
