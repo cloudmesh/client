@@ -3,13 +3,13 @@ from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
 import datetime
-from cloudmesh_client import cloudmesh_db
-from cloudmesh_client.common import ConfigDict
-from cloudmesh_client.common import Config
+import cloudmesh_client.db
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from pprint import pprint
 
-from cloudmesh_client.common import key_prefix_replace, flatten
+from cloudmesh_client.common.FlatDict import key_prefix_replace, flatten
 import cloudmesh_client.db.models
 
 class Insert(object):
@@ -32,7 +32,7 @@ class Insert(object):
         f.cm_cloud = str(cloud)
         f.cm_user = user
         f.group = group
-        cm = cloudmesh_db.CloudmeshDatabase(cm_user="gregor")
+        cm = cloudmesh_client.db.CloudmeshDatabase(cm_user="gregor")
         cm.add([f])
         cm.save()
 
@@ -42,7 +42,7 @@ class Insert(object):
 
         :type d: dict
         """
-        cls._data(cloudmesh_client.cloudmesh_db.models.FLAVOR, cloud, user, group, d)
+        cls._data(cloudmesh_client.db.models.FLAVOR, cloud, user, group, d)
 
 
 
