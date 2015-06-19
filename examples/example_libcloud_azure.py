@@ -2,8 +2,8 @@ from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
 
-from cloudmesh_common.ConfigDict import ConfigDict
-from cloudmesh_common.ConfigDict import Config
+from cloudmesh_client.common import ConfigDict
+from cloudmesh_client.common import Config
 from time import sleep
 from pprint import pprint
 

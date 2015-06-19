@@ -1,10 +1,10 @@
 from __future__ import print_function
 from cmd3.console import Console
 from pprint import pprint
-from cloudmesh_common.ConfigDict import ConfigDict
-from cloudmesh_common.tables import dict_printer
+from cloudmesh_client.common import ConfigDict
+from cloudmesh_client.common import dict_printer
 from cloudmesh_base.Shell import Shell
-from cloudmesh_common.ConfigDict import Config
+from cloudmesh_client.common import Config
 import textwrap
 
 

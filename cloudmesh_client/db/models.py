@@ -6,17 +6,17 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import inspect
 from prettytable import PrettyTable
-from cloudmesh_common.tables import dict_printer
+from cloudmesh_client.common.tables import dict_printer
 import uuid
 import os
 import getpass
 import json
 from pprint import pprint
 import sys
-from cloudmesh_cloud.clouds import Cloud
-from cloudmesh_common.ConfigDict import ConfigDict
-from cloudmesh_common.ConfigDict import Config
-from cloudmesh_iaas.openstack_libcloud import OpenStack_libcloud, Insert
+from cloudmesh_client.cloud.clouds import Cloud
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud, Insert
 from cloudmesh_base.util import banner
 debug = False
 

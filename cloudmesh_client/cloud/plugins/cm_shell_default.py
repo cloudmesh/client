@@ -3,7 +3,7 @@ import os
 from cmd3.console import Console
 from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_cloud import command_default
+from cloudmesh_client.cloud import command_default
 
 
 class cm_shell_default:
