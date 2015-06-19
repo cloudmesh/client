@@ -11,8 +11,7 @@ from pprint import pprint
 from cloudmesh_common.FlatDict import key_prefix_replace, flatten
 import cloudmesh_db.models
 
-class Mapping(object):
-
+class Insert(object):
 
     @classmethod
     def merge_dict(cls, element, d):
@@ -22,12 +21,12 @@ class Mapping(object):
         return element
 
     @classmethod
-    def flavor(cls, cloud, user, group, d):
+    def _data(cls, table, cloud, user, group, d):
         """
 
         :type d: dict
         """
-        f = cloudmesh_db.models.FLAVOR(d["name"])
+        f = table(d["name"])
         f = cls.merge_dict(f, d)
         f.cm_cloud = str(cloud)
         f.cm_user = user
@@ -35,6 +34,15 @@ class Mapping(object):
         cm = cloudmesh_db.CloudmeshDatabase(cm_user="gregor")
         cm.add([f])
         cm.save()
+
+    @classmethod
+    def flavor(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        cls._data(cloudmesh_db.models.FLAVOR, cloud, user, group, d)
+
 
 
         # f.uuid =
@@ -59,6 +67,23 @@ class Mapping(object):
         # price = Column(String)
         # ram = Column(String)
         # vcpus = Column(String)
+
+    @classmethod
+    def image(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        cls._data(cloudmesh_db.models.IMAGE, cloud, user, group, d)
+
+    @classmethod
+    def vm(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        cls._data(cloudmesh_db.models.VM, cloud, user, group, d)
+
 
 class OpenStack_libcloud(object):
 

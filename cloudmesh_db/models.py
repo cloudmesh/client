@@ -16,7 +16,7 @@ import sys
 from cloudmesh_cloud.clouds import Cloud
 from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
-from cloudmesh_iaas.openstack_libcloud import OpenStack_libcloud, Mapping
+from cloudmesh_iaas.openstack_libcloud import OpenStack_libcloud, Insert
 from cloudmesh_base.util import banner
 debug = False
 
@@ -355,19 +355,29 @@ class CloudmeshDatabase(object):
         """
         cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
 
-        if kind.lower() == "vm":
-            result = cloud.list_nodes(kind="flat")
-        elif kind.lower() in ["images", "image"]:
-            result = cloud.list_images(kind="flat")
-        elif kind.lower() in ["flavor", "size"]:
-            result = cloud.list_flavors(kind="flat")
-        banner(kind, c="-")
-        pprint (result)
-
         group = "default"
+        lister = None
+        inserter  = None
+
+        if kind.lower() == "vm":
+            lister =  cloud.list_nodes
+            inserter = Insert.vm
+        elif kind.lower() in ["images", "image"]:
+            lister = cloud.list_images
+            inserter = Insert.image
+        elif kind.lower() in ["flavor", "size"]:
+            lister = cloud.list_flavors
+            inserter = Insert.flavor
+        else:
+            return
+
+        result = lister(kind="flat")
         for element in result:
-            r = Mapping.flavor("india", self.cm_user, group, result[element])
+            r = inserter("india", self.cm_user, group, result[element])
+
         self.save()
+        # banner(kind, c="-")
+        # pprint (result)
 
         # current = self.session.query(FLAVOR).filter_by(group="default").first()
         # print("UUUUU", current)
