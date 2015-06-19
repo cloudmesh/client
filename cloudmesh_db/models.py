@@ -369,8 +369,8 @@ class CloudmeshDatabase(object):
             r = Mapping.flavor("india", self.cm_user, group, result[element])
         self.save()
 
-        current = self.session.query(FLAVOR).filter_by(group="default").first()
-        print("UUUUU", current)
+        # current = self.session.query(FLAVOR).filter_by(group="default").first()
+        # print("UUUUU", current)
 
     def get_flavor(self, cloud, name):
         cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
