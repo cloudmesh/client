@@ -1,6 +1,27 @@
 CHANGES
 =======
 
+* Testing git commit on windows
+* Testing git commit on windows
+* Added cmd3.yaml example to etc directory
+* rename
+* aws example
+* adding a simplified boot command
+* adding cm_user cm_cloud cm_update attributes to the dicts
+* adding provider list queris for openstack
+* adding IMAGE and FLAVOR to get_kind_from_string
+* adding the username to the vm name for better debugging
+* adding proper argument pass through to the nova command
+* assing more objects to the database
+* adding database replace, add, and merge
+* adding additional database methods
+* next_name()
+* renaming the examples to avoid name conflict with existing package
+
+0.5.7
+-----
+
+* fixed the nosetests for table printers
 * update the Changelog
 
 0.5.6
