@@ -1,10 +1,10 @@
 from __future__ import print_function
 from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_client.common import Config
+from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
-from cloudmesh_client.cloud import command_cloud
+from cloudmesh_client.cloud.command_cloud import command_cloud
 
 
 class cm_shell_cloud:
