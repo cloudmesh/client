@@ -297,12 +297,11 @@ class CloudmeshDatabase(object):
         '''
         arg = self._convert_to_lists(clouds=clouds, cm_user=cm_user)
         print (arg)
-
+        result = {}
         for cloud in arg['clouds']:
-            print ("Fetch data from cloud", cloud)
-            d = self.get_by_filter(FLAVOR, cloud=cloud) # , cm_user=cm_user)
-            print (d)
-
+            d = self.session.query(FLAVOR).all()
+            result[cloud] = self.object_to_dict(d)
+        return dict(result)
 
     def images(self, clouds=None, cm_user=None):
         '''
@@ -315,15 +314,19 @@ class CloudmeshDatabase(object):
             return self.get_by_filter(self, IMAGE, clouds=clouds, cm_user=cm_user)
 
     def get_by_filter(self, table, **kwargs):
-        return self.session.query(table).filter_by(kwargs).all()
+        print ("ZZZZ", kwargs)
+        if len(kwargs) == 1:
+            return self.session.query(table).filter_by(kwargs).all()
+        else:
+            print ("YYYY", kwargs)
 
     def get(self, table):
         return self.dict(table)
 
 
-    def dict(self, table):
+    def object_to_dict(self, obj):
         result = dict()
-        for u in self.session.query(table).all():
+        for u in obj:
             _id = u.id
             values = {}
             for key in u.__dict__.keys():
@@ -331,6 +334,12 @@ class CloudmeshDatabase(object):
                     values[key] = u.__dict__[key]
             result[_id] = values
         return result
+
+    def convert_query_to_dict(self, table):
+        return self.object_to_dict(self.session.query(table).all())
+
+    def dict(self, table):
+        return self.object_to_dict(self.session.query(table).all())
 
     def json(self, table):
         d = self.dict(table)

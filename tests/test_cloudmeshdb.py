@@ -138,6 +138,9 @@ class Test_cloudmeshdb:
         print("8888")
 
         d = cm.flavors(clouds="india")
+        print ("DICT")
+        pprint(d)
+
 
     def test_007_boot(self):
         HEADING()
