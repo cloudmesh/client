@@ -141,7 +141,7 @@ class Test_cloudmeshdb:
 
 
         #cm.update("vm", "india")
-        #cm.update("images", "india")
+        cm.update("images", "india")
 
 
 

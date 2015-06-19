@@ -75,7 +75,7 @@ class Insert(object):
 
         :type d: dict
         """
-        cls._data(cloudmesh_client.cloudmesh_db.models.IMAGE, cloud, user, group, d)
+        cls._data(cloudmesh_client.db.models.IMAGE, cloud, user, group, d)
 
     @classmethod
     def vm(cls, cloud, user, group, d):
@@ -83,7 +83,7 @@ class Insert(object):
 
         :type d: dict
         """
-        cls._data(cloudmesh_client.cloudmesh_db.models.VM, cloud, user, group, d)
+        cls._data(cloudmesh_client.db.models.VM, cloud, user, group, d)
 
 
 class OpenStack_libcloud(object):
