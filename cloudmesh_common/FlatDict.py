@@ -6,7 +6,17 @@ from pprint import pprint
 import collections
 
 
-def flatten(d, parent_key='', sep='.'):
+def key_prefix_replace(d, prefix, new_prefix):
+    items = []
+    for k, v in d.items():
+        new_key = k
+        for p in prefix:
+            new_key = new_key.replace(p, new_prefix, 1)
+        items.append((new_key, v))
+    return dict(items)
+
+
+def flatten(d, parent_key='', sep='__'):
     items = []
     for k, v in d.items():
         new_key = parent_key + sep + k if parent_key else k
@@ -15,6 +25,67 @@ def flatten(d, parent_key='', sep='.'):
         else:
             items.append((new_key, v))
     return dict(items)
+
+
+class FlatDict(dict):
+    @property
+    def dict(self):
+        return self.__dict__
+
+    def __init__(self, d):
+        self.__dict__ = flatten(d)
+
+    def __setitem__(self, key, item):
+        self.__dict__[key] = item
+
+    def __getitem__(self, key):
+        return self.__dict__[key]
+
+    def __repr__(self):
+        return repr(self.__dict__)
+
+    def __str__(self):
+        return str(self.__dict__)
+
+    def __len__(self):
+        return len(self.__dict__)
+
+    def __delitem__(self, key):
+        del self.__dict__[key]
+
+    def keys(self):
+        return self.__dict__.keys()
+
+    def values(self):
+        return self.__dict__.values()
+
+    def __cmp__(self, dict):
+        return cmp(self.__dict__, dict)
+
+    def __contains__(self, item):
+        return item in self.__dict__
+
+    def add(self, key, value):
+        self.__dict__[key] = value
+
+    def __iter__(self):
+        return iter(self.__dict__)
+
+    def __call__(self):
+        return self.__dict__
+
+    def __getattr__(self, attr):
+        return self.get(attr)
+
+
+def flatten_libcloud_image(d):
+    n = key_prefix_replace(flatten(d), ["extra__metadata__", "extra__"], "")
+    return n
+
+
+def flatten_libcloud_vm(d):
+    n = key_prefix_replace(flatten(d), ["extra__"], "")
+    return n
 
 
 def main():
@@ -53,9 +124,51 @@ def main():
         'name': 'VM with Cloudmesh Configured Completely'
     }
 
+    vm = {
+        'extra': {'access_ip': u'',
+                  'availability_zone': 'nova',
+                  'config_drive': u'',
+                  'created': '2015-06-19T00:06:58Z',
+                  'disk_config': 'MANUAL',
+                  'flavorId': '1',
+                  'hostId': u'',
+                  'imageId': 'abcd',
+                  'key_name': None,
+                  'metadata': {},
+                  'password': '********',
+                  'tenantId': '1234',
+                  'updated': '2015-06-19T00:06:58Z',
+                  'uri': 'http://i5r.idp.iu.futuregrid.org/v2/1234/servers/abcd'},
+        'id': '67f6bsf67a6b',
+        'image': None,
+        'name': 'gregor-cm_test',
+        'private_ips': [],
+        'public_ips': [],
+        'size': None,
+        'state': 3
+    }
+
+
     pprint(d)
     pprint(flatten(d))
 
+    f = FlatDict(d)
+    pprint(f.dict)
+    pprint(f.__dict__)
+    print(f['cm_user'])
+    print(f['extra__created'])
+
+    print(f.cm_user)
+    print(f.extra__created)
+
+    f.cm_user = 'GREGOR'
+    print(f.cm_user)
+
+    pprint(flatten_libcloud_image(d))
+
+    pprint(flatten(vm))
+
+    pprint(flatten_libcloud_vm(vm))
 
 if __name__ == "__main__":
     main()
