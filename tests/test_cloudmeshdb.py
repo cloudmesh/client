@@ -129,8 +129,6 @@ class Test_cloudmeshdb:
         HEADING()
         cm = self.cm
 
-        #cm.update("vm", "india")
-        #cm.update("images", "india")
         cm.update("flavor", "india")
         d = cm.get(FLAVOR)
         print("9999")
@@ -140,6 +138,11 @@ class Test_cloudmeshdb:
         d = cm.flavors(clouds="india")
         print ("DICT")
         pprint(d)
+
+
+        #cm.update("vm", "india")
+        #cm.update("images", "india")
+
 
 
     def test_007_boot(self):
