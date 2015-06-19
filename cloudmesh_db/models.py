@@ -280,26 +280,42 @@ class CloudmeshDatabase(object):
         else:
             raise Exception("get filter not yet implemented")
 
+
+    def _convert_to_lists(self, **kwargs):
+        args = {}
+        for k in kwargs:
+            arg = kwargs[k]
+            print (arg, type(arg))
+            if isinstance(arg, str):
+                arg = [arg]
+            args[k] = arg
+        return args
+
     def flavors(self, clouds=None, cm_user=None):
         '''
         returns all the flavors from the various clouds
         '''
-        if clouds is None and cm_user is None:
-            return self.get(FLAVOR)
-        else:
-            raise Exception("get filter not yet implemented")
+        arg = self._convert_to_lists(clouds=clouds, cm_user=cm_user)
+        print (arg)
+
+        for cloud in arg['clouds']:
+            print ("Fetch data from cloud", cloud)
+            d = self.get_by_filter(FLAVOR, cloud=cloud) # , cm_user=cm_user)
+            print (d)
+
 
     def images(self, clouds=None, cm_user=None):
         '''
         returns all the images from various clouds
         '''
         if clouds is None and cm_user is None:
-            return self.get(IMAGE)
+            return self.get(IMAGE).all()
         else:
-            raise Exception("get filter not yet implemented")
+            # TODO DOES NOT WORK FOR MULTIPLE CLOUDS
+            return self.get_by_filter(self, IMAGE, clouds=clouds, cm_user=cm_user)
 
-    def get_by_filter(self, **kwargs):
-        self.session.query(table).filter_by(kwargs).all()
+    def get_by_filter(self, table, **kwargs):
+        return self.session.query(table).filter_by(kwargs).all()
 
     def get(self, table):
         return self.dict(table)
