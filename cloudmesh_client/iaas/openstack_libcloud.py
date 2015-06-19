@@ -48,28 +48,6 @@ class Insert(object):
         """
         cls._data(cloudmesh_client.db.models.FLAVOR, cloud, user, group, d)
 
-        # f.uuid =
-        # f.cm_user =
-        # f.cloud =
-        # f.group =
-
-        # id = Column(Integer, primary_key=True)
-        # name = Column(String)
-        # label = Column(String)
-        # group = Column(String)
-        # cm_uuid = Column(String)
-        # cloud = Column(String)
-        # cm_user = Column(String)
-        # cm_update = Column(String)
-        # uuid = Column(String)
-        # bandwidth = Column(String)
-        # update = Column(String)
-        # disk = Column(String)
-        # extra = Column(String)
-        # internal_id = Column(String)
-        # price = Column(String)
-        # ram = Column(String)
-        # vcpus = Column(String)
 
     @classmethod
     def image(cls, cloud, user, group, d):
