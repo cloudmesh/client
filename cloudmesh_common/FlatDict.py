@@ -1,12 +1,19 @@
 from __future__ import print_function
 from pprint import pprint
 
-# http://stackoverflow.com/questions/6027558/flatten-nested-python-dictionaries-compressing-keys
-
 import collections
 
 
-def key_prefix_replace(d, prefix, new_prefix):
+def key_prefix_replace(d, prefix, new_prefix=""):
+    """
+    replaces the list of prefix in keys of a flattened dict
+
+    :param d: the flattened dict
+    :param prefix: a list of prefixes that are replaced with a new prefix. Typically this will be ""
+    :type prefix: list of str
+    :param new_prefix: The new prefix. By defualt it is set to ""
+    :return: the dict with the keys replaced as specified
+    """
     items = []
     for k, v in d.items():
         new_key = k
@@ -17,6 +24,15 @@ def key_prefix_replace(d, prefix, new_prefix):
 
 
 def flatten(d, parent_key='', sep='__'):
+    """
+    flattens the dict into a one dimensional dictionary
+
+    :param d: multidimensional dict
+    :param parent_key: replaces from the parent key
+    :param sep: the separation character used when falttening. the defaul is __
+    :return: the flattened dict
+    """
+    # http://stackoverflow.com/questions/6027558/flatten-nested-python-dictionaries-compressing-keys
     items = []
     for k, v in d.items():
         new_key = parent_key + sep + k if parent_key else k
@@ -28,6 +44,11 @@ def flatten(d, parent_key='', sep='__'):
 
 
 class FlatDict(dict):
+    """
+    A data structure to manage a flattened dict. It is initialized by passing the dict
+    at time of initialization.
+    """
+
     @property
     def dict(self):
         return self.__dict__
@@ -79,11 +100,27 @@ class FlatDict(dict):
 
 
 def flatten_libcloud_image(d):
+    """
+    flattens the data from a single image returned with libcloud.
+
+    :param d: the data for that image
+    :type d: dict
+    :return: the flattened dict
+    :rtype: dict
+    """
     n = key_prefix_replace(flatten(d), ["extra__metadata__", "extra__"], "")
     return n
 
 
 def flatten_libcloud_vm(d):
+    """
+    flattens the data from a single vm returned by libloud
+
+    :param d: the data for that vm
+    :type d: dict
+    :return: the flattened dict
+    :rtype: dict
+    """
     n = key_prefix_replace(flatten(d), ["extra__"], "")
     return n
 
@@ -148,7 +185,6 @@ def main():
         'state': 3
     }
 
-
     pprint(d)
     pprint(flatten(d))
 
@@ -169,6 +205,7 @@ def main():
     pprint(flatten(vm))
 
     pprint(flatten_libcloud_vm(vm))
+
 
 if __name__ == "__main__":
     main()
