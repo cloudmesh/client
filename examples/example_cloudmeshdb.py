@@ -1,5 +1,5 @@
 from cloudmesh_client import cloudmesh_db
-from cloudmesh_client.cloudmesh_common import dict_printer
+from cloudmesh_client.common import dict_printer
 from pprint import pprint
 import getpass
 

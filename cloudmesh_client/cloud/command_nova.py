@@ -1,7 +1,7 @@
 from __future__ import print_function
 from cmd3.console import Console
-from cloudmesh_client.cloudmesh_common import ConfigDict
-from cloudmesh_client.cloudmesh_common import Config
+from cloudmesh_client.common import ConfigDict
+from cloudmesh_client.common import Config
 import os
 
 

@@ -4,13 +4,13 @@ from libcloud.compute.providers import get_driver
 import libcloud.security
 import datetime
 from cloudmesh_client import cloudmesh_db
-from cloudmesh_client.cloudmesh_common import ConfigDict
-from cloudmesh_client.cloudmesh_common import Config
+from cloudmesh_client.common import ConfigDict
+from cloudmesh_client.common import Config
 from time import sleep
 from pprint import pprint
 
-from cloudmesh_client.cloudmesh_common import key_prefix_replace, flatten
-import cloudmesh_client.cloudmesh_db.models
+from cloudmesh_client.common import key_prefix_replace, flatten
+import cloudmesh_client.db.models
 
 class Insert(object):
 
