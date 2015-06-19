@@ -49,7 +49,6 @@ class Test_cloudmeshdb:
         print ("Add vms ...")
         cm.add(vms)
         print ("Save vms ...")
-
         cm.save()
 
         found1 = 0
@@ -155,7 +154,6 @@ class Test_cloudmeshdb:
     def test_008_flatten(self):
         HEADING()
         cm = self.cm
-
 
 """
 pprint(cm.dict(cloudmesh_db.VM))
