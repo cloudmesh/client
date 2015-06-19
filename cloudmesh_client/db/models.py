@@ -43,10 +43,41 @@ class IMAGE(Base):
     name = Column(String)
     label = Column(String)
     group = Column(String)
-    cm_uuid = Column(String)
     cloud = Column(String)
+    cm_cloud = Column(String)
+    cm_update = Column(String)
+    cm_uuid = Column(String)
     cm_user = Column(String)
     cloud_uuid = Column(String)
+    created = Column(String)
+    base_image_ref = Column(String)
+    description = Column(String)
+    image_location = Column(String)
+    image_state = Column(String)
+    image_type = Column(String)
+    instance_type_ephemeral_gb = Column(String)
+    instance_type_flavorid = Column(String)
+    instance_type_id = Column(String)
+    instance_type_memory_mb = Column(String)
+    instance_type_name = Column(String)
+    instance_type_root_gb = Column(String)
+    instance_type_rxtx_factor = Column(String)
+    instance_type_swap = Column(String)
+    instance_type_vcpus = Column(String)
+    instance_uuid = Column(String)
+    kernel_id = Column(String)
+    network_allocated = Column(String)
+    owner_id = Column(String)
+    ramdisk_id = Column(String)
+    user_id = Column(String)
+    minDisk = Column(String)
+    minRam = Column(String)
+    progress = Column(String)
+    serverId = Column(String)
+    status = Column(String)
+    updated = Column(String)
+    # id = Column(String)
+    # name = Column(String)
 
     def __init__(self,
                  name,
@@ -65,7 +96,7 @@ class IMAGE(Base):
         else:
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
-        
+
 class FLAVOR(Base):
     __tablename__ = 'flavor'
     id = Column(Integer, primary_key=True)

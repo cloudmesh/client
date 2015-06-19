@@ -27,14 +27,24 @@ class Insert(object):
 
         :type d: dict
         """
+        print ("_data", str(table), cloud, user, group)
+        pprint (d)
         f = table(d["name"])
+        print ("A0")
         f = cls.merge_dict(f, d)
+        print ("A1")
         f.cm_cloud = str(cloud)
+        print ("A2")
         f.cm_user = user
+        print ("A3")
         f.group = group
+        print ("A4")
         cm = cloudmesh_client.db.CloudmeshDatabase(cm_user="gregor")
+        print ("A5")
         cm.add([f])
+        print ("A6")
         cm.save()
+        print("A7")
 
     @classmethod
     def flavor(cls, cloud, user, group, d):
@@ -43,8 +53,6 @@ class Insert(object):
         :type d: dict
         """
         cls._data(cloudmesh_client.db.models.FLAVOR, cloud, user, group, d)
-
-
 
         # f.uuid =
         # f.cm_user =
