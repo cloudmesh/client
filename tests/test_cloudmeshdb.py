@@ -11,6 +11,7 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from  cloudmesh_client.db import FLAVOR, VM, DEFAULT, IMAGE
 from pprint import pprint
+import cloudmesh_client
 
 class Test_cloudmeshdb:
     def setup(self):
@@ -140,7 +141,7 @@ class Test_cloudmeshdb:
 
 
         #cm.update("vm", "india")
-        #cm.update("images", "india")
+        cm.update("images", "india")
 
 
 

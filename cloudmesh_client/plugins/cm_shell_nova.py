@@ -6,7 +6,7 @@ from cmd3.console import Console
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.tables import row_table
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.cloud import command_nova
+from cloudmesh_client.cloud.command_nova import command_nova
 from pprint import pprint
 import warnings
 import urllib3
