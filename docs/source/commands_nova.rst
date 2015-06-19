@@ -1,6 +1,49 @@
 Command Ideas
 =======================================================================
 
+This section includes some new ideas from cm commands.
+
+
+Register
+--------
+
+Register futuresystems india cloud which includes openrc and cert::
+
+  cm register india
+
+The next command copies the CERT to the ~/.cloudmesh/clouds/CLOUD directory and
+registers that cert in the coudmeh.yaml file::
+
+   cm register CLOUD CERT
+
+Finding the CACERT can be facilitated also while  looking at the
+actual values copied. If we find a file specified, in the cert
+variable for that cloud, the file is also fetched. The location will
+be reset to be where we copy the cert e.g. ~/.cloudmesh/clouds/CLOUD.
+
+In some cases we need more than a  single file and an entire directory
+needs to be copied. For this we have the command::
+
+  cm register CLOUD DIR
+
+where DIR specifies the directory that need to be fetched.
+
+
+Test after Registration
+------------------------
+
+To test if a cloud is properly registered and is functioning a test
+can be performed::
+
+  cm test cloud CLOUD
+
+To test the ssh connection to a machine we can use::
+
+  cm test ssh HOST
+
+The host is specified in the .ssh/config file. The username and
+hostname can be overwritten with user@host
+
 
 List
 ----
