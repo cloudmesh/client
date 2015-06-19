@@ -17,7 +17,10 @@ class Insert(object):
     @classmethod
     def merge_dict(cls, element, d):
         for key, value in d.iteritems():
-            setattr(element, key, value)
+            if key == "id":
+                setattr(element, "cm_id", value)
+            else:
+                setattr(element, key, value)
         print ("CCCC", element.__dict__)
         return element
 

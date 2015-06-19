@@ -31,6 +31,7 @@ Base = declarative_base(bind=engine)
 class DEFAULT(Base):
     __tablename__ = 'default'
     id = Column(Integer, primary_key=True)
+    cm_id = Column(String)
     name = Column(String)
     value = Column(String)
     user = Column(String)
@@ -40,6 +41,7 @@ class DEFAULT(Base):
 class IMAGE(Base):
     __tablename__ = 'image'
     id = Column(Integer, primary_key=True)
+    cm_id = Column(String)
     name = Column(String)
     label = Column(String)
     group = Column(String)
@@ -100,6 +102,7 @@ class IMAGE(Base):
 class FLAVOR(Base):
     __tablename__ = 'flavor'
     id = Column(Integer, primary_key=True)
+    cm_id = Column(String)
     name = Column(String)
     label = Column(String)
     group = Column(String)
@@ -140,6 +143,7 @@ class FLAVOR(Base):
 class VM(Base):
     __tablename__ = 'vm'
     id = Column(Integer, primary_key=True)
+    cm_id = Column(String)
     name = Column(String)
     label = Column(String)
     group = Column(String)
