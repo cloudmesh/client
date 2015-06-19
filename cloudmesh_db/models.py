@@ -271,16 +271,6 @@ class CloudmeshDatabase(object):
     def data(self):
         return self.session
 
-    def servers(self, clouds=None, cm_user=None):
-        '''
-        returns all the servers from all clouds
-        '''
-        if clouds is None and cm_user is None:
-            return self.get(VM)
-        else:
-            raise Exception("get filter not yet implemented")
-
-
     def _convert_to_lists(self, **kwargs):
         args = {}
         for k in kwargs:
@@ -291,27 +281,37 @@ class CloudmeshDatabase(object):
             args[k] = arg
         return args
 
-    def flavors(self, clouds=None, cm_user=None):
+    def _find_obj_from_clouds(self, table, clouds=None, cm_user=None):
         '''
-        returns all the flavors from the various clouds
+        returns all the servers from all clouds
         '''
         arg = self._convert_to_lists(clouds=clouds, cm_user=cm_user)
         print (arg)
         result = {}
         for cloud in arg['clouds']:
-            d = self.session.query(FLAVOR).all()
+            d = self.session.query(table).all()
             result[cloud] = self.object_to_dict(d)
         return dict(result)
+
+    def servers(self, clouds=None, cm_user=None):
+        '''
+        returns all the servers from all clouds
+        '''
+        return self._find_obj_from_clouds(VM, clouds=clouds, cm_user=cm_user)
+
+
+    def flavors(self, clouds=None, cm_user=None):
+        '''
+        returns all the flavors from the various clouds
+        '''
+        return self._find_obj_from_clouds(FLAVOR, clouds=clouds, cm_user=cm_user)
 
     def images(self, clouds=None, cm_user=None):
         '''
         returns all the images from various clouds
         '''
-        if clouds is None and cm_user is None:
-            return self.get(IMAGE).all()
-        else:
-            # TODO DOES NOT WORK FOR MULTIPLE CLOUDS
-            return self.get_by_filter(self, IMAGE, clouds=clouds, cm_user=cm_user)
+        return self._find_obj_from_clouds(IMAGE, clouds=clouds, cm_user=cm_user)
+
 
     def get_by_filter(self, table, **kwargs):
         print ("ZZZZ", kwargs)
@@ -322,7 +322,6 @@ class CloudmeshDatabase(object):
 
     def get(self, table):
         return self.dict(table)
-
 
     def object_to_dict(self, obj):
         result = dict()
