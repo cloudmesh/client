@@ -304,6 +304,22 @@ class CloudmeshDatabase(object):
     def get(self, table):
         return self.dict(table)
 
+
+    def dict(self, table):
+        result = dict()
+        for u in self.session.query(table).all():
+            _id = u.id
+            values = {}
+            for key in u.__dict__.keys():
+                if not key.startswith("_sa"):
+                    values[key] = u.__dict__[key]
+            result[_id] = values
+        return result
+
+    def json(self, table):
+        d = self.dict(table)
+        return json.dumps(d)
+
     def update(self, kind, cloud):
         """
         GREGOR WORKS ON THIS        

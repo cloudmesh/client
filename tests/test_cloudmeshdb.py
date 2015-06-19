@@ -132,7 +132,7 @@ class Test_cloudmeshdb:
         #cm.update("vm", "india")
         #cm.update("images", "india")
         cm.update("flavor", "india")
-        d = cm.dict(FLAVOR)
+        d = cm.get(FLAVOR)
         print("9999")
         pprint(d)
 
