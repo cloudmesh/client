@@ -19,10 +19,6 @@ pprint(cloudcred)
 driver = cls(subscription_id=cloudcred['subscriptionid'],
              key_file=cloudcred['managementcertfile'])
 
-# list VMs
-nodes = driver.list_nodes()
-print nodes
-
 # obtain available images
 images = driver.list_images()
 # print images
@@ -42,21 +38,24 @@ image = [i for i in images if i.id == myimage][0]
 # Username is not available in azure
 # Probably need to use 'uid' from Profile?
 name = "{:}-libcloud".format("aws")
-
+# Cloud Service is required prior to start a VM
+cloudname = name
+# Return type:  bool
+boolean = driver.ex_create_cloud_service(cloudname, clouddefault['location'])
+# Wait 10 seconds until Cloud Service is ready
+sleep(10)
 node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
-nodes = driver.list_nodes()
+nodes = driver.list_nodes(cloudname)
 print nodes
 
-# wait the node to be ready before assigning public IP
-sleep(10)
+for node in nodes:
+    for public_ip in node.public_ips:
+        print node.name +  ": " + public_ip
 
-# public IPs
-# get the first pool - public by default
-
-# create an ip in the pool
-
-# check updated VMs list to see if public ip is assigned
-nodes = driver.list_nodes()
-print nodes
+# Return type:  bool
+# Terminate VM
+boolean = driver.destroy_node(node, cloudname)
+# Delete Cloud Service
+boolean = ex_destroy_cloud_service(cloudname)
