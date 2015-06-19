@@ -58,9 +58,10 @@ class command_cloud(object):
         lines = result.split("\n")
         config = ConfigDict("cloudmesh.yaml")
         for line in lines:
-            line = line.replace("export ", "")
-            key, value = line.split("=", 1)
-            config["cloudmesh"]["clouds"][host]["credentials"][key] = value
+            if line.strip().startswith("export"):
+                line = line.replace("export ", "")
+                key, value = line.split("=", 1)
+                config["cloudmesh"]["clouds"][host]["credentials"][key] = value
         config.save()
 
     @classmethod
