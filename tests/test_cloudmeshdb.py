@@ -9,8 +9,8 @@ nosetests -v
 """
 from __future__ import print_function
 from cloudmesh_base.util import HEADING
-import cloudmesh_db
-from cloudmesh_db.models import VM, DEFAULT, FLAVOR
+from cloudmesh_client import cloudmesh_db
+from cloudmesh_client.cloudmesh_db.models import VM, DEFAULT, FLAVOR
 from pprint import pprint
 
 class Test_cloudmeshdb:
