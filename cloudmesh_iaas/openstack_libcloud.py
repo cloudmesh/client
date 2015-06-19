@@ -7,6 +7,7 @@ from cloudmesh_common.ConfigDict import ConfigDict
 from cloudmesh_common.ConfigDict import Config
 from time import sleep
 from pprint import pprint
+
 from cloudmesh_common.FlatDict import key_prefix_replace, flatten
 import cloudmesh_db.models
 
@@ -64,6 +65,7 @@ class OpenStack_libcloud(object):
     def __init__(self, cloudname, cm_user=None):
         self.cloudname = cloudname
         self.user = cm_user
+
         OpenStack = get_driver(Provider.OPENSTACK)
         self.credential = \
             ConfigDict("cloudmesh.yaml")['cloudmesh']['clouds'][cloudname]['credentials']

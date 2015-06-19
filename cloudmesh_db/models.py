@@ -87,6 +87,7 @@ class FLAVOR(Base):
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
 
+
 class VM(Base):
     __tablename__ = 'vm'
     id = Column(Integer, primary_key=True)
@@ -112,6 +113,7 @@ class VM(Base):
                  group='default',
                  cloud='india',
                  cm_user=None):
+
 
         self.name = name
         self.label = label
@@ -302,25 +304,9 @@ class CloudmeshDatabase(object):
     def get(self, table):
         return self.dict(table)
 
-    def dict(self, table):
-        result = dict()
-        for u in self.session.query(table).all():
-            _id = u.id
-            values = {}
-            for key in u.__dict__.keys():
-                if not key.startswith("_sa"):
-                    values[key] = u.__dict__[key]
-            result[_id] = values
-        return result
-
-    def json(self, table):
-        d = self.dict(table)
-        return json.dumps(d)
-
     def update(self, kind, cloud):
         """
-        GREGOR WORKS ON THIS
-        
+        GREGOR WORKS ON THIS        
         updates the data in the database
 
         :param kind: vm, image, flavor

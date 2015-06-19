@@ -49,6 +49,7 @@ class Test_cloudmeshdb:
         print ("Add vms ...")
         cm.add(vms)
         print ("Save vms ...")
+
         cm.save()
 
         found1 = 0
@@ -147,6 +148,7 @@ class Test_cloudmeshdb:
         flavor = "m1.tiny"
         key = "~/.ssh/id_rsa.pub"
         meta = None
+
         ## r = cm.boot(cloud, cm_user, name, image, flavor, key, meta)
         # pprint (r)
 
