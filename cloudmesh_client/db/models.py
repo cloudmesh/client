@@ -438,7 +438,6 @@ class CloudmeshDatabase(object):
     def get_flavor(self, cloud, name):
         cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
         f = cloud.get_flavor(name, kind='libcloud')
-        print ("XXXX", f)
 
     def info(self, kind, name):
         """
