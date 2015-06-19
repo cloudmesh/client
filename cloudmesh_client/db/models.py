@@ -48,6 +48,24 @@ class IMAGE(Base):
     cm_user = Column(String)
     cloud_uuid = Column(String)
 
+    def __init__(self,
+                 name,
+                 label=None,
+                 group='default',
+                 cloud='india',
+                 cm_user=None):
+
+        self.name = name
+        self.label = label
+
+        if label is None:
+            self.label = name
+        if cm_user is None:
+            self.cm_user = getpass.getuser()
+        else:
+            self.cm_user = cm_user
+        self.cm_uuid = str(uuid.uuid4())
+        
 class FLAVOR(Base):
     __tablename__ = 'flavor'
     id = Column(Integer, primary_key=True)
