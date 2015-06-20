@@ -180,7 +180,9 @@ class Test_cloudmeshdb:
 
         from cloudmesh_base.hostlist import Parameter
         parameter = "india[01-03]"
-        print (Parameter.expand(parameter))
+        result = Parameter.expand(parameter)
+        print (result)
+        assert str(result) == "['india01', 'india02', 'india03']"
 
 
 
