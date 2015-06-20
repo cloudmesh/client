@@ -4,6 +4,7 @@ class CloudProviderBase (object):
         return {}
 
     def delete(self, names):
+        pass
 
     def images(self, clouds, query):
         return {}
@@ -16,4 +17,3 @@ class CloudProviderBase (object):
 
     def update(self, clouds, kind):
         pass
-

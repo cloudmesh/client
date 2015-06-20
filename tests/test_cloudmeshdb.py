@@ -13,6 +13,7 @@ from  cloudmesh_client.db import FLAVOR, VM, DEFAULT, IMAGE
 from pprint import pprint
 import cloudmesh_client
 
+
 class Test_cloudmeshdb:
     def setup(self):
         self.cm = cloudmesh_client.db.CloudmeshDatabase(cm_user="gregor")
@@ -163,6 +164,28 @@ class Test_cloudmeshdb:
     def test_008_flatten(self):
         HEADING()
         cm = self.cm
+
+    def test_009_add(self):
+        HEADING()
+        cm = self.cm
+
+        vm1 = VM('gregor1')
+        d = {"invalid":"noting",
+             "label": "mylabel"}
+
+
+
+    def test_009_paramater(self):
+        HEADING()
+
+        from cloudmesh_base.hostlist import Parameter
+        parameter = "india[01-03]"
+        print (Parameter.expand(parameter))
+
+
+
+
+
 
 """
 pprint(cm.dict(cloudmesh_db.VM))

@@ -98,7 +98,6 @@ class FlatDict(dict):
         return self.get(attr)
 
 
-
 def main():
     d = {
         'cm_cloud': 'india',
@@ -174,11 +173,11 @@ def main():
     f.cm_user = 'GREGOR'
     print(f.cm_user)
 
-    #pprint(OpenStack_libcloud.flatten_image(d))
+    # pprint(OpenStack_libcloud.flatten_image(d))
 
-    #pprint(flatten(vm))
+    # pprint(flatten(vm))
 
-    #pprint(OpenStack_libcloud.flatten_vm(vm))
+    # pprint(OpenStack_libcloud.flatten_vm(vm))
 
 
 if __name__ == "__main__":

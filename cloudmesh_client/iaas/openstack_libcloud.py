@@ -12,15 +12,39 @@ from pprint import pprint
 from cloudmesh_client.common.FlatDict import key_prefix_replace, flatten
 import cloudmesh_client.db.models
 
+
 class Insert(object):
+    @classmethod
+    def undefined_keys(cls, element, d):
+        """
+        checks if in d are keys that are not in the database table element
+        returns first a list with the defined and than a list with the undefined keys
+
+        :param element: an instantiation of a datbase table elmenet
+        :param d: teh dict
+        :return: list, list
+        """
+        defined = []
+        undefined = []
+        for key, value in d.iteritems():
+            if hasattr(element, key):
+                defined.append(key)
+            else:
+                undefined.append(key)
+        return defined, undefined
 
     @classmethod
     def merge_dict(cls, element, d):
         for key, value in d.iteritems():
-            if key == "id":
-                setattr(element, "cm_id", value)
+            if hasattr(element, key):
+
+                if key == "id":
+                    setattr(element, "cm_id", value)
+                else:
+                    setattr(element, key, value)
             else:
-                setattr(element, key, value)
+                print("Warnnig: dict has d[{:}]: {:}, but key is not in the table {:}. Ignoring key"
+                      .format(key, d[key], type(element).__name__))
         return element
 
     @classmethod
@@ -29,8 +53,8 @@ class Insert(object):
 
         :type d: dict
         """
-        print ("_data", str(table), cloud, user, group)
-        pprint (d)
+        print("_data", str(table), cloud, user, group)
+        pprint(d)
         f = table(d["name"])
         f = cls.merge_dict(f, d)
         f.cm_cloud = str(cloud)
@@ -47,7 +71,6 @@ class Insert(object):
         :type d: dict
         """
         cls._data(cloudmesh_client.db.models.FLAVOR, cloud, user, group, d)
-
 
     @classmethod
     def image(cls, cloud, user, group, d):
@@ -67,7 +90,6 @@ class Insert(object):
 
 
 class OpenStack_libcloud(object):
-
     def __init__(self, cloudname, cm_user=None):
         self.cloudname = cloudname
         self.user = cm_user

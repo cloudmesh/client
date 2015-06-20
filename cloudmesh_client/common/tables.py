@@ -7,7 +7,7 @@ from datetime import datetime
 from datetime import timedelta
 import json
 import yaml
-import hostlist
+import cloudmesh_base.hostlist
 
 from cloudmesh_base.util import convert_from_unicode
 
