@@ -1,6 +1,16 @@
 Command Ideas
 =======================================================================
 
+Summary of commands::
+
+  cm register india
+  cm register CLOUD CERT
+  cm register CLOUD DIR
+  cm test cloud CLOUD
+  cm test ssh HOST
+  cm nova list inactive
+  cm nova list dasilva* 
+  
 This section includes some new ideas from cm commands.
 
 
@@ -58,7 +68,33 @@ sequence of characters. After the virtual machine name, a '*' can be
 used as a regular expression. The following command lists all the
 Virtual machines that has dasilva as their prefix. ::
 
- 	cm nova list dasilva* 
+ 	cm nova list dasilva-*
+	cm nova list dasilva-[001-008]
+	cm nova list dasilva-[001-008,010]
+
+The convenient specification to set multiple matches i applied
+to all other commands and parameters where possible.
+
+Q: is [01-02] the same as "01,02" or does it need to be
+"[01-02]". Looks like from documentation it works without []
+
+We need an extensive manual on this derived from hostlist
+https://www.nsc.liu.se/~kent/python-hostlist/
+but much better. Section will be called *Parameter Expansion*.
+
+Hostlist is pip installable and listed at
+https://pypi.python.org/pypi/python-hostlist/1.14
+
+We may declare its own type nad use that in :type paramter: MultiStr.
+This type would than internally use hostlist. The reason why we do not
+want the name hostlist is that we use this not only with hosts.
+
+.. note: not yet sure about the name MultiStr
+
+
+
+
+
 
 Delete
 ------
