@@ -3,11 +3,11 @@ Command Ideas
 
 Summary of commands::
 
-  cm register india
-  cm register CLOUD CERT
-  cm register CLOUD DIR
-  cm test cloud CLOUD
-  cm test ssh HOST
+  [daniel] cm register india
+  [daniel] cm register CLOUD CERT
+  [daniel] cm register CLOUD DIR
+  [daniel] cm test cloud CLOUD
+  [daniel] cm test ssh HOST
   cm nova list inactive
   cm nova list dasilva* 
   
