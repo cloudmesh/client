@@ -102,6 +102,7 @@ class ConfigDict(object):
         :return: an instance of ConfigDict
         :rtype: ConfigDict
         """
+        self.data = None
         if load_order is None:
             self.load_order = [".", "~/.cloudmesh"]
         else:

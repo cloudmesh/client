@@ -124,7 +124,6 @@ class FLAVOR(db_Base):
     vcpus = Column(String)
     # extra = Column(String)
 
-
     def __init__(self,
                  name,
                  label=None,
@@ -239,6 +238,7 @@ class CloudmeshDatabase(object):
         self.save()
 
     def get_kind_from_str(self, str):
+        t = None
         if str == "VM":
             t = VM
         elif str == "DEFAULT":
@@ -247,12 +247,10 @@ class CloudmeshDatabase(object):
             t = IMAGE
         elif str == "FLAVOR":
             t = FLAVOR
-        else:
-            None
         return t
 
     def delete_all(self, kind=None):
-        if kind == None:
+        if kind is None:
             clean = ["VM", "DEFAULT"]
             self.delete_all(clean)
         elif isinstance(kind, str):
@@ -336,9 +334,9 @@ class CloudmeshDatabase(object):
         return args
 
     def _find_obj_from_clouds(self, table, clouds=None, cm_user=None):
-        '''
+        """
         returns all the servers from all clouds
-        '''
+        """
         arg = self._convert_to_lists(clouds=clouds, cm_user=cm_user)
         print(arg)
         result = {}
@@ -348,21 +346,21 @@ class CloudmeshDatabase(object):
         return dict(result)
 
     def servers(self, clouds=None, cm_user=None):
-        '''
+        """
         returns all the servers from all clouds
-        '''
+        """
         return self._find_obj_from_clouds(VM, clouds=clouds, cm_user=cm_user)
 
     def flavors(self, clouds=None, cm_user=None):
-        '''
+        """
         returns all the flavors from the various clouds
-        '''
+        """
         return self._find_obj_from_clouds(FLAVOR, clouds=clouds, cm_user=cm_user)
 
     def images(self, clouds=None, cm_user=None):
-        '''
+        """
         returns all the images from various clouds
-        '''
+        """
         return self._find_obj_from_clouds(IMAGE, clouds=clouds, cm_user=cm_user)
 
     def get_by_filter(self, table, **kwargs):

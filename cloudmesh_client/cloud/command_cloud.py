@@ -134,6 +134,7 @@ class command_cloud(object):
         profile = config["cloudmesh"]["profile"]
         keys = profile.keys()
         # get input that works in python 2 and 3
+        input = None
         try:
             input = raw_input
         except NameError:

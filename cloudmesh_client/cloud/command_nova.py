@@ -20,6 +20,7 @@ class command_nova(object):
         except Exception, e:
             print(e)
 
+    # noinspection PyPep8Naming
     @classmethod
     def remove_subjectAltName_warning(cls, content):
         result = []

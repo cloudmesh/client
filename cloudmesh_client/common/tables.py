@@ -97,9 +97,9 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True):
     def _keys():
         return d[first_element].keys()
 
-    def _get(element, key):
+    def _get(item, key):
         try:
-            tmp = str(d[element][key])
+            tmp = str(d[item][key])
         except:
             tmp = ' '
         return tmp

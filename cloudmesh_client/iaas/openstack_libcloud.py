@@ -91,6 +91,10 @@ class Insert(object):
 
 class OpenStack_libcloud(object):
     def __init__(self, cloudname, cm_user=None):
+        self.nodes = None
+        self.flavors = None
+        self.data = None
+        self.images = None
         self.cloudname = cloudname
         self.user = cm_user
 
