@@ -12,6 +12,96 @@ from pprint import pprint
 from cloudmesh_client.common.FlatDict import key_prefix_replace, flatten
 import cloudmesh_client.db.models
 
+mapping_yaml = """
+    vm:
+        tbd: tbd
+    image:    
+        base_image_ref: base_image_ref
+        cm_cloud: cm_cloud
+        cm_update: cm_update
+        cm_user: cm_user
+        created: created
+        description: description
+        cloud_id: id
+        image_location: image_location
+        image_state: image_state
+        image_type: image_type
+        instance_type_ephemeral_gb: instance_type_ephemeral_gb
+        instance_type_flavorid: instance_type_flavorid
+        instance_type_id: instance_type_id
+        instance_type_memory_mb: instance_type_memory_mb
+        instance_type_name: instance_type_name
+        instance_type_root_gb: instance_type_root_gb
+        instance_type_rxtx_factor: instance_type_rxtx_factor
+        instance_type_swap: instance_type_swap
+        instance_type_vcpus: instance_type_vcpus
+        instance_uuid: instance_uuid
+        kernel_id: kernel_id
+        minDisk: minDisk
+        minRam: minRam
+        name: name
+        network_allocated: network_allocated
+        owner_id: owner_id
+        progress: progress
+        ramdisk_id: ramdisk_id
+        serverId: serverId
+        status: status
+        updated: updated
+        user_id: user_id
+    flavor:
+        bandwidth: bandwidth
+        cloud: cloud
+        cm_id: cm_id
+        cm_update: cm_update
+        cm_user: cm_user
+        cm_uuid: cm_uuid
+        disk: disk
+        ephemeral_disk: ephemeral_disk
+        extra: extra
+        group: group
+        cloud_id: id
+        internal_id: internal_id
+        label: label
+        name: name
+        price: price
+        ram: ram
+        update: update
+        uuid: uuid
+        vcpus: vcpus
+        swap: swap
+    vm:
+       access_ip: access_ip
+       access_ipv6: access_ipv6
+       availability_zone: availability_zone
+       cm_cloud: cm_cloud
+       cm_update: cm_update
+       cm_user: cm_user
+       config_drive: config_drive
+       created: created
+       disk_config: disk_config
+       flavorId: flavorId
+       hostId: hostId
+       cloud_id: id
+       image: image
+       imageId: imageId
+       key_name: key_name
+       name: name
+       password: password
+       power_state: power_state
+       private_ips: private_ips
+       progress: progress
+       public_ips: public_ips
+       size: size
+       state: state
+       task_state: task_state
+       tenantId: tenantId
+       updated: updated
+       uri: uri
+       userId: userId
+       vm_state: vm_state
+       volumes_attached: volumes_attached
+      """
+
 
 class Insert(object):
     @classmethod
@@ -20,7 +110,7 @@ class Insert(object):
         checks if in d are keys that are not in the database table element
         returns first a list with the defined and than a list with the undefined keys
 
-        :param element: an instantiation of a datbase table elmenet
+        :param element: an instantiation of a database table element
         :param d: teh dict
         :return: list, list
         """
@@ -34,17 +124,20 @@ class Insert(object):
         return defined, undefined
 
     @classmethod
-    def merge_dict(cls, element, d):
-        for key, value in d.iteritems():
-            if hasattr(element, key):
+    def merge_dict(cls, element, d, mapping=None):
+        if mapping == None:
+            for key, value in d.iteritems():
+                if hasattr(element, key):
 
-                if key == "id":
-                    setattr(element, "cm_id", value)
+                    if key == "id":
+                        setattr(element, "cm_id", value)
+                    else:
+                        setattr(element, key, value)
                 else:
-                    setattr(element, key, value)
-            else:
-                print("Warnnig: dict has d[{:}]: {:}, but key is not in the table {:}. Ignoring key"
-                      .format(key, d[key], type(element).__name__))
+                    print("Warnnig: dict has d[{:}]: {:}, but key is not in the table {:}. Ignoring key"
+                          .format(key, d[key], type(element).__name__))
+        elif mapping:
+            print("not yet implemented")
         return element
 
     @classmethod

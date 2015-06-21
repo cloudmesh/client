@@ -423,7 +423,6 @@ class CloudmeshDatabase(object):
 
         result = lister(kind="flat")
         for element in result:
-            result[element]["gregor"] = 'xyz'
             r = inserter("india", self.cm_user, group, result[element])
 
         self.save()
