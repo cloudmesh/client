@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from cloudmesh_base.hostlist import Parameter
+from cloudmesh_client.db.models import *
 
 class CloudType:
     openstack = "openstack"
@@ -43,9 +44,90 @@ class KeyMapper(object):
         d = yaml.load_all(stream)
         self.add_mapping_from_dict(cloudobject, d)
 
+
+class Insert(object):
+    @classmethod
+    def undefined_keys(cls, element, d):
+        """
+        checks if in d are keys that are not in the database table element
+        returns first a list with the defined and than a list with the undefined keys
+
+        :param element: an instantiation of a database table element
+        :param d: teh dict
+        :return: list, list
+        """
+        defined = []
+        undefined = []
+        for key, value in d.iteritems():
+            if hasattr(element, key):
+                defined.append(key)
+            else:
+                undefined.append(key)
+        return defined, undefined
+
+    @classmethod
+    def merge_dict(cls, element, d, mapping=None):
+        if mapping == None:
+            for key, value in d.iteritems():
+                if hasattr(element, key):
+
+                    if key == "id":
+                        setattr(element, "cm_id", value)
+                    else:
+                        setattr(element, key, value)
+                else:
+                    print("Warnnig: dict has d[{:}]: {:}, but key is not in the table {:}. Ignoring key"
+                          .format(key, d[key], type(element).__name__))
+        elif mapping:
+            print("not yet implemented")
+        return element
+
+    @classmethod
+    def _data(cls, table, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        print("_data", str(table), cloud, user, group)
+        pprint(d)
+        f = table(d["name"])
+        f = cls.merge_dict(f, d)
+        f.cm_cloud = str(cloud)
+        f.cm_user = user
+        f.group = group
+        cm = cloudmesh_client.db.CloudmeshDatabase(cm_user="gregor")
+        cm.add([f])
+        cm.save()
+
+    @classmethod
+    def flavor(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        cls._data(cloudmesh_client.db.models.FLAVOR, cloud, user, group, d)
+
+    @classmethod
+    def image(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        cls._data(cloudmesh_client.db.models.IMAGE, cloud, user, group, d)
+
+    @classmethod
+    def vm(cls, cloud, user, group, d):
+        """
+
+        :type d: dict
+        """
+        cls._data(cloudmesh_client.db.models.VM, cloud, user, group, d)
+
+
+
 class CloudProviderBase:
 
-     __metaclass__ = ABCMeta
+    __metaclass__ = ABCMeta
 
     def __init(self, mapping, user, cloudname, credentials):
         self.mapper = self.setmap(mapping)

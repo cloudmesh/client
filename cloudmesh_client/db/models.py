@@ -16,10 +16,10 @@ import sys
 from cloudmesh_client.cloud.clouds import Cloud
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud, Insert
+from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
 from cloudmesh_base.util import banner
 import cloudmesh_client.db
-
+from cloudmesh_client.iaas.CloudProviderBase import Insert
 debug = False
 
 # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
