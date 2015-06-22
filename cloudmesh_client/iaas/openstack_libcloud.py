@@ -162,6 +162,8 @@ class OpenStack_libcloud(CloudmeshProviderBase):
                 result = OpenStack_libcloud.flatten_images(result)
             elif kind == "flavor":
                 result = OpenStack_libcloud.flatten_images(result)
+        elif output == "native":
+            pass
         return result
 
     def list(self, kind, output=dict):
@@ -178,7 +180,15 @@ class OpenStack_libcloud(CloudmeshProviderBase):
             data = self.flavors = self.driver.list_sizes()
         elif kind == "image":
             data = self.images = self.driver.list_images()
-        return self._list(kind, data, output)
+
+        for element in data:
+            pprint(element.__dict__)
+
+
+        if output == "flat":
+            return self._list(kind, data, output)
+        return data
+
 
     def boot(self, cloud, user, name, image, flavor, key, meta):
         self.images = self.driver.list_images()

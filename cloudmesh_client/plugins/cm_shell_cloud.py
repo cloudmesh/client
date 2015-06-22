@@ -42,8 +42,10 @@ class cm_shell_cloud:
             print ("HELP HERE")
         else:
             cm.update(kind, "india")
-            result = cm.list(kind, output="flat")
+            # result = cm.list(kind, output="flat")
+            result = cm.list(kind, output="native")
             header = None
+            order = None
             if kind == 'flavor':
                 order = [
                          'cm_cloud',

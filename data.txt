@@ -1,0 +1,205 @@
+Openstack
+==========
+
+Openstack IMAGE
+---------------
+
+    {'_uuid': None,
+     'driver': <libcloud.compute.drivers.openstack.OpenStack_1_1_NodeDriver object at 0x104001910>,
+     'extra': {'created': '2015-03-26T18:15:47Z',
+               'metadata': {'base_image_ref': 'rrrrrr',
+                            'description': None,
+                            'image_location': 'snapshot',
+                            'image_state': 'available',
+                            'image_type': 'snapshot',
+                            'instance_type_ephemeral_gb': '0',
+                            'instance_type_flavorid': '2',
+                            'instance_type_id': '5',
+                            'instance_type_memory_mb': '2048',
+                            'instance_type_name': 'm1.small',
+                            'instance_type_root_gb': '20',
+                            'instance_type_rxtx_factor': '1.0',
+                            'instance_type_swap': '0',
+                            'instance_type_vcpus': '1',
+                            'instance_uuid': 'iiiii',
+                            'kernel_id': None,
+                            'network_allocated': 'True',
+                            'owner_id': 'oooooooo',
+                            'ramdisk_id': None,
+                            'user_id': 'uuuuu'},
+               'minDisk': 20,
+               'minRam': 0,
+               'progress': 100,
+               'serverId': 'ssssssss',
+               'status': 'ACTIVE',
+               'updated': '2015-03-26T18:17:41Z'},
+     'id': 'dddddddd',
+     'name': 'ubuntu12-cometworker1'}
+
+Openstack FLAVOR
+----------------
+
+    {'_uuid': None,
+     'bandwidth': None,
+     'disk': 160,
+     'driver': <libcloud.compute.drivers.openstack.OpenStack_1_1_NodeDriver object at 0x104001910>,
+     'ephemeral_disk': 200,
+     'extra': {},
+     'id': '9',
+     'name': 'm1.xlarge_e200',
+     'price': 0.0,
+     'ram': 16384,
+     'swap': u'',
+     'vcpus': 8}
+
+Opensatck VM
+-------------
+
+{'_uuid': None,
+ 'driver': <libcloud.compute.drivers.openstack.OpenStack_1_1_NodeDriver object at 0x105101910>,
+ 'extra': {'access_ip': u'',
+           'access_ipv6': u'',
+           'availability_zone': 'nova',
+           'config_drive': u'',
+           'created': '2015-06-05T19:02:57Z',
+           'disk_config': 'MANUAL',
+           'flavorId': '3',
+           'hostId': 'hhhhhhh',
+           'imageId': 'xxxxxxx',
+           'key_name': 'gregor-key',
+           'metadata': {'cm_owner': 'gregor'},
+           'password': None,
+           'power_state': 1,
+           'progress': 0,
+           'task_state': None,
+           'tenantId': 'ttttt',
+           'updated': '2015-06-05T19:03:05Z',
+           'uri': 'http://i5r.idp.iu.futuregrid.org/v2/xxxxxxxxxxxx',
+           'userId': 'iiiiiiii',
+           'vm_state': 'active',
+           'volumes_attached': []},
+ 'id': 'dddddddd',
+ 'image': None,
+ 'name': 'gregor_4',
+ 'private_ips': ['x.x.x.x'],
+ 'public_ips': ['y.y.y.y'],
+ 'size': None,
+ 'state': 0}
+
+
+
+AWS Image
+
+    {'_uuid': None,
+     'bandwidth': None,
+     'disk': 127,
+     'driver': <libcloud.compute.drivers.azure.AzureNodeDriver object at 0x7f4b69e32cd0>,
+     'extra': {
+        'cores': 16,
+        'max_data_disks': 32
+        },
+     'id': 'Standard_D14',
+     'name': 'D14 Faster Compute Instance',
+     'price': '1.6261',
+     'ram': 114688}
+
+AWS Size
+--------
+
+    {'_uuid': None,
+     'bandwidth': None,
+     'disk': 127,
+     'driver': <libcloud.compute.drivers.azure.AzureNodeDriver object at 0x7f4b69e32cd0>,
+     'extra': {
+        'cores': 16,
+        'max_data_disks': 32},
+     'id': 'Standard_D14',
+     'name': 'D14 Faster Compute Instance',
+     'price': '1.6261',
+     'ram': 114688}
+
+AWS Node
+--------
+
+    {'_uuid': 'uuuuuu',
+     'driver': <libcloud.compute.drivers.ec2.EC2NodeDriver object at 0x7f1f65c93cd0>,
+     'extra': {'architecture': 'x86_64',
+               'availability': 'us-east-1e',
+               'block_device_mapping': [],
+               'client_token': '',
+               'dns_name': '',
+               'ebs_optimized': 'false',
+               'groups': [
+                    {'group_id': 'sg-f1408498',
+                     'group_name': 'default'}
+                     ],
+               'hypervisor': 'xen',
+               'iam_profile': None,
+               'image_id': 'ami-d85e75b0',
+               'instance_id': 'i-1a540cb3',
+               'instance_lifecycle': None,
+               'instance_tenancy': 'default',
+               'instance_type': 't1.micro',
+               'kernel_id': 'aki-919dcaf8',
+               'key_name': None,
+               'launch_index': 0,
+               'launch_time': '2015-06-22T16:54:16.000Z',
+               'monitoring': 'disabled',
+               'network_interfaces': [],
+               'platform': None,
+               'private_dns': '',
+               'product_codes': [],
+               'ramdisk_id': None,
+               'reason': '',
+               'root_device_name': '/dev/sda1',
+               'root_device_type': 'ebs',
+               'source_dest_check': None,
+               'status': 'pending',
+               'subnet_id': None,
+               'tags': {
+                    'Name': 'hyungro-libcloud'
+                    },
+               'virtualization_type': 'paravirtual',
+               'vpc_id': None},
+     'id': 'i-1a540cb3',
+     'image': None,
+     'name': 'hyungro-libcloud',
+     'private_ips': [],
+     'public_ips': [],
+     'size': None,
+     'state': 3}
+
+Azure
+=====
+
+Azure Image
+-----------
+
+    {'_uuid': None,
+     'driver': <libcloud.compute.drivers.azure.AzureNodeDriver object at 0x7f4b69e32cd0>,
+     'extra': {'affinity_group': '',
+               'category': u'Public',
+               'description': u"Linux VM image with coreclr-x64-beta5-11624 installed to /opt/dnx. This image is based on Ubuntu 14.04 LTS, with prerequisites of CoreCLR installed. It also contains PartsUnlimited demo app which runs on the installed coreclr. The demo app is installed to /opt/demo. To run the demo, please type the command '/opt/demo/Kestrel' in a terminal window. The website is listening on port 5004. Please enable or map a endpoint of HTTP port 5004 for your azure VM.",
+               'location': u'East Asia;Southeast Asia;Australia East;Australia Southeast;Brazil South;North Europe;West Europe;Japan East;Japan West;Central US;East US;East US 2;North Central US;South Central US;West US',
+               'media_link': '',
+               'os': u'Linux',
+               'vm_image': False},
+     'id': '03f55de797f546a1b29d1b8d66be687a__CoreCLR-x64-Beta5-Linux-PartsUnlimited-Demo-App-201504.29',
+     'name': u'CoreCLR x64 Beta5 (11624) with PartsUnlimited Demo App on Ubuntu Server 14.04 LTS'}
+
+Azure Size
+----------
+
+    {'_uuid': None,
+     'bandwidth': None,
+     'disk': 127,
+     'driver': <libcloud.compute.drivers.azure.AzureNodeDriver object at 0x7f4b69e32cd0>,
+     'extra': {
+        'cores': 16,
+        'max_data_disks': 32},
+     'id': 'Standard_D14',
+     'name': 'D14 Faster Compute Instance',
+     'price': '1.6261',
+     'ram': 114688}
+
+

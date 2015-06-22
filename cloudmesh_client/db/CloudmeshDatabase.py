@@ -8,6 +8,7 @@ from sqlalchemy import inspect
 from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
 from cloudmesh_client.cloud.clouds import Cloud
 from pprint import pprint
+from cloudmesh_base.hostlist import Parameter
 
 class CloudmeshDatabase(object):
 
