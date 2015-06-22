@@ -11,12 +11,12 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from  cloudmesh_client.db import FLAVOR, VM, DEFAULT, IMAGE
 from pprint import pprint
-import cloudmesh_client
+from cloudmesh_client.db import CloudmeshDatabase, VM, FLAVOR, IMAGE, DEFAULT
 
 
 class Test_cloudmeshdb:
     def setup(self):
-        self.cm = cloudmesh_client.db.CloudmeshDatabase(cm_user="gregor")
+        self.cm = CloudmeshDatabase(cm_user="gregor")
         pass
 
     def tearDown(self):

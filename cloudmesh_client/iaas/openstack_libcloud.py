@@ -10,7 +10,6 @@ from time import sleep
 from pprint import pprint
 
 from cloudmesh_client.common.FlatDict import key_prefix_replace, flatten
-import cloudmesh_client.db.models
 
 mapping_yaml = """
     vm:
@@ -103,6 +102,7 @@ mapping_yaml = """
       """
 
 class OpenStack_libcloud(object):
+
     def __init__(self, cloudname, cm_user=None):
         self.nodes = None
         self.flavors = None
@@ -128,14 +128,14 @@ class OpenStack_libcloud(object):
             ex_force_auth_version='2.0_password',
             ex_force_service_region='regionOne')
 
-    def _list(self, nodetype, nodes, kind=dict):
+    def _list(self, nodetype, items, kind=dict):
         now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + " UTC"
         result = None
         if kind == list:
             result = []
         elif kind in [dict, "flat"]:
             result = {}
-        for node in nodes:
+        for node in items:
             values = dict(node.__dict__)
             del values["_uuid"]
             del values["driver"]

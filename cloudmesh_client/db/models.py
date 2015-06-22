@@ -1,7 +1,7 @@
 from __future__ import print_function
 from sqlalchemy import Column, Integer, Unicode, UnicodeText, String
 from sqlalchemy import create_engine
-from sqlalchemy import update
+from sqlalchemy import update, MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import inspect
@@ -16,21 +16,53 @@ import sys
 from cloudmesh_client.cloud.clouds import Cloud
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
 from cloudmesh_base.util import banner
-import cloudmesh_client.db
-from cloudmesh_client.iaas.CloudProviderBase import Insert
-debug = False
-
-# engine = create_engine('sqlite:////tmp/test.db', echo=debug)
-
-db_filename = Config.path_expand("~/.cloudmesh/cloudmesh.db")
-db_endpoint = 'sqlite:///{:}'.format(db_filename)
-db_engine = create_engine(db_endpoint)
-db_Base = declarative_base(bind=db_engine)
+# from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
 
 
-class DEFAULT(db_Base):
+class database(object):
+
+    __monostate = None
+
+    def __init__(self):
+        if not database.__monostate:
+            database.__monostate = self.__dict__
+            self.activate()
+
+        else:
+            self.__dict__ = database.__monostate
+
+    def activate(self):
+        print("INIT")
+        self.debug = False
+
+        # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
+
+        self.filename = Config.path_expand("~/.cloudmesh/cloudmesh.db")
+        self.endpoint = 'sqlite:///{:}'.format(self.filename)
+        self.engine = create_engine(self.endpoint)
+        self.Base = declarative_base(bind=self.engine)
+
+        self.meta = MetaData()
+        self.meta.reflect(bind=self.engine)
+
+    @classmethod
+    def get_table_from_name(cls, name):
+        name_lower = name.lower()
+        table = None
+        if name_lower == "vm":
+            table = VM
+        elif name_lower == "default":
+            table = DEFAULT
+        elif name_lower == "image":
+            table = IMAGE
+        elif name_lower == "flavor":
+            table = FLAVOR
+        return table
+
+db = database()
+
+class DEFAULT(db.Base):
     __tablename__ = 'default'
     id = Column(Integer, primary_key=True)
     cm_id = Column(String)
@@ -41,7 +73,7 @@ class DEFAULT(db_Base):
     cm_uuid = Column(String)
 
 
-class IMAGE(db_Base):
+class IMAGE(db.Base):
     __tablename__ = 'image'
     id = Column(Integer, primary_key=True)
     cm_id = Column(String)
@@ -103,7 +135,7 @@ class IMAGE(db_Base):
         self.cm_uuid = str(uuid.uuid4())
 
 
-class FLAVOR(db_Base):
+class FLAVOR(db.Base):
     __tablename__ = 'flavor'
     id = Column(Integer, primary_key=True)
     cm_id = Column(String)
@@ -122,6 +154,7 @@ class FLAVOR(db_Base):
     price = Column(String)
     ram = Column(String)
     vcpus = Column(String)
+    ephemeral_disk = Column(Integer)
     # extra = Column(String)
 
     def __init__(self,
@@ -143,25 +176,50 @@ class FLAVOR(db_Base):
         self.cm_uuid = str(uuid.uuid4())
 
 
-class VM(db_Base):
+class VM(db.Base):
     __tablename__ = 'vm'
     id = Column(Integer, primary_key=True)
-    cm_id = Column(String)
-    name = Column(String)
-    label = Column(String)
-    group = Column(String)
-    cm_uuid = Column(String)
+        # private_ips [10.23.1.35],
+    # public_ips [149.165.158.100],
+    #volumes_attached []
+    access_ip = Column(String)
+    access_ipv6 = Column(String)
+    availability_zone = Column(String)
     cloud = Column(String)
+    cm_cloud = Column(String)
+    cm_id = Column(String)
+    cm_update = Column(String)
     cm_user = Column(String)
-    uuid = Column(String)
-    user = Column(String)
-    meta = Column(String)
-    image = Column(String)
+    cm_uuid = Column(String)
+    config_drive = Column(String)
+    created = Column(String)
+    disk_config = Column(String)
     flavor = Column(String)
-    status = Column(String)
-    power_state = Column(String)
-    task_state = Column(String)
+    flavorId = Column(Integer)
+    group = Column(String)
+    hostId = Column(String)
+    image = Column(String)
+    imageId = Column(String)
+    key_name = Column(String)
+    label = Column(String)
+    meta = Column(String)
+    name = Column(String)
     networks = Column(String)
+    password = Column(String)
+    power_state = Column(Integer)
+    progress = Column(Integer)
+    size = Column(Integer)
+    state = Column(Integer)
+    status = Column(String)
+    task_state = Column(String)
+    tenantId = Column(String)
+    updated = Column(String)
+    uri = Column(String)
+    user = Column(String)
+    userId = Column(String)
+    uuid = Column(String)
+    vm_state = Column(String)
+
 
     def __init__(self,
                  name,
@@ -181,270 +239,3 @@ class VM(db_Base):
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
 
-
-class CloudmeshDatabase(object):
-    def __init__(self, cm_user=None):
-
-        db_Base.metadata.create_all()
-        self.session = self.connect()
-        if cm_user is None:
-            self.cm_user = getpass.getuser()
-        else:
-            self.cm_user = cm_user
-
-    def connect(self):
-        """
-
-        :return:
-        """
-        Session = sessionmaker(bind=db_engine)
-        self.session = Session()
-        return self.session
-
-    def find_vm_by_name(self, name):
-        """
-
-        :param name:
-        :return:
-        """
-        return self.find(VM, name=name).first()
-
-    def find(self, kind, **kwargs):
-        """
-        NOT TESTED
-        :param kind:
-        :param kwargs:
-        :return:
-        """
-        return self.session.query(kind).filter_by(**kwargs)
-
-    def delete_by_name(self, kind, name):
-        """
-        NOTTESTED
-        :param kind:
-        :param name:
-        :return:
-        """
-        item = self.find(kind, name=name).first()
-        self.delete(item)
-
-    def delete(self, item):
-        """
-        NOTTESTED
-        :param item:
-        :return:
-        """
-        result = self.session.delete(item)
-        self.save()
-
-    def get_kind_from_str(self, str):
-        t = None
-        if str == "VM":
-            t = VM
-        elif str == "DEFAULT":
-            t = DEFAULT
-        elif str == "IMAGE":
-            t = IMAGE
-        elif str == "FLAVOR":
-            t = FLAVOR
-        return t
-
-    def delete_all(self, kind=None):
-        if kind is None:
-            clean = ["VM", "DEFAULT"]
-            self.delete_all(clean)
-        elif isinstance(kind, str):
-            clean = [kind]
-            self.delete_all(clean)
-        else:
-            for k in kind:
-                t = self.get_kind_from_str(k)
-                if t is not None:
-                    for e in self.data.query(t):
-                        self.delete(e)
-
-    def merge(self, kind, items):
-        self.replace(kind, item, erase_type=False)
-
-    def replace(self, kind, items, erase=False):
-        """
-        NOT TESTED
-
-        :param kind:
-        :param items:
-        :param erase:
-        :return:
-        """
-        if erase:
-            names = []
-            for item in items:
-                print("delete", item.name)
-                self.delete_by_name(kind, item.name)
-            self.save()
-            self.session.add_all(items)
-        else:
-            # overwrite existing elements
-            for item in items:
-                existing_item = self.find(kind, name=item.name).first()
-                item.id = existing_item.id
-                self.session.merge(item)
-            self.save()
-
-    def add(self, items):
-        self.session.add_all(items)
-
-    def save(self):
-        self.session.commit()
-
-    def name(self, value):
-        self.default("name", value, "global")
-
-    def get_name(self):
-        current = self.session.query(DEFAULT).filter_by(name="name", cloud="global").first()
-        return current.value
-
-    def next_name(self):
-        name = self.get_name()
-        return Cloud.next_name(name)
-
-    def default(self, key, value, cloud):
-        # find
-        d = [DEFAULT(cloud=cloud, name=key, value=value)]
-        current = self.session.query(DEFAULT).filter_by(name=key).first()
-        if current is None:
-            self.session.add_all(d)
-        else:
-            current.value = value
-            current.cloud = cloud
-            self.save()
-        self.save()
-
-    @property
-    def data(self):
-        return self.session
-
-    def _convert_to_lists(self, **kwargs):
-        args = {}
-        for k in kwargs:
-            arg = kwargs[k]
-            print(arg, type(arg))
-            if isinstance(arg, str):
-                arg = [arg]
-            args[k] = arg
-        return args
-
-    def _find_obj_from_clouds(self, table, clouds=None, cm_user=None):
-        """
-        returns all the servers from all clouds
-        """
-        arg = self._convert_to_lists(clouds=clouds, cm_user=cm_user)
-        print(arg)
-        result = {}
-        for cloud in arg['clouds']:
-            d = self.session.query(table).all()
-            result[cloud] = self.object_to_dict(d)
-        return dict(result)
-
-    def servers(self, clouds=None, cm_user=None):
-        """
-        returns all the servers from all clouds
-        """
-        return self._find_obj_from_clouds(VM, clouds=clouds, cm_user=cm_user)
-
-    def flavors(self, clouds=None, cm_user=None):
-        """
-        returns all the flavors from the various clouds
-        """
-        return self._find_obj_from_clouds(FLAVOR, clouds=clouds, cm_user=cm_user)
-
-    def images(self, clouds=None, cm_user=None):
-        """
-        returns all the images from various clouds
-        """
-        return self._find_obj_from_clouds(IMAGE, clouds=clouds, cm_user=cm_user)
-
-    def get_by_filter(self, table, **kwargs):
-        print("ZZZZ", kwargs)
-        if len(kwargs) == 1:
-            return self.session.query(table).filter_by(kwargs).all()
-        else:
-            print("YYYY", kwargs)
-
-    def get(self, table):
-        return self.dict(table)
-
-    def object_to_dict(self, obj):
-        result = dict()
-        for u in obj:
-            _id = u.id
-            values = {}
-            for key in u.__dict__.keys():
-                if not key.startswith("_sa"):
-                    values[key] = u.__dict__[key]
-            result[_id] = values
-        return result
-
-    def convert_query_to_dict(self, table):
-        return self.object_to_dict(self.session.query(table).all())
-
-    def dict(self, table):
-        return self.object_to_dict(self.session.query(table).all())
-
-    def json(self, table):
-        d = self.dict(table)
-        return json.dumps(d)
-
-    def update(self, kind, cloud):
-        """
-        GREGOR WORKS ON THIS        
-        updates the data in the database
-
-        :param kind: vm, image, flavor
-        :param cloud: name of the cloud
-        :return:
-        """
-        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
-
-        group = "default"
-        lister = None
-        inserter = None
-
-        if kind.lower() == "vm":
-            lister = cloud.list_nodes
-            inserter = Insert.vm
-        elif kind.lower() in ["images", "image"]:
-            lister = cloud.list_images
-            inserter = Insert.image
-        elif kind.lower() in ["flavor", "size"]:
-            lister = cloud.list_flavors
-            inserter = Insert.flavor
-        else:
-            return
-
-        result = lister(kind="flat")
-        for element in result:
-            r = inserter("india", self.cm_user, group, result[element])
-
-        self.save()
-        # banner(kind, c="-")
-        # pprint (result)
-
-        # current = self.session.query(FLAVOR).filter_by(group="default").first()
-        # print("UUUUU", current)
-
-    def get_flavor(self, cloud, name):
-        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
-        f = cloud.get_flavor(name, kind='libcloud')
-
-    def info(self, kind, name):
-        """
-
-        :param kind: vm, image, flavor
-        :param name: name of the object or id
-        :return: dict
-        """
-        pass
-
-    def boot(self, cloud, cm_user, name, image, flavor, key, meta):
-        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
-        return cloud.boot(cloud, cm_user, name, image, flavor, key, meta)
