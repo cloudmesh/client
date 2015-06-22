@@ -12,7 +12,9 @@ import cloudmesh_base.hostlist
 from cloudmesh_base.util import convert_from_unicode
 
 
-def dict_printer(d, order=None, header=None, output="table", sort_keys=True):
+def dict_printer(d, order=None, header=None, output="table",
+                 sort_keys=True,
+                 show_none=""):
     """
     TODO
     :param d: A a dict with dicts of the same type.
@@ -83,7 +85,7 @@ def dict_csv_printer(d, order=None, header=None, output="table", sort_keys=True)
     return table
 
 
-def dict_table_printer(d, order=None, header=None, sort_keys=True):
+def dict_table_printer(d, order=None, header=None, sort_keys=True, show_none=""):
     """prints a pretty table from an dict of dicts
     :param d: A a dict with dicts of the same type.
                   Each key will be a column
@@ -100,6 +102,8 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True):
     def _get(item, key):
         try:
             tmp = str(d[item][key])
+            if tmp == "None":
+                tmp = show_none
         except:
             tmp = ' '
         return tmp

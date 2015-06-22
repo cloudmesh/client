@@ -58,8 +58,6 @@ class cm_shell_cloud:
                 order = [
                          'cm_cloud',
                          'cm_user',
-                         'image_location',
-                         'image_state',
                          'instance_type_ephemeral_gb',
                          'instance_type_flavorid',
                          'instance_type_id',
@@ -72,13 +70,10 @@ class cm_shell_cloud:
                          'minDisk',
                          'minRam',
                          'name',
-                         'status'
                         ]
                 header = [
                          'cloud',
                          'user',
-                         'location',
-                         'state',
                          'ephemeral_gb',
                          'flavorid',
                          'id',
@@ -91,13 +86,13 @@ class cm_shell_cloud:
                          'minDisk',
                          'minRam',
                          'name',
-                         'status'
                         ]
             print (dict_printer(result,
                          order=order,
                          header=header,
                          output="table",
-                         sort_keys=True))
+                         sort_keys=True,
+                         show_none=""))
 
         # d = cm.get(FLAVOR)
         # print("9999")
