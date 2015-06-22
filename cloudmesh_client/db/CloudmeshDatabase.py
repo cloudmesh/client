@@ -211,7 +211,7 @@ class CloudmeshDatabase(object):
         d = self.dict(table)
         return json.dumps(d)
 
-    def list(self, kind, cloud=None):
+    def list(self, kind, cloud=None, output=None):
         """
 
         :param kind:
