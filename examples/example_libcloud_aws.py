@@ -2,8 +2,7 @@ from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
 
-from cloudmesh_client.common import ConfigDict
-from cloudmesh_client.common import Config
+from cloudmesh_client.common.ConfigDict import ConfigDict
 from time import sleep
 from pprint import pprint
 
@@ -17,29 +16,22 @@ clouddefault = confd['cloudmesh']['clouds']['aws']['default']
 
 pprint(cloudcred)
 
-# set path to cacert and enable ssl connection
-#libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
-#libcloud.security.VERIFY_SSL_CERT = True
-
-#auth_url = "%s/tokens/" % cloudcred['OS_AUTH_URL']
-
 # AWS needs two values for authentication
 driver = cls(cloudcred['EC2_ACCESS_KEY'],
              cloudcred['EC2_SECRET_KEY'])
 
-
 # list VMs
 nodes = driver.list_nodes()
-print nodes
+#print nodes
 
 # THIS FUNCTION TAKES TIME TO LOAD 40K+ IMAGES
 # obtain available images
 images = driver.list_images()
-# print images
+#print images[0]
 
 # sizes/flavors
 sizes = driver.list_sizes()
-# print sizes
+#print sizes
 
 # specify flavor and image
 myflavor = clouddefault['flavor']
@@ -75,3 +67,6 @@ print nodes
 # remove it from the node
 
 # delete the ip
+
+# delete vm
+node.destroy()
