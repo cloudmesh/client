@@ -9,99 +9,104 @@ from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from pprint import pprint
 
+from cloudmesh_client.iaas.CloudProviderBase import CloudmeshProviderBase
 from cloudmesh_client.common.FlatDict import key_prefix_replace, flatten
 
-mapping_yaml = """
-    vm:
-        tbd: tbd
-    image:    
-        base_image_ref: base_image_ref
-        cm_cloud: cm_cloud
-        cm_update: cm_update
-        cm_user: cm_user
-        created: created
-        description: description
-        cloud_id: id
-        image_location: image_location
-        image_state: image_state
-        image_type: image_type
-        instance_type_ephemeral_gb: instance_type_ephemeral_gb
-        instance_type_flavorid: instance_type_flavorid
-        instance_type_id: instance_type_id
-        instance_type_memory_mb: instance_type_memory_mb
-        instance_type_name: instance_type_name
-        instance_type_root_gb: instance_type_root_gb
-        instance_type_rxtx_factor: instance_type_rxtx_factor
-        instance_type_swap: instance_type_swap
-        instance_type_vcpus: instance_type_vcpus
-        instance_uuid: instance_uuid
-        kernel_id: kernel_id
-        minDisk: minDisk
-        minRam: minRam
-        name: name
-        network_allocated: network_allocated
-        owner_id: owner_id
-        progress: progress
-        ramdisk_id: ramdisk_id
-        serverId: serverId
-        status: status
-        updated: updated
-        user_id: user_id
-    flavor:
-        bandwidth: bandwidth
-        cloud: cloud
-        cm_id: cm_id
-        cm_update: cm_update
-        cm_user: cm_user
-        cm_uuid: cm_uuid
-        disk: disk
-        ephemeral_disk: ephemeral_disk
-        extra: extra
-        group: group
-        cloud_id: id
-        internal_id: internal_id
-        label: label
-        name: name
-        price: price
-        ram: ram
-        update: update
-        uuid: uuid
-        vcpus: vcpus
-        swap: swap
-    vm:
-       access_ip: access_ip
-       access_ipv6: access_ipv6
-       availability_zone: availability_zone
-       cm_cloud: cm_cloud
-       cm_update: cm_update
-       cm_user: cm_user
-       config_drive: config_drive
-       created: created
-       disk_config: disk_config
-       flavorId: flavorId
-       hostId: hostId
-       cloud_id: id
-       image: image
-       imageId: imageId
-       key_name: key_name
-       name: name
-       password: password
-       power_state: power_state
-       private_ips: private_ips
-       progress: progress
-       public_ips: public_ips
-       size: size
-       state: state
-       task_state: task_state
-       tenantId: tenantId
-       updated: updated
-       uri: uri
-       userId: userId
-       vm_state: vm_state
-       volumes_attached: volumes_attached
-      """
 
-class OpenStack_libcloud(object):
+
+class OpenStack_libcloud(CloudmeshProviderBase):
+
+    def mapping(self):
+        mapping_yaml = """
+        vm:
+            tbd: tbd
+        image:
+            base_image_ref: base_image_ref
+            cm_cloud: cm_cloud
+            cm_update: cm_update
+            cm_user: cm_user
+            created: created
+            description: description
+            cloud_id: id
+            image_location: image_location
+            image_state: image_state
+            image_type: image_type
+            instance_type_ephemeral_gb: instance_type_ephemeral_gb
+            instance_type_flavorid: instance_type_flavorid
+            instance_type_id: instance_type_id
+            instance_type_memory_mb: instance_type_memory_mb
+            instance_type_name: instance_type_name
+            instance_type_root_gb: instance_type_root_gb
+            instance_type_rxtx_factor: instance_type_rxtx_factor
+            instance_type_swap: instance_type_swap
+            instance_type_vcpus: instance_type_vcpus
+            instance_uuid: instance_uuid
+            kernel_id: kernel_id
+            minDisk: minDisk
+            minRam: minRam
+            name: name
+            network_allocated: network_allocated
+            owner_id: owner_id
+            progress: progress
+            ramdisk_id: ramdisk_id
+            serverId: serverId
+            status: status
+            updated: updated
+            user_id: user_id
+        flavor:
+            bandwidth: bandwidth
+            cloud: cloud
+            cm_id: cm_id
+            cm_update: cm_update
+            cm_user: cm_user
+            cm_uuid: cm_uuid
+            disk: disk
+            ephemeral_disk: ephemeral_disk
+            extra: extra
+            group: group
+            cloud_id: id
+            internal_id: internal_id
+            label: label
+            name: name
+            price: price
+            ram: ram
+            update: update
+            uuid: uuid
+            vcpus: vcpus
+            swap: swap
+        vm:
+           access_ip: access_ip
+           access_ipv6: access_ipv6
+           availability_zone: availability_zone
+           cm_cloud: cm_cloud
+           cm_update: cm_update
+           cm_user: cm_user
+           config_drive: config_drive
+           created: created
+           disk_config: disk_config
+           flavorId: flavorId
+           hostId: hostId
+           cloud_id: id
+           image: image
+           imageId: imageId
+           key_name: key_name
+           name: name
+           password: password
+           power_state: power_state
+           private_ips: private_ips
+           progress: progress
+           public_ips: public_ips
+           size: size
+           state: state
+           task_state: task_state
+           tenantId: tenantId
+           updated: updated
+           uri: uri
+           userId: userId
+           vm_state: vm_state
+           volumes_attached: volumes_attached
+        """
+        return textwrap.dedent(mapping_yaml)
 
     def __init__(self, cloudname, cm_user=None):
         self.nodes = None
@@ -128,13 +133,16 @@ class OpenStack_libcloud(object):
             ex_force_auth_version='2.0_password',
             ex_force_service_region='regionOne')
 
-    def _list(self, nodetype, items, kind=dict):
+    def _list(self, kind, items, output=dict):
         now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") + " UTC"
         result = None
-        if kind == list:
+        if output == list:
             result = []
-        elif kind in [dict, "flat"]:
+        elif output in [dict, "flat"]:
             result = {}
+
+        print ("ITEMS",items)
+
         for node in items:
             values = dict(node.__dict__)
             del values["_uuid"]
@@ -142,29 +150,35 @@ class OpenStack_libcloud(object):
             values["cm_cloud"] = self.cloudname
             values["cm_update"] = now
             values["cm_user"] = self.user
-            if kind == list:
+            if output == list:
                 result.append(values)
-            elif kind in [dict, "flat"]:
+            elif output in [dict, "flat"]:
                 result[values["id"]] = values
 
-        if kind == "flat":
-            if nodetype == "vm":
+        if output == "flat":
+            if kind == "vm":
                 result = OpenStack_libcloud.flatten_vms(result)
-            elif nodetype == "images":
+            elif kind == "image":
+                result = OpenStack_libcloud.flatten_images(result)
+            elif kind == "flavor":
                 result = OpenStack_libcloud.flatten_images(result)
         return result
 
-    def list_nodes(self, kind=dict):
-        self.nodes = self.driver.list_nodes()
-        return self._list("vm", self.nodes, kind)
+    def list(self, kind, output=dict):
+        """
 
-    def list_images(self, kind=dict):
-        self.images = self.driver.list_images()
-        return self._list("images", self.images, kind)
-
-    def list_flavors(self, kind=dict):
-        self.flavors = self.driver.list_sizes()
-        return self._list("flavors", self.flavors, kind)
+        :param kind: exactly one of vm, flavor, image, default
+        :param output:
+        :return:
+        """
+        data = None
+        if kind == "vm":
+            data = self.nodes = self.driver.list_nodes()
+        elif kind == "flavor":
+            data = self.flavors = self.driver.list_sizes()
+        elif kind == "image":
+            data = self.images = self.driver.list_images()
+        return self._list(kind, data, output)
 
     def boot(self, cloud, user, name, image, flavor, key, meta):
         self.images = self.driver.list_images()
@@ -206,17 +220,14 @@ class OpenStack_libcloud(object):
         return n
 
     @classmethod
-    def flatten_vms(cls, d):
-        return cls.flatten(cls.flatten_vm, d)
+    def flatten_flavor(cls, d):
+        """
+        flattens the data from a single vm returned by libloud
 
-    @classmethod
-    def flatten_images(cls, d):
-        return cls.flatten(cls.flatten_image, d)
+        :param d: the data for that vm
+        :type d: dict
+        :return: the flattened dict
+        :rtype: dict
+        """
+        return d
 
-    @classmethod
-    def flatten(cls, transform, d):
-        result = {}
-        for element in d:
-            n = transform(d[element])
-            result[element] = dict(n)
-        return result

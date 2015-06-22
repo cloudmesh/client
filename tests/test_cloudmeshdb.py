@@ -141,7 +141,7 @@ class Test_cloudmeshdb:
         pprint(d)
 
 
-        cm.update("images", "india")
+        cm.update("image", "india")
 
         cm.update("vm", "india")
 

@@ -257,18 +257,16 @@ class CloudmeshDatabase(object):
         inserter = None
 
         if kind.lower() == "vm":
-            lister = cloud.list_nodes
             inserter = Insert.vm
-        elif kind.lower() in ["images", "image"]:
-            lister = cloud.list_images
+        elif kind.lower() in ["image"]:
             inserter = Insert.image
         elif kind.lower() in ["flavor", "size"]:
-            lister = cloud.list_flavors
             inserter = Insert.flavor
         else:
             return
 
-        result = lister(kind="flat")
+        result = cloud.list(kind.lower(), output="flat")
+
         for element in result:
             r = inserter("india", self.cm_user, group, result[element])
 
