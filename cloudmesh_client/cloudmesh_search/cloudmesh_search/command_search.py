@@ -30,17 +30,21 @@ class command_search(object):
         _table = table.upper()
         sql = text(""" SELECT * FROM {} {}""".format(_table, where))
 
-        if table == 'vm':
-            #r = session.query(VM).all()
-            r = session.query(VM).from_statement(sql).all()
-        elif table == 'flavor':
-            r = session.query(FLAVOR).from_statement(sql).all()
-        elif table == 'image':
-            r = session.query(IMAGE).from_statement(sql).all()
-        elif table == 'default':
-            r = session.query(DFAULT).from_statement(sql).all()
-        else:
-            Console.error("Please specify a valid table")
+        try:
+            if table == 'vm':
+                #r = session.query(VM).all()
+                r = session.query(VM).from_statement(sql).all()
+            elif table == 'flavor':
+                r = session.query(FLAVOR).from_statement(sql).all()
+            elif table == 'image':
+                r = session.query(IMAGE).from_statement(sql).all()
+            elif table == 'default':
+                r = session.query(DFAULT).from_statement(sql).all()
+            else:
+                Console.error("Please specify a valid table")
+                return
+        except Exception:
+            Console.error("Please specify a valid search")
             return
 
         if r:
