@@ -7,9 +7,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import cloudmesh_client.common.tables as tables
 from cloudmesh_client.db.models import VM,FLAVOR,DEFAULT,IMAGE
-import cloudmesh_client.db.models
 import cloudmesh_client.db.models as models
 from sqlalchemy import text
+from cloudmesh_base.hostlist import Parameter
 
 class command_search(object):
 
@@ -25,9 +25,19 @@ class command_search(object):
         where = ""
         if filter:
             for i in range(len(filter)):
+
                 split = filter[i].split('=')
+                if '[' in filter[i]:
+                    parameters = Parameter.expand(split[1])
+                    parameters = ['{} = \'{}\''.format(split[0], parameters[j]) for j in range(len(parameters))]
+                    parameters = """ OR """.join(parameters)
+                    where = '( {} )'.format(parameters)
+                    filter[i] = where
+                    continue
+
                 where = '{} = \'{}\''.format(split[0], split[1])
                 filter[i] = where
+
             where = """ AND """.join(filter)
             where = 'WHERE {}'.format(where)
 
@@ -64,11 +74,7 @@ class command_search(object):
                         values[key] = u.__dict__[key]
                 result[_id] = values
 
-            output = models.dict_printer(result,
-                                         order=None,
-                                         header=None,
-                                         output="table",
-                                         sort_keys=True)
+            output = models.dict_printer(result, order=None, header=None, output="table", sort_keys=True)
             print(output)
         else:
             print("Nothing found")
