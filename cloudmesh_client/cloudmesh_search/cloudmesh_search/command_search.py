@@ -24,8 +24,14 @@ class command_search(object):
 
         where = ""
         if filter:
-            split = filter[0].split('=')
-            where = 'WHERE {} = \'{}\''.format(split[0], split[1])
+            for i in range(len(filter)):
+                split = filter[i].split('=')
+                where = '{} = \'{}\''.format(split[0], split[1])
+                filter[i] = where
+            where = """ AND """.join(filter)
+            where = 'WHERE {}'.format(where)
+
+        print where
 
         _table = table.upper()
         sql = text(""" SELECT * FROM {} {}""".format(_table, where))
