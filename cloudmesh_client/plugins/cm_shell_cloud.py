@@ -118,6 +118,7 @@ class cm_shell_cloud:
               register test [--yaml=FILENAME]
               register rc HOST [OPENRC]
               register [--yaml=FILENAME]
+              register NAME
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in ~/.cloudmesh.
@@ -131,6 +132,7 @@ class cm_shell_cloud:
             HOST   the host name
             USER   the user name
             OPENRC  the location of the openrc file
+            NAME    name of the host that will be registered
 
           Options:
 
@@ -215,8 +217,10 @@ class cm_shell_cloud:
             print("--yaml", filename)
             command_cloud.register(filename)
         elif arguments['test']:
+            print ("inside test")
             filename = _get_file(arguments)
             command_cloud.test(filename)
+            return
         elif arguments['form']:
             filename = _get_file(arguments)
             command_cloud.fill_out_form(filename)
@@ -224,6 +228,10 @@ class cm_shell_cloud:
             filename = arguments['OPENRC']
             host = arguments['HOST']
             command_cloud.read_rc_file(host, filename)
+        elif arguments['NAME']:
+            #filename = arguments['india']
+            #command_cloud.india("india", "india")
+            print ("INDIA")
         pass
 
 

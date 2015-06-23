@@ -99,8 +99,8 @@ class command_cloud(object):
         :return:
         """
         Console.ok("register")
-        print(filename)
-        raise NotImplementedError("Not implemented")
+        #print(filename)
+        #raise NotImplementedError("Not implemented")
 
     @classmethod
     def test(cls, filename):
@@ -114,7 +114,8 @@ class command_cloud(object):
         print(config)
         Console.ok("register")
         print(filename)
-        raise NotImplementedError("Not implemented")
+        print ("Hello world")
+        #raise NotImplementedError("Not implemented")
 
     @classmethod
     def fill_out_form(cls, filename):
