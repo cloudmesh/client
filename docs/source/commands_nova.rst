@@ -171,3 +171,26 @@ Deletes all machines that has a specific label. ::
 	
 	cm nova delete --label
 
+
+MORE COMMANDS
+-------------
+
+	default active ATTRIBUTE=VALUE
+	default list
+	default [--cloud=CLOUD] ATTRIBUTE=VALUE
+
+
+	pprint(arguments)
+	if arguments[ATTRIBUTE=VALUE]:
+		(a, v) = split("=", 1)
+
+		if a = "activate"
+::
+
+	cm default --cloud=india format-table-header="name,id"
+	cm default --cloud=india format-table-header=name,id
+  	cm default --cloud=india format-table-order="name,id"
+  	cm default active clouds=india,azure
+  	cmd list clouds
+  	cm default india image=abc
+  	cm default india flavor=xyz

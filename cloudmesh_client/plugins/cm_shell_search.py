@@ -3,13 +3,13 @@ import os
 from cmd3.console import Console
 from cmd3.shell import command
 
-from cloudmesh_search.command_search import command_search
+from cloudmesh_client.cloud.command_search import command_search
 
 
 class cm_shell_search:
 
     def activate_cm_shell_search(self):
-        self.register_command_topic('mycommands', 'search')
+        self.register_command_topic('cloud', 'search')
 
     @command
     def do_search(self, args, arguments):
