@@ -31,31 +31,31 @@ class command_search(object):
         sql = text(""" SELECT * FROM {} {}""".format(_table, where))
 
         if table == 'vm':
-            print "VM TABLE"
             #r = session.query(VM).all()
             r = session.query(VM).from_statement(sql).all()
         elif table == 'flavor':
-            print "FLAVOR TABLE"
             r = session.query(FLAVOR).from_statement(sql).all()
         elif table == 'image':
-            print "IMAGE TABLE"
             r = session.query(IMAGE).from_statement(sql).all()
         elif table == 'default':
-            print "DEFAULT TABLE"
             r = session.query(DFAULT).from_statement(sql).all()
         else:
             Console.error("Please specify a valid table")
             return
 
-        result = dict()
-        for u in r:
-            _id = u.id
-            values = {}
-            for key in u.__dict__.keys():
-                if not key.startswith("_sa"):
-                    values[key] = u.__dict__[key]
-            result[_id] = values
+        if r:
+            print "{} TABLE".format(_table)
+            result = dict()
+            for u in r:
+                _id = u.id
+                values = {}
+                for key in u.__dict__.keys():
+                    if not key.startswith("_sa"):
+                        values[key] = u.__dict__[key]
+                result[_id] = values
 
-        output = models.dict_printer(result, order=None, header=None, output="table", sort_keys=True)
-        print(output)
+            output = models.dict_printer(result, order=None, header=None, output="table", sort_keys=True)
+            print(output)
+        else:
+            print("Nothing found")
 
