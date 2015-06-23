@@ -5,11 +5,102 @@ from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
 from cloudmesh_client.cloud.command_cloud import command_cloud
-
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.common.tables import dict_printer
 
 class cm_shell_cloud:
     def activate_cm_shell_cloud(self):
         self.register_command_topic('cloud', 'register')
+        self.register_command_topic('cloud', 'list')
+
+    @command
+    def do_list(self, args, arguments):
+        """
+        ::
+
+          Usage:
+              list [--cloud=CLOUD]
+              list [--cloud=CLOUD] vm
+              list [--cloud=CLOUD] flavor
+              list [--cloud=CLOUD] image
+
+        """
+        pprint(arguments)
+
+        def get_kind():
+            for k in ["vm","image", "flavor"]:
+                if arguments[k]:
+                    return k
+            return "help"
+
+        if arguments["--cloud"] is None:
+            cloud = "india"
+
+        cm = CloudmeshDatabase(cm_user="gregor")
+        kind = get_kind()
+        if kind == "help":
+            print ("HELP HERE")
+        else:
+            cm.update(kind, "india")
+            # result = cm.list(kind, output="flat")
+            result = cm.list(kind, output="native")
+            header = None
+            order = None
+            if kind == 'flavor':
+                order = [
+                         'cm_cloud',
+                         'disk',
+                         'ephemeral_disk',
+                         'id',
+                         'name',
+                         'ram',
+                         'vcpus'
+                        ]
+            elif kind == 'image':
+                order = [
+                         'cm_cloud',
+                         'cm_user',
+                         'instance_type_ephemeral_gb',
+                         'instance_type_flavorid',
+                         'instance_type_id',
+                         'instance_type_memory_mb',
+                         'instance_type_name',
+                         'instance_type_root_gb',
+                         'instance_type_rxtx_factor',
+                         'instance_type_swap',
+                         'instance_type_vcpus',
+                         'minDisk',
+                         'minRam',
+                         'name',
+                        ]
+                header = [
+                         'cloud',
+                         'user',
+                         'ephemeral_gb',
+                         'flavorid',
+                         'id',
+                         'memory_mb',
+                         'flavor',
+                         'root_gb',
+                         'rxtx_factor',
+                         'swap',
+                         'vcpus',
+                         'minDisk',
+                         'minRam',
+                         'name',
+                        ]
+            print (dict_printer(result,
+                         order=order,
+                         header=header,
+                         output="table",
+                         sort_keys=True,
+                         show_none=""))
+
+        # d = cm.get(FLAVOR)
+        # print("9999")
+        # pprint(d)
+        # print("8888")
+
 
     @command
     def do_register(self, args, arguments):

@@ -11,11 +11,12 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from  cloudmesh_client.db import FLAVOR, VM, DEFAULT, IMAGE
 from pprint import pprint
-import cloudmesh_client
+from cloudmesh_client.db import CloudmeshDatabase, VM, FLAVOR, IMAGE, DEFAULT
+
 
 class Test_cloudmeshdb:
     def setup(self):
-        self.cm = cloudmesh_client.db.CloudmeshDatabase(cm_user="gregor")
+        self.cm = CloudmeshDatabase(cm_user="gregor")
         pass
 
     def tearDown(self):
@@ -140,8 +141,9 @@ class Test_cloudmeshdb:
         pprint(d)
 
 
-        #cm.update("vm", "india")
-        cm.update("images", "india")
+        cm.update("image", "india")
+
+        cm.update("vm", "india")
 
 
 
@@ -163,6 +165,30 @@ class Test_cloudmeshdb:
     def test_008_flatten(self):
         HEADING()
         cm = self.cm
+
+    def test_009_add(self):
+        HEADING()
+        cm = self.cm
+
+        vm1 = VM('gregor1')
+        d = {"invalid":"noting",
+             "label": "mylabel"}
+
+
+
+    def test_009_paramater(self):
+        HEADING()
+
+        from cloudmesh_base.hostlist import Parameter
+        parameter = "india[01-03]"
+        result = Parameter.expand(parameter)
+        print (result)
+        assert str(result) == "['india01', 'india02', 'india03']"
+
+
+
+
+
 
 """
 pprint(cm.dict(cloudmesh_db.VM))

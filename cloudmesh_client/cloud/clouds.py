@@ -1,7 +1,7 @@
-import hostlist
+import cloudmesh_base.hostlist
+
 
 class Cloud(object):
-
     t_flavour = "flavour"
     t_image = "image"
     t_vm = "vm"
@@ -27,6 +27,7 @@ class Cloud(object):
     We start simply with a print msg
 
     """
+
     @classmethod
     def vms(cls, clouds):
         if isinstance(clouds, str):
@@ -98,7 +99,6 @@ class Cloud(object):
         names = hostlist.expand_hostlist(ids)
         for name in names:
             print ("delete", name)
-
 
     @classmethod
     def _generate_name(cls, prefix, number, padding):
@@ -178,7 +178,6 @@ class Cloud(object):
         prefix, n, padding = cls.parse_name(name)
 
 
-
 def main():
     print(Cloud.next_name("Gregor-001"))
 
@@ -188,6 +187,7 @@ def main():
     Cloud.delete("gregor-001")
 
     Cloud.delete("gregor-[002-005]")
+
 
 if __name__ == "__main__":
     main()
