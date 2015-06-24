@@ -104,7 +104,7 @@ Now let us change the label of the object to::
 
         changeme["label"] = "newlabel"
 
-To update the new object to the database use
+To update the new object to the database use::
 
         cm.update_from_dict(f)
         cm.save()

@@ -45,29 +45,6 @@ Command - clear::
 
     Clears the screen.
 
-cool
-----------------------------------------------------------------------
-
-Command - cool::
-
-    Usage:
-        cool NAME
-        cool start
-        cool stop
-        cool daniel FILE
-
-    tests via ping if the host ith the give NAME is reachable
-
-    Arguments:
-
-      NAME      Name of the machine to test
-      FILE      file name
-    Options:
-
-       -v       verbose mode
-
-
-
 default
 ----------------------------------------------------------------------
 
@@ -78,7 +55,7 @@ Command - default::
         default KEY
         default KEY=VALUE
 
-    managing the defaults
+    managing the defaults test test test test
 
     Arguments:
 
@@ -203,6 +180,19 @@ Command - info::
 
 
 
+list
+----------------------------------------------------------------------
+
+Command - list::
+
+    Usage:
+        list [--cloud=CLOUD]
+        list [--cloud=CLOUD] vm
+        list [--cloud=CLOUD] flavor
+        list [--cloud=CLOUD] image
+
+
+
 load
 ----------------------------------------------------------------------
 
@@ -215,8 +205,6 @@ Command - load::
 
     Arguments:
        MODULE  The name of the module.
-
-    THIS COMMAND IS NOT IMPLEMENTED
 
 
 man
@@ -415,6 +403,8 @@ Command - register::
         register test [--yaml=FILENAME]
         register rc HOST [OPENRC]
         register [--yaml=FILENAME]
+        register india
+        register CLOUD CERT
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in ~/.cloudmesh.
@@ -428,6 +418,7 @@ Command - register::
       HOST   the host name
       USER   the user name
       OPENRC  the location of the openrc file
+      NAME    name of the host that will be registered
 
     Options:
 
@@ -506,6 +497,27 @@ Command - script::
        script load REGEXP
 
     Process FILE and optionally apply some options
+
+
+
+search
+----------------------------------------------------------------------
+
+Command - search::
+
+    Usage:
+        search [NAME] [FILTER]...
+
+    search the table NAME on the database
+
+    Arguments:
+
+      NAME      Name of the table to search. If the name is not specified, the table DEFAULT will be searched
+      FILTER    Filter to be used when searching
+
+    Options:
+
+       -v       verbose mode
 
 
 
