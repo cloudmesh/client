@@ -151,8 +151,6 @@ class OpenStack_libcloud(CloudmeshProviderBase):
         elif output in [dict, "flat"]:
             result = {}
 
-        print ("ITEMS",items)
-
         for node in items:
             values = dict(node.__dict__)
             del values["_uuid"]
@@ -193,8 +191,8 @@ class OpenStack_libcloud(CloudmeshProviderBase):
         elif kind == "image":
             data = self.images = self.driver.list_images()
 
-        for element in data:
-            pprint(element.__dict__)
+        #for element in data:
+        #    pprint(element.__dict__)
 
 
         if output == "flat":

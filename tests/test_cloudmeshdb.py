@@ -25,7 +25,7 @@ class Test_cloudmeshdb:
         pass
 
     def test_001(self):
-        """testing the name management for VMs"""
+        """001: testing the name management for VMs"""
         HEADING()
         cm = self.cm
 
@@ -38,7 +38,7 @@ class Test_cloudmeshdb:
         assert result == "gregor-002"
 
     def test_002(self):
-        """testing adding VMs"""
+        """002: testing adding VMs"""
         HEADING()
         cm = self.cm
 
@@ -52,8 +52,8 @@ class Test_cloudmeshdb:
 
         print ("Create 3 vms ...")
         vms = []
-        vms.append(VM(name='gregor1'))
-        vms.append(VM(name='gregor2'))
+        vms.append(VM(cm_name='gregor1'))
+        vms.append(VM(cm_name='gregor2'))
 
         print ("Add vms ...")
         cm.add(vms)
@@ -62,8 +62,8 @@ class Test_cloudmeshdb:
         print ("saving ok")
 
         try:
-            vms = [VM(name='gregor1')]
-            cm.add([VM(name='gregor1')])
+            vms = [VM(cm_name='gregor1')]
+            cm.add([VM(cm_name='gregor1')])
             cm.save()
             assert False
         except:
@@ -77,17 +77,17 @@ class Test_cloudmeshdb:
         found1 = 0
         found2 = 0
         for v in cm.data.query(VM):
-            print (v.name, v.cm_uuid)
-            if v.name == "gregor1":
+            print (v.cm_name, v.cm_uuid)
+            if v.cm_name == "gregor1":
                 found1 = found1 + 1
-            if v.name == "gregor2":
+            if v.cm_name == "gregor2":
                 found2 = found2 + 1
 
         print ("found", found1, found2)
         assert found1 == 1 and found2 == 1
 
     def test_003(self):
-        """finding a specific vm"""
+        """003: finding a specific vm"""
         HEADING()
         cm = self.cm
 
@@ -98,7 +98,7 @@ class Test_cloudmeshdb:
         assert True
 
     def test_004(self):
-        """finding a specific vm"""
+        """004: finding a specific vm"""
         HEADING()
         cm = self.cm
 
@@ -108,7 +108,7 @@ class Test_cloudmeshdb:
         assert cursor is None
 
     def test_005(self):
-        """delete vms"""
+        """005: delete vms"""
         HEADING()
         cm = self.cm
 
@@ -119,8 +119,7 @@ class Test_cloudmeshdb:
 
 
     def test_006(self):
-        """
-        replacing objects in the database
+        """006: replacing objects in the database
         """
         HEADING()
         cm = self.cm
@@ -129,12 +128,12 @@ class Test_cloudmeshdb:
             print ("Erase Type", erase_type)
             cm.delete_all("VM")
 
-            vm = VM(name='gregor1')
+            vm = VM(cm_name='gregor1')
             vm.cloud = "india"
             cm.add([vm])
             cm.save()
 
-            vm = VM(name='gregor1')
+            vm = VM(cm_name='gregor1')
             vm.group = "hallo"
             cm.replace(VM, [vm], erase=erase_type)
             cm.save()
@@ -142,12 +141,12 @@ class Test_cloudmeshdb:
             found_vm = None
             found1 = 0
             for v in cm.data.query(VM):
-                if v.name == "gregor1":
+                if v.cm_name == "gregor1":
                     found1 = found1 + 1
                     found_vm = v
 
             print ("found", found1)
-            print (v.name, v.group, v.cloud)
+            print (v.cm_name, v.group, v.cloud)
             assert found1 == 1 and v.group == "hallo"
             if erase_type:
                 assert v.cloud is None
@@ -155,7 +154,7 @@ class Test_cloudmeshdb:
                 assert v.cloud == "india"
 
     def test_007(self):
-        """update the db info"""
+        """007: update the db info"""
         HEADING()
         cm = self.cm
 
@@ -178,7 +177,7 @@ class Test_cloudmeshdb:
 
 
     def test_008(self):
-        """boot a vom"""
+        """008: boot a vom"""
         HEADING()
         cm = self.cm
 
@@ -194,12 +193,12 @@ class Test_cloudmeshdb:
         # pprint (r)
 
     def test_009(self):
-        """flatten"""
+        """009: flatten"""
         HEADING()
         cm = self.cm
 
     def test_010(self):
-        """add"""
+        """010: add"""
         HEADING()
         cm = self.cm
 
@@ -210,7 +209,7 @@ class Test_cloudmeshdb:
 
 
     def test_011(self):
-        """hostlist"""
+        """011: hostlist"""
         HEADING()
 
         from cloudmesh_base.hostlist import Parameter
@@ -220,7 +219,7 @@ class Test_cloudmeshdb:
         assert str(result) == "['india01', 'india02', 'india03']"
 
     def test_012(self):
-        """dictupdate"""
+        """012: dictupdate"""
         HEADING()
 
 
@@ -256,50 +255,39 @@ class Test_cloudmeshdb:
         assert r['y'] == 20 and r['x'] == 10
 
     def  test_013(self):
-        """datadict update"""
+        """013: datadict update"""
         HEADING()
 
         cm = self.cm
+        cm.update("flavor", "india")
 
-        image_dict = {
-             'cm_cloud': 'india',
-             'cm_update': '2015-06-24 00:55:00 UTC',
-             'cm_user': 'gregor',
-             'created': '2015-03-23T20:50:29Z',
-             'id': '58e5d678-79ec-4a4d-9aa8-37975b7f40ac',
-             'minDisk': 0,
-             'minRam': 0,
-             'name': 'futuresystems/fedora-21',
-             'progress': 100,
-             'serverId': None,
-             'status': 'ACTIVE',
-             'updated': '2015-03-23T20:50:33Z'
-        }
-
-        image_id = image_dict['id']
-
-        elements = cm.find(FLAVOR, cm_cloud='india', name='m1.small_e30').all()
-        for element in elements:
-            d = cm.o_to_d(element)
-            pprint (d)
-            # d = cm.object_to_dict(element)
-            #pprint(d)
-
+        elements = cm.find("flavor", cm_cloud='india', name='m1.small_e30').all()
+        #for element in elements:
+        #    d = cm.o_to_d(element)
+        #    print (d)
 
         cloud = OpenStack_libcloud("india", cm_user="gvonlasz")
+
         result = cloud.list("flavor", output="flat")
         f = result["1"]
         f["label"] = "newlabel"
+        f["cm_type"] = "flavor"
+        f["cm_id"] = cm.getID("flavor", "1", "india")
+
+        # print("libcloud", f)
+
 
         cm.update_from_dict(f)
         cm.save()
-        pprint(f)
 
 
 
-        elements = cm.find(FLAVOR, name='m1.tiny').all()
-        for e in elements:
-            pprint(cm.o_to_d (e))
+        element = cm.find('flavor',id="1").first()
+        d = cm.o_to_d(element)
+        # print("RRRR", d['label'], d['name'])
+
+        assert d['label'] == "newlabel"
+
 """
 pprint(cm.dict(cloudmesh_db.VM))
 pprint(cm.json(cloudmesh_db.VM))

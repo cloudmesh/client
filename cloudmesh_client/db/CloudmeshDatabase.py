@@ -185,7 +185,6 @@ class CloudmeshDatabase(object):
                 print ("WARNING:", key, "in table", element.__table__.name, "does not exist")
                 print(e)
         self.save()
-        e = self.find("DEFAULT", name="name").first()
 
     def default(self, name, value, cloud=None):
         # find
@@ -343,10 +342,6 @@ class CloudmeshDatabase(object):
         if type(clouds) == str:
             clouds = Parameter.expand(clouds)
 
-
-        print ("KKK", kinds)
-        print ("CCC", clouds)
-
         for cloud in clouds:
             cloudname = cloud.lower()
             cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
@@ -360,7 +355,6 @@ class CloudmeshDatabase(object):
 
                     result["cm_id"] = self.getID(kind, str(result["id"]), cloudname)
                     result["cm_type"] = kind
-                    print ("xxxxxxxxxxxxx", result["cm_id"])
                     self.update_from_dict(result)
         self.save()
 

@@ -62,10 +62,27 @@ class database(object):
 
 db = database()
 
+def set_cm_data(table,
+                cm_name=None,
+                label=None,
+                cloud='india',
+                cm_user=None):
+    table.cm_type = table.__tablename__
+    table.cm_name = cm_name
+    table.label = label
+    if cm_user is None:
+        table.cm_user = getpass.getuser()
+    else:
+        table.cm_user = cm_user
+    table.cm_uuid = str(uuid.uuid4())
+    table.cm_id = "{:}_{:}_{:}_{:}".format(table.__tablename__, table.cm_user, cloud, cm_name)
+
+
 class DEFAULT(db.Base):
     __tablename__ = 'default'
     id = Column(Integer)
 
+    cm_name  = Column(String)
     cm_uuid = Column(String)
     cm_cloud = Column(String)
     cm_update = Column(String)
@@ -79,33 +96,20 @@ class DEFAULT(db.Base):
     cloud = Column(String)
 
     def __init__(self,
-                 name=None,
+                 cm_name=None,
                  label=None,
                  cloud='india',
                  cm_user=None,
                  value=None):
-        self.set_cm_data(
-                    name=name,
+
+        set_cm_data(self,
+                    cm_name=cm_name,
                     label=label,
                     cloud=cloud,
                     cm_user=cm_user)
         self.value = value
 
 
-    def set_cm_data(self,
-                    name=None,
-                    label=None,
-                    cloud='india',
-                    cm_user=None):
-        self.cm_type = self.__tablename__
-        self.name = name
-        self.label = label
-        if cm_user is None:
-            self.cm_user = getpass.getuser()
-        else:
-            self.cm_user = cm_user
-        self.cm_uuid = str(uuid.uuid4())
-        self.cm_id = "{:}_{:}_{:}_{:}".format("default", self.cm_user, cloud, name)
 
 
 
@@ -119,6 +123,7 @@ class IMAGE(db.Base):
     cm_uuid = Column(String)
     cm_user = Column(String)
     cm_type = Column(String)
+    cm_name = Column(String)
 
     name = Column(String)
     label = Column(String)
@@ -156,34 +161,17 @@ class IMAGE(db.Base):
     # name = Column(String)
 
     def __init__(self,
-                 name=None,
+                 cm_name=None,
                  label=None,
-                 group='default',
                  cloud='india',
                  cm_user=None):
-       self.set_cm_data(
-                    name=name,
+
+        set_cm_data(self,
+                    cm_name=cm_name,
                     label=label,
-                    group=group,
                     cloud=cloud,
                     cm_user=cm_user)
 
-
-    def set_cm_data(self,
-                    name=None,
-                    label=None,
-                    group=group,
-                    cloud='india',
-                    cm_user=None):
-        self.cm_type = self.__tablename__
-        self.label = label
-        self.group = group
-        if cm_user is None:
-            self.cm_user = getpass.getuser()
-        else:
-            self.cm_user = cm_user
-        self.cm_uuid = str(uuid.uuid4())
-        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, name)
 
 
 class FLAVOR(db.Base):
@@ -195,6 +183,7 @@ class FLAVOR(db.Base):
     cm_update = Column(String)
     cm_user = Column(String)
     cm_type = Column(String)
+    cm_name = Column(String)
 
     id = Column(Integer)
     name = Column(String)
@@ -213,35 +202,18 @@ class FLAVOR(db.Base):
     # extra = Column(String)
 
     def __init__(self,
+                 cm_name=None,
                  label=None,
-                 group='default',
                  cloud='india',
-                 cm_user=None,
-                 id=None):
-        self.set_cm_data(
+                 cm_user=None):
+
+        set_cm_data(self,
+                    cm_name=cm_name,
                     label=label,
-                    group=group,
                     cloud=cloud,
-                    cm_user=cm_user,
-                    id=id)
+                    cm_user=cm_user)
 
 
-    def set_cm_data(self,
-                    label=None,
-                    group=group,
-                    cloud='india',
-                    cm_user=None,
-                    id=None):
-        self.cm_type = self.__tablename__
-        self.label = label
-        self.group = group
-        if cm_user is None:
-            self.cm_user = getpass.getuser()
-        else:
-            self.cm_user = cm_user
-        self.cm_uuid = str(uuid.uuid4())
-        self.cm_cloud = cloud
-        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, id)
 
 
 class VM(db.Base):
@@ -254,6 +226,7 @@ class VM(db.Base):
     cm_user = Column(String)
     cm_uuid = Column(String)
     cm_type = Column(String)
+    cm_name = Column(String)
 
     # private_ips [10.23.1.35],
     # public_ips [149.165.158.100],
@@ -294,18 +267,14 @@ class VM(db.Base):
 
 
     def __init__(self,
-                 name=name,
+                 cm_name=None,
                  label=None,
-                 group='default',
                  cloud='india',
                  cm_user=None):
-        self.name=name
-        self.label = label
-        self.cm_type = self.__tablename__
-        if cm_user is None:
-            self.cm_user = getpass.getuser()
-        else:
-            self.cm_user = cm_user
-        self.cm_uuid = str(uuid.uuid4())
-        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, self.name)
+
+        set_cm_data(self,
+                    cm_name=cm_name,
+                    label=label,
+                    cloud=cloud,
+                    cm_user=cm_user)
 
