@@ -34,7 +34,8 @@ class cm_shell_search:
         # pprint(arguments)
 
         if arguments["NAME"] is None:
-            command_search.do_search('default')
+            #command_search.do_search('default','')
+            print (self.do_search.__doc__)
         elif arguments["NAME"]:
             filter = ""
             if (arguments["FILTER"]):
