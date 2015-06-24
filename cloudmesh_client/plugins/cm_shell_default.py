@@ -20,7 +20,7 @@ class cm_shell_default:
               default KEY
               default KEY=VALUE
 
-          managing the defaults
+          managing the defaults test test test test
 
           Arguments:
 
@@ -32,7 +32,7 @@ class cm_shell_default:
              -v       verbose mode
 
         """
-        pprint(arguments)
+        #pprint(arguments)
 
         if arguments["list"]:
             output = arguments["--output"]

@@ -41,11 +41,9 @@ class command_search(object):
             where = """ AND """.join(filter)
             where = 'WHERE {}'.format(where)
 
-        print where
-
         _table = table.upper()
         sql = text(""" SELECT * FROM {} {}""".format(_table, where))
-
+        print sql
         try:
             if table == 'vm':
                 #r = session.query(VM).all()
@@ -55,7 +53,7 @@ class command_search(object):
             elif table == 'image':
                 r = session.query(IMAGE).from_statement(sql).all()
             elif table == 'default':
-                r = session.query(DFAULT).from_statement(sql).all()
+                r = session.query(DEFAULT).from_statement(sql).all()
             else:
                 Console.error("Please specify a valid table")
                 return
