@@ -1,74 +1,192 @@
 CHANGES
 =======
 
+* test add command register test
+* remove unneeded files
+* moving files into final position
+* Editing filter to get more than one option (AND)
+* Adding a try-except for invalid search
+* Adding test if result query is empty
+* Adding cloudmesh_search
+* outstanding checkins
+* updated on the examples for aws and azure
+* removing None from table print
+* implementing a first cm list command
+* removed plural of flavor, vm, image in kind strings
+* start reorganizing methods
+* splitting classes
+* start baseclass
+* simple code cleanip
+* assert Parameter.expand test
+* pep8, switching hosstlist to Parameter.expand
+* adding more comments
+* improving the hostlist comment
+* adding more command suggestions
+* reformatting, reordering, and sellchecking the proposed commands
+* Adding a test file to queries
+* Adding a test file for queries
+* remove debug messages
+* renaming the id to cm_id so it does not conflict with the SQL id
+* change table data types
+* fixed commands_nova.rst format
+* adding the export line match
+* updated suggestion commands_nova.rst
+* fix the plugin location
+* debug messages
+* libcloud install restored
+* added __init__
+* passing git+ strings to pbr does not work
+* updated suggestion command nova doc
+* created file suggestion commands nova in doc
+* azure tested to create and delete a vm
+* fixing the module import
+* changing more imports
+* default image for azure
+* cahnge import statements
+* reorganize the module
+* reorganize the modules
+* dev version of libcloud from github 'trunk'
+* preparing for update on vm and image
+* abstracting the lister and inserter
+* removing one test
+* reduce code duplication
+* update search functions to convert to dicts
+* working on filtered get
+* readding the deleted methods during a merge
+* redoing the merge
+* pushing first data to the database
+* doc: updated to cloudmesh_cloud
+* doc: updated to cloudmesh_cloud
+* Doc: Changing cloudmesh_client for cloudmesh_cloud
+* Doc: Changing cloudmesh_client for cloudmesh_cloud
+* adding documentation to the flatten methods
+* flatten methods for libcloud image and vm
+* f = flatten(d) # function to flatten a dict
+* updated on azure
+* updated on azure
+* azure example started
+* azure example started
+* Testing git commit on windows
+* Testing git commit on windows
 * Testing git commit on windows
 * Testing git commit on windows
 * Added cmd3.yaml example to etc directory
+* Added cmd3.yaml example to etc directory
+* rename
 * rename
 * aws example
+* aws example
+* adding a simplified boot command
 * adding a simplified boot command
 * adding cm_user cm_cloud cm_update attributes to the dicts
+* adding cm_user cm_cloud cm_update attributes to the dicts
+* adding provider list queris for openstack
 * adding provider list queris for openstack
 * adding IMAGE and FLAVOR to get_kind_from_string
+* adding IMAGE and FLAVOR to get_kind_from_string
+* adding the username to the vm name for better debugging
 * adding the username to the vm name for better debugging
 * adding proper argument pass through to the nova command
+* adding proper argument pass through to the nova command
+* assing more objects to the database
 * assing more objects to the database
 * adding database replace, add, and merge
+* adding database replace, add, and merge
+* adding additional database methods
 * adding additional database methods
 * next_name()
+* next_name()
 * renaming the examples to avoid name conflict with existing package
+* renaming the examples to avoid name conflict with existing package
+* fixed the nosetests for table printers
 
 0.5.7
 -----
 
 * fixed the nosetests for table printers
 * update the Changelog
+* update the Changelog
+* renaming the files for better readability
 
 0.5.6
 -----
 
 * renaming the files for better readability
 * moving examples to the examples dir
+* moving examples to the examples dir
+* moving examples to the example dir
 * moving examples to the example dir
 * reorganizing the database code
+* reorganizing the database code
 * fixed test_005 in test_configdict
+* fixed test_005 in test_configdict
+* register default command
 
 0.5.5
 -----
 
 * register default command
 * reorganizing the cloudmesh_default directory
+* reorganizing the cloudmesh_default directory
+* improving the test dict
 * improving the test dict
 * add a sample dict for test printing
+* add a sample dict for test printing
+* created Configdict test
 * created Configdict test
 * adding parameter parsing
+* adding parameter parsing
+* format the input to tt to make it more visible in the text
 * format the input to tt to make it more visible in the text
 * adding cygwin documentation
+* adding cygwin documentation
+* documentation for next_name
 * documentation for next_name
 * added automatic vm name generator
+* added automatic vm name generator
+* adding the test method templates for tables
 * adding the test method templates for tables
 * table test template
+* table test template
+* added testing methods to be implemented
 * added testing methods to be implemented
 * spellchecking
+* spellchecking
+* pep8 cleanup; Cloud object template
 * pep8 cleanup; Cloud object template
 * adding a mailmap
+* adding a mailmap
 * add make view
+* add make view
+* pep8 cleanup
 
 0.5.4
 -----
 
 * pep8 cleanup
 * add developer notes
+* add developer notes
+* tag management via makefile
 * tag management via makefile
 * makefile for make doc
+* makefile for make doc
+* adding sphinx documentation framework
 * adding sphinx documentation framework
 * simplify CHangelog
+* simplify CHangelog
+* clean requirements
 * clean requirements
 * add nosetests to tox
+* add nosetests to tox
+* imporved documentation
 * imporved documentation
 * fixing the nova command fixing libcoud example be using path_expand removing timeparse from requirements
+* fixing the nova command fixing libcoud example be using path_expand removing timeparse from requirements
+* changed table.py doc
 * changed table.py doc
 * created command_cloud.py doc
+* created command_cloud.py doc
+* updated ConfigDict.py doc
 * updated ConfigDict.py doc
 * simple tests for configdict
 * tests created

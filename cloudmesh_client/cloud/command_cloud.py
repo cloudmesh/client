@@ -5,6 +5,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import Config
+from os import system
 import textwrap
 
 
@@ -91,7 +92,7 @@ class command_cloud(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def register(cls, filename):
+    def register(cls, host, filename=None):
         """
         TODO
         :param filename:
@@ -99,7 +100,9 @@ class command_cloud(object):
         :return:
         """
         Console.ok("register")
-        #print(filename)
+        if host.lower() == "india":
+            #copies the whole dir from india
+            system("scp -r {:}:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/".format(host))
         #raise NotImplementedError("Not implemented")
 
     @classmethod
@@ -114,8 +117,7 @@ class command_cloud(object):
         print(config)
         Console.ok("register")
         print(filename)
-        print ("Hello world")
-        #raise NotImplementedError("Not implemented")
+        raise NotImplementedError("Not implemented")
 
     @classmethod
     def fill_out_form(cls, filename):
