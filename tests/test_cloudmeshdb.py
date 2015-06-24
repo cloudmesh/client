@@ -281,7 +281,6 @@ class Test_cloudmeshdb:
         cm.save()
 
 
-
         element = cm.find('flavor',id="1").first()
         d = cm.o_to_d(element)
         # print("RRRR", d['label'], d['name'])
