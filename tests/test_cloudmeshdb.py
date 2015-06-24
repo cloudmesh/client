@@ -1,10 +1,10 @@
 """ run with
 
-nosetests -v --nocapture
+python setup.py install; nosetests -v --nocapture  tests/test_cloudmeshdb.py:Test_cloudmeshdb.test_001
 
-or
+nosetests -v --nocapture tests/test_cloudmeshdb.py
 
-nosetests -v
+nosetests -v tests/test_cloudmeshdb.py
 
 """
 from __future__ import print_function
@@ -24,7 +24,8 @@ class Test_cloudmeshdb:
     def tearDown(self):
         pass
 
-    def test_001_name(self):
+    def test_001(self):
+        """testing the name management for VMs"""
         HEADING()
         cm = self.cm
 
@@ -36,23 +37,42 @@ class Test_cloudmeshdb:
         print (result)
         assert result == "gregor-002"
 
-    def test_002_add(self):
+    def test_002(self):
+        """testing adding VMs"""
         HEADING()
         cm = self.cm
 
         print ("Delete all vms ...")
         cm.delete_all("VM")
+        r = cm.info("count")
+
+        assert r['VM'] == 0
+
+        pprint (r)
 
         print ("Create 3 vms ...")
         vms = []
-        vms.append(VM('gregor1'))
-        vms.append(VM('gregor1'))
-        vms.append(VM('gregor2'))
+        vms.append(VM(name='gregor1'))
+        vms.append(VM(name='gregor2'))
 
         print ("Add vms ...")
         cm.add(vms)
         print ("Save vms ...")
         cm.save()
+        print ("saving ok")
+
+        try:
+            vms = [VM(name='gregor1')]
+            cm.add([VM(name='gregor1')])
+            cm.save()
+            assert False
+        except:
+            cm.session.rollback()
+            print ("adding a vm with existing name failed. ok")
+            assert True
+
+        cm.save()
+        print("UUUUU")
 
         found1 = 0
         found2 = 0
@@ -64,9 +84,9 @@ class Test_cloudmeshdb:
                 found2 = found2 + 1
 
         print ("found", found1, found2)
-        assert found1 == 2 and found2 == 1
+        assert found1 == 1 and found2 == 1
 
-    def test_003_find(self):
+    def test_003(self):
         """finding a specific vm"""
         HEADING()
         cm = self.cm
@@ -77,7 +97,7 @@ class Test_cloudmeshdb:
             print (vm.name, vm.id, vm.cloud)
         assert True
 
-    def test_004_find_by_name(self):
+    def test_004(self):
         """finding a specific vm"""
         HEADING()
         cm = self.cm
@@ -87,15 +107,21 @@ class Test_cloudmeshdb:
         cursor = cm.find_vm_by_name(name="doesnotexist")
         assert cursor is None
 
-    def test_005_delete(self):
+    def test_005(self):
         """delete vms"""
         HEADING()
         cm = self.cm
 
         cm.delete_all()
+        r = cm.info("count")
+        pprint(r)
+        assert r['sum'] == 0
 
 
-    def test_006_replace(self):
+    def test_006(self):
+        """
+        replacing objects in the database
+        """
         HEADING()
         cm = self.cm
 
@@ -103,12 +129,12 @@ class Test_cloudmeshdb:
             print ("Erase Type", erase_type)
             cm.delete_all("VM")
 
-            vm = VM('gregor1')
+            vm = VM(name='gregor1')
             vm.cloud = "india"
             cm.add([vm])
             cm.save()
 
-            vm = VM('gregor1')
+            vm = VM(name='gregor1')
             vm.group = "hallo"
             cm.replace(VM, [vm], erase=erase_type)
             cm.save()
@@ -128,7 +154,8 @@ class Test_cloudmeshdb:
             else:
                 assert v.cloud == "india"
 
-    def test_006_update(self):
+    def test_007(self):
+        """update the db info"""
         HEADING()
         cm = self.cm
 
@@ -150,7 +177,8 @@ class Test_cloudmeshdb:
 
 
 
-    def test_007_boot(self):
+    def test_008(self):
+        """boot a vom"""
         HEADING()
         cm = self.cm
 
@@ -165,11 +193,13 @@ class Test_cloudmeshdb:
         ## r = cm.boot(cloud, cm_user, name, image, flavor, key, meta)
         # pprint (r)
 
-    def test_008_flatten(self):
+    def test_009(self):
+        """flatten"""
         HEADING()
         cm = self.cm
 
-    def test_009_add(self):
+    def test_010(self):
+        """add"""
         HEADING()
         cm = self.cm
 
@@ -179,7 +209,8 @@ class Test_cloudmeshdb:
 
 
 
-    def test_009_paramater(self):
+    def test_011(self):
+        """hostlist"""
         HEADING()
 
         from cloudmesh_base.hostlist import Parameter
@@ -188,7 +219,8 @@ class Test_cloudmeshdb:
         print (result)
         assert str(result) == "['india01', 'india02', 'india03']"
 
-    def test_010_dict(self):
+    def test_012(self):
+        """dictupdate"""
         HEADING()
 
 
@@ -223,7 +255,8 @@ class Test_cloudmeshdb:
         print (r)
         assert r['y'] == 20 and r['x'] == 10
 
-    def  test_011_data(self):
+    def  test_013(self):
+        """datadict update"""
         HEADING()
 
         cm = self.cm

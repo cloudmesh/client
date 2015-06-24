@@ -85,7 +85,7 @@ class DEFAULT(db.Base):
                  cm_user=None,
                  value=None):
         self.set_cm_data(
-                    name=None,
+                    name=name,
                     label=label,
                     cloud=cloud,
                     cm_user=cm_user)
@@ -156,11 +156,13 @@ class IMAGE(db.Base):
     # name = Column(String)
 
     def __init__(self,
+                 name=None,
                  label=None,
                  group='default',
                  cloud='india',
                  cm_user=None):
        self.set_cm_data(
+                    name=name,
                     label=label,
                     group=group,
                     cloud=cloud,
@@ -168,6 +170,7 @@ class IMAGE(db.Base):
 
 
     def set_cm_data(self,
+                    name=None,
                     label=None,
                     group=group,
                     cloud='india',
@@ -180,7 +183,7 @@ class IMAGE(db.Base):
         else:
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
-        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, self.id)
+        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, name)
 
 
 class FLAVOR(db.Base):
@@ -291,10 +294,12 @@ class VM(db.Base):
 
 
     def __init__(self,
+                 name=name,
                  label=None,
                  group='default',
                  cloud='india',
                  cm_user=None):
+        self.name=name
         self.label = label
         self.cm_type = self.__tablename__
         if cm_user is None:
@@ -302,5 +307,5 @@ class VM(db.Base):
         else:
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
-        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, self.id)
+        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, self.name)
 

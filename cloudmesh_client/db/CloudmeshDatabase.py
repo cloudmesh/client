@@ -142,6 +142,7 @@ class CloudmeshDatabase(object):
 
     def save(self):
         self.session.commit()
+        self.session.flush()
 
     def name(self, value):
         self.default("name", value, "global")
@@ -402,7 +403,7 @@ class CloudmeshDatabase(object):
     """
 
     def info(self, what=None, kind=None):
-
+        count_result = {}
         if kind is None:
             kinds = "VM,FLAVOR,IMAGE,DEFAULT"
         else:
@@ -422,12 +423,18 @@ class CloudmeshDatabase(object):
                     for column in inspector.get_columns(table_name):
                         print("  ", column['name'], column['type'])
 
+        sum = 0
         if "count" in infos:
             for table in [VM, FLAVOR, IMAGE, DEFAULT]:
                 rows = self.session.query(table).count()
                 name = str(table.name).replace(".name", "")
+                count_result[name] = rows
                 if name in kinds:
                     print("Count {:}: {:}".format(name, rows))
+                sum = sum + rows
+            count_result['sum'] = sum
+
+        return count_result
 
     """
     def boot(self, cloud, cm_user, name, image, flavor, key, meta):
@@ -471,10 +478,11 @@ class KeyMapper(object):
     def add_mapping_from_dict(self, cloudobject, d):
         tupels = [(k, v) for k, v in d.iteritems()]
         self.add_mapping(cloudobject, tupels)
-
+    """
     def add(self, cloudobject, key_db, key_cloud):
         self.cloud_keys[cloudobject].append(key_cloud)
         self.db_keys[cloudobject].append(key_db)
+    """
 
     def add_mapping_from_yaml(self, cloudobject, stream):
         d = yaml.load_all(stream)
