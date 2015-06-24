@@ -64,27 +64,66 @@ db = database()
 
 class DEFAULT(db.Base):
     __tablename__ = 'default'
-    id = Column(Integer, primary_key=True)
-    cm_id = Column(String)
+    id = Column(Integer)
+
+    cm_uuid = Column(String)
+    cm_cloud = Column(String)
+    cm_update = Column(String)
+    cm_user = Column(String)
+    cm_id = Column(String,primary_key=True)
+    cm_type = Column(String)
+
     name = Column(String)
     value = Column(String)
     user = Column(String)
     cloud = Column(String)
-    cm_uuid = Column(String)
+
+    def __init__(self,
+                 name=None,
+                 label=None,
+                 cloud='india',
+                 cm_user=None,
+                 value=None):
+        self.set_cm_data(
+                    name=None,
+                    label=label,
+                    cloud=cloud,
+                    cm_user=cm_user)
+        self.value = value
+
+
+    def set_cm_data(self,
+                    name=None,
+                    label=None,
+                    cloud='india',
+                    cm_user=None):
+        self.cm_type = self.__tablename__
+        self.name = name
+        self.label = label
+        if cm_user is None:
+            self.cm_user = getpass.getuser()
+        else:
+            self.cm_user = cm_user
+        self.cm_uuid = str(uuid.uuid4())
+        self.cm_id = "{:}_{:}_{:}_{:}".format("default", self.cm_user, cloud, name)
+
 
 
 class IMAGE(db.Base):
     __tablename__ = 'image'
-    id = Column(Integer, primary_key=True)
-    cm_id = Column(String)
-    name = Column(String)
-    label = Column(String)
-    group = Column(String)
-    cloud = Column(String)
+    id = Column(Integer)
+
+    cm_id = Column(String, primary_key=True)
     cm_cloud = Column(String)
     cm_update = Column(String)
     cm_uuid = Column(String)
     cm_user = Column(String)
+    cm_type = Column(String)
+
+    name = Column(String)
+    label = Column(String)
+    group = Column(String)
+    cloud = Column(String)
     cloud_uuid = Column(String)
     created = Column(String)
     base_image_ref = Column(String)
@@ -117,34 +156,47 @@ class IMAGE(db.Base):
     # name = Column(String)
 
     def __init__(self,
-                 name,
                  label=None,
                  group='default',
                  cloud='india',
                  cm_user=None):
+       self.set_cm_data(
+                    label=label,
+                    group=group,
+                    cloud=cloud,
+                    cm_user=cm_user)
 
-        self.name = name
+
+    def set_cm_data(self,
+                    label=None,
+                    group=group,
+                    cloud='india',
+                    cm_user=None):
+        self.cm_type = self.__tablename__
         self.label = label
-
-        if label is None:
-            self.label = name
+        self.group = group
         if cm_user is None:
             self.cm_user = getpass.getuser()
         else:
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
+        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, self.id)
 
 
 class FLAVOR(db.Base):
     __tablename__ = 'flavor'
-    id = Column(Integer, primary_key=True)
-    cm_id = Column(String)
+
+    cm_uuid = Column(String)
+    cm_id = Column(String, primary_key=True)
+    cm_cloud = Column(String)
+    cm_update = Column(String)
+    cm_user = Column(String)
+    cm_type = Column(String)
+
+    id = Column(Integer)
     name = Column(String)
     label = Column(String)
     group = Column(String)
-    cm_uuid = Column(String)
-    cm_user = Column(String)
-    cm_update = Column(String)
     cloud = Column(String)
     uuid = Column(String)
     bandwidth = Column(String)
@@ -158,39 +210,56 @@ class FLAVOR(db.Base):
     # extra = Column(String)
 
     def __init__(self,
-                 name,
                  label=None,
                  group='default',
                  cloud='india',
-                 cm_user=None):
+                 cm_user=None,
+                 id=None):
+        self.set_cm_data(
+                    label=label,
+                    group=group,
+                    cloud=cloud,
+                    cm_user=cm_user,
+                    id=id)
 
-        self.name = name
+
+    def set_cm_data(self,
+                    label=None,
+                    group=group,
+                    cloud='india',
+                    cm_user=None,
+                    id=None):
+        self.cm_type = self.__tablename__
         self.label = label
-
-        if label is None:
-            self.label = name
+        self.group = group
         if cm_user is None:
             self.cm_user = getpass.getuser()
         else:
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
+        self.cm_cloud = cloud
+        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, id)
 
 
 class VM(db.Base):
     __tablename__ = 'vm'
-    id = Column(Integer, primary_key=True)
-        # private_ips [10.23.1.35],
+    id = Column(Integer)
+
+    cm_cloud = Column(String)
+    cm_id = Column(String, primary_key=True)
+    cm_update = Column(String)
+    cm_user = Column(String)
+    cm_uuid = Column(String)
+    cm_type = Column(String)
+
+    # private_ips [10.23.1.35],
     # public_ips [149.165.158.100],
     #volumes_attached []
     access_ip = Column(String)
     access_ipv6 = Column(String)
     availability_zone = Column(String)
     cloud = Column(String)
-    cm_cloud = Column(String)
-    cm_id = Column(String)
-    cm_update = Column(String)
-    cm_user = Column(String)
-    cm_uuid = Column(String)
+
     config_drive = Column(String)
     created = Column(String)
     disk_config = Column(String)
@@ -222,20 +291,16 @@ class VM(db.Base):
 
 
     def __init__(self,
-                 name,
                  label=None,
                  group='default',
                  cloud='india',
                  cm_user=None):
-
-        self.name = name
         self.label = label
-
-        if label is None:
-            self.label = name
+        self.cm_type = self.__tablename__
         if cm_user is None:
             self.cm_user = getpass.getuser()
         else:
             self.cm_user = cm_user
         self.cm_uuid = str(uuid.uuid4())
+        self.cm_id = "{:}_{:}_{:}_{:}".format(self.__tablename__, self.cm_user, cloud, self.id)
 

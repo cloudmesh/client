@@ -9,6 +9,8 @@ from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
 from cloudmesh_client.cloud.clouds import Cloud
 from pprint import pprint
 from cloudmesh_base.hostlist import Parameter
+from datetime import datetime
+from cloudmesh_base.hostlist import Parameter
 
 class CloudmeshDatabase(object):
 
@@ -21,6 +23,16 @@ class CloudmeshDatabase(object):
             self.cm_user = getpass.getuser()
         else:
             self.cm_user = cm_user
+
+    def getID(self, kind, id, cloudname):
+
+        result = "{:}_{:}_{:}_{:}".format(
+            cloudname,
+            self.cm_user,
+            kind,
+            id)
+
+        return result
 
     def connect(self):
         """
@@ -39,6 +51,17 @@ class CloudmeshDatabase(object):
         """
         return self.find(VM, name=name).first()
 
+    def find_by_name(self, table, name):
+        """
+
+        :param name:
+        :return:
+        """
+        table_type = kind
+        if type(kind) == str:
+            table_type = self.get_table_from_name(kind)
+        return self.find(table_type, name=name).first()
+
     def find(self, kind, **kwargs):
         """
         NOT TESTED
@@ -46,7 +69,10 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        return self.session.query(kind).filter_by(**kwargs)
+        table_type = kind
+        if type(kind) == str:
+            table_type = self.db.get_table_from_name(kind)
+        return self.session.query(table_type).filter_by(**kwargs)
 
     def delete_by_name(self, kind, name):
         """
@@ -93,17 +119,20 @@ class CloudmeshDatabase(object):
         :param erase:
         :return:
         """
+        table_type = kind
+        if type(kind) == str:
+            table_type = self.get_table_from_name(kind)
         if erase:
             names = []
             for item in items:
                 print("delete", item.name)
-                self.delete_by_name(kind, item.name)
+                self.delete_by_name(table_type, item.name)
             self.save()
             self.session.add_all(items)
         else:
             # overwrite existing elements
             for item in items:
-                existing_item = self.find(kind, name=item.name).first()
+                existing_item = self.find(table_type, name=item.name).first()
                 item.id = existing_item.id
                 self.session.merge(item)
             self.save()
@@ -118,16 +147,63 @@ class CloudmeshDatabase(object):
         self.default("name", value, "global")
 
     def get_name(self):
-        current = self.session.query(DEFAULT).filter_by(name="name", cloud="global").first()
-        return current.value
+        current = self.find(DEFAULT, name="name").first()
+        if current is None:
+            print("WARNING: name not set")
+            return "namenotset"
+        else:
+            return current.value
 
     def next_name(self):
         name = self.get_name()
         return Cloud.next_name(name)
 
-    def default(self, key, value, cloud):
+
+    def update_from_dict(self, d):
+
+        content = dict(d)
+        content["update"] = str(datetime.now())
+
+        cm_id = content["cm_id"]
+        cm_type = content["cm_type"]
+
+        table = self.db.get_table_from_name(cm_type)
+        e = self.find(table, cm_id=cm_id).first()
+        if e is None:
+            e = table()
+            self.session.add_all([e])
+            self.save()
+
+        self.set(e,content)
+
+    def set(self, element, d):
+        for key in d:
+            try:
+                setattr(element, key, d[key])
+            except Exception, e:
+                print ("WARNING:", key, "in table", element.__table__.name, "does not exist")
+                print(e)
+        self.save()
+        e = self.find("DEFAULT", name="name").first()
+
+    def default(self, name, value, cloud=None):
         # find
-        d = [DEFAULT(cloud=cloud, name=key, value=value)]
+        if cloud is None:
+            cloud = "global"
+
+        element_id= self.getID("default", name, cloud)
+        d = {
+            "cm_cloud": cloud,
+            "cm_type": "default",
+            "cm_id": element_id,
+            "name": name,
+            "value": value
+            }
+
+        self.update_from_dict(d)
+
+        """
+        d = [DEFAULT(cloud=cloud, value=value)]
         current = self.session.query(DEFAULT).filter_by(name=key).first()
         if current is None:
             self.session.add_all(d)
@@ -136,6 +212,7 @@ class CloudmeshDatabase(object):
             current.cloud = cloud
             self.save()
         self.save()
+        """
 
     @property
     def data(self):
@@ -191,6 +268,15 @@ class CloudmeshDatabase(object):
     def get(self, table):
         return self.dict(table)
 
+
+
+    def o_to_d (self, element):
+        d = {}
+        for column in element.__table__.columns:
+            d[column.name] = getattr(element, column.name)
+        return d
+
+
     def object_to_dict(self, obj):
         result = dict()
         for u in obj:
@@ -242,7 +328,7 @@ class CloudmeshDatabase(object):
                 result[cloud] = self.object_to_dict(result[cloud])
         return result
 
-    def update(self, kind, cloud):
+    def update(self, kinds, clouds):
         """
         GREGOR WORKS ON THIS
         updates the data in the database
@@ -251,32 +337,63 @@ class CloudmeshDatabase(object):
         :param cloud: name of the cloud
         :return:
         """
-        cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
+        if type(kinds) == str:
+            kinds = Parameter.expand(kinds)
+        if type(clouds) == str:
+            clouds = Parameter.expand(clouds)
 
-        group = "default"
-        lister = None
-        inserter = None
 
-        if kind.lower() == "vm":
-            inserter = Insert.vm
-        elif kind.lower() in ["image"]:
-            inserter = Insert.image
-        elif kind.lower() in ["flavor", "size"]:
-            inserter = Insert.flavor
-        else:
-            return
+        print ("KKK", kinds)
+        print ("CCC", clouds)
 
-        result = cloud.list(kind.lower(), output="flat")
+        for cloud in clouds:
+            cloudname = cloud.lower()
+            cloud = OpenStack_libcloud(cloud, cm_user=self.cm_user)
 
-        for element in result:
-            r = inserter("india", self.cm_user, group, result[element])
+            for k in kinds:
+                kind = k.lower()
+                results = cloud.list(kind, output="flat")
 
+                for element in results:
+                    result = results[element]
+
+                    result["cm_id"] = self.getID(kind, str(result["id"]), cloudname)
+                    result["cm_type"] = kind
+                    print ("xxxxxxxxxxxxx", result["cm_id"])
+                    self.update_from_dict(result)
         self.save()
-        # banner(kind, c="-")
-        # pprint (result)
 
-        # current = self.session.query(FLAVOR).filter_by(group="default").first()
-        # print("UUUUU", current)
+        '''
+            group = "default"
+            lister = None
+            inserter = None
+
+            if kind.lower() == "vm":
+                inserter = Insert.vm
+            elif kind.lower() in ["image"]:
+                inserter = Insert.image
+            elif kind.lower() in ["flavor", "size"]:
+                inserter = Insert.flavor
+            else:
+                return
+
+
+            for element in result:
+                try:
+                   existing = self.find_by_name(result[element]['name'])
+                except:
+                    existing = None
+
+                print("XXXXX", result[element]['name'])
+                r = inserter("india", self.cm_user, group, result[element], existing)
+
+            self.save()
+            # banner(kind, c="-")
+            # pprint (result)
+
+            # current = self.session.query(FLAVOR).filter_by(group="default").first()
+            # print("UUUUU", current)
+        '''
 
     """
     def get_flavor(self, cloud, name):
@@ -389,11 +506,7 @@ class Insert(object):
         if mapping is None:
             for key, value in d.iteritems():
                 if hasattr(element, key):
-
-                    if key == "id":
-                        setattr(element, "cm_id", value)
-                    else:
-                        setattr(element, key, value)
+                    setattr(element, key, value)
                 else:
                     print("Warnnig: dict has d[{:}]: {:}, but key is not in the table {:}. Ignoring key"
                           .format(key, d[key], type(element).__name__))
@@ -401,15 +514,54 @@ class Insert(object):
             print("not yet implemented")
         return element
 
+    @staticmethod
+    def merge_two_dicts(a, b):
+        """
+        mergers the two dictionaries and returns a merged one
+
+        :param a: dict
+        :param b: dict
+        :return: dict
+        """
+        c = a.copy()
+        c.update(b)
+        return c
+
+    @staticmethod
+    def merge_into(a, b, mapping, erase=False):
+        """
+        mergers the two dictionaries and returns a merged one
+
+        :param a: dict
+        :param b: dict
+        :return: dict
+        """
+        if erase:
+            result = {}
+        else:
+            result = dict(a)
+        print (result)
+        for key_to in mapping:
+            try:
+                key_from=mapping[key_to]
+                result[key_to] = b[key_from]
+            except:
+                pass
+        return result
+
     @classmethod
-    def _data(cls, table, cloud, user, group, d):
+    def _data(cls, table, cloud, user, group, d, existing):
         """
 
         :type d: dict
         """
         print("_data", str(table), cloud, user, group)
         pprint(d)
-        f = table(d["name"])
+        # this creates new object inseatd of mergin it into existing one
+        if existing is None:
+            f = table(d["name"])
+        else:
+            f = existing
         f = cls.merge_dict(f, d)
         f.cm_cloud = str(cloud)
         f.cm_user = user
@@ -419,28 +571,28 @@ class Insert(object):
         cm.save()
 
     @classmethod
-    def flavor(cls, cloud, user, group, d):
+    def flavor(cls, cloud, user, group, d, existing):
         """
 
         :type d: dict
         """
-        cls._data(database.get_table_from_name('flavor'), cloud, user, group, d)
+        cls._data(database.get_table_from_name('flavor'), cloud, user, group, d, existing)
 
     @classmethod
-    def image(cls, cloud, user, group, d):
+    def image(cls, cloud, user, group, d, existing):
         """
 
         :type d: dict
         """
-        cls._data(database.get_table_from_name('image'), cloud, user, group, d)
+        cls._data(database.get_table_from_name('image'), cloud, user, group, d, existing)
 
     @classmethod
-    def vm(cls, cloud, user, group, d):
+    def vm(cls, cloud, user, group, d, existing):
         """
 
         :type d: dict
         """
-        cls._data(database.get_table_from_name('vm'), cloud, user, group, d)
+        cls._data(database.get_table_from_name('vm'), cloud, user, group, d, existing)
 
 
 def main():

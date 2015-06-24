@@ -11,13 +11,15 @@ from __future__ import print_function
 from cloudmesh_base.util import HEADING
 from  cloudmesh_client.db import FLAVOR, VM, DEFAULT, IMAGE
 from pprint import pprint
-from cloudmesh_client.db import CloudmeshDatabase, VM, FLAVOR, IMAGE, DEFAULT
-
+from cloudmesh_client.db import CloudmeshDatabase, VM, FLAVOR, IMAGE, DEFAULT, Insert
+from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
+from datetime import datetime
 
 class Test_cloudmeshdb:
     def setup(self):
         self.cm = CloudmeshDatabase(cm_user="gregor")
         pass
+
 
     def tearDown(self):
         pass
@@ -131,6 +133,7 @@ class Test_cloudmeshdb:
         cm = self.cm
 
         cm.update("flavor", "india")
+        print ("UUUU")
         d = cm.get(FLAVOR)
         print("9999")
         pprint(d)
@@ -185,11 +188,85 @@ class Test_cloudmeshdb:
         print (result)
         assert str(result) == "['india01', 'india02', 'india03']"
 
+    def test_010_dict(self):
+        HEADING()
+
+
+        cm = self.cm
+
+        a = {
+            'x': 1,
+            'y': 2,
+            'z': 3,
+        }
+
+
+        b = {
+            'mm': 30,
+            'xx': 10,
+            'yy': 20,
+        }
+
+        mapping = {
+            'x': 'xx',
+            'y': 'yy',
+        }
 
 
 
+        r = Insert.merge_two_dicts(a, b)
+        print (r)
+        assert len(r) == len(a) + len(b)
+
+        r = Insert.merge_into(a, b, mapping, erase=False)
+
+        print (r)
+        assert r['y'] == 20 and r['x'] == 10
+
+    def  test_011_data(self):
+        HEADING()
+
+        cm = self.cm
+
+        image_dict = {
+             'cm_cloud': 'india',
+             'cm_update': '2015-06-24 00:55:00 UTC',
+             'cm_user': 'gregor',
+             'created': '2015-03-23T20:50:29Z',
+             'id': '58e5d678-79ec-4a4d-9aa8-37975b7f40ac',
+             'minDisk': 0,
+             'minRam': 0,
+             'name': 'futuresystems/fedora-21',
+             'progress': 100,
+             'serverId': None,
+             'status': 'ACTIVE',
+             'updated': '2015-03-23T20:50:33Z'
+        }
+
+        image_id = image_dict['id']
+
+        elements = cm.find(FLAVOR, cm_cloud='india', name='m1.small_e30').all()
+        for element in elements:
+            d = cm.o_to_d(element)
+            pprint (d)
+            # d = cm.object_to_dict(element)
+            #pprint(d)
 
 
+        cloud = OpenStack_libcloud("india", cm_user="gvonlasz")
+        result = cloud.list("flavor", output="flat")
+        f = result["1"]
+        f["label"] = "newlabel"
+
+        cm.update_from_dict(f)
+        cm.save()
+        pprint(f)
+
+
+
+        elements = cm.find(FLAVOR, name='m1.tiny').all()
+        for e in elements:
+            pprint(cm.o_to_d (e))
 """
 pprint(cm.dict(cloudmesh_db.VM))
 pprint(cm.json(cloudmesh_db.VM))
