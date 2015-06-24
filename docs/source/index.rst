@@ -14,6 +14,7 @@ file.
    installation
    configuration
    use
+   api
    man/man
    modules/modules
    develop
