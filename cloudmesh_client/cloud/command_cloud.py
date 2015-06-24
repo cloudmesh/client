@@ -7,6 +7,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import Config
 from os import system
 import textwrap
+from os.path import expanduser
 
 
 class command_cloud(object):
@@ -92,18 +93,65 @@ class command_cloud(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def register(cls, host, filename=None):
+    def register(cls, host):
         """
-        TODO
-        :param filename:
-        :type filename: string
+        copies the cloudmesh/clouds/india/juno directory from india
+        to the ~/.cloudmesh/clouds/india/ local directory.
+
+        :param host:
+        :type host: string
         :return:
         """
         Console.ok("register")
         if host.lower() == "india":
             #copies the whole dir from india
-            system("scp -r {:}:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/".format(host))
+            system("scp -r india:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/")
+        else:
+            print ("Cloud not found")
+
+    @classmethod
+    def register_CERT(cls, host, cert=None):
+        """
+        copies the CERT to the ~/.cloudmesh/clouds/CLOUD directory and registers that cert in the coudmeh.yaml file
+
+        :param host: the host name
+        :type host: string
+        :return:
+        """
+
+        Console.ok("register")
+        if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/CLOUD/juno
+            try:
+                system("scp -r india:.cloudmesh/clouds/india/juno/cacert.pem ~/.cloudmesh/clouds/india/juno")
+            except Exception, e:
+                print ("ERROR: ", e)
+                return
+            try:
+                home = expanduser("~")
+                filename = home+'/.cloudmesh/clouds/india/juno/openrc.sh'
+                result = Shell.cat(filename)
+            except IOError, e:
+                print ("ERROR: ", e)
+                return
+
+            
+            lines = result.split("\n")
+            config = ConfigDict("cloudmesh.yaml")
+            for line in lines:
+                if line.strip().startswith("export"):
+                    line = line.replace("export ", "")
+                    key, value = line.split("=", 1)
+                    config["cloudmesh"]["clouds"][host]["credentials"][key] = value
+            config.save()
+        else:
+             print ("Cloud not found")
+
+
         #raise NotImplementedError("Not implemented")
+
+    @classmethod
+    def register_DIR(cls, host):
+        raise NotImplementedError("Not implemented")
 
     @classmethod
     def test(cls, filename):

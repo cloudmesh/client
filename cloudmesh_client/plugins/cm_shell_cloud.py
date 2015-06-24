@@ -218,7 +218,6 @@ class cm_shell_cloud:
             print("--yaml", filename)
             command_cloud.register(filename)
         elif arguments['test']:
-            print ("inside test")
             filename = _get_file(arguments)
             command_cloud.test(filename)
             return
@@ -233,8 +232,11 @@ class cm_shell_cloud:
             command_cloud.register("india")
         elif arguments['CLOUD']:
             if arguments['CERT']:
-                command_cloud.register("india")
-
+                cloud = arguments['CLOUD']
+                command_cloud.register_CERT(cloud)
+            elif arguments['DIR']:
+                cloud = arguments['CLOUD']
+                command_cloud.register_DIR(cloud)
         pass
 
 
