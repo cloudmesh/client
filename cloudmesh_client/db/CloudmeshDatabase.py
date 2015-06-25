@@ -218,6 +218,13 @@ class CloudmeshDatabase(object):
             result = self.o_to_d(current)
             return result["value"]
 
+    def default(self, name, value, cloud=None):
+        # find
+        # deprecated, will be set_default in future
+        # todo: Paulo find the default methoods, and replace with set_default
+
+        self.set_default(name, value, cloud=cloud)
+
     def set_default(self, name, value, cloud=None):
         """
         sets a default variable
@@ -227,12 +234,6 @@ class CloudmeshDatabase(object):
         :param cloud: the cloud, if no name is specified the name "global" is used
         :return:
         """
-        self.default(name, value, cloud=cloud)
-
-    def default(self, name, value, cloud=None):
-        # find
-        # deprecated, will be set_default in future
-        # todo: Paulo find the default methoods, and replace with set_default
         if cloud is None:
             cloud = "global"
 
@@ -261,6 +262,11 @@ class CloudmeshDatabase(object):
 
     @property
     def data(self):
+        """
+        returns the database session
+        it is introduced as a compatiblity function
+        it may be deprecated
+        """
         return self.session
 
     def _convert_to_lists(self, **kwargs):
@@ -288,34 +294,61 @@ class CloudmeshDatabase(object):
     def servers(self, clouds=None, cm_user=None):
         """
         returns all the servers from all clouds
+
+        :param clouds:
+        :param cm_user:
+        :return:
         """
         return self._find_obj_from_clouds(VM, clouds=clouds, cm_user=cm_user)
 
     def flavors(self, clouds=None, cm_user=None):
         """
         returns all the flavors from the various clouds
+
+        :param clouds:
+        :param cm_user:
+        :return:
         """
         return self._find_obj_from_clouds(FLAVOR, clouds=clouds, cm_user=cm_user)
 
     def images(self, clouds=None, cm_user=None):
         """
         returns all the images from various clouds
+
+        :param clouds:
+        :param cm_user:
+        :return:
         """
         return self._find_obj_from_clouds(IMAGE, clouds=clouds, cm_user=cm_user)
 
     def get_by_filter(self, table, **kwargs):
-        print("ZZZZ", kwargs)
+        """
+        returns the database object that matches the filters submitted with kwargs
+
+        :param table:
+        :param kwargs:
+        :return:
+        """
         if len(kwargs) == 1:
             return self.session.query(table).filter_by(kwargs).all()
         else:
             print("YYYY", kwargs)
 
     def get(self, table):
+        """
+        returns the dict of the table
+        :param table:
+        :return:
+        """
         return self.dict(table)
 
-
-
     def o_to_d (self, element):
+        """
+        converts a single object to a dictionary
+
+        :param element:
+        :return:
+        """
         d = {}
         for column in element.__table__.columns:
             d[column.name] = getattr(element, column.name)
@@ -323,6 +356,12 @@ class CloudmeshDatabase(object):
 
 
     def object_to_dict(self, obj):
+        """
+        converst the object to dict
+
+        :param obj:
+        :return:
+        """
         result = dict()
         for u in obj:
             _id = u.id
@@ -334,12 +373,30 @@ class CloudmeshDatabase(object):
         return result
 
     def convert_query_to_dict(self, table):
+        """
+        tbd
+
+        :param table:
+        :return:
+        """
         return self.object_to_dict(self.session.query(table).all())
 
     def dict(self, table):
+        """
+        returns a dict from all elements in the table
+
+        :param table:
+        :return:
+        """
         return self.object_to_dict(self.session.query(table).all())
 
     def json(self, table):
+        """
+        returns a json representation from all elements in the table
+
+        :param table:
+        :return:
+        """
         d = self.dict(table)
         return json.dumps(d)
 
@@ -442,6 +499,9 @@ class CloudmeshDatabase(object):
     """
 
     def info(self, what=None, kind=None):
+        """
+        prints information about the database
+        """
         count_result = {}
         if kind is None:
             kinds = "VM,FLAVOR,IMAGE,DEFAULT"
