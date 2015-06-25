@@ -18,6 +18,7 @@ class Test_search:
     def tearDown(self):
         pass
 
-    def test_dummy(self):
+    def test_001(self):
+        """test setting and getting default values"""
         HEADING()
         assert True

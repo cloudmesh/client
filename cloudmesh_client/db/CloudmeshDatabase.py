@@ -206,6 +206,19 @@ class CloudmeshDatabase(object):
                 print(e)
         self.save()
 
+    def get_default(self, name, cloud=None):
+        if cloud is None:
+            cloud = "global"
+
+        element_id= self.getID("default", name, cloud)
+        current = self.session.query(DEFAULT).filter_by(cm_id).first()
+        if current is None:
+            return None
+        else:
+            result = self.o_to_d(current)
+            return result["value"]
+
+
     def default(self, name, value, cloud=None):
         # find
         if cloud is None:
