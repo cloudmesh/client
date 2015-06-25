@@ -66,6 +66,11 @@ client. To do so please isseue the following commands::
    easy_install pycrypto
    pip install urllib3
 
+.. note:: We found that readline and pycrypto could not be installed
+with pip at the time of writing of this manual. Despite the fact that
+it installed it, the installed versions were not usable. The
+workaround is to use easy_install. If you have a better idea how to
+fix this, let us know and send mail to laszewski@gmail.com.
 
 It is recommended that you test the version of the python interpreter
 and pip again::
@@ -86,7 +91,27 @@ Python 2.7.10
 Windows
 ^^^^^^^
 
+.. todo:: Paulo please make sure this is ok
+	  
 Special instructions for Windows are available in the Section :ref:`windows-install`
+
+Linux
+^^^^^
+
+.. todo:: Daniel develop Linux instructions
+
+use fresh machine.
+use standard python
+use ubuntu ???
+
+wahtch out for
+urllib 3
+readline
+pip update
+aptget update
+aptget upgrade
+....
+
 
 Pip
 ---
