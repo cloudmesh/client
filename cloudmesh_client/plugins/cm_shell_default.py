@@ -17,8 +17,8 @@ class cm_shell_default:
 
           Usage:
               default list [--output=FORMAT]
-              default KEY
-              default KEY=VALUE
+              default KEY [--cloud=CLOUD]
+              default KEY=VALUE [--cloud=CLOUD]
 
           managing the defaults test test test test
 
@@ -29,20 +29,23 @@ class cm_shell_default:
 
           Options:
 
-             -v       verbose mode
+             --cloud=CLOUD    the name of the cloud [default: general]
+             --output=FORMAT  the output format [default: table]
 
         """
-        #pprint(arguments)
-
+        pprint(arguments)
+        cloud = arguments["--cloud"]
         if arguments["list"]:
             output = arguments["--output"]
-            command_default.list()
+            result = command_default.list(output=output)
+            print (result)
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
-            command_default.set(key, value)
+            command_default.set(key, value, cloud)
         elif arguments["KEY"]:
             key = arguments["KEY"]
-            command_default.get(key)
+            result = command_default.get(key, cloud)
+            return result
         pass
 
 

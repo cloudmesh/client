@@ -11,6 +11,7 @@ from pprint import pprint
 from cloudmesh_base.hostlist import Parameter
 from datetime import datetime
 from cloudmesh_base.hostlist import Parameter
+import getpass
 
 class CloudmeshDatabase(object):
 
@@ -380,6 +381,17 @@ class CloudmeshDatabase(object):
         :return:
         """
         return self.object_to_dict(self.session.query(table).all())
+
+    def all(self, table):
+        d = {}
+        elements = self.session.query(table).all()
+        for element in elements:
+            d[element.cm_id] = {}
+            for key in element.__dict__.keys():
+                print ("TTTTTT", key, element.__dict__[key])
+                if not key.startswith("_sa"):
+                    d[element.cm_id][key] = str(element.__dict__[key])
+        return d
 
     def dict(self, table):
         """
