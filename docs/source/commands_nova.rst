@@ -8,9 +8,15 @@ Summary of commands::
   [daniel] cm register CLOUD DIR
   [daniel] cm test cloud CLOUD
   [daniel] cm test ssh HOST
+  cm list cloud flavor
+  cm update cloud
+
+
+
   cm nova list inactive
-  cm nova list dasilva* 
-  
+  cm nova list gregor*
+NOT SURE HWY WE NEED NOVA HERE
+
 This section includes some new ideas from cm commands.
 
 
@@ -60,17 +66,17 @@ List
 
 List all virtual machines that are not active. ::
 
-	cm nova list inactive
+	cm list inactive
 
 
 Lists all virtual machines that starts with a specific character or
 sequence of characters. After the virtual machine name, a '*' can be
 used as a regular expression. The following command lists all the
-Virtual machines that has dasilva as their prefix. ::
+Virtual machines that has gregor as their prefix. ::
 
- 	cm nova list dasilva-*
-	cm nova list dasilva-[001-008]
-	cm nova list dasilva-[001-008,010]
+ 	cm list gregor-*
+	cm list gregor-[001-008]
+	cm list gregor-[001-008,010]
 
 The convenient specification to set multiple matches i applied
 to all other commands and parameters where possible.
@@ -92,8 +98,22 @@ want the name hostlist is that we use this not only with hosts.
 .. note: not yet sure about the name MultiStr
 
 
+Update
+----
 
+Updates information from clouds and stores them in the database::
 
+	cm update india
+
+Individual updates can be called as follows
+
+	cm update india flavor
+	cm update india vm
+	cm update india image
+
+Combinations are possible::
+
+	cm update india,aws,azure image,vm
 
 
 Delete
@@ -116,13 +136,13 @@ the same time. Virtual machines from the index 1 to 10 have their
 flavor changeded after the command below is run (is it possible to
 change the flavor on the fly?) ::
 
-	cm nova flavor-up [0:10] 
+	cm flavor-up [0:10]
 
 Changes the flavor of either one or several virtual machines so that
 they will become slower. The following command changes the flavor of
 the virtual machines from 20 to 30 index. ::
 
-	cm nova flavor-down [20:30] 
+	cm flavor-down [20:30]
 
 Security
 --------
@@ -131,18 +151,18 @@ The following command protects a set of virtual machine against
 accidentally changes. Whenever the user wants to delete a virtual
 machine, a password will be asked. ::
 
-	cm nova lock --vm-name 
+	cm lock --vm-name
 
 Order
 -----
 
 Orders the virtual machines by flavor and displays them on the screen. ::
 
-	cm nova order-flavor
+	cm order-flavor
 
 Orders the virtual machines by status and displays them on the screen. ::
   
-	cm nova order-status
+	cm order-status
 
 
 
@@ -153,7 +173,7 @@ Run the following command to fix errors that occurred during the boot
 process. If there is no resources available, it tries to change the
 virtual machine flavor in order to boot them correctly. ::
 
-	cm nova restart all-error
+	cm restart all-error
 
 
 Creates a new virtual machine and adds a label to it. That label can
@@ -161,15 +181,15 @@ be used to identify what type of task a virtual machine is
 running. Commands such as delete and flavor-up can be applied in
 certain labels. ::
 
-	cm nova boot --flavor --image --key-name --name [label] 
+	cm boot --flavor --image --key-name --name [label]
  
 With this command, several virtual machines can be created at the same time. ::
 
-	cm nova boot --flavor --image --key-name --name [--quantity]
+	cm boot --flavor --image --key-name --name [--quantity]
 
 Deletes all machines that has a specific label. ::
 	
-	cm nova delete --label
+	cm delete --label
 
 
 MORE COMMANDS
@@ -194,3 +214,12 @@ MORE COMMANDS
   	cmd list clouds
   	cm default india image=abc
   	cm default india flavor=xyz
+
+Nova Pass through
+------------------
+
+::
+
+	cm nova ...
+
+simple nova pass through command
