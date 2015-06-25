@@ -21,10 +21,19 @@ from cloudmesh_base.util import banner
 
 
 class database(object):
+    """
+    A simple class with all the details to create and
+    provide some elementary methods for the database.
 
+    This class is a state sharing class also known as Borg Pattern.
+    Thus, multiple instantiations will share the same sate.
+
+    An import to the model.py will instantiate the db object.
+    """
     __monostate = None
 
     def __init__(self):
+        """Initializes the database and shares the state with other instantiations of it"""
         if not database.__monostate:
             database.__monostate = self.__dict__
             self.activate()
@@ -33,7 +42,7 @@ class database(object):
             self.__dict__ = database.__monostate
 
     def activate(self):
-        print("INIT")
+        """activates the shared variables"""
         self.debug = False
 
         # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
@@ -48,6 +57,7 @@ class database(object):
 
     @classmethod
     def get_table_from_name(cls, name):
+        """based on the name of the table it returns the table class"""
         name_lower = name.lower()
         table = None
         if name_lower == "vm":
@@ -67,6 +77,21 @@ def set_cm_data(table,
                 label=None,
                 cloud='india',
                 cm_user=None):
+    """This method is used to initialize an object from a table. This includes
+
+    ::
+
+        cm_type   - vm, flavor, image, default, same as __tablename__
+        cm_name   - a name/id to identify the object (it is comming typically from the source)
+        label     - a label
+        cm_user   - the user that uses this object
+        cm_uuid   - a uuid
+        cm_id     - a unique human readable id based on the cm_type,
+                    tye_user_cloud_name
+        cloud     - name of the cloud
+
+        todo: cm_update
+    """
     table.cm_type = table.__tablename__
     table.cm_name = cm_name
     table.label = label
@@ -79,6 +104,12 @@ def set_cm_data(table,
 
 
 class DEFAULT(db.Base):
+    """table to stor defualt values
+
+    if the cloud is "global" it is ment to be a global variable
+
+    todo: check if its global or general
+    """
     __tablename__ = 'default'
     id = Column(Integer)
 
@@ -114,6 +145,9 @@ class DEFAULT(db.Base):
 
 
 class IMAGE(db.Base):
+    """
+    image of clouds
+    """
     __tablename__ = 'image'
     id = Column(Integer)
 
@@ -175,6 +209,9 @@ class IMAGE(db.Base):
 
 
 class FLAVOR(db.Base):
+    """
+    flavors and sizes of clouds
+    """
     __tablename__ = 'flavor'
 
     cm_uuid = Column(String)
@@ -217,6 +254,9 @@ class FLAVOR(db.Base):
 
 
 class VM(db.Base):
+    """
+    virtual machines of clouds
+    """
     __tablename__ = 'vm'
     id = Column(Integer)
 

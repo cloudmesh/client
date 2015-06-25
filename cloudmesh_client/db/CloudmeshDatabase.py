@@ -15,6 +15,12 @@ from cloudmesh_base.hostlist import Parameter
 class CloudmeshDatabase(object):
 
     def __init__(self, cm_user=None):
+        """
+        initializes the CloudmeshDatabase for a specific user.
+        The user is used to add entries augmented with it.
+
+        :param cm_user: The username that is used to be added to the objects in teh database
+        """
 
         self.db = database()
         self.db.Base.metadata.create_all()
@@ -25,7 +31,15 @@ class CloudmeshDatabase(object):
             self.cm_user = cm_user
 
     def getID(self, kind, id, cloudname):
+        """
+        returns a human readable (unique) id
+        :param kind: the type of the table flavor, vm, image, default
+        :param id: the id
+        :param cloudname: the name of the cloud.
+        :return: the id
 
+        todo: username is currently not in the id
+        """
         result = "{:}_{:}_{:}_{:}".format(
             cloudname,
             self.cm_user,
@@ -36,8 +50,9 @@ class CloudmeshDatabase(object):
 
     def connect(self):
         """
+        before any method is called we need to connect to the database
 
-        :return:
+        :return: the session of the database
         """
         Session = sessionmaker(bind=self.db.engine)
         self.session = Session()
@@ -45,17 +60,22 @@ class CloudmeshDatabase(object):
 
     def find_vm_by_name(self, name):
         """
+        finds a vm by the given name and returns the first one that matches it.
 
-        :param name:
+        todo: maybe making it a dict
+
+        :param name: the name of the vm
         :return:
         """
         return self.find(VM, name=name).first()
 
-    def find_by_name(self, table, name):
+    def find_by_name(self, kind, name):
         """
+        find an object by name in the given table.
+         If multiple objects have the same name, the first one is returned.
 
-        :param name:
-        :return:
+        :param name: the name
+        :return: the object
         """
         table_type = kind
         if type(kind) == str:
@@ -64,7 +84,7 @@ class CloudmeshDatabase(object):
 
     def find(self, kind, **kwargs):
         """
-        NOT TESTED
+        NOT teted
         :param kind:
         :param kwargs:
         :return:
