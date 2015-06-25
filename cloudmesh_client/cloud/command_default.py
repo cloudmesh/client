@@ -11,8 +11,6 @@ class command_default(object):
     def list(cls, output="table"):
         cm = CloudmeshDatabase()
         d= cm.all(DEFAULT)
-
-        pprint (d)
         print (dict_printer(d, order=['cm_cloud','name','value'],output=output))
 
 

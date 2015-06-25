@@ -33,7 +33,7 @@ class cm_shell_default:
              --output=FORMAT  the output format [default: table]
 
         """
-        pprint(arguments)
+        # pprint(arguments)
         cloud = arguments["--cloud"]
         if arguments["list"]:
             output = arguments["--output"]

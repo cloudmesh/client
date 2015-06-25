@@ -388,7 +388,6 @@ class CloudmeshDatabase(object):
         for element in elements:
             d[element.cm_id] = {}
             for key in element.__dict__.keys():
-                print ("TTTTTT", key, element.__dict__[key])
                 if not key.startswith("_sa"):
                     d[element.cm_id][key] = str(element.__dict__[key])
         return d
