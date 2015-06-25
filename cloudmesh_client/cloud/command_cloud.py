@@ -96,7 +96,7 @@ class command_cloud(object):
     def register(cls, host, force=False):
         """
         copies the cloudmesh/clouds/india/juno directory from india
-        to the ~/.cloudmesh/clouds/india/ local directory.
+        to the ~/.cloudmesh/clouds/india/juno local directory.
 
         :param host:
         :type host: string
@@ -110,7 +110,7 @@ class command_cloud(object):
             # We detected that the directory already exists
             # would you like to overwrite the following files in that directory ...
             # what happens if the directory is not on the remote machine
-            os.system("scp -r india:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/")
+            os.system("scp -r india:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/juno")
             #Shell.scp("-r", "india:.cloudmesh/clouds/india/juno", "~/.cloudmesh/clouds/india/")
         else:
             Console.error("Cloud {:} not found".format(host))
@@ -128,7 +128,16 @@ class command_cloud(object):
         Console.ok("register")
         if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/CLOUD/juno
             try:
-                os.system("scp -r india:.cloudmesh/clouds/india/juno/cacert.pem ~/.cloudmesh/clouds/india/juno")
+                home = expanduser("~")
+                path = ['india:.cloudmesh/clouds/india/juno/cacert.pem', '{:}/.cloudmesh/clouds/india/juno'.format(home)]
+
+                #print ("Split", os_command.split())
+                #os_command = ["scp"]+os_command
+                #print ("OS command", os_command)
+                #subprocess.check_output(os_command, stderr=subprocess.STDOUT).rstrip()
+
+
+                Shell.scp(path)
             except Exception, e:
                 print ("ERROR: ", e)
                 return
