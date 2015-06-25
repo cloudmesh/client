@@ -120,6 +120,7 @@ class cm_shell_cloud:
               register [--yaml=FILENAME]
               register india
               register CLOUD CERT
+              register CLOUD --dir=DIR
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in ~/.cloudmesh.
@@ -133,7 +134,7 @@ class cm_shell_cloud:
             HOST   the host name
             USER   the user name
             OPENRC  the location of the openrc file
-            NAME    name of the host that will be registered
+
 
           Options:
 
@@ -234,9 +235,11 @@ class cm_shell_cloud:
             if arguments['CERT']:
                 cloud = arguments['CLOUD']
                 command_cloud.register_CERT(cloud)
-            elif arguments['DIR']:
+            elif arguments['--dir']:
                 cloud = arguments['CLOUD']
-                command_cloud.register_DIR(cloud)
+                dir = arguments['--dir']
+                print (dir)
+                command_cloud.register_DIR(cloud, dir)
         pass
 
 

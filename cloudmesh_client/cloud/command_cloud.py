@@ -147,11 +147,29 @@ class command_cloud(object):
              print ("Cloud not found")
 
 
-        #raise NotImplementedError("Not implemented")
-
     @classmethod
-    def register_DIR(cls, host):
-        raise NotImplementedError("Not implemented")
+    def register_DIR(cls, host, dir):
+        """
+        Copies the entire directory from the cloud
+
+        :param host: the host name
+        :type host: string
+        :param dir: the directory that will be fetched
+        :type dir: string
+        :return:
+        """
+        Console.ok("register")
+
+        if host == "india":
+            try:
+                system("scp -r india:{:} ~/.cloudmesh/clouds/india/".format(dir))
+            except Exception, e:
+                print ("ERROR: ", e)
+                return
+
+        print ("successfully executed")
+
+        #raise NotImplementedError("Not implemented")
 
     @classmethod
     def test(cls, filename):
