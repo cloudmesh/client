@@ -210,17 +210,29 @@ class CloudmeshDatabase(object):
         if cloud is None:
             cloud = "global"
 
-        element_id= self.getID("default", name, cloud)
-        current = self.session.query(DEFAULT).filter_by(cm_id).first()
+        cm_id= self.getID("default", name, cloud)
+        current = self.session.query(DEFAULT).filter_by(cm_id=cm_id).first()
         if current is None:
             return None
         else:
             result = self.o_to_d(current)
             return result["value"]
 
+    def set_default(self, name, value, cloud=None):
+        """
+        sets a default variable
+
+        :param name: name of the variable
+        :param value:  the value
+        :param cloud: the cloud, if no name is specified the name "global" is used
+        :return:
+        """
+        self.default(name, value, cloud=cloud)
 
     def default(self, name, value, cloud=None):
         # find
+        # deprecated, will be set_default in future
+        # todo: Paulo find the default methoods, and replace with set_default
         if cloud is None:
             cloud = "global"
 
