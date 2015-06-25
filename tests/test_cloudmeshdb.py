@@ -287,6 +287,26 @@ class Test_cloudmeshdb:
 
         assert d['label'] == "newlabel"
 
+    def  test_014(self):
+        """013: testing default get and set"""
+        HEADING()
+
+        cm = self.cm
+
+        msg = "in global"
+        cm.default("gregor", msg)
+        value = cm.get_default("gregor")
+
+        print (value)
+
+        assert value == msg
+
+        msg = "in cloud"
+        cm.default("gregor", msg, cloud="india")
+        value = cm.get_default("gregor", cloud="india")
+        print (value)
+
+        assert value == msg
 """
 pprint(cm.dict(cloudmesh_db.VM))
 pprint(cm.json(cloudmesh_db.VM))
