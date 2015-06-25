@@ -5,56 +5,54 @@ from cloudmesh_client.common.ConfigDict import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-import cloudmesh_client.common.tables as tables
 from cloudmesh_client.db.models import VM,FLAVOR,DEFAULT,IMAGE
 import cloudmesh_client.db.models as models
 from sqlalchemy import text
 from cloudmesh_base.hostlist import Parameter
+import cloudmesh_client.db.CloudmeshDatabase as cm
+import re
 
 class command_search(object):
 
     @classmethod
-    def do_search(cls, table, filter):
+    def do_search(cls, table, order, filter):
+        c = cm()
 
-        filename = Config.path_expand("~/.cloudmesh/cloudmesh.db")
-        endpoint = 'sqlite:///{:}'.format(filename)
-        engine = create_engine(endpoint)
-        Base = declarative_base(bind=engine)
-        Session = sessionmaker(bind=engine)
-        session = Session()
-
-        where = ""
         if filter:
             for i in range(len(filter)):
 
-                split = filter[i].split('=')
+                regex = re.compile("(>=|<=|=|>|<)",re.I)
+                sep = regex.search(filter[i]).groups()
+                if sep:
+                    separator = sep[0]
+                else:
+                    Console.error("Please specify a valid filter")
+                    return
+
+                split = filter[i].split(separator)
+
                 if '[' in filter[i]:
                     parameters = Parameter.expand(split[1])
                     parameters = ['{} = \'{}\''.format(split[0], parameters[j]) for j in range(len(parameters))]
                     parameters = """ OR """.join(parameters)
                     where = '( {} )'.format(parameters)
                     filter[i] = where
-                    continue
-
-                where = '{} = \'{}\''.format(split[0], split[1])
-                filter[i] = where
+                else:
+                    where = '{} {} \'{}\''.format(split[0], separator, split[1])
+                    filter[i] = where
 
             where = """ AND """.join(filter)
-            where = 'WHERE {}'.format(where)
-
+            where = ' WHERE {}'.format(where)
+        else:
+            where = ""
         _table = table.upper()
-        sql = text(""" SELECT * FROM {} {}""".format(_table, where))
+
+        sql = text(""" SELECT * FROM {}{}""".format(_table, where))
         print sql
         try:
-            if table == 'vm':
-                #r = session.query(VM).all()
-                r = session.query(VM).from_statement(sql).all()
-            elif table == 'flavor':
-                r = session.query(FLAVOR).from_statement(sql).all()
-            elif table == 'image':
-                r = session.query(IMAGE).from_statement(sql).all()
-            elif table == 'default':
-                r = session.query(DEFAULT).from_statement(sql).all()
+            if table == 'vm' or table == 'flavor' or table == 'image' or table == 'default':
+                model = globals()[_table]
+                r = c.session.query(model).from_statement(sql).all()
             else:
                 Console.error("Please specify a valid table")
                 return
@@ -63,17 +61,14 @@ class command_search(object):
             return
 
         if r:
-            print "{} TABLE".format(_table)
-            result = dict()
-            for u in r:
-                _id = u.id
-                values = {}
-                for key in u.__dict__.keys():
-                    if not key.startswith("_sa"):
-                        values[key] = u.__dict__[key]
-                result[_id] = values
 
-            output = models.dict_printer(result, order=None, header=None, output="table", sort_keys=True)
+            print "{} TABLE".format(_table)
+            result = c.object_to_dict(r)
+            if order:
+                _order = order.split(',')
+            else:
+                _order = None
+            output = models.dict_printer(result, order=_order, header=None, output="table", sort_keys=True)
             print(output)
         else:
             print("Nothing found")
