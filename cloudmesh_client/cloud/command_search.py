@@ -15,6 +15,7 @@ class command_search(object):
 
     @classmethod
     def do_search(cls, table, filter):
+
         filename = Config.path_expand("~/.cloudmesh/cloudmesh.db")
         endpoint = 'sqlite:///{:}'.format(filename)
         engine = create_engine(endpoint)
