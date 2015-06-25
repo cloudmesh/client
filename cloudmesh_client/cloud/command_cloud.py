@@ -8,6 +8,7 @@ from cloudmesh_client.common.ConfigDict import Config
 from os import system
 import textwrap
 from os.path import expanduser
+from cloudmesh_base.util import path_expand
 
 
 class command_cloud(object):
@@ -124,20 +125,14 @@ class command_cloud(object):
         :type host: string
         :return:
         """
-
         Console.ok("register")
         if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/CLOUD/juno
             try:
-                home = expanduser("~")
-                path = ['india:.cloudmesh/clouds/india/juno/cacert.pem', '{:}/.cloudmesh/clouds/india/juno'.format(home)]
+                _from = 'india:.cloudmesh/clouds/india/juno/cacert.pem'
+                _to   =  path_expand('~/.cloudmesh/clouds/india/juno')
+                # _to   =  '~/xyz')  # for testing
+                Shell.scp(_from, _to)
 
-                #print ("Split", os_command.split())
-                #os_command = ["scp"]+os_command
-                #print ("OS command", os_command)
-                #subprocess.check_output(os_command, stderr=subprocess.STDOUT).rstrip()
-
-
-                Shell.scp(path)
             except Exception, e:
                 print ("ERROR: ", e)
                 return
