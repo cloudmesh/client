@@ -1,9 +1,14 @@
 .. _windows-install:
 
+
+
+
 Windows
 =======
 
-
+.. todo:: Paulo, please review and correct where needed. You can use
+	  bulleted lists.
+	  
 Install Python on Windows
 -------------------------
 
@@ -35,13 +40,13 @@ install chocolatey. Please open a::
 
   cmd.exe
 
-window as administrator. Simply type cmd.exe in the serach and than start it.
+window as administrator. Simply type cmd.exe in the search and than start it.
 
 
 Step 1: Install Chocolatey
 --------------------------
 
-You have to copy and paste the following comamnds into a the cmd.exe terminal::
+You have to copy and paste the following commands into a the cmd.exe terminal::
  
    C:> @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 
@@ -88,7 +93,7 @@ In case you run Windows on virtualbox for example on a Mac, you may
 want to enable the guest additions. As windows 10 is currently a
 prerelease the integration with the guest additions is not yet
 complete. However, you can browse to the virtual box repository go to
-the current release version and click from within the interner
+the current release version and click from within the internet
 explorer on it (it will be an iso). Than you can follow the
 instructions and it will install it in the running vm.
 

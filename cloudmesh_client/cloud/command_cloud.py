@@ -93,7 +93,7 @@ class command_cloud(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def register(cls, host):
+    def register(cls, host, force=False):
         """
         copies the cloudmesh/clouds/india/juno directory from india
         to the ~/.cloudmesh/clouds/india/ local directory.
@@ -105,9 +105,15 @@ class command_cloud(object):
         Console.ok("register")
         if host.lower() == "india":
             #copies the whole dir from india
-            system("scp -r india:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/")
+            # todo:
+            # what if the directory already exists in my local machine
+            # We detected that the directory already exists
+            # would you like to overwrite the following files in that directory ...
+            # what happens if the directory is not on the remote machine
+            os.system("scp -r india:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/")
+            #Shell.scp("-r", "india:.cloudmesh/clouds/india/juno", "~/.cloudmesh/clouds/india/")
         else:
-            print ("Cloud not found")
+            Console.error("Cloud {:} not found".format(host))
 
     @classmethod
     def register_CERT(cls, host, cert=None):
@@ -122,7 +128,7 @@ class command_cloud(object):
         Console.ok("register")
         if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/CLOUD/juno
             try:
-                system("scp -r india:.cloudmesh/clouds/india/juno/cacert.pem ~/.cloudmesh/clouds/india/juno")
+                os.system("scp -r india:.cloudmesh/clouds/india/juno/cacert.pem ~/.cloudmesh/clouds/india/juno")
             except Exception, e:
                 print ("ERROR: ", e)
                 return
