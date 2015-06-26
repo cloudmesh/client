@@ -52,8 +52,10 @@ Command - default::
 
     Usage:
         default list [--output=FORMAT]
-        default KEY
-        default KEY=VALUE
+        default delete KEY [--cloud=CLOUD]
+        default KEY [--cloud=CLOUD]
+        default KEY=VALUE [--cloud=CLOUD]
+
 
     managing the defaults test test test test
 
@@ -64,7 +66,8 @@ Command - default::
 
     Options:
 
-       -v       verbose mode
+       --cloud=CLOUD    the name of the cloud [default: general]
+       --output=FORMAT  the output format [default: table]
 
 
 
@@ -187,6 +190,7 @@ Command - list::
 
     Usage:
         list [--cloud=CLOUD]
+        list [--cloud=CLOUD] default
         list [--cloud=CLOUD] vm
         list [--cloud=CLOUD] flavor
         list [--cloud=CLOUD] image
@@ -405,6 +409,7 @@ Command - register::
         register [--yaml=FILENAME]
         register india
         register CLOUD CERT
+        register CLOUD --dir=DIR
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in ~/.cloudmesh.
@@ -418,7 +423,7 @@ Command - register::
       HOST   the host name
       USER   the user name
       OPENRC  the location of the openrc file
-      NAME    name of the host that will be registered
+
 
     Options:
 
@@ -506,14 +511,16 @@ search
 Command - search::
 
     Usage:
-        search [NAME] [FILTER]...
+        search NAME
+        search NAME [--order=FORMAT] [FILTER]...
 
     search the table NAME on the database
 
     Arguments:
 
-      NAME      Name of the table to search. If the name is not specified, the table DEFAULT will be searched
-      FILTER    Filter to be used when searching
+      NAME            Name of the table to search. If the name is not specified, the table DEFAULT will be searched
+      --order=FORMAT  Columns that will be displayed
+      FILTER          Filter to be used when searching
 
     Options:
 
