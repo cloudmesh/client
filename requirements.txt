@@ -11,3 +11,4 @@ pbr>=0.11,<2.0
 apache-libcloud
 # Cloning from Github 'trunk' repository to use Azure provider
 #git+https://github.com/apache/libcloud.git@trunk#egg=libcloud
+urllib3

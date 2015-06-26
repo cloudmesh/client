@@ -134,36 +134,43 @@ List
           man cloud
 
 
-Security group (do, fugang)
+Security group (do)
 --------------
 
 ::
 
       Usage:
-          security_group list CLOUD...
-          security_group add CLOUD LABEL PARAMETERS
-          security_group delete CLOUD LABEL
-      security_group -h | --help
-          security_group --version
+          secgroup list CLOUD TENANT
+          secgroup create CLOUD TENANT LABEL
+          secgroup delete CLOUD TENANT LABEL
+          secgroup rules-list CLOUD TENANT LABEL
+          secgroup rules-add CLOUD TENANT LABEL FROMPORT TOPORT PROTOCOL CIDR
+          secgroup rules-delete CLOUD TENANT LABEL FROMPORT TOPORT PROTOCOL CIDR
+          secgroup -h | --help
+          secgroup --version
 
       Options:
-         -h                   help message
-          LABEL        the label
-	  PARAMETERS   TBD
+          -h            help message
 	 
       Arguments:
-          CLOUD    Name of the IaaS cloud e.g. india_openstack_grizzly.
-
-	  
+          CLOUD         Name of the IaaS cloud e.g. india_openstack_grizzly.
+          TENANT        Name of the tenant, e.g. fg82.
+          LABEL         The label/name of the security group
+          FROMPORT      Staring port of the rule, e.g. 22
+          TOPORT        Ending port of the rule, e.g. 22
+          PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
+          CIDR          IP address range in CIDR format, e.g., 129.79.0.0/16
+          
       Description:
-         security_group command provides list of available security_groups.
+         security_group command provides list/add/delete security_groups for a tenant of a cloud, as well as list/add/delete of rules for a security group from a specified cloud and tenant.
 
-      Result:
 
       Examples:
-          $ security_group list india_openstack_grizzly
+          $ secgroup list india fg82
+          $ secgroup rules-list india fg82 default
+          $ secgroup create india fg82 webservice
+          $ secgroup rues-add india fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
-      TODO: much better examples
       
 Cloud (do)
 ------
