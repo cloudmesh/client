@@ -16,26 +16,30 @@ class cm_shell_status:
         ::
 
           Usage:
-              status list [--output=FORMAT]
+              status
+              status db
+              status CLOUDS...
 
 
-          managing the statuss test test test test
+
 
           Arguments:
 
-            KEY    the name of the status
-            VALUE  the value to set the key to
+
 
           Options:
 
-             --cloud=CLOUD    the name of the cloud [status: general]
-             --output=FORMAT  the output format [status: table]
+
 
         """
-        # pprint(arguments)
-        cloud = arguments["--cloud"]
-        output_format = arguments["--format"]
-        pass
+        pprint(arguments)
+
+        if arguments['db']:
+            print ('status db')
+        elif arguments['CLOUDS']:
+            print ('status CLOUDS...')
+        else:
+            print ('status')
 
 
 if __name__ == '__main__':
