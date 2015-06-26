@@ -810,7 +810,9 @@ Key (Daniel)
 
             Manages the keys
 
-            Arguments:
+            
+
+         Arguments:
 
               SOURCE         mongo, yaml, ssh
               KEYNAME        The name of a key
@@ -818,14 +820,14 @@ Key (Daniel)
               FILENAME       The filename with full path in which the key
                              is located
 
-            Options:
+         Options:
 
                --dir=DIR            the directory with keys [default: ~/.ssh]
                --format=FORMAT      the format of the output [default: table]
                --source=SOURCE      the source for the keys [default: mongo]
                --keyname=KEYNAME    the name of the keys
 
-            Description:
+         Description:
 
 
             key list --source=ssh  [--dir=DIR] [--format=FORMAT]
@@ -965,7 +967,7 @@ Cluster (Hyungro)
 
 ::
 
-        
+       Create a Virtual Cluster
        
           Usage:
               cluster list [--format=FORMAT]
@@ -983,30 +985,7 @@ Cluster (Hyungro)
               cluster remove NAME 
                              [--grouponly]
 
-          Description:
-              Cluster Management
-              
-              cluster list
-                  list the clusters
-
-              cluster create NAME --count=COUNT --user=USER [options...]
-                  Start a cluster of VMs, and each of them can log into all others.
-                  CAUTION: you sould do some default setting before using this command:
-                  1. select cloud to work on, e.g. cloud select india
-                  2. activate the cloud, e.g. cloud on india
-                  3. set the default key to start VMs, e.g. key default [NAME]
-                  4. set the start name of VMs, which is prefix and index, e.g. label --prefix=test --id=1
-                  5. set image of VMs, e.g. default image
-                  6. set flavor of VMs, e.g. default flavor
-                  Also, it is better to choose a unused group name
-              
-              cluster show NAME
-                  show the detailed information about the cluster VMs
-
-              cluster remove NAME [--grouponly]
-                  remove the cluster and its VMs, if you want to remove the cluster(group name)
-                  without removing the VMs, use --grouponly flag
-          
+         
           Arguments:
               NAME        cluster name or group name
 
@@ -1032,7 +1011,30 @@ Cluster (Hyungro)
                                          is used as default, use this flag to print
                                          detailed table
 
+          Description:
+              Cluster Management
+              
+              cluster list
+                  list the clusters
 
+              cluster create NAME --count=COUNT --user=USER [options...]
+                  Start a cluster of VMs, and each of them can log into all others.
+                  CAUTION: you sould do some default setting before using this command:
+                  1. select cloud to work on, e.g. cloud select india
+                  2. activate the cloud, e.g. cloud on india
+                  3. set the default key to start VMs, e.g. key default [NAME]
+                  4. set the start name of VMs, which is prefix and index, e.g. label --prefix=test --id=1
+                  5. set image of VMs, e.g. default image
+                  6. set flavor of VMs, e.g. default flavor
+                  Also, it is better to choose a unused group name
+              
+              cluster show NAME
+                  show the detailed information about the cluster VMs
+
+              cluster remove NAME [--grouponly]
+                  remove the cluster and its VMs, if you want to remove the cluster(group name)
+                  without removing the VMs, use --grouponly flag
+ 
 Admin (Daniel)
 --------------
 
