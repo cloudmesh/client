@@ -410,76 +410,78 @@ Volume (do) Paulo
 
           Usage:
               volume list
-              volume create <size>
-                            [--snapshot-id=<snapshot-id>]
-                            [--image-id=<image-id>]
-                            [--display-name=<display-name>]
-                            [--display-description=<display-description>]
-                            [--volume-type=<volume-type>]
-                            [--availability-zone=<availability-zone>]
-              volume delete <volume>
-              volume attach <server> <volume> <device>
-              volume detach <server> <volume>
-              volume show <volume>
-              volume snapshot-list
-              volume snapshot-create <volume-id>
+              volume create SIZE
+                            [--snapshot-id=SNAPSHOT-ID]
+                            [--image-id=IMAGE-ID]
+                            [--display-name=DISPLAY-NAME]
+                            [--display-description=DISPLAY-DESCRIPTION]
+                            [--volume-type=VOLUME-TYPE]
+                            [--availability-zone=AVAILABILITY-ZONE]
+              volume delete VOLUME
+              volume attach SERVER VOLUME DEVICE
+              volume detach SERVER VOLUME
+              volume show VOLUME
+              volume SNAPSHOT-LIST
+              volume snapshot-create VOLUME-ID
                                      [--force]
-                                     [--display-name=<display-name>]
-                                     [--display-description=<display-description>]
-              volume snapshot-delete <snapshot>
-              volume snapshot-show <snapshot>
+                                     [--display-name=DISPLAY-NAME]
+                                     [--display-description=DISPLAY-DESCRIPTION]
+              volume snapshot-delete SNAPSHOT
+              volume snapshot-show SNAPSHOT
               volume help
 
 
           volume management
 
           Arguments:
-              <size>            Size of volume in GB
-              <volume>          Name or ID of the volume to delete
-              <volume-id>       ID of the volume to snapshot
-              <server>          Name or ID of server(VM).
-              <device>          Name of the device e.g. /dev/vdb. Use "auto" for 
+              SIZE              Size of volume in GB
+              VOLUME            Name or ID of the volume to delete
+              VOLUME-ID         ID of the volume to snapshot
+              SERVER            Name or ID of server(VM).
+              DEVICE            Name of the device e.g. /dev/vdb. Use "auto" for 
                                 autoassign (if supported)
-              <snapshot>        Name or ID of the snapshot
+              SNAPSHOT          Name or ID of the snapshot
 
           Options:
-              --snapshot-id <snapshot-id>
-                                      Optional snapshot id to create the volume from.
-                                      (Default=None)
-              --image-id <image-id>
-                                      Optional image id to create the volume from.
-                                      (Default=None)
-              --display-name <display-name>
-                                      Optional volume name. (Default=None)
-              --display-description <display-description>
+              --snapshot-id SNAPSHOT-ID  Optional snapshot id to create
+                                         the volume from.  (Default=None)
+              --image-id IMAGE-ID        Optional image id to create the
+                                         volume from.  (Default=None)
+              --display-name DISPLAY-NAME  Optional volume name. (Default=None)
+              --display-description DISPLAY-DESCRIPTION
                                       Optional volume description. (Default=None)
-              --volume-type <volume-type>
+              --volume-type VOLUME-TYPE
                                       Optional volume type. (Default=None)
-              --availability-zone <availability-zone>
-                                      Optional Availability Zone for volume. (Default=None)
-              --force                 Optional flag to indicate whether to snapshot a volume
-                                      even if its attached to an instance. (Default=False)
+              --availability-zone AVAILABILITY-ZONE
+	      
+                                      Optional Availability Zone for
+                                      volume. (Default=None)
+
+	      --force                 Optional flag to indicate
+	                              whether to snapshot a volume
+	                              even if its attached to an
+	                              instance. (Default=False)
 
           Description:
               volume list
                   List all the volumes
-              volume create <size> [options...]
+              volume create SIZE [options...]
                   Add a new volume
-              volume delete <volume>
+              volume delete VOLUME
                   Remove a volume   
-              volume attach <server> <volume> <device>
+              volume attach SERVER VOLUME DEVICE
                   Attach a volume to a server    
-              volume-detach <server> <volume>
+              volume-detach SERVER VOLUME
                   Detach a volume from a server
-              volume show <volume>        
+              volume show VOLUME        
                   Show details about a volume
               volume snapshot-list
                   List all the snapshots
-              volume snapshot-create <volume-id> [options...]
+              volume snapshot-create VOLUME-ID [options...]
                   Add a new snapshot
-              volume snapshot-delete <snapshot>
+              volume snapshot-delete SNAPSHOT
                   Remove a snapshot
-              volume-snapshot-show <snapshot>
+              volume-snapshot-show SNAPSHOT
                   Show details about a snapshot
               volume help 
                   Prints the nova manual
