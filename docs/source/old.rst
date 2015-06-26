@@ -95,54 +95,86 @@ Refresh (Paulo)
 	    cloud activate india
 	    cloud activate aws
 	    refresh
-   
-List (Gregor)
+
+Select
+------
+
+Select is a command that allows the interactive selection of an item
+specified
+
+
+
+::
+   Usage:
+       select LIST...
+       select image CLOUD
+       select flavor CLOUD
+       select vm CLOUD
+       
+   Arguments:
+       LIST   (parameterized) List of items to choose from
+       CLOUD  a single cloudname ti identify from which we select the
+              information
+       
+   Description:
+       Returns either None or the item that is chosen interactively 
+
+       
+List (Pauolo)
 -------------
 
 ::
-
-      List available flavors, images, vms, projects and clouds
-
-
       
       Usage:
-          list flavor [CLOUD...] 
+          list flavor [CLOUD...|--all] 
                       [--refresh]
+                      [--detail|--columns=COLUMNS]
 		      [--format=FORMAT]
-                      [--columns=COLUMNS]
-                      [--detail]
-          list image [CLOUD...] 
-                     [--refresh] 
-                     [--format=FORMAT] 
-                     [--columns=COLUMNS]
-                     [--detail]
-          list vm [CLOUD...] 
+          list image [CLOUD...|--all] 
+                      [--refresh]
+                      [--detail|--columns=COLUMNS]
+		      [--format=FORMAT]
+          list vm [CLOUD...|--all] 
+                  [--refresh]
                   [--group=GROUP]
-                  [--refresh] 
-                  [--format=FORMAT] 
-                  [--columns=COLUMNS] 
-                  [--detail]
-          list default [CLOUD...] 
-                  [--format=FORMAT] 
-                  [--columns=COLUMNS] 
-                  [--detail]
-          list cloud 
-                  [--format=FORMAT] 
-                  [--columns=COLUMNS] 
-                  [--detail]
+                  [--detail|--columns=COLUMNS]
+   		  [--format=FORMAT]
+          list default [CLOUD...|--all] 
+                       [--detail|--columns=COLUMNS]
+   		       [--format=FORMAT]
+          list cloud [CLOUD...|--all]
+                       [--detail|--columns=COLUMNS]
+   		       [--format=FORMAT]
 
       Arguments:
 
-          CLOUD...    the name of the clouds e.g. india
+          CLOUD...    (parameterized) the names of the clouds for
+                      which we want to obtain a list,  e.g. india. If
+		      no cloud name is provided the defailt cold is
+		      used. If instead --all is used all active clouds
+		      are used. A default cloud an be set with 
+
+                         default cloud CLOUD
+			 
+		      If instaall activated clouds
+		      ar used. If the cloud is not specifies
 
       Options:
 
-          --all                  list information of all active clouds
-          --refresh              refresh data before list
+          --refresh              refresh data before the list is retrned
           --group=GROUP          give the group name in list vm
-          --detail               for table print format, a brief version 
-                                 is used as default, use this flag to print
-                                 detailed table
+          --detail               for table print format, with all
+	                         information. This may however be
+				 difficult to read as a lot of
+				 information may be returned. If the
+				 parameter is ommitted a small subset
+				 is printed. The colmns can be defined
+				 with
+
+				    default CLOUD [image|flavor|vm] COLUMNS
+
+				 This can be overwritten by specifying
+				 explicit columns
           --columns=COLUMNS      specify what information to display in
                                  the columns of the list command. For
                                  example, --column=active,label prints
@@ -151,15 +183,20 @@ List (Gregor)
                                  type/version, type, heading, user,
                                  credentials, defaults (all to display
                                  all, email to display all except
-                                 credentials and defaults)
-          --format=FORMAT        output format: table, json, csv [default: table]
+                                 credentials and defaults). If the
+				 columns parameter is used a single
+				 table is ruturned. If not a table is
+				 printed for each cloud.
+				 
+          --format=FORMAT        output format: table, json, csv, dict
+                         	 [default: table] 
 
       Description:
 
-          List clouds and projects information, if the CLOUD argument
-          is not specified, the selected default cloud will be
-          used. You can interactively set the default cloud with the
-          command 'cloud select'.
+          List available flavors, images, vms, projects and clouds If
+          the CLOUD name is not specified, the default cloud will
+          be used. You can interactively set the default cloud with
+          the command 'cloud select'.
 
           list flavor
             list the flavors
@@ -174,10 +211,25 @@ List (Gregor)
 
 	  If no cloud is specified it lists the information for all clouds.
 
+      Examples:
+
+          list flavor india aws
+             lists the cloud flavrs for india and aws. Two different
+	     tables are returned
+
+	  list flavor india aws --detail
+             lists the cloud flavrs for india and aws with lots of
+	     details. Two different tables are returned.
+
+	  list flavor india aws --columns=cloud,name,cm_id
+             lists the cloud flavrs for india and aws with the
+	     cloudname, the name of the flavor, and the unique
+	     cloudmesh id for this flavor. A single table is returned.
 	  
       See Also:
 
-          man cloud
+          cloud help
+	  cloud activate CLOUD
 
 
 Security group (Paulo)
