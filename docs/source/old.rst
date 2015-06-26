@@ -856,18 +856,18 @@ Cluster (do)
        
           Usage:
               cluster list [--format=FORMAT]
-              cluster create <name>
-                             [--count=<count>]
-                             [--ln=<LoginName>]
-                             [--cloud=<CloudName>]
-                             [--image=<imgName>|--imageid=<imgId>]
-                             [--flavor=<flavorName>|--flavorid=<flavorId>]
+              cluster create NAME
+                             [--count=COUNT]
+                             [--user=USER]
+                             [--cloud=CLOUD]
+                             [--image=IMG|--imageid=IMGID]
+                             [--flavor=FLAVOR|--flavorid=FLAVORID]
                              [--force]
-              cluster show <name> 
+              cluster show NAME 
                            [--format=FORMAT] 
                            [--column=COLUMN]
                            [--detail]
-              cluster remove <name> 
+              cluster remove NAME 
                              [--grouponly]
 
           Description:
@@ -876,7 +876,7 @@ Cluster (do)
               cluster list
                   list the clusters
 
-              cluster create <name> --count=<count> --ln=<LoginName> [options...]
+              cluster create NAME --count=COUNT --user=USER [options...]
                   Start a cluster of VMs, and each of them can log into all others.
                   CAUTION: you sould do some default setting before using this command:
                   1. select cloud to work on, e.g. cloud select india
@@ -887,24 +887,24 @@ Cluster (do)
                   6. set flavor of VMs, e.g. default flavor
                   Also, it is better to choose a unused group name
               
-              cluster show <name>
+              cluster show NAME
                   show the detailed information about the cluster VMs
 
-              cluster remove <name> [--grouponly]
+              cluster remove NAME [--grouponly]
                   remove the cluster and its VMs, if you want to remove the cluster(group name)
                   without removing the VMs, use --grouponly flag
           
           Arguments:
-              <name>        cluster name or group name
+              NAME        cluster name or group name
 
           Options:
-              --count=<count>            give the number of VMs to add into the cluster
-              --ln=<LoginName>           give a login name for the VMs, e.g. ubuntu
-              --cloud=<CloudName>        give a cloud to work on
-              --flavor=<flavorName>      give the name of the flavor
-              --flavorid=<flavorId>      give the id of the flavor
-              --image=<imgName>          give the name of the image
-              --imageid=<imgId>          give the id of the image
+              --count=COUNT              give the number of VMs to add into the cluster
+              --user=USER                give the username 
+              --cloud=CLOUD              give a cloud to work on
+              --flavor=FLAVOR            give the name of the flavor
+              --flavorid=FLAVORID        give the id of the flavor
+              --image=IMG                give the name of the image
+              --imageid=IMGID            give the id of the image
               --force                    if a group exists and there are VMs in it, the program will
                                          ask user to proceed or not, use this flag to respond yes as 
                                          default(if there are VMs in the group before creating this 
