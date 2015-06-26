@@ -16,7 +16,7 @@ class cm_shell_cloud:
         ::
 
           Usage:
-               list [--output=FORMAT]
+               cloud list [--output=FORMAT]
 
 
           managing the clouds test test test test

@@ -34,6 +34,29 @@ Command - TEMPLATE::
 
 
 
+admin
+----------------------------------------------------------------------
+
+Command - admin::
+
+    Usage:
+        admin list [--output=FORMAT]
+
+
+    managing the admins test test test test
+
+    Arguments:
+
+      KEY    the name of the admin
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [admin: general]
+       --output=FORMAT  the output format [admin: table]
+
+
+
 banner
 ----------------------------------------------------------------------
 
@@ -67,6 +90,29 @@ Command - clear::
         clear
 
     Clears the screen.
+
+cluster
+----------------------------------------------------------------------
+
+Command - cluster::
+
+    Usage:
+        cluster list [--output=FORMAT]
+
+
+    managing the clusters test test test test
+
+    Arguments:
+
+      KEY    the name of the cluster
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [cluster: general]
+       --output=FORMAT  the output format [cluster: table]
+
+
 
 default
 ----------------------------------------------------------------------
@@ -121,6 +167,29 @@ Command - exec::
 
     Arguments:
       FILENAME   The name of the file
+
+
+exp
+----------------------------------------------------------------------
+
+Command - exp::
+
+    Usage:
+        exp list [--output=FORMAT]
+
+
+    managing the exps test test test test
+
+    Arguments:
+
+      KEY    the name of the exp
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [exp: general]
+       --output=FORMAT  the output format [exp: table]
+
 
 
 generate
@@ -206,6 +275,52 @@ Command - info::
 
 
 
+launcher
+----------------------------------------------------------------------
+
+Command - launcher::
+
+    Usage:
+        launcher list [--output=FORMAT]
+
+
+    managing the launchers test test test test
+
+    Arguments:
+
+      KEY    the name of the launcher
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [launcher: general]
+       --output=FORMAT  the output format [launcher: table]
+
+
+
+limits
+----------------------------------------------------------------------
+
+Command - limits::
+
+    Usage:
+        limits list [--output=FORMAT]
+
+
+    managing the limitss test test test test
+
+    Arguments:
+
+      KEY    the name of the limits
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [limits: general]
+       --output=FORMAT  the output format [limits: table]
+
+
+
 list
 ----------------------------------------------------------------------
 
@@ -234,6 +349,29 @@ Command - load::
        MODULE  The name of the module.
 
     THIS COMMAND IS NOT IMPLEMENTED
+
+
+loglevel
+----------------------------------------------------------------------
+
+Command - loglevel::
+
+    Usage:
+        loglevel list [--output=FORMAT]
+
+
+    managing the loglevels test test test test
+
+    Arguments:
+
+      KEY    the name of the loglevel
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [loglevel: general]
+       --output=FORMAT  the output format [loglevel: table]
+
 
 
 man
@@ -367,6 +505,29 @@ Command - plugins::
         plugins add pbs
 
 
+project
+----------------------------------------------------------------------
+
+Command - project::
+
+    Usage:
+        project list [--output=FORMAT]
+
+
+    managing the projects test test test test
+
+    Arguments:
+
+      KEY    the name of the project
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [project: general]
+       --output=FORMAT  the output format [project: table]
+
+
+
 py
 ----------------------------------------------------------------------
 
@@ -414,6 +575,29 @@ Command - quit::
         quit
 
     Action to be performed whne quit is typed
+
+
+quota
+----------------------------------------------------------------------
+
+Command - quota::
+
+    Usage:
+        quota list [--output=FORMAT]
+
+
+    managing the quotas test test test test
+
+    Arguments:
+
+      KEY    the name of the quota
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [quota: general]
+       --output=FORMAT  the output format [quota: table]
+
 
 
 register
@@ -553,6 +737,29 @@ Command - search::
 
 
 
+security_group
+----------------------------------------------------------------------
+
+Command - security_group::
+
+    Usage:
+        security_group list [--output=FORMAT]
+
+
+    managing the security_groups test test test test
+
+    Arguments:
+
+      KEY    the name of the security_group
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [security_group: general]
+       --output=FORMAT  the output format [security_group: table]
+
+
+
 setup
 ----------------------------------------------------------------------
 
@@ -574,6 +781,75 @@ Command - setup_yaml::
         setup_yaml  [--force]
 
     Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
+
+
+ssh
+----------------------------------------------------------------------
+
+Command - ssh::
+
+    Usage:
+        ssh list [--output=FORMAT]
+
+
+    managing the sshs test test test test
+
+    Arguments:
+
+      KEY    the name of the ssh
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [ssh: general]
+       --output=FORMAT  the output format [ssh: table]
+
+
+
+stack
+----------------------------------------------------------------------
+
+Command - stack::
+
+    Usage:
+        stack list [--output=FORMAT]
+
+
+    managing the stacks test test test test
+
+    Arguments:
+
+      KEY    the name of the stack
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [stack: general]
+       --output=FORMAT  the output format [stack: table]
+
+
+
+status
+----------------------------------------------------------------------
+
+Command - status::
+
+    Usage:
+        status list [--output=FORMAT]
+
+
+    managing the statuss test test test test
+
+    Arguments:
+
+      KEY    the name of the status
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [status: general]
+       --output=FORMAT  the output format [status: table]
+
 
 
 timer
@@ -695,4 +971,50 @@ Command - version::
        version
 
     Prints out the version number
+
+
+vm
+----------------------------------------------------------------------
+
+Command - vm::
+
+    Usage:
+        vm list [--output=FORMAT]
+
+
+    managing the vms test test test test
+
+    Arguments:
+
+      KEY    the name of the vm
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [vm: general]
+       --output=FORMAT  the output format [vm: table]
+
+
+
+volume
+----------------------------------------------------------------------
+
+Command - volume::
+
+    Usage:
+        volume list [--output=FORMAT]
+
+
+    managing the volumes test test test test
+
+    Arguments:
+
+      KEY    the name of the volume
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [volume: general]
+       --output=FORMAT  the output format [volume: table]
+
 
