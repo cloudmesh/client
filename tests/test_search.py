@@ -9,6 +9,7 @@ nosetests -v
 """
 
 from cloudmesh_base.util import HEADING
+import os
 
 
 class Test_search:
