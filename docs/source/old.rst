@@ -103,13 +103,13 @@ Select is a command that allows the interactive selection of an item
 specified
 
 
-
 ::
    Usage:
        select LIST...
        select image CLOUD
        select flavor CLOUD
        select vm CLOUD
+       select cloud
        
    Arguments:
        LIST   (parameterized) List of items to choose from
@@ -119,6 +119,10 @@ specified
    Description:
        Returns either None or the item that is chosen interactively 
 
+   Example:
+       select cloud
+           will list all available couds and you can interactively
+	   select one. The name of the selected cloud is returned.
        
 List (Pauolo)
 -------------
