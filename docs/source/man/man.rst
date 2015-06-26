@@ -11,6 +11,29 @@ Command - EOF::
     Command to the shell to terminate reading a script.
 
 
+TEMPLATE
+----------------------------------------------------------------------
+
+Command - TEMPLATE::
+
+    Usage:
+        TEMPLATE list [--output=FORMAT]
+
+
+    managing the TEMPLATEs test test test test
+
+    Arguments:
+
+      KEY    the name of the TEMPLATE
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [TEMPLATE: general]
+       --output=FORMAT  the output format [TEMPLATE: table]
+
+
+
 banner
 ----------------------------------------------------------------------
 
@@ -209,6 +232,8 @@ Command - load::
 
     Arguments:
        MODULE  The name of the module.
+
+    THIS COMMAND IS NOT IMPLEMENTED
 
 
 man
