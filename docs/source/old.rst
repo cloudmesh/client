@@ -134,7 +134,7 @@ List
           man cloud
 
 
-Security group (do)
+Security group (do, fugang)
 --------------
 
 ::
