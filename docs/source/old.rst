@@ -15,9 +15,10 @@ currently we have
   
 * we need to work on vm/boot command.
 
+  
 
-Refresh
--------
+Refresh (Paulo)
+---------------
 
 
 ::
@@ -53,8 +54,8 @@ Refresh
           cloud activate CLOUD
 	
    
-List
-----
+List (Gregor)
+-------------
 
 ::
 
@@ -137,8 +138,8 @@ List
           man cloud
 
 
-Security group (do)
---------------
+Security group (Paulo)
+-----------------------
 
 ::
 
@@ -178,7 +179,7 @@ Security group (do)
           $ secgroup rues-add india fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
       
-Cloud (do)
+Cloud (Gregor)
 ------
 
 ::
@@ -302,8 +303,8 @@ Cloud (do)
                 sets the default flavor for a cloud. If the cloud is
                 not specified, it used the default cloud.
 
-VM (do)
----
+VM (Pauolo)
+-------
 
 ::
 
@@ -403,7 +404,7 @@ VM (do)
                         json format
 
 
-Volume (do) Paulo
+Volume (Paulo)
 ------
 
 ::
@@ -484,7 +485,7 @@ Volume (do) Paulo
               volume help 
                   Prints the nova manual
 
-Status (do)
+Status (Daniel)
 ------
 
 ::
@@ -508,7 +509,7 @@ Status (do)
 
 
 
-Stack (do)
+Stack (Hyungro)
 -----
 
 ::
@@ -531,7 +532,7 @@ Stack (do)
 
              -v       verbose mode
 
-SSH (do)
+SSH (Pauolo)
 ----
 
 ::
@@ -569,7 +570,7 @@ SSH (do)
                                or a location that contains a pblic key 
 
 
-Quota (do)
+Quota (Pauolo)
 -----
 
 ::
@@ -587,7 +588,7 @@ Quota (do)
 
              -v       verbose mode
 
-Limits
+Limits (Paulo)
 -------
 
 ::
@@ -622,7 +623,7 @@ notebook (not)
 
              -v       verbose mode
 
-Project
+Project (Gregor)
 -------
 
 ::
@@ -655,7 +656,7 @@ Project
                   set a completed project, this will remove the project
                   from active projects list and defalut project if it is
 
-Loglevel (do)
+Loglevel (Daniel)
 ---------
 
 ::
@@ -678,7 +679,7 @@ Loglevel (do)
               debug    - shows log message in debug level including info
 
 
-Launcher (do)
+Launcher (do, Hyungro)
 --------
 
 ::
@@ -708,7 +709,7 @@ Launcher (do)
 
                -v       verbose mode
 
-Key (do)
+Key (Daniel)
 ----
 
 ::
@@ -774,7 +775,7 @@ Key (do)
                  are not saved in mongo
 
 
-Inventory (not)
+Inventory (not, Gregor)
 -----------
 
 ::
@@ -810,7 +811,7 @@ Inventory (not)
              v       verbose mode
 
 
-Experiment (do)
+Experiment (do, Gregor)
 -----------
 
 ::
@@ -838,7 +839,7 @@ Experiment (do)
 
              -v       verbose mode
 
-debug (not cmd3)
+debug (not cmd3, Gregor)
 -----
 
 ::
@@ -849,7 +850,7 @@ debug (not cmd3)
 
               Turns the debug log level on and off.
 
-color (not cmd3)
+color (not cmd3, Gregor)
 -----
 
 ::
@@ -872,7 +873,7 @@ color (not cmd3)
                          as a test to see if your terminal supports
                          colors.
 
-Cluster (do) Daniel
+Cluster (Hyungro)
 --------
 
 ::
@@ -943,8 +944,8 @@ Cluster (do) Daniel
                                          detailed table
 
 
-Admin (do)
-------
+Admin (Daniel)
+--------------
 
 ::
         
