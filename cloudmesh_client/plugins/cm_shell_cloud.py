@@ -20,6 +20,7 @@ class cm_shell_cloud:
 
           Usage:
               list [--cloud=CLOUD]
+              list [--cloud=CLOUD] default
               list [--cloud=CLOUD] vm
               list [--cloud=CLOUD] flavor
               list [--cloud=CLOUD] image
@@ -28,7 +29,7 @@ class cm_shell_cloud:
         pprint(arguments)
 
         def get_kind():
-            for k in ["vm","image", "flavor"]:
+            for k in ["vm","image", "flavor", "default"]:
                 if arguments[k]:
                     return k
             return "help"
@@ -36,7 +37,7 @@ class cm_shell_cloud:
         if arguments["--cloud"] is None:
             cloud = "india"
 
-        cm = CloudmeshDatabase(cm_user="gregor")
+        cm = CloudmeshDatabase()
         kind = get_kind()
         if kind == "help":
             print ("HELP HERE")

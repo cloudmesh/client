@@ -17,6 +17,7 @@ file.
    use
    api
    man/man
+   old 
    modules/modules
    develop
    todo

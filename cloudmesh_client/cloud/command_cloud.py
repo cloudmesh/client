@@ -35,7 +35,8 @@ class command_cloud(object):
 
         :return:
         """
-        result = Shell.fgrep("Host ", Config.path_expand("~/.ssh/config")).replace("Host ", "").replace(" ", "")
+        result = Shell.fgrep("Host ",
+                             Config.path_expand("~/.ssh/config")).replace("Host ", "").replace(" ", "")
         Console.ok("The following hosts are defined in ~/.ssh/config")
         print("")
         for line in result.split("\n"):

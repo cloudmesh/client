@@ -8,6 +8,7 @@ from pprint import pprint
 
 
 class command_default(object):
+    
     @classmethod
     def list(cls, output="table"):
         cm = CloudmeshDatabase()
