@@ -761,7 +761,7 @@ Launcher (do, Hyungro)
                 launcher export FILEPATH
                 launcher help | -h
 
-            Arguments:
+          Arguments:
 
               MENU           Name of a cookbook
               STACK_NAME     Name of a launcher
@@ -770,7 +770,7 @@ Launcher (do, Hyungro)
               FORMAT         display format (json, table)
               help           Prints this message
 
-            Options:
+          Options:
 
                -v       verbose mode
 
@@ -782,7 +782,7 @@ Launcher (do, Hyungro)
                 `launcher` command reads the YAML file and provides available
                 software stacks.
 
-            Examples:
+          Examples:
 
                 Launcher start:
                 cm> launcher start openmpi
