@@ -19,6 +19,10 @@ class Test_search:
         pass
 
     def test_001(self):
-        """test setting and getting default values"""
+        """testing cm search with all the arguments"""
         HEADING()
-        assert True
+        try:
+            os.system("cm search flavor --order=name,disk name!=m1.tiny vcpus=[1-4]")
+            assert False
+        except Exception:
+            assert True

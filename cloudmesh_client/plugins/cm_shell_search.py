@@ -34,7 +34,6 @@ class cm_shell_search:
              -v       verbose mode
 
         """
-        pprint(arguments)
 
         if arguments["NAME"] is None:
             #command_search.do_search('default','')

@@ -21,7 +21,7 @@ class command_search(object):
         if filter:
             for i in range(len(filter)):
 
-                regex = re.compile("(>=|<=|=|>|<)",re.I)
+                regex = re.compile("(!=|>=|<=|=|>|<)",re.I)
                 sep = regex.search(filter[i]).groups()
                 if sep:
                     separator = sep[0]
@@ -45,12 +45,12 @@ class command_search(object):
             where = ' WHERE {}'.format(where)
         else:
             where = ""
-        _table = table.upper()
 
+        _table = table.upper()
         sql = text(""" SELECT * FROM {}{}""".format(_table, where))
-        print sql
+
         try:
-            if table == 'vm' or table == 'flavor' or table == 'image' or table == 'default':
+            if table == 'vm' or table == 'flavor' or table == 'image':
                 model = globals()[_table]
                 r = c.session.query(model).from_statement(sql).all()
             else:
