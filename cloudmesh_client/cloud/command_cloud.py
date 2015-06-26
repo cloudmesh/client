@@ -108,7 +108,7 @@ class command_cloud(object):
         """
         Console.ok("register")
         if host.lower() == "india":
-            _from = 'india:.cloudmesh/clouds/india/juno/f'
+            _from = 'india:.cloudmesh/clouds/india/juno'
             _to = path_expand('~/.cloudmesh/clouds/india/juno')
 
             if os.path.exists(_to):
@@ -132,27 +132,46 @@ class command_cloud(object):
             Console.error("Cloud {:} not found".format(host))
 
     @classmethod
-    def register_CERT(cls, host, path_cert):
+    def register_CERT(cls, host, path_cert, force=False):
         """
-        copies the CERT to the ~/.cloudmesh/clouds/CLOUD directory and registers that cert in the coudmeh.yaml file
+        copies the CERT to the ~/.cloudmesh/clouds/host directory and registers that cert in the coudmeh.yaml file
 
         :param host: the host name
         :type host: string
         :param path_cert: the path to cacert.pem
         :type path_cert: string
+        :param force: overwrite cacert.pem
+        :type force: bool
         :return:
         """
         Console.ok("register")
-        if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/CLOUD/juno
+
+        if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/india/juno/cacert.pem
+
+            _from = 'india:{:}'.format(path_cert)
+            _to   =  path_expand('~/.cloudmesh/clouds/india/juno')
+
+            #copies cacert.pem from india to the a local directory
+            if os.path.exists(_to):
+                while True:
+                    answer = ""
+                    if not force:
+                        answer = raw_input("File already exists. Would you like to overwrite {:}/cacert.pem file y/n? ".format(_to))
+                    if  answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                        break
+                    elif (answer.lower() != 'n' and answer.lower() != 'no'):
+                        Console.ok("Invalid option: {:}".format(answer))
+                    else:
+                        Console.ok("Operation aborted")
+                        return
+
             try:
-                _from = 'india.futuresystems.org:.cloudmesh/clouds/india/juno/cacert.pem'
-                _to   =  path_expand('~/.cloudmesh/clouds/india/juno')
-
-                Shell.scp(_from, _to)
-
+                Shell.scp( _from, _to)
             except Exception, e:
-                print ("ERROR: ", e)
+                Console.error(e.message)
                 return
+
+            #registers cert in the cloudmesh.yaml file
             try:
                 home = expanduser("~")
                 filename = home+'/.cloudmesh/clouds/india/juno/openrc.sh'
@@ -171,13 +190,13 @@ class command_cloud(object):
                     config["cloudmesh"]["clouds"][host]["credentials"][key] = value
             config.save()
         else:
-             print ("Cloud not found")
+             print ("Cloud {:} not found".format(host))
 
 
     @classmethod
-    def register_DIR(cls, host, dir):
+    def register_DIR(cls, host, dir, force=False):
         """
-        Copies the entire directory from the cloud
+        Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
 
         :param host: the host name
         :type host: string
@@ -186,17 +205,29 @@ class command_cloud(object):
         :return:
         """
         Console.ok("register")
+        if host.lower() == "india":
+            _from = 'india:.{:}'.format(dir)
+            _to = path_expand('~/.cloudmesh/clouds/{:}'.format(host))
 
-        if host == "india":
+            if os.path.exists(_to):
+                while True:
+                    answer = ""
+                    if not force:
+                        answer = raw_input("Directory already exists. Would you like to overwrite {:} directory y/n? ".format(_to))
+                    if  answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                        break
+                    elif (answer.lower() != 'n' and answer.lower() != 'no'):
+                        Console.ok("Invalid option")
+                    else:
+                        Console.ok("Operation aborted")
+                        return
+
             try:
-                system("scp -r india.futuresystems.org:{:} ~/.cloudmesh/clouds/india/".format(dir))
+                Shell.scp('-r', _from, _to)
             except Exception, e:
-                print ("ERROR: ", e)
-                return
-
-        print ("successfully executed")
-
-        #raise NotImplementedError("Not implemented")
+                    Console.error(e.message)
+        else:
+            Console.error("Cloud {:} not found".format(host))
 
     @classmethod
     def test(cls, filename):
