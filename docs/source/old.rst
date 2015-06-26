@@ -556,14 +556,14 @@ Stack (Hyungro)
 
 ::
 
+          OpenStack Heat DevOps Tools
+
           Usage:
               stack start NAME [--template=TEMPLATE] [--param=PARAM]
               stack stop NAME
               stack show NAME
               stack list [--refresh] [--column=COLUMN] [--format=FORMAT]
               stack help | -h
-
-          An orchestration tool (OpenStack Heat)
 
           Arguments:
 
@@ -573,6 +573,28 @@ Stack (Hyungro)
           Options:
 
              -v       verbose mode
+
+          Description:
+
+                OpenStack Cloud supports software deployment with the Heat
+                DevOps tool. Resources e.g. Security Group, Nova Server, or
+                Floating IP can be defined to start a new stack.  Particular
+                tasks defined in 'user_data' section will be executed by
+                CloudInit on boot.
+
+          Examples:
+
+                Start a Hadoop stack:
+                cm> stack start hadoop --tempate=https://github.com/cloudmesh/cloudmesh/blob/master/heat-templates/ubuntu-14.04/hadoop-cluster/hadoop2.7-cluster.yaml --param='KeyName=abc;PublicKeyString=abc;PrivateKeyString=abc;UserName=abc'
+
+                Stop a stack:
+                cm> stack stop hadoop
+
+                Show stack information:
+                cm> stack show hadoop
+
+                List running stacks:
+                cm> stack list
 
 SSH (Pauolo)
 ----
