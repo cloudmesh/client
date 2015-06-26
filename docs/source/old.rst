@@ -748,6 +748,9 @@ Launcher (do, Hyungro)
 
 ::
 
+          Software Launcher in Cloudmesh
+          - works with Chef Cookbooks and OpenStack Heat
+
           Usage:
                 launcher start MENU
                 launcher stop STACK_NAME
@@ -757,8 +760,6 @@ Launcher (do, Hyungro)
                 launcher import [FILEPATH] [--force]
                 launcher export FILEPATH
                 launcher help | -h
-
-            An orchestration tool with Chef Cookbooks
 
             Arguments:
 
@@ -772,6 +773,28 @@ Launcher (do, Hyungro)
             Options:
 
                -v       verbose mode
+
+            Description:
+
+                `launcher` command helps you to deploy software stacks on the
+                cloud with Chef Cookbooks.  If you define your launcher sub
+                command (menu) in ~/.cloudmesh/cloudmesh_launhcer.yaml,
+                `launcher` command reads the YAML file and provides available
+                software stacks.
+
+            Examples:
+
+                Launcher start:
+                cm> launcher start openmpi
+
+                Launcher stop:
+                cm> launcher stop openmpi
+
+                List running launcher stacks:
+                cm> launcher list
+
+                List available launcher software stacks:
+                cm> launcher menu
 
 Key (Daniel)
 ----
@@ -941,6 +964,8 @@ Cluster (Hyungro)
 --------
 
 ::
+
+        
        
           Usage:
               cluster list [--format=FORMAT]
