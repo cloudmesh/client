@@ -16,6 +16,41 @@ currently we have
 * we need to work on vm/boot command.
 
 
+Refresh
+-------
+
+
+::
+
+   Refreshes the database with information from the clouds
+
+
+   Usage:
+       refresh
+       refresh CLOUD
+       refresh status
+
+   Description:
+
+       refresh
+           refreshes the information 
+       
+       refresh CLOUD
+           refreshes the information form the specific cloud
+   
+       refresh status
+           as the refresh may be done asynchronously, the stats will show you the progress of the ongoing refresh
+	   NOT IMPLEMENTED
+	   It also shows when the last refresh on a specific cloud object took place.
+	   
+       refresh list
+           lists all the Clouds that need a refresh
+
+       Refreshes are activated on all cloudsthat are "active". A cloud can be activated with the cloud command
+
+          cloud activate CLOUD
+	
+   
 List
 ----
 
