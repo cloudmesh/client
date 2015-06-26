@@ -12,6 +12,34 @@ class cm_shell_cloud:
     def activate_cm_shell_cloud(self):
         self.register_command_topic('cloud', 'register')
         self.register_command_topic('cloud', 'list')
+        self.register_command_topic('cloud', 'cloud')
+
+    @command
+    def do_cloud(self, args, arguments):
+        """
+        ::
+
+          Usage:
+              cloud list [--output=FORMAT]
+
+
+          managing the admins test test test test
+
+          Arguments:
+
+            KEY    the name of the admin
+            VALUE  the value to set the key to
+
+          Options:
+
+             --cloud=CLOUD    the name of the cloud [cloud: general]
+             --output=FORMAT  the output format [cloud: table]
+
+        """
+        # pprint(arguments)
+        cloud = arguments["--cloud"]
+        output_format = arguments["--format"]
+        pass
 
     @command
     def do_list(self, args, arguments):
