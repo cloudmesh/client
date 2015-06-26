@@ -39,14 +39,16 @@ Refresh
            refreshes the information form the specific cloud
    
        refresh status
-           as the refresh may be done asynchronously, the stats will show you the progress of the ongoing refresh
-	   NOT IMPLEMENTED
-	   It also shows when the last refresh on a specific cloud object took place.
+           as the refresh may be done asynchronously, the stats will
+	   show you the progress of the ongoing refresh NOT
+	   IMPLEMENTED It also shows when the last refresh on a
+	   specific cloud object took place.
 	   
        refresh list
            lists all the Clouds that need a refresh
 
-       Refreshes are activated on all cloudsthat are "active". A cloud can be activated with the cloud command
+       Refreshes are activated on all cloudsthat are "active". A cloud
+       can be activated with the cloud command
 
           cloud activate CLOUD
 	
@@ -111,9 +113,10 @@ List
 
       Description:
 
-          List clouds and projects information, if the CLOUD argument is not specified, the
-          selected default cloud will be used. You can interactively set the default cloud with the command
-          'cloud select'.
+          List clouds and projects information, if the CLOUD argument
+          is not specified, the selected default cloud will be
+          used. You can interactively set the default cloud with the
+          command 'cloud select'.
 
           list flavor
             list the flavors
@@ -162,7 +165,10 @@ Security group (do)
           CIDR          IP address range in CIDR format, e.g., 129.79.0.0/16
           
       Description:
-         security_group command provides list/add/delete security_groups for a tenant of a cloud, as well as list/add/delete of rules for a security group from a specified cloud and tenant.
+          security_group command provides list/add/delete
+          security_groups for a tenant of a cloud, as well as
+          list/add/delete of rules for a security group from a
+          specified cloud and tenant.
 
 
       Examples:
@@ -201,7 +207,7 @@ Cloud (do)
 
         Options:
 
-           --columns=COLUMNS       specify what information to display in
+           --columns=COLUMNS     specify what information to display in
                                  the columns of the list command. For
                                  example, --column=active,label prints the
                                  columns active and label. Available
@@ -231,8 +237,9 @@ Cloud (do)
             command shell. The following subcommands exist:
 
             cloud [list] [--column=COLUMN] [--json|--table]
-                lists the stored clouds, optionally, specify columns for more
-                cloud information. For example, --column=active,label
+	        lists the stored clouds, optionally, specify columns
+                for more cloud information. For
+                example, --column=active,label
 
             cloud info [CLOUD|--all] [--json|--table]
                 provides the available information about the cloud in dict
@@ -247,8 +254,9 @@ Cloud (do)
 
 
             cloud select [CLOUD]
-                selects a cloud to work with from a list of clouds.If the cloud 
-                is not specified, it asks for the cloud interactively
+                selects a cloud to work with from a list of clouds. If
+                the cloud is not specified, it asks for the cloud
+                interactively
 
             cloud on [CLOUD]
             cloud off [CLOUD]
@@ -256,9 +264,9 @@ Cloud (do)
                 given, the default cloud will be used.
 
 
-            cloud add <cloudYAMLfile> [--force]
+            cloud add YAMLFILE [--force]
                 adds the cloud information to database that is
-                specified in the <cloudYAMLfile>. This file is a yaml. You
+                specified in the YAMLFILE. This file is a yaml. You
                 need to specify the full path. Inside the yaml, a
                 cloud is specified as follows:
 
@@ -305,7 +313,7 @@ VM (do)
                          [--cloud=CLOUD]
                          [--image=IMAGE_OR_ID]
                          [--flavor=FLAVOR_OR_ID]
-                         [--group=<group>]
+                         [--group=GROUP]
                 vm delete [NAME_OR_ID...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
@@ -330,30 +338,30 @@ VM (do)
                         [--detail]
 
             Arguments:
-                COMMAND                positional arguments, the commands you want to
-                                       execute on the server(e.g. ls -a), you will get
-                                       a return of executing result instead of login to
-                                       the server, note that type in -- is suggested before
-                                       you input the commands
-                NAME                   server name
+                COMMAND   positional arguments, the commands you want to
+                          execute on the server(e.g. ls -a), you will get
+                          a return of executing result instead of login to
+                          the server, note that type in -- is suggested before
+                          you input the commands
+                NAME      server name
 
             Options:
-                --ip=IP                give the public ip of the server
+                --ip=IP          give the public ip of the server
                 --cloud=CLOUD    give a cloud to work on, if not given, selected
-                                       or default cloud will be used
-                --count=COUNT        give the number of servers to start
-                --detail               for table print format, a brief version 
-                                       is used as default, use this flag to print
-                                       detailed table
+                                 or default cloud will be used
+                --count=COUNT    give the number of servers to start
+                --detail         for table print format, a brief version 
+                                 is used as default, use this flag to print
+                                 detailed table
                 --flavor=FLAVOR_OR_ID  give the name or id of the flavor
                 --group=GROUP          give the group name of server
                 --image=IMAGE_OR_ID    give the name or id of the image
-                --key=KEY              spicfy a key to use, input a string which
-                                       is the full path to the public key file
-                --user=USER            give the user name of the server that you want
-                                       to use to login
-                --name=NAME            give the name of the virtual machine
-                --force                delete vms without user's confirmation
+                --key=KEY        spicfy a key to use, input a string which
+                                 is the full path to the public key file
+                --user=USER      give the user name of the server that you want
+                                 to use to login
+                --name=NAME      give the name of the virtual machine
+                --force          delete vms without user's confirmation
 
 
 
@@ -476,20 +484,29 @@ Volume (do) Paulo
               volume help 
                   Prints the nova manual
 
-
 Status (do)
 ------
 
 ::
 
           Usage:
-              status mongo
-              status celery
-              status celery ping
-              status celery stats
-              status rabbitmq
+              status
+	      status db
+	      status CLOUD...
+	  
+          Shows system status
 
-            Shows system status
+	  Description:
+              status
+	          shows the status of al relevant subystems
+		  
+	      status db
+	          shows the status of the db
+		  
+	      status CLOUD...
+	          shows the status of the clouds specified        
+
+
 
 Stack (do)
 -----
@@ -533,17 +550,23 @@ SSH (do)
             NAME        Name or ip of the machine to log in
             list        Lists the machines that are registered and
                         the commands to login to them
-            PARAMETERS  Register te resource and add the given parameters to the ssh config file.
-	                if the resoource exists, it will be overwritten. The information will be written in
-		        /.ssh/config
+            PARAMETERS  Register te resource and add the given
+	                parameters to the ssh config file.  if the
+	                resoource exists, it will be overwritten. The
+	                information will be written in /.ssh/config
 
           Options:
              
              -v       verbose mode
-	     --format=FORMAT   the format in which this list is given [default: table]
+	     --format=FORMAT   the format in which this list is given
 	                       formats incluse table, json, yaml, dict
-	     --user=USER       overwrites the username that is specified in ~/.ssh/config
-	     --key=KEY         The keyname as defined in the key list or a location that contains a pblic key
+	                       [default: table]
+			       
+	     --user=USER       overwrites the username that is
+			       specified in ~/.ssh/config
+			       
+	     --key=KEY         The keyname as defined in the key list
+                               or a location that contains a pblic key 
 
 
 Quota (do)
