@@ -16,26 +16,46 @@ class cm_shell_loglevel:
         ::
 
           Usage:
-              loglevel list [--output=FORMAT]
+            loglevel
+            loglevel critical
+            loglevel error
+            loglevel warning
+            loglevel info
+            loglevel debug
 
 
-          managing the loglevels test test test test
+          Shows current log level or changes it.
 
           Arguments:
 
-            KEY    the name of the loglevel
-            VALUE  the value to set the key to
+          Description:
+
+            loglevel - shows current log level
+            critical - shows log message in critical level
+            error    - shows log message in error level including critical
+            warning  - shows log message in warning level including error
+            info     - shows log message in info level including warning
+            debug    - shows log message in debug level including info
+
 
           Options:
 
-             --cloud=CLOUD    the name of the cloud [loglevel: general]
-             --output=FORMAT  the output format [loglevel: table]
 
         """
-        # pprint(arguments)
-        cloud = arguments["--cloud"]
-        output_format = arguments["--format"]
-        pass
+        pprint(arguments)
+
+        if arguments['critical']:
+            print ('critical')
+        elif arguments['error']:
+            print ("error")
+        elif arguments['warning']:
+            print ("warning")
+        elif arguments['info']:
+            print ("info")
+        elif arguments['debug']:
+            print ("debug")
+        else:
+            print ("loglevel")
 
 
 if __name__ == '__main__':

@@ -16,27 +16,29 @@ class cm_shell_admin:
         ::
 
           Usage:
-              admin list [--output=FORMAT]
-
-
-          managing the admins test test test test
-
-          Arguments:
-
-            KEY    the name of the admin
-            VALUE  the value to set the key to
+            admin password reset
+            admin version
 
           Options:
 
-             --cloud=CLOUD    the name of the cloud [admin: general]
-             --output=FORMAT  the output format [admin: table]
+
+          Description:
+            admin password reset
+              Reset portal password
+
+            admin version
+               Prints the version numbers of cloudmesh and its plugins
 
         """
-        # pprint(arguments)
-        cloud = arguments["--cloud"]
-        output_format = arguments["--format"]
-        pass
+        pprint(arguments)
 
+        if arguments['password']:
+            password = arguments['password']
+            reset = arguments['reset']
+
+            print ('password reset')
+        elif arguments['version']:
+            print ('version')
 
 if __name__ == '__main__':
     command = cm_shell_admin()

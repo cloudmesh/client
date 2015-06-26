@@ -15,27 +15,99 @@ class cm_shell_key:
         """
         ::
 
-          Usage:
-              key list [--output=FORMAT]
+           Usage:
+             key  -h | --help
+             key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
+             key add [--keyname=KEYNAME] FILENAME
+             key default [KEYNAME]
+             key delete KEYNAME
+
+           Manages the keys
+
+           Arguments:
+
+             SOURCE         mongo, yaml, ssh
+             KEYNAME        The name of a key
+             FORMAT         The format of the output (table, json, yaml)
+             FILENAME       The filename with full path in which the key
+                            is located
+
+           Options:
+
+              --dir=DIR            the directory with keys [default: ~/.ssh]
+              --format=FORMAT      the format of the output [default: table]
+              --source=SOURCE      the source for the keys [default: mongo]
+              --keyname=KEYNAME    the name of the keys
+
+           Description:
 
 
-          managing the keys test test test test
+           key list --source=ssh  [--dir=DIR] [--format=FORMAT]
 
-          Arguments:
+              lists all keys in the directory. If the directory is not
+              specified the default will be ~/.ssh
 
-                the name of the key
-            VALUE  the value to set the  to
+           key list --source=yaml  [--dir=DIR] [--format=FORMAT]
 
-          Options:
+              lists all keys in cloudmesh.yaml file in the specified directory.
+               dir is by default ~/.cloudmesh
 
-             --cloud=CLOUD    the name of the cloud [key: general]
-             --output=FORMAT  the output format [key: table]
+           key list [--format=FORMAT]
+
+               list the keys in mongo
+
+           key add [--keyname=keyname] FILENAME
+
+               adds the key specifid by the filename to mongodb
+
+
+           key list
+
+                Prints list of keys. NAME of the key can be specified
+
+           key default [NAME]
+
+                Used to set a key from the key-list as the default key if NAME
+                is given. Otherwise print the current default key
+
+           key delete NAME
+
+                deletes a key. In yaml mode it can delete only key that
+                are not saved in mongo
 
         """
-        # pprint(arguments)
-        cloud = arguments["--cloud"]
-        output_format = arguments["--format"]
-        pass
+        pprint(arguments)
+
+
+        if arguments['list']:
+            print ('list')
+            if arguments['--source']:
+                source = arguments['--source']
+                print (source)
+            if arguments['--dir']:
+                dir = arguments['--dir']
+                print (dir)
+            if arguments['--format']:
+                format = arguments['--format']
+                print (format)
+        elif arguments['add']:
+            print ('add')
+            keyname = None
+            if arguments['--keyname']:
+                keyname = arguments['--keyname']
+                print (keyname)
+            filename = arguments['FILENAME']
+            print (filename)
+        elif arguments['default']:
+            print ("default")
+            if arguments['KEYNAME']:
+                keyname = arguments['KEYNAME']
+                print (keyname)
+        elif arguments['delete']:
+            print ('delete')
+            if arguments['KEYNAME']:
+                keyname = arguments['KEYNAME']
+                print (keyname)
 
 
 if __name__ == '__main__':
