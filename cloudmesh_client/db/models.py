@@ -120,6 +120,8 @@ class DEFAULT(db.Base):
     cm_user = Column(String)
     cm_id = Column(String,primary_key=True)
     cm_type = Column(String)
+    cm_command = Column(String)
+    cm_parameter = Column(String)
 
     name = Column(String)
     value = Column(String)

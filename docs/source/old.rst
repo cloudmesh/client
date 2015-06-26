@@ -54,32 +54,41 @@ Refresh
 List
 ----
 
-
 ::
 
       List available flavors, images, vms, projects and clouds
 
+
+      
       Usage:
-          list flavor [CLOUD|--all] 
-                      [--refresh] 
-                      [--format=FORMAT]
-                      [--column=COLUMN]
-          list image [CLOUD|--all] 
+          list flavor [CLOUD...] 
+                      [--refresh]
+		      [--format=FORMAT]
+                      [--columns=COLUMNS]
+                      [--detail]
+          list image [CLOUD...] 
                      [--refresh] 
                      [--format=FORMAT] 
-                     [--column=COLUMN]
-          list vm [CLOUD|--all] 
+                     [--columns=COLUMNS]
+                     [--detail]
+          list vm [CLOUD...] 
                   [--group=<group>]
                   [--refresh] 
                   [--format=FORMAT] 
-                  [--column=COLUMN] 
+                  [--columns=COLUMNS] 
                   [--detail]
-          list project
-          list cloud [--column=COLUMN]
+          list default [CLOUD...] 
+                  [--format=FORMAT] 
+                  [--columns=COLUMNS] 
+                  [--detail]
+          list cloud 
+                  [--format=FORMAT] 
+                  [--columns=COLUMNS] 
+                  [--detail]
 
       Arguments:
 
-          CLOUD    the name of the cloud e.g. india
+          CLOUD...    the name of the clouds e.g. india
 
       Options:
 
@@ -89,7 +98,7 @@ List
           --detail               for table print format, a brief version 
                                  is used as default, use this flag to print
                                  detailed table
-          --column=COLUMN        specify what information to display in
+          --columns=COLUMNS      specify what information to display in
                                  the columns of the list command. For
                                  example, --column=active,label prints
                                  the columns active and label. Available
@@ -98,7 +107,7 @@ List
                                  credentials, defaults (all to display
                                  all, email to display all except
                                  credentials and defaults)
-          --format=FORMAT        output format: table, json, csv
+          --format=FORMAT        output format: table, json, csv [default: table]
 
       Description:
 
@@ -117,65 +126,13 @@ List
           list cloud
           : same as cloud list
 
+	  If no cloud is specified it lists the information for all clouds.
+
+	  
       See Also:
 
           man cloud
 
-
-Flavor
-------
-
-::
-
-      Usage:
-          flavor
-          flavor CLOUD... [--refresh]
-          flavor -h | --help
-          flavor --version
-
-     Options:
-         -h                   help message
-         --refresh            refresh flavors of IaaS
-
-      Arguments:
-          CLOUD    Name of the IaaS cloud e.g. india_openstack_grizzly.
-
-      Description:
-         flavor command provides list of available flavors. Flavor describes
-         virtual hardware configurations such as size of memory, disk, cpu cores.
-
-      Result:
-
-      Examples:
-          $ flavor india_openstack_grizzly
-
-Image
------
-
-::
-
-      Usage:
-          image
-          image <cm_cloud>... [--refresh]
-      image -h | --help
-          image --version
-
-     Options:
-         -h                   help message
-         --refresh            refresh images of IaaS
-
-      Arguments:
-          cm_cloud    Name of the IaaS cloud e.g. india_openstack_grizzly.
-
-      Description:
-         image command provides list of available images. Image describes
-         pre-configured virtual machine image.
-
-
-      Result:
-
-      Examples:
-          $ image india_openstack_grizzly
 
 Security group (do)
 --------------
@@ -183,18 +140,21 @@ Security group (do)
 ::
 
       Usage:
-          security_group list <cm_cloud>...
-          security_group add <cm_cloud> <label> <parameters>  [NOT IMPLEMENTED]
-          security_group delete <cm_cloud> <label>            [NOT IMPLEMENTED]
+          security_group list CLOUD...
+          security_group add CLOUD LABEL PARAMETERS
+          security_group delete CLOUD LABEL
       security_group -h | --help
           security_group --version
 
-     Options:
+      Options:
          -h                   help message
-
+          LABEL        the label
+	  PARAMETERS   TBD
+	 
       Arguments:
-          cm_cloud    Name of the IaaS cloud e.g. india_openstack_grizzly.
+          CLOUD    Name of the IaaS cloud e.g. india_openstack_grizzly.
 
+	  
       Description:
          security_group command provides list of available security_groups.
 
@@ -203,6 +163,8 @@ Security group (do)
       Examples:
           $ security_group list india_openstack_grizzly
 
+      TODO: much better examples
+      
 Cloud (do)
 ------
 
