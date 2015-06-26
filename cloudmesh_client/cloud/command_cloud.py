@@ -95,27 +95,20 @@ class command_cloud(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def register(cls, host, force=True):
+    def register(cls, host, force=False):
         """
         copies the cloudmesh/clouds/india/juno directory from india
         to the ~/.cloudmesh/clouds/india/juno local directory.
 
         :param host: the host name
         :type host: string
-        :param force:
+        :param force: overwrite the local directory
         :type force: bool
         :return:
         """
         Console.ok("register")
         if host.lower() == "india":
-            #copies the whole dir from india
-            # todo:
-            # what if the directory already exists in my local machine
-            # We detected that the directory already exists
-            # would you like to overwrite the following files in that directory ...
-            # what happens if the directory is not on the remote machine
-
-            _from = 'india:.cloudmesh/clouds/india/juno/'
+            _from = 'india:.cloudmesh/clouds/india/juno/f'
             _to = path_expand('~/.cloudmesh/clouds/india/juno')
 
             if os.path.exists(_to):
@@ -130,21 +123,23 @@ class command_cloud(object):
                     else:
                         Console.ok("Operation aborted")
                         return
-            else:
-                try:
-                    Shell.scp('-r', _from, _to)
-                except Exception, e:
+
+            try:
+                Shell.scp('-r', _from, _to)
+            except Exception, e:
                     Console.error(e.message)
         else:
             Console.error("Cloud {:} not found".format(host))
 
     @classmethod
-    def register_CERT(cls, host, cert=None):
+    def register_CERT(cls, host, path_cert):
         """
         copies the CERT to the ~/.cloudmesh/clouds/CLOUD directory and registers that cert in the coudmeh.yaml file
 
         :param host: the host name
         :type host: string
+        :param path_cert: the path to cacert.pem
+        :type path_cert: string
         :return:
         """
         Console.ok("register")

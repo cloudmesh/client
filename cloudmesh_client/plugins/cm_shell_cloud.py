@@ -147,7 +147,7 @@ class cm_shell_cloud:
               register test [--yaml=FILENAME]
               register rc HOST [OPENRC]
               register [--yaml=FILENAME]
-              register india
+              register india [--force]
               register CLOUD CERT
               register CLOUD --dir=DIR
 
@@ -168,6 +168,7 @@ class cm_shell_cloud:
           Options:
 
              -v       verbose mode
+
 
           Description:
 
@@ -259,11 +260,16 @@ class cm_shell_cloud:
             host = arguments['HOST']
             command_cloud.read_rc_file(host, filename)
         elif arguments['india']:
+            if arguments['--force']:
+                force = True
+                command_cloud.register("india", force)
             command_cloud.register("india")
+
         elif arguments['CLOUD']:
-            if arguments['CERT']:
+            if arguments['CERT']:#path to the cacert.pem
                 cloud = arguments['CLOUD']
-                command_cloud.register_CERT(cloud)
+                path = arguments['CERT']
+                command_cloud.register_CERT(cloud, path)
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
                 dir = arguments['--dir']
