@@ -443,24 +443,23 @@ Volume (do) Paulo
               SNAPSHOT          Name or ID of the snapshot
 
           Options:
-              --snapshot-id SNAPSHOT-ID  Optional snapshot id to create
-                                         the volume from.  (Default=None)
-              --image-id IMAGE-ID        Optional image id to create the
-                                         volume from.  (Default=None)
-              --display-name DISPLAY-NAME  Optional volume name. (Default=None)
+              --snapshot-id SNAPSHOT-ID     Optional snapshot id to create
+                                            the volume from.  (Default=None)
+              --image-id IMAGE-ID           Optional image id to create the
+                                            volume from.  (Default=None)
+              --display-name DISPLAY-NAME   Optional volume name. (Default=None)
               --display-description DISPLAY-DESCRIPTION
-                                      Optional volume description. (Default=None)
+                                            Optional volume description. (Default=None)
               --volume-type VOLUME-TYPE
-                                      Optional volume type. (Default=None)
+                                            Optional volume type. (Default=None)
               --availability-zone AVAILABILITY-ZONE
-	      
-                                      Optional Availability Zone for
-                                      volume. (Default=None)
+                                            Optional Availability Zone for
+                                            volume. (Default=None)
 
-	      --force                 Optional flag to indicate
-	                              whether to snapshot a volume
-	                              even if its attached to an
-	                              instance. (Default=False)
+	      --force                           Optional flag to indicate
+	                                        whether to snapshot a volume
+	                                        even if its attached to an
+	                                        instance. (Default=False)
 
           Description:
               volume list
