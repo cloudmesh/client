@@ -15,11 +15,29 @@ currently we have
   
 * we need to work on vm/boot command.
 
-  
+Parameterized commands
+----------------------
+
+Many commands take a number of parameters. Some of thes parameters can
+be easily refering to a number of different objects, while sing a
+parameterized syntax when specifying the command.
+
+For example when using the string "machine[01-03]" in a parameterized
+argument we refer to machine01, machine02, machine03. As you can see
+it is a simple way of expressing arrays as part of a
+string. Additionally you can use `,` to add to it. Thus
+machine[01-03],machine[06-07] refers to the machines  machine01,
+machine02, machine03, machine06, machine07. This fexible mechnism of
+specifying parameters is followed consitently within cloudmesh. We
+indicate in a manual page if a paramter is parameterized by including
+(parameterized) in its definition of the arguments
+
+In addition we utilize in some cases also the PARAMETER... notation
+meaning that the parameter can be specified multiple imes separated by
+a space. This is well known from many Linux commandline clients.
 
 Refresh (Paulo)
 ---------------
-
 
 ::
 
@@ -28,16 +46,27 @@ Refresh (Paulo)
 
    Usage:
        refresh
-       refresh CLOUD...
        refresh status
+       refresh list
+       refresh CLOUD...
 
+   Arguments:
+
+       CLOUD  (parameterized) the name of a cloud
+       
    Description:
 
+       Refreshes are activated on all cloudsthat are "active". A cloud
+       can be activated with the cloud command
+
+          cloud activate CLOUD
+
        refresh
-           refreshes the information 
-       
-       refresh CLOUD
-           refreshes the information form the specific cloud
+           refreshes the information that we have about all
+	   activeclouds.
+	   
+       refresh CLOUD...
+           refreshes the information form the specific clouds
    
        refresh status
            as the refresh may be done asynchronously, the stats will
@@ -48,11 +77,24 @@ Refresh (Paulo)
        refresh list
            lists all the Clouds that need a refresh
 
-       Refreshes are activated on all cloudsthat are "active". A cloud
-       can be activated with the cloud command
+    Example:
 
-          cloud activate CLOUD
+        The folowing command sequences each refresh the clouds named
+	india and aws.
 	
+            refresh india,aws
+	
+	    refresh india aws
+
+	    refresh india
+	    refresh aws
+
+	 To utilize the refresh command without parameters you need to
+	 asuse the clouds are activated
+
+	    cloud activate india
+	    cloud activate aws
+	    refresh
    
 List (Gregor)
 -------------
