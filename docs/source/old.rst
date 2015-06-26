@@ -72,7 +72,7 @@ List
                      [--columns=COLUMNS]
                      [--detail]
           list vm [CLOUD...] 
-                  [--group=<group>]
+                  [--group=GROUP]
                   [--refresh] 
                   [--format=FORMAT] 
                   [--columns=COLUMNS] 
@@ -94,7 +94,7 @@ List
 
           --all                  list information of all active clouds
           --refresh              refresh data before list
-          --group=<group>        give the group name in list vm
+          --group=GROUP          give the group name in list vm
           --detail               for table print format, a brief version 
                                  is used as default, use this flag to print
                                  detailed table
@@ -395,7 +395,7 @@ VM (do)
                         json format
 
 
-Volume (do)
+Volume (do) Paulo
 ------
 
 ::
@@ -849,7 +849,7 @@ color (not cmd3)
                          as a test to see if your terminal supports
                          colors.
 
-Cluster (do)
+Cluster (do) Daniel
 --------
 
 ::
