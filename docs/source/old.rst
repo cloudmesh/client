@@ -27,7 +27,7 @@ Refresh
 
    Usage:
        refresh
-       refresh CLOUD
+       refresh CLOUD...
        refresh status
 
    Description:
