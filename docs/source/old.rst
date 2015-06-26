@@ -520,9 +520,9 @@ SSH (do)
 ::
 
           Usage:
-              ssh list [--format=json|yaml]
-              ssh register NAME COMMANDS
-              ssh NAME
+              ssh list [--format=FORMAT]
+              ssh register NAME PARAMETERS
+              ssh NAME [--user=USER] [--key=KEY]
 
 
           conducts a ssh login into a machine while using a set of
@@ -530,15 +530,21 @@ SSH (do)
 
           Arguments:
 
-            NAME      Name of the machine to log in
-            list      Lists the machines that are registered and
-                      the commands to login to them
-            register  Register the commands to a name
-            COMMANDS  The list of commands executed when issuing a name
+            NAME        Name or ip of the machine to log in
+            list        Lists the machines that are registered and
+                        the commands to login to them
+            PARAMETERS  Register te resource and add the given parameters to the ssh config file.
+	                if the resoource exists, it will be overwritten. The information will be written in
+		        /.ssh/config
 
           Options:
-
+             
              -v       verbose mode
+	     --format=FORMAT   the format in which this list is given [default: table]
+	                       formats incluse table, json, yaml, dict
+	     --user=USER       overwrites the username that is specified in ~/.ssh/config
+	     --key=KEY         The keyname as defined in the key list or a location that contains a pblic key
+
 
 Quota (do)
 -----
@@ -546,19 +552,36 @@ Quota (do)
 ::
         
           Usage:
-              quota [CLOUD] [--format=json]
-              quota help | -h
+              quota [CLOUD...] [--format=FORMAT]
 
-          quota limit on a current project (tenant)
+          print quota limit on a current project/tenant
+
+          Arguments:
+
+            CLOUD          Cloud name 
+	    
+          Options:
+
+             -v       verbose mode
+
+Limits
+-------
+
+::
+        
+          Usage:
+              limits [CLOUD...] [--format=FORMAT]
+
+          Current usage data with limits on a selected project/tenant
 
           Arguments:
 
             CLOUD          Cloud name to see the usage
-            help           Prints this message
 
           Options:
 
              -v       verbose mode
+
 
 notebook (not)
 ---------
