@@ -556,14 +556,14 @@ Stack (Hyungro)
 
 ::
 
+          OpenStack Heat DevOps Tools
+
           Usage:
               stack start NAME [--template=TEMPLATE] [--param=PARAM]
               stack stop NAME
               stack show NAME
               stack list [--refresh] [--column=COLUMN] [--format=FORMAT]
               stack help | -h
-
-          An orchestration tool (OpenStack Heat)
 
           Arguments:
 
@@ -573,6 +573,28 @@ Stack (Hyungro)
           Options:
 
              -v       verbose mode
+
+          Description:
+
+                OpenStack Cloud supports software deployment with the Heat
+                DevOps tool. Resources e.g. Security Group, Nova Server, or
+                Floating IP can be defined to start a new stack.  Particular
+                tasks defined in 'user_data' section will be executed by
+                CloudInit on boot.
+
+          Examples:
+
+                Start a Hadoop stack:
+                cm> stack start hadoop --tempate=https://github.com/cloudmesh/cloudmesh/blob/master/heat-templates/ubuntu-14.04/hadoop-cluster/hadoop2.7-cluster.yaml --param='KeyName=abc;PublicKeyString=abc;PrivateKeyString=abc;UserName=abc'
+
+                Stop a stack:
+                cm> stack stop hadoop
+
+                Show stack information:
+                cm> stack show hadoop
+
+                List running stacks:
+                cm> stack list
 
 SSH (Pauolo)
 ----
@@ -726,6 +748,9 @@ Launcher (do, Hyungro)
 
 ::
 
+          Software Launcher in Cloudmesh
+          - works with Chef Cookbooks and OpenStack Heat
+
           Usage:
                 launcher start MENU
                 launcher stop STACK_NAME
@@ -736,9 +761,7 @@ Launcher (do, Hyungro)
                 launcher export FILEPATH
                 launcher help | -h
 
-            An orchestration tool with Chef Cookbooks
-
-            Arguments:
+          Arguments:
 
               MENU           Name of a cookbook
               STACK_NAME     Name of a launcher
@@ -747,9 +770,31 @@ Launcher (do, Hyungro)
               FORMAT         display format (json, table)
               help           Prints this message
 
-            Options:
+          Options:
 
                -v       verbose mode
+
+            Description:
+
+                `launcher` command helps you to deploy software stacks on the
+                cloud with Chef Cookbooks.  If you define your launcher sub
+                command (menu) in ~/.cloudmesh/cloudmesh_launhcer.yaml,
+                `launcher` command reads the YAML file and provides available
+                software stacks.
+
+          Examples:
+
+                Launcher start:
+                cm> launcher start openmpi
+
+                Launcher stop:
+                cm> launcher stop openmpi
+
+                List running launcher stacks:
+                cm> launcher list
+
+                List available launcher software stacks:
+                cm> launcher menu
 
 Key (Daniel)
 ----
@@ -765,7 +810,9 @@ Key (Daniel)
 
             Manages the keys
 
-            Arguments:
+            
+
+         Arguments:
 
               SOURCE         mongo, yaml, ssh
               KEYNAME        The name of a key
@@ -773,14 +820,14 @@ Key (Daniel)
               FILENAME       The filename with full path in which the key
                              is located
 
-            Options:
+         Options:
 
                --dir=DIR            the directory with keys [default: ~/.ssh]
                --format=FORMAT      the format of the output [default: table]
                --source=SOURCE      the source for the keys [default: mongo]
                --keyname=KEYNAME    the name of the keys
 
-            Description:
+         Description:
 
 
             key list --source=ssh  [--dir=DIR] [--format=FORMAT]
@@ -919,6 +966,8 @@ Cluster (Hyungro)
 --------
 
 ::
+
+       Create a Virtual Cluster
        
           Usage:
               cluster list [--format=FORMAT]
@@ -936,30 +985,7 @@ Cluster (Hyungro)
               cluster remove NAME 
                              [--grouponly]
 
-          Description:
-              Cluster Management
-              
-              cluster list
-                  list the clusters
-
-              cluster create NAME --count=COUNT --user=USER [options...]
-                  Start a cluster of VMs, and each of them can log into all others.
-                  CAUTION: you sould do some default setting before using this command:
-                  1. select cloud to work on, e.g. cloud select india
-                  2. activate the cloud, e.g. cloud on india
-                  3. set the default key to start VMs, e.g. key default [NAME]
-                  4. set the start name of VMs, which is prefix and index, e.g. label --prefix=test --id=1
-                  5. set image of VMs, e.g. default image
-                  6. set flavor of VMs, e.g. default flavor
-                  Also, it is better to choose a unused group name
-              
-              cluster show NAME
-                  show the detailed information about the cluster VMs
-
-              cluster remove NAME [--grouponly]
-                  remove the cluster and its VMs, if you want to remove the cluster(group name)
-                  without removing the VMs, use --grouponly flag
-          
+         
           Arguments:
               NAME        cluster name or group name
 
@@ -985,7 +1011,36 @@ Cluster (Hyungro)
                                          is used as default, use this flag to print
                                          detailed table
 
+          Description:
+              Cluster Management
+              
+              cluster list
+                  list the clusters
 
+              cluster create NAME --count=COUNT --user=USER [options...]
+                  Start a cluster of VMs, and each of them can log into all others.
+                  CAUTION: you sould do some default setting before using this command:
+                  1. select cloud to work on, e.g. cloud select india
+                  2. activate the cloud, e.g. cloud on india
+                  3. set the default key to start VMs, e.g. key default [NAME]
+                  4. set the start name of VMs, which is prefix and index, e.g. label --prefix=test --id=1
+                  5. set image of VMs, e.g. default image
+                  6. set flavor of VMs, e.g. default flavor
+                  Also, it is better to choose a unused group name
+              
+              cluster show NAME
+                  show the detailed information about the cluster VMs
+
+              cluster remove NAME [--grouponly]
+                  remove the cluster and its VMs, if you want to remove the cluster(group name)
+                  without removing the VMs, use --grouponly flag
+         
+          Examples:
+
+                Create Virtual Cluster consist of 3 VM instances with m1.small
+                server size and Ubuntu 14.04 base image
+                cm> cluster create vc --count=3  --image=futuresystems/ubuntu-14.04 --flavor=m1.small
+ 
 Admin (Daniel)
 --------------
 
