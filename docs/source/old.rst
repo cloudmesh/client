@@ -1034,6 +1034,12 @@ Cluster (Hyungro)
               cluster remove NAME [--grouponly]
                   remove the cluster and its VMs, if you want to remove the cluster(group name)
                   without removing the VMs, use --grouponly flag
+         
+          Examples:
+
+                Create Virtual Cluster consist of 3 VM instances with m1.small
+                server size and Ubuntu 14.04 base image
+                cm> cluster create vc --count=3  --image=futuresystems/ubuntu-14.04 --flavor=m1.small
  
 Admin (Daniel)
 --------------
