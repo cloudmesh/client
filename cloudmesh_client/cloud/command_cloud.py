@@ -9,7 +9,7 @@ from os import system
 import textwrap
 from os.path import expanduser
 from cloudmesh_base.util import path_expand
-
+import os
 
 class command_cloud(object):
     @classmethod
@@ -112,7 +112,7 @@ class command_cloud(object):
             # We detected that the directory already exists
             # would you like to overwrite the following files in that directory ...
             # what happens if the directory is not on the remote machine
-            os.system("scp -r india:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/juno")
+            os.system("scp -r india.futuresystems.org:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/juno")
             #Shell.scp("-r", "india:.cloudmesh/clouds/india/juno", "~/.cloudmesh/clouds/india/")
         else:
             Console.error("Cloud {:} not found".format(host))
@@ -129,7 +129,7 @@ class command_cloud(object):
         Console.ok("register")
         if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/CLOUD/juno
             try:
-                _from = 'india:.cloudmesh/clouds/india/juno/cacert.pem'
+                _from = 'india.futuresystems.org:.cloudmesh/clouds/india/juno/cacert.pem'
                 _to   =  path_expand('~/.cloudmesh/clouds/india/juno')
                 # _to   =  '~/xyz')  # for testing
                 Shell.scp(_from, _to)
@@ -173,7 +173,7 @@ class command_cloud(object):
 
         if host == "india":
             try:
-                system("scp -r india:{:} ~/.cloudmesh/clouds/india/".format(dir))
+                system("scp -r india.futuresystems.org:{:} ~/.cloudmesh/clouds/india/".format(dir))
             except Exception, e:
                 print ("ERROR: ", e)
                 return
