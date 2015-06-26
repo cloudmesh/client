@@ -116,15 +116,15 @@ List
           'cloud select'.
 
           list flavor
-          : list the flavors
+            list the flavors
           list image
-          : list the images
+            list the images
           list vm
-          : list the vms
+            list the vms
           list project
-          : list the projects
+            list the projects
           list cloud
-          : same as cloud list
+            same as cloud list
 
 	  If no cloud is specified it lists the information for all clouds.
 
@@ -654,25 +654,6 @@ Loglevel (do)
               info     - shows log message in info level including warning
               debug    - shows log message in debug level including info
 
-Limits (do)
--------
-
-::
-        
-          Usage:
-              limits [CLOUD] [--format=json]
-              limits help | -h
-
-          Current usage data with limits on a selected project (tenant)
-
-          Arguments:
-
-            CLOUD          Cloud name to see the usage
-            help           Prints this message
-
-          Options:
-
-             -v       verbose mode
 
 Launcher (do)
 --------
@@ -946,20 +927,6 @@ Admin (do)
         
         Usage:
           admin password reset
-          admin server start
-          admin server stop
-          admin server status
-          admin mongo start
-          admin mongo stop
-          admin mongo reset
-          admin mongo status
-          admin mongo password
-          admin celery start
-          admin celery stop
-          admin celery status
-          admin rabbitmq status
-          admin rabbitmq start
-          admin rabbitmq stop
           admin version
 
         Options:
@@ -968,3 +935,7 @@ Admin (do)
         Description:
             admin password reset
                reset portal password
+
+	    admin version
+	       prints the version numbers of cloudmesh and its plugins
+	    
