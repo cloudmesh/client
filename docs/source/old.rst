@@ -96,8 +96,8 @@ Refresh (Paulo)
 	    cloud activate aws
 	    refresh
 
-Select
-------
+Select (Pauolo)
+----------------
 
 Select is a command that allows the interactive selection of an item
 specified
@@ -433,18 +433,34 @@ VM (Pauolo)
                         [--group=GROUP]
                         [--refresh] 
                         [--format=FORMAT] 
-                        [--columns=COLUMNS] 
-                        [--detail]
+                        [--columns=COLUMNS|--deatil] 
 
-            Arguments:
-                COMMAND   positional arguments, the commands you want to
-                          execute on the server(e.g. ls -a), you will get
-                          a return of executing result instead of login to
-                          the server, note that type in -- is suggested before
-                          you input the commands
-                NAME      server name
+            Arguments: COMMAND   positional arguments, the commands
+                                 you want to execute on the server
+				 (e.g. ls -a), you will get a return
+				 of executing result instead of login
+				 to the server, note that type in --
+				 is suggested before you input the
+				 commands
+			    
+                NAME_OR_ID  (parameterized for delete) server name or
+		            id 
+		CLOUD       (parameterized for list) the name of the
+		            cloud. If not specified the deafult clod
+			    will be used
+		KEY         the name of the key to be used at login. 
+		FORMAT      the format
+		COLUMNS     the list of columns
+                GROUP       the group name
 
             Options:
+
+         	--columns=COLUMNS      specify what information to display in
+		         	       the columns of the list command.
+
+		--format=FORMAT        output format: table, json, csv, dict
+				       [default: table] 
+
                 --ip=IP          give the public ip of the server
                 --cloud=CLOUD    give a cloud to work on, if not given, selected
                                  or default cloud will be used
@@ -456,7 +472,8 @@ VM (Pauolo)
                 --group=GROUP          give the group name of server
                 --image=IMAGE_OR_ID    give the name or id of the image
                 --key=KEY        spicfy a key to use, input a string which
-                                 is the full path to the public key file
+                                 is the full path to the public key
+				 file [deafult: ~/.ssh/id_rsa.pb]
                 --user=USER      give the user name of the server that you want
                                  to use to login
                 --name=NAME      give the name of the virtual machine
@@ -483,7 +500,7 @@ VM (Pauolo)
                 vm list [options...]        same as command "list vm", please refer to it
 
 	    Tip: 
-                give the VM name, but in a hostlist style, which is very
+                in some cases the VM name is parameterized which is very
                 convenient when you need a range of VMs e.g. sample[1-3]
                 => ['sample1', 'sample2', 'sample3']
                 sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
