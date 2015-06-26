@@ -410,76 +410,76 @@ Volume (do) Paulo
 
           Usage:
               volume list
-              volume create <size>
-                            [--snapshot-id=<snapshot-id>]
-                            [--image-id=<image-id>]
-                            [--display-name=<display-name>]
-                            [--display-description=<display-description>]
-                            [--volume-type=<volume-type>]
-                            [--availability-zone=<availability-zone>]
-              volume delete <volume>
-              volume attach <server> <volume> <device>
-              volume detach <server> <volume>
-              volume show <volume>
-              volume snapshot-list
-              volume snapshot-create <volume-id>
+              volume create SIZE
+                            [--snapshot-id=SNAPSHOT-ID]
+                            [--image-id=IMAGE-ID]
+                            [--display-name=DISPLAY-NAME]
+                            [--display-description=DISPLAY-DESCRIPTION]
+                            [--volume-type=VOLUME-TYPE]
+                            [--availability-zone=AVAILABILITY-ZONE]
+              volume delete VOLUME
+              volume attach SERVER VOLUME DEVICE
+              volume detach SERVER VOLUME
+              volume show VOLUME
+              volume SNAPSHOT-LIST
+              volume snapshot-create VOLUME-ID
                                      [--force]
-                                     [--display-name=<display-name>]
-                                     [--display-description=<display-description>]
-              volume snapshot-delete <snapshot>
-              volume snapshot-show <snapshot>
+                                     [--display-name=DISPLAY-NAME]
+                                     [--display-description=DISPLAY-DESCRIPTION]
+              volume snapshot-delete SNAPSHOT
+              volume snapshot-show SNAPSHOT
               volume help
 
 
           volume management
 
           Arguments:
-              <size>            Size of volume in GB
-              <volume>          Name or ID of the volume to delete
-              <volume-id>       ID of the volume to snapshot
-              <server>          Name or ID of server(VM).
-              <device>          Name of the device e.g. /dev/vdb. Use "auto" for 
+              SIZE              Size of volume in GB
+              VOLUME            Name or ID of the volume to delete
+              VOLUME-ID         ID of the volume to snapshot
+              SERVER            Name or ID of server(VM).
+              DEVICE            Name of the device e.g. /dev/vdb. Use "auto" for 
                                 autoassign (if supported)
-              <snapshot>        Name or ID of the snapshot
+              SNAPSHOT          Name or ID of the snapshot
 
           Options:
-              --snapshot-id <snapshot-id>
-                                      Optional snapshot id to create the volume from.
-                                      (Default=None)
-              --image-id <image-id>
-                                      Optional image id to create the volume from.
-                                      (Default=None)
-              --display-name <display-name>
-                                      Optional volume name. (Default=None)
-              --display-description <display-description>
-                                      Optional volume description. (Default=None)
-              --volume-type <volume-type>
-                                      Optional volume type. (Default=None)
-              --availability-zone <availability-zone>
-                                      Optional Availability Zone for volume. (Default=None)
-              --force                 Optional flag to indicate whether to snapshot a volume
-                                      even if its attached to an instance. (Default=False)
+              --snapshot-id SNAPSHOT-ID     Optional snapshot id to create
+                                            the volume from.  (Default=None)
+              --image-id IMAGE-ID           Optional image id to create the
+                                            volume from.  (Default=None)
+              --display-name DISPLAY-NAME   Optional volume name. (Default=None)
+              --display-description DISPLAY-DESCRIPTION
+                                            Optional volume description. (Default=None)
+              --volume-type VOLUME-TYPE
+                                            Optional volume type. (Default=None)
+              --availability-zone AVAILABILITY-ZONE
+                                            Optional Availability Zone for
+                                            volume. (Default=None)
+              --force                       Optional flag to indicate whether to snapshot a
+                                            volume even if its
+                                            attached to an
+                                            instance. (Default=False)
 
           Description:
               volume list
                   List all the volumes
-              volume create <size> [options...]
+              volume create SIZE [options...]
                   Add a new volume
-              volume delete <volume>
+              volume delete VOLUME
                   Remove a volume   
-              volume attach <server> <volume> <device>
+              volume attach SERVER VOLUME DEVICE
                   Attach a volume to a server    
-              volume-detach <server> <volume>
+              volume-detach SERVER VOLUME
                   Detach a volume from a server
-              volume show <volume>        
+              volume show VOLUME        
                   Show details about a volume
               volume snapshot-list
                   List all the snapshots
-              volume snapshot-create <volume-id> [options...]
+              volume snapshot-create VOLUME-ID [options...]
                   Add a new snapshot
-              volume snapshot-delete <snapshot>
+              volume snapshot-delete SNAPSHOT
                   Remove a snapshot
-              volume-snapshot-show <snapshot>
+              volume-snapshot-show SNAPSHOT
                   Show details about a snapshot
               volume help 
                   Prints the nova manual
@@ -879,18 +879,18 @@ Cluster (do) Daniel
        
           Usage:
               cluster list [--format=FORMAT]
-              cluster create <name>
-                             [--count=<count>]
-                             [--ln=<LoginName>]
-                             [--cloud=<CloudName>]
-                             [--image=<imgName>|--imageid=<imgId>]
-                             [--flavor=<flavorName>|--flavorid=<flavorId>]
+              cluster create NAME
+                             [--count=COUNT]
+                             [--user=USER]
+                             [--cloud=CLOUD]
+                             [--image=IMG|--imageid=IMGID]
+                             [--flavor=FLAVOR|--flavorid=FLAVORID]
                              [--force]
-              cluster show <name> 
+              cluster show NAME 
                            [--format=FORMAT] 
                            [--column=COLUMN]
                            [--detail]
-              cluster remove <name> 
+              cluster remove NAME 
                              [--grouponly]
 
           Description:
@@ -899,7 +899,7 @@ Cluster (do) Daniel
               cluster list
                   list the clusters
 
-              cluster create <name> --count=<count> --ln=<LoginName> [options...]
+              cluster create NAME --count=COUNT --user=USER [options...]
                   Start a cluster of VMs, and each of them can log into all others.
                   CAUTION: you sould do some default setting before using this command:
                   1. select cloud to work on, e.g. cloud select india
@@ -910,24 +910,24 @@ Cluster (do) Daniel
                   6. set flavor of VMs, e.g. default flavor
                   Also, it is better to choose a unused group name
               
-              cluster show <name>
+              cluster show NAME
                   show the detailed information about the cluster VMs
 
-              cluster remove <name> [--grouponly]
+              cluster remove NAME [--grouponly]
                   remove the cluster and its VMs, if you want to remove the cluster(group name)
                   without removing the VMs, use --grouponly flag
           
           Arguments:
-              <name>        cluster name or group name
+              NAME        cluster name or group name
 
           Options:
-              --count=<count>            give the number of VMs to add into the cluster
-              --ln=<LoginName>           give a login name for the VMs, e.g. ubuntu
-              --cloud=<CloudName>        give a cloud to work on
-              --flavor=<flavorName>      give the name of the flavor
-              --flavorid=<flavorId>      give the id of the flavor
-              --image=<imgName>          give the name of the image
-              --imageid=<imgId>          give the id of the image
+              --count=COUNT              give the number of VMs to add into the cluster
+              --user=USER                give the username 
+              --cloud=CLOUD              give a cloud to work on
+              --flavor=FLAVOR            give the name of the flavor
+              --flavorid=FLAVORID        give the id of the flavor
+              --image=IMG                give the name of the image
+              --imageid=IMGID            give the id of the image
               --force                    if a group exists and there are VMs in it, the program will
                                          ask user to proceed or not, use this flag to respond yes as 
                                          default(if there are VMs in the group before creating this 

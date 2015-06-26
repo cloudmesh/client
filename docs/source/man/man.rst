@@ -91,6 +91,29 @@ Command - clear::
 
     Clears the screen.
 
+cloud
+----------------------------------------------------------------------
+
+Command - cloud::
+
+    Usage:
+        cloud list [--output=FORMAT]
+
+
+    managing the admins test test test test
+
+    Arguments:
+
+      KEY    the name of the admin
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [cloud: general]
+       --output=FORMAT  the output format [cloud: table]
+
+
+
 cluster
 ----------------------------------------------------------------------
 
@@ -272,6 +295,29 @@ Command - info::
            --all  -a   more extensive information
 
     Prints some internal information about the shell
+
+
+
+key
+----------------------------------------------------------------------
+
+Command - key::
+
+    Usage:
+        key list [--output=FORMAT]
+
+
+    managing the keys test test test test
+
+    Arguments:
+
+          the name of the key
+      VALUE  the value to set the  to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [key: general]
+       --output=FORMAT  the output format [key: table]
 
 
 

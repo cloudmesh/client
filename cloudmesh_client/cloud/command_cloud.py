@@ -5,7 +5,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import Config
-from os import system
+import os
 import textwrap
 from os.path import expanduser
 from cloudmesh_base.util import path_expand
@@ -95,13 +95,15 @@ class command_cloud(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def register(cls, host, force=False):
+    def register(cls, host, force=True):
         """
         copies the cloudmesh/clouds/india/juno directory from india
         to the ~/.cloudmesh/clouds/india/juno local directory.
 
-        :param host:
+        :param host: the host name
         :type host: string
+        :param force:
+        :type force: bool
         :return:
         """
         Console.ok("register")
@@ -112,8 +114,27 @@ class command_cloud(object):
             # We detected that the directory already exists
             # would you like to overwrite the following files in that directory ...
             # what happens if the directory is not on the remote machine
-            os.system("scp -r india.futuresystems.org:.cloudmesh/clouds/india/juno ~/.cloudmesh/clouds/india/juno")
-            #Shell.scp("-r", "india:.cloudmesh/clouds/india/juno", "~/.cloudmesh/clouds/india/")
+
+            _from = 'india:.cloudmesh/clouds/india/juno/'
+            _to = path_expand('~/.cloudmesh/clouds/india/juno')
+
+            if os.path.exists(_to):
+                while True:
+                    answer = ""
+                    if not force:
+                        answer = raw_input("Directory already exists. Would you like to overwrite {:} directory y/n? ".format(_to))
+                    if  answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                        break
+                    elif (answer.lower() != 'n' and answer.lower() != 'no'):
+                        Console.ok("Invalid option")
+                    else:
+                        Console.ok("Operation aborted")
+                        return
+            else:
+                try:
+                    Shell.scp('-r', _from, _to)
+                except Exception, e:
+                    Console.error(e.message)
         else:
             Console.error("Cloud {:} not found".format(host))
 
@@ -131,7 +152,7 @@ class command_cloud(object):
             try:
                 _from = 'india.futuresystems.org:.cloudmesh/clouds/india/juno/cacert.pem'
                 _to   =  path_expand('~/.cloudmesh/clouds/india/juno')
-                # _to   =  '~/xyz')  # for testing
+
                 Shell.scp(_from, _to)
 
             except Exception, e:
