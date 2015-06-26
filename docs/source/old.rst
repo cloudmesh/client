@@ -171,28 +171,30 @@ Cloud (do)
 ::
 
         Usage:
-            cloud [list] [--column=COLUMN] [--format=FORMAT]
-            cloud info [CLOUD|--all] [--format=FORMAT]
+            cloud refresh
+            cloud list [CLOUD...] [--refresh] [--columns=COLUMNS] [--format=FORMAT] [--details]	    
             cloud alias NAME [CLOUD]
-            cloud select [CLOUD]
-            cloud on [CLOUD]
-            cloud off [CLOUD]
-            cloud add <cloudYAMLfile> [--force]
-            cloud remove [CLOUD|--all]
-            cloud default [CLOUD|--all]
+            cloud on [CLOUD...]
+            cloud off [CLOUD...]
+            cloud TODO add YAMLFILE [--force] REMOVE_REPLACED_BY_REGISTER
+            cloud TODO remove [CLOUD|--all]   MOVE_TO_REGISTER 
+	    cloud default
+	    cloud default CLOUD
             cloud set flavor [CLOUD] [--name=NAME|--id=ID]
             cloud set image [CLOUD] [--name=NAME|--id=ID]
 
+	TODO: aad the selector
+	
         Arguments:
 
           CLOUD                  the name of a cloud
-          <cloudYAMLfile>        a yaml file (with full file path) containing
+          YAMLFILE               a yaml file (with full file path) containing
                                  cloud information
           NAME                   name for a cloud (or flavor and image)
 
         Options:
 
-           --column=COLUMN       specify what information to display in
+           --columns=COLUMNS       specify what information to display in
                                  the columns of the list command. For
                                  example, --column=active,label prints the
                                  columns active and label. Available
@@ -216,6 +218,8 @@ Cloud (do)
 
         Description:
 
+            TODO fix the description
+	    
             The cloud command allows easy management of clouds in the
             command shell. The following subcommands exist:
 
@@ -289,42 +293,37 @@ VM (do)
 ::
 
             Usage:
-                vm start [--name=<vmname>]
-                         [--count=<count>]
-                         [--cloud=<CloudName>]
-                         [--image=<imgName>|--imageid=<imgId>]
-                         [--flavor=<flavorName>|--flavorid=<flavorId>]
+                vm start [--name=NAME]
+                         [--count=COUNT]
+                         [--cloud=CLOUD]
+                         [--image=IMAGE_OR_ID]
+                         [--flavor=FLAVOR_OR_ID]
                          [--group=<group>]
-                vm delete [NAME|--id=<id>]
-                          [--group=<group>]
-                          [--cloud=<CloudName>]
-                          [--prefix=<prefix>|--names=<hostlist>]
+                vm delete [NAME_OR_ID...]
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
                           [--force]
-                vm ip assign (NAME|--id=<id>)
-                             [--cloud=<CloudName>]
-                vm ip show [NAME|--id=<id>]
-                           [--group=<group>]
-                           [--cloud=<CloudName>]
-                           [--prefix=<prefix>|--names=<hostlist>]
+                vm ip assign [NAME_OR_ID...]
+                             [--cloud=CLOUD]
+                vm ip show [NAME_OR_ID...]
+                           [--group=GROUP]
+                           [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
-                vm login (--name=<vmname>|--id=<id>|--addr=<address>) --ln=<LoginName>
-                         [--cloud=<CloudName>]
-                         [--key=<key>]
-                         [--] [<command>...]
-                vm login NAME --ln=<LoginName>
-                         [--cloud=<CloudName>]
-                         [--key=<key>]
-                         [--] [<command>...]
+                vm login NAME [--user=USER]
+		         [--ip=IP]
+                         [--cloud=CLOUD]
+                         [--key=KEY]
+                         [--] [COMMAND...]
                 vm list [CLOUD|--all] 
-                        [--group=<group>]
+                        [--group=GROUP]
                         [--refresh] 
                         [--format=FORMAT] 
-                        [--column=COLUMN] 
+                        [--columns=COLUMNS] 
                         [--detail]
 
             Arguments:
-                <command>              positional arguments, the commands you want to
+                COMMAND                positional arguments, the commands you want to
                                        execute on the server(e.g. ls -a), you will get
                                        a return of executing result instead of login to
                                        the server, note that type in -- is suggested before
@@ -332,31 +331,24 @@ VM (do)
                 NAME                   server name
 
             Options:
-                --addr=<address>       give the public ip of the server
-                --cloud=<CloudName>    give a cloud to work on, if not given, selected
+                --ip=IP                give the public ip of the server
+                --cloud=CLOUD    give a cloud to work on, if not given, selected
                                        or default cloud will be used
-                --count=<count>        give the number of servers to start
+                --count=COUNT        give the number of servers to start
                 --detail               for table print format, a brief version 
                                        is used as default, use this flag to print
                                        detailed table
-                --flavor=<flavorName>  give the name of the flavor
-                --flavorid=<flavorId>  give the id of the flavor
-                --group=<group>        give the group name of server
-                --id=<id>              give the server id
-                --image=<imgName>      give the name of the image
-                --imageid=<imgId>      give the id of the image
-                --key=<key>            spicfy a private key to use, input a string which
-                                       is the full path to the key file
-                --ln=<LoginName>       give the login name of the server that you want
-                                       to login
-                --name=<vmname>        give the name of the virtual machine
-                --names=<hostlist>     give the VM name, but in a hostlist style, which is very
-                                       convenient when you need a range of VMs e.g. sample[1-3]
-                                       => ['sample1', 'sample2', 'sample3']
-                                       sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
-                --prefix=<prefix>      give the prefix of the server, standand server
-                                       name is in the form of prefix_index, e.g. abc_9
+                --flavor=FLAVOR_OR_ID  give the name or id of the flavor
+                --group=GROUP          give the group name of server
+                --image=IMAGE_OR_ID    give the name or id of the image
+                --key=KEY              spicfy a key to use, input a string which
+                                       is the full path to the public key file
+                --user=USER            give the user name of the server that you want
+                                       to use to login
+                --name=NAME            give the name of the virtual machine
                 --force                delete vms without user's confirmation
+
+
 
             Description:
                 commands used to start or delete servers of a cloud
@@ -376,6 +368,12 @@ VM (do)
                 vm login [options...]       login to a server or execute commands on it
                 vm list [options...]        same as command "list vm", please refer to it
 
+	    Tip: 
+                give the VM name, but in a hostlist style, which is very
+                convenient when you need a range of VMs e.g. sample[1-3]
+                => ['sample1', 'sample2', 'sample3']
+                sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
+		
             Examples:
                 vm start --count=5 --group=test --cloud=india
                         start 5 servers on india and give them group
