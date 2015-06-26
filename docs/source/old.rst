@@ -455,10 +455,10 @@ Volume (do) Paulo
               --availability-zone AVAILABILITY-ZONE
                                             Optional Availability Zone for
                                             volume. (Default=None)
-              --force                       Optional flag to indicate
-	                                        whether to snapshot a volume
-	                                        even if its attached to an
-	                                        instance. (Default=False)
+              --force                       Optional flag to indicate whether to snapshot a
+                                            volume even if its
+                                            attached to an
+                                            instance. (Default=False)
 
           Description:
               volume list
