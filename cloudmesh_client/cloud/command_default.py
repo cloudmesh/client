@@ -6,13 +6,13 @@ from cloudmesh_client.db.models import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
 
+
 class command_default(object):
     @classmethod
     def list(cls, output="table"):
         cm = CloudmeshDatabase()
-        d= cm.all(DEFAULT)
-        print (dict_printer(d, order=['cm_cloud','name','value'],output=output))
-
+        d = cm.all(DEFAULT)
+        print(dict_printer(d, order=['cm_cloud', 'name', 'value'], output=output))
 
     @classmethod
     def set(cls, key, value, cloud):
@@ -23,5 +23,12 @@ class command_default(object):
     @classmethod
     def get(cls, key, cloud):
         cm = CloudmeshDatabase()
-        d= cm.dict(DEFAULT)
         print(cm.get_default(key, cloud))
+
+    @classmethod
+    def delete(cls, key, cloud):
+        cm = CloudmeshDatabase()
+        _id = cm.getID("default", key, cloud)
+        e = cm.find(DEFAULT, cm_id=_id).first()
+        if e is not None:
+            cm.delete(e)

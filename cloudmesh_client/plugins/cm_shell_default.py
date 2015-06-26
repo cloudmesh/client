@@ -17,8 +17,10 @@ class cm_shell_default:
 
           Usage:
               default list [--output=FORMAT]
+              default delete KEY [--cloud=CLOUD]
               default KEY [--cloud=CLOUD]
               default KEY=VALUE [--cloud=CLOUD]
+
 
           managing the defaults test test test test
 
@@ -39,6 +41,9 @@ class cm_shell_default:
             output = arguments["--output"]
             result = command_default.list(output=output)
             print (result)
+        elif arguments["delete"]:
+            key = arguments["KEY"]
+            command_default.delete(key, cloud)
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
             command_default.set(key, value, cloud)
