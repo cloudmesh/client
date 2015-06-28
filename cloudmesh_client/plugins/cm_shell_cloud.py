@@ -148,7 +148,7 @@ class cm_shell_cloud:
               register rc HOST [OPENRC]
               register [--yaml=FILENAME]
               register india [--force]
-              register CLOUD CERT
+              register CLOUD CERT [--force]
               register CLOUD --dir=DIR
 
           managing the registered clouds in the cloudmesh.yaml file.
@@ -260,16 +260,19 @@ class cm_shell_cloud:
             host = arguments['HOST']
             command_cloud.read_rc_file(host, filename)
         elif arguments['india']:
+            force = False
             if arguments['--force']:
                 force = True
-                command_cloud.register("india", force)
-            command_cloud.register("india")
+            command_cloud.register("india", force)
 
         elif arguments['CLOUD']:
             if arguments['CERT']:#path to the cacert.pem
                 cloud = arguments['CLOUD']
                 path = arguments['CERT']
-                command_cloud.register_CERT(cloud, path)
+                force = False
+                if arguments['--force']:
+                    force = True
+                command_cloud.register_CERT(cloud, path, force)
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
                 dir = arguments['--dir']
