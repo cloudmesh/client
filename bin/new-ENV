@@ -20,7 +20,7 @@ cd ../client
 git pull
 # git checkout sh
 
-osascript -e "tell application \"Terminal\" to do script \"cd $PWD; ./bin/install-code; cm version\""
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD; ./bin/install-code; ./bin/new-title; cm version \" "
 
 #xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
 #

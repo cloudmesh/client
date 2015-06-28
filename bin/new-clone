@@ -1,0 +1,17 @@
+#! /bin/sh
+
+cd ~
+
+mkdir github/cloudmesh
+cd github/cloudmesh
+git clone https://github.com/cloudmesh/base.git
+git clone https://github.com/cloudmesh/cmd3.git
+git clone https://github.com/cloudmesh/client.git
+cd base
+git checkout sh
+python setup.py install
+cd ../cmd3
+git checkout sh
+python setup.py install
+cd ../client
+python setup.py install

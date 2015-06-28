@@ -11,52 +11,6 @@ Command - EOF::
     Command to the shell to terminate reading a script.
 
 
-TEMPLATE
-----------------------------------------------------------------------
-
-Command - TEMPLATE::
-
-    Usage:
-        TEMPLATE list [--output=FORMAT]
-
-
-    managing the TEMPLATEs test test test test
-
-    Arguments:
-
-      KEY    the name of the TEMPLATE
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [TEMPLATE: general]
-       --output=FORMAT  the output format [TEMPLATE: table]
-
-
-
-admin
-----------------------------------------------------------------------
-
-Command - admin::
-
-    Usage:
-        admin list [--output=FORMAT]
-
-
-    managing the admins test test test test
-
-    Arguments:
-
-      KEY    the name of the admin
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [admin: general]
-       --output=FORMAT  the output format [admin: table]
-
-
-
 banner
 ----------------------------------------------------------------------
 
@@ -91,76 +45,16 @@ Command - clear::
 
     Clears the screen.
 
-cloud
+debug
 ----------------------------------------------------------------------
 
-Command - cloud::
+Command - debug::
 
     Usage:
-        cloud list [--output=FORMAT]
+          debug on
+          debug off
 
-
-    managing the admins test test test test
-
-    Arguments:
-
-      KEY    the name of the admin
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [cloud: general]
-       --output=FORMAT  the output format [cloud: table]
-
-
-
-cluster
-----------------------------------------------------------------------
-
-Command - cluster::
-
-    Usage:
-        cluster list [--output=FORMAT]
-
-
-    managing the clusters test test test test
-
-    Arguments:
-
-      KEY    the name of the cluster
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [cluster: general]
-       --output=FORMAT  the output format [cluster: table]
-
-
-
-default
-----------------------------------------------------------------------
-
-Command - default::
-
-    Usage:
-        default list [--output=FORMAT]
-        default delete KEY [--cloud=CLOUD]
-        default KEY [--cloud=CLOUD]
-        default KEY=VALUE [--cloud=CLOUD]
-
-
-    managing the defaults test test test test
-
-    Arguments:
-
-      KEY    the name of the default
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [default: general]
-       --output=FORMAT  the output format [default: table]
-
+          Turns the debug log level on and off.
 
 
 edit
@@ -192,29 +86,6 @@ Command - exec::
       FILENAME   The name of the file
 
 
-exp
-----------------------------------------------------------------------
-
-Command - exp::
-
-    Usage:
-        exp list [--output=FORMAT]
-
-
-    managing the exps test test test test
-
-    Arguments:
-
-      KEY    the name of the exp
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [exp: general]
-       --output=FORMAT  the output format [exp: table]
-
-
-
 generate
 ----------------------------------------------------------------------
 
@@ -244,19 +115,19 @@ Command - generate::
 
         would create in the home directory  the following files
 
-            ├── LICENSE
-            ├── Makefile
-            ├── __init__.py
-            ├── __init__.pyc
-            ├── cloudmesh_example
-            │   ├── __init__.py
-            │   ├── command_example.py
-            │   └── plugins
-            │       ├── __init__.py
-            │       └── cm_shell_example.py
-            ├── requirements.txt
-            ├── setup.cfg
-            └── setup.py
+            |-- LICENSE
+            |-- Makefile
+            |-- __init__.py
+            |-- __init__.pyc
+            |-- cloudmesh_example
+            |   |-- __init__.py
+            |   |-- command_example.py
+            |   |-- plugins
+            |       |-- __init__.py
+            |       |-- cm_shell_example.py
+            |-- requirements.txt
+            |-- setup.cfg
+            |-- setup.py
 
         To install the plugin go to the directory and say
 
@@ -298,89 +169,6 @@ Command - info::
 
 
 
-key
-----------------------------------------------------------------------
-
-Command - key::
-
-    Usage:
-        key list [--output=FORMAT]
-
-
-    managing the keys test test test test
-
-    Arguments:
-
-          the name of the key
-      VALUE  the value to set the  to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [key: general]
-       --output=FORMAT  the output format [key: table]
-
-
-
-launcher
-----------------------------------------------------------------------
-
-Command - launcher::
-
-    Usage:
-        launcher list [--output=FORMAT]
-
-
-    managing the launchers test test test test
-
-    Arguments:
-
-      KEY    the name of the launcher
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [launcher: general]
-       --output=FORMAT  the output format [launcher: table]
-
-
-
-limits
-----------------------------------------------------------------------
-
-Command - limits::
-
-    Usage:
-        limits list [--output=FORMAT]
-
-
-    managing the limitss test test test test
-
-    Arguments:
-
-      KEY    the name of the limits
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [limits: general]
-       --output=FORMAT  the output format [limits: table]
-
-
-
-list
-----------------------------------------------------------------------
-
-Command - list::
-
-    Usage:
-        list [--cloud=CLOUD]
-        list [--cloud=CLOUD] default
-        list [--cloud=CLOUD] vm
-        list [--cloud=CLOUD] flavor
-        list [--cloud=CLOUD] image
-
-
-
 load
 ----------------------------------------------------------------------
 
@@ -403,20 +191,21 @@ loglevel
 Command - loglevel::
 
     Usage:
-        loglevel list [--output=FORMAT]
+        loglevel
+        loglevel critical
+        loglevel error
+        loglevel warning
+        loglevel info
+        loglevel debug
 
+        Shows current log level or changes it.
 
-    managing the loglevels test test test test
-
-    Arguments:
-
-      KEY    the name of the loglevel
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [loglevel: general]
-       --output=FORMAT  the output format [loglevel: table]
+        loglevel - shows current log level
+        critical - shows log message in critical level
+        error    - shows log message in error level including critical
+        warning  - shows log message in warning level including error
+        info     - shows log message in info level including warning
+        debug    - shows log message in debug level including info
 
 
 
@@ -440,34 +229,6 @@ Command - man::
             Prints out the help pages
         man COMMAND
             Prints out the help page for a specific command
-
-
-nova
-----------------------------------------------------------------------
-
-Command - nova::
-
-    Usage:
-           nova set CLOUD
-           nova info [CLOUD] [--password]
-           nova help
-           nova ARGUMENTS...
-
-    A simple wrapper for the openstack nova command
-
-    Arguments:
-
-      ARGUMENTS      The arguments passed to nova
-      help           Prints the nova manual
-      set            reads the information from the current cloud
-                     and updates the environment variables if
-                     the cloud is an openstack cloud
-      info           the environment values for OS
-
-    Options:
-       --password    Prints the password
-       -v            verbose mode
-
 
 
 open
@@ -551,29 +312,6 @@ Command - plugins::
         plugins add pbs
 
 
-project
-----------------------------------------------------------------------
-
-Command - project::
-
-    Usage:
-        project list [--output=FORMAT]
-
-
-    managing the projects test test test test
-
-    Arguments:
-
-      KEY    the name of the project
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [project: general]
-       --output=FORMAT  the output format [project: table]
-
-
-
 py
 ----------------------------------------------------------------------
 
@@ -623,111 +361,6 @@ Command - quit::
     Action to be performed whne quit is typed
 
 
-quota
-----------------------------------------------------------------------
-
-Command - quota::
-
-    Usage:
-        quota list [--output=FORMAT]
-
-
-    managing the quotas test test test test
-
-    Arguments:
-
-      KEY    the name of the quota
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [quota: general]
-       --output=FORMAT  the output format [quota: table]
-
-
-
-register
-----------------------------------------------------------------------
-
-Command - register::
-
-    Usage:
-        register info
-        register list [--yaml=FILENAME]
-        register list ssh
-        register cat [--yaml=FILENAME]
-        register edit [--yaml=FILENAME]
-        register form [--yaml=FILENAME]
-        register check [--yaml=FILENAME]
-        register test [--yaml=FILENAME]
-        register rc HOST [OPENRC]
-        register [--yaml=FILENAME]
-        register india
-        register CLOUD CERT
-        register CLOUD --dir=DIR
-
-    managing the registered clouds in the cloudmesh.yaml file.
-    It looks for it in the current directory, and than in ~/.cloudmesh.
-    If the file with the cloudmesh.yaml name is there it will use it.
-    If neither location has one a new file will be created in
-    ~/.cloudmesh/cloudmesh.yaml. Some defaults will be provided.
-    However you will still need to fill it out with valid entries.
-
-    Arguments:
-
-      HOST   the host name
-      USER   the user name
-      OPENRC  the location of the openrc file
-
-
-    Options:
-
-       -v       verbose mode
-
-    Description:
-
-        register edit [--yaml=FILENAME]
-            edits the cloudmesh.yaml file
-
-        register list [--yaml=FILENAME]
-            lists the registration yaml file
-
-        register rc HOST [OPENRC]
-
-              reads the Openstack OPENRC file from a host that is described in ./ssh/config and adds it to the
-              configuration cloudmehs.yaml file. We assume that the file has already a template for this
-              host. If nt it can be created from other examples before you run this command.
-
-              The hostname can be specified as follows in the ./ssh/config file.
-
-              Host india
-                  Hostname india.futuresystems.org
-                  User yourusername
-
-              If the host is india and the OPENRC file is ommitted, it will automatically fill out the location
-              for the openrc file. To obtain the information from india simply type in
-
-                  register rc india
-
-        register [--yaml=FILENAME]
-            read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml which is used when the
-            yaml filename is ommitted.
-
-        register edit [--yaml=FILENAME]
-            edits the cloudmesh yaml file
-
-        register form [--yaml=FILENAME]
-            interactively fills out the form wherever we find TBD.
-
-        register check [--yaml=FILENAME]
-            checks the yaml file for completness
-
-        register test [--yaml=FILENAME]
-            checks the yaml file and executes tests to check if we
-            can use the cloud. TODO: maybe this should be in a test
-            command
-
-
 script
 ----------------------------------------------------------------------
 
@@ -760,52 +393,6 @@ Command - script::
 
 
 
-search
-----------------------------------------------------------------------
-
-Command - search::
-
-    Usage:
-        search NAME
-        search NAME [--order=FORMAT] [FILTER]...
-
-    search the table NAME on the database
-
-    Arguments:
-
-      NAME            Name of the table to search. If the name is not specified, the table DEFAULT will be searched
-      --order=FORMAT  Columns that will be displayed
-      FILTER          Filter to be used when searching
-
-    Options:
-
-       -v       verbose mode
-
-
-
-security_group
-----------------------------------------------------------------------
-
-Command - security_group::
-
-    Usage:
-        security_group list [--output=FORMAT]
-
-
-    managing the security_groups test test test test
-
-    Arguments:
-
-      KEY    the name of the security_group
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [security_group: general]
-       --output=FORMAT  the output format [security_group: table]
-
-
-
 setup
 ----------------------------------------------------------------------
 
@@ -813,89 +400,8 @@ Command - setup::
 
     Usage:
       setup init [--force]
-      setup test
 
     Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
-
-
-setup_yaml
-----------------------------------------------------------------------
-
-Command - setup_yaml::
-
-    Usage:
-        setup_yaml  [--force]
-
-    Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
-
-
-ssh
-----------------------------------------------------------------------
-
-Command - ssh::
-
-    Usage:
-        ssh list [--output=FORMAT]
-
-
-    managing the sshs test test test test
-
-    Arguments:
-
-      KEY    the name of the ssh
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [ssh: general]
-       --output=FORMAT  the output format [ssh: table]
-
-
-
-stack
-----------------------------------------------------------------------
-
-Command - stack::
-
-    Usage:
-        stack list [--output=FORMAT]
-
-
-    managing the stacks test test test test
-
-    Arguments:
-
-      KEY    the name of the stack
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [stack: general]
-       --output=FORMAT  the output format [stack: table]
-
-
-
-status
-----------------------------------------------------------------------
-
-Command - status::
-
-    Usage:
-        status list [--output=FORMAT]
-
-
-    managing the statuss test test test test
-
-    Arguments:
-
-      KEY    the name of the status
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [status: general]
-       --output=FORMAT  the output format [status: table]
-
 
 
 timer
@@ -1017,50 +523,4 @@ Command - version::
        version
 
     Prints out the version number
-
-
-vm
-----------------------------------------------------------------------
-
-Command - vm::
-
-    Usage:
-        vm list [--output=FORMAT]
-
-
-    managing the vms test test test test
-
-    Arguments:
-
-      KEY    the name of the vm
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [vm: general]
-       --output=FORMAT  the output format [vm: table]
-
-
-
-volume
-----------------------------------------------------------------------
-
-Command - volume::
-
-    Usage:
-        volume list [--output=FORMAT]
-
-
-    managing the volumes test test test test
-
-    Arguments:
-
-      KEY    the name of the volume
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [volume: general]
-       --output=FORMAT  the output format [volume: table]
-
 

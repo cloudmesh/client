@@ -1,0 +1,3 @@
+#! /bin/sh
+title="Cloudmesh Client"
+echo -n -e "\033]0;$title\007"
