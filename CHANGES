@@ -3,4 +3,7 @@ Summary of Changes
 
 .. todo:: update your changes here
 
+* Added bin/new-ENV: allows a developer to update the code and to start a new
+  virtualenv in a new termina
+l
 

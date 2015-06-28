@@ -20,7 +20,9 @@ cd ../client
 git pull
 # git checkout sh
 
-osascript -e "tell application \"Terminal\" to do script \"cd $PWD; ./bin/install-code; ./bin/new-title; cm version \" "
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD; ./bin/install-code; ./bin/new-title; cm plugins add cloudmesh_client  ; cm help ; cm version\" "
+
+cm plugins add cloudmesh_client
 
 #xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
 #
