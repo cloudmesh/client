@@ -11,7 +11,8 @@ nosetests -v
 from cloudmesh_base.util import HEADING
 import os
 from cloudmesh_base.util import banner
-#from cloudmesh_client.keys.Keys import SSHkeys
+from cloudmesh_client.keys.Keys import SSHkeys
+from cloudmesh_client.keys.util import SSHkey
 from pprint import pprint
 
 class Test_keys:
@@ -25,7 +26,6 @@ class Test_keys:
         """testing cm search with all the arguments"""
         HEADING()
         try:
-
 
             mykeys = SSHkeys()
 
