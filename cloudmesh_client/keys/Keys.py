@@ -3,17 +3,33 @@ from os.path import expanduser
 import os
 import requests
 from pprint import pprint
+from cloudmesh_client.keys.util import SSHkey
+from prettytable import PrettyTable
 
 class SSHkeys(object):
 
     def __init__(self):
         self.__keys__ = {}
 
-    def __add__(self, other):
-        if type(other) != SSHkey:
-            raise Exception("type must be SSHkey")
-        else:
-            print ("TODO")
+    def add_from_file(self, filename):
+        sshkey = SSHkey(filename)
+        i = sshkey.comment
+        self.__keys__[i] = sshkey
+
+    def dict(self):
+        r = {}
+        for i in self.__keys__:
+            k = self.__keys__[i].__key__['string']
+            r[i] = k
+        return r
+
+    def print_dict(self, dict):
+        x = PrettyTable(["Name", "Key"])
+        x.align["Name"] = "l" # Left align city names
+        x.padding_width = 1 # One space between column edges and contents (default)
+        for i in dict:
+            x.add_row([i,dict[i]])
+        print x
 
     def __delitem__(self, key):
         del self.__keys__[key]
@@ -39,9 +55,16 @@ class SSHkeys(object):
         public_keys = {}
         for file in files:
             location = path_expand("{:}/{:}".format(directory,file))
+
+            sshkey = SSHkey(location)
+            i = sshkey.comment
+            self.__keys__[i] = sshkey
+
+            """
             with open(location) as f:
                 s = f.read().rstrip()
             self.__keys__[file] = s
+            """
 
     def get_from_git(self, username):
         """
@@ -51,9 +74,20 @@ class SSHkeys(object):
         :rtype: list
         """
         content = requests.get('https://github.com/{:}.keys'.format(username)).text.split("\n")
-        keys = {}
+
         for key in range(0,len(content)):
-            self.__keys__["github-"+str(key)] = content[key]
+            value = content[key]
+            sshkey = SSHkey(None)
+            sshkey.filename = None
+            sshkey.__key__ = {}
+            sshkey.__key__['filename'] = None
+            sshkey.__key__['string'] = value
+            (sshkey.__key__['type'],
+             sshkey.__key__['key'],
+             sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
+            sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
+
+            self.__keys__["github-"+str(key)] = sshkey
 
 
     def get_all(self, username):

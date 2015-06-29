@@ -7,7 +7,8 @@ from cloudmesh_base.util import path_expand
 class SSHkey(object):
 
     def __init__(self, filename):
-        self.read(filename)
+        if filename:
+            self.read(filename)
 
     def __str__(self):
         return self.__key__['key']
@@ -133,7 +134,9 @@ def main():
     print ("sshkey", sshkey)
     print ("str", str(sshkey))
     print (sshkey.type)
-
+    print (sshkey.__key__['key'])
+    print (sshkey.key)
+    print (sshkey.comment)
     """
     key1 = "ssh-rsa abcdefg comment"
     key2 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD+NswLi/zjz7Vf575eo9iWWku5m4nVSPMgP13JbKCTVKtavAXt8UPZTkYVWiUSeXRqlf+EZM11U8Mq6C/P/ECJS868rn2KSwFosNPF0OOz8zmTvBQShtvBBBVd1kmZePxFGviZbKwe3z3iATLKE8h7pwcupqTin9m3FhQRsGSF7YTFcGXv0ZqxFA2j9+Ix7SVbN5IYxxgwc+mxOzYIy1SKEAOPJQFXKkiXxNdLSzGgjkurhPAIns8MNYL9usKMGzhgp656onGkSbQHZR3ZHsSsTXWP3SV5ih4QTTFunwB6C0TMQVsEGw1P49hhFktb3md+RC4DFP7ZOzfkd9nne2B mycomment"

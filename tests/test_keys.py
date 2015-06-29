@@ -14,6 +14,7 @@ from cloudmesh_base.util import banner
 from cloudmesh_client.keys.Keys import SSHkeys
 from cloudmesh_client.keys.util import SSHkey
 from pprint import pprint
+from cloudmesh_client.db.models import dict_printer
 
 class Test_keys:
     def setup(self):
@@ -23,7 +24,6 @@ class Test_keys:
         pass
 
     def test_001(self):
-        """testing cm search with all the arguments"""
         HEADING()
         try:
 
@@ -37,6 +37,7 @@ class Test_keys:
 
             banner("all")
             pprint (SSHkeys.get_all_keys('laszewsk'))
+
             assert False
         except Exception:
             assert True
@@ -56,3 +57,12 @@ class Test_keys:
             assert False
         except Exception:
             assert True
+
+    def test_003(self):
+
+        HEADING()
+        mykeys = SSHkeys()
+        #mykeys.get_from_dir("~/.ssh")
+        mykeys.get_all('paulo-chagas')
+        d = mykeys.dict()
+        mykeys.print_dict(d)
