@@ -4,7 +4,7 @@ import hashlib
 import struct
 from cloudmesh_base.util import path_expand
 
-class SSHkeyA(object):
+class SSHkey(object):
 
     def __init__(self, filename):
         self.read(filename)
@@ -126,7 +126,7 @@ class SSHkeyA(object):
 def main():
     from pprint import pprint
 
-    sshkey = SSHkeyA("~/.ssh/id_rsa.pub")
+    sshkey = SSHkey("~/.ssh/id_rsa.pub")
     pprint (sshkey.key)
     print ("Fingerprint:", sshkey.fingerprint)
     pprint (sshkey.__key__)
