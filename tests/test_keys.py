@@ -12,7 +12,7 @@ from cloudmesh_base.util import HEADING
 import os
 from cloudmesh_base.util import banner
 from cloudmesh_client.keys.Keys import SSHkeys
-
+from pprint import pprint
 
 class Test_keys:
     def setup(self):
@@ -42,12 +42,17 @@ class Test_keys:
             assert True
 
     def tes_002(self):
-        from pprint import pprint
 
-        sshkey = SSHkey("~/.ssh/id_rsa.pub")
-        pprint (sshkey.key)
-        print ("Fingerprint:", sshkey.fingerprint)
-        pprint (sshkey.__key__)
-        print ("sshkey", sshkey)
-        print ("str", str(sshkey))
-        print (sshkey.type)
+        HEADING()
+
+        try:
+            sshkey = SSHkey("~/.ssh/id_rsa.pub")
+            pprint (sshkey.key)
+            print ("Fingerprint:", sshkey.fingerprint)
+            pprint (sshkey.__key__)
+            print ("sshkey", sshkey)
+            print ("str", str(sshkey))
+            print (sshkey.type)
+            assert False
+        except Exception:
+            assert True
