@@ -11,7 +11,7 @@ nosetests -v
 from cloudmesh_base.util import HEADING
 import os
 from cloudmesh_base.util import banner
-from cloudmesh_client.keys.Keys import SSHkeys
+#from cloudmesh_client.keys.Keys import SSHkeys
 from pprint import pprint
 
 class Test_keys:
@@ -41,7 +41,7 @@ class Test_keys:
         except Exception:
             assert True
 
-    def tes_002(self):
+    def test_002(self):
 
         HEADING()
 
