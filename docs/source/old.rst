@@ -36,7 +36,7 @@ In addition we utilize in some cases also the PARAMETER... notation
 meaning that the parameter can be specified multiple imes separated by
 a space. This is well known from many Linux commandline clients.
 
-Refresh (Paulo)
+Refresh (Paulo) done
 ---------------
 
 ::
@@ -96,14 +96,16 @@ Refresh (Paulo)
 	    cloud activate aws
 	    refresh
 
-Select (Pauolo)
+Select (Pauolo) done
 ----------------
 
-Select is a command that allows the interactive selection of an item
-specified
-
-
 ::
+
+
+   Select is a command that allows the interactive selection of an item
+   specified
+
+
    Usage:
        select LIST...
        select image CLOUD
@@ -124,7 +126,7 @@ specified
            will list all available couds and you can interactively
 	   select one. The name of the selected cloud is returned.
        
-List (Pauolo)
+List (Pauolo) done
 -------------
 
 ::
@@ -236,7 +238,7 @@ List (Pauolo)
 	  cloud activate CLOUD
 
 
-Security group (Paulo)
+Security group (Paulo) done
 -----------------------
 
 ::
@@ -401,7 +403,7 @@ Cloud (Gregor)
                 sets the default flavor for a cloud. If the cloud is
                 not specified, it used the default cloud.
 
-VM (Pauolo)
+VM (Pauolo) done
 -------
 
 ::
@@ -519,7 +521,7 @@ VM (Pauolo)
                         json format
 
 
-Volume (Paulo)
+Volume (Paulo) done
 ------
 
 ::
@@ -669,7 +671,7 @@ Stack (Hyungro)
                 List running stacks:
                 cm> stack list
 
-SSH (Pauolo)
+SSH (Pauolo) done
 ----
 
 ::
@@ -707,7 +709,7 @@ SSH (Pauolo)
                                or a location that contains a pblic key 
 
 
-Quota (Pauolo)
+Quota (Pauolo) done
 -----
 
 ::
@@ -725,7 +727,7 @@ Quota (Pauolo)
 
              -v       verbose mode
 
-Limits (Paulo)
+Limits (Paulo) done
 -------
 
 ::
