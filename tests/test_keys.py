@@ -11,8 +11,8 @@ nosetests -v
 from cloudmesh_base.util import HEADING
 import os
 from cloudmesh_base.util import banner
-from cloudmesh_client.keys.Keys import SSHkeys
-from cloudmesh_client.keys.util import SSHkey
+from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+from cloudmesh_client.keys.SSHkey import SSHkey
 from pprint import pprint
 from cloudmesh_client.db.models import dict_printer
 
@@ -27,16 +27,16 @@ class Test_keys:
         HEADING()
         try:
 
-            mykeys = SSHkeys()
+            mykeys = SSHKeyManager()
 
             banner("ssh keys")
-            pprint (SSHkeys.find_in_dir("~/.ssh"))
+            pprint (SSHKeyManager.find_in_dir("~/.ssh"))
 
             banner("git hub")
-            pprint (SSHkeys.get_key_from_git('laszewsk'))
+            pprint (SSHKeyManager.get_key_from_git('laszewsk'))
 
             banner("all")
-            pprint (SSHkeys.get_all_keys('laszewsk'))
+            pprint (SSHKeyManager.get_all_keys('laszewsk'))
 
             assert False
         except Exception:
@@ -61,7 +61,7 @@ class Test_keys:
     def test_003(self):
 
         HEADING()
-        mykeys = SSHkeys()
+        mykeys = SSHKeyManager()
         #mykeys.get_from_dir("~/.ssh")
         mykeys.get_all('paulo-chagas')
         d = mykeys.dict()

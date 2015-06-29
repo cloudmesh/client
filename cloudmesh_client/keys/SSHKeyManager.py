@@ -3,10 +3,10 @@ from os.path import expanduser
 import os
 import requests
 from pprint import pprint
-from cloudmesh_client.keys.util import SSHkey
+from cloudmesh_client.keys.SSHkey import SSHkey
 from prettytable import PrettyTable
 
-class SSHkeys(object):
+class SSHKeyManager(object):
 
     def __init__(self):
         self.__keys__ = {}
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
     from cloudmesh_base.util import banner
 
-    mykeys = SSHkeys()
+    mykeys = SSHKeyManager()
     mykeys.get_all("laszewsk")
 
     banner("ssh keys")
