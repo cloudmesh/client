@@ -40,16 +40,19 @@ class SSHkeys(object):
         z.update(git_keys)
         return z
 
+if __name__ == "__main__":
 
+    from cloudmesh_base.util import banner
 
-mykeys = SSHkeys()
+    mykeys = SSHkeys()
 
+    banner("ssh keys")
+    pprint (SSHkeys.find_in_dir("~/.ssh"))
 
-pprint (SSHkeys.find_in_dir("~/.ssh"))
+    banner("git hub")
+    pprint (SSHkeys.get_key_from_git('laszewsk'))
 
-pprint (SSHkeys.get_key_from_git('laszewsk'))
-
-print ("------")
-pprint (SSHkeys.get_all_keys('laszewsk'))
+    banner("all")
+    pprint (SSHkeys.get_all_keys('laszewsk'))
 
 
