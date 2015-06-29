@@ -6,8 +6,34 @@ from pprint import pprint
 
 class SSHkeys(object):
 
-    @staticmethod
-    def find_in_dir(directory):
+    def __init__(self):
+        self.__keys__ = {}
+
+    def __add__(self, other):
+        if type(other) != SSHkey:
+            raise Exception("type must be SSHkey")
+        else:
+            print ("TODO")
+
+    def __delitem__(self, key):
+        del self.__keys__[key]
+
+    def __repr__(self):
+        return self.__keys__
+
+    def __str__(self):
+        return str(self.__keys__)
+
+    def keys(self):
+        return self.__keys__.keys()
+
+    def __getitem__(self, item):
+        return self.__keys__[item]
+
+    def __len__(self):
+        return len(self.keys())
+
+    def get_from_dir(self, directory):
         files = [file for file in os.listdir(expanduser(path_expand(directory)))
                 if file.lower().endswith(".pub")]
         public_keys = {}
@@ -15,11 +41,9 @@ class SSHkeys(object):
             location = path_expand("{:}/{:}".format(directory,file))
             with open(location) as f:
                 s = f.read().rstrip()
-            public_keys[file] = s
-        return public_keys
+            self.__keys__[file] = s
 
-    @staticmethod
-    def get_key_from_git(username):
+    def get_from_git(self, username):
         """
 
         :param username: the github username
@@ -29,30 +53,28 @@ class SSHkeys(object):
         content = requests.get('https://github.com/{:}.keys'.format(username)).text.split("\n")
         keys = {}
         for key in range(0,len(content)):
-            keys["github-"+str(key)] = content[key]
-        return keys
+            self.__keys__["github-"+str(key)] = content[key]
 
-    @staticmethod
-    def get_all_keys(username):
-        ssh_keys = SSHkeys.find_in_dir("~/.ssh")
-        git_keys = SSHkeys.get_key_from_git(username)
-        z = ssh_keys.copy()
-        z.update(git_keys)
-        return z
+
+    def get_all(self, username):
+        self.get_from_dir("~/.ssh")
+        self.get_from_git(username)
 
 if __name__ == "__main__":
 
     from cloudmesh_base.util import banner
 
     mykeys = SSHkeys()
+    mykeys.get_all("laszewsk")
 
     banner("ssh keys")
-    pprint (SSHkeys.find_in_dir("~/.ssh"))
 
-    banner("git hub")
-    pprint (SSHkeys.get_key_from_git('laszewsk'))
+    print(mykeys)
+    print(mykeys.keys())
 
-    banner("all")
-    pprint (SSHkeys.get_all_keys('laszewsk'))
+    print(mykeys['id_rsa.pub'])
+    print (len(mykeys))
+
+
 
 
