@@ -110,14 +110,14 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = path_expand('~/.cloudmesh/clouds/india/juno')
+            _to = path_expand('~/.cloudmesh/clouds/india/')
 
             if os.path.exists(_to):
                 while True:
                     answer = ""
                     if not force:
                         answer = raw_input("Directory already exists. Would you like "
-                                           "to overwrite {:} directory y/n? ".format(_to))
+                                           "to overwrite {:}juno directory y/n? ".format(_to))
                     if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
                     elif answer.lower() != 'n' and answer.lower() != 'no':
@@ -125,6 +125,8 @@ class CloudRegister(object):
                     else:
                         Console.ok("Operation aborted")
                         return
+            else:
+                Shell.mkdir(_to)
 
             try:
                 Console.ok("fetching information from india ...")
@@ -154,7 +156,7 @@ class CloudRegister(object):
         if host == "india":  # for india, CERT will be in ~/.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
-            _to = path_expand('~/.cloudmesh/clouds/india/juno')
+            _to = path_expand('~/.cloudmesh/clouds/india/juno/')
 
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
@@ -172,13 +174,16 @@ class CloudRegister(object):
                         return
 
             try:
+                Console.ok("Fetching certificate from india...")
                 Shell.scp(_from, _to)
+                Console.ok("certificate fetched. ok")
             except Exception, e:
                 Console.error(e.message)
                 return
 
             # registers cert in the cloudmesh.yaml file
             try:
+                Console.ok("registering cert in cloudmesh.yaml file")
                 home = expanduser("~")
                 filename = home + '/.cloudmesh/clouds/india/juno/openrc.sh'
                 result = Shell.cat(filename)
@@ -194,8 +199,9 @@ class CloudRegister(object):
                     key, value = line.split("=", 1)
                     config["cloudmesh"]["clouds"][host]["credentials"][key] = value
             config.save()
+            Console.ok("cert registered in cloudmesh.yaml file.")
         else:
-            print("Cloud {:} not found".format(host))
+            Console.error("Cloud {:} not found".format(host))
 
     @classmethod
     def directory(cls, host, dir, force=False):
@@ -206,6 +212,8 @@ class CloudRegister(object):
         :type host: string
         :param dir: the directory that will be fetched
         :type dir: string
+        :param force: answer questions with yes
+        :type force: bool
         :return:
         """
         Console.ok("register")
@@ -215,8 +223,6 @@ class CloudRegister(object):
 
             folder = dir.split('/')
             destination = _to+"/"+(folder[-1:])[0]
-
-            print ("directory destino", destination)
 
             if os.path.exists(destination):
                 while True:
