@@ -209,7 +209,7 @@ class command_cloud(object):
             _from = 'india:.{:}'.format(dir)
             _to = path_expand('~/.cloudmesh/clouds/{:}'.format(host))
 
-            if os.path.exists(_to):
+            if os.path.exists(_to):#ver se o dir existe
                 while True:
                     answer = ""
                     if not force:
