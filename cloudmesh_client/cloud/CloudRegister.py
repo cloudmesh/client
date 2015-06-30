@@ -107,7 +107,7 @@ class CloudRegister(object):
         :type force: bool
         :return:
         """
-        Console.ok("register")
+        Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
             _to = path_expand('~/.cloudmesh/clouds/india/juno')
@@ -127,7 +127,9 @@ class CloudRegister(object):
                         return
 
             try:
+                Console.ok("fetching information from india ...")
                 Shell.scp('-r', _from, _to)
+                Console.ok("registration complete. ok.")
             except Exception, e:
                 Console.error(e.message)
         else:
@@ -161,9 +163,9 @@ class CloudRegister(object):
                     if not force:
                         answer = raw_input("File already exists. Would you like to overwrite "
                                            "{:}/cacert.pem file y/n? ".format(_to))
-                    if answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                    if answer.lower() in ['y', 'yes'] or force:
                         break
-                    elif answer.lower() != 'n' and answer.lower() != 'no':
+                    elif answer.lower() not in ['n', 'no']:
                         Console.ok("Invalid option: {:}".format(answer))
                     else:
                         Console.ok("Operation aborted")

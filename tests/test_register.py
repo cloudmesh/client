@@ -1,5 +1,7 @@
 """ run with
 
+python setup.py install; nosetests -v --nocapture  tests/test_register.py:Test_register.test_001
+
 nosetests -v --nocapture tests/test_register.py
 
 or
@@ -7,30 +9,39 @@ or
 nosetests -v tests/test_register.py
 
 """
-
+from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
 import os
 
+def run(command):
+    parameter = command.split(" ")
+    shell_command = parameter[0]
+    args = parameter[1:]
+    result = Shell.execute(shell_command, args)
+    return result
 
 class Test_register:
     """
         tests for india only
     """
+
+
     def setup(self):
-        os.system("python setup.py install")
+        pass
 
     def test_001(self):
-        """testing cm register india
-        """
+        """testing cm register india"""
         HEADING()
-        try:
-            os.system("cm register india")
+        # os.sytem("yes | cm register india")
+        #result = Shell.execute("cm register india".split(" "))
+        result = run("cm register india --force")
+        #result = Shell.cm("register", "india", "--force")
+        print(result)
 
-        except Exception:
-            assert False
+        assert "ok." in result
+
     def test_002(self):
-        """testing cm register india --force
-        """
+        """testing cm register india --force"""
         HEADING()
         try:
             os.system("cm register india --force")
@@ -38,8 +49,7 @@ class Test_register:
             assert False
 
     def test_003(self):
-        """testing cm register india --force
-        """
+        """testing cm register random1 --force"""
         HEADING()
         try:
             os.system("cm register random1 --force")
@@ -47,8 +57,7 @@ class Test_register:
         except Exception:
             assert True
     def test_004(self):
-        """testing cm register india --force
-        """
+        """testing cm register india --foo"""
         HEADING()
         try:
             os.system("cm register india --foo")
@@ -57,9 +66,7 @@ class Test_register:
             assert True
 
     def test_005(self):
-        """
-        testing cm register CLOUD CERT
-        """
+        """testing cm register CLOUD CERT"""
         HEADING()
         try:
             os.system("cm register india .cloudmesh/clouds/juno/cacert.pem")
@@ -68,9 +75,7 @@ class Test_register:
             assert False
 
     def test_006(self):
-        """
-        testing cm register CLOUD CERT
-        """
+        """testing cm register CLOUD CERT"""
         HEADING()
         try:
             os.system("cm register india .cloudmesh/clouds/juno/d/cacert.pem")
@@ -79,9 +84,7 @@ class Test_register:
             assert True
 
     def test_007(self):
-        """
-        testing cm register CLOUD CERT
-        """
+        """testing cm register CLOUD CERT"""
         HEADING()
         try:
             os.system("cm register india .cloudmesh/clouds/juno/wrong.pem")
