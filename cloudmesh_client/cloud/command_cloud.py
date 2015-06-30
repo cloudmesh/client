@@ -11,7 +11,8 @@ from os.path import expanduser
 from cloudmesh_base.util import path_expand
 import os
 
-class command_cloud(object):
+
+class CloudRegister(object):
     @classmethod
     def list(cls, filename):
         """
@@ -95,7 +96,7 @@ class command_cloud(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def register(cls, host, force=False):
+    def host(cls, host, force=False):
         """
         copies the cloudmesh/clouds/india/juno directory from india
         to the ~/.cloudmesh/clouds/india/juno local directory.
@@ -115,8 +116,9 @@ class command_cloud(object):
                 while True:
                     answer = ""
                     if not force:
-                        answer = raw_input("Directory already exists. Would you like to overwrite {:} directory y/n? ".format(_to))
-                    if  answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                        answer = raw_input("Directory already exists. Would you like "
+                                           "to overwrite {:} directory y/n? ".format(_to))
+                    if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
                     elif (answer.lower() != 'n' and answer.lower() != 'no'):
                         Console.ok("Invalid option")
@@ -127,14 +129,15 @@ class command_cloud(object):
             try:
                 Shell.scp('-r', _from, _to)
             except Exception, e:
-                    Console.error(e.message)
+                Console.error(e.message)
         else:
             Console.error("Cloud {:} not found".format(host))
 
     @classmethod
-    def register_CERT(cls, host, path_cert, force=False):
+    def certificate(cls, host, path_cert, force=False):
         """
-        copies the CERT to the ~/.cloudmesh/clouds/host directory and registers that cert in the coudmeh.yaml file
+        copies the CERT to the ~/.cloudmesh/clouds/host directory and registers
+        that cert in the coudmeh.yaml file
 
         :param host: the host name
         :type host: string
@@ -146,18 +149,19 @@ class command_cloud(object):
         """
         Console.ok("register")
 
-        if host == "india":#for india, CERT will be in ~/.cloudmesh/clouds/india/juno/cacert.pem
+        if host == "india":  # for india, CERT will be in ~/.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
-            _to   =  path_expand('~/.cloudmesh/clouds/india/juno')
+            _to = path_expand('~/.cloudmesh/clouds/india/juno')
 
-            #copies cacert.pem from india to the a local directory
+            # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
                 while True:
                     answer = ""
                     if not force:
-                        answer = raw_input("File already exists. Would you like to overwrite {:}/cacert.pem file y/n? ".format(_to))
-                    if  answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                        answer = raw_input("File already exists. Would you like to overwrite "
+                                           "{:}/cacert.pem file y/n? ".format(_to))
+                    if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
                     elif (answer.lower() != 'n' and answer.lower() != 'no'):
                         Console.ok("Invalid option: {:}".format(answer))
@@ -166,21 +170,20 @@ class command_cloud(object):
                         return
 
             try:
-                Shell.scp( _from, _to)
+                Shell.scp(_from, _to)
             except Exception, e:
                 Console.error(e.message)
                 return
 
-            #registers cert in the cloudmesh.yaml file
+            # registers cert in the cloudmesh.yaml file
             try:
                 home = expanduser("~")
-                filename = home+'/.cloudmesh/clouds/india/juno/openrc.sh'
+                filename = home + '/.cloudmesh/clouds/india/juno/openrc.sh'
                 result = Shell.cat(filename)
             except IOError, e:
-                print ("ERROR: ", e)
+                print("ERROR: ", e)
                 return
 
-            
             lines = result.split("\n")
             config = ConfigDict("cloudmesh.yaml")
             for line in lines:
@@ -190,11 +193,10 @@ class command_cloud(object):
                     config["cloudmesh"]["clouds"][host]["credentials"][key] = value
             config.save()
         else:
-             print ("Cloud {:} not found".format(host))
-
+            print("Cloud {:} not found".format(host))
 
     @classmethod
-    def register_DIR(cls, host, dir, force=False):
+    def directory(cls, host, dir, force=False):
         """
         Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
 
@@ -213,8 +215,9 @@ class command_cloud(object):
                 while True:
                     answer = ""
                     if not force:
-                        answer = raw_input("Directory already exists. Would you like to overwrite {:} directory y/n? ".format(_to))
-                    if  answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                        answer = raw_input("Directory already exists. Would you like to "
+                                           "overwrite {:} directory y/n? ".format(_to))
+                    if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
                     elif (answer.lower() != 'n' and answer.lower() != 'no'):
                         Console.ok("Invalid option")
@@ -225,7 +228,7 @@ class command_cloud(object):
             try:
                 Shell.scp('-r', _from, _to)
             except Exception, e:
-                    Console.error(e.message)
+                Console.error(e.message)
         else:
             Console.error("Cloud {:} not found".format(host))
 

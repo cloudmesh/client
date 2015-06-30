@@ -6,6 +6,8 @@ cloudmesh:
         firstname: TBD
         lastname: TBD
         email: TBD
+    github:
+        username: TBD
     active:
     - india
     clouds:

@@ -4,7 +4,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
-from cloudmesh_client.cloud.command_cloud import command_cloud
+from cloudmesh_client.cloud.command_cloud import CloudRegister
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.tables import dict_printer
 
@@ -236,34 +236,34 @@ class cm_shell_cloud:
             self.do_edit(filename)
         elif arguments['list'] and arguments['ssh']:
             print("list ssh")
-            command_cloud.list_ssh()
+            CloudRegister.list_ssh()
         elif arguments['list']:
             filename = _get_file(arguments)
             print("list", filename)
-            command_cloud.list(filename)
+            CloudRegister.list(filename)
         elif arguments['check']:
             filename = _get_file(arguments)
-            command_cloud.check_yaml_for_completeness(filename)
+            CloudRegister.check_yaml_for_completeness(filename)
         elif arguments['--yaml']:
             filename = arguments['FILENAME']
             print("--yaml", filename)
-            command_cloud.register(filename)
+            CloudRegister.from_file(filename)
         elif arguments['test']:
             filename = _get_file(arguments)
-            command_cloud.test(filename)
+            CloudRegister.test(filename)
             return
         elif arguments['form']:
             filename = _get_file(arguments)
-            command_cloud.fill_out_form(filename)
+            CloudRegister.fill_out_form(filename)
         elif arguments['rc']:
             filename = arguments['OPENRC']
             host = arguments['HOST']
-            command_cloud.read_rc_file(host, filename)
+            CloudRegister.read_rc_file(host, filename)
         elif arguments['india']:
             force = False
             if arguments['--force']:
                 force = True
-            command_cloud.register("india", force)
+            CloudRegister.host("india", force)
 
         elif arguments['CLOUD']:
             if arguments['CERT']:#path to the cacert.pem
@@ -272,12 +272,12 @@ class cm_shell_cloud:
                 force = False
                 if arguments['--force']:
                     force = True
-                command_cloud.register_CERT(cloud, path, force)
+                CloudRegister.certificate(cloud, path, force)
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
                 dir = arguments['--dir']
                 print (dir)
-                command_cloud.register_DIR(cloud, dir)
+                CloudRegister.directory(cloud, dir)
         pass
 
 
