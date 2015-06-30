@@ -1,3 +1,4 @@
+from __future__ import print_function
 from cloudmesh_base.util import path_expand
 from os.path import expanduser
 import os
@@ -5,7 +6,7 @@ import requests
 from pprint import pprint
 from cloudmesh_client.keys.SSHkey import SSHkey
 from prettytable import PrettyTable
-
+from cloudmesh_client.common.tables import dict_printer
 
 class SSHKeyManager(object):
     def __init__(self):
@@ -14,22 +15,17 @@ class SSHKeyManager(object):
     def add_from_file(self, filename):
         sshkey = SSHkey(filename)
         i = sshkey.comment
-        self.__keys__[i] = sshkey
+        self.__keys__[i] = sshkey.__key__
+        print(self.__keys__)
 
-    def dict(self):
-        r = {}
-        for i in self.__keys__:
-            k = self.__keys__[i].__key__['string']
-            r[i] = k
-        return r
 
-    def print_dict(self, dict):
-        x = PrettyTable(["Name", "Key"])
-        x.align["Name"] = "l"  # Left align city names
-        x.padding_width = 1  # One space between column edges and contents (default)
-        for i in dict:
-            x.add_row([i, dict[i]])
-        print x
+    @property
+    def table(self):
+        d = dict(self.__keys__)
+        return (dict_printer(d,
+                            order=["comment", "fingerprint"],
+                            output="table",
+                            sort_keys=True))
 
     def __delitem__(self, key):
         del self.__keys__[key]
@@ -70,19 +66,12 @@ class SSHKeyManager(object):
     def get_from_dir(self, directory):
         files = [file for file in os.listdir(expanduser(path_expand(directory)))
                  if file.lower().endswith(".pub")]
-        public_keys = {}
         for file in files:
             location = path_expand("{:}/{:}".format(directory, file))
 
             sshkey = SSHkey(location)
             i = sshkey.comment
-            self.__keys__[i] = sshkey
-
-            """
-            with open(location) as f:
-                s = f.read().rstrip()
-            self.__keys__[file] = s
-            """
+            self.__keys__[i] = sshkey.__key__
 
     def get_from_git(self, username):
         """
@@ -104,8 +93,10 @@ class SSHKeyManager(object):
              sshkey.__key__['key'],
              sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
             sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
-
-            self.__keys__["github-" + str(key)] = sshkey
+            name = "github-" + str(key)
+            self.__keys__[name] = sshkey.__key__
+            sshkey.__key__['comment'] = name
+            sshkey.__key__['Id'] = name
 
     def get_all(self, username):
         self.get_from_dir("~/.ssh")

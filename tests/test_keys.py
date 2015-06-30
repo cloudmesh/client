@@ -1,5 +1,7 @@
 """ run with
 
+python setup.py install; nosetests -v --nocapture  tests/test_keys.py:Test_keys.test_001
+
 nosetests -v --nocapture
 
 or
@@ -16,15 +18,6 @@ from cloudmesh_client.keys.SSHkey import SSHkey
 from pprint import pprint
 from cloudmesh_client.db.models import dict_printer
 
-def run3():
-    sshkey = SSHkey("~/.ssh/id_rsa.pub")
-    pprint (sshkey.key)
-    print ("Fingerprint:", sshkey.fingerprint)
-    pprint (sshkey.__key__)
-    print ("sshkey", sshkey)
-    print ("str", str(sshkey))
-    print (sshkey.type)
-    return "ok"
 
 class Test_keys:
     def setup(self):
@@ -40,8 +33,10 @@ class Test_keys:
         mykeys = SSHKeyManager()
 
         banner("ssh keys")
-        result = mykeys.get_from_dir("~/.ssh")
-        assert "ok" in result
+        mykeys.get_from_dir("~/.ssh")
+
+
+        assert len(mykeys) > 0
 
     def test_002(self):
         """reading the keys from github"""
@@ -54,20 +49,34 @@ class Test_keys:
         mykeys = SSHKeyManager()
 
         banner("git hub")
-        result1 = mykeys.get_from_git(git_username)
+        mykeys.get_from_git(git_username)
+
+        count1 = len(mykeys)
 
         banner("all")
-        result2 = mykeys.get_all(git_username)
+        mykeys.get_all(git_username)
 
-        d = mykeys.dict()
-        mykeys.print_dict(d)
+        count2 = len(mykeys)
 
-        assert 'ok' in (result1,result2)
+        # d = mykeys.dict()
+        print (mykeys.table)
+
+        assert count1 > 0 and count2 >0
 
 
     def test_003(self):
         """testing properties in SSHKey"""
         HEADING()
 
-        result = run3()
-        assert 'ok' in result
+
+        sshkey = SSHkey("~/.ssh/id_rsa.pub")
+        pprint (sshkey.key)
+        print ("Fingerprint:", sshkey.fingerprint)
+        pprint (sshkey.__key__)
+        print ("sshkey", sshkey)
+        print ("str", str(sshkey))
+        print (sshkey.type)
+
+
+
+        assert True
