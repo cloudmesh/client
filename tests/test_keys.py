@@ -16,6 +16,16 @@ from cloudmesh_client.keys.SSHkey import SSHkey
 from pprint import pprint
 from cloudmesh_client.db.models import dict_printer
 
+def run3():
+    sshkey = SSHkey("~/.ssh/id_rsa.pub")
+    pprint (sshkey.key)
+    print ("Fingerprint:", sshkey.fingerprint)
+    pprint (sshkey.__key__)
+    print ("sshkey", sshkey)
+    print ("str", str(sshkey))
+    print (sshkey.type)
+    return "ok"
+
 class Test_keys:
     def setup(self):
         pass
@@ -30,9 +40,8 @@ class Test_keys:
         mykeys = SSHKeyManager()
 
         banner("ssh keys")
-        pprint (SSHKeyManager.find_in_dir("~/.ssh"))
-
-        assert True
+        result = mykeys.get_from_dir("~/.ssh")
+        assert "ok" in result
 
     def test_002(self):
         """reading the keys from github"""
@@ -45,36 +54,20 @@ class Test_keys:
         mykeys = SSHKeyManager()
 
         banner("git hub")
-        pprint (SSHKeyManager.get_key_from_git(git_username))
+        result1 = mykeys.get_from_git(git_username)
 
         banner("all")
-        pprint (SSHKeyManager.get_all_keys(git_username))
+        result2 = mykeys.get_all(git_username)
 
-        assert True
+        d = mykeys.dict()
+        mykeys.print_dict(d)
+
+        assert 'ok' in (result1,result2)
 
 
     def test_003(self):
         """testing properties in SSHKey"""
         HEADING()
 
-        try:
-            sshkey = SSHkey("~/.ssh/id_rsa.pub")
-            pprint (sshkey.key)
-            print ("Fingerprint:", sshkey.fingerprint)
-            pprint (sshkey.__key__)
-            print ("sshkey", sshkey)
-            print ("str", str(sshkey))
-            print (sshkey.type)
-            assert False
-        except Exception:
-            assert True
-
-    def test_003(self):
-
-        HEADING()
-        mykeys = SSHKeyManager()
-        #mykeys.get_from_dir("~/.ssh")
-        git_username = 'laszewsk'
-        mykeys.get_all(git_username)
-        d = mykeys.dict()
-        mykeys.print_dict(d)
+        result = run3()
+        assert 'ok' in result

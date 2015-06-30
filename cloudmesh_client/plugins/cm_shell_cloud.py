@@ -213,7 +213,7 @@ class cm_shell_cloud:
                   can use the cloud. TODO: maybe this should be in a test
                   command
         """
-        pprint(arguments)
+        # pprint(arguments)
 
         def _get_file(arguments):
             if arguments["--yaml"]:
@@ -260,9 +260,7 @@ class cm_shell_cloud:
             host = arguments['HOST']
             CloudRegister.read_rc_file(host, filename)
         elif arguments['india']:
-            force = False
-            if arguments['--force']:
-                force = True
+            force = arguments['--force']
             CloudRegister.host("india", force)
 
         elif arguments['CLOUD']:
