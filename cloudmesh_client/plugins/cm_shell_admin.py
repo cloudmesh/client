@@ -4,6 +4,9 @@ from cmd3.console import Console
 from cmd3.shell import command
 from pprint import pprint
 # from cloudmesh_client.cloud.command_admin import command_admin
+from getpass import getpass
+from cloudmesh_base.util import yn_choice, path_expand
+from cloudmesh_base.ConfigDict import ConfigDict
 
 
 class cm_shell_admin:
@@ -17,7 +20,7 @@ class cm_shell_admin:
 
           Usage:
             admin password reset
-            admin version
+            admin password
 
           Options:
 
@@ -26,19 +29,32 @@ class cm_shell_admin:
             admin password reset
               Reset portal password
 
-            admin version
-               Prints the version numbers of cloudmesh and its plugins
-
         """
         pprint(arguments)
 
-        if arguments['password']:
-            password = arguments['password']
-            reset = arguments['reset']
+        if arguments['password'] and arguments['reset']:
+            Console.ok('password reset ...')
 
-            print ('password reset')
-        elif arguments['version']:
-            print ('version')
+            self.password = getpass("Password:")
+
+            filename = path_expand("~/.cloudmesh/cmd3.yaml")
+            config = ConfigDict(filename=filename)
+            config["cmd3"]["properties"]["password"] = self.password
+            config.write(filename=filename, output="yaml")
+            Console.ok("Resetting password. ok.")
+
+        elif arguments['password']:
+
+            if yn_choice("Would you like to print the password?"):
+                filename = path_expand("~/.cloudmesh/cmd3.yaml")
+                config = ConfigDict(filename=filename)
+                try:
+                    self.password = config["cmd3"]["properties"]["password"]
+                except Exception:
+                    Console.error("could not find the password. Please set it.")
+                    return
+                Console.msg("Password: {:}".format(self.password))
+
 
 if __name__ == '__main__':
     command = cm_shell_admin()
