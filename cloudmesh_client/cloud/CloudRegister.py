@@ -208,25 +208,32 @@ class CloudRegister(object):
         """
         Console.ok("register")
         if host.lower() == "india":
-            _from = 'india:.{:}'.format(dir)
+            _from = 'india:{:}'.format(dir)
             _to = path_expand('~/.cloudmesh/clouds/{:}'.format(host))
 
-            if os.path.exists(_to):#ver se o dir existe
+            folder = dir.split('/')
+            destination = _to+"/"+(folder[-1:])[0]
+
+            print ("directory destino", destination)
+
+            if os.path.exists(destination):
                 while True:
                     answer = ""
                     if not force:
                         answer = raw_input("Directory already exists. Would you like to "
-                                           "overwrite {:} directory y/n? ".format(_to))
+                                           "overwrite {:} directory y/n? ".format(destination))
                     if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
                     elif answer.lower() != 'n' and answer.lower() != 'no':
-                        Console.ok("Invalid option")
+                        Console.ok("Invalid option: {:}".format(answer))
                     else:
                         Console.ok("Operation aborted")
                         return
 
             try:
+                Console.ok("Fetching directory...")
                 Shell.scp('-r', _from, _to)
+                Console.ok("Directory fetched")
             except Exception, e:
                 Console.error(e.message)
         else:
