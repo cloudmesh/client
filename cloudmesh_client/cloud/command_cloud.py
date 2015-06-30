@@ -88,7 +88,7 @@ class CloudRegister(object):
         for line in content.split("\n"):
             if "TBD" in line:
                 output.append(textwrap.dedent(line))
-                count = count + 1
+                count += 1
         if count > 0:
             Console.error("The file has {:} values to be fixed".format(count))
             print("")
@@ -120,7 +120,7 @@ class CloudRegister(object):
                                            "to overwrite {:} directory y/n? ".format(_to))
                     if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
-                    elif (answer.lower() != 'n' and answer.lower() != 'no'):
+                    elif answer.lower() != 'n' and answer.lower() != 'no':
                         Console.ok("Invalid option")
                     else:
                         Console.ok("Operation aborted")
@@ -163,7 +163,7 @@ class CloudRegister(object):
                                            "{:}/cacert.pem file y/n? ".format(_to))
                     if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
-                    elif (answer.lower() != 'n' and answer.lower() != 'no'):
+                    elif answer.lower() != 'n' and answer.lower() != 'no':
                         Console.ok("Invalid option: {:}".format(answer))
                     else:
                         Console.ok("Operation aborted")
@@ -219,7 +219,7 @@ class CloudRegister(object):
                                            "overwrite {:} directory y/n? ".format(_to))
                     if answer.lower() == 'y' or answer.lower() == 'yes' or force:
                         break
-                    elif (answer.lower() != 'n' and answer.lower() != 'no'):
+                    elif answer.lower() != 'n' and answer.lower() != 'no':
                         Console.ok("Invalid option")
                     else:
                         Console.ok("Operation aborted")

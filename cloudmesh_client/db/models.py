@@ -70,7 +70,9 @@ class database(object):
             table = FLAVOR
         return table
 
+
 db = database()
+
 
 def set_cm_data(table,
                 cm_name=None,
@@ -113,12 +115,12 @@ class KEY(db.Base):
     __tablename__ = 'key'
     id = Column(Integer)
 
-    cm_name  = Column(String)
+    cm_name = Column(String)
     cm_uuid = Column(String)
     cm_cloud = Column(String)
     cm_update = Column(String)
     cm_user = Column(String)
-    cm_id = Column(String,primary_key=True)
+    cm_id = Column(String, primary_key=True)
     cm_type = Column(String)
     cm_command = Column(String)
     cm_parameter = Column(String)
@@ -131,7 +133,6 @@ class KEY(db.Base):
                  label=None,
                  cloud='india',
                  cm_user=None):
-
         set_cm_data(self,
                     cm_name=cm_name,
                     label=label,
@@ -149,12 +150,12 @@ class DEFAULT(db.Base):
     __tablename__ = 'default'
     id = Column(Integer)
 
-    cm_name  = Column(String)
+    cm_name = Column(String)
     cm_uuid = Column(String)
     cm_cloud = Column(String)
     cm_update = Column(String)
     cm_user = Column(String)
-    cm_id = Column(String,primary_key=True)
+    cm_id = Column(String, primary_key=True)
     cm_type = Column(String)
     cm_command = Column(String)
     cm_parameter = Column(String)
@@ -170,16 +171,12 @@ class DEFAULT(db.Base):
                  cloud='india',
                  cm_user=None,
                  value=None):
-
         set_cm_data(self,
                     cm_name=cm_name,
                     label=label,
                     cloud=cloud,
                     cm_user=cm_user)
         self.value = value
-
-
-
 
 
 class IMAGE(db.Base):
@@ -237,13 +234,11 @@ class IMAGE(db.Base):
                  label=None,
                  cloud='india',
                  cm_user=None):
-
         set_cm_data(self,
                     cm_name=cm_name,
                     label=label,
                     cloud=cloud,
                     cm_user=cm_user)
-
 
 
 class FLAVOR(db.Base):
@@ -281,14 +276,11 @@ class FLAVOR(db.Base):
                  label=None,
                  cloud='india',
                  cm_user=None):
-
         set_cm_data(self,
                     cm_name=cm_name,
                     label=label,
                     cloud=cloud,
                     cm_user=cm_user)
-
-
 
 
 class VM(db.Base):
@@ -308,7 +300,7 @@ class VM(db.Base):
 
     # private_ips [10.23.1.35],
     # public_ips [149.165.158.100],
-    #volumes_attached []
+    # volumes_attached []
     access_ip = Column(String)
     access_ipv6 = Column(String)
     availability_zone = Column(String)
@@ -343,16 +335,13 @@ class VM(db.Base):
     uuid = Column(String)
     vm_state = Column(String)
 
-
     def __init__(self,
                  cm_name=None,
                  label=None,
                  cloud='india',
                  cm_user=None):
-
         set_cm_data(self,
                     cm_name=cm_name,
                     label=label,
                     cloud=cloud,
                     cm_user=cm_user)
-

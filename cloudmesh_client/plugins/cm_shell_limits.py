@@ -32,7 +32,7 @@ class cm_shell_limits:
         # pprint(arguments)
         clouds = arguments["CLOUD"]
         output_format = arguments["--format"]
-        Console.ok('limits {} {}'.format(clouds,output_format))
+        Console.ok('limits {} {}'.format(clouds, output_format))
         pass
 
 

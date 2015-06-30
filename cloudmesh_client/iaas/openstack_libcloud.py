@@ -13,9 +13,7 @@ from cloudmesh_client.iaas.CloudProviderBase import CloudmeshProviderBase
 from cloudmesh_client.common.FlatDict import key_prefix_replace, flatten
 
 
-
 class OpenStack_libcloud(CloudmeshProviderBase):
-
     def mapping(self):
         mapping_yaml = """
         vm:
@@ -158,7 +156,7 @@ class OpenStack_libcloud(CloudmeshProviderBase):
             values["cm_cloud"] = self.cloudname
             values["cm_update"] = now
             values["cm_user"] = self.user
-            values["cm_id"] =  self.getID(kind, node.id)
+            values["cm_id"] = self.getID(kind, node.id)
 
             if output == list:
                 result.append(values)
@@ -191,14 +189,12 @@ class OpenStack_libcloud(CloudmeshProviderBase):
         elif kind == "image":
             data = self.images = self.driver.list_images()
 
-        #for element in data:
+        # for element in data:
         #    pprint(element.__dict__)
-
 
         if output == "flat":
             return self._list(kind, data, output)
         return data
-
 
     def boot(self, cloud, user, name, image, flavor, key, meta):
         self.images = self.driver.list_images()
@@ -250,4 +246,3 @@ class OpenStack_libcloud(CloudmeshProviderBase):
         :rtype: dict
         """
         return d
-

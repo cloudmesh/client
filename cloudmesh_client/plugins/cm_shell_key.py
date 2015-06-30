@@ -7,7 +7,8 @@ from pprint import pprint
 from cloudmesh_base.util import path_expand
 from os import listdir
 from os.path import expanduser, isfile, abspath
-from cloudmesh_base.tables import dict_printer,two_column_table
+from cloudmesh_base.tables import dict_printer, two_column_table
+
 
 class cm_shell_key:
     def activate_cm_shell_key(self):
@@ -89,10 +90,6 @@ class cm_shell_key:
             else:
                 return two_column_table(d, header)
 
-
-
-
-
         directory = path_expand(arguments["--dir"])
         source = arguments["--source"]
 
@@ -103,44 +100,42 @@ class cm_shell_key:
             ssh_keys = {}
 
             for key in files:
-
                 ssh_keys[key] = directory + "/" + key
-            print (ssh_keys)
+            print(ssh_keys)
 
             print(_print_dict(ssh_keys))
-
 
             return
 
         if arguments['list']:
-            print ('list')
+            print('list')
             if arguments['--source']:
                 source = arguments['--source']
-                print (source)
+                print(source)
             if arguments['--dir']:
                 dir = arguments['--dir']
-                print (dir)
+                print(dir)
             if arguments['--format']:
                 format = arguments['--format']
-                print (format)
+                print(format)
         elif arguments['add']:
-            print ('add')
+            print('add')
             keyname = None
             if arguments['--keyname']:
                 keyname = arguments['--keyname']
-                print (keyname)
+                print(keyname)
             filename = arguments['FILENAME']
-            print (filename)
+            print(filename)
         elif arguments['default']:
-            print ("default")
+            print("default")
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
-                print (keyname)
+                print(keyname)
         elif arguments['delete']:
-            print ('delete')
+            print('delete')
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
-                print (keyname)
+                print(keyname)
 
 
 if __name__ == '__main__':

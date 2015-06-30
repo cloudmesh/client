@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod, abstractproperty
 
-class CloudmeshProviderBase(object):
 
+class CloudmeshProviderBase(object):
     __metaclass__ = ABCMeta
 
     def initialize(self, cloudname, cm_user=None):
@@ -90,4 +90,3 @@ class CloudmeshProviderBase(object):
             n = transform(d[element])
             result[element] = dict(n)
         return result
-

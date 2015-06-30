@@ -55,12 +55,12 @@ class cm_shell_ssh:
         elif arguments["register"]:
             name = arguments["NAME"]
             parameters = arguments["PARAMETERS"]
-            Console.ok('register {} {}'.format(name,parameters))
+            Console.ok('register {} {}'.format(name, parameters))
         elif arguments["NAME"]:
             name = arguments["NAME"]
             user = arguments["--user"]
             key = arguments["--key"]
-            Console.ok('ssh {} {} {}'.format(name,user,key))
+            Console.ok('ssh {} {} {}'.format(name, user, key))
         pass
 
 

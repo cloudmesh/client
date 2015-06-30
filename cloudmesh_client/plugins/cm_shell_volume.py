@@ -103,7 +103,14 @@ class cm_shell_volume:
             display_description = arguments["--display-description"]
             volume_type = arguments["--volume-type"]
             availability_zone = arguments["--availability-zone"]
-            Console.ok('create {} {} {} {} {} {} {}'.format(size,snapshot_id,image_id,display_name,display_description,volume_type,availability_zone))
+            Console.ok(
+                'create {} {} {} {} {} {} {}'.format(size,
+                                                     snapshot_id,
+                                                     image_id,
+                                                     display_name,
+                                                     display_description,
+                                                     volume_type,
+                                                     availability_zone))
         elif arguments["delete"]:
             volume = arguments["VOLUME"]
             Console.ok('delete volume {}'.format(volume))
@@ -111,11 +118,11 @@ class cm_shell_volume:
             server = arguments["SERVER"]
             volume = arguments["VOLUME"]
             device = arguments["DEVICE"]
-            Console.ok('attach {} {} {}'.format(server,volume,device))
+            Console.ok('attach {} {} {}'.format(server, volume, device))
         elif arguments["detach"]:
             server = arguments["SERVER"]
             volume = arguments["VOLUME"]
-            Console.ok('detach {} {}'.format(server,volume))
+            Console.ok('detach {} {}'.format(server, volume))
         elif arguments["show"]:
             volume = arguments["VOLUME"]
         elif arguments["SNAPSHOT-LIST"]:
@@ -126,7 +133,10 @@ class cm_shell_volume:
             force = arguments["--force"]
             display_name = arguments["--display-name"]
             display_description = arguments["--display-description"]
-            Console.ok('snapshot-create {} {} {} {}'.format(volume_id,force,display_name,display_description))
+            Console.ok('snapshot-create {} {} {} {}'.format(volume_id,
+                                                            force,
+                                                            display_name,
+                                                            display_description))
         elif arguments["snapshot-delete"]:
             snapshot = arguments["SNAPSHOT"]
             Console.ok('snapshot-delete {}'.format(snapshot))

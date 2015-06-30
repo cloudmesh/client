@@ -127,18 +127,18 @@ class cm_shell_vm:
             group = arguments["--group"]
             cloud = arguments["--cloud"]
             force = arguments["--force"]
-            Console.ok('delete: {} {} {} {}'.format(name_id,group,cloud,force))
+            Console.ok('delete: {} {} {} {}'.format(name_id, group, cloud, force))
         elif arguments["ip_assign"]:
             name_id = arguments["NAME_OR_ID"]
             cloud = arguments["--cloud"]
-            Console.ok('ip_assign {} {}'.format(name_id,cloud))
+            Console.ok('ip_assign {} {}'.format(name_id, cloud))
         elif arguments["ip_show"]:
             name_id = arguments["NAME_OR_ID"]
             group = arguments["--group"]
             cloud = arguments["--cloud"]
             output_format = arguments["--format"]
             refresh = arguments["--refresh"]
-            Console.ok('ip_show {} {} {} {} {}'.format(name_id,group,cloud,output_format,refresh))
+            Console.ok('ip_show {} {} {} {} {}'.format(name_id, group, cloud, output_format, refresh))
         elif arguments["login"]:
             name = arguments["NAME"]
             user = arguments["--user"]
@@ -147,7 +147,7 @@ class cm_shell_vm:
             key = arguments["--key"]
             commands = arguments["--command"]
             commands = commands.split(';')
-            Console.ok('login {} {} {} {} {} {}'.format(name,user,ip,cloud,key,commands))
+            Console.ok('login {} {} {} {} {} {}'.format(name, user, ip, cloud, key, commands))
         elif arguments["list"]:
             if arguments["--all"]:
                 cloud = "all"
@@ -158,7 +158,7 @@ class cm_shell_vm:
             output_format = arguments["--format"]
             columns = arguments["--columns"]
             detail = arguments["--detail"]
-            Console.ok('list {} {} {} {} {} {}'.format(cloud,group,refresh,output_format,columns,detail))
+            Console.ok('list {} {} {} {} {} {}'.format(cloud, group, refresh, output_format, columns, detail))
         pass
 
 

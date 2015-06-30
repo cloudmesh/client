@@ -8,6 +8,7 @@ from cloudmesh_client.cloud.command_cloud import CloudRegister
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.tables import dict_printer
 
+
 class cm_shell_cloud:
     def activate_cm_shell_cloud(self):
         self.register_command_topic('cloud', 'register')
@@ -57,7 +58,7 @@ class cm_shell_cloud:
         pprint(arguments)
 
         def get_kind():
-            for k in ["vm","image", "flavor", "default"]:
+            for k in ["vm", "image", "flavor", "default"]:
                 if arguments[k]:
                     return k
             return "help"
@@ -68,7 +69,7 @@ class cm_shell_cloud:
         cm = CloudmeshDatabase()
         kind = get_kind()
         if kind == "help":
-            print ("HELP HERE")
+            print("HELP HERE")
         else:
             cm.update(kind, "india")
             # result = cm.list(kind, output="flat")
@@ -77,59 +78,58 @@ class cm_shell_cloud:
             order = None
             if kind == 'flavor':
                 order = [
-                         'cm_cloud',
-                         'disk',
-                         'ephemeral_disk',
-                         'id',
-                         'name',
-                         'ram',
-                         'vcpus'
-                        ]
+                    'cm_cloud',
+                    'disk',
+                    'ephemeral_disk',
+                    'id',
+                    'name',
+                    'ram',
+                    'vcpus'
+                ]
             elif kind == 'image':
                 order = [
-                         'cm_cloud',
-                         'cm_user',
-                         'instance_type_ephemeral_gb',
-                         'instance_type_flavorid',
-                         'instance_type_id',
-                         'instance_type_memory_mb',
-                         'instance_type_name',
-                         'instance_type_root_gb',
-                         'instance_type_rxtx_factor',
-                         'instance_type_swap',
-                         'instance_type_vcpus',
-                         'minDisk',
-                         'minRam',
-                         'name',
-                        ]
+                    'cm_cloud',
+                    'cm_user',
+                    'instance_type_ephemeral_gb',
+                    'instance_type_flavorid',
+                    'instance_type_id',
+                    'instance_type_memory_mb',
+                    'instance_type_name',
+                    'instance_type_root_gb',
+                    'instance_type_rxtx_factor',
+                    'instance_type_swap',
+                    'instance_type_vcpus',
+                    'minDisk',
+                    'minRam',
+                    'name',
+                ]
                 header = [
-                         'cloud',
-                         'user',
-                         'ephemeral_gb',
-                         'flavorid',
-                         'id',
-                         'memory_mb',
-                         'flavor',
-                         'root_gb',
-                         'rxtx_factor',
-                         'swap',
-                         'vcpus',
-                         'minDisk',
-                         'minRam',
-                         'name',
-                        ]
-            print (dict_printer(result,
-                         order=order,
-                         header=header,
-                         output="table",
-                         sort_keys=True,
-                         show_none=""))
+                    'cloud',
+                    'user',
+                    'ephemeral_gb',
+                    'flavorid',
+                    'id',
+                    'memory_mb',
+                    'flavor',
+                    'root_gb',
+                    'rxtx_factor',
+                    'swap',
+                    'vcpus',
+                    'minDisk',
+                    'minRam',
+                    'name',
+                ]
+            print(dict_printer(result,
+                               order=order,
+                               header=header,
+                               output="table",
+                               sort_keys=True,
+                               show_none=""))
 
-        # d = cm.get(FLAVOR)
-        # print("9999")
-        # pprint(d)
-        # print("8888")
-
+            # d = cm.get(FLAVOR)
+            # print("9999")
+            # pprint(d)
+            # print("8888")
 
     @command
     def do_register(self, args, arguments):
@@ -266,7 +266,7 @@ class cm_shell_cloud:
             CloudRegister.host("india", force)
 
         elif arguments['CLOUD']:
-            if arguments['CERT']:#path to the cacert.pem
+            if arguments['CERT']:  # path to the cacert.pem
                 cloud = arguments['CLOUD']
                 path = arguments['CERT']
                 force = False
@@ -276,7 +276,7 @@ class cm_shell_cloud:
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
                 dir = arguments['--dir']
-                print (dir)
+                print(dir)
                 CloudRegister.directory(cloud, dir)
         pass
 

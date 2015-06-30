@@ -13,8 +13,8 @@ from datetime import datetime
 from cloudmesh_base.hostlist import Parameter
 import getpass
 
-class CloudmeshDatabase(object):
 
+class CloudmeshDatabase(object):
     def __init__(self, cm_user=None):
         """
         initializes the CloudmeshDatabase for a specific user.
@@ -180,7 +180,6 @@ class CloudmeshDatabase(object):
         name = self.get_name()
         return Cloud.next_name(name)
 
-
     def update_from_dict(self, d):
 
         content = dict(d)
@@ -196,14 +195,14 @@ class CloudmeshDatabase(object):
             self.session.add_all([e])
             self.save()
 
-        self.set(e,content)
+        self.set(e, content)
 
     def set(self, element, d):
         for key in d:
             try:
                 setattr(element, key, d[key])
             except Exception, e:
-                print ("WARNING:", key, "in table", element.__table__.name, "does not exist")
+                print("WARNING:", key, "in table", element.__table__.name, "does not exist")
                 print(e)
         self.save()
 
@@ -211,7 +210,7 @@ class CloudmeshDatabase(object):
         if cloud is None:
             cloud = "global"
 
-        cm_id= self.getID("default", name, cloud)
+        cm_id = self.getID("default", name, cloud)
         current = self.session.query(DEFAULT).filter_by(cm_id=cm_id).first()
         if current is None:
             return None
@@ -238,14 +237,14 @@ class CloudmeshDatabase(object):
         if cloud is None:
             cloud = "global"
 
-        element_id= self.getID("default", name, cloud)
+        element_id = self.getID("default", name, cloud)
         d = {
             "cm_cloud": cloud,
             "cm_type": "default",
             "cm_id": element_id,
             "name": name,
             "value": value
-            }
+        }
 
         self.update_from_dict(d)
 
@@ -343,7 +342,7 @@ class CloudmeshDatabase(object):
         """
         return self.dict(table)
 
-    def o_to_d (self, element):
+    def o_to_d(self, element):
         """
         converts a single object to a dictionary
 
@@ -354,7 +353,6 @@ class CloudmeshDatabase(object):
         for column in element.__table__.columns:
             d[column.name] = getattr(element, column.name)
         return d
-
 
     def object_to_dict(self, obj):
         """
@@ -552,6 +550,7 @@ class CloudmeshDatabase(object):
         return cloud.boot(cloud, cm_user, name, image, flavor, key, meta)
     """
 
+
 class CloudType:
     openstack = "openstack"
     azure = "azure"
@@ -588,6 +587,7 @@ class KeyMapper(object):
     def add_mapping_from_dict(self, cloudobject, d):
         tupels = [(k, v) for k, v in d.iteritems()]
         self.add_mapping(cloudobject, tupels)
+
     """
     def add(self, cloudobject, key_db, key_cloud):
         self.cloud_keys[cloudobject].append(key_cloud)
@@ -658,10 +658,10 @@ class Insert(object):
             result = {}
         else:
             result = dict(a)
-        print (result)
+        print(result)
         for key_to in mapping:
             try:
-                key_from=mapping[key_to]
+                key_from = mapping[key_to]
                 result[key_to] = b[key_from]
             except:
                 pass
@@ -720,7 +720,5 @@ def main():
     print(cm.list(VM))
 
 
-
 if __name__ == "__main__":
     main()
-
