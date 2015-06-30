@@ -33,7 +33,6 @@ class Test_register:
         """testing cm register india"""
         HEADING()
         # os.sytem("yes | cm register india")
-        #result = Shell.execute("cm register india".split(" "))
         result = run("cm register india --force")
         #result = Shell.cm("register", "india", "--force")
         print(result)
