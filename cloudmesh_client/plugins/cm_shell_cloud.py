@@ -4,7 +4,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
-from cloudmesh_client.cloud.command_cloud import CloudRegister
+from cloudmesh_client.cloud.CloudRegister import CloudRegister
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.tables import dict_printer
 
