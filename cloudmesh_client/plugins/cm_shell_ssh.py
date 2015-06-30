@@ -15,26 +15,52 @@ class cm_shell_ssh:
         """
         ::
 
-          Usage:
-              ssh list [--output=FORMAT]
+            Usage:
+                ssh list [--format=FORMAT]
+                ssh register NAME PARAMETERS
+                ssh NAME [--user=USER] [--key=KEY]
 
 
-          managing the sshs test test test test
+            conducts a ssh login into a machine while using a set of
+            registered commands under the name of the machine.
 
-          Arguments:
+            Arguments:
 
-            KEY    the name of the ssh
-            VALUE  the value to set the key to
+              NAME        Name or ip of the machine to log in
+              list        Lists the machines that are registered and
+                          the commands to login to them
+              PARAMETERS  Register te resource and add the given
+                          parameters to the ssh config file.  if the
+                          resoource exists, it will be overwritten. The
+                          information will be written in /.ssh/config
 
-          Options:
+            Options:
 
-             --cloud=CLOUD    the name of the cloud [ssh: general]
-             --output=FORMAT  the output format [ssh: table]
+               -v       verbose mode
+               --format=FORMAT   the format in which this list is given
+                                 formats incluse table, json, yaml, dict
+                                 [default: table]
+
+               --user=USER       overwrites the username that is
+                                 specified in ~/.ssh/config
+
+               --key=KEY         The keyname as defined in the key list
+                                 or a location that contains a pblic key
 
         """
         # pprint(arguments)
-        cloud = arguments["--cloud"]
-        output_format = arguments["--format"]
+        if arguments["list"]:
+            output_format = arguments["--format"]
+            Console.ok('list {}'.format(output_format))
+        elif arguments["register"]:
+            name = arguments["NAME"]
+            parameters = arguments["PARAMETERS"]
+            Console.ok('register {} {}'.format(name, parameters))
+        elif arguments["NAME"]:
+            name = arguments["NAME"]
+            user = arguments["--user"]
+            key = arguments["--key"]
+            Console.ok('ssh {} {} {}'.format(name, user, key))
         pass
 
 

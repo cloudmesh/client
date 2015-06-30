@@ -5,15 +5,15 @@ from cloudmesh_client.common.ConfigDict import Config
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from cloudmesh_client.db.models import VM,FLAVOR,DEFAULT,IMAGE
+from cloudmesh_client.db.models import VM, FLAVOR, DEFAULT, IMAGE
 import cloudmesh_client.db.models as models
 from sqlalchemy import text
 from cloudmesh_base.hostlist import Parameter
 import cloudmesh_client.db.CloudmeshDatabase as cm
 import re
 
-class command_search(object):
 
+class command_search(object):
     @classmethod
     def do_search(cls, table, order, filter):
         c = cm()
@@ -21,7 +21,7 @@ class command_search(object):
         if filter:
             for i in range(len(filter)):
 
-                regex = re.compile("(!=|>=|<=|=|>|<)",re.I)
+                regex = re.compile("(!=|>=|<=|=|>|<)", re.I)
                 sep = regex.search(filter[i]).groups()
                 if sep:
                     separator = sep[0]
@@ -72,4 +72,3 @@ class command_search(object):
             print(output)
         else:
             print("Nothing found")
-

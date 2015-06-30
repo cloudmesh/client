@@ -148,7 +148,7 @@ class Cloud(object):
         :rtype: str
         """
         prefix, n, padding = cls._parse_name(name)
-        n = n + 1
+        n += 1
         return cls._generate_name(prefix, n, padding)
 
     @classmethod

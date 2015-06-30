@@ -15,26 +15,24 @@ class cm_shell_quota:
         """
         ::
 
-          Usage:
-              quota list [--output=FORMAT]
+            Usage:
+                quota [CLOUD...] [--format=FORMAT]
 
+            print quota limit on a current project/tenant
 
-          managing the quotas test test test test
+            Arguments:
 
-          Arguments:
+              CLOUD          Cloud name
 
-            KEY    the name of the quota
-            VALUE  the value to set the key to
+            Options:
 
-          Options:
-
-             --cloud=CLOUD    the name of the cloud [quota: general]
-             --output=FORMAT  the output format [quota: table]
+               -v       verbose mode
 
         """
         # pprint(arguments)
-        cloud = arguments["--cloud"]
+        clouds = arguments["CLOUD"]
         output_format = arguments["--format"]
+        Console.ok('quota {} {}'.format(clouds, output_format))
         pass
 
 

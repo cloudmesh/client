@@ -40,20 +40,18 @@ admin
 Command - admin::
 
     Usage:
-        admin list [--output=FORMAT]
-
-
-    managing the admins test test test test
-
-    Arguments:
-
-      KEY    the name of the admin
-      VALUE  the value to set the key to
+      admin password reset
+      admin version
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [admin: general]
-       --output=FORMAT  the output format [admin: table]
+
+    Description:
+      admin password reset
+        Reset portal password
+
+      admin version
+         Prints the version numbers of cloudmesh and its plugins
 
 
 
@@ -304,20 +302,64 @@ key
 Command - key::
 
     Usage:
-        key list [--output=FORMAT]
+      key  -h | --help
+      key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
+      key add [--keyname=KEYNAME] FILENAME
+      key default [KEYNAME]
+      key delete KEYNAME
 
-
-    managing the keys test test test test
+    Manages the keys
 
     Arguments:
 
-          the name of the key
-      VALUE  the value to set the  to
+      SOURCE         mongo, yaml, ssh
+      KEYNAME        The name of a key
+      FORMAT         The format of the output (table, json, yaml)
+      FILENAME       The filename with full path in which the key
+                     is located
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [key: general]
-       --output=FORMAT  the output format [key: table]
+       --dir=DIR            the directory with keys [default: ~/.ssh]
+       --format=FORMAT      the format of the output [default: table]
+       --source=SOURCE      the source for the keys [default: ssh]
+       --keyname=KEYNAME    the name of the keys
+
+    Description:
+
+
+    key list --source=ssh  [--dir=DIR] [--format=FORMAT]
+
+       lists all keys in the directory. If the directory is not
+       specified the default will be ~/.ssh
+
+    key list --source=yaml  [--dir=DIR] [--format=FORMAT]
+
+       lists all keys in cloudmesh.yaml file in the specified directory.
+        dir is by default ~/.cloudmesh
+
+    key list [--format=FORMAT]
+
+        list the keys in mongo
+
+    key add [--keyname=keyname] FILENAME
+
+        adds the key specifid by the filename to mongodb
+
+
+    key list
+
+         Prints list of keys. NAME of the key can be specified
+
+    key default [NAME]
+
+         Used to set a key from the key-list as the default key if NAME
+         is given. Otherwise print the current default key
+
+    key delete NAME
+
+         deletes a key. In yaml mode it can delete only key that
+         are not saved in mongo
 
 
 
@@ -350,20 +392,17 @@ limits
 Command - limits::
 
     Usage:
-        limits list [--output=FORMAT]
+        limits [CLOUD...] [--format=FORMAT]
 
-
-    managing the limitss test test test test
+    Current usage data with limits on a selected project/tenant
 
     Arguments:
 
-      KEY    the name of the limits
-      VALUE  the value to set the key to
+      CLOUD          Cloud name to see the usage
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [limits: general]
-       --output=FORMAT  the output format [limits: table]
+       -v       verbose mode
 
 
 
@@ -403,20 +442,30 @@ loglevel
 Command - loglevel::
 
     Usage:
-        loglevel list [--output=FORMAT]
+      loglevel
+      loglevel critical
+      loglevel error
+      loglevel warning
+      loglevel info
+      loglevel debug
 
 
-    managing the loglevels test test test test
+    Shows current log level or changes it.
 
     Arguments:
 
-      KEY    the name of the loglevel
-      VALUE  the value to set the key to
+    Description:
+
+      loglevel - shows current log level
+      critical - shows log message in critical level
+      error    - shows log message in error level including critical
+      warning  - shows log message in warning level including error
+      info     - shows log message in info level including warning
+      debug    - shows log message in debug level including info
+
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [loglevel: general]
-       --output=FORMAT  the output format [loglevel: table]
 
 
 
@@ -629,21 +678,77 @@ quota
 Command - quota::
 
     Usage:
-        quota list [--output=FORMAT]
+        quota [CLOUD...] [--format=FORMAT]
 
-
-    managing the quotas test test test test
+    print quota limit on a current project/tenant
 
     Arguments:
 
-      KEY    the name of the quota
-      VALUE  the value to set the key to
+      CLOUD          Cloud name
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [quota: general]
-       --output=FORMAT  the output format [quota: table]
+       -v       verbose mode
 
+
+
+refresh
+----------------------------------------------------------------------
+
+Command - refresh::
+
+    Refreshes the database with information from the clouds
+
+
+    Usage:
+        refresh
+        refresh status
+        refresh list
+        refresh CLOUD...
+
+    Arguments:
+
+        CLOUD  (parameterized) the name of a cloud
+
+    Description:
+
+        Refreshes are activated on all clouds that are "active". A cloud
+        can be activated with the cloud command
+
+           cloud activate CLOUD
+
+        refresh
+            refreshes the information that we have about all
+            activeclouds.
+
+        refresh CLOUD...
+            refreshes the information form the specific clouds
+
+        refresh status
+            as the refresh may be done asynchronously, the stats will
+            show you the progress of the ongoing refresh NOT
+            IMPLEMENTED It also shows when the last refresh on a
+            specific cloud object took place.
+
+        refresh list
+            lists all the Clouds that need a refresh
+
+    Example:
+
+         The following command sequences each refresh the clouds named
+         india and aws.
+
+             refresh india,aws
+             refresh india aws
+             refresh india
+             refresh aws
+
+      To utilize the refresh command without parameters you need to
+      assure the clouds are activated
+
+         cloud activate india
+         cloud activate aws
+         refresh
 
 
 register
@@ -662,8 +767,8 @@ Command - register::
         register test [--yaml=FILENAME]
         register rc HOST [OPENRC]
         register [--yaml=FILENAME]
-        register india
-        register CLOUD CERT
+        register india [--force]
+        register CLOUD CERT [--force]
         register CLOUD --dir=DIR
 
     managing the registered clouds in the cloudmesh.yaml file.
@@ -683,6 +788,7 @@ Command - register::
     Options:
 
        -v       verbose mode
+
 
     Description:
 
@@ -783,26 +889,45 @@ Command - search::
 
 
 
-security_group
+secgroup
 ----------------------------------------------------------------------
 
-Command - security_group::
+Command - secgroup::
 
     Usage:
-        security_group list [--output=FORMAT]
-
-
-    managing the security_groups test test test test
-
-    Arguments:
-
-      KEY    the name of the security_group
-      VALUE  the value to set the key to
+        secgroup list CLOUD TENANT
+        secgroup create CLOUD TENANT LABEL
+        secgroup delete CLOUD TENANT LABEL
+        secgroup rules-list CLOUD TENANT LABEL
+        secgroup rules-add CLOUD TENANT LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup rules-delete CLOUD TENANT LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup -h | --help
+        secgroup --version
 
     Options:
+        -h            help message
 
-       --cloud=CLOUD    the name of the cloud [security_group: general]
-       --output=FORMAT  the output format [security_group: table]
+    Arguments:
+        CLOUD         Name of the IaaS cloud e.g. india_openstack_grizzly.
+        TENANT        Name of the tenant, e.g. fg82.
+        LABEL         The label/name of the security group
+        FROMPORT      Staring port of the rule, e.g. 22
+        TOPORT        Ending port of the rule, e.g. 22
+        PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
+        CIDR          IP address range in CIDR format, e.g., 129.79.0.0/16
+
+    Description:
+        security_group command provides list/add/delete
+        security_groups for a tenant of a cloud, as well as
+        list/add/delete of rules for a security group from a
+        specified cloud and tenant.
+
+
+    Examples:
+        $ secgroup list india fg82
+        $ secgroup rules-list india fg82 default
+        $ secgroup create india fg82 webservice
+        $ secgroup rules-add india fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
 
 
@@ -835,20 +960,36 @@ ssh
 Command - ssh::
 
     Usage:
-        ssh list [--output=FORMAT]
+        ssh list [--format=FORMAT]
+        ssh register NAME PARAMETERS
+        ssh NAME [--user=USER] [--key=KEY]
 
 
-    managing the sshs test test test test
+    conducts a ssh login into a machine while using a set of
+    registered commands under the name of the machine.
 
     Arguments:
 
-      KEY    the name of the ssh
-      VALUE  the value to set the key to
+      NAME        Name or ip of the machine to log in
+      list        Lists the machines that are registered and
+                  the commands to login to them
+      PARAMETERS  Register te resource and add the given
+                  parameters to the ssh config file.  if the
+                  resoource exists, it will be overwritten. The
+                  information will be written in /.ssh/config
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [ssh: general]
-       --output=FORMAT  the output format [ssh: table]
+       -v       verbose mode
+       --format=FORMAT   the format in which this list is given
+                         formats incluse table, json, yaml, dict
+                         [default: table]
+
+       --user=USER       overwrites the username that is
+                         specified in ~/.ssh/config
+
+       --key=KEY         The keyname as defined in the key list
+                         or a location that contains a pblic key
 
 
 
@@ -881,20 +1022,20 @@ status
 Command - status::
 
     Usage:
-        status list [--output=FORMAT]
+        status
+        status db
+        status CLOUDS...
 
 
-    managing the statuss test test test test
+
 
     Arguments:
 
-      KEY    the name of the status
-      VALUE  the value to set the key to
+
 
     Options:
 
-       --cloud=CLOUD    the name of the cloud [status: general]
-       --output=FORMAT  the output format [status: table]
+
 
 
 
@@ -1025,20 +1166,101 @@ vm
 Command - vm::
 
     Usage:
-        vm list [--output=FORMAT]
-
-
-    managing the vms test test test test
+        vm start [--name=NAME]
+                 [--count=COUNT]
+                 [--cloud=CLOUD]
+                 [--image=IMAGE_OR_ID]
+                 [--flavor=FLAVOR_OR_ID]
+                 [--group=GROUP]
+        vm delete [NAME_OR_ID...]
+                  [--group=GROUP]
+                  [--cloud=CLOUD]
+                  [--force]
+        vm ip_assign [NAME_OR_ID...]
+                     [--cloud=CLOUD]
+        vm ip_show [NAME_OR_ID...]
+                   [--group=GROUP]
+                   [--cloud=CLOUD]
+                   [--format=FORMAT]
+                   [--refresh]
+        vm login NAME [--user=USER]
+                 [--ip=IP]
+                 [--cloud=CLOUD]
+                 [--key=KEY]
+                 [--command=COMMAND]
+        vm list [CLOUD|--all]
+                [--group=GROUP]
+                [--refresh]
+                [--format=FORMAT]
+                [--columns=COLUMNS]
+                [--detail]
 
     Arguments:
-
-      KEY    the name of the vm
-      VALUE  the value to set the key to
+        COMMAND   positional arguments, the commands you want to
+                  execute on the server(e.g. ls -a) separated by ';',
+                  you will get a return of executing result instead of login to
+                  the server, note that type in -- is suggested before
+                  you input the commands
+        NAME      server name
 
     Options:
+        --ip=IP          give the public ip of the server
+        --cloud=CLOUD    give a cloud to work on, if not given, selected
+                         or default cloud will be used
+        --count=COUNT    give the number of servers to start
+        --detail         for table print format, a brief version
+                         is used as default, use this flag to print
+                         detailed table
+        --flavor=FLAVOR_OR_ID  give the name or id of the flavor
+        --group=GROUP          give the group name of server
+        --image=IMAGE_OR_ID    give the name or id of the image
+        --key=KEY        spicfy a key to use, input a string which
+                         is the full path to the public key file
+        --user=USER      give the user name of the server that you want
+                         to use to login
+        --name=NAME      give the name of the virtual machine
+        --force          delete vms without user's confirmation
+        --command=COMMAND
+                         specify the commands to be executed
 
-       --cloud=CLOUD    the name of the cloud [vm: general]
-       --output=FORMAT  the output format [vm: table]
+
+
+    Description:
+        commands used to start or delete servers of a cloud
+
+        vm start [options...]       start servers of a cloud, user may specify
+                                    flavor, image .etc, otherwise default values
+                                    will be used, see how to set default values
+                                    of a cloud: cloud help
+        vm delete [options...]      delete servers of a cloud, user may delete
+                                    a server by its name or id, delete servers
+                                    of a group or servers of a cloud, give prefix
+                                    and/or range to find servers by their names.
+                                    Or user may specify more options to narrow
+                                    the search
+        vm ip_assign [options...]   assign a public ip to a VM of a cloud
+        vm ip_show [options...]     show the ips of VMs
+        vm login [options...]       login to a server or execute commands on it
+        vm list [options...]        same as command "list vm", please refer to it
+
+    Tip:
+        give the VM name, but in a hostlist style, which is very
+        convenient when you need a range of VMs e.g. sample[1-3]
+        => ['sample1', 'sample2', 'sample3']
+        sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
+
+    Examples:
+        vm start --count=5 --group=test --cloud=india
+                start 5 servers on india and give them group
+                name: test
+
+        vm delete --group=test --names=sample_[1-9]
+                delete servers on selected or default cloud with search conditions:
+                group name is test and the VM names are among sample_1 ... sample_9
+
+        vm ip show --names=sample_[1-5,9] --format=json
+                show the ips of VM names among sample_1 ... sample_5 and sample_9 in
+                json format
 
 
 
@@ -1048,19 +1270,79 @@ volume
 Command - volume::
 
     Usage:
-        volume list [--output=FORMAT]
+        volume list
+        volume create SIZE
+                      [--snapshot-id=SNAPSHOT-ID]
+                      [--image-id=IMAGE-ID]
+                      [--display-name=DISPLAY-NAME]
+                      [--display-description=DISPLAY-DESCRIPTION]
+                      [--volume-type=VOLUME-TYPE]
+                      [--availability-zone=AVAILABILITY-ZONE]
+        volume delete VOLUME
+        volume attach SERVER VOLUME DEVICE
+        volume detach SERVER VOLUME
+        volume show VOLUME
+        volume SNAPSHOT-LIST
+        volume snapshot-create VOLUME-ID
+                               [--force]
+                               [--display-name=DISPLAY-NAME]
+                               [--display-description=DISPLAY-DESCRIPTION]
+        volume snapshot-delete SNAPSHOT
+        volume snapshot-show SNAPSHOT
+        volume help
 
 
-    managing the volumes test test test test
+    volume management
 
     Arguments:
-
-      KEY    the name of the volume
-      VALUE  the value to set the key to
+        SIZE              Size of volume in GB
+        VOLUME            Name or ID of the volume to delete
+        VOLUME-ID         ID of the volume to snapshot
+        SERVER            Name or ID of server(VM).
+        DEVICE            Name of the device e.g. /dev/vdb. Use "auto" for
+                          autoassign (if supported)
+        SNAPSHOT          Name or ID of the snapshot
 
     Options:
+        --snapshot-id SNAPSHOT-ID     Optional snapshot id to create
+                                      the volume from.  (Default=None)
+        --image-id IMAGE-ID           Optional image id to create the
+                                      volume from.  (Default=None)
+        --display-name DISPLAY-NAME   Optional volume name. (Default=None)
+        --display-description DISPLAY-DESCRIPTION
+                                      Optional volume description. (Default=None)
+        --volume-type VOLUME-TYPE
+                                      Optional volume type. (Default=None)
+        --availability-zone AVAILABILITY-ZONE
+                                      Optional Availability Zone for
+                                      volume. (Default=None)
+        --force                       Optional flag to indicate whether to snapshot a
+                                      volume even if its
+                                      attached to an
+                                      instance. (Default=False)
 
-       --cloud=CLOUD    the name of the cloud [volume: general]
-       --output=FORMAT  the output format [volume: table]
+    Description:
+        volume list
+            List all the volumes
+        volume create SIZE [options...]
+            Add a new volume
+        volume delete VOLUME
+            Remove a volume
+        volume attach SERVER VOLUME DEVICE
+            Attach a volume to a server
+        volume-detach SERVER VOLUME
+            Detach a volume from a server
+        volume show VOLUME
+            Show details about a volume
+        volume snapshot-list
+            List all the snapshots
+        volume snapshot-create VOLUME-ID [options...]
+            Add a new snapshot
+        volume snapshot-delete SNAPSHOT
+            Remove a snapshot
+        volume-snapshot-show SNAPSHOT
+            Show details about a snapshot
+        volume help
+            Prints the nova manual
 
 

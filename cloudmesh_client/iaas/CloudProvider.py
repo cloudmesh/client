@@ -9,6 +9,7 @@ from cloudmesh_client.db.models import database
 from pprint import pprint
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
+
 class CloudProvider:
     # __metaclass__ = ABCMeta
 
@@ -196,15 +197,15 @@ class CloudProvider:
         return result
 
     # @abstractmethod
-    #def get_images(self, cloud):
+    # def get_images(self, cloud):
     #    return {}
 
     # @abstractmethod
-    #def get_flavors(self, cloud):
+    # def get_flavors(self, cloud):
     #    return {}
 
     # @abstractmethod
-    #def get_vms(self, cloud):
+    # def get_vms(self, cloud):
     #    return {}
 
     # ------------------------

@@ -15,26 +15,24 @@ class cm_shell_limits:
         """
         ::
 
-          Usage:
-              limits list [--output=FORMAT]
+            Usage:
+                limits [CLOUD...] [--format=FORMAT]
 
+            Current usage data with limits on a selected project/tenant
 
-          managing the limitss test test test test
+            Arguments:
 
-          Arguments:
+              CLOUD          Cloud name to see the usage
 
-            KEY    the name of the limits
-            VALUE  the value to set the key to
+            Options:
 
-          Options:
-
-             --cloud=CLOUD    the name of the cloud [limits: general]
-             --output=FORMAT  the output format [limits: table]
+               -v       verbose mode
 
         """
         # pprint(arguments)
-        cloud = arguments["--cloud"]
+        clouds = arguments["CLOUD"]
         output_format = arguments["--format"]
+        Console.ok('limits {} {}'.format(clouds, output_format))
         pass
 
 

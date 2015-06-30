@@ -4,6 +4,10 @@ from cmd3.console import Console
 from cmd3.shell import command
 from pprint import pprint
 # from cloudmesh_client.cloud.command_key import command_key
+from cloudmesh_base.util import path_expand
+from os import listdir
+from os.path import expanduser, isfile, abspath
+from cloudmesh_base.tables import dict_printer, two_column_table
 
 
 class cm_shell_key:
@@ -36,7 +40,7 @@ class cm_shell_key:
 
               --dir=DIR            the directory with keys [default: ~/.ssh]
               --format=FORMAT      the format of the output [default: table]
-              --source=SOURCE      the source for the keys [default: mongo]
+              --source=SOURCE      the source for the keys [default: ssh]
               --keyname=KEYNAME    the name of the keys
 
            Description:
@@ -78,36 +82,60 @@ class cm_shell_key:
         """
         pprint(arguments)
 
+        def _print_dict(d, header=None, format='table'):
+            if format == "json":
+                return json.dumps(d, indent=4)
+            elif format == "yaml":
+                return yaml.dump(d, default_flow_style=False)
+            else:
+                return two_column_table(d, header)
+
+        directory = path_expand(arguments["--dir"])
+        source = arguments["--source"]
+
+        if arguments["list"] and source == "ssh":
+
+            files = _find_keys(directory)
+
+            ssh_keys = {}
+
+            for key in files:
+                ssh_keys[key] = directory + "/" + key
+            print(ssh_keys)
+
+            print(_print_dict(ssh_keys))
+
+            return
 
         if arguments['list']:
-            print ('list')
+            print('list')
             if arguments['--source']:
                 source = arguments['--source']
-                print (source)
+                print(source)
             if arguments['--dir']:
                 dir = arguments['--dir']
-                print (dir)
+                print(dir)
             if arguments['--format']:
                 format = arguments['--format']
-                print (format)
+                print(format)
         elif arguments['add']:
-            print ('add')
+            print('add')
             keyname = None
             if arguments['--keyname']:
                 keyname = arguments['--keyname']
-                print (keyname)
+                print(keyname)
             filename = arguments['FILENAME']
-            print (filename)
+            print(filename)
         elif arguments['default']:
-            print ("default")
+            print("default")
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
-                print (keyname)
+                print(keyname)
         elif arguments['delete']:
-            print ('delete')
+            print('delete')
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
-                print (keyname)
+                print(keyname)
 
 
 if __name__ == '__main__':

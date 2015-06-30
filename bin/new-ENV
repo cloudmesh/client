@@ -1,0 +1,28 @@
+#!/bin/sh
+#~/ENV/bin/deactivate
+rm -rf ~/ENV
+virtualenv -p /usr/local/bin/python ~/ENV
+source ~/ENV/bin/activate
+
+pip install pip -U
+
+PWD=`pwd`
+
+cd ../base
+git pull
+git checkout sh
+
+cd ../cmd3
+git pull
+git checkout sh
+
+cd ../client
+git pull
+# git checkout sh
+
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD; ./bin/install-code; ./bin/new-title; cm plugins add cloudmesh_client  ; cm help ; cm version\" "
+
+cm plugins add cloudmesh_client
+
+#xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
+#
