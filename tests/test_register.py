@@ -39,39 +39,26 @@ class Test_register:
 
         assert "ok." in result
 
-    def test_002(self):
-        """testing cm register india --force"""
-        HEADING()
-        try:
-            os.system("cm register india --force")
-        except Exception:
-            assert False
 
-    def test_003(self):
+
+    def test_002(self):
         """testing cm register random1 --force"""
         HEADING()
-        try:
-            os.system("cm register random1 --force")
-            assert False
-        except Exception:
-            assert True
-    def test_004(self):
+        result = run ("cm register random1 --force")
+        assert "not found" in result
+
+    def test_003(self):
         """testing cm register india --foo"""
         HEADING()
-        try:
-            os.system("cm register india --foo")
-            assert False
-        except Exception:
-            assert True
+        result = run ("cm register india --foo")
+        print result
+        assert False
+
 
     def test_005(self):
         """testing cm register CLOUD CERT"""
         HEADING()
-        try:
-            os.system("cm register india .cloudmesh/clouds/juno/cacert.pem")
-            assert True
-        except Exception:
-            assert False
+        result = run ("cm register india .cloudmesh/clouds/juno/cacert.pem")
 
     def test_006(self):
         """testing cm register CLOUD CERT"""
