@@ -60,7 +60,7 @@ class compute(ComputeBaseType):
     # : a dict containing the credentionls read with cm_config
     # credential = None  # global var
 
-    user_credential = None  # global var
+    credential = None  # global var
 
     user_token = None
 
@@ -94,15 +94,13 @@ class compute(ComputeBaseType):
         """
         self.clear()
         self.label = label
-
-        user_credential = credential  # HACK to avoid changes in older code
-        self.user_credential = user_credential
+        self.credential = credential
         self.service_url_type = service_url_type
 
-        if user_credential is None:
+        if credential is None:
             try:
                 self.compute_config = ConfigDict(filename="~/.cloudmesh/cloudmesh.yaml")
-                self.user_credential = self.compute_config.get("cloudmesh.clouds.{:}".format(label))
+                self.credential = self.compute_config.get("cloudmesh.clouds.{:}.credentials".format(label))
             except:
                 log.error(str(
                     lineno()) + ": No user credentail found! Please check your cloudmesh.yaml file.")
@@ -119,7 +117,7 @@ class compute(ComputeBaseType):
         # Todo: we may just use the name of the class instead as the type
         self._clear()
         self.user_token = None
-        self.user_credentials = None
+        self.credential = None
         self.type = "openstack"
 
     def connect(self):
@@ -127,26 +125,27 @@ class compute(ComputeBaseType):
         creates tokens for a connection
         """
         log.info(str(lineno()) + ": Loading User Credentials")
-        if self.user_credential is None:
+        if self.credential is None:
             log.error(
                 str(lineno()) + ": error connecting to openstack compute, credential is None")
         elif not self.user_token:
-            self.user_token = self.get_token(self.user_credentials)
+            self.user_token = self.get_token(self.credential)
 
 
     def DEBUG(self, msg, line_number=None):
         if line_number is None:
             line_number = ""
         if msg == "credential":
-            debug_dict = dict(self.user_credential)
+            debug_dict = dict(self.credential)
             pprint(debug_dict)
-            password = debug_dict['credentials']['OS_PASSWORD']
+            password = debug_dict['OS_PASSWORD']
             content = str(debug_dict)
             content = content.replace(password, "********")
             log.debug(
                 "{1} - GET CRED {0}".format(content, str(line_number)))
         else:
-            log.debug("{0} - {1}".format(str(line_number), str(msg)))
+            password = self.credential['OS_PASSWORD']
+            log.debug("{0} - {1}".format(str(line_number), str(msg.replace(password, "********"))))
 
     def auth(self):
 
@@ -155,9 +154,9 @@ class compute(ComputeBaseType):
             _args = locals()
             if 'self' in _args:
                 del (_args['self'])
-            log.debug("[{0}()] called with [{1}]".format(sys._getframe().f_code.co_name,
-                                                         str(_args)))
-            log.debug("user_token:{0}".format(str(self.user_token)))
+            self.DEBUG("[{0}()] called with [{1}]".format(sys._getframe().f_code.co_name,
+                                                         str(_args)), lineno())
+            self.DEBUG("user_token:{0}".format(str(self.user_token)), lineno())
         except:
             pass
 
@@ -172,13 +171,13 @@ class compute(ComputeBaseType):
             _args = locals()
             if 'self' in _args:
                 del (_args['self'])
-            log.debug("[{0}()] called with [{1}]".format(sys._getframe().f_code.co_name,
-                                                         str(_args)))
+            self.DEBUG("[{0}()] called with [{1}]".format(sys._getframe().f_code.co_name,
+                                                         str(_args)), lineno())
         except:
             pass
 
         if credential is None:
-            credential = self.user_credential
+            credential = self.credential
 
         self.DEBUG("credential", lineno())
 
@@ -201,16 +200,16 @@ class compute(ComputeBaseType):
                      }
         url = "{0}/tokens".format(credential['OS_AUTH_URL'])
 
-        log.debug(str(lineno()) + ": URL {0}".format(url))
+        self.DEBUG(": URL {0}".format(url), lineno())
 
         headers = {'content-type': 'application/json'}
         verify = self._get_cacert(credential)
 
         print_param = copy.deepcopy(param)
         print_param["auth"]["passwordCredentials"]["password"] = "********"
-        log.debug(str(lineno()) + ":PARAM {0}".format(json.dumps(print_param)))
-        log.debug(str(lineno()) + ":HEADER {0}".format(headers))
-        log.debug(str(lineno()) + ":VERIFY {0}".format(verify))
+        self.DEBUG(":PARAM {0}".format(json.dumps(print_param)), lineno())
+        self.DEBUG(":HEADER {0}".format(headers), lineno())
+        self.DEBUG(":VERIFY {0}".format(verify), lineno())
 
         r = requests.post(url,
                           data=json.dumps(param),
@@ -239,7 +238,7 @@ class compute(ComputeBaseType):
 
         if not force:
             try:
-                self.user_id = self.user_credential['OS_USER_ID']
+                self.user_id = self.credential['OS_USER_ID']
                 return self.user_id
             except:
                 self.user_id = None
@@ -262,7 +261,7 @@ class compute(ComputeBaseType):
 
     def _get_cacert(self, credential=None):
         if credential is None:
-            credential = self.user_credential
+            credential = self.credential
         verify = False
         if 'OS_CACERT' in credential:
             if credential['OS_CACERT'] is not None and \
@@ -275,7 +274,7 @@ class compute(ComputeBaseType):
         # print posturl
         # print self.config
         if credential is None:
-            credential = self.user_credential
+            credential = self.credential
         conf = self._get_service_endpoint("compute")
         headers = {'content-type': 'application/json',
                    'X-Auth-Token': '%s' % conf['token']}
@@ -295,7 +294,7 @@ class compute(ComputeBaseType):
     def _put(self, posturl, credential=None, params=None):
         # print self.config
         if credential is None:
-            credential = self.user_credential
+            credential = self.credential
         conf = self._get_service_endpoint("compute")
         headers = {'content-type': 'application/json',
                    'X-Auth-Token': '%s' % conf['token']}
@@ -322,7 +321,7 @@ class compute(ComputeBaseType):
         return self._get(msg=apiurl, urltype=self.service_url_type)
 
     def keypair_add(self, keyname, keycontent):
-        log.debug(str(lineno()) + ":adding a keypair in cm_compute...")
+        self.DEBUG(":adding a keypair in cm_compute...", lineno())
         # keysnow = self.keypair_list()
         url = self._get_service_endpoint("compute")[self.service_url_type]
 
@@ -336,7 +335,7 @@ class compute(ComputeBaseType):
         return self._post(posturl, params)
 
     def keypair_remove(self, keyname):
-        log.debug(str(lineno()) + ":removing a keypair in cm_compute...")
+        self.DEBUG(":removing a keypair in cm_compute...", lineno())
 
         conf = self._get_service_endpoint("compute")
         url = conf[self.service_url_type]
@@ -415,7 +414,7 @@ class compute(ComputeBaseType):
             # params["server"]["user_data"] = base64.b64encode(safe_userdata)
             safe_userdata = None
 
-        log.debug(str(lineno()) + ":POST PARAMS {0}".format(params))
+        self.DEBUG(":POST PARAMS {0}".format(params), lineno())
 
         return self._post(posturl, params)
 
@@ -461,7 +460,7 @@ class compute(ComputeBaseType):
             "timeout_mins": "%s" % timeout_mins
         }
 
-        log.debug(str(lineno()) + ":POST PARAMS {0}".format(params))
+        self.DEBUG(":POST PARAMS {0}".format(params), lineno())
 
         return self._post(posturl, params)
 
@@ -563,7 +562,7 @@ class compute(ComputeBaseType):
             "address": "%s" % ip
         }
                   }
-        log.debug("POST PARAMS {0}".format(params))
+        self.DEBUG("POST PARAMS {0}".format(params), lineno())
         return self._post(posturl, params)
 
     def delete_public_ip(self, idofip):
@@ -616,7 +615,7 @@ class compute(ComputeBaseType):
 
         # token=None, url=None, kind=None, urltype=None, json=True):
 
-        credential = self.user_credential
+        credential = self.credential
         token = self.user_token
 
         conf = self._get_service_endpoint(service)
@@ -624,13 +623,13 @@ class compute(ComputeBaseType):
 
         url = "{0}/{1}".format(url, msg)
 
-        log.debug(str(lineno()) + ": AUTH URL {0}".format(url))
+        self.DEBUG(": AUTH URL {0}".format(url), lineno())
         headers = {'X-Auth-Token': token['access']['token']['id']}
 
         r = requests.get(
             url, headers=headers, verify=self._get_cacert(credential), params=payload)
 
-        log.debug(str(lineno()) + ": Response {0}".format(r))
+        self.DEBUG(": Response {0}".format(r), lineno())
 
         if json:
             return r.json()
@@ -645,12 +644,12 @@ class compute(ComputeBaseType):
             type = "compute"
         compute_service = self._get_service(type)
         # pprint(compute_service)
-        credential = self.user_credential
+        credential = self.credential
         # print credential
 
         conf = {}
 
-        credential = self.user_credential
+        credential = self.credential
 
         conf['publicURL'] = str(compute_service['endpoints'][0]['publicURL'])
         # some cloud does not have this, e.g. HP cloud
@@ -818,7 +817,7 @@ class compute(ComputeBaseType):
                  "end": datetime.now()}
         _dict = self._get(msg, urltype=self.service_url_type,
                           payload=param)['tenant_usage']
-        log.debug(_dict)
+        self.DEBUG(_dict, lineno())
         self.usage = _dict
         return _dict
 
@@ -829,7 +828,7 @@ class compute(ComputeBaseType):
         tenant_id = self.user_token['access']['token']['tenant']['id']
         msg = "os-quota-sets/{0}".format(tenant_id)
         _dict = self._get(msg, urltype=self.service_url_type)['quota_set']
-        log.debug(_dict)
+        self.DEBUG(_dict, lineno())
         return _dict
 
     def get_meta(self, id):
