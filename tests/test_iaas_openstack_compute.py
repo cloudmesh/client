@@ -21,7 +21,7 @@ class Test_pass:
     def test_001(self):
         """connecting"""
         HEADING()
-        cloud = openstack("india")
+        cloud = compute("india")
 
         assert True
 

@@ -17,12 +17,13 @@ import ast
 from pprint import pprint
 from urlparse import urlparse
 import copy
-from cloudmesh.config.cm_config import cm_config
-from cloudmesh.config.cm_config import cm_config_server
-from cloudmesh.config.cm_config import cm_config_flavor
-from cloudmesh.iaas.ComputeBaseType import ComputeBaseType
+#from cloudmesh.config.cm_config import cm_config
+#from cloudmesh.config.cm_config import cm_config_server
+#from cloudmesh.config.cm_config import cm_config_flavor
+from cloudmesh_client.iaas.openstack.ComputeBaseType import  ComputeBaseType
 
 from cloudmesh_base.logger import LOGGER
+from cloudmesh_base.ConfigDict import ConfigDict
 
 # import novaclient
 # from novaclient.openstack.common import strutils
@@ -100,8 +101,8 @@ class compute(ComputeBaseType):
 
         if user_credential is None:
             try:
-                self.compute_config = cm_config()
-                self.user_credential = self.compute_config.credential(label)
+                self.compute_config = ConfigDict(filename="~/.cloudmesh/cloudmesh.yaml")
+                self.user_credential = self.compute_config.get("cloudmesh.clouds.{:}".format(label))
             except:
                 log.error(str(
                     lineno()) + ": No user credentail found! Please check your cloudmesh.yaml file.")
@@ -138,9 +139,12 @@ class compute(ComputeBaseType):
             line_number = ""
         if msg == "credential":
             debug_dict = dict(self.user_credential)
-            debug_dict['OS_PASSWORD'] = "********"
+            pprint(debug_dict)
+            password = debug_dict['credentials']['OS_PASSWORD']
+            content = str(debug_dict)
+            content = content.replace(password, "********")
             log.debug(
-                "{1} - GET CRED {0}".format(debug_dict, str(line_number)))
+                "{1} - GET CRED {0}".format(content, str(line_number)))
         else:
             log.debug("{0} - {1}".format(str(line_number), str(msg)))
 
@@ -232,7 +236,6 @@ class compute(ComputeBaseType):
         """
         this method returns the user id and stores it for later use.
         """
-        config = cm_config()
 
         if not force:
             try:
@@ -1398,17 +1401,6 @@ class compute(ComputeBaseType):
     #
     # CLI call of ussage
     #
-
-    # will be moved into utils
-    @donotchange
-    def parse_isotime(self, timestr):
-        """Parse time from ISO 8601 format"""
-        try:
-            return iso8601.parse_date(timestr)
-        except iso8601.ParseError as e:
-            raise ValueError(e.message)
-        except TypeError as e:
-            raise ValueError(e.message)
 
     def usage(self, tenant_id=None, serverid=None, start=None, end=None, format='dict'):
         """ returns the usage information of the tennant"""
