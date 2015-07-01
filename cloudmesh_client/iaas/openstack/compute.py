@@ -103,7 +103,7 @@ class compute(ComputeBaseType):
                 self.credential = self.compute_config.get("cloudmesh.clouds.{:}.credentials".format(label))
             except:
                 log.error(str(
-                    lineno()) + ": No user credentail found! Please check your cloudmesh.yaml file.")
+                    lineno()) + "No user credentail found! Please check your cloudmesh.yaml file.")
                 # sys.exit(1)
 
         self.connect()
@@ -124,10 +124,10 @@ class compute(ComputeBaseType):
         """
         creates tokens for a connection
         """
-        log.info(str(lineno()) + ": Loading User Credentials")
+        log.info(str(lineno()) + "Loading User Credentials")
         if self.credential is None:
             log.error(
-                str(lineno()) + ": error connecting to openstack compute, credential is None")
+                str(lineno()) + "Error connecting to openstack compute, credential is None")
         elif not self.user_token:
             self.user_token = self.get_token(self.credential)
 
@@ -200,16 +200,16 @@ class compute(ComputeBaseType):
                      }
         url = "{0}/tokens".format(credential['OS_AUTH_URL'])
 
-        self.DEBUG(": URL {0}".format(url), lineno())
+        self.DEBUG("URL {0}".format(url), lineno())
 
         headers = {'content-type': 'application/json'}
         verify = self._get_cacert(credential)
 
         print_param = copy.deepcopy(param)
         print_param["auth"]["passwordCredentials"]["password"] = "********"
-        self.DEBUG(":PARAM {0}".format(json.dumps(print_param)), lineno())
-        self.DEBUG(":HEADER {0}".format(headers), lineno())
-        self.DEBUG(":VERIFY {0}".format(verify), lineno())
+        self.DEBUG("PARAM {0}".format(json.dumps(print_param)), lineno())
+        self.DEBUG("HEADER {0}".format(headers), lineno())
+        self.DEBUG("VERIFY {0}".format(verify), lineno())
 
         r = requests.post(url,
                           data=json.dumps(param),
@@ -623,13 +623,13 @@ class compute(ComputeBaseType):
 
         url = "{0}/{1}".format(url, msg)
 
-        self.DEBUG(": AUTH URL {0}".format(url), lineno())
+        self.DEBUG("AUTH URL {0}".format(url), lineno())
         headers = {'X-Auth-Token': token['access']['token']['id']}
 
         r = requests.get(
             url, headers=headers, verify=self._get_cacert(credential), params=payload)
 
-        self.DEBUG(": Response {0}".format(r), lineno())
+        self.DEBUG("Response {0}".format(r), lineno())
 
         if json:
             return r.json()
