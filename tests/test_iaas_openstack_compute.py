@@ -10,8 +10,14 @@ nosetests -v
 
 from cloudmesh_base.util import HEADING
 from cloudmesh_client.iaas.openstack.compute import compute
+from pprint import pprint
+from cloudmesh_base.util import banner
 
 class Test_pass:
+
+    cloud = compute("india")
+
+
     def setup(self):
         pass
 
@@ -19,11 +25,31 @@ class Test_pass:
         pass
 
     def test_001(self):
-        """connecting"""
+        """images"""
         HEADING()
-        cloud = compute("india")
+        banner("get_images()")
+        pprint(self.cloud.get_images())
+        banner("images")
+        pprint(self.cloud.images)
 
         assert True
+
+
+    def test_002(self):
+        """flavors"""
+        HEADING()
+        banner("get_flavors()")
+        pprint(self.cloud.get_flavors())
+        banner("flavors")
+        pprint(self.cloud.flavors)
+
+    def test_002(self):
+        """vms"""
+        HEADING()
+        banner("get_vms()")
+        pprint(self.cloud.get_servers())
+        banner("servers")
+        pprint(self.cloud.servers)
 
     """
     cloud = openstack("india")

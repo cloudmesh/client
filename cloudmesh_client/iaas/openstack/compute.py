@@ -928,19 +928,16 @@ class compute(ComputeBaseType):
     def limits(self):
         """ returns the limits of a tenant"""
 
-        list = []
+        limit_list = []
 
         info = self.get_limits()
 
         for rate in info['rate']:
             limit_set = rate['limit']
-            print(limit_set)
             for limit in limit_set:
-                list.append(limit)
+                limit_list.append(limit)
 
-        print(list)
-
-        return list
+        return limit_list
 
     # return the security groups for the current authenticated tenant, in dict
     # format
