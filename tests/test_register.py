@@ -20,7 +20,7 @@ def run(command):
     result = Shell.execute(shell_command, args)
     return result
 
-class Test_register:
+class Test_register(Shell):
     """
         tests for india only
     """
@@ -39,43 +39,31 @@ class Test_register:
 
         assert "ok." in result
 
-
-
     def test_002(self):
         """testing cm register random1 --force"""
         HEADING()
         result = run ("cm register random1 --force")
-        assert "not found" in result
+        assert "Could not execute the command." in result
 
     def test_003(self):
         """testing cm register india --foo"""
         HEADING()
         result = run ("cm register india --foo")
-        print result
-        assert False
 
+        assert "Could not execute the command." in result
+
+
+    def test_004(self):
+        """testing cm register CLOUD CERT"""
+        HEADING()
+        result = run ("cm register india .cloudmesh/clouds/india/juno/cacert.pem --force")
+        assert "cert registered " in result
 
     def test_005(self):
         """testing cm register CLOUD CERT"""
         HEADING()
-        result = run ("cm register india .cloudmesh/clouds/juno/cacert.pem")
 
-    def test_006(self):
-        """testing cm register CLOUD CERT"""
-        HEADING()
-        try:
-            os.system("cm register india .cloudmesh/clouds/juno/d/cacert.pem")
-            assert False
-        except Exception:
-            assert True
+        result = run ("cm register india .cloudmesh/clouds/juno/d/cacert.pem --force")
 
-    def test_007(self):
-        """testing cm register CLOUD CERT"""
-        HEADING()
-        try:
-            os.system("cm register india .cloudmesh/clouds/juno/wrong.pem")
-            assert False
-        except Exception:
-            assert True
-
+        assert "ERROR" in result
 
