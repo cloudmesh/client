@@ -3,7 +3,7 @@ from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
 import datetime
-import cloudmesh_client.db
+# import cloudmesh_client.db
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
@@ -105,6 +105,9 @@ class OpenStack_libcloud(CloudmeshProviderBase):
            volumes_attached: volumes_attached
         """
         return textwrap.dedent(mapping_yaml)
+
+    def limits(self):
+        return self.driver.ex_limits()
 
     def getID(self, kind, id):
 
