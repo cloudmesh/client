@@ -17,16 +17,10 @@ import ast
 from pprint import pprint
 from urlparse import urlparse
 import copy
-#from cloudmesh.config.cm_config import cm_config
-#from cloudmesh.config.cm_config import cm_config_server
-#from cloudmesh.config.cm_config import cm_config_flavor
 from cloudmesh_client.iaas.openstack.ComputeBaseType import  ComputeBaseType
 
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.ConfigDict import ConfigDict
-
-# import novaclient
-# from novaclient.openstack.common import strutils
 
 
 def lineno():
@@ -45,14 +39,24 @@ class compute(ComputeBaseType):
     # : the type of the cloud. It is "openstack"
     type = "openstack"  # global var
 
+
     # : a dict with the images
-    images = {}  # global var
+    __images__ = {}  # global var
 
     # : a dict with the flavors
-    flavors = {}  # global var
+    __flavors__ = {}  # global var
 
     # : a dict with the servers
-    servers = {}  # global var
+    __servers__ = {}  # global var
+
+    @property
+    def servers(self):
+        """TODO: this does not work"""
+        print("UUUUUUU")
+        if len(self.__servers__.keys()) == 0:
+            print ("OOOOO")
+            self.__servers__ = self.get_servers()
+        return self.__servers__
 
     # : a dict with the users
     # users = {}  # global var
@@ -745,41 +749,41 @@ class compute(ComputeBaseType):
         time_stamp = self._now()
         msg = "servers/detail"
         list = self._get(msg, urltype=self.service_url_type)['servers']
-        self.servers = self._list_to_dict(list, 'id', "server", time_stamp)
+        self.__servers__ = self._list_to_dict(list, 'id', "server", time_stamp)
 
         #
         # hack for the hp cloud west
         #
-        for server in self.servers:
-            self.servers[server]['id'] = str(self.servers[server]['id'])
+        for server in self.__servers__:
+            self.__servers__[server]['id'] = str(self.__servers__[server]['id'])
 
-        return self.servers
+        return self.__servers__
 
     # new
     def get_flavors(self):
         time_stamp = self._now()
         msg = "flavors/detail"
         list = self._get(msg, urltype=self.service_url_type)['flavors']
-        self.flavors = self._list_to_dict(list, 'name', "flavor", time_stamp)
+        self.__flavors__ = self._list_to_dict(list, 'name', "flavor", time_stamp)
 
         #
         # hack for the hp cloud west
         #
-        for flavor in self.flavors:
-            self.flavors[flavor]['id'] = str(self.flavors[flavor]['id'])
+        for flavor in self.__flavors__:
+            self.__flavors__[flavor]['id'] = str(self.__flavors__[flavor]['id'])
 
-        return self.flavors
+        return self.__flavors__
 
     def flavorid(self, name):
-        for key in self.flavors:
-            if self.flavors[key]['name'] == name:
+        for key in self.__flavors__:
+            if self.__flavors__[key]['name'] == name:
                 return key
 
     def flavor(self, id_or_name):
-        keys = self.flavors.keys()
+        keys = self.__flavors__.keys()
         if id_or_name not in keys:
             key = self.flavorid(id_or_name)
-        return self.flavors[key]
+        return self.__flavors__[key]
 
     # new
     def get_images(self):
@@ -787,8 +791,8 @@ class compute(ComputeBaseType):
         time_stamp = self._now()
         msg = "images/detail"
         list = self._get(msg, urltype=self.service_url_type)['images']
-        self.images = self._list_to_dict(list, 'id', "image", time_stamp)
-        return self.images
+        self.__images__ = self._list_to_dict(list, 'id', "image", time_stamp)
+        return self.__images__
 
     def get_security_groups(self):
         '''Lists security groups. '''
@@ -901,8 +905,8 @@ class compute(ComputeBaseType):
             result = None
         if not result:
             return self.get_flavors()
-        self.flavors = result
-        return self.flavors
+        self.__flavors__ = result
+        return self.__flavors__
 
     def get_flavors_from_yaml(self):
         obj = cm_config_flavor()
@@ -1249,7 +1253,7 @@ class compute(ComputeBaseType):
 
         result = {}
 
-        for (key, vm) in self.servers.items():
+        for (key, vm) in self.__servers__.items():
             if vm['user_id'] == self.user_id:
                 result[key] = vm
 
@@ -1270,7 +1274,7 @@ class compute(ComputeBaseType):
             self.refresh("images")
 
         result = {}
-        for (key, vm) in self.servers.items():
+        for (key, vm) in self.__servers__.items():
             result[key] = vm
 
         return result
@@ -1301,7 +1305,7 @@ class compute(ComputeBaseType):
         ids = []
         if key == 'user_id' and value is None:
             value = self.user_id
-        for (id, vm) in self.servers.items():
+        for (id, vm) in self.__servers__.items():
             if vm[str(key)] == value:
                 ids.append(str(vm['id']))
 
@@ -1550,7 +1554,7 @@ class compute(ComputeBaseType):
     def display_regex(self, state_check, userid):
 
         print(state_check)
-        for (id, vm) in self.servers.items():
+        for (id, vm) in self.__servers__.items():
             vm['cm_display'] = eval(state_check)
             # vm['cm_display'] = vm['status'] in states
             if userid is not None:
