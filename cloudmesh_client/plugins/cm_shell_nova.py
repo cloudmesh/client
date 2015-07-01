@@ -75,6 +75,8 @@ class cm_shell_nova:
                 if not arguments["--password"]:
                     d['OS_PASSWORD'] = "********"
             print(row_table(d, order=None, labels=["Variable", "Value"]))
+            msg = "info. OK."
+            Console.ok(msg)
             return
         elif arguments["set"]:
             if cloud:
@@ -86,7 +88,7 @@ class cm_shell_nova:
             else:
                 Console.error("CLOUD is required")
 
-        else:
+        else:#nova ARGUMENTS...
             command_nova.set_os_environ(cloud)
             args = arguments["ARGUMENTS"]
             result = Shell.execute("nova", args)

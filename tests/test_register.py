@@ -20,7 +20,7 @@ def run(command):
     result = Shell.execute(shell_command, args)
     return result
 
-class Test_register(Shell):
+class Test_register():
     """
         tests for india only
     """
@@ -35,7 +35,6 @@ class Test_register(Shell):
         # os.sytem("yes | cm register india")
         result = run("cm register india --force")
         #result = Shell.cm("register", "india", "--force")
-        print(result)
 
         assert "ok." in result
 
@@ -66,4 +65,6 @@ class Test_register(Shell):
         result = run ("cm register india .cloudmesh/clouds/juno/d/cacert.pem --force")
 
         assert "ERROR" in result
+
+
 
