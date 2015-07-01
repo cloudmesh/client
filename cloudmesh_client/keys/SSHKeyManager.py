@@ -12,8 +12,8 @@ class SSHKeyManager(object):
     def __init__(self):
         self.__keys__ = {}
 
-    def add_from_file(self, filename):
-        sshkey = SSHkey(filename)
+    def add_from_file(self, file_path):
+        sshkey = SSHkey(file_path)
         i = sshkey.comment
         self.__keys__[i] = sshkey.__key__
         print(self.__keys__)
@@ -80,14 +80,15 @@ class SSHKeyManager(object):
         :return: an array of public keys
         :rtype: list
         """
-        content = requests.get('https://github.com/{:}.keys'.format(username)).text.split("\n")
+        uri = 'https://github.com/{:}.keys'.format(username)
+        content = requests.get(uri).text.split("\n")
 
         for key in range(0, len(content)):
             value = content[key]
             sshkey = SSHkey(None)
-            sshkey.filename = None
+            sshkey.uri = uri
             sshkey.__key__ = {}
-            sshkey.__key__['filename'] = None
+            sshkey.__key__['uri'] = uri
             sshkey.__key__['string'] = value
             (sshkey.__key__['type'],
              sshkey.__key__['key'],

@@ -6,9 +6,9 @@ from cloudmesh_base.util import path_expand
 
 
 class SSHkey(object):
-    def __init__(self, filename):
-        if filename:
-            self.read(filename)
+    def __init__(self, file_path):
+        if file_path:
+            self.read(file_path)
 
     def __str__(self):
         return self.__key__['key']
@@ -16,11 +16,13 @@ class SSHkey(object):
     def __repr__(self):
         return self.__key__['key']
 
-    def read(self, filename):
-        self.filename = filename
-        self.__key__ = {'filename': path_expand(filename)}
+    def read(self, file_path):
+        file_path = path_expand(file_path)
+        uri = 'file://{}'.format(file_path)
+        self.uri = uri
+        self.__key__ = {'uri': uri}
 
-        self.__key__['string'] = open(self.__key__['filename'], "r").read().rstrip()
+        self.__key__['string'] = open(file_path, "r").read().rstrip()
 
         (self.__key__['type'],
          self.__key__['key'],
