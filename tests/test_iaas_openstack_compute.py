@@ -1,10 +1,13 @@
 """ run with
 
-nosetests -v --nocapture
+
+python setup.py install; nosetests -v --nocapture  tests/test_iaas_openstack_compute.py:Test_openstack.test_001
+
+nosetests -v --nocapture  tests/test_iaas_openstack_compute.py
 
 or
 
-nosetests -v
+nosetests --nocapture  tests/test_iaas_openstack_compute.py
 
 """
 
@@ -13,7 +16,7 @@ from cloudmesh_client.iaas.openstack.compute import compute
 from pprint import pprint
 from cloudmesh_base.util import banner
 
-class Test_pass:
+class Test_openstack:
 
     cloud = compute("india")
 
