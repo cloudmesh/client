@@ -46,13 +46,16 @@ class Test_openstack:
         banner("flavors")
         pprint(self.cloud.flavors)
 
-    def test_002(self):
+    def test_003(self):
         """vms"""
         HEADING()
+
         banner("get_vms()")
         pprint(self.cloud.get_servers())
         banner("servers")
-        pprint(self.cloud.servers)
+        print ("TTTT")
+        r = self.cloud.servers
+        pprint (r)
 
     """
     cloud = openstack("india")
