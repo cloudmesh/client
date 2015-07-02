@@ -51,6 +51,13 @@ class SSHKeyDBManager(object):
         """
         return self.db.find_by_name(KEY,keyname)
 
+    def find_all(self):
+        """
+
+        :return: Query object from all the entries
+        """
+        return self.db.find(KEY).all()
+
     def dict(self):
         """
 
@@ -61,3 +68,19 @@ class SSHKeyDBManager(object):
     def update(self, clouds):
         #i'm not sure how this function works
         self.db.update("key", clouds)
+
+    def delete_all(self):
+        """
+        Deletes all the entries from KEY table
+
+        :return:
+        """
+        self.db.delete_all(['KEY'])
+
+    def object_to_dict(self, obj):
+        """
+
+        :param obj: object to be converted to dict
+        :return: dict from the object
+        """
+        return self.db.object_to_dict(obj)

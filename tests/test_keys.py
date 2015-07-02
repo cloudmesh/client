@@ -65,6 +65,9 @@ class Test_keys:
         # d = mykeys.dict()
         print (mykeys.table)
 
+        mykeys.__delitem__('github-0')
+        print (mykeys.table)
+
         assert count1 > 0 and count2 >0
 
 
@@ -84,21 +87,17 @@ class Test_keys:
 
     def test_004(self):
         HEADING()
-        cm = CloudmeshDatabase()
-        cm.delete_all(['KEY'])
         sshdb = SSHKeyDBManager()
+        sshdb.delete_all()
         sshdb.add("~/.ssh/id_rsa.pub")
 
-        d = cm.object_to_dict(cm.find(KEY))
+        d = sshdb.dict()
         print dict_printer(d, output="table")
 
         d = sshdb.find('PauloR@bebop')
         print ('find function: ', d)
 
-        d = sshdb.dict()
-        print d
-
         sshdb.delete('PauloR@bebop')
 
-        d = cm.object_to_dict(cm.find(KEY))
+        d = sshdb.object_to_dict(sshdb.find_all())
         print ("DICT", d)
