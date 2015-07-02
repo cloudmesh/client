@@ -12,6 +12,12 @@ class SSHKeyDBManager(object):
         self.mykeys.get_from_dir("~/.ssh")
 
     def add(self, keyname):
+        """
+        Adds the key to the database based on the keyname (from SSHKeyManaager) or path
+
+        :param keyname: name of the key or path to the key
+        :return:
+        """
         key_obj = KEY(cm_name=keyname)
 
         if os.path.isfile(path_expand(keyname)):
@@ -28,13 +34,30 @@ class SSHKeyDBManager(object):
 
 
     def delete(self, keyname):
+        """
+        Deletes the key from the database based on the keyname
+
+        :param keyname: name of the key to be delete
+        :return:
+        """
         self.db.delete_by_name(KEY, name=keyname)
 
     def find(self, keyname):
+        """
+        Finds the key on the database based on the keyname
+
+        :param keyname: name of the key to be found
+        :return: Query object of the search
+        """
         return self.db.find_by_name(KEY,keyname)
 
     def dict(self):
+        """
+
+        :return: dict from all elements in the table KEY
+        """
         return self.db.dict(KEY)
 
-    def update(self):
-        print 'update'
+    def update(self, clouds):
+        #i'm not sure how this function works
+        self.db.update("key", clouds)
