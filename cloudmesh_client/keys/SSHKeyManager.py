@@ -7,6 +7,7 @@ from pprint import pprint
 from cloudmesh_client.keys.SSHkey import SSHkey
 from prettytable import PrettyTable
 from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_base.menu import menu_return_num
 
 class SSHKeyManager(object):
     def __init__(self):
@@ -44,6 +45,14 @@ class SSHKeyManager(object):
 
     def __len__(self):
         return len(self.keys())
+
+    def select(self):
+        options = []
+        for i in self.__keys__:
+            print ('i:' , i)
+            line = '{}: {}'.format(self.__keys__[i]['comment'], self.__keys__[i]['fingerprint'])
+            options.append(line)
+        return menu_return_num('KEYS',options)
 
     def get_from_yaml(self, filename):
         # TODO

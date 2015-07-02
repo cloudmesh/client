@@ -17,6 +17,10 @@ from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.keys.SSHkey import SSHkey
 from pprint import pprint
 from cloudmesh_client.db.models import dict_printer
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db.models import KEY
+from cloudmesh_client.common.tables import dict_printer
 
 
 class Test_keys:
@@ -76,7 +80,25 @@ class Test_keys:
         print ("sshkey", sshkey)
         print ("str", str(sshkey))
         print (sshkey.type)
-
-
-
         assert True
+
+    def test_004(self):
+        HEADING()
+        cm = CloudmeshDatabase()
+        cm.delete_all(['KEY'])
+        sshdb = SSHKeyDBManager()
+        sshdb.add("~/.ssh/id_rsa.pub")
+
+        d = cm.object_to_dict(cm.find(KEY))
+        print dict_printer(d, output="table")
+
+        d = sshdb.find('PauloR@bebop')
+        print ('find function: ', d)
+
+        d = sshdb.dict()
+        print d
+
+        sshdb.delete('PauloR@bebop')
+
+        d = cm.object_to_dict(cm.find(KEY))
+        print ("DICT", d)

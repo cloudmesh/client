@@ -8,6 +8,8 @@ from cloudmesh_base.util import path_expand
 from os import listdir
 from os.path import expanduser, isfile, abspath
 from cloudmesh_base.tables import dict_printer, two_column_table
+from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+
 
 
 class cm_shell_key:
@@ -21,10 +23,10 @@ class cm_shell_key:
 
            Usage:
              key  -h | --help
-             key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
-             key add [--keyname=KEYNAME] FILENAME
-             key default [KEYNAME]
-             key delete KEYNAME
+             key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT] [--select]
+             key add [--keyname=KEYNAME] FILENAME [--select]
+             key default [KEYNAME] [--select]
+             key delete KEYNAME [--select]
 
            Manages the keys
 
@@ -92,6 +94,12 @@ class cm_shell_key:
 
         directory = path_expand(arguments["--dir"])
         source = arguments["--source"]
+
+        if arguments['--select']:
+            Console.ok('SELECT')
+            sshm = SSHKeyManager()
+            sshm.get_from_dir("~/.ssh")
+            select = sshm.select()
 
         if arguments["list"] and source == "ssh":
 
