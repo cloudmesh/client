@@ -3,6 +3,7 @@ from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager, SSHkey
 from cloudmesh_client.db.models import KEY
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.util import path_expand
+from cloudmesh_base.menu import menu_return_num
 import os.path
 
 class SSHKeyDBManager(object):
@@ -28,6 +29,7 @@ class SSHKeyDBManager(object):
             key_obj.name = sshkey.__key__['comment']
         key_obj.comment = sshkey.__key__['comment']
         key_obj.value = sshkey.__key__['string']
+        key_obj.fingerprint = sshkey.__key__['fingerprint']
 
         self.db.add([key_obj])
         self.db.save()
@@ -76,6 +78,16 @@ class SSHKeyDBManager(object):
         :return:
         """
         self.db.delete_all(['KEY'])
+
+    def select (self):
+        options = []
+        d = self.dict()
+        for i in d:
+            print ('i:' , i)
+            line = '{}: {}'.format(d[i]['name'], d[i]['fingerprint'])
+            options.append(line)
+        num = menu_return_num('KEYS',options)
+        return options[num - 1]
 
     def object_to_dict(self, obj):
         """

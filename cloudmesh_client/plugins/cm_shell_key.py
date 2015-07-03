@@ -23,11 +23,10 @@ class cm_shell_key:
 
            Usage:
              key  -h | --help
-             key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT] [--select]
-             key add [--keyname=KEYNAME] FILENAME [--select]
-             key default [KEYNAME] [--select]
-             key delete KEYNAME [--select]
-             key delete --all
+             key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
+             key add [--keyname=KEYNAME] FILENAME
+             key default KEYNAME | --select
+             key delete (KEYNAME | --select | --all)
 
            Manages the keys
 
@@ -85,6 +84,8 @@ class cm_shell_key:
 
         """
         pprint(arguments)
+        sshm = SSHKeyManager()
+        sshdb = SSHKeyDBManager()
 
         def _print_dict(d, header=None, format='table'):
             if format == "json":
@@ -94,15 +95,8 @@ class cm_shell_key:
             else:
                 return two_column_table(d, header)
 
-        sshdb = SSHKeyDBManager()
+
         directory = path_expand(arguments["--dir"])
-
-        if arguments['--select']:
-
-            Console.ok('SELECT')
-            sshm = SSHKeyManager()
-            sshm.get_from_dir("~/.ssh")
-            select = sshm.select()
 
         if arguments['list']:
             print('list')
@@ -146,6 +140,11 @@ class cm_shell_key:
             print('delete')
             if arguments['--all']:
                 sshdb.delete_all()
+            elif arguments['--select']:
+                select = sshdb.select()
+                keyname = select.split(':')[0]
+                print (keyname)
+                sshdb.delete(keyname)
             else:
                 keyname = arguments['KEYNAME']
                 sshdb.delete(keyname)

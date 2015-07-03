@@ -92,6 +92,7 @@ class Test_keys:
         sshdb.add("~/.ssh/id_rsa.pub")
 
         d = sshdb.dict()
+        print d
         print dict_printer(d, output="table")
 
         d = sshdb.find('PauloR@bebop')

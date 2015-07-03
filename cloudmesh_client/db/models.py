@@ -130,6 +130,7 @@ class KEY(db.Base):
     comment = Column(String)
     name = Column(String)
     value = Column(String)
+    fingerprint = Column(String)
 
     def __init__(self,
                  cm_name=None,
