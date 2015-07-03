@@ -10,7 +10,7 @@ from os.path import expanduser, isfile, abspath
 from cloudmesh_base.tables import dict_printer, two_column_table
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-
+from cloudmesh_client.common.tables import dict_printer
 
 class cm_shell_key:
     def activate_cm_shell_key(self):
@@ -27,6 +27,7 @@ class cm_shell_key:
              key add [--keyname=KEYNAME] FILENAME [--select]
              key default [KEYNAME] [--select]
              key delete KEYNAME [--select]
+             key delete --all
 
            Manages the keys
 
@@ -44,6 +45,7 @@ class cm_shell_key:
               --format=FORMAT      the format of the output [default: table]
               --source=SOURCE      the source for the keys [default: ssh]
               --keyname=KEYNAME    the name of the keys
+              --all                delete all keys
 
            Description:
 
@@ -104,6 +106,10 @@ class cm_shell_key:
 
         if arguments['list']:
             print('list')
+            d = sshdb.dict()
+            print (d)
+
+            """
             if arguments['--source'] == 'ssh':
                 source = arguments['--source']
                 files = _find_keys(directory)
@@ -121,6 +127,7 @@ class cm_shell_key:
             if arguments['--format']:
                 format = arguments['--format']
                 print(format)
+            """
 
         elif arguments['add']:
             print('add')
@@ -137,8 +144,11 @@ class cm_shell_key:
 
         elif arguments['delete']:
             print('delete')
-            keyname = arguments['KEYNAME']
-            sshdb.delete(keyname)
+            if arguments['--all']:
+                sshdb.delete_all()
+            else:
+                keyname = arguments['KEYNAME']
+                sshdb.delete(keyname)
 
 
 
