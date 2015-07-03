@@ -3,7 +3,7 @@ import os
 from cmd3.console import Console
 from cmd3.shell import command
 from pprint import pprint
-# from cloudmesh_client.cloud.command_vm import command_vm
+from cloudmesh_client.cloud.command_vm import Command_vm
 
 
 class cm_shell_vm:
@@ -113,7 +113,7 @@ class cm_shell_vm:
                         json format
 
         """
-        # pprint(arguments)
+        pprint(arguments)
         if arguments["start"]:
             name = arguments["--name"]
             count = arguments["--count"]
@@ -121,24 +121,26 @@ class cm_shell_vm:
             image = arguments["--image"]
             flavor = arguments["--flavor"]
             group = arguments["--group"]
-            Console.ok('start {} {} {} {} {} {}'.format(name, count, cloud, image, flavor, group))
+            Command_vm.start(name, count, cloud, image, flavor, group)
         elif arguments["delete"]:
-            name_id = arguments["NAME_OR_ID"]
+            name_or_id = arguments["NAME_OR_ID"]
             group = arguments["--group"]
             cloud = arguments["--cloud"]
             force = arguments["--force"]
-            Console.ok('delete: {} {} {} {}'.format(name_id, group, cloud, force))
+            Command_vm.delete(name_or_id, group, cloud, force)
         elif arguments["ip_assign"]:
-            name_id = arguments["NAME_OR_ID"]
+            name_or_id = arguments["NAME_OR_ID"]
             cloud = arguments["--cloud"]
-            Console.ok('ip_assign {} {}'.format(name_id, cloud))
+            Command_vm.ip_assign(name_or_id, cloud)
+
         elif arguments["ip_show"]:
-            name_id = arguments["NAME_OR_ID"]
+            name_or_id = arguments["NAME_OR_ID"]
             group = arguments["--group"]
             cloud = arguments["--cloud"]
             output_format = arguments["--format"]
             refresh = arguments["--refresh"]
-            Console.ok('ip_show {} {} {} {} {}'.format(name_id, group, cloud, output_format, refresh))
+            Command_vm.ip_show(name_or_id, group, cloud, output_format, refresh)
+
         elif arguments["login"]:
             name = arguments["NAME"]
             user = arguments["--user"]
@@ -147,7 +149,8 @@ class cm_shell_vm:
             key = arguments["--key"]
             commands = arguments["--command"]
             commands = commands.split(';')
-            Console.ok('login {} {} {} {} {} {}'.format(name, user, ip, cloud, key, commands))
+            Command_vm.loging(name, user, ip, cloud, key, commands)
+
         elif arguments["list"]:
             if arguments["--all"]:
                 cloud = "all"
@@ -158,7 +161,8 @@ class cm_shell_vm:
             output_format = arguments["--format"]
             columns = arguments["--columns"]
             detail = arguments["--detail"]
-            Console.ok('list {} {} {} {} {} {}'.format(cloud, group, refresh, output_format, columns, detail))
+
+            Command_vm.list(group, refresh, output_format, columns, detail)
         pass
 
 
