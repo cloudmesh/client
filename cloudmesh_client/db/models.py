@@ -127,6 +127,7 @@ class KEY(db.Base):
     cm_command = Column(String)
     cm_parameter = Column(String)
 
+    comment = Column(String)
     name = Column(String)
     value = Column(String)
 

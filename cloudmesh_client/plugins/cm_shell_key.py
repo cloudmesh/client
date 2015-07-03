@@ -9,7 +9,7 @@ from os import listdir
 from os.path import expanduser, isfile, abspath
 from cloudmesh_base.tables import dict_printer, two_column_table
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 
 
 class cm_shell_key:
@@ -92,58 +92,54 @@ class cm_shell_key:
             else:
                 return two_column_table(d, header)
 
+        sshdb = SSHKeyDBManager()
         directory = path_expand(arguments["--dir"])
-        source = arguments["--source"]
 
         if arguments['--select']:
+
             Console.ok('SELECT')
             sshm = SSHKeyManager()
             sshm.get_from_dir("~/.ssh")
             select = sshm.select()
 
-        if arguments["list"] and source == "ssh":
-
-            files = _find_keys(directory)
-
-            ssh_keys = {}
-
-            for key in files:
-                ssh_keys[key] = directory + "/" + key
-            print(ssh_keys)
-
-            print(_print_dict(ssh_keys))
-
-            return
-
         if arguments['list']:
             print('list')
-            if arguments['--source']:
+            if arguments['--source'] == 'ssh':
                 source = arguments['--source']
-                print(source)
+                files = _find_keys(directory)
+
+                ssh_keys = {}
+
+                for key in files:
+                    ssh_keys[key] = directory + "/" + key
+                print(ssh_keys)
+
+            print(_print_dict(ssh_keys))
             if arguments['--dir']:
                 dir = arguments['--dir']
                 print(dir)
             if arguments['--format']:
                 format = arguments['--format']
                 print(format)
+
         elif arguments['add']:
             print('add')
-            keyname = None
-            if arguments['--keyname']:
-                keyname = arguments['--keyname']
-                print(keyname)
+            keyname = arguments['--keyname']
             filename = arguments['FILENAME']
-            print(filename)
+            sshdb.add(filename, keyname)
+
         elif arguments['default']:
             print("default")
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
-                print(keyname)
+            else:
+                print ('default key')
+
         elif arguments['delete']:
             print('delete')
-            if arguments['KEYNAME']:
-                keyname = arguments['KEYNAME']
-                print(keyname)
+            keyname = arguments['KEYNAME']
+            sshdb.delete(keyname)
+
 
 
 if __name__ == '__main__':

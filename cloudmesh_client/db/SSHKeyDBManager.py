@@ -11,23 +11,23 @@ class SSHKeyDBManager(object):
         self.mykeys = SSHKeyManager()
         self.mykeys.get_from_dir("~/.ssh")
 
-    def add(self, keyname):
+    def add(self, key_path, keyname=None, cm_user=None):
         """
         Adds the key to the database based on the keyname (from SSHKeyManaager) or path
 
         :param keyname: name of the key or path to the key
         :return:
         """
-        key_obj = KEY(cm_name=keyname)
+        key_obj = KEY(cm_name=cm_user)
 
-        if os.path.isfile(path_expand(keyname)):
-            sshkey = SSHkey(path_expand(keyname))
-            key_obj.name = sshkey.__key__['comment']
-            key_obj.value = sshkey.__key__['string']
+        sshkey = SSHkey(path_expand(key_path))
+
+        if keyname is not None:
+            key_obj.name = keyname
         else:
-            sshkey = self.mykeys.__keys__[keyname]
-            key_obj.name = sshkey['comment']
-            key_obj.value = sshkey['string']
+            key_obj.name = sshkey.__key__['comment']
+        key_obj.comment = sshkey.__key__['comment']
+        key_obj.value = sshkey.__key__['string']
 
         self.db.add([key_obj])
         self.db.save()
