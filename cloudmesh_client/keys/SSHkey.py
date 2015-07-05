@@ -28,7 +28,7 @@ class SSHkey(object):
          self.__key__['key'],
          self.__key__['comment']) = self._parse(self.__key__['string'])
         self.__key__['fingerprint'] = self._fingerprint(self.__key__['string'])
-        self.__key__['Id'] = self.__key__['comment']
+        self.__key__['name'] = self.__key__['comment']
         return self.__key__
 
     @property

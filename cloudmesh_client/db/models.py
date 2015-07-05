@@ -127,7 +127,7 @@ class KEY(db.Base):
     cm_command = Column(String)
     cm_parameter = Column(String)
 
-    comment = Column(String)
+    default = Column(String, default='False')
     name = Column(String)
     value = Column(String)
     fingerprint = Column(String)

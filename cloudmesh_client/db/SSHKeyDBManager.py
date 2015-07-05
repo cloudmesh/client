@@ -44,6 +44,17 @@ class SSHKeyDBManager(object):
         """
         self.db.delete_by_name(KEY, name=keyname)
 
+    def set_default(self, keyname):
+        if self.get_default():
+            self.get_default().default = 'False'
+        self.find(keyname).default = 'True'
+        self.db.save()
+
+
+    def get_default(self):
+        value="True"
+        return self.db.find(KEY, default=value)
+
     def find(self, keyname):
         """
         Finds the key on the database based on the keyname
@@ -87,7 +98,9 @@ class SSHKeyDBManager(object):
             line = '{}: {}'.format(d[i]['name'], d[i]['fingerprint'])
             options.append(line)
         num = menu_return_num('KEYS',options)
-        return options[num - 1]
+        if num != 'q':
+            return options[num - 1]
+        return num
 
     def object_to_dict(self, obj):
         """

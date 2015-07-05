@@ -25,7 +25,7 @@ class cm_shell_key:
              key  -h | --help
              key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
              key add [--keyname=KEYNAME] FILENAME
-             key default KEYNAME | --select
+             key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all)
 
            Manages the keys
@@ -133,8 +133,16 @@ class cm_shell_key:
             print("default")
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
+                sshdb.set_default(keyname)
+            elif arguments['--select']:
+                select = sshdb.select()
+                if select != 'q':
+                    keyname = select.split(':')[0]
+                    print (keyname)
+                sshdb.set_default(keyname)
             else:
-                print ('default key')
+                default = sshdb.object_to_dict(sshdb.get_default())
+                print ('default key', default)
 
         elif arguments['delete']:
             print('delete')
@@ -142,8 +150,9 @@ class cm_shell_key:
                 sshdb.delete_all()
             elif arguments['--select']:
                 select = sshdb.select()
-                keyname = select.split(':')[0]
-                print (keyname)
+                if select != 'q':
+                    keyname = select.split(':')[0]
+                    print (keyname)
                 sshdb.delete(keyname)
             else:
                 keyname = arguments['KEYNAME']

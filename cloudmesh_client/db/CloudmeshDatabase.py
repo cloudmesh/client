@@ -166,7 +166,7 @@ class CloudmeshDatabase(object):
         self.session.flush()
 
     def name(self, value):
-        self.default("name", value, "global")
+        self.set_default("name", value, "global")
 
     def get_name(self):
         current = self.find(DEFAULT, name="name").first()
