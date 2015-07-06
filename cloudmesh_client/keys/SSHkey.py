@@ -19,7 +19,6 @@ class SSHkey(object):
     def read(self, file_path):
         file_path = path_expand(file_path)
         uri = 'file://{}'.format(file_path)
-        self.uri = uri
         self.__key__ = {'uri': uri}
 
         self.__key__['string'] = open(file_path, "r").read().rstrip()

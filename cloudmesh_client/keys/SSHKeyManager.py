@@ -8,6 +8,7 @@ from cloudmesh_client.keys.SSHkey import SSHkey
 from prettytable import PrettyTable
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.menu import menu_return_num
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class SSHKeyManager(object):
     def __init__(self):
@@ -15,10 +16,12 @@ class SSHKeyManager(object):
 
     def add_from_file(self, file_path):
         sshkey = SSHkey(file_path)
-        i = sshkey.comment
-        self.__keys__[i] = sshkey.__key__
+        self.add_from_object(sshkey)
         print(self.__keys__)
 
+    def add_from_object(self, sshkey_obj):
+        i = sshkey_obj.__key__['name']
+        self.__keys__[i] = sshkey_obj.__key__
 
     @property
     def table(self):
@@ -54,13 +57,41 @@ class SSHKeyManager(object):
             options.append(line)
         return menu_return_num('KEYS',options)
 
-    def get_from_yaml(self, filename):
-        # TODO
-        print("not implemented")
-        config = ConfigDict("~/.cloudmesh/cloudmesh.yaml")
-        clouds = config["cloudmesh"]["clouds"]
-        for key in clouds.keys():
-            Console.ok("  " + key)
+    def get_from_yaml(self, filename=None):
+        """
+
+        :param filename: name of the yaml file
+        :return: a SSHKeyManager (dict of keys)
+        """
+        if filename is None:
+            #default = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            #config = ConfigDict("cloudmesh.yaml")
+            filename = "cloudmesh.yaml"
+        config = ConfigDict(filename)
+        config_keys = config["cloudmesh"]["keys"]
+        default = config_keys["default"]
+        keylist = config_keys["keylist"]
+        print (default)
+        sshmanager = SSHKeyManager()
+        for key in keylist.keys():
+            keyname = key
+            value = keylist[key]
+            if os.path.isfile(path_expand(value)):
+                path = path_expand(value)
+                sshmanager.add_from_file(path)
+            else:
+                sshkey = SSHkey()
+                uri = path_expand("~/.cloudmesh/{}".format(filename))
+                sshkey.__key__['uri'] = 'yaml://{}'.format(uri)
+                sshkey.__key__['string'] = value
+                (sshkey.__key__['type'],
+                 sshkey.__key__['key'],
+                 sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
+                sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
+                sshkey.__key__['name'] = keyname
+                sshmanager.add_from_object(sshkey)
+            print ("  " + key + ": " + keylist[key])
+            return sshmanager
         """
         take a look into original cloudmesh code, its possible to either specify a key or a filename
         the original one is able to figure this out and do the rightthing. We may want to add this
@@ -70,6 +101,15 @@ class SSHKeyManager(object):
         cloudmesh:
           keys:
             idrsa: ~/.ssh/id_rsa.pub
+
+        cloudmesh:
+        ...
+          keys:
+            default: name of the key
+            keylist:
+              keyname: ~/.ssh/id_rsa.pub
+              keyname: ssh rsa hajfhjldahlfjhdlsak ..... comment
+              github-x: github
         """
 
     def get_from_dir(self, directory):
@@ -95,7 +135,6 @@ class SSHKeyManager(object):
         for key in range(0, len(content)):
             value = content[key]
             sshkey = SSHkey(None)
-            sshkey.uri = uri
             sshkey.__key__ = {}
             sshkey.__key__['uri'] = uri
             sshkey.__key__['string'] = value

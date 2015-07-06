@@ -26,7 +26,7 @@ class SSHKeyDBManager(object):
         if keyname is not None:
             key_obj.name = keyname
         else:
-            key_obj.name = sshkey.__key__['comment']
+            key_obj.name = sshkey.__key__['name']
         key_obj.comment = sshkey.__key__['comment']
         key_obj.value = sshkey.__key__['string']
         key_obj.fingerprint = sshkey.__key__['fingerprint']

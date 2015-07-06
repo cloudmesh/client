@@ -58,4 +58,6 @@ cloudmesh:
                 image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
                 location: East US
     keys:
-        idrsa: ~/.ssh/id_rsa.pub
+        default:
+        keylist:
+          keyname: ~/.ssh/id_rsa.pub

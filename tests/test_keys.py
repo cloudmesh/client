@@ -102,3 +102,8 @@ class Test_keys:
 
         d = sshdb.object_to_dict(sshdb.find_all())
         print ("DICT", d)
+
+    def test_005(self):
+        HEADING()
+        sshm = SSHKeyManager()
+        print sshm.get_from_yaml()
