@@ -1,7 +1,7 @@
 import cloudmesh_base.hostlist
 
 
-class Cloud(object):
+class Mesh(object):
     t_flavour = "flavour"
     t_image = "image"
     t_vm = "vm"
@@ -179,15 +179,51 @@ class Cloud(object):
 
 
 def main():
-    print(Cloud.next_name("Gregor-001"))
+    print(Mesh.next_name("Gregor-001"))
 
-    Cloud.list("flavour", ["india", "hp"], output="table")
-    Cloud.list("flavour", "india", output="table")
+    Mesh.list("flavour", ["india", "hp"], output="table")
+    Mesh.list("flavour", "india", output="table")
 
-    Cloud.delete("gregor-001")
+    Mesh.delete("gregor-001")
 
-    Cloud.delete("gregor-[002-005]")
+    Mesh.delete("gregor-[002-005]")
 
 
 if __name__ == "__main__":
     main()
+
+    """
+
+    # when using filenames embed them in path_expand from cloudmehs_base
+
+    # prints dict of available clouds with information such as defined in yaml
+    print(Mesh.clouds())
+
+    # verifies the available clouds and puts some flag into the db that it works or not
+    print(Mesh.verify())
+
+    # refreshes the information in the mesh
+
+    Mesh.refresh()
+    Mesh.refresh("india")
+    Mesh.refresh("india", "aws")
+    Mesh.refresh(["india", "aws"])
+
+    # register clouds from a yaml filr
+    Mesh.register("cloudmesh.yaml")
+
+    Mesh.key_add("name", "~/.ssh/idrsa.pub")
+    Mesh.key_add("github")
+    Mesh.key_add("~/.ssh")
+
+    # clear the database
+    Mesh.clear()
+
+    # creates a copy of the database into the given file
+
+    Mesh.dump("filename")
+
+    # loads the database for the given file
+    Mesh.load("filename")
+
+    """

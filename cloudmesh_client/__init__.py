@@ -1,7 +1,4 @@
-__author__ = 'Gregor von Laszewski'
+import cloudmesh_client.version
 
-import pbr.version
+__version__ = version.version
 
-__version__ = pbr.version.VersionInfo('python-novaclient').version_string()
-
-version = __version__
