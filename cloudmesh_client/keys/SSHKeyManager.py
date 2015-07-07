@@ -9,6 +9,7 @@ from prettytable import PrettyTable
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cmd3.console import Console
 
 class SSHKeyManager(object):
     def __init__(self):
@@ -17,7 +18,6 @@ class SSHKeyManager(object):
     def add_from_file(self, file_path):
         sshkey = SSHkey(file_path)
         self.add_from_object(sshkey)
-        print(self.__keys__)
 
     def add_from_object(self, sshkey_obj):
         i = sshkey_obj.__key__['name']
@@ -57,7 +57,7 @@ class SSHKeyManager(object):
             options.append(line)
         return menu_return_num('KEYS',options)
 
-    def get_from_yaml(self, filename=None):
+    def get_from_yaml(self, filename=None, load_order=None):
         """
 
         :param filename: name of the yaml file
@@ -67,11 +67,14 @@ class SSHKeyManager(object):
             #default = path_expand("~/.cloudmesh/cloudmesh.yaml")
             #config = ConfigDict("cloudmesh.yaml")
             filename = "cloudmesh.yaml"
-        config = ConfigDict(filename)
+            config = ConfigDict(filename)
+        elif load_order:
+            config = ConfigDict(filename, load_order)
+        else:
+            Console.error("Wrong arguments")
         config_keys = config["cloudmesh"]["keys"]
         default = config_keys["default"]
         keylist = config_keys["keylist"]
-        print (default)
         sshmanager = SSHKeyManager()
         for key in keylist.keys():
             keyname = key
@@ -90,8 +93,7 @@ class SSHKeyManager(object):
                 sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
                 sshkey.__key__['name'] = keyname
                 sshmanager.add_from_object(sshkey)
-            print ("  " + key + ": " + keylist[key])
-            return sshmanager
+        return sshmanager
         """
         take a look into original cloudmesh code, its possible to either specify a key or a filename
         the original one is able to figure this out and do the rightthing. We may want to add this

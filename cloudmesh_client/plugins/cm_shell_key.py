@@ -11,6 +11,7 @@ from cloudmesh_base.tables import dict_printer, two_column_table
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.tables import dict_printer
+import yaml
 
 class cm_shell_key:
     def activate_cm_shell_key(self):
@@ -99,29 +100,17 @@ class cm_shell_key:
         directory = path_expand(arguments["--dir"])
 
         if arguments['list']:
-            print('list')
-            d = sshdb.dict()
-            print (d)
-
-            """
             if arguments['--source'] == 'ssh':
-                source = arguments['--source']
-                files = _find_keys(directory)
-
-                ssh_keys = {}
-
-                for key in files:
-                    ssh_keys[key] = directory + "/" + key
-                print(ssh_keys)
-
-            print(_print_dict(ssh_keys))
-            if arguments['--dir']:
-                dir = arguments['--dir']
-                print(dir)
-            if arguments['--format']:
-                format = arguments['--format']
-                print(format)
-            """
+                sshm.get_from_dir(directory)
+                d = dict(sshm.__keys__)
+                print(_print_dict(d,format=arguments['--format']))
+            elif arguments['--source'] == 'yaml':
+                m = sshm.get_from_yaml(load_order=directory)
+                d = dict(m.__keys__)
+                print(_print_dict(d,format=arguments['--format']))
+            elif arguments['--source'] == 'mongo':
+                d =sshdb.dict()
+                print(_print_dict(d,format=arguments['--format']))
 
         elif arguments['add']:
             print('add')
