@@ -35,6 +35,16 @@ class Test_register():
         :return:
         """
         HEADING()
-        result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-12.04")
+        result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
         print result
         assert True
+
+    def test_002(self):
+        """
+        tries to start a vm with an invalid image
+        :return:
+        """
+        HEADING()
+        result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/linux>windows")
+
+        assert "not found" in result

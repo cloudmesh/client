@@ -1,6 +1,12 @@
 from cmd3.console import Console
 from cloudmesh_base.Shell import Shell
 from os.path import expanduser
+from libcloud.compute.types import Provider
+from libcloud.compute.providers import get_driver
+from cloudmesh_client.common.ConfigDict import ConfigDict
+import libcloud.security
+from cloudmesh_client.common.ConfigDict import Config
+from time import sleep
 
 class Command_vm(object):
 
@@ -22,10 +28,67 @@ class Command_vm(object):
         :type group: string
         :return:
         """
-
         Console.ok('start {} {} {} {} {} {}'.format(name, count, cloud, image, flavor, group))
 
-        raise NotImplemented("Not implemented yet")
+        if "india" in cloud:
+            OpenStack = get_driver(Provider.OPENSTACK)
+            try:
+                # get cloud credential from yaml file
+                confd = ConfigDict("cloudmesh.yaml.back")
+                cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
+            except Exception, e:
+                Console.error(e.message)
+                return
+
+            # set path to cacert and enable ssl connection
+            libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
+            libcloud.security.VERIFY_SSL_CERT = True
+
+            auth_url = "%s/tokens/" % cloudcred['OS_AUTH_URL']
+
+            driver = OpenStack(cloudcred['OS_USERNAME'],
+                               cloudcred['OS_PASSWORD'],
+                               ex_force_auth_url=auth_url,
+                               ex_tenant_name=cloudcred['OS_TENANT_NAME'],
+                               ex_force_auth_version='2.0_password',
+                               ex_force_service_region='regionOne')
+
+
+
+            # obtain available images
+            #type of images <class 'libcloud.compute.base.NodeImage'>
+            images = driver.list_images()
+            if  not [i for i in images if i.name == image]:
+                Console.error("Image {:} not found".format(image))
+                return
+            image = [i for i in images if i.name == image][0]
+
+
+            # sizes/flavors
+            sizes = driver.list_sizes()
+            if not [i for i in sizes if i.name == flavor]:
+                Console.error("Flavor {:} not found".format(flavor))
+                return
+            size = [i for i in sizes if i.name == flavor][0]
+
+
+            if name is None:
+                name = "{:}-india".format(cloudcred['OS_USERNAME'])
+            Console.ok("Booting Virtual Machine...")
+            
+            #launch a new VM
+            node = driver.create_node(name=name, image=image, size=size)
+
+            # wait the node to be ready before assigning public IP
+            sleep(10)
+            Console.ok("Virtual Machine created")
+        else:
+            Console.error('cloud {:} not found'.format(cloud))
+
+
+
+
+        #raise NotImplemented("Not implemented yet")
 
 
     @classmethod
