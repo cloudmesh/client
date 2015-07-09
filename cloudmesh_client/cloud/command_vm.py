@@ -128,14 +128,6 @@ class Command_vm(object):
             Console.error('cloud {:} not found'.format(cloud))
 
 
-def __vmNameExixts(self, name):
-    """
-    checks if the virtual machine name has already been created
-    :param name: name of the virtual machine
-    :return:
-    """
-
-
     @classmethod
     def delete(cls, name_or_id, group, cloud, force=False):
        """
