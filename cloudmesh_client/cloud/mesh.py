@@ -34,11 +34,6 @@ class Mesh(object):
     def __init__(self):
         self.db = CloudmeshDatabase()
 
-    def make_session(cls, connection_string):
-        engine = create_engine(connection_string, echo=False, convert_unicode=True)
-        Session = sessionmaker(bind=engine)
-        return Session(), engine
-
     @classmethod
     def clouds(cls, format='json'):
         filename = "cloudmesh.yaml"
