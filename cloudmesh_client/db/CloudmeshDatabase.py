@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_client.iaas.openstack_libcloud import OpenStack_libcloud
-from cloudmesh_client.cloud.clouds import Cloud
+from cloudmesh_client.cloud.mesh import Mesh
 from pprint import pprint
 from cloudmesh_base.hostlist import Parameter
 from datetime import datetime
@@ -178,7 +178,7 @@ class CloudmeshDatabase(object):
 
     def next_name(self):
         name = self.get_name()
-        return Cloud.next_name(name)
+        return Mesh.next_name(name)
 
     def update_from_dict(self, d):
 
