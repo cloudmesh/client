@@ -13,7 +13,7 @@ import getpass
 import json
 from pprint import pprint
 import sys
-from cloudmesh_client.cloud.clouds import Cloud
+
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_base.util import banner
