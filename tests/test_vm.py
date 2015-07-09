@@ -35,7 +35,7 @@ class Test_register():
         :return:
         """
         HEADING()
-        result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
+        result = run ("cm vm start --count=10 --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
         print result
         assert True
 
@@ -48,3 +48,23 @@ class Test_register():
         result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/linux>windows")
 
         assert "not found" in result
+
+    def test_003(self):
+        """
+        tries to start a vm with an invalid flavor
+        :return:
+        """
+        HEADING()
+        result = run ("cm vm start --cloud=india --flavor=m1.medio --image=futuresystems/ubuntu-14.04")
+
+        assert "not found" in result
+
+    def test_004(self):
+        """
+        starts a vm with a specific name
+        :return:
+        """
+        HEADING()
+        result = run ("cm vm start --name=silva-vm --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
+        print result
+        assert True
