@@ -1,4 +1,7 @@
-import cloudmesh_base.hostlist
+from cloudmesh_base.hostlist import Parameter
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.tables import dict_printer
 
 
 class Mesh(object):
@@ -27,6 +30,19 @@ class Mesh(object):
     We start simply with a print msg
 
     """
+    db = CloudmeshDatabase()
+
+    @classmethod
+    def clouds(cls, format='json'):
+        filename = "cloudmesh.yaml"
+        config = ConfigDict(filename)
+        yaml_clouds = dict(config["cloudmesh"]["clouds"])
+        """if format == 'table':
+            output = ''
+            for cloud in yaml_clouds:
+                output = "\n".join((output, dict_printer(yaml_clouds[cloud],output='table')))
+            return output"""
+        return dict_printer(yaml_clouds,output=format)
 
     @classmethod
     def vms(cls, clouds):
@@ -96,7 +112,7 @@ class Mesh(object):
         :param ids: host ids specified in hostlist format
         :return:
         """
-        names = hostlist.expand_hostlist(ids)
+        names = Parameter.expand(ids)
         for name in names:
             print ("delete", name)
 
@@ -187,6 +203,8 @@ def main():
     Mesh.delete("gregor-001")
 
     Mesh.delete("gregor-[002-005]")
+
+    print (Mesh.clouds('table'))
 
 
 if __name__ == "__main__":
