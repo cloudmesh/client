@@ -1,8 +1,9 @@
 from cloudmesh_base.hostlist import Parameter
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.tables import dict_printer
-
+import cloudmesh_client.db.CloudmeshDatabase
+import shutil
+from cloudmesh_base.util import path_expand
 
 class Mesh(object):
     t_flavour = "flavour"
@@ -30,19 +31,52 @@ class Mesh(object):
     We start simply with a print msg
 
     """
-    db = CloudmeshDatabase()
+    def __init__(self):
+        self.db = CloudmeshDatabase()
+
+    def make_session(cls, connection_string):
+        engine = create_engine(connection_string, echo=False, convert_unicode=True)
+        Session = sessionmaker(bind=engine)
+        return Session(), engine
 
     @classmethod
     def clouds(cls, format='json'):
         filename = "cloudmesh.yaml"
         config = ConfigDict(filename)
         yaml_clouds = dict(config["cloudmesh"]["clouds"])
-        """if format == 'table':
-            output = ''
-            for cloud in yaml_clouds:
-                output = "\n".join((output, dict_printer(yaml_clouds[cloud],output='table')))
-            return output"""
         return dict_printer(yaml_clouds,output=format)
+
+    @classmethod
+    def verify(cls):
+        print("verify")
+
+    @classmethod
+    def refresh(cls):
+        print ("refresh")
+
+    @classmethod
+    def register(cls):
+        print ("register")
+
+    @classmethod
+    def key_add(cls):
+        print ("key add")
+
+    @classmethod
+    def clear(cls):
+        print ("clear")
+        cls.db.delete_all(["VM","FLAVOR","IMAGE"])
+
+    @classmethod
+    def dump(cls, filename):
+        from_file = path_expand("~/.cloudmesh/cloudmesh.db")
+        to_file = path_expand("~/.cloudmesh/{}".format(filename))
+        shutil.copyfile(from_file, to_file)
+        print ("dump")
+
+    @classmethod
+    def load(cls, filename):
+        print ("load")
 
     @classmethod
     def vms(cls, clouds):
@@ -205,6 +239,11 @@ def main():
     Mesh.delete("gregor-[002-005]")
 
     print (Mesh.clouds('table'))
+
+    Mesh.clear()
+
+    Mesh.dump('test.db')
+
 
 
 if __name__ == "__main__":
