@@ -30,7 +30,9 @@ class Mesh(object):
     We start simply with a print msg
 
     """
-    #db = CloudmeshDatabase()
+    def __init__(self):
+        self.db = CloudmeshDatabase()
+
 
     @classmethod
     def clouds(cls, format='json'):
