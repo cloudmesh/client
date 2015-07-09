@@ -7,13 +7,15 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 import libcloud.security
 from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class Command_vm(object):
 
     @classmethod
     def start(cls, name, count, cloud, image, flavor, group):
         """
-        starts a vm
+        starts a virtual Machine (VM) or a set of VMs
+
         :param name: name of the virtual machine
         :type name: string
         :param count: give the number of servers to start
@@ -28,13 +30,12 @@ class Command_vm(object):
         :type group: string
         :return:
         """
-        Console.ok('start {} {} {} {} {} {}'.format(name, count, cloud, image, flavor, group))
 
         if "india" in cloud:
             OpenStack = get_driver(Provider.OPENSTACK)
             try:
                 # get cloud credential from yaml file
-                confd = ConfigDict("cloudmesh.yaml.back")
+                confd = ConfigDict("cloudmesh.yaml")
                 cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
             except Exception, e:
                 Console.error(e.message)
@@ -56,7 +57,7 @@ class Command_vm(object):
 
 
             # obtain available images
-            #type of images <class 'libcloud.compute.base.NodeImage'>
+            #type of images: <class 'libcloud.compute.base.NodeImage'>
             images = driver.list_images()
             if  not [i for i in images if i.name == image]:
                 Console.error("Image {:} not found".format(image))
@@ -72,23 +73,59 @@ class Command_vm(object):
             size = [i for i in sizes if i.name == flavor][0]
 
 
+            if count is None:
+                count = 1
+            count = int (count)
+
+
+            def __findsufix():
+                """
+                    Virtual machine name (VM) format:
+                      string-001, string-002, ..., string-n
+                    returns the max sufix from the VM list. It will be used in the new vm name in order to avoid
+                    VMs with the same name.
+
+                    :return: max sufix
+                    :return type: string
+                """
+                nodes = driver.list_nodes()
+                sufix = 1
+                for i in nodes:
+                    n = 0
+                    try:
+                        n = int(i.name.split('-', 1)[1])#not always is int(i.name.split('-', 1)[1] a digit
+                    except:
+                        pass
+                    if sufix <= n:
+                        sufix=n+1
+                sufix = str(sufix).zfill(3)
+                return sufix
+
+            #set vm name
+            sufix = __findsufix()
+            c = CloudmeshDatabase()
             if name is None:
-                name = "{:}-india".format(cloudcred['OS_USERNAME'])
-            Console.ok("Booting Virtual Machine...")
-            
+                c.name(cloudcred['OS_USERNAME']+"-"+sufix)
+            else:
+                c.name(name+"-"+sufix)
+
+
             #launch a new VM
-            node = driver.create_node(name=name, image=image, size=size)
+            Console.ok("Booting Virtual Machine...")
+            for i in range (0, count):
+                name = c.get_name()
+                try:
+                    node = driver.create_node(name=name, image=image, size=size)
+                except Exception, e:
+                    Console.error("{:} virtual machines have not been created. {:}".format(count-i, e.message))
+                    return
+                c.name(c.next_name())
 
             # wait the node to be ready before assigning public IP
             sleep(10)
             Console.ok("Virtual Machine created")
         else:
             Console.error('cloud {:} not found'.format(cloud))
-
-
-
-
-        #raise NotImplemented("Not implemented yet")
 
 
     @classmethod

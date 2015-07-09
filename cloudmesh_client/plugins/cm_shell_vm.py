@@ -113,7 +113,7 @@ class cm_shell_vm:
                         json format
 
         """
-        pprint(arguments)
+        #pprint(arguments)
         if arguments["start"]:
             name = arguments["--name"]
             count = arguments["--count"]

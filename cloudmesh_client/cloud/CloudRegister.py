@@ -153,7 +153,7 @@ class CloudRegister(object):
         """
         Console.ok("register")
 
-        if host == "india":  # for india, CERT will be in ~/.cloudmesh/clouds/india/juno/cacert.pem
+        if host == "india":  # for india, CERT will be in .cloudmesh/clouds/india/juno/cacert.pem (this is a remote dir)
 
             _from = 'india:{:}'.format(path_cert)
             _to = path_expand('~/.cloudmesh/clouds/india/juno/')
