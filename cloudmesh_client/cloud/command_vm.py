@@ -151,9 +151,9 @@ class Command_vm(object):
 
        :return:
        """
-        #TODO: delete by group
+        #TODO: delete by group. set default cloud
 
-       #default cloud, not sure if this is right
+       #default cloud. fix this
        if cloud == None:
            cloud = "india"
 
@@ -196,8 +196,21 @@ class Command_vm(object):
                 :return:
                 """
                 try:
+                    while True:
+                        answer = ""
+                        if not force:
+                            answer = raw_input("Would you like to delete {:}? y/n".format(node.name))
+                        if answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                            break
+                        elif answer.lower() != 'n' and answer.lower() != 'no':
+                            Console.ok("Invalid option")
+                        else:
+                            Console.ok("Operation aborted")
+                            return
+
                     driver.destroy_node(node)
                     Console.ok("Virtual Machine {:} deleted".format(node.name))
+
                 except Exception, e:
                     Console.error("Could not delete Virtual Machine {:}. {:}".format(node.name, e.message))
 
