@@ -14,24 +14,31 @@ class Command_vm(object):
     @classmethod
     def start(cls, name, count, cloud, image, flavor, group):
         """
+        TODO: group has not been used yet. fix that
+
         starts a virtual Machine (VM) or a set of VMs
 
         :param name: name of the virtual machine
-        :type name: string
+        :type name: string, None
         :param count: give the number of servers to start
-        :type count: integer
+        :type count: integer, None
         :param cloud: give a cloud to work on, if not given, selected or default cloud will be used
-        :type cloud: integer
+        :type cloud: integer, None
         :param image: image name
-        :type image: string
+        :type image: string, None
         :param flavor:flavor name. m1.medium, for example
-        :type flavor: string
+        :type flavor: string, None
         :param group: the group name of server
-        :type group: string
+        :type group: string, None
         :return:
         """
 
-        if "india" in cloud:
+        #TODO: vm start (without arguments) use defaut cloud, image, flavor, group.
+        if cloud == None:#use default values for cloud, image and flavor
+            pass
+
+
+        if "india" == cloud:
             OpenStack = get_driver(Provider.OPENSTACK)
             try:
                 # get cloud credential from yaml file
@@ -134,7 +141,7 @@ class Command_vm(object):
        deletes a vm
 
        :param name_or_id: name or id of the vm to be deleted
-       :type name_or_id: list
+       :type name_or_id: list of strings
        :param group: the group name of server
        :type group: string
        :param cloud: the cloud name
@@ -144,9 +151,60 @@ class Command_vm(object):
 
        :return:
        """
+        #TODO: delete by group
+
+       #default cloud, not sure if this is right
+       if cloud == None:
+           cloud = "india"
+
+
+       if cloud == "india":
+            OpenStack = get_driver(Provider.OPENSTACK)
+            try:
+                # get cloud credential from yaml file
+                confd = ConfigDict("cloudmesh.yaml")
+                cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
+            except Exception, e:
+                Console.error(e.message)
+                return
+
+            # set path to cacert and enable ssl connection
+            libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
+            libcloud.security.VERIFY_SSL_CERT = True
+
+            auth_url = "%s/tokens/" % cloudcred['OS_AUTH_URL']
+
+            driver = OpenStack(cloudcred['OS_USERNAME'],
+                               cloudcred['OS_PASSWORD'],
+                               ex_force_auth_url=auth_url,
+                               ex_tenant_name=cloudcred['OS_TENANT_NAME'],
+                               ex_force_auth_version='2.0_password',
+                               ex_force_service_region='regionOne')
+
+
+
+            #gets all the VMs
+            nodes = driver.list_nodes()
+            print type(name_or_id)
+
+            #for i in nodes:
+
+
+            #print nodes
+            #if name_or_id !=None:
+             #   for i in name_or_id:
+
+
+
+            #driver.destroy("", "india")
 
        Console.ok('delete: {} {} {} {}'.format(name_or_id, group, cloud, force))
-       raise NotImplemented("Not implemented yet")
+
+
+
+
+
+       #raise NotImplemented("Not implemented yet")
 
     @classmethod
     def ip_assign(cls, name_or_id, cloud):
