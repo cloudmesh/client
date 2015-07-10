@@ -1,7 +1,8 @@
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.tables import dict_printer
-import cloudmesh_client.db.CloudmeshDatabase
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+import cloudmesh_client.db
 import shutil
 from cloudmesh_base.util import path_expand
 
@@ -31,58 +32,60 @@ class Mesh(object):
     We start simply with a print msg
 
     """
-    def __init__(self):
-        self.db = CloudmeshDatabase()
+    db = CloudmeshDatabase()
 
     @classmethod
-    def clouds(cls, format='json'):
+    def clouds(self, format='json'):
         filename = "cloudmesh.yaml"
         config = ConfigDict(filename)
         yaml_clouds = dict(config["cloudmesh"]["clouds"])
         return dict_printer(yaml_clouds,output=format)
 
     @classmethod
-    def verify(cls):
+    def verify(self):
         print("verify")
 
     @classmethod
-    def refresh(cls):
+    def refresh(self):
         print ("refresh")
 
     @classmethod
-    def register(cls):
+    def register(self):
         print ("register")
 
     @classmethod
-    def key_add(cls):
+    def key_add(self):
         print ("key add")
 
     @classmethod
-    def clear(cls):
+    def clear(self):
         print ("clear")
-        cls.db.delete_all(["VM","FLAVOR","IMAGE"])
+        self.db.delete_all(["VM","FLAVOR","IMAGE"])
 
     @classmethod
-    def dump(cls, filename):
+    def dump(self, filename):
         from_file = path_expand("~/.cloudmesh/cloudmesh.db")
         to_file = path_expand("~/.cloudmesh/{}".format(filename))
         shutil.copyfile(from_file, to_file)
         print ("dump")
 
     @classmethod
-    def load(cls, filename):
+    def load(self, filename):
         print ("load")
+        from_file = path_expand("~/.cloudmesh/{}".format(filename))
+        to_file = path_expand("~/.cloudmesh/cloudmesh.db")
+        shutil.copyfile(from_file, to_file)
 
     @classmethod
-    def vms(cls, clouds):
+    def vms(self, clouds):
         if isinstance(clouds, str):
-            return cls.vms(kind, [clouds], output)
+            return self.vms(kind, [clouds], output)
 
         for cloud in clouds:
             print ("get vm ids from ", cloud)
 
     @classmethod
-    def list(cls, kind, clouds, output="table"):
+    def list(self, kind, clouds, output="table"):
         """
         Lists the IaaS objects such as flavors, images, vms in the specified output format.
 
@@ -95,7 +98,7 @@ class Mesh(object):
         :return:
         """
         if isinstance(clouds, str):
-            return cls.list(kind, [clouds], output)
+            return self.list(kind, [clouds], output)
 
         for cloud in clouds:
             if kind in ["f", "flavour"]:
@@ -109,7 +112,7 @@ class Mesh(object):
         return "done"
 
     @classmethod
-    def boot(cls, image, flavor, key, cloud, arguments):
+    def boot(self, image, flavor, key, cloud, arguments):
         """
         Boots the image on a specified cloud
 
@@ -130,7 +133,7 @@ class Mesh(object):
         pass
 
     @classmethod
-    def delete(cls, ids):
+    def delete(self, ids):
         """
         delete the vms
 
@@ -146,7 +149,7 @@ class Mesh(object):
             print ("delete", name)
 
     @classmethod
-    def _generate_name(cls, prefix, number, padding):
+    def _generate_name(self, prefix, number, padding):
         """
         method to create a vm name from a prefix, with given padding of 0
 
@@ -162,7 +165,7 @@ class Mesh(object):
         return format_string.format(number)
 
     @classmethod
-    def _parse_name(cls, name):
+    def _parse_name(self, name):
         """
         returns the prefix, the number and the padding length
 
@@ -177,7 +180,7 @@ class Mesh(object):
         return prefix, n, padding
 
     @classmethod
-    def next_name(cls, name):
+    def next_name(self, name):
         """
         generates the next name.
 
@@ -192,12 +195,12 @@ class Mesh(object):
         :return: the new name
         :rtype: str
         """
-        prefix, n, padding = cls._parse_name(name)
+        prefix, n, padding = self._parse_name(name)
         n += 1
-        return cls._generate_name(prefix, n, padding)
+        return self._generate_name(prefix, n, padding)
 
     @classmethod
-    def get_name(cls):
+    def get_name(self):
         """gets the next name of a vm while increasing its index."""
         # the name format is written to the database based on a set_name
         # the database will contain an index that stores the current index.
@@ -206,7 +209,7 @@ class Mesh(object):
         return "notimplemented-0001"
 
     @classmethod
-    def set_name(cls, name):
+    def set_name(self, name):
         """
 
         :param name:
@@ -220,10 +223,11 @@ class Mesh(object):
         we simply just increase the number.
 
         """
-        prefix, n, padding = cls.parse_name(name)
+        prefix, n, padding = self.parse_name(name)
 
 
 def main():
+    mesh = Mesh()
     print(Mesh.next_name("Gregor-001"))
 
     Mesh.list("flavour", ["india", "hp"], output="table")
@@ -235,9 +239,12 @@ def main():
 
     print (Mesh.clouds('table'))
 
-    Mesh.clear()
+    mesh.dump('test.db')
 
-    Mesh.dump('test.db')
+    mesh.clear()
+
+    #Mesh.load('test.db')
+
 
 
 
