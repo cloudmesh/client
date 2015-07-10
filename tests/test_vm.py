@@ -35,7 +35,7 @@ class Test_register():
         :return:
         """
         HEADING()
-        result = run ("cm vm start --count=10 --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
+        result = run ("cm vm start --count=2 --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
         print result
         assert True
 

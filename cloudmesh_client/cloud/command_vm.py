@@ -183,9 +183,63 @@ class Command_vm(object):
 
 
 
+            """
+            1.pegar cada elemento da lista de name_id e verificar se tem um indice no final
+            2. ver se a vm com aqueele nome existe
+            3. se sim, delete it
+
+            """
             #gets all the VMs
             nodes = driver.list_nodes()
-            print type(name_or_id)
+
+            def __destroy_node(node):
+                try:
+                    Console.ok("Deleting Virtual Machine {:}".format(node.name))
+                    driver.destroy_node(i)
+                    Console.ok("Virtual Machine {:} deleted".format(node.name))
+                except Exception, e:
+                    Console.error("Could not delete Virtual Machine {:}. {:}".format(node.name, e.message))
+
+            def __deleteNode(*args):
+                """
+                    :param *args:
+                """
+                if len(args) == 1:#only one vm
+                    name = args[0]
+                    for i in nodes:
+                        if i.name == name:
+                            __destroy_node(i)
+                            return
+                    Console.error("Virtual Machine {:} not found".format(name))
+                else:#interval of vms like sample-[1-10]
+                    prefix=args[0]
+                    start=args[1].zfill(3)
+                    end=args[2].zfill(3)
+
+                    for i in range(int(start), int(end)+1):
+                        print prefix+"-"+str(i).zfill(3)
+                        
+                    #print prefix, start, end
+
+
+
+            #name_or_id is a list of strings. A string is one of:
+              #sample_[100-9999]. Deletes vm starting at 100 until 9999
+              #sample. Deletes vm named sample
+            for i in name_or_id:
+                name = i.strip()
+                if name[-1]== ']':#vm name like sample-[1-10]
+                    a = (name.split('[')[1]).split(']')[0].split('-')
+                    prefix = name.split('-')[0]#example: prefix is the sting 'sample' from sample-[10-12]
+                    start = a[0]#type: str
+                    end = a[1]#type: str
+                    __deleteNode(prefix, start, end)
+                else:#vm name like sample-daniel
+                    __deleteNode(name)
+
+
+
+
 
             #for i in nodes:
 
@@ -198,7 +252,7 @@ class Command_vm(object):
 
             #driver.destroy("", "india")
 
-       Console.ok('delete: {} {} {} {}'.format(name_or_id, group, cloud, force))
+       #Console.ok('delete: {} {} {} {}'.format(name_or_id, group, cloud, force))
 
 
 
