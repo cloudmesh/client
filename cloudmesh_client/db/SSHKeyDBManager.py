@@ -19,10 +19,13 @@ class SSHKeyDBManager(object):
         :param keyname: name of the key or path to the key
         :return:
         """
-        key_obj = KEY(cm_name=cm_user)
 
         sshkey = SSHkey(path_expand(key_path))
 
+        self.add_from_SSHKey(sshkey,keyname)
+
+    def add_from_SSHKey(self, sshkey, keyname=None):
+        key_obj = KEY(cm_name=cm_user)
         if keyname is not None:
             key_obj.name = keyname
         else:

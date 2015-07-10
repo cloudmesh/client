@@ -4,6 +4,9 @@ from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import shutil
 from cloudmesh_base.util import path_expand
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+import os.path
 
 class Mesh(object):
     t_flavour = "flavour"
@@ -53,16 +56,48 @@ class Mesh(object):
         print ("register")
 
     @classmethod
-    def key_add(self):
+    def key_add(self, *args):
         print ("key add")
+        """
+        Mesh.key_add("name", "~/.ssh/idrsa.pub")
+        Mesh.key_add("github")
+        Mesh.key_add("~/.ssh")
+        Mesh.key_delete("keynames")
+        """
+        sshm = SSHKeyManager()
+        sshdb = SSHKeyDBManager()
+        if len(args) == 1:
+            if os.path.isfile(path_expand(args[0])):
+                sshm.get_from_dir(args[0])
+                for key in sshm:
+                    sshdb.add_from_SSHKey(sshm.__keys__[key], key)
+            else: #args is the github username
+                sshm.get_from_git(args[0])
+                for key in sshm:
+                    sshdb.add_from_SSHKey(sshm.__keys__[key], key)
+        elif len(args) == 2:
+            keyname = args[0]
+            path = path_expand(args[1])
+            sshdb.add(path, keyname)
+
+    def key_delete(self, keynames):
+        sshdb = SSHKeyDBManager()
+        names = keynames.split(',')
+        for name in names:
+            sshdb.delete(name)
 
     @classmethod
     def clear(self):
         print ("clear")
-        self.db.delete_all(["VM","FLAVOR","IMAGE"])
+        self.db.delete_all(["VM","FLAVOR","IMAGE","DFAULT"])
 
     @classmethod
     def dump(self, filename):
+        """
+
+        :param filename: name of the db file that will receive the content of cloudmesh.db
+        :return:
+        """
         from_file = path_expand("~/.cloudmesh/cloudmesh.db")
         to_file = path_expand("~/.cloudmesh/{}".format(filename))
         shutil.copyfile(from_file, to_file)
@@ -70,6 +105,11 @@ class Mesh(object):
 
     @classmethod
     def load(self, filename):
+        """
+
+        :param filename: name of the db file located on ./cloudmesh that will be copied do cloudmesh.db
+        :return:
+        """
         print ("load")
         from_file = path_expand("~/.cloudmesh/{}".format(filename))
         to_file = path_expand("~/.cloudmesh/cloudmesh.db")
@@ -238,11 +278,11 @@ def main():
 
     print (Mesh.clouds('table'))
 
-    mesh.dump('test.db')
+    #mesh.dump('test.db')
 
-    mesh.clear()
+    #mesh.clear()
 
-    #Mesh.load('test.db')
+    Mesh.load('test.db')
 
 
 
