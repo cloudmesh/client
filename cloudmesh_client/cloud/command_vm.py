@@ -138,7 +138,7 @@ class Command_vm(object):
     @classmethod
     def delete(cls, name_or_id, group, cloud, force=False):
        """
-       deletes a vm
+       deletes a VM or a set of VM
 
        :param name_or_id: name or id of the vm to be deleted
        :type name_or_id: list of strings
@@ -151,9 +151,9 @@ class Command_vm(object):
 
        :return:
        """
-        #TODO: delete by group
+        #TODO: delete by group. set default cloud
 
-       #default cloud, not sure if this is right
+       #default cloud. fix this
        if cloud == None:
            cloud = "india"
 
@@ -183,28 +183,92 @@ class Command_vm(object):
 
 
 
+
             #gets all the VMs
             nodes = driver.list_nodes()
-            print type(name_or_id)
 
-            #for i in nodes:
+            def __destroy_node(node):
+                """
+                    deletes a Virtual Machine
+
+                :param node: node to be deleted
+                :type node: Node
+                :return:
+                """
+                try:
+                    while True:
+                        answer = ""
+                        if not force:
+                            answer = raw_input("Would you like to delete {:}? y/n".format(node.name))
+                        if answer.lower() == 'y' or answer.lower() == 'yes' or force:
+                            break
+                        elif answer.lower() != 'n' and answer.lower() != 'no':
+                            Console.ok("Invalid option")
+                        else:
+                            Console.ok("Operation aborted")
+                            return
+
+                    driver.destroy_node(node)
+                    Console.ok("Virtual Machine {:} deleted".format(node.name))
+
+                except Exception, e:
+                    Console.error("Could not delete Virtual Machine {:}. {:}".format(node.name, e.message))
+
+            def __deleteNode(*args):
+                """
+                    finds a node to be deleted
+
+                    :param *args: [name], [prefix], [start], [end]
+                    :param name: full name of the vm
+                    :type name: string
+                    :param prefix: fist part of the vm name. Example: full name: sample-[5-12], prefix: 'sample'
+                    :type prefix: string
+                    :param start: first virtual machine. Example: full name: sample-[5-12], start: '5'
+                    :type start: string
+                    :param end: last virtual machine. Example: full name: sample-[12-99], end: 99
+                    :type end: string
+
+                """
+                if len(args) == 1:#only one vm
+                    name = args[0]
+                    for i in nodes:
+                        if i.name == name:
+                            __destroy_node(i)
+                            return
+                    Console.error("Virtual Machine {:} not found".format(name))
+                else:#interval of vms like sample-[1-10]
+                    prefix=args[0]
+                    start=args[1].zfill(3)
+                    end=args[2].zfill(3)
+
+                    for i in range(int(start), int(end)+1):
+                        name= prefix+"-"+str(i).zfill(3)#name of the vms to be deleted
+                        flag = False
+                        for j in nodes:
+                            if name == j.name:
+                                __destroy_node(j)
+                                flag = True
+                                break
+                        if not flag:
+                            Console.error("Virtual Machine {:} not found".format(name))
 
 
-            #print nodes
-            #if name_or_id !=None:
-             #   for i in name_or_id:
 
 
+            #name_or_id is a list of strings. A string is one of:
+              #sample_[100-9999]. Deletes vm starting at 100 until 9999
+              #sample. Deletes vm named sample
+            for i in name_or_id:
+                name = i.strip()
+                if name[-1]== ']':#vm name like sample-[1-10]
+                    a = (name.split('[')[1]).split(']')[0].split('-')
+                    prefix = name.split('-')[0]#example: prefix is the sting 'sample' from sample-[10-12]
+                    start = a[0]#type: str
+                    end = a[1]#type: str
+                    __deleteNode(prefix, start, end)
+                else:#vm name like sample-daniel
+                    __deleteNode(name)
 
-            #driver.destroy("", "india")
-
-       Console.ok('delete: {} {} {} {}'.format(name_or_id, group, cloud, force))
-
-
-
-
-
-       #raise NotImplemented("Not implemented yet")
 
     @classmethod
     def ip_assign(cls, name_or_id, cloud):

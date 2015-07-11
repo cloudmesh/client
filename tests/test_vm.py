@@ -12,6 +12,7 @@ nosetests -v tests/test_vm.py
 from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
 import os
+from time import sleep
 
 def run(command):
     parameter = command.split(" ")
@@ -31,13 +32,16 @@ class Test_register():
 
     def test_001(self):
         """
-        starts a vm
+        starts a vm and deletes it
         :return:
         """
         HEADING()
-        result = run ("cm vm start --count=10 --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
-        print result
-        assert True
+
+        result = run ("cm vm start --name=silva  --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
+        assert "Virtual Machine created" in result
+        delete = run ("cm vm delete silva-001 --force")
+        assert "deleted" in delete
+
 
     def test_002(self):
         """
@@ -61,10 +65,37 @@ class Test_register():
 
     def test_004(self):
         """
-        starts a vm with a specific name
+        starts a vm with a specific name and deletes it
         :return:
         """
         HEADING()
-        result = run ("cm vm start --name=silva-vm --cloud=india --flavor=m1.medium --image=futuresystems/ubuntu-14.04")
-        print result
-        assert True
+        result = run ("cm vm start --name=test --cloud=india --flavor=m1.tiny --image=futuresystems/ubuntu-14.04")
+        assert "Virtual Machine created" in result
+        delete = run ("cm vm delete test-001 --force")
+        assert "deleted" in delete
+
+    def test_005(self):
+        """
+        tries to delete a invalid VM
+        :return:
+        """
+        HEADING()
+
+        delete = run ("cm vm delete bloomington --force")
+        assert "not found" in delete
+
+    def test_006(self):
+        """
+        creates 3 vm and deletes all of them at once
+        :return:
+        """
+        HEADING()
+        result = run ("cm vm start --count=3 --name=lol --cloud=india --flavor=m1.tiny --image=futuresystems/ubuntu-14.04")
+        assert "Virtual Machine created" in result
+
+        delete = run ("cm vm delete lol-[1-3] --force")
+        assert "deleted" in delete
+
+    
+
+
