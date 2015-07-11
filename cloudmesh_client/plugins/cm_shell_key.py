@@ -12,6 +12,7 @@ from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.tables import dict_printer
 import yaml
+import json
 
 class cm_shell_key:
     def activate_cm_shell_key(self):
@@ -94,7 +95,8 @@ class cm_shell_key:
             elif format == "yaml":
                 return yaml.dump(d, default_flow_style=False)
             else:
-                return two_column_table(d, header)
+                return d
+                #return dict_printer(d,order=['cm_id, name, fingerprint'])
 
 
         directory = path_expand(arguments["--dir"])
@@ -109,7 +111,7 @@ class cm_shell_key:
                 d = dict(m.__keys__)
                 print(_print_dict(d,format=arguments['--format']))
             elif arguments['--source'] == 'mongo':
-                d =sshdb.dict()
+                d =sshdb.table_dict()
                 print(_print_dict(d,format=arguments['--format']))
 
         elif arguments['add']:

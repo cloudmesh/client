@@ -54,26 +54,26 @@ class Mesh(object):
     @classmethod
     def register(self):
         print ("register")
+        self.db.update(['vm','image','flavor'], ['india','aws','azure'])
 
     @classmethod
     def key_add(self, *args):
         print ("key add")
-        """
-        Mesh.key_add("name", "~/.ssh/idrsa.pub")
-        Mesh.key_add("github")
-        Mesh.key_add("~/.ssh")
-        Mesh.key_delete("keynames")
-        """
         sshm = SSHKeyManager()
         sshdb = SSHKeyDBManager()
+        print len(args)
         if len(args) == 1:
-            if os.path.isfile(path_expand(args[0])):
+            if os.path.isdir(path_expand(args[0])):
                 sshm.get_from_dir(args[0])
-                for key in sshm:
+                print sshm
+                for key in sshm.__keys__:
+                    print key
+                    print sshm.__keys__[key]['comment']
                     sshdb.add_from_SSHKey(sshm.__keys__[key], key)
             else: #args is the github username
                 sshm.get_from_git(args[0])
-                for key in sshm:
+                print args[0]
+                for key in sshm.__keys__:
                     sshdb.add_from_SSHKey(sshm.__keys__[key], key)
         elif len(args) == 2:
             keyname = args[0]
@@ -266,7 +266,6 @@ class Mesh(object):
 
 
 def main():
-    mesh = Mesh()
     print(Mesh.next_name("Gregor-001"))
 
     Mesh.list("flavour", ["india", "hp"], output="table")
@@ -282,9 +281,11 @@ def main():
 
     #mesh.clear()
 
-    Mesh.load('test.db')
+    #Mesh.load('test.db')
 
+    #Mesh.refresh()
 
+    Mesh.key_add('paulo-chagas')
 
 
 if __name__ == "__main__":

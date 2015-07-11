@@ -145,9 +145,9 @@ class SSHKeyManager(object):
              sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
             sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
             name = "github-" + str(key)
-            self.__keys__[name] = sshkey.__key__
             sshkey.__key__['comment'] = name
             sshkey.__key__['Id'] = name
+            self.__keys__[name] = sshkey.__key__
 
     def get_all(self, username):
         self.get_from_dir("~/.ssh")

@@ -22,17 +22,19 @@ class SSHKeyDBManager(object):
 
         sshkey = SSHkey(path_expand(key_path))
 
-        self.add_from_SSHKey(sshkey,keyname)
+        self.add_from_SSHKey(sshkey.__key__,keyname,cm_user)
 
-    def add_from_SSHKey(self, sshkey, keyname=None):
-        key_obj = KEY(cm_name=cm_user)
+    def add_from_SSHKey(self, sshkey, keyname=None, cm_user=None):
+
         if keyname is not None:
+            key_obj = KEY(cm_name=keyname, cm_user=cm_user)
             key_obj.name = keyname
         else:
-            key_obj.name = sshkey.__key__['name']
-        key_obj.comment = sshkey.__key__['comment']
-        key_obj.value = sshkey.__key__['string']
-        key_obj.fingerprint = sshkey.__key__['fingerprint']
+            key_obj = KEY(cm_name=sshkey['name'], cm_user=cm_user)
+            key_obj.name = sshkey['name']
+        key_obj.comment = sshkey['comment']
+        key_obj.value = sshkey['string']
+        key_obj.fingerprint = sshkey['fingerprint']
 
         self.db.add([key_obj])
         self.db.save()
@@ -74,7 +76,7 @@ class SSHKeyDBManager(object):
         """
         return self.db.find(KEY).all()
 
-    def dict(self):
+    def table_dict(self):
         """
 
         :return: dict from all elements in the table KEY
