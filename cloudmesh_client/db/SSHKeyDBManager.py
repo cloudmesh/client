@@ -10,14 +10,12 @@ from pprint import pprint
 class SSHKeyDBManager(object):
     def __init__(self, cm_user=None):
         self.db = CloudmeshDatabase.CloudmeshDatabase(cm_user)
-        self.mykeys = SSHKeyManager()
-        self.mykeys.get_from_dir("~/.ssh")
 
     def add(self, key_path, keyname=None, cm_user=None, source=None):
         """
-        Adds the key to the database based on the keyname (from SSHKeyManaager) or path
+        Adds the key to the database based on the path
 
-        :param keyname: name of the key or path to the key
+        :param keyname: name of the key
         :return:
         """
 
