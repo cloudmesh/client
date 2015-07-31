@@ -157,7 +157,15 @@ class cm_shell_key:
 
             elif arguments['--source'] == 'db':
                 sshdb = SSHKeyDBManager()
-                d = sshdb.table_dict()
+                d = sshdb.find_all()
+                print("UUUUU")
+                for row in d:
+                    row_as_dict = dict(row)
+                    print(row_as_dict)
+                print("OOOOO")
+                print (sshdb.object_to_dict(d))
+                print("OOOOO")
+                                
                 if d != {}:
                     print(_print_dict(d,format=arguments['--format']))
                 else:
