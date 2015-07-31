@@ -3,6 +3,7 @@ import base64
 import hashlib
 import struct
 from cloudmesh_base.util import path_expand
+from os.path import basename
 
 
 class SSHkey(object):
@@ -27,7 +28,12 @@ class SSHkey(object):
          self.__key__['key'],
          self.__key__['comment']) = self._parse(self.__key__['string'])
         self.__key__['fingerprint'] = self._fingerprint(self.__key__['string'])
-        self.__key__['name'] = self.__key__['comment']
+
+        name = basename(file_path).replace(".pub","").replace("id_","")
+        
+        self.__key__['name'] = name
+        self.__key__['comment'] = self.__key__['comment']        
+        self.__key__['source'] = 'ssh'        
         return self.__key__
 
     @property

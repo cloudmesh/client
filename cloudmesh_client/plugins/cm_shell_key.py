@@ -26,11 +26,12 @@ class cm_shell_key:
 
            Usage:
              key  -h | --help
-             key list --source=db [--format=FORMAT]
+             key list [--source=db] [--format=FORMAT]
              key list --source=cloudmesh [--format=FORMAT]             
              key list --source=ssh [--dir=DIR] [--format=FORMAT]             
              key list --source=git [--format=FORMAT] [--username=USERNAME]             
              key add [--name=KEYNAME] FILENAME
+             key add --git [--name=KEYNAME] NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --selet | --all) [-f]
 
@@ -107,7 +108,7 @@ class cm_shell_key:
                 return yaml.dump(d, default_flow_style=False)
             elif format == "table":
                 return dict_printer(d,
-                                    order=["name", "comment", "uri", "fingerprint"],
+                                    order=["name", "comment", "uri", "fingerprint", "source"],
                                     output="table",
                                     sort_keys=True)
             else:
@@ -157,26 +158,57 @@ class cm_shell_key:
 
             elif arguments['--source'] == 'db':
                 sshdb = SSHKeyDBManager()
-                d = sshdb.find_all()
-                print("UUUUU")
-                for row in d:
-                    row_as_dict = dict(row)
-                    print(row_as_dict)
-                print("OOOOO")
-                print (sshdb.object_to_dict(d))
-                print("OOOOO")
-                                
+                d = sshdb.table_dict()
                 if d != {}:
                     print(_print_dict(d,format=arguments['--format']))
                 else:
                     Console.error("No keys in the database")
                 
-        elif arguments['add']:
-            print('add')
+        elif arguments['add'] and arguments["--git"]:
+
+            print('git add')
+            sshdb = SSHKeyDBManager()            
+            keyname = arguments['--name']
+            gitkeyname = arguments['NAME']
+            filename = arguments['FILENAME']
+            
+            # sshdb.add(filename, keyname, source="ssh", uri="file://"+filename)
+
+            username = arguments["--username"]
+
+            if username == 'none':
+
+                conf = ConfigDict("cloudmesh.yaml")
+                username = conf["cloudmesh.github.username"]
+            print (username)
+                                    
+            sshm = SSHKeyManager()
+            try:
+                sshm.get_from_git(username)
+                d = dict(sshm.__keys__)                
+            except:
+                Console.error("problem reading keys from user: " + username)
+                return
+
+            try:
+                d[gitkeyname]['keyname'] = keyname
+                d[gitkeyname]['cm_user'] = None
+                d[gitkeyname]['source'] = 'git'
+                sshdb.add_from_dict(d[gitkeyname])
+            except:
+                Console.error("the key may already there")                
+
+
+
+            
+        elif arguments['add'] and not arguments["--git"]:
+
+            print('ssh dd')
             sshdb = SSHKeyDBManager()            
             keyname = arguments['--name']
             filename = arguments['FILENAME']
-            sshdb.add(filename, keyname)
+            
+            sshdb.add(filename, keyname, source="ssh", uri="file://"+filename)
 
         elif arguments['default']:
             print("default")

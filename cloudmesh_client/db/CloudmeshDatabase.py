@@ -363,7 +363,7 @@ class CloudmeshDatabase(object):
         """
         result = dict()
         for u in obj:
-            _id = u.id
+            _id = u.cm_id
             values = {}
             for key in u.__dict__.keys():
                 if not key.startswith("_sa"):

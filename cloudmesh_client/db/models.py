@@ -98,6 +98,7 @@ def set_cm_data(table,
     """
     table.cm_type = table.__tablename__
     table.cm_name = cm_name
+    table.cm_cloud = cloud
     table.label = label
     if cm_user is None:
         table.cm_user = getpass.getuser()
@@ -132,7 +133,10 @@ class KEY(db.Base):
     value = Column(String)
     fingerprint = Column(String)
     source = Column(String)    
-
+    comment = Column(String)
+    label = Column(String)
+    uri = Column(String)    
+    
     def __init__(self,
                  cm_name=None,
                  label=None,

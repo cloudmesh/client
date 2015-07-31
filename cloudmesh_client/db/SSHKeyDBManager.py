@@ -11,19 +11,45 @@ class SSHKeyDBManager(object):
     def __init__(self, cm_user=None):
         self.db = CloudmeshDatabase.CloudmeshDatabase(cm_user)
 
-    def add(self, key_path, keyname=None, cm_user=None, source=None):
+    def add(self, key_path, keyname=None, cm_user=None, source=None, uri=None):
         """
         Adds the key to the database based on the path
 
-        :param keyname: name of the key
+        :param keyname: name of the key or path to the key
         :return:
         """
 
         sshkey = SSHkey(path_expand(key_path))
 
-        self.add_from_SSHKey(sshkey.__key__,keyname,cm_user)
 
-    def add_from_SSHKey(self, sshkey, keyname=None, cm_user=None, source=None):
+        print("YYYYY")
+        print(sshkey)
+
+        self.add_from_SSHKey(sshkey.__key__,keyname,cm_user,source=source, uri=uri)
+
+    def add_from_dict(self, d):
+        pprint(d)
+
+        keyname = d['keyname']
+        key_obj = KEY(cm_name=keyname,
+                      label=keyname,
+                      cloud="general",
+                      cm_user=d['cm_user']
+                      )
+
+        key_obj.name = d['keyname']
+        key_obj.uri = d['uri']        
+        key_obj.source = d['source']        
+        key_obj.comment = d['comment']
+        key_obj.value = d['string'] + " " + d['comment']
+        key_obj.fingerprint = d['fingerprint']
+
+        #pprint (key_obj.__dict__)
+        self.db.add([key_obj])
+        self.db.save()
+
+
+    def add_from_SSHKey(self, sshkey, keyname=None, cm_user=None, source=None, uri=None):
 
         if keyname is None:
             try:
@@ -38,7 +64,9 @@ class SSHKeyDBManager(object):
                       cloud="general",
                       cm_user=cm_user
                       )
+
         key_obj.name = keyname
+        key_obj.uri = uri        
         key_obj.source = source        
         key_obj.comment = sshkey['comment']
         key_obj.value = sshkey['string']
