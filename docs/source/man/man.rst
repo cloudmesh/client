@@ -41,7 +41,7 @@ Command - admin::
 
     Usage:
       admin password reset
-      admin version
+      admin password
 
     Options:
 
@@ -49,9 +49,6 @@ Command - admin::
     Description:
       admin password reset
         Reset portal password
-
-      admin version
-         Prints the version numbers of cloudmesh and its plugins
 
 
 
@@ -133,6 +130,18 @@ Command - cluster::
        --cloud=CLOUD    the name of the cloud [cluster: general]
        --output=FORMAT  the output format [cluster: table]
 
+
+
+debug
+----------------------------------------------------------------------
+
+Command - debug::
+
+    Usage:
+          debug on
+          debug off
+
+          Turns the debug log level on and off.
 
 
 default
@@ -242,19 +251,19 @@ Command - generate::
 
         would create in the home directory  the following files
 
-            ├── LICENSE
-            ├── Makefile
-            ├── __init__.py
-            ├── __init__.pyc
-            ├── cloudmesh_example
-            │   ├── __init__.py
-            │   ├── command_example.py
-            │   └── plugins
-            │       ├── __init__.py
-            │       └── cm_shell_example.py
-            ├── requirements.txt
-            ├── setup.cfg
-            └── setup.py
+            |-- LICENSE
+            |-- Makefile
+            |-- __init__.py
+            |-- __init__.pyc
+            |-- cloudmesh_example
+            |   |-- __init__.py
+            |   |-- command_example.py
+            |   |-- plugins
+            |       |-- __init__.py
+            |       |-- cm_shell_example.py
+            |-- requirements.txt
+            |-- setup.cfg
+            |-- setup.py
 
         To install the plugin go to the directory and say
 
@@ -305,8 +314,8 @@ Command - key::
       key  -h | --help
       key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
       key add [--keyname=KEYNAME] FILENAME
-      key default [KEYNAME]
-      key delete KEYNAME
+      key default [KEYNAME | --select]
+      key delete (KEYNAME | --select | --all)
 
     Manages the keys
 
@@ -324,6 +333,7 @@ Command - key::
        --format=FORMAT      the format of the output [default: table]
        --source=SOURCE      the source for the keys [default: ssh]
        --keyname=KEYNAME    the name of the keys
+       --all                delete all keys
 
     Description:
 
@@ -442,30 +452,21 @@ loglevel
 Command - loglevel::
 
     Usage:
-      loglevel
-      loglevel critical
-      loglevel error
-      loglevel warning
-      loglevel info
-      loglevel debug
+        loglevel
+        loglevel critical
+        loglevel error
+        loglevel warning
+        loglevel info
+        loglevel debug
 
+        Shows current log level or changes it.
 
-    Shows current log level or changes it.
-
-    Arguments:
-
-    Description:
-
-      loglevel - shows current log level
-      critical - shows log message in critical level
-      error    - shows log message in error level including critical
-      warning  - shows log message in warning level including error
-      info     - shows log message in info level including warning
-      debug    - shows log message in debug level including info
-
-
-    Options:
-
+        loglevel - shows current log level
+        critical - shows log message in critical level
+        error    - shows log message in error level including critical
+        warning  - shows log message in warning level including error
+        info     - shows log message in info level including warning
+        debug    - shows log message in debug level including info
 
 
 
@@ -879,7 +880,8 @@ Command - search::
 
     Arguments:
 
-      NAME            Name of the table to search. If the name is not specified, the table DEFAULT will be searched
+      NAME            Name of the table to search. If the name is
+                      not specified, the table DEFAULT will be searched
       --order=FORMAT  Columns that will be displayed
       FILTER          Filter to be used when searching
 
@@ -938,18 +940,6 @@ Command - setup::
 
     Usage:
       setup init [--force]
-      setup test
-
-    Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
-
-
-setup_yaml
-----------------------------------------------------------------------
-
-Command - setup_yaml::
-
-    Usage:
-        setup_yaml  [--force]
 
     Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
 

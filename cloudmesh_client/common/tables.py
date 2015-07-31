@@ -31,7 +31,10 @@ def dict_printer(d, order=None, header=None, output="table",
     :return:
     """
     if output == "table":
-        return dict_table_printer(d, order=order, header=header, sort_keys=sort_keys)
+        if d == {}:
+            return None
+        else:
+            return dict_table_printer(d, order=order, header=header, sort_keys=sort_keys)
     elif output == "csv":
         return dict_csv_printer(d, order=order, header=header, sort_keys=sort_keys)
     elif output == "json":

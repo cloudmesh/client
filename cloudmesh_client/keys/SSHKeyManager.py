@@ -27,7 +27,7 @@ class SSHKeyManager(object):
     def table(self):
         d = dict(self.__keys__)
         return (dict_printer(d,
-                            order=["comment", "fingerprint"],
+                            order=["comment", "uri", "fingerprint"],
                             output="table",
                             sort_keys=True))
 
@@ -165,5 +165,12 @@ if __name__ == "__main__":
     print(mykeys)
     print(mykeys.keys())
 
-    print(mykeys['id_rsa.pub'])
-    print (len(mykeys))
+    print("GIT")
+    mykeys = SSHKeyManager()
+    mykeys.get_from_git("laszewsk")
+    print(mykeys)
+    print(mykeys.keys())
+
+    
+    #    print(mykeys['id_rsa.pub'])
+#    print (len(mykeys))

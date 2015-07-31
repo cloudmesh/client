@@ -131,6 +131,7 @@ class KEY(db.Base):
     name = Column(String)
     value = Column(String)
     fingerprint = Column(String)
+    source = Column(String)    
 
     def __init__(self,
                  cm_name=None,
