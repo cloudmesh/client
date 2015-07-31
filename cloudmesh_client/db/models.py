@@ -138,6 +138,7 @@ class KEY(db.Base):
                  label=None,
                  cloud='india',
                  cm_user=None):
+        print ("ADD {:} {:} {:} {:}".format(cm_name, label, cloud, cm_user))
         set_cm_data(self,
                     cm_name=cm_name,
                     label=label,

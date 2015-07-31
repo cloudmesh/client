@@ -5,6 +5,7 @@ from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.util import path_expand
 from cloudmesh_base.menu import menu_return_num
 import os.path
+from pprint import pprint
 
 class SSHKeyDBManager(object):
     def __init__(self, cm_user=None):
@@ -12,7 +13,7 @@ class SSHKeyDBManager(object):
         self.mykeys = SSHKeyManager()
         self.mykeys.get_from_dir("~/.ssh")
 
-    def add(self, key_path, keyname=None, cm_user=None):
+    def add(self, key_path, keyname=None, cm_user=None, source=None):
         """
         Adds the key to the database based on the keyname (from SSHKeyManaager) or path
 
@@ -24,18 +25,28 @@ class SSHKeyDBManager(object):
 
         self.add_from_SSHKey(sshkey.__key__,keyname,cm_user)
 
-    def add_from_SSHKey(self, sshkey, keyname=None, cm_user=None):
+    def add_from_SSHKey(self, sshkey, keyname=None, cm_user=None, source=None):
 
-        if keyname is not None:
-            key_obj = KEY(cm_name=keyname, cm_user=cm_user)
-            key_obj.name = keyname
-        else:
-            key_obj = KEY(cm_name=sshkey['name'], cm_user=cm_user)
-            key_obj.name = sshkey['name']
+        if keyname is None:
+            try:
+                keyname = sshkey['name']
+            except:
+                pass
+        if keyname is None:
+            print ("ERROR: keyname is none")
+            
+        key_obj = KEY(cm_name=keyname,
+                      label=keyname,
+                      cloud="general",
+                      cm_user=cm_user
+                      )
+        key_obj.name = keyname
+        key_obj.source = source        
         key_obj.comment = sshkey['comment']
         key_obj.value = sshkey['string']
         key_obj.fingerprint = sshkey['fingerprint']
 
+        pprint (key_obj.__dict__)
         self.db.add([key_obj])
         self.db.save()
 
