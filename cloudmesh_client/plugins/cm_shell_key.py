@@ -207,9 +207,11 @@ class cm_shell_key:
             sshdb = SSHKeyDBManager()            
             keyname = arguments['--name']
             filename = arguments['FILENAME']
-            
-            sshdb.add(filename, keyname, source="ssh", uri="file://"+filename)
-
+            try:
+                sshdb.add(filename, keyname, source="ssh", uri="file://"+filename)
+            except:
+                Console.error("problem adding the specified key")
+                
         elif arguments['default']:
             print("default")
             if arguments['KEYNAME']:
