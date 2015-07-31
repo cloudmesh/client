@@ -32,6 +32,7 @@ class cm_shell_key:
              key list --source=git [--format=FORMAT] [--username=USERNAME]             
              key add [--name=KEYNAME] FILENAME
              key add --git [--name=KEYNAME] NAME
+             key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --selet | --all) [-f]
 
@@ -163,7 +164,26 @@ class cm_shell_key:
                     print(_print_dict(d,format=arguments['--format']))
                 else:
                     Console.error("No keys in the database")
-                
+                    
+        elif arguments['get']:
+
+            name = arguments['NAME']
+            sshdb = SSHKeyDBManager()
+            d = sshdb.table_dict()
+            try:
+                for i in d:
+                    if d[i]["cm_name"] == name:
+                        key = d[i]
+                        print(key['value'])
+                        return
+                    else:
+                        pass
+                Console.error("The key is not in the database")
+            except:
+                Console.error("The key is not in the database")
+
+            
+                                    
         elif arguments['add'] and arguments["--git"]:
 
             print('git add')
