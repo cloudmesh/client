@@ -8,9 +8,11 @@ def vbox_list(*args):
     a = ["list", "vms", "-l"] + args
     return Shell.execute('VBoxManage', a)
 
+
 def vbox_vminfo(*args):
     a = ["showvminfo"] + args
     return Shell.execute('VBoxManage', a)
+
 
 #
 # LIST
@@ -60,6 +62,7 @@ def get_vms(filter=None):
 
     f = filter_attributes(d, filterkeys)
     return f
+
 
 print("ALL INFO")
 print(70 * "-")

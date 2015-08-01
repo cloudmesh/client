@@ -93,21 +93,22 @@ class keystone(object):
 
         param = None
         if 'OS_TENANT_NAME' in credential:
-            param = {"auth": {"passwordCredentials": {
-                "username": credential['OS_USERNAME'],
-                "password": credential['OS_PASSWORD'],
-            },
-                              "tenantName": credential['OS_TENANT_NAME']
-                              }
-                     }
+            param = {"auth": {"passwordCredentials":
+                {
+                    "username": credential['OS_USERNAME'],
+                    "password": credential['OS_PASSWORD'],
+                },
+                "tenantName": credential['OS_TENANT_NAME']
+            }
+            }
         elif 'OS_TENANT_ID' in credential:
             param = {"auth": {"passwordCredentials": {
                 "username": credential['OS_USERNAME'],
                 "password": credential['OS_PASSWORD'],
             },
-                              "tenantId": credential['OS_TENANT_ID']
-                              }
-                     }
+                "tenantId": credential['OS_TENANT_ID']
+            }
+            }
         url = "{0}/tokens".format(credential['OS_AUTH_URL'])
 
         # print "URL", url

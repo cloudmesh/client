@@ -79,7 +79,19 @@ class cm_shell_security_group:
             to_port = arguments["TOPORT"]
             protocol = arguments["PROTOCOL"]
             cidr = arguments["CIDR"]
-            Console.ok('rules-add for cloud: {}, tenant: {}, label: {}, from port: {}, to port: {}, protocol: {}, cidr: {}'.format(cloud, tenant, label, from_port, to_port, protocol, cidr))
+            Console.ok('rules-add for cloud: {}, '
+                       'tenant: {}, '
+                       'label: {}, '
+                       'from port: {}, '
+                       'to port: {}, '
+                       'protocol: {}, '
+                       'cidr: {}'.format(cloud,
+                                         tenant,
+                                         label,
+                                         from_port,
+                                         to_port,
+                                         protocol,
+                                         cidr))
         elif arguments["--version"]:
             Console.ok('Version: ')
         pass

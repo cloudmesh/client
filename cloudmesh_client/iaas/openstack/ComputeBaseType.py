@@ -9,7 +9,6 @@ def donotchange(fn):
 
 
 class ComputeBaseType:
-
     # users = {}
     # tenants = {}
 
@@ -85,7 +84,9 @@ class ComputeBaseType:
         raise NotImplementedError()
 
     def dump(self, type="server", with_manager=False):
-        """returns a string that contains information about the cloud. One can ste the type to 'images','flavors','servers'"""
+        """returns a string that contains information about the cloud.
+           One can ste the type to images, flavors, servers
+        """
         selection = type.lower()[0]
         if selection == 'i':
             d = self.images.copy()
@@ -262,7 +263,8 @@ class ComputeBaseType:
         self.credential = cred
 
     def refresh(self, type=None):
-        """refreshes the information of the cache for a given type 'images', 'flavors', 'servers', or 'all' for all of them"""
+        """refreshes the information of the cache for a given type
+        'images', 'flavors', 'servers', or 'all' for all of them"""
         time_stamp = datetime.now().strftime('%Y-%m-%dT%H-%M-%SZ')
         selection = ""
         if type:
@@ -319,10 +321,10 @@ class ComputeBaseType:
                 self.stacks = {}
             elif selection == 'u':
                 self.usage = {}
-            # elif selection == 'u':
-            #    self.users = {}
-            # elif selection == 't':
-            #    self.tenants = {}
+                # elif selection == 'u':
+                #    self.users = {}
+                # elif selection == 't':
+                #    self.tenants = {}
 
         else:
             data_updated = {}

@@ -11,6 +11,7 @@ from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cmd3.console import Console
 
+
 class SSHKeyManager(object):
     def __init__(self):
         self.__keys__ = {}
@@ -27,9 +28,9 @@ class SSHKeyManager(object):
     def table(self):
         d = dict(self.__keys__)
         return (dict_printer(d,
-                            order=["comment", "uri", "fingerprint"],
-                            output="table",
-                            sort_keys=True))
+                             order=["comment", "uri", "fingerprint"],
+                             output="table",
+                             sort_keys=True))
 
     def __delitem__(self, key):
         del self.__keys__[key]
@@ -52,10 +53,10 @@ class SSHKeyManager(object):
     def select(self):
         options = []
         for i in self.__keys__:
-            print ('i:' , i)
+            print('i:', i)
             line = '{}: {}'.format(self.__keys__[i]['comment'], self.__keys__[i]['fingerprint'])
             options.append(line)
-        return menu_return_num('KEYS',options)
+        return menu_return_num('KEYS', options)
 
     def get_from_yaml(self, filename=None, load_order=None):
         """
@@ -64,8 +65,8 @@ class SSHKeyManager(object):
         :return: a SSHKeyManager (dict of keys)
         """
         if filename is None:
-            #default = path_expand("~/.cloudmesh/cloudmesh.yaml")
-            #config = ConfigDict("cloudmesh.yaml")
+            # default = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            # config = ConfigDict("cloudmesh.yaml")
             filename = "cloudmesh.yaml"
             config = ConfigDict(filename)
         elif load_order:
@@ -137,9 +138,10 @@ class SSHKeyManager(object):
         for key in range(0, len(content)):
             value = content[key]
             sshkey = SSHkey(None)
-            sshkey.__key__ = {}
-            sshkey.__key__['uri'] = uri
-            sshkey.__key__['string'] = value
+            sshkey.__key__ = {
+                'uri': uri,
+                'string': value
+            }
             (sshkey.__key__['type'],
              sshkey.__key__['key'],
              sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
@@ -171,6 +173,5 @@ if __name__ == "__main__":
     print(mykeys)
     print(mykeys.keys())
 
-    
     #    print(mykeys['id_rsa.pub'])
 #    print (len(mykeys))

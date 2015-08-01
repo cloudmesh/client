@@ -10,10 +10,13 @@ from pprint import pprint
 class command_default(object):
     
     @classmethod
-    def list(cls, output="table"):
+    def list(cls, format="table"):
         cm = CloudmeshDatabase()
         d = cm.all(DEFAULT)
-        print(dict_printer(d, order=['cm_cloud', 'name', 'value'], output=output))
+        return(dict_printer(d, order=['cm_user',
+                                      'cm_cloud',
+                                      'name',
+                                      'value'], output=format))
 
     @classmethod
     def set(cls, key, value, cloud):
@@ -24,7 +27,7 @@ class command_default(object):
     @classmethod
     def get(cls, key, cloud):
         cm = CloudmeshDatabase()
-        print(cm.get_default(key, cloud))
+        return(cm.get_default(key, cloud))
 
     @classmethod
     def delete(cls, key, cloud):

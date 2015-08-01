@@ -88,7 +88,7 @@ class cm_shell_nova:
             else:
                 Console.error("CLOUD is required")
 
-        else:#nova ARGUMENTS...
+        else:  # nova ARGUMENTS...
             command_nova.set_os_environ(cloud)
             args = arguments["ARGUMENTS"]
             result = Shell.execute("nova", args)

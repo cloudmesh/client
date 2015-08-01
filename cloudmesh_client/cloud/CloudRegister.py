@@ -24,7 +24,7 @@ class CloudRegister(object):
         """
         config = ConfigDict("cloudmesh.yaml")
         clouds = config["cloudmesh"]["clouds"]
-        Console.ok("Clouds in the configuration file")
+        Console.ok("Clouds specified in the configuration file " + filename)
         print("")
         for key in clouds.keys():
             Console.ok("  " + key)

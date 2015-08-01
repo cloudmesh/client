@@ -3,34 +3,38 @@ from sh import rsync
 
 # TODO bake not implemented
 
+
 def vm_up(*args):
     a = ['up'] + args
     return Shell.execute('vagrant', a)
+
 
 def vm_ssh(*args):
     a = ['ssh'] + args
     return Shell.execute('vagrant', a)
 
+
 def vm_init(*args):
     a = ['init'] + args
     return Shell.execute('vagrant', a)
+
 
 def vm_suspend(*args):
     a = ['suspend'] + args
     return Shell.execute('vagrant', a)
 
+
 def vm_halt(*args):
     a = ['halt'] + args
     return Shell.execute('vagrant', a)
+
 
 def vm_destroy(*args):
     a = ['destroy'] + args
     return Shell.execute('vagrant', a)
 
 
-
 class vagrant:
-
     _provider = None
 
     def __init__(self, label, dir=None):
@@ -64,7 +68,7 @@ class vagrant:
         self._provider = provider
         if provider is None:
             def vm_up(*args):
-                a = ['up',"--provider", provider] + args
+                a = ['up', "--provider", provider] + args
                 return Shell.execute('vagrant', a)
 
         else:

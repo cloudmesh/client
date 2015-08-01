@@ -9,8 +9,8 @@ from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
-class Command_vm(object):
 
+class Command_vm(object):
     @classmethod
     def start(cls, name, count, cloud, image, flavor, group):
         """
@@ -33,10 +33,9 @@ class Command_vm(object):
         :return:
         """
 
-        #TODO: vm start (without arguments) use defaut cloud, image, flavor, group.
-        if cloud == None:#use default values for cloud, image and flavor
+        # TODO: vm start (without arguments) use defaut cloud, image, flavor, group.
+        if cloud is None:  # use default values for cloud, image and flavor
             pass
-
 
         if "india" == cloud:
             OpenStack = get_driver(Provider.OPENSTACK)
@@ -61,16 +60,13 @@ class Command_vm(object):
                                ex_force_auth_version='2.0_password',
                                ex_force_service_region='regionOne')
 
-
-
             # obtain available images
-            #type of images: <class 'libcloud.compute.base.NodeImage'>
+            # type of images: <class 'libcloud.compute.base.NodeImage'>
             images = driver.list_images()
-            if  not [i for i in images if i.name == image]:
+            if not [i for i in images if i.name == image]:
                 Console.error("Image {:} not found".format(image))
                 return
             image = [i for i in images if i.name == image][0]
-
 
             # sizes/flavors
             sizes = driver.list_sizes()
@@ -79,11 +75,9 @@ class Command_vm(object):
                 return
             size = [i for i in sizes if i.name == flavor][0]
 
-
             if count is None:
                 count = 1
-            count = int (count)
-
+            count = int(count)
 
             def __findsufix():
                 """
@@ -100,31 +94,30 @@ class Command_vm(object):
                 for i in nodes:
                     n = 0
                     try:
-                        n = int(i.name.split('-', 1)[1])#not always is int(i.name.split('-', 1)[1] a digit
+                        n = int(i.name.split('-', 1)[1])  # not always is int(i.name.split('-', 1)[1] a digit
                     except:
                         pass
                     if sufix <= n:
-                        sufix=n+1
+                        sufix = n + 1
                 sufix = str(sufix).zfill(3)
                 return sufix
 
-            #set vm name
+            # set vm name
             sufix = __findsufix()
             c = CloudmeshDatabase()
             if name is None:
-                c.name(cloudcred['OS_USERNAME']+"-"+sufix)
+                c.name(cloudcred['OS_USERNAME'] + "-" + sufix)
             else:
-                c.name(name+"-"+sufix)
+                c.name(name + "-" + sufix)
 
-
-            #launch a new VM
+            # launch a new VM
             Console.ok("Booting Virtual Machine...")
-            for i in range (0, count):
+            for i in range(0, count):
                 name = c.get_name()
                 try:
                     node = driver.create_node(name=name, image=image, size=size)
                 except Exception, e:
-                    Console.error("{:} virtual machines have not been created. {:}".format(count-i, e.message))
+                    Console.error("{:} virtual machines have not been created. {:}".format(count - i, e.message))
                     return
                 c.name(c.next_name())
 
@@ -134,10 +127,9 @@ class Command_vm(object):
         else:
             Console.error('cloud {:} not found'.format(cloud))
 
-
     @classmethod
     def delete(cls, name_or_id, group, cloud, force=False):
-       """
+        """
        deletes a VM or a set of VM
 
        :param name_or_id: name or id of the vm to be deleted
@@ -151,14 +143,13 @@ class Command_vm(object):
 
        :return:
        """
-        #TODO: delete by group. set default cloud
+        # TODO: delete by group. set default cloud
 
-       #default cloud. fix this
-       if cloud == None:
-           cloud = "india"
+        # default cloud. fix this
+        if cloud is None:
+            cloud = "india"
 
-
-       if cloud == "india":
+        if cloud == "india":
             OpenStack = get_driver(Provider.OPENSTACK)
             try:
                 # get cloud credential from yaml file
@@ -181,10 +172,7 @@ class Command_vm(object):
                                ex_force_auth_version='2.0_password',
                                ex_force_service_region='regionOne')
 
-
-
-
-            #gets all the VMs
+            # gets all the VMs
             nodes = driver.list_nodes()
 
             def __destroy_node(node):
@@ -229,20 +217,20 @@ class Command_vm(object):
                     :type end: string
 
                 """
-                if len(args) == 1:#only one vm
+                if len(args) == 1:  # only one vm
                     name = args[0]
                     for i in nodes:
                         if i.name == name:
                             __destroy_node(i)
                             return
                     Console.error("Virtual Machine {:} not found".format(name))
-                else:#interval of vms like sample-[1-10]
-                    prefix=args[0]
-                    start=args[1].zfill(3)
-                    end=args[2].zfill(3)
+                else:  # interval of vms like sample-[1-10]
+                    prefix = args[0]
+                    start = args[1].zfill(3)
+                    end = args[2].zfill(3)
 
-                    for i in range(int(start), int(end)+1):
-                        name= prefix+"-"+str(i).zfill(3)#name of the vms to be deleted
+                    for i in range(int(start), int(end) + 1):
+                        name = prefix + "-" + str(i).zfill(3)  # name of the vms to be deleted
                         flag = False
                         for j in nodes:
                             if name == j.name:
@@ -252,23 +240,20 @@ class Command_vm(object):
                         if not flag:
                             Console.error("Virtual Machine {:} not found".format(name))
 
+                            # name_or_id is a list of strings. A string is one of:
+                            # sample_[100-9999]. Deletes vm starting at 100 until 9999
+                            # sample. Deletes vm named sample
 
-
-
-            #name_or_id is a list of strings. A string is one of:
-              #sample_[100-9999]. Deletes vm starting at 100 until 9999
-              #sample. Deletes vm named sample
             for i in name_or_id:
                 name = i.strip()
-                if name[-1]== ']':#vm name like sample-[1-10]
+                if name[-1] == ']':  # vm name like sample-[1-10]
                     a = (name.split('[')[1]).split(']')[0].split('-')
-                    prefix = name.split('-')[0]#example: prefix is the sting 'sample' from sample-[10-12]
-                    start = a[0]#type: str
-                    end = a[1]#type: str
+                    prefix = name.split('-')[0]  # example: prefix is the sting 'sample' from sample-[10-12]
+                    start = a[0]  # type: str
+                    end = a[1]  # type: str
                     __deleteNode(prefix, start, end)
-                else:#vm name like sample-daniel
+                else:  # vm name like sample-daniel
                     __deleteNode(name)
-
 
     @classmethod
     def ip_assign(cls, name_or_id, cloud):
@@ -305,7 +290,7 @@ class Command_vm(object):
         raise NotImplemented("Not implemented yet")
 
     @classmethod
-    def loging(cls, name, user, ip, cloud, key, commands):
+    def login(cls, name, user, ip, cloud, key, commands):
         """
         TODO
         :param name:
@@ -337,4 +322,4 @@ class Command_vm(object):
 
         raise NotImplemented("Not implemented yet")
 
-    #http://cloudmesh.github.io/introduction_to_cloud_computing/cloudmesh/shell/_vm-shell.html
+        # http://cloudmesh.github.io/introduction_to_cloud_computing/cloudmesh/shell/_vm-shell.html

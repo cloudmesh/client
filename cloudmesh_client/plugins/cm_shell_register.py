@@ -7,7 +7,7 @@ import os.path
 from cloudmesh_client.cloud.CloudRegister import CloudRegister
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.tables import dict_printer
-
+from cmd3.console import Console
 
 class cm_shell_register:
     def activate_cm_shell_register(self):
@@ -62,23 +62,31 @@ class cm_shell_register:
 
               register rc HOST [OPENRC]
 
-                    reads the Openstack OPENRC file from a host that is described in ./ssh/config and adds it to the
-                    configuration cloudmehs.yaml file. We assume that the file has already a template for this
-                    host. If nt it can be created from other examples before you run this command.
+                    reads the Openstack OPENRC file from a host that
+                    is described in ./ssh/config and adds it to the
+                    configuration cloudmehs.yaml file. We assume that
+                    the file has already a template for this host. If
+                    nt it can be created from other examples before
+                    you run this command.
 
-                    The hostname can be specified as follows in the ./ssh/config file.
+                    The hostname can be specified as follows in the
+                    ./ssh/config file.
 
                     Host india
                         Hostname india.futuresystems.org
                         User yourusername
 
-                    If the host is india and the OPENRC file is ommitted, it will automatically fill out the location
-                    for the openrc file. To obtain the information from india simply type in
+                    If the host is india and the OPENRC file is
+                    ommitted, it will automatically fill out the
+                    location for the openrc file. To obtain the
+                    information from india simply type in
 
                         register rc india
 
               register [--yaml=FILENAME]
-                  read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml which is used when the
+	      
+                  read the yaml file instead of ./cloudmesh.yaml or
+                  ~/.cloudmesh/cloudmesh.yaml which is used when the
                   yaml filename is ommitted.
 
               register edit [--yaml=FILENAME]
@@ -105,31 +113,47 @@ class cm_shell_register:
             return filename
 
         if arguments["info"]:
+
             filename = _get_file(arguments)
-            print("File", filename, end=' ')
             if os.path.isfile(filename):
-                print("exists")
+                Console.ok('File ' + filename + " exists")
+            else:
+                Console.ok('File ' + filename + " does not exist")
+            return
+
         elif arguments["cat"]:
             filename = _get_file(arguments)
             os.system("cat {:}".format(filename))
+            return
+
         elif arguments["edit"]:
             filename = _get_file(arguments)
-            print("edit", filename)
+            Console.ok("edit", filename)
             self.do_edit(filename)
+            return
+
         elif arguments['list'] and arguments['ssh']:
-            print("list ssh")
+
             CloudRegister.list_ssh()
+            return
+
         elif arguments['list']:
+
             filename = _get_file(arguments)
-            print("list", filename)
             CloudRegister.list(filename)
+            return
+
         elif arguments['check']:
             filename = _get_file(arguments)
             CloudRegister.check_yaml_for_completeness(filename)
+            return
+
         elif arguments['--yaml']:
             filename = arguments['FILENAME']
-            print("--yaml", filename)
+            Console.ok("--yaml", filename)
             CloudRegister.from_file(filename)
+            return
+
         elif arguments['test']:
             filename = _get_file(arguments)
             CloudRegister.test(filename)
@@ -137,13 +161,18 @@ class cm_shell_register:
         elif arguments['form']:
             filename = _get_file(arguments)
             CloudRegister.fill_out_form(filename)
+            return
+
         elif arguments['rc']:
             filename = arguments['OPENRC']
             host = arguments['HOST']
             CloudRegister.read_rc_file(host, filename)
+            return
+
         elif arguments['india']:
             force = arguments['--force']
             CloudRegister.host("india", force)
+            return
 
         elif arguments['CLOUD']:
             if arguments['CERT']:  # path to the cacert.pem
@@ -156,8 +185,14 @@ class cm_shell_register:
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
                 dir = arguments['--dir']
-                print(dir)
+                Console.ok(dir)
                 CloudRegister.directory(cloud, dir)
+
+        # if all fails do a simple list
+
+        filename = _get_file(arguments)
+        CloudRegister.list(filename)
+
         pass
 
 

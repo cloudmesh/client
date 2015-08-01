@@ -12,13 +12,13 @@ from cloudmesh.cm_mongo import cm_mongo
 @celery_azure_queue.task(track_started=True)
 def vm_create(name, flavor_name, image_id, security_groups=None, key_name=None,
               meta={}, userdata=None):
-    '''
+    """
     create a vm instance in the background by celery task queue
 
     Description:
         creates an object of windows azure class from cloudmesh.iaas.azure.cm_compute
 
-    '''
+    """
     obj = windows_azure()
     obj.vm_create(name, flavor_name, image_id, security_groups, key_name, meta,
                   userdata)

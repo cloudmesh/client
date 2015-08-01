@@ -17,7 +17,7 @@ import ast
 from pprint import pprint
 from urlparse import urlparse
 import copy
-from cloudmesh_client.iaas.openstack.ComputeBaseType import  ComputeBaseType
+from cloudmesh_client.iaas.openstack.ComputeBaseType import ComputeBaseType
 
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.ConfigDict import ConfigDict
@@ -39,7 +39,6 @@ class compute(ComputeBaseType):
     # : the type of the cloud. It is "openstack"
     type = "openstack"  # global var
 
-
     # : a dict with the images
     __images__ = {}  # global var
 
@@ -54,7 +53,7 @@ class compute(ComputeBaseType):
         """TODO: this does not work"""
         print("UUUUUUU")
         if len(self.__servers__.keys()) == 0:
-            print ("OOOOO")
+            print("OOOOO")
             self.__servers__ = self.get_servers()
         return self.__servers__
 
@@ -135,7 +134,6 @@ class compute(ComputeBaseType):
         elif not self.user_token:
             self.user_token = self.get_token(self.credential)
 
-
     def DEBUG(self, msg, line_number=None):
         if line_number is None:
             line_number = ""
@@ -159,7 +157,7 @@ class compute(ComputeBaseType):
             if 'self' in _args:
                 del (_args['self'])
             self.DEBUG("[{0}()] called with [{1}]".format(sys._getframe().f_code.co_name,
-                                                         str(_args)), lineno())
+                                                          str(_args)), lineno())
             self.DEBUG("user_token:{0}".format(str(self.user_token)), lineno())
         except:
             pass
@@ -176,7 +174,7 @@ class compute(ComputeBaseType):
             if 'self' in _args:
                 del (_args['self'])
             self.DEBUG("[{0}()] called with [{1}]".format(sys._getframe().f_code.co_name,
-                                                         str(_args)), lineno())
+                                                          str(_args)), lineno())
         except:
             pass
 
@@ -191,17 +189,17 @@ class compute(ComputeBaseType):
                 "username": credential['OS_USERNAME'],
                 "password": credential['OS_PASSWORD'],
             },
-                              "tenantName": credential['OS_TENANT_NAME']
-                              }
-                     }
+                "tenantName": credential['OS_TENANT_NAME']
+            }
+            }
         elif 'OS_TENANT_ID' in credential:
             param = {"auth": {"passwordCredentials": {
                 "username": credential['OS_USERNAME'],
                 "password": credential['OS_PASSWORD'],
             },
-                              "tenantId": credential['OS_TENANT_ID']
-                              }
-                     }
+                "tenantId": credential['OS_TENANT_ID']
+            }
+            }
         url = "{0}/tokens".format(credential['OS_AUTH_URL'])
 
         self.DEBUG("URL {0}".format(url), lineno())
@@ -565,7 +563,7 @@ class compute(ComputeBaseType):
         params = {"addFloatingIp": {
             "address": "%s" % ip
         }
-                  }
+        }
         self.DEBUG("POST PARAMS {0}".format(params), lineno())
         return self._post(posturl, params)
 
@@ -701,22 +699,22 @@ class compute(ComputeBaseType):
         return self._list_to_dict(list, 'name', "extensions", time_stamp)
 
     def get_limits(self):
-        '''Gets absolute and rate limit information, including information on
-        currently used absolute limits.'''
+        """Gets absolute and rate limit information, including information on
+        currently used absolute limits."""
         time_stamp = self._now()
         msg = "limits"
         _dict = self._get(msg, urltype=self.service_url_type)['limits']
         return _dict
 
     def get_absolute_limits(self, view="original"):
-        '''Gets absolute limit information
-        
+        """Gets absolute limit information
+
             Args:
                 view (str) : two types of output available
                             * original - returns integer value in a key and
                               value pair
                             * fraction - returns xx / xx fraction value
-        '''
+        """
 
         limits = self.get_limits()
         if view == "fraction":
@@ -787,7 +785,7 @@ class compute(ComputeBaseType):
 
     # new
     def get_images(self):
-        '''List images'''
+        """List images"""
         time_stamp = self._now()
         msg = "images/detail"
         list = self._get(msg, urltype=self.service_url_type)['images']
@@ -795,7 +793,7 @@ class compute(ComputeBaseType):
         return self.__images__
 
     def get_security_groups(self):
-        '''Lists security groups. '''
+        """Lists security groups. """
         time_stamp = self._now()
         list = self.list_security_groups()['security_groups']
         self.security_groups = self._list_to_dict(list, 'id', 'security_group',
@@ -803,7 +801,7 @@ class compute(ComputeBaseType):
         return self.security_groups
 
     def get_stacks(self):
-        '''Lists active stacks.'''
+        """Lists active stacks."""
         time_stamp = self._now()
         msg = "stacks"
         service = "orchestration"
@@ -813,7 +811,7 @@ class compute(ComputeBaseType):
         return self.stacks
 
     def get_usage(self):
-        '''Report usage statistics on compute and storage resources.'''
+        """Report usage statistics on compute and storage resources."""
         time_stamp = self._now()
         tenant_id = self.user_token['access']['token']['tenant']['id']
         msg = "os-simple-tenant-usage/{0}".format(tenant_id)
@@ -826,8 +824,8 @@ class compute(ComputeBaseType):
         return _dict
 
     def get_quota(self):
-        ''' View quotas for a tenant (project). Administrators only, depending
-        on policy settings. '''
+        """ View quotas for a tenant (project). Administrators only, depending
+        on policy settings. """
         time_stamp = self._now()
         tenant_id = self.user_token['access']['token']['tenant']['id']
         msg = "os-quota-sets/{0}".format(tenant_id)
@@ -967,11 +965,11 @@ class compute(ComputeBaseType):
         url = self._get_service_endpoint("compute")[self.service_url_type]
         posturl = "%s/os-security-groups" % url
         params = {"security_group":
-                      {
-                          "name": secgroup.name,
-                          "description": secgroup.description
-                      }
-                  }
+            {
+                "name": secgroup.name,
+                "description": secgroup.description
+            }
+        }
         # log.debug ("POST PARAMS {0}".format(params))
         ret = self._post(posturl, params)
         groupid = None
@@ -1000,14 +998,14 @@ class compute(ComputeBaseType):
         ret = None
         for rule in rules:
             params = {"security_group_rule":
-                          {
-                              "ip_protocol": rule.ip_protocol,
-                              "from_port": rule.from_port,
-                              "to_port": rule.to_port,
-                              "cidr": rule.cidr,
-                              "parent_group_id": groupid
-                          }
-                      }
+                {
+                    "ip_protocol": rule.ip_protocol,
+                    "from_port": rule.from_port,
+                    "to_port": rule.to_port,
+                    "cidr": rule.cidr,
+                    "parent_group_id": groupid
+                }
+            }
             # log.debug ("POST PARAMS {0}".format(params))
             ret = self._post(posturl, params)
             if "security_group_rule" not in ret:
@@ -1396,7 +1394,7 @@ class compute(ComputeBaseType):
         if format == 'dict':
             return body
         else:
-            return (headline, body)
+            return headline, body
 
     #
     # CLI call of ussage
@@ -1560,7 +1558,6 @@ class compute(ComputeBaseType):
             if userid is not None:
                 vm['cm_display'] = vm['cm_display'] and (
                     vm['user_id'] == userid)
-
 
 #
 # MAIN FOR TESTING

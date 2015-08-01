@@ -7,6 +7,7 @@ from cloudmesh_base.menu import menu_return_num
 import os.path
 from pprint import pprint
 
+
 class SSHKeyDBManager(object):
     def __init__(self, cm_user=None):
         self.db = CloudmeshDatabase.CloudmeshDatabase(cm_user)
@@ -21,11 +22,10 @@ class SSHKeyDBManager(object):
 
         sshkey = SSHkey(path_expand(key_path))
 
-
         print("YYYYY")
         print(sshkey)
 
-        self.add_from_SSHKey(sshkey.__key__,keyname,cm_user,source=source, uri=uri)
+        self.add_from_SSHKey(sshkey.__key__, keyname, cm_user, source=source, uri=uri)
 
     def add_from_dict(self, d):
         pprint(d)
@@ -38,16 +38,15 @@ class SSHKeyDBManager(object):
                       )
 
         key_obj.name = d['keyname']
-        key_obj.uri = d['uri']        
-        key_obj.source = d['source']        
+        key_obj.uri = d['uri']
+        key_obj.source = d['source']
         key_obj.comment = d['comment']
         key_obj.value = d['string'] + " " + d['comment']
         key_obj.fingerprint = d['fingerprint']
 
-        #pprint (key_obj.__dict__)
+        # pprint (key_obj.__dict__)
         self.db.add([key_obj])
         self.db.save()
-
 
     def add_from_SSHKey(self, sshkey, keyname=None, cm_user=None, source=None, uri=None):
 
@@ -58,7 +57,7 @@ class SSHKeyDBManager(object):
                 pass
         if keyname is None:
             print ("ERROR: keyname is none")
-            
+
         key_obj = KEY(cm_name=keyname,
                       label=keyname,
                       cloud="general",
@@ -66,16 +65,15 @@ class SSHKeyDBManager(object):
                       )
 
         key_obj.name = keyname
-        key_obj.uri = uri        
-        key_obj.source = source        
+        key_obj.uri = uri
+        key_obj.source = source
         key_obj.comment = sshkey['comment']
         key_obj.value = sshkey['string']
         key_obj.fingerprint = sshkey['fingerprint']
 
-        pprint (key_obj.__dict__)
+        pprint(key_obj.__dict__)
         self.db.add([key_obj])
         self.db.save()
-
 
     def delete(self, keyname):
         """
@@ -92,9 +90,8 @@ class SSHKeyDBManager(object):
         self.find(keyname).default = 'True'
         self.db.save()
 
-
     def get_default(self):
-        value="True"
+        value = "True"
         return self.db.find(KEY, default=value)
 
     def find(self, keyname):
@@ -104,7 +101,7 @@ class SSHKeyDBManager(object):
         :param keyname: name of the key to be found
         :return: Query object of the search
         """
-        return self.db.find_by_name(KEY,keyname)
+        return self.db.find_by_name(KEY, keyname)
 
     def find_all(self):
         """
@@ -121,7 +118,7 @@ class SSHKeyDBManager(object):
         return self.db.dict(KEY)
 
     def update(self, clouds):
-        #i'm not sure how this function works
+        # i'm not sure how this function works
         self.db.update("key", clouds)
 
     def delete_all(self):
@@ -132,14 +129,14 @@ class SSHKeyDBManager(object):
         """
         self.db.delete_all(['KEY'])
 
-    def select (self):
+    def select(self):
         options = []
         d = self.dict()
         for i in d:
-            print ('i:' , i)
+            print ('i:', i)
             line = '{}: {}'.format(d[i]['name'], d[i]['fingerprint'])
             options.append(line)
-        num = menu_return_num('KEYS',options)
+        num = menu_return_num('KEYS', options)
         if num != 'q':
             return options[num - 1]
         return num

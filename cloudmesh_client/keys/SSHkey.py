@@ -20,20 +20,21 @@ class SSHkey(object):
     def read(self, file_path):
         file_path = path_expand(file_path)
         uri = 'file://{}'.format(file_path)
-        self.__key__ = {'uri': uri}
-
-        self.__key__['string'] = open(file_path, "r").read().rstrip()
+        self.__key__ = {
+            'uri': uri,
+            'string': open(file_path, "r").read().rstrip()
+        }
 
         (self.__key__['type'],
          self.__key__['key'],
          self.__key__['comment']) = self._parse(self.__key__['string'])
         self.__key__['fingerprint'] = self._fingerprint(self.__key__['string'])
 
-        name = basename(file_path).replace(".pub","").replace("id_","")
-        
+        name = basename(file_path).replace(".pub", "").replace("id_", "")
+
         self.__key__['name'] = name
-        self.__key__['comment'] = self.__key__['comment']        
-        self.__key__['source'] = 'ssh'        
+        self.__key__['comment'] = self.__key__['comment']
+        self.__key__['source'] = 'ssh'
         return self.__key__
 
     @property

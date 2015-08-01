@@ -131,8 +131,13 @@ class ec2(ComputeBaseType):
 
     def create_vm(self, flavor_name, image_id, key_name):
         image = NodeImage(id=image_id, name="", driver="")
-        size = NodeSize(id=flavor_name, name="", ram=None, disk=None,
-                        bandwidth=None, price=None, driver="")
+        size = NodeSize(id=flavor_name,
+                        name="",
+                        ram=None,
+                        disk=None,
+                        bandwidth=None,
+                        price=None,
+                        driver="")
         self.conn.create_node(name=self.get_name(), image=image, size=size,
                               ex_keyname=key_name)
         return
@@ -287,7 +292,7 @@ class ec2(ComputeBaseType):
             # object at 0x307e350>, 'bandwidth': None, 'disk': 15, 'id':
             # 't1.micro'}
             res_dict[row.id] = row.__dict__
-            del(row.driver)
+            del row.driver
         return res_dict
 
     def list_flavors(self):

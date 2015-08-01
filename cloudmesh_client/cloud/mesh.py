@@ -8,6 +8,7 @@ from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 import os.path
 
+
 class Mesh(object):
     t_flavour = "flavour"
     t_image = "image"
@@ -41,7 +42,7 @@ class Mesh(object):
         filename = "cloudmesh.yaml"
         config = ConfigDict(filename)
         yaml_clouds = dict(config["cloudmesh"]["clouds"])
-        return dict_printer(yaml_clouds,output=format)
+        return dict_printer(yaml_clouds, output=format)
 
     @classmethod
     def verify(self):
@@ -54,7 +55,7 @@ class Mesh(object):
     @classmethod
     def register(self):
         print ("register")
-        self.db.update(['vm','image','flavor'], ['india','aws','azure'])
+        self.db.update(['vm', 'image', 'flavor'], ['india', 'aws', 'azure'])
 
     @classmethod
     def key_add(self, *args):
@@ -70,7 +71,7 @@ class Mesh(object):
                     print key
                     print sshm.__keys__[key]['comment']
                     sshdb.add_from_SSHKey(sshm.__keys__[key], key)
-            else: #args is the github username
+            else:  # args is the github username
                 sshm.get_from_git(args[0])
                 print args[0]
                 for key in sshm.__keys__:
@@ -89,7 +90,7 @@ class Mesh(object):
     @classmethod
     def clear(self):
         print ("clear")
-        self.db.delete_all(["VM","FLAVOR","IMAGE","DFAULT"])
+        self.db.delete_all(["VM", "FLAVOR", "IMAGE", "DFAULT"])
 
     @classmethod
     def dump(self, filename):
@@ -277,13 +278,13 @@ def main():
 
     print (Mesh.clouds('table'))
 
-    #mesh.dump('test.db')
+    # mesh.dump('test.db')
 
-    #mesh.clear()
+    # mesh.clear()
 
-    #Mesh.load('test.db')
+    # Mesh.load('test.db')
 
-    #Mesh.refresh()
+    # Mesh.refresh()
 
     Mesh.key_add('paulo-chagas')
 

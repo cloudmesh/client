@@ -117,8 +117,13 @@ class aws(ComputeBaseType):
 
     def create_vm(self):
         image = NodeImage(id=self.get_image_name(), name="", driver="")
-        size = NodeSize(id=self.get_flavor(), name="", ram=None, disk=None,
-                        bandwidth=None, price=None, driver="")
+        size = NodeSize(id=self.get_flavor(),
+                        name="",
+                        ram=None,
+                        disk=None,
+                        bandwidth=None,
+                        price=None,
+                        driver="")
         self.conn.create_node(name=self.get_name(), image=image, size=size,
                               ex_keyname=self.get_keyname())
         return
@@ -128,7 +133,7 @@ class aws(ComputeBaseType):
         vm_dict = {}
         for vm_obj in nodes:
             vm = vm_obj.__dict__
-            del(vm_obj.driver)
+            del vm_obj.driver
             instanceid = vm_obj.id
             vm_dict[instanceid] = vm
 
@@ -258,7 +263,7 @@ class aws(ComputeBaseType):
             # object at 0x307e350>, 'bandwidth': None, 'disk': 15, 'id':
             # 't1.micro'}
             res_dict[row.id] = row.__dict__
-            del(row.driver)
+            del row.driver
         return res_dict
 
     def list_flavors(self):

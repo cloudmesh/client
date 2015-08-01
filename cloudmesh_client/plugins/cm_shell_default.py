@@ -16,7 +16,7 @@ class cm_shell_default:
         ::
 
           Usage:
-              default list [--output=FORMAT]
+              default list [--format=FORMAT]
               default delete KEY [--cloud=CLOUD]
               default KEY [--cloud=CLOUD]
               default KEY=VALUE [--cloud=CLOUD]
@@ -32,15 +32,21 @@ class cm_shell_default:
           Options:
 
              --cloud=CLOUD    the name of the cloud [default: general]
-             --output=FORMAT  the output format [default: table]
+             --format=FORMAT  the output format [default: table]
 
         """
         # pprint(arguments)
         cloud = arguments["--cloud"]
         if arguments["list"]:
-            output = arguments["--output"]
-            result = command_default.list(output=output)
-            print (result)
+
+            output_format = arguments["--format"]
+            result = command_default.list(format=output_format)
+            if result is None:
+                Console.error("No default values found")
+                return
+            else:
+                print (result)
+
         elif arguments["delete"]:
             key = arguments["KEY"]
             command_default.delete(key, cloud)
@@ -48,9 +54,16 @@ class cm_shell_default:
             key, value = arguments["KEY"].split("=")
             command_default.set(key, value, cloud)
         elif arguments["KEY"]:
+
             key = arguments["KEY"]
             result = command_default.get(key, cloud)
-            return result
+
+            if result is None:
+                Console.error("No default values found")
+                return
+            else:
+                print (result)
+
         pass
 
 

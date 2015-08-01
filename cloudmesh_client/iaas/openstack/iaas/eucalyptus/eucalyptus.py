@@ -243,7 +243,9 @@ class eucalyptus(ComputeBaseType):
         return self._retrief("flavors", self.cloud.list_sizes, ['_uuid', 'driver'])
 
     def _get_servers_dict(self):
-        return self._retrief("servers", self.cloud.list_nodes, ['private_dns', 'dns_name', 'instanceId', 'driver', '_uuid'])
+        return self._retrief("servers",
+                             self.cloud.list_nodes,
+                             ['private_dns', 'dns_name', 'instanceId', 'driver', '_uuid'])
 
     def _get_images_dict(self):
         return self._retrief("images",

@@ -41,7 +41,6 @@ class cm_shell_cloud:
         pass
 
 
-
 if __name__ == '__main__':
     command = cm_shell_register()
     command.do_register("list")

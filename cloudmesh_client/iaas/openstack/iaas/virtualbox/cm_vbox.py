@@ -4,7 +4,6 @@ from pprint import pprint
 from cloudmesh.iaas.ComputeBaseType import ComputeBaseType
 from cloudmesh_base.logger import LOGGER
 
-
 log = LOGGER(__file__)
 
 # TODO bake not implemented
@@ -14,17 +13,21 @@ def vbox_list(*args):
     a = ["list", "vms", "-l"] + args
     return Shell.execute('VBoxManage', a)
 
+
 def vbox_vminfo(*args):
     a = ["showvminfo"] + args
     return Shell.execute('VBoxManage', a)
+
 
 def vbox_controlvm(*args):
     a = ["controlvm"] + args
     return Shell.execute('VBoxManage', a)
 
+
 def vbox_startcm(*args):
     a = ["startvm"] + args
     return Shell.execute('VBoxManage', a)
+
 
 #
 # LIST
@@ -67,7 +70,6 @@ def convert_to_dict(lines, token=":", converters=None):
 
 
 class virtualbox(ComputeBaseType):
-
     # : the type of the cloud. It is "virtualbox"
     type = "virtualbox"  # global var
 
@@ -79,7 +81,7 @@ class virtualbox(ComputeBaseType):
         """connect to the cloud"""
         pass
 
-    def config(self, dict):
+    def config(self, dictinary):
         """uses the dict to conduct some configuration with the parameters passed"""
         pass
 
@@ -208,8 +210,7 @@ class virtualbox(ComputeBaseType):
     def vm_reset(self, name):
         return self.vm_control(name, "reset")
 
-
-#     print "OOOO"
+# print "OOOO"
 #     name = "compute1.puppetlabs.lan"
 #     pprint (_get_vminfo(name))
 #

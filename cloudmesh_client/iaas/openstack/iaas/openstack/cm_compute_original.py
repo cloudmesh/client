@@ -168,7 +168,7 @@ class openstack(ComputeBaseType):
         #
         log.info(str(lineno()) + ": Loading Admin Credentials")
 
-        if (self.admin_credential is None) and (self.with_admin_credential):
+        if (self.admin_credential is None) and self.with_admin_credential:
             log.error(
                 str(lineno()) + ":error connecting to openstack compute, credential is None")
         else:
@@ -226,21 +226,23 @@ class openstack(ComputeBaseType):
 
         param = None
         if 'OS_TENANT_NAME' in credential:
-            param = {"auth": {"passwordCredentials": {
-                "username": credential['OS_USERNAME'],
-                "password": credential['OS_PASSWORD'],
-            },
-                              "tenantName": credential['OS_TENANT_NAME']
-                              }
-                     }
+            param = {"auth": {
+                "passwordCredentials": {
+                    "username": credential['OS_USERNAME'],
+                    "password": credential['OS_PASSWORD'],
+                },
+                "tenantName": credential['OS_TENANT_NAME']
+            }
+            }
         elif 'OS_TENANT_ID' in credential:
-            param = {"auth": {"passwordCredentials": {
-                "username": credential['OS_USERNAME'],
-                "password": credential['OS_PASSWORD'],
-            },
-                              "tenantId": credential['OS_TENANT_ID']
-                              }
-                     }
+            param = {"auth": {
+                "passwordCredentials": {
+                    "username": credential['OS_USERNAME'],
+                    "password": credential['OS_PASSWORD'],
+                },
+                "tenantId": credential['OS_TENANT_ID']
+            }
+            }
         url = "{0}/tokens".format(credential['OS_AUTH_URL'])
 
         log.debug(str(lineno()) + ": URL {0}".format(url))
@@ -616,7 +618,7 @@ class openstack(ComputeBaseType):
         params = {"addFloatingIp": {
             "address": "%s" % ip
         }
-                  }
+        }
         log.debug("POST PARAMS {0}".format(params))
         return self._post(posturl, params)
 
@@ -758,30 +760,32 @@ class openstack(ComputeBaseType):
         return self._list_to_dict(list, 'name', "extensions", time_stamp)
 
     def get_limits(self):
-        '''Gets absolute and rate limit information, including information on
-        currently used absolute limits.'''
+        """Gets absolute and rate limit information, including information on
+        currently used absolute limits."""
         time_stamp = self._now()
         msg = "limits"
         _dict = self._get(msg, urltype=self.service_url_type)['limits']
         return _dict
 
     def get_absolute_limits(self, view="original"):
-        '''Gets absolute limit information
-        
+        """Gets absolute limit information
+
             Args:
                 view (str) : two types of output available
                             * original - returns integer value in a key and
                               value pair
                             * fraction - returns xx / xx fraction value
-        '''
+        """
 
         limits = self.get_limits()
         if view == "fraction":
-            new_limits = {"Cores": None,
-                          "Instances": None,
-                          "RAM": None,
-                          "SecurityGroups": None,
-                          "FloatingIps": None}
+            new_limits = {
+                "Cores": None,
+                "Instances": None,
+                "RAM": None,
+                "SecurityGroups": None,
+                "FloatingIps": None
+            }
 
             new_limits['Cores'] = str(limits['absolute']['totalCoresUsed']) + \
                                   " / " + str(limits['absolute']['maxTotalCores'])
@@ -844,7 +848,7 @@ class openstack(ComputeBaseType):
 
     # new
     def get_images(self):
-        '''List images'''
+        """List images"""
         time_stamp = self._now()
         msg = "images/detail"
         list = self._get(msg, urltype=self.service_url_type)['images']
@@ -852,7 +856,7 @@ class openstack(ComputeBaseType):
         return self.images
 
     def get_security_groups(self):
-        '''Lists security groups. '''
+        """Lists security groups. """
         time_stamp = self._now()
         list = self.list_security_groups()['security_groups']
         self.security_groups = self._list_to_dict(list, 'id', 'security_group',
@@ -860,7 +864,7 @@ class openstack(ComputeBaseType):
         return self.security_groups
 
     def get_stacks(self):
-        '''Lists active stacks.'''
+        """Lists active stacks."""
         time_stamp = self._now()
         msg = "stacks"
         service = "orchestration"
@@ -870,7 +874,7 @@ class openstack(ComputeBaseType):
         return self.stacks
 
     def get_usage(self):
-        '''Report usage statistics on compute and storage resources.'''
+        """Report usage statistics on compute and storage resources."""
         time_stamp = self._now()
         tenant_id = self.user_token['access']['token']['tenant']['id']
         msg = "os-simple-tenant-usage/{0}".format(tenant_id)
@@ -883,8 +887,8 @@ class openstack(ComputeBaseType):
         return _dict
 
     def get_quota(self):
-        ''' View quotas for a tenant (project). Administrators only, depending
-        on policy settings. '''
+        """ View quotas for a tenant (project). Administrators only, depending
+        on policy settings. """
         time_stamp = self._now()
         tenant_id = self.user_token['access']['token']['tenant']['id']
         msg = "os-quota-sets/{0}".format(tenant_id)
@@ -1062,11 +1066,11 @@ class openstack(ComputeBaseType):
         url = self._get_service_endpoint("compute")[self.service_url_type]
         posturl = "%s/os-security-groups" % url
         params = {"security_group":
-                      {
-                          "name": secgroup.name,
-                          "description": secgroup.description
-                      }
-                  }
+            {
+                "name": secgroup.name,
+                "description": secgroup.description
+            }
+        }
         # log.debug ("POST PARAMS {0}".format(params))
         ret = self._post(posturl, params)
         groupid = None
@@ -1095,14 +1099,14 @@ class openstack(ComputeBaseType):
         ret = None
         for rule in rules:
             params = {"security_group_rule":
-                          {
-                              "ip_protocol": rule.ip_protocol,
-                              "from_port": rule.from_port,
-                              "to_port": rule.to_port,
-                              "cidr": rule.cidr,
-                              "parent_group_id": groupid
-                          }
-                      }
+                {
+                    "ip_protocol": rule.ip_protocol,
+                    "from_port": rule.from_port,
+                    "to_port": rule.to_port,
+                    "cidr": rule.cidr,
+                    "parent_group_id": groupid
+                }
+            }
             # log.debug ("POST PARAMS {0}".format(params))
             ret = self._post(posturl, params)
             if "security_group_rule" not in ret:
@@ -1491,7 +1495,7 @@ class openstack(ComputeBaseType):
         if format == 'dict':
             return body
         else:
-            return (headline, body)
+            return headline, body
 
     #
     # CLI call of ussage
@@ -1666,7 +1670,6 @@ class openstack(ComputeBaseType):
             if userid is not None:
                 vm['cm_display'] = vm['cm_display'] and (
                     vm['user_id'] == userid)
-
 
 #
 # MAIN FOR TESTING
