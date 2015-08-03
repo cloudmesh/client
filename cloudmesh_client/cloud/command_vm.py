@@ -11,6 +11,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
 class Command_vm(object):
+
     @classmethod
     def start(cls, name, count, cloud, image, flavor, group):
         """
@@ -33,7 +34,7 @@ class Command_vm(object):
         :return:
         """
 
-        # TODO: vm start (without arguments) use defaut cloud, image, flavor, group.
+        # TODO: vm start (without arguments) use default cloud, image, flavor, group.
         if cloud is None:  # use default values for cloud, image and flavor
             pass
 
@@ -80,6 +81,7 @@ class Command_vm(object):
             count = int(count)
 
             def __findsufix():
+                # TODO: THIS IS A BIG BUG AS THE NEXT VM NAME IS NOT MANAGED BY SUFFIX
                 """
                     Virtual machine name (VM) format:
                       string-001, string-002, ..., string-n

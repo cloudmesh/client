@@ -113,18 +113,11 @@ class CloudRegister(object):
             _to = path_expand('~/.cloudmesh/clouds/india/')
 
             if os.path.exists(_to):
-                while True:
-                    answer = ""
-                    if not force:
-                        answer = raw_input("Directory already exists. Would you like "
-                                           "to overwrite {:}juno directory y/n? ".format(_to))
-                    if answer.lower() == 'y' or answer.lower() == 'yes' or force:
-                        break
-                    elif answer.lower() != 'n' and answer.lower() != 'no':
-                        Console.ok("Invalid option")
-                    else:
-                        Console.ok("Operation aborted")
-                        return
+
+                  if not yn_chioice("Directory already exists. Would you like "
+                                           "to overwrite {:}juno directory y/n? ".format(_to)):
+                    return
+
             else:
                 Shell.mkdir(_to)
 
@@ -160,18 +153,10 @@ class CloudRegister(object):
 
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
-                while True:
-                    answer = ""
-                    if not force:
-                        answer = raw_input("File already exists. Would you like to overwrite "
-                                           "{:}/cacert.pem file y/n? ".format(_to))
-                    if answer.lower() in ['y', 'yes'] or force:
-                        break
-                    elif answer.lower() not in ['n', 'no']:
-                        Console.ok("Invalid option: {:}".format(answer))
-                    else:
-                        Console.ok("Operation aborted")
-                        return
+
+                if not yn_chioice("File already exists. Would you like to overwrite "
+                                  "{:}/cacert.pem file y/n? ".format(_to)):
+                    return
 
             try:
                 Console.ok("Fetching certificate from india...")
@@ -225,18 +210,9 @@ class CloudRegister(object):
             destination = _to+"/"+(folder[-1:])[0]
 
             if os.path.exists(destination):
-                while True:
-                    answer = ""
-                    if not force:
-                        answer = raw_input("Directory already exists. Would you like to "
-                                           "overwrite {:} directory y/n? ".format(destination))
-                    if answer.lower() == 'y' or answer.lower() == 'yes' or force:
-                        break
-                    elif answer.lower() != 'n' and answer.lower() != 'no':
-                        Console.ok("Invalid option: {:}".format(answer))
-                    else:
-                        Console.ok("Operation aborted")
-                        return
+                if not yn_chioice("Directory already exists. Would you like to "
+                           "overwrite {:} directory y/n? ".format(destination)):
+                    return
 
             try:
                 Console.ok("Fetching directory...")
