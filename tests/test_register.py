@@ -35,7 +35,6 @@ class Test_register():
         # os.sytem("yes | cm register india")
         result = run("cm register india --force")
         #result = Shell.cm("register", "india", "--force")
-
         assert "ok." in result
 
     def test_002(self):
@@ -51,20 +50,29 @@ class Test_register():
 
         assert "Could not execute the command." in result
 
-
     def test_004(self):
+        """testing cm register list"""
+        HEADING()
+
+        result = run ("cm register list")
+
+        assert "india" in result
+
+
+    def test_005(self):
         """testing cm register CLOUD CERT"""
         HEADING()
         result = run ("cm register india .cloudmesh/clouds/india/juno/cacert.pem --force")
         assert "cert registered " in result
 
-    def test_005(self):
+    def test_006(self):
         """testing cm register CLOUD CERT"""
         HEADING()
 
         result = run ("cm register india .cloudmesh/clouds/juno/d/cacert.pem --force")
 
         assert "ERROR" in result
+
 
 
 

@@ -10,9 +10,10 @@ import textwrap
 from os.path import expanduser
 from cloudmesh_base.util import path_expand
 import os
-
+from cloudmesh_base.util import yn_choice
 
 class CloudRegister(object):
+
     @classmethod
     def list(cls, filename):
         """
@@ -114,8 +115,9 @@ class CloudRegister(object):
 
             if os.path.exists(_to):
 
-                  if not yn_chioice("Directory already exists. Would you like "
-                                           "to overwrite {:}juno directory y/n? ".format(_to)):
+                  if not yn_choice("Directory already exists. Would you like "
+                                   "to overwrite {:}juno directory y/n? ".format(_to),
+                                   force=force):
                     return
 
             else:
@@ -154,8 +156,9 @@ class CloudRegister(object):
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
 
-                if not yn_chioice("File already exists. Would you like to overwrite "
-                                  "{:}/cacert.pem file y/n? ".format(_to)):
+                if not yn_choice("File already exists. Would you like to overwrite "
+                                  "{:}/cacert.pem file y/n? ".format(_to),
+                                 force=force):
                     return
 
             try:
@@ -210,8 +213,9 @@ class CloudRegister(object):
             destination = _to+"/"+(folder[-1:])[0]
 
             if os.path.exists(destination):
-                if not yn_chioice("Directory already exists. Would you like to "
-                           "overwrite {:} directory y/n? ".format(destination)):
+                if not yn_choice("Directory already exists. Would you like to "
+                           "overwrite {:} directory y/n? ".format(destination),
+                           force=force):
                     return
 
             try:
