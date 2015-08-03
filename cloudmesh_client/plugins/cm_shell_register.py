@@ -8,6 +8,7 @@ from cloudmesh_client.cloud.CloudRegister import CloudRegister
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.tables import dict_printer
 from cmd3.console import Console
+import json
 
 class cm_shell_register:
     def activate_cm_shell_register(self):
@@ -28,6 +29,7 @@ class cm_shell_register:
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
               register rc HOST [OPENRC]
+              register json HOST
               register [--yaml=FILENAME]
               register india [--force]
               register CLOUD CERT [--force]
@@ -167,6 +169,12 @@ class cm_shell_register:
             filename = arguments['OPENRC']
             host = arguments['HOST']
             CloudRegister.read_rc_file(host, filename)
+            return
+
+        elif arguments['json']:
+            host = arguments['HOST']
+            result = CloudRegister.get(host)
+            print(json.dumps(result, indent=4))
             return
 
         elif arguments['india']:

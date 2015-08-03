@@ -74,5 +74,13 @@ class Test_register():
         assert "ERROR" in result
 
 
+    def test_007(self):
+        """testing cm register json india"""
+        HEADING()
+
+        result = run ("cm register json india")
+
+        assert "openstack" in result
+
 
 

@@ -12,7 +12,14 @@ from cloudmesh_base.util import path_expand
 import os
 from cloudmesh_base.util import yn_choice
 
+
 class CloudRegister(object):
+
+    @classmethod
+    def get(self, cloud):
+        config = ConfigDict("cloudmesh.yaml")
+        if cloud in config["cloudmesh"]["clouds"]:
+            return dict(config["cloudmesh"]["clouds"][cloud])
 
     @classmethod
     def list(cls, filename):
