@@ -7,8 +7,8 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
 
 
-class command_default(object):
-    
+class Default(object):
+
     @classmethod
     def list(cls, format="table"):
         cm = CloudmeshDatabase()
@@ -30,9 +30,24 @@ class command_default(object):
         return(cm.get_default(key, cloud))
 
     @classmethod
+    def cloud(cls, key):
+        cm = CloudmeshDatabase()
+        return(cm.get_default(key, "general"))
+
+    @classmethod
+    def set_cloud(cls, key, value):
+        cm = CloudmeshDatabase()
+        d = cm.dict(DEFAULT)
+        cm.set_default(key, value, "general")
+
+
+    @classmethod
     def delete(cls, key, cloud):
         cm = CloudmeshDatabase()
         _id = cm.getID("default", key, cloud)
         e = cm.find(DEFAULT, cm_id=_id).first()
         if e is not None:
             cm.delete(e)
+
+
+

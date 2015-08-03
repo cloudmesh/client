@@ -14,7 +14,8 @@ from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import yaml
 import json
-
+from cloudmesh_client.cloud.default import Default
+from cloudmesh_base.menu import num_choice, dict_choice
 
 class cm_shell_key:
     def activate_cm_shell_key(self):
@@ -30,12 +31,12 @@ class cm_shell_key:
              key list [--source=db] [--format=FORMAT]
              key list --source=cloudmesh [--format=FORMAT]             
              key list --source=ssh [--dir=DIR] [--format=FORMAT]             
-             key list --source=git [--format=FORMAT] [--username=USERNAME]             
+             key list --source=git [--format=FORMAT] [--username=USERNAME]
              key add [--name=KEYNAME] FILENAME
              key add --git [--name=KEYNAME] NAME
              key get NAME
              key default [KEYNAME | --select]
-             key delete (KEYNAME | --selet | --all) [-f]
+             key delete (KEYNAME | --select | --all) [-f]
 
            Manages the keys
 
@@ -224,21 +225,36 @@ class cm_shell_key:
                 Console.error("problem adding the specified key")
 
         elif arguments['default']:
+
+
+
             print("default")
             if arguments['KEYNAME']:
                 keyname = arguments['KEYNAME']
                 sshdb = SSHKeyDBManager()
                 sshdb.set_default(keyname)
+                Default.set("key", keyname,"general")
+
             elif arguments['--select']:
-                select = sshdb.select()
-                if select != 'q':
-                    keyname = select.split(':')[0]
-                    print(keyname)
-                sshdb.set_default(keyname)
+
+                sshdb = SSHKeyDBManager()
+                d = sshdb.table_dict()
+
+                # TODO: make this a dict select that can generally be used
+
+                try:
+                    element = dict_choice(d)
+
+                    keyname = element["name"]
+                    sshdb.set_default(keyname)
+                    Default.set("key", keyname, "general")
+                except:
+                    print("ERROR: could not set key")
             else:
                 sshdb = SSHKeyDBManager()
                 default = sshdb.object_to_dict(sshdb.get_default())
                 print('default key', default)
+
 
         elif arguments['delete']:
             print('delete')

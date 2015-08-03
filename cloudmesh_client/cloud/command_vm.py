@@ -12,6 +12,9 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class Command_vm(object):
 
+
+    # TODO DOES NOT INTERFACE WITH DATABASE
+
     @classmethod
     def start(cls, name, count, cloud, image, flavor, group):
         """
@@ -38,26 +41,29 @@ class Command_vm(object):
         if cloud is None:  # use default values for cloud, image and flavor
             pass
 
-        if "india" == cloud:
-            OpenStack = get_driver(Provider.OPENSTACK)
+
+        config = CloudRegister.get(cloud)
+        if cm_type in ["openstack"]:
+            provider = Provider.OPENSTACK
+            OpenStack = get_driver(provider)
             try:
-                # get cloud credential from yaml file
-                confd = ConfigDict("cloudmesh.yaml")
-                cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
+                cloud_credentials = config['credentials']
             except Exception, e:
                 Console.error(e.message)
                 return
 
+            # TODO: THIS MAY BE JUST TRUE IF THE CERT PATH EXISTS IN CREDENTIAL
+
             # set path to cacert and enable ssl connection
-            libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
+            libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloud_credentials['OS_CACERT'])]
             libcloud.security.VERIFY_SSL_CERT = True
 
-            auth_url = "%s/tokens/" % cloudcred['OS_AUTH_URL']
+            auth_url = "%s/tokens/" % cloud_credentials['OS_AUTH_URL']
 
-            driver = OpenStack(cloudcred['OS_USERNAME'],
-                               cloudcred['OS_PASSWORD'],
+            driver = OpenStack(cloud_credentials['OS_USERNAME'],
+                               cloud_credentials['OS_PASSWORD'],
                                ex_force_auth_url=auth_url,
-                               ex_tenant_name=cloudcred['OS_TENANT_NAME'],
+                               ex_tenant_name=cloud_credentials['OS_TENANT_NAME'],
                                ex_force_auth_version='2.0_password',
                                ex_force_service_region='regionOne')
 
@@ -108,7 +114,7 @@ class Command_vm(object):
             sufix = __findsufix()
             c = CloudmeshDatabase()
             if name is None:
-                c.name(cloudcred['OS_USERNAME'] + "-" + sufix)
+                c.name(cloud_credentials['OS_USERNAME'] + "-" + sufix)
             else:
                 c.name(name + "-" + sufix)
 

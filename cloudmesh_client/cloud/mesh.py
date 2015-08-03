@@ -7,13 +7,10 @@ from cloudmesh_base.util import path_expand
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 import os.path
+from cloudmesh_client.cloud.default import Default
 
 
 class Mesh(object):
-    t_flavour = "flavour"
-    t_image = "image"
-    t_vm = "vm"
-
     """
     Design decision. Bellow we like to implement actually a type detection that based on
     one specifying a single string or a list does the right things
@@ -35,14 +32,20 @@ class Mesh(object):
     We start simply with a print msg
 
     """
-    db = CloudmeshDatabase()
+
+    t_flavour = "flavour"
+    t_image = "image"
+    t_vm = "vm"
+
+    def __init__(self):
+        self.db = CloudmeshDatabase()
 
     @classmethod
-    def clouds(self, format='json'):
+    def clouds(self, format='json', order=None):
         filename = "cloudmesh.yaml"
         config = ConfigDict(filename)
         yaml_clouds = dict(config["cloudmesh"]["clouds"])
-        return dict_printer(yaml_clouds, output=format)
+        return dict_printer(yaml_clouds, output=format, order=order)
 
     @classmethod
     def verify(self):
@@ -57,6 +60,7 @@ class Mesh(object):
         print ("register")
         self.db.update(['vm', 'image', 'flavor'], ['india', 'aws', 'azure'])
 
+    """
     @classmethod
     def key_add(self, *args):
         print ("key add")
@@ -81,11 +85,13 @@ class Mesh(object):
             path = path_expand(args[1])
             sshdb.add(path, keyname)
 
+
     def key_delete(self, keynames):
         sshdb = SSHKeyDBManager()
         names = keynames.split(',')
         for name in names:
             sshdb.delete(name)
+    """
 
     @classmethod
     def clear(self):
@@ -152,7 +158,7 @@ class Mesh(object):
         return "done"
 
     @classmethod
-    def boot(self, image, flavor, key, cloud, arguments):
+    def boot(self, cloud=None, image=None, flavor=None, key=None,  arguments=None):
         """
         Boots the image on a specified cloud
 
@@ -169,7 +175,28 @@ class Mesh(object):
         :return: the id of the vm
         :rtype: str
         """
-        print("bot an image", image, flavor, key, cloud, arguments)
+        if cloud is None:
+            cloud =  Default.get("cloud", "general")
+            print("get default cloud: " + str(cloud))
+        if image is None:
+            image =  Default.get("image", cloud)
+            print("get default image ", str(image))
+        if flavor is None:
+            flavor =  Default.get("flavor", cloud)
+            print("get default flavor ", str(flavor))
+        if key is None:
+            key =  Default.get("key", str(cloud))
+            print("get default key ", str(key))
+
+        # command_key
+
+
+
+
+
+
+
+        print("boot an image", image, flavor, key, cloud, arguments)
         pass
 
     @classmethod
@@ -276,7 +303,11 @@ def main():
 
     Mesh.delete("gregor-[002-005]")
 
-    print (Mesh.clouds('table'))
+    print (Mesh.clouds(format='table', order=["cm_label", "cm_type"]))
+
+
+    Mesh.boot()
+
 
     # mesh.dump('test.db')
 
@@ -286,7 +317,7 @@ def main():
 
     # Mesh.refresh()
 
-    Mesh.key_add('paulo-chagas')
+    #Mesh.key_add('paulo-chagas')
 
 
 if __name__ == "__main__":
