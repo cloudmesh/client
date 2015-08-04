@@ -16,6 +16,7 @@ import yaml
 import json
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_base.menu import num_choice, dict_choice
+from cloudmesh_client.plugins.cm_shell_select import cm_shell_select
 
 class cm_shell_key:
     def activate_cm_shell_key(self):
@@ -237,19 +238,9 @@ class cm_shell_key:
 
             elif arguments['--select']:
 
-                sshdb = SSHKeyDBManager()
-                d = sshdb.table_dict()
+                command = cm_shell_select()
+                command.do_select("key")
 
-                # TODO: make this a dict select that can generally be used
-
-                try:
-                    element = dict_choice(d)
-
-                    keyname = element["name"]
-                    sshdb.set_default(keyname)
-                    Default.set("key", keyname, "general")
-                except:
-                    print("ERROR: could not set key")
             else:
                 sshdb = SSHKeyDBManager()
                 default = sshdb.object_to_dict(sshdb.get_default())
