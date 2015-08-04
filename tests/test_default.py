@@ -132,6 +132,16 @@ class Test_default():
         self._check(value)
 
 
+    def test_999(self):
+        """
+        clear the defaults
+        :return:
+        """
+        HEADING()
+
+        Default.clear()
+        assert True
+
     '''
     def test_002(self):
         """
