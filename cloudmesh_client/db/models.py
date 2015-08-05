@@ -125,8 +125,8 @@ class KEY(db.Base):
     cm_user = Column(String)
     cm_id = Column(String, primary_key=True)
     cm_type = Column(String)
-    cm_command = Column(String)
-    cm_parameter = Column(String)
+    cm_command = Column(String)  # TODO what is this for
+    cm_parameter = Column(String) # TODO what is this for
 
     default = Column(String, default='False')
     name = Column(String)
@@ -150,6 +150,43 @@ class KEY(db.Base):
                     cm_user=cm_user)
 
 
+class GROUP(db.Base):
+    """table to stor defualt values
+
+    if the cloud is "global" it is ment to be a global variable
+
+    todo: check if its global or general
+    """
+    __tablename__ = 'group'
+    id = Column(Integer)
+
+    cm_name = Column(String)
+    cm_uuid = Column(String)
+    cm_cloud = Column(String) # not used in group
+    cm_update = Column(String)
+    cm_user = Column(String)
+    cm_id = Column(String, primary_key=True)
+    cm_type = Column(String)
+    cm_command = Column(String) # TODO not used
+    cm_parameter = Column(String) # TODO not used
+
+    type = Column(String)
+    name = Column(String)
+
+    def __init__(self,
+                 cm_name=None,
+                 label=None,
+                 cloud='india',
+                 cm_user=None,
+                 value=None):
+        set_cm_data(self,
+                    cm_name=cm_name,
+                    label=label,
+                    cloud=cloud,
+                    cm_user=cm_user)
+        self.value = value
+
+
 class DEFAULT(db.Base):
     """table to stor defualt values
 
@@ -167,8 +204,8 @@ class DEFAULT(db.Base):
     cm_user = Column(String)
     cm_id = Column(String, primary_key=True)
     cm_type = Column(String)
-    cm_command = Column(String)
-    cm_parameter = Column(String)
+    cm_command = Column(String)   # TODO what is this for
+    cm_parameter = Column(String) # TODO what is this for
 
     name = Column(String)
     value = Column(String)

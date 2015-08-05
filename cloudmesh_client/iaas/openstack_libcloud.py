@@ -200,6 +200,7 @@ class OpenStack_libcloud(CloudmeshProviderBase):
         return data
 
     def boot(self, cloud, user, name, image, flavor, key, meta):
+        # TODO key not implemented
         self.images = self.driver.list_images()
         self.flavors = self.driver.list_sizes()
 
