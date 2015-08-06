@@ -74,6 +74,19 @@ class CloudMesh(object):
         self.config = dict(ConfigDict(filename="~/.cloudmesh/cloudmesh.yaml")["cloudmesh"]["clouds"])
         self.client = {}
 
+    def cloud_username(self, cloud):
+        if self.cloud_type(cloud) == "openstack":
+            return self.config[cloud]["credentials"]["OS_USERNAME"]
+        else:
+            raise Exception("username for this cloud type not defined")
+
+    def cloud_project(self, cloud):
+        if self.cloud_type(cloud) == "openstack":
+            return self.config[cloud]["credentials"]["OS_TENANT_NAME"]
+        else:
+            raise Exception("username for this cloud type not defined")
+
+
     def cloud_type(self, cloud):
         return self.config[cloud]["cm_type"]
 
@@ -113,7 +126,16 @@ class CloudMesh(object):
                 insert(objects)
             elif kind in ["limit"]:
                 objects = self.client[cloud].limits.get()
-                result[cloud] = objects.__dict__["_info"]
+                result[cloud]["limits"] = objects.__dict__["_info"]
+            elif kind in ["quota"]:
+                username = self.cloud_username(cloud)
+                project = self.cloud_project(cloud)
+                print ("U", username, project)
+                # get is permission denied on india so we use by default the default
+                # objects = self.client[cloud].quotas.get(username, project)
+                objects = self.client[cloud].quotas.defaults(project)
+                print("O", objects)
+                result[cloud]["quota"] = objects.__dict__["_info"]
 
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
@@ -126,45 +148,48 @@ class CloudMesh(object):
 
 #mesh = Mesh()
 
-#cred = mesh.credentials("india")
-#print("CCC", cred)
+# cred = mesh.credentials("india")
+# print("CCC", cred)
 
 
-credential = get_nova_credentials(cloud="india")
-pprint (credential)
+# credential = get_nova_credentials(cloud="india")
+# pprint (credential)
 
 # credential = get_nova_credentials(kind="env")
 # pprint (credential)
 
 
-nova_client = Client(**credential)
+# nova_client = Client(**credential)
 
-print(nova_client.servers.list())
+# print(nova_client.servers.list())
 
-credential = get_nova_credentials(cloud="chameleon")
+# credential = get_nova_credentials(cloud="chameleon")
 
-pprint (credential)
+#pprint (credential)
 
 # credential = get_nova_credentials(kind="env")
 # pprint (credential)
 
 
-nova_client = Client(**credential)
+# nova_client = Client(**credential)
 
-print(nova_client.servers.list())
+# print(nova_client.servers.list())
 
 print("===================")
 cm = CloudMesh()
 
-cm.authenticate("india")
-cm.authenticate("chameleon")
+clouds = ["india"]
+
+for cloud in clouds:
+    cm.authenticate("india")
 
 # l = cm.list("key", cloud="india")
 # pprint (l)
-l = cm.list("limit", cloud="india")
-pprint (l)
-l = cm.list("limit", cloud="chameleon")
-pprint (l)
+for cloud in clouds:
+    l = cm.list("limit", cloud=cloud)
+    pprint (l)
+    l = cm.list("quota", cloud=cloud)
+    pprint (l)
 
 
 # l = cm.list("flavor", cloud="india")
