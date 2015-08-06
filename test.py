@@ -1,5 +1,7 @@
 import os
 from novaclient.client import Client
+from novaclient.v2.quotas import QuotaSetManager
+from novaclient.v2.limits import LimitsManager
 from cloudmesh_base.util import path_expand
 from cloudmesh_base.ConfigDict import ConfigDict
 import sys
@@ -87,18 +89,40 @@ class CloudMesh(object):
         self.client[cloud] = Client(**credential)
 
     def list(self, kind, cloud=None):
-        if kind in ["server"]:
-            objects = self.client[cloud].servers.list()
-        elif kind in ["flavor"]:
-            objects = self.client[cloud].flavors.list()
-        elif kind in ["image"]:
-            objects = self.client[cloud].images.list()
+
+        result = {cloud: {}}
+
+        def insert(objects):
+            for i in objects:
+                result[cloud][i.name] = i.__dict__
+
+
+
+        if self.cloud_type(cloud) == "openstack":
+            if kind in ["server"]:
+                objects = self.client[cloud].servers.list()
+                insert(objects)
+            elif kind in ["flavor"]:
+                objects = self.client[cloud].flavors.list()
+                insert(objects)
+            elif kind in ["image"]:
+                objects = self.client[cloud].images.list()
+                insert(objects)
+            elif kind in ["key"]:
+                objects = self.client[cloud].keypairs.list()
+                insert(objects)
+            elif kind in ["limit"]:
+                objects = self.client[cloud].limits.get()
+                result[cloud] = objects.__dict__["_info"]
+
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
-        result = {cloud: {}}
-        for i in objects:
-            result[cloud][i.name] = i.__dict__
         return result
+
+    def quota(self, cloud=None):
+        q = QuotaSetManager()
+        # defaults(tenant_id)
+        # get(tenant_id, user_id=None)
 
 #mesh = Mesh()
 
@@ -134,6 +158,20 @@ cm = CloudMesh()
 
 cm.authenticate("india")
 cm.authenticate("chameleon")
+
+# l = cm.list("key", cloud="india")
+# pprint (l)
+l = cm.list("limit", cloud="india")
+pprint (l)
+l = cm.list("limit", cloud="chameleon")
+pprint (l)
+
+
+# l = cm.list("flavor", cloud="india")
+# pprint (l)
+
+sys.exit()
+
 
 l = cm.list("server", cloud="india")
 pprint (l)
