@@ -1,0 +1,82 @@
+meta:
+  yaml_version: 2.1
+  kind: clouds
+  filename: /Users/big/.cloudmesh/cloudmesh.yaml
+  location: /Users/big/.cloudmesh/cloudmesh.yaml
+  prefix: null
+cloudmesh:
+  profile:
+    firstname: TBD
+    lastname: TBD
+    email: TBD
+  github:
+    username: laszewsk
+  active:
+  - india
+  clouds:
+    chameleon:
+      cm_heading: India OpenStack, Juno
+      cm_host: india.futuregrid.org
+      cm_label: india
+      cm_type: openstack
+      cm_type_version: juno
+      credentials:
+        OS_AUTH_URL: https://proxy.chameleon.tacc.utexas.edu:5000/v2.0
+        OS_PASSWORD: TBD
+        OS_TENANT_NAME: FG-82
+        OS_USERNAME: TBD
+        OS_VERSION: kilo
+        OS_REGION_NAME: regionOne
+      default:
+        flavor: TBD
+        image: TBD
+    india:
+      cm_heading: India OpenStack, Juno
+      cm_host: india.futuregrid.org
+      cm_label: india
+      cm_type: openstack
+      cm_type_version: juno
+      credentials:
+        OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
+        OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
+        OS_PASSWORD: TBD
+        OS_TENANT_NAME: fg82
+        OS_USERNAME: TBD
+        OS_VERSION: juno
+      default:
+        flavor: TBD
+        image: TBD
+    aws:
+      cm_heading: Amazon Cloud, AWS
+      cm_host: aws.amazon.com
+      cm_label: aws
+      cm_type: ec2
+      cm_type_version: null
+      credentials:
+        EC2_ACCESS_KEY: TBD
+        EC2_SECRET_KEY: TBD
+        keyname: TBD
+        userid: TBD
+      default:
+        flavor: t1.micro
+        image: ami-d85e75b0
+        location: us-east-1
+    azure:
+      cm_heading: Microsoft Azure Virtual Machines
+      cm_host: windowsazure.com
+      cm_label: waz
+      cm_type: azure
+      cm_type_version: null
+      credentials:
+        managementcertfile: TBD
+        servicecertfile: TBD
+        subscriptionid: TBD
+        thumbprint: TBD
+      default:
+        flavor: ExtraSmall
+        image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
+        location: East US
+  keys:
+    default: null
+    keylist:
+      keyname: ~/.ssh/id_rsa.pub
