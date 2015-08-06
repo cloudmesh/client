@@ -1,4 +1,5 @@
 import os
+from novaclient import exceptions 
 from novaclient.client import Client
 from novaclient.v2.quotas import QuotaSetManager
 from novaclient.v2.limits import LimitsManager
@@ -142,11 +143,10 @@ class CloudMesh(object):
         keyfile = path_expand(filename)
         if self.cloud_type(cloud) == "openstack":
             with open(os.path.expanduser(filename), 'r') as public_key:
-        #try:
-                self.client[cloud].keypairs.create(name=name, public_key=public_key.read())
-        # except Exception:
-        #    print ("key already exists")
-
+              try:
+                 self.client[cloud].keypairs.create(name=name, public_key=public_key.read())
+              except exceptions.Conflict, e:
+                 print ("key already exists: %s", e)
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
 
