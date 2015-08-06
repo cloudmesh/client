@@ -146,16 +146,60 @@ class CloudMesh(object):
 
 
     # #############################################
+    # IMAGE MANAGEMENT
+    # #############################################
+    def image_get(self, name, cloud=None):
+        pass
+       
+    # #############################################
+    # FLAVOR MANAGEMENT
+    # #############################################
+    def flavor_get(self, name, cloud=None):
+        pass
+       
+    # #############################################
     # SEVER MANAGEMENT
     # #############################################
 
-    def vm_create(self, name, flavor, image, secgroup, keypair, meta, userdata):
+    def vm_create(self, name, flavor, image, secgroup, keypair, meta, userdata, cloud=None):
 	self.client[cloud].servers.create(name, image, flavor, meta=meta,
                                           security_groups=secgroup, key_name=keypair, userdata=userdata)
         # TBD
 
-    def vm_delete(self, name):
+    def vm_delete(self, name, cloud):
         self.client[cloud].servers.delete()
+
+    def vm_set_meta(self, name, cloud=None):
+        pass
+       
+    def vm_get_meta(self, name, cloud=None):
+        pass
+
+    def vm_set_userdata(self, name, cloud=None):
+        pass
+       
+    def vm_get_usedata(self, name, cloud=None):
+        pass
+
+    # #############################################
+    # SECURITY MANAGEMENT
+    # #############################################
+    def secgroup_create(self):
+        pass
+
+    def secgroup_delete(self):
+        pass
+
+    def secgroup_get(self):
+        pass
+
+    def secgroup_list(self):
+        pass
+
+    def secgroup_list_rule(self):
+        pass
+
+
 
     # #############################################
     # KEY MANAGEMENT
@@ -196,6 +240,8 @@ class CloudMesh(object):
         if self.cloud_type(cloud) == "openstack":
             if kind in ["key"]:
                 self.key_delete(name, cloud=cloud)
+            elif kind in ["server"]:
+                self.vm_delete(name, cloud=cloud)
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
 
