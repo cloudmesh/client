@@ -144,6 +144,11 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
         return result
 
+
+    # #############################################
+    # SEVER MANAGEMENT
+    # #############################################
+
     def vm_create(self, name, flavor, image, secgroup, keypair, meta, userdata):
 	self.client[cloud].servers.create(name, image, flavor, meta=meta,
                                           security_groups=secgroup, key_name=keypair, userdata=userdata)
