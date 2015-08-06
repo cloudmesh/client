@@ -146,7 +146,7 @@ class CloudMesh(object):
               try:
                  self.client[cloud].keypairs.create(name=name, public_key=public_key.read())
               except exceptions.Conflict, e:
-                 print ("key already exists: %s", e)
+                 print ("key already exists: {0}".format(str(e)))
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
 
