@@ -87,7 +87,6 @@ class CloudMesh(object):
         else:
             raise Exception("username for this cloud type not defined")
 
-
     def cloud_type(self, cloud):
         return self.config[cloud]["cm_type"]
 
@@ -101,6 +100,10 @@ class CloudMesh(object):
     def authenticate(self, cloud):
         credential = self.credentials(cloud)
         self.client[cloud] = Client(**credential)
+
+    # #############################################
+    # KEY LIST
+    # #############################################
 
     def list(self, kind, cloud=None):
 
@@ -141,6 +144,9 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
         return result
 
+    # #############################################
+    # KEY MANAGEMENT
+    # #############################################
 
     def key_add(self, name, filename, cloud=None):
         keyfile = path_expand(filename)
@@ -169,6 +175,9 @@ class CloudMesh(object):
         """
         self.client[cloud].keypairs.delete(name)
 
+    # #############################################
+    # DELETE
+    # #############################################
 
     def delete(self, kind, name, cloud=None):
         if self.cloud_type(cloud) == "openstack":
