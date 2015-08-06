@@ -123,7 +123,9 @@ class CloudMesh(object):
                 insert(objects)
             elif kind in ["key"]:
                 objects = self.client[cloud].keypairs.list()
-                insert(objects)
+                result[cloud]["key"] = {}
+                for i in objects:
+                    result[cloud]["key"][i.name] = i.__dict__["_info"]["keypair"]
             elif kind in ["limit"]:
                 objects = self.client[cloud].limits.get()
                 result[cloud]["limits"] = objects.__dict__["_info"]
@@ -139,7 +141,8 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
         return result
 
-    def key_add(self, cloud, name, filename):
+
+    def key_add(self, name, filename, cloud=None):
         keyfile = path_expand(filename)
         if self.cloud_type(cloud) == "openstack":
             with open(os.path.expanduser(filename), 'r') as public_key:
@@ -149,6 +152,31 @@ class CloudMesh(object):
                  print ("key already exists: {0}".format(str(e)))
         else:
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
+
+    def key_find(self, name, cloud=None):
+        """finds the key with the given name
+        :param name: name of the key
+        :param cloud: name of the cloud
+        :return:
+        """
+        pass
+
+    def key_delete(self, name, cloud=None):
+        """deletes the key with the given name
+        :param name: name of the key
+        :param cloud: name of the cloud
+        :return:
+        """
+        self.client[cloud].keypairs.delete(name)
+
+
+    def delete(self, kind, name, cloud=None):
+        if self.cloud_type(cloud) == "openstack":
+            if kind in ["key"]:
+                self.key_delete(name, cloud=cloud)
+        else:
+            raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
+
 
 
 #mesh = Mesh()
@@ -189,7 +217,7 @@ kinds = ["limit", "quota", "server", "flavor", "image"]
 
 clouds = ["india"]
 
-kinds = ["limit"]
+kinds = ["key"]
 
 for cloud in clouds:
     cm.authenticate(cloud)
@@ -201,7 +229,13 @@ for cloud in clouds:
         l = cm.list(kind, cloud=cloud)
         pprint (l)
 
-cm.key_add('india', "gregor-key", "~/.ssh/id_rsa.pub")
+cm.key_delete("gregor-key", cloud='india')
+print ("--------------")
+pprint(cm.list("key", cloud='india'))
+print ("--------------")
+cm.key_add("gregor-key", "~/.ssh/id_rsa.pub", cloud='india')
+pprint(cm.list("key", cloud='india'))
+print ("--------------")
 
 
 '''
