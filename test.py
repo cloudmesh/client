@@ -110,7 +110,6 @@ class CloudMesh(object):
                 result[cloud][i.name] = i.__dict__
 
 
-
         if self.cloud_type(cloud) == "openstack":
             if kind in ["server"]:
                 objects = self.client[cloud].servers.list()
@@ -139,10 +138,18 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
         return result
 
-    def quota(self, cloud=None):
-        q = QuotaSetManager()
-        # defaults(tenant_id)
-        # get(tenant_id, user_id=None)
+    def key_add(self, cloud, name, filename):
+        keyfile = path_expand(filename)
+        if self.cloud_type(cloud) == "openstack":
+            with open(os.path.expanduser(filename), 'r') as public_key:
+        #try:
+                self.client[cloud].keypairs.create(name=name, public_key=public_key.read())
+        # except Exception:
+        #    print ("key already exists")
+
+        else:
+            raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
+
 
 #mesh = Mesh()
 
@@ -176,38 +183,26 @@ class CloudMesh(object):
 print("===================")
 cm = CloudMesh()
 
+clouds = ["india", "chameleon"]
+
+kinds = ["limit", "quota", "server", "flavor", "image"]
+
 clouds = ["india"]
 
+kinds = ["limit"]
+
 for cloud in clouds:
-    cm.authenticate("india")
+    cm.authenticate(cloud)
 
 # l = cm.list("key", cloud="india")
 # pprint (l)
 for cloud in clouds:
-    l = cm.list("limit", cloud=cloud)
-    pprint (l)
-    l = cm.list("quota", cloud=cloud)
-    pprint (l)
+    for kind in kinds:
+        l = cm.list(kind, cloud=cloud)
+        pprint (l)
 
+cm.key_add('india', "gregor-key", "~/.ssh/id_rsa.pub")
 
-# l = cm.list("flavor", cloud="india")
-# pprint (l)
-
-sys.exit()
-
-
-l = cm.list("server", cloud="india")
-pprint (l)
-l = cm.list("server", cloud="chameleon")
-pprint (l)
-l = cm.list("flavor", cloud="india")
-pprint (l)
-l = cm.list("image", cloud="india")
-pprint (l)
-l = cm.list("flavor", cloud="chameleon")
-pprint (l)
-l = cm.list("image", cloud="chameleon")
-pprint (l)
 
 '''
 export OS_USERNAME=username
