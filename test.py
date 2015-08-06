@@ -128,13 +128,11 @@ class CloudMesh(object):
                 objects = self.client[cloud].limits.get()
                 result[cloud]["limits"] = objects.__dict__["_info"]
             elif kind in ["quota"]:
-                username = self.cloud_username(cloud)
+                # username = self.cloud_username(cloud)
                 project = self.cloud_project(cloud)
-                print ("U", username, project)
                 # get is permission denied on india so we use by default the default
                 # objects = self.client[cloud].quotas.get(username, project)
                 objects = self.client[cloud].quotas.defaults(project)
-                print("O", objects)
                 result[cloud]["quota"] = objects.__dict__["_info"]
 
         else:
