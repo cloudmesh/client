@@ -38,7 +38,7 @@ def get_nova_credentials(kind="yaml", cloud=None):
         if 'OS_CACERT' in cred:
             d['cacert'] = path_expand(cred['OS_CACERT'])
     else:
-        raise Exceotion ("unsupported kind: " + kind)
+        raise Exception ("unsupported kind: " + kind)
     return d
 
 '''
