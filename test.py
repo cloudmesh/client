@@ -141,6 +141,13 @@ class CloudMesh(object):
             raise Exception("unsupported kind or cloud: " + kind + " " + str(cloud))
         return result
 
+    def vm_create(self, name, flavor, image, secgroup, keypair, meta, userdata):
+	self.client[cloud].servers.create(name, image, flavor, meta=meta,
+                                          security_groups=secgroup, key_name=keypair, userdata=userdata)
+        # TBD
+
+    def vm_delete(self, name):
+        self.client[cloud].servers.delete()
 
     def key_add(self, name, filename, cloud=None):
         keyfile = path_expand(filename)
