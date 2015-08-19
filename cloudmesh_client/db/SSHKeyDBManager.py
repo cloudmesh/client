@@ -22,9 +22,6 @@ class SSHKeyDBManager(object):
 
         sshkey = SSHkey(path_expand(key_path))
 
-        print("YYYYY")
-        print(sshkey)
-
         self.add_from_SSHKey(sshkey.__key__, keyname, cm_user, source=source, uri=uri)
 
     def add_from_dict(self, d):
