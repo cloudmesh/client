@@ -1,4 +1,4 @@
-class PersitentData(dict):
+class DictDB(dict):
     """
 
     Implements a persitent dictionary using sqlite
