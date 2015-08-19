@@ -190,12 +190,6 @@ class Mesh(object):
 
         # command_key
 
-
-
-
-
-
-
         print("boot an image", image, flavor, key, cloud, arguments)
         pass
 
