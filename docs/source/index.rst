@@ -8,10 +8,8 @@ based database and stores the cloud credentials in a configuration
 file.
 
 .. toctree::
-   :numbered:
 
    prefix
-   changes
    installation
    configuration
    use
@@ -19,8 +17,8 @@ file.
    man/man
    old 
    modules/modules
-   develop
-   todo
+   appendix
+
 
 Indices and tables
 ==================
@@ -28,4 +26,5 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
 

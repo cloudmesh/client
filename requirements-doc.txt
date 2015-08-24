@@ -3,3 +3,5 @@ pylint
 sphinx
 sphinx_bootstrap_theme
 sphinxcontrib-blockdiag
+paramiko
+fabric

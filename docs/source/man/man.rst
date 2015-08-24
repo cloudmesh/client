@@ -132,30 +132,16 @@ Command - cluster::
 
 
 
-default
+debug
 ----------------------------------------------------------------------
 
-Command - default::
+Command - debug::
 
     Usage:
-        default list [--format=FORMAT]
-        default delete KEY [--cloud=CLOUD]
-        default KEY [--cloud=CLOUD]
-        default KEY=VALUE [--cloud=CLOUD]
+          debug on
+          debug off
 
-
-    managing the defaults test test test test
-
-    Arguments:
-
-      KEY    the name of the default
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [default: general]
-       --format=FORMAT  the output format [default: table]
-
+          Turns the debug log level on and off.
 
 
 edit
@@ -239,19 +225,19 @@ Command - generate::
 
         would create in the home directory  the following files
 
-            ├── LICENSE
-            ├── Makefile
-            ├── __init__.py
-            ├── __init__.pyc
-            ├── cloudmesh_example
-            │   ├── __init__.py
-            │   ├── command_example.py
-            │   └── plugins
-            │       ├── __init__.py
-            │       └── cm_shell_example.py
-            ├── requirements.txt
-            ├── setup.cfg
-            └── setup.py
+            |-- LICENSE
+            |-- Makefile
+            |-- __init__.py
+            |-- __init__.pyc
+            |-- cloudmesh_example
+            |   |-- __init__.py
+            |   |-- command_example.py
+            |   |-- plugins
+            |       |-- __init__.py
+            |       |-- cm_shell_example.py
+            |-- requirements.txt
+            |-- setup.cfg
+            |-- setup.py
 
         To install the plugin go to the directory and say
 
@@ -314,87 +300,6 @@ Command - info::
            --all  -a   more extensive information
 
     Prints some internal information about the shell
-
-
-
-key
-----------------------------------------------------------------------
-
-Command - key::
-
-    Usage:
-      key  -h | --help
-      key list [--source=db] [--format=FORMAT]
-      key list --source=cloudmesh [--format=FORMAT]
-      key list --source=ssh [--dir=DIR] [--format=FORMAT]
-      key list --source=git [--format=FORMAT] [--username=USERNAME]
-      key add [--name=KEYNAME] FILENAME
-      key add --git [--name=KEYNAME] NAME
-      key get NAME
-      key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [-f]
-
-    Manages the keys
-
-    Arguments:
-
-      SOURCE         db, ssh, all
-      KEYNAME        The name of a key
-      FORMAT         The format of the output (table, json, yaml)
-      FILENAME       The filename with full path in which the key
-                     is located
-    Options:
-
-       --dir=DIR            the directory with keys [default: ~/.ssh]
-       --format=FORMAT      the format of the output [default: table]
-       --source=SOURCE      the source for the keys [default: db]
-       --username=USERNAME  the source for the keys [default: none]
-       --keyname=KEYNAME    the name of the keys
-       --all                delete all keys
-
-    Description:
-
-    key list --source=git  [--username=USERNAME]
-
-       lists all keys in git for the specified user. If the name is not specified it is read from cloudmesh.yaml
-
-    key list --source=ssh  [--dir=DIR] [--format=FORMAT]
-
-       lists all keys in the directory. If the directory is not
-       specified the default will be ~/.ssh
-
-    key list --source=cloudmesh  [--dir=DIR] [--format=FORMAT]
-
-       lists all keys in cloudmesh.yaml file in the specified directory.
-        dir is by default ~/.cloudmesh
-
-    key list [--format=FORMAT]
-
-        list the keys in teh giiven format: json, yaml, table. table is default
-
-    key list
-
-         Prints list of keys. NAME of the key can be specified
-
-
-    key add [--name=keyname] FILENAME
-
-        adds the key specifid by the filename to the key database
-
-
-    key default [NAME]
-
-         Used to set a key from the key-list as the default key if NAME
-         is given. Otherwise print the current default key
-
-    key delete NAME
-
-         deletes a key. In yaml mode it can delete only key that
-         are not saved in the database
-
-    key rename NAME NEW
-
-         renames the key from NAME to NEW.
 
 
 
@@ -468,6 +373,8 @@ Command - load::
     Arguments:
        MODULE  The name of the module.
 
+    THIS COMMAND IS NOT IMPLEMENTED
+
 
 loglevel
 ----------------------------------------------------------------------
@@ -475,30 +382,21 @@ loglevel
 Command - loglevel::
 
     Usage:
-      loglevel
-      loglevel critical
-      loglevel error
-      loglevel warning
-      loglevel info
-      loglevel debug
+        loglevel
+        loglevel critical
+        loglevel error
+        loglevel warning
+        loglevel info
+        loglevel debug
 
+        Shows current log level or changes it.
 
-    Shows current log level or changes it.
-
-    Arguments:
-
-    Description:
-
-      loglevel - shows current log level
-      critical - shows log message in critical level
-      error    - shows log message in error level including critical
-      warning  - shows log message in warning level including error
-      info     - shows log message in info level including warning
-      debug    - shows log message in debug level including info
-
-
-    Options:
-
+        loglevel - shows current log level
+        critical - shows log message in critical level
+        error    - shows log message in error level including critical
+        warning  - shows log message in warning level including error
+        info     - shows log message in info level including warning
+        debug    - shows log message in debug level including info
 
 
 
@@ -974,27 +872,6 @@ Command - secgroup::
 
 
 
-select
-----------------------------------------------------------------------
-
-Command - select::
-
-    Usage:
-        select image [CLOUD]
-        select flavor [CLOUD]
-        select cloud [CLOUD]
-        select key [CLOUD]
-
-    selects interactively the default values
-
-    Arguments:
-
-      CLOUD    the name of the cloud
-
-    Options:
-
-
-
 setup
 ----------------------------------------------------------------------
 
@@ -1002,18 +879,6 @@ Command - setup::
 
     Usage:
       setup init [--force]
-      setup test
-
-    Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
-
-
-setup_yaml
-----------------------------------------------------------------------
-
-Command - setup_yaml::
-
-    Usage:
-        setup_yaml  [--force]
 
     Copies a cmd3.yaml file into ~/.cloudmesh/cmd3.yaml
 
