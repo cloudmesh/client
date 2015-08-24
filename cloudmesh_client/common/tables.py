@@ -12,7 +12,9 @@ import cloudmesh_base.hostlist
 from cloudmesh_base.util import convert_from_unicode
 
 
-def dict_printer(d, order=None, header=None, output="table",
+def dict_printer(d, order=None,
+                 header=None,
+                 output="table",
                  sort_keys=True,
                  show_none=""):
     """
