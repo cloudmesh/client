@@ -141,10 +141,10 @@ User and Contributor
    git clone https://github.com/cloudmesh/cmd3.git  
    git clone https://github.com/cloudmesh/client.git   
    cd base
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../cmd3
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../client
    python setup.py install
@@ -160,13 +160,30 @@ Developer with ssh access to git reporsitory
    git clone git@github.com:cloudmesh/cmd3.git
    git clone git@github.com:cloudmesh/client.git
    cd base
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../cmd3
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../client
    python setup.py install
+
+
+Updating an existing source distribution
+======================================================================
+
+::
+
+   cd github/cloudmesh
+   cd base
+   git pull
+   python setup.py install
+   cd ../cmd3
+   git pull 
+   python setup.py install
+   cd ../client
+   python setup.py install
+
 
 
 Testing
