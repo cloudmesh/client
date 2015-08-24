@@ -91,6 +91,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#updating-an-existing-source-distribution">Updating an existing source distribution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 </ul>
 </li>
@@ -399,10 +402,10 @@ git clone https://github.com/cloudmesh/base.git
 git clone https://github.com/cloudmesh/cmd3.git
 git clone https://github.com/cloudmesh/client.git
 cd base
-git checkout sh
+git checkout
 python setup.py install
 cd ../cmd3
-git checkout sh
+git checkout
 python setup.py install
 cd ../client
 python setup.py install
@@ -417,16 +420,30 @@ git clone git@github.com:cloudmesh/base.git
 git clone git@github.com:cloudmesh/cmd3.git
 git clone git@github.com:cloudmesh/client.git
 cd base
-git checkout sh
+git checkout
 python setup.py install
 cd ../cmd3
-git checkout sh
+git checkout
 python setup.py install
 cd ../client
 python setup.py install
 </pre></div>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="updating-an-existing-source-distribution">
+<h1>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python"><div class="highlight"><pre>cd github/cloudmesh
+cd base
+git pull
+python setup.py install
+cd ../cmd3
+git pull
+python setup.py install
+cd ../client
+python setup.py install
+</pre></div>
 </div>
 <div class="section" id="testing">
 <h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
