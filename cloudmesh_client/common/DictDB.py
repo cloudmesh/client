@@ -64,7 +64,7 @@ class DictDB(dict):
         """
         pass
 
-    def delete(**kwargs, operator="and"):
+    def delete(operator="and", **kwargs):
         """
         deletes all elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
@@ -74,7 +74,7 @@ class DictDB(dict):
         """
         pass
 
-    def find(**kwargs, operator="and"):
+    def find(operator="and", **kwargs):
         """
         finds all elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
@@ -84,7 +84,7 @@ class DictDB(dict):
         """
         pass
 
-    def get(**kwargs, operator="and"):
+    def get(operator="and", **kwargs):
         """
         finds the first elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
