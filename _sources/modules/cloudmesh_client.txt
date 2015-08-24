@@ -1,0 +1,43 @@
+cloudmesh_client package
+========================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    cloudmesh_client.cloud
+    cloudmesh_client.common
+    cloudmesh_client.db
+    cloudmesh_client.etc
+    cloudmesh_client.iaas
+    cloudmesh_client.keys
+    cloudmesh_client.plugins
+
+Submodules
+----------
+
+cloudmesh_client.shell module
+-----------------------------
+
+.. automodule:: cloudmesh_client.shell
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.version module
+-------------------------------
+
+.. automodule:: cloudmesh_client.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client
+    :members:
+    :undoc-members:
+    :show-inheritance:

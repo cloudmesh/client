@@ -1,0 +1,7 @@
+fff module
+==========
+
+.. automodule:: fff
+    :members:
+    :undoc-members:
+    :show-inheritance:

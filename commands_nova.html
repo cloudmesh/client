@@ -1,0 +1,532 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Command Ideas &mdash; cloudmesh_client 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> cloudmesh_client
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#repositories">Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#contact">Contact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#authors">Authors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prepare-the-system">Prepare the system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#osx">OSX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#linux">Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip">Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#cloudmesh-yaml">cloudmesh.yaml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#get-registration-from-india">Get Registration from India</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#registration-of-clouds">Registration of clouds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#template">TEMPLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#admin">admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#debug">debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#edit">edit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">exec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exp">exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#generate">generate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#info">info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#launcher">launcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#load">load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#loglevel">loglevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#open">open</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">pause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#plugins">plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#project">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#py">py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#q">q</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">quit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#quota">quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#refresh">refresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#script">script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#search">search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#secgroup">secgroup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#setup">setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#stack">stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#status">status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#timer">timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#use">use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#var">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#verbose">verbose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#version">version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#vm">vm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#volume">volume</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="old.html#parameterized-commands">Parameterized commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#refresh-paulo-done">Refresh (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#select-pauolo-done">Select (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#list-pauolo-done">List (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#security-group-paulo-done">Security group (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#cloud-gregor">Cloud (Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#vm-pauolo-done">VM (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#volume-paulo-done">Volume (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#status-daniel">Status (Daniel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#stack-hyungro">Stack (Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#ssh-pauolo-done">SSH (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#quota-pauolo-done">Quota (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#limits-paulo-done">Limits (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#notebook-not">notebook (not)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#project-gregor">Project (Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#loglevel-daniel">Loglevel (Daniel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#launcher-do-hyungro">Launcher (do, Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#key-daniel">Key (Daniel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#inventory-not-gregor">Inventory (not, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#experiment-do-gregor">Experiment (do, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#debug-not-cmd3-gregor">debug (not cmd3, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#color-not-cmd3-gregor">color (not cmd3, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#cluster-hyungro">Cluster (Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#admin-daniel">Admin (Daniel)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_client.html">cloudmesh_client package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.iaas.html">cloudmesh_client.iaas package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.plugins.html">cloudmesh_client.plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-shell-module">cloudmesh_client.shell module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-version-module">cloudmesh_client.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/fff.html">fff module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gitkey.html">gitkey module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/setup.html">setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/setup-app.html">setup-app module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/test.html">test module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/index.html">Developer Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev/develop.html">Developers Manual</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dev/develop.html#editor">Editor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev/develop.html#tags">Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev/develop.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dev/notes.html">OpenStack API Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html">Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changes_summary.html">Summary of Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changes_summary.html#id1">3.2.1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="changes_gitlog.html">CHANGES</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id1">0.5.7</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id2">0.5.6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id3">0.5.5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id4">0.5.4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">ToDos</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Command Ideas</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/commands_nova.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="command-ideas">
+<h1>Command Ideas<a class="headerlink" href="#command-ideas" title="Permalink to this headline">¶</a></h1>
+<p>Summary of commands:</p>
+<div class="highlight-python"><div class="highlight"><pre>[daniel] cm register india
+[daniel] cm register CLOUD CERT
+[daniel] cm register CLOUD DIR
+[daniel] cm test cloud CLOUD
+[daniel] cm test ssh HOST
+cm list cloud flavor
+cm update cloud
+
+
+
+cm nova list inactive
+cm nova list gregor*
+</pre></div>
+</div>
+<p>NOT SURE HWY WE NEED NOVA HERE</p>
+<p>This section includes some new ideas from cm commands.</p>
+<div class="section" id="register">
+<h2>Register<a class="headerlink" href="#register" title="Permalink to this headline">¶</a></h2>
+<p>Register futuresystems india cloud which includes openrc and cert:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register india
+</pre></div>
+</div>
+<p>The next command copies the CERT to the ~/.cloudmesh/clouds/CLOUD directory and
+registers that cert in the coudmeh.yaml file:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register CLOUD CERT
+</pre></div>
+</div>
+<p>Finding the CACERT can be facilitated also while  looking at the
+actual values copied. If we find a file specified, in the cert
+variable for that cloud, the file is also fetched. The location will
+be reset to be where we copy the cert e.g. ~/.cloudmesh/clouds/CLOUD.</p>
+<p>In some cases we need more than a  single file and an entire directory
+needs to be copied. For this we have the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register CLOUD DIR
+</pre></div>
+</div>
+<p>where DIR specifies the directory that need to be fetched.</p>
+</div>
+<div class="section" id="test-after-registration">
+<h2>Test after Registration<a class="headerlink" href="#test-after-registration" title="Permalink to this headline">¶</a></h2>
+<p>To test if a cloud is properly registered and is functioning a test
+can be performed:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm test cloud CLOUD
+</pre></div>
+</div>
+<p>To test the ssh connection to a machine we can use:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm test ssh HOST
+</pre></div>
+</div>
+<p>The host is specified in the .ssh/config file. The username and
+hostname can be overwritten with <a class="reference external" href="mailto:user&#37;&#52;&#48;host">user<span>&#64;</span>host</a></p>
+</div>
+<div class="section" id="list">
+<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<p>List all virtual machines that are not active.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm list inactive
+</pre></div>
+</div>
+<p>Lists all virtual machines that starts with a specific character or
+sequence of characters. After the virtual machine name, a &#8216;*&#8217; can be
+used as a regular expression. The following command lists all the
+Virtual machines that has gregor as their prefix.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm list gregor-*
+cm list gregor-[001-008]
+cm list gregor-[001-008,010]
+</pre></div>
+</div>
+<p>The convenient specification to set multiple matches i applied
+to all other commands and parameters where possible.</p>
+<p>Q: is [01-02] the same as &#8220;01,02&#8221; or does it need to be
+&#8220;[01-02]&#8221;. Looks like from documentation it works without []</p>
+<p>We need an extensive manual on this derived from hostlist
+<a class="reference external" href="https://www.nsc.liu.se/~kent/python-hostlist/">https://www.nsc.liu.se/~kent/python-hostlist/</a>
+but much better. Section will be called <em>Parameter Expansion</em>.</p>
+<p>Hostlist is pip installable and listed at
+<a class="reference external" href="https://pypi.python.org/pypi/python-hostlist/1.14">https://pypi.python.org/pypi/python-hostlist/1.14</a></p>
+<p>We may declare its own type nad use that in :type paramter: MultiStr.
+This type would than internally use hostlist. The reason why we do not
+want the name hostlist is that we use this not only with hosts.</p>
+</div>
+<div class="section" id="update">
+<h2>Update<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>Updates information from clouds and stores them in the database:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm update india
+</pre></div>
+</div>
+<p>Individual updates can be called as follows</p>
+<blockquote>
+<div>cm update india flavor
+cm update india vm
+cm update india image</div></blockquote>
+<p>Combinations are possible:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm update india,aws,azure image,vm
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete">
+<h2>Delete<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h2>
+<p>The following command deletes all machines that are not active.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm nova delete inactive
+</pre></div>
+</div>
+</div>
+<div class="section" id="flavor">
+<h2>Flavor<a class="headerlink" href="#flavor" title="Permalink to this headline">¶</a></h2>
+<p>Changes the flavor of either one or several virtual machines so that
+they will become faster. In order to run the following command, an
+index must be created. Each virtual machine will have an index
+associated with it so that commands can be used in several machines at
+the same time. Virtual machines from the index 1 to 10 have their
+flavor changeded after the command below is run (is it possible to
+change the flavor on the fly?)</p>
+<div class="highlight-python"><div class="highlight"><pre>cm flavor-up [0:10]
+</pre></div>
+</div>
+<p>Changes the flavor of either one or several virtual machines so that
+they will become slower. The following command changes the flavor of
+the virtual machines from 20 to 30 index.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm flavor-down [20:30]
+</pre></div>
+</div>
+</div>
+<div class="section" id="security">
+<h2>Security<a class="headerlink" href="#security" title="Permalink to this headline">¶</a></h2>
+<p>The following command protects a set of virtual machine against
+accidentally changes. Whenever the user wants to delete a virtual
+machine, a password will be asked.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm lock --vm-name
+</pre></div>
+</div>
+</div>
+<div class="section" id="order">
+<h2>Order<a class="headerlink" href="#order" title="Permalink to this headline">¶</a></h2>
+<p>Orders the virtual machines by flavor and displays them on the screen.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm order-flavor
+</pre></div>
+</div>
+<p>Orders the virtual machines by status and displays them on the screen.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm order-status
+</pre></div>
+</div>
+</div>
+<div class="section" id="boot">
+<h2>Boot<a class="headerlink" href="#boot" title="Permalink to this headline">¶</a></h2>
+<p>Run the following command to fix errors that occurred during the boot
+process. If there is no resources available, it tries to change the
+virtual machine flavor in order to boot them correctly.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm restart all-error
+</pre></div>
+</div>
+<p>Creates a new virtual machine and adds a label to it. That label can
+be used to identify what type of task a virtual machine is
+running. Commands such as delete and flavor-up can be applied in
+certain labels.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm boot --flavor --image --key-name --name [label]
+</pre></div>
+</div>
+<p>With this command, several virtual machines can be created at the same time.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm boot --flavor --image --key-name --name [--quantity]
+</pre></div>
+</div>
+<p>Deletes all machines that has a specific label.</p>
+<div class="highlight-python"><div class="highlight"><pre>cm delete --label
+</pre></div>
+</div>
+</div>
+<div class="section" id="more-commands">
+<h2>MORE COMMANDS<a class="headerlink" href="#more-commands" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>default active ATTRIBUTE=VALUE
+default list
+default [&#8211;cloud=CLOUD] ATTRIBUTE=VALUE</p>
+<p>pprint(arguments)
+if arguments[ATTRIBUTE=VALUE]:</p>
+<blockquote>
+<div><p>(a, v) = split(&#8220;=&#8221;, 1)</p>
+<p>if a = &#8220;activate&#8221;</p>
+</div></blockquote>
+</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>cm default --cloud=india format-table-header=&quot;name,id&quot;
+cm default --cloud=india format-table-header=name,id
+cm default --cloud=india format-table-order=&quot;name,id&quot;
+cm default active clouds=india,azure
+cmd list clouds
+cm default india image=abc
+cm default india flavor=xyz
+</pre></div>
+</div>
+</div>
+<div class="section" id="nova-pass-through">
+<h2>Nova Pass through<a class="headerlink" href="#nova-pass-through" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>cm nova ...
+</pre></div>
+</div>
+<p>simple nova pass through command</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

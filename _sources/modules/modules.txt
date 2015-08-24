@@ -4,10 +4,9 @@ Modules and Classes
 .. toctree::
    :maxdepth: 4
 
-   cloudmesh_cloud
-   cloudmesh_common
-   cloudmesh_default
-   db
-   ex_libcloud
+   cloudmesh_client
+   fff
+   gitkey
    setup
-   vm
+   setup-app
+   test

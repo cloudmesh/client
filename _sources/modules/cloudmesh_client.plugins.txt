@@ -1,0 +1,206 @@
+cloudmesh_client.plugins package
+================================
+
+Submodules
+----------
+
+cloudmesh_client.plugins.cm_shell_TEMPLATE module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_TEMPLATE
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_admin module
+----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_admin
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_cloud module
+----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_cloud
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_cluster module
+------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_cluster
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_default module
+------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_default
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_exp module
+--------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_exp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_group module
+----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_group
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_key module
+--------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_key
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_launcher module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_launcher
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_limits module
+-----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_limits
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_list module
+---------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_list
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_nova module
+---------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_nova
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_project module
+------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_project
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_quota module
+----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_quota
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_refresh module
+------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_refresh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_register module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_register
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_search module
+-----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_search
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_security_group module
+-------------------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_security_group
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_select module
+-----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_select
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_ssh module
+--------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_ssh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_stack module
+----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_stack
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_status module
+-----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_status
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_vm module
+-------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_vm
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.plugins.cm_shell_volume module
+-----------------------------------------------
+
+.. automodule:: cloudmesh_client.plugins.cm_shell_volume
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.plugins
+    :members:
+    :undoc-members:
+    :show-inheritance:

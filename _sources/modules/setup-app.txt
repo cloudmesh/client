@@ -1,0 +1,7 @@
+setup-app module
+================
+
+.. automodule:: setup-app
+    :members:
+    :undoc-members:
+    :show-inheritance:

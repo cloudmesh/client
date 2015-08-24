@@ -1,0 +1,30 @@
+cloudmesh_client.iaas.openstack.iaas.aws.queue package
+======================================================
+
+Submodules
+----------
+
+cloudmesh_client.iaas.openstack.iaas.aws.queue.celery module
+------------------------------------------------------------
+
+.. automodule:: cloudmesh_client.iaas.openstack.iaas.aws.queue.celery
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.iaas.openstack.iaas.aws.queue.tasks module
+-----------------------------------------------------------
+
+.. automodule:: cloudmesh_client.iaas.openstack.iaas.aws.queue.tasks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.iaas.openstack.iaas.aws.queue
+    :members:
+    :undoc-members:
+    :show-inheritance:

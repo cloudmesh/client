@@ -1,0 +1,22 @@
+cloudmesh_client.iaas.openstack.iaas.vagrant package
+====================================================
+
+Submodules
+----------
+
+cloudmesh_client.iaas.openstack.iaas.vagrant.cm_vagrant module
+--------------------------------------------------------------
+
+.. automodule:: cloudmesh_client.iaas.openstack.iaas.vagrant.cm_vagrant
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.iaas.openstack.iaas.vagrant
+    :members:
+    :undoc-members:
+    :show-inheritance:

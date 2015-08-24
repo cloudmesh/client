@@ -1,0 +1,70 @@
+cloudmesh_client.cloud package
+==============================
+
+Submodules
+----------
+
+cloudmesh_client.cloud.CloudRegister module
+-------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.CloudRegister
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.command_nova module
+------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.command_nova
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.command_search module
+--------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.command_search
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.command_vm module
+----------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.command_vm
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.compute module
+-------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.compute
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.default module
+-------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.default
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.mesh module
+----------------------------------
+
+.. automodule:: cloudmesh_client.cloud.mesh
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.cloud
+    :members:
+    :undoc-members:
+    :show-inheritance:

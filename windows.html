@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Windows &mdash; cloudmesh_client 0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> cloudmesh_client
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#repositories">Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#contact">Contact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prefix.html#authors">Authors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#prepare-the-system">Prepare the system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#osx">OSX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#linux">Linux</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#pip">Pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#testing">Testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#cloudmesh-yaml">cloudmesh.yaml</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#get-registration-from-india">Get Registration from India</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html#registration-of-clouds">Registration of clouds</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#template">TEMPLATE</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#admin">admin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster">cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#debug">debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#edit">edit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">exec</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exp">exp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#generate">generate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#info">info</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#launcher">launcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#load">load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#loglevel">loglevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#open">open</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">pause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#plugins">plugins</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#project">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#py">py</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#q">q</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">quit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#quota">quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#refresh">refresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#script">script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#search">search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#secgroup">secgroup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#setup">setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#stack">stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#status">status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#timer">timer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#use">use</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#var">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#verbose">verbose</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#version">version</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#vm">vm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#volume">volume</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="old.html#parameterized-commands">Parameterized commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#refresh-paulo-done">Refresh (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#select-pauolo-done">Select (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#list-pauolo-done">List (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#security-group-paulo-done">Security group (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#cloud-gregor">Cloud (Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#vm-pauolo-done">VM (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#volume-paulo-done">Volume (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#status-daniel">Status (Daniel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#stack-hyungro">Stack (Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#ssh-pauolo-done">SSH (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#quota-pauolo-done">Quota (Pauolo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#limits-paulo-done">Limits (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#notebook-not">notebook (not)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#project-gregor">Project (Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#loglevel-daniel">Loglevel (Daniel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#launcher-do-hyungro">Launcher (do, Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#key-daniel">Key (Daniel)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#inventory-not-gregor">Inventory (not, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#experiment-do-gregor">Experiment (do, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#debug-not-cmd3-gregor">debug (not cmd3, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#color-not-cmd3-gregor">color (not cmd3, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#cluster-hyungro">Cluster (Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#admin-daniel">Admin (Daniel)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_client.html">cloudmesh_client package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.iaas.html">cloudmesh_client.iaas package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.plugins.html">cloudmesh_client.plugins package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-shell-module">cloudmesh_client.shell module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-version-module">cloudmesh_client.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-contents">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/fff.html">fff module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/gitkey.html">gitkey module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/setup.html">setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/setup-app.html">setup-app module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/test.html">test module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/index.html">Developer Notes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dev/develop.html">Developers Manual</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dev/develop.html#editor">Editor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev/develop.html#tags">Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dev/develop.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dev/notes.html">OpenStack API Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="changes.html">Changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="changes_summary.html">Summary of Changes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changes_summary.html#id1">3.2.1</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="changes_gitlog.html">CHANGES</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id1">0.5.7</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id2">0.5.6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id3">0.5.5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id4">0.5.4</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="todo.html">ToDos</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Windows</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/windows.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="windows">
+<span id="windows-install"></span><h1>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Paulo, please review and correct where needed. You can use
+bulleted lists.</p>
+</div>
+<div class="section" id="install-python-on-windows">
+<h2>Install Python on Windows<a class="headerlink" href="#install-python-on-windows" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="step-1-download-python-2-7">
+<h3>Step 1: Download Python 2.7<a class="headerlink" href="#step-1-download-python-2-7" title="Permalink to this headline">¶</a></h3>
+<p>It can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download and install the newest version of python. The 2.7.10 version is available from:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></li>
+</ul>
+</div>
+<div class="section" id="step-2-install-python">
+<h3>Step 2: Install Python<a class="headerlink" href="#step-2-install-python" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Navigate to the download location on your computer, double clicking the file and pressing run when the dialog box pops up.</li>
+<li>Select the <cite>Install Just for me</cite> option then press <cite>Next</cite>.</li>
+<li>Leave the Destination Directory as is and select <cite>Next</cite>.</li>
+<li>Find the <cite>Add Python.exe to Path</cite> option. Choose the <cite>Will be installed on local hard drive</cite> option then press <cite>Next</cite>.</li>
+<li>Click on <cite>Finish</cite>.</li>
+</ol>
+<p>This will install python, Setuptools and Pip.</p>
+</div>
+</div>
+<div class="section" id="install-cygwin">
+<h2>Install Cygwin<a class="headerlink" href="#install-cygwin" title="Permalink to this headline">¶</a></h2>
+<p>We install cygwin via chocolatey. To do so you first have to
+install chocolatey. Please open a:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+<p>window as administrator. Simply type cmd.exe in the search and than start it.</p>
+</div>
+<div class="section" id="step-1-install-chocolatey">
+<h2>Step 1: Install Chocolatey<a class="headerlink" href="#step-1-install-chocolatey" title="Permalink to this headline">¶</a></h2>
+<p>You have to copy and paste the following commands into a the cmd.exe terminal:</p>
+<div class="highlight-python"><div class="highlight"><pre>C:&gt; @powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))&quot; &amp;&amp; SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+</pre></div>
+</div>
+</div>
+<div class="section" id="step-2-install-cygwin">
+<h2>Step 2: Install Cygwin<a class="headerlink" href="#step-2-install-cygwin" title="Permalink to this headline">¶</a></h2>
+<p>Put the following line into cmd.exe:</p>
+<div class="highlight-python"><div class="highlight"><pre>choco install --force -y cygwin
+</pre></div>
+</div>
+<p>Note: if Cygwin is already installed, &#8211;force will reinstall it.</p>
+</div>
+<div class="section" id="step-3-install-apt-cyg">
+<h2>Step 3: Install apt-cyg<a class="headerlink" href="#step-3-install-apt-cyg" title="Permalink to this headline">¶</a></h2>
+<p>Now open cygwin window by clicking on the desktop icon. Put the following command into Cygwin terminal (its shorcut can be found on your Desktop):</p>
+<div class="highlight-python"><div class="highlight"><pre>lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg &gt; apt-cyg
+install apt-cyg /bin
+</pre></div>
+</div>
+<p>This will give you a nice command to add additional packages to cygwin without using the cygwin GUI.</p>
+<blockquote>
+<div>apt-cyg install emacs</div></blockquote>
+</div>
+<div class="section" id="step-4-install-additional-packages">
+<h2>Step 4: Install additional packages<a class="headerlink" href="#step-4-install-additional-packages" title="Permalink to this headline">¶</a></h2>
+<p>Run the following command in Cygwin terminal to create a development environment for python:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt-cyg install git
+apt-cyg install wget
+apt-cyg install curl
+apt-cyg install nc
+apt-cyg install make
+apt-cyg install gcc-g++ diffutils libmpfr-devel libgmp-devel libmpc-devel
+apt-cyg install db
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="making-cygwin-easier-to-use">
+<h1>Making cygwin easier to use<a class="headerlink" href="#making-cygwin-easier-to-use" title="Permalink to this headline">¶</a></h1>
+<p>In case you run Windows on virtualbox for example on a Mac, you may
+want to enable the guest additions. As windows 10 is currently a
+prerelease the integration with the guest additions is not yet
+complete. However, you can browse to the virtual box repository go to
+the current release version and click from within the internet
+explorer on it (it will be an iso). Than you can follow the
+instructions and it will install it in the running vm.</p>
+<p>Next you want to enable past and copy from the host os to the guest
+OS.</p>
+<p>Add the following line to your ~/.bashrc:</p>
+<div class="highlight-python"><div class="highlight"><pre>stty lnext ^q stop undef start undef
+</pre></div>
+</div>
+<p>And add the following line to your ~/.inputrc:</p>
+<div class="highlight-python"><div class="highlight"><pre>&quot;\C-v&quot;: paste-from-clipboard
+</pre></div>
+</div>
+<p>Now you can use C-v to past a text fro the host OS to the
+Windows. This also includes cygwin terminals.</p>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
