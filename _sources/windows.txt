@@ -1,36 +1,31 @@
 .. _windows-install:
 
 
+Windows 10
+==========
 
+Install Python
+-----------------------------
 
-Windows
-=======
-
-.. todo:: Paulo, please review and correct where needed. You can use
-	  bulleted lists.
-	  
-Install Python on Windows
--------------------------
-
-Step 1: Download Python 2.7
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-It can be found at http://www.python.org. We recommend to download and install the newest version of python. The 2.7.10 version is available from:
+Python can be found at http://www.python.org. We recommend to download
+and install the newest version of python. At this time we recommend
+that you use version 2.7.10. Other versions may work to, but are not
+supported or tested. A direct link to the install can be found at
 
 * https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
+In powershell you can type::
 
-  
-Step 2: Install Python
-^^^^^^^^^^^^^^^^^^^^^^
+  explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
-1. Navigate to the download location on your computer, double clicking the file and pressing run when the dialog box pops up.
-2. Select the `Install Just for me` option then press `Next`.
-3. Leave the Destination Directory as is and select `Next`.
-4. Find the `Add Python.exe to Path` option. Choose the `Will be installed on local hard drive` option then press `Next`. 
-5. Click on `Finish`.
+Thsi will open the Windows explorer, download the msi and ask you to
+install it.
 
-This will install python, Setuptools and Pip.
+Once downloaded, open it by clicking on the downloaded file. You may
+also want to change the properties and add python to the path
+
+.. note:: Erika we need a simple tes to see if python is
+	  installed. Who do I do this?
 
 Install Cygwin
 ---------------
@@ -40,44 +35,33 @@ install chocolatey. Please open a::
 
   cmd.exe
 
-window as administrator. Simply type cmd.exe in the search and than start it.
+window as administrator. You have to copy and paste the following commands into a the cmd.exe terminal::
 
-
-Step 1: Install Chocolatey
---------------------------
-
-You have to copy and paste the following commands into a the cmd.exe terminal::
- 
+.. note:: Erika how do i log in as administrator?????
+	  
    C:> @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 
-Step 2: Install Cygwin
-----------------------
-
-Put the following line into cmd.exe::
+Next execute in cmd.exe::
   
   choco install --force -y cygwin 
  
 Note: if Cygwin is already installed, --force will reinstall it.
 
 
-Step 3: Install apt-cyg
------------------------
+.. note:: this seems not to work on windows 10.
 
-Now open cygwin window by clicking on the desktop icon. Put the following command into Cygwin terminal (its shorcut can be found on your Desktop)::
+Now open cygwin window by clicking on the desktop icon. Put the
+following command into Cygwin terminal (its shorcut can be found on
+your Desktop)::
   
   lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
   install apt-cyg /bin
 
-This will give you a nice command to add additional packages to cygwin without using the cygwin GUI.
+This will give you a nice command to add additional packages to cygwin
+without using the cygwin GUI. You will also want the following appliations::
+
 
   apt-cyg install emacs
-
-
-Step 4: Install additional packages
------------------------------------
-
-Run the following command in Cygwin terminal to create a development environment for python::
-
   apt-cyg install git
   apt-cyg install wget
   apt-cyg install curl

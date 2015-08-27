@@ -81,10 +81,16 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prepare-the-system">Prepare the system</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-python">Install Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-cygwin">Install Cygwin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#making-cygwin-easier-to-use">Making cygwin easier to use</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#source">Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#user-and-contributor">User and Contributor</a></li>
@@ -362,17 +368,98 @@ and pip again:</p>
 </div>
 <p>Python 2.7.10</p>
 </div>
-<div class="section" id="windows">
-<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="windows-10">
+<span id="windows-install"></span><h1>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-python">
+<h2>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
+<p>Python can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download
+and install the newest version of python. At this time we recommend
+that you use version 2.7.10. Other versions may work to, but are not
+supported or tested. A direct link to the install can be found at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></li>
+</ul>
+<p>In powershell you can type:</p>
+<div class="highlight-python"><div class="highlight"><pre>explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+</pre></div>
+</div>
+<p>Thsi will open the Windows explorer, download the msi and ask you to
+install it.</p>
+<p>Once downloaded, open it by clicking on the downloaded file. You may
+also want to change the properties and add python to the path</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Erika we need a simple tes to see if python is
+installed. Who do I do this?</p>
+</div>
+</div>
+<div class="section" id="install-cygwin">
+<h2>Install Cygwin<a class="headerlink" href="#install-cygwin" title="Permalink to this headline">¶</a></h2>
+<p>We install cygwin via chocolatey. To do so you first have to
+install chocolatey. Please open a:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
+</pre></div>
+</div>
+<p>window as administrator. You have to copy and paste the following commands into a the cmd.exe terminal:</p>
+<div class="highlight-python"><div class="highlight"><pre>.. note:: Erika how do i log in as administrator?????
+</pre></div>
+</div>
+<blockquote>
+<div>C:&gt; &#64;powershell -NoProfile -ExecutionPolicy Bypass -Command &#8220;iex ((new-object net.webclient).DownloadString(&#8216;<a class="reference external" href="https://chocolatey.org/install.ps1">https://chocolatey.org/install.ps1</a>&#8216;))&#8221; &amp;&amp; SET PATH=%PATH%;%ALLUSERSPROFILE%chocolateybin</div></blockquote>
+<p>Next execute in cmd.exe:</p>
+<div class="highlight-python"><div class="highlight"><pre>choco install --force -y cygwin
+</pre></div>
+</div>
+<p>Note: if Cygwin is already installed, &#8211;force will reinstall it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this seems not to work on windows 10.</p>
+</div>
+<p>Now open cygwin window by clicking on the desktop icon. Put the
+following command into Cygwin terminal (its shorcut can be found on
+your Desktop):</p>
+<div class="highlight-python"><div class="highlight"><pre>lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg &gt; apt-cyg
+install apt-cyg /bin
+</pre></div>
+</div>
+<p>This will give you a nice command to add additional packages to cygwin
+without using the cygwin GUI. You will also want the following appliations:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt-cyg install emacs
+apt-cyg install git
+apt-cyg install wget
+apt-cyg install curl
+apt-cyg install nc
+apt-cyg install make
+apt-cyg install gcc-g++ diffutils libmpfr-devel libgmp-devel libmpc-devel
+apt-cyg install db
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="making-cygwin-easier-to-use">
+<h1>Making cygwin easier to use<a class="headerlink" href="#making-cygwin-easier-to-use" title="Permalink to this headline">¶</a></h1>
+<p>In case you run Windows on virtualbox for example on a Mac, you may
+want to enable the guest additions. As windows 10 is currently a
+prerelease the integration with the guest additions is not yet
+complete. However, you can browse to the virtual box repository go to
+the current release version and click from within the internet
+explorer on it (it will be an iso). Than you can follow the
+instructions and it will install it in the running vm.</p>
+<p>Next you want to enable past and copy from the host os to the guest
+OS.</p>
+<p>Add the following line to your ~/.bashrc:</p>
+<div class="highlight-python"><div class="highlight"><pre>stty lnext ^q stop undef start undef
+</pre></div>
+</div>
+<p>And add the following line to your ~/.inputrc:</p>
+<div class="highlight-python"><div class="highlight"><pre>&quot;\C-v&quot;: paste-from-clipboard
+</pre></div>
+</div>
+<p>Now you can use C-v to past a text fro the host OS to the
+Windows. This also includes cygwin terminals.</p>
 <div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Paulo please make sure this is ok</p>
-</div>
-<p>Special instructions for Windows are available in the Section <a class="reference internal" href="windows.html#windows-install"><span>Windows</span></a></p>
-</div>
-<div class="section" id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">Daniel develop Linux instructions</p>
 </div>
@@ -386,8 +473,6 @@ pip update
 aptget update
 aptget upgrade
 ....</p>
-</div>
-</div>
 <div class="section" id="pip">
 <h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
 <p>Not yet available</p>

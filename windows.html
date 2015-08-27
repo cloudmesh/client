@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Windows &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Windows 10 &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -79,16 +79,25 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#prepare-the-system">Prepare the system</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#osx">OSX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#linux">Linux</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#windows-10">Windows 10</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-python">Install Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-cygwin">Install Cygwin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#making-cygwin-easier-to-use">Making cygwin easier to use</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#pip">Pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#testing">Testing</a></li>
 </ul>
 </li>
@@ -257,7 +266,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Windows</li>
+    <li>Windows 10</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -270,32 +279,29 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="windows">
-<span id="windows-install"></span><h1>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Paulo, please review and correct where needed. You can use
-bulleted lists.</p>
-</div>
-<div class="section" id="install-python-on-windows">
-<h2>Install Python on Windows<a class="headerlink" href="#install-python-on-windows" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="step-1-download-python-2-7">
-<h3>Step 1: Download Python 2.7<a class="headerlink" href="#step-1-download-python-2-7" title="Permalink to this headline">¶</a></h3>
-<p>It can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download and install the newest version of python. The 2.7.10 version is available from:</p>
+  <div class="section" id="windows-10">
+<span id="windows-install"></span><h1>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-python">
+<h2>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
+<p>Python can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download
+and install the newest version of python. At this time we recommend
+that you use version 2.7.10. Other versions may work to, but are not
+supported or tested. A direct link to the install can be found at</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></li>
 </ul>
+<p>In powershell you can type:</p>
+<div class="highlight-python"><div class="highlight"><pre>explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+</pre></div>
 </div>
-<div class="section" id="step-2-install-python">
-<h3>Step 2: Install Python<a class="headerlink" href="#step-2-install-python" title="Permalink to this headline">¶</a></h3>
-<ol class="arabic simple">
-<li>Navigate to the download location on your computer, double clicking the file and pressing run when the dialog box pops up.</li>
-<li>Select the <cite>Install Just for me</cite> option then press <cite>Next</cite>.</li>
-<li>Leave the Destination Directory as is and select <cite>Next</cite>.</li>
-<li>Find the <cite>Add Python.exe to Path</cite> option. Choose the <cite>Will be installed on local hard drive</cite> option then press <cite>Next</cite>.</li>
-<li>Click on <cite>Finish</cite>.</li>
-</ol>
-<p>This will install python, Setuptools and Pip.</p>
+<p>Thsi will open the Windows explorer, download the msi and ask you to
+install it.</p>
+<p>Once downloaded, open it by clicking on the downloaded file. You may
+also want to change the properties and add python to the path</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Erika we need a simple tes to see if python is
+installed. Who do I do this?</p>
 </div>
 </div>
 <div class="section" id="install-cygwin">
@@ -305,38 +311,32 @@ install chocolatey. Please open a:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
 </pre></div>
 </div>
-<p>window as administrator. Simply type cmd.exe in the search and than start it.</p>
-</div>
-<div class="section" id="step-1-install-chocolatey">
-<h2>Step 1: Install Chocolatey<a class="headerlink" href="#step-1-install-chocolatey" title="Permalink to this headline">¶</a></h2>
-<p>You have to copy and paste the following commands into a the cmd.exe terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>C:&gt; @powershell -NoProfile -ExecutionPolicy Bypass -Command &quot;iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))&quot; &amp;&amp; SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+<p>window as administrator. You have to copy and paste the following commands into a the cmd.exe terminal:</p>
+<div class="highlight-python"><div class="highlight"><pre>.. note:: Erika how do i log in as administrator?????
 </pre></div>
 </div>
-</div>
-<div class="section" id="step-2-install-cygwin">
-<h2>Step 2: Install Cygwin<a class="headerlink" href="#step-2-install-cygwin" title="Permalink to this headline">¶</a></h2>
-<p>Put the following line into cmd.exe:</p>
+<blockquote>
+<div>C:&gt; &#64;powershell -NoProfile -ExecutionPolicy Bypass -Command &#8220;iex ((new-object net.webclient).DownloadString(&#8216;<a class="reference external" href="https://chocolatey.org/install.ps1">https://chocolatey.org/install.ps1</a>&#8216;))&#8221; &amp;&amp; SET PATH=%PATH%;%ALLUSERSPROFILE%chocolateybin</div></blockquote>
+<p>Next execute in cmd.exe:</p>
 <div class="highlight-python"><div class="highlight"><pre>choco install --force -y cygwin
 </pre></div>
 </div>
 <p>Note: if Cygwin is already installed, &#8211;force will reinstall it.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">this seems not to work on windows 10.</p>
 </div>
-<div class="section" id="step-3-install-apt-cyg">
-<h2>Step 3: Install apt-cyg<a class="headerlink" href="#step-3-install-apt-cyg" title="Permalink to this headline">¶</a></h2>
-<p>Now open cygwin window by clicking on the desktop icon. Put the following command into Cygwin terminal (its shorcut can be found on your Desktop):</p>
+<p>Now open cygwin window by clicking on the desktop icon. Put the
+following command into Cygwin terminal (its shorcut can be found on
+your Desktop):</p>
 <div class="highlight-python"><div class="highlight"><pre>lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg &gt; apt-cyg
 install apt-cyg /bin
 </pre></div>
 </div>
-<p>This will give you a nice command to add additional packages to cygwin without using the cygwin GUI.</p>
-<blockquote>
-<div>apt-cyg install emacs</div></blockquote>
-</div>
-<div class="section" id="step-4-install-additional-packages">
-<h2>Step 4: Install additional packages<a class="headerlink" href="#step-4-install-additional-packages" title="Permalink to this headline">¶</a></h2>
-<p>Run the following command in Cygwin terminal to create a development environment for python:</p>
-<div class="highlight-python"><div class="highlight"><pre>apt-cyg install git
+<p>This will give you a nice command to add additional packages to cygwin
+without using the cygwin GUI. You will also want the following appliations:</p>
+<div class="highlight-python"><div class="highlight"><pre>apt-cyg install emacs
+apt-cyg install git
 apt-cyg install wget
 apt-cyg install curl
 apt-cyg install nc
