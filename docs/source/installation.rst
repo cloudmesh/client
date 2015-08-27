@@ -1,144 +1,51 @@
 Installation
 ============
 
-Cloudmesh client is veriy easy to install. In contrast to previous
-efforts we could simplify the instalation while we manage the database
-locally by the user and not use LDAP or any other system as they are
-difficult to install on Windows.
 
-The instalation of cloudmesh is provided for
+Cloudmesh Instalation from Source
+----------------------------------
 
-* Linux
-* OSX
-* Windows
+In the following we assume that we will install the source code in::
+  
+  ~/github/cloudmesh
 
-For each of these operating systems we are provide specific
-instalation instructions.
+Preparing the Virtualenv
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Prepare the system
-------------------
+Linux::
 
-OSX
-^^^
-
-On OSX we recommend that you use python 2.7.10. This version of python
-is easy to install while downloading the dmg and installing it on the
-system. You will still have access to the python version distributed
-with the original OSX operating system.
-
-To test out which version you have activated, you can use in the
-commandline::
-
-  python --version
-  pip --version
-
-They should show something similar to::
-
-  Python 2.7.10
-  pip 7.0.3
-
-Oon OSX as well as the other operating systems we **require** you to
-use virtualenv. First you need to find which version of python you
-use. You can say::
-
-  which python
-
-It will give you the path of the python interpreter. Let us assume the
-interpreter was found in `/usr/local/bin/python`.  Next you can create
-a virtual ENV with::
-
-  virtualenv -p /user/local/bin/python ~/ENV
-
-You will need to activate the virtualenv::
-
-  source ~/ENV/bin/activate
-
-If sucessfull, your terminal will have (ENV) as prefix to the prompt::
-
-  (ENV)machinename:dirname user$
-
-As OSX comes with older versions of pip at this time, it is important
-that you first prepare the environment before you install cloudmesh
-client. To do so please isseue the following commands
-
-.. note::
+   virtualenv ~/ENV
+   source ~/ENV/bin/activate
    
-   Gregor: I am not sure who added the following export, but on OSX this is
-   not needed.
+OSX::
+
+  virtualenv -p /usr/local/bin/python
+   source ~/ENV/bin/activate
    
-   export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+Windows::
 
-::
+  virtualenv ~/ENV
+  source /cygdrive/c/home/$USER/ENV/Scripts/activate
    
-   pip install pip -U
-   easy_install readline
-   easy_install pycrypto
-   pip install urllib3
-
-.. note:: We found that readline and pycrypto could not be installed
-with pip at the time of writing of this manual. Despite the fact that
-it installed it, the installed versions were not usable. The
-workaround is to use easy_install. If you have a better idea how to
-fix this, let us know and send mail to laszewski@gmail.com.
-
-It is recommended that you test the version of the python interpreter
-and pip again::
+.. note:: in case you have multiple users on the machine you need to
+	  replace the * with your username
    
-   pip --version
-
-pip 7.1.2
-   
-::
-
-   python --version
-
-
-Python 2.7.10
-
-
-.. include:: windows.rst
-
-Linux
-^^^^^
-
-.. todo:: Daniel develop Linux instructions
-
-use fresh machine.
-use standard python
-use ubuntu ???
-
-wahtch out for
-urllib 3
-readline
-pip update
-aptget update
-aptget upgrade
-....
-
-
-Pip
----
-
-Not yet available
-
-Source
-------
 
 User and Contributor
 ^^^^^^^^^^^^^^^^^^^^
+If you are a user and external contributer and do not have write access to
+the repositories you can install the code from source as follows::
 
-::
-
-   mkdir github/cloudmesh
+   mkdir -p github/cloudmesh
    cd github/cloudmesh
    git clone https://github.com/cloudmesh/base.git 
-   git clone https://github.com/cloudmesh/cmd3.git  
-   git clone https://github.com/cloudmesh/client.git   
+   git clone https://github.com/cloudmesh/cmd3.git
+   git clone https://github.com/cloudmesh/client.git
    cd base
-   git checkout
+   git pull
    python setup.py install
    cd ../cmd3
-   git checkout
+   git pull
    python setup.py install
    cd ../client
    python setup.py install
@@ -146,27 +53,35 @@ User and Contributor
 Developer with ssh access to git reporsitory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+If you are a developer and have access to all repositories, you can
+use the following commands to get the source code. However if you miss
+access to one of the directories, please replace it with an https
+based git clone as described in the previous section.
+
 ::
 
-   mkdir github/cloudmesh
+   mkdir -p github/cloudmesh
    cd github/cloudmesh
    git clone git@github.com:cloudmesh/base.git   
    git clone git@github.com:cloudmesh/cmd3.git
    git clone git@github.com:cloudmesh/client.git
    cd base
-   git checkout
+   git pull
    python setup.py install
    cd ../cmd3
-   git checkout
+   git pull
    python setup.py install
    cd ../client
+   git pull   
    python setup.py install
 
 
 Updating an existing source distribution
-======================================================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
+During the development phase of cloudmesh you may need to update the
+code from source, as cloudmesh client uses three different
+repositories please do not forget to update them accordingly::
 
    cd github/cloudmesh
    cd base
@@ -181,7 +96,7 @@ Updating an existing source distribution
 
 
 Testing
--------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
 
