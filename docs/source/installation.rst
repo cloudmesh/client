@@ -96,13 +96,7 @@ pip 7.1.2
 Python 2.7.10
 
 
-
-Windows
-^^^^^^^
-
-.. todo:: Paulo please make sure this is ok
-	  
-Special instructions for Windows are available in the Section :ref:`windows-install`
+.. include:: windows.rst
 
 Linux
 ^^^^^
