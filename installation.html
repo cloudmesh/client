@@ -81,18 +81,22 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#prepare-the-system">Prepare the system</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-python-may-not-be-needed">Install Python (may not be needed)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-cygwin">Install Cygwin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-apt-cyg">Install apt-cyg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#using-cygwin">Using cygwin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#makeing-python-usable">Makeing python usable</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#centos">CentOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ubuntu">Ubuntu</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#install-python">Install Python</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#install-cygwin">Install Cygwin</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#making-cygwin-easier-to-use">Making cygwin easier to use</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#pip">Pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#source">Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#user-and-contributor">User and Contributor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
 </ul>
@@ -289,7 +293,11 @@ locally by the user and not use LDAP or any other system as they are
 difficult to install on Windows.</p>
 <p>The instalation of cloudmesh is provided for</p>
 <ul class="simple">
-<li>Linux</li>
+<li>Linux<ul>
+<li>Ubuntu</li>
+<li>Centos</li>
+</ul>
+</li>
 <li>OSX</li>
 <li>Windows</li>
 </ul>
@@ -362,18 +370,22 @@ and pip again:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
-<p>pip 7.1.2</p>
+<p>pip 7.1.2&lt;</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
 <p>Python 2.7.10</p>
 </div>
-</div>
-</div>
 <div class="section" id="windows-10">
-<span id="windows-install"></span><h1>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="install-python">
-<h2>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
+<span id="windows-install"></span><h3>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="install-python-may-not-be-needed">
+<h4>Install Python (may not be needed)<a class="headerlink" href="#install-python-may-not-be-needed" title="Permalink to this headline">¶</a></h4>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">python may come with cygwin and this may therefor be
+uneccesarry. This needs to be investigated, and possibley
+this sectin needs to be removed.</p>
+</div>
 <p>Python can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download
 and install the newest version of python. At this time we recommend
 that you use version 2.7.10. Other versions may work to, but are not
@@ -389,34 +401,34 @@ supported or tested. A direct link to the install can be found at</p>
 install it.</p>
 <p>Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Erika we need a simple tes to see if python is
-installed. Who do I do this?</p>
-</div>
 </div>
 <div class="section" id="install-cygwin">
-<h2>Install Cygwin<a class="headerlink" href="#install-cygwin" title="Permalink to this headline">¶</a></h2>
-<p>We install cygwin via chocolatey. To do so you first have to
-install chocolatey. Please open a:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
+<h4>Install Cygwin<a class="headerlink" href="#install-cygwin" title="Permalink to this headline">¶</a></h4>
+<p>We install cygwin via chocolatey. To do so you first have to start a
+power shell as adminstrator with:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; Start-Process powershell -Verb runAs
 </pre></div>
 </div>
-<p>window as administrator. You have to copy and paste the following commands into a the cmd.exe terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>.. note:: Erika how do i log in as administrator?????
+<p>Allow execution of scripts:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; Set-ExecutionPolicy Unrestricted
 </pre></div>
 </div>
-<blockquote>
-<div>C:&gt; &#64;powershell -NoProfile -ExecutionPolicy Bypass -Command &#8220;iex ((new-object net.webclient).DownloadString(&#8216;<a class="reference external" href="https://chocolatey.org/install.ps1">https://chocolatey.org/install.ps1</a>&#8216;))&#8221; &amp;&amp; SET PATH=%PATH%;%ALLUSERSPROFILE%chocolateybin</div></blockquote>
+<p>Next execute the command to install chocolatey:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))
+</pre></div>
+</div>
+<p>Unset the script execution permission:</p>
+<div class="highlight-python"><div class="highlight"><pre>Set-ExecutionPolicy Restricted
+</pre></div>
+</div>
 <p>Next execute in cmd.exe:</p>
 <div class="highlight-python"><div class="highlight"><pre>choco install --force -y cygwin
 </pre></div>
 </div>
 <p>Note: if Cygwin is already installed, &#8211;force will reinstall it.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">this seems not to work on windows 10.</p>
 </div>
+<div class="section" id="install-apt-cyg">
+<h4>Install apt-cyg<a class="headerlink" href="#install-apt-cyg" title="Permalink to this headline">¶</a></h4>
 <p>Now open cygwin window by clicking on the desktop icon. Put the
 following command into Cygwin terminal (its shorcut can be found on
 your Desktop):</p>
@@ -426,9 +438,9 @@ install apt-cyg /bin
 </div>
 <p>This will give you a nice command to add additional packages to cygwin
 without using the cygwin GUI. You will also want the following appliations:</p>
-<div class="highlight-python"><div class="highlight"><pre>apt-cyg install emacs
+<div class="highlight-python"><div class="highlight"><pre>apt-cyg install wget
+apt-cyg install emacs
 apt-cyg install git
-apt-cyg install wget
 apt-cyg install curl
 apt-cyg install nc
 apt-cyg install make
@@ -437,33 +449,46 @@ apt-cyg install db
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="making-cygwin-easier-to-use">
-<h1>Making cygwin easier to use<a class="headerlink" href="#making-cygwin-easier-to-use" title="Permalink to this headline">¶</a></h1>
-<p>In case you run Windows on virtualbox for example on a Mac, you may
-want to enable the guest additions. As windows 10 is currently a
-prerelease the integration with the guest additions is not yet
-complete. However, you can browse to the virtual box repository go to
-the current release version and click from within the internet
-explorer on it (it will be an iso). Than you can follow the
-instructions and it will install it in the running vm.</p>
-<p>Next you want to enable past and copy from the host os to the guest
-OS.</p>
-<p>Add the following line to your ~/.bashrc:</p>
-<div class="highlight-python"><div class="highlight"><pre>stty lnext ^q stop undef start undef
+<div class="section" id="using-cygwin">
+<h4>Using cygwin<a class="headerlink" href="#using-cygwin" title="Permalink to this headline">¶</a></h4>
+<p>When starting a new powershell terminal you can simply typ into it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cygwin</span>
 </pre></div>
 </div>
-<p>And add the following line to your ~/.inputrc:</p>
-<div class="highlight-python"><div class="highlight"><pre>&quot;\C-v&quot;: paste-from-clipboard
+<p>This way you can easily past and copy into the cywin terminal that is
+started via powershell. This is extremly useful if you run Windows in
+a virtual server and want to easily past and copy strings to and from
+the host operating system. In virtualbox you maus enable past frm
+clipboard in bidirectional mode.</p>
+</div>
+<div class="section" id="makeing-python-usable">
+<h4>Makeing python usable<a class="headerlink" href="#makeing-python-usable" title="Permalink to this headline">¶</a></h4>
+<p>To test if you have the right version of python execute:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
-<p>Now you can use C-v to past a text fro the host OS to the
-Windows. This also includes cygwin terminals.</p>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Daniel develop Linux instructions</p>
+<p>which should return 2.7.10 and:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
 </div>
-<p>use fresh machine.
+<p>You might see version 7.0.1 in which case you should update with:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install -U pip
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the update may not work as some error is reported. This
+needs to be investigated and a workaround needs to be found.</p>
+</div>
+<p>We want also to install virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="linux">
+<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
+<p>use fresh machine (VM).
 use standard python
 use ubuntu ???</p>
 <p>wahtch out for
@@ -473,19 +498,41 @@ pip update
 aptget update
 aptget upgrade
 ....</p>
-<div class="section" id="pip">
-<h2>Pip<a class="headerlink" href="#pip" title="Permalink to this headline">¶</a></h2>
-<p>Not yet available</p>
+<div class="section" id="centos">
+<h4>CentOS<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h4>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Mangirish provide instructions</p>
 </div>
-<div class="section" id="source">
-<h2>Source<a class="headerlink" href="#source" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="ubuntu">
+<h4>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h4>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">Gurav provide instructions</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="cloudmesh-instalation-from-source">
+<h2>Cloudmesh Instalation from Source<a class="headerlink" href="#cloudmesh-instalation-from-source" title="Permalink to this headline">¶</a></h2>
+<p>In the following we assume that we will install the source code in:</p>
+<div class="highlight-python"><div class="highlight"><pre>~/github/cloudmesh
+</pre></div>
+</div>
 <div class="section" id="user-and-contributor">
 <h3>User and Contributor<a class="headerlink" href="#user-and-contributor" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre>mkdir github/cloudmesh
+<p>If you are a user and external contributer and do not have write access to
+the repositories you can install the code from source as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>::
+</pre></div>
+</div>
+<blockquote>
+<div>mkdir github/cloudmesh
 cd github/cloudmesh
-git clone https://github.com/cloudmesh/base.git
-git clone https://github.com/cloudmesh/cmd3.git
-git clone https://github.com/cloudmesh/client.git
+git clone <a class="reference external" href="https://github.com/cloudmesh/base.git">https://github.com/cloudmesh/base.git</a>
+git clone <a class="reference external" href="https://github.com/cloudmesh/cmd3.git">https://github.com/cloudmesh/cmd3.git</a>
+git clone <a class="reference external" href="https://github.com/cloudmesh/client.git">https://github.com/cloudmesh/client.git</a>
 cd base
 git checkout
 python setup.py install
@@ -493,12 +540,14 @@ cd ../cmd3
 git checkout
 python setup.py install
 cd ../client
-python setup.py install
-</pre></div>
-</div>
+python setup.py install</div></blockquote>
 </div>
 <div class="section" id="developer-with-ssh-access-to-git-reporsitory">
 <h3>Developer with ssh access to git reporsitory<a class="headerlink" href="#developer-with-ssh-access-to-git-reporsitory" title="Permalink to this headline">¶</a></h3>
+<p>If you are a developer and have access to all repositories, you can
+use the following commands to get the source code. However if you miss
+access to one of the directories, please replace it with an https
+based git clone as described in the previous section.</p>
 <div class="highlight-python"><div class="highlight"><pre>mkdir github/cloudmesh
 cd github/cloudmesh
 git clone git@github.com:cloudmesh/base.git
@@ -519,6 +568,9 @@ python setup.py install
 </div>
 <div class="section" id="updating-an-existing-source-distribution">
 <h1>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h1>
+<p>During the development phase of cloudmesh you may need to update the
+code from source, as cloudmesh client uses three different
+repositories please do not forget to update them accordingly:</p>
 <div class="highlight-python"><div class="highlight"><pre>cd github/cloudmesh
 cd base
 git pull

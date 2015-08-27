@@ -84,11 +84,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html#windows-10">Windows 10</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#install-python">Install Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-python-may-not-be-needed">Install Python (may not be needed)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-cygwin">Install Cygwin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-apt-cyg">Install apt-cyg</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#using-cygwin">Using cygwin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#makeing-python-usable">Makeing python usable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#linux">Linux</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html#making-cygwin-easier-to-use">Making cygwin easier to use</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#pip">Pip</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
@@ -281,8 +284,14 @@
             
   <div class="section" id="windows-10">
 <span id="windows-install"></span><h1>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="install-python">
-<h2>Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-python-may-not-be-needed">
+<h2>Install Python (may not be needed)<a class="headerlink" href="#install-python-may-not-be-needed" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">python may come with cygwin and this may therefor be
+uneccesarry. This needs to be investigated, and possibley
+this sectin needs to be removed.</p>
+</div>
 <p>Python can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download
 and install the newest version of python. At this time we recommend
 that you use version 2.7.10. Other versions may work to, but are not
@@ -298,34 +307,34 @@ supported or tested. A direct link to the install can be found at</p>
 install it.</p>
 <p>Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Erika we need a simple tes to see if python is
-installed. Who do I do this?</p>
-</div>
 </div>
 <div class="section" id="install-cygwin">
 <h2>Install Cygwin<a class="headerlink" href="#install-cygwin" title="Permalink to this headline">¶</a></h2>
-<p>We install cygwin via chocolatey. To do so you first have to
-install chocolatey. Please open a:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cmd</span><span class="o">.</span><span class="n">exe</span>
+<p>We install cygwin via chocolatey. To do so you first have to start a
+power shell as adminstrator with:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; Start-Process powershell -Verb runAs
 </pre></div>
 </div>
-<p>window as administrator. You have to copy and paste the following commands into a the cmd.exe terminal:</p>
-<div class="highlight-python"><div class="highlight"><pre>.. note:: Erika how do i log in as administrator?????
+<p>Allow execution of scripts:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; Set-ExecutionPolicy Unrestricted
 </pre></div>
 </div>
-<blockquote>
-<div>C:&gt; &#64;powershell -NoProfile -ExecutionPolicy Bypass -Command &#8220;iex ((new-object net.webclient).DownloadString(&#8216;<a class="reference external" href="https://chocolatey.org/install.ps1">https://chocolatey.org/install.ps1</a>&#8216;))&#8221; &amp;&amp; SET PATH=%PATH%;%ALLUSERSPROFILE%chocolateybin</div></blockquote>
+<p>Next execute the command to install chocolatey:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))
+</pre></div>
+</div>
+<p>Unset the script execution permission:</p>
+<div class="highlight-python"><div class="highlight"><pre>Set-ExecutionPolicy Restricted
+</pre></div>
+</div>
 <p>Next execute in cmd.exe:</p>
 <div class="highlight-python"><div class="highlight"><pre>choco install --force -y cygwin
 </pre></div>
 </div>
 <p>Note: if Cygwin is already installed, &#8211;force will reinstall it.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">this seems not to work on windows 10.</p>
 </div>
+<div class="section" id="install-apt-cyg">
+<h2>Install apt-cyg<a class="headerlink" href="#install-apt-cyg" title="Permalink to this headline">¶</a></h2>
 <p>Now open cygwin window by clicking on the desktop icon. Put the
 following command into Cygwin terminal (its shorcut can be found on
 your Desktop):</p>
@@ -335,9 +344,9 @@ install apt-cyg /bin
 </div>
 <p>This will give you a nice command to add additional packages to cygwin
 without using the cygwin GUI. You will also want the following appliations:</p>
-<div class="highlight-python"><div class="highlight"><pre>apt-cyg install emacs
+<div class="highlight-python"><div class="highlight"><pre>apt-cyg install wget
+apt-cyg install emacs
 apt-cyg install git
-apt-cyg install wget
 apt-cyg install curl
 apt-cyg install nc
 apt-cyg install make
@@ -346,28 +355,42 @@ apt-cyg install db
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="making-cygwin-easier-to-use">
-<h1>Making cygwin easier to use<a class="headerlink" href="#making-cygwin-easier-to-use" title="Permalink to this headline">¶</a></h1>
-<p>In case you run Windows on virtualbox for example on a Mac, you may
-want to enable the guest additions. As windows 10 is currently a
-prerelease the integration with the guest additions is not yet
-complete. However, you can browse to the virtual box repository go to
-the current release version and click from within the internet
-explorer on it (it will be an iso). Than you can follow the
-instructions and it will install it in the running vm.</p>
-<p>Next you want to enable past and copy from the host os to the guest
-OS.</p>
-<p>Add the following line to your ~/.bashrc:</p>
-<div class="highlight-python"><div class="highlight"><pre>stty lnext ^q stop undef start undef
+<div class="section" id="using-cygwin">
+<h2>Using cygwin<a class="headerlink" href="#using-cygwin" title="Permalink to this headline">¶</a></h2>
+<p>When starting a new powershell terminal you can simply typ into it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cygwin</span>
 </pre></div>
 </div>
-<p>And add the following line to your ~/.inputrc:</p>
-<div class="highlight-python"><div class="highlight"><pre>&quot;\C-v&quot;: paste-from-clipboard
+<p>This way you can easily past and copy into the cywin terminal that is
+started via powershell. This is extremly useful if you run Windows in
+a virtual server and want to easily past and copy strings to and from
+the host operating system. In virtualbox you maus enable past frm
+clipboard in bidirectional mode.</p>
+</div>
+<div class="section" id="makeing-python-usable">
+<h2>Makeing python usable<a class="headerlink" href="#makeing-python-usable" title="Permalink to this headline">¶</a></h2>
+<p>To test if you have the right version of python execute:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
-<p>Now you can use C-v to past a text fro the host OS to the
-Windows. This also includes cygwin terminals.</p>
+<p>which should return 2.7.10 and:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>You might see version 7.0.1 in which case you should update with:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install -U pip
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the update may not work as some error is reported. This
+needs to be investigated and a workaround needs to be found.</p>
+</div>
+<p>We want also to install virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
+</pre></div>
+</div>
+</div>
 </div>
 
 

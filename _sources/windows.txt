@@ -4,9 +4,13 @@
 Windows 10
 ==========
 
-Install Python
------------------------------
+Install Python (may not be needed)
+------------------------------------
 
+.. warning:: python may come with cygwin and this may therefor be
+	     uneccesarry. This needs to be investigated, and possibley
+	     this sectin needs to be removed.
+	     
 Python can be found at http://www.python.org. We recommend to download
 and install the newest version of python. At this time we recommend
 that you use version 2.7.10. Other versions may work to, but are not
@@ -24,31 +28,34 @@ install it.
 Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path
 
-.. note:: Erika we need a simple tes to see if python is
-	  installed. Who do I do this?
-
 Install Cygwin
 ---------------
 
-We install cygwin via chocolatey. To do so you first have to
-install chocolatey. Please open a::
+We install cygwin via chocolatey. To do so you first have to start a
+power shell as adminstrator with::
 
-  cmd.exe
+  PS> Start-Process powershell -Verb runAs
 
-window as administrator. You have to copy and paste the following commands into a the cmd.exe terminal::
+Allow execution of scripts::
 
-.. note:: Erika how do i log in as administrator?????
-	  
-   C:> @powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+  PS> Set-ExecutionPolicy Unrestricted
+  
+Next execute the command to install chocolatey::
+  
+  PS> iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
 
+Unset the script execution permission::
+  
+  Set-ExecutionPolicy Restricted
+  
 Next execute in cmd.exe::
   
   choco install --force -y cygwin 
  
 Note: if Cygwin is already installed, --force will reinstall it.
 
-
-.. note:: this seems not to work on windows 10.
+Install apt-cyg
+---------------
 
 Now open cygwin window by clicking on the desktop icon. Put the
 following command into Cygwin terminal (its shorcut can be found on
@@ -60,37 +67,58 @@ your Desktop)::
 This will give you a nice command to add additional packages to cygwin
 without using the cygwin GUI. You will also want the following appliations::
 
-
+  apt-cyg install wget
   apt-cyg install emacs
   apt-cyg install git
-  apt-cyg install wget
   apt-cyg install curl
   apt-cyg install nc
   apt-cyg install make
   apt-cyg install gcc-g++ diffutils libmpfr-devel libgmp-devel libmpc-devel
   apt-cyg install db
 
-Making cygwin easier to use
-===========================
+Using cygwin
+-------------
 
-In case you run Windows on virtualbox for example on a Mac, you may
-want to enable the guest additions. As windows 10 is currently a
-prerelease the integration with the guest additions is not yet
-complete. However, you can browse to the virtual box repository go to
-the current release version and click from within the internet
-explorer on it (it will be an iso). Than you can follow the
-instructions and it will install it in the running vm.
+When starting a new powershell terminal you can simply typ into it::
 
-Next you want to enable past and copy from the host os to the guest
-OS.
+  cygwin
 
-Add the following line to your ~/.bashrc::
+This way you can easily past and copy into the cywin terminal that is
+started via powershell. This is extremly useful if you run Windows in
+a virtual server and want to easily past and copy strings to and from
+the host operating system. In virtualbox you maus enable past frm
+clipboard in bidirectional mode.
+
+
+Makeing python usable
+----------------------------------------------------------------------
+
+To test if you have the right version of python execute::
+
+  python --version
+
+which should return 2.7.10 and::
+
+  pip --version
+
+You might see version 7.0.1 in which case you should update with::
+
+  pip install -U pip 
+
+.. note:: the update may not work as some error is reported. This
+	  needs to be investigated and a workaround needs to be found.
+
+We want also to install virtualenv::
+
+  pip install virtualenv
+
+
+
+	  
+	  
+
+
   
-  stty lnext ^q stop undef start undef
 
-And add the following line to your ~/.inputrc::
-  
-  "\C-v": paste-from-clipboard
 
-Now you can use C-v to past a text fro the host OS to the
-Windows. This also includes cygwin terminals.
+
