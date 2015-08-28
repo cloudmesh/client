@@ -132,6 +132,11 @@ class PersistentDb:
         backup_file.write(self.json)
         backup_file.close()
 
+# TODO: somehow we need also in windows something like ~/.cloudmesh/client.db, see if you can use path_expand in base
+# TODO: if db is not there it should be created
+
+# TODO: can you create larger example with https://pypi.python.org/pypi/fake-factory
+
 pd = PersistentDb("F:/python/sqliteMultiDimensional/testDb.db", "person",
                   NAME='VARCHAR NOT NULL', ADDRESS='VARCHAR', EMAIL='VARCHAR', OCCUPATION='IT')
 pd.add("abc", address="here", email="abcexample.com", occupation="IT")
