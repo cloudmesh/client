@@ -16,7 +16,6 @@ test:
 
 
 doc:
-	# fab doc.html
 	cd docs; make html
 
 publish:
