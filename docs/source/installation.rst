@@ -59,10 +59,17 @@ If sucessfull, your terminal will have (ENV) as prefix to the prompt::
 
 As OSX comes with older versions of pip at this time, it is important
 that you first prepare the environment before you install cloudmesh
-client. To do so please isseue the following commands::
+client. To do so please isseue the following commands
 
-.. note:: export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
-  
+.. note::
+   
+   Gregor: I am not sure who added the following export, but on OSX this is
+   not needed.
+   
+   export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+
+::
+   
    pip install pip -U
    easy_install readline
    easy_install pycrypto
@@ -79,7 +86,7 @@ and pip again::
    
    pip --version
 
-pip 7.0.3
+pip 7.1.2
    
 ::
 
@@ -89,13 +96,7 @@ pip 7.0.3
 Python 2.7.10
 
 
-
-Windows
-^^^^^^^
-
-.. todo:: Paulo please make sure this is ok
-	  
-Special instructions for Windows are available in the Section :ref:`windows-install`
+.. include:: windows.rst
 
 Linux
 ^^^^^
@@ -134,10 +135,10 @@ User and Contributor
    git clone https://github.com/cloudmesh/cmd3.git  
    git clone https://github.com/cloudmesh/client.git   
    cd base
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../cmd3
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../client
    python setup.py install
@@ -153,13 +154,30 @@ Developer with ssh access to git reporsitory
    git clone git@github.com:cloudmesh/cmd3.git
    git clone git@github.com:cloudmesh/client.git
    cd base
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../cmd3
-   git checkout sh
+   git checkout
    python setup.py install
    cd ../client
    python setup.py install
+
+
+Updating an existing source distribution
+======================================================================
+
+::
+
+   cd github/cloudmesh
+   cd base
+   git pull
+   python setup.py install
+   cd ../cmd3
+   git pull 
+   python setup.py install
+   cd ../client
+   python setup.py install
+
 
 
 Testing

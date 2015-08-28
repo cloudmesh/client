@@ -144,32 +144,6 @@ Command - debug::
           Turns the debug log level on and off.
 
 
-default
-----------------------------------------------------------------------
-
-Command - default::
-
-    Usage:
-        default list [--output=FORMAT]
-        default delete KEY [--cloud=CLOUD]
-        default KEY [--cloud=CLOUD]
-        default KEY=VALUE [--cloud=CLOUD]
-
-
-    managing the defaults test test test test
-
-    Arguments:
-
-      KEY    the name of the default
-      VALUE  the value to set the key to
-
-    Options:
-
-       --cloud=CLOUD    the name of the cloud [default: general]
-       --output=FORMAT  the output format [default: table]
-
-
-
 edit
 ----------------------------------------------------------------------
 
@@ -284,6 +258,30 @@ Command - generate::
 
 
 
+group
+----------------------------------------------------------------------
+
+Command - group::
+
+    Usage:
+        group list [--output=FORMAT]
+        group set NAME
+
+
+    managing the exps test test test test
+
+    Arguments:
+
+      KEY    the name of the exp
+      VALUE  the value to set the key to
+
+    Options:
+
+       --cloud=CLOUD    the name of the cloud [exp: general]
+       --output=FORMAT  the output format [exp: table]
+
+
+
 help
 ----------------------------------------------------------------------
 
@@ -302,74 +300,6 @@ Command - info::
            --all  -a   more extensive information
 
     Prints some internal information about the shell
-
-
-
-key
-----------------------------------------------------------------------
-
-Command - key::
-
-    Usage:
-      key  -h | --help
-      key list [--source=SOURCE] [--dir=DIR] [--format=FORMAT]
-      key add [--keyname=KEYNAME] FILENAME
-      key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all)
-
-    Manages the keys
-
-    Arguments:
-
-      SOURCE         mongo, yaml, ssh
-      KEYNAME        The name of a key
-      FORMAT         The format of the output (table, json, yaml)
-      FILENAME       The filename with full path in which the key
-                     is located
-
-    Options:
-
-       --dir=DIR            the directory with keys [default: ~/.ssh]
-       --format=FORMAT      the format of the output [default: table]
-       --source=SOURCE      the source for the keys [default: ssh]
-       --keyname=KEYNAME    the name of the keys
-       --all                delete all keys
-
-    Description:
-
-
-    key list --source=ssh  [--dir=DIR] [--format=FORMAT]
-
-       lists all keys in the directory. If the directory is not
-       specified the default will be ~/.ssh
-
-    key list --source=yaml  [--dir=DIR] [--format=FORMAT]
-
-       lists all keys in cloudmesh.yaml file in the specified directory.
-        dir is by default ~/.cloudmesh
-
-    key list [--format=FORMAT]
-
-        list the keys in mongo
-
-    key add [--keyname=keyname] FILENAME
-
-        adds the key specifid by the filename to mongodb
-
-
-    key list
-
-         Prints list of keys. NAME of the key can be specified
-
-    key default [NAME]
-
-         Used to set a key from the key-list as the default key if NAME
-         is given. Otherwise print the current default key
-
-    key delete NAME
-
-         deletes a key. In yaml mode it can delete only key that
-         are not saved in mongo
 
 
 
@@ -767,6 +697,7 @@ Command - register::
         register check [--yaml=FILENAME]
         register test [--yaml=FILENAME]
         register rc HOST [OPENRC]
+        register json HOST
         register [--yaml=FILENAME]
         register india [--force]
         register CLOUD CERT [--force]
@@ -801,23 +732,31 @@ Command - register::
 
         register rc HOST [OPENRC]
 
-              reads the Openstack OPENRC file from a host that is described in ./ssh/config and adds it to the
-              configuration cloudmehs.yaml file. We assume that the file has already a template for this
-              host. If nt it can be created from other examples before you run this command.
+              reads the Openstack OPENRC file from a host that
+              is described in ./ssh/config and adds it to the
+              configuration cloudmehs.yaml file. We assume that
+              the file has already a template for this host. If
+              nt it can be created from other examples before
+              you run this command.
 
-              The hostname can be specified as follows in the ./ssh/config file.
+              The hostname can be specified as follows in the
+              ./ssh/config file.
 
               Host india
                   Hostname india.futuresystems.org
                   User yourusername
 
-              If the host is india and the OPENRC file is ommitted, it will automatically fill out the location
-              for the openrc file. To obtain the information from india simply type in
+              If the host is india and the OPENRC file is
+              ommitted, it will automatically fill out the
+              location for the openrc file. To obtain the
+              information from india simply type in
 
                   register rc india
 
         register [--yaml=FILENAME]
-            read the yaml file instead of ./cloudmesh.yaml or ~/.cloudmesh/cloudmesh.yaml which is used when the
+
+            read the yaml file instead of ./cloudmesh.yaml or
+            ~/.cloudmesh/cloudmesh.yaml which is used when the
             yaml filename is ommitted.
 
         register edit [--yaml=FILENAME]

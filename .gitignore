@@ -2,7 +2,7 @@
 .idea
 *.iml
 .idea/client.iml
-.idea
+*.idea
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -13,6 +13,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+docs/source/modules/
 build/
 develop-eggs/
 dist/
@@ -27,6 +28,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*.eggs
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

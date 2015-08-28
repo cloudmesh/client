@@ -15,6 +15,7 @@ Summary of commands::
 
   cm nova list inactive
   cm nova list gregor*
+
 NOT SURE HWY WE NEED NOVA HERE
 
 This section includes some new ideas from cm commands.
