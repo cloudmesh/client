@@ -1,5 +1,3 @@
-__author__ = 'ERIKA'
-
 import sqlite3 as sqlite
 import json
 import os

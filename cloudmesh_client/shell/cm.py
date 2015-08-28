@@ -1,5 +1,3 @@
-__author__ = 'Gregor von Laszewski'
-
 import cmd
 from plugins.KeyCommands import KeyCommands
 import textwrap
