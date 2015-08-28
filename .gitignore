@@ -1,5 +1,5 @@
 *.iml
-*.idea/client.iml
+.idea/client.iml
 *.idea
 # Byte-compiled / optimized / DLL files
 __pycache__/
