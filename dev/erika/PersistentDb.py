@@ -2,7 +2,8 @@ __author__ = 'ERIKA'
 
 import sqlite3 as sqlite
 import json
-import os, os.path
+import os
+import os.path
 
 
 class PersistentDb:
@@ -14,7 +15,7 @@ class PersistentDb:
         self.con = sqlite.connect(filename)
         self.table_name = d
         self.cur = self.con.cursor()
-        self.cur.execute("CREATE TABLE if not exists " + d + " (" + ','.join("%s %s" %(key,value) for (key,value) in
+        self.cur.execute("CREATE TABLE if not exists " + d + " (" + ','.join("%s %s" % (key, value) for (key, value) in
                                                                              attributes.items()) + ")")
 
     def add_attributes(self, **attribute_names):
@@ -24,10 +25,13 @@ class PersistentDb:
         :param attribute_names: The attribute names
         :param d: The dictionary/table name
         """
-        existing_attribute_names = list(map(lambda x: x[0], self.con.execute("SELECT * from " + self.table_name).description))
-        list_new_attributes = set(existing_attribute_names).union(attribute_names.keys()) - set(existing_attribute_names)
+        existing_attribute_names = list(map(lambda x: x[0], self.con.execute(
+            "SELECT * from " + self.table_name).description))
+        list_new_attributes = set(existing_attribute_names).union(
+            attribute_names.keys()) - set(existing_attribute_names)
         for col in list_new_attributes:
-            self.cur.execute("ALTER TABLE " + self.table_name + " ADD COLUMN %s %s" % (col,attribute_names[col]))
+            self.cur.execute("ALTER TABLE " + self.table_name +
+                             " ADD COLUMN %s %s" % (col, attribute_names[col]))
 
     def add_attribute(self, name, type):
         """
@@ -35,7 +39,8 @@ class PersistentDb:
         :param name: Name of the attribute
         :param type: Type of the attribute
         """
-        self.cur.execute("ALTER TABLE %s ADD COLUMN %s %s" % (self.table_name, name, type))
+        self.cur.execute("ALTER TABLE %s ADD COLUMN %s %s" %
+                         (self.table_name, name, type))
 
     def get_attribute_type(self, name):
         """
@@ -43,7 +48,8 @@ class PersistentDb:
         :param name: Name of the attribute
         :return: The type of the attribute
         """
-        result = self.cur.execute('PRAGMA table_info(%s)' %self.table_name).fetchall()
+        result = self.cur.execute(
+            'PRAGMA table_info(%s)' % self.table_name).fetchall()
         for res in result:
             if res[1] == name:
                 return res[2]
@@ -58,19 +64,20 @@ class PersistentDb:
         kwargs['name'] = name
         column_names = ', '.join(kwargs.keys())
         placeholders = ', '.join('?' * len(kwargs.values()))
-        sql = 'INSERT INTO {} ({}) VALUES ({})'.format(self.table_name, column_names, placeholders)
-        self.cur.execute(sql,tuple(kwargs.values()))
+        sql = 'INSERT INTO {} ({}) VALUES ({})'.format(
+            self.table_name, column_names, placeholders)
+        self.cur.execute(sql, tuple(kwargs.values()))
         self.con.commit()
 
-    def delete(self, operator,**kwargs):
+    def delete(self, operator, **kwargs):
         """
         deletes all elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
         :param kwargs: the attributes that we look for
         :param operator: the operator and / or
         """
-        self.cur.execute("DELETE FROM person WHERE "+ (" %s " % operator).join("%s=%r" %(key,value) for (key,value)
-                                                                               in kwargs.items()))
+        self.cur.execute("DELETE FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for (key, value)
+                                                                                in kwargs.items()))
         self.con.commit()
 
     def find(self, operator, **kwargs):
@@ -79,19 +86,19 @@ class PersistentDb:
         :param operator: The operators and / or
         :param kwargs: The attributes that we look for
         """
-        result = self.cur.execute("SELECT * FROM person WHERE "+ (" %s " % operator).join("%s=%r" %(key,value) for
-                                                                                          (key,value) in kwargs.items()))
+        result = self.cur.execute("SELECT * FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for
+                                                                                           (key, value) in kwargs.items()))
         recs_list = result.fetchall()
         print recs_list
 
-    def get(self ,operator, **kwargs):
+    def get(self, operator, **kwargs):
         """
         Finds the first element that match the query formulated by kwargs and the operator
         :param operator: The operators and / or
         :param kwargs: The attributes that we look for
         """
-        result = self.cur.execute("SELECT * FROM person WHERE "+ (" %s " % operator).join("%s=%r" %(key,value) for
-                                                                                          (key,value) in kwargs.items()))
+        result = self.cur.execute("SELECT * FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for
+                                                                                           (key, value) in kwargs.items()))
         rec = result.fetchone()
         print rec
 
@@ -113,13 +120,15 @@ class PersistentDb:
         number is used (e.g. 10) and the backup file file.back.10 is used.
         :param file_name: the backup filename
         """
-        backup_file_no = len([name for name in os.listdir('.') if os.path.isfile(name) and (file_name in name)]) + 1
+        backup_file_no = len([name for name in os.listdir(
+            '.') if os.path.isfile(name) and (file_name in name)]) + 1
         backup_file = open(file_name + ".bak." + str(backup_file_no), "w")
         backup_file.write(self.json)
         backup_file.close()
 
-pd = PersistentDb("F:/python/sqliteMultiDimensional/testDb.db", "person", NAME='VARCHAR NOT NULL', ADDRESS='VARCHAR', EMAIL='VARCHAR', OCCUPATION='IT' )
-pd.add("abc", address= "here", email= "abcexample.com", occupation="IT")
+pd = PersistentDb("F:/python/sqliteMultiDimensional/testDb.db", "person",
+                  NAME='VARCHAR NOT NULL', ADDRESS='VARCHAR', EMAIL='VARCHAR', OCCUPATION='IT')
+pd.add("abc", address="here", email="abcexample.com", occupation="IT")
 pd.add("abc", address="idk")
 
 
@@ -132,10 +141,10 @@ pd.add("abc", address="idk")
 # Get the first record
 #pd.get('and', name='erika', address='IN')
 
-#print pd.json
+# print pd.json
 
-#pd.backup("new_backup")
+# pd.backup("new_backup")
 
-pd.add_attributes( GENDER= 'VARCHAR')
+pd.add_attributes(GENDER='VARCHAR')
 
 print pd.get_attribute_type('NAME')
