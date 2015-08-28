@@ -16,7 +16,8 @@ test:
 
 
 doc:
-	fab doc.html
+	# fab doc.html
+	cd docs; make html
 
 publish:
 	ghp-import -n -p docs/build/html
