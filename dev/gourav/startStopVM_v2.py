@@ -11,7 +11,7 @@ from docopt import docopt
 class OpenstackProvider(object):
 
     def __init__(self, filename):
-        # use configdict to read from ~/.cloudmesh/cloudmeh.yaml the credentials
+        # TODO: use configdict to read from ~/.cloudmesh/cloudmeh.yaml the credentials
         pass
         
     def start(self):
