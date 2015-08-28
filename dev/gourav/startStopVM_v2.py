@@ -6,14 +6,14 @@ from keystoneclient import session
 from novaclient import client
 from docopt import docopt
 
-#TODO: intoduce class
+
+# TODO: intoduce class
 
 class OpenstackProvider(object):
-
     def __init__(self, filename):
         # TODO: use configdict to read from ~/.cloudmesh/cloudmeh.yaml the credentials
         pass
-        
+
     def start(self):
         pass
 
@@ -21,6 +21,7 @@ class OpenstackProvider(object):
         pass
 
     def reboot(self):
+        pass
 
 if __name__ == '__main__':
 
@@ -35,14 +36,17 @@ if __name__ == '__main__':
     VERSION = 2
 
     COMMAND = 'jhe'
-    #COMMAND = sys.argv[1]
-    #SERVER_ID = sys.argv[2]
+    # COMMAND = sys.argv[1]
+    # SERVER_ID = sys.argv[2]
 
     # KEYSTONE CLIENT AUTHENTICATE
-    #keystone = client.Client(auth_url = OS_AUTH_URL, username = OS_USERNAME, password = OS_PASSWORD, tenant_name = OS_TENANT_NAME)
+    # keystone = client.Client(auth_url = OS_AUTH_URL,
+    #                          username = OS_USERNAME,
+    #                          password = OS_PASSWORD,
+    #                          tenant_name = OS_TENANT_NAME)
 
     # GET TENANT LIST
-    #tenant_list = keystone.tenants.list()
+    # tenant_list = keystone.tenants.list()
     # print tenant_list
 
     # NOVA CLIENT AUTHENTICATE

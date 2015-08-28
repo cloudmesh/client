@@ -5,6 +5,7 @@ import json
 import os
 import os.path
 
+
 # TODO: change + string to remove + but use a .format( ) which is more like python3
 # you can do
 # data = {'tablename': self.table_name, ....}
@@ -39,14 +40,14 @@ class PersistentDb:
             self.cur.execute("ALTER TABLE " + self.table_name +
                              " ADD COLUMN %s %s" % (col, attribute_names[col]))
 
-    def add_attribute(self, name, type):
+    def add_attribute(self, name, data_type):
         """
         Alters the table with an additional column
         :param name: Name of the attribute
-        :param type: Type of the attribute
+        :param data_type: Type of the attribute
         """
         self.cur.execute("ALTER TABLE %s ADD COLUMN %s %s" %
-                         (self.table_name, name, type))
+                         (self.table_name, name, data_type))
 
     def get_attribute_type(self, name):
         """
@@ -92,8 +93,9 @@ class PersistentDb:
         :param operator: The operators and / or
         :param kwargs: The attributes that we look for
         """
-        result = self.cur.execute("SELECT * FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for
-                                                                                           (key, value) in kwargs.items()))
+        result = self.cur.execute("SELECT * FROM person WHERE " +
+                                  (" %s " % operator).join("%s=%r" % (key, value) for (key, value) in
+                                                           kwargs.items()))
         recs_list = result.fetchall()
         print recs_list
 
@@ -104,7 +106,8 @@ class PersistentDb:
         :param kwargs: The attributes that we look for
         """
         result = self.cur.execute("SELECT * FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for
-                                                                                           (key, value) in kwargs.items()))
+                                                                                           (key, value) in
+                                                                                           kwargs.items()))
         rec = result.fetchone()
         print rec
 
@@ -132,6 +135,7 @@ class PersistentDb:
         backup_file.write(self.json)
         backup_file.close()
 
+
 # TODO: somehow we need also in windows something like ~/.cloudmesh/client.db, see if you can use path_expand in base
 # TODO: if db is not there it should be created
 
@@ -144,13 +148,13 @@ pd.add("abc", address="idk")
 
 
 # Delete a record
-#pd.delete('and', name='abc', address='here')
+# pd.delete('and', name='abc', address='here')
 
 # Find
-#pd.find("", name='abc')
+# pd.find("", name='abc')
 
 # Get the first record
-#pd.get('and', name='erika', address='IN')
+# pd.get('and', name='erika', address='IN')
 
 # print pd.json
 
