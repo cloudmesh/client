@@ -5,6 +5,12 @@ import json
 import os
 import os.path
 
+# TODO: change + string to remove + but use a .format( ) which is more like python3
+# you can do
+# data = {'tablename': self.table_name, ....}
+# ".... {tablename} .... ".format(**data)
+# or a bit less readable
+# " .... {:} .....".format(self.table_name, ...) ....
 
 class PersistentDb:
     table_name = ""
