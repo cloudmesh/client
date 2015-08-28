@@ -6,6 +6,7 @@ from keystoneclient import session
 from novaclient import client
 from docopt import docopt
 
+#TODO: intoduce class
 
 class OpenstackProvider(object):
 
