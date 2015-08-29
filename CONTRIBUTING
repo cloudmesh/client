@@ -18,5 +18,14 @@ Here will be the contributing guidelines
 
 * use ConfigDict when reading yaml files
 
+* use nose tests for testing your programs
 
+  An example is provided in tests/test_sample.py
 
+    nosetests -v --nocapture tests/test_sample.py
+
+  you can copy this to tests/test_yourfile.py
+
+    and then replace in that file the occurance of _sample with _yourfile
+
+  make sure to create meaningful tests.
