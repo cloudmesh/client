@@ -1,4 +1,14 @@
 import textwrap
+from colorama import Fore, Back, Style
+import colorama
+
+colorama.init()
+
+print(Fore.RED + 'some red text')
+print(Back.GREEN + 'and with a green background')
+print(Style.DIM + 'and in dim text')
+print(Fore.RESET + Back.RESET + Style.RESET_ALL)
+print('back to normal now')
 
 
 class Console(object):
@@ -6,17 +16,16 @@ class Console(object):
     color = True
 
     theme_color = {
-        'HEADER': '\033[95m',
-        'BLACK': '\033[30m',
-        'PURPLE': '\033[35m',
-        'CYAN': '\033[36m',
-        'WHITE': '\033[37m',
-        'BLUE': '\033[34m',
-        'OKBLUE': '\033[34m',
-        'OKGREEN': '\033[32m',
-        'FAIL': '\033[31m',
-        'WARNING': '\033[31m',
-        'RED': '\033[31m',
+        'HEADER': Fore.MAGENTA,
+        'BLACK': Fore.RED,
+        'CYAN': Fore.CYAN,
+        'WHITE': Fore.WHITE,
+        'BLUE': Fore.BLUE,
+        'OKBLUE': Fore.BLUE,
+        'OKGREEN': Fore.GREEN,
+        'FAIL': Fore.RED,
+        'WARNING': Fore.MAGENTA,
+        'RED': Fore.RED,
         'ENDC': '\033[0m',
         'BOLD': "\033[1m",
     }
@@ -25,7 +34,6 @@ class Console(object):
     theme_bw = {
         'HEADER': '',
         'BLACK': '',
-        'PURPLE': '',
         'CYAN': '',
         'WHITE': '',
         'BLUE': '',
@@ -106,21 +114,20 @@ class Console(object):
 # Example
 #
 
-"""
-from cmd3.console import Console
 
+if __name__ == "__main__":
 
-print Console.color
+    print Console.color
 
-print Console.theme
+    print Console.theme
 
-Console.warning("Warning")
-Console.error("Error")
-Console.info("Info")
-Console.msg("msg")
-Console.ok("Success")
+    Console.warning("Warning")
+    Console.error("Error")
+    Console.info("Info")
+    Console.msg("msg")
+    Console.ok("Success")
+    
+    Console.color = False
+    print Console.color
+    Console.error("Error")
 
-print Console.color = False
-Console.error("Error")
-
-"""
