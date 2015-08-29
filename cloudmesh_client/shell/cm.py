@@ -6,9 +6,9 @@ import textwrap
 import inspect
 import shlex
 from docopt import docopt
-
-from collections import namedtuple
-
+from pprint import pprint
+import sys
+import traceback
 
 # import inspect
 
@@ -92,7 +92,8 @@ class CloudmeshConsole(cmd.Cmd,
         if self.context.splash:
             lines = textwrap.dedent(self.banner).split("\n")
             for line in lines:
-                print (line)
+                Console._print("BLUE", "", lin)
+                # print (line)
 
     def do_EOF(self, args):
         """
@@ -138,9 +139,120 @@ class CloudmeshConsole(cmd.Cmd,
         """
         print(arguments)
 
-
-if __name__ == '__main__':
+def simple():
     context = CloudmeshContext(debug=False,
                                splash=True)
     con = CloudmeshConsole(context)
     con.cmdloop()
+
+
+
+def main():
+    """cm.
+
+    Usage:
+      cm --help
+      cm [--debug] [--nosplash] [--file=SCRIPT] [-i] [COMMAND ...]
+
+    Arguments:
+      COMMAND                  A command to be executed
+
+    Options:
+      --file=SCRIPT  -f  SCRIPT  Executes the script
+      -i                 After start keep the shell interactive,
+                         otherwise quit [default: False]
+      --nosplash    do not show the banner [default: False]
+    """
+
+
+    try:
+        arg = docopt(main.__doc__, help=True)
+        if arg['--help']:
+            print(main.__doc__)
+            sys.exit()
+
+        # fixing the help parameter parsing
+
+        #   arguments['COMMAND'] = ['help']
+        #   arguments['help'] = 'False'
+
+        script_file = arg['--file']
+
+        pprint(arg)
+
+    except:
+        script_file = None
+        interactive = False
+
+        arguments = sys.argv[1:]
+        print("ARG", sys.argv[1:])
+        arg = {
+            '--debug' : '--debug' in arguments,
+            '--nosplash' : '--nosplash' in arguments,
+            '-i' : '-i' in arguments}
+
+        for a in arg:
+            if arg[a]:
+                arguments.remove(a)
+
+
+        arg['COMMAND'] = [' '.join(arguments)]
+
+    print ('PASS ARGS', arg)
+    splash = arg['--nosplash']
+    debug = arg['--debug']
+    interactive = arg['-i']
+    print (splash)
+
+
+    context = CloudmeshContext(debug=debug,
+                               splash=splash)
+    cmd = CloudmeshConsole(context)
+
+    """
+    create_cmd3_yaml_file(force=False, verbose=False)
+
+    filename = path_expand("~/.cloudmesh/cmd3.yaml")
+    try:
+        module_config = ConfigDict(filename=filename)
+        modules = module_config["cmd3"]["modules"]
+        properties = module_config["cmd3"]["properties"]
+    except:
+        modules = ['cloudmesh_cmd3.plugins']
+    for module_name in modules:
+        #print ("INSTALL", module_name)
+        try:
+            plugins.append(dict(get_plugins_from_module(module_name)))
+        except:
+            # print "WARNING: could not find", module_name
+            pass
+
+    """
+
+
+    # if script_file is not None:
+    #     cmd.do_exec(script_file)
+
+    if len(arg['COMMAND']) > 0:
+        try:
+            user_cmd = " ".join(arg['COMMAND'])
+            if debug:
+                print(">", user_cmd)
+            cmd.onecmd(user_cmd)
+        except Exception, e:
+            print ("ERROR: executing command '{0}'".format(user_cmd))
+            print (70 * "=")
+            print(e)
+            print (70 * "=")
+            print(traceback.format_exc())
+
+        if interactive:
+            cmd.cmdloop()
+
+    elif not script_file or interactive:
+        cmd.cmdloop()
+
+if __name__ == "__main__":
+    main()
+    # simple()
+
