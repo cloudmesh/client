@@ -12,7 +12,8 @@ import cloudmesh_base.hostlist
 from cloudmesh_base.util import convert_from_unicode
 
 
-def dict_printer(d, order=None,
+def dict_printer(d,
+                 order=None,
                  header=None,
                  output="table",
                  sort_keys=True,
@@ -49,7 +50,24 @@ def dict_printer(d, order=None,
         return "UNKOWN FORMAT"
 
 
-def dict_csv_printer(d, order=None, header=None, output="table", sort_keys=True):
+def dict_csv_printer(d,
+                     order=None,
+                     header=None,
+                     sort_keys=True):
+    """
+    prints a table in csv format
+
+    :param d: A a dict with dicts of the same type.
+    :type d: dict
+    :param order:The order in which the columns are printed.
+                The order is specified by the key names of the dict.
+    :type order:
+    :param header: The Header of each of the columns
+    :type header: list or tuple of field names
+    :param sort_keys: TODO: not yet implemented
+    :type sort_keys: bool
+    :return: a string representing the table in csv format
+    """
     first_element = d.keys()[0]
 
     def _keys():
