@@ -20,8 +20,11 @@ class PersistentDb:
         self.con = sqlite.connect(filename)
         self.table_name = d
         self.cur = self.con.cursor()
-        self.cur.execute("CREATE TABLE if not exists " + d + " (" + ','.join("%s %s" % (key, value) for (key, value) in
-                                                                             attributes.items()) + ")")
+        data = {
+            "name": d,
+            "key_values":  ','.join("%s %s" % (key, value) for (key, value) in attributes.items())
+        }
+        self.cur.execute("CREATE TABLE if not exists {name} ({key_value})".format(**data))
 
     def add_attributes(self, **attribute_names):
         """
@@ -35,8 +38,10 @@ class PersistentDb:
         list_new_attributes = set(existing_attribute_names).union(
             attribute_names.keys()) - set(existing_attribute_names)
         for col in list_new_attributes:
-            self.cur.execute("ALTER TABLE " + self.table_name +
-                             " ADD COLUMN %s %s" % (col, attribute_names[col]))
+            data = {'name': self.table_name,
+                    'col': col,
+                    'attribute': attribute_names[col]}
+            self.cur.execute("ALTER TABLE {name} ADD COLUMN {col} {attribute}".format(**data))
 
     def add_attribute(self, name, data_type):
         """
@@ -44,8 +49,13 @@ class PersistentDb:
         :param name: Name of the attribute
         :param data_type: Type of the attribute
         """
-        self.cur.execute("ALTER TABLE %s ADD COLUMN %s %s" %
-                         (self.table_name, name, data_type))
+        data = {
+            "table": self.table_name,
+            "name": name,
+            "type": data_type
+        }
+
+        self.cur.execute("ALTER TABLE {table} ADD COLUMN {name} {type}".format(**data))
 
     def get_attribute_type(self, name):
         """
@@ -53,8 +63,7 @@ class PersistentDb:
         :param name: Name of the attribute
         :return: The type of the attribute
         """
-        result = self.cur.execute(
-            'PRAGMA table_info(%s)' % self.table_name).fetchall()
+        result = self.cur.execute('PRAGMA table_info({})'.format(self.table_name)).fetchall()
         for res in result:
             if res[1] == name:
                 return res[2]
@@ -81,7 +90,8 @@ class PersistentDb:
         :param kwargs: the attributes that we look for
         :param operator: the operator and / or
         """
-        self.cur.execute("DELETE FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for (key, value)
+
+        self.cur.execute("DELETE FROM person WHERE " + (" {} ".format(operator)).join("%s=%r" % (key, value) for (key, value)
                                                                                 in kwargs.items()))
         self.con.commit()
 
@@ -103,7 +113,7 @@ class PersistentDb:
         :param operator: The operators and / or
         :param kwargs: The attributes that we look for
         """
-        result = self.cur.execute("SELECT * FROM person WHERE " + (" %s " % operator).join("%s=%r" % (key, value) for
+        result = self.cur.execute("SELECT * FROM person WHERE " + (" {} ".format(operator)).join("%s=%r" % (key, value) for
                                                                                            (key, value) in
                                                                                            kwargs.items()))
         rec = result.fetchone()

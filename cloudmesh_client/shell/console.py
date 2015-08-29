@@ -126,7 +126,7 @@ if __name__ == "__main__":
     Console.info("Info")
     Console.msg("msg")
     Console.ok("Success")
-    
+
     Console.color = False
     print Console.color
     Console.error("Error")
