@@ -160,11 +160,11 @@ setup(
     include_package_data=True,
     data_files= data_files,
     package_data={'cloudmesh_client': data_dirs},
-    #entry_points={
-    #    'console_scripts': [
-    #        'cm = cloudmesh_client.shell:main',
-    #    ],
-    #},
+    entry_points={
+        'console_scripts': [
+            'cm = cloudmesh_client.shell.cm:main',
+        ],
+    },
     tests_require=['tox'],
     cmdclass={
         'install': InstallBase,

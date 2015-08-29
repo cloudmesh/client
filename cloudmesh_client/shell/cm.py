@@ -92,8 +92,8 @@ class CloudmeshConsole(cmd.Cmd,
         if self.context.splash:
             lines = textwrap.dedent(self.banner).split("\n")
             for line in lines:
-                Console._print("BLUE", "", lin)
-                # print (line)
+                # Console._print("BLUE", "", line)
+                print (line)
 
     def do_EOF(self, args):
         """
@@ -199,7 +199,7 @@ def main():
         arg['COMMAND'] = [' '.join(arguments)]
 
     print ('PASS ARGS', arg)
-    splash = arg['--nosplash']
+    splash = not arg['--nosplash']
     debug = arg['--debug']
     interactive = arg['-i']
     print (splash)
