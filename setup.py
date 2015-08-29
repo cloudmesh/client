@@ -42,7 +42,6 @@ banner("Installing Cloudmesh_client {:}".format(version))
 
 requirements = parse_requirements('requirements.txt')
 
-
 auto_create_version("cloudmesh_client", version, filename="version.py")
         
 class UploadToPypi(install):
