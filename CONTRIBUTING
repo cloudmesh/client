@@ -1,4 +1,22 @@
-Contributiing
+Contributing
 ==================================================
 
 Here will be the contributing guidelines
+
+* use pycharm for editing
+* use Code Inspect regularly on the files you modify and fix the sensible pip8 warnings.
+  Look at other warnings and errors
+
+* use .format instead of % in print
+* use from __future__ import print_function at the beginning of the file and use
+    print("msg") instead of print msg
+
+* use as much python 3 like code developed in python 2
+* use class name(object): and not just class name:
+
+* use Console.error when printing errors if you develop a command for the commandline
+
+* use ConfigDict when reading yaml files
+
+
+
