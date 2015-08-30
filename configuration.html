@@ -114,7 +114,6 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#get-registration-from-india">Get Registration from India</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#registration-of-clouds">Registration of clouds</a></li>
 </ul>
@@ -255,8 +254,8 @@
 <div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
 </div>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The file will be looking as follows. You will have several options to
+modify the file as explained bellow</p>
 <div class="highlight-python"><div class="highlight"><pre>meta:
   yaml_version: 2.1
   kind: clouds
@@ -341,35 +340,48 @@ cloudmesh:
       keyname: ~/.ssh/id_rsa.pub
 </pre></div>
 </div>
-<p><a class="reference external" href="https://github.com/cloudmesh/client/blob/master/cloudmesh_etc/cloudmesh.yaml">https://github.com/cloudmesh/client/blob/master/cloudmesh_etc/cloudmesh.yaml</a></p>
+<p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
+according to your information about your cloud. YOu can add new clouds
+or delete the once that you do not want.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">please make sure the file is protected as it contains
+sensitive information.</p>
 </div>
 <div class="section" id="get-registration-from-india">
 <h2>Get Registration from India<a class="headerlink" href="#get-registration-from-india" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>./ssh/config
+<p>In case you have an account on <a class="reference external" href="http::/portal.futuresystems.org">http::/portal.futuresystems.org</a> the
+integration can be done automatically for you with the account
+information available to you. The best way is to configure first your
+ssh client to conveniently log into india the machine wher eyou can
+find the configuration information. To do so, please edit the
+following file</p>
+<div class="highlight-python"><div class="highlight"><pre>~/./ssh/config
 </pre></div>
 </div>
+<p>and add the following lines to it</p>
 <div class="highlight-python"><div class="highlight"><pre>Host india
     User: gregor
     Hostname: india.futuresystems.org
 </pre></div>
 </div>
-<p>replace gregor with your portalname</p>
-<p>this will be used by the register command</p>
-<div class="highlight-python"><div class="highlight"><pre>cm register india
-</pre></div>
-</div>
-<p>Will update your cloudmesh.yaml file with the information retrieved
-from india. YOu must be able to loginto india before this command
-works.</p>
-<p>Check it with:</p>
+<p>please replace gregor with your portalname that you have used for
+registration with futuresystems.org. Once you have done this please
+verify that you have access to india with a command such as:</p>
 <div class="highlight-python"><div class="highlight"><pre>ssh india uname -a
 </pre></div>
 </div>
-<p>Location of file on india is:</p>
+<p>Next register india into your cloudmesh yaml file with the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register india
+</pre></div>
+</div>
+<p>This will update your cloudmesh.yaml file with the information retrieved
+from india. While retriving the information on india from the file:</p>
 <div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/clouds/india/juno/openrc.sh
 </pre></div>
 </div>
-<p>Make sure you add a valid tennat to the file</p>
+<p>Make sure you add a valid tennat to the yaml file. More information
+about using india can be found at <a class="reference external" href="http://portal.futuresystems.org">http://portal.futuresystems.org</a></p>
 </div>
 <div class="section" id="registration-of-clouds">
 <h2>Registration of clouds<a class="headerlink" href="#registration-of-clouds" title="Permalink to this headline">¶</a></h2>
