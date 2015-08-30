@@ -1,3 +1,4 @@
+pyreadline
 colorama
 cloudmesh_base
 future

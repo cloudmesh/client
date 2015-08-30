@@ -59,27 +59,22 @@ If sucessfull, your terminal will have (ENV) as prefix to the prompt::
 
 As OSX comes with older versions of pip at this time, it is important
 that you first prepare the environment before you install cloudmesh
-client. To do so please isseue the following commands
+client. To do so please isseue the following commands::
 
-.. note::
-   
-   Gregor: I am not sure who added the following export, but on OSX this is
-   not needed.
    
    export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
-
-::
-   
    pip install pip -U
    easy_install readline
    easy_install pycrypto
    pip install urllib3
 
-.. note:: We found that readline and pycrypto could not be installed
-	  with pip at the time of writing of this manual. Despite the fact that
-	  it installed it, the installed versions were not usable. The
-	  workaround is to use easy_install. If you have a better idea how to
-	  fix this, let us know and send mail to laszewski@gmail.com.
+.. warning:: We found that ``readline`` and ``pycrypto`` could not be
+	  installed with pip at the time of writing of this manual,
+	  despite the fact that pip installed it. Howerver, the
+	  version installed with pip were not usable. The workaround
+	  is to use easy_install for these packages. If you have a
+	  better idea how to fix this, let us know and send mail to
+	  laszewski@gmail.com.
 
 It is recommended that you test the version of the python interpreter
 and pip again::
