@@ -28,6 +28,14 @@ cloudmesh_client.common.FlatDict module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.WinConsole module
+-----------------------------------------
+
+.. automodule:: cloudmesh_client.common.WinConsole
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.tables module
 -------------------------------------
 

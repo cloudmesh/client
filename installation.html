@@ -79,32 +79,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#prepare-the-system">Prepare the system</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#install-python-may-not-be-needed">Install Python (may not be needed)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-cygwin">Install Cygwin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-apt-cyg">Install apt-cyg</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#using-cygwin">Using cygwin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#makeing-python-usable">Makeing python usable</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#linux">Linux</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#centos">CentOS</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#ubuntu">Ubuntu</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#user-and-contributor">User and Contributor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="#updating-an-existing-source-distribution">Updating an existing source distribution</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
@@ -120,55 +102,6 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#template">TEMPLATE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#admin">admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">banner</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#cloud">cloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster">cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#debug">debug</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#edit">edit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">exec</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#exp">exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#generate">generate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#info">info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#launcher">launcher</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#load">load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#loglevel">loglevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#open">open</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">pause</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#plugins">plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#project">project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#py">py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#q">q</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">quit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#quota">quota</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#refresh">refresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#script">script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#search">search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#secgroup">secgroup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#setup">setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#stack">stack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#status">status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#timer">timer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#use">use</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#var">var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#verbose">verbose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#version">version</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#vm">vm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#volume">volume</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="old.html#parameterized-commands">Parameterized commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="old.html#refresh-paulo-done">Refresh (Paulo) done</a></li>
@@ -199,12 +132,9 @@
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_client.html">cloudmesh_client package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.iaas.html">cloudmesh_client.iaas package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.plugins.html">cloudmesh_client.plugins package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#submodules">Submodules</a></li>
@@ -213,10 +143,15 @@
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-contents">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="modules/fff.html">fff module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/gitkey.html">gitkey module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/fabfile.html">fabfile package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#fabfile-clean-module">fabfile.clean module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#fabfile-doc-module">fabfile.doc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#fabfile-security-module">fabfile.security module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#module-contents">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="modules/setup.html">setup module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/setup-app.html">setup-app module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/test.html">test module</a></li>
 </ul>
 </li>
@@ -287,260 +222,54 @@
             
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>Cloudmesh client is veriy easy to install. In contrast to previous
-efforts we could simplify the instalation while we manage the database
-locally by the user and not use LDAP or any other system as they are
-difficult to install on Windows.</p>
-<p>The instalation of cloudmesh is provided for</p>
-<ul class="simple">
-<li>Linux<ul>
-<li>Ubuntu</li>
-<li>Centos</li>
-</ul>
-</li>
-<li>OSX</li>
-<li>Windows</li>
-</ul>
-<p>For each of these operating systems we are provide specific
-instalation instructions.</p>
-<div class="section" id="prepare-the-system">
-<h2>Prepare the system<a class="headerlink" href="#prepare-the-system" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="osx">
-<h3>OSX<a class="headerlink" href="#osx" title="Permalink to this headline">¶</a></h3>
-<p>On OSX we recommend that you use python 2.7.10. This version of python
-is easy to install while downloading the dmg and installing it on the
-system. You will still have access to the python version distributed
-with the original OSX operating system.</p>
-<p>To test out which version you have activated, you can use in the
-commandline:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-<span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<p>They should show something similar to:</p>
-<div class="highlight-python"><div class="highlight"><pre>Python 2.7.10
-pip 7.0.3
-</pre></div>
-</div>
-<p>Oon OSX as well as the other operating systems we <strong>require</strong> you to
-use virtualenv. First you need to find which version of python you
-use. You can say:</p>
-<div class="highlight-python"><div class="highlight"><pre>which python
-</pre></div>
-</div>
-<p>It will give you the path of the python interpreter. Let us assume the
-interpreter was found in <cite>/usr/local/bin/python</cite>.  Next you can create
-a virtual ENV with:</p>
-<div class="highlight-python"><div class="highlight"><pre>virtualenv -p /user/local/bin/python ~/ENV
-</pre></div>
-</div>
-<p>You will need to activate the virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre>source ~/ENV/bin/activate
-</pre></div>
-</div>
-<p>If sucessfull, your terminal will have (ENV) as prefix to the prompt:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV)machinename:dirname user$
-</pre></div>
-</div>
-<p>As OSX comes with older versions of pip at this time, it is important
-that you first prepare the environment before you install cloudmesh
-client. To do so please isseue the following commands</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>Gregor: I am not sure who added the following export, but on OSX this is
-not needed.</p>
-<p class="last">export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH</p>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>pip install pip -U
-easy_install readline
-easy_install pycrypto
-pip install urllib3
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">We found that readline and pycrypto could not be installed</p>
-</div>
-<p>with pip at the time of writing of this manual. Despite the fact that
-it installed it, the installed versions were not usable. The
-workaround is to use easy_install. If you have a better idea how to
-fix this, let us know and send mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p>
-<p>It is recommended that you test the version of the python interpreter
-and pip again:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<p>pip 7.1.2&lt;</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<p>Python 2.7.10</p>
-</div>
-<div class="section" id="windows-10">
-<span id="windows-install"></span><h3>Windows 10<a class="headerlink" href="#windows-10" title="Permalink to this headline">¶</a></h3>
-<div class="section" id="install-python-may-not-be-needed">
-<h4>Install Python (may not be needed)<a class="headerlink" href="#install-python-may-not-be-needed" title="Permalink to this headline">¶</a></h4>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">python may come with cygwin and this may therefor be
-uneccesarry. This needs to be investigated, and possibley
-this sectin needs to be removed.</p>
-</div>
-<p>Python can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download
-and install the newest version of python. At this time we recommend
-that you use version 2.7.10. Other versions may work to, but are not
-supported or tested. A direct link to the install can be found at</p>
-<ul class="simple">
-<li><a class="reference external" href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></li>
-</ul>
-<p>In powershell you can type:</p>
-<div class="highlight-python"><div class="highlight"><pre>explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
-</pre></div>
-</div>
-<p>Thsi will open the Windows explorer, download the msi and ask you to
-install it.</p>
-<p>Once downloaded, open it by clicking on the downloaded file. You may
-also want to change the properties and add python to the path</p>
-</div>
-<div class="section" id="install-cygwin">
-<h4>Install Cygwin<a class="headerlink" href="#install-cygwin" title="Permalink to this headline">¶</a></h4>
-<p>We install cygwin via chocolatey. To do so you first have to start a
-power shell as adminstrator with:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; Start-Process powershell -Verb runAs
-</pre></div>
-</div>
-<p>Allow execution of scripts:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; Set-ExecutionPolicy Unrestricted
-</pre></div>
-</div>
-<p>Next execute the command to install chocolatey:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))
-</pre></div>
-</div>
-<p>Unset the script execution permission:</p>
-<div class="highlight-python"><div class="highlight"><pre>Set-ExecutionPolicy Restricted
-</pre></div>
-</div>
-<p>Next execute in cmd.exe:</p>
-<div class="highlight-python"><div class="highlight"><pre>choco install --force -y cygwin
-</pre></div>
-</div>
-<p>Note: if Cygwin is already installed, &#8211;force will reinstall it.</p>
-</div>
-<div class="section" id="install-apt-cyg">
-<h4>Install apt-cyg<a class="headerlink" href="#install-apt-cyg" title="Permalink to this headline">¶</a></h4>
-<p>Now open cygwin window by clicking on the desktop icon. Put the
-following command into Cygwin terminal (its shorcut can be found on
-your Desktop):</p>
-<div class="highlight-python"><div class="highlight"><pre>lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg &gt; apt-cyg
-install apt-cyg /bin
-</pre></div>
-</div>
-<p>This will give you a nice command to add additional packages to cygwin
-without using the cygwin GUI. You will also want the following appliations:</p>
-<div class="highlight-python"><div class="highlight"><pre>apt-cyg install wget
-apt-cyg install emacs
-apt-cyg install git
-apt-cyg install curl
-apt-cyg install nc
-apt-cyg install make
-apt-cyg install gcc-g++ diffutils libmpfr-devel libgmp-devel libmpc-devel
-apt-cyg install db
-</pre></div>
-</div>
-</div>
-<div class="section" id="using-cygwin">
-<h4>Using cygwin<a class="headerlink" href="#using-cygwin" title="Permalink to this headline">¶</a></h4>
-<p>When starting a new powershell terminal you can simply typ into it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cygwin</span>
-</pre></div>
-</div>
-<p>This way you can easily past and copy into the cywin terminal that is
-started via powershell. This is extremly useful if you run Windows in
-a virtual server and want to easily past and copy strings to and from
-the host operating system. In virtualbox you maus enable past frm
-clipboard in bidirectional mode.</p>
-</div>
-<div class="section" id="makeing-python-usable">
-<h4>Makeing python usable<a class="headerlink" href="#makeing-python-usable" title="Permalink to this headline">¶</a></h4>
-<p>To test if you have the right version of python execute:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<p>which should return 2.7.10 and:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<p>You might see version 7.0.1 in which case you should update with:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install -U pip
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">the update may not work as some error is reported. This
-needs to be investigated and a workaround needs to be found.</p>
-</div>
-<p>We want also to install virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="linux">
-<h3>Linux<a class="headerlink" href="#linux" title="Permalink to this headline">¶</a></h3>
-<p>use fresh machine (VM).
-use standard python
-use ubuntu ???</p>
-<p>wahtch out for
-urllib 3
-readline
-pip update
-aptget update
-aptget upgrade
-....</p>
-<div class="section" id="centos">
-<h4>CentOS<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h4>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Mangirish provide instructions</p>
-</div>
-</div>
-<div class="section" id="ubuntu">
-<h4>Ubuntu<a class="headerlink" href="#ubuntu" title="Permalink to this headline">¶</a></h4>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">Gurav provide instructions</p>
-</div>
-</div>
-</div>
-</div>
 <div class="section" id="cloudmesh-instalation-from-source">
 <h2>Cloudmesh Instalation from Source<a class="headerlink" href="#cloudmesh-instalation-from-source" title="Permalink to this headline">¶</a></h2>
 <p>In the following we assume that we will install the source code in:</p>
 <div class="highlight-python"><div class="highlight"><pre>~/github/cloudmesh
 </pre></div>
 </div>
+<div class="section" id="preparing-the-virtualenv">
+<h3>Preparing the Virtualenv<a class="headerlink" href="#preparing-the-virtualenv" title="Permalink to this headline">¶</a></h3>
+<p>Linux:</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv ~/ENV
+source ~/ENV/bin/activate
+</pre></div>
+</div>
+<p>OSX:</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv -p /usr/local/bin/python
+ source ~/ENV/bin/activate
+</pre></div>
+</div>
+<p>Windows:</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv ~/ENV
+source /cygdrive/c/home/$USER/ENV/Scripts/activate
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">in case you have multiple users on the machine you need to
+replace the * with your username</p>
+</div>
+</div>
 <div class="section" id="user-and-contributor">
 <h3>User and Contributor<a class="headerlink" href="#user-and-contributor" title="Permalink to this headline">¶</a></h3>
 <p>If you are a user and external contributer and do not have write access to
 the repositories you can install the code from source as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>::
-</pre></div>
-</div>
-<blockquote>
-<div>mkdir github/cloudmesh
+<div class="highlight-python"><div class="highlight"><pre>mkdir -p github/cloudmesh
 cd github/cloudmesh
-git clone <a class="reference external" href="https://github.com/cloudmesh/base.git">https://github.com/cloudmesh/base.git</a>
-git clone <a class="reference external" href="https://github.com/cloudmesh/cmd3.git">https://github.com/cloudmesh/cmd3.git</a>
-git clone <a class="reference external" href="https://github.com/cloudmesh/client.git">https://github.com/cloudmesh/client.git</a>
+git clone https://github.com/cloudmesh/base.git
+git clone https://github.com/cloudmesh/cmd3.git
+git clone https://github.com/cloudmesh/client.git
 cd base
-git checkout
+git pull
 python setup.py install
 cd ../cmd3
-git checkout
+git pull
 python setup.py install
 cd ../client
-python setup.py install</div></blockquote>
+python setup.py install
+</pre></div>
+</div>
 </div>
 <div class="section" id="developer-with-ssh-access-to-git-reporsitory">
 <h3>Developer with ssh access to git reporsitory<a class="headerlink" href="#developer-with-ssh-access-to-git-reporsitory" title="Permalink to this headline">¶</a></h3>
@@ -548,26 +277,25 @@ python setup.py install</div></blockquote>
 use the following commands to get the source code. However if you miss
 access to one of the directories, please replace it with an https
 based git clone as described in the previous section.</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir github/cloudmesh
+<div class="highlight-python"><div class="highlight"><pre>mkdir -p github/cloudmesh
 cd github/cloudmesh
 git clone git@github.com:cloudmesh/base.git
 git clone git@github.com:cloudmesh/cmd3.git
 git clone git@github.com:cloudmesh/client.git
 cd base
-git checkout
+git pull
 python setup.py install
 cd ../cmd3
-git checkout
+git pull
 python setup.py install
 cd ../client
+git pull
 python setup.py install
 </pre></div>
 </div>
 </div>
-</div>
-</div>
 <div class="section" id="updating-an-existing-source-distribution">
-<h1>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h1>
+<h3>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h3>
 <p>During the development phase of cloudmesh you may need to update the
 code from source, as cloudmesh client uses three different
 repositories please do not forget to update them accordingly:</p>
@@ -582,8 +310,9 @@ cd ../client
 python setup.py install
 </pre></div>
 </div>
+</div>
 <div class="section" id="testing">
-<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python"><div class="highlight"><pre>pip install tox
 </pre></div>
 </div>
@@ -594,6 +323,7 @@ python setup.py install
 <p>Nose tests can be started with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

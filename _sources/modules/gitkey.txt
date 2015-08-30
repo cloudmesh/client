@@ -1,7 +1,0 @@
-gitkey module
-=============
-
-.. automodule:: gitkey
-    :members:
-    :undoc-members:
-    :show-inheritance:

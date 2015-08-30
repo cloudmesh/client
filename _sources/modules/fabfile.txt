@@ -20,6 +20,14 @@ fabfile.doc module
     :undoc-members:
     :show-inheritance:
 
+fabfile.security module
+-----------------------
+
+.. automodule:: fabfile.security
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

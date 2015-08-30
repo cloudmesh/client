@@ -1,0 +1,38 @@
+cloudmesh_client.shell.plugins package
+======================================
+
+Submodules
+----------
+
+cloudmesh_client.shell.plugins.Bar module
+-----------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.Bar
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.shell.plugins.KeyCommands module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.KeyCommands
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.shell.plugins.SubmitCommands module
+----------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.SubmitCommands
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.shell.plugins
+    :members:
+    :undoc-members:
+    :show-inheritance:

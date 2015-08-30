@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/>
-        <link rel="next" title="Installation" href="installation.html"/>
+        <link rel="next" title="System Preparation" href="system.html"/>
         <link rel="prev" title="cloudmesh_client" href="index.html"/> 
 
   
@@ -76,22 +76,41 @@
 <li class="toctree-l2"><a class="reference internal" href="#repositories">Repositories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contact">Contact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="system.html">System Preparation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system.html#prepare-the-system">Prepare the system</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="system.html#osx">OSX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#windows-10">Windows 10</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-python">Install Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-git-in-windows">Install Git in Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-chocolatey">Install chocolatey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#administrative-powershell">Administrative Powershell</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-cygwin">Install Cygwin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-apt-cyg">Install apt-cyg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#using-cygwin">Using cygwin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#makeing-python-usable">Makeing python usable</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#linux">Linux</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="system.html#centos">CentOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#ubuntu">Ubuntu</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#prepare-the-system">Prepare the system</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#osx">OSX</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#windows">Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#linux">Linux</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#pip">Pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#source">Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#testing">Testing</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#testing">Testing</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
@@ -107,55 +126,6 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#template">TEMPLATE</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#admin">admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">banner</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#cloud">cloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster">cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#debug">debug</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#edit">edit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">exec</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#exp">exp</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#generate">generate</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#info">info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#launcher">launcher</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#load">load</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#loglevel">loglevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#open">open</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">pause</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#plugins">plugins</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#project">project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#py">py</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#q">q</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">quit</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#quota">quota</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#refresh">refresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#script">script</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#search">search</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#secgroup">secgroup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#setup">setup</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#stack">stack</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#status">status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#timer">timer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#use">use</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#var">var</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#verbose">verbose</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#version">version</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#vm">vm</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#volume">volume</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="old.html#parameterized-commands">Parameterized commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="old.html#refresh-paulo-done">Refresh (Paulo) done</a></li>
@@ -186,12 +156,9 @@
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="modules/cloudmesh_client.html">cloudmesh_client package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.iaas.html">cloudmesh_client.iaas package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.plugins.html">cloudmesh_client.plugins package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#submodules">Submodules</a></li>
@@ -200,10 +167,15 @@
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-contents">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="modules/fff.html">fff module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/gitkey.html">gitkey module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/fabfile.html">fabfile package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#fabfile-clean-module">fabfile.clean module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#fabfile-doc-module">fabfile.doc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#fabfile-security-module">fabfile.security module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/fabfile.html#module-contents">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="modules/setup.html">setup module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="modules/setup-app.html">setup-app module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="modules/test.html">test module</a></li>
 </ul>
 </li>
@@ -301,7 +273,10 @@ School of Informatics and Computing <br />
 Informatics West <br />
 901 E. 10th St. <br />
 Bloomington, IN 47408 <br /></p>
-<p><a class="reference external" href="https://www.google.com/maps/place/419+N+Indiana+Ave,+Bloomington,+IN+47408/&#64;39.1702741,-86.5271398,17z/data=!3m1!4b1!4m2!3m1!1s0x886c66c3846c845d:0xc82577f24c5b34d0">Google Map</a></p>
+<p>and my office is at</p>
+<p>611 N. Park Ave. <br />
+Bloomington, IN 47408 <br /></p>
+<p><a class="reference external" href="https://www.google.com/maps/place/611+N+Park+Ave,+Bloomington,+IN+47408/&#64;39.1721978,-86.5248349,17z/data=!3m1!4b1!4m2!3m1!1s0x886c66c69d3f454f:0x14b53a197e1ac505">Google Map</a></p>
 </div></blockquote>
 </div>
 <div class="section" id="authors">
@@ -312,6 +287,48 @@ Bloomington, IN 47408 <br /></p>
 <li>0003 (2015-06-15): Daniel Silva (<a class="reference external" href="mailto:silva10&#46;daniel&#37;&#52;&#48;gmail&#46;com">silva10<span>&#46;</span>daniel<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
 <li>0004 (2015-06-18): Hyungro Lee (<a class="reference external" href="mailto:hroe&#46;lee&#37;&#52;&#48;gmail&#46;com">hroe<span>&#46;</span>lee<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
 <li>0005 (2015-06-18): Paulo Chagas (<a class="reference external" href="mailto:paulo&#46;robertojr100&#37;&#52;&#48;gmail&#46;com">paulo<span>&#46;</span>robertojr100<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
+<li>0006 (2015-08-28): mangirish (<a class="reference external" href="mailto:vaglomangirish&#37;&#52;&#48;gmail&#46;com">vaglomangirish<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
+<li>0007 (2015-08-28): Gourav Shenoy (<a class="reference external" href="mailto:shenoy&#46;200&#37;&#52;&#48;gmail&#46;com">shenoy<span>&#46;</span>200<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
+<li>0008 (2015-08-28): Mangirish Wagle (<a class="reference external" href="mailto:vaglomangirish&#37;&#52;&#48;gmail&#46;com">vaglomangirish<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
+<li>0009 (2015-08-28): Erika Dsouza (<a class="reference external" href="mailto:erika27desouza&#37;&#52;&#48;gmail&#46;com">erika27desouza<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
+</ul>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>The project is open source and if you like you can help.</p>
+<p>Here are some contribution guidelines:</p>
+<ul>
+<li><p class="first">we use the Apache 2.0 licence</p>
+</li>
+<li><p class="first">use pycharm for editing</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">Code</span> <span class="pre">Inspect</span></code> regularly on the files you modify and fix the sensible pep8 warnings.
+Look at other warnings and errors</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">.format</span></code> instead of <code class="docutils literal"><span class="pre">%</span></code> in print</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">print_function</span></code> at the beginning of the file and use
+<code class="docutils literal"><span class="pre">print(&quot;msg&quot;)</span></code> instead of <code class="docutils literal"><span class="pre">print</span> <span class="pre">msg</span></code></p>
+</li>
+<li><p class="first">use as much python 3 like code developed in python 2</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">class</span> <span class="pre">name(object):</span></code> and not just <code class="docutils literal"><span class="pre">class</span> <span class="pre">name:</span></code></p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">Console.error</span></code> when printing errors if you develop a command for the commandline</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">ConfigDict</span></code> when reading yaml files</p>
+</li>
+<li><p class="first">use nose tests for testing your programs</p>
+<p>An example is provided in <code class="docutils literal"><span class="pre">tests/test_sample.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>nosetests -v --nocapture tests/test_sample.py
+</pre></div>
+</div>
+<p>you can copy this to <code class="docutils literal"><span class="pre">tests/test_yourfile.py</span></code> and then replace in
+that file the occurance of <code class="docutils literal"><span class="pre">_sample</span></code> with <code class="docutils literal"><span class="pre">_yourfile</span></code></p>
+<p>make sure to create meaningful tests.</p>
+</li>
+<li><p class="first">the documentation is writte in RST <a class="reference external" href="http://sphinx-doc.org/rest.html">http://sphinx-doc.org/rest.html</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -322,7 +339,7 @@ Bloomington, IN 47408 <br /></p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="system.html" class="btn btn-neutral float-right" title="System Preparation" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="cloudmesh_client" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -6,13 +6,10 @@ Subpackages
 
 .. toctree::
 
-    cloudmesh_client.cloud
     cloudmesh_client.common
-    cloudmesh_client.db
     cloudmesh_client.etc
-    cloudmesh_client.iaas
     cloudmesh_client.keys
-    cloudmesh_client.plugins
+    cloudmesh_client.shell
 
 Submodules
 ----------

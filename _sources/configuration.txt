@@ -1,33 +1,22 @@
 Configuration
 =============
 
-::
+.. todo:: implement
 
-   cm setup_yaml
-
-
-::
-
-   cm plugins add cloudmesh_cloud
-
+First you need to initialize cloudmesh by invoking the command:
 
 ::
 
-   cm help
+   cm init
 
-
-cloudmesh.yaml
---------------
-
-::
+This will create for you a default configuration file::
    
    ~/.cloudmesh/cloudmesh.yaml
 
 Example
-^^^^^^^
+--------
 
-
-.. include: ../../cloudmesh_etc/cloudmesh.yaml
+.. literalinclude:: ../../etc/cloudmesh.yaml
 
 
 https://github.com/cloudmesh/client/blob/master/cloudmesh_etc/cloudmesh.yaml
