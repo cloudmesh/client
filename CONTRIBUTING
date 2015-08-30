@@ -1,31 +1,36 @@
-Contributing
-==================================================
+The project is open source and if you like you can help. 
 
-Here will be the contributing guidelines
+Here are some contribution guidelines:
+
+* we use the Apache 2.0 licence
 
 * use pycharm for editing
-* use Code Inspect regularly on the files you modify and fix the sensible pip8 warnings.
+
+* use ``Code Inspect`` regularly on the files you modify and fix the sensible pep8 warnings.
   Look at other warnings and errors
 
-* use .format instead of % in print
-* use from __future__ import print_function at the beginning of the file and use
-    print("msg") instead of print msg
+* use ``.format`` instead of ``%`` in print
+
+* use ``from __future__ import print_function`` at the beginning of the file and use
+  ``print("msg")`` instead of ``print msg``
 
 * use as much python 3 like code developed in python 2
-* use class name(object): and not just class name:
 
-* use Console.error when printing errors if you develop a command for the commandline
+* use ``class name(object):`` and not just ``class name:``
 
-* use ConfigDict when reading yaml files
+* use ``Console.error`` when printing errors if you develop a command for the commandline
+
+* use ``ConfigDict`` when reading yaml files
 
 * use nose tests for testing your programs
 
-  An example is provided in tests/test_sample.py
+  An example is provided in ``tests/test_sample.py``::
 
     nosetests -v --nocapture tests/test_sample.py
 
-  you can copy this to tests/test_yourfile.py
-
-    and then replace in that file the occurance of _sample with _yourfile
+  you can copy this to ``tests/test_yourfile.py`` and then replace in
+  that file the occurance of ``_sample`` with ``_yourfile``
 
   make sure to create meaningful tests.
+
+* the documentation is writte in RST http://sphinx-doc.org/rest.html

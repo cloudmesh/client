@@ -102,7 +102,7 @@ which should give the version Python 2.7.10
 Windows 10
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Install Python (may not be needed)
+Install Python
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. warning:: python may come with cygwin and this may therefor be
@@ -127,7 +127,7 @@ Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path
 
 Install Git in Windows
-----------------------------------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To download and install git for windows, please go to
 
@@ -140,8 +140,7 @@ you install it so that git can be run from the terminal. Please
 provide screenshots or write down what needs to be checked on.
 
 
-
-Install Cygwin
+Install chocolatey
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 We install cygwin via chocolatey. To do so you first have to start a
@@ -160,8 +159,18 @@ Next execute the command to install chocolatey::
 Unset the script execution permission::
   
   Set-ExecutionPolicy Restricted
+
+Administrative Powershell
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. note:: Often you will need to execute commands in an administrative powere
+	  shell. You can right click or CTRL click (dependent on your
+	  configuration) on the powereshell icon in order to obtain a powershell
+	  with increased administrative rights. 
   
-Next execute in cmd.exe::
+Install Cygwin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+Next execute in a powershell::
   
   choco install --force -y cygwin 
  
@@ -225,6 +234,9 @@ We want also to install virtualenv::
 
   pip install virtualenv
 
+and pyreadline::
+
+   pip install pyreadline
 
 Linux
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

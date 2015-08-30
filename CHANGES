@@ -3,6 +3,8 @@ Summary of Changes
 
 .. todo:: update your changes here
 
+* developed a simple commandshell that also works in windows but does
+  not use cmd3
 
 3.2.1
 ------
