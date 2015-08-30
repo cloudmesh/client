@@ -1,13 +1,13 @@
 from __future__ import print_function
-import os
-from cmd3.console import Console
-from cmd3.shell import command
+# import os
+from cloudmesh_client.shell.cm import command
+from cloudmesh_client.shell.console import Console
 from pprint import pprint
 # from cloudmesh_client.cloud.command_key import command_key
 from cloudmesh_base.util import path_expand
-from os import listdir
-from os.path import expanduser, isfile, abspath
-from cloudmesh_base.tables import dict_printer, two_column_table
+# from os import listdir
+# from os.path import expanduser, isfile, abspath
+# from cloudmesh_base.tables import dict_printer, two_column_table
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.tables import dict_printer
@@ -15,12 +15,15 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 import yaml
 import json
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_base.menu import num_choice, dict_choice
+# from cloudmesh_base.menu import num_choice, dict_choice
 from cloudmesh_client.plugins.cm_shell_select import cm_shell_select
 
-class cm_shell_key:
-    def activate_cm_shell_key(self):
-        self.register_command_topic('cloud', 'key')
+
+class KeyCoommand(object):
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command key")
 
     @command
     def do_key(self, args, arguments):
@@ -127,15 +130,15 @@ class cm_shell_key:
 
             if arguments['--source'] == 'ssh':
 
-                sshm = SSHKeyManager()
-                sshm.get_from_dir(directory)
+                #sshm = SSHKeyManager()
+                #sshm.get_from_dir(directory)
                 d = dict(sshm.__keys__)
                 print(_print_dict(d, format=_format))
 
             elif arguments['--source'] in ['cm', 'cloudmesh']:
 
-                sshm = SSHKeyManager()
-                m = sshm.get_from_yaml(load_order=directory)
+                #sshm = SSHKeyManager()
+                #m = sshm.get_from_yaml(load_order=directory)
                 d = dict(m.__keys__)
                 print(_print_dict(d, format=_format))
 
@@ -147,9 +150,10 @@ class cm_shell_key:
                     conf = ConfigDict("cloudmesh.yaml")
                     username = conf["cloudmesh.github.username"]
 
-                sshm = SSHKeyManager()
+                #sshm = SSHKeyManager()
                 try:
-                    sshm.get_from_git(username)
+                    pass
+                #    sshm.get_from_git(username)
                 except:
                     Console.error("problem reading keys from user: " + username)
                     return
@@ -157,8 +161,8 @@ class cm_shell_key:
                 print(_print_dict(d, format=_format))
 
             elif arguments['--source'] == 'db':
-                sshdb = SSHKeyDBManager()
-                d = sshdb.table_dict()
+                #sshdb = SSHKeyDBManager()
+                #d = sshdb.table_dict()
                 if d != {}:
                     print(_print_dict(d, format=arguments['--format']))
                 else:
@@ -167,8 +171,8 @@ class cm_shell_key:
         elif arguments['get']:
 
             name = arguments['NAME']
-            sshdb = SSHKeyDBManager()
-            d = sshdb.table_dict()
+            #sshdb = SSHKeyDBManager()
+            #d = sshdb.table_dict()
             try:
                 for i in d:
                     if d[i]["cm_name"] == name:
@@ -198,9 +202,9 @@ class cm_shell_key:
                 username = conf["cloudmesh.github.username"]
             print(username)
 
-            sshm = SSHKeyManager()
+            #sshm = SSHKeyManager()
             try:
-                sshm.get_from_git(username)
+                #sshm.get_from_git(username)
                 d = dict(sshm.__keys__)
             except:
                 Console.error("problem reading keys from user: " + username)
@@ -210,31 +214,30 @@ class cm_shell_key:
                 d[gitkeyname]['keyname'] = keyname
                 d[gitkeyname]['cm_user'] = None
                 d[gitkeyname]['source'] = 'git'
-                sshdb.add_from_dict(d[gitkeyname])
+                #sshdb.add_from_dict(d[gitkeyname])
             except:
                 Console.error("the key may already there")
 
         elif arguments['add'] and not arguments["--git"]:
 
             print('ssh dd')
-            sshdb = SSHKeyDBManager()
+            #sshdb = SSHKeyDBManager()
             keyname = arguments['--name']
             filename = arguments['FILENAME']
             try:
-                sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
+                pass
+                #sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
             except:
                 Console.error("problem adding the specified key")
 
         elif arguments['default']:
 
-
-
             print("default")
             if arguments['KEYNAME']:
-                keyname = arguments['KEYNAME']
-                sshdb = SSHKeyDBManager()
-                sshdb.set_default(keyname)
-                Default.set("key", keyname,"general")
+                #keyname = arguments['KEYNAME']
+                #sshdb = SSHKeyDBManager()
+                #sshdb.set_default(keyname)
+                #Default.set("key", keyname, "general")
 
             elif arguments['--select']:
 
@@ -242,16 +245,15 @@ class cm_shell_key:
                 command.do_select("key")
 
             else:
-                sshdb = SSHKeyDBManager()
-                default = sshdb.object_to_dict(sshdb.get_default())
+                #sshdb = SSHKeyDBManager()
+                #default = sshdb.object_to_dict(sshdb.get_default())
                 print('default key', default)
-
 
         elif arguments['delete']:
             print('delete')
             if arguments['--all']:
-                sshdb = SSHKeyDBManager()
-                sshdb.delete_all()
+                #sshdb = SSHKeyDBManager()
+                #sshdb.delete_all()
             elif arguments['--select']:
                 select = sshdb.select()
                 if select != 'q':
@@ -260,8 +262,8 @@ class cm_shell_key:
                 sshdb.delete(keyname)
             else:
                 keyname = arguments['KEYNAME']
-                sshdb = SSHKeyDBManager()
-                sshdb.delete(keyname)
+                #sshdb = SSHKeyDBManager()
+                #sshdb.delete(keyname)
 
 
 if __name__ == '__main__':

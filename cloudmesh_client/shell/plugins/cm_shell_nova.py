@@ -1,8 +1,8 @@
 from __future__ import print_function
 import os
 import sys
-from cmd3.shell import command
-from cmd3.console import Console
+from cloudmesh_client.shell.cm import command
+from cloudmesh_client.shell.console import Console
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.tables import row_table
 from cloudmesh_base.Shell import Shell
@@ -14,13 +14,12 @@ import urllib3
 log = LOGGER(__file__)
 
 
-class cm_shell_nova:
-    def activate_cm_shell_nova(self):
-        """
+class NovaCommand (object):
 
-        """
-        self.register_command_topic('cloud', 'nova')
-        pass
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print ("init command nova")
 
     @command
     def do_nova(self, args, arguments):

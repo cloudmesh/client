@@ -1,11 +1,8 @@
 from __future__ import print_function
-from cmd3.console import Console
-from pprint import pprint
+from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import Config
-import os
 import textwrap
 from os.path import expanduser
 from cloudmesh_base.util import path_expand
@@ -14,7 +11,6 @@ from cloudmesh_base.util import yn_choice
 
 
 class CloudRegister(object):
-
     @classmethod
     def get(self, cloud):
         config = ConfigDict("cloudmesh.yaml")
@@ -45,7 +41,8 @@ class CloudRegister(object):
         :return:
         """
         result = Shell.fgrep("Host ",
-                             Config.path_expand("~/.ssh/config")).replace("Host ", "").replace(" ", "")
+                             Config.path_expand("~/.ssh/config")).replace(
+            "Host ", "").replace(" ", "")
         Console.ok("The following hosts are defined in ~/.ssh/config")
         print("")
         for line in result.split("\n"):
@@ -86,7 +83,10 @@ class CloudRegister(object):
         :type filename: string
         :return:
         """
-        config = ConfigDict("cloudmesh.yaml")
+        if filename is None:
+            filename = "cloudmesh.yaml"
+
+        config = ConfigDict(filename)
 
         content = config.yaml
 
@@ -122,9 +122,8 @@ class CloudRegister(object):
 
             if os.path.exists(_to):
 
-                  if not yn_choice("Directory already exists. Would you like "
-                                   "to overwrite {:}juno directory y/n? ".format(_to),
-                                   force=force):
+                if not yn_choice("Directory already exists. Would you like "
+                                 "to overwrite the {:} directory y/n? ".format(_to), force=force):
                     return
 
             else:
@@ -155,7 +154,8 @@ class CloudRegister(object):
         """
         Console.ok("register")
 
-        if host == "india":  # for india, CERT will be in .cloudmesh/clouds/india/juno/cacert.pem (this is a remote dir)
+        if host == "india":
+            # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
             _to = path_expand('~/.cloudmesh/clouds/india/juno/')
@@ -163,9 +163,10 @@ class CloudRegister(object):
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
 
-                if not yn_choice("File already exists. Would you like to overwrite "
-                                  "{:}/cacert.pem file y/n? ".format(_to),
-                                 force=force):
+                if not yn_choice(
+                        "File already exists. Would you like to overwrite "
+                        "{:}/cacert.pem file y/n? ".format(_to),
+                        force=force):
                     return
 
             try:
@@ -192,7 +193,8 @@ class CloudRegister(object):
                 if line.strip().startswith("export"):
                     line = line.replace("export ", "")
                     key, value = line.split("=", 1)
-                    config["cloudmesh"]["clouds"][host]["credentials"][key] = value
+                    config["cloudmesh"]["clouds"][host]["credentials"][
+                        key] = value
             config.save()
             Console.ok("cert registered in cloudmesh.yaml file.")
         else:
@@ -217,12 +219,12 @@ class CloudRegister(object):
             _to = path_expand('~/.cloudmesh/clouds/{:}'.format(host))
 
             folder = dir.split('/')
-            destination = _to+"/"+(folder[-1:])[0]
+            destination = _to + "/" + (folder[-1:])[0]
 
             if os.path.exists(destination):
                 if not yn_choice("Directory already exists. Would you like to "
-                           "overwrite {:} directory y/n? ".format(destination),
-                           force=force):
+                                 "overwrite {:} directory y/n? ".format(destination),
+                                 force=force):
                     return
 
             try:
@@ -272,7 +274,8 @@ class CloudRegister(object):
         except NameError:
             pass
         for key in keys:
-            result = input("Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
+            result = input(
+                "Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
 
             profile[key] = result
         config["cloudmesh"]["profile"] = profile
@@ -288,7 +291,8 @@ class CloudRegister(object):
 
             for key in credentials:
                 if key not in ["OS_VERSION", "OS_AUTH_URL"]:
-                    result = raw_input("Please enter {:}[{:}]:".format(key, credentials[key])) or credentials[key]
+                    result = raw_input("Please enter {:}[{:}]:"
+                                       .format(key, credentials[key])) or credentials[key]
                     credentials[key] = result
-        config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
+            config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()

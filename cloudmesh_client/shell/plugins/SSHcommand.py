@@ -1,14 +1,17 @@
 from __future__ import print_function
-import os
-from cmd3.console import Console
-from cmd3.shell import command
-from pprint import pprint
+from cloudmesh_client.shell.cm import command
+from cloudmesh_client.shell.console import Console
 # from cloudmesh_client.cloud.command_ssh import command_ssh
 
 
-class cm_shell_ssh:
-    def activate_cm_shell_ssh(self):
-        self.register_command_topic('cloud', 'ssh')
+class SSHCommand (object):
+
+    #def activate_cm_shell_ssh(self):
+
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print ("init command ssh")
 
     @command
     def do_ssh(self, args, arguments):

@@ -1,18 +1,23 @@
 from __future__ import print_function
-from cmd3.shell import command
-from pprint import pprint
+
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.shell.cm import command
+
 from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
-from cloudmesh_client.cloud.CloudRegister import CloudRegister
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.common.tables import dict_printer
-from cmd3.console import Console
+##from cloudmesh_client.cloud.CloudRegister import CloudRegister
+# from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+# from cloudmesh_client.common.tables import dict_printer
 import json
 
-class cm_shell_register:
-    def activate_cm_shell_register(self):
-        self.register_command_topic('cloud', 'register')
+class RegisterCommand(object):
+
+    def __init__(self, context):
+        # super(self.__class__, self).__init__()
+        self.context = context
+        if self.context.debug:
+            print ("init command register")
 
     @command
     def do_register(self, args, arguments):
@@ -136,50 +141,50 @@ class cm_shell_register:
 
         elif arguments['list'] and arguments['ssh']:
 
-            CloudRegister.list_ssh()
+            # CloudRegister.list_ssh()
             return
 
         elif arguments['list']:
 
             filename = _get_file(arguments)
-            CloudRegister.list(filename)
+            # CloudRegister.list(filename)
             return
 
         elif arguments['check']:
             filename = _get_file(arguments)
-            CloudRegister.check_yaml_for_completeness(filename)
+            # CloudRegister.check_yaml_for_completeness(filename)
             return
 
         elif arguments['--yaml']:
             filename = arguments['FILENAME']
             Console.ok("--yaml", filename)
-            CloudRegister.from_file(filename)
+            # CloudRegister.from_file(filename)
             return
 
         elif arguments['test']:
             filename = _get_file(arguments)
-            CloudRegister.test(filename)
+            # CloudRegister.test(filename)
             return
         elif arguments['form']:
             filename = _get_file(arguments)
-            CloudRegister.fill_out_form(filename)
+            # CloudRegister.fill_out_form(filename)
             return
 
         elif arguments['rc']:
             filename = arguments['OPENRC']
             host = arguments['HOST']
-            CloudRegister.read_rc_file(host, filename)
+            # CloudRegister.read_rc_file(host, filename)
             return
 
         elif arguments['json']:
             host = arguments['HOST']
-            result = CloudRegister.get(host)
-            print(json.dumps(result, indent=4))
+            # result = CloudRegister.get(host)
+            # print(json.dumps(result, indent=4))
             return
 
         elif arguments['india']:
             force = arguments['--force']
-            CloudRegister.host("india", force)
+            # CloudRegister.host("india", force)
             return
 
         elif arguments['CLOUD']:
@@ -189,17 +194,17 @@ class cm_shell_register:
                 force = False
                 if arguments['--force']:
                     force = True
-                CloudRegister.certificate(cloud, path, force)
+                # CloudRegister.certificate(cloud, path, force)
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
                 dir = arguments['--dir']
                 Console.ok(dir)
-                CloudRegister.directory(cloud, dir)
+                # CloudRegister.directory(cloud, dir)
 
         # if all fails do a simple list
 
         filename = _get_file(arguments)
-        CloudRegister.list(filename)
+        # CloudRegister.list(filename)
 
         pass
 

@@ -5,7 +5,7 @@ class KeyCommands(object):
         # super(self.__class__, self).__init__()
         self.context = context
         if self.context.debug:
-            print ("init KeyCommand")
+            print ("init command key")
 
     def do_key(self, args):
         print ('executing key')

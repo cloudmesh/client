@@ -1,9 +1,8 @@
 from __future__ import print_function
-from docopt import docopt
+from ..command_decorator import command
 
-class Bar(object):
+class BarCommand(object):
     def __init__(self, context):
-        # super(self.__class__, self).__init__()
         self.context = context
         if self.context.debug:
             print ("init Bar")

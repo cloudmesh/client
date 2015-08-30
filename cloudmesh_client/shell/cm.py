@@ -1,7 +1,8 @@
 from __future__ import print_function
 
 import cmd
-from plugins.KeyCommands import KeyCommands
+from .command_decorator import command
+import plugins
 import textwrap
 import inspect
 import shlex
@@ -10,48 +11,12 @@ from pprint import pprint
 import sys
 import traceback
 
+# from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
+# from cloudmesh_client.shell.plugins.KeyCommands import KeyCommands
 # import inspect
 
-
-def command(func):
-    '''
-    A decorator to create a function with docopt arguments. It also generates a help function
-
-    @command
-    def do_myfunc(self, args):
-        """ docopts text """
-        pass
-
-    will create
-
-    def do_myfunc(self, args, arguments):
-        """ docopts text """
-        ...
-
-    def help_myfunc(self, args, arguments):
-        ... prints the docopt text ...
-
-    :param func: the function for the decorator
-    '''
-    classname = inspect.getouterframes(inspect.currentframe())[1][3]
-    name = func.__name__
-    help_name = name.replace("do_", "help_")
-    doc = textwrap.dedent(func.__doc__)
-
-    def new(instance, args):
-        # instance.new.__doc__ = doc
-        try:
-            argv = shlex.split(args)
-            arguments = docopt(doc, help=True, argv=argv)
-            func(instance, args, arguments)
-        except SystemExit:
-            if args not in ('-h', '--help'):
-                print("Could not execute the command.")
-            print(doc)
-
-    new.__doc__ = doc
-    return new
-
+from plugins.Bar import BarCommand
+from plugins.RegisterCommand import RegisterCommand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -59,9 +24,10 @@ class CloudmeshContext(object):
 
 
 class CloudmeshConsole(cmd.Cmd,
-                       KeyCommands):
+                       BarCommand,
+                       RegisterCommand):
     """
-    CLoudmesh Console
+    Cloudmesh Console
     """
 
     def __init__(self, context):
@@ -121,6 +87,7 @@ class CloudmeshConsole(cmd.Cmd,
     def do_context(self, args):
         print(self.context)
 
+    '''
     @command
     def do_bar(self, arg, arguments):
         """Usage:
@@ -138,6 +105,7 @@ class CloudmeshConsole(cmd.Cmd,
 
         """
         print(arguments)
+    '''
 
 def simple():
     context = CloudmeshContext(debug=False,
