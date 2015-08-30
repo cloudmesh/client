@@ -10,6 +10,7 @@ file.
 .. toctree::
 
    prefix
+   system
    installation
    configuration
    use

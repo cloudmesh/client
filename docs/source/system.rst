@@ -76,24 +76,24 @@ client. To do so please isseue the following commands
    pip install urllib3
 
 .. note:: We found that readline and pycrypto could not be installed
-with pip at the time of writing of this manual. Despite the fact that
-it installed it, the installed versions were not usable. The
-workaround is to use easy_install. If you have a better idea how to
-fix this, let us know and send mail to laszewski@gmail.com.
+	  with pip at the time of writing of this manual. Despite the fact that
+	  it installed it, the installed versions were not usable. The
+	  workaround is to use easy_install. If you have a better idea how to
+	  fix this, let us know and send mail to laszewski@gmail.com.
 
 It is recommended that you test the version of the python interpreter
 and pip again::
    
    pip --version
 
-pip 7.1.2<
+which should give the version 7.1.2
    
 ::
 
    python --version
 
 
-Python 2.7.10
+which should give the version Python 2.7.10
 
 
 .. _windows-install:
@@ -125,6 +125,21 @@ install it.
 
 Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path
+
+Install Git in Windows
+----------------------------------------------------------------------
+
+To download and install git for windows, please go to
+
+* https://git-scm.com/download/win
+
+.. todo:: check if this is the right way to do so
+
+You will be asked a couple of questions and you should make sure that
+you install it so that git can be run from the terminal. Please
+provide screenshots or write down what needs to be checked on.
+
+
 
 Install Cygwin
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

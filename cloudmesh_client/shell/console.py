@@ -4,15 +4,34 @@ import colorama
 
 colorama.init()
 
-print(Fore.RED + 'some red text')
-print(Back.GREEN + 'and with a green background')
-print(Style.DIM + 'and in dim text')
-print(Fore.RESET + Back.RESET + Style.RESET_ALL)
-print('back to normal now')
-
 
 class Console(object):
+    """
+    A simple way to print in a console terminal in color. Instead of using
+    simply the print statement you can use special methods to indicate
+    warnings, errors, ok and regular messages.
 
+    Example Usage::
+
+        Console.warning("Warning")
+        Console.error("Error")
+        Console.info("Info")
+        Console.msg("msg")
+        Console.ok("Success")
+
+    One can swith the color mode off with::
+
+        Console.color = False
+        Console.error("Error")
+
+    The color will be switched on by default.
+    """
+
+    #
+    # TODO: It would be good if the Console uses the borg pattern to have a
+    # global switch for the console color mode. Currently each import
+    # switches it back to color.
+    #
     color = True
 
     theme_color = {
@@ -29,7 +48,6 @@ class Console(object):
         'ENDC': '\033[0m',
         'BOLD': "\033[1m",
     }
-
 
     theme_bw = {
         'HEADER': '',
@@ -55,13 +73,13 @@ class Console(object):
         else:
             Console.theme = Console.theme_bw
         Console.color = color
-    
+
     @staticmethod
     def get(name):
         if name in Console.theme:
-            Console.theme[name]
+            return Console.theme[name]
         else:
-            Console.theme['BLACK']
+            return Console.theme['BLACK']
 
     @staticmethod
     def _msg(message, width=90):
@@ -110,13 +128,13 @@ class Console(object):
                Console._msg(message) +
                Console.theme['ENDC'])
 
+
 #
 # Example
 #
 
 
 if __name__ == "__main__":
-
     print Console.color
 
     print Console.theme
@@ -131,3 +149,8 @@ if __name__ == "__main__":
     print Console.color
     Console.error("Error")
 
+    print(Fore.RED + 'some red text')
+    print(Back.GREEN + 'and with a green background')
+    print(Style.DIM + 'and in dim text')
+    print(Fore.RESET + Back.RESET + Style.RESET_ALL)
+    print('back to normal now')
