@@ -79,8 +79,6 @@ class DEFAULT(CloudmeshMixin, db.Base):
 
     todo: check if its global or general
     """
-    __tablename__ = 'default'
-
     # name defined in mixin
     value = Column(String)
     type = Column(String, default="string")
@@ -102,12 +100,18 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.name = name
         self.user = user
         self.value = value
-
+        self.kind = self.__tablename__
 
 
 def tables():
     return [DEFAULT]
 
+def tablenames():
+    return ["default"]
+
+def table(name):
+    if name == "default":
+        return DEFAULT
 """
 db.Base.metadata.create_all()
 

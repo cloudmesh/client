@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
-from cloudmesh_client.db.model import tables
+from cloudmesh_client.db.model import tables, tablenames, table
 
 
 class CloudmeshDatabase(object):
@@ -83,7 +83,7 @@ class CloudmeshDatabase(object):
         """
         count_result = {}
         if kind is None:
-            kinds = tables()
+            kinds = tablenames()
         else:
             kinds = Parameter.expand(kind)
         if what is None:
@@ -96,19 +96,19 @@ class CloudmeshDatabase(object):
 
         if "table" in infos:
             for table_name in inspector.get_table_names():
-                if table_name.upper() in kinds:
+                if table_name in kinds:
                     print(table_name + ":")
                     for column in inspector.get_columns(table_name):
                         print("  ", column['name'], column['type'])
 
         sum = 0
         if "count" in infos:
-            for table in [VM, FLAVOR, IMAGE, DEFAULT]:
-                rows = self.session.query(table).count()
-                name = str(table.name).replace(".name", "")
-                count_result[name] = rows
-                if name in kinds:
-                    print("Count {:}: {:}".format(name, rows))
+            for tablein in inspector.get_table_names():
+                if table_name in kinds:
+                    t = table(table_name)
+                    rows = self.session.query(t).count()
+                    count_result[table_name] = rows
+                    print("Count {:}: {:}".format(table_name, rows))
                 sum = sum + rows
             count_result['sum'] = sum
 
@@ -130,9 +130,8 @@ class CloudmeshDatabase(object):
 def main():
     cm = CloudmeshDatabase(cm_user="gregor")
 
-
     m = DEFAULT("hallo", "world")
-
+    m.newfield__hhh = 13.9
     cm.add(m)
 
 
@@ -149,6 +148,17 @@ def main():
     print ("\n\n")
 
     pprint (o.__dict__)
+
+
+    m = DEFAULT("other", "world")
+    m.other = "ooo"
+    cm.add(m)
+
+    print ("\n\n")
+    pprint (cm.get(DEFAULT, 'other').__dict__)
+
+
+    cm.info()
 
     """
 
