@@ -11,21 +11,7 @@ from datetime import datetime
 import json
 from pprint import pprint
 
-class MyMixin(object):
 
-    @declared_attr
-    def __tablename__(cls):
-        return cls.__name__.lower()
-
-    # __table_args__ = {'mysql_engine': 'InnoDB'}
-    __mapper_args__= {'always_refresh': True}
-
-    id =  Column(Integer, primary_key=True)
-    created_at = Column(DateTime, default=datetime.now)
-    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
-    label = Column(String, default="undefined")
-    cloud = Column(String, default="undefined")
-    cloud_id = Column(String, default="undefined")
 
 class database(object):
     """
@@ -63,46 +49,91 @@ class database(object):
         self.meta.reflect(bind=self.engine)
         # self.session = sessionmaker(bind=self.engine)
 
+
+
 db = database()
 
-class User(MyMixin, db.Base):
-    name = Column(String)
 
-class Default(MyMixin, db.Base):
-    name = Column(String)
+class CloudmeshMixin(object):
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+    # __table_args__ = {'mysql_engine': 'InnoDB'}
+    __mapper_args__= {'always_refresh': True}
+
+    id =  Column(Integer, primary_key=True)
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    label = Column(String, default="undefined")
+    name = Column(String, default="undefined")
+    cloud = Column(String, default="undefined")
+    user = Column(String, default="undefined")
+    kind = Column(String, default="undefined")
+
+class DEFAULT(CloudmeshMixin, db.Base):
+    """table to store defualt values
+
+    if the cloud is "global" it is ment to be a global variable
+
+    todo: check if its global or general
+    """
+    __tablename__ = 'default'
+
+    # name defined in mixin
     value = Column(String)
+    type = Column(String, default="string")
+
+    cloud = Column(String)
+
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 cloud=None,
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        if cloud is None:
+            cloud = "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
 
 
 
+def tables():
+    return [DEFAULT]
+
+"""
 db.Base.metadata.create_all()
 
 Session = sessionmaker(bind=db.engine)
 session = Session()
 
-def setid(o):
-    o.label = "{}-{}-{}".format(o.__tablename__, o.name, o.id)
-    o.classname = o.__tablename__
-
 def add(o):
     session.add(o)
     session.commit()
-    setid(o)
     session.flush()
 
 
-m = User()
+m = DEFAULT("hallo", "world")
 
-m.name = "gregor"
-m.newfield = "P"
 add(m)
 
 
-n = session.query(User).filter_by(name='gregor').first()
+n = session.query(DEFAULT).filter_by(name='hallo').first()
 
 print ("\n\n")
 
 pprint (n.__dict__)
 
+"""
+
+"""
 d = Default()
 
 d.name  = "image"
@@ -127,4 +158,4 @@ for n in session.query(Default).all():
 
 
 #session.query(MyModel).filter(name=name).first()
-
+"""
