@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: once your python prg wors remove this script
 
 if [[ -z $1 ]]
 then
@@ -7,6 +8,7 @@ then
 fi
 
 ##### Specific to this laptop
+# TODO: ;-) remove this as specific to your machine
 if [[ $1 -gt 2 ]] && [[ `hostname` == "MangoLap" ]]
 then
   echo "SORRY, This Machine cannot handle more than 2 VMs"
