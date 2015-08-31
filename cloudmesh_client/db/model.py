@@ -71,6 +71,7 @@ class CloudmeshMixin(object):
     cloud = Column(String, default="undefined")
     user = Column(String, default="undefined")
     kind = Column(String, default="undefined")
+    group = Column(String, default="undefined")
 
 class DEFAULT(CloudmeshMixin, db.Base):
     """table to store defualt values
@@ -90,12 +91,48 @@ class DEFAULT(CloudmeshMixin, db.Base):
                  name,
                  value,
                  type="string",
+                 group=None,
                  cloud=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
         if cloud is None:
             cloud = "general"
+        if group is None:
+            group = "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
+class KEY(CloudmeshMixin, db.Base):
+
+    value = Column(String)
+    fingerprint = Column(String)
+    source = Column(String)
+    comment = Column(String)
+    uri = Column(String)
+
+    def __init__(self,
+                 name,
+                 value,
+                 uri=None,
+                 source=None,
+                 fingerprint=None,
+                 comment=None,
+                 type="string",
+                 group=None,
+                 cloud=None,
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.group = group or "general"
+        self.uri = uri
+        self.comment = comment
+        self.fingerprint = fingerprint
+        self.source = source
         self.type = type
         self.name = name
         self.user = user
@@ -107,11 +144,13 @@ def tables():
     return [DEFAULT]
 
 def tablenames():
-    return ["default"]
+    return ["default","key"]
 
 def table(name):
     if name == "default":
         return DEFAULT
+    if name == "key":
+        return KEY
 """
 db.Base.metadata.create_all()
 

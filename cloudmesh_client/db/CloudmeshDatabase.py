@@ -109,7 +109,7 @@ class CloudmeshDatabase(object):
                     rows = self.session.query(t).count()
                     count_result[table_name] = rows
                     print("Count {:}: {:}".format(table_name, rows))
-                sum = sum + rows
+                    sum = sum + rows
             count_result['sum'] = sum
 
         return count_result
