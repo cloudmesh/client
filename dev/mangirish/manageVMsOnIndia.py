@@ -16,9 +16,9 @@ SERVER_ID = sys.argv[2]
 from novaclient import client
 nova = client.Client(VERSION, OS_USERNAME, OS_PASSWORD, OS_TENANT_NAME, OS_AUTH_URL, OS_CACERT)
 
-print "Following are the running servers"
+print("Following are the running servers")
 servers = nova.servers.list()
-print servers
+print(servers)
 
 if COMMANDARG != "create":
     server = nova.servers.get(SERVER_ID)
