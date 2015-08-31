@@ -34,12 +34,12 @@ if COMMANDARG == "create":
 
 elif COMMANDARG == "start":
     server.start()
-    print "%s start issued" %server
+    print "{0} start issued".format(server)
 
 elif COMMANDARG == "stop":
     server.stop()
-    print "%s stop issued" %server
+    print "{0} stop issued".format(server)
 
 elif COMMANDARG == "delete":
     server.delete()
-    print "%s delete issued" %server
+    print "{0} delete issued".format(server)

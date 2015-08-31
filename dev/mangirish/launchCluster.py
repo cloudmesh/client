@@ -62,29 +62,29 @@ def spawn_vm_cluster_on_india_cloud():
 
     with open(spec_file, "r") as stream:
         specStream = yaml.load(stream)
-    print specStream['master'][0]['hostname']
+    print(specStream['master'][0]['hostname'])
     ## TODO: Check if machine already exists
     ### Spawn master VM
-    commandString = "./manageVMsOnIndia.py create %s %s %s" %(specStream['master'][0]['hostname'], machine_image_id, machine_flavor_id)
+    commandString = "./manageVMsOnIndia.py create {0} {1} {2}".format(specStream['master'][0]['hostname'], machine_image_id, machine_flavor_id)
     #print commandString
     os.system(commandString)
 
     ### Spawn workers
     for worker_index in range(len(specStream['worker'])):
         ## TODO: Check if machine already exists
-        commandString = "./manageVMsOnIndia.py create %s %s %s" %(specStream['worker'][worker_index]['hostname'], machine_image_id, machine_flavor_id)
+        commandString = "./manageVMsOnIndia.py create {0} {1} {2}".format(specStream['worker'][worker_index]['hostname'], machine_image_id, machine_flavor_id)
         #print commandString
         os.system(commandString)
 
 
 if cloud == "vagrant":
-    print "Issuing vagrant up"
+    print("Issuing vagrant up")
     os.system("sudo vagrant up")
 elif cloud == "india":
-    print "Issuing vm start on India"
+    print("Issuing vm start on India")
     spawn_vm_cluster_on_india_cloud()
 elif cloud == "docker":
-    print "TO BE IMPLEMENTED"
+    print("TO BE IMPLEMENTED")
 elif cloud == "none":
     sys.exit(0)
 else:
