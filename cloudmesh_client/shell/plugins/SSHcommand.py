@@ -2,7 +2,8 @@ from __future__ import print_function
 from cloudmesh_client.shell.cm import command
 from cloudmesh_client.shell.console import Console
 # from cloudmesh_client.cloud.command_ssh import command_ssh
-
+from cloudmesh_base.Shell import Shell
+import os
 
 class SSHCommand (object):
 
@@ -21,7 +22,7 @@ class SSHCommand (object):
             Usage:
                 ssh list [--format=FORMAT]
                 ssh register NAME PARAMETERS
-                ssh NAME [--user=USER] [--key=KEY] [COMMAND]
+                ssh ARGUMENTS
 
 
             conducts a ssh login on a machine while using a set of
@@ -55,16 +56,16 @@ class SSHCommand (object):
         if arguments["list"]:
             output_format = arguments["--format"]
             Console.ok('list {}'.format(output_format))
+            raise ("TODO: Not implemented")
         elif arguments["register"]:
             name = arguments["NAME"]
             parameters = arguments["PARAMETERS"]
             Console.ok('register {} {}'.format(name, parameters))
-        elif arguments["NAME"]:
-            name = arguments["NAME"]
-            user = arguments["--user"]
-            key = arguments["--key"]
-            Console.ok('ssh {} {} {}'.format(name, user, key))
-        pass
+            raise ("TODO: Not implemented")
+        else:  # ssh ARGUMENTS...
+            args = arguments["ARGUMENTS"]
+            result = os.system ("ssh {}".format(args))
+            return
 
 
 if __name__ == '__main__':
