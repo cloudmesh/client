@@ -21,11 +21,11 @@ class SSHCommand (object):
             Usage:
                 ssh list [--format=FORMAT]
                 ssh register NAME PARAMETERS
-                ssh NAME [--user=USER] [--key=KEY]
+                ssh NAME [--user=USER] [--key=KEY] [COMMAND]
 
 
-            conducts a ssh login into a machine while using a set of
-            registered commands under the name of the machine.
+            conducts a ssh login on a machine while using a set of
+            registered machines specified in ~/.ssh/config
 
             Arguments:
 

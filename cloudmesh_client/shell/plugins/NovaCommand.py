@@ -6,7 +6,8 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.tables import row_table
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.cloud.command_nova import command_nova
+from cloudmesh_client.cloud.nova import Nova
+
 from pprint import pprint
 import warnings
 import urllib3
@@ -57,7 +58,7 @@ class NovaCommand (object):
             os.system("nova help")
             return
         elif arguments["info"]:
-            command_nova.set_os_environ(cloud)
+            nova.set_os_environ(cloud)
             d = {}
             for attribute in ['OS_USERNAME',
                               'OS_TENANT_NAME',
@@ -80,7 +81,7 @@ class NovaCommand (object):
         elif arguments["set"]:
             if cloud:
 
-                command_nova.set_os_environ(cloud)
+                nova.set_os_environ(cloud)
 
                 msg = "{0} is set".format(cloud)
                 Console.ok(msg)
@@ -88,8 +89,8 @@ class NovaCommand (object):
                 Console.error("CLOUD is required")
 
         else:  # nova ARGUMENTS...
-            command_nova.set_os_environ(cloud)
+            nova.set_os_environ(cloud)
             args = arguments["ARGUMENTS"]
             result = Shell.execute("nova", args)
-            print(command_nova.remove_subjectAltName_warning(result))
+            print(nova.remove_subjectAltName_warning(result))
             return

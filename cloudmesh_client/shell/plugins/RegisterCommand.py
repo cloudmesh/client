@@ -6,7 +6,7 @@ from cloudmesh_client.shell.cm import command
 from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
-from cloudmesh_client.cloud.CloudRegister import CloudRegister
+from cloudmesh_client.cloud.register import CloudRegister
 import json
 
 class RegisterCommand(object):

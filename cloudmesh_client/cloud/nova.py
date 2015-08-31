@@ -1,11 +1,10 @@
 from __future__ import print_function
-from cmd3.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
 import os
 
 
-class command_nova(object):
+class Nova(object):
     @classmethod
     def set_os_environ(cls, cloudname):
         """Set os environment variables on a given cloudname"""
