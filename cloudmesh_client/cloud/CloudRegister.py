@@ -1,8 +1,8 @@
 from __future__ import print_function
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_base.Shell import Shell
 import textwrap
 from os.path import expanduser
 from cloudmesh_base.util import path_expand
@@ -12,7 +12,7 @@ from cloudmesh_base.util import yn_choice
 
 class CloudRegister(object):
     @classmethod
-    def get(self, cloud):
+    def get(cls, cloud):
         config = ConfigDict("cloudmesh.yaml")
         if cloud in config["cloudmesh"]["clouds"]:
             return dict(config["cloudmesh"]["clouds"][cloud])
@@ -201,24 +201,24 @@ class CloudRegister(object):
             Console.error("Cloud {:} not found".format(host))
 
     @classmethod
-    def directory(cls, host, dir, force=False):
+    def directory(cls, host, directory, force=False):
         """
         Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
 
         :param host: the host name
         :type host: string
-        :param dir: the directory that will be fetched
-        :type dir: string
+        :param directory: the directory that will be fetched
+        :type directory: string
         :param force: answer questions with yes
         :type force: bool
         :return:
         """
         Console.ok("register")
         if host.lower() == "india":
-            _from = 'india:{:}'.format(dir)
+            _from = 'india:{:}'.format(directory)
             _to = path_expand('~/.cloudmesh/clouds/{:}'.format(host))
 
-            folder = dir.split('/')
+            folder = directory.split('/')
             destination = _to + "/" + (folder[-1:])[0]
 
             if os.path.exists(destination):
