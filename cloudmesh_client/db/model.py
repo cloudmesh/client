@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import Column, Integer, String, DateTime, MetaData, create_engine, inspect
 from sqlalchemy.ext.declarative import declarative_base
 
+from cloudmesh_client.common.todo import TODO
 
 class database(object):
     """
@@ -64,7 +65,6 @@ class CloudmeshMixin(object):
     cloud = Column(String, default="undefined")
     user = Column(String, default="undefined")
     kind = Column(String, default="undefined")
-    group = Column(String, default="undefined")
 
 
 class DEFAULT(CloudmeshMixin, db.Base):
@@ -84,15 +84,12 @@ class DEFAULT(CloudmeshMixin, db.Base):
                  name,
                  value,
                  type="string",
-                 group=None,
                  cloud=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
         if cloud is None:
             cloud = "general"
-        if group is None:
-            group = "general"
         self.type = type
         self.name = name
         self.user = user
@@ -100,6 +97,7 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.kind = self.__tablename__
 
 
+# TODO: BUG the value is not properly used here
 class KEY(CloudmeshMixin, db.Base):
     value = Column(String)
     fingerprint = Column(String)
@@ -115,13 +113,11 @@ class KEY(CloudmeshMixin, db.Base):
                  fingerprint=None,
                  comment=None,
                  type="string",
-                 group=None,
                  cloud=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
         self.cloud = cloud or "general"
-        self.group = group or "general"
         self.uri = uri
         self.comment = comment
         self.fingerprint = fingerprint
@@ -130,6 +126,56 @@ class KEY(CloudmeshMixin, db.Base):
         self.name = name
         self.user = user
         self.kind = self.__tablename__
+
+
+class GROUP(CloudmeshMixin, db.Base):
+    value = Column(String)
+    fingerprint = Column(String)
+    source = Column(String)
+    comment = Column(String)
+    uri = Column(String)
+
+    def __init__(self,
+                 name,
+                 cloud=None,
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.name = name
+        self.user = user
+        self.kind = self.__tablename__
+
+    def add(self, tablename, id, name):
+        """ This adds an object to the group specifying the
+        table name and the name of the object"""
+        # TODO: implement
+        TODO("implement")
+
+    def get(self, name):
+        """
+        returns a list of all elements in that group
+        """
+        TODO("implement")
+
+        """
+        TODO: implement in cloud.group
+                class Group
+
+        The purpos is to store a list of objects and retrieve them
+        conveniently.
+
+        an example would be to store a number of vms in a group that we can
+        than use to delete (we assume the anme of the vm is unique
+
+        Group.add(groupname, "VM", id, name)
+        Group.delete(groupname)
+        Group.delete("VM", groupname)
+        Group.delete("VM", cloud, groupname)
+        Group.list("VM")
+        Group.list("IMAGE")  note each cloud could have its own images, so the cloudname
+            is in result.
+        """
 
 
 def tables():

@@ -6,6 +6,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
 class Default(object):
+
     @classmethod
     def list(cls, format="table"):
         cm = CloudmeshDatabase()
