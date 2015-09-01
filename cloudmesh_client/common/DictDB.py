@@ -1,7 +1,7 @@
 class DictDB(dict):
     """
 
-    Implements a persitent dictionary using sqlite
+    Implements a persistent dictionary using sqlite
 
     Usage:
 
@@ -45,15 +45,14 @@ class DictDB(dict):
         """
         pass
 
-    def attributes(self,attribute_names):
+    def attributes(self, attribute_names):
         """
-        defines the attributes that each record can have. If a database has previously defened and
-        new attributes are added the database records are updated.
+        defines the attributes that each record can have. If a database has previously
+        defined and new attributes are added the database records are updated.
 
         :param attribute_names: The attribute names
         """
         pass
-
 
     def add(self, d):
         """

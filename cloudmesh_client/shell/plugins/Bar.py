@@ -1,11 +1,12 @@
 from __future__ import print_function
 from ..command_decorator import command
 
+
 class BarCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print ("init Bar")
+            print("init Bar")
 
     @command
     def do_bar(self, arg, arguments):

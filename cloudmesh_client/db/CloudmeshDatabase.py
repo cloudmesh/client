@@ -20,10 +20,6 @@ class CloudmeshDatabase(object):
         :param cm_user: The username that is used to be added to the objects in teh database
         """
 
-
-
-
-
         self.db = database()
         self.db.Base.metadata.create_all()
         self.session = self.connect()
@@ -33,7 +29,7 @@ class CloudmeshDatabase(object):
         else:
             self.cm_user = cm_user
 
-
+    # noinspection PyPep8Naming
     def connect(self):
         """
         before any method is called we need to connect to the database
@@ -43,7 +39,6 @@ class CloudmeshDatabase(object):
         Session = sessionmaker(bind=self.db.engine)
         self.session = Session()
         return self.session
-
 
     def save(self):
         self.session.commit()
@@ -57,6 +52,7 @@ class CloudmeshDatabase(object):
         """
         result = self.session.delete(item)
         self.save()
+
     def find_by_name(self, kind, name):
         """
         find an object by name in the given table.
@@ -175,7 +171,7 @@ class CloudmeshDatabase(object):
 
     # TODO: change name to kwargs
     def get(self, table, name):
-        return  self.session.query(table).filter_by(name=name).first()
+        return self.session.query(table).filter_by(name=name).first()
 
 
 def main():
@@ -185,28 +181,24 @@ def main():
     m.newfield__hhh = 13.9
     cm.add(m)
 
-
     n = cm.query(DEFAULT).filter_by(name='hallo').first()
 
-    print ("\n\n")
+    print("\n\n")
 
-    pprint (n.__dict__)
-
+    pprint(n.__dict__)
 
     o = cm.get(DEFAULT, 'hallo')
 
+    print("\n\n")
 
-    print ("\n\n")
-
-    pprint (o.__dict__)
+    pprint(o.__dict__)
 
     m = DEFAULT("other", "world")
     m.other = "ooo"
     cm.add(m)
 
-    print ("\n\n")
-    pprint (cm.get(DEFAULT, 'other').__dict__)
-
+    print("\n\n")
+    pprint(cm.get(DEFAULT, 'other').__dict__)
 
     cm.info()
 
@@ -216,6 +208,7 @@ def main():
     cm.info()
     # print(cm.list(VM))
     """
+
 
 if __name__ == "__main__":
     main()

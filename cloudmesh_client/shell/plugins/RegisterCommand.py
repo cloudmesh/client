@@ -9,13 +9,13 @@ import os.path
 from cloudmesh_client.cloud.register import CloudRegister
 import json
 
-class RegisterCommand(object):
 
+class RegisterCommand(object):
     def __init__(self, context):
         # super(self.__class__, self).__init__()
         self.context = context
         if self.context.debug:
-            print ("init command register")
+            print("init command register")
 
     @command
     def do_register(self, args, arguments):
@@ -89,7 +89,7 @@ class RegisterCommand(object):
                         register rc india
 
               register [--yaml=FILENAME]
-	      
+
                   read the yaml file instead of ./cloudmesh.yaml or
                   ~/.cloudmesh/cloudmesh.yaml which is used when the
                   yaml filename is ommitted.

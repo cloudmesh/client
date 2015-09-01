@@ -29,8 +29,12 @@ Here are some contribution guidelines:
     nosetests -v --nocapture tests/test_sample.py
 
   you can copy this to ``tests/test_yourfile.py`` and then replace in
-  that file the occurance of ``_sample`` with ``_yourfile``
+  that file the occurrence of ``_sample`` with ``_yourfile``
 
   make sure to create meaningful tests.
 
-* the documentation is writte in RST http://sphinx-doc.org/rest.html
+* the documentation is write in RST http://sphinx-doc.org/rest.html
+
+* look at http://python-future.org/compatible_idioms.html for tips to make
+  python 2 look more like python 3.
+  Be careful with dicts to make them not inefficient.

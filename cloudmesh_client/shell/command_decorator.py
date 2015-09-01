@@ -3,6 +3,7 @@ import textwrap
 import shlex
 from docopt import docopt
 
+
 def command(func):
     '''
     A decorator to create a function with docopt arguments.

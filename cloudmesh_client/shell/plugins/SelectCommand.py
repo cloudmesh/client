@@ -41,17 +41,16 @@ class cm_shell_select:
             pass
         elif arguments["cloud"]:
 
-
             config = ConfigDict("cloudmesh.yaml")
             clouds = config["cloudmesh"]["clouds"]
 
             for key in clouds.keys():
                 Console.ok("  " + key)
 
-
             number = menu_return_num(title="Select a cloud",
-                                    menu_list=clouds.keys(),
-                                    tries=10, with_display=True)
+                                     menu_list=clouds.keys(),
+                                     tries=10,
+                                     with_display=True)
             if number == "q":
                 pass
             else:
@@ -77,7 +76,6 @@ class cm_shell_select:
             except:
                 print("ERROR: could not set key")
             pass
-
 
         pass
 

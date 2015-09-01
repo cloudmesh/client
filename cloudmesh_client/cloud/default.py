@@ -1,22 +1,20 @@
 from __future__ import print_function
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.db.model import DEFAULT
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from pprint import pprint
 
 
 class Default(object):
-
     @classmethod
     def list(cls, format="table"):
         cm = CloudmeshDatabase()
         d = cm.all(DEFAULT)
-        return(dict_printer(d, order=['cm_user',
-                                      'cm_cloud',
-                                      'name',
-                                      'value'], output=format))
+        return (dict_printer(d,
+                             order=['cm_user',
+                                    'cm_cloud',
+                                    'name',
+                                    'value'],
+                             output=format))
 
     #
     # GENERAL SETER AND GETER METHOD
@@ -25,13 +23,13 @@ class Default(object):
     @classmethod
     def set(cls, key, value, cloud):
         cm = CloudmeshDatabase()
-        d = cm.dict(DEFAULT)
+        # d = cm.dict(DEFAULT)
         cm.set_default(key, value, cloud)
 
     @classmethod
     def get(cls, key, cloud):
         cm = CloudmeshDatabase()
-        return(cm.get_default(key, cloud))
+        return cm.get_default(key, cloud)
 
     @classmethod
     def delete(cls, key, cloud):
@@ -55,12 +53,11 @@ class Default(object):
     #
     @classmethod
     def get_cloud(cls):
-        return(cls.get("cloud", "general"))
+        return cls.get("cloud", "general")
 
     @classmethod
     def set_cloud(cls, value):
         cls.set("cloud", value, "general")
-
 
     #
     # Set the default image
@@ -72,7 +69,7 @@ class Default(object):
 
     @classmethod
     def get_image(cls, cloud):
-        return(cls.get("image", cloud))
+        return cls.get("image", cloud)
 
     #
     # Set the default flavor
@@ -84,7 +81,7 @@ class Default(object):
 
     @classmethod
     def get_flavor(cls, cloud):
-        return(cls.get("flavor", cloud))
+        return cls.get("flavor", cloud)
 
     #
     # Set the default group
@@ -96,7 +93,7 @@ class Default(object):
 
     @classmethod
     def get_group(cls):
-        return(cls.get("group", "general"))
+        return cls.get("group", "general")
 
     #
     # Set the default key
@@ -108,4 +105,4 @@ class Default(object):
 
     @classmethod
     def get_key(cls):
-        return(cls.get("key", "general"))
+        return cls.get("key", "general")

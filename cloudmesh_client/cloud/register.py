@@ -8,6 +8,7 @@ from os.path import expanduser
 from cloudmesh_base.util import path_expand
 import os
 from cloudmesh_base.util import yn_choice
+from builtins import input
 
 
 class CloudRegister(object):
@@ -267,12 +268,18 @@ class CloudRegister(object):
 
         profile = config["cloudmesh"]["profile"]
         keys = profile.keys()
+
+        # TODO: test this and delete this comment
         # get input that works in python 2 and 3
-        input = None
-        try:
-            input = raw_input
-        except NameError:
-            pass
+
+        # replaced by
+        #   from builtins import input
+        # input = None
+        # try:
+        #    input = raw_input
+        # except NameError:
+        #    pass
+
         for key in keys:
             result = input(
                 "Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]

@@ -13,6 +13,7 @@ from pprint import pprint
 
 from sqlalchemy import inspect
 
+
 class database(object):
     """
     A simple class with all the details to create and
@@ -50,20 +51,18 @@ class database(object):
         # self.session = sessionmaker(bind=self.engine)
 
 
-
 db = database()
 
 
 class CloudmeshMixin(object):
-
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower()
 
     # __table_args__ = {'mysql_engine': 'InnoDB'}
-    __mapper_args__= {'always_refresh': True}
+    __mapper_args__ = {'always_refresh': True}
 
-    id =  Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True)
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
     label = Column(String, default="undefined")
@@ -72,6 +71,7 @@ class CloudmeshMixin(object):
     user = Column(String, default="undefined")
     kind = Column(String, default="undefined")
     group = Column(String, default="undefined")
+
 
 class DEFAULT(CloudmeshMixin, db.Base):
     """table to store defualt values
@@ -85,7 +85,6 @@ class DEFAULT(CloudmeshMixin, db.Base):
     type = Column(String, default="string")
 
     cloud = Column(String)
-
 
     def __init__(self,
                  name,
@@ -106,8 +105,8 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.value = value
         self.kind = self.__tablename__
 
-class KEY(CloudmeshMixin, db.Base):
 
+class KEY(CloudmeshMixin, db.Base):
     value = Column(String)
     fingerprint = Column(String)
     source = Column(String)
@@ -136,7 +135,6 @@ class KEY(CloudmeshMixin, db.Base):
         self.type = type
         self.name = name
         self.user = user
-        self.value = value
         self.kind = self.__tablename__
 
 
@@ -144,15 +142,18 @@ def tables():
     # inspector = inspect(self.db.engine)
     return [DEFAULT, KEY]
 
+
 def tablenames():
     inspector = inspect(db.engine)
     return inspector.get_table_names()
+
 
 def table(name):
     if name == "default":
         return DEFAULT
     if name == "key":
         return KEY
+
 
 """
 db.Base.metadata.create_all()

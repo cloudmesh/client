@@ -28,7 +28,9 @@ class SSHKeyManager(object):
     def table(self):
         d = dict(self.__keys__)
         return (dict_printer(d,
-                             order=["comment", "uri", "fingerprint"],
+                             order=["comment",
+                                    "uri",
+                                    "fingerprint"],
                              output="table",
                              sort_keys=True))
 
@@ -60,7 +62,6 @@ class SSHKeyManager(object):
 
     def get_from_yaml(self, filename=None, load_order=None):
         """
-
         :param filename: name of the yaml file
         :return: a SSHKeyManager (dict of keys)
         """
@@ -157,6 +158,7 @@ class SSHKeyManager(object):
 
 
 if __name__ == "__main__":
+    print ("HALLO")
     from cloudmesh_base.util import banner
 
     mykeys = SSHKeyManager()

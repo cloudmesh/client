@@ -6,12 +6,7 @@ import json
 import re
 from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 
-
-class todo(object):
-    @classmethod
-    def implemet(cls):
-        """temporary function to use to indicate that the code is not yet implemented"""
-        raise NotImplementedError("Please implement")
+from cloudmesh_client.common.todo import TODO
 
 
 class Config(object):
@@ -60,7 +55,8 @@ class Config(object):
     @classmethod
     def find_file(cls, filename, load_order=None, verbose=False):
         """
-        find the specified file in the list of directories that are given in thearray load_order
+        find the specified file in the list of directories that are given in the
+        array load_order
 
         :param filename: the file name
         :type filename: str
@@ -225,13 +221,13 @@ class ConfigDict(object):
     @classmethod
     def check(cls, filename):
         """
-        checks the filename if it is syntactically corrrect and does not include tabs
+        checks the filename if it is syntactically correct and does not include tabs
 
         :param filename:
         :type filename: string
         :return:
         """
-        todo.implement()
+        TODO.implement()
 
 
 def main():

@@ -144,7 +144,14 @@ def main():
     print(sshkey.comment)
     """
     key1 = "ssh-rsa abcdefg comment"
-    key2 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD+NswLi/zjz7Vf575eo9iWWku5m4nVSPMgP13JbKCTVKtavAXt8UPZTkYVWiUSeXRqlf+EZM11U8Mq6C/P/ECJS868rn2KSwFosNPF0OOz8zmTvBQShtvBBBVd1kmZePxFGviZbKwe3z3iATLKE8h7pwcupqTin9m3FhQRsGSF7YTFcGXv0ZqxFA2j9+Ix7SVbN5IYxxgwc+mxOzYIy1SKEAOPJQFXKkiXxNdLSzGgjkurhPAIns8MNYL9usKMGzhgp656onGkSbQHZR3ZHsSsTXWP3SV5ih4QTTFunwB6C0TMQVsEGw1P49hhFktb3md+RC4DFP7ZOzfkd9nne2B mycomment"
+    key2 = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDD+NswLi/zjz" + \
+            "7Vf575eo9iWWku5m4nVSPMgP13JbKCTVKtavAXt8UPZTkYVWi" + \
+            "USeXRqlf+EZM11U8Mq6C/P/ECJS868rn2KSwFosNPF0OOz8zm" + \
+            "TvBQShtvBBBVd1kmZePxFGviZbKwe3z3iATLKE8h7pwcupqTi" + \
+            "n9m3FhQRsGSF7YTFcGXv0ZqxFA2j9+Ix7SVbN5IYxxgwc+mxO" + \
+            "zYIy1SKEAOPJQFXKkiXxNdLSzGgjkurhPAIns8MNYL9usKMGz" + \
+            "hgp656onGkSbQHZR3ZHsSsTXWP3SV5ih4QTTFunwB6C0TMQVs" + \
+            "EGw1P49hhFktb3md+RC4DFP7ZOzfkd9nne2B mycomment"
     print(key_validate("string", key1))
     print(key_validate("string", key2))
     print(key_parse(key1))

@@ -9,10 +9,10 @@ import CloudmeshDatabase
 
 
 class SSHKeyDBManager(object):
-    def __init__(self, cm_user=None):
-        self.db = CloudmeshDatabase.CloudmeshDatabase(cm_user)
+    def __init__(self, user=None):
+        self.db = CloudmeshDatabase.CloudmeshDatabase(user)
 
-    def add(self, key_path, keyname=None, cm_user=None, source=None, uri=None):
+    def add(self, key_path, keyname=None, user=None, source=None, uri=None):
         """
         Adds the key to the database based on the path
 
@@ -22,16 +22,15 @@ class SSHKeyDBManager(object):
 
         sshkey = SSHkey(path_expand(key_path))
 
-        self.add_from_sshkey(sshkey.__key__, keyname, cm_user, source=source, uri=uri)
+        self.add_from_sshkey(sshkey.__key__, keyname, user, source=source, uri=uri)
 
     def add_from_dict(self, d):
         pprint(d)
 
         keyname = d['keyname']
         key_obj = KEY(name=keyname,
-                      label=keyname,
                       cloud="general",
-                      cm_user=d['cm_user']
+                      user=d['user']
                       )
 
         key_obj.name = d['keyname']
@@ -45,7 +44,7 @@ class SSHKeyDBManager(object):
         self.db.add([key_obj])
         self.db.save()
 
-    def add_from_sshkey(self, sshkey, keyname=None, cm_user=None, source=None, uri=None):
+    def add_from_sshkey(self, sshkey, keyname=None, user=None, source=None, uri=None):
 
         if keyname is None:
             try:
@@ -53,23 +52,24 @@ class SSHKeyDBManager(object):
             except:
                 pass
         if keyname is None:
-            print ("ERROR: keyname is none")
+            print ("ERROR: keyname is None")
 
-        key_obj = KEY(name=keyname,
-                      label=keyname,
-                      cloud="general",
-                      cm_user=cm_user
-                      )
+        pprint(sshkey)
 
-        key_obj.name = keyname
-        key_obj.uri = uri
-        key_obj.source = source
-        key_obj.comment = sshkey['comment']
-        key_obj.value = sshkey['string']
-        key_obj.fingerprint = sshkey['fingerprint']
+        key_obj = KEY(
+            keyname,
+            sshkey['string'],
+            uri=sshkey['uri'],
+            source=sshkey['source'],
+            fingerprint=sshkey['fingerprint'],
+            comment=sshkey['comment'],
+            type="sshkey",
+            group=None,
+            cloud="general",
+            user=user)
 
         pprint(key_obj.__dict__)
-        self.db.add([key_obj])
+        self.db.add(key_obj)
         self.db.save()
 
     def delete(self, keyname):

@@ -21,11 +21,13 @@ from plugins.NovaCommand import NovaCommand
 from plugins.SSHCommand import SSHCommand
 from plugins.KeyCommand import KeyCommand
 
+
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
 
 
+# noinspection PyPep8Naming
 class CloudmeshConsole(cmd.Cmd,
                        KeyCommand,
                        SSHCommand,
@@ -40,7 +42,7 @@ class CloudmeshConsole(cmd.Cmd,
         cmd.Cmd.__init__(self)
         self.context = context
         if self.context.debug:
-            print ("init CloudmeshConsole")
+            print("init CloudmeshConsole")
 
         self.prompt = 'cm> '
 
@@ -65,7 +67,7 @@ class CloudmeshConsole(cmd.Cmd,
             lines = textwrap.dedent(self.banner).split("\n")
             for line in lines:
                 # Console._print("BLUE", "", line)
-                print (line)
+                print(line)
 
     def do_EOF(self, args):
         """
@@ -113,12 +115,12 @@ class CloudmeshConsole(cmd.Cmd,
         print(arguments)
     '''
 
+
 def simple():
     context = CloudmeshContext(debug=False,
                                splash=True)
     con = CloudmeshConsole(context)
     con.cmdloop()
-
 
 
 def main():
@@ -137,7 +139,6 @@ def main():
                          otherwise quit [default: False]
       --nosplash    do not show the banner [default: False]
     """
-
 
     try:
         arg = docopt(main.__doc__, help=True)
@@ -161,23 +162,21 @@ def main():
         arguments = sys.argv[1:]
         print("ARG", sys.argv[1:])
         arg = {
-            '--debug' : '--debug' in arguments,
-            '--nosplash' : '--nosplash' in arguments,
-            '-i' : '-i' in arguments}
+            '--debug': '--debug' in arguments,
+            '--nosplash': '--nosplash' in arguments,
+            '-i': '-i' in arguments}
 
         for a in arg:
             if arg[a]:
                 arguments.remove(a)
 
-
         arg['COMMAND'] = [' '.join(arguments)]
 
-    print ('PASS ARGS', arg)
+    print('PASS ARGS', arg)
     splash = not arg['--nosplash']
     debug = arg['--debug']
     interactive = arg['-i']
-    print (splash)
-
+    print(splash)
 
     context = CloudmeshContext(debug=debug,
                                splash=splash)
@@ -203,7 +202,6 @@ def main():
 
     """
 
-
     # if script_file is not None:
     #     cmd.do_exec(script_file)
 
@@ -214,10 +212,10 @@ def main():
                 print(">", user_cmd)
             cmd.onecmd(user_cmd)
         except Exception, e:
-            print ("ERROR: executing command '{0}'".format(user_cmd))
-            print (70 * "=")
+            print("ERROR: executing command '{0}'".format(user_cmd))
+            print(70 * "=")
             print(e)
-            print (70 * "=")
+            print(70 * "=")
             print(traceback.format_exc())
 
         if interactive:
@@ -226,7 +224,7 @@ def main():
     elif not script_file or interactive:
         cmd.cmdloop()
 
+
 if __name__ == "__main__":
     main()
     # simple()
-

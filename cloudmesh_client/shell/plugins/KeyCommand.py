@@ -33,11 +33,12 @@ class KeyCommand(object):
            Usage:
              key  -h | --help
              key list [--source=db] [--format=FORMAT]
-             key list --source=cloudmesh [--format=FORMAT]             
-             key list --source=ssh [--dir=DIR] [--format=FORMAT]             
+             key list --source=cloudmesh [--format=FORMAT]
+             key list --source=ssh [--dir=DIR] [--format=FORMAT]
              key list --source=git [--format=FORMAT] [--username=USERNAME]
-             key add [--name=KEYNAME] FILENAME
-             key add --git [--name=KEYNAME] NAME
+             key add --git KEYNAME
+             key add --ssh KEYNAME
+             key add [--path=PATH]  KEYNAME
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [-f]
@@ -51,13 +52,14 @@ class KeyCommand(object):
              FORMAT         The format of the output (table, json, yaml)
              FILENAME       The filename with full path in which the key
                             is located
+
            Options:
 
               --dir=DIR            the directory with keys [default: ~/.ssh]
               --format=FORMAT      the format of the output [default: table]
               --source=SOURCE      the source for the keys [default: db]
               --username=USERNAME  the source for the keys [default: none]              
-              --keyname=KEYNAME    the name of the keys
+             --path=PATH           the path of the key [default: ~/.ssh/id_rsa.pub]
               --all                delete all keys
 
            Description:
@@ -188,6 +190,10 @@ class KeyCommand(object):
             except:
                 Console.error("The key is not in the database")
 
+        # key add --git KEYNAME
+        #      key add --ssh KEYNAME
+        #      key add [--path=PATH]  KEYNAME
+
         elif arguments['add'] and arguments["--git"]:
 
             print('git add')
@@ -215,12 +221,28 @@ class KeyCommand(object):
 
             try:
                 d[gitkeyname]['keyname'] = keyname
-                d[gitkeyname]['cm_user'] = None
+                d[gitkeyname]['user'] = None
                 d[gitkeyname]['source'] = 'git'
                 # sshdb.add_from_dict(d[gitkeyname])
             except:
                 Console.error("the key may already there")
 
+        elif arguments['add'] and arguments["--ssh"]:
+
+            print('ssh dd')
+            sshdb = SSHKeyDBManager()
+            keyname = arguments['KEYNAME']
+            filename = path_expand("~/.ssh/id_rsa.pub")
+
+            try:
+                sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                print (keyname)
+                print (filename)
+                Console.error("problem adding the key `{}` from file `{}`".format(keyname, filename))
         elif arguments['add'] and not arguments["--git"]:
 
             print('ssh dd')
@@ -230,6 +252,8 @@ class KeyCommand(object):
             try:
                 sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
             except:
+                print (keyname)
+                print (filename)
                 Console.error("problem adding the specified key")
 
         elif arguments['default']:
