@@ -1,8 +1,8 @@
 from __future__ import print_function
-from cmd3.console import Console
+from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.db.models import DEFAULT
-from cloudmesh_client.db.models import dict_printer
+from cloudmesh_client.db.model import DEFAULT
+from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
 

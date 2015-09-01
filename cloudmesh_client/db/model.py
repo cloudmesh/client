@@ -11,7 +11,7 @@ from datetime import datetime
 import json
 from pprint import pprint
 
-
+from sqlalchemy import inspect
 
 class database(object):
     """
@@ -141,16 +141,19 @@ class KEY(CloudmeshMixin, db.Base):
 
 
 def tables():
-    return [DEFAULT]
+    # inspector = inspect(self.db.engine)
+    return [DEFAULT, KEY]
 
 def tablenames():
-    return ["default","key"]
+    inspector = inspect(db.engine)
+    return inspector.get_table_names()
 
 def table(name):
     if name == "default":
         return DEFAULT
     if name == "key":
         return KEY
+
 """
 db.Base.metadata.create_all()
 

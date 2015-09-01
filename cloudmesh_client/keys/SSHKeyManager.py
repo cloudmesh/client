@@ -9,7 +9,7 @@ from prettytable import PrettyTable
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cmd3.console import Console
+from cloudmesh_client.shell.console import Console
 
 
 class SSHKeyManager(object):

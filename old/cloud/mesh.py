@@ -74,12 +74,12 @@ class Mesh(object):
                 for key in sshm.__keys__:
                     print key
                     print sshm.__keys__[key]['comment']
-                    sshdb.add_from_SSHKey(sshm.__keys__[key], key)
+                    sshdb.add_from_sshkey(sshm.__keys__[key], key)
             else:  # args is the github username
                 sshm.get_from_git(args[0])
                 print args[0]
                 for key in sshm.__keys__:
-                    sshdb.add_from_SSHKey(sshm.__keys__[key], key)
+                    sshdb.add_from_sshkey(sshm.__keys__[key], key)
         elif len(args) == 2:
             keyname = args[0]
             path = path_expand(args[1])

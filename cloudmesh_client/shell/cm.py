@@ -19,6 +19,7 @@ from plugins.Bar import BarCommand
 from plugins.RegisterCommand import RegisterCommand
 from plugins.NovaCommand import NovaCommand
 from plugins.SSHCommand import SSHCommand
+from plugins.KeyCommand import KeyCommand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -26,6 +27,7 @@ class CloudmeshContext(object):
 
 
 class CloudmeshConsole(cmd.Cmd,
+                       KeyCommand,
                        SSHCommand,
                        BarCommand,
                        RegisterCommand,

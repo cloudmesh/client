@@ -1,13 +1,13 @@
 from __future__ import print_function
-import os
-from cmd3.console import Console
-from cmd3.shell import command
 from pprint import pprint
-from cloudmesh_client.cloud.command_default import command_default
+
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.shell.cm import command
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_base.menu import num_choice, dict_choice, ascii_menu, menu_return_num
+from cloudmesh_base.menu import dict_choice, menu_return_num
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
+
 
 class cm_shell_select:
     def activate_cm_shell_select(self):

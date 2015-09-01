@@ -57,6 +57,57 @@ class CloudmeshDatabase(object):
         """
         result = self.session.delete(item)
         self.save()
+    def find_by_name(self, kind, name):
+        """
+        find an object by name in the given table.
+         If multiple objects have the same name, the first one is returned.
+
+        :param name: the name
+        :return: the object
+        """
+        table_type = kind
+        if type(kind) == str:
+            table_type = self.get_table_from_name(kind)
+        return self.find(table_type, name=name).first()
+
+    def find(self, kind, **kwargs):
+        """
+        NOT teted
+        :param kind:
+        :param kwargs:
+        :return:
+        """
+        table_type = kind
+        if type(kind) == str:
+            table_type = self.db.get_table_from_name(kind)
+        return self.session.query(table_type).filter_by(**kwargs)
+
+    def delete_by_name(self, kind, name):
+        """
+        NOTTESTED
+        :param kind:
+        :param name:
+        :return:
+        """
+        item = self.find(kind, name=name).first()
+        self.delete(item)
+
+    def object_to_dict(self, obj):
+        """
+        converst the object to dict
+
+        :param obj:
+        :return:
+        """
+        result = dict()
+        for u in obj:
+            _id = u.cm_id
+            values = {}
+            for key in u.__dict__.keys():
+                if not key.startswith("_sa"):
+                    values[key] = u.__dict__[key]
+            result[_id] = values
+        return result
 
     def dict(self, table):
         """
@@ -103,7 +154,7 @@ class CloudmeshDatabase(object):
 
         sum = 0
         if "count" in infos:
-            for tablein in inspector.get_table_names():
+            for table_name in inspector.get_table_names():
                 if table_name in kinds:
                     t = table(table_name)
                     rows = self.session.query(t).count()
@@ -148,7 +199,6 @@ def main():
     print ("\n\n")
 
     pprint (o.__dict__)
-
 
     m = DEFAULT("other", "world")
     m.other = "ooo"
