@@ -4,7 +4,8 @@ from cloudmesh_client.shell.console import Console
 # from cloudmesh_client.cloud.command_ssh import command_ssh
 from cloudmesh_base.Shell import Shell
 import os
-
+from cloudmesh_client.common.todo import TODO
+from cloudmesh_base.ssh_config import ssh_config
 
 class SSHCommand(object):
     # def activate_cm_shell_ssh(self):
@@ -56,12 +57,14 @@ class SSHCommand(object):
         if arguments["list"]:
             output_format = arguments["--format"]
             Console.ok('list {}'.format(output_format))
-            raise ("TODO: Not implemented")
+            hosts = ssh_config()
+            print(hosts.list())
+            TOTO("Complete implementation with dict_printer")
         elif arguments["register"]:
             name = arguments["NAME"]
             parameters = arguments["PARAMETERS"]
             Console.ok('register {} {}'.format(name, parameters))
-            raise ("TODO: Not implemented")
+            TODO("Not implemented")
         else:  # ssh ARGUMENTS...
             args = arguments["ARGUMENTS"]
             result = os.system("ssh {}".format(args))

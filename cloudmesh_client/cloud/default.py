@@ -1,6 +1,7 @@
 from __future__ import print_function
-from cloudmesh_client.db.model import DEFAULT
-from cloudmesh_client.common.tables import dict_printer
+
+from cloudmesh_client.db import model
+from cloudmesh_client.common import tables
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
@@ -8,8 +9,8 @@ class Default(object):
     @classmethod
     def list(cls, format="table"):
         cm = CloudmeshDatabase()
-        d = cm.all(DEFAULT)
-        return (dict_printer(d,
+        d = cm.all(model.DEFAULT)
+        return (tables.dict_printer(d,
                              order=['cm_user',
                                     'cm_cloud',
                                     'name',
@@ -35,17 +36,17 @@ class Default(object):
     def delete(cls, key, cloud):
         cm = CloudmeshDatabase()
         _id = cm.getID("default", key, cloud)
-        e = cm.find(DEFAULT, cm_id=_id).first()
+        e = cm.find(model.DEFAULT, cm_id=_id).first()
         if e is not None:
             cm.delete(e)
 
     @classmethod
     def clear(cls):
         cm = CloudmeshDatabase()
-        d = cm.all(DEFAULT)
+        d = cm.all(model.DEFAULT)
         for item in d:
             name = d[item]["name"]
-            kind = DEFAULT
+            kind = model.DEFAULT
             cm.delete_by_name(kind, name)
 
     #

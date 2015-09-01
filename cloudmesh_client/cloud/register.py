@@ -1,14 +1,15 @@
 from __future__ import print_function
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_base.Shell import Shell
 import textwrap
 from os.path import expanduser
-from cloudmesh_base.util import path_expand
 import os
+
+from cloudmesh_base.Shell import Shell
+from cloudmesh_base.util import path_expand
 from cloudmesh_base.util import yn_choice
 from builtins import input
+
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 
 
 class CloudRegister(object):

@@ -1,14 +1,15 @@
 from __future__ import print_function
 
+import json
 import getpass
 from pprint import pprint
 
-from cloudmesh_client.db.model import database, DEFAULT
 from sqlalchemy.orm import sessionmaker
 from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
-from cloudmesh_client.db.model import tables, tablenames, table
+
+from cloudmesh_client.db.model import database, table, tablenames, DEFAULT
 
 
 class CloudmeshDatabase(object):
@@ -50,7 +51,7 @@ class CloudmeshDatabase(object):
         :param item:
         :return:
         """
-        result = self.session.delete(item)
+        self.session.delete(item)
         self.save()
 
     def find_by_name(self, kind, name):

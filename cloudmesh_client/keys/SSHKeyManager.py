@@ -1,13 +1,14 @@
 from __future__ import print_function
-from cloudmesh_base.util import path_expand
+
 from os.path import expanduser
 import os
+
+from cloudmesh_base.util import path_expand
 import requests
-from pprint import pprint
-from cloudmesh_client.keys.SSHkey import SSHkey
-from prettytable import PrettyTable
-from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_base.menu import menu_return_num
+
+from cloudmesh_client.keys.SSHkey import SSHkey
+from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
 
@@ -116,7 +117,8 @@ class SSHKeyManager(object):
               github-x: github
         """
 
-    def get_from_dir(self, directory):
+    def get_from_dir(self, directory=None):
+        directory = path_expand("~/.ssh") or directory
         files = [file for file in os.listdir(expanduser(path_expand(directory)))
                  if file.lower().endswith(".pub")]
         for file in files:

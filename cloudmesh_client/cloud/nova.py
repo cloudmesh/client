@@ -1,7 +1,8 @@
 from __future__ import print_function
+import os
+
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
-import os
 
 
 class Nova(object):
