@@ -51,7 +51,8 @@ class GroupCommand:
                 # deletes all objects in the group
         """
         # pprint(arguments)
-        if arguments["set"]:
+        # TODO: do something useful here
+        if arguments["list"]:
             name = arguments["NAME"]
             print ("set group" + name)
         cloud = arguments["--cloud"]
@@ -60,7 +61,8 @@ class GroupCommand:
 
 
 if __name__ == '__main__':
-    command = cm_shell_exp()
-    command.do_exp("list")
-    command.do_exp("a=x")
-    command.do_exp("x")
+    # TODO: do something useful here
+    command = GroupCommand()
+    command.do_group("list")
+    command.do_group("a=x")
+    command.do_group("x")

@@ -9,9 +9,11 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-class cm_shell_select:
-    def activate_cm_shell_select(self):
-        self.register_command_topic('cloud', 'select')
+class SelectCommand(object):
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command key")
 
     @command
     def do_select(self, args, arguments):
