@@ -1,14 +1,16 @@
 from __future__ import print_function
 import os
-from cmd3.console import Console
-from cmd3.shell import command
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.shell.cm import command
 from pprint import pprint
-from cloudmesh_client.cloud.command_default import command_default
+from cloudmesh_client.cloud.default import Default
 
 
-class cm_shell_default:
-    def activate_cm_shell_default(self):
-        self.register_command_topic('cloud', 'default')
+class DefaultCommand(object):
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command default")
 
     @command
     def do_default(self, args, arguments):
@@ -40,7 +42,7 @@ class cm_shell_default:
         if arguments["list"]:
 
             output_format = arguments["--format"]
-            result = command_default.list(format=output_format)
+            result = Default.list(format=output_format)
             if result is None:
                 Console.error("No default values found")
                 return
@@ -49,14 +51,14 @@ class cm_shell_default:
 
         elif arguments["delete"]:
             key = arguments["KEY"]
-            command_default.delete(key, cloud)
+            Default.delete(key, cloud)
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
-            command_default.set(key, value, cloud)
+            Default.set(key, value, cloud)
         elif arguments["KEY"]:
 
             key = arguments["KEY"]
-            result = command_default.get(key, cloud)
+            result = Default.get(key, cloud)
 
             if result is None:
                 Console.error("No default values found")
@@ -68,7 +70,7 @@ class cm_shell_default:
 
 
 if __name__ == '__main__':
-    command = cm_shell_default()
+    command = Default()
     command.do_default("list")
     command.do_default("a=x")
     command.do_default("x")
