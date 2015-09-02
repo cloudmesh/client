@@ -180,7 +180,7 @@ class GROUP(CloudmeshMixin, db.Base):
 
 def tables():
     # inspector = inspect(self.db.engine)
-    return [DEFAULT, KEY]
+    return [DEFAULT, KEY, GROUP]
 
 
 def tablenames():
@@ -191,8 +191,10 @@ def tablenames():
 def table(name):
     if name == "default":
         return DEFAULT
-    if name == "key":
+    elif name == "key":
         return KEY
+    elif name == "group":
+        return GROUP
 
 
 """
