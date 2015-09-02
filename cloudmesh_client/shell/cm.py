@@ -27,6 +27,7 @@ from plugins.SelectCommand import SelectCommand
 from plugins.ManCommand import ManCommand
 from plugins.TerminalCommands import TerminalCommands
 from plugins.OpenCommand import OpenCommand
+from plugins.ReservationCommand import ReservationCommand
 
 
 class CloudmeshContext(object):
@@ -43,6 +44,7 @@ class CloudmeshConsole(cmd.Cmd,
                        KeyCommand,
                        SSHCommand,
                        # BarCommand,
+                       ReservationCommand,
                        RegisterCommand,
                        OpenCommand,
                        NovaCommand):
@@ -58,6 +60,7 @@ class CloudmeshConsole(cmd.Cmd,
                        KeyCommand,
                        SSHCommand,
                        RegisterCommand,
+                       ReservationCommand,
                        OpenCommand,
                        NovaCommand]:
             tmp = command.topics.copy()
