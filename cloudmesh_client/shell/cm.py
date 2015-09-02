@@ -103,21 +103,25 @@ class CloudmeshConsole(cmd.Cmd,
 
     def do_EOF(self, args):
         """
-        Usage:
-            EOF
+        ::
 
-        Description:
-            Command to the shell to terminate reading a script.
+            Usage:
+                EOF
+
+            Description:
+                Command to the shell to terminate reading a script.
         """
         return True
 
     def do_quit(self, args):
         """
-        Usage:
-            quit
+        ::
 
-        Description:
-            Action to be performed whne quit is typed
+            Usage:
+                quit
+
+            Description:
+                Action to be performed whne quit is typed
         """
         return True
 
@@ -128,11 +132,13 @@ class CloudmeshConsole(cmd.Cmd,
 
     def do_context(self, args):
         """
-        Usage:
-            context
+        ::
 
-        Description:
-            Lists the context variables and their values
+            Usage:
+                context
+
+            Description:
+                Lists the context variables and their values
         """
         """
         :param args:
@@ -148,7 +154,16 @@ class CloudmeshConsole(cmd.Cmd,
         self.command_topics[topic].append(command_name)
 
     def do_help(self, arg):
-        """List available commands with "help" or detailed help with "help cmd"."""
+        """
+        ::
+
+            Usage:
+                help
+                help COMMAND
+
+            Description:
+                List available commands with "help" or detailed help with
+                "help COMMAND"."""
 
         if arg:
             try:
