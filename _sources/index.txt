@@ -7,6 +7,14 @@ machine where the client is hosted. It is developed while using a file
 based database and stores the cloud credentials in a configuration
 file.
 
+This documentation is available on github at:
+
+* http://cloudmesh.github.io/client/
+
+The code is available at:
+
+* https://github.com/cloudmesh/client
+
 .. toctree::
 
    prefix

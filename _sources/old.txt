@@ -1,6 +1,10 @@
 Existing original cloudmesh commands
 =====================================
 
+This section includes the list of old cloudmesh commands. We provide
+this list here as inspiration and for discussion. The finalized
+commands will be in the "Commands" section.
+
 Notes:
 
 * --format should become --output? reasoning in api format is keyword. in case we keep format we want to do output_format as api variable.
@@ -602,7 +606,7 @@ Volume
               volume help 
                   Prints the nova manual
 
-Status (Daniel)
+Status 
 ------
 
 ::
@@ -795,7 +799,7 @@ Project
                   set a completed project, this will remove the project
                   from active projects list and defalut project if it is
 
-Loglevel (Daniel)
+Loglevel 
 ---------
 
 ::
@@ -871,7 +875,7 @@ Launcher (do, Hyungro)
                 List available launcher software stacks:
                 cm> launcher menu
 
-Key (Daniel)
+Key 
 ----
 
 ::
@@ -1116,7 +1120,7 @@ Cluster (Hyungro)
                 server size and Ubuntu 14.04 base image
                 cm> cluster create vc --count=3  --image=futuresystems/ubuntu-14.04 --flavor=m1.small
  
-Admin (Daniel)
+Admin 
 --------------
 
 ::
