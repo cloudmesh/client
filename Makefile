@@ -15,7 +15,7 @@ test:
 	echo $(UNAME)
 
 
-doc:
+doc: man
 	cd docs; make html
 
 publish:
@@ -24,6 +24,8 @@ publish:
 view:
 	$(BROWSER) docs/build/html/index.html
 
+man:
+	cm man > docs/source/man/man.rst
 
 ######################################################################
 # CLEANING

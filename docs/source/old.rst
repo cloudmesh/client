@@ -1,6 +1,10 @@
 Existing original cloudmesh commands
 =====================================
 
+This section includes the list of old cloudmesh commands. We provide
+this list here as inspiration and for discussion. The finalized
+commands will be in the "Commands" section.
+
 Notes:
 
 * --format should become --output? reasoning in api format is keyword. in case we keep format we want to do output_format as api variable.
@@ -36,7 +40,7 @@ In addition we utilize in some cases also the PARAMETER... notation
 meaning that the parameter can be specified multiple imes separated by
 a space. This is well known from many Linux commandline clients.
 
-Refresh (Paulo) done
+Refresh 
 ---------------
 
 ::
@@ -96,7 +100,7 @@ Refresh (Paulo) done
 	    cloud activate aws
 	    refresh
 
-Select (Pauolo) done
+Select 
 ----------------
 
 ::
@@ -126,7 +130,7 @@ Select (Pauolo) done
            will list all available couds and you can interactively
 	   select one. The name of the selected cloud is returned.
        
-List (Pauolo) done
+List 
 -------------
 
 ::
@@ -238,7 +242,7 @@ List (Pauolo) done
 	  cloud activate CLOUD
 
 
-Security group (Paulo) done
+Security group 
 -----------------------
 
 ::
@@ -279,7 +283,7 @@ Security group (Paulo) done
           $ secgroup rues-add india fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
       
-Cloud (Gregor)
+Cloud 
 ------
 
 ::
@@ -403,7 +407,7 @@ Cloud (Gregor)
                 sets the default flavor for a cloud. If the cloud is
                 not specified, it used the default cloud.
 
-VM (Pauolo) done
+VM 
 -------
 
 ::
@@ -521,7 +525,7 @@ VM (Pauolo) done
                         json format
 
 
-Volume (Paulo) done
+Volume 
 ------
 
 ::
@@ -602,7 +606,7 @@ Volume (Paulo) done
               volume help 
                   Prints the nova manual
 
-Status (Daniel)
+Status 
 ------
 
 ::
@@ -671,7 +675,7 @@ Stack (Hyungro)
                 List running stacks:
                 cm> stack list
 
-SSH (Pauolo) done
+SSH 
 ----
 
 ::
@@ -709,7 +713,7 @@ SSH (Pauolo) done
                                or a location that contains a pblic key 
 
 
-Quota (Pauolo) done
+Quota 
 -----
 
 ::
@@ -727,7 +731,7 @@ Quota (Pauolo) done
 
              -v       verbose mode
 
-Limits (Paulo) done
+Limits 
 -------
 
 ::
@@ -762,7 +766,7 @@ notebook (not)
 
              -v       verbose mode
 
-Project (Gregor)
+Project 
 -------
 
 ::
@@ -795,7 +799,7 @@ Project (Gregor)
                   set a completed project, this will remove the project
                   from active projects list and defalut project if it is
 
-Loglevel (Daniel)
+Loglevel 
 ---------
 
 ::
@@ -871,7 +875,7 @@ Launcher (do, Hyungro)
                 List available launcher software stacks:
                 cm> launcher menu
 
-Key (Daniel)
+Key 
 ----
 
 ::
@@ -1116,7 +1120,7 @@ Cluster (Hyungro)
                 server size and Ubuntu 14.04 base image
                 cm> cluster create vc --count=3  --image=futuresystems/ubuntu-14.04 --flavor=m1.small
  
-Admin (Daniel)
+Admin 
 --------------
 
 ::
