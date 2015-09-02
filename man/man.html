@@ -137,6 +137,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#q">q</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quit">quit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#register">register</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#reservation">reservation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#select">select</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssh">ssh</a></li>
 </ul>
@@ -633,6 +634,64 @@ Description:
         checks the yaml file and executes tests to check if we
         can use the cloud. TODO: maybe this should be in a test
         command
+</pre></div>
+</div>
+</div>
+<div class="section" id="reservation">
+<h2>reservation<a class="headerlink" href="#reservation" title="Permalink to this headline">¶</a></h2>
+<p>Command - reservation:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    reservation info [--user=USER]
+                     [--project=PROJECT]
+    reservation list [--user=USER]
+                     [--project=PROJECT]
+                     [--name=NAMES]
+                     [--start=TIME_START]
+                     [--end=TIME_END]
+                     [--host=HOST]
+                     [--format=FORMAT]
+    reservation delete [all]
+                       [--user=USER]
+                       [--project=PROJECT]
+                       [--name=NAMES]
+                       [--start=TIME_START]
+                       [--end=TIME_END]
+                       [--host=HOST]
+    reservation delete --file=FILE
+    reservation update [--name=NAMES]
+                       [--start=TIME_START]
+                       [--end=TIME_END]
+    reservation add [--user=USER]
+                    [--project=PROJECT]
+                    [--host=HOST]
+                    [--description=DESCRIPTION]
+                    --name=NAMES
+                    --start=TIME_START
+                    --end=TIME_END
+    reservation add --file=FILE
+
+Options:
+    --name=NAMEs          Names of the reservation
+    --user=USER           user name
+    --project=PROJECT     project id
+    --start=TIME_START    Start time of the reservation, in
+                          YYYY/MM/DD HH:MM:SS format. [default: 1901-01-01]
+    --end=TIME_END        End time of the reservation, in
+                          YYYY/MM/DD HH:MM:SS format. In addition a duration
+                          can be specified if the + sign is the first sign.
+                          The duration will than be added to
+                          the start time. [default: 2100-12-31]
+    --host=HOST           host name
+    --description=DESCRIPTION  description summary of the reservation
+    --file=FILE           Adding multiple reservations from one file
+    --format=FORMAT       Format is either table, json, yaml or csv
+                          [default: table]
+
+Description:
+
+    reservation info
+        lists the resources that support reservation for
+        a given user or project.
 </pre></div>
 </div>
 </div>

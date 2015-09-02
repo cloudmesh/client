@@ -389,6 +389,65 @@ Command - register::
             command
 
 
+reservation
+----------------------------------------------------------------------
+
+Command - reservation::
+
+    Usage:
+        reservation info [--user=USER]
+                         [--project=PROJECT]
+        reservation list [--user=USER]
+                         [--project=PROJECT]
+                         [--name=NAMES]
+                         [--start=TIME_START]
+                         [--end=TIME_END]
+                         [--host=HOST]
+                         [--format=FORMAT]
+        reservation delete [all]
+                           [--user=USER]
+                           [--project=PROJECT]
+                           [--name=NAMES]
+                           [--start=TIME_START]
+                           [--end=TIME_END]
+                           [--host=HOST]
+        reservation delete --file=FILE
+        reservation update [--name=NAMES]
+                           [--start=TIME_START]
+                           [--end=TIME_END]
+        reservation add [--user=USER]
+                        [--project=PROJECT]
+                        [--host=HOST]
+                        [--description=DESCRIPTION]
+                        --name=NAMES
+                        --start=TIME_START
+                        --end=TIME_END
+        reservation add --file=FILE
+
+    Options:
+        --name=NAMEs          Names of the reservation
+        --user=USER           user name
+        --project=PROJECT     project id
+        --start=TIME_START    Start time of the reservation, in
+                              YYYY/MM/DD HH:MM:SS format. [default: 1901-01-01]
+        --end=TIME_END        End time of the reservation, in
+                              YYYY/MM/DD HH:MM:SS format. In addition a duration
+                              can be specified if the + sign is the first sign.
+                              The duration will than be added to
+                              the start time. [default: 2100-12-31]
+        --host=HOST           host name
+        --description=DESCRIPTION  description summary of the reservation
+        --file=FILE           Adding multiple reservations from one file
+        --format=FORMAT       Format is either table, json, yaml or csv
+                              [default: table]
+
+    Description:
+
+        reservation info
+            lists the resources that support reservation for
+            a given user or project.
+
+
 select
 ----------------------------------------------------------------------
 
