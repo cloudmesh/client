@@ -213,6 +213,16 @@ class CloudmeshConsole(cmd.Cmd,
                 topic_cmds = sorted(self.command_topics[topic], key=str.lower)
                 self.print_topics(string.capwords(topic + " commands"), topic_cmds, 15, 80)
 
+    def help_help(self):
+        """
+        ::
+
+            Usage:
+               help NAME
+
+            Prints out the help message for a given function
+        """
+        print (textwrap.dedent(self.help_help.__doc__))
     '''
     @command
     def do_bar(self, arg, arguments):
