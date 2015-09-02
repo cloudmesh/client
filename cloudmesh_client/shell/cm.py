@@ -23,6 +23,7 @@ from plugins.KeyCommand import KeyCommand
 from plugins.GroupCommand import GroupCommand
 from plugins.SelectCommand import SelectCommand
 from plugins.ManCommand import ManCommand
+from plugins.TerminalCommands import TerminalCommands
 
 
 class CloudmeshContext(object):
@@ -32,6 +33,7 @@ class CloudmeshContext(object):
 
 # noinspection PyPep8Naming
 class CloudmeshConsole(cmd.Cmd,
+                       TerminalCommands,
                        ManCommand,
                        SelectCommand,
                        GroupCommand,
