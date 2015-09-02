@@ -26,6 +26,7 @@ from plugins.GroupCommand import GroupCommand
 from plugins.SelectCommand import SelectCommand
 from plugins.ManCommand import ManCommand
 from plugins.TerminalCommands import TerminalCommands
+from plugins.OpenCommand import OpenCommand
 
 
 class CloudmeshContext(object):
@@ -43,6 +44,7 @@ class CloudmeshConsole(cmd.Cmd,
                        SSHCommand,
                        # BarCommand,
                        RegisterCommand,
+                       OpenCommand,
                        NovaCommand):
     """
     Cloudmesh Console
@@ -56,6 +58,7 @@ class CloudmeshConsole(cmd.Cmd,
                        KeyCommand,
                        SSHCommand,
                        RegisterCommand,
+                       OpenCommand,
                        NovaCommand]:
             tmp = command.topics.copy()
             topics.update(tmp)
