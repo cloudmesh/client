@@ -1,3 +1,4 @@
+from __future__ import print_function
 import pprint
 import json
 from cloudmesh_client.common.tables import dict_printer
@@ -24,27 +25,30 @@ class ReservationCommand(object):
             Usage:
                 reservation info [--user=USER]
                                  [--project=PROJECT]
-                reservation list [--user=USER]
+                reservation list [--name=NAME]
+                                 [--user=USER]
                                  [--project=PROJECT]
-                                 [--name=NAMES]
+                                 [--hosts=HOSTS]
                                  [--start=TIME_START]
                                  [--end=TIME_END]
-                                 [--host=HOST]
+                                 [--hosts=HOSTS]
                                  [--format=FORMAT]
                 reservation delete [all]
                                    [--user=USER]
                                    [--project=PROJECT]
-                                   [--name=NAMES]
+                                   [--name=NAME]
+                                   [--hosts=HOSTS]
                                    [--start=TIME_START]
                                    [--end=TIME_END]
                                    [--host=HOST]
                 reservation delete --file=FILE
-                reservation update [--name=NAMES]
+                reservation update [--name=NAME]
+                                   [--hosts=HOSTS]
                                    [--start=TIME_START]
                                    [--end=TIME_END]
                 reservation add [--user=USER]
                                 [--project=PROJECT]
-                                [--host=HOST]
+                                [--hosts=HOSTS]
                                 [--description=DESCRIPTION]
                                 --name=NAMES
                                 --start=TIME_START
@@ -72,7 +76,7 @@ class ReservationCommand(object):
 
                 reservation info
                     lists the resources that support reservation for
-                    a given user or project. 
+                    a given user or project.
         """
 
         # print (arguments)
@@ -169,7 +173,7 @@ class ReservationCommand(object):
                             db.add()
                     """
                 except Exception as e:
-                    print "Error in adding from file. ", e
+                    print ("Error in adding from file. ", e)
 
     '''
         elif(arguments["update"]):
