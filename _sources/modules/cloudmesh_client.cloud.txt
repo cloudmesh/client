@@ -1,0 +1,38 @@
+cloudmesh_client.cloud package
+==============================
+
+Submodules
+----------
+
+cloudmesh_client.cloud.default module
+-------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.default
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.nova module
+----------------------------------
+
+.. automodule:: cloudmesh_client.cloud.nova
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.cloud.register module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.register
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.cloud
+    :members:
+    :undoc-members:
+    :show-inheritance:

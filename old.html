@@ -32,7 +32,7 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/>
         <link rel="next" title="Modules and Classes" href="modules/modules.html"/>
-        <link rel="prev" title="&lt;no title&gt;" href="man/man.html"/> 
+        <link rel="prev" title="Commands" href="man/man.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -122,22 +122,38 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#bar">bar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#context">context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#key">key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#q">q</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">quit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#select">select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Existing original cloudmesh commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#parameterized-commands">Parameterized commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#refresh-paulo-done">Refresh (Paulo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#select-pauolo-done">Select (Pauolo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#list-pauolo-done">List (Pauolo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#security-group-paulo-done">Security group (Paulo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cloud-gregor">Cloud (Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#vm-pauolo-done">VM (Pauolo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#volume-paulo-done">Volume (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#refresh">Refresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#select">Select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#list">List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-group">Security group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud">Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vm">VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#volume">Volume</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#status-daniel">Status (Daniel)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stack-hyungro">Stack (Hyungro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ssh-pauolo-done">SSH (Pauolo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quota-pauolo-done">Quota (Pauolo) done</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#limits-paulo-done">Limits (Paulo) done</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ssh">SSH</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quota">Quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#limits">Limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebook-not">notebook (not)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#project-gregor">Project (Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project">Project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#loglevel-daniel">Loglevel (Daniel)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#launcher-do-hyungro">Launcher (do, Hyungro)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#key-daniel">Key (Daniel)</a></li>
@@ -272,8 +288,8 @@ indicate in a manual page if a paramter is parameterized by including
 meaning that the parameter can be specified multiple imes separated by
 a space. This is well known from many Linux commandline clients.</p>
 </div>
-<div class="section" id="refresh-paulo-done">
-<h2>Refresh (Paulo) done<a class="headerlink" href="#refresh-paulo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="refresh">
+<h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Refreshes the database with information from the clouds
 
 
@@ -331,8 +347,8 @@ Description:
 </pre></div>
 </div>
 </div>
-<div class="section" id="select-pauolo-done">
-<h2>Select (Pauolo) done<a class="headerlink" href="#select-pauolo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="select">
+<h2>Select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Select is a command that allows the interactive selection of an item
 specified
 
@@ -359,8 +375,8 @@ Example:
 </pre></div>
 </div>
 </div>
-<div class="section" id="list-pauolo-done">
-<h2>List (Pauolo) done<a class="headerlink" href="#list-pauolo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="list">
+<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     list flavor [CLOUD...|--all]
                 [--refresh]
@@ -469,8 +485,8 @@ See Also:
 </pre></div>
 </div>
 </div>
-<div class="section" id="security-group-paulo-done">
-<h2>Security group (Paulo) done<a class="headerlink" href="#security-group-paulo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="security-group">
+<h2>Security group<a class="headerlink" href="#security-group" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     secgroup list CLOUD TENANT
     secgroup create CLOUD TENANT LABEL
@@ -508,8 +524,8 @@ Examples:
 </pre></div>
 </div>
 </div>
-<div class="section" id="cloud-gregor">
-<h2>Cloud (Gregor)<a class="headerlink" href="#cloud-gregor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cloud">
+<h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     cloud refresh
     cloud list [CLOUD...] [--refresh] [--columns=COLUMNS] [--format=FORMAT] [--details]
@@ -631,8 +647,8 @@ Description:
 </pre></div>
 </div>
 </div>
-<div class="section" id="vm-pauolo-done">
-<h2>VM (Pauolo) done<a class="headerlink" href="#vm-pauolo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="vm">
+<h2>VM<a class="headerlink" href="#vm" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     vm start [--name=NAME]
              [--count=COUNT]
@@ -747,8 +763,8 @@ Examples:
 </pre></div>
 </div>
 </div>
-<div class="section" id="volume-paulo-done">
-<h2>Volume (Paulo) done<a class="headerlink" href="#volume-paulo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="volume">
+<h2>Volume<a class="headerlink" href="#volume" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     volume list
     volume create SIZE
@@ -892,8 +908,8 @@ Examples:
 </pre></div>
 </div>
 </div>
-<div class="section" id="ssh-pauolo-done">
-<h2>SSH (Pauolo) done<a class="headerlink" href="#ssh-pauolo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="ssh">
+<h2>SSH<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     ssh list [--format=FORMAT]
     ssh register NAME PARAMETERS
@@ -928,8 +944,8 @@ Options:
 </pre></div>
 </div>
 </div>
-<div class="section" id="quota-pauolo-done">
-<h2>Quota (Pauolo) done<a class="headerlink" href="#quota-pauolo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="quota">
+<h2>Quota<a class="headerlink" href="#quota" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     quota [CLOUD...] [--format=FORMAT]
 
@@ -945,8 +961,8 @@ Options:
 </pre></div>
 </div>
 </div>
-<div class="section" id="limits-paulo-done">
-<h2>Limits (Paulo) done<a class="headerlink" href="#limits-paulo-done" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="limits">
+<h2>Limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     limits [CLOUD...] [--format=FORMAT]
 
@@ -977,8 +993,8 @@ Options:
 </pre></div>
 </div>
 </div>
-<div class="section" id="project-gregor">
-<h2>Project (Gregor)<a class="headerlink" href="#project-gregor" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="project">
+<h2>Project<a class="headerlink" href="#project" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     project
     project info [--format=FORMAT]
@@ -1348,7 +1364,7 @@ Description:
         <a href="modules/modules.html" class="btn btn-neutral float-right" title="Modules and Classes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="man/man.html" class="btn btn-neutral" title="&lt;no title&gt;" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="man/man.html" class="btn btn-neutral" title="Commands" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
