@@ -58,7 +58,7 @@ class ManCommand(object):
             print 70 * "="
 
             commands = [k for k in dir(self) if k.startswith("do_")]
-            commands.sort()
+            commands = sorted(commands, key=str.lower)
 
         else:
             print arguments

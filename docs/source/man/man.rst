@@ -1,16 +1,5 @@
 Commands
 ======================================================================
-EOF
-----------------------------------------------------------------------
-
-Command - EOF::
-
-    Usage:
-        EOF
-
-    Command to the shell to terminate reading a script.
-
-
 banner
 ----------------------------------------------------------------------
 
@@ -35,26 +24,6 @@ Command - banner::
     Prints a banner form a one line text message.
 
 
-bar
-----------------------------------------------------------------------
-
-Command - bar::
-
-    Usage:
-          bar -f FILE
-          bar FILE
-          bar list
-
-    This command does some useful things.
-
-    Arguments:
-        FILE   a file name
-
-    Options:
-        -f      specify the file
-
-
-
 clear
 ----------------------------------------------------------------------
 
@@ -70,7 +39,24 @@ context
 
 Command - context::
 
-    Command documentation context missing, help_context
+    Usage:
+        context
+
+    Description:
+        Lists the context variables and their values
+
+
+EOF
+----------------------------------------------------------------------
+
+Command - EOF::
+
+    Usage:
+        EOF
+
+    Description:
+        Command to the shell to terminate reading a script.
+
 
 group
 ----------------------------------------------------------------------
@@ -250,6 +236,36 @@ Command - nova::
 
 
 
+open
+----------------------------------------------------------------------
+
+Command - open::
+
+    Usage:
+            open FILENAME
+
+    ARGUMENTS:
+        FILENAME  the file to open in the cwd if . is
+                  specified. If file in in cwd
+                  you must specify it with ./FILENAME
+
+    Opens the given URL in a browser window.
+
+
+pause
+----------------------------------------------------------------------
+
+Command - pause::
+
+    Usage:
+        pause [MESSAGE]
+
+    Displays the specified text then waits for the user to press RETURN.
+
+    Arguments:
+       MESSAGE  message to be displayed
+
+
 q
 ----------------------------------------------------------------------
 
@@ -258,7 +274,8 @@ Command - q::
     Usage:
         quit
 
-    Action to be performed whne quit is typed
+    Description:
+        Action to be performed whne quit is typed
 
 
 quit
@@ -269,7 +286,8 @@ Command - quit::
     Usage:
         quit
 
-    Action to be performed whne quit is typed
+    Description:
+        Action to be performed whne quit is typed
 
 
 register
