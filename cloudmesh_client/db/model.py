@@ -65,6 +65,7 @@ class CloudmeshMixin(object):
     cloud = Column(String, default="undefined")
     user = Column(String, default="undefined")
     kind = Column(String, default="undefined")
+    project = Column(String, default="undefined")
 
 
 class DEFAULT(CloudmeshMixin, db.Base):
@@ -176,6 +177,40 @@ class GROUP(CloudmeshMixin, db.Base):
         Group.list("IMAGE")  note each cloud could have its own images, so the cloudname
             is in result.
         """
+
+'''
+reservation add [--user=USER]
+                            [--project=PROJECT]
+                            [--hosts=HOSTS]
+                            [--description=DESCRIPTION]
+                            --name=NAMES
+                            --start=TIME_START
+                            --end=TIME_END
+'''
+class RESERVATION(CloudmeshMixin, db.Base):
+    hosts = Column(String) # should be list of strings
+    description = Column(String)
+    start_time = Column(String) # date, time
+    end_time = Column(String) # date, time
+
+    def __init__(self,
+                 name,
+                 hosts,
+                 start_time,
+                 end_time,
+                 description=None,
+                 cloud=None,
+                 user=None,
+                 project=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "comet"
+        self.start_time = start_time
+        self.end_time = end_time
+        self.description = description
+        self.name = name
+        self.user = user
+        self.kind = self.__tablename__
 
 
 def tables():
