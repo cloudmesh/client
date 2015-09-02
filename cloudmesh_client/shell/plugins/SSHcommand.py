@@ -10,6 +10,8 @@ from cloudmesh_base.ssh_config import ssh_config
 class SSHCommand(object):
     # def activate_cm_shell_ssh(self):
 
+    topics = {"ssh": "security"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

@@ -7,6 +7,9 @@ from cloudmesh_client.cloud.default import Default
 
 
 class DefaultCommand(object):
+
+    topics = {"default": "cloud"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

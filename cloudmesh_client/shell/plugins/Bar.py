@@ -3,6 +3,9 @@ from ..command_decorator import command
 
 
 class BarCommand(object):
+
+    topics = {"bar": "example"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

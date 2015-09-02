@@ -1,5 +1,7 @@
+from __future__ import print_function
 import os
 import sys
+from builtins import input
 
 from cloudmesh_client.shell.cm import command
 from cloudmesh_client.shell.console import Console
@@ -7,11 +9,16 @@ from cloudmesh_client.shell.console import Console
 
 class TerminalCommands(object):
 
+    topics = {"clear": "shell",
+              "banner": "shell"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:
             print("init command clear")
             print("init command banner")
+
+            # self.register_command_topic('cloud', 'admin')
 
     @command
     def do_clear(self, arg, arguments):
@@ -46,7 +53,7 @@ class TerminalCommands(object):
 
             Prints a banner form a one line text message.
         """
-        print arguments
+        print (arguments)
         n = int(arguments['-n'])
         c = arguments['-c']
         i = int(arguments['-i'])
@@ -57,3 +64,20 @@ class TerminalCommands(object):
         Console._print(color, "",  i * " " + c + " " + arguments['TEXT'])
         Console._print(color, "",  i * " " + (n-i) * c)
 
+    @command
+    def do_pause(self, arg, arguments):
+        """
+        ::
+
+            Usage:
+                pause [MESSAGE]
+
+            Displays the specified text then waits for the user to press RETURN.
+
+            Arguments:
+               MESSAGE  message to be displayed
+        """
+        print (arguments)
+        if arguments["MESSAGE"] is None:
+            arg = 'Press ENTER to continue'
+        input(arg + '\n')

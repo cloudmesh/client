@@ -10,6 +10,9 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
 class SelectCommand(object):
+
+    topics = {"select": "cloud"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

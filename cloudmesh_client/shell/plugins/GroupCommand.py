@@ -7,6 +7,9 @@ from pprint import pprint
 
 
 class GroupCommand:
+
+    topics = {"group": "cloud"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

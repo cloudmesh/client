@@ -11,6 +11,8 @@ from pprint import pprint
 import sys
 import traceback
 
+import string
+
 # from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
 # from cloudmesh_client.shell.plugins.KeyCommands import KeyCommands
 # import inspect
@@ -39,15 +41,34 @@ class CloudmeshConsole(cmd.Cmd,
                        GroupCommand,
                        KeyCommand,
                        SSHCommand,
-                       BarCommand,
+                       # BarCommand,
                        RegisterCommand,
                        NovaCommand):
     """
     Cloudmesh Console
     """
+    def register_topics(self):
+        topics = {}
+        for command in [TerminalCommands,
+                       ManCommand,
+                       SelectCommand,
+                       GroupCommand,
+                       KeyCommand,
+                       SSHCommand,
+                       RegisterCommand,
+                       NovaCommand]:
+            tmp = command.topics.copy()
+            topics.update(tmp)
+        for name in topics:
+            self.register_command_topic(topics[name], name)
+        for name in ["q", "EOF", "man"]:
+            self.register_command_topic("shell", name)
+
 
     def __init__(self, context):
         cmd.Cmd.__init__(self)
+        self.command_topics = {}
+        self.register_topics()
         self.context = context
         if self.context.debug:
             print("init CloudmeshConsole")
@@ -82,7 +103,8 @@ class CloudmeshConsole(cmd.Cmd,
         Usage:
             EOF
 
-        Command to the shell to terminate reading a script.
+        Description:
+            Command to the shell to terminate reading a script.
         """
         return True
 
@@ -91,7 +113,8 @@ class CloudmeshConsole(cmd.Cmd,
         Usage:
             quit
 
-        Action to be performed whne quit is typed
+        Description:
+            Action to be performed whne quit is typed
         """
         return True
 
@@ -101,7 +124,76 @@ class CloudmeshConsole(cmd.Cmd,
         return
 
     def do_context(self, args):
-        print(self.context)
+        """
+        Usage:
+            context
+
+        Description:
+            Lists the context variables and their values
+        """
+        """
+        :param args:
+        :return:
+        """
+        print(self.context.__dict__)
+
+    def register_command_topic(self, topic, command_name):
+        try:
+            a = self.command_topics[topic]
+        except:
+            self.command_topics[topic] = []
+        self.command_topics[topic].append(command_name)
+
+    def do_help(self, arg):
+        """List available commands with "help" or detailed help with "help cmd"."""
+
+        if arg:
+            try:
+                func = getattr(self, 'help_' + arg)
+            except AttributeError:
+                try:
+                    doc = getattr(self, 'do_' + arg).__doc__
+                    if doc:
+                        self.stdout.write("%s\n" % str(doc))
+                        return
+                except AttributeError:
+                    pass
+                self.stdout.write("%s\n" % str(self.nohelp % (arg,)))
+                return
+            func()
+        else:
+            names = self.get_names()
+            cmds_doc = []
+            cmds_undoc = []
+            help_page = {}
+            for name in names:
+                if name[:5] == 'help_':
+                    help_page[name[5:]] = 1
+            names.sort()
+            # There can be duplicates if routines overridden
+            prevname = ''
+            for name in names:
+                if name[:3] == 'do_':
+                    if name == prevname:
+                        continue
+                    prevname = name
+                    cmd = name[3:]
+                    if cmd in help_page:
+                        cmds_doc.append(cmd)
+                        del help_page[cmd]
+                    elif getattr(self, name).__doc__:
+                        cmds_doc.append(cmd)
+                    else:
+                        cmds_undoc.append(cmd)
+
+            self.stdout.write("%s\n" % str(self.doc_leader))
+            self.print_topics(self.doc_header, cmds_doc, 15, 80)
+            self.print_topics(self.misc_header, list(help_page.keys()), 15, 80)
+            self.print_topics(self.undoc_header, cmds_undoc, 15, 80)
+
+            for topic in self.command_topics:
+                topic_cmds = sorted(self.command_topics[topic], key=str.lower)
+                self.print_topics(string.capwords(topic + " commands"), topic_cmds, 15, 80)
 
     '''
     @command

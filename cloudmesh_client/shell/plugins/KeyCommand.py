@@ -20,6 +20,9 @@ from cloudmesh_client.shell.plugins.SelectCommand import SelectCommand
 
 
 class KeyCommand(object):
+
+    topics = {"key": "security"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

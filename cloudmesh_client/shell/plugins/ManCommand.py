@@ -5,6 +5,8 @@ from cloudmesh_client.shell.cm import command
 
 class ManCommand(object):
 
+    topics = {"man": "shell"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:

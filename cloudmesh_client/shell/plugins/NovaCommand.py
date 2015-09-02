@@ -17,6 +17,9 @@ log = LOGGER(__file__)
 
 class NovaCommand (object):
 
+
+    topics = {"nova": "cloud"}
+
     def __init__(self, context):
         self.context = context
         if self.context.debug:
