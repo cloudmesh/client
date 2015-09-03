@@ -5,7 +5,7 @@ import os.path
 import json
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.cm import command
+from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.cloud.register import CloudRegister
 

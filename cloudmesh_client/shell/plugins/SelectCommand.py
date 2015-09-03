@@ -2,7 +2,7 @@ from __future__ import print_function
 from pprint import pprint
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.cm import command
+from cloudmesh_client.shell.command import command
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_base.menu import dict_choice, menu_return_num
 from cloudmesh_client.cloud.default import Default

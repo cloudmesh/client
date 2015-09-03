@@ -1,29 +1,28 @@
 from __future__ import print_function
 
 import cmd
-import textwrap
 from pprint import pprint
 import sys
 import traceback
 import string
+import textwrap
 
 from docopt import docopt
-
 
 # from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
 # from cloudmesh_client.shell.plugins.KeyCommands import KeyCommands
 # import inspect
 
-from plugins.RegisterCommand import RegisterCommand
-from plugins.NovaCommand import NovaCommand
-from plugins.SSHCommand import SSHCommand
-from plugins.KeyCommand import KeyCommand
-from plugins.GroupCommand import GroupCommand
-from plugins.SelectCommand import SelectCommand
-from plugins.ManCommand import ManCommand
-from plugins.TerminalCommands import TerminalCommands
-from plugins.OpenCommand import OpenCommand
-from plugins.ReservationCommand import ReservationCommand
+from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
+from cloudmesh_client.shell.plugins.NovaCommand import NovaCommand
+from cloudmesh_client.shell.plugins.SSHCommand import SSHCommand
+from cloudmesh_client.shell.plugins.KeyCommand import KeyCommand
+from cloudmesh_client.shell.plugins.GroupCommand import GroupCommand
+from cloudmesh_client.shell.plugins.SelectCommand import SelectCommand
+from cloudmesh_client.shell.plugins.ManCommand import ManCommand
+from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
+from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
+from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
 
 
 class CloudmeshContext(object):

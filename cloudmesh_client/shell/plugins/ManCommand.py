@@ -1,6 +1,6 @@
 import textwrap
 
-from cloudmesh_client.shell.cm import command
+from cloudmesh_client.shell.command import command
 
 
 class ManCommand(object):

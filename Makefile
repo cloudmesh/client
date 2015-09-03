@@ -24,9 +24,12 @@ publish:
 view:
 	$(BROWSER) docs/build/html/index.html
 
-man:
+man: cloudmesh
 	cm man > docs/source/man/man.rst
 
+cloudmesh:
+	python setup.py install
+	
 ######################################################################
 # CLEANING
 ######################################################################
@@ -36,7 +39,7 @@ clean:
 	rm -rf *.egg-info
 	find . -name "*~" -exec rm {} \;
 	find . -name "*.pyc" -exec rm {} \;
-	# cd docs; make clean
+	cd docs; make clean
 	echo "clean done"
 
 ######################################################################
