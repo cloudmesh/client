@@ -214,7 +214,7 @@ class RESERVATION(CloudmeshMixin, db.Base):
 
 def tables():
     # inspector = inspect(self.db.engine)
-    return [DEFAULT, KEY, GROUP]
+    return [DEFAULT, KEY, GROUP, RESERVATION]
 
 
 def tablenames():
@@ -229,6 +229,11 @@ def table(name):
         return KEY
     elif name == "group":
         return GROUP
+    elif name == "reservation":
+        return RESERVATION
+    else:
+        print("ERROR: unkown table {}".format(name))
+        sys.exit()
 
 
 """
