@@ -6,7 +6,6 @@ import os
 from cloudmesh_base.util import path_expand
 import requests
 from cloudmesh_base.menu import menu_return_num
-
 from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict

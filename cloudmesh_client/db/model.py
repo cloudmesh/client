@@ -6,7 +6,6 @@ from cloudmesh_client.common.ConfigDict import Config
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import Column, Integer, String, DateTime, MetaData, create_engine, inspect
 from sqlalchemy.ext.declarative import declarative_base
-
 from cloudmesh_client.common.todo import TODO
 
 class database(object):

@@ -16,7 +16,6 @@ import yaml
 import json
 from cloudmesh_client.cloud.default import Default
 # from cloudmesh_base.menu import num_choice, dict_choice
-from cloudmesh_client.shell.plugins.SelectCommand import SelectCommand
 
 
 class KeyCommand(object):

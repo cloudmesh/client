@@ -1,13 +1,13 @@
 from __future__ import print_function
 
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.cm import command
-
-from cloudmesh_client.common.ConfigDict import Config
 import os
 import os.path
-from cloudmesh_client.cloud.register import CloudRegister
 import json
+
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.shell.cm import command
+from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.cloud.register import CloudRegister
 
 
 class RegisterCommand(object):

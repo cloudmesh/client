@@ -1,23 +1,19 @@
 from __future__ import print_function
 
 import cmd
-from .command_decorator import command
-import plugins
 import textwrap
-import inspect
-import shlex
-from docopt import docopt
 from pprint import pprint
 import sys
 import traceback
-
 import string
+
+from docopt import docopt
+
 
 # from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
 # from cloudmesh_client.shell.plugins.KeyCommands import KeyCommands
 # import inspect
 
-from plugins.Bar import BarCommand
 from plugins.RegisterCommand import RegisterCommand
 from plugins.NovaCommand import NovaCommand
 from plugins.SSHCommand import SSHCommand
@@ -43,7 +39,6 @@ class CloudmeshConsole(cmd.Cmd,
                        GroupCommand,
                        KeyCommand,
                        SSHCommand,
-                       # BarCommand,
                        ReservationCommand,
                        RegisterCommand,
                        OpenCommand,

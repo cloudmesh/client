@@ -1,8 +1,8 @@
 from __future__ import print_function
 import os
 import sys
-from builtins import input
 
+from builtins import input
 from cloudmesh_client.shell.cm import command
 from cloudmesh_client.shell.console import Console
 

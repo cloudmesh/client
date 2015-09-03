@@ -2,7 +2,6 @@ from __future__ import print_function
 from cloudmesh_client.shell.cm import command
 from cloudmesh_client.shell.console import Console
 # from cloudmesh_client.cloud.command_ssh import command_ssh
-from cloudmesh_base.Shell import Shell
 import os
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_base.ssh_config import ssh_config

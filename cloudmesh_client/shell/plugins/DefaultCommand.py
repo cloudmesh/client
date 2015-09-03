@@ -1,8 +1,6 @@
 from __future__ import print_function
-import os
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.cm import command
-from pprint import pprint
 from cloudmesh_client.cloud.default import Default
 
 
