@@ -2,9 +2,9 @@ import sqlite3 as sqlite
 import json
 import os
 import os.path
+from faker import Faker
 
-
-# TODO: change + string to remove + but use a .format( ) which is more like python3
+# TODO: change + string to remove + but use a .format( ) which is more like python3 -------- DONE
 # you can do
 # data = {'tablename': self.table_name, ....}
 # ".... {tablename} .... ".format(**data)
@@ -17,6 +17,8 @@ class PersistentDb:
     def __init__(self, filename, d=None, **attributes):
         if '~' in filename:
             filename = os.path.expanduser(filename)
+
+        print(filename)
         self.con = sqlite.connect(filename)
         self.table_name = d
         self.cur = self.con.cursor()
@@ -24,7 +26,7 @@ class PersistentDb:
             "name": d,
             "key_values":  ','.join("%s %s" % (key, value) for (key, value) in attributes.items())
         }
-        self.cur.execute("CREATE TABLE if not exists {name} ({key_value})".format(**data))
+        self.cur.execute("CREATE TABLE if not exists {name} ({key_values})".format(**data))
 
     def add_attributes(self, **attribute_names):
         """
@@ -34,7 +36,7 @@ class PersistentDb:
         :param d: The dictionary/table name
         """
         existing_attribute_names = list(map(lambda x: x[0], self.con.execute(
-            "SELECT * from " + self.table_name).description))
+            "SELECT * from {}".format(self.table_name)).description))
         list_new_attributes = set(existing_attribute_names).union(
             attribute_names.keys()) - set(existing_attribute_names)
         for col in list_new_attributes:
@@ -68,14 +70,12 @@ class PersistentDb:
             if res[1] == name:
                 return res[2]
 
-    def add(self, name, **kwargs):
+    def add(self, **kwargs):
         """
         adds the dict to the database. The attribute "name" is used to define a
         unique name for the object in the database
         :param record: the dict that at minimum must contain a name attribute
         """
-
-        kwargs['name'] = name
         column_names = ', '.join(kwargs.keys())
         placeholders = ', '.join('?' * len(kwargs.values()))
         sql = 'INSERT INTO {} ({}) VALUES ({})'.format(
@@ -90,9 +90,11 @@ class PersistentDb:
         :param kwargs: the attributes that we look for
         :param operator: the operator and / or
         """
-
-        self.cur.execute("DELETE FROM person WHERE " + (" {} ".format(operator)).join("%s=%r" % (key, value) for (key, value)
-                                                                                in kwargs.items()))
+        data = {
+            "table": self.table_name,
+            "key_values":  " {} ".format(operator).join("%s='%s'" % (key, value) for (key, value) in kwargs.items())
+        }
+        self.cur.execute("DELETE FROM {table} WHERE  {key_values} ".format(**data))
         self.con.commit()
 
     def find(self, operator, **kwargs):
@@ -101,9 +103,11 @@ class PersistentDb:
         :param operator: The operators and / or
         :param kwargs: The attributes that we look for
         """
-        result = self.cur.execute("SELECT * FROM person WHERE " +
-                                  (" %s " % operator).join("%s=%r" % (key, value) for (key, value) in
-                                                           kwargs.items()))
+        data = {
+            "table": self.table_name,
+            "key_values":  " {} ".format(operator).join("%s='%s'" % (key, value) for (key, value) in kwargs.items())
+        }
+        result = self.cur.execute("SELECT * FROM {table} WHERE {key_values}".format(**data))
         recs_list = result.fetchall()
         print recs_list
 
@@ -113,9 +117,11 @@ class PersistentDb:
         :param operator: The operators and / or
         :param kwargs: The attributes that we look for
         """
-        result = self.cur.execute("SELECT * FROM person WHERE " + (" {} ".format(operator)).join("%s=%r" % (key, value) for
-                                                                                           (key, value) in
-                                                                                           kwargs.items()))
+        data = {
+            "table": self.table_name,
+            "key_values":  " {} ".format(operator).join("%s='%s'" % (key, value) for (key, value) in kwargs.items())
+        }
+        result = self.cur.execute("SELECT * FROM {table} WHERE {key_values}".format(**data))
         rec = result.fetchone()
         print rec
 
@@ -125,7 +131,7 @@ class PersistentDb:
         :return: The json object of the database
         """
         self.con.row_factory = sqlite.Row  # Use the dictionary cursor to fetch data by column names
-        result = self.con.cursor().execute("SELECT * FROM person ").fetchall()
+        result = self.con.cursor().execute("SELECT * FROM {} ".format(self.table_name)).fetchall()
         return json.dumps([dict(row) for row in result])
 
     def backup(self, file_name):
@@ -137,6 +143,7 @@ class PersistentDb:
         number is used (e.g. 10) and the backup file file.back.10 is used.
         :param file_name: the backup filename
         """
+
         backup_file_no = len([name for name in os.listdir(
             '.') if os.path.isfile(name) and (file_name in name)]) + 1
         backup_file = open(file_name + ".bak." + str(backup_file_no), "w")
@@ -144,27 +151,49 @@ class PersistentDb:
         backup_file.close()
 
 
-# TODO: somehow we need also in windows something like ~/.cloudmesh/client.db, see if you can use path_expand in base
-# TODO: if db is not there it should be created
+# TODO: somehow we need also in windows something like ~/.cloudmesh/client.db, see if you can use path_expand in base ---
+# Need some info here
 
-# TODO: can you create larger example with https://pypi.python.org/pypi/fake-factory
-
-pd = PersistentDb("F:/python/sqliteMultiDimensional/testDb.db", "person",
-                  NAME='VARCHAR NOT NULL', ADDRESS='VARCHAR', EMAIL='VARCHAR', OCCUPATION='IT')
-pd.add("abc", address="here", email="abcexample.com", occupation="IT")
-pd.add("abc", address="idk")
+# TODO: if db is not there it should be created -------- Yes, the db gets created if not present
+pd = PersistentDb("F:/python_workspace/sqliteMultiDimensional/testDb.db", "person",
+                  NAME='VARCHAR NOT NULL', ADDRESS='VARCHAR', EMAIL='VARCHAR', OCCUPATION='VARCHAR')
 
 
-# Delete a record
-# pd.delete('and', name='abc', address='here')
+# TODO: can you create larger example with https://pypi.python.org/pypi/fake-factory --------- DONE
+FAKER = Faker()
+for _ in range(0, 6):
+    data = {
+        "name": FAKER.first_name(),
+        "address": FAKER.full_address(),
+        "email": FAKER.email(),
+        "occupation": FAKER.company()
+    }
+    pd.add(**data)
 
 # Find
-# pd.find("", name='abc')
+for_find = {
+    "name": FAKER.first_name()
+}
+pd.find("", **for_find)
 
 # Get the first record
-# pd.get('and', name='erika', address='IN')
+for_get = {
+    "name": FAKER.first_name(),
+    "address": FAKER.full_address()
+}
+pd.get('and', **for_get)
 
-# print pd.json
+# Delete a record
+for _ in range(0, 5):
+    for_deletion = {
+        "name": FAKER.first_name(),
+        "address": FAKER.full_address()
+    }
+    pd.delete('and', **for_deletion)
+
+
+# Prints ths json
+print pd.json
 
 # pd.backup("new_backup")
 
