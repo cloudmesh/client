@@ -213,9 +213,10 @@ class RESERVATION(CloudmeshMixin, db.Base):
 
 
 def tables():
+    classes = [cls for cls in db.Base.__subclasses__()]
     # inspector = inspect(self.db.engine)
-    return [DEFAULT, KEY, GROUP, RESERVATION]
-
+    # return [DEFAULT, KEY, GROUP, RESERVATION]
+    return classes
 
 def tablenames():
     names = [name.__tablename__ for name in tables()]
