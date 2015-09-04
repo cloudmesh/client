@@ -68,12 +68,12 @@ class InstallBase(install):
     def run(self):
         banner("Install readline")
         commands = None
-        p = platform.system().lower()
-        if  p in ['darwin']:
+        this_platform = platform.system().lower()
+        if  this_platform in ['darwin']:
             commands = """
                 easy_install readline
                 """
-        elif p in ['windows']:
+        elif this_platform in ['windows']:
             commands = """
                 pip install pyreadline
                 """
