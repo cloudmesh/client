@@ -8,6 +8,9 @@ python:
 #
 install:
   - pip install --upgrade pip
+  - mkdir ~/.cloudmesh
+  - mkdir -p github/cloudmesh
+  - cd github/cloudmesh
   - git clone https://github.com/cloudmesh/base.git
   - git clone https://github.com/cloudmesh/client.git
   - cd base
