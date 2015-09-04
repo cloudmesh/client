@@ -1,7 +1,7 @@
-from sandman import app, db
+from sm import app, db
 
 
-from sandman.model import register, Model
+from sm.model import register, Model
 from cloudmesh_client.db.model import DEFAULT, GROUP, KEY, RESERVATION
 
 

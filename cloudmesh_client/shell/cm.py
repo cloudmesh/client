@@ -23,7 +23,7 @@ from cloudmesh_client.shell.plugins.ManCommand import ManCommand
 from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
-
+from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -32,6 +32,7 @@ class CloudmeshContext(object):
 
 # noinspection PyPep8Naming
 class CloudmeshConsole(cmd.Cmd,
+                       ServerCommand,
                        TerminalCommands,
                        ManCommand,
                        SelectCommand,
@@ -49,6 +50,7 @@ class CloudmeshConsole(cmd.Cmd,
         topics = {}
         for command in [TerminalCommands,
                        ManCommand,
+                       ServerCommand,
                        SelectCommand,
                        GroupCommand,
                        KeyCommand,

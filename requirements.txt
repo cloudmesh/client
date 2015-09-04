@@ -10,3 +10,4 @@ prettytable
 sqlalchemy
 urllib3
 requests
+sandman
