@@ -1,0 +1,15 @@
+git:
+  submodules: false
+language: python
+python:
+  - "2.7"
+# command to install dependencies
+install:
+  - pip install --upgrade pip
+  - pip install cloudmesh_base
+  - pip install cloudmesh_client  
+  - make doc
+# command to run tests
+script: 
+  - cm help
+  - nosetests -v --nocapture tests/test_pass.py
