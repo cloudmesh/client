@@ -1,8 +1,8 @@
 #! /usr/bin/env python
 
-from docopt import docopt
+import os
+
 from sandman import app
-from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_base.util import path_expand
 
@@ -36,7 +36,7 @@ class ServerCommand(object):
 
         """
 
-        filename = "sqlite:///{}".format(path_expand("~/.cloudmesh/cloudmesh.db"))
+        filename = "sqlite:///{}".format(path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db")))
 
         print("database: {}".format(filename))
         app.config['SQLALCHEMY_DATABASE_URI'] = filename

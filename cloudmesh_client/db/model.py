@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import os
 from datetime import datetime
 
 from cloudmesh_client.common.ConfigDict import Config
@@ -35,7 +36,7 @@ class database(object):
 
         # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
 
-        self.filename = Config.path_expand("~/.cloudmesh/cloudmesh.db")
+        self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
         self.endpoint = 'sqlite:///{:}'.format(self.filename)
         self.engine = create_engine(self.endpoint)
         self.Base = declarative_base(bind=self.engine)

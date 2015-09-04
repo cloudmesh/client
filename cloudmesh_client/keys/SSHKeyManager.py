@@ -66,7 +66,7 @@ class SSHKeyManager(object):
         :return: a SSHKeyManager (dict of keys)
         """
         if filename is None:
-            # default = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            # default = path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.yaml"))
             # config = ConfigDict("cloudmesh.yaml")
             filename = "cloudmesh.yaml"
             config = ConfigDict(filename)
@@ -86,7 +86,7 @@ class SSHKeyManager(object):
                 sshmanager.add_from_file(path)
             else:
                 sshkey = SSHkey()
-                uri = path_expand("~/.cloudmesh/{}".format(filename))
+                uri = path_expand(os.path.join("~", ".cloudmesh", filename))
                 sshkey.__key__['uri'] = 'yaml://{}'.format(uri)
                 sshkey.__key__['string'] = value
                 (sshkey.__key__['type'],

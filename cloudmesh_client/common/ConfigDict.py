@@ -66,7 +66,7 @@ class Config(object):
         :rtype: string if the file exists or None otherwise
         """
         if load_order is None:
-            load_order = [".", "~/.cloudmesh"]
+            load_order = [".", os.path.join("~", ".cloudmesh")]
         for path in load_order:
             name = Config.path_expand(path + os.path.sep + filename)
             if verbose:
@@ -98,7 +98,7 @@ class ConfigDict(object):
         """
         self.data = None
         if load_order is None:
-            self.load_order = [".", "~/.cloudmesh"]
+            self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
             self.load_order = load_order
         for path in self.load_order:

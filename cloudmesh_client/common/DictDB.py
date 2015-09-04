@@ -11,7 +11,7 @@ class DictDB(dict):
 
         The name in the dict is identifies where to store it.
 
-        d = PersistentData("~/.cloudmesh/data.db")
+        d = PersistentData(os.path.join("~", ".cloudmesh/data.db"))
 
         d.add(element)
 
