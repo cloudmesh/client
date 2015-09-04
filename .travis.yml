@@ -19,7 +19,7 @@ install:
   - cd ../client
   - pip install -r requirements.txt
   - python setup.py install
-  - make doc
+#  - make doc
 #
 # command to run tests
 #
