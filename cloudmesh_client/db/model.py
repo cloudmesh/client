@@ -78,7 +78,7 @@ class DEFAULT(CloudmeshMixin, db.Base):
     value = Column(String)
     type = Column(String, default="string")
 
-    cloud = Column(String)
+    # cloud = Column(String)
 
     def __init__(self,
                  name,

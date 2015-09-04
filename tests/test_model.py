@@ -17,7 +17,7 @@ import cloudmesh_client.db
 import cloudmesh_client.db.model
 
 
-class Test_pass:
+class Test_model:
     def setup(self):
         pass
 
