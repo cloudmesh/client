@@ -61,7 +61,7 @@ class CloudRegister(object):
         :return:
         """
         if host == "india" and filename is None:
-            filename = ".cloudmesh/clouds/india/juno/openrc.sh"
+            filename = os.path.join(".cloudmesh", "india", "juno", "openrc.sh")
 
         Console.ok("register")
         print(host, filename)
@@ -120,7 +120,7 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = path_expand('~/.cloudmesh/clouds/india/')
+            _to = path_expand(os.path.join('~', '.cloudmesh', 'clouds', 'india'))
 
             if os.path.exists(_to):
 
@@ -144,7 +144,7 @@ class CloudRegister(object):
     def certificate(cls, host, path_cert, force=False):
         """
         copies the CERT to the ~/.cloudmesh/clouds/host directory and registers
-        that cert in the coudmeh.yaml file
+        that cert in the coudmesh.yaml file
 
         :param host: the host name
         :type host: string
@@ -160,7 +160,7 @@ class CloudRegister(object):
             # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
-            _to = path_expand('~/.cloudmesh/clouds/india/juno/')
+            _to = path_expand(os.path.join('~', '.cloudmesh', 'clouds', 'india', 'juno'))
 
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
@@ -183,7 +183,7 @@ class CloudRegister(object):
             try:
                 Console.ok("registering cert in cloudmesh.yaml file")
                 home = expanduser("~")
-                filename = home + '/.cloudmesh/clouds/india/juno/openrc.sh'
+                filename = home + os.path.join('~', '.cloudmesh', 'clouds', 'india', 'juno', 'openrc.sh')
                 result = Shell.cat(filename)
             except IOError, e:
                 print("ERROR: ", e)
@@ -218,8 +218,11 @@ class CloudRegister(object):
         Console.ok("register")
         if host.lower() == "india":
             _from = 'india:{:}'.format(directory)
-            _to = path_expand('~/.cloudmesh/clouds/{:}'.format(host))
+            _to = path_expand(os.path.join('~', '.cloudmesh', 'clouds', host))
 
+            #
+            # BUG: the next line needs to be fixed to be linux and windows compatible
+            #
             folder = directory.split('/')
             destination = _to + "/" + (folder[-1:])[0]
 
