@@ -237,7 +237,7 @@ def table(name):
             return t
 
     raise("ERROR: unkown table {}".format(name))
-    
+
 
 """
 db.Base.metadata.create_all()
