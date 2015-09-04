@@ -1,0 +1,7 @@
+sboy module
+===========
+
+.. automodule:: sboy
+    :members:
+    :undoc-members:
+    :show-inheritance:
