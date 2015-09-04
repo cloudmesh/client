@@ -213,24 +213,31 @@ class RESERVATION(CloudmeshMixin, db.Base):
 
 
 def tables():
+    """
+    :return: the list of tables in model
+    """
     classes = [cls for cls in db.Base.__subclasses__()]
-    # inspector = inspect(self.db.engine)
-    # return [DEFAULT, KEY, GROUP, RESERVATION]
     return classes
 
 def tablenames():
+    """
+    :return: the list of table names in model
+    """
     names = [name.__tablename__ for name in tables()]
     return names
 
 
 def table(name):
+    """
+    :return: the table class based on a given table name.
+             In case the table does not exist an exception is thrown
+    """
     for t in tables():
         if t.__tablename__ == name:
             return t
 
-    print("ERROR: unkown table {}".format(name))
-    sys.exit()
-
+    raise("ERROR: unkown table {}".format(name))
+    
 
 """
 db.Base.metadata.create_all()
