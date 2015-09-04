@@ -1,9 +1,9 @@
 git:
   submodules: false
 
-os:
-  - linux
-  - osx
+#os:
+#  - linux
+#  - osx
 
 language: python
 
