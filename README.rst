@@ -1,11 +1,9 @@
-gregor was here
+This project is under development
 
-gourav here
+The documentation to this project is located at
 
-Mangirish was here
+* http://cloudmesh.github.io/client
 
-Mangirish was here with SSH
+The source code is located at
 
-Erika was also here again from Windows 10
-
-Gourav was here with SSH & Passphrase
+*  https://github.com/cloudmesh/client
