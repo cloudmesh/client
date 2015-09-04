@@ -11,3 +11,7 @@ The documentation to this project is located at
 The source code is located at
 
 *  https://github.com/cloudmesh/client
+
+The travis build is found at
+
+* https://travis-ci.org/cloudmesh/client

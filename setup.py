@@ -172,7 +172,7 @@ setup(
         'pypi': UploadToPypi,
         'test': Tox
     },
-    #dependency_links =
-    #    ['git+https://github.com/cloudmesh/base.git@sh']
+    dependency_links =
+        ['git+https://github.com/cloudmesh/base.git']
 )
 
