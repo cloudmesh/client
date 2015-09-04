@@ -8,11 +8,6 @@ import string
 import textwrap
 
 from docopt import docopt
-
-# from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
-# from cloudmesh_client.shell.plugins.KeyCommands import KeyCommands
-# import inspect
-
 from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
 from cloudmesh_client.shell.plugins.NovaCommand import NovaCommand
 from cloudmesh_client.shell.plugins.SshCommand import SshCommand
@@ -24,6 +19,11 @@ from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
 from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
+from cloudmesh_client.version import version
+from cloudmesh_client.shell.console import Console
+from cloudmesh_base.util import get_python
+from cloudmesh_base.util import check_python
+import cloudmesh_base
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -144,6 +144,23 @@ class CloudmeshConsole(cmd.Cmd,
         :return:
         """
         print(self.context.__dict__)
+
+    def do_version(self, args):
+        """
+        Usage:
+           version
+
+        Prints out the version number
+        """
+
+        python_version, pip_version = get_python()
+
+        Console.ok("cloudmesh_client: {:}".format(str(version)))
+        Console.ok("cloudmesh_base:   {:}".format(str(cloudmesh_base.version)))
+        Console.ok("python:           {:}".format(str(python_version)))
+        Console.ok("pip:              {:}".format(str(pip_version)))
+
+        check_python()
 
     def register_command_topic(self, topic, command_name):
         try:
