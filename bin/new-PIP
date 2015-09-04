@@ -1,0 +1,32 @@
+#!/bin/sh
+#~/ENV/bin/deactivate
+rm -rf ~/ENV
+virtualenv -p /usr/local/bin/python ~/ENV
+source ~/ENV/bin/activate
+
+pip install pip -U
+
+PWD=`pwd`
+
+cd ../base
+git pull
+# pip install -r requirements.txt
+pip install -e .
+#python setup.py install
+#git checkout sh
+
+#cd ../cmd3
+#git pull
+#git checkout sh
+
+cd ../client
+git pull
+# pip install -r requirements.txt
+# python setup.py install
+# git checkout sh
+pip install -e .
+
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD; cm help ; cm version\" "
+
+#xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
+#
