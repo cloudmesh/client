@@ -163,7 +163,6 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
-            'cm-server = cloudmesh_client.rest.runserver:main',
         ],
     },
     tests_require=['tox'],

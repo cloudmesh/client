@@ -218,22 +218,17 @@ def tables():
 
 
 def tablenames():
-    inspector = inspect(db.engine)
-    return inspector.get_table_names()
+    names = [name.__tablename__ for name in tables()]
+    return names
 
 
 def table(name):
-    if name == "default":
-        return DEFAULT
-    elif name == "key":
-        return KEY
-    elif name == "group":
-        return GROUP
-    elif name == "reservation":
-        return RESERVATION
-    else:
-        print("ERROR: unkown table {}".format(name))
-        sys.exit()
+    for t in tables():
+        if t.__tablename__ == name:
+            return t
+
+    print("ERROR: unkown table {}".format(name))
+    sys.exit()
 
 
 """
