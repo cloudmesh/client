@@ -6,8 +6,8 @@ python:
 # command to install dependencies
 install:
   - pip install --upgrade pip
-  - git clone git@github.com:cloudmesh/base.git
-  - git clone git@github.com:cloudmesh/client.git
+  - git clone https://github.com/cloudmesh/base.git
+  - git clone https://github.com/cloudmesh/client.git
   - cd base
   - python setup.py install
   - cd ../client
