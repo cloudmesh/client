@@ -24,6 +24,8 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
 import cloudmesh_base
+from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.shell.command import command
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -145,22 +147,44 @@ class CloudmeshConsole(cmd.Cmd,
         """
         print(self.context.__dict__)
 
-    def do_version(self, args):
+    @command
+    def do_version(self, args, arguments):
         """
         Usage:
-           version
+           version [--format=FORMAT] [--check=CHECK]
 
-        Prints out the version number
+        Options:
+            --format=FORMAT  the format to print the versions in [default: table]
+            --check=CHECK    boolean tp conduct an additional check [default: True]
+
+        Description:
+            Prints out the version number
         """
 
         python_version, pip_version = get_python()
 
-        Console.ok("cloudmesh_client: {:}".format(str(version)))
-        Console.ok("cloudmesh_base:   {:}".format(str(cloudmesh_base.version)))
-        Console.ok("python:           {:}".format(str(python_version)))
-        Console.ok("pip:              {:}".format(str(pip_version)))
+        versions = {
+            "cloudmesh_client": {
+                "name": "cloudmesh_client",
+                "version": str(version)
+            },
+            "cloudmesh_base": {
+                "name": "cloudmesh_base",
+                "version": str(cloudmesh_base.version)
+            },
+            "python": {
+                "name": "python",
+                "version": str(python_version)
+            },
+            "pip": {
+                "name": "pip",
+                "version": str(pip_version)
+            }
+        }
 
-        check_python()
+        print (dict_printer(versions, output=arguments["--format"] ,order=["name", "version"]))
+        if arguments["--check"] in ["True"]:
+            check_python()
 
     def register_command_topic(self, topic, command_name):
         try:
@@ -297,14 +321,11 @@ def main():
 
         script_file = arg['--file']
 
-        pprint(arg)
-
     except:
         script_file = None
         interactive = False
 
         arguments = sys.argv[1:]
-        print("ARG", sys.argv[1:])
         arg = {
             '--debug': '--debug' in arguments,
             '--nosplash': '--nosplash' in arguments,
@@ -316,11 +337,10 @@ def main():
 
         arg['COMMAND'] = [' '.join(arguments)]
 
-    print('PASS ARGS', arg)
     splash = not arg['--nosplash']
     debug = arg['--debug']
     interactive = arg['-i']
-    print(splash)
+
 
     context = CloudmeshContext(debug=debug,
                                splash=splash)
