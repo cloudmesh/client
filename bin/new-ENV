@@ -10,19 +10,19 @@ PWD=`pwd`
 
 cd ../base
 git pull
+python setup.py install
 #git checkout sh
 
-cd ../cmd3
-git pull
+#cd ../cmd3
+#git pull
 #git checkout sh
 
 cd ../client
 git pull
+python setup.py install
 # git checkout sh
 
-osascript -e "tell application \"Terminal\" to do script \"cd $PWD; ./bin/install-code; ./bin/new-title; cm plugins add cloudmesh_client  ; cm help ; cm version\" "
-
-cm plugins add cloudmesh_client
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD; cm help ; cm version\" "
 
 #xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
 #

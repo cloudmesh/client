@@ -9,8 +9,10 @@ install:
   - git clone git@github.com:cloudmesh/base.git
   - git clone git@github.com:cloudmesh/client.git
   - cd base
+  - pip install -r requirements
   - python setup.py install
   - cd ../client
+  - pip install -r requirements
   - python setup.py install
   - make doc
 # command to run tests
