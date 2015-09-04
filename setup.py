@@ -22,6 +22,7 @@ from setuptools.command.install import install
 import os
 import shutil
 import sys
+import platform
 
 try:
     import cloudmesh_base
@@ -66,10 +67,18 @@ class InstallBase(install):
 
     def run(self):
         banner("Install readline")
-        commands = """
-            easy_install readline
-            """
-        os_execute(commands)    
+        commands = None
+        p = platform.system().lower()
+        if  p in ['darwin']:
+            commands = """
+                easy_install readline
+                """
+        elif p in ['windows']:
+            commands = """
+                pip install pyreadline
+                """
+        if commands:
+            os_execute(commands)
         import cloudmesh_client
         banner("Install Cloudmesh_client {:}".format(version))
         install.run(self)
@@ -85,20 +94,22 @@ home = os.path.expanduser("~")
 #print [ (home + '/.cloudmesh/' + d, [os.path.join(d, f) for f in files]) for d, folders, files in os.walk('etc')],
 #sys.exit()
 
-data_files= [ (home + '/.cloudmesh/' + d.lstrip('cloudmesh_client/'),
-                [os.path.join(d, f) for f in files]) for d, folders, files in os.walk('cloudmesh_client/etc')]
+data_files= [ (os.path.join(home, '.cloudmesh') + d.lstrip('cloudmesh_client/'),
+                [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
+                    os.path.join('cloudmesh_client', 'etc'))]
 
+print ("DDDDD", data_files)
 
 import fnmatch
 import os
 
 matches = []
-for root, dirnames, filenames in os.walk('cloudmesh_client/etc'):
+for root, dirnames, filenames in os.walk(os.path.join('cloudmesh_client', 'etc')):
   for filename in fnmatch.filter(filenames, '*'):
     matches.append(os.path.join(root, filename).lstrip('cloudmesh_client/'))
 data_dirs = matches
 
-#
+
 # Hack because for some reason requirements does not work
 #
 # os.system("pip install -r requirements.txt")
@@ -123,7 +134,7 @@ class Tox(TestCommand):
         sys.exit(errno)
 
 
-APP = ['cloudmesh_client/shell.py']
+APP = [os.path.join('cloudmesh_client', 'shell.py')]
 OPTIONS = {'argv_emulation': True}
             
 setup(

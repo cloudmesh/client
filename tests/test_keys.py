@@ -46,7 +46,8 @@ class Test_keys:
         """reading the keys from github"""
         HEADING()
 
-        #config = ConfigDict(filename="~/.cloudmesh/cloudmesh.yaml")
+        # from cloudmesh_client.common import cloudmesh_yaml
+        #config = ConfigDict(filename=cloudmesh_yaml")
         #git_username = config['cloudmesh']['github']['username']
         git_username = 'laszewsk'
 

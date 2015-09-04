@@ -309,10 +309,15 @@ def main():
                                splash=splash)
     cmd = CloudmeshConsole(context)
 
+
+    # TODO: check if cludmesh_yaml exists and if not create it
+    # also creat .cloudmesh dir if it not exists
     """
+    from cloudmesh_client.common import cloudmesh_yaml
+
     create_cmd3_yaml_file(force=False, verbose=False)
 
-    filename = path_expand("~/.cloudmesh/cmd3.yaml")
+    filename = cloudmesh_yaml
     try:
         module_config = ConfigDict(filename=filename)
         modules = module_config["cmd3"]["modules"]

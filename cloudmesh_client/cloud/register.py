@@ -10,7 +10,7 @@ from builtins import input
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
-
+from cloudmesh_client.common import dot_cloudmesh
 
 class CloudRegister(object):
     @classmethod
@@ -120,7 +120,7 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = path_expand(os.path.join('~', '.cloudmesh', 'clouds', 'india'))
+            _to = path_expand(os.path.join(dot_cloudmesh, 'clouds', 'india'))
 
             if os.path.exists(_to):
 
@@ -160,7 +160,7 @@ class CloudRegister(object):
             # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
-            _to = path_expand(os.path.join('~', '.cloudmesh', 'clouds', 'india', 'juno'))
+            _to = os.path.join(dot_cloudmesh, 'clouds', 'india', 'juno')
 
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):

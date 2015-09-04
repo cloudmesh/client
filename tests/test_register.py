@@ -9,9 +9,11 @@ or
 nosetests -v tests/test_register.py
 
 """
+import os
+
 from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
-import os
+
 
 def run(command):
     parameter = command.split(" ")
@@ -62,14 +64,16 @@ class Test_register():
     def test_005(self):
         """testing cm register CLOUD CERT"""
         HEADING()
-        result = run ("cm register india .cloudmesh/clouds/india/juno/cacert.pem --force")
+
+        cert =  os.path.join(".cloudmesh", "clouds", "india", "juno", "cacert.pem")
+        result = run ("cm register india {} --force".format(cert))
         assert "cert registered " in result
 
     def test_006(self):
         """testing cm register CLOUD CERT"""
         HEADING()
-
-        result = run ("cm register india .cloudmesh/clouds/juno/d/cacert.pem --force")
+        cert =  os.path.join(".cloudmesh", "clouds", "doesnotexist", "juno", "cacert.pem")
+        result = run ("cm register india {} --force".format(cert))
 
         assert "ERROR" in result
 
