@@ -9,7 +9,6 @@ import textwrap
 from docopt import docopt
 from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
 from cloudmesh_client.shell.plugins.NovaCommand import NovaCommand
-from cloudmesh_client.shell.plugins.SSHCommand import SSHCommand
 from cloudmesh_client.shell.plugins.KeyCommand import KeyCommand
 from cloudmesh_client.shell.plugins.GroupCommand import GroupCommand
 from cloudmesh_client.shell.plugins.SelectCommand import SelectCommand
@@ -18,6 +17,7 @@ from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
 from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
+from cloudmesh_client.shell.plugins.SSHCommand import SSHCommand
 from cloudmesh_client.version import version
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python

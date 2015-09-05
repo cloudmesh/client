@@ -35,11 +35,11 @@ cloudmesh:
 ######################################################################
 
 clean:
+	cd docs; make clean
 	rm -rf build dist docs/build .eggs *.egg-info
 	rm -rf *.egg-info
 	find . -name "*~" -exec rm {} \;
 	find . -name "*.pyc" -exec rm {} \;
-	cd docs; make clean
 	echo "clean done"
 
 ######################################################################
