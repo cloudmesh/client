@@ -17,7 +17,7 @@ from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
 from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
-from cloudmesh_client.shell.plugins.SSHCommand import SSHCommand
+from cloudmesh_client.shell.plugins.SecureShellCommand import SecureShellCommand
 from cloudmesh_client.version import version
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
@@ -39,7 +39,7 @@ class CloudmeshConsole(cmd.Cmd,
                        SelectCommand,
                        GroupCommand,
                        KeyCommand,
-                       SSHCommand,
+                       SecureShellCommand,
                        ReservationCommand,
                        RegisterCommand,
                        OpenCommand,
@@ -55,7 +55,7 @@ class CloudmeshConsole(cmd.Cmd,
                        SelectCommand,
                        GroupCommand,
                        KeyCommand,
-                       SSHCommand,
+                       SecureShellCommand,
                        RegisterCommand,
                        ReservationCommand,
                        OpenCommand,
