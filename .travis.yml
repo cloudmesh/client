@@ -36,6 +36,6 @@ install:
 script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_pass.py
-  - python cloudmesh_client/shell/cm.py
-  # - cm help
-  # - make doc
+  - make doc
+  # - python cloudmesh_client/shell/cm.py
+  - cm help
