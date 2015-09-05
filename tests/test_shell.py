@@ -41,7 +41,7 @@ class Test_shell():
         print(r)
         assert "Documented commands" in r
 
-        assert "bar" in r
+        assert "banner" in r
         assert "help" in r
         assert "EOF" in r
         assert "q" in r

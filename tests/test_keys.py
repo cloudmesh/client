@@ -10,17 +10,15 @@ nosetests -v
 
 """
 
-from cloudmesh_base.util import HEADING
-import os
-from cloudmesh_base.util import banner
+from pprint import pprint
+
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.keys.SSHkey import SSHkey
-from pprint import pprint
-from cloudmesh_client.db.models import dict_printer
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.db.models import KEY
 from cloudmesh_client.common.tables import dict_printer
+
+from cloudmesh_base.util import HEADING
+from cloudmesh_base.util import banner
 
 
 class Test_keys:

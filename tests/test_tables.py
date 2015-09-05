@@ -10,7 +10,7 @@ nosetests -v
 
 from cloudmesh_base.util import HEADING
 
-from cloudmesh_client.common import dict_printer
+from cloudmesh_client.common.tables import dict_printer
 from pprint import pprint
 
 class Test_tables:

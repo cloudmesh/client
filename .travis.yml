@@ -34,5 +34,7 @@ script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_pass.py
   - nosetests -v --nocapture tests/test_configdict.py
+  - nosetests -v --nocapture tests/test_shell.py
+  - nosetests -v --nocapture tests/test_tables.py
   - make doc
   - cm help
