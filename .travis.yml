@@ -3,7 +3,7 @@ git:
 
 virtualenv:
   system_site_packages: true
-  
+
 #os:
 #  - linux
 #  - osx
@@ -36,6 +36,6 @@ install:
 script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_pass.py
-  - which cm
-  - cm help
-  - make doc
+  - python cloudmesh_client/shell/cm.py
+  # - cm help
+  # - make doc
