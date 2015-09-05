@@ -1,7 +1,6 @@
 from __future__ import print_function
 
 import cmd
-from pprint import pprint
 import sys
 import traceback
 import string
@@ -20,12 +19,12 @@ from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
 from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
 from cloudmesh_client.version import version
-from cloudmesh_client.shell.console import Console
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
 import cloudmesh_base
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.shell.command import command
+
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):

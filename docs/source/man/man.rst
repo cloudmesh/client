@@ -532,3 +532,19 @@ Command - ssh::
                          or a location that contains a pblic key
 
 
+
+version
+----------------------------------------------------------------------
+
+Command - version::
+
+    Usage:
+       version [--format=FORMAT] [--check=CHECK]
+
+    Options:
+        --format=FORMAT  the format to print the versions in [default: table]
+        --check=CHECK    boolean tp conduct an additional check [default: True]
+
+    Description:
+        Prints out the version number
+
