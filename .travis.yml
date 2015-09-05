@@ -25,7 +25,8 @@ install:
   - pip install -r requirements.txt
   - python setup.py install
   - pip install -r requirements-doc.txt
-
+  - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
+  
 script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_pass.py
