@@ -9,7 +9,7 @@ import textwrap
 from docopt import docopt
 from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
 from cloudmesh_client.shell.plugins.NovaCommand import NovaCommand
-from cloudmesh_client.shell.plugins.SshCommand import SshCommand
+from cloudmesh_client.shell.plugins.SSHCommand import SSHCommand
 from cloudmesh_client.shell.plugins.KeyCommand import KeyCommand
 from cloudmesh_client.shell.plugins.GroupCommand import GroupCommand
 from cloudmesh_client.shell.plugins.SelectCommand import SelectCommand
@@ -39,7 +39,7 @@ class CloudmeshConsole(cmd.Cmd,
                        SelectCommand,
                        GroupCommand,
                        KeyCommand,
-                       SshCommand,
+                       SSHCommand,
                        ReservationCommand,
                        RegisterCommand,
                        OpenCommand,
@@ -55,7 +55,7 @@ class CloudmeshConsole(cmd.Cmd,
                        SelectCommand,
                        GroupCommand,
                        KeyCommand,
-                       SshCommand,
+                       SSHCommand,
                        RegisterCommand,
                        ReservationCommand,
                        OpenCommand,
