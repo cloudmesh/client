@@ -1,6 +1,9 @@
 git:
   submodules: false
 
+virtualenv:
+  system_site_packages: true
+  
 #os:
 #  - linux
 #  - osx
