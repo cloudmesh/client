@@ -33,5 +33,6 @@ install:
 script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_pass.py
+  - nosetests -v --nocapture tests/test_configdict.py
   - make doc
   - cm help

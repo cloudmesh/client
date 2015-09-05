@@ -15,7 +15,13 @@ import shutil
 import os
 
 class Test_configdict:
+
+    root_path = os.path.abspath(os.sep)
+
     def setup(self):
+        self.etc_yaml = os.path.join("etc", "cloudmesh.yaml")
+        self.tmp_yaml = os.path.join(self.root_path, "tmp", "cloudmesh.yaml")
+        self.tmp_dir = os.path.join(self.root_path, "tmp")
         pass
 
     def tearDown(self):
@@ -25,14 +31,14 @@ class Test_configdict:
         """test if cloudmesh.yaml is loaded"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["cloudmesh_etc"],
+                       load_order=["etc"],
                        verbose=True)
 
         assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
 
         try:
             d = ConfigDict("cloudmesh.yam",
-                           load_order=["cloudmesh_etc"],
+                           load_order=["etc"],
                            verbose=True)
             print("the file cloudmesh.yam should not exists")
             assert False
@@ -42,15 +48,15 @@ class Test_configdict:
     def test_002_set(self):
         """testing to set a value in the dict"""
         HEADING()
-        shutil.copy("cloudmesh_etc/cloudmesh.yaml","/tmp/cloudmesh.yaml")
+        shutil.copy(self.etc_yaml,self.tmp_yaml)
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["/tmp"],
+                       load_order=[self.tmp_dir],
                        verbose=True)
         d["cloudmesh"]["profile"]["firstname"] = "Gregor"
         d.save()
 
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["/tmp"],
+                       load_order=[self.tmp_dir],
                        verbose=True)
         assert d["cloudmesh"]["profile"]["firstname"] == "Gregor"
 
@@ -59,7 +65,7 @@ class Test_configdict:
         """test if json is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["cloudmesh_etc"],
+                       load_order=["etc"],
                        verbose=True)
 
         assert d.json.startswith('{')
@@ -75,7 +81,7 @@ class Test_configdict:
         """test if yaml is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["cloudmesh_etc"],
+                       load_order=["etc"],
                        verbose=True)
         result = d.yaml
 
@@ -94,13 +100,13 @@ class Test_configdict:
         #  check if d.filename is the same as the filename we have
         HEADING()
         filename = "cloudmesh.yaml"
-        path = "cloudmesh_etc"
+        path = "etc"
 
         d = ConfigDict(filename,
                        load_order=[path],
                        verbose=True)
 
-        assert d.filename == (path+os.path.sep+filename)
+        assert d.filename == os.path.join(path, filename)
 
        
 
