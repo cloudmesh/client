@@ -1,10 +1,10 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-# from cloudmesh_client.cloud.command_ssh import command_ssh
 import os
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_base.ssh_config import ssh_config
+
 
 class SSHCommand(object):
     # def activate_cm_shell_ssh(self):
@@ -16,6 +16,7 @@ class SSHCommand(object):
         if self.context.debug:
             print("init command ssh")
 
+    # noinspection PyUnusedLocal
     @command
     def do_ssh(self, args, arguments):
         """
@@ -68,7 +69,7 @@ class SSHCommand(object):
             TODO("Not implemented")
         else:  # ssh ARGUMENTS...
             args = arguments["ARGUMENTS"]
-            result = os.system("ssh {}".format(args))
+            os.system("ssh {}".format(args))
             return
 
 
