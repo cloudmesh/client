@@ -32,6 +32,8 @@ cloudmesh:
 
 log:
 	gitchangelog > ChangeLog
+	git commit -m "chg: dev: Update ChangeLog" ChangeLog
+	git push
 
 ######################################################################
 # CLEANING
