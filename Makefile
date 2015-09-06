@@ -29,7 +29,10 @@ man: cloudmesh
 
 cloudmesh:
 	python setup.py install
-	
+
+log:
+	gitchangelog > ChangeLog
+
 ######################################################################
 # CLEANING
 ######################################################################
@@ -46,7 +49,7 @@ clean:
 # TAGGING
 ######################################################################
 
-tag:
+tag: log
 	cm-authors > AUTHORS
 	git tag
 	@echo "New Tag?"; read TAG; git tag $$TAG; python setup.py install; git commit -m $$TAG --allow-empty; git push origin --tags

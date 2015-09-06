@@ -11,3 +11,4 @@ sqlalchemy
 urllib3
 requests
 sandman
+gitchangelog
