@@ -4,11 +4,47 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+New
+~~~
+
+- Adding automatic changelog generation. [Gregor von Laszewski]
+
+- Adding automatic changelog generation. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
 - :dev: Update ChangeLog. [Gregor von Laszewski]
 
 - :dev: Update ChangeLog. [Gregor von Laszewski]
 
 - 0.6.9. [Gregor von Laszewski]
+
+- Use old spelling of SSHCommand. [Gregor von Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+- Using Config.path_expand from common.ConfigDict. [Gregor von
+  Laszewski]
+
+- Ad travis test for flaten dict. [Gregor von Laszewski]
+
+- Update version. [Gregor von Laszewski]
 
 0.6.9 (2015-09-06)
 ------------------
