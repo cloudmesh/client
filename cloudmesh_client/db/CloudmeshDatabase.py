@@ -12,7 +12,7 @@ from cloudmesh_client.db.model import database, table, tablenames, DEFAULT
 
 
 class CloudmeshDatabase(object):
-    def __init__(self, cm_user=None):
+    def __init__(self, user=None):
         """
         initializes the CloudmeshDatabase for a specific user.
         The user is used to add entries augmented with it.
@@ -24,10 +24,10 @@ class CloudmeshDatabase(object):
         self.db.Base.metadata.create_all()
         self.session = self.connect()
 
-        if cm_user is None:
-            self.cm_user = getpass.getuser()
+        if user is None:
+            self.user = getpass.getuser()
         else:
-            self.cm_user = cm_user
+            self.user = user
 
     # noinspection PyPep8Naming
     def connect(self):
@@ -77,6 +77,16 @@ class CloudmeshDatabase(object):
         if type(kind) == str:
             table_type = self.db.get_table_from_name(kind)
         return self.session.query(table_type).filter_by(**kwargs)
+
+    def all(self, table):
+        d = {}
+        elements = self.session.query(table).all()
+        for element in elements:
+            d[element.id] = {}
+            for key in element.__dict__.keys():
+                if not key.startswith("_sa"):
+                    d[element.id][key] = str(element.__dict__[key])
+        return d
 
     def delete_by_name(self, kind, name):
         """
@@ -175,7 +185,7 @@ class CloudmeshDatabase(object):
 
 
 def main():
-    cm = CloudmeshDatabase(cm_user="gregor")
+    cm = CloudmeshDatabase(user="gregor")
 
     m = DEFAULT("hallo", "world")
     m.newfield__hhh = 13.9

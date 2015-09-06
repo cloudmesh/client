@@ -9,11 +9,11 @@ or
 nosetests -v tests/test_vm.py
 
 """
+from cloudmesh_client.cloud.default import Default
+
 from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
-import os
-from time import sleep
-from cloudmesh_client.cloud.default import Default
+
 
 def run(command):
     parameter = command.split(" ")
@@ -22,17 +22,14 @@ def run(command):
     result = Shell.execute(shell_command, args)
     return result
 
+
 class Test_default():
     """
 
     """
 
-
     def setup(self):
         pass
-
-
-
 
     def test_001(self):
         """
@@ -42,14 +39,13 @@ class Test_default():
         HEADING()
 
         Default.clear()
-        print(Default.list())
-        assert True
+
+        assert Default.list() == None
 
     def _check(self, content):
         result = Default.list()
         print(result)
         assert content in str(result)
-
 
     def test_002(self):
         """
@@ -72,7 +68,7 @@ class Test_default():
         HEADING()
 
         name = "myimage"
-        Default.set_image(name,"mycloud")
+        Default.set_image(name, "mycloud")
         assert Default.get_image("mycloud") == name
 
         self._check(name)
@@ -85,7 +81,7 @@ class Test_default():
         HEADING()
 
         name = "myflavor"
-        Default.set_flavor(name,"mycloud")
+        Default.set_flavor(name, "mycloud")
         assert Default.get_flavor("mycloud") == name
 
         self._check(name)
@@ -130,7 +126,6 @@ class Test_default():
         assert Default.get(name, cloud) == value
 
         self._check(value)
-
 
     def test_999(self):
         """

@@ -89,8 +89,7 @@ class DEFAULT(CloudmeshMixin, db.Base):
                  user=None):
         # self.kind = __tablename__
         self.label = name
-        if cloud is None:
-            cloud = "general"
+        self.cloud = cloud or "general"
         self.type = type
         self.name = name
         self.user = user

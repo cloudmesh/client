@@ -12,8 +12,8 @@ class Default(object):
         cm = CloudmeshDatabase()
         d = cm.all(model.DEFAULT)
         return (tables.dict_printer(d,
-                             order=['cm_user',
-                                    'cm_cloud',
+                             order=['user',
+                                    'cloud',
                                     'name',
                                     'value'],
                              output=format))
@@ -23,23 +23,48 @@ class Default(object):
     #
 
     @classmethod
-    def set(cls, key, value, cloud):
+    def set(cls, key, value, cloud=None):
+        print ("KKK", key, value, cloud)
         cm = CloudmeshDatabase()
         # d = cm.dict(DEFAULT)
-        cm.set_default(key, value, cloud)
+        o = Default.get_object(key, cloud)
+        print ("OOO object", key, cloud)
+        if o is None:
+            print ("create new o", key, value, cloud)
+            o = model.DEFAULT(key, value, cloud=cloud)
+            print (o.__dict__)
+            cm.add(o)
+        else:
+            o.value = value
+        print ("PPPP", o.name, o.value, o.cloud)
+        cm.save()
 
     @classmethod
-    def get(cls, key, cloud):
+    def get_object(cls, key, cloud=None):
+        print("get object:", key, cloud)
         cm = CloudmeshDatabase()
-        return cm.get_default(key, cloud)
+        which_cloud = cloud or "general"
+        print ("W", which_cloud)
+        o = cm.query(model.DEFAULT).filter(model.DEFAULT.name==key).first()
+                                           # model.DEFAULT.cloud==which_cloud).first()
+        print ("OOOO", o)
+        return o
+
+    @classmethod
+    def get(cls, key, cloud=None):
+        o = cls.get_object(key, cloud=cloud)
+        if o is None:
+            return None
+        else:
+            return o.value
 
     @classmethod
     def delete(cls, key, cloud):
         cm = CloudmeshDatabase()
-        _id = cm.getID("default", key, cloud)
-        e = cm.find(model.DEFAULT, cm_id=_id).first()
-        if e is not None:
-            cm.delete(e)
+        o = Default.get(key, cloud)
+        if o is not None:
+            cm.delete(o)
+        cm.save()
 
     @classmethod
     def clear(cls):
@@ -49,17 +74,19 @@ class Default(object):
             name = d[item]["name"]
             kind = model.DEFAULT
             cm.delete_by_name(kind, name)
-
+        cm.save()
     #
     # Set the default cloud
     #
     @classmethod
     def get_cloud(cls):
-        return cls.get("cloud", "general")
+        o = cls.get("cloud", cloud="general")
+        print ("LLL", o)
+        return o
 
     @classmethod
     def set_cloud(cls, value):
-        cls.set("cloud", value, "general")
+        cls.set("cloud", value, cloud="general")
 
     #
     # Set the default image
