@@ -4,7 +4,7 @@ import os
 
 from sandman import app
 from cloudmesh_client.shell.command import command
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import Config
 
 
 class ServerCommand(object):
@@ -36,7 +36,7 @@ class ServerCommand(object):
 
         """
 
-        filename = "sqlite:///{}".format(path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db")))
+        filename = "sqlite:///{}".format(Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db")))
 
         print("database: {}".format(filename))
         app.config['SQLALCHEMY_DATABASE_URI'] = filename

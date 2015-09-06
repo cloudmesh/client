@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from pprint import pprint
 
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.keys.SSHKeyManager import SSHkey
 from cloudmesh_client.db.model import KEY
@@ -20,7 +20,7 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        sshkey = SSHkey(path_expand(key_path))
+        sshkey = SSHkey(Config.path_expand(key_path))
 
         self.add_from_sshkey(sshkey.__key__, keyname, user, source=source, uri=uri)
 

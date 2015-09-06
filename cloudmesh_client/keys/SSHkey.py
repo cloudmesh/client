@@ -4,7 +4,7 @@ import hashlib
 import struct
 from os.path import basename
 
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import Config
 
 
 class SSHkey(object):
@@ -19,7 +19,7 @@ class SSHkey(object):
         return self.__key__['key']
 
     def read(self, file_path):
-        file_path = path_expand(file_path)
+        file_path = Config.path_expand(file_path)
         uri = 'file://{}'.format(file_path)
         self.__key__ = {
             'uri': uri,

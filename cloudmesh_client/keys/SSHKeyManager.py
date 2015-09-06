@@ -3,7 +3,7 @@ from __future__ import print_function
 from os.path import expanduser
 import os
 
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import Config
 import requests
 from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.keys.SSHkey import SSHkey
@@ -66,7 +66,7 @@ class SSHKeyManager(object):
         :return: a SSHKeyManager (dict of keys)
         """
         if filename is None:
-            # default = path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.yaml"))
+            # default = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.yaml"))
             # config = ConfigDict("cloudmesh.yaml")
             filename = "cloudmesh.yaml"
             config = ConfigDict(filename)
@@ -81,12 +81,12 @@ class SSHKeyManager(object):
         for key in keylist.keys():
             keyname = key
             value = keylist[key]
-            if os.path.isfile(path_expand(value)):
-                path = path_expand(value)
+            if os.path.isfile(Config.path_expand(value)):
+                path = Config.path_expand(value)
                 sshmanager.add_from_file(path)
             else:
                 sshkey = SSHkey()
-                uri = path_expand(os.path.join("~", ".cloudmesh", filename))
+                uri = Config.path_expand(os.path.join("~", ".cloudmesh", filename))
                 sshkey.__key__['uri'] = 'yaml://{}'.format(uri)
                 sshkey.__key__['string'] = value
                 (sshkey.__key__['type'],
@@ -117,11 +117,11 @@ class SSHKeyManager(object):
         """
 
     def get_from_dir(self, directory=None):
-        directory = path_expand("~/.ssh") or directory
-        files = [file for file in os.listdir(expanduser(path_expand(directory)))
+        directory = Config.path_expand("~/.ssh") or directory
+        files = [file for file in os.listdir(expanduser(Config.path_expand(directory)))
                  if file.lower().endswith(".pub")]
         for file in files:
-            location = path_expand("{:}/{:}".format(directory, file))
+            location = Config.path_expand("{:}/{:}".format(directory, file))
 
             sshkey = SSHkey(location)
             i = sshkey.comment
