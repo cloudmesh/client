@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+from six import iteritems
 import os
 from datetime import datetime
 
@@ -68,10 +69,87 @@ class CloudmeshMixin(object):
     project = Column(String, default="undefined")
 
 
-class DEFAULT(CloudmeshMixin, db.Base):
-    """table to store defualt values
+class IMAGE(CloudmeshMixin, db.Base):
 
-    if the cloud is "global" it is ment to be a global variable
+    uuid = Column(String)
+
+    def __init__(self,
+                 name,
+                 uuid,
+                 type="string",
+                 cloud=None,
+                 user=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.uuid = uuid
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                print ("{} = {}".format(key,value))
+                self[key] = value
+
+class FLAVOR(CloudmeshMixin, db.Base):
+
+    uuid = Column(String)
+
+    def __init__(self,
+                 name,
+                 uuid,
+                 type="string",
+                 cloud=None,
+                 user=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.uuid = uuid
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                print ("{} = {}".format(key,value))
+                self[key] = value
+
+class VM(CloudmeshMixin, db.Base):
+
+    uuid = Column(String)
+
+    def __init__(self,
+                 name,
+                 uuid,
+                 type="string",
+                 cloud=None,
+                 user=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.uuid = uuid
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                print ("{} = {}".format(key,value))
+                self[key] = value
+
+
+
+class DEFAULT(CloudmeshMixin, db.Base):
+    """table to store default values
+
+    if the cloud is "global" it is meant to be a global variable
 
     todo: check if its global or general
     """
