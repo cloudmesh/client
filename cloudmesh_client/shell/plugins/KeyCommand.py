@@ -4,7 +4,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from pprint import pprint
 # from cloudmesh_client.cloud.command_key import command_key
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import Config
 # from os import listdir
 # from os.path import expanduser, isfile, abspath
 # from cloudmesh_base.tables import dict_printer, two_column_table
@@ -129,7 +129,7 @@ class KeyCommand(object):
                 return d
                 # return dict_printer(d,order=['cm_id, name, fingerprint'])
 
-        directory = path_expand(arguments["--dir"])
+        directory = Config.path_expand(arguments["--dir"])
 
         if arguments['list']:
             _format = arguments['--format']
@@ -234,7 +234,7 @@ class KeyCommand(object):
             print('ssh dd')
             sshdb = SSHKeyDBManager()
             keyname = arguments['KEYNAME']
-            filename = path_expand("~/.ssh/id_rsa.pub")
+            filename = Config.path_expand("~/.ssh/id_rsa.pub")
 
             try:
                 sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)

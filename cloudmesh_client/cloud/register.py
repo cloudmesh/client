@@ -4,7 +4,7 @@ from os.path import expanduser
 import os
 
 from cloudmesh_base.Shell import Shell
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_base.util import yn_choice
 from builtins import input
 
@@ -120,7 +120,7 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = path_expand(os.path.join(dot_cloudmesh, 'clouds', 'india'))
+            _to = Config.path_expand(os.path.join(dot_cloudmesh, 'clouds', 'india'))
 
             if os.path.exists(_to):
 
@@ -218,7 +218,7 @@ class CloudRegister(object):
         Console.ok("register")
         if host.lower() == "india":
             _from = 'india:{:}'.format(directory)
-            _to = path_expand(os.path.join('~', '.cloudmesh', 'clouds', host))
+            _to = Config.path_expand(os.path.join('~', '.cloudmesh', 'clouds', host))
 
             #
             # BUG: the next line needs to be fixed to be linux and windows compatible
