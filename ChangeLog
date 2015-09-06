@@ -9,25 +9,12 @@ New
 
 - Adding automatic changelog generation. [Gregor von Laszewski]
 
-- Adding automatic changelog generation. [Gregor von Laszewski]
-
 Other
 ~~~~~
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Dev: Update ChangeLog. [Gregor von Laszewski]
 
-- :dev: Update ChangeLog. [Gregor von Laszewski]
 
-- :dev: Update ChangeLog. [Gregor von Laszewski]
 
 - 0.6.9. [Gregor von Laszewski]
 
@@ -49,7 +36,6 @@ Other
 0.6.9 (2015-09-06)
 ------------------
 
-- :new: adding automatic changelog generation. [Gregor von Laszewski]
 
 - Using Config.path_expand from common.ConfigDict. [Gregor von
   Laszewski]
@@ -169,9 +155,6 @@ Other
 
 - Add .txt ending. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Update .travis.yml. [Gregor von Laszewski]
 
   using https in git clone for travis
@@ -235,9 +218,6 @@ Other
 - Add group. [Gregor von Laszewski]
 
 - Adedd select command. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Trying from Windows 10. [Erika Dsouza]
 
@@ -322,9 +302,6 @@ Other
 
 - Moving dirs. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Commit python script to start/stop/reboot vm in any cloud env. [Gourav
   Shenoy]
 
@@ -356,9 +333,6 @@ Other
 
 - Comments to include a new class. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Remove junk file. [Gregor von Laszewski]
 
 - Moved developer code to dev. [Gregor von Laszewski]
@@ -373,12 +347,7 @@ Other
 
 - Remove the idea file. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Commit python script to start/stop/reboot VMs. [Gourav Shenoy]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gourav Shenoy]
 
 - Adding the persistent dict. [Erika Dsouza]
 
@@ -389,12 +358,6 @@ Other
 - Erika added. [Erika Dsouza]
 
 - Commiting README.rst with SSH. [Mangirish Wagle]
-
-- Merge branch 'master' of https://github.com/cloudmesh/client.
-  [mangirish]
-
-  Conflicts:
-  	.idea/client.iml
 
 - Gourav commit. [Gourav Shenoy]
 
@@ -420,9 +383,6 @@ Other
 
 - Add dev docs. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Update README.rst. [Gregor von Laszewski]
 
 - Documentation framework. [Gregor von Laszewski]
@@ -432,9 +392,6 @@ Other
 - Position of kwrags. [Gregor von Laszewski]
 
 - Remove pycharm files. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Update .gitignore. [Gregor von Laszewski]
 
@@ -453,8 +410,6 @@ Other
 - Add mindmap and dictdb template. [Gregor von Laszewski]
 
 - Base functions for flavor, image, etc. [Hyungro Lee]
-
-- Merge. [Hyungro Lee]
 
 - Merge. [Hyungro Lee]
 
@@ -516,34 +471,17 @@ Other
 
 - Creating command-register doc. [Daniel Silva]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
 - Updating test_vm. [Daniel Silva]
 
 - Deleting a set of vm by name - vm delete sample-[1-10] [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Deleting vm by name - vm command. [Daniel Silva]
 
 - Fixing some functions. [Paulo Chagas]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
 - Implementing vm delete. [Daniel Silva]
 
 - Updating some functions on mesh and sshkeydbmanager. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
-- Fixed conflict mesh.py. [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
-  Conflicts:
-  	cloudmesh_client/cloud/mesh.py
 
 - Improving test_vm. [Daniel Silva]
 
@@ -551,17 +489,11 @@ Other
 
 - Fixing a bug. [Paulo Chagas]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
 - Removing a useless function in vm command. [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Command vm start created. [Daniel Silva]
 
 - Updating clear and dump. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
 
 - Removed unresolved reference to cloud/Cloud.py. [Daniel Silva]
 
@@ -583,8 +515,6 @@ Other
 
 - Fixing key command. [Paulo Chagas]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
 - Created doc for command_vm functions. [Daniel Silva]
 
 - Created command_vm functions. [Daniel Silva]
@@ -596,16 +526,10 @@ Other
 - Update function included. function usage documentation included.
   [Paulo Chagas]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
 - Created tests for nova command. [Daniel Silva]
 
 - --select option implemented. SSKeyDBManager created with some methods.
   Some tests made. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Fixed register tests. [Daniel Silva]
 
@@ -631,19 +555,12 @@ Other
 
 - Completing cm admin command. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
 - Fixed path in host function in CloudRegister.py. [Daniel Silva]
 
 - Split up cm_shell_cloud into cloud, list, register. [Gregor von
   Laszewski]
 
 - Rmove loglevel command that is already in cmd3. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Removing try exceptions. [Paulo Chagas]
 
@@ -652,8 +569,6 @@ Other
 - Doing an improved usint test on register. [Gregor von Laszewski]
 
 - Improved directory function in CloudRegister.py. [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Refactor CloudRegister. [Gregor von Laszewski]
 
@@ -665,17 +580,11 @@ Other
 
 - Refactor the SSHkey classes and filenames. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Editing keys, util and test_keys. [Paulo Chagas]
 
 - Merge. [Gregor von Laszewski]
 
 - Adding key for test. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Fixing test_keys.py. [Paulo Chagas]
 
@@ -695,9 +604,6 @@ Other
 
 - Adding SSHkey type derived from old ssh key cloudmesh key.util.py.
   [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Editing "if"s on limits command. [Paulo Chagas]
 
@@ -724,22 +630,13 @@ Other
 
 - Adding autoinstall. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Rename README.rst to README.md. [Gregor von Laszewski]
 
 - Update README.rst. [Gregor von Laszewski]
 
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
 - Created register_CERT command in command_cloud.py. [Daniel Silva]
 
 - Editing "if"s on volume command. [Paulo Chagas]
-
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
 
 - Created command line arguments in cm_shell_[admin, key, loglevel and
   status] [Daniel Silva]
@@ -750,11 +647,6 @@ Other
 - Adding the home of hacking and CONTRIBUTING. [Gregor von Laszewski]
 
 - Updare vm command. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
 
 - Cluster command. [Hyungro Lee]
 
@@ -768,8 +660,6 @@ Other
 
 - Editing "if"s on secgroup command. [Paulo Chagas]
 
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
-
 - Created register india command. [Daniel Silva]
 
 - Editing "if"s on refresh command. [Paulo Chagas]
@@ -782,24 +672,11 @@ Other
 
 - Assignments. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Editing volume. [Paulo Chagas]
 
 - Editing volume. [Paulo Chagas]
 
 - Editing volume. [Paulo Chagas]
-
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
-- Updated register india command Merge branch 'master' of
-  github.com:cloudmesh/client. [Daniel Silva]
-
-  Conflicts:
-  	cloudmesh_client/cloud/command_cloud.py
 
 - Updated register india command. [Daniel Silva]
 
@@ -807,16 +684,9 @@ Other
 
 - Editing volume. [Paulo Chagas]
 
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
-
 - Editing volume documentation. [Paulo Chagas]
 
 - Merge. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [fugangwang]
 
 - Use full name of india to avoid dependency of ssh config. [fugangwang]
 
@@ -834,16 +704,11 @@ Other
 
 - Fix list commnd. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Updating cm_shell_cloud. [Paulo Chagas]
 
 - Removing file. [Paulo Chagas]
 
 - Fixing key. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
 
 - Adding commands. [Paulo Chagas]
 
@@ -857,12 +722,7 @@ Other
 
 - Fix verbatim vormatting of commands. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Just adding import os. [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
 
 - Finishing cm search. It is possible to filter with =,!=,<,<=,>,>=.
   Test for cm search was added. [Paulo Chagas]
@@ -875,19 +735,11 @@ Other
 
 - Fixing the use of Shell.scp. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
 - Removing debug messages. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Just adding import getpass. [Paulo Chagas]
 
 - Fixing the default command. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Fixed search command. [Paulo Chagas]
 
@@ -900,8 +752,6 @@ Other
 - Add sample search. [Gregor von Laszewski]
 
 - Test register_CERT. [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Simple correction on how to use the os.system command. [Gregor von
   Laszewski]
@@ -929,8 +779,6 @@ Other
 
 - Created cm register CLOUD CERT command. [Daniel Silva]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
 - Updating search and default command. [Paulo Chagas]
 
 - Filter for entries like [001-002] [Paulo Chagas]
@@ -938,8 +786,6 @@ Other
 - Created cm register india command. [Daniel Silva]
 
 - Fix the module path. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Remove unneeded files. [Gregor von Laszewski]
 
@@ -952,11 +798,6 @@ Other
 - Adding test if result query is empty. [Paulo Chagas]
 
 - Test add command register test. [Daniel Silva]
-
-- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Updated on the examples for aws and azure. [Hyungro Lee]
 
@@ -992,8 +833,6 @@ Other
 
 - Adding cloudmesh_search. [Paulo Chagas]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
-
 - Remove debug messages. [Gregor von Laszewski]
 
 - Adding a test file to queries. [Paulo Chagas]
@@ -1003,19 +842,9 @@ Other
 - Renaming the id to cm_id so it does not conflict with the SQL id.
   [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
 - Fixed commands_nova.rst format. [Daniel Silva]
 
 - Change table data types. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Updated suggestion commands_nova.rst. [Daniel Silva]
 
@@ -1023,28 +852,15 @@ Other
 
 - Fix the plugin location. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Libcloud install restored. [Hyungro Lee]
 
 - Debug messages. [Gregor von Laszewski]
 
 - Added __init__ [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Updated suggestion command nova doc. [Daniel Silva]
 
 - Passing git+ strings to pbr does not work. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Hyungro Lee]
 
 - Azure tested to create and delete a vm. [Hyungro Lee]
 
@@ -1059,9 +875,6 @@ Other
 - Cahnge import statements. [Gregor von Laszewski]
 
 - Reorganize the module. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
 
 - Dev version of libcloud from github 'trunk' [Hyungro Lee]
 
@@ -1083,13 +896,7 @@ Other
 
 - Redoing the merge. [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Doc: updated to cloudmesh_cloud. [Paulo Chagas]
-
-- Merge branch 'master' of https://github.com/cloudmesh/client. [Paulo
-  Chagas]
 
 - Updated on azure. [Hyungro Lee]
 
@@ -1134,13 +941,7 @@ Other
 - Renaming the examples to avoid name conflict with existing package.
   [Gregor von Laszewski]
 
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
 - Doc: updated to cloudmesh_cloud. [Paulo Chagas]
-
-- Merge branch 'master' of https://github.com/cloudmesh/client. [Paulo
-  Chagas]
 
 - Updated on azure. [Hyungro Lee]
 
@@ -1202,11 +1003,6 @@ Other
 - Moving examples to the examples dir. [Gregor von Laszewski]
 
 - Moving examples to the example dir. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Fixed test_005 in test_configdict. [Daniel Silva]
 
@@ -1289,11 +1085,6 @@ Other
 - Moving examples to the examples dir. [Gregor von Laszewski]
 
 - Moving examples to the example dir. [Gregor von Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
-  Laszewski]
-
-- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
 
 - Fixed test_005 in test_configdict. [Daniel Silva]
 
@@ -1407,15 +1198,9 @@ Other
 
 - Fix the register command. [Gregor von Laszewski]
 
-- Merge branch 'master' of https://github.com/cloudmesh/common. [Daniel
-  Silva]
-
 - Dealing with public ip. [fugangwang]
 
 - Cm register commands. [Daniel Silva]
-
-- Merge branch 'master' of github.com:cloudmesh/common. [Gregor von
-  Laszewski]
 
 - Added libcloud example; added more requirements. [fugangwang]
 
