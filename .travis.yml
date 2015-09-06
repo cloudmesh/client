@@ -36,5 +36,6 @@ script:
   - nosetests -v --nocapture tests/test_configdict.py
   - nosetests -v --nocapture tests/test_shell.py
   - nosetests -v --nocapture tests/test_tables.py
+  - nosetests -v --nocapture tests/test_default.py
   - make doc
   - cm help
