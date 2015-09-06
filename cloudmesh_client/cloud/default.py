@@ -23,31 +23,26 @@ class Default(object):
     #
 
     @classmethod
-    def set(cls, key, value, cloud=None):
-        print ("KKK", key, value, cloud)
-        cm = CloudmeshDatabase()
+    def set(cls, key, value, cloud=None, user=None):
+        cm = CloudmeshDatabase(user=user)
         # d = cm.dict(DEFAULT)
         o = Default.get_object(key, cloud)
-        print ("OOO object", key, cloud)
+        me = cm.user or user
         if o is None:
-            print ("create new o", key, value, cloud)
-            o = model.DEFAULT(key, value, cloud=cloud)
-            print (o.__dict__)
+            o = model.DEFAULT(key, value, cloud=cloud, user=me)
             cm.add(o)
         else:
             o.value = value
-        print ("PPPP", o.name, o.value, o.cloud)
         cm.save()
 
     @classmethod
     def get_object(cls, key, cloud=None):
-        print("get object:", key, cloud)
         cm = CloudmeshDatabase()
         which_cloud = cloud or "general"
-        print ("W", which_cloud)
-        o = cm.query(model.DEFAULT).filter(model.DEFAULT.name==key).first()
-                                           # model.DEFAULT.cloud==which_cloud).first()
-        print ("OOOO", o)
+        o = cm.query(model.DEFAULT).filter(
+            model.DEFAULT.name==key,
+            model.DEFAULT.cloud==which_cloud
+        ).first()
         return o
 
     @classmethod
