@@ -45,7 +45,9 @@ Here are some contribution guidelines:
 
      chg: usr:    simple changes relevant for users (spelling, ...)
      fix: usr:    major changes for users
+     new: usr:    new feature for users
 
      chg: dev:    simple changes relevant for developers (spelling, ...)
      fix: dev:    major changes for developers
+     new: dev:    new feature for developers
 
