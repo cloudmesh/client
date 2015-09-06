@@ -31,7 +31,7 @@ cloudmesh:
 	python setup.py install
 
 log:
-	gitchangelog > ChangeLog
+	gitchangelog | fgrep -v ":dev:" | fgrep -v ":new:" > ChangeLog
 	git commit -m "chg: dev: Update ChangeLog" ChangeLog
 	git push
 

@@ -38,3 +38,14 @@ Here are some contribution guidelines:
 * look at http://python-future.org/compatible_idioms.html for tips to make
   python 2 look more like python 3.
   Be careful with dicts to make them not inefficient.
+
+* we are using https://pypi.python.org/pypi/gitchangelog for creating changelogs automatically.
+  Thus you need to use a prefix in any commit. It includes the type and the user for which the commit is relevant.
+  Examples are::
+
+     chg: usr:    simple changes relevant for users (spelling, ...)
+     fix: usr:    major changes for users
+
+     chg: dev:    simple changes relevant for developers (spelling, ...)
+     fix: dev:    major changes for developers
+
