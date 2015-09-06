@@ -1,229 +1,1409 @@
-CHANGES
-=======
+Changelog
+=========
 
-* test add command register test
-* remove unneeded files
-* moving files into final position
-* Editing filter to get more than one option (AND)
-* Adding a try-except for invalid search
-* Adding test if result query is empty
-* Adding cloudmesh_search
-* outstanding checkins
-* updated on the examples for aws and azure
-* removing None from table print
-* implementing a first cm list command
-* removed plural of flavor, vm, image in kind strings
-* start reorganizing methods
-* splitting classes
-* start baseclass
-* simple code cleanip
-* assert Parameter.expand test
-* pep8, switching hosstlist to Parameter.expand
-* adding more comments
-* improving the hostlist comment
-* adding more command suggestions
-* reformatting, reordering, and sellchecking the proposed commands
-* Adding a test file to queries
-* Adding a test file for queries
-* remove debug messages
-* renaming the id to cm_id so it does not conflict with the SQL id
-* change table data types
-* fixed commands_nova.rst format
-* adding the export line match
-* updated suggestion commands_nova.rst
-* fix the plugin location
-* debug messages
-* libcloud install restored
-* added __init__
-* passing git+ strings to pbr does not work
-* updated suggestion command nova doc
-* created file suggestion commands nova in doc
-* azure tested to create and delete a vm
-* fixing the module import
-* changing more imports
-* default image for azure
-* cahnge import statements
-* reorganize the module
-* reorganize the modules
-* dev version of libcloud from github 'trunk'
-* preparing for update on vm and image
-* abstracting the lister and inserter
-* removing one test
-* reduce code duplication
-* update search functions to convert to dicts
-* working on filtered get
-* readding the deleted methods during a merge
-* redoing the merge
-* pushing first data to the database
-* doc: updated to cloudmesh_cloud
-* doc: updated to cloudmesh_cloud
-* Doc: Changing cloudmesh_client for cloudmesh_cloud
-* Doc: Changing cloudmesh_client for cloudmesh_cloud
-* adding documentation to the flatten methods
-* flatten methods for libcloud image and vm
-* f = flatten(d) # function to flatten a dict
-* updated on azure
-* updated on azure
-* azure example started
-* azure example started
-* Testing git commit on windows
-* Testing git commit on windows
-* Testing git commit on windows
-* Testing git commit on windows
-* Added cmd3.yaml example to etc directory
-* Added cmd3.yaml example to etc directory
-* rename
-* rename
-* aws example
-* aws example
-* adding a simplified boot command
-* adding a simplified boot command
-* adding cm_user cm_cloud cm_update attributes to the dicts
-* adding cm_user cm_cloud cm_update attributes to the dicts
-* adding provider list queris for openstack
-* adding provider list queris for openstack
-* adding IMAGE and FLAVOR to get_kind_from_string
-* adding IMAGE and FLAVOR to get_kind_from_string
-* adding the username to the vm name for better debugging
-* adding the username to the vm name for better debugging
-* adding proper argument pass through to the nova command
-* adding proper argument pass through to the nova command
-* assing more objects to the database
-* assing more objects to the database
-* adding database replace, add, and merge
-* adding database replace, add, and merge
-* adding additional database methods
-* adding additional database methods
-* next_name()
-* next_name()
-* renaming the examples to avoid name conflict with existing package
-* renaming the examples to avoid name conflict with existing package
-* fixed the nosetests for table printers
+%%version%% (unreleased)
+------------------------
 
-0.5.7
------
+- Using Config.path_expand from common.ConfigDict. [Gregor von
+  Laszewski]
 
-* fixed the nosetests for table printers
-* update the Changelog
-* update the Changelog
-* renaming the files for better readability
+- Ad travis test for flaten dict. [Gregor von Laszewski]
 
-0.5.6
------
+- Update version. [Gregor von Laszewski]
 
-* renaming the files for better readability
-* moving examples to the examples dir
-* moving examples to the examples dir
-* moving examples to the example dir
-* moving examples to the example dir
-* reorganizing the database code
-* reorganizing the database code
-* fixed test_005 in test_configdict
-* fixed test_005 in test_configdict
-* register default command
+- 0.6.8. [Gregor von Laszewski]
 
-0.5.5
------
+0.6.8 (2015-09-06)
+------------------
 
-* register default command
-* reorganizing the cloudmesh_default directory
-* reorganizing the cloudmesh_default directory
-* improving the test dict
-* improving the test dict
-* add a sample dict for test printing
-* add a sample dict for test printing
-* created Configdict test
-* created Configdict test
-* adding parameter parsing
-* adding parameter parsing
-* format the input to tt to make it more visible in the text
-* format the input to tt to make it more visible in the text
-* adding cygwin documentation
-* adding cygwin documentation
-* documentation for next_name
-* documentation for next_name
-* added automatic vm name generator
-* added automatic vm name generator
-* adding the test method templates for tables
-* adding the test method templates for tables
-* table test template
-* table test template
-* added testing methods to be implemented
-* added testing methods to be implemented
-* spellchecking
-* spellchecking
-* pep8 cleanup; Cloud object template
-* pep8 cleanup; Cloud object template
-* adding a mailmap
-* adding a mailmap
-* add make view
-* add make view
-* pep8 cleanup
+- Add default test to travis. [Gregor von Laszewski]
 
-0.5.4
------
+- Add user key. [Gregor von Laszewski]
 
-* pep8 cleanup
-* add developer notes
-* add developer notes
-* tag management via makefile
-* tag management via makefile
-* makefile for make doc
-* makefile for make doc
-* adding sphinx documentation framework
-* adding sphinx documentation framework
-* simplify CHangelog
-* simplify CHangelog
-* clean requirements
-* clean requirements
-* add nosetests to tox
-* add nosetests to tox
-* imporved documentation
-* imporved documentation
-* fixing the nova command fixing libcoud example be using path_expand removing timeparse from requirements
-* fixing the nova command fixing libcoud example be using path_expand removing timeparse from requirements
-* changed table.py doc
-* changed table.py doc
-* created command_cloud.py doc
-* created command_cloud.py doc
-* updated ConfigDict.py doc
-* updated ConfigDict.py doc
-* simple tests for configdict
-* tests created
-* add tests template
-* rtd theme
-* adding sphinx placeholder
-* add comment placeholder
-* method needed cls
-* remove ruamel as it doe snot work well on cygwin
-* remove ruamel
-* introduce a Config class
-* adding not implemented errors
-* simple tox.ini
-* adding cm register list ssh command to list the hosts defined in .ssh/config
-* added registration documentation
-* added cm register rc host openrc
-* checks in registration command
-* uncomment the profile editor
-* adding a simple form for openstack credentials
-* fix the register command
-* cm register commands
-* dealing with public ip
-* reorganizing
-* added libcloud example; added more requirements
-* reorganization
-* adding first commands
-* remove version so we use git tags
-* testing pbr
-* testing new version of pbr
-* simple default command
-* setup
-* print()
-* move confidict
-* simple dict printer with corrections
-* added defaults
-* introducing os.path.sep instead of /
-* set test
-* simple configdict based on ruaml.yaml
-* new config dict
-* Initial commit
+- Making Default set and get work. [Gregor von Laszewski]
+
+- Adding more passing tests to travis. [Gregor von Laszewski]
+
+- Make the config dictests more portable on windows. [Gregor von
+  Laszewski]
+
+- Move some tests to an old dir for later usage. [Gregor von Laszewski]
+
+- Version. [Gregor von Laszewski]
+
+- 0.6.7. [Gregor von Laszewski]
+
+0.6.7 (2015-09-05)
+------------------
+
+- Travis cleanup. [Gregor von Laszewski]
+
+- Testing doc and cm. [Gregor von Laszewski]
+
+- Force renaming to SecureShellCommand. [Gregor von Laszewski]
+
+- Explicit call of cm via python and not sh. [Gregor von Laszewski]
+
+- Travis experiment. [Gregor von Laszewski]
+
+- Pip install . [Gregor von Laszewski]
+
+- Pip install . [Gregor von Laszewski]
+
+- More travis esxperiments. [Gregor von Laszewski]
+
+- A travis pythonpath set. [Gregor von Laszewski]
+
+- Ignore pep8 warning. [Gregor von Laszewski]
+
+- Modified travis script. [Gregor von Laszewski]
+
+- Use SSHCommand. [Gregor von Laszewski]
+
+- Use old spaleeing of SSHCommand. [Gregor von Laszewski]
+
+- Add doc to travis. [Gregor von Laszewski]
+
+- Cleanup. [Gregor von Laszewski]
+
+- 0.6.6. [Gregor von Laszewski]
+
+0.6.6 (2015-09-04)
+------------------
+
+- Switchong the version command to use dict printer. [Gregor von
+  Laszewski]
+
+- Adding a version command. [Gregor von Laszewski]
+
+- Adding a build based on pip install -e . [Gregor von Laszewski]
+
+- Remove the osx install in travis. [Gregor von Laszewski]
+
+- Adding the pyreadline install. [Gregor von Laszewski]
+
+- Adding path management for windows. [Gregor von Laszewski]
+
+- Adding more os.pth.join. [Gregor von Laszewski]
+
+- Start to use os.path.join. [Gregor von Laszewski]
+
+- Integrate the model test into travis. [Gregor von Laszewski]
+
+- Trying osx in travis. [Gregor von Laszewski]
+
+- 0.6.5. [Gregor von Laszewski]
+
+0.6.5 (2015-09-04)
+------------------
+
+- Documentation for table commands in model. [Gregor von Laszewski]
+
+- Automatically finding the tables din model.py. [Gregor von Laszewski]
+
+- Improving table list commands and introducing a nosetest for it.
+  [Gregor von Laszewski]
+
+- Print pip version. [Gregor von Laszewski]
+
+- Remove help call. [Gregor von Laszewski]
+
+- Remove documentation generation from travis. [Gregor von Laszewski]
+
+- Remove ssh command temproarily. [Gregor von Laszewski]
+
+- Rename the sssh command. [Gregor von Laszewski]
+
+- Add .cloudmesh dir. [Gregor von Laszewski]
+
+- Update to the new env script. [Gregor von Laszewski]
+
+- Fixing the https. [Gregor von Laszewski]
+
+- Add .txt ending. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Update .travis.yml. [Gregor von Laszewski]
+
+  using https in git clone for travis
+
+- Update travis with requirements. [Gregor von Laszewski]
+
+- Travis from source. [Gregor von Laszewski]
+
+- Improved README. [Gregor von Laszewski]
+
+- Improve README. [Gregor von Laszewski]
+
+- Adding the travis file. [Gregor von Laszewski]
+
+- Sandman integration. [Gregor von Laszewski]
+
+- Sandman integration. [Gregor von Laszewski]
+
+- Adding rest via sandman. [Gregor von Laszewski]
+
+- Adding the reservation object to the table list commands. [Gregor von
+  Laszewski]
+
+- Reorganize absolute imports and @command decorator. [Gregor von
+  Laszewski]
+
+- Optimize imports. [Gregor von Laszewski]
+
+- Worked on the TODO list. [Erika Dsouza]
+
+- RESERVATION db object. [Gregor von Laszewski]
+
+- Reservation prototype placeholder class. [Gregor von Laszewski]
+
+- Adding reservation prototype. [Gregor von Laszewski]
+
+- Help help command added. [Gregor von Laszewski]
+
+- Verbatim man pages. [Gregor von Laszewski]
+
+- Case insensitive sorting in the man command. [Gregor von Laszewski]
+
+- Add a browser open command just like in osx. [Gregor von Laszewski]
+
+- Add command topics and new topica help command. [Gregor von Laszewski]
+
+- Add banner and clear commands. [Gregor von Laszewski]
+
+- 0.6.4. [Gregor von Laszewski]
+
+0.6.4 (2015-09-02)
+------------------
+
+- Adding a simple man command. [Gregor von Laszewski]
+
+- Added default command prototype. [Gregor von Laszewski]
+
+- Added the GROUP type to the table() so that cm info works. [Gregor von
+  Laszewski]
+
+- Add group. [Gregor von Laszewski]
+
+- Adedd select command. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Trying from Windows 10. [Erika Dsouza]
+
+- Added group proposal. [Gregor von Laszewski]
+
+- 0.6.3. [Gregor von Laszewski]
+
+0.6.3 (2015-09-01)
+------------------
+
+- Improving imports. [Gregor von Laszewski]
+
+- 0.6.2. [Gregor von Laszewski]
+
+0.6.2 (2015-09-01)
+------------------
+
+- Pep8 cleanup. [Gregor von Laszewski]
+
+- Add the key prototype command. [Gregor von Laszewski]
+
+- Add key table. [Gregor von Laszewski]
+
+- Cleanup of the table info method. [Gregor von Laszewski]
+
+- Added a reworked model and a simple DEFAULT object as example. [Gregor
+  von Laszewski]
+
+- Simple ssh pass through. [Gregor von Laszewski]
+
+- Adds ssh command template. [Gregor von Laszewski]
+
+- 0.6.1. [Gregor von Laszewski]
+
+0.6.1 (2015-08-31)
+------------------
+
+- Rename command filenames. [Gregor von Laszewski]
+
+- Added some comments what to do next. [Gregor von Laszewski]
+
+- Changing the syntax at 2 other places. [Mangirish Wagle]
+
+- Changed py files to use format and print() syntax. [Mangirish Wagle]
+
+- Moving first commands to the new shell. [Gregor von Laszewski]
+
+- Start draft of configuration instructions. [Gregor von Laszewski]
+
+- Add some more windows instructions. [Gregor von Laszewski]
+
+- Some documentation improvements for console and windows. [Gregor von
+  Laszewski]
+
+- Add mysql example. [Gregor von Laszewski]
+
+- Add simple nosetest examples. [Gregor von Laszewski]
+
+- Code rules. [Gregor von Laszewski]
+
+- Moving towards format instead of % [Gregor von Laszewski]
+
+- Introducing portable colors between linux and windows. [Gregor von
+  Laszewski]
+
+- Better splash handeling. [Gregor von Laszewski]
+
+- Remove parameter from csv table. [Gregor von Laszewski]
+
+- Delete cmd3.yaml file. [Gregor von Laszewski]
+
+- Tag new version. [Gregor von Laszewski]
+
+- 0.6.0. [Gregor von Laszewski]
+
+0.6.0 (2015-08-29)
+------------------
+
+- Remove junk file again. [Gregor von Laszewski]
+
+- Cleanup dev dirs. [Gregor von Laszewski]
+
+- Moving dirs. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Commit python script to start/stop/reboot vm in any cloud env. [Gourav
+  Shenoy]
+
+- Adding scripts to spawn VMs across clouds, including India. [Mangirish
+  Wagle]
+
+- Fixing interactive and non interactive mode. [Gregor von Laszewski]
+
+- Adding the @command decorator to generate functions with docopt
+  parameters. [Gregor von Laszewski]
+
+- Basic cm command. [Gregor von Laszewski]
+
+- Simplify cmd. [Gregor von Laszewski]
+
+- Real simple cmd. [Gregor von Laszewski]
+
+- Fix the formatting. [Gregor von Laszewski]
+
+- Todo faker for larger example. [Gregor von Laszewski]
+
+- Use configdict. [Gregor von Laszewski]
+
+- Introduce classes. [Gregor von Laszewski]
+
+- Tip on using format. [Gregor von Laszewski]
+
+- Pep8. [Gregor von Laszewski]
+
+- Comments to include a new class. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Remove junk file. [Gregor von Laszewski]
+
+- Moved developer code to dev. [Gregor von Laszewski]
+
+- Ignore emacs backup files. [Gregor von Laszewski]
+
+- Add missing file. [Gregor von Laszewski]
+
+- Remove sh dependency. [Gregor von Laszewski]
+
+- Removing fabric as it does not work in windows. [Gregor von Laszewski]
+
+- Remove the idea file. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Commit python script to start/stop/reboot VMs. [Gourav Shenoy]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gourav Shenoy]
+
+- Adding the persistent dict. [Erika Dsouza]
+
+- Gourav commit with passphrase. [Gourav Shenoy]
+
+- Adding again. [Erika Dsouza]
+
+- Erika added. [Erika Dsouza]
+
+- Commiting README.rst with SSH. [Mangirish Wagle]
+
+- Merge branch 'master' of https://github.com/cloudmesh/client.
+  [mangirish]
+
+  Conflicts:
+  	.idea/client.iml
+
+- Gourav commit. [Gourav Shenoy]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Gregor test checkin. [Gregor von Laszewski]
+
+- Changing gitignore. [mangirish]
+
+- Remove fabric as fabric does not work on windows. [Gregor von
+  Laszewski]
+
+- Remove the sh tag dependency. [Gregor von Laszewski]
+
+- Adding comments to the non working windows documentation. [Gregor von
+  Laszewski]
+
+- Update source documentation. [Gregor von Laszewski]
+
+- Add dev docs. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Documentation framework. [Gregor von Laszewski]
+
+- Remove autogenerated code. [Gregor von Laszewski]
+
+- Position of kwrags. [Gregor von Laszewski]
+
+- Remove pycharm files. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Remove debug msg. [Gregor von Laszewski]
+
+- Added group. [Gregor von Laszewski]
+
+- Added priorities. [Gregor von Laszewski]
+
+- Update map. [Gregor von Laszewski]
+
+- Update map. [Gregor von Laszewski]
+
+- Rename. [Gregor von Laszewski]
+
+- Add mindmap and dictdb template. [Gregor von Laszewski]
+
+- Base functions for flavor, image, etc. [Hyungro Lee]
+
+- Merge. [Hyungro Lee]
+
+- Merge. [Hyungro Lee]
+
+- Sample yaml file. [Gregor von Laszewski]
+
+- Working on servers. [Hyungro Lee]
+
+- Add and delete keys api. [Gregor von Laszewski]
+
+- Format update. [Hyungro Lee]
+
+- Test exceptions. [Hyungro Lee]
+
+- Typo. [Hyungro Lee]
+
+- Key create. [Gregor von Laszewski]
+
+- Remove debug msg. [Gregor von Laszewski]
+
+- Use quota defaults instead of get by user as permission denied.
+  [Gregor von Laszewski]
+
+- Limits. [Gregor von Laszewski]
+
+- Simplified openstack interface. [Gregor von Laszewski]
+
+- Towards python openstack api. [Gregor von Laszewski]
+
+- Clear the defaults after tests. [Gregor von Laszewski]
+
+- Adding tests for default and Default.clear images flavor group.
+  [Gregor von Laszewski]
+
+- Ad an interactive cloud selector. [Gregor von Laszewski]
+
+- Fixing the default selector for keys. [Gregor von Laszewski]
+
+- Get function for registered cloud. [Gregor von Laszewski]
+
+- Allow force in cloudmesh base yn_choice. [Gregor von Laszewski]
+
+- Replace yn query with existing yn_choice. [Gregor von Laszewski]
+
+- Fixing syntax and various bugs. [Gregor von Laszewski]
+
+- Implement the missing get function. [Gregor von Laszewski]
+
+- Fix the key add function. [Gregor von Laszewski]
+
+- Git add keys. [Gregor von Laszewski]
+
+- Debug. [Gregor von Laszewski]
+
+- Add function was not doing the right thing. [Gregor von Laszewski]
+
+- Start fisrt fix of the db key manager. [Gregor von Laszewski]
+
+- Fixing the list functions in cm key. [Gregor von Laszewski]
+
+- Creating command-register doc. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Updating test_vm. [Daniel Silva]
+
+- Deleting a set of vm by name - vm delete sample-[1-10] [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Deleting vm by name - vm command. [Daniel Silva]
+
+- Fixing some functions. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Implementing vm delete. [Daniel Silva]
+
+- Updating some functions on mesh and sshkeydbmanager. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Fixed conflict mesh.py. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+  Conflicts:
+  	cloudmesh_client/cloud/mesh.py
+
+- Improving test_vm. [Daniel Silva]
+
+- Fixing circular import. [Paulo Chagas]
+
+- Fixing a bug. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Removing a useless function in vm command. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Command vm start created. [Daniel Silva]
+
+- Updating clear and dump. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Removed unresolved reference to cloud/Cloud.py. [Daniel Silva]
+
+- Mesh.clouds implemented. [Paulo Chagas]
+
+- Created vm start command. [Daniel Silva]
+
+- Updating cm key list. [Paulo Chagas]
+
+- Updating get_from_yaml and other needed functions. [Paulo Chagas]
+
+- Adding cloudmesh native provider. [Gregor von Laszewski]
+
+- Introducing mesh. [Gregor von Laszewski]
+
+- Updating key default and key delete. [Paulo Chagas]
+
+- Updating key delete using --select. [Paulo Chagas]
+
+- Fixing key command. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Created doc for command_vm functions. [Daniel Silva]
+
+- Created command_vm functions. [Daniel Silva]
+
+- Some updates to key command (almost done) [Paulo Chagas]
+
+- Adding some function to SSHKeyDBManager. [Paulo Chagas]
+
+- Update function included. function usage documentation included.
+  [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Created tests for nova command. [Daniel Silva]
+
+- --select option implemented. SSKeyDBManager created with some methods.
+  Some tests made. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Fixed register tests. [Daniel Silva]
+
+- Updating filename to uri. [Paulo Chagas]
+
+- Adding requirements. [Gregor von Laszewski]
+
+- Added test documentation. [Gregor von Laszewski]
+
+- Adding tests for vm, flavor, image information from an openstack
+  cloud. [Gregor von Laszewski]
+
+- Remove the : from the debug message string. [Gregor von Laszewski]
+
+- Replace log.debug with sanitized self.DEBUG. [Gregor von Laszewski]
+
+- Avoid printing the password in debug mode. [Gregor von Laszewski]
+
+- Adding native openstack interface without libcloud. [Gregor von
+  Laszewski]
+
+- Fixing the key management functions and tests. [Gregor von Laszewski]
+
+- Completing cm admin command. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Fixed path in host function in CloudRegister.py. [Daniel Silva]
+
+- Split up cm_shell_cloud into cloud, list, register. [Gregor von
+  Laszewski]
+
+- Rmove loglevel command that is already in cmd3. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Removing try exceptions. [Paulo Chagas]
+
+- Testing run method. [Gregor von Laszewski]
+
+- Doing an improved usint test on register. [Gregor von Laszewski]
+
+- Improved directory function in CloudRegister.py. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Refactor CloudRegister. [Gregor von Laszewski]
+
+- Pep8. [Gregor von Laszewski]
+
+- Fixing indentation. [Gregor von Laszewski]
+
+- Start refactoring. [Gregor von Laszewski]
+
+- Refactor the SSHkey classes and filenames. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Editing keys, util and test_keys. [Paulo Chagas]
+
+- Merge. [Gregor von Laszewski]
+
+- Adding key for test. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Fixing test_keys.py. [Paulo Chagas]
+
+- Adding __init__.py. [Paulo Chagas]
+
+- Updating test_keys. [Paulo Chagas]
+
+- Updating test_keys. [Paulo Chagas]
+
+- Updating test_keys. [Paulo Chagas]
+
+- Updating documentation. [Paulo Chagas]
+
+- Improve Key Management. [Gregor von Laszewski]
+
+- Rename clas sto SSHkey. [Gregor von Laszewski]
+
+- Adding SSHkey type derived from old ssh key cloudmesh key.util.py.
+  [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Editing "if"s on limits command. [Paulo Chagas]
+
+- Editing "if"s on quota command. [Paulo Chagas]
+
+- Editing "if"s on ssh command. [Paulo Chagas]
+
+- Getting geys from .ssh and github. [Gregor von Laszewski]
+
+- Improve the new-ENV script. [Gregor von Laszewski]
+
+- Documentation management changes for changes and authors. [Gregor von
+  Laszewski]
+
+- Changes in command cloud - register-dir function. [Daniel Silva]
+
+0.5.8 (2015-06-28)
+------------------
+
+- Add bin commands to create a new environment from the commandline.
+  [Gregor von Laszewski]
+
+- Move md to rst. [Gregor von Laszewski]
+
+- Adding autoinstall. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Rename README.rst to README.md. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Created register_CERT command in command_cloud.py. [Daniel Silva]
+
+- Editing "if"s on volume command. [Paulo Chagas]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Created command line arguments in cm_shell_[admin, key, loglevel and
+  status] [Daniel Silva]
+
+- Editing "if"s on vm command. The --command has some issue: docopt
+  separate commands by space. [Paulo Chagas]
+
+- Adding the home of hacking and CONTRIBUTING. [Gregor von Laszewski]
+
+- Updare vm command. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Cluster command. [Hyungro Lee]
+
+- Indentation. [Hyungro Lee]
+
+- Indentation. [Hyungro Lee]
+
+- Launcher commands with examples and description. [Hyungro Lee]
+
+- Stack update. [Hyungro Lee]
+
+- Editing "if"s on secgroup command. [Paulo Chagas]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Created register india command. [Daniel Silva]
+
+- Editing "if"s on refresh command. [Paulo Chagas]
+
+- Adding selector. [Gregor von Laszewski]
+
+- Adding a select command. [Gregor von Laszewski]
+
+- Finalizing the refersh command. [Gregor von Laszewski]
+
+- Assignments. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Editing volume. [Paulo Chagas]
+
+- Editing volume. [Paulo Chagas]
+
+- Editing volume. [Paulo Chagas]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Updated register india command Merge branch 'master' of
+  github.com:cloudmesh/client. [Daniel Silva]
+
+  Conflicts:
+  	cloudmesh_client/cloud/command_cloud.py
+
+- Updated register india command. [Daniel Silva]
+
+- Updated cluster section in old.rst. [Daniel Silva]
+
+- Editing volume. [Paulo Chagas]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Editing volume documentation. [Paulo Chagas]
+
+- Merge. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [fugangwang]
+
+- Use full name of india to avoid dependency of ssh config. [fugangwang]
+
+- 79 character. [Gregor von Laszewski]
+
+- Remove use of < > [Gregor von Laszewski]
+
+- Merge. [Gregor von Laszewski]
+
+- Merge. [Gregor von Laszewski]
+
+- Security group docopt; urllib3 in requirements. [fugangwang]
+
+- Improve vm command. [Gregor von Laszewski]
+
+- Fix list commnd. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Updating cm_shell_cloud. [Paulo Chagas]
+
+- Removing file. [Paulo Chagas]
+
+- Fixing key. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Adding commands. [Paulo Chagas]
+
+- Improve documentation. [Gregor von Laszewski]
+
+- Add refresh command. [Gregor von Laszewski]
+
+- Adding the missing rst docments. [Gregor von Laszewski]
+
+- Adding a template. [Gregor von Laszewski]
+
+- Fix verbatim vormatting of commands. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Just adding import os. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Finishing cm search. It is possible to filter with =,!=,<,<=,>,>=.
+  Test for cm search was added. [Paulo Chagas]
+
+- Improving default and adding old manual pages. [Gregor von Laszewski]
+
+- Summary change file. [Gregor von Laszewski]
+
+- Adding a delete function. [Gregor von Laszewski]
+
+- Fixing the use of Shell.scp. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Removing debug messages. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Just adding import getpass. [Paulo Chagas]
+
+- Fixing the default command. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Fixed search command. [Paulo Chagas]
+
+- Improving documentation. [Gregor von Laszewski]
+
+- Adding the set and get default methods. [Gregor von Laszewski]
+
+- Adding a default get command. [Gregor von Laszewski]
+
+- Add sample search. [Gregor von Laszewski]
+
+- Test register_CERT. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Simple correction on how to use the os.system command. [Gregor von
+  Laszewski]
+
+- Add todos for instalation instructions. [Gregor von Laszewski]
+
+- Changes in command register_CERT. [Daniel Silva]
+
+- Adding documentation. [Gregor von Laszewski]
+
+- Updating some of the command ideas. [Gregor von Laszewski]
+
+- Use code. [Gregor von Laszewski]
+
+- Improving simple api documentation. [Gregor von Laszewski]
+
+- First api documentation to use dicts for change. [Gregor von
+  Laszewski]
+
+- Update from dict. [Gregor von Laszewski]
+
+- Simplify tests. [Gregor von Laszewski]
+
+- Adding a uniqe cm_id and cm_type. [Gregor von Laszewski]
+
+- Created cm register CLOUD CERT command. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Updating search and default command. [Paulo Chagas]
+
+- Filter for entries like [001-002] [Paulo Chagas]
+
+- Created cm register india command. [Daniel Silva]
+
+- Fix the module path. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Remove unneeded files. [Gregor von Laszewski]
+
+- Moving files into final position. [Gregor von Laszewski]
+
+- Editing filter to get more than one option (AND) [Paulo Chagas]
+
+- Adding a try-except for invalid search. [Paulo Chagas]
+
+- Adding test if result query is empty. [Paulo Chagas]
+
+- Test add command register test. [Daniel Silva]
+
+- Merge remote-tracking branch 'origin/master' [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Updated on the examples for aws and azure. [Hyungro Lee]
+
+- Outstanding checkins. [Gregor von Laszewski]
+
+- Removing None from table print. [Gregor von Laszewski]
+
+- Implementing a first cm list command. [Gregor von Laszewski]
+
+- Removed plural of flavor, vm, image in kind strings. [Gregor von
+  Laszewski]
+
+- Start reorganizing methods. [Gregor von Laszewski]
+
+- Splitting classes. [Gregor von Laszewski]
+
+- Start baseclass. [Gregor von Laszewski]
+
+- Simple code cleanip. [Gregor von Laszewski]
+
+- Assert Parameter.expand test. [Gregor von Laszewski]
+
+- Pep8, switching hosstlist to Parameter.expand. [Gregor von Laszewski]
+
+- Adding more comments. [Gregor von Laszewski]
+
+- Improving the hostlist comment. [Gregor von Laszewski]
+
+- Adding more command suggestions. [Gregor von Laszewski]
+
+- Reformatting, reordering, and sellchecking the proposed commands.
+  [Gregor von Laszewski]
+
+- Adding cloudmesh_search. [Paulo Chagas]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Paulo Chagas]
+
+- Remove debug messages. [Gregor von Laszewski]
+
+- Adding a test file to queries. [Paulo Chagas]
+
+- Adding a test file for queries. [Paulo Chagas]
+
+- Renaming the id to cm_id so it does not conflict with the SQL id.
+  [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Fixed commands_nova.rst format. [Daniel Silva]
+
+- Change table data types. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Updated suggestion commands_nova.rst. [Daniel Silva]
+
+- Adding the export line match. [Gregor von Laszewski]
+
+- Fix the plugin location. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Libcloud install restored. [Hyungro Lee]
+
+- Debug messages. [Gregor von Laszewski]
+
+- Added __init__ [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Updated suggestion command nova doc. [Daniel Silva]
+
+- Passing git+ strings to pbr does not work. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Hyungro Lee]
+
+- Azure tested to create and delete a vm. [Hyungro Lee]
+
+- Default image for azure. [Hyungro Lee]
+
+- Created file suggestion commands nova in doc. [Daniel Silva]
+
+- Fixing the module import. [Gregor von Laszewski]
+
+- Changing more imports. [Gregor von Laszewski]
+
+- Cahnge import statements. [Gregor von Laszewski]
+
+- Reorganize the module. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Dev version of libcloud from github 'trunk' [Hyungro Lee]
+
+- Reorganize the modules. [Gregor von Laszewski]
+
+- Preparing for update on vm and image. [Gregor von Laszewski]
+
+- Abstracting the lister and inserter. [Gregor von Laszewski]
+
+- Removing one test. [Gregor von Laszewski]
+
+- Reduce code duplication. [Gregor von Laszewski]
+
+- Update search functions to convert to dicts. [Gregor von Laszewski]
+
+- Working on filtered get. [Gregor von Laszewski]
+
+- Readding the deleted methods during a merge. [Gregor von Laszewski]
+
+- Redoing the merge. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Doc: updated to cloudmesh_cloud. [Paulo Chagas]
+
+- Merge branch 'master' of https://github.com/cloudmesh/client. [Paulo
+  Chagas]
+
+- Updated on azure. [Hyungro Lee]
+
+- Azure example started. [Hyungro Lee]
+
+- Doc: Changing cloudmesh_client for cloudmesh_cloud. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Added cmd3.yaml example to etc directory. [Paulo Chagas]
+
+- Rename. [Hyungro Lee]
+
+- Aws example. [Hyungro Lee]
+
+- Adding a simplified boot command. [Gregor von Laszewski]
+
+- Adding  cm_user         cm_cloud        cm_update attributes to the
+  dicts. [Gregor von Laszewski]
+
+- Adding provider list queris for openstack. [Gregor von Laszewski]
+
+- Adding IMAGE and FLAVOR to get_kind_from_string. [Gregor von
+  Laszewski]
+
+- Adding the username to the vm name for better debugging. [Gregor von
+  Laszewski]
+
+- Adding proper argument pass through to the nova command. [Gregor von
+  Laszewski]
+
+- Assing more objects to the database. [Gregor von Laszewski]
+
+- Adding database replace, add, and merge. [Gregor von Laszewski]
+
+- Adding additional database methods. [Gregor von Laszewski]
+
+- Next_name() [Gregor von Laszewski]
+
+- Renaming the examples to avoid name conflict with existing package.
+  [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Doc: updated to cloudmesh_cloud. [Paulo Chagas]
+
+- Merge branch 'master' of https://github.com/cloudmesh/client. [Paulo
+  Chagas]
+
+- Updated on azure. [Hyungro Lee]
+
+- Azure example started. [Hyungro Lee]
+
+- Doc: Changing cloudmesh_client for cloudmesh_cloud. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Added cmd3.yaml example to etc directory. [Paulo Chagas]
+
+- Rename. [Hyungro Lee]
+
+- Aws example. [Hyungro Lee]
+
+- Pushing first data to the database. [Gregor von Laszewski]
+
+- Adding documentation to the flatten methods. [Gregor von Laszewski]
+
+- Flatten methods for libcloud image and vm. [Gregor von Laszewski]
+
+- F = flatten(d) # function to flatten a dict. [Gregor von Laszewski]
+
+- Adding a simplified boot command. [Gregor von Laszewski]
+
+- Adding  cm_user         cm_cloud        cm_update attributes to the
+  dicts. [Gregor von Laszewski]
+
+- Adding provider list queris for openstack. [Gregor von Laszewski]
+
+- Adding IMAGE and FLAVOR to get_kind_from_string. [Gregor von
+  Laszewski]
+
+- Adding the username to the vm name for better debugging. [Gregor von
+  Laszewski]
+
+- Adding proper argument pass through to the nova command. [Gregor von
+  Laszewski]
+
+- Assing more objects to the database. [Gregor von Laszewski]
+
+- Adding database replace, add, and merge. [Gregor von Laszewski]
+
+- Adding additional database methods. [Gregor von Laszewski]
+
+- Next_name() [Gregor von Laszewski]
+
+- Renaming the examples to avoid name conflict with existing package.
+  [Gregor von Laszewski]
+
+- Fixed the nosetests for table printers. [Gregor von Laszewski]
+
+- Update the Changelog. [Gregor von Laszewski]
+
+- Renaming the files for better readability. [Gregor von Laszewski]
+
+- Moving examples to the examples dir. [Gregor von Laszewski]
+
+- Moving examples to the example dir. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Fixed test_005 in test_configdict. [Daniel Silva]
+
+- Reorganizing the database code. [Gregor von Laszewski]
+
+- Register default command. [Gregor von Laszewski]
+
+- Reorganizing the cloudmesh_default directory. [Gregor von Laszewski]
+
+- Improving the test dict. [Gregor von Laszewski]
+
+- Add a sample dict for test printing. [Gregor von Laszewski]
+
+- Created Configdict test. [Daniel Silva]
+
+- Adding parameter parsing. [Gregor von Laszewski]
+
+- Format the input to tt to make it more visible in the text. [Gregor
+  von Laszewski]
+
+- Adding cygwin documentation. [Gregor von Laszewski]
+
+- Documentation for next_name. [Gregor von Laszewski]
+
+- Added automatic vm name generator. [Gregor von Laszewski]
+
+- Adding the test method templates for tables. [Gregor von Laszewski]
+
+- Table test template. [Gregor von Laszewski]
+
+- Added testing methods to be implemented. [Gregor von Laszewski]
+
+- Spellchecking. [Gregor von Laszewski]
+
+- Pep8 cleanup; Cloud object template. [Gregor von Laszewski]
+
+- Adding a mailmap. [Gregor von Laszewski]
+
+- Add make view. [Gregor von Laszewski]
+
+- Pep8 cleanup. [Gregor von Laszewski]
+
+- Add developer notes. [Gregor von Laszewski]
+
+- Tag management via makefile. [Gregor von Laszewski]
+
+- Makefile for make doc. [Gregor von Laszewski]
+
+- Adding sphinx documentation framework. [Gregor von Laszewski]
+
+- Simplify CHangelog. [Gregor von Laszewski]
+
+- Clean requirements. [Gregor von Laszewski]
+
+- Add nosetests to tox. [Gregor von Laszewski]
+
+- Imporved documentation. [Gregor von Laszewski]
+
+- Fixing the nova command fixing libcoud example be using path_expand
+  removing timeparse from requirements. [Gregor von Laszewski]
+
+- Changed table.py doc. [Daniel Silva]
+
+- Created command_cloud.py doc. [Daniel Silva]
+
+- Updated ConfigDict.py doc. [Daniel Silva]
+
+0.5.7 (2015-06-17)
+------------------
+
+- Fixed the nosetests for table printers. [Gregor von Laszewski]
+
+- Update the Changelog. [Gregor von Laszewski]
+
+0.5.6 (2015-06-17)
+------------------
+
+- Renaming the files for better readability. [Gregor von Laszewski]
+
+- Moving examples to the examples dir. [Gregor von Laszewski]
+
+- Moving examples to the example dir. [Gregor von Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Gregor von
+  Laszewski]
+
+- Merge branch 'master' of github.com:cloudmesh/client. [Daniel Silva]
+
+- Fixed test_005 in test_configdict. [Daniel Silva]
+
+- Reorganizing the database code. [Gregor von Laszewski]
+
+0.5.5 (2015-06-17)
+------------------
+
+- Register default command. [Gregor von Laszewski]
+
+- Reorganizing the cloudmesh_default directory. [Gregor von Laszewski]
+
+- Improving the test dict. [Gregor von Laszewski]
+
+- Add a sample dict for test printing. [Gregor von Laszewski]
+
+- Created Configdict test. [Daniel Silva]
+
+- Adding parameter parsing. [Gregor von Laszewski]
+
+- Format the input to tt to make it more visible in the text. [Gregor
+  von Laszewski]
+
+- Adding cygwin documentation. [Gregor von Laszewski]
+
+- Documentation for next_name. [Gregor von Laszewski]
+
+- Added automatic vm name generator. [Gregor von Laszewski]
+
+- Adding the test method templates for tables. [Gregor von Laszewski]
+
+- Table test template. [Gregor von Laszewski]
+
+- Added testing methods to be implemented. [Gregor von Laszewski]
+
+- Spellchecking. [Gregor von Laszewski]
+
+- Pep8 cleanup; Cloud object template. [Gregor von Laszewski]
+
+- Adding a mailmap. [Gregor von Laszewski]
+
+- Add make view. [Gregor von Laszewski]
+
+0.5.4 (2015-06-17)
+------------------
+
+- Pep8 cleanup. [Gregor von Laszewski]
+
+- Add developer notes. [Gregor von Laszewski]
+
+- Tag management via makefile. [Gregor von Laszewski]
+
+- Makefile for make doc. [Gregor von Laszewski]
+
+- Adding sphinx documentation framework. [Gregor von Laszewski]
+
+- Simplify CHangelog. [Gregor von Laszewski]
+
+- Clean requirements. [Gregor von Laszewski]
+
+- Add nosetests to tox. [Gregor von Laszewski]
+
+- Imporved documentation. [Gregor von Laszewski]
+
+- Fixing the nova command fixing libcoud example be using path_expand
+  removing timeparse from requirements. [Gregor von Laszewski]
+
+- Changed table.py doc. [Daniel Silva]
+
+- Created command_cloud.py doc. [Daniel Silva]
+
+- Updated ConfigDict.py doc. [Daniel Silva]
+
+- Simple tests for configdict. [Gregor von Laszewski]
+
+- Tests created. [Daniel Silva]
+
+- Add tests template. [Gregor von Laszewski]
+
+- Rtd theme. [Gregor von Laszewski]
+
+- Adding sphinx placeholder. [Gregor von Laszewski]
+
+- Add comment placeholder. [Gregor von Laszewski]
+
+- Method needed cls. [Gregor von Laszewski]
+
+- Remove ruamel as it doe snot work well on cygwin. [Gregor von
+  Laszewski]
+
+- Remove ruamel. [Gregor von Laszewski]
+
+- Introduce a Config class. [Gregor von Laszewski]
+
+- Adding not implemented errors. [Gregor von Laszewski]
+
+- Simple tox.ini. [Gregor von Laszewski]
+
+- Adding cm register list ssh command to list the hosts defined in
+  .ssh/config. [Gregor von Laszewski]
+
+- Added registration documentation. [Gregor von Laszewski]
+
+- Added cm register rc host openrc. [Gregor von Laszewski]
+
+- Checks in registration command. [Gregor von Laszewski]
+
+- Uncomment the profile editor. [Gregor von Laszewski]
+
+- Adding a simple form for openstack credentials. [Gregor von Laszewski]
+
+- Fix the register command. [Gregor von Laszewski]
+
+- Merge branch 'master' of https://github.com/cloudmesh/common. [Daniel
+  Silva]
+
+- Dealing with public ip. [fugangwang]
+
+- Cm register commands. [Daniel Silva]
+
+- Merge branch 'master' of github.com:cloudmesh/common. [Gregor von
+  Laszewski]
+
+- Added libcloud example; added more requirements. [fugangwang]
+
+- Reorganizing. [Gregor von Laszewski]
+
+- Reorganization. [Gregor von Laszewski]
+
+- Adding first commands. [Gregor von Laszewski]
+
+- Remove version so we use git tags. [Gregor von Laszewski]
+
+- Testing pbr. [Gregor von Laszewski]
+
+- Testing new version of pbr. [Gregor von Laszewski]
+
+- Simple default command. [Gregor von Laszewski]
+
+- Setup. [Gregor von Laszewski]
+
+- Print() [Gregor von Laszewski]
+
+- Move confidict. [Gregor von Laszewski]
+
+- Simple dict printer with corrections. [Gregor von Laszewski]
+
+- Added defaults. [Gregor von Laszewski]
+
+- Introducing os.path.sep instead of / [Gregor von Laszewski]
+
+- Set test. [Gregor von Laszewski]
+
+- Simple configdict based on ruaml.yaml. [Gregor von Laszewski]
+
+- New config dict. [Gregor von Laszewski]
+
+- Initial commit. [Gregor von Laszewski]
+
+
