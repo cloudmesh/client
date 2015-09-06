@@ -4,6 +4,13 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+- 0.6.9. [Gregor von Laszewski]
+
+0.6.9 (2015-09-06)
+------------------
+
+- :new: adding automatic changelog generation. [Gregor von Laszewski]
+
 - Using Config.path_expand from common.ConfigDict. [Gregor von
   Laszewski]
 
