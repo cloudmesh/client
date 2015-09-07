@@ -1,6 +1,6 @@
-__author__ = 'daniel'
 from cloudmesh_base.util import HEADING
 from cloudmesh_base.Shell import Shell
+__author__ = 'daniel'
 
 """ run with
 
@@ -22,6 +22,7 @@ def run(command):
     result = Shell.execute(shell_command, args)
     return result
 
+
 class Test_nova():
     """tests nova command"""
 
@@ -32,7 +33,7 @@ class Test_nova():
 
         HEADING()
         cloud = "india"
-        result = run ("cm nova set {:}".format(cloud))
+        result = run("cm nova set {:}".format(cloud))
         print result
         assert "{:} is set".format(cloud) in result
 
@@ -42,8 +43,28 @@ class Test_nova():
         """
 
         HEADING()
-        result = run ("cm nova info india")
+        result = run("cm nova info india")
         print ("resultado test 2: "+result)
         assert "OK." in result
 
+    def test_003(self):
+        """
+        cm nova list
+        """
 
+        HEADING()
+        result = run("cm nova list")
+        print ("resultado test 3: "+result)
+        # TODO: Check why the test fails even if the command is successfully run
+        assert "OK." in result
+
+    def test_004(self):
+        """
+        cm nova image-list
+        """
+
+        HEADING()
+        result = run("cm nova image-list")
+        print ("resultado test 3: "+result)
+        # TODO: Check why the test fails even if the command is successfully run
+        assert "OK." in result

@@ -17,7 +17,6 @@ log = LOGGER(__file__)
 
 class NovaCommand (object):
 
-
     topics = {"nova": "cloud"}
 
     def __init__(self, context):
@@ -61,7 +60,7 @@ class NovaCommand (object):
             os.system("nova help")
             return
         elif arguments["info"]:
-            nova.set_os_environ(cloud)
+            Nova.set_os_environ(cloud)
             d = {}
             for attribute in ['OS_USERNAME',
                               'OS_TENANT_NAME',
@@ -84,7 +83,7 @@ class NovaCommand (object):
         elif arguments["set"]:
             if cloud:
 
-                nova.set_os_environ(cloud)
+                Nova.set_os_environ(cloud)
 
                 msg = "{0} is set".format(cloud)
                 Console.ok(msg)
@@ -92,8 +91,9 @@ class NovaCommand (object):
                 Console.error("CLOUD is required")
 
         else:  # nova ARGUMENTS...
-            nova.set_os_environ(cloud)
+            print("Cloud = {0}".format(cloud))
+            Nova.set_os_environ(cloud)
             args = arguments["ARGUMENTS"]
             result = Shell.execute("nova", args)
-            print(nova.remove_subjectAltName_warning(result))
+            print(Nova.remove_subjectAltName_warning(result))
             return
