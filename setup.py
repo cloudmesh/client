@@ -94,7 +94,7 @@ home = os.path.expanduser("~")
 #print [ (home + '/.cloudmesh/' + d, [os.path.join(d, f) for f in files]) for d, folders, files in os.walk('etc')],
 #sys.exit()
 
-data_files= [ (os.path.join(home, '.cloudmesh') + d.lstrip('cloudmesh_client/'),
+data_files= [ (os.path.join(home, '.cloudmesh'),
                 [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
                     os.path.join('cloudmesh_client', 'etc'))]
 
