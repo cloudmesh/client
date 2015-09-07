@@ -17,6 +17,7 @@ from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
 from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
+from cloudmesh_client.shell.plugins.CloudCommand import CloudCommand
 from cloudmesh_client.shell.plugins.SecureShellCommand import SecureShellCommand
 from cloudmesh_client.shell.plugins.SecgroupCommand import SecgroupCommand
 from cloudmesh_client.version import version
@@ -44,6 +45,7 @@ class CloudmeshConsole(cmd.Cmd,
                        ReservationCommand,
                        RegisterCommand,
                        SecgroupCommand,
+                       CloudCommand,
                        OpenCommand,
                        NovaCommand):
     """
@@ -61,6 +63,7 @@ class CloudmeshConsole(cmd.Cmd,
                        RegisterCommand,
                        ReservationCommand,
                        OpenCommand,
+                       CloudCommand,
                        SecgroupCommand,
                        NovaCommand]:
             tmp = command.topics.copy()

@@ -1,17 +1,17 @@
 from __future__ import print_function
-from cmd3.shell import command
-from pprint import pprint
-from cloudmesh_client.common.ConfigDict import Config
-import os
-import os.path
-from cloudmesh_client.cloud.register import CloudRegister
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.common.tables import dict_printer
+from __future__ import print_function
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
 
 
-class cm_shell_cloud:
-    def activate_cm_shell_cloud(self):
-        self.register_command_topic('cloud', 'cloud')
+class CloudCommand(object):
+
+    topics = {"cloud": "cloud"}
+
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command cloud")
 
     @command
     def do_cloud(self, args, arguments):
@@ -38,9 +38,10 @@ class cm_shell_cloud:
         # pprint(arguments)
         cloud = arguments["--cloud"]
         output_format = arguments["--format"]
+        Console.ok("cloud command called")
         pass
 
 
 if __name__ == '__main__':
-    command = cm_shell_register()
-    command.do_register("list")
+    command = CloudCommand()
+    command.do_cloud("list")
