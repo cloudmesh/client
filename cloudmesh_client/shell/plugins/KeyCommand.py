@@ -68,7 +68,8 @@ class KeyCommand(object):
 
            key list --source=git  [--username=USERNAME]
 
-              lists all keys in git for the specified user. If the name is not specified it is read from cloudmesh.yaml
+              lists all keys in git for the specified user. If the
+              name is not specified it is read from cloudmesh.yaml
 
            key list --source=ssh  [--dir=DIR] [--format=FORMAT]
 
@@ -82,7 +83,8 @@ class KeyCommand(object):
 
            key list [--format=FORMAT]
 
-               list the keys in teh giiven format: json, yaml, table. table is default
+               list the keys in teh giiven format: json, yaml,
+               table. table is default
 
            key list
 
@@ -91,13 +93,15 @@ class KeyCommand(object):
                
            key add [--name=keyname] FILENAME
 
-               adds the key specifid by the filename to the key database
+               adds the key specifid by the filename to the key
+               database
 
 
            key default [NAME]
 
-                Used to set a key from the key-list as the default key if NAME
-                is given. Otherwise print the current default key
+                Used to set a key from the key-list as the default key
+                if NAME is given. Otherwise print the current default
+                key
 
            key delete NAME
 

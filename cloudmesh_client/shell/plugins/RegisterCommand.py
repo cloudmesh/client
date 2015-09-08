@@ -42,11 +42,12 @@ class RegisterCommand(object):
               register CLOUD --dir=DIR
 
           managing the registered clouds in the cloudmesh.yaml file.
-          It looks for it in the current directory, and than in ~/.cloudmesh.
-          If the file with the cloudmesh.yaml name is there it will use it.
-          If neither location has one a new file will be created in
-          ~/.cloudmesh/cloudmesh.yaml. Some defaults will be provided.
-          However you will still need to fill it out with valid entries.
+          It looks for it in the current directory, and than in
+          ~/.cloudmesh.  If the file with the cloudmesh.yaml name is
+          there it will use it.  If neither location has one a new
+          file will be created in ~/.cloudmesh/cloudmesh.yaml. Some
+          defaults will be provided.  However you will still need to
+          fill it out with valid entries.
 
           Arguments:
 
@@ -107,10 +108,12 @@ class RegisterCommand(object):
                   checks the yaml file for completness
 
               register test [--yaml=FILENAME]
-                  checks the yaml file and executes tests to check if we
-                  can use the cloud. TODO: maybe this should be in a test
-                  command
-        """
+	      
+                  checks the yaml file and executes tests to check if
+                  we can use the cloud. TODO: maybe this should be in
+                  a test command
+
+         """
         # pprint(arguments)
 
         def _get_file(arguments):

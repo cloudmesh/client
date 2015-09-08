@@ -48,6 +48,7 @@ class ManCommand(object):
             Description:
                 man 
                     Prints out the help pages
+
                 man COMMAND
                     Prints out the help page for a specific command
         """
