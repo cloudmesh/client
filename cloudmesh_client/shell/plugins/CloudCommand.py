@@ -35,14 +35,17 @@ class CloudCommand(object):
              --output=FORMAT  the output format [cloud: table]
 
           Description:
-             Cloudmesh contains a cloudmesh.yaml file that containes templates for multiple clouds that you may or
-             may not have access to. Hence it is useful to activate and deacivate clouds you like to use in other
-             commands.
+             Cloudmesh contains a cloudmesh.yaml file that contains
+             templates for multiple clouds that you may or may not have
+             access to. Hence it is useful to activate and deacivate clouds
+             you like to use in other commands.
 
-             To activate a cloud a user can simply use the activate command followed by the name of the cloud to be
-             activated. To find out which clouds are available you can use the list command that will provide you
-             with some basic information. As default it will print a table. Thus the commands
-
+             To activate a cloud a user can simply use the activate
+             command followed by the name of the cloud to be
+             activated. To find out which clouds are available you can
+             use the list command that will provide you with some
+             basic information. As default it will print a table. Thus
+             the commands::
 
                cloud activate india
                cloud deactivate aws

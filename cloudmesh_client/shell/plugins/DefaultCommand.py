@@ -37,6 +37,36 @@ class DefaultCommand(object):
              --cloud=CLOUD    the name of the cloud [default: general]
              --format=FORMAT  the output format [default: table]
 
+        Description:
+
+            Cloudmesh has the ability to manage teasily multiple
+            clouds. One of the key oncepts to make the usage of such
+            clouds easier is the introduction of defaults for each
+            cloud or globally. Hence it is possible to set default
+            images, flavors for each cloud, but also the defauld
+            cloud. The default command is used to set and list the
+            default values. These defaults are used in other commands
+            if they are not overwritten by a command parameter.
+
+	    The current default values can by listed with:(if you have
+	    a default cloud specified. You can also add a
+	    --cloud=CLOUD parameter to apply the command to a specific
+	    cloud) 
+
+	    	default list
+
+            A deafult can be set with
+
+                 default KEY=VALUE
+
+             To look up a default value you can say
+
+                  default KEY
+
+               A deafult can be deleted with
+
+                   default delete KEY
+
         """
         # pprint(arguments)
         cloud = arguments["--cloud"]
