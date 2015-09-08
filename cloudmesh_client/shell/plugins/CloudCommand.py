@@ -61,7 +61,7 @@ class CloudCommand(object):
 
                 cloud info CLOUD
 
-             It will call internally also the command uses in regitser
+             It will call internally also the command uses in register
 
           See also:
              register
