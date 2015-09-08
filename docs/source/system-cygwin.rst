@@ -99,6 +99,10 @@ Windows 10
 
 Install Python
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. warning:: python may come with cygwin and this may therefor be
+	     uneccesarry. This needs to be investigated, and possibley
+	     this sectin needs to be removed.
 	     
 Python can be found at http://www.python.org. We recommend to download
 and install the newest version of python. At this time we recommend
@@ -124,39 +128,13 @@ To download and install git for windows, please go to
 
 * https://git-scm.com/download/win
 
+.. todo:: check if this is the right way to do so
+
 You will be asked a couple of questions and you should make sure that
-you install it so that git can be run from the terminal.
+you install it so that git can be run from the terminal. Please
+provide screenshots or write down what needs to be checked on.
 
 .. image:: images/git_setup/git_setup.png
-
-Read and Accept the License to proceed.
-
-.. image:: images/git_setup/git_setup_license.png
-
-Select which components need to be installed. Keep the default options.
-
-.. image:: images/git_setup/git_setup_components.png
-
-We prefer to use GitBash as our command line tool for Git
-
-.. image:: images/git_setup/git_setup_path.png
-
-Select OpenSSH as the secure shell client program.
-
-.. image:: images/git_setup/git_setup_ssh.png
-
-Keep the default option selected - MinTTY terminal
-
-.. image:: images/git_setup/git_setup_terminal.png
-
-Then select the default options to proceed; Git will be installed on your machine.
-
-To check if Git is installed on your machine, open GitBash from Start menu
-and type the following::
-
-  git --version
-
-This should return git version 2.5.0.windows.1
 
 Install make In Windows
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -166,25 +144,8 @@ To download and install "make" for windows, please go to:
 * http://gnuwin32.sourceforge.net/downlinks/make.php
 
 This will download the installer for make on your machine. Follow the
-on-screen instructions and make will be installed.
-
-.. image:: images/make_setup/make_setup.png
-
-Read and Accept the License to proceed.
-
-.. image:: images/make_setup/make_setup_license.png
-
-Select which components need to be installed. Keep the default options.
-
-.. image:: images/make_setup/make_setup_components.png
-
-Select path where make is to be installed on your machine.
-
-.. image:: images/make_setup/make_setup_dest.png
-
-Then select the default options to proceed; Make will be installed on your machine.
-
-Next, you need to add the location of "make.exe" to your system PATH environment variable.
+on-screen instructions and make will be installed. Next, you need to
+add the location of "make.exe" to your system PATH environment variable.
 
 Make.exe will most likely be installed at::
 
@@ -193,6 +154,79 @@ Make.exe will most likely be installed at::
 Add this location to the PATH variable::
 
   PATH = %PATH%;C:\Program Files (x86)\GnuWin32\bin;
+
+
+Install chocolatey
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+We install cygwin via chocolatey. To do so you first have to start a
+power shell as adminstrator with::
+
+  PS> Start-Process powershell -Verb runAs
+
+Allow execution of scripts::
+
+  PS> Set-ExecutionPolicy Unrestricted
+  
+Next execute the command to install chocolatey::
+  
+  PS> iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+  
+Unset the script execution permission::
+  
+  Set-ExecutionPolicy Restricted
+
+Administrative Powershell
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. note:: Often you will need to execute commands in an administrative powere
+	  shell. You can right click or CTRL click (dependent on your
+	  configuration) on the powereshell icon in order to obtain a powershell
+	  with increased administrative rights. 
+  
+Install Cygwin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  
+Next execute in a powershell::
+  
+  choco install --force -y cygwin 
+ 
+Note: if Cygwin is already installed, --force will reinstall it.
+
+Install apt-cyg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Now open cygwin window by clicking on the desktop icon. Put the
+following command into Cygwin terminal (its shorcut can be found on
+your Desktop)::
+  
+  lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+  install apt-cyg /bin
+
+This will give you a nice command to add additional packages to cygwin
+without using the cygwin GUI. You will also want the following appliations::
+
+  apt-cyg install wget
+  apt-cyg install emacs
+  apt-cyg install git
+  apt-cyg install curl
+  apt-cyg install nc
+  apt-cyg install make
+  apt-cyg install gcc-g++ diffutils libmpfr-devel libgmp-devel libmpc-devel
+  apt-cyg install db
+
+Using cygwin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When starting a new powershell terminal you can simply typ into it::
+
+  cygwin
+
+This way you can easily past and copy into the cywin terminal that is
+started via powershell. This is extremly useful if you run Windows in
+a virtual server and want to easily past and copy strings to and from
+the host operating system. In virtualbox you maus enable past frm
+clipboard in bidirectional mode.
+
 
 Makeing python usable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
