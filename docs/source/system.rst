@@ -164,21 +164,31 @@ Go to::
 
   https://portal.futuresystems.org
 
-And make sure you register and gert an account. Once you are in a
-valid project you can user indias resources. After that you need to
-upload your public key that you generated into the portal.
+Once you log in you can use the following link::
+
+  https://portal.futuresystems.org/my/ssh-keys
+
+Naturally this only works if you are elidgable to register and get an
+account. Once you are in a valid project you can user indias
+resources. After that you need to upload your public key that you
+generated into the portal.
 
 .. warning:: Windows will not past and copy correctly, please make
 	     sure that newlines are removed for the text box where you
 	     past the key. This is cause for many errors. MAke sure
 	     that the key in the text box is a single line and looks
 	     like when you cat it
-	     
+
 Next you can ssh into the machine like this::
 
-   ssh -i $HOME/.ssh/id_rsa gvonlasz@india.futuregrid.org
+   ssh -i $HOME/.ssh/id_rsa $PORTALNAME@india.futuregrid.org
 
-Note that a login without the -i seems not to work
+where $PORTALNAME is your futuresystems portal name. Note that a login
+without the -i seems not to work.
+
+.. todo:: find a way to use $PORTALNAME and set that, as we do in rest
+	  of documentation this way we can do a set of the $PORTALNAME
+	  first and use this consistently throughout the documentation.
 	     
 
 Install Gnu Like tools - Erika and Gourav
