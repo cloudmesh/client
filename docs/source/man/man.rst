@@ -56,16 +56,17 @@ Command - cloud::
        --output=FORMAT  the output format [cloud: table]
 
     Description:
-       Cloudmesh contains a cloudmesh.yaml file that containes templates for multiple clouds that you may or
-       may not have access to. Hence it is useful to activate and deacivate clouds you like to use in other
-       commands.
+       Cloudmesh contains a cloudmesh.yaml file that contains
+       templates for multiple clouds that you may or may not have
+       access to. Hence it is useful to activate and deacivate clouds
+       you like to use in other commands.
 
-       To activate a cloud a user can simply use the activate command followed by the name of the cloud to be
-       activated. To find out which clouds are available you can use the list command that will provide you
-       with some basic information. As default it will print a table. Thus the commands
-
-
-         cloud activate india
+       To activate a cloud a user can simply use the activate
+       command followed by the name of the cloud to be
+       activated. To find out which clouds are available you can
+       use the list command that will provide you with some
+       basic information. As default it will print a table. Thus
+       the commands       cloud activate india
          cloud deactivate aws
 
        Will result in
@@ -82,7 +83,7 @@ Command - cloud::
 
           cloud info CLOUD
 
-       It will call internally also the command uses in regitser
+       It will call internally also the command uses in register
 
     See also:
        register
@@ -117,38 +118,69 @@ group
 
 Command - group::
 
-      Usage:
-          group info [--output=FORMAT]
-          group add [--name=NAME] --id=IDs
-          group add [--cloud=CLOUD] [--type=TABLE] --name=NAME
-          group list [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
-          group delete [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
-          group copy FROM TO
-          group merge GROUPA GROUPB MERGEDGROUP
+                      Usage:
+                  group info [--output=FORMAT]
+                  group add [--name=NAME] --id=IDs
+                 group list [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
+                  group delete [--cloud=CLOUD] [--name=NAME]
+                  group copy FROM TO
+                  group merge GROUPA GROUPB MERGEDGROUP
 
-      manage the groups
+              manage the groups
 
-      Arguments:
+              Arguments:
 
-        FROM    name of a group
-        TO      name of a group
-        GROUPA  name of a group
-        GROUPB  name of a group
-        GROUPC  name of a group
+                FROM    name of a group
+                TO      name of a group
+                GROUPA  name of a group
+                GROUPB  name of a group
+                GROUPC  name of a group
 
-      Options:
+              Options:
+                 --cloud=CLOUD    the name of the cloud [default: general]
+                 --output=FORMAT  the output format [default: table]
+                 --type=TABLE     the table type [default: all]
+                 --name=NAME      the name of the group [default: None]
 
-         --cloud=CLOUD    the name of the cloud [default: general]
-         --output=FORMAT  the output format [default: table]
-         --type=TABLE     the table type [default: all]
-         --name=NAME      the name of the group [default: None]
 
-    Example:
-        default group mygroup
-        group add --type=vm --id=gregor-[001-003]
-            # adds the vms with teh given name using the Parameter see base
-        group delete --name=mygroup
-            # deletes all objects in the group
+            Description:
+
+    	    Todo: design parameters that are useful and match
+    	    description
+    	    Todo: discuss and propose command
+
+                cloudmesh can manage groups of resources and cloud related
+                objects. As it woudl be combersome to for example delete
+                many virtual machines or delete VMs that are in the same
+                group, but are running in different clouds.
+
+    	    Hence it is possible to add a virtual machine to a
+    	    specific group. The group name to be added to can be set
+    	    as a default. This way all suubsequent commands use this
+    	    default group. It can also be set via a command parameter.
+    	    Another convenience function is that the group command can
+    	    use the last used virtual machine. If a vm is started it
+    	    will be automatically added to the deafult group if it is set.
+
+    	    The delete command has an optional cloud parameter so that
+    	    deletion of vms of a partial group by cloud can be
+    	    achieved.
+
+    	    If finer grained deletion is needed, it can be acheved
+    	    with the delete command that supports deletion by name
+
+            Example:
+                default group mygroup
+
+                group add --type=vm --id=gregor-[001-003]
+                    adds the vms with teh given name using the Parameter
+                    see base
+
+                group add --type=vm
+    	         adds the last vm to the group
+
+                group delete --name=mygroup
+                    deletes all objects in the group
 
 
 help
@@ -205,7 +237,8 @@ Command - key::
 
     key list --source=git  [--username=USERNAME]
 
-       lists all keys in git for the specified user. If the name is not specified it is read from cloudmesh.yaml
+       lists all keys in git for the specified user. If the
+       name is not specified it is read from cloudmesh.yaml
 
     key list --source=ssh  [--dir=DIR] [--format=FORMAT]
 
@@ -219,7 +252,8 @@ Command - key::
 
     key list [--format=FORMAT]
 
-        list the keys in teh giiven format: json, yaml, table. table is default
+        list the keys in teh giiven format: json, yaml,
+        table. table is default
 
     key list
 
@@ -228,13 +262,15 @@ Command - key::
 
     key add [--name=keyname] FILENAME
 
-        adds the key specifid by the filename to the key database
+        adds the key specifid by the filename to the key
+        database
 
 
     key default [NAME]
 
-         Used to set a key from the key-list as the default key if NAME
-         is given. Otherwise print the current default key
+         Used to set a key from the key-list as the default key
+         if NAME is given. Otherwise print the current default
+         key
 
     key delete NAME
 
@@ -265,6 +301,7 @@ Command - man::
     Description:
         man
             Prints out the help pages
+
         man COMMAND
             Prints out the help page for a specific command
 
@@ -373,11 +410,12 @@ Command - register::
         register CLOUD --dir=DIR
 
     managing the registered clouds in the cloudmesh.yaml file.
-    It looks for it in the current directory, and than in ~/.cloudmesh.
-    If the file with the cloudmesh.yaml name is there it will use it.
-    If neither location has one a new file will be created in
-    ~/.cloudmesh/cloudmesh.yaml. Some defaults will be provided.
-    However you will still need to fill it out with valid entries.
+    It looks for it in the current directory, and than in
+    ~/.cloudmesh.  If the file with the cloudmesh.yaml name is
+    there it will use it.  If neither location has one a new
+    file will be created in ~/.cloudmesh/cloudmesh.yaml. Some
+    defaults will be provided.  However you will still need to
+    fill it out with valid entries.
 
     Arguments:
 
@@ -438,9 +476,11 @@ Command - register::
             checks the yaml file for completness
 
         register test [--yaml=FILENAME]
-            checks the yaml file and executes tests to check if we
-            can use the cloud. TODO: maybe this should be in a test
-            command
+
+            checks the yaml file and executes tests to check if
+            we can use the cloud. TODO: maybe this should be in
+            a test command
+
 
 
 reservation

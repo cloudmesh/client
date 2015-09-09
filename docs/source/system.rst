@@ -117,8 +117,75 @@ install it.
 Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path
 
-Install Git in Windows
+
+.. warning:: At this time we have not yet finalized the instaltion
+	     instructions for Windows. We have two candidates. ONe
+	     developed by Erika and Gourav, which seem not yet to work
+	     when it comes to ssh, sc, and ssh-keygen without using
+	     gitbash. So it can not be used directly from powershell.
+	     The other instructions are from gregor, which do not
+	     require any GUI, but leverage the chocolatey tool which
+	     is a sort of package manager from windows.
+
+	     We will pesent the information in two different
+	     subsections
+
+
+
+Gregors Windows install Instructions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install chocolatey::
+
+  Start-Process powershell -Verb runAs
+  Set-ExecutionPolicy Unrestricted
+  iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+  Set-ExecutionPolicy Restricted
+
+Restart the administrative shell so you can use choco
+
+In adminstrative new power shell Install Gnu on windows::
+
+  choco install gow -y --force
+  choco install git.commandline -y
+  
+Restart a new powershell window to use the commands
+
+In non administrative shell::
+
+  mkdir $HOME/.ssh.
+
+Remember to always use $HOME instead of ~ as commands such as ssh, and
+sshkeygen do not use ~::
+
+  ssh-keygen -f $HOME/.ssh/id_rsa
+
+Go to::
+
+  https://portal.futuresystems.org
+
+And make sure you register and gert an account. Once you are in a
+valid project you can user indias resources. After that you need to
+upload your public key that you generated into the portal.
+
+.. warning:: Windows will not past and copy correctly, please make
+	     sure that newlines are removed for the text box where you
+	     past the key. This is cause for many errors. MAke sure
+	     that the key in the text box is a single line and looks
+	     like when you cat it
+	     
+Next you can ssh into the machine like this::
+
+   ssh -i $HOME/.ssh/id_rsa gvonlasz@india.futuregrid.org
+
+Note that a login without the -i seems not to work
+	     
+
+Install Gnu Like tools - Erika and Gourav
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install Git in Windows
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 To download and install git for windows, please go to
 
@@ -159,7 +226,7 @@ and type the following::
 This should return git version 2.5.0.windows.1
 
 Install make In Windows
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 To download and install "make" for windows, please go to:
 
