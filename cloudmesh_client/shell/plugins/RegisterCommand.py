@@ -124,23 +124,29 @@ class RegisterCommand(object):
             return filename
 
         if arguments["info"]:
-
-            filename = _get_file(arguments)
-            if os.path.isfile(filename):
-                Console.ok('File ' + filename + " exists")
-            else:
-                Console.ok('File ' + filename + " does not exist")
+            try:
+                filename = _get_file(arguments)
+                if os.path.isfile(filename):
+                    Console.ok('File ' + filename + " exists")
+            except:
+                Console.error("File cloudmesh.yaml does not exist")
             return
 
         elif arguments["cat"]:
             filename = _get_file(arguments)
-            os.system("cat {:}".format(filename))
+            if not filename:
+                Console.error("File cloudmesh.yaml doesn't exist")
+            else:
+                os.system("cat {:}".format(filename))
             return
 
         elif arguments["edit"]:
             filename = _get_file(arguments)
-            Console.ok("edit", filename)
-            self.do_edit(filename)
+            if not filename:
+                Console.error("File cloudmesh.yaml doesn't exist")
+            else:
+                Console.ok("editing file " + filename)
+                os.system("vim {}".format(filename))
             return
 
         elif arguments['list'] and arguments['ssh']:
