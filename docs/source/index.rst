@@ -18,6 +18,7 @@ file. This documentation and cos is available on github at:
    configuration
    use
    api
+   docker
    man/man
    old 
    modules/modules
