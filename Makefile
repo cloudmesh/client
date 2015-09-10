@@ -60,4 +60,35 @@ rmtag:
 	git tag
 	@echo "rm Tag?"; read TAG; git tag -d $$TAG; git push origin :refs/tags/$$TAG
 
+######################################################################
+# DOCKER
+######################################################################
+
+docker-mahine:
+	docker-machine create --driver virtualbox cloudmesh
+
+docker-machine-login:
+	eval "$(docker-machine env cloudmesh)"
+
+docker-build:
+	docker build -t laszewski/cloudmesh .
+
+# dockerhub
+docker-login:
+	docker login
+
+docker-push:
+	docker push laszewski/cloudmesh
+
+docker-pull:
+	docker pull laszewski/client
+
+#
+# does not work yet
+#
+docker-run:
+	docker run -t -i cloudmesh /bin/bash
+
+docker-clean-images:
+	bin/docker-clean-images
 
