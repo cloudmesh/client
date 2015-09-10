@@ -86,5 +86,32 @@ class Test_register():
 
         assert "openstack" in result
 
+    def test_008(self):
+        """testing cm register info"""
+        HEADING()
+        result = run("cm register info")
+        assert "exists" in result
+
+    def test_009(self):
+        """testing cm register cat"""
+        HEADING()
+        result = run("cm register cat")
+        assert "yaml_version:" in result
+
+    def test_010(self):
+        """testing cm register cat --yaml=cloudmesh1.yaml"""
+        HEADING()
+        result = run("cm register cat --yaml=cloudmesh1.yaml")
+        assert "doesn't exist" in result
+
+    def test_011(self):
+        """testing cm register edit --yaml=cloudmesh1.yaml"""
+        HEADING()
+        result = run("cm register edit --yaml=cloudmesh1.yaml")
+        assert "doesn't exist" in result
+
+
+
+
 
 
