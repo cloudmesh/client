@@ -24,7 +24,11 @@ Publish the image on docker hub (only Gregor)::
 
   make docker-publish
 
+Get the image (does not work)::
 
+  make docker-pull
+
+  
 Not working or incomplete::
 
   make docker-run
