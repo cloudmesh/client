@@ -18,8 +18,8 @@ class GroupCommand:
 
           Usage:
               group info [--output=FORMAT]
-              group add [--name=NAME] --id=IDs
-             group list [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
+              group add [--name=NAME] [--type=TYPE] --id=IDs
+              group list [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
               group delete [--cloud=CLOUD] [--name=NAME]
               group copy FROM TO
               group merge GROUPA GROUPB MERGEDGROUP
@@ -37,7 +37,7 @@ class GroupCommand:
           Options:
              --cloud=CLOUD    the name of the cloud [default: general]
              --output=FORMAT  the output format [default: table]
-             --type=TABLE     the table type [default: all]
+             --type=TYPE     the resource type [default: all]
              --name=NAME      the name of the group [default: None]
 
 
@@ -83,16 +83,57 @@ class GroupCommand:
         # pprint(arguments)
         # TODO: do something useful here
         if arguments["list"]:
-            name = arguments["NAME"]
-            print ("set group" + name)
-        cloud = arguments["--cloud"]
-        output_format = arguments["--format"]
-        pass
+            name = arguments["--name"]
+            type = arguments["--type"]
+            cloud = arguments["--cloud"]
+            print ("[Command To be Implemented] set group, name: " + name +
+                   ", type: " + type +
+                   ", cloud: " + cloud)
+            return
 
+        # TODO: do something useful here
+        elif arguments["info"]:
+            output_format = arguments["--output"]
+            print ("[Command To be Implemented] group, format: " + output_format)
+            return
+
+        # TODO: do something useful here
+        elif arguments["add"]:
+            name = arguments["--name"]
+            type = arguments["--type"]
+            id = arguments["--id"]
+            print ("[Command To be Implemented] add to group, name: " + name +
+                   ", type: " + type +
+                   ", id: " + id)
+            return
+
+        # TODO: do something useful here
+        elif arguments["delete"]:
+            name = arguments["--name"]
+            cloud = arguments["--cloud"]
+            print ("[Command To be Implemented] deleted group, name: " + name +
+                   ", cloud: " + cloud)
+            return
+
+        # TODO: do something useful here
+        elif arguments["copy"]:
+            _from = arguments["FROM"]
+            _to = arguments["TO"]
+            print ("[Command To be Implemented] copy FROM group: " + _from +
+                   ", TO group: " + _to)
+            return
+
+        # TODO: do something useful here
+        elif arguments["merge"]:
+            _groupA = arguments ["GROUPA"]
+            _groupB = arguments ["GROUPB"]
+            _mergedGroup = arguments ["MERGEDGROUP"]
+            print ("[Command To be Implemented] merge, group: " + _groupA +
+                   ", & group: " + _groupB +
+                   ", to group: " + _mergedGroup)
+            return
 
 if __name__ == '__main__':
     # TODO: do something useful here
     command = GroupCommand()
     command.do_group("list")
-    command.do_group("a=x")
-    command.do_group("x")
