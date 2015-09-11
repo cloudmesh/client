@@ -19,7 +19,7 @@ class CloudCommand(object):
         ::
 
           Usage:
-              cloud list [--output=FORMAT]
+              cloud list [--format=FORMAT]
               cloud activate CLOUD
               cloud deactivate CLOUD
               cloud info CLOUD
@@ -31,8 +31,8 @@ class CloudCommand(object):
             VALUE  the value to set the key to
 
           Options:
-             --cloud=CLOUD    the name of the cloud [cloud: general]
-             --output=FORMAT  the output format [cloud: table]
+             --cloud=CLOUD    the name of the cloud [default: general]
+             --format=FORMAT  the output format [default: table]
 
           Description:
              Cloudmesh contains a cloudmesh.yaml file that contains

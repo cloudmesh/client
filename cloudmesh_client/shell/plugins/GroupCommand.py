@@ -17,9 +17,9 @@ class GroupCommand:
         ::
 
           Usage:
-              group info [--output=FORMAT]
+              group info [--format=FORMAT]
               group add [--name=NAME] [--type=TYPE] --id=IDs
-              group list [--cloud=CLOUD] [--output=FORMAT] NAME
+              group list [--cloud=CLOUD] [--format=FORMAT] NAME
               group delete [--cloud=CLOUD] [--name=NAME]
               group copy FROM TO
               group merge GROUPA GROUPB MERGEDGROUP
@@ -37,7 +37,7 @@ class GroupCommand:
 
           Options:
              --cloud=CLOUD    the name of the cloud [default: general]
-             --output=FORMAT  the output format [default: table]
+             --format=FORMAT  the output format [default: table]
              --type=TYPE     the resource type [default: vm]
              --name=NAME      the name of the group [default: None]
 
