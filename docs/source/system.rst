@@ -138,22 +138,23 @@ Gregors Windows install Instructions
 Install chocolatey::
 
   Start-Process powershell -Verb runAs
-  Set-ExecutionPolicy Unrestricted
+  Set-ExecutionPolicy Unrestricted -force
   iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-  Set-ExecutionPolicy Restricted
+  Set-ExecutionPolicy Restricted -force
 
 Restart the administrative shell so you can use choco
 
 In adminstrative new power shell Install Gnu on windows::
 
-  choco install gow -y --force
-  choco install git.commandline -y
+  choco install git.install -y
+  choco install poshgit -y
+  
   
 Restart a new powershell window to use the commands
 
 In non administrative shell::
 
-  mkdir $HOME/.ssh.
+  mkdir $HOME/.ssh
 
 Remember to always use $HOME instead of ~ as commands such as ssh, and
 sshkeygen do not use ~::
@@ -186,10 +187,31 @@ Next you can ssh into the machine like this::
 where $PORTALNAME is your futuresystems portal name. Note that a login
 without the -i seems not to work.
 
+To simplify access you will need to configure a ssh coonfig file with
+the following contents::
+
+   Host india
+        Hostname india.futuresystems.org
+        User PORTALNAME
+
+Please replace the PORTALNAME with your username on india, YOu will
+need a good editor and not use notepad or notpead+. I mayself use
+emacs which can be installed with::
+
+   choco install emacs -y
+
+
+
 .. todo:: find a way to use $PORTALNAME and set that, as we do in rest
 	  of documentation this way we can do a set of the $PORTALNAME
 	  first and use this consistently throughout the documentation.
-	     
+
+Internally this verison of ssh is actually plink and not a full
+version of ssh. Thus it will not have many of the advanced ssh
+features such as .ssh/config, or even use the default location of the
+ssh key in ~/.ssh. INstead you will always have to add the key
+location with the -i flag on the commandline.
+
 
 Install Gnu Like tools - Erika and Gourav
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
