@@ -112,7 +112,7 @@ In powershell you can type::
   explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
 This will open the internet explorer and download the python msi installer.
-The installer will be downloaded in the "Downloads" directory in user home
+The installer will be downloaded in the "Downloads" directory in user home.
 
 You can navigate to the Downloads folder and check if the msi is downloaded::
 
@@ -130,57 +130,51 @@ To set the Path environment variable run the following command::
 
   PS> [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
 
-You should now have a Python environment installed on your machine.
-
-.. warning:: At this time we have not yet finalized the installation
-	     instructions for Windows. We have two candidates. ONe
-	     developed by Erika and Gourav, which seem not yet to work
-	     when it comes to ssh, sc, and ssh-keygen without using
-	     gitbash. So it can not be used directly from powershell.
-	     The other instructions are from gregor, which do not
-	     require any GUI, but leverage the chocolatey tool which
-	     is a sort of package manager from windows.
-
-	     We will pesent the information in two different
-	     subsections
+You should now have a Python environment installed on your
+machine. You need to start a new powershell to access python from the
+commandline.
 
 
-
-Gregors Windows install Instructions
+Install ssh and git and an editor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install emacs::
+As we need to do some editing you will need a nice editor. PLeas do
+not use notpad and notpad++ as they have significant issues, Usu vi,
+vim, or emacs. Emecs is easy to use as it has a GUI on
+windows. Install emacs::
 
   Start-Process powershell -Verb runAs 
   Set-ExecutionPolicy Unrestricted -force 
   iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) 
   choco install emacs -y
 
-Install Git and SSH:
-
-Paste the following command into the powershell::
+To install Git and paste the following command into the powershell::
 
   explorer https://github.com/git-for-windows/git/releases/latest
 
-.. note:: When installing you will se at one point a screen that asks
+.. note:: When installing you will see at one point a screen that asks
 	  you if you like to add the commands to the shell. This comes
 	  with a warning that some windows commands will be
-	  overwritten. THis is different from Guravs instructions and
+	  overwritten. This is different from Guravs instructions and
 	  I am not sure if it woll work if you install the middle
 	  button. It will not work if you just run it from bit-bash
 
-in administrative shell::
+Next we integrate git into powershell with ::
 
   (new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
   Set-ExecutionPolicy Unrestricted
   install-module posh-git –force
   Set-ExecutionPolicy Restricted -force
-  
-Create a key::
+
+
+Now we are ready to use ssh and git. Let us create a key::
 
   ssh-keygen
 
-Look at the public key::
+Follow the instructions and leave the path unchanged. Make sure you
+specify a passpharse. It is policy on many compute resources that your
+key has a passphrase. Look at the public key as we will need to upload
+it to some resources::
 
   cat ~/.ssh/id_rsa.pub
 
@@ -227,7 +221,7 @@ past and copy in portal.futuresystems.org
 	     in order not to confuse you about the definition of the
 	     hosts you define in .ssh/config 
 
-Install Gnu Like tools - Erika and Gourav
+Obsolete - Install Gnu Like tools - Erika and Gourav
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install Git in Windows
