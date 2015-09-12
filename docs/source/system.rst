@@ -111,15 +111,28 @@ In powershell you can type::
 
   explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
-Thsi will open the Windows explorer, download the msi and ask you to
-install it.
+This will open the internet explorer and download the python msi installer.
+The installer will be downloaded in the "Downloads" directory in user home
 
-Once downloaded, open it by clicking on the downloaded file. You may
-also want to change the properties and add python to the path
+You can navigate to the Downloads folder and check if the msi is downloaded::
 
-Todo: HOW IS THIS DONE FROM POWERSHELL????
+  PS> cd Downloads
+  PS> ls
 
-.. warning:: At this time we have not yet finalized the instaltion
+It should have the "python-2.7.10.msi" listed.
+
+Next, execute the following command from Downloads directory to install Python::
+
+  PS> msiexec /i python-2.7.10.msi /qb
+
+This will open a basic dialog to perform installation and close after completion.
+To set the Path environment variable run the following command::
+
+  PS> [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
+
+You should now have a Python environment installed on your machine.
+
+.. warning:: At this time we have not yet finalized the installation
 	     instructions for Windows. We have two candidates. ONe
 	     developed by Erika and Gourav, which seem not yet to work
 	     when it comes to ssh, sc, and ssh-keygen without using
