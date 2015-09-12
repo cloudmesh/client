@@ -84,17 +84,17 @@ class GroupCommand:
         # pprint(arguments)
         # TODO: do something useful here
         if arguments["list"]:
-            name = arguments["--name"]
-            type = arguments["--type"]
+            name = arguments["NAME"]
+            output_format = arguments["--format"]
             cloud = arguments["--cloud"]
             print ("[Command To be Implemented] set group, name: " + name +
-                   ", type: " + type +
+                   ", format: " + output_format +
                    ", cloud: " + cloud)
             return
 
         # TODO: do something useful here
         elif arguments["info"]:
-            output_format = arguments["--output"]
+            output_format = arguments["--format"]
             print ("[Command To be Implemented] group, format: " + output_format)
             return
 

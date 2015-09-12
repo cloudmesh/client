@@ -40,21 +40,21 @@ class Test_group:
         return
 
     def test_002(self):
-        """testing cm group info --output json"""
+        """testing cm group info --format json"""
         HEADING()
-        banner("group info --output json")
+        banner("group info --format json")
 
-        result = run("cm group info --output json")
+        result = run("cm group info --format json")
         assert "group, format: json" in result
         return
 
     def test_003(self):
-        """testing cm group list --cloud india --type table --name groupA"""
+        """testing cm group list --cloud india --format table groupA"""
         HEADING()
-        banner("cm group list --cloud india --type table --name groupA")
+        banner("cm group list --cloud india --format table groupA")
 
-        result = run("cm group list --cloud india --type table --name groupA")
-        assert "set group, name: groupA, type: table, cloud: india" in result
+        result = run("cm group list --cloud india --format table groupA")
+        assert "set group, name: groupA, format: table, cloud: india" in result
         return
 
     def test_004(self):
