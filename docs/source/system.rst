@@ -1,8 +1,9 @@
 System Preparation
 ===================
 
-The instalation of cloudmesh is easiest if you prepare your system with some elementary
-software. We provide such information for the following Operating systems:
+The installation of cloudmesh is easiest if you prepare your system
+with some elementary software. We provide such information for the
+following Operating systems:
 
 * Linux
 
@@ -13,7 +14,7 @@ software. We provide such information for the following Operating systems:
 * Windows
 
 For each of these operating systems we are provide specific
-instalation instructions.
+installation instructions.
 
 Prepare the system
 ------------------
@@ -25,7 +26,7 @@ On OSX we recommend that you use python 2.7.10. This version of python
 is easy to install while downloading the dmg and installing it on the
 system. You will still have access to the python version distributed
 with the original OSX operating system. To test out which version you
-have activated, you can use in the commandline::
+have activated, you can use in the command line::
 
   python --version
   pip --version
@@ -51,13 +52,13 @@ You will need to activate the virtualenv::
 
   source ~/ENV/bin/activate
 
-If sucessfull, your terminal will have (ENV) as prefix to the prompt::
+If successful, your terminal will have (ENV) as prefix to the prompt::
 
   (ENV)machinename:dirname user$
 
 As OSX comes with older versions of pip at this time, it is important
 that you first prepare the environment before you install cloudmesh
-client. To do so please isseue the following commands::
+client. To do so please issue the following commands::
 
    
    export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
@@ -68,7 +69,7 @@ client. To do so please isseue the following commands::
 
 .. warning:: We found that ``readline`` and ``pycrypto`` could not be
 	  installed with pip at the time of writing of this manual,
-	  despite the fact that pip installed it. Howerver, the
+	  despite the fact that pip installed it. However, the
 	  version installed with pip were not usable. The workaround
 	  is to use easy_install for these packages. If you have a
 	  better idea how to fix this, let us know and send mail to
@@ -110,7 +111,7 @@ In powershell you can type::
   explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
 This will open the internet explorer and download the python msi
-installer. It will walk you through the intall process.
+installer. It will walk you through the install process.
 
 .. note:: If you like to install it separately, you can find the
 	  downloaded msi in the `~/Downloads` directory. To install
@@ -128,15 +129,15 @@ variable while you type in powershell::
   [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
 
 You need to start a new powershell to access python from the
-commandline.
+command line.
 
 
 Install ssh and git and an editor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-As we need to do some editing you will need a nice editor. PLeas do
-not use notpad and notpad++ as they have significant issues, Usu vi,
-vim, or emacs. Emecs is easy to use as it has a GUI on
+As we need to do some editing you will need a nice editor. Please do
+not use notepad and notepad++ as they have significant issues, please
+use vi, vim, or emacs. Emacs is easy to use as it has a GUI on
 windows. Install emacs::
 
   Start-Process powershell -Verb runAs 
@@ -151,9 +152,7 @@ To install Git and paste the following command into the powershell::
 .. note:: When installing you will see at one point a screen that asks
 	  you if you like to add the commands to the shell. This comes
 	  with a warning that some windows commands will be
-	  overwritten. This is different from Guravs instructions and
-	  I am not sure if it woll work if you install the middle
-	  button. It will not work if you just run it from bit-bash
+	  overwritten. This is different from bellows instructions.
 
 Next we integrate git into powershell with ::
 
@@ -168,7 +167,7 @@ Now we are ready to use ssh and git. Let us create a key::
   ssh-keygen
 
 Follow the instructions and leave the path unchanged. Make sure you
-specify a passpharse. It is policy on many compute resources that your
+specify a passphrase. It is policy on many compute resources that your
 key has a passphrase. Look at the public key as we will need to upload
 it to some resources::
 
@@ -182,8 +181,8 @@ Once you log in you can use the following link::
 
   https://portal.futuresystems.org/my/ssh-keys
 
-Naturally this only works if you are elidgable to register and get an
-account. Once you are in a valid project you can user indias
+Naturally this only works if you are eligible to register and get an
+account. Once you are in a valid project you can use indias
 resources. After that you need to upload your public key that you
 generated into the portal and did a cat on.
 
@@ -193,6 +192,14 @@ generated into the portal and did a cat on.
 	     that the key in the text box is a single line and looks
 	     like when you did the cat on it.
 
+Throughout the manual we will be using the environment variable
+`$PORTALNAME` for your portal name on futuresytems. In order for you to
+conveniently access it you can set it as follows::
+
+   [Environment]::SetEnvironmentVariable("PORTALNAME","putyourportalnamehere")
+
+and replace the string `putyourportalnamehere` with your own portal name.
+	     
 Next you can ssh into the machine like this from powershell::
 
    ssh  $PORTALNAME@india.futuregrid.org
@@ -200,18 +207,22 @@ Next you can ssh into the machine like this from powershell::
 where $PORTALNAME is your futuresystems portal name. Note that a login
 without the -i seems not to work.
 
-To simplify access you will need to configure a ssh coonfig file with
+To simplify access you will need to configure a ssh config file with
 the following contents::
 
    Host india
         Hostname india.futuresystems.org
-        User PORTALNAME
+        User putyourportalnamehere
 
-open new powershell
+	
+open new powershell::
 
-cat ~/.ssh/id_rsa.pub
+  cat ~/.ssh/id_rsa.pub
 
-past and copy in portal.futuresystems.org
+past and copy this key into a new ssh key in your futuresystems
+account at::
+
+* http::portal.futuresystems.org/my/ssh-key
 
 .. warning:: we recommend that you are not modifying your /etc/hosts
 	     in order not to confuse you about the definition of the
