@@ -24,10 +24,8 @@ OSX
 On OSX we recommend that you use python 2.7.10. This version of python
 is easy to install while downloading the dmg and installing it on the
 system. You will still have access to the python version distributed
-with the original OSX operating system.
-
-To test out which version you have activated, you can use in the
-commandline::
+with the original OSX operating system. To test out which version you
+have activated, you can use in the commandline::
 
   python --version
   pip --version
@@ -111,27 +109,25 @@ In powershell you can type::
 
   explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
-This will open the internet explorer and download the python msi installer.
-The installer will be downloaded in the "Downloads" directory in user home.
+This will open the internet explorer and download the python msi
+installer. It will walk you through the intall process.
 
-You can navigate to the Downloads folder and check if the msi is downloaded::
+.. note:: If you like to install it separately, you can find the
+	  downloaded msi in the `~/Downloads` directory. To install
+	  it in powershell use::
+	    
+	    cd ~/Downloads
+	    msiexec /i python-2.7.10.msi /qb
 
-  PS> cd Downloads
-  PS> ls
+	  This will open a basic dialog to perform installation and
+	  close after completion.
 
-It should have the "python-2.7.10.msi" listed.
+After you have installed python include it in the Path environment
+variable while you type in powershell::
 
-Next, execute the following command from Downloads directory to install Python::
+  [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
 
-  PS> msiexec /i python-2.7.10.msi /qb
-
-This will open a basic dialog to perform installation and close after completion.
-To set the Path environment variable run the following command::
-
-  PS> [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
-
-You should now have a Python environment installed on your
-machine. You need to start a new powershell to access python from the
+You need to start a new powershell to access python from the
 commandline.
 
 
