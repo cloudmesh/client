@@ -117,6 +117,7 @@ install it.
 Once downloaded, open it by clicking on the downloaded file. You may
 also want to change the properties and add python to the path
 
+Todo: HOW IS THIS DONE FROM POWERSHELL????
 
 .. warning:: At this time we have not yet finalized the instaltion
 	     instructions for Windows. We have two candidates. ONe
@@ -135,31 +136,40 @@ also want to change the properties and add python to the path
 Gregors Windows install Instructions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install chocolatey::
+Install emacs::
 
-  Start-Process powershell -Verb runAs
-  Set-ExecutionPolicy Unrestricted -force
-  iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+  Start-Process powershell -Verb runAs 
+  Set-ExecutionPolicy Unrestricted -force 
+  iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) 
+  choco install emacs -y
+
+Install Git and SSH:
+
+Paste the following command into the powershell::
+
+  explorer https://github.com/git-for-windows/git/releases/latest
+
+.. note:: When installing you will se at one point a screen that asks
+	  you if you like to add the commands to the shell. This comes
+	  with a warning that some windows commands will be
+	  overwritten. THis is different from Guravs instructions and
+	  I am not sure if it woll work if you install the middle
+	  button. It will not work if you just run it from bit-bash
+
+in administrative shell::
+
+  (new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
+  Set-ExecutionPolicy Unrestricted
+  install-module posh-git –force
   Set-ExecutionPolicy Restricted -force
-
-Restart the administrative shell so you can use choco
-
-In adminstrative new power shell Install Gnu on windows::
-
-  choco install git.install -y
-  choco install poshgit -y
   
-  
-Restart a new powershell window to use the commands
+Create a key::
 
-In non administrative shell::
+  ssh-keygen
 
-  mkdir $HOME/.ssh
+Look at the public key::
 
-Remember to always use $HOME instead of ~ as commands such as ssh, and
-sshkeygen do not use ~::
-
-  ssh-keygen -f $HOME/.ssh/id_rsa
+  cat ~/.ssh/id_rsa.pub
 
 Go to::
 
@@ -172,17 +182,17 @@ Once you log in you can use the following link::
 Naturally this only works if you are elidgable to register and get an
 account. Once you are in a valid project you can user indias
 resources. After that you need to upload your public key that you
-generated into the portal.
+generated into the portal and did a cat on.
 
 .. warning:: Windows will not past and copy correctly, please make
 	     sure that newlines are removed for the text box where you
-	     past the key. This is cause for many errors. MAke sure
+	     past the key. This is cause for many errors. Make sure
 	     that the key in the text box is a single line and looks
-	     like when you cat it
+	     like when you did the cat on it.
 
-Next you can ssh into the machine like this::
+Next you can ssh into the machine like this from powershell::
 
-   ssh -i $HOME/.ssh/id_rsa $PORTALNAME@india.futuregrid.org
+   ssh  $PORTALNAME@india.futuregrid.org
 
 where $PORTALNAME is your futuresystems portal name. Note that a login
 without the -i seems not to work.
@@ -194,24 +204,15 @@ the following contents::
         Hostname india.futuresystems.org
         User PORTALNAME
 
-Please replace the PORTALNAME with your username on india, YOu will
-need a good editor and not use notepad or notpead+. I mayself use
-emacs which can be installed with::
+open new powershell
 
-   choco install emacs -y
+cat ~/.ssh/id_rsa.pub
 
+past and copy in portal.futuresystems.org
 
-
-.. todo:: find a way to use $PORTALNAME and set that, as we do in rest
-	  of documentation this way we can do a set of the $PORTALNAME
-	  first and use this consistently throughout the documentation.
-
-Internally this verison of ssh is actually plink and not a full
-version of ssh. Thus it will not have many of the advanced ssh
-features such as .ssh/config, or even use the default location of the
-ssh key in ~/.ssh. INstead you will always have to add the key
-location with the -i flag on the commandline.
-
+.. warning:: we recommend that you are not modifying your /etc/hosts
+	     in order not to confuse you about the definition of the
+	     hosts you define in .ssh/config 
 
 Install Gnu Like tools - Erika and Gourav
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
