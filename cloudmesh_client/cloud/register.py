@@ -61,7 +61,7 @@ class CloudRegister(object):
         :return:
         """
         if host == "india" and filename is None:
-            filename = os.path.join(".cloudmesh", "india", "juno", "openrc.sh")
+            filename = ".cloudmesh/india/juno/openrc.sh"
 
         Console.ok("register")
         print(host, filename)
