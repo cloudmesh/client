@@ -150,7 +150,6 @@ class RegisterCommand(object):
             return
 
         elif arguments['list'] and arguments['ssh']:
-
             CloudRegister.list_ssh()
             return
 
@@ -189,7 +188,10 @@ class RegisterCommand(object):
         elif arguments['json']:
             host = arguments['HOST']
             result = CloudRegister.get(host)
-            print(json.dumps(result, indent=4))
+            if result:
+                print(json.dumps(result, indent=4))
+            else:
+                print("Cloud {:} is not described in cloudmesh.yaml".format(host))
             return
 
         elif arguments['india']:

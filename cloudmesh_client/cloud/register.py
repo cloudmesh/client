@@ -61,10 +61,9 @@ class CloudRegister(object):
         :return:
         """
         if host == "india" and filename is None:
-            filename = os.path.join(".cloudmesh", "india", "juno", "openrc.sh")
+            filename = ".cloudmesh/clouds/india/juno/openrc.sh"
 
-        Console.ok("register")
-        print(host, filename)
+        Console.ok("Reading rc file from {}".format(host))
         result = Shell.ssh(host, "cat", filename)
         print(result)
         lines = result.split("\n")
@@ -120,12 +119,11 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = Config.path_expand(os.path.join(dot_cloudmesh, 'clouds', 'india'))
-
-            if os.path.exists(_to):
+            _to = "~/.cloudmesh/clouds/india/juno"
+            if os.path.exists(Config.path_expand(os.path.join(_to))):
 
                 if not yn_choice("Directory already exists. Would you like "
-                                 "to overwrite the {:} directory y/n? ".format(_to), force=force):
+                                 "to overwrite the {:} directory y/n? ".format(_to)):
                     return
 
             else:
@@ -160,15 +158,14 @@ class CloudRegister(object):
             # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
-            _to = os.path.join(dot_cloudmesh, 'clouds', 'india', 'juno')
+            _to = '~/.cloudmesh/clouds/india/juno'
 
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
 
                 if not yn_choice(
                         "File already exists. Would you like to overwrite "
-                        "{:}/cacert.pem file y/n? ".format(_to),
-                        force=force):
+                        "{:}/cacert.pem file y/n? ".format(_to)):
                     return
 
             try:
@@ -182,8 +179,7 @@ class CloudRegister(object):
             # registers cert in the cloudmesh.yaml file
             try:
                 Console.ok("registering cert in cloudmesh.yaml file")
-                home = expanduser("~")
-                filename = home + os.path.join('~', '.cloudmesh', 'clouds', 'india', 'juno', 'openrc.sh')
+                filename = "~/.cloudmesh/clouds/india/juno/openrc.sh"
                 result = Shell.cat(filename)
             except IOError, e:
                 print("ERROR: ", e)
@@ -218,7 +214,7 @@ class CloudRegister(object):
         Console.ok("register")
         if host.lower() == "india":
             _from = 'india:{:}'.format(directory)
-            _to = Config.path_expand(os.path.join('~', '.cloudmesh', 'clouds', host))
+            _to = "~/.cloudmesh/clouds/india/juno"
 
             #
             # BUG: the next line needs to be fixed to be linux and windows compatible
@@ -228,8 +224,7 @@ class CloudRegister(object):
 
             if os.path.exists(destination):
                 if not yn_choice("Directory already exists. Would you like to "
-                                 "overwrite {:} directory y/n? ".format(destination),
-                                 force=force):
+                                 "overwrite {:} directory y/n? ".format(destination)):
                     return
 
             try:
@@ -285,10 +280,11 @@ class CloudRegister(object):
         #    pass
 
         for key in keys:
-            result = input(
+            if profile[key] == "TBD":
+                result = input(
                 "Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
+                profile[key] = result
 
-            profile[key] = result
         config["cloudmesh"]["profile"] = profile
         config.save()
 
@@ -301,7 +297,7 @@ class CloudRegister(object):
             credentials = clouds[cloud]["credentials"]
 
             for key in credentials:
-                if key not in ["OS_VERSION", "OS_AUTH_URL"]:
+                if key not in ["OS_VERSION", "OS_AUTH_URL"] and credentials[key] == "TBD":
                     result = raw_input("Please enter {:}[{:}]:"
                                        .format(key, credentials[key])) or credentials[key]
                     credentials[key] = result
