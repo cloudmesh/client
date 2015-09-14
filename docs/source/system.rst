@@ -132,7 +132,7 @@ You need to start a new powershell to access python from the
 command line.
 
 
-Install ssh and git and an editor
+Install ssh, git, make and an editor
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 As we need to do some editing you will need a nice editor. Please do
@@ -144,7 +144,9 @@ windows. Install emacs::
   Set-ExecutionPolicy Unrestricted -force 
   iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) 
   choco install emacs -y
-
+  choco install make -y
+  choco install vim -y
+  
 To install Git and paste the following command into the powershell::
 
   explorer https://github.com/git-for-windows/git/releases/latest
