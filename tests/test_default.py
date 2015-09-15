@@ -37,9 +37,7 @@ class Test_default():
         :return:
         """
         HEADING()
-
         Default.clear()
-
         assert Default.list() == None
 
     def _check(self, content):
@@ -53,11 +51,9 @@ class Test_default():
         :return:
         """
         HEADING()
-
         name = "mycloud"
         Default.set_cloud(name)
         assert Default.get_cloud() == name
-
         self._check(name)
 
     def test_003(self):
@@ -66,11 +62,9 @@ class Test_default():
         :return:
         """
         HEADING()
-
         name = "myimage"
         Default.set_image(name, "mycloud")
         assert Default.get_image("mycloud") == name
-
         self._check(name)
 
     def test_004(self):
@@ -79,11 +73,9 @@ class Test_default():
         :return:
         """
         HEADING()
-
         name = "myflavor"
         Default.set_flavor(name, "mycloud")
         assert Default.get_flavor("mycloud") == name
-
         self._check(name)
 
     def test_005(self):
@@ -92,11 +84,9 @@ class Test_default():
         :return:
         """
         HEADING()
-
         name = "mykey"
         Default.set_key(name)
         assert Default.get_key() == name
-
         self._check(name)
 
     def test_006(self):
@@ -105,11 +95,9 @@ class Test_default():
         :return:
         """
         HEADING()
-
         name = "mygroup"
         Default.set_group(name)
         assert Default.get_group() == name
-
         self._check(name)
 
     def test_007(self):
@@ -118,14 +106,45 @@ class Test_default():
         :return:
         """
         HEADING()
-
         name = "myvar"
         value = "myvalue"
         cloud = "mycloud"
         Default.set(name, value, cloud)
         assert Default.get(name, cloud) == value
-
         self._check(value)
+
+    def test_008(self):
+        """cm default test=testValue --cloud=mycloud"""
+        HEADING()
+        result = run("cm default test=testValue --cloud=mycloud")
+        assert "Successfully added test" in result
+
+    def test_009(self):
+        """cm default test --cloud=mycloud"""
+        HEADING()
+        run("cm default test=testValue --cloud=mycloud")
+        result = run("cm default test --cloud=mycloud")
+        assert "testValue" in result
+
+    def test_010(self):
+        """cm default doesnotexist --cloud=mycloud"""
+        HEADING()
+        result = run("cm default doesnotexist --cloud=mycloud")
+        assert "No default values found" in result
+
+    def test_011(self):
+        """cm default delete test"""
+        HEADING()
+        run("cm default test=testValue --cloud=mycloud")
+        result = run("cm default delete test --cloud=mycloud")
+        assert "Deleted key" in result
+
+    def test_012(self):
+        """cm default delete doesnotexist --cloud=mycloud"""
+        HEADING()
+        result = run("cm default delete doesnotexist --cloud=mycloud")
+        assert "Key doesnotexist not present" in result
+
 
     def test_999(self):
         """

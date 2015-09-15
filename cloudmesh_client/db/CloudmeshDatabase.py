@@ -44,9 +44,11 @@ class CloudmeshDatabase(object):
         self.session.commit()
         self.session.flush()
 
+    def close(self):
+        self.session.close()
+
     def delete(self, item):
         """
-        NOTTESTED
         :param item:
         :return:
         """
@@ -178,6 +180,7 @@ class CloudmeshDatabase(object):
         self.session.add(o)
         self.session.commit()
         self.session.flush()
+
 
     # TODO: change name to kwargs
     def get(self, table, name):
