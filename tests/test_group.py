@@ -15,6 +15,8 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
 from cloudmesh_base.util import banner
 
+from cloudmesh_client.cloud.group import Group
+
 def run(command):
     parameter = command.split(" ")
     shell_command = parameter[0]
@@ -31,64 +33,76 @@ class Test_group:
         pass
 
     def test_001(self):
-        """testing cm group info"""
+        """testing cm group add --id test-001 --type vm --name groupA"""
         HEADING()
-        banner("group info")
+        banner("cm group add --id test-001 --type vm --name groupA")
 
-        result = run("cm group info")
-        assert "[Command To be Implemented] group, format: table" in result
+        run("cm group add --id test-001 --type vm --name groupA")
+        id = str(Group.get_group(name="groupA").value)
+        assert "test-001" in id
         return
 
     def test_002(self):
-        """testing cm group info --format json"""
-        HEADING()
-        banner("group info --format json")
-
-        result = run("cm group info --format json")
-        assert "group, format: json" in result
-        return
-
-    def test_003(self):
-        """testing cm group list --cloud india --format table groupA"""
-        HEADING()
-        banner("cm group list --cloud india --format table groupA")
-
-        result = run("cm group list --cloud india --format table groupA")
-        assert "set group, name: groupA, format: table, cloud: india" in result
-        return
-
-    def test_004(self):
-        """testing cm group add --id goshenoy-001 --type vm --name groupA"""
-        HEADING()
-        banner("cm group add --id goshenoy-001 --type vm --name groupA")
-
-        result = run("cm group add --id goshenoy-001 --type vm --name groupA")
-        assert "add to group, name: groupA, type: vm, id: goshenoy-001" in result
-        return
-
-    def test_005(self):
-        """testing cm group delete --cloud india --name groupA"""
-        HEADING()
-        banner("cm group delete --cloud india --name groupA")
-
-        result = run("cm group delete --cloud india --name groupA")
-        assert "deleted group, name: groupA, cloud: india" in result
-        return
-
-    def test_006(self):
         """testing cm group copy groupA groupB"""
         HEADING()
         banner("cm group copy groupA groupB")
 
         result = run("cm group copy groupA groupB")
-        assert "copy FROM group: groupA, TO group: groupB" in result
+        print(result)
+        assert "Created a new group [groupB] and added ID [test-001] to it" in result
+
         return
 
-    def test_007(self):
+    def test_003(self):
         """testing cm group merge groupA groupB groupC"""
         HEADING()
         banner("cm group merge groupA groupB groupC")
 
         result = run("cm group merge groupA groupB groupC")
-        assert "merge, group: groupA, & group: groupB, to group: groupC" in result
+        assert "Merge of group [groupA] & [groupB] to group [groupC] successful!" in result
         return
+
+    def test_004(self):
+        """testing cm group info"""
+        HEADING()
+        banner("group info")
+
+        result = run("cm group info")
+        assert "groupA" in result
+        return
+
+    def test_005(self):
+        """testing cm group info --format json"""
+        HEADING()
+        banner("group info --format json")
+
+        result = run("cm group info --format json")
+        assert "groupA" in result
+        return
+
+    def test_006(self):
+        """testing cm group list --cloud general --format table groupC"""
+        HEADING()
+        banner("cm group list --cloud general --format table groupC")
+
+        result = run("cm group list --cloud general --format table groupC")
+        assert "groupC" in result
+        return
+
+    def test_007(self):
+        """testing cm group delete --cloud general --name groupA"""
+        HEADING()
+        banner("cm group delete --cloud general --name groupA")
+        result = run("cm group delete --cloud general --name groupA")
+        assert "Deletion Successful!" in result
+
+        banner("cm group delete --cloud general --name groupB")
+        result = run("cm group delete --cloud general --name groupB")
+        assert "Deletion Successful!" in result
+
+        banner("cm group delete --cloud general --name groupC")
+        result = run("cm group delete --cloud general --name groupC")
+        assert "Deletion Successful!" in result
+
+        return
+
