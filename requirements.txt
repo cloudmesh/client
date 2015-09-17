@@ -13,3 +13,4 @@ requests
 sandman
 gitchangelog
 six
+pymongo

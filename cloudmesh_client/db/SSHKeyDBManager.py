@@ -64,7 +64,7 @@ class SSHKeyDBManager(object):
             fingerprint=sshkey['fingerprint'],
             comment=sshkey['comment'],
             type="sshkey",
-            group=None,
+            # group=None,
             cloud="general",
             user=user)
 
@@ -124,7 +124,7 @@ class SSHKeyDBManager(object):
 
         :return:
         """
-        self.db.delete_all(['KEY'])
+        self.db.delete_all(KEY)
 
     def select(self):
         options = []

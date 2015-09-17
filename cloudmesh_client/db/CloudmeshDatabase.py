@@ -10,6 +10,8 @@ from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, DEFAULT
 
+from cloudmesh_client.common.todo import TODO
+
 
 class CloudmeshDatabase(object):
     def __init__(self, user=None):
@@ -54,6 +56,18 @@ class CloudmeshDatabase(object):
         """
         self.session.delete(item)
         self.save()
+
+    def delete_all(self, kind):
+        """
+        :param type:
+        :return:
+        """
+        # TODO: Implement
+        TODO.implement()
+
+    def get_table_from_name(self, kind):
+        # TODO: Implement this method, as its being called in other functions
+        TODO.implement()
 
     def find_by_name(self, kind, name):
         """
@@ -181,7 +195,6 @@ class CloudmeshDatabase(object):
         self.session.commit()
         self.session.flush()
 
-
     # TODO: change name to kwargs
     def get(self, table, name):
         return self.session.query(table).filter_by(name=name).first()
@@ -214,7 +227,6 @@ def main():
     pprint(cm.get(DEFAULT, 'other').__dict__)
 
     cm.info()
-
 
     """
 
