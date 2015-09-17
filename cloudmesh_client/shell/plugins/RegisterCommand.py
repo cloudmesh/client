@@ -36,7 +36,7 @@ class RegisterCommand(object):
               register test [--yaml=FILENAME]
               register rc HOST [OPENRC]
               register json HOST
-              register [--yaml=FILENAME]
+              register merge FILEPATH
               register india [--force]
               register CLOUD CERT [--force]
               register CLOUD --dir=DIR
@@ -92,11 +92,9 @@ class RegisterCommand(object):
 
                         register rc india
 
-              register [--yaml=FILENAME]
-
-                  read the yaml file instead of ./cloudmesh.yaml or
-                  ~/.cloudmesh/cloudmesh.yaml which is used when the
-                  yaml filename is ommitted.
+              register merge FILEPATH
+                  Replaces the TBD in cloudmesh.yaml with the contents
+                  present in FILEPATH's FILE
 
               register edit [--yaml=FILENAME]
                   edits the cloudmesh yaml file
@@ -164,16 +162,16 @@ class RegisterCommand(object):
             CloudRegister.check_yaml_for_completeness(filename)
             return
 
-        elif arguments['--yaml']:
-            filename = arguments['FILENAME']
-            Console.ok("--yaml", filename)
-            CloudRegister.from_file(filename)
+        elif arguments['merge']:
+            file_path = arguments['FILEPATH']
+            CloudRegister.from_file(file_path)
             return
 
         elif arguments['test']:
             filename = _get_file(arguments)
             CloudRegister.test(filename)
             return
+
         elif arguments['form']:
             filename = _get_file(arguments)
             CloudRegister.fill_out_form(filename)

@@ -11,6 +11,7 @@ from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import dot_cloudmesh
+from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 
 class CloudRegister(object):
     @classmethod
@@ -303,3 +304,50 @@ class CloudRegister(object):
                     credentials[key] = result
             config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()
+
+    @classmethod
+    def from_file(cls, file_path):
+        """
+        Replaces the TBD in cloudmesh.yaml with the contents present in FILEPATH's FILE
+        :param file_path:
+        :return:
+        """
+        if not os.path.isfile(os.path.expanduser(file_path)):
+            Console.error("{} doesn't exist".format(file_path))
+            return
+        # ----------------------Config file to be read from ------------------------
+        from_config_file = BaseConfigDict(filename=Config.path_expand(file_path))
+
+        # -------------------- cloudmesh.yaml file present in . or ~/.cloudmesh ----------------
+        config = ConfigDict("cloudmesh.yaml")
+
+        # -------------------- Merging profile -----------------------
+        profile = config["cloudmesh"]["profile"]
+        for profile_key in profile.keys():
+            if profile[profile_key] == "TBD":
+                profile[profile_key] = from_config_file["cloudmesh"]["profile"][profile_key]
+        config.save()
+
+        # -------------------- Merging clouds -----------------------
+        clouds = config["cloudmesh"]["clouds"]
+        for cloud in clouds.keys():
+            cloud_element = clouds[cloud]
+            for key in cloud_element.keys():
+                if cloud_element[key] == "TBD":
+                    cloud_element[key] = from_config_file["cloudmesh"]["clouds"][cloud][key]
+            config["cloudmesh"]["clouds"][cloud] = cloud_element
+
+            credentials = clouds[cloud]["credentials"]
+            for key in credentials:
+                if credentials[key] == "TBD":
+                    credentials[key] = from_config_file["cloudmesh"]["clouds"][cloud]["credentials"][key]
+            config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
+
+            defaults = clouds[cloud]["default"]
+            for key in defaults:
+                if defaults[key] == "TBD":
+                    defaults[key] = from_config_file["cloudmesh"]["clouds"][cloud]["default"][key]
+            config["cloudmesh"]["clouds"][cloud]["default"] = defaults
+        config.save()
+
+        Console.ok("Overwritten the TBD of cloudmesh.yaml with {} contents".format(file_path))
