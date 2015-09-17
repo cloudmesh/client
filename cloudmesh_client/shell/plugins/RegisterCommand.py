@@ -160,7 +160,7 @@ class RegisterCommand(object):
             return
 
         elif arguments['check']:
-            filename = _get_file(arguments)
+            filename = arguments["--yaml"] or "cloudmesh.yaml"
             CloudRegister.check_yaml_for_completeness(filename)
             return
 
