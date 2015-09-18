@@ -61,11 +61,7 @@ class CloudRegister(object):
         :return:
         """
         if host == "india" and filename is None:
-<<<<<<< HEAD
-            filename = ".cloudmesh/india/juno/openrc.sh"
-=======
             filename = ".cloudmesh/clouds/india/juno/openrc.sh"
->>>>>>> 4eb446fc338d432b18faf8ffd4d6f98fa6879b41
 
         Console.ok("Reading rc file from {}".format(host))
         result = Shell.ssh(host, "cat", filename)
