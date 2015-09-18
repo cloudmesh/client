@@ -11,7 +11,6 @@ from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import dot_cloudmesh
-from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 
 class CloudRegister(object):
     @classmethod
@@ -315,8 +314,11 @@ class CloudRegister(object):
         if not os.path.isfile(os.path.expanduser(file_path)):
             Console.error("{} doesn't exist".format(file_path))
             return
+
+        path, file = file_path.rsplit("/", 1)
         # ----------------------Config file to be read from ------------------------
-        from_config_file = BaseConfigDict(filename=Config.path_expand(file_path))
+
+        from_config_file = ConfigDict(file,path)
 
         # -------------------- cloudmesh.yaml file present in . or ~/.cloudmesh ----------------
         config = ConfigDict("cloudmesh.yaml")
