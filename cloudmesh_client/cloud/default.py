@@ -7,16 +7,20 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class Default(object):
 
+    cm_db = CloudmeshDatabase()  # Create a static variable so that db is initilized once in a transaction
+
     @classmethod
     def list(cls, format="table"):
-        cm = CloudmeshDatabase()
-        d = cm.all(model.DEFAULT)
-        return (tables.dict_printer(d,
-                             order=['user',
-                                    'cloud',
-                                    'name',
-                                    'value'],
-                             output=format))
+        try:
+            d = cls.cm_db.all(model.DEFAULT)
+            return (tables.dict_printer(d,
+                                 order=['user',
+                                        'cloud',
+                                        'name',
+                                        'value'],
+                                 output=format))
+        finally:
+            cls.cm_db.close()
 
     #
     # GENERAL SETER AND GETER METHOD
@@ -24,59 +28,69 @@ class Default(object):
 
     @classmethod
     def set(cls, key, value, cloud=None, user=None):
-        cm = CloudmeshDatabase(user=user)
-        # d = cm.dict(DEFAULT)
-        o = Default.get_object(key, cloud)
-        me = cm.user or user
-        if o is None:
-            o = model.DEFAULT(key, value, cloud=cloud, user=me)
-            cm.add(o)
-        else:
-            o.value = value
-        cm.save()
+        try:
+            o = Default.get_object(key, cloud)
+            me = cls.cm_db.user or user
+            if o is None:
+                o = model.DEFAULT(key, value, cloud=cloud, user=me)
+            else:
+                o.value = value
+            cls.cm_db.add(o)
+        finally:
+            cls.cm_db.close()
 
     @classmethod
     def get_object(cls, key, cloud=None):
-        cm = CloudmeshDatabase()
-        which_cloud = cloud or "general"
-        o = cm.query(model.DEFAULT).filter(
-            model.DEFAULT.name==key,
-            model.DEFAULT.cloud==which_cloud
-        ).first()
-        return o
+        try:
+            which_cloud = cloud or "general"
+            o = cls.cm_db.query(model.DEFAULT).filter(
+                model.DEFAULT.name == key,
+                model.DEFAULT.cloud == which_cloud
+            ).first()
+            return o
+        finally:
+            cls.cm_db.close()
 
     @classmethod
     def get(cls, key, cloud=None):
-        o = cls.get_object(key, cloud=cloud)
-        if o is None:
-            return None
-        else:
-            return o.value
+        try:
+            o = cls.get_object(key, cloud=cloud)
+            if o is None:
+                return None
+            else:
+                return o.value
+        finally:
+            cls.cm_db.close()
 
     @classmethod
     def delete(cls, key, cloud):
-        cm = CloudmeshDatabase()
-        o = Default.get(key, cloud)
-        if o is not None:
-            cm.delete(o)
-        cm.save()
+        try:
+            o = Default.get_object(key, cloud)
+            if o is not None:
+                cls.cm_db.delete(o)
+                return "Deletion successful"
+            else:
+                return None
+        finally:
+            cls.cm_db.close()
 
     @classmethod
     def clear(cls):
-        cm = CloudmeshDatabase()
-        d = cm.all(model.DEFAULT)
-        for item in d:
-            name = d[item]["name"]
-            kind = model.DEFAULT
-            cm.delete_by_name(kind, name)
-        cm.save()
+        try:
+            d = cls.cm_db.all(model.DEFAULT)
+            for item in d:
+                name = d[item]["name"]
+                kind = model.DEFAULT
+                cls.cm_db.delete_by_name(kind, name)
+            cls.cm_db.save()
+        finally:
+            cls.cm_db.close()
     #
     # Set the default cloud
     #
     @classmethod
     def get_cloud(cls):
         o = cls.get("cloud", cloud="general")
-        print ("LLL", o)
         return o
 
     @classmethod

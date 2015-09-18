@@ -10,6 +10,8 @@ from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, DEFAULT
 
+from cloudmesh_client.common.todo import TODO
+
 
 class CloudmeshDatabase(object):
     def __init__(self, user=None):
@@ -44,14 +46,28 @@ class CloudmeshDatabase(object):
         self.session.commit()
         self.session.flush()
 
+    def close(self):
+        self.session.close()
+
     def delete(self, item):
         """
-        NOTTESTED
         :param item:
         :return:
         """
         self.session.delete(item)
         self.save()
+
+    def delete_all(self, kind):
+        """
+        :param type:
+        :return:
+        """
+        # TODO: Implement
+        TODO.implement()
+
+    def get_table_from_name(self, kind):
+        # TODO: Implement this method, as its being called in other functions
+        TODO.implement()
 
     def find_by_name(self, kind, name):
         """
@@ -107,7 +123,7 @@ class CloudmeshDatabase(object):
         """
         result = dict()
         for u in obj:
-            _id = u.cm_id
+            _id = u.id
             values = {}
             for key in u.__dict__.keys():
                 if not key.startswith("_sa"):
@@ -211,7 +227,6 @@ def main():
     pprint(cm.get(DEFAULT, 'other').__dict__)
 
     cm.info()
-
 
     """
 

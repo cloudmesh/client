@@ -1,6 +1,8 @@
 from __future__ import print_function
-from cloudmesh_client.shell.command import command
 
+from cloudmesh_client.cloud.group import Group
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
 
 class GroupCommand:
 
@@ -82,56 +84,73 @@ class GroupCommand:
                 deletes all objects in the group
         """
         # pprint(arguments)
-        # TODO: do something useful here
+
         if arguments["list"]:
             name = arguments["NAME"]
             output_format = arguments["--format"]
             cloud = arguments["--cloud"]
-            print ("[Command To be Implemented] set group, name: " + name +
-                   ", format: " + output_format +
-                   ", cloud: " + cloud)
+
+            result = Group.list(cloud=cloud, name=name, format=output_format)
+            if result:
+                print(result)
+            else:
+                Console.error("No group with name {} found in the cloudmesh database!".format(name))
+
+            #groupdb = GroupDBManager()
+            #d = groupdb.table_dict()
+            #print(d)
+            #if d != {}:
+            #    print(_print_dict(d, format=output_format))
+            #else:
+            #    Console.error("No groups in the database")
             return
 
-        # TODO: do something useful here
         elif arguments["info"]:
             output_format = arguments["--format"]
-            print ("[Command To be Implemented] group, format: " + output_format)
+            result = Group.list_all(format=output_format)
+            if result:
+                print(result)
+            else:
+                print("There are no groups in the cloudmesh database!")
             return
 
-        # TODO: do something useful here
+        # TODO: add logic to check VM exists in cloud
         elif arguments["add"]:
             name = arguments["--name"]
             type = arguments["--type"]
             id = arguments["--id"]
-            print ("[Command To be Implemented] add to group, name: " + name +
-                   ", type: " + type +
-                   ", id: " + id)
+
+            #groupdb = GroupDBManager()
+            #groupdb.add(name, type, id=id)
+
+            Group.add(name=name, type=type, id=id)
             return
 
-        # TODO: do something useful here
+        # TODO: add logic to delete VM(s) in cloud
         elif arguments["delete"]:
             name = arguments["--name"]
             cloud = arguments["--cloud"]
-            print ("[Command To be Implemented] deleted group, name: " + name +
-                   ", cloud: " + cloud)
+
+            result = Group.delete(name=name, cloud=cloud)
+            if result:
+                Console.ok("Deletion Successful!")
+            else:
+                Console.error("No group with name [{}] in the database!".format(name))
             return
 
-        # TODO: do something useful here
         elif arguments["copy"]:
             _from = arguments["FROM"]
             _to = arguments["TO"]
-            print ("[Command To be Implemented] copy FROM group: " + _from +
-                   ", TO group: " + _to)
+
+            Group.copy(_from, _to)
             return
 
-        # TODO: do something useful here
         elif arguments["merge"]:
             _groupA = arguments ["GROUPA"]
             _groupB = arguments ["GROUPB"]
             _mergedGroup = arguments ["MERGEDGROUP"]
-            print ("[Command To be Implemented] merge, group: " + _groupA +
-                   ", & group: " + _groupB +
-                   ", to group: " + _mergedGroup)
+
+            Group.merge(_groupA, _groupB, _mergedGroup)
             return
 
 if __name__ == '__main__':

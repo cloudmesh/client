@@ -55,7 +55,6 @@ class Test_nova():
         HEADING()
         result = run("cm nova list")
         print ("resultado test 3: "+result)
-        # TODO: Check why the test fails even if the command is successfully run
         assert "OK." in result
 
     def test_004(self):
@@ -66,5 +65,4 @@ class Test_nova():
         HEADING()
         result = run("cm nova image-list")
         print ("resultado test 3: "+result)
-        # TODO: Check why the test fails even if the command is successfully run
         assert "OK." in result

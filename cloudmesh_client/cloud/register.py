@@ -11,6 +11,7 @@ from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import dot_cloudmesh
+from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 
 class CloudRegister(object):
     @classmethod
@@ -61,10 +62,13 @@ class CloudRegister(object):
         :return:
         """
         if host == "india" and filename is None:
+<<<<<<< HEAD
             filename = ".cloudmesh/india/juno/openrc.sh"
+=======
+            filename = ".cloudmesh/clouds/india/juno/openrc.sh"
+>>>>>>> 4eb446fc338d432b18faf8ffd4d6f98fa6879b41
 
-        Console.ok("register")
-        print(host, filename)
+        Console.ok("Reading rc file from {}".format(host))
         result = Shell.ssh(host, "cat", filename)
         print(result)
         lines = result.split("\n")
@@ -120,12 +124,11 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = Config.path_expand(os.path.join(dot_cloudmesh, 'clouds', 'india'))
-
-            if os.path.exists(_to):
+            _to = "~/.cloudmesh/clouds/india/juno"
+            if os.path.exists(Config.path_expand(os.path.join(_to))):
 
                 if not yn_choice("Directory already exists. Would you like "
-                                 "to overwrite the {:} directory y/n? ".format(_to), force=force):
+                                 "to overwrite the {:} directory y/n? ".format(_to)):
                     return
 
             else:
@@ -160,15 +163,14 @@ class CloudRegister(object):
             # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
 
             _from = 'india:{:}'.format(path_cert)
-            _to = os.path.join(dot_cloudmesh, 'clouds', 'india', 'juno')
+            _to = '~/.cloudmesh/clouds/india/juno'
 
             # copies cacert.pem from india to the a local directory
             if os.path.exists(_to):
 
                 if not yn_choice(
                         "File already exists. Would you like to overwrite "
-                        "{:}/cacert.pem file y/n? ".format(_to),
-                        force=force):
+                        "{:}/cacert.pem file y/n? ".format(_to)):
                     return
 
             try:
@@ -182,8 +184,7 @@ class CloudRegister(object):
             # registers cert in the cloudmesh.yaml file
             try:
                 Console.ok("registering cert in cloudmesh.yaml file")
-                home = expanduser("~")
-                filename = home + os.path.join('~', '.cloudmesh', 'clouds', 'india', 'juno', 'openrc.sh')
+                filename = "~/.cloudmesh/clouds/india/juno/openrc.sh"
                 result = Shell.cat(filename)
             except IOError, e:
                 print("ERROR: ", e)
@@ -218,7 +219,7 @@ class CloudRegister(object):
         Console.ok("register")
         if host.lower() == "india":
             _from = 'india:{:}'.format(directory)
-            _to = Config.path_expand(os.path.join('~', '.cloudmesh', 'clouds', host))
+            _to = "~/.cloudmesh/clouds/india/juno"
 
             #
             # BUG: the next line needs to be fixed to be linux and windows compatible
@@ -228,8 +229,7 @@ class CloudRegister(object):
 
             if os.path.exists(destination):
                 if not yn_choice("Directory already exists. Would you like to "
-                                 "overwrite {:} directory y/n? ".format(destination),
-                                 force=force):
+                                 "overwrite {:} directory y/n? ".format(destination)):
                     return
 
             try:
@@ -285,10 +285,11 @@ class CloudRegister(object):
         #    pass
 
         for key in keys:
-            result = input(
+            if profile[key] == "TBD":
+                result = input(
                 "Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
+                profile[key] = result
 
-            profile[key] = result
         config["cloudmesh"]["profile"] = profile
         config.save()
 
@@ -301,9 +302,56 @@ class CloudRegister(object):
             credentials = clouds[cloud]["credentials"]
 
             for key in credentials:
-                if key not in ["OS_VERSION", "OS_AUTH_URL"]:
+                if key not in ["OS_VERSION", "OS_AUTH_URL"] and credentials[key] == "TBD":
                     result = raw_input("Please enter {:}[{:}]:"
                                        .format(key, credentials[key])) or credentials[key]
                     credentials[key] = result
             config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()
+
+    @classmethod
+    def from_file(cls, file_path):
+        """
+        Replaces the TBD in cloudmesh.yaml with the contents present in FILEPATH's FILE
+        :param file_path:
+        :return:
+        """
+        if not os.path.isfile(os.path.expanduser(file_path)):
+            Console.error("{} doesn't exist".format(file_path))
+            return
+        # ----------------------Config file to be read from ------------------------
+        from_config_file = BaseConfigDict(filename=Config.path_expand(file_path))
+
+        # -------------------- cloudmesh.yaml file present in . or ~/.cloudmesh ----------------
+        config = ConfigDict("cloudmesh.yaml")
+
+        # -------------------- Merging profile -----------------------
+        profile = config["cloudmesh"]["profile"]
+        for profile_key in profile.keys():
+            if profile[profile_key] == "TBD":
+                profile[profile_key] = from_config_file["cloudmesh"]["profile"][profile_key]
+        config.save()
+
+        # -------------------- Merging clouds -----------------------
+        clouds = config["cloudmesh"]["clouds"]
+        for cloud in clouds.keys():
+            cloud_element = clouds[cloud]
+            for key in cloud_element.keys():
+                if cloud_element[key] == "TBD":
+                    cloud_element[key] = from_config_file["cloudmesh"]["clouds"][cloud][key]
+            config["cloudmesh"]["clouds"][cloud] = cloud_element
+
+            credentials = clouds[cloud]["credentials"]
+            for key in credentials:
+                if credentials[key] == "TBD":
+                    credentials[key] = from_config_file["cloudmesh"]["clouds"][cloud]["credentials"][key]
+            config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
+
+            defaults = clouds[cloud]["default"]
+            for key in defaults:
+                if defaults[key] == "TBD":
+                    defaults[key] = from_config_file["cloudmesh"]["clouds"][cloud]["default"][key]
+            config["cloudmesh"]["clouds"][cloud]["default"] = defaults
+        config.save()
+
+        Console.ok("Overwritten the TBD of cloudmesh.yaml with {} contents".format(file_path))

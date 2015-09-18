@@ -208,62 +208,23 @@ class KEY(CloudmeshMixin, db.Base):
 
 class GROUP(CloudmeshMixin, db.Base):
     value = Column(String)
-    fingerprint = Column(String)
-    source = Column(String)
-    comment = Column(String)
-    uri = Column(String)
+    type = Column(String)
 
     def __init__(self,
                  name,
+                 value,
+                 type="vm",
                  cloud=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
         self.cloud = cloud or "general"
+        self.type = type
         self.name = name
+        self.value = value
         self.user = user
         self.kind = self.__tablename__
 
-    def add(self, tablename, id, name):
-        """ This adds an object to the group specifying the
-        table name and the name of the object"""
-        # TODO: implement
-        TODO("implement")
-
-    def get(self, name):
-        """
-        returns a list of all elements in that group
-        """
-        TODO("implement")
-
-        """
-        TODO: implement in cloud.group
-                class Group
-
-        The purpos is to store a list of objects and retrieve them
-        conveniently.
-
-        an example would be to store a number of vms in a group that we can
-        than use to delete (we assume the anme of the vm is unique
-
-        Group.add(groupname, "VM", id, name)
-        Group.delete(groupname)
-        Group.delete("VM", groupname)
-        Group.delete("VM", cloud, groupname)
-        Group.list("VM")
-        Group.list("IMAGE")  note each cloud could have its own images, so the cloudname
-            is in result.
-        """
-
-'''
-reservation add [--user=USER]
-                            [--project=PROJECT]
-                            [--hosts=HOSTS]
-                            [--description=DESCRIPTION]
-                            --name=NAMES
-                            --start=TIME_START
-                            --end=TIME_END
-'''
 class RESERVATION(CloudmeshMixin, db.Base):
     hosts = Column(String) # should be list of strings
     description = Column(String)

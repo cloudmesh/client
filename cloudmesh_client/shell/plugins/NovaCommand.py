@@ -92,4 +92,6 @@ class NovaCommand (object):
             args = arguments["ARGUMENTS"]
             result = Shell.execute("nova", args)
             print(Nova.remove_subjectAltName_warning(result))
+            msg = "info. OK."
+            Console.ok(msg)
             return

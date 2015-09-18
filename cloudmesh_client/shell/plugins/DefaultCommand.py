@@ -39,11 +39,11 @@ class DefaultCommand(object):
 
         Description:
 
-            Cloudmesh has the ability to manage teasily multiple
-            clouds. One of the key oncepts to make the usage of such
+            Cloudmesh has the ability to manage easily multiple
+            clouds. One of the key concepts to make the usage of such
             clouds easier is the introduction of defaults for each
             cloud or globally. Hence it is possible to set default
-            images, flavors for each cloud, but also the defauld
+            images, flavors for each cloud, but also the default
             cloud. The default command is used to set and list the
             default values. These defaults are used in other commands
             if they are not overwritten by a command parameter.
@@ -55,7 +55,7 @@ class DefaultCommand(object):
 
 	    	default list
 
-            A deafult can be set with
+            A default can be set with
 
                  default KEY=VALUE
 
@@ -70,8 +70,8 @@ class DefaultCommand(object):
         """
         # pprint(arguments)
         cloud = arguments["--cloud"]
-        if arguments["list"]:
 
+        if arguments["list"]:
             output_format = arguments["--format"]
             result = Default.list(format=output_format)
             if result is None:
@@ -82,15 +82,20 @@ class DefaultCommand(object):
 
         elif arguments["delete"]:
             key = arguments["KEY"]
-            Default.delete(key, cloud)
+            result = Default.delete(key, cloud)
+            if result is None:
+                Console.error("Key {} not present".format(key))
+            else:
+                Console.msg("Deleted key {}".format(key))
+
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
             Default.set(key, value, cloud)
-        elif arguments["KEY"]:
+            Console.ok("Successfully added {}".format(key))
 
+        elif arguments["KEY"]:
             key = arguments["KEY"]
             result = Default.get(key, cloud)
-
             if result is None:
                 Console.error("No default values found")
                 return
