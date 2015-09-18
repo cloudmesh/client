@@ -17,6 +17,7 @@ file. This documentation and cos is available on github at:
    installation
    configuration
    use
+   commands/register
    api
    docker
    man/man
