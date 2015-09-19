@@ -105,6 +105,11 @@ class CloudRegister(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
+    def make_dir(cls, dir_path):
+        if not os.path.exists(Config.path_expand(dir_path)):
+            os.makedirs(Config.path_expand(dir_path))
+
+    @classmethod
     def host(cls, host, force=False):
         """
         copies the cloudmesh/clouds/india/juno directory from india
@@ -119,7 +124,7 @@ class CloudRegister(object):
         Console.ok("register {}".format(host))
         if host.lower() == "india":
             _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = "~/.cloudmesh/clouds/india/juno"
+            _to = "~/.cloudmesh/clouds/india"
             if os.path.exists(Config.path_expand(os.path.join(_to))):
 
                 if not yn_choice("Directory already exists. Would you like "
@@ -127,7 +132,7 @@ class CloudRegister(object):
                     return
 
             else:
-                Shell.mkdir(_to)
+                CloudRegister.make_dir(_to)
 
             try:
                 Console.ok("fetching information from india ...")
