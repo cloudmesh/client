@@ -100,7 +100,7 @@ class ConfigDict(object):
         if load_order is None:
             self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
-            self.load_order = [load_order]
+            self.load_order = load_order
         for path in self.load_order:
             name = Config.path_expand(os.path.join(path, filename))
             if verbose:

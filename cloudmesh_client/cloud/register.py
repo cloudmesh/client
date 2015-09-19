@@ -318,7 +318,7 @@ class CloudRegister(object):
         path, file = file_path.rsplit("/", 1)
         # ----------------------Config file to be read from ------------------------
 
-        from_config_file = ConfigDict(file,path)
+        from_config_file = ConfigDict(file,[path])
 
         # -------------------- cloudmesh.yaml file present in . or ~/.cloudmesh ----------------
         config = ConfigDict("cloudmesh.yaml")
