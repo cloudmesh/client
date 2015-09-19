@@ -90,6 +90,24 @@ class Test_group:
         return
 
     def test_007(self):
+        """testing cm group add --name groupX --id gourav-00x [WITH DEFAULT CLOUD=INDIA, TYPE=VM]"""
+        HEADING()
+        banner("cm group add --name groupX --id gourav-00x")
+
+        result1 = run("cm default cloud=india")
+        assert "Successfully added cloud" in result1
+
+        result1 = run("cm default type=vm")
+        assert "Successfully added type" in result1
+
+        result2 = run("cm group add --name groupX --id gourav-00x")
+        assert "gourav-00x" in result2
+
+        result3 = run("cm group list groupX")
+        assert "india" in result3
+        assert "vm" in result3
+
+    def test_008(self):
         """testing cm group delete --cloud general --name groupA"""
         HEADING()
         banner("cm group delete --cloud general --name groupA")
@@ -103,6 +121,14 @@ class Test_group:
         banner("cm group delete --cloud general --name groupC")
         result = run("cm group delete --cloud general --name groupC")
         assert "Deletion Successful!" in result
+
+        banner("cm group delete --name groupX")
+        result = run("cm group delete --name groupX")
+        assert "Deletion Successful!" in result
+
+        # Cleanup defaults
+        run("cm default delete cloud")
+        run("cm default delete type")
 
         return
 

@@ -101,6 +101,62 @@ Command - context::
         Lists the context variables and their values
 
 
+default
+----------------------------------------------------------------------
+
+Command - default::
+
+                      Usage:
+                  default list [--format=FORMAT]
+                  default delete KEY [--cloud=CLOUD]
+                  default KEY [--cloud=CLOUD]
+                  default KEY=VALUE [--cloud=CLOUD]
+
+
+              managing the defaults test test test test
+
+              Arguments:
+
+                KEY    the name of the default
+                VALUE  the value to set the key to
+
+              Options:
+
+                 --cloud=CLOUD    the name of the cloud [default: general]
+                 --format=FORMAT  the output format [default: table]
+
+            Description:
+
+                Cloudmesh has the ability to manage easily multiple
+                clouds. One of the key concepts to make the usage of such
+                clouds easier is the introduction of defaults for each
+                cloud or globally. Hence it is possible to set default
+                images, flavors for each cloud, but also the default
+                cloud. The default command is used to set and list the
+                default values. These defaults are used in other commands
+                if they are not overwritten by a command parameter.
+
+    	    The current default values can by listed with:(if you have
+    	    a default cloud specified. You can also add a
+    	    --cloud=CLOUD parameter to apply the command to a specific
+    	    cloud)
+
+    	    	default list
+
+                A default can be set with
+
+                     default KEY=VALUE
+
+                 To look up a default value you can say
+
+                      default KEY
+
+                   A deafult can be deleted with
+
+                       default delete KEY
+
+
+
 EOF
 ----------------------------------------------------------------------
 
@@ -120,7 +176,7 @@ Command - group::
 
                       Usage:
                   group info [--format=FORMAT]
-                  group add [--name=NAME] [--type=TYPE] --id=IDs
+                  group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
                   group list [--cloud=CLOUD] [--format=FORMAT] NAME
                   group delete [--cloud=CLOUD] [--name=NAME]
                   group copy FROM TO
@@ -138,10 +194,10 @@ Command - group::
                 MERGEDGROUP  name of a group
 
               Options:
-                 --cloud=CLOUD    the name of the cloud [default: general]
-                 --format=FORMAT  the output format [default: table]
-                 --type=TYPE     the resource type [default: vm]
-                 --name=NAME      the name of the group [default: None]
+                 --cloud=CLOUD    the name of the cloud
+                 --format=FORMAT  the output format
+                 --type=TYPE     the resource type
+                 --name=NAME      the name of the group
 
 
             Description:
@@ -208,9 +264,9 @@ Command - key::
       key list --source=cloudmesh [--format=FORMAT]
       key list --source=ssh [--dir=DIR] [--format=FORMAT]
       key list --source=git [--format=FORMAT] [--username=USERNAME]
-      key add --git KEYNAME
-      key add --ssh KEYNAME
-      key add [--path=PATH]  KEYNAME
+      key add --git [--name=KEYNAME] FILENAME
+      key add --ssh [--name=KEYNAME]
+      key add [--name=KEYNAME] FILENAME
       key get NAME
       key default [KEYNAME | --select]
       key delete (KEYNAME | --select | --all) [-f]
@@ -231,7 +287,7 @@ Command - key::
        --format=FORMAT      the format of the output [default: table]
        --source=SOURCE      the source for the keys [default: db]
        --username=USERNAME  the source for the keys [default: none]
-      --path=PATH           the path of the key [default: ~/.ssh/id_rsa.pub]
+       --name=KEYNAME       The name of a key
        --all                delete all keys
 
     Description:
@@ -405,7 +461,7 @@ Command - register::
         register test [--yaml=FILENAME]
         register rc HOST [OPENRC]
         register json HOST
-        register [--yaml=FILENAME]
+        register merge FILEPATH
         register india [--force]
         register CLOUD CERT [--force]
         register CLOUD --dir=DIR
@@ -461,11 +517,9 @@ Command - register::
 
                   register rc india
 
-        register [--yaml=FILENAME]
-
-            read the yaml file instead of ./cloudmesh.yaml or
-            ~/.cloudmesh/cloudmesh.yaml which is used when the
-            yaml filename is ommitted.
+        register merge FILEPATH
+            Replaces the TBD in cloudmesh.yaml with the contents
+            present in FILEPATH's FILE
 
         register edit [--yaml=FILENAME]
             edits the cloudmesh yaml file

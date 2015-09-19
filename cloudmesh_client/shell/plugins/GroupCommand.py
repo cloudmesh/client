@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client.cloud.group import Group
+from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 
@@ -20,7 +21,7 @@ class GroupCommand:
 
           Usage:
               group info [--format=FORMAT]
-              group add [--name=NAME] [--type=TYPE] --id=IDs
+              group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
               group list [--cloud=CLOUD] [--format=FORMAT] NAME
               group delete [--cloud=CLOUD] [--name=NAME]
               group copy FROM TO
@@ -38,10 +39,10 @@ class GroupCommand:
             MERGEDGROUP  name of a group
 
           Options:
-             --cloud=CLOUD    the name of the cloud [default: general]
-             --format=FORMAT  the output format [default: table]
-             --type=TYPE     the resource type [default: vm]
-             --name=NAME      the name of the group [default: None]
+             --cloud=CLOUD    the name of the cloud
+             --format=FORMAT  the output format
+             --type=TYPE     the resource type
+             --name=NAME      the name of the group
 
 
         Description:
@@ -90,23 +91,29 @@ class GroupCommand:
             output_format = arguments["--format"]
             cloud = arguments["--cloud"]
 
+            #If cloud is not specified, get default
+            if not cloud:
+                cloud = Default.get("cloud")
+
+            #If format is not specified, get default
+            if not output_format:
+                output_format = Default.get("format")
+
             result = Group.list(cloud=cloud, name=name, format=output_format)
             if result:
                 print(result)
             else:
                 Console.error("No group with name {} found in the cloudmesh database!".format(name))
 
-            #groupdb = GroupDBManager()
-            #d = groupdb.table_dict()
-            #print(d)
-            #if d != {}:
-            #    print(_print_dict(d, format=output_format))
-            #else:
-            #    Console.error("No groups in the database")
             return
 
         elif arguments["info"]:
             output_format = arguments["--format"]
+
+            #If format is not specified, get default
+            if not output_format:
+                output_format = Default.get("format")
+
             result = Group.list_all(format=output_format)
             if result:
                 print(result)
@@ -118,18 +125,32 @@ class GroupCommand:
         elif arguments["add"]:
             name = arguments["--name"]
             type = arguments["--type"]
+            cloud = arguments["--cloud"]
             id = arguments["--id"]
 
-            #groupdb = GroupDBManager()
-            #groupdb.add(name, type, id=id)
+            # If type is not specified, get default
+            if not type:
+                type = Default.get("type")
 
-            Group.add(name=name, type=type, id=id)
+            # If id is not specified, get last created vm id
+            if not id:
+                id = Default.get("id")
+
+            # If cloud is not specified, get last created vm id
+            if not cloud:
+                cloud = Default.get("cloud")
+
+            Group.add(name=name, type=type, id=id, cloud=cloud)
             return
 
         # TODO: add logic to delete VM(s) in cloud
         elif arguments["delete"]:
             name = arguments["--name"]
             cloud = arguments["--cloud"]
+
+            #If cloud is not specified, get default
+            if not cloud:
+                cloud = Default.get("cloud")
 
             result = Group.delete(name=name, cloud=cloud)
             if result:

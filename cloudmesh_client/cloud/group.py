@@ -49,7 +49,7 @@ class Group(object):
             cls.cm_db.close()
 
     @classmethod
-    def add(cls, name, type="vm", user=None, id=None):
+    def add(cls, name, type="vm", user=None, id=None, cloud="general"):
         # user logged into cloudmesh
         user = cls.cm_db.user or user
 
@@ -79,7 +79,7 @@ class Group(object):
                     name,
                     id,
                     type,
-                    cloud="general",
+                    cloud=cloud,
                     user=user
                 )
                 cls.cm_db.add(group_obj)
