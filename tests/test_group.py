@@ -50,7 +50,6 @@ class Test_group:
         banner("cm group copy groupA groupB")
 
         result = run("cm group copy groupA groupB")
-        print(result)
         assert "Created a new group [groupB] and added ID [test-001] to it" in result
 
         return

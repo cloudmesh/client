@@ -250,6 +250,71 @@ class RESERVATION(CloudmeshMixin, db.Base):
         self.user = user
         self.kind = self.__tablename__
 
+class SECGROUP(CloudmeshMixin, db.Base):
+
+    uuid = Column(String)
+
+    def __init__(self,
+                 name,
+                 uuid,
+                 type="string",
+                 cloud=None,
+                 user=None,
+                 project=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.uuid = uuid
+        self.project = project
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                print ("{} = {}".format(key,value))
+                self[key] = value
+
+class SECGROUPRULE(CloudmeshMixin, db.Base):
+
+    groupid = Column(String)
+    fromPort = Column(String)
+    toPort = Column(String)
+    protocol = Column(String)
+    cidr = Column(String)
+
+    def __init__(self,
+                 name,
+                 groupid,
+                 type="string",
+                 cloud=None,
+                 user=None,
+                 project=None,
+                 fromPort=None,
+                 toPort=None,
+                 protocol=None,
+                 cidr=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.groupid = groupid
+        self.project = project
+        self.fromPort = fromPort
+        self.toPort = toPort
+        self.protocol = protocol
+        self.cidr = cidr
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                print ("{} = {}".format(key,value))
+                self[key] = value
 
 def tables():
     """

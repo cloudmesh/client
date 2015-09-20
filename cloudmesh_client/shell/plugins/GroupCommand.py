@@ -99,7 +99,6 @@ class GroupCommand:
             if not output_format:
                 output_format = Default.get("format")
 
-            #result = Group.list(cloud=cloud, name=name, format=output_format)
             result = Group.list(format=output_format, cloud=cloud)
             if result:
                 print(result)
@@ -123,7 +122,6 @@ class GroupCommand:
 
             result = Group.get_info(cloud=cloud, name=name, format=output_format)
 
-            #result = Group.list_all(format=output_format)
             if result:
                 print(result)
             else:

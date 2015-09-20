@@ -1,6 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.cloud.secgroup import SecGroup
 
 class SecgroupCommand(object):
 
@@ -53,25 +54,51 @@ class SecgroupCommand(object):
 
         """
         # pprint(arguments)
+
         if arguments["list"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
-            Console.ok('list for cloud: {} and tenant: {}'.format(cloud, tenant))
+            result = SecGroup.list_secgroup(tenant,cloud)
+
+            if result:
+                print(result)
+            else:
+                Console.error("No Security Groups found in the cloudmesh database!")
+            return
+
         elif arguments["create"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
             label = arguments["LABEL"]
-            Console.ok('create for cloud: {}, tenant: {} and label: {}'.format(cloud, tenant, label))
+
+            # Create returns uuid of created sec-group
+            uuid = SecGroup.create(label, cloud, tenant)
+
+            if uuid:
+                Console.ok("Created a new security group [{}] with UUID [{}]"
+                       .format(label, uuid))
+            else:
+                Console.error("Security group [{}], for cloud [{}], & tenant [{}] already exists!"
+                              .format(label, cloud, tenant))
+            return
+
+        #TODO: Add Implementation
         elif arguments["delete"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
             label = arguments["LABEL"]
-            Console.ok('delete for cloud: {}, tenant: {} and label: {}'.format(cloud, tenant, label))
+            Console.ok('delete for cloud: {}, tenant: {} and label: {}'
+                       .format(cloud, tenant, label))
+
+        #TODO: Add Implementation
         elif arguments["rules-list"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
             label = arguments["LABEL"]
-            Console.ok('rules-list for cloud: {}, tenant: {} and label: {}'.format(cloud, tenant, label))
+            Console.ok('rules-list for cloud: {}, tenant: {} and label: {}'
+                       .format(cloud, tenant, label))
+
+        #TODO: Add Implementation
         elif arguments["rules-add"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
@@ -93,10 +120,9 @@ class SecgroupCommand(object):
                                          to_port,
                                          protocol,
                                          cidr))
+        #TODO: Add Implementation
         elif arguments["--version"]:
             Console.ok('Version: ')
-        pass
-
 
 if __name__ == '__main__':
     command = cm_shell_security_group()

@@ -14,7 +14,6 @@ class Group(object):
     def list(cls, format="table", cloud="general"):
         try:
             d = cls.cm_db.all(model.GROUP)
-            print(d)
             return (tables.dict_printer(d,
                                  order=["user",
                                         "cloud",
@@ -34,7 +33,6 @@ class Group(object):
             group = cls.get_group(name=name, cloud=cloud)
             if group:
                 d = cls.toDict(group)
-                print(d)
             else:
                 return None
 
