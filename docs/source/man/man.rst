@@ -175,9 +175,9 @@ group
 Command - group::
 
                       Usage:
-                  group info [--format=FORMAT]
+                  group info [--format=FORMAT] NAME
                   group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
-                  group list [--cloud=CLOUD] [--format=FORMAT] NAME
+                  group list [--cloud=CLOUD] [--format=FORMAT]
                   group delete [--cloud=CLOUD] [--name=NAME]
                   group copy FROM TO
                   group merge GROUPA GROUPB MERGEDGROUP
