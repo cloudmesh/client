@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from cloudmesh_client.db import model
 from cloudmesh_client.common import tables
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class Group(object):
@@ -51,9 +52,9 @@ class Group(object):
             cls.cm_db.close()
 
     @classmethod
-    def add(cls, name, type="vm", user=None, id=None, cloud="general"):
+    def add(cls, name, type="vm", id=None, cloud="general"):
         # user logged into cloudmesh
-        user = cls.cm_db.user or user
+        user = cls.getUser(cloud) or cls.cm_db.user
 
         try:
             # See if group already exists. If yes, add id to the group
@@ -200,10 +201,15 @@ class Group(object):
                 id_str_a = groupA.value
                 id_str_b = groupB.value
                 merge_str = id_str_a + ',' + id_str_b
+                # Copy default parameters
+                user = groupA.user
+                cloud = groupA.cloud
+
                 mergeGroup = model.GROUP(
                     mergeName,
                     merge_str,
-                    user=cls.cm_db.user
+                    user=user,
+                    cloud=cloud
                 )
 
                 cls.cm_db.add(mergeGroup)
@@ -227,3 +233,19 @@ class Group(object):
             if not key.startswith("_sa"):
                 d[item.id][key] = str(item.__dict__[key])
         return d
+
+    @classmethod
+    def getUser(cls, cloudname):
+        try:
+            #currently support India cloud
+            if cloudname == "india":
+                d = ConfigDict("cloudmesh.yaml")
+                credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+                for key, value in credentials.iteritems():
+                    if key == "OS_USERNAME":
+                        return value
+            else:
+                return None
+
+        except Exception as ex:
+            Console.error(ex.message, ex)

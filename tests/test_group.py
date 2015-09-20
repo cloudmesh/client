@@ -16,6 +16,7 @@ from cloudmesh_base.util import HEADING
 from cloudmesh_base.util import banner
 
 from cloudmesh_client.cloud.group import Group
+from cloudmesh_client.cloud.default import Default
 
 def run(command):
     parameter = command.split(" ")
@@ -27,18 +28,19 @@ def run(command):
 class Test_group:
 
     def setup(self):
+
         pass
 
     def tearDown(self):
         pass
 
     def test_001(self):
-        """testing cm group add --id test-001 --type vm --name groupA"""
+        """testing cm group add --cloud india --id test-001 --type vm --name groupA"""
         HEADING()
-        banner("cm group add --id test-001 --type vm --name groupA")
+        banner("cm group add --cloud india --id test-001 --type vm --name groupA")
 
-        run("cm group add --id test-001 --type vm --name groupA")
-        id = str(Group.get_group(name="groupA").value)
+        run("cm group add --cloud india --id test-001 --type vm --name groupA")
+        id = str(Group.get_group(name="groupA", cloud="india").value)
         assert "test-001" in id
         return
 
@@ -81,11 +83,11 @@ class Test_group:
         return
 
     def test_006(self):
-        """testing cm group list --cloud general --format table"""
+        """testing cm group list --cloud india --format table"""
         HEADING()
-        banner("cm group list --cloud general --format table")
+        banner("cm group list --cloud india --format table")
 
-        result = run("cm group list --cloud general --format tables")
+        result = run("cm group list --cloud india --format tables")
         assert "groupC" in result
         return
 
@@ -108,18 +110,18 @@ class Test_group:
         assert "vm" in result3
 
     def test_008(self):
-        """testing cm group delete --cloud general --name groupA"""
+        """testing cm group delete --cloud india --name groupA"""
         HEADING()
-        banner("cm group delete --cloud general --name groupA")
-        result = run("cm group delete --cloud general --name groupA")
+        banner("cm group delete --cloud india --name groupA")
+        result = run("cm group delete --cloud india --name groupA")
         assert "Deletion Successful!" in result
 
-        banner("cm group delete --cloud general --name groupB")
-        result = run("cm group delete --cloud general --name groupB")
+        banner("cm group delete --cloud india --name groupB")
+        result = run("cm group delete --cloud india --name groupB")
         assert "Deletion Successful!" in result
 
-        banner("cm group delete --cloud general --name groupC")
-        result = run("cm group delete --cloud general --name groupC")
+        banner("cm group delete --cloud india --name groupC")
+        result = run("cm group delete --cloud india --name groupC")
         assert "Deletion Successful!" in result
 
         banner("cm group delete --name groupX")

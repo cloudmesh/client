@@ -93,7 +93,7 @@ class GroupCommand:
 
             #If cloud is not specified, get default
             if not cloud:
-                cloud = Default.get("cloud")
+                cloud = Default.get("cloud") or "general"
 
             #If format is not specified, get default
             if not output_format:
@@ -147,7 +147,7 @@ class GroupCommand:
 
             # If cloud is not specified, get last created vm id
             if not cloud:
-                cloud = Default.get("cloud")
+                cloud = Default.get("cloud") or "general"
 
             Group.add(name=name, type=type, id=id, cloud=cloud)
             return
@@ -159,7 +159,7 @@ class GroupCommand:
 
             #If cloud is not specified, get default
             if not cloud:
-                cloud = Default.get("cloud")
+                cloud = Default.get("cloud") or "general"
 
             result = Group.delete(name=name, cloud=cloud)
             if result:
