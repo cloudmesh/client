@@ -90,15 +90,22 @@ class SecgroupCommand(object):
             Console.ok('delete for cloud: {}, tenant: {} and label: {}'
                        .format(cloud, tenant, label))
 
-        #TODO: Add Implementation
         elif arguments["rules-list"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
             label = arguments["LABEL"]
-            Console.ok('rules-list for cloud: {}, tenant: {} and label: {}'
-                       .format(cloud, tenant, label))
 
-        #TODO: Add Implementation
+            # Get the security group
+            sec_group = SecGroup.get_secgroup(label, tenant, cloud)
+            if sec_group:
+                # Get the rules
+                result = SecGroup.get_rules(sec_group.uuid)
+                print(result)
+            else:
+                Console.error("Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
+                              .format(label, cloud, tenant))
+                return
+
         elif arguments["rules-add"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
@@ -107,19 +114,17 @@ class SecgroupCommand(object):
             to_port = arguments["TOPORT"]
             protocol = arguments["PROTOCOL"]
             cidr = arguments["CIDR"]
-            Console.ok('rules-add for cloud: {}, '
-                       'tenant: {}, '
-                       'label: {}, '
-                       'from port: {}, '
-                       'to port: {}, '
-                       'protocol: {}, '
-                       'cidr: {}'.format(cloud,
-                                         tenant,
-                                         label,
-                                         from_port,
-                                         to_port,
-                                         protocol,
-                                         cidr))
+
+            # Get the security group
+            sec_group = SecGroup.get_secgroup(label, tenant, cloud)
+            if sec_group:
+                # Add rules to the security group
+                SecGroup.add_rule(sec_group, from_port, to_port, protocol, cidr)
+            else:
+                Console.error("Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
+                              .format(label, cloud, tenant))
+                return
+
         #TODO: Add Implementation
         elif arguments["--version"]:
             Console.ok('Version: ')

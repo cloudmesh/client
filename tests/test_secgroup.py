@@ -50,3 +50,23 @@ class Test_secgroup:
         assert "test-group" in result
 
         return
+
+    def test_003(self):
+        """testing cm secgroup rules-add india fg479 test-group 80 80 tcp  0.0.0.0/0"""
+        HEADING()
+        banner("cm secgroup rules-add india fg479 test-group 80 80 tcp  0.0.0.0/0")
+
+        result = run("cm secgroup rules-add india fg479 test-group 80 80 tcp  0.0.0.0/0")
+        assert "Added rule" in result
+
+        return
+
+    def test_004(self):
+        """cm secgroup rules-list india fg479 test-group"""
+        HEADING()
+        banner("cm secgroup rules-list india fg479 test-group")
+
+        result = run("cm secgroup rules-list india fg479 test-group")
+        assert "test-group | 80" in result
+
+        return

@@ -95,14 +95,15 @@ class SecGroup:
                 model.SECGROUP.project == project
             ).all()
 
-            # Convert to dict & print table
-            d = {}
-            for element in elements:
-                d[element.id] = {}
-                for key in element.__dict__.keys():
-                    if not key.startswith("_sa"):
-                        d[element.id][key] = str(element.__dict__[key])
+        #    # Convert to dict & print table
+        #    d = {}
+        #    for element in elements:
+        #        d[element.id] = {}
+        #        for key in element.__dict__.keys():
+        #            if not key.startswith("_sa"):
+        #                d[element.id][key] = str(element.__dict__[key])
 
+            d = cls.toDict(elements)
             return (tables.dict_printer(d,
                                  order=["uuid",
                                         "user",
@@ -142,6 +143,60 @@ class SecGroup:
             cls.cm_db.close()
 
     @classmethod
+    def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
+        try:
+            ruleObj = model.SECGROUPRULE(
+                name=secgroup.name,
+                groupid=secgroup.uuid,
+                cloud=secgroup.cloud,
+                user=secgroup.user,
+                project=secgroup.project,
+                fromPort=from_port,
+                toPort=to_port,
+                protocol=protocol,
+                cidr=cidr
+            )
+            cls.cm_db.add(ruleObj)
+            cls.cm_db.save()
+            Console.ok("Added rule [{} | {} | {} | {}] to secgroup [{}]"
+                       .format(from_port, to_port, protocol, cidr, secgroup.name))
+        except Exception as ex:
+            Console.error(ex.message, ex)
+        finally:
+            cls.cm_db.close()
+        return
+
+    @classmethod
+    def get_rules(cls, uuid):
+        """
+        This method gets the security group rule
+        from the cloudmesh database
+        :param uuid:
+        :return:
+        """
+        try:
+            rule = cls.cm_db.query(model.SECGROUPRULE).filter(
+                model.SECGROUPRULE.groupid == uuid
+            ).all()
+
+            d = cls.toDict(rule)
+            return (tables.dict_printer(d,
+                                 order=["user",
+                                        "cloud",
+                                        "name",
+                                        "fromPort",
+                                        "toPort",
+                                        "protocol",
+                                        "cidr"],
+                                 output="table"))
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        finally:
+            cls.cm_db.close()
+
+    @classmethod
     def getUser(cls, cloudname):
         try:
             #currently support India cloud
@@ -156,3 +211,30 @@ class SecGroup:
 
         except Exception as ex:
             Console.error(ex.message, ex)
+
+
+    @classmethod
+    def toDict(cls, item):
+        """
+        Method converts the item to a dict
+        :param item:
+        :return:
+        """
+        # Convert to dict & print table
+        d = {}
+        # If list, iterate to form dict
+        if isinstance(item, list):
+            for element in item:
+                d[element.id] = {}
+                for key in element.__dict__.keys():
+                    if not key.startswith("_sa"):
+                        d[element.id][key] = str(element.__dict__[key])
+        # Form dict without iterating
+        else:
+            d[item.id] = {}
+            for key in item.__dict__.keys():
+                if not key.startswith("_sa"):
+                    d[item.id][key] = str(item.__dict__[key])
+
+        # return the dict
+        return d
