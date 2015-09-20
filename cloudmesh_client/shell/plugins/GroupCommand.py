@@ -20,9 +20,9 @@ class GroupCommand:
         ::
 
           Usage:
-              group info [--format=FORMAT]
+              group info [--format=FORMAT] NAME
               group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
-              group list [--cloud=CLOUD] [--format=FORMAT] NAME
+              group list [--cloud=CLOUD] [--format=FORMAT]
               group delete [--cloud=CLOUD] [--name=NAME]
               group copy FROM TO
               group merge GROUPA GROUPB MERGEDGROUP
@@ -87,7 +87,7 @@ class GroupCommand:
         # pprint(arguments)
 
         if arguments["list"]:
-            name = arguments["NAME"]
+            #name = arguments["NAME"]
             output_format = arguments["--format"]
             cloud = arguments["--cloud"]
 
@@ -99,26 +99,35 @@ class GroupCommand:
             if not output_format:
                 output_format = Default.get("format")
 
-            result = Group.list(cloud=cloud, name=name, format=output_format)
+            #result = Group.list(cloud=cloud, name=name, format=output_format)
+            result = Group.list(format=output_format, cloud=cloud)
             if result:
                 print(result)
             else:
-                Console.error("No group with name {} found in the cloudmesh database!".format(name))
+                print("There are no groups in the cloudmesh database!")
 
             return
 
         elif arguments["info"]:
             output_format = arguments["--format"]
+            name = arguments["NAME"]
 
             #If format is not specified, get default
             if not output_format:
                 output_format = Default.get("format")
 
-            result = Group.list_all(format=output_format)
+            # Get default cloud
+            cloud = Default.get("cloud") or "general"
+            if not cloud:
+                Console.ok("Default cloud not set. Using \"general\" as default cloud!")
+
+            result = Group.get_info(cloud=cloud, name=name, format=output_format)
+
+            #result = Group.list_all(format=output_format)
             if result:
                 print(result)
             else:
-                print("There are no groups in the cloudmesh database!")
+                Console.error("No group with name {} found in the cloudmesh database!".format(name))
             return
 
         # TODO: add logic to check VM exists in cloud

@@ -63,29 +63,29 @@ class Test_group:
         return
 
     def test_004(self):
-        """testing cm group info"""
+        """testing cm group info groupA"""
         HEADING()
-        banner("group info")
+        banner("group info groupA")
 
-        result = run("cm group info")
+        result = run("cm group info groupA")
         assert "groupA" in result
         return
 
     def test_005(self):
-        """testing cm group info --format json"""
+        """testing cm group info --format json groupA"""
         HEADING()
-        banner("group info --format json")
+        banner("group info --format json groupA")
 
-        result = run("cm group info --format json")
+        result = run("cm group info --format json groupA")
         assert "groupA" in result
         return
 
     def test_006(self):
-        """testing cm group list --cloud general --format table groupC"""
+        """testing cm group list --cloud general --format table"""
         HEADING()
-        banner("cm group list --cloud general --format table groupC")
+        banner("cm group list --cloud general --format table")
 
-        result = run("cm group list --cloud general --format table groupC")
+        result = run("cm group list --cloud general --format tables")
         assert "groupC" in result
         return
 
@@ -103,7 +103,7 @@ class Test_group:
         result2 = run("cm group add --name groupX --id gourav-00x")
         assert "gourav-00x" in result2
 
-        result3 = run("cm group list groupX")
+        result3 = run("cm group info groupX")
         assert "india" in result3
         assert "vm" in result3
 

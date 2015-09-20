@@ -10,9 +10,10 @@ class Group(object):
     cm_db = CloudmeshDatabase() # Instance to communicate with the cloudmesh database
 
     @classmethod
-    def list_all(cls, format="table"):
+    def list(cls, format="table", cloud="general"):
         try:
             d = cls.cm_db.all(model.GROUP)
+            print(d)
             return (tables.dict_printer(d,
                                  order=["user",
                                         "cloud",
@@ -27,11 +28,12 @@ class Group(object):
             cls.cm_db.close()
 
     @classmethod
-    def list(cls, cloud="general", name=None, format="table"):
+    def get_info(cls, cloud="general", name=None, format="table"):
         try:
             group = cls.get_group(name=name, cloud=cloud)
             if group:
-                d = {group.id: group.__dict__}
+                d = cls.toDict(group)
+                print(d)
             else:
                 return None
 
@@ -216,3 +218,12 @@ class Group(object):
 
         finally:
             cls.cm_db.close()
+
+    @classmethod
+    def toDict(cls, item):
+        d = {}
+        d[item.id] = {}
+        for key in item.__dict__.keys():
+            if not key.startswith("_sa"):
+                d[item.id][key] = str(item.__dict__[key])
+        return d
