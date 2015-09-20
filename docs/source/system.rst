@@ -230,85 +230,34 @@ account at::
 	     in order not to confuse you about the definition of the
 	     hosts you define in .ssh/config 
 
-Obsolete - Install Gnu Like tools - Erika and Gourav
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Install Git in Windows
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-To download and install git for windows, please go to
-
-* https://git-scm.com/download/win
-
-You will be asked a couple of questions and you should make sure that
-you install it so that git can be run from the terminal.
-
-.. image:: images/git_setup/git_setup.png
-
-Read and Accept the License to proceed.
-
-.. image:: images/git_setup/git_setup_license.png
-
-Select which components need to be installed. Keep the default options.
-
-.. image:: images/git_setup/git_setup_components.png
-
-We prefer to use GitBash as our command line tool for Git
-
-.. image:: images/git_setup/git_setup_path.png
-
-Select OpenSSH as the secure shell client program.
-
-.. image:: images/git_setup/git_setup_ssh.png
-
-Keep the default option selected - MinTTY terminal
-
-.. image:: images/git_setup/git_setup_terminal.png
-
-Then select the default options to proceed; Git will be installed on your machine.
-
-To check if Git is installed on your machine, open GitBash from Start menu
-and type the following::
-
-  git --version
-
-This should return git version 2.5.0.windows.1
 
 Install make In Windows
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-To download and install "make" for windows, please go to:
+To download and install "make" for windows, in powershell type::
 
-* http://gnuwin32.sourceforge.net/downlinks/make.php
+  explorer http://gnuwin32.sourceforge.net/downlinks/make.php
 
-This will download the installer for make on your machine. Follow the
-on-screen instructions and make will be installed.
+This will open the internet explorer and download the make exe
+installer. It will walk you through the install process.
 
-.. image:: images/make_setup/make_setup.png
+.. note:: If you like to install it separately, you can find the
+	  downloaded exe in the `~/Downloads` directory. To install
+	  it in powershell use::
 
-Read and Accept the License to proceed.
+	    cd ~/Downloads
+	    .\make-3.81.exe /install=agent /silent
 
-.. image:: images/make_setup/make_setup_license.png
+	  This will open a basic dialog to perform installation and
+	  close after completion.
 
-Select which components need to be installed. Keep the default options.
+After you have installed make, include it in the Path environment
+variable while you type in powershell::
 
-.. image:: images/make_setup/make_setup_components.png
+  [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Program Files (x86)\GnuWin32\bin\", "User")
 
-Select path where make is to be installed on your machine.
-
-.. image:: images/make_setup/make_setup_dest.png
-
-Then select the default options to proceed; Make will be installed on your machine.
-
-Next, you need to add the location of "make.exe" to your system PATH environment variable.
-
-Make.exe will most likely be installed at::
-
-  C:\Program Files (x86)\GnuWin32\bin\make.exe
-
-Add this location to the PATH variable::
-
-  PATH = %PATH%;C:\Program Files (x86)\GnuWin32\bin;
+You need to start a new powershell to access make from the
+command line.
 
 Makeing python usable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

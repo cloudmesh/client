@@ -228,6 +228,87 @@ the host operating system. In virtualbox you maus enable past frm
 clipboard in bidirectional mode.
 
 
+Obsolete - Install Gnu Like tools - Erika and Gourav
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Install Git in Windows
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+To download and install git for windows, please go to
+
+* https://git-scm.com/download/win
+
+You will be asked a couple of questions and you should make sure that
+you install it so that git can be run from the terminal.
+
+.. image:: images/git_setup/git_setup.png
+
+Read and Accept the License to proceed.
+
+.. image:: images/git_setup/git_setup_license.png
+
+Select which components need to be installed. Keep the default options.
+
+.. image:: images/git_setup/git_setup_components.png
+
+We prefer to use GitBash as our command line tool for Git
+
+.. image:: images/git_setup/git_setup_path.png
+
+Select OpenSSH as the secure shell client program.
+
+.. image:: images/git_setup/git_setup_ssh.png
+
+Keep the default option selected - MinTTY terminal
+
+.. image:: images/git_setup/git_setup_terminal.png
+
+Then select the default options to proceed; Git will be installed on your machine.
+
+To check if Git is installed on your machine, open GitBash from Start menu
+and type the following::
+
+  git --version
+
+This should return git version 2.5.0.windows.1
+
+Install make In Windows
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+To download and install "make" for windows, please go to:
+
+* http://gnuwin32.sourceforge.net/downlinks/make.php
+
+This will download the installer for make on your machine. Follow the
+on-screen instructions and make will be installed.
+
+.. image:: images/make_setup/make_setup.png
+
+Read and Accept the License to proceed.
+
+.. image:: images/make_setup/make_setup_license.png
+
+Select which components need to be installed. Keep the default options.
+
+.. image:: images/make_setup/make_setup_components.png
+
+Select path where make is to be installed on your machine.
+
+.. image:: images/make_setup/make_setup_dest.png
+
+Then select the default options to proceed; Make will be installed on your machine.
+
+Next, you need to add the location of "make.exe" to your system PATH environment variable.
+
+Make.exe will most likely be installed at::
+
+  C:\Program Files (x86)\GnuWin32\bin\make.exe
+
+Add this location to the PATH variable::
+
+  PATH = %PATH%;C:\Program Files (x86)\GnuWin32\bin;
+
+
 Makeing python usable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
