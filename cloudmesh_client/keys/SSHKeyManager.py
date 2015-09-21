@@ -117,7 +117,7 @@ class SSHKeyManager(object):
         """
 
     def get_from_dir(self, directory=None):
-        directory = Config.path_expand("~/.ssh") or directory
+        directory = directory or Config.path_expand("~/.ssh")
         files = [file for file in os.listdir(expanduser(Config.path_expand(directory)))
                  if file.lower().endswith(".pub")]
         for file in files:
