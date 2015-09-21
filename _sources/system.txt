@@ -1,8 +1,9 @@
 System Preparation
 ===================
 
-The instalation of cloudmesh is easiest if you prepare your system with some elementary
-software. We provide such information for the following Operating systems:
+The installation of cloudmesh is easiest if you prepare your system
+with some elementary software. We provide such information for the
+following Operating systems:
 
 * Linux
 
@@ -13,7 +14,7 @@ software. We provide such information for the following Operating systems:
 * Windows
 
 For each of these operating systems we are provide specific
-instalation instructions.
+installation instructions.
 
 Prepare the system
 ------------------
@@ -24,10 +25,8 @@ OSX
 On OSX we recommend that you use python 2.7.10. This version of python
 is easy to install while downloading the dmg and installing it on the
 system. You will still have access to the python version distributed
-with the original OSX operating system.
-
-To test out which version you have activated, you can use in the
-commandline::
+with the original OSX operating system. To test out which version you
+have activated, you can use in the command line::
 
   python --version
   pip --version
@@ -53,13 +52,13 @@ You will need to activate the virtualenv::
 
   source ~/ENV/bin/activate
 
-If sucessfull, your terminal will have (ENV) as prefix to the prompt::
+If successful, your terminal will have (ENV) as prefix to the prompt::
 
   (ENV)machinename:dirname user$
 
 As OSX comes with older versions of pip at this time, it is important
 that you first prepare the environment before you install cloudmesh
-client. To do so please isseue the following commands::
+client. To do so please issue the following commands::
 
    
    export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
@@ -70,7 +69,7 @@ client. To do so please isseue the following commands::
 
 .. warning:: We found that ``readline`` and ``pycrypto`` could not be
 	  installed with pip at the time of writing of this manual,
-	  despite the fact that pip installed it. Howerver, the
+	  despite the fact that pip installed it. However, the
 	  version installed with pip were not usable. The workaround
 	  is to use easy_install for these packages. If you have a
 	  better idea how to fix this, let us know and send mail to
@@ -99,10 +98,6 @@ Windows 10
 
 Install Python
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. warning:: python may come with cygwin and this may therefor be
-	     uneccesarry. This needs to be investigated, and possibley
-	     this sectin needs to be removed.
 	     
 Python can be found at http://www.python.org. We recommend to download
 and install the newest version of python. At this time we recommend
@@ -115,97 +110,154 @@ In powershell you can type::
 
   explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
-Thsi will open the Windows explorer, download the msi and ask you to
-install it.
+This will open the internet explorer and download the python msi
+installer. It will walk you through the install process.
 
-Once downloaded, open it by clicking on the downloaded file. You may
-also want to change the properties and add python to the path
+.. note:: If you like to install it separately, you can find the
+	  downloaded msi in the `~/Downloads` directory. To install
+	  it in powershell use::
+	    
+	    cd ~/Downloads
+	    msiexec /i python-2.7.10.msi /qb
 
-Install Git in Windows
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	  This will open a basic dialog to perform installation and
+	  close after completion.
 
-To download and install git for windows, please go to
+After you have installed python include it in the Path environment
+variable while you type in powershell::
 
-* https://git-scm.com/download/win
+  [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
 
-.. todo:: check if this is the right way to do so
-
-You will be asked a couple of questions and you should make sure that
-you install it so that git can be run from the terminal. Please
-provide screenshots or write down what needs to be checked on.
+You need to start a new powershell to access python from the
+command line.
 
 
-Install chocolatey
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Install ssh, git, make and an editor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-We install cygwin via chocolatey. To do so you first have to start a
-power shell as adminstrator with::
+As we need to do some editing you will need a nice editor. Please do
+not use notepad and notepad++ as they have significant issues, please
+use vi, vim, or emacs. Emacs is easy to use as it has a GUI on
+windows. Install emacs::
 
-  PS> Start-Process powershell -Verb runAs
-
-Allow execution of scripts::
-
-  PS> Set-ExecutionPolicy Unrestricted
+  Start-Process powershell -Verb runAs 
+  Set-ExecutionPolicy Unrestricted -force 
+  iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) 
+  choco install emacs -y
+  choco install make -y
+  choco install vim -y
   
-Next execute the command to install chocolatey::
-  
-  PS> iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-  
-Unset the script execution permission::
-  
-  Set-ExecutionPolicy Restricted
+To install Git and paste the following command into the powershell::
 
-Administrative Powershell
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. note:: Often you will need to execute commands in an administrative powere
-	  shell. You can right click or CTRL click (dependent on your
-	  configuration) on the powereshell icon in order to obtain a powershell
-	  with increased administrative rights. 
-  
-Install Cygwin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  
-Next execute in a powershell::
-  
-  choco install --force -y cygwin 
- 
-Note: if Cygwin is already installed, --force will reinstall it.
+  explorer https://github.com/git-for-windows/git/releases/latest
 
-Install apt-cyg
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. note:: When installing you will see at one point a screen that asks
+	  you if you like to add the commands to the shell. This comes
+	  with a warning that some windows commands will be
+	  overwritten. This is different from bellows instructions.
 
-Now open cygwin window by clicking on the desktop icon. Put the
-following command into Cygwin terminal (its shorcut can be found on
-your Desktop)::
-  
-  lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-  install apt-cyg /bin
+Next we integrate git into powershell with ::
 
-This will give you a nice command to add additional packages to cygwin
-without using the cygwin GUI. You will also want the following appliations::
+  (new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
+  Set-ExecutionPolicy Unrestricted
+  install-module posh-git –force
+  Set-ExecutionPolicy Restricted -force
 
-  apt-cyg install wget
-  apt-cyg install emacs
-  apt-cyg install git
-  apt-cyg install curl
-  apt-cyg install nc
-  apt-cyg install make
-  apt-cyg install gcc-g++ diffutils libmpfr-devel libgmp-devel libmpc-devel
-  apt-cyg install db
 
-Using cygwin
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Now we are ready to use ssh and git. Let us create a key::
 
-When starting a new powershell terminal you can simply typ into it::
+  ssh-keygen
 
-  cygwin
+Follow the instructions and leave the path unchanged. Make sure you
+specify a passphrase. It is policy on many compute resources that your
+key has a passphrase. Look at the public key as we will need to upload
+it to some resources::
 
-This way you can easily past and copy into the cywin terminal that is
-started via powershell. This is extremly useful if you run Windows in
-a virtual server and want to easily past and copy strings to and from
-the host operating system. In virtualbox you maus enable past frm
-clipboard in bidirectional mode.
+  cat ~/.ssh/id_rsa.pub
 
+Go to::
+
+  https://portal.futuresystems.org
+
+Once you log in you can use the following link::
+
+  https://portal.futuresystems.org/my/ssh-keys
+
+Naturally this only works if you are eligible to register and get an
+account. Once you are in a valid project you can use indias
+resources. After that you need to upload your public key that you
+generated into the portal and did a cat on.
+
+.. warning:: Windows will not past and copy correctly, please make
+	     sure that newlines are removed for the text box where you
+	     past the key. This is cause for many errors. Make sure
+	     that the key in the text box is a single line and looks
+	     like when you did the cat on it.
+
+Throughout the manual we will be using the environment variable
+`$PORTALNAME` for your portal name on futuresytems. In order for you to
+conveniently access it you can set it as follows::
+
+   [Environment]::SetEnvironmentVariable("PORTALNAME","putyourportalnamehere")
+
+and replace the string `putyourportalnamehere` with your own portal name.
+	     
+Next you can ssh into the machine like this from powershell::
+
+   ssh  $PORTALNAME@india.futuregrid.org
+
+where $PORTALNAME is your futuresystems portal name. Note that a login
+without the -i seems not to work.
+
+To simplify access you will need to configure a ssh config file with
+the following contents::
+
+   Host india
+        Hostname india.futuresystems.org
+        User putyourportalnamehere
+
+	
+open new powershell::
+
+  cat ~/.ssh/id_rsa.pub
+
+past and copy this key into a new ssh key in your futuresystems
+account at::
+
+* http::portal.futuresystems.org/my/ssh-key
+
+.. warning:: we recommend that you are not modifying your /etc/hosts
+	     in order not to confuse you about the definition of the
+	     hosts you define in .ssh/config 
+
+
+Install make In Windows
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+To download and install "make" for windows, in powershell type::
+
+  explorer http://gnuwin32.sourceforge.net/downlinks/make.php
+
+This will open the internet explorer and download the make exe
+installer. It will walk you through the install process.
+
+.. note:: If you like to install it separately, you can find the
+	  downloaded exe in the `~/Downloads` directory. To install
+	  it in powershell use::
+
+	    cd ~/Downloads
+	    .\make-3.81.exe /install=agent /silent
+
+	  This will open a basic dialog to perform installation and
+	  close after completion.
+
+After you have installed make, include it in the Path environment
+variable while you type in powershell::
+
+  [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Program Files (x86)\GnuWin32\bin\", "User")
+
+You need to start a new powershell to access make from the
+command line.
 
 Makeing python usable
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

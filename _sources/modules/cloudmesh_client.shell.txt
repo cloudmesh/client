@@ -19,6 +19,14 @@ cloudmesh_client.shell.cm module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.command module
+-------------------------------------
+
+.. automodule:: cloudmesh_client.shell.command
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.console module
 -------------------------------------
 

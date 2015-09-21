@@ -6,5 +6,8 @@ Modules and Classes
 
    cloudmesh_client
    fabfile
+   importtest
+   rest
+   sboy
    setup
    test

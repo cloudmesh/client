@@ -1,7 +1,0 @@
-sm module
-=========
-
-.. automodule:: sm
-    :members:
-    :undoc-members:
-    :show-inheritance:

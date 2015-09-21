@@ -34,6 +34,61 @@ Command - clear::
 
     Clears the screen.
 
+cloud
+----------------------------------------------------------------------
+
+Command - cloud::
+
+    Usage:
+        cloud list [--format=FORMAT]
+        cloud activate CLOUD
+        cloud deactivate CLOUD
+        cloud info CLOUD
+
+    managing the admins test test test test
+
+    Arguments:
+      KEY    the name of the admin
+      VALUE  the value to set the key to
+
+    Options:
+       --cloud=CLOUD    the name of the cloud [default: general]
+       --format=FORMAT  the output format [default: table]
+
+    Description:
+       Cloudmesh contains a cloudmesh.yaml file that contains
+       templates for multiple clouds that you may or may not have
+       access to. Hence it is useful to activate and deacivate clouds
+       you like to use in other commands.
+
+       To activate a cloud a user can simply use the activate
+       command followed by the name of the cloud to be
+       activated. To find out which clouds are available you can
+       use the list command that will provide you with some
+       basic information. As default it will print a table. Thus
+       the commands       cloud activate india
+         cloud deactivate aws
+
+       Will result in
+
+          +----------------------+--------+-------------------+
+          | Cloud name           | Active | Type              |
+          +----------------------+--------+-------------------+
+          | india                | True   | Openstack         |
+          +----------------------+--------+-------------------+
+          | aws                  | False  | AWS               |
+          +----------------------+--------+-------------------+
+
+       To get ore information about the cloud you can use the command
+
+          cloud info CLOUD
+
+       It will call internally also the command uses in register
+
+    See also:
+       register
+
+
 context
 ----------------------------------------------------------------------
 
@@ -44,6 +99,62 @@ Command - context::
 
     Description:
         Lists the context variables and their values
+
+
+default
+----------------------------------------------------------------------
+
+Command - default::
+
+                      Usage:
+                  default list [--format=FORMAT]
+                  default delete KEY [--cloud=CLOUD]
+                  default KEY [--cloud=CLOUD]
+                  default KEY=VALUE [--cloud=CLOUD]
+
+
+              managing the defaults test test test test
+
+              Arguments:
+
+                KEY    the name of the default
+                VALUE  the value to set the key to
+
+              Options:
+
+                 --cloud=CLOUD    the name of the cloud [default: general]
+                 --format=FORMAT  the output format [default: table]
+
+            Description:
+
+                Cloudmesh has the ability to manage easily multiple
+                clouds. One of the key concepts to make the usage of such
+                clouds easier is the introduction of defaults for each
+                cloud or globally. Hence it is possible to set default
+                images, flavors for each cloud, but also the default
+                cloud. The default command is used to set and list the
+                default values. These defaults are used in other commands
+                if they are not overwritten by a command parameter.
+
+    	    The current default values can by listed with:(if you have
+    	    a default cloud specified. You can also add a
+    	    --cloud=CLOUD parameter to apply the command to a specific
+    	    cloud)
+
+    	    	default list
+
+                A default can be set with
+
+                     default KEY=VALUE
+
+                 To look up a default value you can say
+
+                      default KEY
+
+                   A deafult can be deleted with
+
+                       default delete KEY
+
 
 
 EOF
@@ -63,38 +174,70 @@ group
 
 Command - group::
 
-      Usage:
-          group info [--output=FORMAT]
-          group add [--name=NAME] --id=IDs
-          group add [--cloud=CLOUD] [--type=TABLE] --name=NAME
-          group list [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
-          group delete [--cloud=CLOUD] [--type=TABLE] [--name=NAME]
-          group copy FROM TO
-          group merge GROUPA GROUPB MERGEDGROUP
+    Usage:
+        group info [--cloud=CLOUD] [--format=FORMAT] NAME
+        group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
+        group list [--cloud=CLOUD] [--format=FORMAT]
+        group delete [--cloud=CLOUD] [--name=NAME]
+        group copy FROM TO
+        group merge GROUPA GROUPB MERGEDGROUP
 
-      manage the groups
+    manage the groups
 
-      Arguments:
+    Arguments:
 
-        FROM    name of a group
-        TO      name of a group
-        GROUPA  name of a group
-        GROUPB  name of a group
-        GROUPC  name of a group
+        NAME         name of a group
+        FROM         name of a group
+        TO           name of a group
+        GROUPA       name of a group
+        GROUPB       name of a group
+        MERGEDGROUP  name of a group
 
-      Options:
+    Options:
+        --cloud=CLOUD    the name of the cloud
+        --format=FORMAT  the output format
+        --type=TYPE     the resource type
+        --name=NAME      the name of the group
 
-         --cloud=CLOUD    the name of the cloud [default: general]
-         --output=FORMAT  the output format [default: table]
-         --type=TABLE     the table type [default: all]
-         --name=NAME      the name of the group [default: None]
+
+    Description:
+
+        Todo: design parameters that are useful and match
+        description
+        Todo: discuss and propose command
+
+        cloudmesh can manage groups of resources and cloud related
+        objects. As it would be cumbersome to for example delete
+        many virtual machines or delete VMs that are in the same
+        group, but are running in different clouds.
+
+        Hence it is possible to add a virtual machine to a
+        specific group. The group name to be added to can be set
+        as a default. This way all subsequent commands use this
+        default group. It can also be set via a command parameter.
+        Another convenience function is that the group command can
+        use the last used virtual machine. If a vm is started it
+        will be automatically added to the default group if it is set.
+
+        The delete command has an optional cloud parameter so that
+        deletion of vms of a partial group by cloud can be
+        achieved.
+
+        If finer grained deletion is needed, it can be achieved
+        with the delete command that supports deletion by name
 
     Example:
         default group mygroup
+
         group add --type=vm --id=gregor-[001-003]
-            # adds the vms with teh given name using the Parameter see base
+            adds the vms with teh given name using the Parameter
+            see base
+
+        group add --type=vm
+         adds the last vm to the group
+
         group delete --name=mygroup
-            # deletes all objects in the group
+            deletes all objects in the group
 
 
 help
@@ -110,6 +253,94 @@ Command - help::
         List available commands with "help" or detailed help with
         "help COMMAND".
 
+inventory
+----------------------------------------------------------------------
+
+Command - inventory::
+
+    Usage:
+        inventory add NAMES [--label=LABEL]
+                            [--service=SERVICES]
+                            [--project=PROJECT]
+                            [--owners=OWNERS]
+                            [--comment=COMMENT]
+                            [--cluster=CLUSTER]
+                            [--ip=IP]
+        inventory set NAMES for ATTRIBUTE to VALUES
+        inventory delete NAMES
+        inventory clone NAMES from SOURCE
+        inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
+        inventory info
+
+    Arguments:
+
+      NAMES     Name of the resources (example i[10-20])
+
+      FORMAT    The format of the output is either txt,
+                yaml, dict, table [default: table].
+
+      OWNERS    a comma separated list of owners for this resource
+
+      LABEL     a unique label for this resource
+
+      SERVICE   a string that identifies the service
+
+      PROJECT   a string that identifies the project
+
+      SOURCE    a single host name to clone from
+
+      COMMENT   a comment
+
+    Options:
+
+       -v       verbose mode
+
+    Description:
+
+          add -- adds a resource to the resource inventory
+
+          list -- lists the resources in the given format
+
+          delete -- deletes objects from the table
+
+          clone -- copies the content of an existing object
+                   and creates new once with it
+
+          set   -- sets for the specified objects the attribute
+                   to the given value or values. If multiple values
+                   are used the values are assigned to the and
+                   objects in order. See examples
+
+          map   -- allows to set attibutes on a set of objects
+                   with a set of values
+
+    Examples:
+
+      cm inventory add x[0-3] --service=openstack
+
+          adds hosts x0, x1, x2, x3 and puts the string
+          openstack into the service column
+
+      cm lists
+
+          lists the repository
+
+      cm x[3-4] set temperature to 32
+
+          sets for the resources x3, x4 the value of the
+          temperature to 32
+
+      cm x[7-8] set ip 128.0.0.[0-1]
+
+          sets the value of x7 to 128.0.0.0
+          sets the value of x8 to 128.0.0.1
+
+      cm clone x[5-6] from x3
+
+          clones the values for x5, x6 from x3
+
+
+
 key
 ----------------------------------------------------------------------
 
@@ -121,9 +352,9 @@ Command - key::
       key list --source=cloudmesh [--format=FORMAT]
       key list --source=ssh [--dir=DIR] [--format=FORMAT]
       key list --source=git [--format=FORMAT] [--username=USERNAME]
-      key add --git KEYNAME
-      key add --ssh KEYNAME
-      key add [--path=PATH]  KEYNAME
+      key add --git [--name=KEYNAME] FILENAME
+      key add --ssh [--name=KEYNAME]
+      key add [--name=KEYNAME] FILENAME
       key get NAME
       key default [KEYNAME | --select]
       key delete (KEYNAME | --select | --all) [-f]
@@ -144,14 +375,15 @@ Command - key::
        --format=FORMAT      the format of the output [default: table]
        --source=SOURCE      the source for the keys [default: db]
        --username=USERNAME  the source for the keys [default: none]
-      --path=PATH           the path of the key [default: ~/.ssh/id_rsa.pub]
+       --name=KEYNAME       The name of a key
        --all                delete all keys
 
     Description:
 
     key list --source=git  [--username=USERNAME]
 
-       lists all keys in git for the specified user. If the name is not specified it is read from cloudmesh.yaml
+       lists all keys in git for the specified user. If the
+       name is not specified it is read from cloudmesh.yaml
 
     key list --source=ssh  [--dir=DIR] [--format=FORMAT]
 
@@ -165,7 +397,8 @@ Command - key::
 
     key list [--format=FORMAT]
 
-        list the keys in teh giiven format: json, yaml, table. table is default
+        list the keys in teh giiven format: json, yaml,
+        table. table is default
 
     key list
 
@@ -174,13 +407,15 @@ Command - key::
 
     key add [--name=keyname] FILENAME
 
-        adds the key specifid by the filename to the key database
+        adds the key specifid by the filename to the key
+        database
 
 
     key default [NAME]
 
-         Used to set a key from the key-list as the default key if NAME
-         is given. Otherwise print the current default key
+         Used to set a key from the key-list as the default key
+         if NAME is given. Otherwise print the current default
+         key
 
     key delete NAME
 
@@ -211,6 +446,7 @@ Command - man::
     Description:
         man
             Prints out the help pages
+
         man COMMAND
             Prints out the help page for a specific command
 
@@ -313,17 +549,18 @@ Command - register::
         register test [--yaml=FILENAME]
         register rc HOST [OPENRC]
         register json HOST
-        register [--yaml=FILENAME]
+        register merge FILEPATH
         register india [--force]
         register CLOUD CERT [--force]
         register CLOUD --dir=DIR
 
     managing the registered clouds in the cloudmesh.yaml file.
-    It looks for it in the current directory, and than in ~/.cloudmesh.
-    If the file with the cloudmesh.yaml name is there it will use it.
-    If neither location has one a new file will be created in
-    ~/.cloudmesh/cloudmesh.yaml. Some defaults will be provided.
-    However you will still need to fill it out with valid entries.
+    It looks for it in the current directory, and than in
+    ~/.cloudmesh.  If the file with the cloudmesh.yaml name is
+    there it will use it.  If neither location has one a new
+    file will be created in ~/.cloudmesh/cloudmesh.yaml. Some
+    defaults will be provided.  However you will still need to
+    fill it out with valid entries.
 
     Arguments:
 
@@ -368,11 +605,9 @@ Command - register::
 
                   register rc india
 
-        register [--yaml=FILENAME]
-
-            read the yaml file instead of ./cloudmesh.yaml or
-            ~/.cloudmesh/cloudmesh.yaml which is used when the
-            yaml filename is ommitted.
+        register merge FILEPATH
+            Replaces the TBD in cloudmesh.yaml with the contents
+            present in FILEPATH's FILE
 
         register edit [--yaml=FILENAME]
             edits the cloudmesh yaml file
@@ -384,9 +619,11 @@ Command - register::
             checks the yaml file for completness
 
         register test [--yaml=FILENAME]
-            checks the yaml file and executes tests to check if we
-            can use the cloud. TODO: maybe this should be in a test
-            command
+
+            checks the yaml file and executes tests to check if
+            we can use the cloud. TODO: maybe this should be in
+            a test command
+
 
 
 reservation
@@ -449,6 +686,48 @@ Command - reservation::
         reservation info
             lists the resources that support reservation for
             a given user or project.
+
+
+secgroup
+----------------------------------------------------------------------
+
+Command - secgroup::
+
+    Usage:
+        secgroup list [--cloud=CLOUD] [--tenant=TENANT]
+        secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
+        secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
+        secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
+        secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup -h | --help
+        secgroup --version
+
+    Options:
+        -h                  help message
+        --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
+        --tenant=TENANT     Name of the tenant, e.g. fg82.
+
+    Arguments:
+        LABEL         The label/name of the security group
+        FROMPORT      Staring port of the rule, e.g. 22
+        TOPORT        Ending port of the rule, e.g. 22
+        PROTOCOL      Protocol applied, e.g. TCP,UDP,ICMP
+        CIDR          IP address range in CIDR format, e.g., 129.79.0.0/16
+
+    Description:
+        security_group command provides list/add/delete
+        security_groups for a tenant of a cloud, as well as
+        list/add/delete of rules for a security group from a
+        specified cloud and tenant.
+
+
+    Examples:
+        $ secgroup list --cloud india --tenant fg82
+        $ secgroup rules-list --cloud india --tenant fg82 default
+        $ secgroup create --cloud india --tenant fg82 webservice
+        $ secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+
 
 
 select
@@ -531,4 +810,20 @@ Command - ssh::
        --key=KEY         The keyname as defined in the key list
                          or a location that contains a pblic key
 
+
+
+version
+----------------------------------------------------------------------
+
+Command - version::
+
+    Usage:
+       version [--format=FORMAT] [--check=CHECK]
+
+    Options:
+        --format=FORMAT  the format to print the versions in [default: table]
+        --check=CHECK    boolean tp conduct an additional check [default: True]
+
+    Description:
+        Prints out the version number
 
