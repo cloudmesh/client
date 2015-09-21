@@ -53,3 +53,30 @@ Lists all the rules assigned to the security group::
     | goshenoy | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
     | goshenoy | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
     +----------+-------+------------+----------+--------+----------+-----------+
+
+Security Group Rule Delete
+^^^^^^^^^^^^^
+
+Delete a specific rule within a security group::
+
+  PS> cm secgroup rules-delete india fg478 test-group 80 80 tcp 0.0.0.0/0
+    Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
+
+  PS> cm secgroup rules-list india fg478 test-group
+    +----------+-------+--------------+----------+--------+----------+-----------+
+    | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
+    +----------+-------+--------------+----------+--------+----------+-----------+
+    | goshenoy | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
+    +----------+-------+--------------+----------+--------+----------+-----------+
+
+Security Group Delete
+^^^^^^^^^^^^^
+
+Delete an entire security group::
+
+  PS> cm secgroup delete india fg478 test-group
+    Rule [443 | 443 | udp | 0.0.0.0/0] deleted
+    Security Group [test-group] for cloud [india], & tenant [fg478] deleted
+
+  PS> cm secgroup rules-list india fg478 test-group
+    ERROR: Security Group with label [test-group], cloud [india], & tenant [fg478] not found!
