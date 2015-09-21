@@ -10,7 +10,7 @@ class LimitsCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command default")
+            print("init command limits")
 
     @command
     def do_limits(self, args, arguments):

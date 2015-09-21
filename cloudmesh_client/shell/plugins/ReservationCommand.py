@@ -5,7 +5,7 @@ from cloudmesh_client.common.todo import TODO
 
 
 class ReservationCommand(object):
-    topics = {"register": "hpc"}
+    topics = {"reservation": "system"}
 
     def __init__(self, context):
         # super(self.__class__, self).__init__()

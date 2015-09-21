@@ -9,12 +9,12 @@ from cloudmesh_client.common.ConfigDict import Config
 
 class ServerCommand(object):
 
-    topics = {"default": "cloud"}
+    topics = {"server": "cloud"}
 
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command default")
+            print("init command server")
 
     @command
     def do_server(self, args, arguments):

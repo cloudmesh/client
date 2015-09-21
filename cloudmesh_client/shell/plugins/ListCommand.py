@@ -19,7 +19,7 @@ class ListCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command default")
+            print("init command list")
 
     @command
     def do_list(self, args, arguments):

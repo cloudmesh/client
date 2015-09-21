@@ -10,7 +10,7 @@ class QuotaCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command cloud")
+            print("init command quota")
 
 
 class cm_shell_quota:

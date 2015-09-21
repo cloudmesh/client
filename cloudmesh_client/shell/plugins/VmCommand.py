@@ -10,7 +10,7 @@ class VmCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command cloud")
+            print("init command vm")
 
     @command
     def do_vm(self, args, arguments):
