@@ -59,14 +59,42 @@ class Test_secgroup:
         result = run("cm secgroup rules-add india fg479 test-group 80 80 tcp  0.0.0.0/0")
         assert "Added rule" in result
 
+    def test_004(self):
+        """testing cm secgroup rules-add india fg479 test-group 443 443 udp  0.0.0.0/0"""
+        HEADING()
+        banner("cm secgroup rules-add india fg479 test-group 443 443 udp  0.0.0.0/0")
+
+        result = run("cm secgroup rules-add india fg479 test-group 443 443 udp  0.0.0.0/0")
+        assert "Added rule" in result
+
         return
 
-    def test_004(self):
+    def test_005(self):
         """cm secgroup rules-list india fg479 test-group"""
         HEADING()
         banner("cm secgroup rules-list india fg479 test-group")
 
         result = run("cm secgroup rules-list india fg479 test-group")
         assert "test-group | 80" in result
+
+        return
+
+    def test_006(self):
+        """cm secgroup rules-delete india fg479 test-group 80 80 tcp  0.0.0.0/0"""
+        HEADING()
+        banner("cm secgroup rules-delete india fg479 test-group 80 80 tcp  0.0.0.0/0")
+
+        result = run("cm secgroup rules-delete india fg479 test-group 80 80 tcp  0.0.0.0/0")
+        assert "Rule [80 | 80 | tcp | 0.0.0.0/0] deleted" in result
+
+        return
+
+    def test_007(self):
+        """cm secgroup delete india fg479 test-group"""
+        HEADING()
+        banner("cm secgroup delete india fg479 test-group")
+
+        result = run("cm secgroup delete india fg479 test-group")
+        assert "Security Group [test-group] for cloud [india], & tenant [fg479] deleted" in result
 
         return

@@ -82,13 +82,41 @@ class SecgroupCommand(object):
                               .format(label, cloud, tenant))
             return
 
-        #TODO: Add Implementation
         elif arguments["delete"]:
             cloud = arguments["CLOUD"]
             tenant = arguments["TENANT"]
             label = arguments["LABEL"]
-            Console.ok('delete for cloud: {}, tenant: {} and label: {}'
-                       .format(cloud, tenant, label))
+
+            result = SecGroup.delete_secgroup(label, cloud, tenant)
+            if result:
+                print(result)
+            else:
+                Console.error("Security Group [{}, {}, {}] could not be deleted"
+                              .format(label, cloud, tenant))
+
+            return
+
+        elif arguments["rules-delete"]:
+            cloud = arguments["CLOUD"]
+            tenant = arguments["TENANT"]
+            label = arguments["LABEL"]
+            from_port = arguments["FROMPORT"]
+            to_port = arguments["TOPORT"]
+            protocol = arguments["PROTOCOL"]
+            cidr = arguments["CIDR"]
+
+            # Get the security group
+            sec_group = SecGroup.get_secgroup(label, tenant, cloud)
+            if sec_group:
+                # Get the rules
+                result = SecGroup.delete_rule(sec_group, from_port, to_port, protocol, cidr)
+                if result:
+                    print(result)
+                else:
+                    Console.error("Rule [{} | {} | {} | {}] could not be deleted"\
+                        .format(from_port, to_port, protocol, cidr))
+
+            return
 
         elif arguments["rules-list"]:
             cloud = arguments["CLOUD"]
