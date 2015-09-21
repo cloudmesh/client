@@ -1,9 +1,16 @@
 from __future__ import print_function
-import os
-from cmd3.console import Console
-from cmd3.shell import command
-from pprint import pprint
-# from cloudmesh_client.cloud.command_quota import command_quota
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
+
+
+class QuotaCommand(object):
+
+    topics = {"quota": "cloud"}
+
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command cloud")
 
 
 class cm_shell_quota:

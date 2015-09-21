@@ -1,5 +1,4 @@
 from __future__ import print_function
-from cmd3.shell import command
 from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 import os
@@ -9,9 +8,18 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.tables import dict_printer
 
 
-class cm_shell_list:
-    def activate_cm_shell_list(self):
-        self.register_command_topic('cloud', 'list')
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.console import Console
+
+
+class ListCommand(object):
+
+    topics = {"list": "cloud"}
+
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init command default")
 
     @command
     def do_list(self, args, arguments):
