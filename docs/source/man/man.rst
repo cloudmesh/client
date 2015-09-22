@@ -456,12 +456,12 @@ Command - register::
         register list ssh
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
+        register rc HOST [OPENRC]
+        register merge FILEPATH
         register form [--yaml=FILENAME]
         register check [--yaml=FILENAME]
         register test [--yaml=FILENAME]
-        register rc HOST [OPENRC]
         register json HOST
-        register merge FILEPATH
         register india [--force]
         register CLOUD CERT [--force]
         register CLOUD --dir=DIR
@@ -479,28 +479,36 @@ Command - register::
       HOST   the host name
       USER   the user name
       OPENRC  the location of the openrc file
-
-
-    Options:
-
-       -v       verbose mode
+      FILEPATH the path of the file
+      CLOUD the cloud name
+      CERT the path of the certificate
 
 
     Description:
 
-        register edit [--yaml=FILENAME]
-            edits the cloudmesh.yaml file
+        register info
+            It looks out for the cloudmesh.yaml file in the current
+            directory, and then in ~/.cloudmesh
 
         register list [--yaml=FILENAME]
-            lists the registration yaml file
+            lists the clouds specified in the cloudmesh.yaml file
+
+        register list ssh
+            lists hosts from ~/.ssh/config
+
+        register cat [--yaml=FILENAME]
+            outputs the cloudmesh.yaml file
+
+        register edit [--yaml=FILENAME]
+            edits the cloudmesh.yaml file
 
         register rc HOST [OPENRC]
 
               reads the Openstack OPENRC file from a host that
               is described in ./ssh/config and adds it to the
-              configuration cloudmehs.yaml file. We assume that
+              configuration cloudmesh.yaml file. We assume that
               the file has already a template for this host. If
-              nt it can be created from other examples before
+              not it can be created from other examples before
               you run this command.
 
               The hostname can be specified as follows in the
@@ -521,9 +529,6 @@ Command - register::
             Replaces the TBD in cloudmesh.yaml with the contents
             present in FILEPATH's FILE
 
-        register edit [--yaml=FILENAME]
-            edits the cloudmesh yaml file
-
         register form [--yaml=FILENAME]
             interactively fills out the form wherever we find TBD.
 
@@ -531,11 +536,27 @@ Command - register::
             checks the yaml file for completness
 
         register test [--yaml=FILENAME]
-
             checks the yaml file and executes tests to check if
             we can use the cloud. TODO: maybe this should be in
             a test command
 
+        register json host
+            displays the host details in json format
+
+        register india [--force]
+            copies the cloudmesh/clouds/india/juno directory from india
+            to the ~/.cloudmesh/clouds/india/juno local directory
+
+        register CLOUD CERT [--force]
+            Copies the CERT to the ~/.cloudmesh/clouds/host directory
+            and registers that cert in the coudmesh.yaml file.
+            For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
+            and would be copied to ~/.cloudmesh/clouds/india/juno
+
+        register CLOUD --dir
+            Copies the entire directory from the cloud and puts it in
+            ~/.cloudmesh/clouds/host
+            For india, The directory would be copied to ~/.cloudmesh/clouds/india
 
 
 reservation

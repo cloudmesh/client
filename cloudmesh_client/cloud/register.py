@@ -219,18 +219,20 @@ class CloudRegister(object):
         Console.ok("register")
         if host.lower() == "india":
             _from = 'india:{:}'.format(directory)
-            _to = "~/.cloudmesh/clouds/india/juno"
+            _to = "~/.cloudmesh/clouds/india"
 
             #
             # BUG: the next line needs to be fixed to be linux and windows compatible
             #
             folder = directory.split('/')
-            destination = _to + "/" + (folder[-1:])[0]
+            destination = os.path.join(_to, (folder[-1:])[0])
 
-            if os.path.exists(destination):
+            if os.path.exists(Config.path_expand(destination)):
                 if not yn_choice("Directory already exists. Would you like to "
                                  "overwrite {:} directory y/n? ".format(destination)):
                     return
+            else:
+                CloudRegister.make_dir(destination)
 
             try:
                 Console.ok("Fetching directory...")
@@ -263,9 +265,9 @@ class CloudRegister(object):
         :type filename: string
         :return:
         """
-        Console.ok("form")
+        Console.ok("Filling out form")
         print(filename)
-        config = ConfigDict("cloudmesh.yaml")
+        config = ConfigDict(filename)
         # -----------------------------------------
         # edit profile
         # -----------------------------------------
