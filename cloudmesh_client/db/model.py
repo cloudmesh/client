@@ -10,6 +10,7 @@ from sqlalchemy import Column, Integer, String, DateTime, MetaData, create_engin
 from sqlalchemy.ext.declarative import declarative_base
 from cloudmesh_client.common.todo import TODO
 
+
 class database(object):
     """
     A simple class with all the details to create and
@@ -59,8 +60,11 @@ class CloudmeshMixin(object):
     __mapper_args__ = {'always_refresh': True}
 
     id = Column(Integer, primary_key=True)
-    created_at = Column(DateTime, default=datetime.now)
-    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    # created_at = Column(DateTime, default=datetime.now)
+    # updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    created_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    updated_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        onupdate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     label = Column(String, default="undefined")
     name = Column(String, default="undefined")
     cloud = Column(String, default="undefined")
@@ -91,8 +95,9 @@ class IMAGE(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key,value))
+                print ("{} = {}".format(key, value))
                 self[key] = value
+
 
 class FLAVOR(CloudmeshMixin, db.Base):
 
@@ -116,8 +121,9 @@ class FLAVOR(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key,value))
+                print ("{} = {}".format(key, value))
                 self[key] = value
+
 
 class VM(CloudmeshMixin, db.Base):
 
@@ -141,9 +147,8 @@ class VM(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key,value))
+                print ("{} = {}".format(key, value))
                 self[key] = value
-
 
 
 class DEFAULT(CloudmeshMixin, db.Base):
@@ -225,11 +230,12 @@ class GROUP(CloudmeshMixin, db.Base):
         self.user = user
         self.kind = self.__tablename__
 
+
 class RESERVATION(CloudmeshMixin, db.Base):
-    hosts = Column(String) # should be list of strings
+    hosts = Column(String)  # should be list of strings
     description = Column(String)
-    start_time = Column(String) # date, time
-    end_time = Column(String) # date, time
+    start_time = Column(String)  # date, time
+    end_time = Column(String)  # date, time
 
     def __init__(self,
                  name,
@@ -249,6 +255,7 @@ class RESERVATION(CloudmeshMixin, db.Base):
         self.name = name
         self.user = user
         self.kind = self.__tablename__
+
 
 class SECGROUP(CloudmeshMixin, db.Base):
 
@@ -274,8 +281,9 @@ class SECGROUP(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key,value))
+                print ("{} = {}".format(key, value))
                 self[key] = value
+
 
 class SECGROUPRULE(CloudmeshMixin, db.Base):
 
@@ -313,8 +321,9 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key,value))
+                print ("{} = {}".format(key, value))
                 self[key] = value
+
 
 def tables():
     """
@@ -322,6 +331,7 @@ def tables():
     """
     classes = [cls for cls in db.Base.__subclasses__()]
     return classes
+
 
 def tablenames():
     """
