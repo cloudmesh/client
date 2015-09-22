@@ -14,7 +14,6 @@ from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import yaml
 import json
-from bson import json_util
 from cloudmesh_client.cloud.default import Default
 # from cloudmesh_base.menu import num_choice, dict_choice
 
@@ -118,7 +117,7 @@ class KeyCommand(object):
 
         def _print_dict(d, header=None, format='table'):
             if format == "json":
-                return json_util.dumps(d, indent=4)
+                return json.dumps(d, indent=4)
             elif format == "yaml":
                 return yaml.dump(d, default_flow_style=False)
             elif format == "table":
@@ -148,7 +147,7 @@ class KeyCommand(object):
                 d = dict(sshm.__keys__)
                 print(_print_dict(d, format=_format))
                 msg = "info. OK."
-                Console.ok(msg);
+                Console.ok(msg)
 
             elif arguments['--source'] in ['cm', 'cloudmesh']:
 
@@ -157,7 +156,7 @@ class KeyCommand(object):
                 d = dict(m.__keys__)
                 print(_print_dict(d, format=_format))
                 msg = "info. OK."
-                Console.ok(msg);
+                Console.ok(msg)
 
             elif arguments['--source'] in ['git']:
 
@@ -176,7 +175,7 @@ class KeyCommand(object):
                 d = dict(sshm.__keys__)
                 print(_print_dict(d, format=_format))
                 msg = "info. OK."
-                Console.ok(msg);
+                Console.ok(msg)
 
             elif arguments['--source'] == 'db':
                 sshdb = SSHKeyDBManager()
@@ -184,7 +183,7 @@ class KeyCommand(object):
                 if d != {}:
                     print(_print_dict(d, format=arguments['--format']))
                     msg = "info. OK."
-                    Console.ok(msg);
+                    Console.ok(msg)
                 else:
                     Console.error("No keys in the database")
 
@@ -199,7 +198,7 @@ class KeyCommand(object):
                         key = d[i]
                         print(key['fingerprint'])
                         msg = "info. OK."
-                        Console.ok(msg);
+                        Console.ok(msg)
                         return
                     else:
                         pass
@@ -272,7 +271,7 @@ class KeyCommand(object):
             try:
                 sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
                 msg = "info. OK."
-                Console.ok(msg);
+                Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())

@@ -16,7 +16,7 @@ class SelectCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command key")
+            print("init command select")
 
     @command
     def do_select(self, args, arguments):

@@ -95,14 +95,6 @@ class SecGroup:
                 model.SECGROUP.project == project
             ).all()
 
-        #    # Convert to dict & print table
-        #    d = {}
-        #    for element in elements:
-        #        d[element.id] = {}
-        #        for key in element.__dict__.keys():
-        #            if not key.startswith("_sa"):
-        #                d[element.id][key] = str(element.__dict__[key])
-
             d = cls.toDict(elements)
             return (tables.dict_printer(d,
                                  order=["uuid",
@@ -195,6 +187,72 @@ class SecGroup:
 
         finally:
             cls.cm_db.close()
+
+    @classmethod
+    def delete_secgroup(cls, label, cloud, tenant):
+        try:
+            secgroup = cls.get_secgroup(label,tenant,cloud)
+            if secgroup:
+                # Delete all rules for group
+                cls.delete_all_rules(secgroup)
+                cls.cm_db.delete(secgroup)
+                return "Security Group [{}] for cloud [{}], & tenant [{}] deleted"\
+                    .format(label, cloud, tenant)
+            else:
+                return None
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
+        finally:
+            cls.cm_db.close()
+
+        return
+
+    @classmethod
+    def delete_rule(cls, secgroup, from_port, to_port, protocol, cidr):
+        try:
+            rule = cls.cm_db.query(model.SECGROUPRULE).filter(
+                model.SECGROUPRULE.groupid == secgroup.uuid,
+                model.SECGROUPRULE.fromPort == from_port,
+                model.SECGROUPRULE.toPort == to_port,
+                model.SECGROUPRULE.protocol == protocol,
+                model.SECGROUPRULE.cidr == cidr
+            ).first()
+
+            if rule:
+                cls.cm_db.delete(rule)
+                return "Rule [{} | {} | {} | {}] deleted"\
+                        .format(from_port, to_port, protocol, cidr)
+            else:
+                return None
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        finally:
+            cls.cm_db.close()
+        return
+
+    @classmethod
+    def delete_all_rules(cls, secgroup):
+        try:
+            rules = cls.cm_db.query(model.SECGROUPRULE).filter(
+                model.SECGROUPRULE.groupid == secgroup.uuid
+            ).all()
+
+            if rules:
+                for rule in rules:
+                    cls.cm_db.delete(rule)
+                    Console.ok("Rule [{} | {} | {} | {}] deleted"
+                               .format(rule.fromPort, rule.toPort, rule.protocol, rule.cidr))
+            else:
+                pass
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        finally:
+            cls.cm_db.close()
+        return
 
     @classmethod
     def getUser(cls, cloudname):

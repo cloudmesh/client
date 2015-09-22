@@ -253,6 +253,94 @@ Command - help::
         List available commands with "help" or detailed help with
         "help COMMAND".
 
+inventory
+----------------------------------------------------------------------
+
+Command - inventory::
+
+    Usage:
+        inventory add NAMES [--label=LABEL]
+                            [--service=SERVICES]
+                            [--project=PROJECT]
+                            [--owners=OWNERS]
+                            [--comment=COMMENT]
+                            [--cluster=CLUSTER]
+                            [--ip=IP]
+        inventory set NAMES for ATTRIBUTE to VALUES
+        inventory delete NAMES
+        inventory clone NAMES from SOURCE
+        inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]
+        inventory info
+
+    Arguments:
+
+      NAMES     Name of the resources (example i[10-20])
+
+      FORMAT    The format of the output is either txt,
+                yaml, dict, table [default: table].
+
+      OWNERS    a comma separated list of owners for this resource
+
+      LABEL     a unique label for this resource
+
+      SERVICE   a string that identifies the service
+
+      PROJECT   a string that identifies the project
+
+      SOURCE    a single host name to clone from
+
+      COMMENT   a comment
+
+    Options:
+
+       -v       verbose mode
+
+    Description:
+
+          add -- adds a resource to the resource inventory
+
+          list -- lists the resources in the given format
+
+          delete -- deletes objects from the table
+
+          clone -- copies the content of an existing object
+                   and creates new once with it
+
+          set   -- sets for the specified objects the attribute
+                   to the given value or values. If multiple values
+                   are used the values are assigned to the and
+                   objects in order. See examples
+
+          map   -- allows to set attibutes on a set of objects
+                   with a set of values
+
+    Examples:
+
+      cm inventory add x[0-3] --service=openstack
+
+          adds hosts x0, x1, x2, x3 and puts the string
+          openstack into the service column
+
+      cm lists
+
+          lists the repository
+
+      cm x[3-4] set temperature to 32
+
+          sets for the resources x3, x4 the value of the
+          temperature to 32
+
+      cm x[7-8] set ip 128.0.0.[0-1]
+
+          sets the value of x7 to 128.0.0.0
+          sets the value of x8 to 128.0.0.1
+
+      cm clone x[5-6] from x3
+
+          clones the values for x5, x6 from x3
+
+
+
 key
 ----------------------------------------------------------------------
 
@@ -627,21 +715,21 @@ secgroup
 Command - secgroup::
 
     Usage:
-        secgroup list CLOUD TENANT
-        secgroup create CLOUD TENANT LABEL
-        secgroup delete CLOUD TENANT LABEL
-        secgroup rules-list CLOUD TENANT LABEL
-        secgroup rules-add CLOUD TENANT LABEL FROMPORT TOPORT PROTOCOL CIDR
-        secgroup rules-delete CLOUD TENANT LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup list [--cloud=CLOUD] [--tenant=TENANT]
+        secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
+        secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
+        secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
+        secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
         secgroup -h | --help
         secgroup --version
 
     Options:
-        -h            help message
+        -h                  help message
+        --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
+        --tenant=TENANT     Name of the tenant, e.g. fg82.
 
     Arguments:
-        CLOUD         Name of the IaaS cloud e.g. india_openstack_grizzly.
-        TENANT        Name of the tenant, e.g. fg82.
         LABEL         The label/name of the security group
         FROMPORT      Staring port of the rule, e.g. 22
         TOPORT        Ending port of the rule, e.g. 22
@@ -656,10 +744,10 @@ Command - secgroup::
 
 
     Examples:
-        $ secgroup list india fg82
-        $ secgroup rules-list india fg82 default
-        $ secgroup create india fg82 webservice
-        $ secgroup rules-add india fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+        $ secgroup list --cloud india --tenant fg82
+        $ secgroup rules-list --cloud india --tenant fg82 default
+        $ secgroup create --cloud india --tenant fg82 webservice
+        $ secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
 
 

@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
-from cloudmesh_client.db.model import database, table, tablenames, DEFAULT
+from cloudmesh_client.db.model import database, table, tablenames, DEFAULT, KEY
 
 from cloudmesh_client.common.todo import TODO
 
@@ -62,8 +62,8 @@ class CloudmeshDatabase(object):
         :param type:
         :return:
         """
-        # TODO: Implement
-        TODO.implement()
+        self.session.query(kind).delete()
+        self.save()
 
     def get_table_from_name(self, kind):
         # TODO: Implement this method, as its being called in other functions

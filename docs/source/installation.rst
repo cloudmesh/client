@@ -14,13 +14,13 @@ Preparing the Virtualenv
 
 Linux::
 
-   virtualenv ~/ENV
-   source ~/ENV/bin/activate
+  virtualenv ~/ENV
+  source ~/ENV/bin/activate
    
 OSX::
 
   virtualenv -p /usr/local/bin/python
-   source ~/ENV/bin/activate
+  source ~/ENV/bin/activate
    
 Windows::
 
@@ -39,13 +39,8 @@ the repositories you can install the code from source as follows::
    mkdir -p github/cloudmesh
    cd github/cloudmesh
    git clone https://github.com/cloudmesh/base.git 
-   git clone https://github.com/cloudmesh/cmd3.git
    git clone https://github.com/cloudmesh/client.git
    cd base
-   git pull
-   python setup.py install
-   cd ../cmd3
-   git pull
    python setup.py install
    cd ../client
    python setup.py install
@@ -66,13 +61,8 @@ based git clone as described in the previous section.
    git clone git@github.com:cloudmesh/cmd3.git
    git clone git@github.com:cloudmesh/client.git
    cd base
-   git pull
-   python setup.py install
-   cd ../cmd3
-   git pull
    python setup.py install
    cd ../client
-   git pull   
    python setup.py install
 
 
@@ -86,9 +76,6 @@ repositories please do not forget to update them accordingly::
    cd github/cloudmesh
    cd base
    git pull
-   python setup.py install
-   cd ../cmd3
-   git pull 
    python setup.py install
    cd ../client
    python setup.py install
