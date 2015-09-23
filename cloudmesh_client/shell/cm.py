@@ -22,6 +22,7 @@ from cloudmesh_client.shell.plugins.SecureShellCommand import SecureShellCommand
 from cloudmesh_client.shell.plugins.SecgroupCommand import SecgroupCommand
 from cloudmesh_client.shell.plugins.DefaultCommand import DefaultCommand
 from cloudmesh_client.shell.plugins.InventoryCommand import InventoryCommand
+from cloudmesh_client.shell.plugins.ListCommand import ListCommand
 from cloudmesh_client.version import version
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
@@ -51,7 +52,8 @@ class CloudmeshConsole(cmd.Cmd,
                        OpenCommand,
                        NovaCommand,
                        InventoryCommand,
-                       DefaultCommand):
+                       DefaultCommand,
+                       ListCommand):
     """
     Cloudmesh Console
     """
@@ -71,7 +73,8 @@ class CloudmeshConsole(cmd.Cmd,
                        SecgroupCommand,
                        NovaCommand,
                        InventoryCommand,
-                       DefaultCommand]:
+                       DefaultCommand,
+                       ListCommand]:
             tmp = command.topics.copy()
             topics.update(tmp)
         for name in topics:
