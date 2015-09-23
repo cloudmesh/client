@@ -135,7 +135,7 @@ class SSHKeyDBManager(object):
             options.append(line)
         num = menu_return_num('KEYS', options)
         if num != 'q':
-            return options[num - 1]
+            return options[num]
         return num
 
     def object_to_dict(self, obj):
