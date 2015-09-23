@@ -1,6 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.cloud.quota import Quota
 
 
 class QuotaCommand(object):
@@ -12,18 +13,13 @@ class QuotaCommand(object):
         if self.context.debug:
             print("init command quota")
 
-
-class cm_shell_quota:
-    def activate_cm_shell_quota(self):
-        self.register_command_topic('cloud', 'quota')
-
     @command
     def do_quota(self, args, arguments):
         """
         ::
 
             Usage:
-                quota [CLOUD...] [--format=FORMAT]
+                quota CLOUD [--format=FORMAT]
 
             print quota limit on a current project/tenant
 
@@ -37,10 +33,10 @@ class cm_shell_quota:
 
         """
         # pprint(arguments)
-        clouds = arguments["CLOUD"]
+        cloud = arguments["CLOUD"]
         output_format = arguments["--format"]
-        Console.ok('quota {} {}'.format(clouds, output_format))
-        pass
+        list_quotas = Quota.list_quotas(cloud, format=output_format)
+        print(list_quotas)
 
 
 if __name__ == '__main__':
