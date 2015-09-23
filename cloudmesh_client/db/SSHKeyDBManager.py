@@ -128,7 +128,7 @@ class SSHKeyDBManager(object):
 
     def select(self):
         options = []
-        d = self.dict()
+        d = self.table_dict()
         for i in d:
             print ('i:', i)
             line = '{}: {}'.format(d[i]['name'], d[i]['fingerprint'])

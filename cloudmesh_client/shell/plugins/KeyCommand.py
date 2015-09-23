@@ -142,21 +142,33 @@ class KeyCommand(object):
 
             if arguments['--source'] == 'ssh':
 
-                sshm = SSHKeyManager()
-                sshm.get_from_dir(directory)
-                d = dict(sshm.__keys__)
-                print(_print_dict(d, format=_format))
-                msg = "info. OK."
-                Console.ok(msg)
+                try:
+                    sshm = SSHKeyManager()
+                    sshm.get_from_dir(directory)
+                    d = dict(sshm.__keys__)
+                    print(_print_dict(d, format=_format))
+                    msg = "info. OK."
+                    Console.ok(msg)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem listing keys from ssh")
 
             elif arguments['--source'] in ['cm', 'cloudmesh']:
 
-                sshm = SSHKeyManager()
-                m = sshm.get_from_yaml(load_order=directory)
-                d = dict(m.__keys__)
-                print(_print_dict(d, format=_format))
-                msg = "info. OK."
-                Console.ok(msg)
+                try:
+                    sshm = SSHKeyManager()
+                    m = sshm.get_from_yaml(load_order=directory)
+                    d = dict(m.__keys__)
+                    print(_print_dict(d, format=_format))
+                    msg = "info. OK."
+                    Console.ok(msg)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem listing keys from `{:}`".format(arguments['--source']))
 
             elif arguments['--source'] in ['git']:
 
@@ -169,30 +181,41 @@ class KeyCommand(object):
                 sshm = SSHKeyManager()
                 try:
                     sshm.get_from_git(username)
-                except:
-                    Console.error("problem reading keys from user: " + username)
-                    return
-                d = dict(sshm.__keys__)
-                print(_print_dict(d, format=_format))
-                msg = "info. OK."
-                Console.ok(msg)
-
-            elif arguments['--source'] == 'db':
-                sshdb = SSHKeyDBManager()
-                d = sshdb.table_dict()
-                if d != {}:
-                    print(_print_dict(d, format=arguments['--format']))
+                    d = dict(sshm.__keys__)
+                    print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
-                else:
-                    Console.error("No keys in the database")
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem listing git keys for user: " + username)
+                    return
+
+            elif arguments['--source'] == 'db':
+
+                try:
+                    sshdb = SSHKeyDBManager()
+                    d = sshdb.table_dict()
+                    if d != {}:
+                        print(_print_dict(d, format=arguments['--format']))
+                        msg = "info. OK."
+                        Console.ok(msg)
+                    else:
+                        Console.error("No keys in the database")
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem listing keys from database for user: " + username)
 
         elif arguments['get']:
 
-            name = arguments['NAME']
-            sshdb = SSHKeyDBManager()
-            d = sshdb.table_dict()
             try:
+                name = arguments['NAME']
+                sshdb = SSHKeyDBManager()
+                d = sshdb.table_dict()
+
                 for i in d:
                     if d[i]["name"] == name:
                         key = d[i]
@@ -203,7 +226,10 @@ class KeyCommand(object):
                     else:
                         pass
                 Console.error("The key is not in the database")
-            except:
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
                 Console.error("The key is not in the database")
 
         # key add --git KEYNAME
@@ -233,8 +259,11 @@ class KeyCommand(object):
                 sshm.get_from_git(username)
                 d = dict(sshm.__keys__)
                 print(d)
-            except:
-                Console.error("problem reading keys from user: " + username)
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem adding keys to git for user: " + username)
                 return
 
             try:
@@ -243,8 +272,11 @@ class KeyCommand(object):
                 d[gitkeyname]['user'] = None
                 d[gitkeyname]['source'] = 'git'
                 # sshdb.add_from_dict(d[gitkeyname])
-            except:
-                Console.error("the key may already there")
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("The key may already there")
 
         elif arguments['add'] and arguments["--ssh"]:
 
@@ -252,16 +284,18 @@ class KeyCommand(object):
             sshdb = SSHKeyDBManager()
             keyname = arguments['--name']
             filename = Config.path_expand("~/.ssh/id_rsa.pub")
-
             try:
                 sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
+                msg = "info. OK."
+                Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)
                 print (keyname)
                 print (filename)
-                Console.error("problem adding the key `{}` from file `{}`".format(keyname, filename))
+                Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
+
         elif arguments['add'] and not arguments["--git"]:
 
             print('ssh dd')
@@ -278,7 +312,7 @@ class KeyCommand(object):
                 print (e)
                 print (keyname)
                 print (filename)
-                Console.error("problem adding the key `{}` from file `{}`".format(keyname, filename))
+                Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
 
         elif arguments['default']:
 
@@ -303,25 +337,43 @@ class KeyCommand(object):
         elif arguments['delete']:
             print('delete')
             if arguments['--all']:
-                sshdb = SSHKeyDBManager()
-                sshdb.delete_all()
-                msg = "info. OK."
-                Console.ok(msg)
+                try:
+                    sshdb = SSHKeyDBManager()
+                    sshdb.delete_all()
+                    msg = "info. OK."
+                    Console.ok(msg)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem deleting keys")
             elif arguments['--select']:
                 sshdb = SSHKeyDBManager()
                 select = sshdb.select()
                 if select != 'q':
-                    keyname = select.split(':')[0]
-                    print(keyname)
-                sshdb.delete(keyname)
-                msg = "info. OK."
-                Console.ok(msg)
+                    try:
+                        keyname = select.split(':')[0]
+                        print("Deleting key: {:}...".format(keyname))
+                        sshdb.delete(keyname)
+                        msg = "info. OK."
+                        Console.ok(msg)
+                    except Exception, e:
+                        import traceback
+                        print(traceback.format_exc())
+                        print (e)
+                        Console.error("Problem deleting the key `{:}`".format(keyname))
             else:
-                keyname = arguments['KEYNAME']
-                sshdb = SSHKeyDBManager()
-                sshdb.delete(keyname)
-                msg = "info. OK."
-                Console.ok(msg)
+                try:
+                    keyname = arguments['KEYNAME']
+                    sshdb = SSHKeyDBManager()
+                    sshdb.delete(keyname)
+                    msg = "info. OK."
+                    Console.ok(msg)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem deleting the key `{:}`".format(keyname))
 
 
 if __name__ == '__main__':
