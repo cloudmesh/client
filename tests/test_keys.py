@@ -12,14 +12,15 @@ nosetests -v
 
 from pprint import pprint
 
-#from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-#from cloudmesh_client.keys.SSHkey import SSHkey
-#from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-#from cloudmesh_client.common.tables import dict_printer
+# from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+# from cloudmesh_client.keys.SSHkey import SSHkey
+# from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+# from cloudmesh_client.common.tables import dict_printer
 
 from cloudmesh_base.util import HEADING
 #
 from cloudmesh_base.Shell import Shell
+
 
 def run(command):
     parameter = command.split(" ")
@@ -27,6 +28,7 @@ def run(command):
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
     return result
+
 
 class Test_keys:
     def setup(self):
@@ -143,7 +145,6 @@ class Test_keys:
         print result
         assert "OK." in result
 
-
     def test_004(self):
         """
         cm key list
@@ -256,25 +257,15 @@ class Test_keys:
 
     def test_015(self):
         """
-        cm key default --select
+        cm key delete testkey
         """
 
         HEADING()
-        result = run("cm key default --select")
+        result = run("cm key delete testkey")
         print result
         assert "OK." in result
 
     def test_016(self):
-        """
-        cm key delete --select
-        """
-
-        HEADING()
-        result = run("cm key delete --select")
-        print result
-        assert "OK." in result
-
-    def test_017(self):
         """
         cm key delete --all
         """
@@ -284,13 +275,4 @@ class Test_keys:
         print result
         assert "OK." in result
 
-    def test_018(self):
-        """
-        cm key delete testkey
-        """
-
-        HEADING()
-        result = run("cm key delete testkey")
-        print result
-        assert "OK." in result
 
