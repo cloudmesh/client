@@ -82,14 +82,15 @@ class SSHKeyDBManager(object):
         self.db.delete_by_name(KEY, name=keyname)
 
     def set_default(self, keyname):
-        if self.get_default():
-            self.get_default().default = 'False'
-        self.find(keyname).default = 'True'
+        default_key = self.get_default()
+        if default_key:
+            default_key.is_default = 'False'
+        self.find(keyname).is_default = 'True'
         self.db.save()
 
     def get_default(self):
         value = "True"
-        return self.db.find(KEY, default=value)
+        return self.db.get(KEY, is_default=value)
 
     def find(self, keyname):
         """

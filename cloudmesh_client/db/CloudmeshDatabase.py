@@ -195,9 +195,8 @@ class CloudmeshDatabase(object):
         self.session.commit()
         self.session.flush()
 
-    # TODO: change name to kwargs
-    def get(self, table, name):
-        return self.session.query(table).filter_by(name=name).first()
+    def get(self, table, **kwargs):
+        return self.session.query(table).filter_by(**kwargs).first()
 
 
 def main():

@@ -219,7 +219,7 @@ class KeyCommand(object):
                 for i in d:
                     if d[i]["name"] == name:
                         key = d[i]
-                        print(key['fingerprint'])
+                        print("{:}: {:}".format(key['name'], key['fingerprint']))
                         msg = "info. OK."
                         Console.ok(msg)
                         return
@@ -317,22 +317,57 @@ class KeyCommand(object):
         elif arguments['default']:
 
             print("default")
-            if arguments['KEYNAME']:
-                keyname = arguments['KEYNAME']
-                sshdb = SSHKeyDBManager()
-                sshdb.set_default(keyname)
-                Default.set("key", keyname, "general")
-                msg = "info. OK."
-                Console.ok(msg)
-            elif arguments['--select']:
 
-                command = cm_shell_select()
-                command.do_select("key")
+            if arguments['KEYNAME']:
+                try:
+                    keyname = arguments['KEYNAME']
+                    sshdb = SSHKeyDBManager()
+                    sshdb.set_default(keyname)
+                    Default.set("key", keyname, "general")
+                    msg = "info. OK."
+                    Console.ok(msg)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Setting default for key {:} failed.".format(keyname))
+
+            elif arguments['--select']:
+                try:
+                    sshdb = SSHKeyDBManager()
+                    select = sshdb.select()
+                    if select != 'q':
+                        keyname = select.split(':')[0]
+                        print("Setting key: {:} as default.".format(keyname))
+                        sshdb.set_default(keyname)
+                        msg = "info. OK."
+                        Console.ok(msg)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Setting default for selected key {:} failed.".format(keyname))
 
             else:
-                sshdb = SSHKeyDBManager()
-                default = sshdb.object_to_dict(sshdb.get_default())
-                print('default key', default)
+                try:
+                    sshdb = SSHKeyDBManager()
+                    d = sshdb.table_dict()
+
+                    for i in d:
+                        if d[i]["is_default"] == "True":
+                            key = d[i]
+                            print("{:}: {:}".format(key['name'], key['fingerprint']))
+                            msg = "info. OK."
+                            Console.ok(msg)
+                            return
+                        else:
+                            pass
+                    Console.error("The key is not in the database")
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem retrieving default key.")
 
         elif arguments['delete']:
             print('delete')

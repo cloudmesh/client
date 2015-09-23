@@ -187,6 +187,7 @@ class KEY(CloudmeshMixin, db.Base):
     source = Column(String)
     comment = Column(String)
     uri = Column(String)
+    is_default = Column(String)
 
     def __init__(self,
                  name,
@@ -197,7 +198,8 @@ class KEY(CloudmeshMixin, db.Base):
                  comment=None,
                  type="string",
                  cloud=None,
-                 user=None):
+                 user=None,
+                 is_default="False"):
         # self.kind = __tablename__
         self.label = name
         self.cloud = cloud or "general"
@@ -209,6 +211,7 @@ class KEY(CloudmeshMixin, db.Base):
         self.name = name
         self.user = user
         self.kind = self.__tablename__
+        self.is_default = is_default
 
 
 class GROUP(CloudmeshMixin, db.Base):
