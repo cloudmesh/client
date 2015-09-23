@@ -10,7 +10,7 @@ from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
-class SecGroup:
+class SecGroup(object):
 
     cm_db = CloudmeshDatabase() # Instance to communicate with the cloudmesh database
 

@@ -12,7 +12,7 @@ class GroupCommand(object):
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command key")
+            print("init command group")
 
     @command
     def do_group(self, args, arguments):
