@@ -1,8 +1,9 @@
-from cloudmesh_client.cloud.iaas.ClassProviderBase import CloudProviderBase
+from abc import ABCMeta, abstractmethod, abstractproperty
+from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudmeshProviderBase
 from cloudmesh_base.hostlist import Parameter
 
-class CloudProviderOpenstack(ClassProviderBase):
 
+class CloudProviderOpenstack(CloudmeshProviderBase):
 
     def initialize(self, cloudname, user=None):
         self.nodes = None
@@ -56,7 +57,7 @@ class CloudProviderOpenstack(ClassProviderBase):
         """
         return None
 
- # TODO: define this
+    # TODO: define this
     @classmethod
     def get_vm(cls, **kwargs):
         """

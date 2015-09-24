@@ -24,6 +24,7 @@ from cloudmesh_client.shell.plugins.DefaultCommand import DefaultCommand
 from cloudmesh_client.shell.plugins.InventoryCommand import InventoryCommand
 from cloudmesh_client.shell.plugins.ListCommand import ListCommand
 from cloudmesh_client.shell.plugins.QuotaCommand import QuotaCommand
+from cloudmesh_client.shell.plugins.VmCommand import VmCommand
 from cloudmesh_client.version import version
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
@@ -55,36 +56,37 @@ class CloudmeshConsole(cmd.Cmd,
                        InventoryCommand,
                        DefaultCommand,
                        ListCommand,
-                       QuotaCommand):
+                       QuotaCommand,
+                       VmCommand):
     """
     Cloudmesh Console
     """
     def register_topics(self):
         topics = {}
         for command in [TerminalCommands,
-                       ManCommand,
-                       ServerCommand,
-                       SelectCommand,
-                       GroupCommand,
-                       KeyCommand,
-                       SecureShellCommand,
-                       RegisterCommand,
-                       ReservationCommand,
-                       OpenCommand,
-                       CloudCommand,
-                       SecgroupCommand,
-                       NovaCommand,
-                       InventoryCommand,
-                       DefaultCommand,
-                       ListCommand,
-                       QuotaCommand]:
+                        ManCommand,
+                        ServerCommand,
+                        SelectCommand,
+                        GroupCommand,
+                        KeyCommand,
+                        SecureShellCommand,
+                        RegisterCommand,
+                        ReservationCommand,
+                        OpenCommand,
+                        CloudCommand,
+                        SecgroupCommand,
+                        NovaCommand,
+                        InventoryCommand,
+                        DefaultCommand,
+                        ListCommand,
+                        QuotaCommand,
+                        VmCommand]:
             tmp = command.topics.copy()
             topics.update(tmp)
         for name in topics:
             self.register_command_topic(topics[name], name)
         for name in ["q", "EOF", "man"]:
             self.register_command_topic("shell", name)
-
 
     def __init__(self, context):
         cmd.Cmd.__init__(self)
@@ -199,7 +201,7 @@ class CloudmeshConsole(cmd.Cmd,
             }
         }
 
-        print (dict_printer(versions, output=arguments["--format"] ,order=["name", "version"]))
+        print (dict_printer(versions, output=arguments["--format"], order=["name", "version"]))
         if arguments["--check"] in ["True"]:
             check_python()
 
@@ -358,11 +360,9 @@ def main():
     debug = arg['--debug']
     interactive = arg['-i']
 
-
     context = CloudmeshContext(debug=debug,
                                splash=splash)
     cmd = CloudmeshConsole(context)
-
 
     # TODO: check if cludmesh_yaml exists and if not create it
     # also creat .cloudmesh dir if it not exists

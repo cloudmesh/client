@@ -1,6 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.cloud.vm import Vm
 
 
 class VmCommand(object):
@@ -66,7 +67,7 @@ class VmCommand(object):
                 --flavor=FLAVOR_OR_ID  give the name or id of the flavor
                 --group=GROUP          give the group name of server
                 --image=IMAGE_OR_ID    give the name or id of the image
-                --key=KEY        spicfy a key to use, input a string which
+                --key=KEY        specify a key to use, input a string which
                                  is the full path to the public key file
                 --user=USER      give the user name of the server that you want
                                  to use to login
@@ -117,23 +118,46 @@ class VmCommand(object):
         """
         # pprint(arguments)
         if arguments["start"]:
-            name = arguments["--name"]
-            count = arguments["--count"]
-            cloud = arguments["--cloud"]
-            image = arguments["--image"]
-            flavor = arguments["--flavor"]
-            group = arguments["--group"]
-            Command_vm.start(name, count, cloud, image, flavor, group)
+            try:
+                name = arguments["--name"]
+                # TODO: use count
+                count = arguments["--count"]
+                cloud = arguments["--cloud"] or "india"
+                image = arguments["--image"]
+                flavor = arguments["--flavor"]
+                group = arguments["--group"]
+
+                cloud_provider = Vm.get_cloud_provider(cloud)
+                cloud_provider.boot(name, image, flavor, secgroup=group)
+
+                print("Machine {:} is being booted on {:} Cloud...".format(name, cloud_provider.cloud))
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem starting instance {:}".format(name))
+
         elif arguments["delete"]:
-            name_or_id = arguments["NAME_OR_ID"]
-            group = arguments["--group"]
-            cloud = arguments["--cloud"]
-            force = arguments["--force"]
-            Command_vm.delete(name_or_id, group, cloud, force)
+            try:
+                name_or_id = arguments["NAME_OR_ID"]
+                group = arguments["--group"]
+                cloud = arguments["--cloud"] or "india"
+                force = arguments["--force"]
+
+                cloud_provider = Vm.get_cloud_provider(cloud)
+                for server in name_or_id:
+                    cloud_provider.delete(server)
+                    print("Machine {:} is being deleted on {:} Cloud...".format(name_or_id, cloud_provider.cloud))
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem deleting instance {:}".format(name_or_id))
+
         elif arguments["ip_assign"]:
             name_or_id = arguments["NAME_OR_ID"]
             cloud = arguments["--cloud"]
-            Command_vm.ip_assign(name_or_id, cloud)
+            print("To be implemented")
 
         elif arguments["ip_show"]:
             name_or_id = arguments["NAME_OR_ID"]
@@ -141,7 +165,7 @@ class VmCommand(object):
             cloud = arguments["--cloud"]
             output_format = arguments["--format"]
             refresh = arguments["--refresh"]
-            Command_vm.ip_show(name_or_id, group, cloud, output_format, refresh)
+            print("To be implemented")
 
         elif arguments["login"]:
             name = arguments["NAME"]
@@ -151,7 +175,7 @@ class VmCommand(object):
             key = arguments["--key"]
             commands = arguments["--command"]
             commands = commands.split(';')
-            Command_vm.loging(name, user, ip, cloud, key, commands)
+            print("To be implemented")
 
         elif arguments["list"]:
             if arguments["--all"]:
@@ -164,7 +188,7 @@ class VmCommand(object):
             columns = arguments["--columns"]
             detail = arguments["--detail"]
 
-            Command_vm.list(group, refresh, output_format, columns, detail)
+            print("To be implemented")
         pass
 
 
