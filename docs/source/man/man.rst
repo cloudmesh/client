@@ -428,6 +428,34 @@ Command - key::
 
 
 
+list
+----------------------------------------------------------------------
+
+Command - list::
+
+    Usage:
+        list [--cloud=CLOUD] [--format=FORMAT] default
+        list [--cloud=CLOUD] [--format=FORMAT] vm
+        list [--cloud=CLOUD] [--format=FORMAT] flavor
+        list [--cloud=CLOUD] [--format=FORMAT] image
+
+    List the items stored in the database
+
+    Options:
+        --cloud=CLOUD    the name of the cloud
+        --format=FORMAT  the output format
+
+    Description:
+        List command prints the values stored in the database
+        for [default/vm/flavor/image].
+        Result can be filtered based on the cloud argument.
+        If cloud argument is not specified, it reads the default
+
+    Examples:
+        $ list --cloud india default
+        $ list --cloud india --format table flavor
+
+
 man
 ----------------------------------------------------------------------
 
@@ -531,6 +559,26 @@ Command - quit::
 
     Description:
         Action to be performed whne quit is typed
+
+
+quota
+----------------------------------------------------------------------
+
+Command - quota::
+
+    Usage:
+        quota CLOUD [--format=FORMAT]
+
+    print quota limit on a current project/tenant
+
+    Arguments:
+
+      CLOUD          Cloud name
+
+    Options:
+
+       -v       verbose mode
+
 
 
 register
