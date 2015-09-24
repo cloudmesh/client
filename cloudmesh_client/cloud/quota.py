@@ -42,4 +42,4 @@ class Quota(object):
         d = Quota.convert_to_dict(result)
         return tables.dict_printer(d, order=['Quota',
                                              'Limit'],
-                                   output="table")
+                                   output=format)
