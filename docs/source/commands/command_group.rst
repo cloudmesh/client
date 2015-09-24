@@ -2,15 +2,15 @@ Group Command
 ======================================================================
 
 Manual
---------
+-------
 The manual page of the group command can be found at: `group <../man/man.html#group>`_
 
 
 Examples
---------
+---------
 
 Group List
-^^^^^^^^^^^^^
+^^^^^^^^^^^
 
 List the groups created in cloudmesh for a particular cloud::
 
@@ -25,7 +25,7 @@ List the groups created in cloudmesh for a particular cloud::
     +-----------+---------+---------+---------------------------------------------+------+
 
 Group Info
-^^^^^^^^^^^^^
+^^^^^^^^^^^
 
 Get details about a particular group with specific name::
 
@@ -37,7 +37,7 @@ Get details about a particular group with specific name::
     +-----------+---------+---------+-----------------------+------+
 
 Group Add
-^^^^^^^^^^^^^
+^^^^^^^^^^
 
 Add a resource (VM) with specified id to a group with given name::
 
@@ -52,7 +52,7 @@ Add a resource (VM) with specified id to a group with given name::
     +-----------+---------+--------+----------+------+
 
 Group Copy
-^^^^^^^^^^^^^^
+^^^^^^^^^^^
 
 Copy the VM(s) from one group to another::
 
@@ -67,7 +67,7 @@ Copy the VM(s) from one group to another::
     +-----------+---------+--------+----------+------+
 
 Group Merge
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 
 Merge two groups to form a third group::
 
@@ -82,7 +82,7 @@ Merge two groups to form a third group::
     +-----------+---------+--------+--------------------------------+------+
 
 Group Delete
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 Delete a group with a given name::
 

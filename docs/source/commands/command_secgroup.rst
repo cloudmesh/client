@@ -7,10 +7,10 @@ The manual page of the secgroup command can be found at: `secgroup <../man/man.h
 
 
 Examples
---------
+---------
 
 Security Group Create
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
 Create a security group in cloudmesh for a cloud & tenant::
 
@@ -18,7 +18,7 @@ Create a security group in cloudmesh for a cloud & tenant::
   Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
 
 Security Group List
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^
 
 List Security Groups in cloudmesh for a cloud & tenant::
 
@@ -31,7 +31,7 @@ List Security Groups in cloudmesh for a cloud & tenant::
     +--------------------------------------+----------+-------+--------------+---------+
 
 Security Group Rule Add
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Adds a new rule to the security group::
 
@@ -42,7 +42,7 @@ Adds a new rule to the security group::
     Added rule [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
 
 Security Group Rules List
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Lists all the rules assigned to the security group::
 
@@ -55,7 +55,7 @@ Lists all the rules assigned to the security group::
     +----------+-------+------------+----------+--------+----------+-----------+
 
 Security Group Rule Delete
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Delete a specific rule within a security group::
 
@@ -70,7 +70,7 @@ Delete a specific rule within a security group::
     +----------+-------+--------------+----------+--------+----------+-----------+
 
 Security Group Delete
-^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
 Delete an entire security group::
 
