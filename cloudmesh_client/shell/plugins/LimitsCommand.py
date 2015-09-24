@@ -1,6 +1,8 @@
 from __future__ import print_function
+from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.cloud.limits import Limits
 
 
 class LimitsCommand(object):
@@ -18,24 +20,37 @@ class LimitsCommand(object):
         ::
 
             Usage:
-                limits [CLOUD...] [--format=FORMAT]
+                limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
-            Current usage data with limits on a selected project/tenant
-
-            Arguments:
-
-              CLOUD          Cloud name to see the usage
+                Current usage data with limits on a selected project/tenant.
+                The --tenant option can be used by admin only
 
             Options:
+               --format=FORMAT  the output format [default: table]
+               --cloud=CLOUD    the cloud name
+               --tenant=TENANT  the tenant name [default: ]
 
-               -v       verbose mode
+            Examples:
+                cm limits list
+                cm limits list --cloud=india --format=csv
 
         """
-        # pprint(arguments)
-        clouds = arguments["CLOUD"]
-        output_format = arguments["--format"]
-        Console.ok('limits {} {}'.format(clouds, output_format))
-        pass
+        if arguments["list"]:
+            cloud = arguments["--cloud"] or Default.get("cloud")
+
+            if not cloud:
+                Console.error("cloud doesn't exist")
+                return
+
+            output_format = arguments["--format"]
+            tenant = arguments["--tenant"]
+            result = Limits.list_limits(cloud, format=output_format, tenant=tenant)
+            if "ERROR" in result:
+                Console.error(result)
+            else:
+                Console.msg(result)
+            return
+
 
 
 if __name__ == '__main__':
