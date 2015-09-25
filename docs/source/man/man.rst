@@ -428,6 +428,28 @@ Command - key::
 
 
 
+limits
+----------------------------------------------------------------------
+
+Command - limits::
+
+    Usage:
+        limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
+
+        Current usage data with limits on a selected project/tenant.
+        The --tenant option can be used by admin only
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+       --tenant=TENANT  the tenant name [default: ]
+
+    Examples:
+        cm limits list
+        cm limits list --cloud=india --format=csv
+
+
+
 list
 ----------------------------------------------------------------------
 
