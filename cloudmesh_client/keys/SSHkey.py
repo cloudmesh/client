@@ -8,9 +8,8 @@ from cloudmesh_client.common.ConfigDict import Config
 
 
 class SSHkey(object):
-    def __init__(self, file_path):
-        if file_path:
-            self.read(file_path)
+    def __init__(self, file_path=None, keyname=None):
+        self.read(file_path, keyname)
 
     def __str__(self):
         return self.__key__['key']
@@ -18,24 +17,32 @@ class SSHkey(object):
     def __repr__(self):
         return self.__key__['key']
 
-    def read(self, file_path):
-        file_path = Config.path_expand(file_path)
-        uri = 'file://{}'.format(file_path)
-        self.__key__ = {
-            'uri': uri,
-            'string': open(file_path, "r").read().rstrip()
-        }
+    def read(self, file_path, keyname=None):
+        self.__key__ = {}
+        if(file_path is not None):
+            file_path = Config.path_expand(file_path)
+            uri = 'file://{}'.format(file_path)
+            self.__key__ = {
+                'uri': uri,
+                'string': open(file_path, "r").read().rstrip()
+            }
 
-        (self.__key__['type'],
-         self.__key__['key'],
-         self.__key__['comment']) = self._parse(self.__key__['string'])
-        self.__key__['fingerprint'] = self._fingerprint(self.__key__['string'])
+            (self.__key__['type'],
+             self.__key__['key'],
+             self.__key__['comment']) = self._parse(self.__key__['string'])
+            self.__key__['fingerprint'] = self._fingerprint(self.__key__['string'])
 
-        name = basename(file_path).replace(".pub", "").replace("id_", "")
+            # Workaround for multiple file entries in cloudmesh.yaml getting same name derived from file name (like id_rsa).
+            # This caused the dict to have just 1 entry as the name is the key.
+            # Change tracked in git issue #8
+            if keyname is None:
+                name = basename(file_path).replace(".pub", "").replace("id_", "")
+            else:
+                name = keyname
 
-        self.__key__['name'] = name
-        self.__key__['comment'] = self.__key__['comment']
-        self.__key__['source'] = 'ssh'
+            self.__key__['name'] = name
+            self.__key__['comment'] = self.__key__['comment']
+            self.__key__['source'] = 'ssh'
         return self.__key__
 
     @property

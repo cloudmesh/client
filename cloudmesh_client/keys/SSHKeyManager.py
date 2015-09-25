@@ -16,8 +16,8 @@ class SSHKeyManager(object):
     def __init__(self):
         self.__keys__ = {}
 
-    def add_from_file(self, file_path):
-        sshkey = SSHkey(file_path)
+    def add_from_file(self, file_path, keyname=None):
+        sshkey = SSHkey(file_path, keyname)
         self.add_from_object(sshkey)
 
     def add_from_object(self, sshkey_obj):
@@ -83,7 +83,7 @@ class SSHKeyManager(object):
             value = keylist[key]
             if os.path.isfile(Config.path_expand(value)):
                 path = Config.path_expand(value)
-                sshmanager.add_from_file(path)
+                sshmanager.add_from_file(path, keyname)
             else:
                 sshkey = SSHkey()
                 uri = Config.path_expand(os.path.join("~", ".cloudmesh", filename))
