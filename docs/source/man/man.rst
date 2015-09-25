@@ -434,26 +434,28 @@ list
 Command - list::
 
     Usage:
-        list [--cloud=CLOUD] [--format=FORMAT] default
-        list [--cloud=CLOUD] [--format=FORMAT] vm
-        list [--cloud=CLOUD] [--format=FORMAT] flavor
-        list [--cloud=CLOUD] [--format=FORMAT] image
+        list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] default
+        list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] vm
+        list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] flavor
+        list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] image
 
     List the items stored in the database
 
     Options:
         --cloud=CLOUD    the name of the cloud
         --format=FORMAT  the output format
+        --tenant=TENANT     Name of the tenant, e.g. fg82.
 
     Description:
         List command prints the values stored in the database
         for [default/vm/flavor/image].
-        Result can be filtered based on the cloud argument.
-        If cloud argument is not specified, it reads the default
+        Result can be filtered based on the cloud, user & tenant arguments.
+        If these arguments are not specified, it reads the default
 
     Examples:
         $ list --cloud india default
         $ list --cloud india --format table flavor
+        $ list --cloud india --user goshenoy --tenant fg82 flavor
 
 
 man
