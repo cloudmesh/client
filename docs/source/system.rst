@@ -303,7 +303,89 @@ aptget upgrade
 CentOS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. todo:: Mangirish provide instructions
+This documentation assumes that the user is advanced enough to use linux terminal
+
+Firstly we have to check if the python and pip is installed. Run the following commands::
+
+# python --version
+# pip --version
+# [user@hostname ~]$ python --version
+# Python 2.7.5
+# [user@hostname ~]$ pip --version
+# pip 7.1.2 from /home/mangirish/ENV/lib/python2.7/site-packages (python 2.7)
+
+If you don't find these installed, then install the same with the following commands::
+
+# yum install -y python
+# yum install -y python-pip
+
+Note as non root user::
+
+# sudo yum install -y python
+# sudo yum install -y python-pip
+
+It is recommended that you use python 2.7.10. Sometimes the yum repositories are not updated with the latest.
+Hence if you see a lower version as above, run the following steps preferrably inside your home directory (/home/<user>)
+to install 2.7.10::
+
+# yum install -y gcc
+# wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+# tar xzf Python-2.7.10.tgz
+# cd Python-2.7.10
+# ./configure
+# make altinstall
+
+
+If non-root user, prefix 'sudo' for every command
+
+Update the PATH environment variable with the following command:-
+
+Assuming that you have executed the above installation commands in home::
+
+# export PATH=/home/<user>/Python-2.7.10:$PATH
+
+Append the above line to ~/.bashrc::
+
+#emacs ~/.bashrc
+
+Next, Install python virtual environment on your machine:-
+
+Inside your terminal run::
+
+# yum install -y virtualenv
+
+Note:- If non root user is used, please use::
+
+# sudo yum install -y virtualenv
+
+You should typically find 'ENV' directory created in the user home. (~/ENV)
+
+To activate virtualenv, execute the following steps:-
+
+Get the location of the current python command::
+
+# which python
+~/Python-2.7.10/python
+
+Note:- This location may vary on your machine.
+::
+
+# virtualenv -p ~/Python-2.7.10 ~/ENV
+# source ~/ENV/bin/activate
+
+This should add a '(ENV)' to your prompt in the terminal like following::
+(ENV)[user@hostname ~]$
+
+On more permanent basis, if you want to avoid activating virtualenv every time you log in, add the above command line to ~/.bashrc of the user.
+::
+
+# emacs ~/.bashrc
+
+In the emacs editor, add 'source ~/ENV/bin/activate' to the file and save the file.
+
+You may test if this works, by launching a duplicate terminal session and checking if (ENV) is seen added to the prompt.
+
+
 
 Ubuntu
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

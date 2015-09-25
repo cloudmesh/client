@@ -569,17 +569,17 @@ quota
 Command - quota::
 
     Usage:
-        quota CLOUD [--format=FORMAT]
+        quota list [--cloud=CLOUD] [--format=FORMAT]
 
-    print quota limit on a current project/tenant
-
-    Arguments:
-
-      CLOUD          Cloud name
+        Prints quota limit on a current project/tenant
 
     Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
 
-       -v       verbose mode
+    Examples:
+        cm quota list
+        cm quota list --cloud=india --format=csv
 
 
 
