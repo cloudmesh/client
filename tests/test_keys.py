@@ -141,7 +141,7 @@ class Test_keys:
         key add --ssh --name=testkey
         """
         HEADING()
-        result = run("key add --ssh --name=testkey")
+        result = run("cm key add --ssh --name=testkey")
         print result
         assert "OK." in result
 
