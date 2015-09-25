@@ -67,3 +67,13 @@ class Test_list:
         assert "Deleted key name"
 
         return
+
+    def test_003(self):
+        """testing cm list --cloud trial --user fake default"""
+        HEADING()
+        banner("cm list --cloud trial --user fake default")
+
+        result = run("cm list --cloud trial --user fake default")
+        assert "List empty for [DEFAULT] in the database!" in result
+
+        return

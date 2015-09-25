@@ -20,26 +20,28 @@ class ListCommand(object):
         ::
 
             Usage:
-                list [--cloud=CLOUD] [--format=FORMAT] default
-                list [--cloud=CLOUD] [--format=FORMAT] vm
-                list [--cloud=CLOUD] [--format=FORMAT] flavor
-                list [--cloud=CLOUD] [--format=FORMAT] image
+                list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] default
+                list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] vm
+                list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] flavor
+                list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] image
 
             List the items stored in the database
 
             Options:
                 --cloud=CLOUD    the name of the cloud
                 --format=FORMAT  the output format
+                --tenant=TENANT     Name of the tenant, e.g. fg82.
 
             Description:
                 List command prints the values stored in the database
                 for [default/vm/flavor/image].
-                Result can be filtered based on the cloud argument.
-                If cloud argument is not specified, it reads the default
+                Result can be filtered based on the cloud, user & tenant arguments.
+                If these arguments are not specified, it reads the default
 
             Examples:
                 $ list --cloud india default
                 $ list --cloud india --format table flavor
+                $ list --cloud india --user goshenoy --tenant fg82 flavor
         """
         #pprint(arguments)
 
@@ -54,6 +56,8 @@ class ListCommand(object):
         # Read commandline arguments
         output_format = arguments['--format']
         cloud = arguments['--cloud']
+        user = arguments['--user']
+        tenant = arguments['--tenant']
 
         # If format is not specified, read default
         if output_format is None:
@@ -62,6 +66,14 @@ class ListCommand(object):
         # If cloud is not specified, get default
         if cloud is None:
             cloud = Default.get("cloud") or "india"
+
+        # If user is not specified, get default
+        if user is None:
+            user = Default.get("user")
+
+        # If tenant is not specified, get default
+        if tenant is None:
+            tenant = Default.get("tenant")
 
         # Get the kind
         kind = get_kind()
@@ -127,8 +139,8 @@ class ListCommand(object):
             ]
 
         # Get the result & print it
-        result = List.get_list(kind, cloud, order,
-                               header, output_format)
+        result = List.get_list(kind, cloud, user,
+                               tenant, order, header, output_format)
         if result:
             print(result)
         else:
