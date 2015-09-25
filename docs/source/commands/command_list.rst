@@ -18,10 +18,10 @@ List the default values set in a particular cloud::
     +-----------+---------+--------+----------+----------------------------+----------------------------+
     | user      | cloud   | name   | value    | created_at                 | updated_at                 |
     +-----------+---------+--------+----------+----------------------------+----------------------------+
-    | goshenoy  | general | tenant | fg478    | 2015-09-21 02:24:31.978000 | 2015-09-21 02:24:31.978000 |
-    | goshenoy  | general | cloud  | india    | 2015-09-21 02:25:00.781000 | 2015-09-21 02:25:00.781000 |
-    | goshenoy  | general | group  | group001 | 2015-09-23 21:53:04        | 2015-09-23 21:53:04        |
-    | goshenoy  | general | format | table    | 2015-09-23 21:53:16        | 2015-09-23 21:53:16        |
+    | albert    | general | tenant | fg478    | 2015-09-21 02:24:31.978000 | 2015-09-21 02:24:31.978000 |
+    | albert    | general | cloud  | india    | 2015-09-21 02:25:00.781000 | 2015-09-21 02:25:00.781000 |
+    | albert    | general | group  | group001 | 2015-09-23 21:53:04        | 2015-09-23 21:53:04        |
+    | albert    | general | format | table    | 2015-09-23 21:53:16        | 2015-09-23 21:53:16        |
     +-----------+---------+--------+----------+----------------------------+----------------------------+
 
 List Default (JSON Format)
@@ -41,7 +41,7 @@ List the default values in (JSON format) set in a particular cloud::
             "project": "undefined",
             "type": "string",
             "updated_at": "2015-09-21 02:24:31.978000",
-            "user": "goshenoy",
+            "user": "albert",
             "value": "fg478"
         },
         "2": {
@@ -54,7 +54,7 @@ List the default values in (JSON format) set in a particular cloud::
             "project": "undefined",
             "type": "string",
             "updated_at": "2015-09-21 02:25:00.781000",
-            "user": "goshenoy",
+            "user": "albert",
             "value": "india"
         },
         "3": {
@@ -67,7 +67,7 @@ List the default values in (JSON format) set in a particular cloud::
             "project": "undefined",
             "type": "string",
             "updated_at": "2015-09-23 21:53:04",
-            "user": "goshenoy",
+            "user": "albert",
             "value": "group001"
         },
         "4": {
@@ -80,7 +80,7 @@ List the default values in (JSON format) set in a particular cloud::
             "project": "undefined",
             "type": "string",
             "updated_at": "2015-09-23 21:53:16",
-            "user": "goshenoy",
+            "user": "albert",
             "value": "table"
         }
   }

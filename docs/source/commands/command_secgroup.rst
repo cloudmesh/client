@@ -26,8 +26,8 @@ List Security Groups in cloudmesh for a cloud & tenant::
     +--------------------------------------+----------+-------+--------------+---------+
     | uuid                                 | user     | cloud | name         | project |
     +--------------------------------------+----------+-------+--------------+---------+
-    | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | goshenoy | india | test-group   | fg478   |
-    | bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464 | goshenoy | india | test-group02 | fg478   |
+    | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert   | india | test-group   | fg478   |
+    | bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464 | albert   | india | test-group02 | fg478   |
     +--------------------------------------+----------+-------+--------------+---------+
 
 Security Group Rule Add
@@ -50,8 +50,8 @@ Lists all the rules assigned to the security group::
     +----------+-------+------------+----------+--------+----------+-----------+
     | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
     +----------+-------+------------+----------+--------+----------+-----------+
-    | goshenoy | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
-    | goshenoy | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
+    | albert   | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
+    | albert   | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
     +----------+-------+------------+----------+--------+----------+-----------+
 
 Security Group Rule Delete
@@ -66,7 +66,7 @@ Delete a specific rule within a security group::
     +----------+-------+--------------+----------+--------+----------+-----------+
     | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
     +----------+-------+--------------+----------+--------+----------+-----------+
-    | goshenoy | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
+    | albert   | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
     +----------+-------+--------------+----------+--------+----------+-----------+
 
 Security Group Delete

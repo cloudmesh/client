@@ -229,7 +229,7 @@ Command - group::
     Example:
         default group mygroup
 
-        group add --type=vm --id=gregor-[001-003]
+        group add --type=vm --id=albert-[001-003]
             adds the vms with teh given name using the Parameter
             see base
 
@@ -477,7 +477,7 @@ Command - list::
     Examples:
         $ list --cloud india default
         $ list --cloud india --format table flavor
-        $ list --cloud india --user goshenoy --tenant fg82 flavor
+        $ list --cloud india --user albert --tenant fg82 flavor
 
 
 man

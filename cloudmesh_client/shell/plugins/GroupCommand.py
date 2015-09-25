@@ -74,7 +74,7 @@ class GroupCommand(object):
             Example:
                 default group mygroup
 
-                group add --type=vm --id=gregor-[001-003]
+                group add --type=vm --id=albert-[001-003]
                     adds the vms with teh given name using the Parameter
                     see base
 

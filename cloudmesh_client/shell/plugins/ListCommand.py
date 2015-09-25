@@ -41,7 +41,7 @@ class ListCommand(object):
             Examples:
                 $ list --cloud india default
                 $ list --cloud india --format table flavor
-                $ list --cloud india --user goshenoy --tenant fg82 flavor
+                $ list --cloud india --user albert --tenant fg82 flavor
         """
         #pprint(arguments)
 

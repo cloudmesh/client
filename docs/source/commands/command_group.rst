@@ -18,10 +18,10 @@ List the groups created in cloudmesh for a particular cloud::
     +-----------+---------+---------+---------------------------------------------+------+
     | user      | cloud   | name    | value                                       | type |
     +-----------+---------+---------+---------------------------------------------+------+
-    | goshenoy  | general | group01 | gourav-001,gourav-002                       | vm   |
-    | goshenoy  | general | group03 | gourav-004,gourav-001,gourav-002,gourav-003 | vm   |
-    | goshenoy  | general | group04 | gourav-001,gourav-002,gourav-003,gourav-004 | vm   |
-    | goshenoy  | general | group05 | gourav-005                                  | vm   |
+    | albert    | general | group01 | albert-001,albert-002                       | vm   |
+    | albert    | general | group03 | albert-004,albert-001,albert-002,albert-003 | vm   |
+    | albert    | general | group04 | albert-001,albert-002,albert-003,albert-004 | vm   |
+    | albert    | general | group05 | albert-005                                  | vm   |
     +-----------+---------+---------+---------------------------------------------+------+
 
 Group Info
@@ -33,7 +33,7 @@ Get details about a particular group with specific name::
     +-----------+---------+---------+-----------------------+------+
     | user      | cloud   | name    | value                 | type |
     +-----------+---------+---------+-----------------------+------+
-    | goshenoy  | general | group01 | gourav-001,gourav-002 | vm   |
+    | albert    | general | group01 | albert-001,albert-002 | vm   |
     +-----------+---------+---------+-----------------------+------+
 
 Group Add
@@ -48,7 +48,7 @@ Add a resource (VM) with specified id to a group with given name::
     +-----------+---------+--------+----------+------+
     | user      | cloud   | name   | value    | type |
     +-----------+---------+--------+----------+------+
-    | goshenoy  | general | groupA | test-001 | vm   |
+    | albert    | general | groupA | test-001 | vm   |
     +-----------+---------+--------+----------+------+
 
 Group Copy
@@ -63,7 +63,7 @@ Copy the VM(s) from one group to another::
     +-----------+---------+--------+----------+------+
     | user      | cloud   | name   | value    | type |
     +-----------+---------+--------+----------+------+
-    | goshenoy  | general | groupB | test-001 | vm   |
+    | albert    | general | groupB | test-001 | vm   |
     +-----------+---------+--------+----------+------+
 
 Group Merge
@@ -78,7 +78,7 @@ Merge two groups to form a third group::
     +-----------+---------+--------+--------------------------------+------+
     | user      | cloud   | name   | value                          | type |
     +-----------+---------+--------+--------------------------------+------+
-    | goshenoy  | general | groupC | gourav-001,gourav-002,test-001 | vm   |
+    | albert    | general | groupC | albert-001,albert-002,test-001 | vm   |
     +-----------+---------+--------+--------------------------------+------+
 
 Group Delete
