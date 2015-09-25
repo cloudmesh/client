@@ -28,7 +28,7 @@ class LimitsCommand(object):
             Options:
                --format=FORMAT  the output format [default: table]
                --cloud=CLOUD    the cloud name
-               --tenant=TENANT  the tenant name [default: ]
+               --tenant=TENANT  the tenant name
 
             Examples:
                 cm limits list
@@ -45,10 +45,7 @@ class LimitsCommand(object):
             output_format = arguments["--format"]
             tenant = arguments["--tenant"]
             result = Limits.list_limits(cloud, format=output_format, tenant=tenant)
-            if "ERROR" in result:
-                Console.error(result)
-            else:
-                Console.msg(result)
+            Console.msg(result)
             return
 
 

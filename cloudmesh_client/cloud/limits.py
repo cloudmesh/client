@@ -1,42 +1,46 @@
-from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common import tables
-from cloudmesh_client.cloud.quota import Quota
+from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from novaclient import client
+import requests
+requests.packages.urllib3.disable_warnings()
 
 
 class Limits(object):
     @classmethod
     def convert_to_dict(cls, openstack_result):
-        filtered_lines = filter(lambda x:
-                                x.startswith("|") and ("URI" not in x) and ("Name" not in x),
-                                openstack_result.splitlines())
         d = {}
-        for i, line in enumerate(filtered_lines):
+        for i, obj in enumerate(openstack_result.absolute):
             d[i] = {}
-            value_name = line.split("|")[1]  # for key Name
-            d[i]["Name"] = value_name.strip()
-
-            value_used = line.split("|")[2]  # for key Used
-            d[i]["Used"] = value_used.strip()
-
-            value_max = line.split("|")[3]  # for key Max
-            d[i]["Max"] = value_max.strip()
+            d[i]["Name"], d[i]["Value"] = obj.name, obj.value
         return d
 
     @classmethod
-    def list_limits(cls, cloud, format, tenant=" "):
+    def set_os_environment(cls, cloudname):
+        try:
+            d = ConfigDict("cloudmesh.yaml")
+            credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+            nova = client.Client("2", credentials["OS_USERNAME"],
+                                 credentials["OS_PASSWORD"],
+                                 credentials["OS_TENANT_NAME"],
+                                 credentials["OS_AUTH_URL"],
+                                 Config.path_expand(credentials["OS_CACERT"]))
+            return nova
+        except Exception, e:
+            print(e)
+
+    @classmethod
+    def list_limits(cls, cloud, format, tenant):
         # set the environment variables
-        Quota.set_os_environment(cloud)
+        nova = Limits.set_os_environment(cloud)
+        try:
+            # execute the command
+            result = nova.limits.get(tenant_id=tenant)
 
-        # execute the command
-        args = ["limits","--tenant","{}".format(tenant)]
-        result = Shell.execute("nova",args)
-
-        # print results in a format
-        if "ERROR" in result:
-            return result
-        else:
+            # print results in a format
             d = Limits.convert_to_dict(result)
             return tables.dict_printer(d, order=['Name',
-                                                 'Used',
-                                                 'Max'],
+                                                 'Value'],
                                        output=format)
+        except Exception, e:
+            return e
