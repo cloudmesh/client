@@ -14,7 +14,7 @@ Adding a key to the database
 
 Add a key to the key database from a file::
 
-    PS> cm key add --name=demokey /home/mangirish/key_expt/id_rsa.pub
+    PS> cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
         {'--all': False,
          '--dir': '~/.ssh',
          '--format': 'table',
@@ -36,17 +36,17 @@ Add a key to the key database from a file::
          'get': False,
          'list': False}
         ssh dd
-        {'comment': 'mangirish@MangoLap',
+        {'comment': 'albert@Zweistein',
          'fingerprint': '4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39',
          'key': 'AAAAB3NzaC1yc2EAAAADAQABAAABAQCzWWw1hY3u2PIQVjE8VvmpN68FFdFZZhkp0VDZyc4a9Ujby73FA5PTE6dZwdGvknjiVX3xBwGhlBzIzvXkHiD2I2EGkR99Y4xOcEZGvZZyA+ktPPiKlfsC9cPH9PBCf6rD84vLeUb57t1Y7dPuH18gRy/ZqzOZPkgk28ZKT0YX2+b8BRjg9lK88ciL4qIoaoOeDjGaXDAa2Y8JAc1AMU4hL/ZXGb3EsiIIsUf9mjjGwnTk44OZghJvmo6e9teBKoZFQdi7WfzPFMUaMui6+KROBrJmep+E2FEBf7UMu4gl5Ib4GNkk+NN5wKS2QYlEvradkwgclzeK5EUsPtnr1wAx',
          'name': 'rsa',
          'source': 'ssh',
-         'string': 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzWWw1hY3u2PIQVjE8VvmpN68FFdFZZhkp0VDZyc4a9Ujby73FA5PTE6dZwdGvknjiVX3xBwGhlBzIzvXkHiD2I2EGkR99Y4xOcEZGvZZyA+ktPPiKlfsC9cPH9PBCf6rD84vLeUb57t1Y7dPuH18gRy/ZqzOZPkgk28ZKT0YX2+b8BRjg9lK88ciL4qIoaoOeDjGaXDAa2Y8JAc1AMU4hL/ZXGb3EsiIIsUf9mjjGwnTk44OZghJvmo6e9teBKoZFQdi7WfzPFMUaMui6+KROBrJmep+E2FEBf7UMu4gl5Ib4GNkk+NN5wKS2QYlEvradkwgclzeK5EUsPtnr1wAx mangirish@MangoLap',
+         'string': 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzWWw1hY3u2PIQVjE8VvmpN68FFdFZZhkp0VDZyc4a9Ujby73FA5PTE6dZwdGvknjiVX3xBwGhlBzIzvXkHiD2I2EGkR99Y4xOcEZGvZZyA+ktPPiKlfsC9cPH9PBCf6rD84vLeUb57t1Y7dPuH18gRy/ZqzOZPkgk28ZKT0YX2+b8BRjg9lK88ciL4qIoaoOeDjGaXDAa2Y8JAc1AMU4hL/ZXGb3EsiIIsUf9mjjGwnTk44OZghJvmo6e9teBKoZFQdi7WfzPFMUaMui6+KROBrJmep+E2FEBf7UMu4gl5Ib4GNkk+NN5wKS2QYlEvradkwgclzeK5EUsPtnr1wAx albert@Zweistein',
          'type': 'ssh-rsa',
-         'uri': 'file:///home/mangirish/key_expt/id_rsa.pub'}
+         'uri': 'file:///home/albert/key_expt/id_rsa.pub'}
         {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x3766dd0>,
          'cloud': 'general',
-         'comment': 'mangirish@MangoLap',
+         'comment': 'albert@Zweistein',
          'fingerprint': '4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39',
          'is_default': 'False',
          'kind': 'key',
@@ -88,7 +88,7 @@ List keys from the database::
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
         | name    | comment            | uri                                        | fingerprint                                     | source |
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-        | demokey | mangirish@MangoLap | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
+        | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
         info. OK.
 
@@ -118,7 +118,7 @@ List keys from the database::
     +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
     | name    | comment            | uri                                        | fingerprint                                     | source |
     +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-    | demokey | mangirish@MangoLap | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
+    | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
     +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
     info. OK.
 
@@ -149,7 +149,7 @@ List keys from git::
     +------+----------+----------------------------------------+-------------------------------------------------+--------+
     | name | comment  | uri                                    | fingerprint                                     | source |
     +------+----------+----------------------------------------+-------------------------------------------------+--------+
-    |      | github-0 | https://github.com/vaglomangirish.keys | 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01 |        |
+    |      | github-0 | https://github.com/vagloalbert.keys | 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01 |        |
     +------+----------+----------------------------------------+-------------------------------------------------+--------+
     info. OK.
 List keys in different format like json::
@@ -180,7 +180,7 @@ List keys in different format like json::
         "github-0": {
             "comment": "github-0",
             "string": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkVjT+1eWJjiL2gHKXKzlxakD+HP25y+nqTuUKOoIJteYisERJrrJS+LRTUElYpxG7oULajHOTPcQN5UaBfKtCVINLc6WYDultovXvP0gH/W3HljppNGjzxK+T2tC8ZpFr3K0hu4TBKrTQYztA2wi0sytOI2b1NiBz5GogwOEb9LAmESpz1PAhvXpEks7W7EMT9CZ9wC5WIDvfI91Bosgon7JWFECK/VMHI3CUfR0AnOt9Mqcxa0ySubI6ZPsTt72ESMTlrEJuzih7GBe5YG2tSimVpwhjGF1+Dt2Zlgf4P+WVxZm1WrDpXapynOCyr+FScLi8KK2RPzpsmcEwZTFV",
-            "uri": "https://github.com/vaglomangirish.keys",
+            "uri": "https://github.com/vagloalbert.keys",
             "key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCkVjT+1eWJjiL2gHKXKzlxakD+HP25y+nqTuUKOoIJteYisERJrrJS+LRTUElYpxG7oULajHOTPcQN5UaBfKtCVINLc6WYDultovXvP0gH/W3HljppNGjzxK+T2tC8ZpFr3K0hu4TBKrTQYztA2wi0sytOI2b1NiBz5GogwOEb9LAmESpz1PAhvXpEks7W7EMT9CZ9wC5WIDvfI91Bosgon7JWFECK/VMHI3CUfR0AnOt9Mqcxa0ySubI6ZPsTt72ESMTlrEJuzih7GBe5YG2tSimVpwhjGF1+Dt2Zlgf4P+WVxZm1WrDpXapynOCyr+FScLi8KK2RPzpsmcEwZTFV",
             "fingerprint": "2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01",
             "type": "ssh-rsa",
@@ -272,7 +272,7 @@ You can verify by::
      'list': True}
     {
         "1": {
-            "comment": "mangirish@MangoLap",
+            "comment": "albert@Zweistein",
             "is_default": "True",  <<--Set to True
             "kind": "key",
             "name": "demokey",
@@ -293,7 +293,7 @@ You can verify by::
 
 Select key to be marked as default::
 
- PS> (ENV)[mangirish@MangoLap client]$ cm key default --select
+ PS> (ENV)[albert@Zweistein client]$ cm key default --select
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',

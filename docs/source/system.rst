@@ -312,7 +312,7 @@ Firstly we have to check if the python and pip is installed. Run the following c
 # [user@hostname ~]$ python --version
 # Python 2.7.5
 # [user@hostname ~]$ pip --version
-# pip 7.1.2 from /home/mangirish/ENV/lib/python2.7/site-packages (python 2.7)
+# pip 7.1.2 from /home/albert/ENV/lib/python2.7/site-packages (python 2.7)
 
 If you don't find these installed, then install the same with the following commands::
 
