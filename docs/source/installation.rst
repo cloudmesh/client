@@ -1,16 +1,40 @@
 Installation
 ============
 
+We assume that you have prepared your system on which yo like to
+install the cloudmesh client. We recommend that you use python 2.7.10,
+pip 7.1.2 adnd have virtualenv installed. Vurthermore we recommend
+that on LInux systems you have readline installed as it is a
+convenient tool for command line manipulation.
+
+IN the next sections we will walk you through a setup that has been
+proven to work for developers and users and is very easy to replicate.
 
 Cloudmesh Instalation from Source
 ----------------------------------
 
-In the following we assume that we will install the source code in::
+We assume that we conduct a source code install into the directory::
   
   ~/github/cloudmesh
 
+If you like to use a different directory, that is also possible, but
+the instructions we provide here assumes are targeted towards this
+base directory.
+
+In future versions of cloudmesh client, we will have a convenienet pip
+install via::
+
+  pip install cloudmesh-client
+
+.. warning:: The pip install is not yet working, so please do not use it.
+
+
+
 Preparing the Virtualenv
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Firts we set up a virtual environment based on the environment we are
+on:
 
 Linux::
 
@@ -24,11 +48,12 @@ OSX::
    
 Windows::
 
-  virtualenv ~/ENV
-  source /cygdrive/c/home/$USER/ENV/Scripts/activate
-   
-.. note:: in case you have multiple users on the machine you need to
-	  replace the * with your username
+  virtualenv $HOME/ENV
+  source $HOME/bin/activate
+  
+.. todo:: Gurav. there was an error here as it talked about cygwin,
+	  but we use here powershell, can you verify if this works. I
+	  think i myself are using this without virttualenv
    
 
 User and Contributor
@@ -58,7 +83,6 @@ based git clone as described in the previous section.
    mkdir -p github/cloudmesh
    cd github/cloudmesh
    git clone git@github.com:cloudmesh/base.git   
-   git clone git@github.com:cloudmesh/cmd3.git
    git clone git@github.com:cloudmesh/client.git
    cd base
    python setup.py install
@@ -73,7 +97,7 @@ During the development phase of cloudmesh you may need to update the
 code from source, as cloudmesh client uses three different
 repositories please do not forget to update them accordingly::
 
-   cd github/cloudmesh
+   cd $HOME/github/cloudmesh
    cd base
    git pull
    python setup.py install
@@ -82,8 +106,26 @@ repositories please do not forget to update them accordingly::
 
 
 
+.. todo:: It may be advantageous to create a CLOUDMESH_HOME variable
+	  and install the source into it. THis way we can use
+	  CLOUDMESH_HOME instead of HOME and are independent from the
+	  directory. HOwever at this time this is not needed as it
+	  complicates the setup. As we all develop in the same tree
+	  its easier for now to go without the CLOUDMESH_HOME. Also
+	  setting this up on windows is yet another complication we do
+	  not need.
+	  
+
 Testing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. todo:: This section is incomplete and we need to make sure that tox
+	  works. We also need to explain how travis works and how we
+	  can run nosetests locally
+
+
+For now we do not assume that you need to run any tests after you
+install the source. We will address deployment tests later.
 
 ::
 
