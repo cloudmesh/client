@@ -9,7 +9,7 @@ Adding a key to the database
 
 Add a key to the key database from a file::
 
-    PS> cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
+    $ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
         {'--all': False,
          '--dir': '~/.ssh',
          '--format': 'table',
@@ -59,7 +59,7 @@ List Keys
 
 List keys from the database::
 
-      PS> cm key list
+      $ cm key list
         {'--all': False,
          '--dir': '~/.ssh',
          '--format': 'table',
@@ -89,7 +89,7 @@ List keys from the database::
 
  OR::
 
-  PS> cm key list --source=db
+  $ cm key list --source=db
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -119,7 +119,7 @@ List keys from the database::
 
 List keys from git::
 
- PS> cm key list --source=git
+ $ cm key list --source=git
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -149,7 +149,7 @@ List keys from git::
     info. OK.
 List keys in different format like json::
 
- PS> cm key list --source=git --format=json
+ $ cm key list --source=git --format=json
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'json',
@@ -189,7 +189,7 @@ Get Keys
 
 Get a key by name::
 
- PS> cm key get demokey
+ $ cm key get demokey
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -218,7 +218,7 @@ Default Keys
 
 Mark key as default by name::
 
- PS> cm key default demokey
+ $ cm key default demokey
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -244,7 +244,7 @@ Mark key as default by name::
 
 You can verify by::
 
- PS> cm key list --format=json
+ $ cm key list --format=json
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'json',
@@ -288,7 +288,7 @@ You can verify by::
 
 Select key to be marked as default::
 
- PS> (ENV)[albert@Zweistein client]$ cm key default --select
+ $ (ENV)[albert@Zweistein client]$ cm key default --select
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -331,7 +331,7 @@ Delete Keys
 
 Delete key by name::
 
- PS> cm key delete demokey
+ $ cm key delete demokey
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -357,7 +357,7 @@ Delete key by name::
 
 Select key to be deleted::
 
- PS> cm key delete --select
+ $ cm key delete --select
     {'--all': False,
      '--dir': '~/.ssh',
      '--format': 'table',
@@ -397,7 +397,7 @@ Select key to be deleted::
 
 Delete all keys from database::
 
- PS> cm key delete --all
+ $ cm key delete --all
     {'--all': True,
      '--dir': '~/.ssh',
      '--format': 'table',

@@ -3,13 +3,12 @@ Quota Command
 
 The manual page of the quota command can be found at: `Quota <../man/man.html#quota>`_
 
-
 quota list
 ^^^^^^^^^^^^^
 
 Prints quota limit on a current project/tenant::
 
-  PS> cm quota list
+  $ cm quota list
     +-----------------------------+-------+
     | Quota                       | Limit |
     +-----------------------------+-------+
@@ -31,7 +30,7 @@ Prints quota limit on a current project/tenant::
 
 Another example with csv output::
 
-    PS> cm quota list --cloud=india --format=csv
+    $ cm quota list --cloud=india --format=csv
     Quota,Limit
     instances,10
     cores,20

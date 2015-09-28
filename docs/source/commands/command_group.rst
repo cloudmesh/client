@@ -10,7 +10,7 @@ Group List
 
 List the groups created in cloudmesh for a particular cloud::
 
-  PS> cm group list --cloud general --format table
+  $ cm group list --cloud general --format table
     +-----------+---------+---------+---------------------------------------------+------+
     | user      | cloud   | name    | value                                       | type |
     +-----------+---------+---------+---------------------------------------------+------+
@@ -25,7 +25,7 @@ Group Info
 
 Get details about a particular group with specific name::
 
-  PS> cm group info group01
+  $ cm group info group01
     +-----------+---------+---------+-----------------------+------+
     | user      | cloud   | name    | value                 | type |
     +-----------+---------+---------+-----------------------+------+
@@ -37,10 +37,10 @@ Group Add
 
 Add a resource (VM) with specified id to a group with given name::
 
-  PS> cm group add --id test-001 --type vm --name groupA
+  $ cm group add --id test-001 --type vm --name groupA
   Created a new group [groupA] and added ID [test-001] to it
 
-  PS> cm group info groupA
+  $ cm group info groupA
     +-----------+---------+--------+----------+------+
     | user      | cloud   | name   | value    | type |
     +-----------+---------+--------+----------+------+
@@ -52,10 +52,10 @@ Group Copy
 
 Copy the VM(s) from one group to another::
 
-  PS> cm group copy groupA groupB
+  $ cm group copy groupA groupB
   Created a new group [groupB] and added ID [test-001] to it
 
-  PS> cm group info groupB
+  $ cm group info groupB
     +-----------+---------+--------+----------+------+
     | user      | cloud   | name   | value    | type |
     +-----------+---------+--------+----------+------+
@@ -67,10 +67,10 @@ Group Merge
 
 Merge two groups to form a third group::
 
-  PS> cm group merge group01 groupB groupC
+  $ cm group merge group01 groupB groupC
   Merge of group [group01] & [groupB] to group [groupC] successful!
 
-  PS> cm group info groupC
+  $ cm group info groupC
     +-----------+---------+--------+--------------------------------+------+
     | user      | cloud   | name   | value                          | type |
     +-----------+---------+--------+--------------------------------+------+
@@ -82,8 +82,8 @@ Group Delete
 
 Delete a group with a given name::
 
-  PS> cm group delete --name groupC
+  $ cm group delete --name groupC
   Deletion Successful!
 
-  PS> cm group info groupC
+  $ cm group info groupC
   ERROR: No group with name groupC found in the cloudmesh database!

@@ -9,7 +9,7 @@ List Default
 
 List the default values set in a particular cloud::
 
-  PS> cm list --cloud general default
+  $ cm list --cloud general default
     +-----------+---------+--------+----------+----------------------------+----------------------------+
     | user      | cloud   | name   | value    | created_at                 | updated_at                 |
     +-----------+---------+--------+----------+----------------------------+----------------------------+
@@ -24,7 +24,7 @@ List Default (JSON Format)
 
 List the default values in (JSON format) set in a particular cloud::
 
-  PS> cm list --cloud general --format json default
+  $ cm list --cloud general --format json default
   {
         "1": {
             "cloud": "general",

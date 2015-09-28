@@ -10,7 +10,7 @@ register info
 
 It looks out for the cloudmesh.yaml file in the current directory, and then in ~/.cloudmesh::
 
-  PS> cm register info
+  $ cm register info
     File C:\Users\erika\.cloudmesh\cloudmesh.yaml exists
 
 
@@ -23,7 +23,7 @@ register list [--yaml=FILENAME]
 
 Lists the clouds specified in the cloudmesh.yaml file::
 
-    PS> cm register list
+    $ cm register list
     Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
 
       india
@@ -34,7 +34,7 @@ register list ssh
 ^^^^^^^^^^^^^
 Lists hosts from ~/.ssh/config::
 
-    PS> cm register list ssh
+    $ cm register list ssh
     The following hosts are defined in ~/.ssh/config
 
     india
@@ -46,7 +46,7 @@ register cat [--yaml=FILENAME]
 
 Outputs the cloudmesh.yaml file::
 
-    PS> cm register cat
+    $ cm register cat
 
 register edit
 ^^^^^^^^^^^^^
@@ -55,7 +55,7 @@ register edit [--yaml=FILENAME]
 
 Edits the cloudmesh.yaml file::
 
-    PS> cm register edit
+    $ cm register edit
     editing file C:\Users\erika\.cloudmesh\cloudmesh.yaml
 
 register rc HOST
@@ -86,7 +86,7 @@ information from india simply type in
 
 register rc india::
 
-    PS> cm register rc india
+    $ cm register rc india
     Reading rc file from india
     export OS_USERNAME=
     export OS_PASSWORD=
@@ -103,7 +103,7 @@ register merge
 
 Replaces the TBD in cloudmesh.yaml with the contents present in FILEPATH's FILE::
 
-    PS> cm register merge ~/.cloudmesh/cloudmesh1.yaml
+    $ cm register merge ~/.cloudmesh/cloudmesh1.yaml
     Overwritten the TBD of cloudmesh.yaml with ~/.cloudmesh/cloudmesh1.yaml contents
 
 
@@ -114,7 +114,7 @@ register form [--yaml=FILENAME]
 
 Interactively fills out the form wherever we find TBD::
 
-    PS> cm register form --yaml=cloudmesh1.yaml
+    $ cm register form --yaml=cloudmesh1.yaml
     Filling out form
     C:\Users\erika\.cloudmesh\cloudmesh1.yaml
     Please enter email[TBD]:
@@ -138,7 +138,7 @@ register check
 
 Checks the yaml file for completness::
 
-    PS> cm register check
+    $ cm register check
     Checking the yaml file
     ERROR: The file has 11 values to be fixed
 
@@ -161,7 +161,7 @@ register json
 
 Displays the host details in json format::
 
-    PS> cm register json azure
+    $ cm register json azure
     {
         "cm_heading": "Microsoft Azure Virtual Machines",
         "cm_label": "waz",
@@ -188,7 +188,7 @@ register india [--force]
 
 Copies the cloudmesh/clouds/india/juno directory from india to the ~/.cloudmesh/clouds/india/juno local directory::
 
-    PS> cm register india
+    $ cm register india
     register india
     Directory already exists. Would you like to overwrite the ~/.cloudmesh/clouds/india directory y/n?  (Y/n) y
     fetching information from india ...
@@ -207,7 +207,7 @@ register CLOUD CERT [--force]
 Copies the CERT to the ~/.cloudmesh/clouds/host directory and registers that cert in the coudmesh.yaml file.
 For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem and would be copied to ~/.cloudmesh/clouds/india/juno::
 
-    PS> cm register india ~/.cloudmesh/clouds/india/juno/cacert.pem
+    $ cm register india ~/.cloudmesh/clouds/india/juno/cacert.pem
     register
     Fetching certificate from india...
     Enter passphrase for key '/C/Users/erika/.ssh/id_rsa':
@@ -228,7 +228,7 @@ register CLOUD --dir
 Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
 For india, The directory would be copied to ~/.cloudmesh/clouds/india::
 
-    PS> cm register india --dir=~/.cloudmesh/clouds/india/juno
+    $ cm register india --dir=~/.cloudmesh/clouds/india/juno
     ~/.cloudmesh/clouds/india/juno
     register
     Fetching directory...
