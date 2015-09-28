@@ -113,7 +113,7 @@ class KeyCommand(object):
                 renames the key from NAME to NEW.
                 
         """
-        pprint(arguments)
+        # pprint(arguments)
 
         def _print_dict(d, header=None, format='table'):
             if format == "json":
