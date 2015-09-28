@@ -118,13 +118,47 @@ aptget upgrade
 Ubuntu 15.04
 ----------------------------------------------------------------------
 
+Please conduct the following steps first to update your system::
 
-Update the OS with ::
-  
   sudo apt-get update        
   sudo apt-get upgrade       
-  sudo apt-get dist-upgrade  
+  sudo apt-get dist-upgrade
 
+  sudo apt-get install python-setuptools
+  sudo apt-get install python-pip
+  sudo apt-get install python-dev
+  sudo apt-get install libncurses-dev
+  sudo easy_install readline
+  sudo pip install pycrypto
+
+Cloudmesh shoould work in python 2.7.9, but if you like to upgrade to
+a new version, you can install it alternatively in your system with::
+
+   sudo apt-get install build-essential checkinstall
+   sudo apt-get install libreadline-gplv2-dev
+   sudo apt-get install libncursesw5-dev
+   sudo apt-get install libssl-dev
+   sudo apt-get install libsqlite3-dev
+   sudo apt-get install tk-dev
+   sudo apt-get install libgdbm-dev
+   sudo apt-get install libc6-dev
+   sudo apt-get install libbz2-dev
+   cd $HOME
+   wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   tar xzf Python-2.7.10.tgz
+   cd Python-2.7.10
+   sudo ./configure
+   sudo make altinstall
+
+   python2.7 -V
+   which python2.7
+
+We recommend that you change your bashrc to include the python 2.7.10
+path and you can issue::
+
+   python --version
+
+to get the version 2.7.10
 
 
 CentOS
