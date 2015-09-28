@@ -10,26 +10,6 @@ Adding a key to the database
 Add a key to the key database from a file::
 
     $ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
-        {'--all': False,
-         '--dir': '~/.ssh',
-         '--format': 'table',
-         '--git': False,
-         '--help': False,
-         '--name': 'demokey',
-         '--select': False,
-         '--source': 'db',
-         '--ssh': False,
-         '--username': 'none',
-         '-f': False,
-         '-h': False,
-         'FILENAME': '/home/key_expt/id_rsa.pub',
-         'KEYNAME': None,
-         'NAME': None,
-         'add': True,
-         'default': False,
-         'delete': False,
-         'get': False,
-         'list': False}
         ssh dd
         {'comment': 'albert@Zweistein',
          'fingerprint': '4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39',
@@ -60,26 +40,6 @@ List Keys
 List keys from the database::
 
       $ cm key list
-        {'--all': False,
-         '--dir': '~/.ssh',
-         '--format': 'table',
-         '--git': False,
-         '--help': False,
-         '--name': None,
-         '--select': False,
-         '--source': 'db',
-         '--ssh': False,
-         '--username': 'none',
-         '-f': False,
-         '-h': False,
-         'FILENAME': None,
-         'KEYNAME': None,
-         'NAME': None,
-         'add': False,
-         'default': False,
-         'delete': False,
-         'get': False,
-         'list': True}
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
         | name    | comment            | uri                                        | fingerprint                                     | source |
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
@@ -90,26 +50,6 @@ List keys from the database::
  OR::
 
   $ cm key list --source=db
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': False,
-     'get': False,
-     'list': True}
     +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
     | name    | comment            | uri                                        | fingerprint                                     | source |
     +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
@@ -120,26 +60,6 @@ List keys from the database::
 List keys from git::
 
  $ cm key list --source=git
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'git',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': False,
-     'get': False,
-     'list': True}
     none
     +------+----------+----------------------------------------+-------------------------------------------------+--------+
     | name | comment  | uri                                    | fingerprint                                     | source |
@@ -150,26 +70,6 @@ List keys from git::
 List keys in different format like json::
 
  $ cm key list --source=git --format=json
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'json',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'git',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': False,
-     'get': False,
-     'list': True}
     none
     {
         "github-0": {
@@ -190,26 +90,6 @@ Get Keys
 Get a key by name::
 
  $ cm key get demokey
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': 'demokey',
-     'add': False,
-     'default': False,
-     'delete': False,
-     'get': True,
-     'list': False}
     demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
     info. OK.
 
@@ -219,52 +99,12 @@ Default Keys
 Mark key as default by name::
 
  $ cm key default demokey
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': 'demokey',
-     'NAME': None,
-     'add': False,
-     'default': True,
-     'delete': False,
-     'get': False,
-     'list': False}
     default
     info. OK.
 
 You can verify by::
 
  $ cm key list --format=json
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'json',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': False,
-     'get': False,
-     'list': True}
     {
         "1": {
             "comment": "albert@Zweistein",
@@ -289,26 +129,6 @@ You can verify by::
 Select key to be marked as default::
 
  $ (ENV)[albert@Zweistein client]$ cm key default --select
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': True,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': True,
-     'delete': False,
-     'get': False,
-     'list': False}
     default
     ('i:', 1)
     ('i:', 2)
@@ -332,52 +152,12 @@ Delete Keys
 Delete key by name::
 
  $ cm key delete demokey
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': 'demokey',
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': True,
-     'get': False,
-     'list': False}
     delete
     info. OK.
 
 Select key to be deleted::
 
  $ cm key delete --select
-    {'--all': False,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': True,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': True,
-     'get': False,
-     'list': False}
     delete
     ('i:', 3)
     ('i:', 4)
@@ -398,25 +178,5 @@ Select key to be deleted::
 Delete all keys from database::
 
  $ cm key delete --all
-    {'--all': True,
-     '--dir': '~/.ssh',
-     '--format': 'table',
-     '--git': False,
-     '--help': False,
-     '--name': None,
-     '--select': False,
-     '--source': 'db',
-     '--ssh': False,
-     '--username': 'none',
-     '-f': False,
-     '-h': False,
-     'FILENAME': None,
-     'KEYNAME': None,
-     'NAME': None,
-     'add': False,
-     'default': False,
-     'delete': True,
-     'get': False,
-     'list': False}
     delete
     info. OK.
