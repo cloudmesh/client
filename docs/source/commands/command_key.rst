@@ -1,13 +1,8 @@
 Key Command
 ======================================================================
 
-Manual
---------
 The manual page of the key command can be found at: `key <../man/man.html#key>`_
 
-
-Examples
---------
 
 Adding a key to the database
 ^^^^^^^^^^^^^

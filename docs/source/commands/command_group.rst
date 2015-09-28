@@ -1,13 +1,9 @@
 Group Command
 ======================================================================
 
-Manual
--------
+
 The manual page of the group command can be found at: `group <../man/man.html#group>`_
 
-
-Examples
----------
 
 Group List
 ^^^^^^^^^^^

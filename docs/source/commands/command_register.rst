@@ -2,13 +2,8 @@ Register Command
 ======================================================================
 
 
-Manual
---------
 The manual page of the register command can be found at: `register <../man/man.html#register>`_
 
-
-Examples
---------
 
 register info
 ^^^^^^^^^^^^^
@@ -20,8 +15,12 @@ It looks out for the cloudmesh.yaml file in the current directory, and then in ~
 
 
 
-register list [--yaml=FILENAME]
+register list
 ^^^^^^^^^^^^^
+
+
+register list [--yaml=FILENAME]
+
 Lists the clouds specified in the cloudmesh.yaml file::
 
     PS> cm register list
@@ -40,21 +39,30 @@ Lists hosts from ~/.ssh/config::
 
     india
 
-register cat [--yaml=FILENAME]
+register cat
 ^^^^^^^^^^^^^
+
+register cat [--yaml=FILENAME]
+
 Outputs the cloudmesh.yaml file::
 
     PS> cm register cat
 
-register edit [--yaml=FILENAME]
+register edit
 ^^^^^^^^^^^^^
+
+register edit [--yaml=FILENAME]
+
 Edits the cloudmesh.yaml file::
 
     PS> cm register edit
     editing file C:\Users\erika\.cloudmesh\cloudmesh.yaml
 
-register rc HOST [OPENRC]
+register rc HOST
 ^^^^^^^^^^^^^
+
+register rc HOST
+
 Reads the Openstack OPENRC file from a host that
 is described in ./ssh/config and adds it to the
 configuration cloudmesh.yaml file. We assume that
@@ -90,14 +98,20 @@ register rc india::
 
 register merge FILEPATH
 ^^^^^^^^^^^^^
+
+register merge
+
 Replaces the TBD in cloudmesh.yaml with the contents present in FILEPATH's FILE::
 
     PS> cm register merge ~/.cloudmesh/cloudmesh1.yaml
     Overwritten the TBD of cloudmesh.yaml with ~/.cloudmesh/cloudmesh1.yaml contents
 
 
-register form [--yaml=FILENAME]
+register form
 ^^^^^^^^^^^^^
+
+register form [--yaml=FILENAME]
+
 Interactively fills out the form wherever we find TBD::
 
     PS> cm register form --yaml=cloudmesh1.yaml
@@ -119,6 +133,9 @@ Interactively fills out the form wherever we find TBD::
 
 register check [--yaml=FILENAME]
 ^^^^^^^^^^^^^
+
+register check
+
 Checks the yaml file for completness::
 
     PS> cm register check
@@ -139,6 +156,9 @@ Checks the yaml file for completness::
 
 register json HOST
 ^^^^^^^^^^^^^
+
+register json
+
 Displays the host details in json format::
 
     PS> cm register json azure
@@ -161,8 +181,11 @@ Displays the host details in json format::
         "cm_type_version": null
     }
 
-register india [--force]
+register india
 ^^^^^^^^^^^^^
+
+register india [--force]
+
 Copies the cloudmesh/clouds/india/juno directory from india to the ~/.cloudmesh/clouds/india/juno local directory::
 
     PS> cm register india
@@ -172,8 +195,15 @@ Copies the cloudmesh/clouds/india/juno directory from india to the ~/.cloudmesh/
     Enter passphrase for key '/C/Users/erika/.ssh/id_rsa':
     registration complete. ok.
 
-register CLOUD CERT [--force]
+register CLOUD
 ^^^^^^^^^^^^^
+
+from cert
+~~~~~~~~~~~
+
+register CLOUD CERT [--force]
+
+
 Copies the CERT to the ~/.cloudmesh/clouds/host directory and registers that cert in the coudmesh.yaml file.
 For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem and would be copied to ~/.cloudmesh/clouds/india/juno::
 
@@ -190,8 +220,11 @@ For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem and wou
       aws
       azure
 
+from dir
+~~~~~~~~~~~
+
 register CLOUD --dir
-^^^^^^^^^^^^^
+
 Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
 For india, The directory would be copied to ~/.cloudmesh/clouds/india::
 

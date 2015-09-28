@@ -1,13 +1,8 @@
 Reservation Command
 ======================================================================
 
-Manual
---------
 The manual page of the key command can be found at: `reservation <../man/man.html#reservation>`_
 
-
-Examples
---------
 
 Adding a reservation
 ^^^^^^^^^^^^^

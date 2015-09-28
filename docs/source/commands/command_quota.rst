@@ -1,13 +1,8 @@
 Quota Command
 ======================================================================
 
-Manual
---------
 The manual page of the quota command can be found at: `Quota <../man/man.html#quota>`_
 
-
-Examples
---------
 
 quota list
 ^^^^^^^^^^^^^

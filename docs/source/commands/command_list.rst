@@ -1,13 +1,8 @@
 List Command
 ======================================================================
 
-Manual
--------
 The manual page of the list command can be found at: `list <../man/man.html#list>`_
 
-
-Examples
----------
 
 List Default
 ^^^^^^^^^^^^^

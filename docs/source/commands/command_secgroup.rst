@@ -1,13 +1,8 @@
 SecGroup Command
 ======================================================================
 
-Manual
---------
 The manual page of the secgroup command can be found at: `secgroup <../man/man.html#secgroup>`_
 
-
-Examples
----------
 
 Security Group Create
 ^^^^^^^^^^^^^^^^^^^^^^
