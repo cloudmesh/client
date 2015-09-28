@@ -5,30 +5,52 @@ Register Command
 The manual page of the register command can be found at: `register <../man/man.html#register>`_
 
 
-register info
-^^^^^^^^^^^^^
+As we are managing multiple clouds with cloudmesh we need to register
+them first. To make it easy for you cloudmesh reads the registered
+clouds from an easy to manage yaml file. This yam file is installed by
+default into the file::
 
-It looks out for the cloudmesh.yaml file in the current directory, and then in ~/.cloudmesh::
+  %HOME/.cloudmesh/cloudmesh.yaml
 
-  $ cm register info
-    File C:\Users\erika\.cloudmesh\cloudmesh.yaml exists
+A number of templates in that file exist that refer to commonly used
+clouds. YOu can fill out the yaml file with your information, add new
+clouds, or delete templates of clouds that you do not use. We have
+several different typoes of clouds that we support. This includes
+OpenStack, AWS, and Azure clouds.
 
+.. todo:: at this time we have not integrated our AWS and Azure IaaS
+	  abstractions. We will make them available in future.
 
+As it may be inconvenient to edit this file and look at the yaml
+format, we provide two administrative commands. The command::
 
-register list
-^^^^^^^^^^^^^
+  $ register info
 
+  File C:\Users\erika\.cloudmesh\cloudmesh.yaml exists
+  
+identifies if the `cloudmesh.yaml` file exists.
 
-register list [--yaml=FILENAME]
+To list the clouds that are defined in the cloudmesh.yaml file, you
+can use the command::
 
-Lists the clouds specified in the cloudmesh.yaml file::
-
-    $ cm register list
-    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
+  $ register list
+  Clouds specified in the configuration file $HOME/.cloudmesh/cloudmesh.yaml
 
       india
       aws
       azure
+
+.. todo:: Erica, we want a table here with print_dict and list in the
+	  columns name, iaas (openastak, azure, ...), version (kilo,
+	  n/a if None)
+	  
++--------+-----------+---------+
+| Name   | IaaS      | version |
++--------+-----------+---------+
+| india  | openstack |  juno   |
+| india  | openstack |  juno   |
++--------+-----------+---------+
+
 
 register list ssh
 ^^^^^^^^^^^^^
