@@ -5,6 +5,9 @@ One of cloudmeshs major functionality is to group cloud and other
 resources into a named group. Such named groups can than be used to
 perform actions on them.
 
+.. warning:: at this time we have limited to groups to just hold names
+	     of vms.
+
 The manual page of the group command can be found at: `group
 <../man/man.html#group>`_
 
@@ -28,7 +31,8 @@ The named groups can be lited with the following command::
 Group Info
 ^^^^^^^^^^^
 
-Get details about a particular group with specific name::
+To get details about a particular group with specific name you can use
+the info option::
 
   $ cm group info group01
     +-----------+---------+---------+-----------------------+------+
@@ -40,7 +44,7 @@ Get details about a particular group with specific name::
 Group Add
 ^^^^^^^^^^
 
-Add a resource (VM) with specified id to a group with given name::
+To add a vm resource with specified id to a group with given name::
 
   $ cm group add --id test-001 --type vm --name groupA
   Created a new group [groupA] and added ID [test-001] to it
@@ -55,7 +59,7 @@ Add a resource (VM) with specified id to a group with given name::
 Group Copy
 ^^^^^^^^^^^
 
-Copy the VM(s) from one group to another::
+To copy the VM(s) from one group to another use the command::
 
   $ cm group copy groupA groupB
   Created a new group [groupB] and added ID [test-001] to it
@@ -70,7 +74,7 @@ Copy the VM(s) from one group to another::
 Group Merge
 ^^^^^^^^^^^^
 
-Merge two groups to form a third group::
+Groups can be merged as follows::
 
   $ cm group merge group01 groupB groupC
   Merge of group [group01] & [groupB] to group [groupC] successful!
@@ -85,10 +89,15 @@ Merge two groups to form a third group::
 Group Delete
 ^^^^^^^^^^^^^
 
-Delete a group with a given name::
+A named group can be easily deleted. 
 
   $ cm group delete --name groupC
   Deletion Successful!
 
   $ cm group info groupC
   ERROR: No group with name groupC found in the cloudmesh database!
+
+.. todo:: what action is performed when we delete a group. Is the
+	  group just deleted, or all vms and other objects. Please
+	  specify semantics.
+	  
