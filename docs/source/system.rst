@@ -116,87 +116,93 @@ aptget upgrade
 CentOS
 ----------------------------------------------------------------------
 
-This documentation assumes that the user is advanced enough to use linux terminal
+This documentation assumes that the user is advanced enough to use
+linux terminal. We also assume you are not logged in as root, but you
+are a regular user. However to prepare the system we assume you have
+sudo access. First, we check for up-to-date versions of python
+and pip::
 
-Firstly we have to check if the python and pip is installed. Run the following commands::
+   pip --version
 
-# python --version
-# pip --version
-# [user@hostname ~]$ python --version
-# Python 2.7.5
-# [user@hostname ~]$ pip --version
-# pip 7.1.2 from /home/albert/ENV/lib/python2.7/site-packages (python 2.7)
+which should give the version 7.1.2::
 
-If you don't find these installed, then install the same with the following commands::
+   python --version
 
-# yum install -y python
-# yum install -y python-pip
-
-Note as non root user::
-
-# sudo yum install -y python
-# sudo yum install -y python-pip
-
-It is recommended that you use python 2.7.10. Sometimes the yum repositories are not updated with the latest.
-Hence if you see a lower version as above, run the following steps preferrably inside your home directory (/home/<user>)
-to install 2.7.10::
-
-# yum install -y gcc
-# wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
-# tar xzf Python-2.7.10.tgz
-# cd Python-2.7.10
-# ./configure
-# make altinstall
+which should give the version Python 2.7.10
 
 
-If non-root user, prefix 'sudo' for every command
+As CentOS typically comes with an outdated vesrion of python, we like
+to provide an altaerantive python instalation on. This can be achieved
+by following these steps executing as normal user::
 
-Update the PATH environment variable with the following command:-
+   sudo yum install -y gcc
+   cd $HOME
+   wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   tar xzf Python-2.7.10.tgz
+   cd Python-2.7.10
+   ./configure
+   make altinstall
 
-Assuming that you have executed the above installation commands in home::
 
-# export PATH=/home/<user>/Python-2.7.10:$PATH
+This should provide you with up to date versions. Alternatively the
+following may work, dependent on the CentOS repositories that you
+use. However to be on the save side you can do the steps described above::
 
-Append the above line to ~/.bashrc::
+  sudo yum install -y python
+  sudo yum install -y python-pip
 
-#emacs ~/.bashrc
+Next you will have to update the PATH environment variable. Assuming
+that you have executed the above installation commands in home::
 
-Next, Install python virtual environment on your machine:-
+  export PATH=/home/<user>/Python-2.7.10:$PATH
 
-Inside your terminal run::
+You will need an editor to modify the bashrc file. Lets assume you
+have emacs installed and use emacs as editor (any other editor will
+do).Open the file and ppend the above line to ~/.bashrc::
 
-# yum install -y virtualenv
+  emacs ~/.bashrc
 
-Note:- If non root user is used, please use::
+Next, Install a python virtual environment on your machine as we do
+not want to interfere with the system installed python
+versions. Inside your terminal run::
 
-# sudo yum install -y virtualenv
+  yum install -y virtualenv
 
-You should typically find 'ENV' directory created in the user home. (~/ENV)
+.. todo:: Mangirish. Is this not already coming with python 2.7.10 ?
+	  Also is pip not comming with version 2.7.10? If so we do not
+	  need to install pip?
 
-To activate virtualenv, execute the following steps:-
+Next we will create a python virtualenv in the directory $HOME/ENV. To
+activate virtualenv, execute the following steps. Get the location of
+the current python command and make sure it is 2.7.10::
 
-Get the location of the current python command::
+  which python
 
-# which python
-~/Python-2.7.10/python
+YOu will see a path such as:
 
-Note:- This location may vary on your machine.
-::
+  $HOME/Python-2.7.10/python
 
-# virtualenv -p ~/Python-2.7.10 ~/ENV
-# source ~/ENV/bin/activate
+Copy the location of the python interpreter and execute::
+  
+  virtualenv -p $HOME/Python-2.7.10 $HOME/ENV
+  source ~/ENV/bin/activate
 
-This should add a '(ENV)' to your prompt in the terminal like following::
+This will add a '(ENV)' to your prompt in the terminal like following::
 (ENV)[user@hostname ~]$
 
-On more permanent basis, if you want to avoid activating virtualenv every time you log in, add the above command line to ~/.bashrc of the user.
-::
+On more permanent basis, if you want to avoid activating virtualenv
+every time you log in, You can add the activation of the virtualenv to
+the ~/.bashrc file with your favourate editor::
 
-# emacs ~/.bashrc
+  emacs ~/.bashrc
 
-In the emacs editor, add 'source ~/ENV/bin/activate' to the file and save the file.
+Add the command::
 
-You may test if this works, by launching a duplicate terminal session and checking if (ENV) is seen added to the prompt.
+  source ~/ENV/bin/activate
+
+to the file and save the file. You may test if this works, by
+launching a new terminal session and checking if (ENV) is seen
+added to the prompt.
 
 
 Windows 10
