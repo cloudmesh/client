@@ -16,11 +16,11 @@ file. This documentation and cos is available on github at:
    system
    installation
    configuration
-   use
    commands/index
+   man/man
    api
    docker
-   man/man
+
    old 
    modules/modules
    appendix

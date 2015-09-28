@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>User Manual &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Quota Command &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -31,8 +31,9 @@
 
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
-        <link rel="next" title="Register Command" href="command_register.html"/>
-        <link rel="prev" title="Configuration" href="../configuration.html"/> 
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Reservation Command" href="command_reservation.html"/>
+        <link rel="prev" title="Nova Command" href="command_nova.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -109,16 +110,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../configuration.html#registration-of-clouds">Registration of clouds</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">User Manual</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat">register cat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit">register edit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host">register rc HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud">register CLOUD</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-cert">from cert</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-dir">from dir</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
@@ -144,8 +151,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Quota Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quota-list">quota list</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
@@ -323,11 +330,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>User Manual</li>
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>Quota Command</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/commands/index.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_quota.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -336,77 +345,52 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="user-manual">
-<h1>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
-<p>In this section we summarize a number of commands that are useful for
-managing your multiple clouds. We organize them in the way you would
-use them in some order while:</p>
-<ul class="simple">
-<li>regisetring clouds</li>
-<li>creating virtual machines</li>
-<li>creating virtual clusters</li>
-<li>creating platforms on the clusters</li>
-</ul>
-<p>If you have additional needs we provide a detailed list of man pages
-in alphabetical order in the Section ...</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_group.html">Group Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-add">Group Add</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-copy">Group Copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-merge">Group Merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l1"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_vm.html">VM Command</a></li>
-</ul>
+  <div class="section" id="quota-command">
+<h1>Quota Command<a class="headerlink" href="#quota-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the quota command can be found at: <a class="reference external" href="../man/man.html#quota">Quota</a></p>
+<div class="section" id="quota-list">
+<h2>quota list<a class="headerlink" href="#quota-list" title="Permalink to this headline">¶</a></h2>
+<p>Prints quota limit on a current project/tenant:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm quota list
+  +-----------------------------+-------+
+  | Quota                       | Limit |
+  +-----------------------------+-------+
+  | fixed_ips                   | -1    |
+  | floating_ips                | 10    |
+  | instances                   | 10    |
+  | security_groups             | 10    |
+  | server_group_members        | 10    |
+  | server_groups               | 10    |
+  | key_pairs                   | 100   |
+  | injected_file_content_bytes | 10240 |
+  | metadata_items              | 128   |
+  | cores                       | 20    |
+  | security_group_rules        | 20    |
+  | injected_file_path_bytes    | 255   |
+  | injected_files              | 5     |
+  | ram                         | 51200 |
+  +-----------------------------+-------+
+</pre></div>
+</div>
+<p>Another example with csv output:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm quota list --cloud=india --format=csv
+Quota,Limit
+instances,10
+cores,20
+ram,51200
+floating_ips,10
+fixed_ips,-1
+metadata_items,128
+injected_files,5
+injected_file_content_bytes,10240
+injected_file_path_bytes,255
+key_pairs,100
+security_groups,10
+security_group_rules,20
+server_groups,10
+server_group_members,10
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -416,10 +400,10 @@ in alphabetical order in the Section ...</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_register.html" class="btn btn-neutral float-right" title="Register Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_reservation.html" class="btn btn-neutral float-right" title="Reservation Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../configuration.html" class="btn btn-neutral" title="Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_nova.html" class="btn btn-neutral" title="Nova Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

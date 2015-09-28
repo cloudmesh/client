@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>User Manual &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>VM Command &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -31,8 +31,9 @@
 
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
-        <link rel="next" title="Register Command" href="command_register.html"/>
-        <link rel="prev" title="Configuration" href="../configuration.html"/> 
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Commands" href="../man/man.html"/>
+        <link rel="prev" title="SecGroup Command" href="command_secgroup.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -109,16 +110,21 @@
 <li class="toctree-l2"><a class="reference internal" href="../configuration.html#registration-of-clouds">Registration of clouds</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">User Manual</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-info">register info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-yaml-filename">register list [&#8211;yaml=FILENAME]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat-yaml-filename">register cat [&#8211;yaml=FILENAME]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit-yaml-filename">register edit [&#8211;yaml=FILENAME]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host-openrc">register rc HOST [OPENRC]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form-yaml-filename">register form [&#8211;yaml=FILENAME]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india-force">register india [&#8211;force]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud-cert-force">register CLOUD CERT [&#8211;force]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud-dir">register CLOUD &#8211;dir</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
@@ -164,7 +170,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">VM Command</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
@@ -323,11 +329,13 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>User Manual</li>
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>VM Command</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/commands/index.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_vm.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -336,78 +344,10 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="user-manual">
-<h1>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
-<p>In this section we summarize a number of commands that are useful for
-managing your multiple clouds. We organize them in the way you would
-use them in some order while:</p>
-<ul class="simple">
-<li>regisetring clouds</li>
-<li>creating virtual machines</li>
-<li>creating virtual clusters</li>
-<li>creating platforms on the clusters</li>
-</ul>
-<p>If you have additional needs we provide a detailed list of man pages
-in alphabetical order in the Section ...</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_group.html">Group Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-add">Group Add</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-copy">Group Copy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-merge">Group Merge</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l1"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_vm.html">VM Command</a></li>
-</ul>
-</div>
+  <div class="section" id="vm-command">
+<h1>VM Command<a class="headerlink" href="#vm-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#vm">VM</a></p>
+<p>Examples &lt;TO BE ADDED&gt;</p>
 </div>
 
 
@@ -416,10 +356,10 @@ in alphabetical order in the Section ...</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_register.html" class="btn btn-neutral float-right" title="Register Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../man/man.html" class="btn btn-neutral float-right" title="Commands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../configuration.html" class="btn btn-neutral" title="Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_secgroup.html" class="btn btn-neutral" title="SecGroup Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
