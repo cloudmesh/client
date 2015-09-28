@@ -96,8 +96,10 @@ which should give the version Python 2.7.10
 
 .. _windows-install:
 
-Ubuntu
+Ubuntu 14.04.3
 ----------------------------------------------------------------------
+
+* http://www.ubuntu.com/download/desktop
 
 .. todo:: Gurav provide instructions
 	  
@@ -112,6 +114,18 @@ pip update
 aptget update
 aptget upgrade
 ....
+
+Ubuntu 15.04
+----------------------------------------------------------------------
+
+
+Update the OS with ::
+  
+  sudo apt-get update        
+  sudo apt-get upgrade       
+  sudo apt-get dist-upgrade  
+
+
 
 CentOS
 ----------------------------------------------------------------------
