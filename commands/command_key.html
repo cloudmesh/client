@@ -112,20 +112,14 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat">register cat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit">register edit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host">register rc HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud">register CLOUD</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-cert">from cert</a></li>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-dir">from dir</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
@@ -352,26 +346,6 @@
 <h2>Adding a key to the database<a class="headerlink" href="#adding-a-key-to-the-database" title="Permalink to this headline">¶</a></h2>
 <p>Add a key to the key database from a file:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
-    {&#39;--all&#39;: False,
-     &#39;--dir&#39;: &#39;~/.ssh&#39;,
-     &#39;--format&#39;: &#39;table&#39;,
-     &#39;--git&#39;: False,
-     &#39;--help&#39;: False,
-     &#39;--name&#39;: &#39;demokey&#39;,
-     &#39;--select&#39;: False,
-     &#39;--source&#39;: &#39;db&#39;,
-     &#39;--ssh&#39;: False,
-     &#39;--username&#39;: &#39;none&#39;,
-     &#39;-f&#39;: False,
-     &#39;-h&#39;: False,
-     &#39;FILENAME&#39;: &#39;/home/key_expt/id_rsa.pub&#39;,
-     &#39;KEYNAME&#39;: None,
-     &#39;NAME&#39;: None,
-     &#39;add&#39;: True,
-     &#39;default&#39;: False,
-     &#39;delete&#39;: False,
-     &#39;get&#39;: False,
-     &#39;list&#39;: False}
     ssh dd
     {&#39;comment&#39;: &#39;albert@Zweistein&#39;,
      &#39;fingerprint&#39;: &#39;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&#39;,
@@ -401,26 +375,6 @@
 <h2>List Keys<a class="headerlink" href="#list-keys" title="Permalink to this headline">¶</a></h2>
 <p>List keys from the database:</p>
 <div class="highlight-python"><div class="highlight"><pre>     $ cm key list
-       {&#39;--all&#39;: False,
-        &#39;--dir&#39;: &#39;~/.ssh&#39;,
-        &#39;--format&#39;: &#39;table&#39;,
-        &#39;--git&#39;: False,
-        &#39;--help&#39;: False,
-        &#39;--name&#39;: None,
-        &#39;--select&#39;: False,
-        &#39;--source&#39;: &#39;db&#39;,
-        &#39;--ssh&#39;: False,
-        &#39;--username&#39;: &#39;none&#39;,
-        &#39;-f&#39;: False,
-        &#39;-h&#39;: False,
-        &#39;FILENAME&#39;: None,
-        &#39;KEYNAME&#39;: None,
-        &#39;NAME&#39;: None,
-        &#39;add&#39;: False,
-        &#39;default&#39;: False,
-        &#39;delete&#39;: False,
-        &#39;get&#39;: False,
-        &#39;list&#39;: True}
        +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
        | name    | comment            | uri                                        | fingerprint                                     | source |
        +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
@@ -431,26 +385,6 @@
 OR::
 
  $ cm key list --source=db
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: False,
-    &#39;list&#39;: True}
    +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
    | name    | comment            | uri                                        | fingerprint                                     | source |
    +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
@@ -461,26 +395,6 @@ OR::
 </div>
 <p>List keys from git:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;git&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: False,
-    &#39;list&#39;: True}
    none
    +------+----------+----------------------------------------+-------------------------------------------------+--------+
    | name | comment  | uri                                    | fingerprint                                     | source |
@@ -492,26 +406,6 @@ OR::
 </div>
 <p>List keys in different format like json:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git --format=json
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;json&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;git&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: False,
-    &#39;list&#39;: True}
    none
    {
        &quot;github-0&quot;: {
@@ -532,26 +426,6 @@ OR::
 <h2>Get Keys<a class="headerlink" href="#get-keys" title="Permalink to this headline">¶</a></h2>
 <p>Get a key by name:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key get demokey
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: &#39;demokey&#39;,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: True,
-    &#39;list&#39;: False}
    demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
    info. OK.
 </pre></div>
@@ -561,52 +435,12 @@ OR::
 <h2>Default Keys<a class="headerlink" href="#default-keys" title="Permalink to this headline">¶</a></h2>
 <p>Mark key as default by name:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key default demokey
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: &#39;demokey&#39;,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: True,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: False,
-    &#39;list&#39;: False}
    default
    info. OK.
 </pre></div>
 </div>
 <p>You can verify by:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --format=json
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;json&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: False,
-    &#39;list&#39;: True}
    {
        &quot;1&quot;: {
            &quot;comment&quot;: &quot;albert@Zweistein&quot;,
@@ -631,26 +465,6 @@ OR::
 </div>
 <p>Select key to be marked as default:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ (ENV)[albert@Zweistein client]$ cm key default --select
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: True,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: True,
-    &#39;delete&#39;: False,
-    &#39;get&#39;: False,
-    &#39;list&#39;: False}
    default
    (&#39;i:&#39;, 1)
    (&#39;i:&#39;, 2)
@@ -674,52 +488,12 @@ OR::
 <h2>Delete Keys<a class="headerlink" href="#delete-keys" title="Permalink to this headline">¶</a></h2>
 <p>Delete key by name:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete demokey
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: &#39;demokey&#39;,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: True,
-    &#39;get&#39;: False,
-    &#39;list&#39;: False}
    delete
    info. OK.
 </pre></div>
 </div>
 <p>Select key to be deleted:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete --select
-   {&#39;--all&#39;: False,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: True,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: True,
-    &#39;get&#39;: False,
-    &#39;list&#39;: False}
    delete
    (&#39;i:&#39;, 3)
    (&#39;i:&#39;, 4)
@@ -740,26 +514,6 @@ OR::
 </div>
 <p>Delete all keys from database:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete --all
-   {&#39;--all&#39;: True,
-    &#39;--dir&#39;: &#39;~/.ssh&#39;,
-    &#39;--format&#39;: &#39;table&#39;,
-    &#39;--git&#39;: False,
-    &#39;--help&#39;: False,
-    &#39;--name&#39;: None,
-    &#39;--select&#39;: False,
-    &#39;--source&#39;: &#39;db&#39;,
-    &#39;--ssh&#39;: False,
-    &#39;--username&#39;: &#39;none&#39;,
-    &#39;-f&#39;: False,
-    &#39;-h&#39;: False,
-    &#39;FILENAME&#39;: None,
-    &#39;KEYNAME&#39;: None,
-    &#39;NAME&#39;: None,
-    &#39;add&#39;: False,
-    &#39;default&#39;: False,
-    &#39;delete&#39;: True,
-    &#39;get&#39;: False,
-    &#39;list&#39;: False}
    delete
    info. OK.
 </pre></div>
