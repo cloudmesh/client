@@ -1,32 +1,39 @@
 System Preparation
 ===================
 
-The installation of cloudmesh is easiest if you prepare your system
-with some elementary software. We provide such information for the
-following Operating systems:
+The installation of cloudmesh is easy if you have prepared your system
+with updated software. We provide instructions to prepare your system
+for a number of operating systems listed in this section. After you
+have completed the system preparation you can follow the Instalation
+instructions which will be the same for all systems.
 
-* Linux
-
-  * Ubuntu
-  * Centos
-    
-* OSX
-* Windows
-
-For each of these operating systems we are provide specific
-installation instructions.
-
-Prepare the system
-------------------
+The instructions provided here are for developers of the cloudmesh
+client. In future we will provide an even simpler install mechanism on
+the various operating systems. For now we ask you to prepare your
+system as if you were a developer. If you like to help us in making
+the instructions simpler based on your experience, please email us.
 
 OSX
-^^^
+----------------------------------------------------------------------
 
-On OSX we recommend that you use python 2.7.10. This version of python
-is easy to install while downloading the dmg and installing it on the
-system. You will still have access to the python version distributed
-with the original OSX operating system. To test out which version you
-have activated, you can use in the command line::
+Prior to developing code on OSX, you will need a number of tools that
+are not distributed with the regular OSX operating system. First you
+need to install xcode if you have not done so. The easisets is to open
+a terminal and type::
+
+  xcode-select --install
+ 
+
+On OSX we recommend that you use at least python 2.7.10. This version
+of python is easy to install while downloading the dmg and installing
+it on the system. You can find the python version at:
+
+* https://www.python.org/downloads/
+
+
+You will still have access to the python version distributed with the
+original OSX operating system. To test out which version you have
+activated, you can use in the command line::
 
   python --version
   pip --version
@@ -36,7 +43,7 @@ They should show something similar to::
   Python 2.7.10
   pip 7.0.3
 
-Oon OSX as well as the other operating systems we **require** you to
+On OSX as well as the other operating systems we **require** you to
 use virtualenv. First you need to find which version of python you
 use. You can say::
 
@@ -69,35 +76,134 @@ client. To do so please issue the following commands::
 
 .. warning:: We found that ``readline`` and ``pycrypto`` could not be
 	  installed with pip at the time of writing of this manual,
-	  despite the fact that pip installed it. However, the
+	  despite the fact that pip claimed to have installed them. However, the
 	  version installed with pip were not usable. The workaround
 	  is to use easy_install for these packages. If you have a
 	  better idea how to fix this, let us know and send mail to
-	  laszewski@gmail.com.
+	  laszewski@gmail.com. 
 
 It is recommended that you test the version of the python interpreter
 and pip again::
    
    pip --version
 
-which should give the version 7.1.2
-   
-::
+which should give the version 7.1.2::
 
    python --version
-
 
 which should give the version Python 2.7.10
 
 
 .. _windows-install:
 
+Ubuntu
+----------------------------------------------------------------------
+
+.. todo:: Gurav provide instructions
+	  
+use fresh machine (VM).
+use standard python
+use ubuntu ???
+
+wahtch out for
+urllib 3
+readline
+pip update
+aptget update
+aptget upgrade
+....
+
+CentOS
+----------------------------------------------------------------------
+
+This documentation assumes that the user is advanced enough to use linux terminal
+
+Firstly we have to check if the python and pip is installed. Run the following commands::
+
+# python --version
+# pip --version
+# [user@hostname ~]$ python --version
+# Python 2.7.5
+# [user@hostname ~]$ pip --version
+# pip 7.1.2 from /home/albert/ENV/lib/python2.7/site-packages (python 2.7)
+
+If you don't find these installed, then install the same with the following commands::
+
+# yum install -y python
+# yum install -y python-pip
+
+Note as non root user::
+
+# sudo yum install -y python
+# sudo yum install -y python-pip
+
+It is recommended that you use python 2.7.10. Sometimes the yum repositories are not updated with the latest.
+Hence if you see a lower version as above, run the following steps preferrably inside your home directory (/home/<user>)
+to install 2.7.10::
+
+# yum install -y gcc
+# wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+# tar xzf Python-2.7.10.tgz
+# cd Python-2.7.10
+# ./configure
+# make altinstall
+
+
+If non-root user, prefix 'sudo' for every command
+
+Update the PATH environment variable with the following command:-
+
+Assuming that you have executed the above installation commands in home::
+
+# export PATH=/home/<user>/Python-2.7.10:$PATH
+
+Append the above line to ~/.bashrc::
+
+#emacs ~/.bashrc
+
+Next, Install python virtual environment on your machine:-
+
+Inside your terminal run::
+
+# yum install -y virtualenv
+
+Note:- If non root user is used, please use::
+
+# sudo yum install -y virtualenv
+
+You should typically find 'ENV' directory created in the user home. (~/ENV)
+
+To activate virtualenv, execute the following steps:-
+
+Get the location of the current python command::
+
+# which python
+~/Python-2.7.10/python
+
+Note:- This location may vary on your machine.
+::
+
+# virtualenv -p ~/Python-2.7.10 ~/ENV
+# source ~/ENV/bin/activate
+
+This should add a '(ENV)' to your prompt in the terminal like following::
+(ENV)[user@hostname ~]$
+
+On more permanent basis, if you want to avoid activating virtualenv every time you log in, add the above command line to ~/.bashrc of the user.
+::
+
+# emacs ~/.bashrc
+
+In the emacs editor, add 'source ~/ENV/bin/activate' to the file and save the file.
+
+You may test if this works, by launching a duplicate terminal session and checking if (ENV) is seen added to the prompt.
+
 
 Windows 10
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------------------------------------
 
 Install Python
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 	     
 Python can be found at http://www.python.org. We recommend to download
 and install the newest version of python. At this time we recommend
@@ -133,7 +239,7 @@ command line.
 
 
 Install ssh, git, make and an editor
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As we need to do some editing you will need a nice editor. Please do
 not use notepad and notepad++ as they have significant issues, please
@@ -232,7 +338,7 @@ account at::
 
 
 Install make In Windows
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To download and install "make" for windows, in powershell type::
 
@@ -260,7 +366,7 @@ You need to start a new powershell to access make from the
 command line.
 
 Makeing python usable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To test if you have the right version of python execute::
 
@@ -284,112 +390,4 @@ We want also to install virtualenv::
 and pyreadline::
 
    pip install pyreadline
-
-Linux
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-use fresh machine (VM).
-use standard python
-use ubuntu ???
-
-wahtch out for
-urllib 3
-readline
-pip update
-aptget update
-aptget upgrade
-....
-
-CentOS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This documentation assumes that the user is advanced enough to use linux terminal
-
-Firstly we have to check if the python and pip is installed. Run the following commands::
-
-# python --version
-# pip --version
-# [user@hostname ~]$ python --version
-# Python 2.7.5
-# [user@hostname ~]$ pip --version
-# pip 7.1.2 from /home/albert/ENV/lib/python2.7/site-packages (python 2.7)
-
-If you don't find these installed, then install the same with the following commands::
-
-# yum install -y python
-# yum install -y python-pip
-
-Note as non root user::
-
-# sudo yum install -y python
-# sudo yum install -y python-pip
-
-It is recommended that you use python 2.7.10. Sometimes the yum repositories are not updated with the latest.
-Hence if you see a lower version as above, run the following steps preferrably inside your home directory (/home/<user>)
-to install 2.7.10::
-
-# yum install -y gcc
-# wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
-# tar xzf Python-2.7.10.tgz
-# cd Python-2.7.10
-# ./configure
-# make altinstall
-
-
-If non-root user, prefix 'sudo' for every command
-
-Update the PATH environment variable with the following command:-
-
-Assuming that you have executed the above installation commands in home::
-
-# export PATH=/home/<user>/Python-2.7.10:$PATH
-
-Append the above line to ~/.bashrc::
-
-#emacs ~/.bashrc
-
-Next, Install python virtual environment on your machine:-
-
-Inside your terminal run::
-
-# yum install -y virtualenv
-
-Note:- If non root user is used, please use::
-
-# sudo yum install -y virtualenv
-
-You should typically find 'ENV' directory created in the user home. (~/ENV)
-
-To activate virtualenv, execute the following steps:-
-
-Get the location of the current python command::
-
-# which python
-~/Python-2.7.10/python
-
-Note:- This location may vary on your machine.
-::
-
-# virtualenv -p ~/Python-2.7.10 ~/ENV
-# source ~/ENV/bin/activate
-
-This should add a '(ENV)' to your prompt in the terminal like following::
-(ENV)[user@hostname ~]$
-
-On more permanent basis, if you want to avoid activating virtualenv every time you log in, add the above command line to ~/.bashrc of the user.
-::
-
-# emacs ~/.bashrc
-
-In the emacs editor, add 'source ~/ENV/bin/activate' to the file and save the file.
-
-You may test if this works, by launching a duplicate terminal session and checking if (ENV) is seen added to the prompt.
-
-
-
-Ubuntu
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. todo:: Gurav provide instructions
-
 
