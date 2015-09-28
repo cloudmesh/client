@@ -112,20 +112,14 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat">register cat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit">register edit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host">register rc HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud">register CLOUD</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-cert">from cert</a></li>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-dir">from dir</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Group Command</a><ul>
@@ -347,10 +341,18 @@
             
   <div class="section" id="group-command">
 <h1>Group Command<a class="headerlink" href="#group-command" title="Permalink to this headline">¶</a></h1>
+<p>One of cloudmeshs major functionality is to group cloud and other
+resources into a named group. Such named groups can than be used to
+perform actions on them.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">at this time we have limited to groups to just hold names
+of vms.</p>
+</div>
 <p>The manual page of the group command can be found at: <a class="reference external" href="../man/man.html#group">group</a></p>
 <div class="section" id="group-list">
 <h2>Group List<a class="headerlink" href="#group-list" title="Permalink to this headline">¶</a></h2>
-<p>List the groups created in cloudmesh for a particular cloud:</p>
+<p>The named groups can be lited with the following command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm group list --cloud general --format table
   +-----------+---------+---------+---------------------------------------------+------+
   | user      | cloud   | name    | value                                       | type |
@@ -365,7 +367,8 @@
 </div>
 <div class="section" id="group-info">
 <h2>Group Info<a class="headerlink" href="#group-info" title="Permalink to this headline">¶</a></h2>
-<p>Get details about a particular group with specific name:</p>
+<p>To get details about a particular group with specific name you can use
+the info option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm group info group01
   +-----------+---------+---------+-----------------------+------+
   | user      | cloud   | name    | value                 | type |
@@ -377,7 +380,7 @@
 </div>
 <div class="section" id="group-add">
 <h2>Group Add<a class="headerlink" href="#group-add" title="Permalink to this headline">¶</a></h2>
-<p>Add a resource (VM) with specified id to a group with given name:</p>
+<p>To add a vm resource with specified id to a group with given name:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm group add --id test-001 --type vm --name groupA
 Created a new group [groupA] and added ID [test-001] to it
 
@@ -392,7 +395,7 @@ $ cm group info groupA
 </div>
 <div class="section" id="group-copy">
 <h2>Group Copy<a class="headerlink" href="#group-copy" title="Permalink to this headline">¶</a></h2>
-<p>Copy the VM(s) from one group to another:</p>
+<p>To copy the VM(s) from one group to another use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm group copy groupA groupB
 Created a new group [groupB] and added ID [test-001] to it
 
@@ -407,7 +410,7 @@ $ cm group info groupB
 </div>
 <div class="section" id="group-merge">
 <h2>Group Merge<a class="headerlink" href="#group-merge" title="Permalink to this headline">¶</a></h2>
-<p>Merge two groups to form a third group:</p>
+<p>Groups can be merged as follows:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm group merge group01 groupB groupC
 Merge of group [group01] &amp; [groupB] to group [groupC] successful!
 
@@ -422,13 +425,18 @@ $ cm group info groupC
 </div>
 <div class="section" id="group-delete">
 <h2>Group Delete<a class="headerlink" href="#group-delete" title="Permalink to this headline">¶</a></h2>
-<p>Delete a group with a given name:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group delete --name groupC
-Deletion Successful!
-
-$ cm group info groupC
-ERROR: No group with name groupC found in the cloudmesh database!
-</pre></div>
+<p>A named group can be easily deleted.</p>
+<blockquote>
+<div><p>$ cm group delete &#8211;name groupC
+Deletion Successful!</p>
+<p>$ cm group info groupC
+ERROR: No group with name groupC found in the cloudmesh database!</p>
+</div></blockquote>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">what action is performed when we delete a group. Is the
+group just deleted, or all vms and other objects. Please
+specify semantics.</p>
 </div>
 </div>
 </div>
