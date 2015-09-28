@@ -104,6 +104,16 @@ class CloudmeshDatabase(object):
                     d[element.id][key] = str(element.__dict__[key])
         return d
 
+    def update(self, kind, args):
+        """
+
+        :param kind:
+        :param kwargs:
+        :return:
+        """
+        self.find(kind, name=args["name"]).update(args)
+        self.save()
+
     def delete_by_name(self, kind, name):
         """
         NOTTESTED

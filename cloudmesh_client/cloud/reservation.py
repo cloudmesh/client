@@ -1,14 +1,16 @@
 from __future__ import print_function
 # from cloudmesh_client.shell.console import Console
 
+from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.db.model import RESERVATION
+
 from cloudmesh_client.common.todo import TODO
+
 
 class Reservation(object):
 
-    '''
-    TODO: implement functions that support
-        see ReservationCommand
-    '''
+    def __init__(self, user=None):
+        self.db = CloudmeshDatabase.CloudmeshDatabase(user)
 
     def info(self, user=None, project=None):
         '''
@@ -26,29 +28,78 @@ class Reservation(object):
         :param filename:
         :return:
         '''
-        TODO("implement")
+        TODO.implement()
 
     def add(self,
-            names, # list of names can be a parameter
+            name,
             start,
             end,
             user=None,
             project=None,
             hosts=None,
-            description=None):
-        TODO("implement")
+            description=None,
+            cloud=None):
+        """
+
+        :param name: Name of reservation
+        :param start: Start time of reservation
+        :param end: End time of reservation
+        :param user: Reserved by this user
+        :param project: Reservation project
+        :param hosts: Reserved hosts
+        :param description: Description
+        :param cloud: Cloud into which reservation done
+        :return:
+        """
+        reserve_obj = RESERVATION(name,
+                                  hosts,
+                                  start,
+                                  end,
+                                  description=description,
+                                  cloud=cloud,
+                                  user=user,
+                                  project=project)
+        self.db.add(reserve_obj)
+        self.db.save()
 
     def delete(self,
-            names=None, # list of names can be a parameter
-            start=None,
-            end=None,
-            user=None,
-            project=None,
-            hosts=None):
-        TODO("implement")
+               name=None,
+               start=None,
+               end=None,
+               user=None,
+               project=None,
+               hosts=None):
+        """
 
-    def delete(self, parameters_tbd):
-        TODO("implement")
+        :param name: Name of reservation
+        :param start: Start time of reservation
+        :param end: End time of reservation
+        :param user: Reserved by this user
+        :param project: Reservation project
+        :param hosts: Hosts reserved
+        :return:
+        """
+
+        args = {}
+
+        if name is not None:
+            args['name'] = name
+        if start is not None:
+            args['start_time'] = start
+        if end is not None:
+            args['end_time'] = end
+        if user is not None:
+            args['user'] = user
+        if project is not None:
+            args['project'] = project
+        if hosts is not None:
+            args['hosts'] = hosts
+
+        # TODO: Improve this logic
+        result = self.db.find(RESERVATION, **args).first()
+        while result is not None:
+            self.db.delete(result)
+            result = self.db.find(RESERVATION, **args).first()
 
     def delete_from_file(self, filename):
         '''
@@ -56,29 +107,81 @@ class Reservation(object):
         :param filename:
         :return:
         '''
-        TODO("implement")
+        TODO.implement()
 
     def suspend(self, names=None):
-        TODO("implement")
+        TODO.implement()
 
     def resume(self, names=None):
-        TODO("implement")
+        TODO.implement()
 
     def list(self,
-            names=None, # list of names can be a parameter
-            start=None,
-            end=None,
-            user=None,
-            project=None,
-            hosts=None):
-        TODO("implement")
+             name=None,
+             start=None,
+             end=None,
+             user=None,
+             project=None,
+             hosts=None):
+
+        """
+
+        :param name: Name of reservation
+        :param start: Start time of reservation
+        :param end: End time of reservation
+        :param user: Reserved by this user
+        :param project: Reservation project
+        :param hosts: Hosts reserved
+        :return:
+        """
+        args = {}
+
+        if name is not None:
+            args['name'] = name
+        if start is not None:
+            args['start_time'] = start
+        if end is not None:
+            args['end_time'] = end
+        if user is not None:
+            args['user'] = user
+        if project is not None:
+            args['project'] = project
+        if hosts is not None:
+            args['hosts'] = hosts
+
+        # print(args)
+        result = self.db.find(RESERVATION, **args)
+        return self.db.object_to_dict(result)
 
     def update(self,
-               names=None, # list of names can be a parameter
-               start=None,
-               end=None,
-               description=None):
-        TODO("implement")
+               name,
+               start,
+               end,
+               user=None,
+               project=None,
+               hosts=None,
+               description=None,
+               cloud=None):
+
+        args = {}
+
+        if name is not None:
+            args['name'] = name
+        if start is not None:
+            args['start_time'] = start
+        if end is not None:
+            args['end_time'] = end
+        if user is not None:
+            args['user'] = user
+        if project is not None:
+            args['project'] = project
+        if hosts is not None:
+            args['hosts'] = hosts
+        if description is not None:
+            args['description'] = description
+        if cloud is not None:
+            args['cloud'] = cloud
+
+        self.db.update(RESERVATION, args)
 
 
 

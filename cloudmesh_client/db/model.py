@@ -251,12 +251,14 @@ class RESERVATION(CloudmeshMixin, db.Base):
                  project=None):
         # self.kind = __tablename__
         self.label = name
+        self.hosts = hosts
         self.cloud = cloud or "comet"
         self.start_time = start_time
         self.end_time = end_time
         self.description = description
         self.name = name
         self.user = user
+        self.project = project
         self.kind = self.__tablename__
 
 
