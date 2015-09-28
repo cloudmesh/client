@@ -1,14 +1,19 @@
 Group Command
 ======================================================================
 
+One of cloudmeshs major functionality is to group cloud and other
+resources into a named group. Such named groups can than be used to
+perform actions on them.
 
-The manual page of the group command can be found at: `group <../man/man.html#group>`_
+The manual page of the group command can be found at: `group
+<../man/man.html#group>`_
+
 
 
 Group List
 ^^^^^^^^^^^
 
-List the groups created in cloudmesh for a particular cloud::
+The named groups can be lited with the following command::
 
   $ cm group list --cloud general --format table
     +-----------+---------+---------+---------------------------------------------+------+
