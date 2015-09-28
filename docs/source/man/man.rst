@@ -442,7 +442,7 @@ Command - limits::
     Options:
        --format=FORMAT  the output format [default: table]
        --cloud=CLOUD    the cloud name
-       --tenant=TENANT  the tenant name [default: ]
+       --tenant=TENANT  the tenant name
 
     Examples:
         cm limits list
@@ -725,50 +725,63 @@ reservation
 Command - reservation::
 
     Usage:
-        reservation info [--user=USER]
-                         [--project=PROJECT]
+        reservation info --user=USER --project=PROJECT
         reservation list [--name=NAME]
                          [--user=USER]
                          [--project=PROJECT]
                          [--hosts=HOSTS]
                          [--start=TIME_START]
                          [--end=TIME_END]
-                         [--hosts=HOSTS]
                          [--format=FORMAT]
         reservation delete [all]
                            [--user=USER]
                            [--project=PROJECT]
                            [--name=NAME]
-                           [--hosts=HOSTS]
                            [--start=TIME_START]
                            [--end=TIME_END]
-                           [--host=HOST]
+                           [--hosts=HOSTS]
         reservation delete --file=FILE
-        reservation update [--name=NAME]
-                           [--hosts=HOSTS]
-                           [--start=TIME_START]
-                           [--end=TIME_END]
-        reservation add [--user=USER]
+        reservation update --name=NAME
+                          [--start=TIME_START]
+                          [--end=TIME_END]
+                          [--user=USER]
+                          [--project=PROJECT]
+                          [--hosts=HOSTS]
+                          [--description=DESCRIPTION]
+        reservation add --name=NAME
+                        [--start=TIME_START]
+                        [--end=TIME_END]
+                        [--user=USER]
                         [--project=PROJECT]
                         [--hosts=HOSTS]
                         [--description=DESCRIPTION]
-                        --name=NAMES
-                        --start=TIME_START
-                        --end=TIME_END
         reservation add --file=FILE
 
+    Arguments:
+
+        NAME            Name of the reservation
+        USER            Registration will be done for this user
+        PROJECT         Project to be used
+        HOSTS           Hosts to reserve
+        TIME_START      Start time of reservation
+        TIME_END        End time of reservation
+        FORMAT          Format of output
+        DESCRIPTION     Description for reservation
+        FILE            File that contains reservation data to be added/ deleted
+
     Options:
-        --name=NAMEs          Names of the reservation
+
+        --name=NAME           Names of the reservation
         --user=USER           user name
         --project=PROJECT     project id
         --start=TIME_START    Start time of the reservation, in
-                              YYYY/MM/DD HH:MM:SS format. [default: 1901-01-01]
+                              YYYY/MM/DD HH:MM:SS format. (default value: 1901-01-01])
         --end=TIME_END        End time of the reservation, in
                               YYYY/MM/DD HH:MM:SS format. In addition a duration
                               can be specified if the + sign is the first sign.
                               The duration will than be added to
-                              the start time. [default: 2100-12-31]
-        --host=HOST           host name
+                              the start time. (default value: 2100-12-31)
+        --host=HOSTS           host name
         --description=DESCRIPTION  description summary of the reservation
         --file=FILE           Adding multiple reservations from one file
         --format=FORMAT       Format is either table, json, yaml or csv

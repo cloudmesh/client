@@ -1,28 +1,31 @@
-The project is open source and if you like you can help. 
-
-Here are some contribution guidelines:
+The project is open source and if you like you can help. Here are some contribution guidelines:
 
 * we use the Apache 2.0 licence
 
-* use pycharm for editing
+* we recommend to use pycharm for editing and utlize the `Inspect
+  Code` feature regularly on the files you modify and fix the sensible
+  pep8 warnings.  Look at other warnings and errors
 
-* use ``Code Inspect`` regularly on the files you modify and fix the sensible pep8 warnings.
-  Look at other warnings and errors
-
-* use ``.format`` instead of ``%`` in print
+* use ``.format`` instead of ``%`` in print statements
 
 * use ``from __future__ import print_function`` at the beginning of the file and use
   ``print("msg")`` instead of ``print msg``
 
-* use as much python 3 like code developed in python 2
+* use as much python 3 like code but use python 2
 
 * use ``class name(object):`` and not just ``class name:``
 
-* use ``Console.error`` when printing errors if you develop a command for the commandline
+* use ``Console.error`` when printing errors if you develop a command
+  for the commandline
 
-* use ``ConfigDict`` when reading yaml files
+* use ``Console.ok`` when printing something that confirms the action
+  is ok. In many cases you may not want o use print, but
+  Console.ok. Please note that Console.ok, takesa string argument.
 
-* use nose tests for testing your programs
+* use ``ConfigDict`` when reading yaml files. It even allows you to
+  read a yaml file in order, make changes to it and write it back
+
+* use nosetests for testing your programs
 
   An example is provided in ``tests/test_sample.py``::
 
@@ -35,13 +38,14 @@ Here are some contribution guidelines:
 
 * the documentation is write in RST http://sphinx-doc.org/rest.html
 
-* look at http://python-future.org/compatible_idioms.html for tips to make
-  python 2 look more like python 3.
-  Be careful with dicts to make them not inefficient.
+* look at http://python-future.org/compatible_idioms.html for tips to
+  make python 2 look more like python 3.  Be careful with dicts to
+  make them not inefficient.
 
-* we are using https://pypi.python.org/pypi/gitchangelog for creating changelogs automatically.
-  Thus you need to use a prefix in any commit. It includes the type and the user for which the commit is relevant.
-  Examples are::
+* we are using https://pypi.python.org/pypi/gitchangelog for creating
+  changelogs automatically.  Thus you need to use a prefix in any
+  commit. It includes the type and the user for which the commit is
+  relevant.  Examples are::
 
      chg: usr:    simple changes relevant for users (spelling, ...)
      fix: usr:    major changes for users

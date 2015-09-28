@@ -1,29 +1,37 @@
 Prefix
 ======
 
+Cloudmesh client is a simple client to enable access to multiple cloud
+environments form a command shell and commandline. It is grown out of
+the need to simplify access to multiple clouds for researchers and
+students easily. In contrast to our earlier versions of cloudmesh it
+explicitly separates the code to only target client code. Due to this
+simplification it is also possible to install the client code not only
+on Linux, OSX, but also Windows. We have tested the instalation on
+Windows 10.
+
+If you like to contribute or like to participate in the further
+development, please contact Gregor von Laszewski at
+laszewski@gmail.com.
+
+
 Repositories
 ------------
 
-Important repositories are located at 
+* Documentation: http://cloudmesh.github.io/client  
+* Code: https://github.com/cloudmesh/client.git
+* Issues: https://github.com/cloudmesh/client/issues
+* Milestones: https://github.com/cloudmesh/client/milestones
+* Contributors: https://github.com/cloudmesh/client/graphs/contributors
 
-* https://github.com/cloudmesh
-
-  * `Issues`_
-  * `Milestones`_
-  * `Code`_
-
-.. todo:: correct the links bellow
-   
-.. _Issues: https://github.com/cloudmesh/cloudmesh/issues?sort=updated&state=open
-.. _Milestones: https://github.com/cloudmesh/cloudmesh/issues/milestones
-.. _Code: https://github.com/cloudmesh/cloudmesh
+As we have so far a tight integrated group, we are typically not
+forking the repository, but cloning it directly. Members are than able
+to work on the clones. We may change this in case we see need for forks.
 
 Contact
 -------
 
-
 For more info please contact Gregor von Laszewski, laszewski@gmail.com
-
    
    `Gregor von Laszewski <http://gregor.cyberaide.org>`_ |br|
    E-mail: laszewski@gmail.comn  |br|
