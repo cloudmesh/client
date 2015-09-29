@@ -132,11 +132,13 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#list-keys">List Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#get-keys">Get Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#default-keys">Default Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#delete-keys">Delete Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#list-keys">List Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-keys">Get Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-keys">Default Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-keys">Delete Keys</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
@@ -341,10 +343,15 @@
             
   <div class="section" id="key-command">
 <h1>Key Command<a class="headerlink" href="#key-command" title="Permalink to this headline">¶</a></h1>
+<p>In clouds and distributed environments security keys are used for
+authentication. We like to be able to register specific keys with
+clouds or vms and eaily use them. To do so we upload them into a key
+registry in which each key is uniquely named. We use these named keys
+when we start up virtual machines or log into remote machines.</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#key">key</a></p>
 <div class="section" id="adding-a-key-to-the-database">
 <h2>Adding a key to the database<a class="headerlink" href="#adding-a-key-to-the-database" title="Permalink to this headline">¶</a></h2>
-<p>Add a key to the key database from a file:</p>
+<p>To add a key to the key registry from a file we use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
     ssh dd
     {&#39;comment&#39;: &#39;albert@Zweistein&#39;,
@@ -370,30 +377,26 @@
     info. OK.
 </pre></div>
 </div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">I do not think a user wants to see the json output. I think
+he only wants to se eif its successfull or not. To see the
+key one should use a list command.</p>
 </div>
 <div class="section" id="list-keys">
-<h2>List Keys<a class="headerlink" href="#list-keys" title="Permalink to this headline">¶</a></h2>
-<p>List keys from the database:</p>
-<div class="highlight-python"><div class="highlight"><pre>     $ cm key list
-       +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-       | name    | comment            | uri                                        | fingerprint                                     | source |
-       +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-       | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
-       +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-       info. OK.
-
-OR::
-
- $ cm key list --source=db
-   +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-   | name    | comment            | uri                                        | fingerprint                                     | source |
-   +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-   | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
-   +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-   info. OK.
+<h3>List Keys<a class="headerlink" href="#list-keys" title="Permalink to this headline">¶</a></h3>
+<p>To list the keys in the registry you can use the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm key list
+  +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
+  | name    | comment            | uri                                        | fingerprint                                     | source |
+  +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
+  | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
+  +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
+  info. OK.
 </pre></div>
 </div>
-<p>List keys from git:</p>
+<p>The key command takes a number of additional options. Instead of using
+the cloudmesh registry, keys can also be read from git hub with the option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git
    none
    +------+----------+----------------------------------------+-------------------------------------------------+--------+
@@ -404,7 +407,8 @@ OR::
    info. OK.
 </pre></div>
 </div>
-<p>List keys in different format like json:</p>
+<p>To change the output format you can specify it with the &#8211;format
+option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git --format=json
    none
    {
@@ -423,8 +427,13 @@ OR::
 </div>
 </div>
 <div class="section" id="get-keys">
-<h2>Get Keys<a class="headerlink" href="#get-keys" title="Permalink to this headline">¶</a></h2>
-<p>Get a key by name:</p>
+<h3>Get Keys<a class="headerlink" href="#get-keys" title="Permalink to this headline">¶</a></h3>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">shoudl that ge renamed to fingerprint?
+what does get do, what is its semantic?</p>
+</div>
+<p>To get the fingerprint of a key you can obtain it with:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key get demokey
    demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
    info. OK.
@@ -432,39 +441,50 @@ OR::
 </div>
 </div>
 <div class="section" id="default-keys">
-<h2>Default Keys<a class="headerlink" href="#default-keys" title="Permalink to this headline">¶</a></h2>
-<p>Mark key as default by name:</p>
+<h3>Default Keys<a class="headerlink" href="#default-keys" title="Permalink to this headline">¶</a></h3>
+<p>In many cases it is convenient to just use a default key that is
+set. To mark key as default by name you can use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key default demokey
    default
    info. OK.
 </pre></div>
 </div>
-<p>You can verify by:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key list --format=json
-   {
-       &quot;1&quot;: {
-           &quot;comment&quot;: &quot;albert@Zweistein&quot;,
-           &quot;is_default&quot;: &quot;True&quot;,  &lt;&lt;--Set to True
-           &quot;kind&quot;: &quot;key&quot;,
-           &quot;name&quot;: &quot;demokey&quot;,
-           &quot;created_at&quot;: &quot;2015-09-23 15:58:32&quot;,
-           &quot;uri&quot;: &quot;file:///home/key_expt/id_rsa.pub&quot;,
-           &quot;value&quot;: null,
-           &quot;updated_at&quot;: &quot;2015-09-23 16:14:41&quot;,
-           &quot;project&quot;: &quot;undefined&quot;,
-           &quot;source&quot;: &quot;ssh&quot;,
-           &quot;user&quot;: &quot;undefined&quot;,
-           &quot;fingerprint&quot;: &quot;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&quot;,
-           &quot;label&quot;: &quot;demokey&quot;,
-           &quot;id&quot;: 1,
-           &quot;cloud&quot;: &quot;general&quot;
-       }
-   }
-   info. OK.
+<p>You can verify that a key is set as default while looking at the
+&#8220;is_default&#8221; attribute:</p>
+<div class="highlight-python"><div class="highlight"><pre>.. todo:: why not just use default instead of is_deafult
 </pre></div>
 </div>
-<p>Select key to be marked as default:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ (ENV)[albert@Zweistein client]$ cm key default --select
+<blockquote>
+<div><p>$ cm key list &#8211;format=json</p>
+<blockquote>
+<div><blockquote>
+<div><dl class="docutils">
+<dt>&#8220;1&#8221;: {</dt>
+<dd>&#8220;comment&#8221;: &#8220;<a class="reference external" href="mailto:albert&#37;&#52;&#48;Zweistein">albert<span>&#64;</span>Zweistein</a>&#8221;,
+&#8220;is_default&#8221;: &#8220;True&#8221;,  &lt;&lt;&#8211;Set to True
+&#8220;kind&#8221;: &#8220;key&#8221;,
+&#8220;name&#8221;: &#8220;demokey&#8221;,
+&#8220;created_at&#8221;: &#8220;2015-09-23 15:58:32&#8221;,
+&#8220;uri&#8221;: &#8220;<a class="reference external" href="file:///home/key_expt/id_rsa.pub">file:///home/key_expt/id_rsa.pub</a>&#8221;,
+&#8220;value&#8221;: null,
+&#8220;updated_at&#8221;: &#8220;2015-09-23 16:14:41&#8221;,
+&#8220;project&#8221;: &#8220;undefined&#8221;,
+&#8220;source&#8221;: &#8220;ssh&#8221;,
+&#8220;user&#8221;: &#8220;undefined&#8221;,
+&#8220;fingerprint&#8221;: &#8220;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&#8221;,
+&#8220;label&#8221;: &#8220;demokey&#8221;,
+&#8220;id&#8221;: 1,
+&#8220;cloud&#8221;: &#8220;general&#8221;</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>}
+info. OK.</p>
+</div></blockquote>
+</div></blockquote>
+<p>To make it easy for the user, we can set the default key also
+interactively with the select option:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm key default --select
    default
    (&#39;i:&#39;, 1)
    (&#39;i:&#39;, 2)
@@ -485,14 +505,15 @@ OR::
 </div>
 </div>
 <div class="section" id="delete-keys">
-<h2>Delete Keys<a class="headerlink" href="#delete-keys" title="Permalink to this headline">¶</a></h2>
-<p>Delete key by name:</p>
+<h3>Delete Keys<a class="headerlink" href="#delete-keys" title="Permalink to this headline">¶</a></h3>
+<p>A named key can be deleted from the registry with the command, where
+demo key is the name of the key:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete demokey
    delete
    info. OK.
 </pre></div>
 </div>
-<p>Select key to be deleted:</p>
+<p>Alternatively you can also interactively select it:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete --select
    delete
    (&#39;i:&#39;, 3)
@@ -512,11 +533,12 @@ OR::
    info. OK.
 </pre></div>
 </div>
-<p>Delete all keys from database:</p>
+<p>To delete all keys from database use:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete --all
    delete
    info. OK.
 </pre></div>
+</div>
 </div>
 </div>
 </div>
