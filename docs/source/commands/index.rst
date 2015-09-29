@@ -17,14 +17,15 @@ in alphabetical order in the Section ...
 .. toctree::
    :glob:
 
-   command_register.rst
-   command_group.rst
-   command_key.rst
-   command_list.rst
-   command_nova.rst
-   command_quota.rst
-   command_reservation.rst
-   command_secgroup.rst
-   command_vm.rst
-      
+   command_templates
+   command_register
+   command_default
+   command_group   
+   command_list
+   command_quota
+   command_key
+   command_secgroup   
+   command_vm
+   command_nova
+   command_reservation      
     
