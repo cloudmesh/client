@@ -1,13 +1,20 @@
 Key Command
 ======================================================================
 
-The manual page of the key command can be found at: `key <../man/man.html#key>`_
+In clouds and distributed environments security keys are used for
+authentication. We like to be able to register specific keys with
+clouds or vms and eaily use them. To do so we upload them into a key
+registry in which each key is uniquely named. We use these named keys
+when we start up virtual machines or log into remote machines.
+
+The manual page of the key command can be found at: `key
+<../man/man.html#key>`_
 
 
 Adding a key to the database
-^^^^^^^^^^^^^
+----------------------------------------------------------------------
 
-Add a key to the key database from a file::
+To add a key to the key registry from a file we use the command::
 
     $ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
         ssh dd
@@ -33,11 +40,14 @@ Add a key to the key database from a file::
          'user': None}
         info. OK.
 
-
+.. todo:: I do not think a user wants to see the json output. I think
+	  he only wants to se eif its successfull or not. To see the
+	  key one should use a list command.
+	
 List Keys
 ^^^^^^^^^^^^^
 
-List keys from the database::
+To list the keys in the registry you can use the command::
 
       $ cm key list
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
@@ -47,17 +57,9 @@ List keys from the database::
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
         info. OK.
 
- OR::
 
-  $ cm key list --source=db
-    +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-    | name    | comment            | uri                                        | fingerprint                                     | source |
-    +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-    | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
-    +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-    info. OK.
-
-List keys from git::
+The key command takes a number of additional options. Instead of using
+the cloudmesh registry, keys can also be read from git hub with the option::
 
  $ cm key list --source=git
     none
@@ -67,8 +69,11 @@ List keys from git::
     |      | github-0 | https://github.com/vagloalbert.keys | 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01 |        |
     +------+----------+----------------------------------------+-------------------------------------------------+--------+
     info. OK.
-List keys in different format like json::
 
+
+To change the output format you can specify it with the --format
+option::
+  
  $ cm key list --source=git --format=json
     none
     {
@@ -84,10 +89,14 @@ List keys in different format like json::
     }
     info. OK.
 
+    
 Get Keys
 ^^^^^^^^^^^^^
 
-Get a key by name::
+.. todo:: shoudl that ge renamed to fingerprint?
+	  what does get do, what is its semantic?
+	  
+To get the fingerprint of a key you can obtain it with::
 
  $ cm key get demokey
     demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
@@ -96,16 +105,22 @@ Get a key by name::
 Default Keys
 ^^^^^^^^^^^^^
 
-Mark key as default by name::
+In many cases it is convenient to just use a default key that is
+set. To mark key as default by name you can use the command::
 
  $ cm key default demokey
     default
     info. OK.
 
-You can verify by::
+
+    
+You can verify that a key is set as default while looking at the
+"is_default" attribute::
+
+.. todo:: why not just use default instead of is_deafult
 
  $ cm key list --format=json
-    {
+
         "1": {
             "comment": "albert@Zweistein",
             "is_default": "True",  <<--Set to True
@@ -126,9 +141,10 @@ You can verify by::
     }
     info. OK.
 
-Select key to be marked as default::
-
- $ (ENV)[albert@Zweistein client]$ cm key default --select
+To make it easy for the user, we can set the default key also
+interactively with the select option::
+  
+ $ cm key default --select
     default
     ('i:', 1)
     ('i:', 2)
@@ -149,13 +165,14 @@ Select key to be marked as default::
 Delete Keys
 ^^^^^^^^^^^^^
 
-Delete key by name::
+A named key can be deleted from the registry with the command, where
+demo key is the name of the key::
 
  $ cm key delete demokey
     delete
     info. OK.
 
-Select key to be deleted::
+Alternatively you can also interactively select it::
 
  $ cm key delete --select
     delete
@@ -175,7 +192,7 @@ Select key to be deleted::
     Deleting key: rsa...
     info. OK.
 
-Delete all keys from database::
+To delete all keys from database use::
 
  $ cm key delete --all
     delete
