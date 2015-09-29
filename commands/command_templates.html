@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SecGroup Command &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Basic Commands and Options &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="VM Command" href="command_vm.html"/>
-        <link rel="prev" title="Reservation Command" href="command_reservation.html"/> 
+        <link rel="next" title="Register Command" href="command_register.html"/>
+        <link rel="prev" title="User Manual" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -111,6 +111,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">Basic Commands and Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#format">Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cloud">Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#help">Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
@@ -132,6 +140,14 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
@@ -142,15 +158,17 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
@@ -158,16 +176,6 @@
 <li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">SecGroup Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-create">Security Group Create</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-list">Security Group List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rules-list">Security Group Rules List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rule-delete">Security Group Rule Delete</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-delete">Security Group Delete</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
@@ -328,11 +336,11 @@
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>SecGroup Command</li>
+    <li>Basic Commands and Options</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/commands/command_secgroup.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_templates.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -341,82 +349,153 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="secgroup-command">
-<h1>SecGroup Command<a class="headerlink" href="#secgroup-command" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="basic-commands-and-options">
+<h1>Basic Commands and Options<a class="headerlink" href="#basic-commands-and-options" title="Permalink to this headline">¶</a></h1>
+<p>Cloudmesh contains a number of commands that makes the management of
+multiple heterogeneous clouds easier. In order to better manage the
+various clouds it is convenient to introduce a number of options and
+behaviors. This includes the following concepts.</p>
+<div class="section" id="format">
+<h2>Format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h2>
+<p>Many commands have a format parameter that allows to provide output of
+the command in various formats. These formats include:</p>
+<ul class="simple">
+<li>json</li>
+<li>yaml</li>
+<li>table</li>
+<li>csv</li>
+</ul>
+<p>The format can be changed on each command that supports it with:</p>
+<div class="highlight-python"><div class="highlight"><pre>--format FORMAT
+</pre></div>
+</div>
+<p>where FORMAT is one of the values from the list above.</p>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">describe what security groups are used for.</p>
+<p class="last">setting a default format via defaults</p>
 </div>
-<p>The manual page of the secgroup command can be found at: <a class="reference external" href="../man/man.html#secgroup">secgroup</a></p>
-<div class="section" id="security-group-create">
-<h2>Security Group Create<a class="headerlink" href="#security-group-create" title="Permalink to this headline">¶</a></h2>
-<p>To create a security group in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup create --cloud india --tenant fg478 test-group02
-Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
+<p>Not yet done: It is also possible to set the default format for all
+commands that accept the format option. THis is done with the
+command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ default format FORMAT
+</pre></div>
+</div>
+<p>Once you have set it, the default format will be used for all commands
+the do not explicitly set the format option on the commandline.</p>
+<p>To switch off this behavior and use the build in behavior for each
+command, we specify:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ default format False
 </pre></div>
 </div>
 </div>
-<div class="section" id="security-group-list">
-<h2>Security Group List<a class="headerlink" href="#security-group-list" title="Permalink to this headline">¶</a></h2>
-<p>To list Security Groups in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup list --cloud india --tenant fg478
-  +--------------------------------------+----------+-------+--------------+---------+
-  | uuid                                 | user     | cloud | name         | project |
-  +--------------------------------------+----------+-------+--------------+---------+
-  | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert   | india | test-group   | fg478   |
-  | bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464 | albert   | india | test-group02 | fg478   |
-  +--------------------------------------+----------+-------+--------------+---------+
+<div class="section" id="cloud">
+<h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
+<p>Many commands are specific to a particular cloud. this cloud can be
+set with the:</p>
+<div class="highlight-python"><div class="highlight"><pre>--cloud CLOUD
 </pre></div>
 </div>
+<p>option for individual commands that support it. As we deal with many
+clouds it may be inconvenient to specify the name of the cloud every
+time, thus we have introduced the concept of a default cloud. The
+default cloud can be set with the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ default cloud CLOUDNAME
+</pre></div>
 </div>
-<div class="section" id="security-group-rule-add">
-<h2>Security Group Rule Add<a class="headerlink" href="#security-group-rule-add" title="Permalink to this headline">¶</a></h2>
-<p>To add a new rule to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
-  Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
+<p>where cloudname is the name of the cloud that we have registered with
+cloudmesh (see registration).</p>
+<div class="admonition-todo admonition" id="index-1">
+<p class="first admonition-title">Todo</p>
+<p class="last">put link to registration here</p>
+</div>
+</div>
+<div class="section" id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<div class="admonition-todo admonition" id="index-2">
+<p class="first admonition-title">Todo</p>
+<p class="last">reintroduce the history command</p>
+</div>
+<p>Not yet completed. As we may want to ruan multiple commands we also
+provide a history that can be invoked from cloudmesh to show which
+cloudmesh commands have been issued in the past. This allows a more
+easy review of past activities:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm history
+</pre></div>
+</div>
+<p>Commands in history are preceeded by a number. A past command can be
+reissued by appending the number to the history. Thus the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm history 3
+</pre></div>
+</div>
+<p>would execute the 3rd command in the command history.</p>
+</div>
+<div class="section" id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p>To see the list of all available commands use the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm help
+</pre></div>
+</div>
+<p>The commands are sorted by topic, while the first list gives all
+commands in alphabetical order. To opbtain an individual man page
+simply say:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm help COMMAND
+</pre></div>
+</div>
+<p>where command is the command you which to get the help message for. To
+optain the manual pages of all commands yo can use the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm man
+</pre></div>
+</div>
+<p>which will print all man pages out.</p>
+</div>
+<div class="section" id="shell-commandline">
+<h2>Shell &amp; Commandline<a class="headerlink" href="#shell-commandline" title="Permalink to this headline">¶</a></h2>
+<p>Cloudmesh client is a shell as well as a commandline tool. Thus all
+commands that you can type in as a single command could also be
+executed as a command shell. To enter the command shell, please type:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm
 
-$ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
-  Added rule [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rules-list">
-<h2>Security Group Rules List<a class="headerlink" href="#security-group-rules-list" title="Permalink to this headline">¶</a></h2>
-<p>To list all the rules assigned to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-list --cloud india --tenant fg478 test-group
-  +----------+-------+------------+----------+--------+----------+-----------+
-  | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
-  +----------+-------+------------+----------+--------+----------+-----------+
-  | albert   | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
-  | albert   | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
-  +----------+-------+------------+----------+--------+----------+-----------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rule-delete">
-<h2>Security Group Rule Delete<a class="headerlink" href="#security-group-rule-delete" title="Permalink to this headline">¶</a></h2>
-<p>To delete a specific rule within a security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
-  Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
++=======================================================+
+.   ____ _                 _                     _      .
+.  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   .
+. | |   | |/ _ \| | | |/ _` | &#39;_ ` _ \ / _ \/ __| &#39;_ \  .
+. | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | .
+.  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| .
++=======================================================+
+                   Cloudmesh Shell
 
-$ cm secgroup rules-list india fg478 test-group
-  +----------+-------+--------------+----------+--------+----------+-----------+
-  | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
-  +----------+-------+--------------+----------+--------+----------+-----------+
-  | albert   | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
-  +----------+-------+--------------+----------+--------+----------+-----------+
+cm&gt;
 </pre></div>
 </div>
-</div>
-<div class="section" id="security-group-delete">
-<h2>Security Group Delete<a class="headerlink" href="#security-group-delete" title="Permalink to this headline">¶</a></h2>
-<p>To delete an entire security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup delete --cloud india --tenant fg478 test-group
-  Rule [443 | 443 | udp | 0.0.0.0/0] deleted
-  Security Group [test-group] for cloud [india], &amp; tenant [fg478] deleted
+<p>You will see the prompt and can interactively execute some of the
+commands without needing to type in cm in front of each command.  To
+see the commands type help. To get help for an individual command type
+help COMMANDNAME.  You can quit the comamnd shell with the command
+quit.</p>
+<p>The current list of commands contains:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm help
 
-$ cm secgroup rules-list --cloud india --tenant fg478 test-group
-  ERROR: Security Group with label [test-group], cloud [india], &amp; tenant [fg478] not found!
+Documented commands (type help &lt;topic&gt;):
+========================================
+EOF     cloud    group      key     man   pause  quota        secgroup  ssh
+banner  context  help       limits  nova  q      register     select    version
+clear   default  inventory  list    open  quit   reservation  server    vm
+
+Security Commands
+=================
+key  secgroup  ssh
+
+Shell Commands
+==============
+banner  clear  EOF  man  man  open  q
+
+System Commands
+===============
+inventory  reservation
+
+Cloud Commands
+==============
+cloud  default  group  limits  list  nova  quota  register  select  server  vm
 </pre></div>
 </div>
 </div>
@@ -428,10 +507,10 @@ $ cm secgroup rules-list --cloud india --tenant fg478 test-group
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_vm.html" class="btn btn-neutral float-right" title="VM Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_register.html" class="btn btn-neutral float-right" title="Register Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_reservation.html" class="btn btn-neutral" title="Reservation Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="User Manual" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

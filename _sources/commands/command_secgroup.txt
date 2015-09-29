@@ -1,21 +1,24 @@
 SecGroup Command
 ======================================================================
 
-The manual page of the secgroup command can be found at: `secgroup <../man/man.html#secgroup>`_
+.. todo:: describe what security groups are used for.
+
+The manual page of the secgroup command can be found at: `secgroup
+<../man/man.html#secgroup>`_
 
 
 Security Group Create
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
-Create a security group in cloudmesh for a cloud & tenant::
+To create a security group in cloudmesh for a cloud and tenant use::
 
   $ cm secgroup create --cloud india --tenant fg478 test-group02
   Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
 
 Security Group List
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
-List Security Groups in cloudmesh for a cloud & tenant::
+To list Security Groups in cloudmesh for a cloud and tenant use::
 
   $ cm secgroup list --cloud india --tenant fg478
     +--------------------------------------+----------+-------+--------------+---------+
@@ -26,9 +29,9 @@ List Security Groups in cloudmesh for a cloud & tenant::
     +--------------------------------------+----------+-------+--------------+---------+
 
 Security Group Rule Add
-^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------
 
-Adds a new rule to the security group::
+To add a new rule to the security group use::
 
   $ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
     Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
@@ -37,9 +40,9 @@ Adds a new rule to the security group::
     Added rule [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
 
 Security Group Rules List
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------
 
-Lists all the rules assigned to the security group::
+To list all the rules assigned to the security group use::
 
   $ cm secgroup rules-list --cloud india --tenant fg478 test-group
     +----------+-------+------------+----------+--------+----------+-----------+
@@ -50,9 +53,9 @@ Lists all the rules assigned to the security group::
     +----------+-------+------------+----------+--------+----------+-----------+
 
 Security Group Rule Delete
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------
 
-Delete a specific rule within a security group::
+To delete a specific rule within a security group use::
 
   $ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
     Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
@@ -65,9 +68,9 @@ Delete a specific rule within a security group::
     +----------+-------+--------------+----------+--------+----------+-----------+
 
 Security Group Delete
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
-Delete an entire security group::
+To delete an entire security group use::
 
   $ cm secgroup delete --cloud india --tenant fg478 test-group
     Rule [443 | 443 | udp | 0.0.0.0/0] deleted

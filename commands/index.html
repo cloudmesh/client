@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
-        <link rel="next" title="Register Command" href="command_register.html"/>
+        <link rel="next" title="Basic Commands and Options" href="command_templates.html"/>
         <link rel="prev" title="Configuration" href="../configuration.html"/> 
 
   
@@ -110,6 +110,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#format">Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#help">Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
@@ -121,6 +129,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -128,6 +137,14 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-copy">Group Copy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-merge">Group Merge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
@@ -140,23 +157,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
@@ -167,6 +167,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
@@ -353,6 +361,14 @@ use them in some order while:</p>
 in alphabetical order in the Section ...</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html#format">Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html#history">History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html#help">Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="command_register.html">Register Command</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
@@ -364,6 +380,7 @@ in alphabetical order in the Section ...</p>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l1"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -371,6 +388,14 @@ in alphabetical order in the Section ...</p>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html#group-copy">Group Copy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html#group-merge">Group Merge</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_list.html">List Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="command_key.html">Key Command</a><ul>
@@ -383,23 +408,6 @@ in alphabetical order in the Section ...</p>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l1"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
@@ -410,6 +418,14 @@ in alphabetical order in the Section ...</p>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l1"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -420,7 +436,7 @@ in alphabetical order in the Section ...</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_register.html" class="btn btn-neutral float-right" title="Register Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_templates.html" class="btn btn-neutral float-right" title="Basic Commands and Options" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../configuration.html" class="btn btn-neutral" title="Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

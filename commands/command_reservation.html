@@ -112,22 +112,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat">register cat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit">register edit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host">register rc HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud">register CLOUD</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-cert">from cert</a></li>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-dir">from dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -138,16 +133,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
@@ -347,6 +343,21 @@
             
   <div class="section" id="reservation-command">
 <h1>Reservation Command<a class="headerlink" href="#reservation-command" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">THis command is experimental and is not yet fully
+integrated. It only stores reservations, but does not act
+upon them.</p>
+</div>
+<p>One of the features of cloudmesh is to build a mesh of resources and
+services. In some cases we which to reserve resources that allow
+reservations. However we also may want to use a resource till a
+particular time frane and release it. For this cases it is practical
+to provide the concept of a reservation. A simple reservation is named
+and containes a start and end point. We currently store named virtual
+machines into a reservation for named clouds. Reservations are similar
+to groups just that they have a time frame associated with them. A
+timeless reservation is like a group.</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#reservation">reservation</a></p>
 <div class="section" id="adding-a-reservation">
 <h2>Adding a reservation<a class="headerlink" href="#adding-a-reservation" title="Permalink to this headline">¶</a></h2>

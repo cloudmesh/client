@@ -112,22 +112,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat">register cat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit">register edit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host">register rc HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud">register CLOUD</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-cert">from cert</a></li>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-dir">from dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -138,16 +133,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">List Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#list-default-json-format">List Default (JSON Format)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
@@ -347,10 +343,17 @@
             
   <div class="section" id="list-command">
 <h1>List Command<a class="headerlink" href="#list-command" title="Permalink to this headline">¶</a></h1>
+<p>The cloudmesh list command provides you with the ability to easily
+list information in regards to virtual machines, images, flavors,
+defaults, and available clouds.</p>
 <p>The manual page of the list command can be found at: <a class="reference external" href="../man/man.html#list">list</a></p>
 <div class="section" id="list-default">
 <h2>List Default<a class="headerlink" href="#list-default" title="Permalink to this headline">¶</a></h2>
-<p>List the default values set in a particular cloud:</p>
+<p>To list all default values you can use:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm list --cloud general default
+</pre></div>
+</div>
+<p>To list the default values set in a particular cloud use:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm list --cloud general default
   +-----------+---------+--------+----------+----------------------------+----------------------------+
   | user      | cloud   | name   | value    | created_at                 | updated_at                 |
@@ -362,10 +365,7 @@
   +-----------+---------+--------+----------+----------------------------+----------------------------+
 </pre></div>
 </div>
-</div>
-<div class="section" id="list-default-json-format">
-<h2>List Default (JSON Format)<a class="headerlink" href="#list-default-json-format" title="Permalink to this headline">¶</a></h2>
-<p>List the default values in (JSON format) set in a particular cloud:</p>
+<p>To specify a different format, such as json, use:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm list --cloud general --format json default
 {
       &quot;1&quot;: {

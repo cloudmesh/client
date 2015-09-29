@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SecGroup Command &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Default Command &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="VM Command" href="command_vm.html"/>
-        <link rel="prev" title="Reservation Command" href="command_reservation.html"/> 
+        <link rel="next" title="Group Command" href="command_group.html"/>
+        <link rel="prev" title="Register Command" href="command_register.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -122,7 +122,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Default Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -158,13 +158,13 @@
 <li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">SecGroup Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-create">Security Group Create</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-list">Security Group List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rules-list">Security Group Rules List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rule-delete">Security Group Rule Delete</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-delete">Security Group Delete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
@@ -328,11 +328,11 @@
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>SecGroup Command</li>
+    <li>Default Command</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/commands/command_secgroup.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_default.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -341,85 +341,10 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="secgroup-command">
-<h1>SecGroup Command<a class="headerlink" href="#secgroup-command" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">describe what security groups are used for.</p>
-</div>
-<p>The manual page of the secgroup command can be found at: <a class="reference external" href="../man/man.html#secgroup">secgroup</a></p>
-<div class="section" id="security-group-create">
-<h2>Security Group Create<a class="headerlink" href="#security-group-create" title="Permalink to this headline">¶</a></h2>
-<p>To create a security group in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup create --cloud india --tenant fg478 test-group02
-Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-list">
-<h2>Security Group List<a class="headerlink" href="#security-group-list" title="Permalink to this headline">¶</a></h2>
-<p>To list Security Groups in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup list --cloud india --tenant fg478
-  +--------------------------------------+----------+-------+--------------+---------+
-  | uuid                                 | user     | cloud | name         | project |
-  +--------------------------------------+----------+-------+--------------+---------+
-  | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert   | india | test-group   | fg478   |
-  | bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464 | albert   | india | test-group02 | fg478   |
-  +--------------------------------------+----------+-------+--------------+---------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rule-add">
-<h2>Security Group Rule Add<a class="headerlink" href="#security-group-rule-add" title="Permalink to this headline">¶</a></h2>
-<p>To add a new rule to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
-  Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
-
-$ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
-  Added rule [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rules-list">
-<h2>Security Group Rules List<a class="headerlink" href="#security-group-rules-list" title="Permalink to this headline">¶</a></h2>
-<p>To list all the rules assigned to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-list --cloud india --tenant fg478 test-group
-  +----------+-------+------------+----------+--------+----------+-----------+
-  | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
-  +----------+-------+------------+----------+--------+----------+-----------+
-  | albert   | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
-  | albert   | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
-  +----------+-------+------------+----------+--------+----------+-----------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rule-delete">
-<h2>Security Group Rule Delete<a class="headerlink" href="#security-group-rule-delete" title="Permalink to this headline">¶</a></h2>
-<p>To delete a specific rule within a security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
-  Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
-
-$ cm secgroup rules-list india fg478 test-group
-  +----------+-------+--------------+----------+--------+----------+-----------+
-  | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
-  +----------+-------+--------------+----------+--------+----------+-----------+
-  | albert   | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
-  +----------+-------+--------------+----------+--------+----------+-----------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-delete">
-<h2>Security Group Delete<a class="headerlink" href="#security-group-delete" title="Permalink to this headline">¶</a></h2>
-<p>To delete an entire security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup delete --cloud india --tenant fg478 test-group
-  Rule [443 | 443 | udp | 0.0.0.0/0] deleted
-  Security Group [test-group] for cloud [india], &amp; tenant [fg478] deleted
-
-$ cm secgroup rules-list --cloud india --tenant fg478 test-group
-  ERROR: Security Group with label [test-group], cloud [india], &amp; tenant [fg478] not found!
-</pre></div>
-</div>
-</div>
+  <div class="section" id="default-command">
+<h1>Default Command<a class="headerlink" href="#default-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#deafult">Nova</a></p>
+<p>Examples &lt;TO BE ADDED&gt;</p>
 </div>
 
 
@@ -428,10 +353,10 @@ $ cm secgroup rules-list --cloud india --tenant fg478 test-group
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_vm.html" class="btn btn-neutral float-right" title="VM Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_group.html" class="btn btn-neutral float-right" title="Group Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_reservation.html" class="btn btn-neutral" title="Reservation Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_register.html" class="btn btn-neutral" title="Register Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

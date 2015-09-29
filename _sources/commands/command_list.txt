@@ -1,13 +1,22 @@
 List Command
 ======================================================================
 
-The manual page of the list command can be found at: `list <../man/man.html#list>`_
+The cloudmesh list command provides you with the ability to easily
+list information in regards to virtual machines, images, flavors,
+defaults, and available clouds.
+
+The manual page of the list command can be found at: `list
+<../man/man.html#list>`_
 
 
 List Default
-^^^^^^^^^^^^^
+----------------------------------------------------------------------
 
-List the default values set in a particular cloud::
+To list all default values you can use::
+
+  $ cm list --cloud general default  
+
+To list the default values set in a particular cloud use::
 
   $ cm list --cloud general default
     +-----------+---------+--------+----------+----------------------------+----------------------------+
@@ -19,10 +28,7 @@ List the default values set in a particular cloud::
     | albert    | general | format | table    | 2015-09-23 21:53:16        | 2015-09-23 21:53:16        |
     +-----------+---------+--------+----------+----------------------------+----------------------------+
 
-List Default (JSON Format)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-List the default values in (JSON format) set in a particular cloud::
+To specify a different format, such as json, use::
 
   $ cm list --cloud general --format json default
   {

@@ -112,22 +112,17 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat">register cat</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit">register edit</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host">register rc HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud">register CLOUD</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-cert">from cert</a></li>
-<li class="toctree-l4"><a class="reference internal" href="command_register.html#from-dir">from dir</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -138,16 +133,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
@@ -348,9 +344,13 @@
   <div class="section" id="quota-command">
 <h1>Quota Command<a class="headerlink" href="#quota-command" title="Permalink to this headline">¶</a></h1>
 <p>The manual page of the quota command can be found at: <a class="reference external" href="../man/man.html#quota">Quota</a></p>
+<p>Many clouds have some kind of quota limitations on how many ip
+addresses one can obtain, or how many cores a user can have. To get an
+overview of the quotas set for a user in a project we are providing a
+quota command.</p>
 <div class="section" id="quota-list">
 <h2>quota list<a class="headerlink" href="#quota-list" title="Permalink to this headline">¶</a></h2>
-<p>Prints quota limit on a current project/tenant:</p>
+<p>To list the quota limit on a default project/tenant you can use:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm quota list
   +-----------------------------+-------+
   | Quota                       | Limit |
@@ -372,7 +372,8 @@
   +-----------------------------+-------+
 </pre></div>
 </div>
-<p>Another example with csv output:</p>
+<p>To export it in csv format, please use and specifically apply it to
+the cloud india:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm quota list --cloud=india --format=csv
 Quota,Limit
 instances,10

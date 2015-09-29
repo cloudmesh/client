@@ -1,12 +1,18 @@
 Quota Command
 ======================================================================
 
-The manual page of the quota command can be found at: `Quota <../man/man.html#quota>`_
+The manual page of the quota command can be found at: `Quota
+<../man/man.html#quota>`_
+
+Many clouds have some kind of quota limitations on how many ip
+addresses one can obtain, or how many cores a user can have. To get an
+overview of the quotas set for a user in a project we are providing a
+quota command.
 
 quota list
-^^^^^^^^^^^^^
+----------------------------------------------------------------------
 
-Prints quota limit on a current project/tenant::
+To list the quota limit on a default project/tenant you can use::
 
   $ cm quota list
     +-----------------------------+-------+
@@ -28,7 +34,8 @@ Prints quota limit on a current project/tenant::
     | ram                         | 51200 |
     +-----------------------------+-------+
 
-Another example with csv output::
+To export it in csv format, please use and specifically apply it to
+the cloud india::
 
     $ cm quota list --cloud=india --format=csv
     Quota,Limit
