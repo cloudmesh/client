@@ -37,21 +37,24 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import auto_create_version
 from cloudmesh_base.setup import parse_requirements, os_execute, get_version_from_git
 
-version = get_version_from_git()
+
+from cloudmesh_base import version
 
 banner("Installing Cloudmesh_client {:}".format(version))
 
 requirements = parse_requirements('requirements.txt')
 
-auto_create_version("cloudmesh_client", version, filename="version.py")
-        
+class CreateVersionFromGitTag(install):
+    """Create a new version number"""
+    version = get_version_from_git()
+    auto_create_version("cloudmesh_client", version, filename="version.py")
+
 class UploadToPypi(install):
     """Upload the package to pypi. -- only for Maintainers."""
 
     description = __doc__
 
     def run(self):
-        auto_create_version("cloudmesh_client", version, filename="version.py")
         os.system("make clean")
         commands = """
             python setup.py install
@@ -131,14 +134,7 @@ class Tox(TestCommand):
         errno = tox.cmdline(args=args)
         sys.exit(errno)
 
-
-APP = [os.path.join('cloudmesh_client', 'shell.py')]
-OPTIONS = {'argv_emulation': True}
-            
 setup(
-#    setup_requires=['py2app'],
-#    options={'py2app': OPTIONS},
-#    app=APP,
     version=version,
     name="cloudmesh_client",
     description="cloudmesh_client - A dynamic CMD shell with plugins",
@@ -178,7 +174,8 @@ setup(
     cmdclass={
         'install': InstallBase,
         'pypi': UploadToPypi,
-        'test': Tox
+        'test': Tox,
+        'version': CreateVersionFromGitTag,
     },
     dependency_links =
         ['git+https://github.com/cloudmesh/base.git']
