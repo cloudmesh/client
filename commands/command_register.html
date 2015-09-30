@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Group Command" href="command_group.html"/>
-        <link rel="prev" title="User Manual" href="index.html"/> 
+        <link rel="next" title="Default Command" href="command_default.html"/>
+        <link rel="prev" title="Basic Commands and Options" href="command_templates.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,10 +95,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-client-via-pip">Cloudmesh Client via pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#user-and-contributor">User and Contributor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-repository">Developer with ssh access to git repository</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#testing">Testing</a></li>
 </ul>
@@ -111,6 +112,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#format">Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#help">Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Register Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-india">register india</a></li>
@@ -119,9 +128,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#register-form">register form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-check">register check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-json-host">register json HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -131,29 +140,22 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
@@ -166,6 +168,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
@@ -278,21 +288,22 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../changes_gitlog.html">Changelog</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.6.9 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.8 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.7 (2015-09-05)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.6 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.5 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.4 (2015-09-02)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.3 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.2 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.1 (2015-08-31)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.0 (2015-08-29)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.5.8 (2015-06-28)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.7 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.6 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.5 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.4 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.7.0 (2015-09-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.9 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.8 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.7 (2015-09-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.6 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.5 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.4 (2015-09-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.3 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.2 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.1 (2015-08-31)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.6.0 (2015-08-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.8 (2015-06-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.7 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.6 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.5 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id16">0.5.4 (2015-06-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -363,7 +374,7 @@ abstractions. We will make them available in future.</p>
 format, we provide several administrative commands. The command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ register info
 
-File C:\Users\erika\.cloudmesh\cloudmesh.yaml exists
+File C:\Users\albert\.cloudmesh\cloudmesh.yaml exists
 </pre></div>
 </div>
 <p>identifies if the <cite>cloudmesh.yaml</cite> file exists.</p>
@@ -606,50 +617,6 @@ representation by issueing the command:</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="should-we-document-here">
-<h2>Should we document here?<a class="headerlink" href="#should-we-document-here" title="Permalink to this headline">¶</a></h2>
-<p>Commands that we may want to document in man page, but that may not be important
-for the document here</p>
-<p>register CLOUD CERT [&#8211;force]</p>
-<p>The reason wy we not need to document is that it is automatically done
-as part of</p>
-<blockquote>
-<div>register india</div></blockquote>
-<p>Copies the CERT to the ~/.cloudmesh/clouds/host directory and registers that cert in the coudmesh.yaml file.
-For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem and would be copied to ~/.cloudmesh/clouds/india/juno:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm register india ~/.cloudmesh/clouds/india/juno/cacert.pem
-register
-Fetching certificate from india...
-Enter passphrase for key &#39;/C/Users/erika/.ssh/id_rsa&#39;:
-certificate fetched. ok
-registering cert in cloudmesh.yaml file
-cert registered in cloudmesh.yaml file.
-Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
-
-  india
-  aws
-  azure
-</pre></div>
-</div>
-<p>register CLOUD &#8211;dir</p>
-<p>The reason wy we not need to document is that it is automatically done
-as part of</p>
-<p>Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
-For india, The directory would be copied to ~/.cloudmesh/clouds/india:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm register india --dir=~/.cloudmesh/clouds/india/juno
-~/.cloudmesh/clouds/india/juno
-register
-Fetching directory...
-Enter passphrase for key &#39;/C/Users/erika/.ssh/id_rsa&#39;:
-Directory fetched
-Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
-
-  india
-  aws
-  azure
-</pre></div>
-</div>
-</div>
 </div>
 
 
@@ -658,10 +625,10 @@ Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.y
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_group.html" class="btn btn-neutral float-right" title="Group Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_default.html" class="btn btn-neutral float-right" title="Default Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="User Manual" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_templates.html" class="btn btn-neutral" title="Basic Commands and Options" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
