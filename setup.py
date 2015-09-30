@@ -35,9 +35,9 @@ from cloudmesh_base.util import banner
 from cloudmesh_base.setup import os_execute, get_version_from_git
 
 
-from cloudmesh_client import version
+from cloudmesh_client import __version__
 
-banner("Installing Cloudmesh_client {:}".format(version))
+banner("Installing Cloudmesh_client {:}".format(__version__))
 
 requirements = ['pyreadline<=1.7.1.dev-r0',
                 'colorama',
@@ -93,7 +93,7 @@ class InstallBase(install):
         if commands:
             os_execute(commands)
         import cloudmesh_client
-        banner("Install Cloudmesh_client {:}".format(version))
+        banner("Install Cloudmesh_client {:}".format(__version__))
         install.run(self)
 
 
@@ -145,7 +145,7 @@ class Tox(TestCommand):
         sys.exit(errno)
 
 setup(
-    version=version,
+    version=__version__,
     name="cloudmesh_client",
     description="cloudmesh_client - A dynamic CMD shell with plugins",
     long_description=read('README.rst'),
@@ -187,6 +187,5 @@ setup(
         'test': Tox,
     },
     dependency_links = []
-        ['git+https://github.com/cloudmesh/base.git']
 )
 

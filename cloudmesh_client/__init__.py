@@ -14,5 +14,5 @@ from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 
-__version__ = cloudmesh_client.version.version
+__version__ = cloudmesh_client.version.__version__
 
