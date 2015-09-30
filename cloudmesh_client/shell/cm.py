@@ -26,7 +26,8 @@ from cloudmesh_client.shell.plugins.ListCommand import ListCommand
 from cloudmesh_client.shell.plugins.QuotaCommand import QuotaCommand
 from cloudmesh_client.shell.plugins.VmCommand import VmCommand
 from cloudmesh_client.shell.plugins.LimitsCommand import LimitsCommand
-from cloudmesh_client.version import version
+import cloudmesh_client
+import cloudmesh_base
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
 import cloudmesh_base
@@ -188,11 +189,11 @@ class CloudmeshConsole(cmd.Cmd,
         versions = {
             "cloudmesh_client": {
                 "name": "cloudmesh_client",
-                "version": str(version)
+                "version": str(cloudmesh_client.__version__)
             },
             "cloudmesh_base": {
                 "name": "cloudmesh_base",
-                "version": str(cloudmesh_base.version)
+                "version": str(cloudmesh_base.__version__)
             },
             "python": {
                 "name": "python",
