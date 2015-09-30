@@ -3,32 +3,33 @@ Installation
 
 We assume that you have prepared your system on which yo like to
 install the cloudmesh client. We recommend that you use python 2.7.10,
-pip 7.1.2 adnd have virtualenv installed. Vurthermore we recommend
-that on LInux systems you have readline installed as it is a
+pip 7.1.2 and have virtualenv installed. Furthermore we recommend
+that on Linux systems you have readline installed as it is a
 convenient tool for command line manipulation.
 
-IN the next sections we will walk you through a setup that has been
+In the next sections we will walk you through a setup that has been
 proven to work for developers and users and is very easy to replicate.
 
-Cloudmesh Instalation from Source
+
+Cloudmesh Client via pip
 ----------------------------------
 
-We assume that we conduct a source code install into the directory::
+Users can install the cloudmesh client via pip::
+
+    pip install cloudmesh_client
+
+
+Cloudmesh Installation from Source
+-----------------------------------
+
+Developers that wish to contribute to the source can obtein the code from
+github. We assume that we conduct a source code install into the directory::
   
   ~/github/cloudmesh
 
 If you like to use a different directory, that is also possible, but
 the instructions we provide here assumes are targeted towards this
 base directory.
-
-In future versions of cloudmesh client, we will have a convenienet pip
-install via::
-
-  pip install cloudmesh-client
-
-.. warning:: The pip install is not yet working, so please do not use it.
-
-
 
 Preparing the Virtualenv
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -53,12 +54,12 @@ Windows::
   
 .. todo:: Gurav. there was an error here as it talked about cygwin,
 	  but we use here powershell, can you verify if this works. I
-	  think i myself are using this without virttualenv
+	  think i myself are using this without virtualenv
    
 
 User and Contributor
 ^^^^^^^^^^^^^^^^^^^^
-If you are a user and external contributer and do not have write access to
+If you are a user and external contributor and do not have write access to
 the repositories you can install the code from source as follows::
 
    mkdir -p github/cloudmesh
@@ -70,7 +71,7 @@ the repositories you can install the code from source as follows::
    cd ../client
    python setup.py install
 
-Developer with ssh access to git reporsitory
+Developer with ssh access to git repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you are a developer and have access to all repositories, you can
@@ -109,7 +110,7 @@ repositories please do not forget to update them accordingly::
 .. todo:: It may be advantageous to create a CLOUDMESH_HOME variable
 	  and install the source into it. THis way we can use
 	  CLOUDMESH_HOME instead of HOME and are independent from the
-	  directory. HOwever at this time this is not needed as it
+	  directory. However at this time this is not needed as it
 	  complicates the setup. As we all develop in the same tree
 	  its easier for now to go without the CLOUDMESH_HOME. Also
 	  setting this up on windows is yet another complication we do
