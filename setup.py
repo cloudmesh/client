@@ -32,22 +32,31 @@ except:
     os.system("pip install git+https://github.com/cloudmesh/base.git")
 
 from cloudmesh_base.util import banner
-from cloudmesh_base.util import path_expand
-from cloudmesh_base.Shell import Shell
-from cloudmesh_base.util import auto_create_version
-from cloudmesh_base.setup import parse_requirements, os_execute, get_version_from_git
+from cloudmesh_base.setup import os_execute, get_version_from_git
 
 
-from cloudmesh_base import version
+from cloudmesh_client import version
 
 banner("Installing Cloudmesh_client {:}".format(version))
 
-requirements = parse_requirements('requirements.txt')
+requirements = ['pyreadline<=1.7.1.dev-r0',
+                'colorama',
+                'cloudmesh_base',
+                'future',
+                'docopt',
+                'pyaml',
+                'simplejson',
+                'python-hostlist',
+                'prettytable',
+                'sqlalchemy',
+                'urllib3',
+                'requests',
+                'sandman',
+                'gitchangelog',
+                'six',
+                'python-novaclient']
 
-class CreateVersionFromGitTag(install):
-    """Create a new version number"""
-    version = get_version_from_git()
-    auto_create_version("cloudmesh_client", version, filename="version.py")
+
 
 class UploadToPypi(install):
     """Upload the package to pypi. -- only for Maintainers."""
@@ -60,6 +69,7 @@ class UploadToPypi(install):
             python setup.py install
             python setup.py bdist_wheel            
             python setup.py sdist --format=bztar,zip upload
+            python setup.py bdist_wheel upload
             """
         os_execute(commands)    
 
@@ -147,7 +157,7 @@ setup(
         "Intended Audience :: Developers",
         "Intended Audience :: Education",
         "Intended Audience :: Science/Research",
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 0 - Alpha",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: MacOS :: MacOS X",
@@ -175,9 +185,8 @@ setup(
         'install': InstallBase,
         'pypi': UploadToPypi,
         'test': Tox,
-        'version': CreateVersionFromGitTag,
     },
-    dependency_links =
+    dependency_links = []
         ['git+https://github.com/cloudmesh/base.git']
 )
 

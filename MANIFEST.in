@@ -1,5 +1,6 @@
 include AUTHORS
 include ChangeLog
+include requirements.txt
 
 exclude .gitignore
 exclude .gitreview
