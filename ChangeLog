@@ -7,10 +7,95 @@ Changelog
 New
 ~~~
 
+- Added rst and nosetests along with minor modifications for quota.
+  [ehdsouza]
+
+- Inventory command. [Gregor von Laszewski]
+
+- Simple docker makefile commands and elementary notes. [Gregor von
+  Laszewski]
+
+- Dockerfile added. [Gregor von Laszewski]
+
+- Add a vm name prototype function. [Gregor von Laszewski]
+
+- Proposal of system preparation instructions for windows. [Gregor von
+  Laszewski]
+
+- Adding models for VM, FLAVOR, IMAGE. [Gregor von Laszewski]
+
 - Adding automatic changelog generation. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Changed register command to specify albert and removed two commands
+  from user manual. [ehdsouza]
+
+- Documentation of basic cm command and options. [Gregor von Laszewski]
+
+- Improve the instalation instructions of the source code. [Gregor von
+  Laszewski]
+
+- Adding ubuntu 15.04 instructions. [Gregor von Laszewski]
+
+- Improving CentOS documentation. [Gregor von Laszewski]
+
+- Reorganize the system preparation documentation and adding OSX
+  instructions. [Gregor von Laszewski]
+
+- Remove documentation dependency for cmd3 in the instalation. [Gregor
+  von Laszewski]
+
+- Provide a working install instruction for ssh and git on windows.
+  [Gregor von Laszewski]
+
+- Improving documentation of group command. [Gregor von Laszewski]
+
+- Update system.rst with installation steps for windows. [Gourav Shenoy]
+
+Fix
+~~~
+
+- Enabled NovaCommand, added nosetests, fixing pyreadline version, fixed
+  pep08 warnings. [Mangirish Wagle]
 
 Other
 ~~~~~
+
+- :chg: dev: significant comments to the register command. [Gregor von
+  Laszewski]
+
+- Add examples for group command in command_group.rst. [Gourav Shenoy]
+
+- Add notifications for travis. [Gregor von Laszewski]
+
+- Auto index in the commands doc dir. [Gregor von Laszewski]
+
+- Added placeholder foe command documentation. [Gregor von Laszewski]
+
+- Merge. [Gregor von Laszewski]
+
+- Add simple git issue printer. [Gregor von Laszewski]
+
+- Changing the filename to unix style. [Gregor von Laszewski]
+
+- Improved the system windows install instructions. [Gregor von
+  Laszewski]
+
+- :chg: dev: using --format=FORMAT instead of --output. [Gregor von
+  Laszewski]
+
+
+  commands. [Gregor von Laszewski]
+
+- :fix: usr: improving cloud command documentation. [Gregor von
+  Laszewski]
+
+
+
+- Made changes to setup.py so that cloudmesh.yaml is installed at
+  "~/.cloudmesh/cloudmesh.yaml" [Erika Dsouza]
 
 - Dev: Update ChangeLog. [Gregor von Laszewski]
 
