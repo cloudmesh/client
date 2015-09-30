@@ -27,13 +27,14 @@ class Limits(object):
                                  Config.path_expand(credentials["OS_CACERT"]))
             return nova
         except Exception, e:
-            print(e)
+            raise Exception("Error in setting OS environment, {}".format(e))
 
     @classmethod
     def list_limits(cls, cloud, format, tenant):
-        # set the environment variables
-        nova = Limits.set_os_environment(cloud)
         try:
+            # set the environment variables
+            nova = Limits.set_os_environment(cloud)
+
             # execute the command
             result = nova.limits.get(tenant_id=tenant)
 
