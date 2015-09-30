@@ -26,7 +26,7 @@ format, we provide several administrative commands. The command::
 
   $ register info
 
-  File C:\Users\erika\.cloudmesh\cloudmesh.yaml exists
+  File C:\Users\albert\.cloudmesh\cloudmesh.yaml exists
 
 identifies if the `cloudmesh.yaml` file exists.
 
@@ -262,55 +262,3 @@ It will return output in json format::
         "cm_type": "azure",
         "cm_type_version": null
     }
-
-Should we document here?
--------------------------
-    
-Commands that we may want to document in man page, but that may not be important
-for the document here
-    
-register CLOUD CERT [--force]
-
-The reason wy we not need to document is that it is automatically done
-as part of
-
-   register india
-
-Copies the CERT to the ~/.cloudmesh/clouds/host directory and registers that cert in the coudmesh.yaml file.
-For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem and would be copied to ~/.cloudmesh/clouds/india/juno::
-
-    $ cm register india ~/.cloudmesh/clouds/india/juno/cacert.pem
-    register
-    Fetching certificate from india...
-    Enter passphrase for key '/C/Users/erika/.ssh/id_rsa':
-    certificate fetched. ok
-    registering cert in cloudmesh.yaml file
-    cert registered in cloudmesh.yaml file.
-    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
-
-      india
-      aws
-      azure
-
-
-register CLOUD --dir
-
-The reason wy we not need to document is that it is automatically done
-as part of
-
-
-Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
-For india, The directory would be copied to ~/.cloudmesh/clouds/india::
-
-    $ cm register india --dir=~/.cloudmesh/clouds/india/juno
-    ~/.cloudmesh/clouds/india/juno
-    register
-    Fetching directory...
-    Enter passphrase for key '/C/Users/erika/.ssh/id_rsa':
-    Directory fetched
-    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
-
-      india
-      aws
-      azure
-
