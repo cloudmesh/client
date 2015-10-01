@@ -40,6 +40,7 @@ class RegisterCommand(object):
               register india [--force]
               register CLOUD CERT [--force]
               register CLOUD --dir=DIR
+              register env [--provider=PROVIDER] [HOSTNAME]
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -57,7 +58,12 @@ class RegisterCommand(object):
             FILEPATH the path of the file
             CLOUD the cloud name
             CERT the path of the certificate
+            PROVIDER the provider or type of cloud [Default: openstack]
+            HOSTNAME host from which the env variables are taken. [Default: localhost]
 
+          Options:
+
+            --provider=PROVIDER     Provider to be used for cloud.
 
           Description:
 
@@ -132,6 +138,10 @@ class RegisterCommand(object):
                   Copies the entire directory from the cloud and puts it in
                   ~/.cloudmesh/clouds/host
                   For india, The directory would be copied to ~/.cloudmesh/clouds/india
+
+              register env [--provider=PROVIDER] [HOSTNAME]
+                  Reads env OS_* variables and registers a new cloud in yaml, interactively.
+                  Default PROVIDER is openstack and HOSTNAME is localhost.
          """
         # pprint(arguments)
 
@@ -239,6 +249,9 @@ class RegisterCommand(object):
                 dir = arguments['--dir']
                 Console.ok(dir)
                 CloudRegister.directory(cloud, dir)
+        elif arguments['env']:
+            CloudRegister.register_from_env(arguments['--provider'])
+            return
 
         # if all fails do a simple list
 

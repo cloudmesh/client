@@ -12,6 +12,9 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import dot_cloudmesh
 
+from urlparse import urlparse
+
+
 class CloudRegister(object):
     @classmethod
     def get(cls, cloud):
@@ -288,8 +291,7 @@ class CloudRegister(object):
 
         for key in keys:
             if profile[key] == "TBD":
-                result = input(
-                "Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
+                result = input("Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
                 profile[key] = result
 
         config["cloudmesh"]["profile"] = profile
@@ -325,7 +327,7 @@ class CloudRegister(object):
         path, file = file_path.rsplit("/", 1)
         # ----------------------Config file to be read from ------------------------
 
-        from_config_file = ConfigDict(file,[path])
+        from_config_file = ConfigDict(file, [path])
 
         # -------------------- cloudmesh.yaml file present in . or ~/.cloudmesh ----------------
         config = ConfigDict("cloudmesh.yaml")
@@ -360,3 +362,60 @@ class CloudRegister(object):
         config.save()
 
         Console.ok("Overwritten the TBD of cloudmesh.yaml with {} contents".format(file_path))
+
+    @classmethod
+    def read_env_config(cls):
+        """
+        Function that will read OS_* vairables from environment and populate dict env_config_data.
+        :return: env_config_data dict
+        """
+        env_config_data = {"OS_AUTH_URL": None}
+        for x in os.environ:
+            if x.startswith("OS_"):
+                # print("{:} = {:}".format(x, os.environ[x]))
+                env_config_data[x] = os.environ[x]
+                # print(env_config_data)
+        return env_config_data
+
+    @classmethod
+    def register_from_env(cls, provider):
+        """
+        Reads env OS_* variables and registers a new cloud in yaml, interactively.
+        :return:
+        """
+        yaml_data = ConfigDict("cloudmesh.yaml")
+        env_config_data = cls.read_env_config()
+
+        if env_config_data["OS_AUTH_URL"] is None:
+            print("ERROR: Cloud credentials not set in environment")
+            return
+
+        cloudname_suggest = urlparse(env_config_data["OS_AUTH_URL"]).hostname
+
+        cloudname_to_use = raw_input("Cloud name (Default: {:}): ".format(cloudname_suggest)) or cloudname_suggest
+        cm_heading = raw_input("cm_heading (Default: {:} Cloud): ".format(cloudname_suggest)) \
+            or "{:} Cloud".format(cloudname_suggest)
+
+        cm_host = raw_input("cm_host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+            .format(cloudname_suggest)
+
+        cm_label = raw_input("cm_label name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+            .format(cloudname_suggest)
+
+        if provider is None:
+            # TODO: Check if the suggestion can be determined dynamically
+            cm_type = raw_input("cm_type name (Default: openstack): ") or "openstack"
+        else:
+            cm_type = provider
+
+        cm_type_version = raw_input("cm_type_version name (Default: null): ") or None
+
+        yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = {"cm_heading": cm_heading,
+                                                              "cm_host": cm_host,
+                                                              "cm_label": cm_label,
+                                                              "cm_type": cm_type,
+                                                              "cm_type_version": cm_type_version,
+                                                              "credentials": env_config_data}
+        yaml_data.save()
+        print("New cloud config exported to {:}".format(yaml_data.filename))
+
