@@ -392,6 +392,7 @@ class CloudRegister(object):
 
         cloudname_suggest = urlparse(env_config_data["OS_AUTH_URL"]).hostname
 
+        # -------------------- Command line inputs -----------------------
         cloudname_to_use = raw_input("Cloud name (Default: {:}): ".format(cloudname_suggest)) or cloudname_suggest
         cm_heading = raw_input("cm_heading (Default: {:} Cloud): ".format(cloudname_suggest)) \
             or "{:} Cloud".format(cloudname_suggest)
@@ -410,12 +411,15 @@ class CloudRegister(object):
 
         cm_type_version = raw_input("cm_type_version name (Default: null): ") or None
 
+        # -------------------- Populate the dict with the data fetched from env -----------------------
         yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = {"cm_heading": cm_heading,
                                                               "cm_host": cm_host,
                                                               "cm_label": cm_label,
                                                               "cm_type": cm_type,
                                                               "cm_type_version": cm_type_version,
                                                               "credentials": env_config_data}
+
+        # -------------------- Save data in yaml -----------------------
         yaml_data.save()
         print("New cloud config exported to {:}".format(yaml_data.filename))
 
