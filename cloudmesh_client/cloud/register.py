@@ -393,23 +393,25 @@ class CloudRegister(object):
         cloudname_suggest = urlparse(env_config_data["OS_AUTH_URL"]).hostname
 
         # -------------------- Command line inputs -----------------------
-        cloudname_to_use = raw_input("Cloud name (Default: {:}): ".format(cloudname_suggest)) or cloudname_suggest
-        cm_heading = raw_input("cm_heading (Default: {:} Cloud): ".format(cloudname_suggest)) \
-            or "{:} Cloud".format(cloudname_suggest)
+        cloudname_to_use = raw_input("Name of the cloud (Default: {:}): ".format(cloudname_suggest)) \
+            or cloudname_suggest
 
-        cm_host = raw_input("cm_host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
-            .format(cloudname_suggest)
+        cm_label = raw_input("Label for the cloud (Default: {:}): ".format(cloudname_to_use)) \
+            or "{:}".format(cloudname_to_use)
 
-        cm_label = raw_input("cm_label name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
-            .format(cloudname_suggest)
+        cm_heading = raw_input("Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) \
+            or "{:} Cloud".format(cm_label)
+
+        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) \
+            or "{:}".format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
-            cm_type = raw_input("cm_type name (Default: openstack): ") or "openstack"
+            cm_type = raw_input("Type of the cloud- openstack/azure/aws (Default: openstack): ") or "openstack"
         else:
             cm_type = provider
 
-        cm_type_version = raw_input("cm_type_version name (Default: null): ") or None
+        cm_type_version = raw_input("Version of type {:} (Default: null): ".format(cm_type)) or None
 
         # -------------------- Populate the dict with the data fetched from env -----------------------
         yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = {"cm_heading": cm_heading,
@@ -418,6 +420,18 @@ class CloudRegister(object):
                                                               "cm_type": cm_type,
                                                               "cm_type_version": cm_type_version,
                                                               "credentials": env_config_data}
+
+        # -------------------- Get defaults from user --------------------------- ---------------------
+
+        default_flavor = raw_input("Default flavor for the cloud instances (Default: null): ") or None
+
+        default_image = raw_input("Default image for the cloud instances (Default: null): ") or None
+
+        default_location = raw_input("Default location for the cloud instances (Default: null): ") or None
+
+        yaml_data["cloudmesh"]["clouds"][cloudname_to_use]["default"] = {"flavor": default_flavor,
+                                                                         "image": default_image,
+                                                                         "location": default_location}
 
         # -------------------- Save data in yaml -----------------------
         yaml_data.save()

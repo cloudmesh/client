@@ -40,7 +40,7 @@ class RegisterCommand(object):
               register india [--force]
               register CLOUD CERT [--force]
               register CLOUD --dir=DIR
-              register env [--provider=PROVIDER] [HOSTNAME]
+              register env [--provider=PROVIDER]
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -59,11 +59,10 @@ class RegisterCommand(object):
             CLOUD the cloud name
             CERT the path of the certificate
             PROVIDER the provider or type of cloud [Default: openstack]
-            HOSTNAME host from which the env variables are taken. [Default: localhost]
 
           Options:
 
-            --provider=PROVIDER     Provider to be used for cloud.
+            --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / aws)
 
           Description:
 
