@@ -27,6 +27,38 @@ cloudmesh:
             default:
                 flavor: TBD
                 image: TBD
+        juno:
+            cm_heading: India OpenStack, Juno
+            cm_host: india.futuregrid.org
+            cm_label: india
+            cm_type: openstack
+            cm_type_version: juno
+            credentials:
+                OS_AUTH_URL: https://i5r.idp.iu.futuresystems.org:5000/v2.0
+                OS_CACERT: TBD
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: TBD
+                OS_USERNAME: TBD
+                OS_VERSION: juno
+            default:
+                flavor: TBD
+                image: TBD
+        kilo:
+            cm_heading: India OpenStack, Kilo
+            cm_host: india.futuregrid.org
+            cm_label: india
+            cm_type: openstack
+            cm_type_version: kilo
+            credentials:
+                OS_AUTH_URL: https://i5r.idp.iu.futuresystems.org:5000/v2.0
+                OS_CACERT: TBD
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: TBD
+                OS_USERNAME: TBD
+                OS_VERSION: juno
+            default:
+                flavor: TBD
+                image: TBD
         aws:
             cm_heading: Amazon Cloud, AWS
             cm_host: aws.amazon.com
