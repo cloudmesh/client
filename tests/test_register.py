@@ -107,12 +107,24 @@ class Test_register():
         assert "Reading rc file from" in result
 
     def test_013(self):
+        """testing cm register rc india --version=juno"""
+        HEADING()
+        result = run("cm register rc india --version=juno")
+        assert "Reading rc file from" in result
+
+    def test_014(self):
+        """testing cm register rc doesntexist"""
+        HEADING()
+        result = run("cm register rc doesntexist")
+        assert "ERROR: No openrc file specified or found" in result
+
+    def test_015(self):
         """testing cm register json india"""
         HEADING()
         result = run ("cm register json india")
         assert "openstack" in result
 
-    def test_014(self):
+    def test_016(self):
         """testing cm register json hadoop"""
         HEADING()
         result = run ("cm register json hadoop")

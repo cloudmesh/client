@@ -54,21 +54,29 @@ class CloudRegister(object):
             Console.ok("  " + line)
 
     @classmethod
-    def read_rc_file(cls, host, filename=None):
+    def read_rc_file(cls, host, version, openrc=None):
         """
 
         :param host: the host name
         :type host: string
-        :param filename: the file name
-        :type filename: string
+        :param openrc: the file name
+        :type openrc: string
         :return:
         """
-        if host == "india" and filename is None:
-            filename = ".cloudmesh/clouds/india/juno/openrc.sh"
+        host_openrc_mapping = {("india", None): ".cloudmesh/clouds/india/juno/openrc.sh",
+                               ("india", "juno"): ".cloudmesh/clouds/india/juno/openrc.sh",
+                               ("india", "kilo"): ".cloudmesh/clouds/india/kilo/openrc.sh"
+                               }
+        try:
+            if openrc is None:
+                openrc = host_openrc_mapping[(host, version)]
+        except Exception:
+            Console.error("No openrc file specified or found")
+            return
 
         Console.ok("Reading rc file from {}".format(host))
-        result = Shell.ssh(host, "cat", filename)
-        print(result)
+        result = Shell.ssh(host, "cat {}".format(openrc))
+
         lines = result.split("\n")
         config = ConfigDict("cloudmesh.yaml")
         for line in lines:
@@ -77,6 +85,7 @@ class CloudRegister(object):
                 key, value = line.split("=", 1)
                 config["cloudmesh"]["clouds"][host]["credentials"][key] = value
         config.save()
+        return config["cloudmesh"]["clouds"][host]["credentials"]
 
     @classmethod
     def check_yaml_for_completeness(cls, filename):
@@ -441,4 +450,3 @@ class CloudRegister(object):
         # -------------------- Save data in yaml -----------------------
         yaml_data.save()
         print("New cloud config exported to {:}".format(yaml_data.filename))
-

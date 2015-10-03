@@ -8,6 +8,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.cloud.register import CloudRegister
+from cloudmesh_base.tables import row_table
 
 
 class RegisterCommand(object):
@@ -31,7 +32,7 @@ class RegisterCommand(object):
               register list ssh
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
-              register rc HOST [OPENRC]
+              register rc HOST [--version=VERSION] [--openrc=OPENRC] [--password]
               register merge FILEPATH
               register form [--yaml=FILENAME]
               register check [--yaml=FILENAME]
@@ -54,7 +55,6 @@ class RegisterCommand(object):
 
             HOST   the host name
             USER   the user name
-            OPENRC  the location of the openrc file
             FILEPATH the path of the file
             CLOUD the cloud name
             CERT the path of the certificate
@@ -63,6 +63,9 @@ class RegisterCommand(object):
           Options:
 
             --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / aws)
+            --version=VERSION       Version of the openstack cloud.
+            --openrc=OPENRC         The location of the openrc file
+            --password              Prints the password
 
           Description:
 
@@ -216,9 +219,16 @@ class RegisterCommand(object):
             return
 
         elif arguments['rc']:
-            filename = arguments['OPENRC']
             host = arguments['HOST']
-            CloudRegister.read_rc_file(host, filename)
+            version = arguments['--version']
+            openrc = arguments['--openrc']
+            result = CloudRegister.read_rc_file(host, version, openrc)
+            dict_result = dict(result)
+
+            # output password as requested by user
+            if not arguments["--password"]:
+                dict_result["OS_PASSWORD"] = "********"
+            print(row_table(dict_result, order=None, labels=["Variable", "Value"]))
             return
 
         elif arguments['json']:
