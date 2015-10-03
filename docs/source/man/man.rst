@@ -591,13 +591,14 @@ quota
 Command - quota::
 
     Usage:
-        quota list [--cloud=CLOUD] [--format=FORMAT]
+        quota list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
         Prints quota limit on a current project/tenant
 
     Options:
        --format=FORMAT  the output format [default: table]
        --cloud=CLOUD    the cloud name
+       --tenant=TENANT  the tenant id
 
     Examples:
         cm quota list
@@ -625,6 +626,7 @@ Command - register::
         register india [--force]
         register CLOUD CERT [--force]
         register CLOUD --dir=DIR
+        register env [--provider=PROVIDER]
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in
@@ -642,7 +644,11 @@ Command - register::
       FILEPATH the path of the file
       CLOUD the cloud name
       CERT the path of the certificate
+      PROVIDER the provider or type of cloud [Default: openstack]
 
+    Options:
+
+      --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / aws)
 
     Description:
 
@@ -717,6 +723,10 @@ Command - register::
             Copies the entire directory from the cloud and puts it in
             ~/.cloudmesh/clouds/host
             For india, The directory would be copied to ~/.cloudmesh/clouds/india
+
+        register env [--provider=PROVIDER] [HOSTNAME]
+            Reads env OS_* variables and registers a new cloud in yaml, interactively.
+            Default PROVIDER is openstack and HOSTNAME is localhost.
 
 
 reservation

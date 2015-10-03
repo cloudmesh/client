@@ -34,10 +34,9 @@ To list the quota limit on a default project/tenant you can use::
     | ram                         | 51200 |
     +-----------------------------+-------+
 
-To export it in csv format, please use and specifically apply it to
-the cloud india::
+To export it in csv format,::
 
-    $ cm quota list --cloud=india --format=csv
+    $ cm quota list --format=csv
     Quota,Limit
     instances,10
     cores,20
