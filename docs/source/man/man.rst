@@ -617,7 +617,7 @@ Command - register::
         register list ssh
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
-        register rc HOST [OPENRC]
+        register rc HOST [--version=VERSION] [--openrc=OPENRC] [--password]
         register merge FILEPATH
         register form [--yaml=FILENAME]
         register check [--yaml=FILENAME]
@@ -640,7 +640,6 @@ Command - register::
 
       HOST   the host name
       USER   the user name
-      OPENRC  the location of the openrc file
       FILEPATH the path of the file
       CLOUD the cloud name
       CERT the path of the certificate
@@ -649,6 +648,9 @@ Command - register::
     Options:
 
       --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / aws)
+      --version=VERSION       Version of the openstack cloud.
+      --openrc=OPENRC         The location of the openrc file
+      --password              Prints the password
 
     Description:
 

@@ -115,46 +115,45 @@ register rc
   
 
 In case you already use an openstack cloud you may have come across an
-openrc.sh file. We are providing some very special helper functions to
+openrc.sh file. We are providing some very special helper functions, like
 for example obtain the openrc files from the futuresystems india
 cloud. This command will only work if you have an account on this
 machine and it is integrated into the ssh config file as discussed
-previously. Once this is done, yo can obtain the india juno
+previously. Once this is done, you can obtain the india juno
 credentials with the command::
 
   register rc india
 
-
-.. todo: Erika: as we have potentially more than one cloud on india, the
-   command should be changed to the following with an optional
-   parameter if india is specified and not followed by kilo the juno
-   cloud is used.
-
-
 The command::
 
-  register rc india juno
+  register rc india --version=juno
 
 will fetch the juno cloud credentials, while the command::
 
-  register rc india kilo
+  register rc india --version=kilo
 
-will fetsh the kilo croud credentials. You will also see a verbose
-output about what is included in that file. However the passwords will
-be masked with eight stars: `********`. In case you like also to see
-the password you can use the --verbose flag.
+will fetch the kilo cloud credentials.
 
-  register --verbose rc india kilo
+You will also see a verbose output about what is included in that file.
+However the passwords will be masked with eight stars: `********`.
+In case you like also to see the password you can use the --password flag.
 
-You will see an ouput similar to
+register rc india --version=kilo --password
 
-    $ cm register rc india
+You will see an output similar to::
+
+    $ cm register rc india --version=juno
     Reading rc file from india
-    export OS_USERNAME=
-    export OS_PASSWORD=
-    export OS_TENANT_NAME=
-    export OS_AUTH_URL=
-    export OS_CACERT=
+    +----------------+---------------------------------------------+
+    | Variable       | Value                                       |
+    +----------------+---------------------------------------------+
+    | OS_VERSION     | juno                                        |
+    | OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0 |
+    | OS_USERNAME    | albert                                    |
+    | OS_PASSWORD    | ********                                    |
+    | OS_CACERT      | ~/.cloudmesh/clouds/india/juno/cacert.pem   |
+    | OS_TENANT_NAME | fg478                                       |
+    +----------------+---------------------------------------------+
 
 
 register merge 
