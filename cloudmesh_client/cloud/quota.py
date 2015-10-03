@@ -1,45 +1,32 @@
-from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common import tables
-import os
+from cloudmesh_client.cloud.limits import Limits
+import requests
+requests.packages.urllib3.disable_warnings()
 
 
 class Quota(object):
     @classmethod
     def convert_to_dict(cls, openstack_result):
         d = {}
-        count = 0
-        for line in openstack_result.splitlines():
-            if line.startswith("|") and ("Quota" and "Limit" not in line):
-                d[count] = {}
-                # for key Quota
-                value_quota = line.strip().split("|")[1].strip()
-                d[count]["Quota"] = value_quota
-                # for key Limit
-                value_limit = line.strip().split("|")[2].strip()
-                d[count]["Limit"] = value_limit
-            count += 1
+        for i, key in enumerate(openstack_result.keys()):
+            d[i] = {}
+            if "id" not in key:
+                d[i]["Quota"], d[i]["Limit"] = key, openstack_result[key]
         return d
 
     @classmethod
-    def set_os_environment(cls, cloudname):
+    def list_quotas(cls, cloud, tenant, format):
         try:
-            d = ConfigDict("cloudmesh.yaml")
-            credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
-            for key in credentials.keys():
-                if key == "OS_CACERT":
-                    os.environ[key] = Config.path_expand(credentials[key])
-                else:
-                    os.environ[key] = credentials[key]
-        except Exception, e:
-            print(e)
+            # set the environment variables
+            nova = Limits.set_os_environment(cloud)
 
-    @classmethod
-    def list_quotas(cls, cloud, format):
-        Quota.set_os_environment(cloud)
-        result = Shell.execute("nova", "quota-show")
-        d = Quota.convert_to_dict(result)
-        return tables.dict_printer(d, order=['Quota',
-                                             'Limit'],
-                                   output=format)
+            # execute the command
+            result = nova.quotas.defaults(tenant)._info
+
+            # print results in a format
+            d = Quota.convert_to_dict(result)
+            return tables.dict_printer(d, order=['Quota',
+                                                 'Limit'],
+                                       output=format)
+        except Exception, e:
+            return e

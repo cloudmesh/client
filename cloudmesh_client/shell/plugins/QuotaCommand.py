@@ -20,13 +20,14 @@ class QuotaCommand(object):
         ::
 
             Usage:
-                quota list [--cloud=CLOUD] [--format=FORMAT]
+                quota list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
                 Prints quota limit on a current project/tenant
 
             Options:
                --format=FORMAT  the output format [default: table]
                --cloud=CLOUD    the cloud name
+               --tenant=TENANT  the tenant id
 
             Examples:
                 cm quota list
@@ -37,11 +38,11 @@ class QuotaCommand(object):
             cloud = arguments["--cloud"] or Default.get("cloud")
 
             if not cloud:
-                Console.error("cloud doesn't exist")
+                Console.error("Default cloud doesn't exist")
                 return
-
+            tenant = arguments["--tenant"]
             output_format = arguments["--format"]
-            list_quotas = Quota.list_quotas(cloud, format=output_format)
+            list_quotas = Quota.list_quotas(cloud, tenant, format=output_format)
             Console.msg(list_quotas)
             return
 

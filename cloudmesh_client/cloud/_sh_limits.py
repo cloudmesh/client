@@ -1,6 +1,6 @@
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common import tables
-from cloudmesh_client.cloud.quota import Quota
+from cloudmesh_client.cloud._sh_quota import Quota
 
 
 class Limits(object):

@@ -51,5 +51,5 @@ class Test_quota():
         :return:
         """
         HEADING()
-        result = run("cm quota list --cloud=india1 --format=csv")
-        assert "Quota" in result
+        result = run("cm quota list --cloud=india1")
+        assert "Error in setting OS environment" in result
