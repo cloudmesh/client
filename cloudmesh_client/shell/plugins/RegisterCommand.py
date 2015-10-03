@@ -249,7 +249,12 @@ class RegisterCommand(object):
                 Console.ok(dir)
                 CloudRegister.directory(cloud, dir)
         elif arguments['env']:
-            CloudRegister.register_from_env(arguments['--provider'])
+            try:
+                CloudRegister.register_from_env(arguments['--provider'])
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
             return
 
         # if all fails do a simple list

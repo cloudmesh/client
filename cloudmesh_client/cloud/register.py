@@ -411,6 +411,9 @@ class CloudRegister(object):
         else:
             cm_type = provider
 
+        if cm_type not in ["openstack", "azure", "aws"]:
+            raise Exception("Type of cloud is invalid and should be one of openstack/ azure/ aws.")
+
         cm_type_version = raw_input("Version of type {:} (Default: null): ".format(cm_type)) or None
 
         # -------------------- Populate the dict with the data fetched from env -----------------------
