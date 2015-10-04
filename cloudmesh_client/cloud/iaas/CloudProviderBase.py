@@ -5,6 +5,7 @@ from cloudmesh_base.hostlist import Parameter
 # Abstarct class to tell us what we have to define
 #
 
+
 class CloudmeshProviderBase(object):
     __metaclass__ = ABCMeta
 
@@ -40,7 +41,29 @@ class CloudmeshProviderBase(object):
 
     @abstractmethod
     def boot(self, cloud, user, name, image, flavor, key, secgroup, meta):
+        """
+        Boots a new vm instance on the target cloud.
+        :param cloud:
+        :param user:
+        :param name:
+        :param image:
+        :param flavor:
+        :param key:
+        :param secgroup:
+        :param meta:
+        :return:
+        """
         return None
+
+    @abstractmethod
+    def delete(self, name_or_id, group=None, force=None):
+        """
+        Deletes the vm indicated by name_or_id on target cloud.
+        :param name_or_id:
+        :param group:
+        :param force:
+        :return:
+        """
 
     # TODO: define this
     @classmethod
@@ -68,7 +91,6 @@ class CloudmeshProviderBase(object):
         TODO: details TBD
         """
         return None
-
 
     # TODO: define this
     @classmethod

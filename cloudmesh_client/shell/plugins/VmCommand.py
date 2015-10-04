@@ -25,13 +25,13 @@ class VmCommand(object):
                          [--image=IMAGE_OR_ID]
                          [--flavor=FLAVOR_OR_ID]
                          [--group=GROUP]
-                vm delete [NAME_OR_ID...]
+                vm delete [ID...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm ip_assign [NAME_OR_ID...]
+                vm ip_assign [ID...]
                              [--cloud=CLOUD]
-                vm ip_show [NAME_OR_ID...]
+                vm ip_show [ID...]
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
@@ -139,28 +139,28 @@ class VmCommand(object):
 
         elif arguments["delete"]:
             try:
-                name_or_id = arguments["NAME_OR_ID"]
+                id = arguments["id"]
                 group = arguments["--group"]
                 cloud = arguments["--cloud"] or "india"
                 force = arguments["--force"]
 
                 cloud_provider = Vm.get_cloud_provider(cloud)
-                for server in name_or_id:
+                for server in id:
                     cloud_provider.delete(server)
-                    print("Machine {:} is being deleted on {:} Cloud...".format(name_or_id, cloud_provider.cloud))
+                    print("Machine {:} is being deleted on {:} Cloud...".format(id, cloud_provider.cloud))
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)
-                Console.error("Problem deleting instance {:}".format(name_or_id))
+                Console.error("Problem deleting instance {:}".format(id))
 
         elif arguments["ip_assign"]:
-            name_or_id = arguments["NAME_OR_ID"]
+            id = arguments["ID"]
             cloud = arguments["--cloud"]
             print("To be implemented")
 
         elif arguments["ip_show"]:
-            name_or_id = arguments["NAME_OR_ID"]
+            id = arguments["ID"]
             group = arguments["--group"]
             cloud = arguments["--cloud"]
             output_format = arguments["--format"]
