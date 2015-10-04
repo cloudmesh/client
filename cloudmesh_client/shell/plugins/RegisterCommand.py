@@ -62,7 +62,7 @@ class RegisterCommand(object):
 
           Options:
 
-            --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / aws)
+            --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / ec2)
             --version=VERSION       Version of the openstack cloud.
             --openrc=OPENRC         The location of the openrc file
             --password              Prints the password

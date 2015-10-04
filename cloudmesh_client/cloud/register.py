@@ -416,14 +416,14 @@ class CloudRegister(object):
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
-            cm_type = raw_input("Type of the cloud- openstack/azure/aws (Default: openstack): ") or "openstack"
+            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 (Default: openstack): ") or "openstack"
         else:
             cm_type = provider
 
-        while cm_type not in ["openstack", "azure", "aws"]:
-            print("\nSorry! Type of cloud '{:}' is invalid and should be one of openstack/ azure/ aws.\n"
+        while cm_type not in ["openstack", "azure", "ec2"]:
+            print("\nSorry! Type of cloud '{:}' is invalid and should be one of openstack/ azure/ ec2.\n"
                   .format(cm_type))
-            cm_type = raw_input("Type of the cloud- openstack/azure/aws (Default: openstack): ") or "openstack"
+            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 (Default: openstack): ") or "openstack"
 
         cm_type_version = raw_input("Version of type {:} (Default: null): ".format(cm_type)) or None
 
