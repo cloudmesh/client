@@ -96,6 +96,10 @@ class KeyCommand(object):
                adds the key specifid by the filename to the key
                database
 
+           key get NAME
+
+               Retrieves the key indicated by the NAME parameter from database
+               and prints its fingerprint.
 
            key default [NAME]
 
@@ -173,7 +177,7 @@ class KeyCommand(object):
             elif arguments['--source'] in ['git']:
 
                 username = arguments["--username"]
-                print(username)
+                # print(username)
                 if username == 'none':
                     conf = ConfigDict("cloudmesh.yaml")
                     username = conf["cloudmesh.github.username"]
@@ -280,12 +284,13 @@ class KeyCommand(object):
 
         elif arguments['add'] and arguments["--ssh"]:
 
-            print('ssh dd')
+            # print('ssh add')
             sshdb = SSHKeyDBManager()
             keyname = arguments['--name']
             filename = Config.path_expand("~/.ssh/id_rsa.pub")
             try:
                 sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
+                print("Key {:} successfully added to the database".format(keyname or ""))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:
@@ -298,12 +303,13 @@ class KeyCommand(object):
 
         elif arguments['add'] and not arguments["--git"]:
 
-            print('ssh dd')
+            # print('ssh add')
             sshdb = SSHKeyDBManager()
             keyname = arguments['--name']
             filename = arguments['FILENAME']
             try:
                 sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
+                print("Key {:} successfully added to the database".format(keyname or ""))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:
@@ -316,7 +322,7 @@ class KeyCommand(object):
 
         elif arguments['default']:
 
-            print("default")
+            # print("default")
 
             if arguments['KEYNAME']:
                 try:
@@ -324,6 +330,7 @@ class KeyCommand(object):
                     sshdb = SSHKeyDBManager()
                     sshdb.set_default(keyname)
                     Default.set("key", keyname, "general")
+                    print("Key {:} set as default".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception, e:
@@ -370,11 +377,12 @@ class KeyCommand(object):
                     Console.error("Problem retrieving default key.")
 
         elif arguments['delete']:
-            print('delete')
+            # print('delete')
             if arguments['--all']:
                 try:
                     sshdb = SSHKeyDBManager()
                     sshdb.delete_all()
+                    print("All keys from the database deleted successfully.")
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception, e:
@@ -402,6 +410,7 @@ class KeyCommand(object):
                     keyname = arguments['KEYNAME']
                     sshdb = SSHKeyDBManager()
                     sshdb.delete(keyname)
+                    print("Key {:} deleted successfully from database.".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception, e:

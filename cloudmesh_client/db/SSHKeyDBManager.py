@@ -54,7 +54,7 @@ class SSHKeyDBManager(object):
         if keyname is None:
             print ("ERROR: keyname is None")
 
-        pprint(sshkey)
+        # pprint(sshkey)
 
         key_obj = KEY(
             keyname,
@@ -68,7 +68,7 @@ class SSHKeyDBManager(object):
             cloud="general",
             user=user)
 
-        pprint(key_obj.__dict__)
+        # pprint(key_obj.__dict__)
         self.db.add(key_obj)
         self.db.save()
 
@@ -131,7 +131,7 @@ class SSHKeyDBManager(object):
         options = []
         d = self.table_dict()
         for i in d:
-            print ('i:', i)
+            # print ('i:', i)
             line = '{}: {}'.format(d[i]['name'], d[i]['fingerprint'])
             options.append(line)
         num = menu_return_num('KEYS', options)
