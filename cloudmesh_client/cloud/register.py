@@ -1,16 +1,14 @@
 from __future__ import print_function
 import textwrap
-from os.path import expanduser
 import os
 
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_base.util import yn_choice
 from builtins import input
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
-from cloudmesh_client.common import dot_cloudmesh
+from cloudmesh_client.common import tables
 
 from urlparse import urlparse
 
@@ -35,8 +33,15 @@ class CloudRegister(object):
         clouds = config["cloudmesh"]["clouds"]
         Console.ok("Clouds specified in the configuration file " + filename)
         print("")
-        for key in clouds.keys():
-            Console.ok("  " + key)
+        d = {}
+        for i, key in enumerate(clouds.keys()):
+            d[i] = {}
+            d[i]["Name"], d[i]["Iaas"], d[i]["Version"] = key, \
+                                                           config["cloudmesh"]["clouds"][key]["cm_type"], \
+                                                          config["cloudmesh"]["clouds"][key]["cm_type_version"]or "N/A"
+        return tables.dict_printer(d, order=['Name',
+                                             'Iaas',
+                                             'Version'])
 
     @classmethod
     def list_ssh(cls):
@@ -403,16 +408,16 @@ class CloudRegister(object):
 
         # -------------------- Command line inputs -----------------------
         cloudname_to_use = raw_input("Name of the cloud (Default: {:}): ".format(cloudname_suggest)) \
-            or cloudname_suggest
+                           or cloudname_suggest
 
         cm_label = raw_input("Label for the cloud (Default: {:}): ".format(cloudname_to_use)) \
-            or "{:}".format(cloudname_to_use)
+                   or "{:}".format(cloudname_to_use)
 
         cm_heading = raw_input("Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) \
-            or "{:} Cloud".format(cm_label)
+                     or "{:} Cloud".format(cm_label)
 
         cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) \
-            or "{:}".format(cloudname_suggest)
+                  or "{:}".format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically

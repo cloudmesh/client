@@ -28,7 +28,7 @@ class RegisterCommand(object):
 
           Usage:
               register info
-              register list [--yaml=FILENAME]
+              register list [--yaml=FILENAME] [--name]
               register list ssh
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
@@ -189,7 +189,10 @@ class RegisterCommand(object):
             if not filename:
                 Console.error("File {} doesn't exist".format(arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
-                CloudRegister.list(filename)
+                if(arguments['--name']):
+                   print(CloudRegister.list(filename).get_string(fields=["Name"]))
+                else:
+                    print(CloudRegister.list(filename))
             return
 
         elif arguments['check']:
