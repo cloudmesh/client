@@ -48,32 +48,35 @@ can use the command::
   $ register list
 
 which will print a table with elementary information defined for the
-clouds.
+clouds.::
 
-.. todo:: Erica, we want a table here with print_dict and list in the
-	  columns name, iaas (openastak, azure, ...), version (kilo,
-	  n/a if None)
-	  
-+------------+---------------+-------------+------------+
-| **Name**   | **IaaS**      | **Version** | **Active** |
-+------------+---------------+-------------+------------+
-| india      | openstack     |  kilo       | True       |
-+------------+---------------+-------------+------------+
-| india      | openstack     |  juno       | False      |
-+------------+---------------+-------------+------------+
+    $ register list
+    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
+
+    +-------+-----------+---------+
+    | Name  | Iaas      | Version |
+    +-------+-----------+---------+
+    | azure | azure     | N/A     |
+    | aws   | ec2       | N/A     |
+    | india | openstack | juno    |
+    | juno  | openstack | juno    |
+    | kilo  | openstack | kilo    |
+    +-------+-----------+---------+
 
 To list only the names, please use the command::
 
-  $ register list --name
+    $ register list --name
+    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
 
-This will provide the following output::
-
-  $ register list
-
-      india
-      aws
-      azure
-
+    +-------+
+    | Name  |
+    +-------+
+    | azure |
+    | aws   |
+    | india |
+    | juno  |
+    | kilo  |
+    +-------+
 
 As we also have to sometimes login to some remote hosts it is
 convenient to reuse the ssh command for that. ssh has the advantage of

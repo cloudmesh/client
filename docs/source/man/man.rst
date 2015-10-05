@@ -410,6 +410,10 @@ Command - key::
         adds the key specifid by the filename to the key
         database
 
+    key get NAME
+
+        Retrieves the key indicated by the NAME parameter from database
+        and prints its fingerprint.
 
     key default [NAME]
 
@@ -613,7 +617,7 @@ Command - register::
 
     Usage:
         register info
-        register list [--yaml=FILENAME]
+        register list [--yaml=FILENAME] [--name]
         register list ssh
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
@@ -647,7 +651,7 @@ Command - register::
 
     Options:
 
-      --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / aws)
+      --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / ec2)
       --version=VERSION       Version of the openstack cloud.
       --openrc=OPENRC         The location of the openrc file
       --password              Prints the password
@@ -958,13 +962,13 @@ Command - vm::
                  [--image=IMAGE_OR_ID]
                  [--flavor=FLAVOR_OR_ID]
                  [--group=GROUP]
-        vm delete [NAME_OR_ID...]
+        vm delete [NAME...]
                   [--group=GROUP]
                   [--cloud=CLOUD]
                   [--force]
-        vm ip_assign [NAME_OR_ID...]
+        vm ip_assign [NAME...]
                      [--cloud=CLOUD]
-        vm ip_show [NAME_OR_ID...]
+        vm ip_show [NAME...]
                    [--group=GROUP]
                    [--cloud=CLOUD]
                    [--format=FORMAT]
@@ -976,10 +980,7 @@ Command - vm::
                  [--command=COMMAND]
         vm list [CLOUD|--all]
                 [--group=GROUP]
-                [--refresh]
                 [--format=FORMAT]
-                [--columns=COLUMNS]
-                [--detail]
 
     Arguments:
         COMMAND   positional arguments, the commands you want to
@@ -1034,18 +1035,5 @@ Command - vm::
         convenient when you need a range of VMs e.g. sample[1-3]
         => ['sample1', 'sample2', 'sample3']
         sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
-
-    Examples:
-        vm start --count=5 --group=test --cloud=india
-                start 5 servers on india and give them group
-                name: test
-
-        vm delete --group=test --names=sample_[1-9]
-                delete servers on selected or default cloud with search conditions:
-                group name is test and the VM names are among sample_1 ... sample_9
-
-        vm ip show --names=sample_[1-5,9] --format=json
-                show the ips of VM names among sample_1 ... sample_5 and sample_9 in
-                json format
 
 
