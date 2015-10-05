@@ -29,13 +29,10 @@ class CloudmeshProviderBase(object):
         the database can be bypassed in mode "cloud"
         """
     @abstractmethod
-    def list(self, kind, output="table"):
+    def list(self):
         """
-
-        :param kind: exactly on of  "vm", "flavor", "image",
-                     "default", "group", "key"
-        :param output: the format: table, dict, csv, json, yaml
-        :return: list in given format
+        Listing of vm instances
+        :return:
         """
         return None
 
@@ -56,9 +53,19 @@ class CloudmeshProviderBase(object):
         return None
 
     @abstractmethod
-    def delete(self, name_or_id, group=None, force=None):
+    def delete(self, name, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
+        :param name_or_id:
+        :param group:
+        :param force:
+        :return:
+        """
+
+    @abstractmethod
+    def get_ips(self, name, group=None, force=None):
+        """
+        Returns the ip addresses of the instance indicated by name_or_id
         :param name_or_id:
         :param group:
         :param force:
@@ -105,6 +112,7 @@ class CloudmeshProviderBase(object):
         TODO: details TBD
         """
         return None
+
 
 
 

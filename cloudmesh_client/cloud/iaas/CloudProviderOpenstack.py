@@ -27,15 +27,12 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         """
         TODO.implement()
 
-    def list(self, kind, output="table"):
+    def list(self):
         """
-
-        :param kind: exactly on of  "vm", "flavor", "image",
-                     "default", "group", "key"
-        :param output: the format: table, dict, csv, json, yaml
-        :return: list in given format
+        Returns list of all the vm instances.
+        :return:List of Servers
         """
-        TODO.implement()
+        return self.nova.servers.list()
 
     def boot(self, name, image=None, flavor=None, cloud="India", key=None, secgroup=None, meta=None):
         """
@@ -57,7 +54,7 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
 
         self.nova.servers.create(name, image, flavor, meta=meta, key_name=key, security_groups=secgroup)
 
-    def delete(self, id, group=None, force=None):
+    def delete(self, name, group=None, force=None):
         """
         Deletes a machine on the target cloud indicated by the id
         :param id: Name or ID of the instance to be deleted
@@ -65,8 +62,19 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         :param force: Force delete option
         :return:
         """
-        server = self.nova.servers.get(id)
+        server = self.nova.servers.find(name=name)
         server.delete()
+
+    def get_ips(self, name, group=None, force=None):
+        """
+        Returns the ip of the instance indicated by name_or_id
+        :param name_or_id:
+        :param group:
+        :param force:
+        :return: IP address of the instance
+        """
+        server = self.nova.servers.find(name=name)
+        return self.nova.servers.ips(server)
 
     # TODO: define this
     def get_image(self, **kwargs):

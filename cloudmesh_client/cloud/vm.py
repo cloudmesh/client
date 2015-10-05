@@ -15,7 +15,6 @@ class Vm(object):
             cloud_details = d["cloudmesh"]["clouds"][name]
 
             if cloud_details["cm_type"] == "openstack":
-                print("Returning provider")
                 return CloudProviderOpenstack(name, cloud_details)
 
             if cloud_details["cm_type"] == "ec2":

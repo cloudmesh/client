@@ -2,6 +2,11 @@ from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.common.ConfigDict import ConfigDict
+import json
+import pyaml
+import inspect
 
 
 class VmCommand(object):
@@ -25,13 +30,13 @@ class VmCommand(object):
                          [--image=IMAGE_OR_ID]
                          [--flavor=FLAVOR_OR_ID]
                          [--group=GROUP]
-                vm delete [ID...]
+                vm delete [NAME...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm ip_assign [ID...]
+                vm ip_assign [NAME...]
                              [--cloud=CLOUD]
-                vm ip_show [ID...]
+                vm ip_show [NAME...]
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
@@ -43,10 +48,7 @@ class VmCommand(object):
                          [--command=COMMAND]
                 vm list [CLOUD|--all]
                         [--group=GROUP]
-                        [--refresh]
                         [--format=FORMAT]
-                        [--columns=COLUMNS]
-                        [--detail]
 
             Arguments:
                 COMMAND   positional arguments, the commands you want to
@@ -102,20 +104,64 @@ class VmCommand(object):
                 => ['sample1', 'sample2', 'sample3']
                 sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
 
-            Examples:
-                vm start --count=5 --group=test --cloud=india
-                        start 5 servers on india and give them group
-                        name: test
-
-                vm delete --group=test --names=sample_[1-9]
-                        delete servers on selected or default cloud with search conditions:
-                        group name is test and the VM names are among sample_1 ... sample_9
-
-                vm ip show --names=sample_[1-5,9] --format=json
-                        show the ips of VM names among sample_1 ... sample_5 and sample_9 in
-                        json format
-
         """
+
+        def _print_dict(d, header=None, format='table'):
+            if format == "json":
+                return json.dumps(d, indent=4)
+            elif format == "yaml":
+                return pyaml.dump(d)
+            elif format == "table":
+                return dict_printer(d,
+                                    order=["id",
+                                           "name",
+                                           "status"],
+                                    output="table",
+                                    sort_keys=True)
+            else:
+                return d
+
+        def _print_dict_ip(d, header=None, format='table'):
+            if format == "json":
+                return json.dumps(d, indent=4)
+            elif format == "yaml":
+                return pyaml.dump(d)
+            elif format == "table":
+                return dict_printer(d,
+                                    order=["version",
+                                           "addr"],
+                                    output="table",
+                                    sort_keys=True)
+            else:
+                return d
+
+        def list_vms_on_cloud(cloud="india", group=None, format="table"):
+            """
+            Utility reusable function to list vms on the cloud.
+            :param cloud:
+            :param group:
+            :param format:
+            :return:
+            """
+            _cloud = cloud
+            _group = group
+            _format = format
+
+            cloud_provider = Vm.get_cloud_provider(_cloud)
+            servers = cloud_provider.list()
+
+            server_list = {}
+            index = 0
+            # TODO: Improve the implementation to display more fields if required.
+            for server in servers:
+                server_list[index] = {}
+                server_list[index]["name"] = server.name
+                server_list[index]["id"] = server.id
+                server_list[index]["status"] = server.status
+                index += 1
+
+            print(_print_dict(server_list, format=_format))
+
         # pprint(arguments)
         if arguments["start"]:
             try:
@@ -139,7 +185,7 @@ class VmCommand(object):
 
         elif arguments["delete"]:
             try:
-                id = arguments["id"]
+                id = arguments["NAME"]
                 group = arguments["--group"]
                 cloud = arguments["--cloud"] or "india"
                 force = arguments["--force"]
@@ -147,7 +193,7 @@ class VmCommand(object):
                 cloud_provider = Vm.get_cloud_provider(cloud)
                 for server in id:
                     cloud_provider.delete(server)
-                    print("Machine {:} is being deleted on {:} Cloud...".format(id, cloud_provider.cloud))
+                    print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
@@ -155,17 +201,39 @@ class VmCommand(object):
                 Console.error("Problem deleting instance {:}".format(id))
 
         elif arguments["ip_assign"]:
-            id = arguments["ID"]
+            id = arguments["NAME"]
             cloud = arguments["--cloud"]
             print("To be implemented")
 
         elif arguments["ip_show"]:
-            id = arguments["ID"]
+            id = arguments["NAME"]
             group = arguments["--group"]
-            cloud = arguments["--cloud"]
-            output_format = arguments["--format"]
+            cloud = arguments["--cloud"] or "india"
+            output_format = arguments["--format"] or "table"
             refresh = arguments["--refresh"]
-            print("To be implemented")
+            try:
+                cloud_provider = Vm.get_cloud_provider(cloud)
+                for server in id:
+                    ip_addr = cloud_provider.get_ips(server)
+
+                    ipaddr = {}
+                    print("IP Addresses of instance {:} are as follows:-".format(server))
+                    for network in ip_addr:
+                        ipaddr[network] = {}
+                        index = 0
+                        print("Network: {:}:-".format(network))
+                        for ip in ip_addr[network]:
+                            ipaddr[network][index] = {}
+                            ipaddr[network][index]["version"] = ip["version"]
+                            ipaddr[network][index]["addr"] = ip["addr"]
+                            index += 1
+                        print(_print_dict_ip(ipaddr[network], format=output_format))
+
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem getting ip addresses for instance {:}".format(id))
 
         elif arguments["login"]:
             name = arguments["NAME"]
@@ -179,16 +247,30 @@ class VmCommand(object):
 
         elif arguments["list"]:
             if arguments["--all"]:
-                cloud = "all"
+                try:
+                    _format = arguments["--format"] or "table"
+                    d = ConfigDict("cloudmesh.yaml")
+                    for cloud in d["cloudmesh"]["clouds"]:
+                        print("Listing VMs on Cloud: {:}".format(cloud))
+                        list_vms_on_cloud(cloud, format=_format)
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem listing all instances")
             else:
-                cloud = arguments["CLOUD"]
-            group = arguments["--group"]
-            refresh = arguments["--refresh"]
-            output_format = arguments["--format"]
-            columns = arguments["--columns"]
-            detail = arguments["--detail"]
+                cloud = arguments["CLOUD"] or "india"
+                try:
+                    group = arguments["--group"]
+                    _format = arguments["--format"] or "table"
 
-            print("To be implemented")
+                    list_vms_on_cloud(cloud, group, _format)
+
+                except Exception, e:
+                    import traceback
+                    print(traceback.format_exc())
+                    print (e)
+                    Console.error("Problem listing instances on cloud {:}".format(cloud))
         pass
 
 
