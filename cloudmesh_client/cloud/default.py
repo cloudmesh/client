@@ -22,6 +22,28 @@ class Default(object):
         finally:
             cls.cm_db.close()
 
+    @classmethod
+    def get_objects(cls, cloud, format="table"):
+        try:
+            elements = cls.cm_db.query(model.DEFAULT).filter(
+                model.DEFAULT.cloud == cloud
+            )
+            d = {}
+            for element in elements:
+                d[element.id] = {}
+                for key in element.__dict__.keys():
+                    if not key.startswith("_sa"):
+                        d[element.id][key] = str(element.__dict__[key])
+
+            return (tables.dict_printer(d,
+                                 order=['user',
+                                        'cloud',
+                                        'name',
+                                        'value'],
+                                 output=format))
+        finally:
+            cls.cm_db.close()
+
     #
     # GENERAL SETER AND GETER METHOD
     #

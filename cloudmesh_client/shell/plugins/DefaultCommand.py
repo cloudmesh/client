@@ -19,13 +19,10 @@ class DefaultCommand(object):
         ::
 
           Usage:
-              default list [--format=FORMAT]
+              default list [--cloud=CLOUD] [--format=FORMAT] [--all]
               default delete KEY [--cloud=CLOUD]
               default KEY [--cloud=CLOUD]
               default KEY=VALUE [--cloud=CLOUD]
-
-
-          managing the defaults test test test test
 
           Arguments:
 
@@ -36,6 +33,7 @@ class DefaultCommand(object):
 
              --cloud=CLOUD    the name of the cloud [default: general]
              --format=FORMAT  the output format [default: table]
+             --all            lists all the default values
 
         Description:
 
@@ -43,40 +41,53 @@ class DefaultCommand(object):
             clouds. One of the key concepts to make the usage of such
             clouds easier is the introduction of defaults for each
             cloud or globally. Hence it is possible to set default
-            images, flavors for each cloud, but also the default
+            images, flavors for each cloud, and also the default
             cloud. The default command is used to set and list the
             default values. These defaults are used in other commands
             if they are not overwritten by a command parameter.
 
-	    The current default values can by listed with:(if you have
-	    a default cloud specified. You can also add a
-	    --cloud=CLOUD parameter to apply the command to a specific
-	    cloud) 
 
-	    	default list
+	    The current default values can by listed with --all option:(
+	    if you have a default cloud specified. You can also add a
+	    --cloud=CLOUD parameter to apply the command to a specific
+	    cloud)
+
+               default list
 
             A default can be set with
 
-                 default KEY=VALUE
+                default KEY=VALUE
 
-             To look up a default value you can say
+            To look up a default value you can say
 
-                  default KEY
+                default KEY
 
-               A deafult can be deleted with
+            A default can be deleted with
 
-                   default delete KEY
+                default delete KEY
 
+
+        Examples:
+            default list --all
+            default list --cloud=general
+            default image=xyz
+            default image=abc --cloud=chameleon
+            default image
+            default image --cloud=chameleon
+            default delete image
+            default delete image --cloud=chameleon
         """
         # pprint(arguments)
         cloud = arguments["--cloud"]
-
         if arguments["list"]:
             output_format = arguments["--format"]
-            result = Default.list(format=output_format)
+            if arguments['--all']:
+                result = Default.list(format=output_format)
+            else:
+                result = Default.get_objects(cloud, format=output_format)
+
             if result is None:
                 Console.error("No default values found")
-                return
             else:
                 print (result)
 
@@ -86,21 +97,20 @@ class DefaultCommand(object):
             if result is None:
                 Console.error("Key {} not present".format(key))
             else:
-                Console.msg("Deleted key {}".format(key))
+                Console.ok("Deleted key {} for cloud {}".format(key, cloud))
 
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
             Default.set(key, value, cloud)
-            Console.ok("Successfully added {}".format(key))
+            Console.ok("Successfully added value: {} for key: {}".format(value, key))
 
         elif arguments["KEY"]:
             key = arguments["KEY"]
             result = Default.get(key, cloud)
             if result is None:
                 Console.error("No default values found")
-                return
             else:
-                print (result)
+                Console.ok("Default value for {} is {}".format(key, result))
 
         pass
 

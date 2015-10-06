@@ -264,3 +264,4 @@ It will return output in json format::
         "cm_type": "azure",
         "cm_type_version": null
     }
+
