@@ -59,6 +59,23 @@ cloudmesh:
             default:
                 flavor: TBD
                 image: TBD
+        chameleon:
+            cm_heading: Chameleon, Juno
+            cm_host: chameleoncloud.org
+            cm_label: chameleon
+            cm_type: openstack
+            cm_type_version: juno
+            credentials:
+                OS_AUTH_URL: https://proxy.chameleon.tacc.utexas.edu:5000/v2.0
+                OS_CACERT: TBD
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: FG-82
+                OS_USERNAME: TBD
+                OS_VERSION: kilo
+                OS_REGION_NAME: regionOne
+            default:
+                flavor: TBD
+                image: TBD
         aws:
             cm_heading: Amazon Cloud, AWS
             cm_host: aws.amazon.com
