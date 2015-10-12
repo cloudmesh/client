@@ -5,6 +5,7 @@ import os
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_base.ssh_config import ssh_config
 
+
 class SecureShellCommand(object):
     # def activate_cm_shell_ssh(self):
 

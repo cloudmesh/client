@@ -1,8 +1,8 @@
 import getpass
 from cloudmesh_client.cloud.default import Default
 
-class VMName(object):
 
+class VMName(object):
     @staticmethod
     def format(name=None):
         """
@@ -23,8 +23,7 @@ class VMName(object):
         :param name: the name that derives a format for
         :return: prefix, index, padding
         """
-        raise("implement me")
-
+        raise ("implement me")
 
     @staticmethod
     def get(prefix=None, idx=None, user=None):
@@ -47,6 +46,7 @@ class VMName(object):
     @staticmethod
     def next():
         return VMName.vmname(idx="+1")
+
 
 """
 

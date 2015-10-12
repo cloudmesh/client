@@ -6,7 +6,6 @@ from cloudmesh_client.cloud.limits import Limits
 
 
 class LimitsCommand(object):
-
     topics = {"limits": "cloud"}
 
     def __init__(self, context):
@@ -44,10 +43,10 @@ class LimitsCommand(object):
 
             output_format = arguments["--format"]
             tenant = arguments["--tenant"]
-            result = Limits.list_limits(cloud, format=output_format, tenant=tenant)
+            result = Limits.list_limits(cloud, format=output_format,
+                                        tenant=tenant)
             Console.msg(result)
             return
-
 
 
 if __name__ == '__main__':

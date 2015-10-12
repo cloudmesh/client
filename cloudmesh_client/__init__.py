@@ -1,4 +1,4 @@
-import  cloudmesh_client.version
+import cloudmesh_client.version
 from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.nova import Nova
@@ -15,4 +15,3 @@ from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 
 __version__ = cloudmesh_client.version.__version__
-

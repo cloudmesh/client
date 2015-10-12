@@ -4,8 +4,8 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.secgroup import SecGroup
 
-class SecgroupCommand(object):
 
+class SecgroupCommand(object):
     topics = {"secgroup": "security"}
 
     def __init__(self, context):
@@ -71,11 +71,12 @@ class SecgroupCommand(object):
                 Console.error("Default tenant not set!")
                 return
 
-            result = SecGroup.list_secgroup(tenant,cloud)
+            result = SecGroup.list_secgroup(tenant, cloud)
             if result:
                 print(result)
             else:
-                Console.error("No Security Groups found in the cloudmesh database!")
+                Console.error(
+                    "No Security Groups found in the cloudmesh database!")
             return
 
         elif arguments["create"]:
@@ -99,10 +100,11 @@ class SecgroupCommand(object):
 
             if uuid:
                 Console.ok("Created a new security group [{}] with UUID [{}]"
-                       .format(label, uuid))
+                           .format(label, uuid))
             else:
-                Console.error("Security group [{}], for cloud [{}], & tenant [{}] already exists!"
-                              .format(label, cloud, tenant))
+                Console.error(
+                    "Security group [{}], for cloud [{}], & tenant [{}] already exists!"
+                    .format(label, cloud, tenant))
             return
 
         elif arguments["delete"]:
@@ -125,8 +127,9 @@ class SecgroupCommand(object):
             if result:
                 print(result)
             else:
-                Console.error("Security Group [{}, {}, {}] could not be deleted"
-                              .format(label, cloud, tenant))
+                Console.error(
+                    "Security Group [{}, {}, {}] could not be deleted"
+                    .format(label, cloud, tenant))
 
             return
 
@@ -155,11 +158,13 @@ class SecgroupCommand(object):
             sec_group = SecGroup.get_secgroup(label, tenant, cloud)
             if sec_group:
                 # Get the rules
-                result = SecGroup.delete_rule(sec_group, from_port, to_port, protocol, cidr)
+                result = SecGroup.delete_rule(sec_group, from_port, to_port,
+                                              protocol, cidr)
                 if result:
                     print(result)
                 else:
-                    Console.error("Rule [{} | {} | {} | {}] could not be deleted"\
+                    Console.error(
+                        "Rule [{} | {} | {} | {}] could not be deleted" \
                         .format(from_port, to_port, protocol, cidr))
 
             return
@@ -187,8 +192,9 @@ class SecgroupCommand(object):
                 result = SecGroup.get_rules(sec_group.uuid)
                 print(result)
             else:
-                Console.error("Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
-                              .format(label, cloud, tenant))
+                Console.error(
+                    "Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
+                    .format(label, cloud, tenant))
                 return
 
         elif arguments["rules-add"]:
@@ -216,15 +222,18 @@ class SecgroupCommand(object):
             sec_group = SecGroup.get_secgroup(label, tenant, cloud)
             if sec_group:
                 # Add rules to the security group
-                SecGroup.add_rule(sec_group, from_port, to_port, protocol, cidr)
+                SecGroup.add_rule(sec_group, from_port, to_port, protocol,
+                                  cidr)
             else:
-                Console.error("Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
-                              .format(label, cloud, tenant))
+                Console.error(
+                    "Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
+                    .format(label, cloud, tenant))
                 return
 
-        #TODO: Add Implementation
+        # TODO: Add Implementation
         elif arguments["--version"]:
             Console.ok('Version: ')
+
 
 if __name__ == '__main__':
     command = cm_shell_security_group()

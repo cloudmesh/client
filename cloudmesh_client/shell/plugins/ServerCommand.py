@@ -8,7 +8,6 @@ from cloudmesh_client.common.ConfigDict import Config
 
 
 class ServerCommand(object):
-
     topics = {"server": "cloud"}
 
     def __init__(self, context):
@@ -36,7 +35,8 @@ class ServerCommand(object):
 
         """
 
-        filename = "sqlite:///{}".format(Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db")))
+        filename = "sqlite:///{}".format(Config.path_expand(
+            os.path.join("~", ".cloudmesh", "cloudmesh.db")))
 
         print("database: {}".format(filename))
         app.config['SQLALCHEMY_DATABASE_URI'] = filename
@@ -46,6 +46,7 @@ class ServerCommand(object):
         activate()
 
         app.run()
+
 
 if __name__ == "__main__":
     main()

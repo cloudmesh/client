@@ -10,9 +10,9 @@ from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
-class SecGroup(object):
 
-    cm_db = CloudmeshDatabase() # Instance to communicate with the cloudmesh database
+class SecGroup(object):
+    cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
     @classmethod
     def set_os_environ(cls, cloudname):
@@ -73,12 +73,12 @@ class SecGroup(object):
         else:
             return None
 
-        #args = ["--insecure", "secgroup-create", label,
-        #        "\" Security group for cloud: [{}], tenant: [{}]\""
-        #            .format(cloudname, tenant)]
+            # args = ["--insecure", "secgroup-create", label,
+            #        "\" Security group for cloud: [{}], tenant: [{}]\""
+            #            .format(cloudname, tenant)]
 
-        #result = Shell.execute("nova", args)
-        #return result
+            # result = Shell.execute("nova", args)
+            # return result
 
     @classmethod
     def list_secgroup(cls, project, cloud="general"):
@@ -97,12 +97,12 @@ class SecGroup(object):
 
             d = cls.toDict(elements)
             return (tables.dict_printer(d,
-                                 order=["uuid",
-                                        "user",
-                                        "cloud",
-                                        "name",
-                                        "project"],
-                                 output="table"))
+                                        order=["uuid",
+                                               "user",
+                                               "cloud",
+                                               "name",
+                                               "project"],
+                                        output="table"))
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -151,7 +151,8 @@ class SecGroup(object):
             cls.cm_db.add(ruleObj)
             cls.cm_db.save()
             Console.ok("Added rule [{} | {} | {} | {}] to secgroup [{}]"
-                       .format(from_port, to_port, protocol, cidr, secgroup.name))
+                       .format(from_port, to_port, protocol, cidr,
+                               secgroup.name))
         except Exception as ex:
             Console.error(ex.message, ex)
         finally:
@@ -173,14 +174,14 @@ class SecGroup(object):
 
             d = cls.toDict(rule)
             return (tables.dict_printer(d,
-                                 order=["user",
-                                        "cloud",
-                                        "name",
-                                        "fromPort",
-                                        "toPort",
-                                        "protocol",
-                                        "cidr"],
-                                 output="table"))
+                                        order=["user",
+                                               "cloud",
+                                               "name",
+                                               "fromPort",
+                                               "toPort",
+                                               "protocol",
+                                               "cidr"],
+                                        output="table"))
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -191,12 +192,12 @@ class SecGroup(object):
     @classmethod
     def delete_secgroup(cls, label, cloud, tenant):
         try:
-            secgroup = cls.get_secgroup(label,tenant,cloud)
+            secgroup = cls.get_secgroup(label, tenant, cloud)
             if secgroup:
                 # Delete all rules for group
                 cls.delete_all_rules(secgroup)
                 cls.cm_db.delete(secgroup)
-                return "Security Group [{}] for cloud [{}], & tenant [{}] deleted"\
+                return "Security Group [{}] for cloud [{}], & tenant [{}] deleted" \
                     .format(label, cloud, tenant)
             else:
                 return None
@@ -221,8 +222,8 @@ class SecGroup(object):
 
             if rule:
                 cls.cm_db.delete(rule)
-                return "Rule [{} | {} | {} | {}] deleted"\
-                        .format(from_port, to_port, protocol, cidr)
+                return "Rule [{} | {} | {} | {}] deleted" \
+                    .format(from_port, to_port, protocol, cidr)
             else:
                 return None
 
@@ -244,7 +245,8 @@ class SecGroup(object):
                 for rule in rules:
                     cls.cm_db.delete(rule)
                     Console.ok("Rule [{} | {} | {} | {}] deleted"
-                               .format(rule.fromPort, rule.toPort, rule.protocol, rule.cidr))
+                               .format(rule.fromPort, rule.toPort,
+                                       rule.protocol, rule.cidr))
             else:
                 pass
         except Exception as ex:
@@ -257,10 +259,11 @@ class SecGroup(object):
     @classmethod
     def getUser(cls, cloudname):
         try:
-            #currently support India cloud
+            # currently support India cloud
             if cloudname == "india":
                 d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+                credentials = d["cloudmesh"]["clouds"][cloudname][
+                    "credentials"]
                 for key, value in credentials.iteritems():
                     if key == "OS_USERNAME":
                         return value
@@ -269,7 +272,6 @@ class SecGroup(object):
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def toDict(cls, item):

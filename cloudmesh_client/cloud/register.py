@@ -35,11 +35,12 @@ class CloudRegister(object):
         print("")
         d = {}
         for i, key in enumerate(clouds.keys()):
-            d[i] = {}
-            #TODO: don't use array assignment as it prevents readability
-            d[i]["Name"], d[i]["Iaas"], d[i]["Version"] = key, \
-                                                           config["cloudmesh"]["clouds"][key]["cm_type"], \
-                                                          config["cloudmesh"]["clouds"][key]["cm_type_version"]or "N/A"
+            d[i] = {
+                "Name": key,
+                "Iaas":  config["cloudmesh"]["clouds"][key]["cm_type"],
+                "Version":
+                    config["cloudmesh"]["clouds"][key]["cm_type_version"] or "N/A"
+            }
         return tables.dict_printer(d, order=['Name',
                                              'Iaas',
                                              'Version'])

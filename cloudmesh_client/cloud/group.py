@@ -6,21 +6,21 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
-class Group(object):
 
-    cm_db = CloudmeshDatabase() # Instance to communicate with the cloudmesh database
+class Group(object):
+    cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
     @classmethod
     def list(cls, format="table", cloud="general"):
         try:
             d = cls.cm_db.all(model.GROUP)
             return (tables.dict_printer(d,
-                                 order=["user",
-                                        "cloud",
-                                        "name",
-                                        "value",
-                                        "type"],
-                                 output=format))
+                                        order=["user",
+                                               "cloud",
+                                               "name",
+                                               "value",
+                                               "type"],
+                                        output=format))
         except Exception as ex:
             Console.error(ex.message, ex)
 
@@ -66,9 +66,9 @@ class Group(object):
                 # check if id is already in group
                 if id in ids:
                     Console.error("ID [{}] is already part of Group [{}]"
-                               .format(id, name))
+                                  .format(id, name))
                 else:
-                    id_str += ',' + id # add the id to the group
+                    id_str += ',' + id  # add the id to the group
                     existing_group.value = id_str
                     cls.cm_db.save()
                     Console.ok("Added ID [{}] to Group [{}]"
@@ -118,7 +118,7 @@ class Group(object):
             cls.cm_db.close()
 
     @classmethod
-    def delete(cls,  name=None, cloud="general"):
+    def delete(cls, name=None, cloud="general"):
         try:
             group = cls.get_group(name=name, cloud=cloud)
             if group:
@@ -137,7 +137,7 @@ class Group(object):
     def copy(cls, _fromName, _toName):
         try:
             _fromGroup = cls.cm_db.find_by_name(model.GROUP, _fromName)
-            _toGroup = cls.cm_db.find_by_name(model.GROUP,_toName)
+            _toGroup = cls.cm_db.find_by_name(model.GROUP, _toName)
 
             # Get IDs from _fromName group
             from_id_str = str(_fromGroup.value)
@@ -174,13 +174,15 @@ class Group(object):
                     )
                     cls.cm_db.add(group_obj)
                     cls.cm_db.save()
-                    Console.ok("Created a new group [{}] and added ID [{}] to it"
-                               .format(_toName, from_id_str))
+                    Console.ok(
+                        "Created a new group [{}] and added ID [{}] to it"
+                        .format(_toName, from_id_str))
 
             # _fromName group does not exist, error!
             else:
-                Console.error("Group [{}] does not exist in the cloudmesh database!"
-                              .format(_fromName))
+                Console.error(
+                    "Group [{}] does not exist in the cloudmesh database!"
+                    .format(_fromName))
                 return None
 
         except Exception as ex:
@@ -212,8 +214,9 @@ class Group(object):
 
                 cls.cm_db.add(mergeGroup)
                 cls.cm_db.save()
-                Console.ok("Merge of group [{}] & [{}] to group [{}] successful!"
-                           .format(_nameA, _nameB, mergeName))
+                Console.ok(
+                    "Merge of group [{}] & [{}] to group [{}] successful!"
+                    .format(_nameA, _nameB, mergeName))
             else:
                 Console.error("Your groups [{}] and/or [{}] do not exist!"
                               .format(_nameA, _nameB))
@@ -235,10 +238,11 @@ class Group(object):
     @classmethod
     def getUser(cls, cloudname):
         try:
-            #currently support India cloud
+            # currently support India cloud
             if cloudname == "india":
                 d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+                credentials = d["cloudmesh"]["clouds"][cloudname][
+                    "credentials"]
                 for key, value in credentials.iteritems():
                     if key == "OS_USERNAME":
                         return value

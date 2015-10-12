@@ -5,7 +5,6 @@ from cloudmesh_client.cloud.default import Default
 
 
 class DefaultCommand(object):
-
     topics = {"default": "cloud"}
 
     def __init__(self, context):
@@ -89,7 +88,7 @@ class DefaultCommand(object):
             if result is None:
                 Console.error("No default values found")
             else:
-                print (result)
+                print(result)
 
         elif arguments["delete"]:
             key = arguments["KEY"]
@@ -102,7 +101,8 @@ class DefaultCommand(object):
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
             Default.set(key, value, cloud)
-            Console.ok("Successfully added value: {} for key: {}".format(value, key))
+            Console.ok(
+                "Successfully added value: {} for key: {}".format(value, key))
 
         elif arguments["KEY"]:
             key = arguments["KEY"]

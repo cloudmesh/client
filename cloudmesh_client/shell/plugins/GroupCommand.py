@@ -5,8 +5,8 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 
-class GroupCommand(object):
 
+class GroupCommand(object):
     topics = {"group": "cloud"}
 
     def __init__(self, context):
@@ -87,15 +87,15 @@ class GroupCommand(object):
         # pprint(arguments)
 
         if arguments["list"]:
-            #name = arguments["NAME"]
+            # name = arguments["NAME"]
             output_format = arguments["--format"]
             cloud = arguments["--cloud"]
 
-            #If cloud is not specified, get default
+            # If cloud is not specified, get default
             if not cloud:
                 cloud = Default.get("cloud") or "general"
 
-            #If format is not specified, get default
+            # If format is not specified, get default
             if not output_format:
                 output_format = Default.get("format") or "table"
 
@@ -112,7 +112,7 @@ class GroupCommand(object):
             cloud = arguments["--cloud"]
             name = arguments["NAME"]
 
-            #If format is not specified, get default
+            # If format is not specified, get default
             if not output_format:
                 output_format = Default.get("format") or "table"
 
@@ -120,12 +120,15 @@ class GroupCommand(object):
             if not cloud:
                 cloud = Default.get("cloud") or "general"
 
-            result = Group.get_info(cloud=cloud, name=name, format=output_format)
+            result = Group.get_info(cloud=cloud, name=name,
+                                    format=output_format)
 
             if result:
                 print(result)
             else:
-                Console.error("No group with name {} found in the cloudmesh database!".format(name))
+                Console.error(
+                    "No group with name {} found in the cloudmesh database!".format(
+                        name))
             return
 
         # TODO: add logic to check VM exists in cloud
@@ -155,7 +158,7 @@ class GroupCommand(object):
             name = arguments["--name"]
             cloud = arguments["--cloud"]
 
-            #If cloud is not specified, get default
+            # If cloud is not specified, get default
             if not cloud:
                 cloud = Default.get("cloud") or "general"
 
@@ -163,7 +166,8 @@ class GroupCommand(object):
             if result:
                 Console.ok("Deletion Successful!")
             else:
-                Console.error("No group with name [{}] in the database!".format(name))
+                Console.error(
+                    "No group with name [{}] in the database!".format(name))
             return
 
         elif arguments["copy"]:
@@ -174,12 +178,13 @@ class GroupCommand(object):
             return
 
         elif arguments["merge"]:
-            _groupA = arguments ["GROUPA"]
-            _groupB = arguments ["GROUPB"]
-            _mergedGroup = arguments ["MERGEDGROUP"]
+            _groupA = arguments["GROUPA"]
+            _groupB = arguments["GROUPB"]
+            _mergedGroup = arguments["MERGEDGROUP"]
 
             Group.merge(_groupA, _groupB, _mergedGroup)
             return
+
 
 if __name__ == '__main__':
     # TODO: do something useful here

@@ -4,9 +4,9 @@ import os
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 
+
 # noinspection PyUnusedLocal
 class OpenCommand:
-
     topics = {"open": "shell"}
 
     def __init__(self, context):
@@ -50,10 +50,12 @@ class OpenCommand:
                     pass
                 filename += "file://"
             except:
-                Console.error("unsupported browser format in file {0}".format(filename))
+                Console.error(
+                    "unsupported browser format in file {0}".format(filename))
                 return
 
         try:
             webbrowser.open("%s" % filename)
         except:
-            Console.error("can not open browser with file {0}".format(filename))
+            Console.error(
+                "can not open browser with file {0}".format(filename))

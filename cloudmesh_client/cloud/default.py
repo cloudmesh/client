@@ -6,7 +6,6 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
 class Default(object):
-
     cm_db = CloudmeshDatabase()
     # Create a static variable so that db is initialized once in a transaction
 
@@ -15,11 +14,11 @@ class Default(object):
         try:
             d = cls.cm_db.all(model.DEFAULT)
             return (tables.dict_printer(d,
-                                 order=['user',
-                                        'cloud',
-                                        'name',
-                                        'value'],
-                                 output=format))
+                                        order=['user',
+                                               'cloud',
+                                               'name',
+                                               'value'],
+                                        output=format))
         finally:
             cls.cm_db.close()
 
@@ -37,11 +36,11 @@ class Default(object):
                         d[element.id][key] = str(element.__dict__[key])
 
             return (tables.dict_printer(d,
-                                 order=['user',
-                                        'cloud',
-                                        'name',
-                                        'value'],
-                                 output=format))
+                                        order=['user',
+                                               'cloud',
+                                               'name',
+                                               'value'],
+                                        output=format))
         finally:
             cls.cm_db.close()
 
@@ -108,6 +107,7 @@ class Default(object):
             cls.cm_db.save()
         finally:
             cls.cm_db.close()
+
     #
     # Set the default cloud
     #

@@ -5,8 +5,8 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 
-class ListCommand(object):
 
+class ListCommand(object):
     topics = {"list": "cloud"}
 
     def __init__(self, context):
@@ -43,7 +43,7 @@ class ListCommand(object):
                 $ list --cloud india --format table flavor
                 $ list --cloud india --user albert --tenant fg82 flavor
         """
-        #pprint(arguments)
+        # pprint(arguments)
 
         # Method to get the kind from args
         def get_kind():
@@ -97,13 +97,13 @@ class ListCommand(object):
                 'vcpus'
             ]
         elif kind == 'DEFAULT':
-            order=['user',
-                'cloud',
-                'name',
-                'value',
-                'created_at',
-                'updated_at'
-            ]
+            order = ['user',
+                     'cloud',
+                     'name',
+                     'value',
+                     'created_at',
+                     'updated_at'
+                     ]
         elif kind == 'IMAGE':
             order = [
                 'cm_cloud',
@@ -148,7 +148,7 @@ class ListCommand(object):
                           .format(kind))
         return
 
+
 if __name__ == '__main__':
     command = cm_shell_list()
     command.do_list("flavor")
-

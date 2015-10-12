@@ -8,9 +8,9 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
-class List(object):
 
-    cm_db = CloudmeshDatabase() # Instance to communicate with the cloudmesh database
+class List(object):
+    cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
     @classmethod
     def get_list(cls, kind, cloud, user=None,
@@ -53,9 +53,9 @@ class List(object):
                 # convert the output to a dict
                 d = cls.toDict(elements)
                 return (tables.dict_printer(d,
-                                    order=order,
-                                    header=header,
-                                    output=output))
+                                            order=order,
+                                            header=header,
+                                            output=output))
             else:
                 return None
 
@@ -109,10 +109,11 @@ class List(object):
     @classmethod
     def getUser(cls, cloudname):
         try:
-            #currently support India cloud
+            # currently support India cloud
             if cloudname == "india":
                 d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+                credentials = d["cloudmesh"]["clouds"][cloudname][
+                    "credentials"]
                 for key, value in credentials.iteritems():
                     if key == "OS_USERNAME":
                         return value
