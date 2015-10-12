@@ -2,7 +2,8 @@ Register Command
 ======================================================================
 
 
-The manual page of the register command can be found at: `register <../man/man.html#register>`_
+The manual page of the register command can be found at:
+`register <../man/man.html#register>`_
 
 
 As we are managing multiple clouds with cloudmesh we need to register
@@ -51,7 +52,7 @@ which will print a table with elementary information defined for the
 clouds.::
 
     $ register list
-    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
+    Clouds specified in the configuration file $HOME/.cloudmesh\cloudmesh.yaml
 
     +-------+-----------+---------+
     | Name  | Iaas      | Version |
@@ -66,7 +67,7 @@ clouds.::
 To list only the names, please use the command::
 
     $ register list --name
-    Clouds specified in the configuration file C:\Users\erika\.cloudmesh\cloudmesh.yaml
+    Clouds specified in the configuration file $HOME/.cloudmesh\cloudmesh.yaml
 
     +-------+
     | Name  |

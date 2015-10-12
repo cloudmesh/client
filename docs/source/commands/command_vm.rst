@@ -2,15 +2,16 @@ VM Command
 ======================================================================
 
 VM Command is used to manage VM instances across clouds.
-It is like a one stop interface that can be used to perform various VM operations on various clouds available to
-Cloudmesh.
+It is like a one stop interface that can be used to perform various VM
+operations on various clouds available to Cloudmesh.
 
 The manual page of the key command can be found at: `VM <../man/man.html#vm>`_
 
 Starting a VM instance
 -----------------------
 
-You can start a VM on any target cloud like 'india' by using the 'vm start' like the one provided below::
+You can start a VM on any target cloud like 'india' by using the 'vm start'
+like the one provided below::
 
     $ cm vm start --name=testvm --cloud=india --image=619b8942-2355-4aa2-bae3-74b8f1751911 --flavor=2
     Machine testvm is being booted on india Cloud...
@@ -18,7 +19,8 @@ You can start a VM on any target cloud like 'india' by using the 'vm start' like
 Listing a VM instances
 -----------------------
 
-You can list all the VM instances running on the cloud by 'vm list' command like the one below::
+You can list all the VM instances running on the cloud by 'vm list' command
+like the one below::
 
     $ cm vm list india
     +--------------------------------------+--------------+--------+

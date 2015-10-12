@@ -3,7 +3,7 @@ Key Command
 
 In clouds and distributed environments security keys are used for
 authentication. We like to be able to register specific keys with
-clouds or vms and eaily use them. To do so we upload them into a key
+clouds or vms and easily use them. To do so we upload them into a key
 registry in which each key is uniquely named. We use these named keys
 when we start up virtual machines or log into remote machines.
 
