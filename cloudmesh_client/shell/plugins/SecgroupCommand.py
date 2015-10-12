@@ -58,10 +58,8 @@ class SecgroupCommand(object):
 
         if arguments["list"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud")
-            tenant = arguments["--tenant"] \
-                     or Default.get("tenant")
+            cloud = arguments["--cloud"] or Default.get("cloud")
+            tenant = arguments["--tenant"] or Default.get("tenant")
 
             # If default not set, terminate
             if not cloud:
@@ -81,10 +79,8 @@ class SecgroupCommand(object):
 
         elif arguments["create"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud")
-            tenant = arguments["--tenant"] \
-                     or Default.get("tenant")
+            cloud = arguments["--cloud"] or Default.get("cloud")
+            tenant = arguments["--tenant"] or Default.get("tenant")
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -103,16 +99,14 @@ class SecgroupCommand(object):
                            .format(label, uuid))
             else:
                 Console.error(
-                    "Security group [{}], for cloud [{}], & tenant [{}] already exists!"
-                    .format(label, cloud, tenant))
+                    "Security group [{}], for cloud [{}], and tenant [{}] "
+                    "already exists!".format(label, cloud, tenant))
             return
 
         elif arguments["delete"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud")
-            tenant = arguments["--tenant"] \
-                     or Default.get("tenant")
+            cloud = arguments["--cloud"] or Default.get("cloud")
+            tenant = arguments["--tenant"] or Default.get("tenant")
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -127,18 +121,15 @@ class SecgroupCommand(object):
             if result:
                 print(result)
             else:
-                Console.error(
-                    "Security Group [{}, {}, {}] could not be deleted"
-                    .format(label, cloud, tenant))
+                Console.error("Security Group [{}, {}, {}] could not be "
+                              "deleted".format(label, cloud, tenant))
 
             return
 
         elif arguments["rules-delete"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud")
-            tenant = arguments["--tenant"] \
-                     or Default.get("tenant")
+            cloud = arguments["--cloud"] or Default.get("cloud")
+            tenant = arguments["--tenant"] or Default.get("tenant")
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -164,17 +155,15 @@ class SecgroupCommand(object):
                     print(result)
                 else:
                     Console.error(
-                        "Rule [{} | {} | {} | {}] could not be deleted" \
-                        .format(from_port, to_port, protocol, cidr))
+                        "Rule [{} | {} | {} | {}] could not be deleted"
+                            .format(from_port, to_port, protocol, cidr))
 
             return
 
         elif arguments["rules-list"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud")
-            tenant = arguments["--tenant"] \
-                     or Default.get("tenant")
+            cloud = arguments["--cloud"] or Default.get("cloud")
+            tenant = arguments["--tenant"] or Default.get("tenant")
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -193,16 +182,15 @@ class SecgroupCommand(object):
                 print(result)
             else:
                 Console.error(
-                    "Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
-                    .format(label, cloud, tenant))
+                    "Security Group with label [{}], cloud [{}], and "
+                    "tenant [{}] not found!"
+                        .format(label, cloud, tenant))
                 return
 
         elif arguments["rules-add"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud")
-            tenant = arguments["--tenant"] \
-                     or Default.get("tenant")
+            cloud = arguments["--cloud"] or Default.get("cloud")
+            tenant = arguments["--tenant"] or Default.get("tenant")
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -226,8 +214,8 @@ class SecgroupCommand(object):
                                   cidr)
             else:
                 Console.error(
-                    "Security Group with label [{}], cloud [{}], & tenant [{}] not found!"
-                    .format(label, cloud, tenant))
+                    "Security Group with label [{}], cloud [{}], and tenant [{"
+                    "}] not found!".format(label, cloud, tenant))
                 return
 
         # TODO: Add Implementation

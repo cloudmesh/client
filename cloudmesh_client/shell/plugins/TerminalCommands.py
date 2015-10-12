@@ -8,7 +8,6 @@ from cloudmesh_client.shell.console import Console
 
 
 class TerminalCommands(object):
-
     topics = {"clear": "shell",
               "banner": "shell"}
 
@@ -53,16 +52,15 @@ class TerminalCommands(object):
 
             Prints a banner form a one line text message.
         """
-        print (arguments)
+        print(arguments)
         n = int(arguments['-n'])
         c = arguments['-c']
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        
-        Console._print(color, "", i * " " + (n-i) * c)
-        Console._print(color, "",  i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "",  i * " " + (n-i) * c)
+        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
+        Console._print(color, "", i * " " + (n - i) * c)
 
     @command
     def do_pause(self, arg, arguments):
@@ -77,7 +75,7 @@ class TerminalCommands(object):
             Arguments:
                MESSAGE  message to be displayed
         """
-        print (arguments)
+        print(arguments)
         if arguments["MESSAGE"] is None:
             arg = 'Press ENTER to continue'
         input(arg + '\n')

@@ -37,9 +37,10 @@ class CloudRegister(object):
         for i, key in enumerate(clouds.keys()):
             d[i] = {
                 "Name": key,
-                "Iaas":  config["cloudmesh"]["clouds"][key]["cm_type"],
+                "Iaas": config["cloudmesh"]["clouds"][key]["cm_type"],
                 "Version":
-                    config["cloudmesh"]["clouds"][key]["cm_type_version"] or "N/A"
+                    config["cloudmesh"]["clouds"][key][
+                        "cm_type_version"] or "N/A"
             }
         return tables.dict_printer(d, order=['Name',
                                              'Iaas',
@@ -70,12 +71,13 @@ class CloudRegister(object):
         :type openrc: string
         :return:
         """
-        #TODO: if host not in ["india"]: raise exception ("read rc file for
+        # TODO: if host not in ["india"]: raise exception ("read rc file for
         #  this host not supported")
-        host_openrc_mapping = {("india", None): ".cloudmesh/clouds/india/juno/openrc.sh",
-                               ("india", "juno"): ".cloudmesh/clouds/india/juno/openrc.sh",
-                               ("india", "kilo"): ".cloudmesh/clouds/india/kilo/openrc.sh"
-                               }
+        host_openrc_mapping = {
+            ("india", None): ".cloudmesh/clouds/india/juno/openrc.sh",
+            ("india", "juno"): ".cloudmesh/clouds/india/juno/openrc.sh",
+            ("india", "kilo"): ".cloudmesh/clouds/india/kilo/openrc.sh"
+        }
         try:
             if openrc is None:
                 openrc = host_openrc_mapping[(host, version)]
@@ -148,8 +150,9 @@ class CloudRegister(object):
             _to = "~/.cloudmesh/clouds/india"
             if os.path.exists(Config.path_expand(os.path.join(_to))):
 
-                if not yn_choice("Directory already exists. Would you like "
-                                 "to overwrite the {:} directory y/n? ".format(_to)):
+                if not yn_choice("Directory already exists. Would "
+                                 "you like to overwrite the {:} "
+                                 "directory y/n? ".format(_to)):
                     return
 
             else:
@@ -309,7 +312,9 @@ class CloudRegister(object):
 
         for key in keys:
             if profile[key] == "TBD":
-                result = input("Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
+                result = input(
+                    "Please enter {:}[{:}]:".format(key, profile[key])) or \
+                         profile[key]
                 profile[key] = result
 
         config["cloudmesh"]["profile"] = profile
@@ -324,9 +329,11 @@ class CloudRegister(object):
             credentials = clouds[cloud]["credentials"]
 
             for key in credentials:
-                if key not in ["OS_VERSION", "OS_AUTH_URL"] and credentials[key] == "TBD":
+                if key not in ["OS_VERSION", "OS_AUTH_URL"] and \
+                                credentials[key] == "TBD":
                     result = raw_input("Please enter {:}[{:}]:"
-                                       .format(key, credentials[key])) or credentials[key]
+                                       .format(key, credentials[key])) or \
+                             credentials[key]
                     credentials[key] = result
             config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()
@@ -354,7 +361,8 @@ class CloudRegister(object):
         profile = config["cloudmesh"]["profile"]
         for profile_key in profile.keys():
             if profile[profile_key] == "TBD":
-                profile[profile_key] = from_config_file["cloudmesh"]["profile"][profile_key]
+                profile[profile_key] = \
+                    from_config_file["cloudmesh"]["profile"][profile_key]
         config.save()
 
         # -------------------- Merging clouds -----------------------
@@ -363,23 +371,31 @@ class CloudRegister(object):
             cloud_element = clouds[cloud]
             for key in cloud_element.keys():
                 if cloud_element[key] == "TBD":
-                    cloud_element[key] = from_config_file["cloudmesh"]["clouds"][cloud][key]
+                    cloud_element[key] = \
+                        from_config_file["cloudmesh"]["clouds"][cloud][key]
             config["cloudmesh"]["clouds"][cloud] = cloud_element
 
             credentials = clouds[cloud]["credentials"]
             for key in credentials:
                 if credentials[key] == "TBD":
-                    credentials[key] = from_config_file["cloudmesh"]["clouds"][cloud]["credentials"][key]
+                    credentials[key] = \
+                        from_config_file["cloudmesh"]["clouds"][cloud][
+                            "credentials"][key]
             config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
 
             defaults = clouds[cloud]["default"]
             for key in defaults:
                 if defaults[key] == "TBD":
-                    defaults[key] = from_config_file["cloudmesh"]["clouds"][cloud]["default"][key]
+                    defaults[key] = \
+                        from_config_file["cloudmesh"]["clouds"][cloud][
+                            "default"][
+                            key]
             config["cloudmesh"]["clouds"][cloud]["default"] = defaults
         config.save()
 
-        Console.ok("Overwritten the TBD of cloudmesh.yaml with {} contents".format(file_path))
+        Console.ok(
+            "Overwritten the TBD of cloudmesh.yaml with {} contents".format(
+                file_path))
 
     @classmethod
     def read_env_config(cls):
@@ -411,17 +427,20 @@ class CloudRegister(object):
         cloudname_suggest = urlparse(env_config_data["OS_AUTH_URL"]).hostname
 
         # -------------------- Command line inputs -----------------------
-        cloudname_to_use = raw_input("Name of the cloud (Default: {:}): ".format(cloudname_suggest)) \
-                           or cloudname_suggest
+        cloudname_to_use = raw_input(
+            "Name of the cloud (Default: {:}): ".format(
+                cloudname_suggest)) or cloudname_suggest
 
-        cm_label = raw_input("Label for the cloud (Default: {:}): ".format(cloudname_to_use)) \
+        cm_label = raw_input(
+            "Label for the cloud (Default: {:}): ".format(cloudname_to_use)) \
                    or "{:}".format(cloudname_to_use)
 
-        cm_heading = raw_input("Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) \
-                     or "{:} Cloud".format(cm_label)
+        cm_heading = raw_input(
+            "Heading for the cloud (Default: {:} Cloud): ".format(
+                cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) \
-                  or "{:}".format(cloudname_suggest)
+        cm_host = raw_input("Cloud host name (Default: {:}): ".format(
+            cloudname_suggest)) or "{:}".format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
@@ -437,7 +456,8 @@ class CloudRegister(object):
             cm_type = raw_input("Type of the cloud- openstack/azure/ec2 "
                                 "(Default: openstack): ") or "openstack"
 
-        cm_type_version = raw_input("Version of type {:} (Default: null): ".format(cm_type)) or None
+        cm_type_version = raw_input(
+            "Version of type {:} (Default: null): ".format(cm_type)) or None
 
         # ------- Populate the dict with the data fetched from env -----------
         yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = \
@@ -457,14 +477,15 @@ class CloudRegister(object):
         default_image = raw_input("Default image for the cloud instances"
                                   " (Default: null): ") or None
 
-        default_location = raw_input("Default location for the cloud instances "
-                                     "(Default: null): ") or None
+        default_location = raw_input(
+            "Default location for the cloud instances "
+            "(Default: null): ") or None
 
         yaml_data["cloudmesh"]["clouds"][cloudname_to_use]["default"] = \
             {"flavor": default_flavor,
              "image": default_image,
              "location": default_location
-            }
+             }
 
         # -------------------- Save data in yaml -----------------------
         yaml_data.save()
