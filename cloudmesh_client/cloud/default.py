@@ -7,7 +7,8 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 class Default(object):
 
-    cm_db = CloudmeshDatabase()  # Create a static variable so that db is initilized once in a transaction
+    cm_db = CloudmeshDatabase()
+    # Create a static variable so that db is initialized once in a transaction
 
     @classmethod
     def list(cls, format="table"):
@@ -45,7 +46,7 @@ class Default(object):
             cls.cm_db.close()
 
     #
-    # GENERAL SETER AND GETER METHOD
+    # GENERAL SETTER AND GETTER METHOD
     #
 
     @classmethod

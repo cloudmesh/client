@@ -36,6 +36,7 @@ class CloudRegister(object):
         d = {}
         for i, key in enumerate(clouds.keys()):
             d[i] = {}
+            #TODO: don't use array assignment as it prevents readability
             d[i]["Name"], d[i]["Iaas"], d[i]["Version"] = key, \
                                                            config["cloudmesh"]["clouds"][key]["cm_type"], \
                                                           config["cloudmesh"]["clouds"][key]["cm_type_version"]or "N/A"
@@ -68,6 +69,8 @@ class CloudRegister(object):
         :type openrc: string
         :return:
         """
+        #TODO: if host not in ["india"]: raise exception ("read rc file for
+        #  this host not supported")
         host_openrc_mapping = {("india", None): ".cloudmesh/clouds/india/juno/openrc.sh",
                                ("india", "juno"): ".cloudmesh/clouds/india/juno/openrc.sh",
                                ("india", "kilo"): ".cloudmesh/clouds/india/kilo/openrc.sh"
@@ -421,36 +424,46 @@ class CloudRegister(object):
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
-            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 (Default: openstack): ") or "openstack"
+            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 "
+                                "(Default: openstack): ") or "openstack"
         else:
             cm_type = provider
 
         while cm_type not in ["openstack", "azure", "ec2"]:
-            print("\nSorry! Type of cloud '{:}' is invalid and should be one of openstack/ azure/ ec2.\n"
+            print("\nSorry! Type of cloud '{:}' is invalid and should be one "
+                  "of openstack/ azure/ ec2.\n"
                   .format(cm_type))
-            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 (Default: openstack): ") or "openstack"
+            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 "
+                                "(Default: openstack): ") or "openstack"
 
         cm_type_version = raw_input("Version of type {:} (Default: null): ".format(cm_type)) or None
 
-        # -------------------- Populate the dict with the data fetched from env -----------------------
-        yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = {"cm_heading": cm_heading,
-                                                              "cm_host": cm_host,
-                                                              "cm_label": cm_label,
-                                                              "cm_type": cm_type,
-                                                              "cm_type_version": cm_type_version,
-                                                              "credentials": env_config_data}
+        # ------- Populate the dict with the data fetched from env -----------
+        yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = \
+            {"cm_heading": cm_heading,
+             "cm_host": cm_host,
+             "cm_label": cm_label,
+             "cm_type": cm_type,
+             "cm_type_version": cm_type_version,
+             "credentials": env_config_data
+             }
 
-        # -------------------- Get defaults from user --------------------------- ---------------------
+        # -------------------- Get defaults from user ------------------------
 
-        default_flavor = raw_input("Default flavor for the cloud instances (Default: null): ") or None
+        default_flavor = raw_input("Default flavor for the cloud instances"
+                                   "(Default: null): ") or None
 
-        default_image = raw_input("Default image for the cloud instances (Default: null): ") or None
+        default_image = raw_input("Default image for the cloud instances"
+                                  " (Default: null): ") or None
 
-        default_location = raw_input("Default location for the cloud instances (Default: null): ") or None
+        default_location = raw_input("Default location for the cloud instances "
+                                     "(Default: null): ") or None
 
-        yaml_data["cloudmesh"]["clouds"][cloudname_to_use]["default"] = {"flavor": default_flavor,
-                                                                         "image": default_image,
-                                                                         "location": default_location}
+        yaml_data["cloudmesh"]["clouds"][cloudname_to_use]["default"] = \
+            {"flavor": default_flavor,
+             "image": default_image,
+             "location": default_location
+            }
 
         # -------------------- Save data in yaml -----------------------
         yaml_data.save()
