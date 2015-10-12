@@ -62,7 +62,8 @@ class RegisterCommand(object):
 
           Options:
 
-            --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / ec2)
+            --provider=PROVIDER     Provider to be used for cloud. Values are:
+                                    openstack, azure, ec2.
             --version=VERSION       Version of the openstack cloud.
             --openrc=OPENRC         The location of the openrc file
             --password              Prints the password
@@ -133,17 +134,20 @@ class RegisterCommand(object):
               register CLOUD CERT [--force]
                   Copies the CERT to the ~/.cloudmesh/clouds/host directory
                   and registers that cert in the coudmesh.yaml file.
-                  For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
+                  For india, CERT will be in
+                  india:.cloudmesh/clouds/india/juno/cacert.pem
                   and would be copied to ~/.cloudmesh/clouds/india/juno
 
               register CLOUD --dir
                   Copies the entire directory from the cloud and puts it in
                   ~/.cloudmesh/clouds/host
-                  For india, The directory would be copied to ~/.cloudmesh/clouds/india
+                  For india, The directory would be copied to
+                  ~/.cloudmesh/clouds/india
 
               register env [--provider=PROVIDER] [HOSTNAME]
-                  Reads env OS_* variables and registers a new cloud in yaml, interactively.
-                  Default PROVIDER is openstack and HOSTNAME is localhost.
+                  Reads env OS_* variables and registers a new cloud in yaml,
+                  interactively. Default PROVIDER is openstack and HOSTNAME
+                  is localhost.
          """
         # pprint(arguments)
 

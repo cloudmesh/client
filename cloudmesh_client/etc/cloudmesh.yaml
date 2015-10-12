@@ -69,7 +69,7 @@ cloudmesh:
                 OS_AUTH_URL: https://proxy.chameleon.tacc.utexas.edu:5000/v2.0
                 OS_CACERT: TBD
                 OS_PASSWORD: TBD
-                OS_TENANT_NAME: FG-82
+                OS_TENANT_NAME: TBD
                 OS_USERNAME: TBD
                 OS_VERSION: kilo
                 OS_REGION_NAME: regionOne

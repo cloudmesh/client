@@ -22,7 +22,10 @@ class SSHKeyDBManager(object):
 
         sshkey = SSHkey(Config.path_expand(key_path))
 
-        self.add_from_sshkey(sshkey.__key__, keyname, user, source=source, uri=uri)
+        self.add_from_sshkey(sshkey.__key__,
+                             keyname, user,
+                             source=source,
+                             uri=uri)
 
     def add_from_dict(self, d):
         pprint(d)
@@ -44,7 +47,12 @@ class SSHKeyDBManager(object):
         self.db.add([key_obj])
         self.db.save()
 
-    def add_from_sshkey(self, sshkey, keyname=None, user=None, source=None, uri=None):
+    def add_from_sshkey(self,
+                        sshkey,
+                        keyname=None,
+                        user=None,
+                        source=None,
+                        uri=None):
 
         if keyname is None:
             try:
