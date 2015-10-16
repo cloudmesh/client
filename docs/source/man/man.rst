@@ -106,64 +106,63 @@ default
 
 Command - default::
 
-                      Usage:
-                  default list [--cloud=CLOUD] [--format=FORMAT] [--all]
-                  default delete KEY [--cloud=CLOUD]
-                  default KEY [--cloud=CLOUD]
-                  default KEY=VALUE [--cloud=CLOUD]
+      Usage:
+          default list [--cloud=CLOUD] [--format=FORMAT] [--all]
+          default delete KEY [--cloud=CLOUD]
+          default KEY [--cloud=CLOUD]
+          default KEY=VALUE [--cloud=CLOUD]
 
-              Arguments:
+      Arguments:
 
-                KEY    the name of the default
-                VALUE  the value to set the key to
+        KEY    the name of the default
+        VALUE  the value to set the key to
 
-              Options:
+      Options:
 
-                 --cloud=CLOUD    the name of the cloud [default: general]
-                 --format=FORMAT  the output format [default: table]
-                 --all            lists all the default values
+         --cloud=CLOUD    the name of the cloud [default: general]
+         --format=FORMAT  the output format [default: table]
+         --all            lists all the default values
 
-            Description:
+    Description:
 
-                Cloudmesh has the ability to manage easily multiple
-                clouds. One of the key concepts to make the usage of such
-                clouds easier is the introduction of defaults for each
-                cloud or globally. Hence it is possible to set default
-                images, flavors for each cloud, and also the default
-                cloud. The default command is used to set and list the
-                default values. These defaults are used in other commands
-                if they are not overwritten by a command parameter.
-
-
-    	    The current default values can by listed with --all option:(
-    	    if you have a default cloud specified. You can also add a
-    	    --cloud=CLOUD parameter to apply the command to a specific
-    	    cloud)
-
-                   default list
-
-                A default can be set with
-
-                    default KEY=VALUE
-
-                To look up a default value you can say
-
-                    default KEY
-
-                A default can be deleted with
-
-                    default delete KEY
+        Cloudmesh has the ability to manage easily multiple
+        clouds. One of the key concepts to make the usage of such
+        clouds easier is the introduction of defaults for each
+        cloud or globally. Hence it is possible to set default
+        images, flavors for each cloud, and also the default
+        cloud. The default command is used to set and list the
+        default values. These defaults are used in other commands
+        if they are not overwritten by a command parameter.
 
 
-            Examples:
-                default list --all
-                default list --cloud=general
-                default image=xyz
-                default image=abc --cloud=chameleon
-                default image
-                default image --cloud=chameleon
-                default delete image
-                default delete image --cloud=chameleon
+    The current default values can by listed with --all option:(
+    if you have a default cloud specified. You can also add a
+    cloud parameter to apply the command to a specific cloud)
+
+           default list
+
+        A default can be set with
+
+            default KEY=VALUE
+
+        To look up a default value you can say
+
+            default KEY
+
+        A default can be deleted with
+
+            default delete KEY
+
+
+    Examples:
+        default list --all
+        default list --cloud=general
+        default image=xyz
+        default image=abc --cloud=chameleon
+        default image
+        default image --cloud=chameleon
+        default delete image
+        default delete image --cloud=chameleon
 
 
 EOF
@@ -261,6 +260,28 @@ Command - help::
     Description:
         List available commands with "help" or detailed help with
         "help COMMAND".
+
+image
+----------------------------------------------------------------------
+
+Command - image::
+
+    Usage:
+        image refresh [--cloud=CLOUD]
+        image list [--cloud=CLOUD] [--format=FORMAT]
+
+        This lists out the images present for a cloud
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+
+    Examples:
+        cm image refresh
+        cm image list
+        cm image list --format=csv
+
+
 
 inventory
 ----------------------------------------------------------------------
@@ -660,7 +681,8 @@ Command - register::
 
     Options:
 
-      --provider=PROVIDER     Provider to be used for cloud. (openstack / azure / ec2)
+      --provider=PROVIDER     Provider to be used for cloud. Values are:
+                              openstack, azure, ec2.
       --version=VERSION       Version of the openstack cloud.
       --openrc=OPENRC         The location of the openrc file
       --password              Prints the password
@@ -731,17 +753,20 @@ Command - register::
         register CLOUD CERT [--force]
             Copies the CERT to the ~/.cloudmesh/clouds/host directory
             and registers that cert in the coudmesh.yaml file.
-            For india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
+            For india, CERT will be in
+            india:.cloudmesh/clouds/india/juno/cacert.pem
             and would be copied to ~/.cloudmesh/clouds/india/juno
 
         register CLOUD --dir
             Copies the entire directory from the cloud and puts it in
             ~/.cloudmesh/clouds/host
-            For india, The directory would be copied to ~/.cloudmesh/clouds/india
+            For india, The directory would be copied to
+            ~/.cloudmesh/clouds/india
 
         register env [--provider=PROVIDER] [HOSTNAME]
-            Reads env OS_* variables and registers a new cloud in yaml, interactively.
-            Default PROVIDER is openstack and HOSTNAME is localhost.
+            Reads env OS_* variables and registers a new cloud in yaml,
+            interactively. Default PROVIDER is openstack and HOSTNAME
+            is localhost.
 
 
 reservation
