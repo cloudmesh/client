@@ -10,6 +10,9 @@ cloudmesh:
         username: TBD
     active:
     - india
+    comet:
+        username: TBD
+        password: TBD
     clouds:
         india:
             cm_heading: India OpenStack, Juno

@@ -36,7 +36,7 @@ class CometCommand:
 
         if arguments["status"]:
 
-            Comet.status()
+            Comet.state()
 
         elif arguments["tunnel"] and arguments["start"]:
 
@@ -48,4 +48,4 @@ class CometCommand:
 
         elif arguments["tunnel"] and arguments["status"]:
 
-            Comet.status()
+            Comet.state()
