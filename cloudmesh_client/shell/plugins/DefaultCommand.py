@@ -48,8 +48,7 @@ class DefaultCommand(object):
 
         The current default values can by listed with --all option:(
         if you have a default cloud specified. You can also add a
-        --cloud=CLOUD parameter to apply the command to a specific
-        cloud)
+        cloud parameter to apply the command to a specific cloud)
 
                default list
 
