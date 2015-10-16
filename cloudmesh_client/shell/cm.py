@@ -26,6 +26,7 @@ from cloudmesh_client.shell.plugins.ListCommand import ListCommand
 from cloudmesh_client.shell.plugins.QuotaCommand import QuotaCommand
 from cloudmesh_client.shell.plugins.VmCommand import VmCommand
 from cloudmesh_client.shell.plugins.LimitsCommand import LimitsCommand
+from cloudmesh_client.shell.plugins.ImageCommand import ImageCommand
 import cloudmesh_client
 import cloudmesh_base
 from cloudmesh_base.util import get_python
@@ -60,7 +61,8 @@ class CloudmeshConsole(cmd.Cmd,
                        ListCommand,
                        QuotaCommand,
                        VmCommand,
-                       LimitsCommand):
+                       LimitsCommand,
+                       ImageCommand):
     """
     Cloudmesh Console
     """
@@ -84,7 +86,8 @@ class CloudmeshConsole(cmd.Cmd,
                         ListCommand,
                         QuotaCommand,
                         VmCommand,
-                        LimitsCommand]:
+                        LimitsCommand,
+                        ImageCommand]:
             tmp = command.topics.copy()
             topics.update(tmp)
         for name in topics:
