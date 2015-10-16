@@ -24,6 +24,7 @@ class CometCommand:
                comet status
                comet tunnel start
                comet tunnel stop
+               comet tunnel status
 
             ARGUMENTS:
                 FILENAME  the file to open in the cwd if . is
@@ -44,3 +45,7 @@ class CometCommand:
         elif arguments["tunnel"] and arguments["stop"]:
 
             Comet.tunnel(False)
+
+        elif arguments["tunnel"] and arguments["status"]:
+
+            Comet.status()

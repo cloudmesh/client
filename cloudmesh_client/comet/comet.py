@@ -25,8 +25,7 @@ class Comet(object):
     @staticmethod
     def status():
         pid = Comet.find_tunnel()
-
-        print("Comet tunnel:", pid)
+        Console.ok ("Comet tunnel: {:}".format(pid))
 
     @staticmethod
     def find_tunnel():
