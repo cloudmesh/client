@@ -5,6 +5,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.tables import row_table
 from cloudmesh_client.cloud.nova import Nova
+from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
@@ -26,26 +27,27 @@ class NovaCommand (object):
         """
         ::
         
-          Usage:
-                 nova set CLOUD
-                 nova info [CLOUD] [--password]
-                 nova help
-                 nova ARGUMENTS...
+            Usage:
+                nova set CLOUD
+                nova info [CLOUD] [--password]
+                nova help
+                nova [--group=GROUP] ARGUMENTS...
 
-          A simple wrapper for the openstack nova command
+            A simple wrapper for the openstack nova command
 
-          Arguments:
+            Arguments:
+                GROUP           The group to add vms to
+                ARGUMENTS       The arguments passed to nova
+                help            Prints the nova manual
+                set             reads the information from the current cloud
+                                and updates the environment variables if
+                                the cloud is an openstack cloud
+                info            the environment values for OS
 
-            ARGUMENTS      The arguments passed to nova
-            help           Prints the nova manual
-            set            reads the information from the current cloud
-                           and updates the environment variables if
-                           the cloud is an openstack cloud
-            info           the environment values for OS
-
-          Options:
-             --password    Prints the password
-             -v            verbose mode
+            Options:
+                --group=GROUP   Add VM to GROUP group
+                --password      Prints the password
+                -v              verbose mode
 
         """
         # pprint(arguments)
@@ -53,6 +55,13 @@ class NovaCommand (object):
                 Default.get("cloud")
         if not cloud:
             Console.error("Default cloud not set!")
+            return
+
+        group = arguments["--group"] or \
+                Default.get("group")
+
+        if not group:
+            Console.error("Default group not set!")
             return
 
         if arguments["help"]:
@@ -91,10 +100,32 @@ class NovaCommand (object):
 
         else:  # nova ARGUMENTS...
             print("Cloud = {0}".format(cloud))
-            Nova.set_os_environ(cloud)
-            args = arguments["ARGUMENTS"]
-            result = Shell.execute("nova", args)
-            print(Nova.remove_subjectAltName_warning(result))
-            msg = "info. OK."
-            Console.ok(msg)
+            try:
+                Nova.set_os_environ(cloud)
+                args = arguments["ARGUMENTS"]
+
+                # arguments may contain multiple optional arguments
+                if len(args) == 1:
+                    args = args[0].split()
+
+                result = Shell.execute("nova", args)
+                print(Nova.remove_subjectAltName_warning(result))
+
+                """
+                If request for nova boot,
+                add the vm to group specified,
+                or else add to default group
+                """
+                if "boot" in args:
+                    # Logic to find ID of VM in the result
+                    fields = []
+                    for field in result.split("|"):
+                        fields.append(field.strip())
+                    index = fields.index('id') + 1
+                    vm_id = fields[index]
+
+                    # Add to group
+                    Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+            except Exception, ex:
+                Console.error("Error executing Nova command: {}".format(ex))
             return
