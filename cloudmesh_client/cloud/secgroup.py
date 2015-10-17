@@ -13,7 +13,9 @@ from cloudmesh_client.common.authenticate import Authenticate
 
 from novaclient import client
 import requests
+
 requests.packages.urllib3.disable_warnings()
+
 
 class SecGroup(object):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
@@ -74,10 +76,26 @@ class SecGroup(object):
         """
         # Get user from cloudmesh.yaml
         user = cls.getUser(cloudname)
-        # Generate UUID
-        uuid = str(UUID.uuid1())
+        uuid = None
 
         if not cls.get_secgroup(label, tenant, cloudname):
+
+            # Create the security group in OS cloud
+            try:
+                nova_client = Authenticate.get_environ(cloudname)
+                secgroup = nova_client.security_groups \
+                    .create(name=label,
+                            description="Security group {}".format(label))
+
+                if secgroup:
+                    uuid = secgroup.id
+                else:
+                    print("Failed to create security group, {}".format(secgroup))
+                    return None
+            except Exception, e:
+                print("Exception creating security group in cloud, {}".format(e))
+                return None
+
             secgroup_obj = model.SECGROUP(
                 label,
                 uuid=uuid,
@@ -90,14 +108,9 @@ class SecGroup(object):
             return uuid
 
         else:
+            print("Security group [{}], for cloud [{}], and tenant [{}] "
+                  "already exists!".format(label, cloudname, tenant))
             return None
-
-            # args = ["--insecure", "secgroup-create", label,
-            #        "\" Security group for cloud: [{}], tenant: [{}]\""
-            #            .format(cloudname, tenant)]
-
-            # result = Shell.execute("nova", args)
-            # return result
 
     @classmethod
     def list_secgroup(cls, project, cloud="general"):
@@ -123,10 +136,10 @@ class SecGroup(object):
             d = SecGroup.convert_list_to_dict(os_result)
 
             return tables.dict_printer(d,
-                                        order=["Id",
-                                                 "Name",
-                                                 "Description"],
-                                        output="table")
+                                       order=["Id",
+                                              "Name",
+                                              "Description"],
+                                       output="table")
 
             """
             return (tables.dict_printer(d,
@@ -333,6 +346,7 @@ class SecGroup(object):
         # return the dict
         return d
 
+
 if __name__ == '__main__':
     nova = Authenticate.get_environ("india")
 
@@ -343,4 +357,3 @@ if __name__ == '__main__':
     for group in security_groups:
         print(group.description)
         print("\n")
-

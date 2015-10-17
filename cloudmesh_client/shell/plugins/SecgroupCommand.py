@@ -98,9 +98,7 @@ class SecgroupCommand(object):
                 Console.ok("Created a new security group [{}] with UUID [{}]"
                            .format(label, uuid))
             else:
-                Console.error(
-                    "Security group [{}], for cloud [{}], and tenant [{}] "
-                    "already exists!".format(label, cloud, tenant))
+                Console.error("Exiting!")
             return
 
         elif arguments["delete"]:
