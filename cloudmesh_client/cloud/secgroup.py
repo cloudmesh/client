@@ -202,9 +202,10 @@ class SecGroup(object):
             # Get the nova client object
             nova_client = Authenticate.get_environ(secgroup.cloud)
             # Create add secgroup rules to the cloud
-            nova_client.security_group_rules.create(secgroup.uuid, ip_protocol=protocol,
-                                                    from_port=from_port, to_port=to_port, cidr=cidr)
+            rule_id = nova_client.security_group_rules.create(secgroup.uuid, ip_protocol=protocol,
+                                                              from_port=from_port, to_port=to_port, cidr=cidr)
             ruleObj = model.SECGROUPRULE(
+                uuid=str(rule_id),
                 name=secgroup.name,
                 groupid=secgroup.uuid,
                 cloud=secgroup.cloud,
@@ -298,6 +299,11 @@ class SecGroup(object):
             ).first()
 
             if rule:
+                # get the nova client for cloud
+                nova_client = Authenticate.get_environ(secgroup.cloud)
+                # delete the rule from the cloud
+                nova_client.security_group_rules.delete(rule.uuid)
+                # delete the local db record
                 cls.cm_db.delete(rule)
                 return "Rule [{} | {} | {} | {}] deleted" \
                     .format(from_port, to_port, protocol, cidr)
@@ -389,9 +395,10 @@ if __name__ == '__main__':
     # security_group = nova.security_groups.create(name="oct17_secgroup", description="Created by Gourav")
     print("Created sec group\n")
 
-    # nova.security_group_rules.create(security_group.id, ip_protocol="icmp",
-    #                                 from_port=-1, to_port=-1, cidr="0.0.0.0/0")
+    # rule = nova.security_group_rules.create(security_group.id, ip_protocol="icmp",
+    #                                        from_port=-1, to_port=-1, cidr="0.0.0.0/0")
     print("Created sec group rules\n")
+    # print(rule)
 
     security_group = nova.security_groups.find(name="oct17_secgroup")
     rules = security_group.rules
@@ -399,3 +406,6 @@ if __name__ == '__main__':
 
     d = SecGroup.convert_rules_to_dict(rules)
     print(d)
+
+    nova.security_group_rules.delete('6220f8a4-e4fb-4340-bfe7-ffa028a7c6af')
+    print("Deleted Sec Group Rule")

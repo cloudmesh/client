@@ -297,8 +297,10 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
     toPort = Column(String)
     protocol = Column(String)
     cidr = Column(String)
+    uuid = Column(String)
 
     def __init__(self,
+                 uuid,
                  name,
                  groupid,
                  type="string",
@@ -311,6 +313,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
                  cidr=None,
                  **kwargs):
         # self.kind = __tablename__
+        self.uuid = uuid
         self.label = name
         self.cloud = cloud or "general"
         self.type = type
