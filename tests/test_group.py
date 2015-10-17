@@ -96,10 +96,10 @@ class Test_group:
         banner("cm group add --name groupX --id gourav-00x")
 
         result1 = run("cm default cloud=india")
-        assert "Successfully added cloud" in result1
+        assert "Successfully added value: india for key: cloud" in result1
 
         result1 = run("cm default type=vm")
-        assert "Successfully added type" in result1
+        assert "Successfully added value: vm for key: type" in result1
 
         result2 = run("cm group add --name groupX --id gourav-00x")
         assert "gourav-00x" in result2

@@ -28,7 +28,7 @@ class Console(object):
 
     The color will be switched on by default.
     """
-    
+
     color = True
 
     theme_color = {

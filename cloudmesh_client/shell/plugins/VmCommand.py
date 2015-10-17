@@ -2,6 +2,7 @@ from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import json
@@ -168,10 +169,16 @@ class VmCommand(object):
                 name = arguments["--name"]
                 # TODO: use count
                 count = arguments["--count"]
-                cloud = arguments["--cloud"] or "india"
                 image = arguments["--image"]
                 flavor = arguments["--flavor"]
                 group = arguments["--group"]
+                cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
+
+                # if default cloud not set, return error
+                if not cloud:
+                    Console.error("Default cloud not set!")
+                    return
 
                 cloud_provider = Vm.get_cloud_provider(cloud)
                 cloud_provider.boot(name, image, flavor, secgroup=group)
@@ -187,8 +194,14 @@ class VmCommand(object):
             try:
                 id = arguments["NAME"]
                 group = arguments["--group"]
-                cloud = arguments["--cloud"] or "india"
                 force = arguments["--force"]
+                cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
+
+                # if default cloud not set, return error
+                if not cloud:
+                    Console.error("Default cloud not set!")
+                    return
 
                 cloud_provider = Vm.get_cloud_provider(cloud)
                 for server in id:
@@ -202,15 +215,29 @@ class VmCommand(object):
 
         elif arguments["ip_assign"]:
             id = arguments["NAME"]
-            cloud = arguments["--cloud"]
+            cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
+
+            # if default cloud not set, return error
+            if not cloud:
+                Console.error("Default cloud not set!")
+                return
+
             print("To be implemented")
 
         elif arguments["ip_show"]:
             id = arguments["NAME"]
             group = arguments["--group"]
-            cloud = arguments["--cloud"] or "india"
             output_format = arguments["--format"] or "table"
             refresh = arguments["--refresh"]
+            cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
+
+            # if default cloud not set, return error
+            if not cloud:
+                Console.error("Default cloud not set!")
+                return
+
             try:
                 cloud_provider = Vm.get_cloud_provider(cloud)
                 for server in id:
@@ -239,10 +266,17 @@ class VmCommand(object):
             name = arguments["NAME"]
             user = arguments["--user"]
             ip = arguments["--ip"]
-            cloud = arguments["--cloud"]
             key = arguments["--key"]
             commands = arguments["--command"]
             commands = commands.split(';')
+            cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
+
+            # if default cloud not set, return error
+            if not cloud:
+                Console.error("Default cloud not set!")
+                return
+
             print("To be implemented")
 
         elif arguments["list"]:
@@ -259,7 +293,14 @@ class VmCommand(object):
                     print (e)
                     Console.error("Problem listing all instances")
             else:
-                cloud = arguments["CLOUD"] or "india"
+                cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
+
+                # if default cloud not set, return error
+                if not cloud:
+                    Console.error("Default cloud not set!")
+                    return
+
                 try:
                     group = arguments["--group"]
                     _format = arguments["--format"] or "table"
