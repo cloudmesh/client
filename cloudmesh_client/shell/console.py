@@ -28,10 +28,7 @@ class Console(object):
 
     The color will be switched on by default.
     """
-
-    # Read the console color config from cloudmesh.yaml
-    # config = ConfigDict("cloudmesh.yaml")
-    # color = bool(config["cloudmesh"]["system"]["console_color"])
+    
     color = True
 
     theme_color = {
