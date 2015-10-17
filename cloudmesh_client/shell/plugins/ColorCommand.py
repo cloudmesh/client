@@ -27,7 +27,7 @@ class ColorCommand(object):
             Description:
 
                 Global switch for the console color mode.
-                One can swith the color mode on/off with
+                One can switch the color mode on/off with
                     cm color mode ON
                     cm color mode OFF
 
