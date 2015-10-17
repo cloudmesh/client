@@ -115,3 +115,4 @@ cloudmesh:
           keyname: ~/.ssh/id_rsa.pub
     system:
         data: ${HOME}/.cloudmesh/cloudmesh_inventory.yaml
+        console_color: True

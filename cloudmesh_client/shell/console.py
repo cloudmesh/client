@@ -1,5 +1,6 @@
 import textwrap
 
+from cloudmesh_client.common.ConfigDict import ConfigDict
 from colorama import Fore, Back, Style
 import colorama
 
@@ -28,12 +29,9 @@ class Console(object):
     The color will be switched on by default.
     """
 
-    #
-    # TODO: It would be good if the Console uses the borg pattern to have a
-    # global switch for the console color mode. Currently each import
-    # switches it back to color.
-    #
-    color = True
+    # Read the console color config from cloudmesh.yaml
+    config = ConfigDict("cloudmesh.yaml")
+    color = bool(config["cloudmesh"]["system"]["console_color"])
 
     theme_color = {
         'HEADER': Fore.MAGENTA,

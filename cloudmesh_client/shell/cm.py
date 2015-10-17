@@ -29,6 +29,7 @@ from cloudmesh_client.shell.plugins.LimitsCommand import LimitsCommand
 from cloudmesh_client.shell.plugins.CometCommand import CometCommand
 from cloudmesh_client.shell.plugins.ImageCommand import ImageCommand
 from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
+from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
 
 import cloudmesh_client
 import cloudmesh_base
@@ -66,7 +67,8 @@ class CloudmeshConsole(cmd.Cmd,
                        VmCommand,
                        CometCommand,
                        ImageCommand,
-                       HpcCommand):
+                       HpcCommand,
+                       ColorCommand):
     """
     Cloudmesh Console
     """
@@ -93,7 +95,8 @@ class CloudmeshConsole(cmd.Cmd,
                         CometCommand,
                         LimitsCommand,
                         ImageCommand,
-                        HpcCommand]:
+                        HpcCommand,
+                        ColorCommand]:
             tmp = command.topics.copy()
             topics.update(tmp)
         for name in topics:
