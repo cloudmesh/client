@@ -1,10 +1,10 @@
 from __future__ import print_function
 
 import os
-import uuid as UUID
-
 from cloudmesh_client.db import model
+
 from cloudmesh_client.common import tables
+
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -26,6 +26,21 @@ class SecGroup(object):
         for i, obj in enumerate(os_result):
             d[i] = {}
             d[i]["Id"], d[i]["Name"], d[i]["Description"] = obj.id, obj.name, obj.description
+        return d
+
+    @classmethod
+    def convert_rules_to_dict(cls, os_result):
+        d = {}
+        for i, obj in enumerate(os_result):
+            d[i] = {}
+            d[i]["IP Protocol"], d[i]["From Port"], d[i]["To Port"] = obj["ip_protocol"], obj["from_port"], obj[
+                "to_port"]
+            if obj["ip_range"]["cidr"]:
+                ip_range = obj["ip_range"]["cidr"]
+            else:
+                ip_range = "0.0.0.0/0"
+            d[i]["IP Range"] = ip_range
+
         return d
 
     @classmethod
@@ -184,6 +199,11 @@ class SecGroup(object):
     @classmethod
     def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
         try:
+            # Get the nova client object
+            nova_client = Authenticate.get_environ(secgroup.cloud)
+            # Create add secgroup rules to the cloud
+            nova_client.security_group_rules.create(secgroup.uuid, ip_protocol=protocol,
+                                                    from_port=from_port, to_port=to_port, cidr=cidr)
             ruleObj = model.SECGROUPRULE(
                 name=secgroup.name,
                 groupid=secgroup.uuid,
@@ -360,10 +380,22 @@ class SecGroup(object):
 if __name__ == '__main__':
     nova = Authenticate.get_environ("india")
 
-    security_groups = nova.security_groups.list()
-    print(security_groups)
-    print("\n\n")
+    # groups = nova.security_groups.list()
+    # print(groups)
+    # print("\n\n")
+    # d = SecGroup.convert_list_to_dict(groups)
+    # print(d)
 
-    for group in security_groups:
-        print(group.description)
-        print("\n")
+    # security_group = nova.security_groups.create(name="oct17_secgroup", description="Created by Gourav")
+    print("Created sec group\n")
+
+    # nova.security_group_rules.create(security_group.id, ip_protocol="icmp",
+    #                                 from_port=-1, to_port=-1, cidr="0.0.0.0/0")
+    print("Created sec group rules\n")
+
+    security_group = nova.security_groups.find(name="oct17_secgroup")
+    rules = security_group.rules
+    print(rules)
+
+    d = SecGroup.convert_rules_to_dict(rules)
+    print(d)
