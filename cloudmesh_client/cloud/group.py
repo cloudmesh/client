@@ -1,7 +1,9 @@
 from __future__ import absolute_import
 
 from cloudmesh_client.db import model
+from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common import tables
+from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
@@ -121,7 +123,22 @@ class Group(object):
     def delete(cls, name=None, cloud="general"):
         try:
             group = cls.get_group(name=name, cloud=cloud)
+
             if group:
+                # Delete VM from cloud before deleting group
+                vm_ids = group.value.split(",")
+                for vm_id in vm_ids:
+                    try:
+                        # Submit request to delete VM
+                        args = ["delete", vm_id]
+                        result = Shell.execute("nova", args)
+                        print(Nova.remove_subjectAltName_warning(result))
+                    except Exception as e:
+                        Console.error("Failed to delete VM {}, error: {}"
+                                      .format(vm_id, e))
+                        continue
+
+                # Delete group record in local db
                 cls.cm_db.delete(group)
                 return "Delete Success"
             else:
