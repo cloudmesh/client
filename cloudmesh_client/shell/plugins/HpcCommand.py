@@ -17,16 +17,20 @@ class HpcCommand:
 
             Usage:
                 hpc squeue [--format=FORMAT]
+                hpc sinfo [--format=FORMAT]
 
             Options:
                --format=FORMAT  the output format [default: json]
 
             Examples:
                 cm hpc squeue
+                cm hpc sinfo
 
         """
 
         format = arguments['--format']
         if arguments["squeue"]:
             print(Hpc.read_squeue(format))
+        if arguments["sinfo"]:
+            print(Hpc.read_sinfo(format))
 

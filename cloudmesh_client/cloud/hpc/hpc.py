@@ -13,7 +13,7 @@ class Hpc(object):
             if not line.startswith('Warning:') and not line.__contains__('NODELIST(REASON)'):
                 d[i] = {}
                 d[i]['JOBID'], d[i]['PARTITION'], \
-                d[i]['NAME'], d[i]['USER'],d[i]['ST'],\
+                d[i]['NAME'], d[i]['USER'], d[i]['ST'],\
                 d[i]['TIME'], d[i]['NODES'],\
                 d[i]['NODELIST(REASON)'] = line.split()
 
@@ -30,4 +30,28 @@ class Hpc(object):
                                                'TIME',
                                                'NODES',
                                                'NODELIST(REASON)'],
+                                        output=format))
+
+    @classmethod
+    def read_sinfo(cls, format='json'):
+        result = Shell.ssh("comet", "sinfo")
+        d = {}
+        for i, line in enumerate(result.splitlines()):
+            if not line.startswith('Warning:') and not line.__contains__('NODELIST'):
+                d[i] = {}
+                d[i]['PARTITION'], d[i]['AVAIL'], \
+                d[i]['TIMELIMIT'], d[i]['NODES'], d[i]['STATE'],\
+                d[i]['NODELIST'] = line.split()
+
+        if format == 'json':
+            return json.dumps(d, indent=4, separators=(',', ': '))
+
+        else:
+            return (tables.dict_printer(d,
+                                        order=['PARTITION',
+                                               'AVAIL',
+                                               'TIMELIMIT',
+                                               'NODES',
+                                               'STATE',
+                                               'NODELIST'],
                                         output=format))
