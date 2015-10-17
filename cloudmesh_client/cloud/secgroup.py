@@ -25,7 +25,7 @@ class SecGroup(object):
         d = {}
         for i, obj in enumerate(os_result):
             d[i] = {}
-            d[i]["Id"], d[i]["Name"], d[i]["Description"] = obj.id, obj.name, obj.name
+            d[i]["Id"], d[i]["Name"], d[i]["Description"] = obj.id, obj.name, obj.description
         return d
 
     @classmethod
@@ -239,11 +239,21 @@ class SecGroup(object):
     @classmethod
     def delete_secgroup(cls, label, cloud, tenant):
         try:
-            secgroup = cls.get_secgroup(label, tenant, cloud)
-            if secgroup:
+            # Find the secgroup from the cloud
+            nova_client = Authenticate.get_environ(cloud)
+            sec_group = nova_client.security_groups.find(name=label)
+            if not sec_group:
+                return None
+
+            # delete the secgroup in the cloud
+            nova_client.security_groups.delete(sec_group)
+
+            # perform local db deletion
+            sec_group = cls.get_secgroup(label, tenant, cloud)
+            if sec_group:
                 # Delete all rules for group
-                cls.delete_all_rules(secgroup)
-                cls.cm_db.delete(secgroup)
+                cls.delete_all_rules(sec_group)
+                cls.cm_db.delete(sec_group)
                 return "Security Group [{}] for cloud [{}], & tenant [{}] deleted" \
                     .format(label, cloud, tenant)
             else:
