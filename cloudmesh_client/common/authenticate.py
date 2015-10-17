@@ -22,4 +22,4 @@ class Authenticate(object):
                                      Config.path_expand(credentials["OS_CACERT"]))
                 return nova
         except Exception, e:
-            raise Exception("Error in setting OS environment, {}".format(e))
+            raise Exception("Error in getting environment for cloud: {}, {}".format(cloudname, e))

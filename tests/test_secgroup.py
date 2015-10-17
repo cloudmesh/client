@@ -49,7 +49,7 @@ class Test_secgroup:
         banner("cm secgroup list --cloud india --tenant fg479")
 
         result = run("cm secgroup list --cloud india --tenant fg479")
-        assert "test-group" in result
+        assert "default" in result
 
         return
 

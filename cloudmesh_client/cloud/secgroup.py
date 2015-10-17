@@ -9,10 +9,22 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.common.authenticate import Authenticate
 
+from novaclient import client
+import requests
+requests.packages.urllib3.disable_warnings()
 
 class SecGroup(object):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
+
+    @classmethod
+    def convert_list_to_dict(cls, os_result):
+        d = {}
+        for i, obj in enumerate(os_result):
+            d[i] = {}
+            d[i]["Id"], d[i]["Name"], d[i]["Description"] = obj.id, obj.name, obj.name
+        return d
 
     @classmethod
     def set_os_environ(cls, cloudname):
@@ -27,6 +39,13 @@ class SecGroup(object):
                     os.environ[key] = value
 
                 print("Key: " + key + ", Value: " + os.environ[key])
+
+            nova = client.Client("2", credentials["OS_USERNAME"],
+                                 credentials["OS_PASSWORD"],
+                                 credentials["OS_TENANT_NAME"],
+                                 credentials["OS_AUTH_URL"],
+                                 Config.path_expand(credentials["OS_CACERT"]))
+            return nova
         except Exception, e:
             print(e)
 
@@ -90,12 +109,26 @@ class SecGroup(object):
         :return:
         """
         try:
+            """
             elements = cls.cm_db.query(model.SECGROUP).filter(
                 model.SECGROUP.cloud == cloud,
                 model.SECGROUP.project == project
             ).all()
 
             d = cls.toDict(elements)
+            """
+
+            nova_client = Authenticate.get_environ(cloud)
+            os_result = nova_client.security_groups.list()
+            d = SecGroup.convert_list_to_dict(os_result)
+
+            return tables.dict_printer(d,
+                                        order=["Id",
+                                                 "Name",
+                                                 "Description"],
+                                        output="table")
+
+            """
             return (tables.dict_printer(d,
                                         order=["uuid",
                                                "user",
@@ -103,6 +136,7 @@ class SecGroup(object):
                                                "name",
                                                "project"],
                                         output="table"))
+            """
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -298,3 +332,15 @@ class SecGroup(object):
 
         # return the dict
         return d
+
+if __name__ == '__main__':
+    nova = Authenticate.get_environ("india")
+
+    security_groups = nova.security_groups.list()
+    print(security_groups)
+    print("\n\n")
+
+    for group in security_groups:
+        print(group.description)
+        print("\n")
+
