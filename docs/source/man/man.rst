@@ -89,6 +89,25 @@ Command - cloud::
        register
 
 
+comet
+----------------------------------------------------------------------
+
+Command - comet::
+
+    Usage:
+       comet status
+       comet tunnel start
+       comet tunnel stop
+       comet tunnel status
+
+    ARGUMENTS:
+        FILENAME  the file to open in the cwd if . is
+                  specified. If file in in cwd
+                  you must specify it with ./FILENAME
+
+    Opens the given URL in a browser window.
+
+
 context
 ----------------------------------------------------------------------
 
@@ -459,28 +478,6 @@ Command - key::
     key rename NAME NEW
 
          renames the key from NAME to NEW.
-
-
-
-limits
-----------------------------------------------------------------------
-
-Command - limits::
-
-    Usage:
-        limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
-
-        Current usage data with limits on a selected project/tenant.
-        The --tenant option can be used by admin only
-
-    Options:
-       --format=FORMAT  the output format [default: table]
-       --cloud=CLOUD    the cloud name
-       --tenant=TENANT  the tenant name
-
-    Examples:
-        cm limits list
-        cm limits list --cloud=india --format=csv
 
 
 
