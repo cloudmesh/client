@@ -134,7 +134,8 @@ class VmCommand(object):
                 return pyaml.dump(d)
             elif format == "table":
                 return dict_printer(d,
-                                    order=["version",
+                                    order=["network",
+                                           "version",
                                            "addr"],
                                     output="table",
                                     sort_keys=True)
@@ -258,18 +259,10 @@ class VmCommand(object):
                 for server in id:
                     ip_addr = cloud_provider.get_ips(server)
 
-                    ipaddr = {}
+                    ipaddr = Vm.construct_ip_dict(ip_addr, cloud)
+
                     print("IP Addresses of instance {:} are as follows:-".format(server))
-                    for network in ip_addr:
-                        ipaddr[network] = {}
-                        index = 0
-                        print("Network: {:}:-".format(network))
-                        for ip in ip_addr[network]:
-                            ipaddr[network][index] = {}
-                            ipaddr[network][index]["version"] = ip["version"]
-                            ipaddr[network][index]["addr"] = ip["addr"]
-                            index += 1
-                        print(_print_dict_ip(ipaddr[network], format=output_format))
+                    print(_print_dict_ip(ipaddr, format=output_format))
 
             except Exception, e:
                 import traceback
