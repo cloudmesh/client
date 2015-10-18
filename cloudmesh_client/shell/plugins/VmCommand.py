@@ -8,6 +8,8 @@ from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import json
 import pyaml
+import os
+import getpass
 import inspect
 
 
@@ -74,7 +76,7 @@ class VmCommand(object):
                 --secgroup=SECGROUP    security group name for the server
                 --image=IMAGE_OR_ID    give the name or id of the image
                 --key=KEY        specify a key to use, input a string which
-                                 is the full path to the public key file
+                                 is the full path to the private key file
                 --user=USER      give the user name of the server that you want
                                  to use to login
                 --name=NAME      give the name of the virtual machine
@@ -276,12 +278,11 @@ class VmCommand(object):
                 Console.error("Problem getting ip addresses for instance {:}".format(id))
 
         elif arguments["login"]:
-            name = arguments["NAME"]
-            user = arguments["--user"]
+            name = arguments["NAME"][0]
+            user = arguments["--user"] or getpass.getuser()
             ip = arguments["--ip"]
             key = arguments["--key"]
             commands = arguments["--command"]
-            commands = commands.split(';')
             cloud = arguments["--cloud"] or \
                 Default.get("cloud")
 
@@ -290,7 +291,47 @@ class VmCommand(object):
                 Console.error("Default cloud not set!")
                 return
 
-            print("To be implemented")
+            cloud_provider = Vm.get_cloud_provider(cloud)
+            # print("Name : {:}".format(name))
+            ip_addr = cloud_provider.get_ips(name)
+
+            ip_addresses = []
+            for network in ip_addr:
+                for ip_add in ip_addr[network]:
+                    ip_addresses.append(ip_add["addr"])
+
+            if ip is not None:
+                if ip not in ip_addresses:
+                    print("ERROR: IP Address specified does not match with the host.")
+                    return
+            else:
+                print("Determining IP Address to use with a ping test...")
+                # This part assumes that the ping is allowed to the machine.
+                for ipadd in ip_addresses:
+                    retval = os.system("ping -c 3 {:}".format(ipadd))
+                    if retval == 0:
+                        ip = ipadd
+                        break
+
+            if ip is None:
+                print("SORRY! Unable to connect to the machine")
+                return
+            else:
+                print("IP to be used is: {:}".format(ip))
+
+            # print("COMMANDS : {:}".format(commands))
+
+            # Constructing the ssh command to connect to the machine.
+            sshcommand = "ssh"
+            if key is not None:
+                sshcommand += " -i {:}".format(key)
+            sshcommand += " -o StrictHostKeyChecking=no"
+            sshcommand += " {:}@{:}".format(user, ip)
+            if commands is not None:
+                sshcommand += " \"{:}\"".format(commands)
+
+            # print(sshcommand)
+            os.system(sshcommand)
 
         elif arguments["list"]:
             if arguments["--all"]:
