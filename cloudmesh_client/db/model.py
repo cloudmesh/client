@@ -201,6 +201,7 @@ class KEY(CloudmeshMixin, db.Base):
                  user=None,
                  is_default="False"):
         # self.kind = __tablename__
+        self.value = value
         self.label = name
         self.cloud = cloud or "general"
         self.uri = uri
