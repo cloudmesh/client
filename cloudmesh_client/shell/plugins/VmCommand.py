@@ -10,6 +10,7 @@ import json
 import pyaml
 import os
 import getpass
+import socket
 import inspect
 
 
@@ -301,10 +302,13 @@ class VmCommand(object):
                 print("Determining IP Address to use with a ping test...")
                 # This part assumes that the ping is allowed to the machine.
                 for ipadd in ip_addresses:
-                    retval = os.system("ping -c 3 {:}".format(ipadd))
-                    if retval == 0:
+                    print("Checking {:}...".format(ipadd))
+                    try:
+                        socket.gethostbyaddr(ipadd)
+                        # ip will be set if above command is successful.
                         ip = ipadd
-                        break
+                    except socket.herror:
+                        print("Cannot reach {:}.".format(ipadd))
 
             if ip is None:
                 print("SORRY! Unable to connect to the machine")
