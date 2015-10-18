@@ -22,6 +22,7 @@ class HpcCommand:
                 hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc status [--cluster=CLUSTER][--group=GROUP][job=NAME]
+                hpc test --cluster=CLUSTER
 
             Options:
                --format=FORMAT  the output format [default: json]
@@ -73,6 +74,18 @@ class HpcCommand:
                 cm hpc status job=NAME
                     returns the status of the named job
 
+                cm hpc test --cluster=CLUSTER --time=SECONDS
+                    submits a simple test job to the named cluster and returns
+                    if the job could be successfully executed. This is a
+                    blocking call and may take a long time to complete
+                    dependent on if the queuing system of that cluster is
+                    busy. It will only use one node/core and print the message
+
+                    #CLOUDMESH: Test ok
+
+                    in that is being looked for to identify if the test is
+                    successful. If time is used, the job is terminated
+                    after the time is elapsed.
         """
 
         format = arguments['--format']
