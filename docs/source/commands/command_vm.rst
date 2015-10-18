@@ -22,7 +22,7 @@ Listing a VM instances
 You can list all the VM instances running on the cloud by 'vm list' command
 like the one below::
 
-    $ cm vm list india
+    $ cm vm list --cloud=india
     +--------------------------------------+--------------+--------+
     | id                                   | name         | status |
     +--------------------------------------+--------------+--------+

@@ -49,7 +49,7 @@ class VmCommand(object):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
-                vm list [CLOUD|--all]
+                vm list [--cloud=CLOUD|--all]
                         [--group=GROUP]
                         [--format=FORMAT]
 
@@ -175,10 +175,10 @@ class VmCommand(object):
                 image = arguments["--image"]
                 flavor = arguments["--flavor"]
                 group = arguments["--group"] or \
-                        Default.get("group")
+                    Default.get("group")
                 secgroup = arguments["--secgroup"]
                 cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
+                    Default.get("cloud")
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -209,7 +209,7 @@ class VmCommand(object):
                 group = arguments["--group"]
                 force = arguments["--force"]
                 cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
+                    Default.get("cloud")
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -229,7 +229,7 @@ class VmCommand(object):
         elif arguments["ip_assign"]:
             id = arguments["NAME"]
             cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
+                Default.get("cloud")
 
             # if default cloud not set, return error
             if not cloud:
@@ -244,7 +244,7 @@ class VmCommand(object):
             output_format = arguments["--format"] or "table"
             refresh = arguments["--refresh"]
             cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
+                Default.get("cloud")
 
             # if default cloud not set, return error
             if not cloud:
@@ -283,7 +283,7 @@ class VmCommand(object):
             commands = arguments["--command"]
             commands = commands.split(';')
             cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
+                Default.get("cloud")
 
             # if default cloud not set, return error
             if not cloud:
