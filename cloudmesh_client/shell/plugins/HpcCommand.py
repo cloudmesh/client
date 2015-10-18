@@ -18,15 +18,22 @@ class HpcCommand:
             Usage:
                 hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
-                hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--format=FORMAT]
-                hpc kill job==NAME [--cluster=CLUSTER][--format=FORMAT]
-                hpc kill all [--cluster=CLUSTER][--format=FORMAT]
-                hpc status [--cluster=CLUSTER][job=NAME]
+                hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
+                hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+                hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+                hpc status [--cluster=CLUSTER][--group=GROUP][job=NAME]
 
             Options:
                --format=FORMAT  the output format [default: json]
 
             Examples:
+
+                Special notes
+
+                   if the group is specified only jobs from that group are
+                   considered. Otherwise the default group is used. If he
+                   group is set to None, all groups are used.
+
                 cm hpc queue
                     lists the details of the queues of the default hpc cluster
 
@@ -73,4 +80,11 @@ class HpcCommand:
             print(Hpc.read_squeue(format))
         if arguments["info"]:
             print(Hpc.read_sinfo(format))
+        if arguments["kill"]:
+            Console.error("Not yet implemented.")
+        if arguments["status"]:
+            Console.error("Not yet implemented.")
+        if arguments["run"]:
+            Console.error("Not yet implemented.")
+
 
