@@ -39,12 +39,12 @@ You can get the IP address details of a VM by the following command::
 
     $ cm vm ip_show testvm --cloud=india
     IP Addresses of instance testvm are as follows:-
-    Network: int-net:-
-    +---------+-------------+
-    | version | addr        |
-    +---------+-------------+
-    | 4       | 10.23.2.165 |
-    +---------+-------------+
+    +---------+---------+----------------+
+    | network | version | addr           |
+    +---------+---------+----------------+
+    | int-net | 4       | 10.23.2.253    |
+    | int-net | 4       | 149.165.158.90 |
+    +---------+---------+----------------+
 
 Deleting a VM
 --------------
