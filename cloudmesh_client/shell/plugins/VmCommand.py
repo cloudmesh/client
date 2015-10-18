@@ -259,10 +259,10 @@ class VmCommand(object):
                 for server in id:
                     ip_addr = cloud_provider.get_ips(server)
 
-                    ipaddr = Vm.construct_ip_dict(ip_addr, cloud)
+                    ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
 
                     print("IP Addresses of instance {:} are as follows:-".format(server))
-                    print(_print_dict_ip(ipaddr, format=output_format))
+                    print(_print_dict_ip(ipaddr_dict, format=output_format))
 
             except Exception, e:
                 import traceback
@@ -289,9 +289,9 @@ class VmCommand(object):
             ip_addr = cloud_provider.get_ips(name)
 
             ip_addresses = []
-            for network in ip_addr:
-                for ip_add in ip_addr[network]:
-                    ip_addresses.append(ip_add["addr"])
+            ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
+            for entry in ipaddr_dict:
+                ip_addresses.append(ipaddr_dict[entry]["addr"])
 
             if ip is not None:
                 if ip not in ip_addresses:
