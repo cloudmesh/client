@@ -21,7 +21,7 @@ cloudmesh:
             cm_type: openstack
             cm_type_version: juno
             credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuresystems.org:5000/v2.0
+                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
                 OS_CACERT: TBD
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
@@ -37,7 +37,7 @@ cloudmesh:
             cm_type: openstack
             cm_type_version: juno
             credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuresystems.org:5000/v2.0
+                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
                 OS_CACERT: TBD
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
@@ -53,12 +53,17 @@ cloudmesh:
             cm_type: openstack
             cm_type_version: kilo
             credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuresystems.org:5000/v2.0
+                OS_AUTH_URL: https://i15r.idp.iu.futuregrid.org:5000/v3
                 OS_CACERT: TBD
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_USERNAME: TBD
-                OS_VERSION: juno
+                OS_PROJECT_DOMAIN_ID: TBD
+                OS_USER_DOMAIN_ID: TBD
+                OS_PROJECT_NAME: TBD
+                OS_IMAGE_API_VERSION: 2
+                OS_VOLUME_API_VERSION: 2
+                OS_VERSION: kilo
             default:
                 flavor: TBD
                 image: TBD
@@ -114,5 +119,5 @@ cloudmesh:
         keylist:
           keyname: ~/.ssh/id_rsa.pub
     system:
-        data: ${HOME}/.cloudmesh/cloudmesh_inventory.yaml
-        console_color: True
+        data: ~/.cloudmesh/cloudmesh_inventory.yaml
+        console_color: true
