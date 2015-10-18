@@ -12,24 +12,24 @@ class Hpc(object):
         for i, line in enumerate(result.splitlines()):
             if not line.startswith('Warning:') and not line.__contains__('NODELIST(REASON)'):
                 d[i] = {}
-                d[i]['JOBID'], d[i]['PARTITION'], \
-                d[i]['NAME'], d[i]['USER'], d[i]['ST'],\
-                d[i]['TIME'], d[i]['NODES'],\
-                d[i]['NODELIST(REASON)'] = line.split()
+                d[i]['jobid'], d[i]['partition'], \
+                d[i]['name'], d[i]['user'], d[i]['st'],\
+                d[i]['time'], d[i]['nodes'],\
+                d[i]['nodelist(reason)'] = line.split()
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
             return (tables.dict_printer(d,
-                                        order=['JOBID',
-                                               'PARTITION',
-                                               'NAME',
-                                               'USER',
-                                               'ST',
-                                               'TIME',
-                                               'NODES',
-                                               'NODELIST(REASON)'],
+                                        order=['jobid',
+                                               'partition',
+                                               'name',
+                                               'user',
+                                               'st',
+                                               'time',
+                                               'nodes',
+                                               'nodelist(reason)'],
                                         output=format))
 
     @classmethod
@@ -39,19 +39,19 @@ class Hpc(object):
         for i, line in enumerate(result.splitlines()):
             if not line.startswith('Warning:') and not line.__contains__('NODELIST'):
                 d[i] = {}
-                d[i]['PARTITION'], d[i]['AVAIL'], \
-                d[i]['TIMELIMIT'], d[i]['NODES'], d[i]['STATE'],\
-                d[i]['NODELIST'] = line.split()
+                d[i]['partition'], d[i]['avail'], \
+                d[i]['timelimit'], d[i]['nodes'], d[i]['state'],\
+                d[i]['nodelist'] = line.split()
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
             return (tables.dict_printer(d,
-                                        order=['PARTITION',
-                                               'AVAIL',
-                                               'TIMELIMIT',
-                                               'NODES',
-                                               'STATE',
-                                               'NODELIST'],
+                                        order=['partition',
+                                               'avail',
+                                               'timelimit',
+                                               'nodes',
+                                               'state',
+                                               'nodelist'],
                                         output=format))
