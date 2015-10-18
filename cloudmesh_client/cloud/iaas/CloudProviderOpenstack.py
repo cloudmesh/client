@@ -52,7 +52,9 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
-        self.nova.servers.create(name, image, flavor, meta=meta, key_name=key, security_groups=secgroup)
+        server = self.nova.servers.create(name, image, flavor, meta=meta, key_name=key, security_groups=secgroup)
+        # return the server id
+        return server.__dict__["id"]
 
     def delete(self, name, group=None, force=None):
         """

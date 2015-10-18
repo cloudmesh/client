@@ -2,6 +2,7 @@ from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.tables import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -31,6 +32,7 @@ class VmCommand(object):
                          [--image=IMAGE_OR_ID]
                          [--flavor=FLAVOR_OR_ID]
                          [--group=GROUP]
+                         [--secgroup=SECGROUP]
                 vm delete [NAME...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
@@ -69,6 +71,7 @@ class VmCommand(object):
                                  detailed table
                 --flavor=FLAVOR_OR_ID  give the name or id of the flavor
                 --group=GROUP          give the group name of server
+                --secgroup=SECGROUP    security group name for the server
                 --image=IMAGE_OR_ID    give the name or id of the image
                 --key=KEY        specify a key to use, input a string which
                                  is the full path to the public key file
@@ -171,7 +174,9 @@ class VmCommand(object):
                 count = arguments["--count"]
                 image = arguments["--image"]
                 flavor = arguments["--flavor"]
-                group = arguments["--group"]
+                group = arguments["--group"] or \
+                        Default.get("group")
+                secgroup = arguments["--secgroup"]
                 cloud = arguments["--cloud"] or \
                         Default.get("cloud")
 
@@ -180,10 +185,18 @@ class VmCommand(object):
                     Console.error("Default cloud not set!")
                     return
 
-                cloud_provider = Vm.get_cloud_provider(cloud)
-                cloud_provider.boot(name, image, flavor, secgroup=group)
+                # if default group not set, return error
+                if not group:
+                    Console.error("Default group not set!")
+                    return
 
+                cloud_provider = Vm.get_cloud_provider(cloud)
+                vm_id = cloud_provider.boot(name, image, flavor, secgroup=secgroup)
                 print("Machine {:} is being booted on {:} Cloud...".format(name, cloud_provider.cloud))
+
+                # Add to group
+                Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
