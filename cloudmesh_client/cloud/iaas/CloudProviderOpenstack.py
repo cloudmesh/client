@@ -78,6 +78,26 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         server = self.nova.servers.find(name=name)
         return self.nova.servers.ips(server)
 
+    def create_assign_floating_ip(self, server_name):
+        """
+        Function creates a new floating ip and associates it with the machine specified.
+        :param server_name: Name of the machine to which the floating ip needs to be assigned.
+        :return: Floating IP | None if floating ip already assigned.
+        """
+
+        float_pool = self.nova.floating_ip_pools.list()[0].name
+
+        floating_ip = self.nova.floating_ips.create(pool=float_pool)
+        server = self.nova.servers.find(name=server_name)
+        try:
+            server.add_floating_ip(floating_ip)
+        except Exception, e:
+            print (e)
+            self.nova.floating_ips.delete(floating_ip)
+            return None
+
+        return floating_ip.ip
+
     # TODO: define this
     def get_image(self, **kwargs):
         """

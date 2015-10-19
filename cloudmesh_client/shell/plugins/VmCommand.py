@@ -11,7 +11,6 @@ import pyaml
 import os
 import getpass
 import socket
-import inspect
 
 
 class VmCommand(object):
@@ -40,8 +39,8 @@ class VmCommand(object):
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm ip_assign [NAME...]
-                             [--cloud=CLOUD]
+                vm floating_ip_assign NAME...
+                                      [--cloud=CLOUD]
                 vm ip_show [NAME...]
                            [--group=GROUP]
                            [--cloud=CLOUD]
@@ -100,7 +99,7 @@ class VmCommand(object):
                                             and/or range to find servers by their names.
                                             Or user may specify more options to narrow
                                             the search
-                vm ip_assign [options...]   assign a public ip to a VM of a cloud
+                vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
                 vm ip_show [options...]     show the ips of VMs
                 vm login [options...]       login to a server or execute commands on it
                 vm list [options...]        same as command "list vm", please refer to it
@@ -230,7 +229,7 @@ class VmCommand(object):
                 print (e)
                 Console.error("Problem deleting instance {:}".format(id))
 
-        elif arguments["ip_assign"]:
+        elif arguments["floating_ip_assign"]:
             id = arguments["NAME"]
             cloud = arguments["--cloud"] or \
                 Default.get("cloud")
@@ -239,8 +238,17 @@ class VmCommand(object):
             if not cloud:
                 Console.error("Default cloud not set!")
                 return
-
-            print("To be implemented")
+            try:
+                cloud_provider = Vm.get_cloud_provider(cloud)
+                for sname in id:
+                    floating_ip = cloud_provider.create_assign_floating_ip(sname)
+                    if floating_ip is not None:
+                        print("Floating IP assigned to {:} successfully and it is: {:}".format(sname, floating_ip))
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem assigning floating ips...")
 
         elif arguments["ip_show"]:
             id = arguments["NAME"]
