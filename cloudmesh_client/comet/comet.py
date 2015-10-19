@@ -78,6 +78,8 @@ class Comet(object):
         if password is None:
             password = config["cloudmesh.comet.password"]
 
+        print ("user", username)
+        print("passwd", password)
 
         ret = False
         if not cls.token:

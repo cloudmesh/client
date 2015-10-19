@@ -25,6 +25,62 @@ class CometCommand:
                comet tunnel start
                comet tunnel stop
                comet tunnel status
+               comet logon
+               comet logoff
+
+               comet cluster info [--user=USER]
+                            [--project=PROJECT]
+               comet cluster list [--name=NAMES]
+                            [--user=USER]
+                            [--project=PROJECT]
+                            [--hosts=HOSTS]
+                            [--start=TIME_START]
+                            [--end=TIME_END]
+                            [--hosts=HOSTS]
+                            [--format=FORMAT]
+                            [ID]
+               comet cluster start ID
+               comet cluster stop ID
+               comet cluster power (on|off) CLUSTERID COMPUTEIDS
+               comet cluster delete [all]
+                              [--user=USER]
+                              [--project=PROJECT]
+                              [--name=NAMES]
+                              [--hosts=HOSTS]
+                              [--start=TIME_START]
+                              [--end=TIME_END]
+                              [--host=HOST]
+               comet cluster delete --file=FILE
+               comet cluster update [--name=NAMES]
+                              [--hosts=HOSTS]
+                              [--start=TIME_START]
+                              [--end=TIME_END]
+               comet cluster add [--user=USER]
+                           [--project=PROJECT]
+                           [--host=HOST]
+                           [--description=DESCRIPTION]
+                           [--start=TIME_START]
+                           [--end=TIME_END]
+                           NAME
+               comet cluster add --file=FILE
+
+            Options:
+                --user=USER           user name
+                --name=NAMES          Names of the vcluster
+                --start=TIME_START    Start time of the vcluster, in
+                                      YYYY/MM/DD HH:MM:SS format.
+                                      [default: 1901-01-01]
+                --end=TIME_END  End time of the vcluster, in YYYY/MM/DD
+                                HH:MM:SS format. In addition a duratio can be
+                                specified if the + sign is the first sig The
+                                duration will than be added to the start
+                                time. [default: 2100-12-31]
+                --project=PROJECT     project id
+                --host=HOST           host name
+                --description=DESCRIPTION  description summary of the vcluster
+                --file=FILE           Adding multiple vclusters from one file
+                --format=FORMAT       Format is either table, json, yaml or csv
+                                      [default: table]
 
             ARGUMENTS:
                 FILENAME  the file to open in the cwd if . is
@@ -49,3 +105,48 @@ class CometCommand:
         elif arguments["tunnel"] and arguments["status"]:
 
             Comet.state()
+
+        elif arguments["logon"]:
+
+            Comet.logon()
+
+        elif arguments["logoff"]:
+
+            Comet.logoff()
+
+
+#####
+   print(arguments)
+
+        if arguments["list"]:
+
+            id = arguments["ID"]
+            Cluster.list(id)
+
+        elif arguments["add"]:
+
+            print ("add the cluster")
+
+
+        elif arguments["start"]:
+
+            id = arguments["ID"]
+            print("start", id)
+            Cluster.start(id)
+
+        elif arguments["stop"]:
+
+            id = arguments["ID"]
+            print("stop", id)
+            Cluster.stop(id)
+
+
+        elif arguments["power"]:
+
+            clusterid = arguments["CLUSTERID"]
+            computeids = Parameter.expand(arguments["COMPUTEIDS"])
+
+            if arguments["on"]:
+                on = True
+
+            Cluster.power(clusterid, computeids, on)
