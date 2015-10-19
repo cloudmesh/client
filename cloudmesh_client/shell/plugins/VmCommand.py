@@ -28,20 +28,21 @@ class VmCommand(object):
         ::
 
             Usage:
-                vm start [--name=NAME]
+                vm start --name=NAME
                          [--count=COUNT]
                          [--cloud=CLOUD]
                          [--image=IMAGE_OR_ID]
                          [--flavor=FLAVOR_OR_ID]
                          [--group=GROUP]
                          [--secgroup=SECGROUP]
-                vm delete [NAME...]
+                         [--keypair_name=KEYPAIR_NAME]
+                vm delete NAME...
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
                 vm floating_ip_assign NAME...
                                       [--cloud=CLOUD]
-                vm ip_show [NAME...]
+                vm ip_show NAME...
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
@@ -56,12 +57,13 @@ class VmCommand(object):
                         [--format=FORMAT]
 
             Arguments:
-                COMMAND   positional arguments, the commands you want to
-                          execute on the server(e.g. ls -a) separated by ';',
-                          you will get a return of executing result instead of login to
-                          the server, note that type in -- is suggested before
-                          you input the commands
-                NAME      server name
+                COMMAND        positional arguments, the commands you want to
+                               execute on the server(e.g. ls -a) separated by ';',
+                               you will get a return of executing result instead of login to
+                               the server, note that type in -- is suggested before
+                               you input the commands
+                NAME           server name
+                KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
             Options:
                 --ip=IP          give the public ip of the server
@@ -77,6 +79,8 @@ class VmCommand(object):
                 --image=IMAGE_OR_ID    give the name or id of the image
                 --key=KEY        specify a key to use, input a string which
                                  is the full path to the private key file
+                --keypair_name=KEYPAIR_NAME   Name of the openstack keypair to be used to create VM.
+                                              Note this is not a path to key.
                 --user=USER      give the user name of the server that you want
                                  to use to login
                 --name=NAME      give the name of the virtual machine
@@ -180,8 +184,14 @@ class VmCommand(object):
                 group = arguments["--group"] or \
                     Default.get("group")
                 secgroup = arguments["--secgroup"]
+                # print("SecurityGrp : {:}".format(secgroup))
+                secgroup_list = []
+                secgroup_list.append("default")
+                if secgroup is not None:
+                    secgroup_list.append(secgroup)
                 cloud = arguments["--cloud"] or \
                     Default.get("cloud")
+                key_name = arguments["--keypair_name"]
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -194,7 +204,7 @@ class VmCommand(object):
                     return
 
                 cloud_provider = Vm.get_cloud_provider(cloud)
-                vm_id = cloud_provider.boot(name, image, flavor, secgroup=secgroup)
+                vm_id = cloud_provider.boot(name, image, flavor, key=key_name, secgroup=secgroup_list)
                 print("Machine {:} is being booted on {:} Cloud...".format(name, cloud_provider.cloud))
 
                 # Add to group
