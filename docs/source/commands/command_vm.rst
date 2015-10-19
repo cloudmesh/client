@@ -32,6 +32,15 @@ like the one below::
     | d0f923f9-b4c0-411a-87dc-99870b49ae6e | testvm       | ACTIVE |
     +--------------------------------------+--------------+--------+
 
+Assign Floating IP to VM
+-------------------------
+
+In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
+accessed publicly::
+
+    $ cm vm floating_ip_assign testvm
+    Floating IP assigned to testvm successfully and it is: 149.165.158.90
+
 Retrieving IP Address details
 ------------------------------
 
@@ -46,6 +55,47 @@ You can get the IP address details of a VM by the following command::
     | int-net | 4       | 149.165.158.90 |
     +---------+---------+----------------+
 
+Login to VM
+------------
+You can login to a VM in your target cloud::
+
+    $ cm vm login testvm --user=ubuntu --key=/home/mangirish/indiakey/id_rsa
+    Determining IP Address to use with a ping test...
+    Checking 10.23.2.68...
+    Cannot reach 10.23.2.68.
+    Checking 149.165.159.27...
+    IP to be used is: 149.165.159.27
+    Warning: Permanently added '149.165.159.27' (ECDSA) to the list of known hosts.
+    Enter passphrase for key '/home/mangirish/indiakey/id_rsa':
+    Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-63-generic x86_64)
+
+      * Documentation:  https://help.ubuntu.com/
+
+      System information as of Mon Oct 19 04:17:48 UTC 2015
+
+      System load: 0.0               Memory usage: 2%   Processes:       52
+      Usage of /:  56.9% of 1.32GB   Swap usage:   0%   Users logged in: 0
+
+      Graph this data and manage this system at:
+        https://landscape.canonical.com/
+
+      Get cloud support with Ubuntu Advantage Cloud Guest:
+        http://www.ubuntu.com/business/services/cloud
+
+    0 packages can be updated.
+    0 updates are security updates.
+
+
+
+    The programs included with the Ubuntu system are free software;
+    the exact distribution terms for each program are described in the
+    individual files in /usr/share/doc/*/copyright.
+
+    Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+    applicable law.
+
+    ubuntu@testvm:~$
+
 Deleting a VM
 --------------
 
@@ -53,3 +103,5 @@ You can delete a VM on the target cloud by using 'vm delete' command as below::
 
     $ cm vm delete testvm --cloud=india
     Machine testvm is being deleted on india Cloud...
+
+
