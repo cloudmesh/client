@@ -39,7 +39,7 @@ In order to access the vm from outside of the cloud private network, we need to 
 accessed publicly::
 
     $ cm vm floating_ip_assign testvm
-    Floating IP assigned to testvm successfully and it is: 149.165.158.90
+    Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 
 Retrieving IP Address details
 ------------------------------
@@ -51,22 +51,22 @@ You can get the IP address details of a VM by the following command::
     +---------+---------+----------------+
     | network | version | addr           |
     +---------+---------+----------------+
-    | int-net | 4       | 10.23.2.253    |
-    | int-net | 4       | 149.165.158.90 |
+    | int-net | 4       | 10.23.2.XX     |
+    | int-net | 4       | 149.165.158.XX |
     +---------+---------+----------------+
 
 Login to VM
 ------------
 You can login to a VM in your target cloud::
 
-    $ cm vm login testvm --user=ubuntu --key=/home/mangirish/indiakey/id_rsa
+    $ cm vm login testvm --user=albert --key=/location/id_rsa
     Determining IP Address to use with a ping test...
-    Checking 10.23.2.68...
-    Cannot reach 10.23.2.68.
-    Checking 149.165.159.27...
-    IP to be used is: 149.165.159.27
-    Warning: Permanently added '149.165.159.27' (ECDSA) to the list of known hosts.
-    Enter passphrase for key '/home/mangirish/indiakey/id_rsa':
+    Checking 10.23.2.XX...
+    Cannot reach 10.23.2.XX.
+    Checking 149.165.158.XX...
+    IP to be used is: 149.165.158.XX
+    Warning: Permanently added '149.165.158.XX' (ECDSA) to the list of known hosts.
+    Enter passphrase for key '/location/id_rsa':
     Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-63-generic x86_64)
 
       * Documentation:  https://help.ubuntu.com/
@@ -94,7 +94,7 @@ You can login to a VM in your target cloud::
     Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
     applicable law.
 
-    ubuntu@testvm:~$
+    albert@testvm:~$
 
 Deleting a VM
 --------------
