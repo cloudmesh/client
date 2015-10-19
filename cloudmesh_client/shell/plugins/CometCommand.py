@@ -38,6 +38,8 @@ class CometCommand:
                comet tunnel status
                comet logon
                comet logoff
+               comet ll
+               comet docs
                comet cluster info [--user=USER]
                             [--project=PROJECT]
                comet cluster list [--name=NAMES]
@@ -140,9 +142,15 @@ class CometCommand:
                 else:
                     Console.error("some issue while logging off. Maybe comet not reachable")
 
-        elif arguments["cluster"]:
+        elif arguments["ll"]:
 
-            print ("KKKKK")
+            Cluster.simple_list()
+
+        elif arguments["docs"]:
+
+            Comet.docs()
+
+        elif arguments["cluster"]:
 
             if arguments["list"]:
 

@@ -13,6 +13,43 @@ from pprint import pprint
 class Cluster(object):
 
     @staticmethod
+    def simple_list(id=None):
+
+        if id is None:
+            r = Comet.get(Comet.url("cluster/"))
+        else:
+            r = Comet.get(Comet.url("cluster/" + id + "/"))
+
+        pprint(r)
+        entry = {}
+        banner("Cluster List")
+
+        data = {}
+        id = 0
+        for cluster in r:
+            id = id + 1
+            name = cluster['name']
+            data[id] = {'id': id}
+            for a in ['name', 'ip', 'frontend']:
+                data[id][a] = cluster[a]
+            data[id]['kind']= 'frontend'
+            data[id]['type']= 'frontend'
+            data[id]['cluster']= name
+
+            for client in cluster['clients']:
+                id = id + 1
+                data[id] = client
+                data[id]['cluster']= name
+                data[id]['id'] = id
+                data[id]['kind'] = 'client'
+        print (dict_printer(data,order=['id',
+                                        'cluster',
+                                        'name',
+                                        'type',
+                                        'ip',
+                                        'kind']))
+
+    @staticmethod
     def list(id=None):
 
         if id is None:

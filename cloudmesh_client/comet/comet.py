@@ -9,6 +9,8 @@ import json
 import time
 from pprint import pprint
 from cloudmesh_base.util import banner
+from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
+import webbrowser
 
 class Comet(object):
 
@@ -33,6 +35,11 @@ class Comet(object):
         # TODO: in future set global uris
         #
         pass
+
+    @staticmethod
+    def docs():
+
+        webbrowser.open("http://localhost:8080/docs/#!/v1")
 
     # #####################
     # TUNNEL
