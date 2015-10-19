@@ -6,6 +6,15 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_base.hostlist import Parameter
+"""
+
+
+
+            ARGUMENTS:
+                FILENAME  the file to open in the cwd if . is
+                          specified. If file in in cwd
+                          you must specify it with ./FILENAME
+"""
 
 # noinspection PyUnusedLocal
 class CometCommand:
@@ -28,7 +37,6 @@ class CometCommand:
                comet tunnel status
                comet logon
                comet logoff
-
                comet cluster info [--user=USER]
                             [--project=PROJECT]
                comet cluster list [--name=NAMES]
@@ -63,7 +71,7 @@ class CometCommand:
                            [--start=TIME_START]
                            [--end=TIME_END]
                            NAME
-               comet cluster add --file=FILE
+               comet cluster add --file=FILENAME
 
             Options:
                 --user=USER           user name
@@ -71,11 +79,12 @@ class CometCommand:
                 --start=TIME_START    Start time of the vcluster, in
                                       YYYY/MM/DD HH:MM:SS format.
                                       [default: 1901-01-01]
-                --end=TIME_END  End time of the vcluster, in YYYY/MM/DD
-                                HH:MM:SS format. In addition a duratio can be
-                                specified if the + sign is the first sig The
-                                duration will than be added to the start
-                                time. [default: 2100-12-31]
+                --end=TIME_END        End time of the vcluster, in YYYY/MM/DD
+                                      HH:MM:SS format. In addition a duratio
+                                      can be specified if the + sign is the
+                                      first sig The duration will than be
+                                      added to the start time.
+                                      [default: 2100-12-31]
                 --project=PROJECT     project id
                 --host=HOST           host name
                 --description=DESCRIPTION  description summary of the vcluster
@@ -83,7 +92,7 @@ class CometCommand:
                 --format=FORMAT       Format is either table, json, yaml or csv
                                       [default: table]
 
-            ARGUMENTS:
+            Arguments:
                 FILENAME  the file to open in the cwd if . is
                           specified. If file in in cwd
                           you must specify it with ./FILENAME
@@ -117,10 +126,16 @@ class CometCommand:
 
         elif arguments["cluster"]:
 
+            print ("KKKKK")
+
             if arguments["list"]:
 
                 id = arguments["ID"]
                 Cluster.list(id)
+
+            elif arguments["info"]:
+
+                Console.error("not yet implemented")
 
             elif arguments["add"]:
 
