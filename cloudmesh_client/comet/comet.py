@@ -13,18 +13,26 @@ from cloudmesh_base.util import banner
 class Comet(object):
 
 
-    base_uri = None
+    rest_version = "v1"
+    base_uri = "http://localhost:8080/"
+    auth_uri = "http://localhost:8080/rest-auth"
     token = None
     HEADER = {'content-type': 'application/json'}
+    AUTH_HEADER = {'content-type': 'application/json'}
+
     # in case of https endpoint
     verify = False
 
-    def __init__(self, uri = "http://localhost:8080/rest-auth"):
-        Comet.base_uri = uri
 
-    @classmethod
-    def set_auth_base_uri(cls, uri):
-        cls.base_uri = uri
+    @staticmethod
+    def url(endpoint):
+        return Comet.base_uri + Comet.rest_version + "/" + endpoint
+
+    def __init__(self):
+        #
+        # TODO: in future set global uris
+        #
+        pass
 
     # #####################
     # TUNNEL
@@ -78,13 +86,10 @@ class Comet(object):
         if password is None:
             password = config["cloudmesh.comet.password"]
 
-        print ("user", username)
-        print("passwd", password)
-
         ret = False
-        if not cls.token:
-            if cls.base_uri:
-                authuri = "%s/login/" % cls.base_uri
+        if cls.token is None:
+            if cls.auth_uri:
+                authuri = "%s/login/" % cls.auth_uri
                 data = {"username": username, "password": password}
                 r = requests.post(authuri,
                                   data=json.dumps(data),
@@ -92,25 +97,29 @@ class Comet(object):
                                   verify = cls.verify)
                 try:
                     cls.token = r.json()["key"]
+                    cls.AUTH_HEADER['Authorization'] = "Token {:}".format(
+                        cls.token)
                 except:
                     ret = False
                 ret = cls.token
         else:
             ret = cls.token
+
         return ret
 
     @classmethod
     def logoff(cls):
         ret = True
         if cls.token:
-            if cls.base_uri:
-                authuri = "%s/logout/" % cls.base_uri
-                header = cls.HEADER
+            if cls.auth_uri:
+                authuri = "%s/logout/" % cls.auth_uri
+                header = dict(cls.HEADER)
                 header['Authorization'] = "Token %s" % cls.token
                 r = requests.post(authuri,
                                   headers = header,
                                   verify = cls.verify)
                 cls.token = None
+                cls.AUTH_HEADER = cls.HEADER
             else:
                 ret = False
         return ret
@@ -129,6 +138,10 @@ class Comet(object):
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
     def get(url, headers=None):
+        print (Comet.AUTH_HEADER)
+        print (url)
+        if headers is None:
+            headers = Comet.AUTH_HEADER
         r = requests.get(url, headers=headers)
         ret = None
 

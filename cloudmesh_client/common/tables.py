@@ -7,6 +7,26 @@ from prettytable import PrettyTable
 import yaml
 from cloudmesh_base.util import convert_from_unicode
 
+def list_printer(l,
+                 order=None,
+                 header=None,
+                 output="table",
+                 sort_keys=True,
+                 show_none="", key="name"):
+
+    d = {}
+    for c in l:
+        name = c[key]
+        d[name] = c
+
+    return dict_printer(d,
+                        order=order,
+                        header=header,
+                        sort_keys=sort_keys,
+                        output=output,
+                        show_none=show_none)
+
+
 
 def dict_printer(d,
                  order=None,

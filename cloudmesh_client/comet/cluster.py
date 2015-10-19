@@ -1,15 +1,14 @@
 from __future__ import print_function
 
+import json
 import requests
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.comet.comet import Comet
+from cloudmesh_client.common.tables import dict_printer, list_printer
+from cloudmesh_base.util import banner
 
-rest_version = "v1"
-base_url = "http://127.0.0.1:8000/" + rest_version + "/"
-
-
-def _url(endpoint):
-    return base_url + endpoint
+from pprint import pprint
 
 class Cluster(object):
 
@@ -17,11 +16,21 @@ class Cluster(object):
     def list(id=None):
 
         if id is None:
-            r = requests.get(_url("cluster"))
+            r = Comet.get(Comet.url("cluster/"))
         else:
-            r = requests.get(_url("cluster/" + id))
-        print(r.status_code)
-        print(r.text)
+            r = Comet.get(Comet.url("cluster/" + id + "/"))
+
+        banner("Cluster List")
+
+        print (list_printer(r,
+                            order=["name", "frontend", "ip"]))
+
+        for cluster in r:
+            banner("Details: Client list of Cluster " + cluster["name"])
+
+            clients= cluster["clients"]
+            print(list_printer(clients))
+
 
     @staticmethod
     def info():
@@ -36,13 +45,13 @@ class Cluster(object):
     def start(id):
         data = {"id": id}
         r = requests.post(_url("cluster/{id}/start".format(**data)))
-        print (r.text)
+        print (r)
 
     @staticmethod
     def stop(id):
         data = {"id": id}
         r = requests.post(_url("cluster/{id}/stop".format(**data)))
-        print (r.text)
+        print (r)
 
     @staticmethod
     def power(clusterid, computeids=None,  on=True):

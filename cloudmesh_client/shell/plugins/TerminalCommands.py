@@ -52,7 +52,7 @@ class TerminalCommands(object):
 
             Prints a banner form a one line text message.
         """
-        print(arguments)
+        Console.ok("banner")
         n = int(arguments['-n'])
         c = arguments['-c']
         i = int(arguments['-i'])
@@ -75,7 +75,7 @@ class TerminalCommands(object):
             Arguments:
                MESSAGE  message to be displayed
         """
-        print(arguments)
+
         if arguments["MESSAGE"] is None:
             arg = 'Press ENTER to continue'
         input(arg + '\n')

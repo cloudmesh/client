@@ -22,6 +22,7 @@ class CometCommand:
 
     def __init__(self, context):
         self.context = context
+        self.context.comet_token = None
         if self.context.debug:
             Console.ok("init comet command")
 
@@ -48,7 +49,7 @@ class CometCommand:
                             [--hosts=HOSTS]
                             [--format=FORMAT]
                             [ID]
-               comet cluster start ID
+                comet cluster start ID
                comet cluster stop ID
                comet cluster power (on|off) CLUSTERID COMPUTEIDS
                comet cluster delete [all]
@@ -118,11 +119,26 @@ class CometCommand:
 
         elif arguments["logon"]:
 
-            Comet.logon()
+            if self.context.comet_token is None:
+                if Comet.logon():
+                    Console.ok("logging on")
+                    self.context.comet_token = Comet.token
+                else:
+                    Console.error("could not logon")
+            else:
+                Console.error("already logged on")
 
         elif arguments["logoff"]:
 
-            Comet.logoff()
+
+            if self.context.comet_token is None:
+                Console.error("not logged in")
+            else:
+                if Comet.logoff():
+                    Console.ok("Logging off")
+                    self.context.comet_token = None
+                else:
+                    Console.error("some issue while logging off. Maybe comet not reachable")
 
         elif arguments["cluster"]:
 
