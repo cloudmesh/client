@@ -4,7 +4,8 @@ import os
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.comet.comet import Comet
-
+from cloudmesh_client.comet.cluster import Cluster
+from cloudmesh_base.hostlist import Parameter
 
 # noinspection PyUnusedLocal
 class CometCommand:
@@ -13,7 +14,7 @@ class CometCommand:
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init comet command")
+            Console.ok("init comet command")
 
     @command
     def do_comet(self, args, arguments):
@@ -114,39 +115,37 @@ class CometCommand:
 
             Comet.logoff()
 
+        elif arguments["cluster"]:
 
-#####
-   print(arguments)
+            if arguments["list"]:
 
-        if arguments["list"]:
+                id = arguments["ID"]
+                Cluster.list(id)
 
-            id = arguments["ID"]
-            Cluster.list(id)
+            elif arguments["add"]:
 
-        elif arguments["add"]:
-
-            print ("add the cluster")
+                print ("add the cluster")
 
 
-        elif arguments["start"]:
+            elif arguments["start"]:
 
-            id = arguments["ID"]
-            print("start", id)
-            Cluster.start(id)
+                id = arguments["ID"]
+                print("start", id)
+                Cluster.start(id)
 
-        elif arguments["stop"]:
+            elif arguments["stop"]:
 
-            id = arguments["ID"]
-            print("stop", id)
-            Cluster.stop(id)
+                id = arguments["ID"]
+                print("stop", id)
+                Cluster.stop(id)
 
 
-        elif arguments["power"]:
+            elif arguments["power"]:
 
-            clusterid = arguments["CLUSTERID"]
-            computeids = Parameter.expand(arguments["COMPUTEIDS"])
+                clusterid = arguments["CLUSTERID"]
+                computeids = Parameter.expand(arguments["COMPUTEIDS"])
 
-            if arguments["on"]:
-                on = True
+                if arguments["on"]:
+                    on = True
 
-            Cluster.power(clusterid, computeids, on)
+                Cluster.power(clusterid, computeids, on)

@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import requests
 from cloudmesh_base.hostlist import Parameter
+from cloudmesh_client.shell.console import Console
 
 rest_version = "v1"
 base_url = "http://127.0.0.1:8000/" + rest_version + "/"
@@ -24,6 +25,7 @@ class Cluster(object):
 
     @staticmethod
     def info():
+        Console.error("comet cluster info: to be implemented")
         pass
 
     @staticmethod
