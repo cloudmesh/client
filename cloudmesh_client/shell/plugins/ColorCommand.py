@@ -18,7 +18,7 @@ class ColorCommand(object):
         ::
 
             Usage:
-                color mode FLAG
+                color FLAG
 
             Arguments:
 
@@ -41,15 +41,16 @@ class ColorCommand(object):
         # default mode is ON
         color_mode = True
 
-        if arguments["mode"]:
-            flag = arguments["FLAG"]
-            if flag == "ON":
-                color_mode = True
-            elif flag == "OFF":
-                color_mode = False
-            else:
-                Console.error("Invalid Flag")
-                return
+        flag = arguments["FLAG"].lower()
+        if flag in ["on", "true"]:
+            color_mode = True
+            Console.set_theme(color=True)
+        elif flag in ["off", "false"]:
+            color_mode = False
+            Console.set_theme(color=False)
+        else:
+            Console.error("Invalid Flag")
+            return
 
         # Update the cloudmesh.yaml file
         config = ConfigDict("cloudmesh.yaml")
@@ -57,6 +58,6 @@ class ColorCommand(object):
         config.save()
 
         Console.color = color_mode
-        Console.ok("Color Mode Changed Successfully!")
+        Console.ok("Color {:}".format(str(color_mode)))
 
         pass

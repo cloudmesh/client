@@ -7,6 +7,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.tables import dict_printer, list_printer
 from cloudmesh_base.util import banner
+from cloudmesh_base.hostlist import Parameter
 
 from pprint import pprint
 
@@ -104,10 +105,29 @@ class Cluster(object):
         print (r)
 
     @staticmethod
-    def power(clusterid, computeids=None,  on=True):
-        print("power " + on)
-        print(clusterid)
+    def power(id, computeids=None,  on=True):
+
+        print("power " + str(on))
+        print(id)
         print(computeids)
+
+        url = Comet.url("cluster")
+
+        vmhosts = {}
+        for vm in computeids:
+            vmhosts[vm] = "comet-{:}".format(vm)
+
+        data = [{"node":vm,"host":vmhosts[vm]} for vm in computeids]
+
+        print ("Issuing request to poweron nodes...")
+        posturl = "{:}/{:}/compute/poweron".format(url, id)
+        print (data)
+
+        r = Comet.post(posturl, data=data)
+        print ("RETURNED RESULTS:")
+        print (r)
+
+
 
     @staticmethod
     def delete():

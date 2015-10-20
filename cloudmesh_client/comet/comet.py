@@ -11,9 +11,10 @@ from pprint import pprint
 from cloudmesh_base.util import banner
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 import webbrowser
+from cloudmesh_base.hostlist import Parameter
+
 
 class Comet(object):
-
 
     rest_version = "v1"
     base_uri = "http://localhost:8080/"
@@ -24,6 +25,11 @@ class Comet(object):
 
     # in case of https endpoint
     verify = False
+
+    @staticmethod
+    def set_base_uri(uri):
+        Comet.base_uri = uri
+        Comet.auth_uri = Comet.base_uri + "/rest-auth"
 
 
     @staticmethod
@@ -144,7 +150,7 @@ class Comet(object):
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
-    def get(url, headers=None):
+    def old_get(url, headers=None):
         print (Comet.AUTH_HEADER)
         print (url)
         if headers is None:
@@ -177,6 +183,64 @@ class Comet(object):
 
         return ret
 
+    @staticmethod
+    def get(url, headers=None):
+        return Comet.http(url, action="get", headers=headers, data=None)
+
+    @staticmethod
+    def post(url, headers=None, data=None):
+        return Comet.http(url, action="post", headers=headers, data=data)
+
+    # To make GET calls for synchronous or asynchronous API
+    @staticmethod
+    def http(url, action="get", headers=None, data=None):
+        if headers is None:
+            headers = Comet.AUTH_HEADER
+
+        if 'post' == action:
+            r = requests.post(url, headers=headers, data=json.dumps(data))
+        else:
+            r = requests.get(url, headers=headers)
+
+        ret = None
+
+        # responded immediately
+        if r.status_code == 200:
+            try:
+                ret = r.json()
+            except:
+                ret = r
+        # code 202, accepted call and processing
+        elif r.status_code == 202:
+            # now automatically redirect to result page
+            # thus no need to check status periodically.
+            # Currently it works well for cluster listing
+            # However not sure if the delay is large, what the behaviour would be
+            finished = False
+            newurl = r.headers["Location"]
+            while not finished:
+                ret = requests.get(newurl, headers=headers)
+                try:
+                    ret = ret.json()
+                except:
+                    pass
+                # in some occasions, when the result is not ready,
+                # the result still has 'status' in it (value as '0')
+                # otherwise it's the correct value after redirection
+                if 'status' not in ret:
+                    finished = True
+                else:
+                    time.sleep(1)
+        elif r.status_code == 401:
+            ret = {"error": "Not Authenticated"}
+        elif r.status_code == 403:
+            ret = {"error": "Permission denied"}
+
+        return ret
+
+
+
+
 def main():
     comet = Comet()
 
@@ -202,7 +266,7 @@ def test_get_cluster_list():
 
     banner("TEST 2: Auth and then get cluster list")
     authurl = "http://localhost:8080/rest-auth"
-    comet = Comet(authurl)
+    comet = Comet()
     # change user, password to proper value as set in django
     # in shell, we may ask user input
     token = comet.logon()
@@ -228,7 +292,37 @@ def test_get_cluster_list():
     r = requests.get(geturl, headers = authheader)
     pprint (r.json())
 
+
+
+def test_power_on_nodes():
+
+    banner("TEST: power on a list of nodes")
+
+    print ("Authenticating...")
+    # always logon first
+    authurl = "http://localhost:8080/rest-auth"
+    comet = Comet()
+    token = comet.logon()
+    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+
+    url = "http://localhost:8080/v1/cluster/"
+    vcname = "vc2"
+    vmnames = ["vm-vc2-0", "vm-vc2-1"]
+    vmhosts = {}
+    vmhosts[vmnames[0]] = "comet-01-05"
+    vmhosts[vmnames[1]] = "comet-01-06"
+    data = [{"node":vm,"host":vmhosts[vm]} for vm in vmnames]
+
+    print ("Issuing request to poweron nodes...")
+    posturl = "%s%s/compute/poweron" % (url, vcname)
+    print("PPPP", posturl)
+    r = Comet.post(posturl, headers=authheader, data=data)
+    print ("RETURNED RESULTS:")
+    print (r)
+
+
 if __name__ == "__main__":
     test_get_cluster_list()
     #main()
+    test_power_on_nodes()
 

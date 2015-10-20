@@ -42,10 +42,10 @@ class CometCommand:
                comet logoff
                comet ll [ID] [--format=FORMAT]
                comet docs
-               comet cluster info [--user=USER]
+               comet info [--user=USER]
                             [--project=PROJECT]
                             [--format=FORMAT]
-               comet cluster list [--name=NAMES]
+               comet list [ID][--name=NAMES]
                             [--user=USER]
                             [--project=PROJECT]
                             [--hosts=HOSTS]
@@ -53,11 +53,10 @@ class CometCommand:
                             [--end=TIME_END]
                             [--hosts=HOSTS]
                             [--format=FORMAT]
-                            [ID]
-                comet cluster start ID
-               comet cluster stop ID
-               comet cluster power (on|off) CLUSTERID COMPUTEIDS
-               comet cluster delete [all]
+               comet start ID
+               comet stop ID
+               comet power (on|off) CLUSTERID COMPUTEIDS
+               comet delete [all]
                               [--user=USER]
                               [--project=PROJECT]
                               [--name=NAMES]
@@ -65,19 +64,19 @@ class CometCommand:
                               [--start=TIME_START]
                               [--end=TIME_END]
                               [--host=HOST]
-               comet cluster delete --file=FILE
-               comet cluster update [--name=NAMES]
+               comet delete --file=FILE
+               comet update [--name=NAMES]
                               [--hosts=HOSTS]
                               [--start=TIME_START]
                               [--end=TIME_END]
-               comet cluster add [--user=USER]
+               comet add [--user=USER]
                            [--project=PROJECT]
                            [--host=HOST]
                            [--description=DESCRIPTION]
                            [--start=TIME_START]
                            [--end=TIME_END]
                            NAME
-               comet cluster add --file=FILENAME
+               comet add --file=FILENAME
 
             Options:
                 --user=USER           user name
@@ -107,7 +106,7 @@ class CometCommand:
             Opens the given URL in a browser window.
         """
 
-        pprint (arguments)
+        # pprint (arguments)
         output_format = arguments["--format"] or "table"
 
         if arguments["status"]:
@@ -159,41 +158,42 @@ class CometCommand:
 
             Comet.docs()
 
-        elif arguments["cluster"]:
 
-            if arguments["list"]:
+        elif arguments["list"]:
 
-                id = arguments["ID"]
-                Cluster.list(id, format=output_format)
+            id = arguments["ID"]
+            Cluster.list(id, format=output_format)
 
-            elif arguments["info"]:
+        elif arguments["info"]:
 
-                Console.error("not yet implemented")
+            Console.error("not yet implemented")
 
-            elif arguments["add"]:
+        elif arguments["add"]:
 
-                print ("add the cluster")
-
-
-            elif arguments["start"]:
-
-                id = arguments["ID"]
-                print("start", id)
-                Cluster.start(id)
-
-            elif arguments["stop"]:
-
-                id = arguments["ID"]
-                print("stop", id)
-                Cluster.stop(id)
+            print ("add the cluster")
 
 
-            elif arguments["power"]:
+        elif arguments["start"]:
 
-                clusterid = arguments["CLUSTERID"]
-                computeids = Parameter.expand(arguments["COMPUTEIDS"])
+            id = arguments["ID"]
+            print("start", id)
+            Cluster.start(id)
 
-                if arguments["on"]:
-                    on = True
+        elif arguments["stop"]:
 
-                Cluster.power(clusterid, computeids, on)
+            id = arguments["ID"]
+            print("stop", id)
+            Cluster.stop(id)
+
+
+        elif arguments["power"]:
+
+            clusterid = arguments["CLUSTERID"]
+            computeids = Parameter.expand(arguments["COMPUTEIDS"])
+
+            if arguments["on"]:
+                on = True
+            else:
+                on = False
+
+            Cluster.power(clusterid, computeids, on)
