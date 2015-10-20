@@ -89,6 +89,32 @@ Command - cloud::
        register
 
 
+color
+----------------------------------------------------------------------
+
+Command - color::
+
+    Usage:
+        color FLAG
+
+    Arguments:
+
+        FLAG    color mode flag ON/OFF
+
+    Description:
+
+        Global switch for the console color mode.
+        One can switch the color mode on/off with
+            cm color mode ON
+            cm color mode OFF
+
+        By default, the color mode is ON
+
+    Examples:
+        color mode ON
+        color mode OFF
+
+
 comet
 ----------------------------------------------------------------------
 
@@ -99,8 +125,67 @@ Command - comet::
        comet tunnel start
        comet tunnel stop
        comet tunnel status
+       comet logon
+       comet logoff
+       comet ll [ID] [--format=FORMAT]
+       comet docs
+       comet info [--user=USER]
+                    [--project=PROJECT]
+                    [--format=FORMAT]
+       comet list [ID][--name=NAMES]
+                    [--user=USER]
+                    [--project=PROJECT]
+                    [--hosts=HOSTS]
+                    [--start=TIME_START]
+                    [--end=TIME_END]
+                    [--hosts=HOSTS]
+                    [--format=FORMAT]
+       comet start ID
+       comet stop ID
+       comet power (on|off) CLUSTERID COMPUTEIDS
+       comet delete [all]
+                      [--user=USER]
+                      [--project=PROJECT]
+                      [--name=NAMES]
+                      [--hosts=HOSTS]
+                      [--start=TIME_START]
+                      [--end=TIME_END]
+                      [--host=HOST]
+       comet delete --file=FILE
+       comet update [--name=NAMES]
+                      [--hosts=HOSTS]
+                      [--start=TIME_START]
+                      [--end=TIME_END]
+       comet add [--user=USER]
+                   [--project=PROJECT]
+                   [--host=HOST]
+                   [--description=DESCRIPTION]
+                   [--start=TIME_START]
+                   [--end=TIME_END]
+                   NAME
+       comet add --file=FILENAME
 
-    ARGUMENTS:
+    Options:
+        --user=USER           user name
+        --name=NAMES          Names of the vcluster
+        --start=TIME_START    Start time of the vcluster, in
+                              YYYY/MM/DD HH:MM:SS format.
+                              [default: 1901-01-01]
+        --end=TIME_END        End time of the vcluster, in YYYY/MM/DD
+                              HH:MM:SS format. In addition a duratio
+                              can be specified if the + sign is the
+                              first sig The duration will than be
+                              added to the start time.
+                              [default: 2100-12-31]
+        --project=PROJECT     project id
+        --host=HOST           host name
+        --description=DESCRIPTION  description summary of the vcluster
+        --file=FILE           Adding multiple vclusters from one file
+        --format=FORMAT       Format is either table, json, yaml,
+                              csv, rest
+                              [default: table]
+
+    Arguments:
         FILENAME  the file to open in the cwd if . is
                   specified. If file in in cwd
                   you must specify it with ./FILENAME
@@ -279,6 +364,84 @@ Command - help::
     Description:
         List available commands with "help" or detailed help with
         "help COMMAND".
+
+hpc
+----------------------------------------------------------------------
+
+Command - hpc::
+
+    Usage:
+        hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
+        hpc info [--cluster=CLUSTER][--format=FORMAT]
+        hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
+        hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+        hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+        hpc status [--cluster=CLUSTER][--group=GROUP][job=NAME]
+        hpc test --cluster=CLUSTER
+
+    Options:
+       --format=FORMAT  the output format [default: json]
+
+    Examples:
+
+        Special notes
+
+           if the group is specified only jobs from that group are
+           considered. Otherwise the default group is used. If he
+           group is set to None, all groups are used.
+
+        cm hpc queue
+            lists the details of the queues of the default hpc cluster
+
+        cm hpc queue --name=NAME
+            lists the details of the named queue of the default hpc
+            cluster
+
+        cm hpc info
+            lists the details of the hpc cluster
+            hpc cluster
+
+        cm hpc run SCRIPT
+            submits the script to the cluster. THe script will be
+            copied prior to execution into the home directory on the
+            remote machine. If a DIR is specified it will be copied
+            into that dir.
+            The name of the script is either specified in the script
+            itself, or if not the default nameing scheme of
+            cloudmesh is used using the same index incremented name
+            as in vms fro clouds: cloudmeshusername-index
+
+        cm hpc kill all
+            kills all jobs on the default hpc cluster
+
+        cm hpc kill all -cluster=all
+            kills all jobs on all clusters
+
+        cm kill job=NAME
+            kills a job with a given name
+
+        cm hpc default cluster=NAME
+            sets the default hpc cluster
+
+        cm hpc status
+            returns the status of all jobs
+
+        cm hpc status job=NAME
+            returns the status of the named job
+
+        cm hpc test --cluster=CLUSTER --time=SECONDS
+            submits a simple test job to the named cluster and returns
+            if the job could be successfully executed. This is a
+            blocking call and may take a long time to complete
+            dependent on if the queuing system of that cluster is
+            busy. It will only use one node/core and print the message
+
+            #CLOUDMESH: Test ok
+
+            in that is being looked for to identify if the test is
+            successful. If time is used, the job is terminated
+            after the time is elapsed.
+
 
 image
 ----------------------------------------------------------------------
@@ -540,25 +703,26 @@ nova
 Command - nova::
 
     Usage:
-           nova set CLOUD
-           nova info [CLOUD] [--password]
-           nova help
-           nova ARGUMENTS...
+        nova set CLOUD
+        nova info [CLOUD] [--password]
+        nova help
+        nova [--group=GROUP] ARGUMENTS...
 
     A simple wrapper for the openstack nova command
 
     Arguments:
-
-      ARGUMENTS      The arguments passed to nova
-      help           Prints the nova manual
-      set            reads the information from the current cloud
-                     and updates the environment variables if
-                     the cloud is an openstack cloud
-      info           the environment values for OS
+        GROUP           The group to add vms to
+        ARGUMENTS       The arguments passed to nova
+        help            Prints the nova manual
+        set             reads the information from the current cloud
+                        and updates the environment variables if
+                        the cloud is an openstack cloud
+        info            the environment values for OS
 
     Options:
-       --password    Prints the password
-       -v            verbose mode
+        --group=GROUP   Add VM to GROUP group
+        --password      Prints the password
+        -v              verbose mode
 
 
 
@@ -987,19 +1151,21 @@ vm
 Command - vm::
 
     Usage:
-        vm start [--name=NAME]
+        vm start --name=NAME
                  [--count=COUNT]
                  [--cloud=CLOUD]
                  [--image=IMAGE_OR_ID]
                  [--flavor=FLAVOR_OR_ID]
                  [--group=GROUP]
-        vm delete [NAME...]
+                 [--secgroup=SECGROUP]
+                 [--keypair_name=KEYPAIR_NAME]
+        vm delete NAME...
                   [--group=GROUP]
                   [--cloud=CLOUD]
                   [--force]
-        vm ip_assign [NAME...]
-                     [--cloud=CLOUD]
-        vm ip_show [NAME...]
+        vm floating_ip_assign NAME...
+                              [--cloud=CLOUD]
+        vm ip_show NAME...
                    [--group=GROUP]
                    [--cloud=CLOUD]
                    [--format=FORMAT]
@@ -1009,17 +1175,18 @@ Command - vm::
                  [--cloud=CLOUD]
                  [--key=KEY]
                  [--command=COMMAND]
-        vm list [CLOUD|--all]
+        vm list [--cloud=CLOUD|--all]
                 [--group=GROUP]
                 [--format=FORMAT]
 
     Arguments:
-        COMMAND   positional arguments, the commands you want to
-                  execute on the server(e.g. ls -a) separated by ';',
-                  you will get a return of executing result instead of login to
-                  the server, note that type in -- is suggested before
-                  you input the commands
-        NAME      server name
+        COMMAND        positional arguments, the commands you want to
+                       execute on the server(e.g. ls -a) separated by ';',
+                       you will get a return of executing result instead of login to
+                       the server, note that type in -- is suggested before
+                       you input the commands
+        NAME           server name
+        KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
     Options:
         --ip=IP          give the public ip of the server
@@ -1031,9 +1198,12 @@ Command - vm::
                          detailed table
         --flavor=FLAVOR_OR_ID  give the name or id of the flavor
         --group=GROUP          give the group name of server
+        --secgroup=SECGROUP    security group name for the server
         --image=IMAGE_OR_ID    give the name or id of the image
         --key=KEY        specify a key to use, input a string which
-                         is the full path to the public key file
+                         is the full path to the private key file
+        --keypair_name=KEYPAIR_NAME   Name of the openstack keypair to be used to create VM.
+                                      Note this is not a path to key.
         --user=USER      give the user name of the server that you want
                          to use to login
         --name=NAME      give the name of the virtual machine
@@ -1056,7 +1226,7 @@ Command - vm::
                                     and/or range to find servers by their names.
                                     Or user may specify more options to narrow
                                     the search
-        vm ip_assign [options...]   assign a public ip to a VM of a cloud
+        vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
         vm ip_show [options...]     show the ips of VMs
         vm login [options...]       login to a server or execute commands on it
         vm list [options...]        same as command "list vm", please refer to it
