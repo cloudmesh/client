@@ -67,9 +67,9 @@ You can login to a VM in your target cloud::
     IP to be used is: 149.165.158.XX
     Warning: Permanently added '149.165.158.XX' (ECDSA) to the list of known hosts.
     Enter passphrase for key '/location/id_rsa':
-    Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-63-generic x86_64)
+    Welcome to <OS> <VERSION>.3 LTS (GNU/Linux <VERSION> <BIT_SPEC>)
 
-      * Documentation:  https://help.ubuntu.com/
+      * Documentation:  https://help.os.com/
 
       System information as of Mon Oct 19 04:17:48 UTC 2015
 
@@ -79,22 +79,37 @@ You can login to a VM in your target cloud::
       Graph this data and manage this system at:
         https://landscape.canonical.com/
 
-      Get cloud support with Ubuntu Advantage Cloud Guest:
-        http://www.ubuntu.com/business/services/cloud
+      Get cloud support with OS Advantage Cloud Guest:
+        http://www.OS.com/business/services/cloud
 
     0 packages can be updated.
     0 updates are security updates.
 
 
 
-    The programs included with the Ubuntu system are free software;
+    The programs included with the OS system are free software;
     the exact distribution terms for each program are described in the
     individual files in /usr/share/doc/*/copyright.
 
-    Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+    OS comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
     applicable law.
 
     albert@testvm:~$
+
+
+Running command on VM
+----------------------
+
+You can use the vm login to simply run a command on the target VM::
+
+  $ cm vm login testvm --user=albert --key=/location/id_rsa --command="uname\ -a"
+  Determining IP Address to use with a ping test...
+  Checking 10.23.2.XX...
+  Cannot reach 10.23.2.XX.
+  Checking 149.165.159.XX...
+  IP to be used is: 149.165.159.XX
+  Enter passphrase for key '/location/id_rsa':
+  OS testvm <VERSION> #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 <BIT_SPEC> OS
 
 Deleting a VM
 --------------
