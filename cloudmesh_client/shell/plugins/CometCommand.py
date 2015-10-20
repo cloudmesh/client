@@ -6,6 +6,8 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_base.hostlist import Parameter
+
+from pprint import pprint
 """
 
 
@@ -38,10 +40,11 @@ class CometCommand:
                comet tunnel status
                comet logon
                comet logoff
-               comet ll
+               comet ll [ID] [--format=FORMAT]
                comet docs
                comet cluster info [--user=USER]
                             [--project=PROJECT]
+                            [--format=FORMAT]
                comet cluster list [--name=NAMES]
                             [--user=USER]
                             [--project=PROJECT]
@@ -92,7 +95,8 @@ class CometCommand:
                 --host=HOST           host name
                 --description=DESCRIPTION  description summary of the vcluster
                 --file=FILE           Adding multiple vclusters from one file
-                --format=FORMAT       Format is either table, json, yaml or csv
+                --format=FORMAT       Format is either table, json, yaml,
+                                      csv, rest
                                       [default: table]
 
             Arguments:
@@ -102,6 +106,9 @@ class CometCommand:
 
             Opens the given URL in a browser window.
         """
+
+        pprint (arguments)
+        output_format = arguments["--format"] or "table"
 
         if arguments["status"]:
 
@@ -144,7 +151,9 @@ class CometCommand:
 
         elif arguments["ll"]:
 
-            Cluster.simple_list()
+            id = arguments["ID"] or None
+
+            Cluster.simple_list(id, format=output_format)
 
         elif arguments["docs"]:
 
@@ -155,7 +164,7 @@ class CometCommand:
             if arguments["list"]:
 
                 id = arguments["ID"]
-                Cluster.list(id)
+                Cluster.list(id, format=output_format)
 
             elif arguments["info"]:
 
