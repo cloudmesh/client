@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>SecGroup Command &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Limits Command &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="VM Command" href="command_vm.html"/>
-        <link rel="prev" title="Key Command" href="command_key.html"/> 
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -72,7 +69,7 @@
         
           
           
-              <ul class="current">
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../prefix.html#repositories">Repositories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../prefix.html#contact">Contact</a></li>
@@ -111,7 +108,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../configuration.html#registration-of-clouds">Registration of clouds</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Manual</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_templates.html#format">Format</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
@@ -164,13 +161,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">SecGroup Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-create">Security Group Create</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-list">Security Group List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rules-list">Security Group Rules List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-rule-delete">Security Group Rule Delete</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#security-group-delete">Security Group Delete</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a><ul>
@@ -358,13 +355,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>SecGroup Command</li>
+    <li>Limits Command</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/commands/command_secgroup.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_limits.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -373,83 +368,64 @@
 </div>
           <div role="main" class="document">
             
-  <div class="section" id="secgroup-command">
-<h1>SecGroup Command<a class="headerlink" href="#secgroup-command" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">describe what security groups are used for.</p>
-</div>
-<p>The manual page of the secgroup command can be found at: <a class="reference external" href="../man/man.html#secgroup">secgroup</a></p>
-<div class="section" id="security-group-create">
-<h2>Security Group Create<a class="headerlink" href="#security-group-create" title="Permalink to this headline">¶</a></h2>
-<p>To create a security group in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup create --cloud india --tenant fg478 test-group02
-Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
+  <div class="section" id="limits-command">
+<h1>Limits Command<a class="headerlink" href="#limits-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the limits command can be found at: <a class="reference external" href="../man/man.html#limits">Limits</a></p>
+<p>Accounts may be pre-configured with a set of thresholds(or limits) to manage
+capacity and prevent abuse of the system. Limits command gives a description
+of the limits set for each resource along with the total number of resources
+used.</p>
+<div class="section" id="limits-list">
+<h2>limits list<a class="headerlink" href="#limits-list" title="Permalink to this headline">¶</a></h2>
+<p>To list the limits on a default project/tenant you can use:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm limits list
+  +-------------------------+-------+
+  | Name                    | Value |
+  +-------------------------+-------+
+  | maxImageMeta            | 128   |
+  | maxPersonality          | 5     |
+  | maxPersonalitySize      | 10240 |
+  | maxSecurityGroupRules   | 20    |
+  | maxSecurityGroups       | 10    |
+  | maxServerGroupMembers   | 10    |
+  | maxServerGroups         | 10    |
+  | maxServerMeta           | 128   |
+  | maxTotalCores           | 20    |
+  | maxTotalFloatingIps     | 10    |
+  | maxTotalInstances       | 10    |
+  | maxTotalKeypairs        | 100   |
+  | maxTotalRAMSize         | 51200 |
+  | totalCoresUsed          | 4     |
+  | totalFloatingIpsUsed    | 0     |
+  | totalInstancesUsed      | 4     |
+  | totalRAMUsed            | 8192  |
+  | totalSecurityGroupsUsed | 1     |
+  | totalServerGroupsUsed   | 0     |
+  +-------------------------+-------+
 </pre></div>
 </div>
-</div>
-<div class="section" id="security-group-list">
-<h2>Security Group List<a class="headerlink" href="#security-group-list" title="Permalink to this headline">¶</a></h2>
-<p>To list Security Groups in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup list --cloud india --tenant fg478
-  +--------------------------------------+--------------------------------------+----------------------------------------------------+
-  | Id                                   | Name                                 | Description                                        |
-  +--------------------------------------+--------------------------------------+----------------------------------------------------+
-  | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert-security_group-q5ukqwab4odq   | SSL(443), Web(5000), Celery-Flower(8888)           |
-  | 4bc8bbb1-014d-4a84-a62c-f216d620c2bc | albert-security_group-r2qpv3kefysi   | SSL(443), Web(5000), Celery-Flower(8888)           |
-  | 68c31654-7f5f-4944-a295-b9ff29a7e170 | albert-security_group-ayzancofltyf   | SSL(443), Web(5000), Celery-Flower(8888)           |
-  +--------------------------------------+--------------------------------------+----------------------------------------------------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rule-add">
-<h2>Security Group Rule Add<a class="headerlink" href="#security-group-rule-add" title="Permalink to this headline">¶</a></h2>
-<p>To add a new rule to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
-  Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
-
-$ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
-  Added rule [443 | 443 | udp | 0.0.0.0/0] to secgroup [test-group]
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rules-list">
-<h2>Security Group Rules List<a class="headerlink" href="#security-group-rules-list" title="Permalink to this headline">¶</a></h2>
-<p>To list all the rules assigned to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-list --cloud india --tenant fg478 test-group
-  +----------+-------+------------+----------+--------+----------+-----------+
-  | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
-  +----------+-------+------------+----------+--------+----------+-----------+
-  | albert   | india | test-group | 80       | 80     | tcp      | 0.0.0.0/0 |
-  | albert   | india | test-group | 443      | 443    | udp      | 0.0.0.0/0 |
-  +----------+-------+------------+----------+--------+----------+-----------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-rule-delete">
-<h2>Security Group Rule Delete<a class="headerlink" href="#security-group-rule-delete" title="Permalink to this headline">¶</a></h2>
-<p>To delete a specific rule within a security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
-  Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
-
-$ cm secgroup rules-list india fg478 test-group
-  +----------+-------+--------------+----------+--------+----------+-----------+
-  | user     | cloud | name         | fromPort | toPort | protocol | cidr      |
-  +----------+-------+--------------+----------+--------+----------+-----------+
-  | albert   | india | test-group   | 443      | 443    | udp      | 0.0.0.0/0 |
-  +----------+-------+--------------+----------+--------+----------+-----------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="security-group-delete">
-<h2>Security Group Delete<a class="headerlink" href="#security-group-delete" title="Permalink to this headline">¶</a></h2>
-<p>To delete an entire security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup delete --cloud india --tenant fg478 test-group
-  Rule [443 | 443 | udp | 0.0.0.0/0] deleted
-  Security Group [test-group] for cloud [india], &amp; tenant [fg478] deleted
-
-$ cm secgroup rules-list --cloud india --tenant fg478 test-group
-  ERROR: Security Group with label [test-group], cloud [india], &amp; tenant [fg478] not found!
+<p>To export it in csv format, mention the format as csv:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm limits list --format=csv
+Name,Value
+maxServerMeta,128
+maxPersonality,5
+totalServerGroupsUsed,0
+maxImageMeta,128
+maxPersonalitySize,10240
+maxTotalRAMSize,51200
+maxTotalKeypairs,100
+maxSecurityGroupRules,20
+maxServerGroups,10
+totalCoresUsed,4
+totalRAMUsed,8192
+maxSecurityGroups,10
+totalFloatingIpsUsed,0
+totalInstancesUsed,4
+totalSecurityGroupsUsed,1
+maxTotalFloatingIps,10
+maxTotalInstances,10
+maxTotalCores,20
+maxServerGroupMembers,10
 </pre></div>
 </div>
 </div>
@@ -458,15 +434,6 @@ $ cm secgroup rules-list --cloud india --tenant fg478 test-group
 
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="command_vm.html" class="btn btn-neutral float-right" title="VM Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="command_key.html" class="btn btn-neutral" title="Key Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

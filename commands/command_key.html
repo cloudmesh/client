@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="List Command" href="command_list.html"/>
-        <link rel="prev" title="Group Command" href="command_group.html"/> 
+        <link rel="next" title="SecGroup Command" href="command_secgroup.html"/>
+        <link rel="prev" title="Quota Command" href="command_quota.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,10 +95,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-client-via-pip">Cloudmesh Client via pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#user-and-contributor">User and Contributor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-repository">Developer with ssh access to git repository</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#testing">Testing</a></li>
 </ul>
@@ -111,6 +112,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#format">Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#help">Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
@@ -119,7 +128,13 @@
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#default-list">default list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#set-default-values">set default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#looking-up-default-values">looking up default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#deleting-default-values">deleting default values</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
@@ -129,6 +144,14 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-copy">Group Copy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-merge">Group Merge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Key Command</a><ul>
@@ -141,23 +164,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
@@ -167,21 +173,46 @@
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#starting-a-vm-instance">Starting a VM instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#retrieving-ip-address-details">Retrieving IP Address details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#login-to-vm">Login to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#running-command-on-vm">Running command on VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#deleting-a-vm">Deleting a VM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#banner">banner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#color">color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#context">context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#default">default</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#eof">EOF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#group">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#hpc">hpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#key">key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#list">list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#nova">nova</a></li>
@@ -280,21 +311,22 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../changes_gitlog.html">Changelog</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.6.9 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.8 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.7 (2015-09-05)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.6 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.5 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.4 (2015-09-02)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.3 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.2 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.1 (2015-08-31)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.0 (2015-08-29)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.5.8 (2015-06-28)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.7 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.6 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.5 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.4 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.7.0 (2015-09-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.9 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.8 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.7 (2015-09-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.6 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.5 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.4 (2015-09-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.3 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.2 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.1 (2015-08-31)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.6.0 (2015-08-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.8 (2015-06-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.7 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.6 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.5 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id16">0.5.4 (2015-06-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -345,7 +377,7 @@
 <h1>Key Command<a class="headerlink" href="#key-command" title="Permalink to this headline">¶</a></h1>
 <p>In clouds and distributed environments security keys are used for
 authentication. We like to be able to register specific keys with
-clouds or vms and eaily use them. To do so we upload them into a key
+clouds or vms and easily use them. To do so we upload them into a key
 registry in which each key is uniquely named. We use these named keys
 when we start up virtual machines or log into remote machines.</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#key">key</a></p>
@@ -353,35 +385,9 @@ when we start up virtual machines or log into remote machines.</p>
 <h2>Adding a key to the database<a class="headerlink" href="#adding-a-key-to-the-database" title="Permalink to this headline">¶</a></h2>
 <p>To add a key to the key registry from a file we use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
-    ssh dd
-    {&#39;comment&#39;: &#39;albert@Zweistein&#39;,
-     &#39;fingerprint&#39;: &#39;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&#39;,
-     &#39;key&#39;: &#39;AAAAB3NzaC1yc2EAAAADAQABAAABAQCzWWw1hY3u2PIQVjE8VvmpN68FFdFZZhkp0VDZyc4a9Ujby73FA5PTE6dZwdGvknjiVX3xBwGhlBzIzvXkHiD2I2EGkR99Y4xOcEZGvZZyA+ktPPiKlfsC9cPH9PBCf6rD84vLeUb57t1Y7dPuH18gRy/ZqzOZPkgk28ZKT0YX2+b8BRjg9lK88ciL4qIoaoOeDjGaXDAa2Y8JAc1AMU4hL/ZXGb3EsiIIsUf9mjjGwnTk44OZghJvmo6e9teBKoZFQdi7WfzPFMUaMui6+KROBrJmep+E2FEBf7UMu4gl5Ib4GNkk+NN5wKS2QYlEvradkwgclzeK5EUsPtnr1wAx&#39;,
-     &#39;name&#39;: &#39;rsa&#39;,
-     &#39;source&#39;: &#39;ssh&#39;,
-     &#39;string&#39;: &#39;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCzWWw1hY3u2PIQVjE8VvmpN68FFdFZZhkp0VDZyc4a9Ujby73FA5PTE6dZwdGvknjiVX3xBwGhlBzIzvXkHiD2I2EGkR99Y4xOcEZGvZZyA+ktPPiKlfsC9cPH9PBCf6rD84vLeUb57t1Y7dPuH18gRy/ZqzOZPkgk28ZKT0YX2+b8BRjg9lK88ciL4qIoaoOeDjGaXDAa2Y8JAc1AMU4hL/ZXGb3EsiIIsUf9mjjGwnTk44OZghJvmo6e9teBKoZFQdi7WfzPFMUaMui6+KROBrJmep+E2FEBf7UMu4gl5Ib4GNkk+NN5wKS2QYlEvradkwgclzeK5EUsPtnr1wAx albert@Zweistein&#39;,
-     &#39;type&#39;: &#39;ssh-rsa&#39;,
-     &#39;uri&#39;: &#39;file:///home/albert/key_expt/id_rsa.pub&#39;}
-    {&#39;_sa_instance_state&#39;: &lt;sqlalchemy.orm.state.InstanceState object at 0x3766dd0&gt;,
-     &#39;cloud&#39;: &#39;general&#39;,
-     &#39;comment&#39;: &#39;albert@Zweistein&#39;,
-     &#39;fingerprint&#39;: &#39;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&#39;,
-     &#39;is_default&#39;: &#39;False&#39;,
-     &#39;kind&#39;: &#39;key&#39;,
-     &#39;label&#39;: &#39;demokey&#39;,
-     &#39;name&#39;: &#39;demokey&#39;,
-     &#39;source&#39;: &#39;ssh&#39;,
-     &#39;type&#39;: &#39;sshkey&#39;,
-     &#39;uri&#39;: &#39;file:///home/key_expt/id_rsa.pub&#39;,
-     &#39;user&#39;: None}
-    info. OK.
+Key demokey successfully added to the database
+info. OK.
 </pre></div>
-</div>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">I do not think a user wants to see the json output. I think
-he only wants to se eif its successfull or not. To see the
-key one should use a list command.</p>
 </div>
 <div class="section" id="list-keys">
 <h3>List Keys<a class="headerlink" href="#list-keys" title="Permalink to this headline">¶</a></h3>
@@ -398,41 +404,44 @@ key one should use a list command.</p>
 <p>The key command takes a number of additional options. Instead of using
 the cloudmesh registry, keys can also be read from git hub with the option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git
-   none
-   +------+----------+----------------------------------------+-------------------------------------------------+--------+
-   | name | comment  | uri                                    | fingerprint                                     | source |
-   +------+----------+----------------------------------------+-------------------------------------------------+--------+
-   |      | github-0 | https://github.com/vagloalbert.keys | 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01 |        |
-   +------+----------+----------------------------------------+-------------------------------------------------+--------+
-   info. OK.
++------+----------+-----------------------------+-------------------------------------------------+--------+
+| name | comment  | uri                         | fingerprint                                     | source |
++------+----------+-----------------------------+-------------------------------------------------+--------+
+|      | github-0 | https://github.com/TBD.keys | 6e:95:48:8d:af:20:75:2a:52:6b:c5:29:d3:71:0a:8b |        |
+|      | github-1 | https://github.com/TBD.keys | 8a:4f:fe:80:be:e5:ec:c8:c1:1d:e9:74:28:41:c5:a3 |        |
++------+----------+-----------------------------+-------------------------------------------------+--------+
+info. OK.
 </pre></div>
 </div>
 <p>To change the output format you can specify it with the &#8211;format
 option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git --format=json
-   none
-   {
-       &quot;github-0&quot;: {
-           &quot;comment&quot;: &quot;github-0&quot;,
-           &quot;string&quot;: &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkVjT+1eWJjiL2gHKXKzlxakD+HP25y+nqTuUKOoIJteYisERJrrJS+LRTUElYpxG7oULajHOTPcQN5UaBfKtCVINLc6WYDultovXvP0gH/W3HljppNGjzxK+T2tC8ZpFr3K0hu4TBKrTQYztA2wi0sytOI2b1NiBz5GogwOEb9LAmESpz1PAhvXpEks7W7EMT9CZ9wC5WIDvfI91Bosgon7JWFECK/VMHI3CUfR0AnOt9Mqcxa0ySubI6ZPsTt72ESMTlrEJuzih7GBe5YG2tSimVpwhjGF1+Dt2Zlgf4P+WVxZm1WrDpXapynOCyr+FScLi8KK2RPzpsmcEwZTFV&quot;,
-           &quot;uri&quot;: &quot;https://github.com/vagloalbert.keys&quot;,
-           &quot;key&quot;: &quot;AAAAB3NzaC1yc2EAAAADAQABAAABAQCkVjT+1eWJjiL2gHKXKzlxakD+HP25y+nqTuUKOoIJteYisERJrrJS+LRTUElYpxG7oULajHOTPcQN5UaBfKtCVINLc6WYDultovXvP0gH/W3HljppNGjzxK+T2tC8ZpFr3K0hu4TBKrTQYztA2wi0sytOI2b1NiBz5GogwOEb9LAmESpz1PAhvXpEks7W7EMT9CZ9wC5WIDvfI91Bosgon7JWFECK/VMHI3CUfR0AnOt9Mqcxa0ySubI6ZPsTt72ESMTlrEJuzih7GBe5YG2tSimVpwhjGF1+Dt2Zlgf4P+WVxZm1WrDpXapynOCyr+FScLi8KK2RPzpsmcEwZTFV&quot;,
-           &quot;fingerprint&quot;: &quot;2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01&quot;,
-           &quot;type&quot;: &quot;ssh-rsa&quot;,
-           &quot;Id&quot;: &quot;github-0&quot;
-       }
-   }
-   info. OK.
+{
+    &quot;github-0&quot;: {
+        &quot;comment&quot;: &quot;github-0&quot;,
+        &quot;string&quot;: &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/4dvq0KG++Tieu4vhqL4WptgsSUIq+vqLi4PiR6N+UBwEcYWzX33O0gyHsQIJ4dgZRPzTf/kxGPFGtHCrKd0aAUL4uFWFZwuMmJqOvAp+6UDOan/XU9O59Ou0y2vnIxv7+QYb2AHJpHrxjWJ2TjBH7LlTN+jqZBpKUxWQpy4ooyJaN87vpJMbyOEk1LVNpBZHGexF4WRPI6XQUf4PshBRHgqJ9cmiEZUhFWQgeCiyknm8Zx7rGrRhIDnXRw/FOzCyQhnjSS4nJddWzfjNfv9Y0KzRz1KFWUQT9eLaO/j3Q3TleG0zzbZxCBgHv5Jhjm6lmUBcKD0pKU2uhwlD+Ki9&quot;,
+        &quot;uri&quot;: &quot;https://github.com/TBD.keys&quot;,
+        &quot;key&quot;: &quot;AAAAB3NzaC1yc2EAAAADAQABAAABAQC/4dvq0KG++Tieu4vhqL4WptgsSUIq+vqLi4PiR6N+UBwEcYWzX33O0gyHsQIJ4dgZRPzTf/kxGPFGtHCrKd0aAUL4uFWFZwuMmJqOvAp+6UDOan/XU9O59Ou0y2vnIxv7+QYb2AHJpHrxjWJ2TjBH7LlTN+jqZBpKUxWQpy4ooyJaN87vpJMbyOEk1LVNpBZHGexF4WRPI6XQUf4PshBRHgqJ9cmiEZUhFWQgeCiyknm8Zx7rGrRhIDnXRw/FOzCyQhnjSS4nJddWzfjNfv9Y0KzRz1KFWUQT9eLaO/j3Q3TleG0zzbZxCBgHv5Jhjm6lmUBcKD0pKU2uhwlD+Ki9&quot;,
+        &quot;fingerprint&quot;: &quot;6e:95:48:8d:af:20:75:2a:52:6b:c5:29:d3:71:0a:8b&quot;,
+        &quot;type&quot;: &quot;ssh-rsa&quot;,
+        &quot;Id&quot;: &quot;github-0&quot;
+    },
+    &quot;github-1&quot;: {
+        &quot;comment&quot;: &quot;github-1&quot;,
+        &quot;string&quot;: &quot;ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDNTRjYstjHaZyS+vOssLOxYv57z1YEndk5VI34PFb6zb9JI3kTZ0wvhqeO38yAxkjowyrM5MFsMnJnecu9iNKtwb9VPKZRNHLfS3lftELFEEPQC3YaddjX/1ztr4xZqKKvZ6hXH5cRPHKfu5T+r8k2tvtUJlZhz4YeeSah76AL1OxJelHpCrRsiAyywlNLy55kSuG6LNNim6QELDCTRVHeuKMEAuOBL/0nF4NJx2FSYNnyKlSyESwOq5YFDi8tnB9t93zG6Ki0f3j9EtZVXr/4W+Cp9J/I8dX5tV/AJVTeuGrGvOZUjtv1+Na4XfbTOvB4WCJIbczxPlnORt3Qg3R1&quot;,
+        &quot;uri&quot;: &quot;https://github.com/TBD.keys&quot;,
+        &quot;key&quot;: &quot;AAAAB3NzaC1yc2EAAAADAQABAAABAQDNTRjYstjHaZyS+vOssLOxYv57z1YEndk5VI34PFb6zb9JI3kTZ0wvhqeO38yAxkjowyrM5MFsMnJnecu9iNKtwb9VPKZRNHLfS3lftELFEEPQC3YaddjX/1ztr4xZqKKvZ6hXH5cRPHKfu5T+r8k2tvtUJlZhz4YeeSah76AL1OxJelHpCrRsiAyywlNLy55kSuG6LNNim6QELDCTRVHeuKMEAuOBL/0nF4NJx2FSYNnyKlSyESwOq5YFDi8tnB9t93zG6Ki0f3j9EtZVXr/4W+Cp9J/I8dX5tV/AJVTeuGrGvOZUjtv1+Na4XfbTOvB4WCJIbczxPlnORt3Qg3R1&quot;,
+        &quot;fingerprint&quot;: &quot;8a:4f:fe:80:be:e5:ec:c8:c1:1d:e9:74:28:41:c5:a3&quot;,
+        &quot;type&quot;: &quot;ssh-rsa&quot;,
+        &quot;Id&quot;: &quot;github-1&quot;
+    }
+}
+info. OK.
 </pre></div>
 </div>
 </div>
 <div class="section" id="get-keys">
 <h3>Get Keys<a class="headerlink" href="#get-keys" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">shoudl that ge renamed to fingerprint?
-what does get do, what is its semantic?</p>
-</div>
 <p>To get the fingerprint of a key you can obtain it with:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key get demokey
    demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
@@ -445,98 +454,84 @@ what does get do, what is its semantic?</p>
 <p>In many cases it is convenient to just use a default key that is
 set. To mark key as default by name you can use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key default demokey
-   default
-   info. OK.
+Key demokey set as default
+info. OK.
 </pre></div>
 </div>
 <p>You can verify that a key is set as default while looking at the
-&#8220;is_default&#8221; attribute:</p>
-<div class="highlight-python"><div class="highlight"><pre>.. todo:: why not just use default instead of is_deafult
+&#8216;is_default&#8217; attribute:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm key list --format=json
+
+       &quot;1&quot;: {
+           &quot;comment&quot;: &quot;albert@Zweistein&quot;,
+           &quot;is_default&quot;: &quot;True&quot;,  &lt;&lt;--Set to True
+           &quot;kind&quot;: &quot;key&quot;,
+           &quot;name&quot;: &quot;demokey&quot;,
+           &quot;created_at&quot;: &quot;2015-09-23 15:58:32&quot;,
+           &quot;uri&quot;: &quot;file:///home/key_expt/id_rsa.pub&quot;,
+           &quot;value&quot;: null,
+           &quot;updated_at&quot;: &quot;2015-09-23 16:14:41&quot;,
+           &quot;project&quot;: &quot;undefined&quot;,
+           &quot;source&quot;: &quot;ssh&quot;,
+           &quot;user&quot;: &quot;undefined&quot;,
+           &quot;fingerprint&quot;: &quot;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&quot;,
+           &quot;label&quot;: &quot;demokey&quot;,
+           &quot;id&quot;: 1,
+           &quot;cloud&quot;: &quot;general&quot;
+       }
+   }
+   info. OK.
 </pre></div>
 </div>
-<blockquote>
-<div><p>$ cm key list &#8211;format=json</p>
-<blockquote>
-<div><blockquote>
-<div><dl class="docutils">
-<dt>&#8220;1&#8221;: {</dt>
-<dd>&#8220;comment&#8221;: &#8220;<a class="reference external" href="mailto:albert&#37;&#52;&#48;Zweistein">albert<span>&#64;</span>Zweistein</a>&#8221;,
-&#8220;is_default&#8221;: &#8220;True&#8221;,  &lt;&lt;&#8211;Set to True
-&#8220;kind&#8221;: &#8220;key&#8221;,
-&#8220;name&#8221;: &#8220;demokey&#8221;,
-&#8220;created_at&#8221;: &#8220;2015-09-23 15:58:32&#8221;,
-&#8220;uri&#8221;: &#8220;<a class="reference external" href="file:///home/key_expt/id_rsa.pub">file:///home/key_expt/id_rsa.pub</a>&#8221;,
-&#8220;value&#8221;: null,
-&#8220;updated_at&#8221;: &#8220;2015-09-23 16:14:41&#8221;,
-&#8220;project&#8221;: &#8220;undefined&#8221;,
-&#8220;source&#8221;: &#8220;ssh&#8221;,
-&#8220;user&#8221;: &#8220;undefined&#8221;,
-&#8220;fingerprint&#8221;: &#8220;4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39&#8221;,
-&#8220;label&#8221;: &#8220;demokey&#8221;,
-&#8220;id&#8221;: 1,
-&#8220;cloud&#8221;: &#8220;general&#8221;</dd>
-</dl>
-<p>}</p>
-</div></blockquote>
-<p>}
-info. OK.</p>
-</div></blockquote>
-</div></blockquote>
 <p>To make it easy for the user, we can set the default key also
 interactively with the select option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key default --select
-   default
-   (&#39;i:&#39;, 1)
-   (&#39;i:&#39;, 2)
 
-   KEYS
-   ====
+KEYS
+====
 
-       1 - demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
-       2 - rsa: 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01
-       q - quit
+    1 - demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
+    2 - rsa: 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01
+    q - quit
 
 
-   Select between 1 - 2: 2
-   choice 2 selected.
-   Setting key: rsa as default.
-   info. OK.
+Select between 1 - 2: 2
+choice 2 selected.
+Setting key: rsa as default.
+info. OK.
 </pre></div>
 </div>
 </div>
 <div class="section" id="delete-keys">
 <h3>Delete Keys<a class="headerlink" href="#delete-keys" title="Permalink to this headline">¶</a></h3>
 <p>A named key can be deleted from the registry with the command, where
-demo key is the name of the key:</p>
+&#8216;demokey&#8217; is the name of the key:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete demokey
-   delete
-   info. OK.
+Key demokey deleted successfully from database.
+info. OK.
 </pre></div>
 </div>
 <p>Alternatively you can also interactively select it:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete --select
-   delete
-   (&#39;i:&#39;, 3)
-   (&#39;i:&#39;, 4)
 
-   KEYS
-   ====
+KEYS
+====
 
-       1 - rsa: 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01
-       2 - demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
-       q - quit
+    1 - rsa: 2d:18:a8:03:1e:e1:7e:fe:b3:fa:59:49:c7:c2:cf:01
+    2 - demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
+    q - quit
 
 
-   Select between 1 - 2: 1
-   choice 1 selected.
-   Deleting key: rsa...
-   info. OK.
+Select between 1 - 2: 2
+choice 2 selected.
+Deleting key: demokey...
+info. OK.
 </pre></div>
 </div>
 <p>To delete all keys from database use:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm key delete --all
-   delete
-   info. OK.
+All keys from the database deleted successfully.
+info. OK.
 </pre></div>
 </div>
 </div>
@@ -549,10 +544,10 @@ demo key is the name of the key:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_list.html" class="btn btn-neutral float-right" title="List Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_secgroup.html" class="btn btn-neutral float-right" title="SecGroup Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_group.html" class="btn btn-neutral" title="Group Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_quota.html" class="btn btn-neutral" title="Quota Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

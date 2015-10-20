@@ -21,12 +21,14 @@ Security Group List
 To list Security Groups in cloudmesh for a cloud and tenant use::
 
   $ cm secgroup list --cloud india --tenant fg478
-    +--------------------------------------+----------+-------+--------------+---------+
-    | uuid                                 | user     | cloud | name         | project |
-    +--------------------------------------+----------+-------+--------------+---------+
-    | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert   | india | test-group   | fg478   |
-    | bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464 | albert   | india | test-group02 | fg478   |
-    +--------------------------------------+----------+-------+--------------+---------+
+    +--------------------------------------+--------------------------------------+----------------------------------------------------+
+    | Id                                   | Name                                 | Description                                        |
+    +--------------------------------------+--------------------------------------+----------------------------------------------------+
+    | 7ee21121-5fcc-11e5-8497-d8eb97bdb464 | albert-security_group-q5ukqwab4odq   | SSL(443), Web(5000), Celery-Flower(8888)           |
+    | 4bc8bbb1-014d-4a84-a62c-f216d620c2bc | albert-security_group-r2qpv3kefysi   | SSL(443), Web(5000), Celery-Flower(8888)           |
+    | 68c31654-7f5f-4944-a295-b9ff29a7e170 | albert-security_group-ayzancofltyf   | SSL(443), Web(5000), Celery-Flower(8888)           |
+    +--------------------------------------+--------------------------------------+----------------------------------------------------+
+
 
 Security Group Rule Add
 ------------------------

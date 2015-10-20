@@ -32,7 +32,7 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Commands" href="../man/man.html"/>
+        <link rel="next" title="Nova Command" href="command_nova.html"/>
         <link rel="prev" title="SecGroup Command" href="command_secgroup.html"/> 
 
   
@@ -95,10 +95,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-client-via-pip">Cloudmesh Client via pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#user-and-contributor">User and Contributor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-repository">Developer with ssh access to git repository</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#testing">Testing</a></li>
 </ul>
@@ -111,20 +112,29 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#format">Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#help">Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-info">register info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-yaml-filename">register list [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list-ssh">register list ssh</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cat-yaml-filename">register cat [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-edit-yaml-filename">register edit [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc-host-openrc">register rc HOST [OPENRC]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge-filepath">register merge FILEPATH</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form-yaml-filename">register form [&#8211;yaml=FILENAME]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check-yaml-filename">register check [&#8211;yaml=FILENAME]</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-rc">register rc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india-force">register india [&#8211;force]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud-cert-force">register CLOUD CERT [&#8211;force]</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#register-cloud-dir">register CLOUD &#8211;dir</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#default-list">default list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#set-default-values">set default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#looking-up-default-values">looking up default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#deleting-default-values">deleting default values</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
@@ -136,29 +146,22 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default-json-format">List Default (JSON Format)</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_quota.html#quota-list">quota list</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#list-keys">List Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#get-keys">Get Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#default-keys">Default Keys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="command_key.html#delete-keys">Delete Keys</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
@@ -170,21 +173,46 @@
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">VM Command</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">VM Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#starting-a-vm-instance">Starting a VM instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#retrieving-ip-address-details">Retrieving IP Address details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#login-to-vm">Login to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-command-on-vm">Running command on VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deleting-a-vm">Deleting a VM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#banner">banner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#color">color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#context">context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#default">default</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#eof">EOF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#group">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#hpc">hpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#key">key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#list">list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#nova">nova</a></li>
@@ -283,21 +311,22 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../changes_gitlog.html">Changelog</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.6.9 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.8 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.7 (2015-09-05)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.6 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.5 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.4 (2015-09-02)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.3 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.2 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.1 (2015-08-31)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.0 (2015-08-29)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.5.8 (2015-06-28)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.7 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.6 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.5 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.4 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.7.0 (2015-09-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.9 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.8 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.7 (2015-09-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.6 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.5 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.4 (2015-09-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.3 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.2 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.1 (2015-08-31)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.6.0 (2015-08-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.8 (2015-06-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.7 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.6 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.5 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id16">0.5.4 (2015-06-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -346,8 +375,122 @@
             
   <div class="section" id="vm-command">
 <h1>VM Command<a class="headerlink" href="#vm-command" title="Permalink to this headline">¶</a></h1>
+<p>VM Command is used to manage VM instances across clouds.
+It is like a one stop interface that can be used to perform various VM
+operations on various clouds available to Cloudmesh.</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#vm">VM</a></p>
-<p>Examples &lt;TO BE ADDED&gt;</p>
+<div class="section" id="starting-a-vm-instance">
+<h2>Starting a VM instance<a class="headerlink" href="#starting-a-vm-instance" title="Permalink to this headline">¶</a></h2>
+<p>You can start a VM on any target cloud like &#8216;india&#8217; by using the &#8216;vm start&#8217;
+like the one provided below:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm start --name=testvm --cloud=india --image=619b8942-2355-4aa2-bae3-74b8f1751911 --flavor=2
+Machine testvm is being booted on india Cloud...
+</pre></div>
+</div>
+</div>
+<div class="section" id="listing-a-vm-instances">
+<h2>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h2>
+<p>You can list all the VM instances running on the cloud by &#8216;vm list&#8217; command
+like the one below:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm list --cloud=india
++--------------------------------------+--------------+--------+
+| id                                   | name         | status |
++--------------------------------------+--------------+--------+
+| 21305503-2649-4338-8876-d825758c83f3 | albert-001   | ACTIVE |
+| 6437e054-b761-4408-890a-ced65cc848e2 | albert-002   | ACTIVE |
+| 94f01af3-ee2a-44c9-b228-75627f358169 | albert-003   | ACTIVE |
+| d0f923f9-b4c0-411a-87dc-99870b49ae6e | testvm       | ACTIVE |
++--------------------------------------+--------------+--------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="assign-floating-ip-to-vm">
+<h2>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h2>
+<p>In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
+accessed publicly:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm floating_ip_assign testvm
+Floating IP assigned to testvm successfully and it is: 149.165.158.XX
+</pre></div>
+</div>
+</div>
+<div class="section" id="retrieving-ip-address-details">
+<h2>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h2>
+<p>You can get the IP address details of a VM by the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm ip_show testvm --cloud=india
+IP Addresses of instance testvm are as follows:-
++---------+---------+----------------+
+| network | version | addr           |
++---------+---------+----------------+
+| int-net | 4       | 10.23.2.XX     |
+| int-net | 4       | 149.165.158.XX |
++---------+---------+----------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="login-to-vm">
+<h2>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h2>
+<p>You can login to a VM in your target cloud:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa
+Determining IP Address to use with a ping test...
+Checking 10.23.2.XX...
+Cannot reach 10.23.2.XX.
+Checking 149.165.158.XX...
+IP to be used is: 149.165.158.XX
+Warning: Permanently added &#39;149.165.158.XX&#39; (ECDSA) to the list of known hosts.
+Enter passphrase for key &#39;/location/id_rsa&#39;:
+Welcome to &lt;OS&gt; &lt;VERSION&gt;.3 LTS (GNU/Linux &lt;VERSION&gt; &lt;BIT_SPEC&gt;)
+
+  * Documentation:  https://help.os.com/
+
+  System information as of Mon Oct 19 04:17:48 UTC 2015
+
+  System load: 0.0               Memory usage: 2%   Processes:       52
+  Usage of /:  56.9% of 1.32GB   Swap usage:   0%   Users logged in: 0
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with OS Advantage Cloud Guest:
+    http://www.OS.com/business/services/cloud
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+
+The programs included with the OS system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+OS comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+albert@testvm:~$
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-command-on-vm">
+<h2>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h2>
+<p>You can use the vm login to simply run a command on the target VM:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot;
+Determining IP Address to use with a ping test...
+Checking 10.23.2.XX...
+Cannot reach 10.23.2.XX.
+Checking 149.165.159.XX...
+IP to be used is: 149.165.159.XX
+Enter passphrase for key &#39;/location/id_rsa&#39;:
+OS testvm &lt;VERSION&gt; #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 &lt;BIT_SPEC&gt; OS
+</pre></div>
+</div>
+</div>
+<div class="section" id="deleting-a-vm">
+<h2>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h2>
+<p>You can delete a VM on the target cloud by using &#8216;vm delete&#8217; command as below:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm delete testvm --cloud=india
+Machine testvm is being deleted on india Cloud...
+</pre></div>
+</div>
+</div>
 </div>
 
 
@@ -356,7 +499,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../man/man.html" class="btn btn-neutral float-right" title="Commands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_nova.html" class="btn btn-neutral float-right" title="Nova Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="command_secgroup.html" class="btn btn-neutral" title="SecGroup Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

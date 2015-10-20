@@ -130,7 +130,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#register-json-host">register json HOST</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#default-list">default list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#set-default-values">set default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#looking-up-default-values">looking up default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#deleting-default-values">deleting default values</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -167,8 +173,22 @@
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#starting-a-vm-instance">Starting a VM instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#retrieving-ip-address-details">Retrieving IP Address details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#login-to-vm">Login to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#running-command-on-vm">Running command on VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#deleting-a-vm">Deleting a VM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
@@ -182,14 +202,17 @@
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#banner">banner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#color">color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#context">context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#default">default</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#eof">EOF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#group">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#hpc">hpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#key">key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#list">list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#nova">nova</a></li>
@@ -352,7 +375,8 @@
             
   <div class="section" id="register-command">
 <h1>Register Command<a class="headerlink" href="#register-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the register command can be found at: <a class="reference external" href="../man/man.html#register">register</a></p>
+<p>The manual page of the register command can be found at:
+<a class="reference external" href="../man/man.html#register">register</a></p>
 <p>As we are managing multiple clouds with cloudmesh we need to register
 them first. To make it easy for you cloudmesh reads the registered
 clouds from an easy to manage yaml file. This yam file is installed by
@@ -394,48 +418,34 @@ can use the command:</p>
 </pre></div>
 </div>
 <p>which will print a table with elementary information defined for the
-clouds.</p>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">Erica, we want a table here with print_dict and list in the
-columns name, iaas (openastak, azure, ...), version (kilo,
-n/a if None)</p>
-</div>
-<table border="1" class="docutils">
-<colgroup>
-<col width="23%" />
-<col width="29%" />
-<col width="25%" />
-<col width="23%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><strong>Name</strong></td>
-<td><strong>IaaS</strong></td>
-<td><strong>Version</strong></td>
-<td><strong>Active</strong></td>
-</tr>
-<tr class="row-even"><td>india</td>
-<td>openstack</td>
-<td>kilo</td>
-<td>True</td>
-</tr>
-<tr class="row-odd"><td>india</td>
-<td>openstack</td>
-<td>juno</td>
-<td>False</td>
-</tr>
-</tbody>
-</table>
-<p>To list only the names, please use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ register list --name
+clouds.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ register list
+Clouds specified in the configuration file $HOME/.cloudmesh\cloudmesh.yaml
+
++-------+-----------+---------+
+| Name  | Iaas      | Version |
++-------+-----------+---------+
+| azure | azure     | N/A     |
+| aws   | ec2       | N/A     |
+| india | openstack | juno    |
+| juno  | openstack | juno    |
+| kilo  | openstack | kilo    |
++-------+-----------+---------+
 </pre></div>
 </div>
-<p>This will provide the following output:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ register list
+<p>To list only the names, please use the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ register list --name
+Clouds specified in the configuration file $HOME/.cloudmesh\cloudmesh.yaml
 
-    india
-    aws
-    azure
++-------+
+| Name  |
++-------+
+| azure |
+| aws   |
+| india |
+| juno  |
+| kilo  |
++-------+
 </pre></div>
 </div>
 <p>As we also have to sometimes login to some remote hosts it is
@@ -472,49 +482,54 @@ india
 </div>
 <div class="section" id="register-rc">
 <h2>register rc<a class="headerlink" href="#register-rc" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">I think this is wrong, the rc command should probably just
 take an openrc.sh file and create a new entry form it ...
 THis needs to be clarified ...</p>
 </div>
 <p>In case you already use an openstack cloud you may have come across an
-openrc.sh file. We are providing some very special helper functions to
+openrc.sh file. We are providing some very special helper functions, like
 for example obtain the openrc files from the futuresystems india
 cloud. This command will only work if you have an account on this
 machine and it is integrated into the ssh config file as discussed
-previously. Once this is done, yo can obtain the india juno
+previously. Once this is done, you can obtain the india juno
 credentials with the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>register rc india
 </pre></div>
 </div>
 <p>The command:</p>
-<div class="highlight-python"><div class="highlight"><pre>register rc india juno
+<div class="highlight-python"><div class="highlight"><pre>register rc india --version=juno
 </pre></div>
 </div>
 <p>will fetch the juno cloud credentials, while the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>register rc india kilo
+<div class="highlight-python"><div class="highlight"><pre>register rc india --version=kilo
 </pre></div>
 </div>
-<p>will fetsh the kilo croud credentials. You will also see a verbose
-output about what is included in that file. However the passwords will
-be masked with eight stars: <cite>********</cite>. In case you like also to see
-the password you can use the &#8211;verbose flag.</p>
-<blockquote>
-<div>register &#8211;verbose rc india kilo</div></blockquote>
-<p>You will see an ouput similar to</p>
-<blockquote>
-<div>$ cm register rc india
+<p>will fetch the kilo cloud credentials.</p>
+<p>You will also see a verbose output about what is included in that file.
+However the passwords will be masked with eight stars: <cite>********</cite>.
+In case you like also to see the password you can use the &#8211;password flag.</p>
+<p>register rc india &#8211;version=kilo &#8211;password</p>
+<p>You will see an output similar to:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm register rc india --version=juno
 Reading rc file from india
-export OS_USERNAME=
-export OS_PASSWORD=
-export OS_TENANT_NAME=
-export OS_AUTH_URL=
-export OS_CACERT=</div></blockquote>
++----------------+---------------------------------------------+
+| Variable       | Value                                       |
++----------------+---------------------------------------------+
+| OS_VERSION     | juno                                        |
+| OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0 |
+| OS_USERNAME    | albert                                    |
+| OS_PASSWORD    | ********                                    |
+| OS_CACERT      | ~/.cloudmesh/clouds/india/juno/cacert.pem   |
+| OS_TENANT_NAME | fg478                                       |
++----------------+---------------------------------------------+
+</pre></div>
+</div>
 </div>
 <div class="section" id="register-merge">
 <h2>register merge<a class="headerlink" href="#register-merge" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-3">
+<div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">the description of what this is doing was ambigous, we need
 to clarify if it only replaces to do or actually add things
@@ -525,7 +540,7 @@ you can merge two of them into the same cloudmesh yaml file. You
 simply have to specify the location of the file that you like to merge
 into the existing yaml file. However, please be carefull, as it will
 overwrite the contents in ~/.cloudmesh/cloudmesh.yaml</p>
-<div class="admonition-todo admonition" id="index-4">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">Erika. we used to have a .bak.# when we modified the yaml file, do
 you still have this</p>

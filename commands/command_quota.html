@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Reservation Command" href="command_reservation.html"/>
-        <link rel="prev" title="Nova Command" href="command_nova.html"/> 
+        <link rel="next" title="Key Command" href="command_key.html"/>
+        <link rel="prev" title="List Command" href="command_list.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -95,10 +95,11 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-instalation-from-source">Cloudmesh Instalation from Source</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-client-via-pip">Cloudmesh Client via pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#user-and-contributor">User and Contributor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-reporsitory">Developer with ssh access to git reporsitory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#developer-with-ssh-access-to-git-repository">Developer with ssh access to git repository</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../installation.html#testing">Testing</a></li>
 </ul>
@@ -111,6 +112,14 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#format">Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#history">History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#help">Help</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-india">register india</a></li>
@@ -119,10 +128,15 @@
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-form">register form</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-check">register check</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_register.html#register-json-host">register json HOST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_register.html#should-we-document-here">Should we document here?</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#default-list">default list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#set-default-values">set default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#looking-up-default-values">looking up default values</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html#deleting-default-values">deleting default values</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-list">Group List</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-info">Group Info</a></li>
@@ -130,6 +144,14 @@
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-copy">Group Copy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-merge">Group Merge</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_group.html#group-delete">Group Delete</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">Quota Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quota-list">quota list</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a><ul>
@@ -142,22 +164,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html#list-default">List Default</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-create">Security Group Create</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-list">Security Group List</a></li>
@@ -167,21 +173,46 @@
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html#security-group-delete">Security Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#starting-a-vm-instance">Starting a VM instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#retrieving-ip-address-details">Retrieving IP Address details</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#login-to-vm">Login to VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#running-command-on-vm">Running command on VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_vm.html#deleting-a-vm">Deleting a VM</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#banner">banner</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#color">color</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#context">context</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#default">default</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#eof">EOF</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#group">group</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#hpc">hpc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../man/man.html#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#key">key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#list">list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../man/man.html#nova">nova</a></li>
@@ -280,21 +311,22 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../changes_gitlog.html">Changelog</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.6.9 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.8 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.7 (2015-09-05)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.6 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.5 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.4 (2015-09-02)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.3 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.2 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.1 (2015-08-31)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.0 (2015-08-29)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.5.8 (2015-06-28)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.7 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.6 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.5 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.4 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id1">0.7.0 (2015-09-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id2">0.6.9 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id3">0.6.8 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id4">0.6.7 (2015-09-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id5">0.6.6 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id6">0.6.5 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id7">0.6.4 (2015-09-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id8">0.6.3 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id9">0.6.2 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id10">0.6.1 (2015-08-31)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id11">0.6.0 (2015-08-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id12">0.5.8 (2015-06-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id13">0.5.7 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id14">0.5.6 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id15">0.5.5 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../changes_gitlog.html#id16">0.5.4 (2015-06-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -372,9 +404,8 @@ quota command.</p>
   +-----------------------------+-------+
 </pre></div>
 </div>
-<p>To export it in csv format, please use and specifically apply it to
-the cloud india:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm quota list --cloud=india --format=csv
+<p>To export it in csv format,:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm quota list --format=csv
 Quota,Limit
 instances,10
 cores,20
@@ -401,10 +432,10 @@ server_group_members,10
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_reservation.html" class="btn btn-neutral float-right" title="Reservation Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_key.html" class="btn btn-neutral float-right" title="Key Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_nova.html" class="btn btn-neutral" title="Nova Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_list.html" class="btn btn-neutral" title="List Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
