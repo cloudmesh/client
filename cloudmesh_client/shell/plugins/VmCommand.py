@@ -209,6 +209,8 @@ class VmCommand(object):
 
                 # Add to group
                 Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+                msg = "info. OK."
+                Console.ok(msg)
 
             except Exception, e:
                 import traceback
@@ -233,6 +235,8 @@ class VmCommand(object):
                 for server in id:
                     cloud_provider.delete(server)
                     print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+                msg = "info. OK."
+                Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
@@ -254,6 +258,8 @@ class VmCommand(object):
                     floating_ip = cloud_provider.create_assign_floating_ip(sname)
                     if floating_ip is not None:
                         print("Floating IP assigned to {:} successfully and it is: {:}".format(sname, floating_ip))
+                msg = "info. OK."
+                Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
@@ -282,7 +288,8 @@ class VmCommand(object):
 
                     print("IP Addresses of instance {:} are as follows:-".format(server))
                     print(_print_dict_ip(ipaddr_dict, format=output_format))
-
+                msg = "info. OK."
+                Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
@@ -356,6 +363,8 @@ class VmCommand(object):
                     for cloud in d["cloudmesh"]["clouds"]:
                         print("Listing VMs on Cloud: {:}".format(cloud))
                         list_vms_on_cloud(cloud, format=_format)
+                    msg = "info. OK."
+                    Console.ok(msg)
                 except Exception, e:
                     import traceback
                     print(traceback.format_exc())
@@ -375,6 +384,8 @@ class VmCommand(object):
                     _format = arguments["--format"] or "table"
 
                     list_vms_on_cloud(cloud, group, _format)
+                    msg = "info. OK."
+                    Console.ok(msg)
 
                 except Exception, e:
                     import traceback
