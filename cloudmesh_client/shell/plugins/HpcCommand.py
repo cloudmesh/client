@@ -93,17 +93,17 @@ class HpcCommand:
         cluster = arguments['--cluster'] or 'comet'
 
         if arguments["queue"]:
-            print(Hpc.read_squeue(cluster, format=format))
+            print(Hpc.queue(cluster, format=format))
 
         if arguments["info"]:
-            print(Hpc.read_sinfo(format))
+            print(Hpc.info(format))
 
         if arguments["kill"]:
             Console.error("Not yet implemented.")
 
         if arguments["status"]:
             job_id = arguments['--job']
-            print(Hpc.read_squeue(cluster, job=job_id))
+            print(Hpc.queue(cluster, job=job_id))
 
         if arguments["run"]:
             Console.error("Not yet implemented.")

@@ -6,7 +6,7 @@ import json
 class Hpc(object):
 
     @classmethod
-    def read_squeue(cls, cluster, format='json', job=None):
+    def queue(cls, cluster, format='json', job=None):
         args = 'squeue '
         if job:
             args += '--job={} '.format(job)
@@ -44,7 +44,7 @@ class Hpc(object):
                                         output=format))
 
     @classmethod
-    def read_sinfo(cls, format='json'):
+    def info(cls, format='json'):
 
         result = Shell.ssh("comet", "sinfo")
         d = {}
