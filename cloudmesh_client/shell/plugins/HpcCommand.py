@@ -23,7 +23,7 @@ class HpcCommand:
                 hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc status [--cluster=CLUSTER][--group=GROUP][job=NAME]
-                hpc test --cluster=CLUSTER
+                hpc test --cluster=CLUSTER [--time=SECONDS]
 
             Options:
                --format=FORMAT  the output format [default: json]
@@ -100,5 +100,14 @@ class HpcCommand:
             Console.error("Not yet implemented.")
         if arguments["run"]:
             Console.error("Not yet implemented.")
+
+        if arguments["test"]:
+            cluster = arguments['--cluster']
+            time_secs = arguments['--time']
+            if time_secs:
+                time = '00:00:'+time_secs
+            else:
+                time = '00:00:10' # give a  default time of 10 secs
+            print(Hpc.test(cluster, time))
 
 

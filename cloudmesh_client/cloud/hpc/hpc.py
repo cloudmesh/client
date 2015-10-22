@@ -55,3 +55,8 @@ class Hpc(object):
                                                'state',
                                                'nodelist'],
                                         output=format))
+
+    @classmethod
+    def test(cls, cluster, time):
+        result = Shell.ssh(cluster, "srun -n1 -t {} echo '#CLOUDMESH: Test ok'".format(time))
+        return result
