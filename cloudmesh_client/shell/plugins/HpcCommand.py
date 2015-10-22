@@ -22,7 +22,7 @@ class HpcCommand:
                 hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
                 hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-                hpc status [--cluster=CLUSTER][--group=GROUP][job=NAME]
+                hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
                 hpc test --cluster=CLUSTER [--time=SECONDS]
 
             Options:
@@ -72,7 +72,7 @@ class HpcCommand:
                 cm hpc status
                     returns the status of all jobs
 
-                cm hpc status job=NAME
+                cm hpc status job=ID
                     returns the status of the named job
 
                 cm hpc test --cluster=CLUSTER --time=SECONDS
@@ -90,24 +90,29 @@ class HpcCommand:
         """
 
         format = arguments['--format']
+        cluster = arguments['--cluster'] or 'comet'
+
         if arguments["queue"]:
-            print(Hpc.read_squeue(format))
+            print(Hpc.read_squeue(cluster, format=format))
+
         if arguments["info"]:
             print(Hpc.read_sinfo(format))
         if arguments["kill"]:
             Console.error("Not yet implemented.")
+
         if arguments["status"]:
-            Console.error("Not yet implemented.")
+            job_id = arguments['--job']
+            print(Hpc.read_squeue(cluster, job=job_id))
+
         if arguments["run"]:
             Console.error("Not yet implemented.")
 
         if arguments["test"]:
-            cluster = arguments['--cluster']
             time_secs = arguments['--time']
             if time_secs:
                 time = '00:00:'+time_secs
             else:
-                time = '00:00:10' # give a  default time of 10 secs
+                time = '00:00:10'  # give a  default time of 10 secs
             print(Hpc.test(cluster, time))
 
 
