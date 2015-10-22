@@ -9,7 +9,7 @@ class Hpc(object):
     def read_squeue(cls, cluster, format='json', job=None):
         args = 'squeue '
         if job:
-            args += ' --job={}'.format(job)
+            args += '--job={} '.format(job)
         f = '--format=%i##%P##%j##%u##%T##%M##%l%%%D##%R'
         args += f
         result = Shell.ssh(cluster, args)
@@ -45,6 +45,7 @@ class Hpc(object):
 
     @classmethod
     def read_sinfo(cls, format='json'):
+
         result = Shell.ssh("comet", "sinfo")
         d = {}
         for i, line in enumerate(result.splitlines()):
