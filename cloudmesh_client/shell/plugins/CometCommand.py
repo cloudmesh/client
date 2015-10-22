@@ -169,7 +169,7 @@ class CometCommand:
         elif arguments["list"]:
 
             id = arguments["ID"]
-            Cluster.list(id, format=output_format)
+            print(Cluster.list(id, format=output_format))
 
         elif arguments["info"]:
 

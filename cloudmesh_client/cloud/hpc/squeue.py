@@ -7,7 +7,8 @@ class Squeue(object):
     def squeue_to_json(input_str):
         d = {}
         for i, line in enumerate(input_str.splitlines()):
-            if not line.startswith('Warning:') and not line.__contains__('NODELIST(REASON)'):
+            if not line.startswith('Warning:') and not line.__contains__(
+                    'NODELIST(REASON)'):
                 d[i] = {}
                 d[i]['jobid'], d[i]['partition'], \
                 d[i]['name'], d[i]['user'], d[i]['st'], \

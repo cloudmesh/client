@@ -7,9 +7,11 @@ class Hpc(object):
 
     @classmethod
     def read_squeue(cls, cluster, format='json', job=None):
-        args = 'squeue'
+        args = 'squeue '
         if job:
             args += ' --job={}'.format(job)
+        f = '--format=%i##%P##%j##%u##%T##%M##%l%%%D##%R'
+        args += f
         result = Shell.ssh(cluster, args)
         if result.__contains__('error'):
             return result
@@ -17,11 +19,14 @@ class Hpc(object):
         d = {}
         for i, line in enumerate(result.splitlines()):
             if not line.startswith('Warning:') and not line.__contains__('NODELIST(REASON)'):
+                data = line.split('##')
+                print "DDD", len(data), data
+
                 d[i] = {}
                 d[i]['jobid'], d[i]['partition'], \
                 d[i]['name'], d[i]['user'], d[i]['st'],\
                 d[i]['time'], d[i]['nodes'],\
-                d[i]['nodelist(reason)'] = line.split()
+                d[i]['nodelist'] = data
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
@@ -35,7 +40,7 @@ class Hpc(object):
                                                'st',
                                                'time',
                                                'nodes',
-                                               'nodelist(reason)'],
+                                               'nodelist'],
                                         output=format))
 
     @classmethod
