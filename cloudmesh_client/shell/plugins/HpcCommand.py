@@ -97,6 +97,7 @@ class HpcCommand:
 
         if arguments["info"]:
             print(Hpc.read_sinfo(format))
+
         if arguments["kill"]:
             Console.error("Not yet implemented.")
 
