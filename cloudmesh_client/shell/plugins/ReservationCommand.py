@@ -9,6 +9,8 @@ from cloudmesh_client.shell.console import Console
 import json
 import pyaml
 
+from timestring import Date
+
 from cloudmesh_client.common.todo import TODO
 
 
@@ -77,13 +79,10 @@ class ReservationCommand(object):
                 --user=USER           user name
                 --project=PROJECT     project id
                 --start=TIME_START    Start time of the reservation, in
-                                      YYYY/MM/DD HH:MM:SS format. (default value: 1901-01-01])
+                                      MM/DD/YYYY at hh:mm aa format. (default value: 01/01/1901 at 12:00 am])
                 --end=TIME_END        End time of the reservation, in
-                                      YYYY/MM/DD HH:MM:SS format. In addition a duration
-                                      can be specified if the + sign is the first sign.
-                                      The duration will than be added to
-                                      the start time. (default value: 2100-12-31)
-                --host=HOSTS           host name
+                                      MM/DD/YYYY at hh:mm aa format. (default value: 12/31/2100 at 11:59 pm])
+                --host=HOSTS          host name
                 --description=DESCRIPTION  description summary of the reservation
                 --file=FILE           Adding multiple reservations from one file
                 --format=FORMAT       Format is either table, json, yaml or csv
@@ -120,6 +119,15 @@ class ReservationCommand(object):
             else:
                 return d
                 # return dict_printer(d,order=['cm_id, name, fingerprint'])
+
+        def _get_db_date_format(date):
+            """
+            Utility Function that accepts instance of Date object and returns a string with Datetime for DB.
+            :param date: Date object
+            :return: Date as string with format expected in DB.
+            """
+            db_date = "{:}-{:}-{:} {:}:{:}".format(date.month, date.day, date.year, date.hour, date.minute)
+            return db_date
 
         if (arguments["info"]):
 
@@ -197,12 +205,15 @@ class ReservationCommand(object):
                     project = arguments["--project"]
                     description = arguments["--description"]
 
-                    start_time = arguments["--start"] or "1901-01-01"
-                    end_time = arguments["--end"] or "2100-12-31"
+                    start_time = arguments["--start"] or "01/01/1901 at 07:30 pm"
+                    end_time = arguments["--end"] or "12/31/2100 at 11:59 pm"
+
+                    stime = Date(start_time)
+                    etime = Date(end_time)
 
                     reserve = Reservation()
-                    reserve.add(name, start_time, end_time, hosts=hosts, user=user, project=project,
-                                description=description)
+                    reserve.add(name, _get_db_date_format(stime), _get_db_date_format(etime), hosts=hosts, user=user,
+                                project=project, description=description)
 
                     print("Reservation {:} added successfully".format(name))
                     msg = "info. OK."
@@ -243,12 +254,15 @@ class ReservationCommand(object):
                 project = arguments["--project"]
                 description = arguments["--description"]
 
-                start_time = arguments["--start"] or "1901-01-01"
-                end_time = arguments["--end"] or "2100-12-31"
+                start_time = arguments["--start"] or "01/01/1901 at 07:30 pm"
+                end_time = arguments["--end"] or "12/31/2100 at 11:59 pm"
+
+                stime = Date(start_time)
+                etime = Date(end_time)
 
                 reserve = Reservation()
-                reserve.update(name, start_time, end_time, hosts=hosts, user=user, project=project,
-                               description=description)
+                reserve.update(name, _get_db_date_format(stime), _get_db_date_format(etime), hosts=hosts, user=user,
+                               project=project, description=description)
 
                 print("Reservation {:} updated successfully".format(name))
                 msg = "info. OK."
