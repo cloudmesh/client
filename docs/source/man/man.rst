@@ -376,8 +376,8 @@ Command - hpc::
         hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
         hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
         hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-        hpc status [--cluster=CLUSTER][--group=GROUP][job=NAME]
-        hpc test --cluster=CLUSTER
+        hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
+        hpc test --cluster=CLUSTER [--time=SECONDS]
 
     Options:
        --format=FORMAT  the output format [default: json]
@@ -426,7 +426,7 @@ Command - hpc::
         cm hpc status
             returns the status of all jobs
 
-        cm hpc status job=NAME
+        cm hpc status job=ID
             returns the status of the named job
 
         cm hpc test --cluster=CLUSTER --time=SECONDS
@@ -1123,6 +1123,29 @@ Command - ssh::
 
        --key=KEY         The keyname as defined in the key list
                          or a location that contains a pblic key
+
+
+
+usage
+----------------------------------------------------------------------
+
+Command - usage::
+
+    Usage:
+        usage [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
+
+        Show usage data.
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+       --tenant=TENANT  the tenant name
+       --start=START    Usage range start date ex 2012-01-20, default is: 4 weeks ago
+       --end=END        Usage range end date, ex 2012-01-20, default is: tomorrow
+
+
+    Examples:
+        cm usage
 
 
 
