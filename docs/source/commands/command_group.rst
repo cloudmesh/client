@@ -94,7 +94,7 @@ Groups can be merged as follows::
 Group Delete
 ^^^^^^^^^^^^^
 
-A named group can be easily deleted. 
+A named group can be easily deleted.::
 
   $ cm group delete --name groupC
   Request to delete server albert-001 has been accepted.

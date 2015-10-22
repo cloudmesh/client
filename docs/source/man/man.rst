@@ -986,13 +986,10 @@ Command - reservation::
         --user=USER           user name
         --project=PROJECT     project id
         --start=TIME_START    Start time of the reservation, in
-                              YYYY/MM/DD HH:MM:SS format. (default value: 1901-01-01])
+                              MM/DD/YYYY at hh:mm aa format. (default value: 01/01/1901 at 12:00 am])
         --end=TIME_END        End time of the reservation, in
-                              YYYY/MM/DD HH:MM:SS format. In addition a duration
-                              can be specified if the + sign is the first sign.
-                              The duration will than be added to
-                              the start time. (default value: 2100-12-31)
-        --host=HOSTS           host name
+                              MM/DD/YYYY at hh:mm aa format. (default value: 12/31/2100 at 11:59 pm])
+        --host=HOSTS          host name
         --description=DESCRIPTION  description summary of the reservation
         --file=FILE           Adding multiple reservations from one file
         --format=FORMAT       Format is either table, json, yaml or csv
