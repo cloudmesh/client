@@ -1,11 +1,11 @@
 Group Command
 ======================================================================
 
-One of cloudmeshs major functionality is to group cloud and other
+One of cloudmesh major functionality is to group cloud and other
 resources into a named group. Such named groups can than be used to
 perform actions on them.
 
-.. warning:: at this time we have limited to groups to just hold names
+.. warning:: at this time we have limited to groups to just hold ID
 	     of vms.
 
 The manual page of the group command can be found at: `group
@@ -18,15 +18,16 @@ Group List
 
 The named groups can be lited with the following command::
 
-  $ cm group list --cloud general --format table
-    +-----------+---------+---------+---------------------------------------------+------+
-    | user      | cloud   | name    | value                                       | type |
-    +-----------+---------+---------+---------------------------------------------+------+
-    | albert    | general | group01 | albert-001,albert-002                       | vm   |
-    | albert    | general | group03 | albert-004,albert-001,albert-002,albert-003 | vm   |
-    | albert    | general | group04 | albert-001,albert-002,albert-003,albert-004 | vm   |
-    | albert    | general | group05 | albert-005                                  | vm   |
-    +-----------+---------+---------+---------------------------------------------+------+
+  $ cm group list --cloud india --format table
+    +----------+-------+--------+----------+------+
+    | user     | cloud | name   | value    | type |
+    +----------+-------+--------+----------+------+
+    | albert   | india | groupA | test-001 | vm   |
+    | albert   | india | groupA | test-002 | vm   |
+    | albert   | india | groupA | test-004 | vm   |
+    | albert   | india | groupB | test-003 | vm   |
+    | albert   | india | groupB | test-005 | vm   |
+    +----------+-------+--------+----------+------+
 
 Group Info
 ^^^^^^^^^^^
@@ -34,12 +35,14 @@ Group Info
 To get details about a particular group with specific name you can use
 the info option::
 
-  $ cm group info group01
-    +-----------+---------+---------+-----------------------+------+
-    | user      | cloud   | name    | value                 | type |
-    +-----------+---------+---------+-----------------------+------+
-    | albert    | general | group01 | albert-001,albert-002 | vm   |
-    +-----------+---------+---------+-----------------------+------+
+  $ cm group info groupA
+    +----------+-------+--------+----------+------+
+    | user     | cloud | name   | value    | type |
+    +----------+-------+--------+----------+------+
+    | albert   | india | groupA | test-001 | vm   |
+    | albert   | india | groupA | test-002 | vm   |
+    | albert   | india | groupA | test-004 | vm   |
+    +----------+-------+--------+----------+------+
 
 Group Add
 ^^^^^^^^^^
@@ -80,11 +83,13 @@ Groups can be merged as follows::
   Merge of group [group01] & [groupB] to group [groupC] successful!
 
   $ cm group info groupC
-    +-----------+---------+--------+--------------------------------+------+
-    | user      | cloud   | name   | value                          | type |
-    +-----------+---------+--------+--------------------------------+------+
-    | albert    | general | groupC | albert-001,albert-002,test-001 | vm   |
-    +-----------+---------+--------+--------------------------------+------+
+    +-----------+---------+--------+------------+------+
+    | user      | cloud   | name   | value      | type |
+    +-----------+---------+--------+------------+------+
+    | albert    | general | groupC | albert-001 | vm   |
+    | albert    | general | groupC | albert-002 | vm   |
+    | albert    | general | groupC | test-001   | vm   |
+    +-----------+---------+--------+------------+------+
 
 Group Delete
 ^^^^^^^^^^^^^
@@ -92,12 +97,14 @@ Group Delete
 A named group can be easily deleted. 
 
   $ cm group delete --name groupC
+  Request to delete server albert-001 has been accepted.
+  Request to delete server albert-002 has been accepted.
+  Request to delete server test-001 has been accepted.
   Deletion Successful!
 
   $ cm group info groupC
   ERROR: No group with name groupC found in the cloudmesh database!
 
-.. todo:: what action is performed when we delete a group. Is the
-	  group just deleted, or all vms and other objects. Please
-	  specify semantics.
+.. warning:: When a group is deleted, all the instances (vms) are deleted,
+            and a deletion request is submitted to the appropriate cloud.
 	  
