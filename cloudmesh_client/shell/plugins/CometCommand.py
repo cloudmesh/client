@@ -106,6 +106,13 @@ class CometCommand:
             Opens the given URL in a browser window.
         """
 
+        try:
+            logon = Comet.logon()
+            if logon is False:
+                Console.error("Could not logon")
+                return
+        except:
+            Console.error("Could not logon")
         # pprint (arguments)
         output_format = arguments["--format"] or "table"
 
@@ -152,7 +159,7 @@ class CometCommand:
 
             id = arguments["ID"] or None
 
-            Cluster.simple_list(id, format=output_format)
+            print(Cluster.simple_list(id, format=output_format))
 
         elif arguments["docs"]:
 

@@ -21,12 +21,11 @@ class Cluster(object):
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
 
+        result = None
         if format == "rest":
-            pprint(r)
+            result = r
         else:
             entry = {}
-            banner("Cluster List")
-
             data = {}
             id = 0
             for cluster in r:
@@ -45,7 +44,9 @@ class Cluster(object):
                     data[id]['cluster']= name
                     data[id]['id'] = id
                     data[id]['kind'] = 'client'
-            print (dict_printer(data,
+                    data[id]['frontend'] = cluster['name']
+
+            result = dict_printer(data,
                                 order=[
                                     'id',
                                     'cluster',
@@ -53,7 +54,9 @@ class Cluster(object):
                                     'type',
                                     'ip',
                                     'kind'],
-                                output=format))
+                                output=format)
+            return result
+
 
     @staticmethod
     def list(id=None, format="table"):

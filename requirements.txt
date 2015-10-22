@@ -14,4 +14,4 @@ sandman
 gitchangelog
 six
 python-novaclient
-cloudmesh-timestring
+cloudmesh_timestring
