@@ -6,8 +6,14 @@ import json
 class Hpc(object):
 
     @classmethod
-    def read_squeue(cls, format='json'):
-        result = Shell.ssh("comet", "squeue")
+    def read_squeue(cls, cluster, format='json', job=None):
+        args = 'squeue'
+        if job:
+            args += ' --job={}'.format(job)
+        result = Shell.ssh(cluster, args)
+        if result.__contains__('error'):
+            return result
+
         d = {}
         for i, line in enumerate(result.splitlines()):
             if not line.startswith('Warning:') and not line.__contains__('NODELIST(REASON)'):
