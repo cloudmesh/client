@@ -37,14 +37,12 @@ class Test_reservation:
 
     def test_001(self):
         """
-        cm reservation add --name=test_name --start="2015-09-30" --end="2016-09-30" --user=albert --project=cloudmesh
-        --hosts=host001 --description=desc
+        cm reservation add --name=test --start='10/31/1988\ at\ 8:09\ pm' --end='10/21/2015\ at\ 9:00\ pm'
+        --user=albert --project=cloudmesh --hosts=host001 --description=desc
         """
         HEADING()
-        result = run('cm reservation add --name=test_name --start=2015-09-30 --end=2016-09-30 --user=albert \
-                                                                                            --project=cloudmesh \
-                                                                                            --hosts=host001 \
-                                                                                            --description=desc')
+        result = run("cm reservation add --name=test_name --start='10/31/1988\ at\ 8:09\ pm' \
+                      --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh")
         print result
         assert "OK." in result
 
