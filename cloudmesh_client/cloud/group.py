@@ -14,9 +14,18 @@ class Group(object):
 
     @classmethod
     def list(cls, format="table", cloud="general"):
+        """
+        Method to get list of groups in
+            the cloudmesh database
+        :param format:
+        :param cloud:
+        :return:
+        """
         try:
             d = cls.cm_db.all(model.GROUP)
-            return (tables.dict_printer(d,
+            # Transform the dict to show multiple rows per vm
+            newdict = Group.transform_dict(d)
+            return (tables.dict_printer(newdict,
                                         order=["user",
                                                "cloud",
                                                "name",
@@ -31,14 +40,23 @@ class Group(object):
 
     @classmethod
     def get_info(cls, cloud="general", name=None, format="table"):
+        """
+        Method to get info about a group
+        :param cloud:
+        :param name:
+        :param format:
+        :return:
+        """
         try:
             group = cls.get_group(name=name, cloud=cloud)
             if group:
-                d = cls.toDict(group)
+                d = cls.to_dict(group)
+                # Transform the dict to show multiple rows per vm
+                newdict = Group.transform_dict(d)
             else:
                 return None
 
-            return tables.dict_printer(d,
+            return tables.dict_printer(newdict,
                                        order=["user",
                                               "cloud",
                                               "name",
@@ -53,6 +71,15 @@ class Group(object):
 
     @classmethod
     def add(cls, name, type="vm", id=None, cloud="general"):
+        """
+        Add an instance to a new group
+            or add it to an existing one
+        :param name:
+        :param type:
+        :param id:
+        :param cloud:
+        :return:
+        """
         # user logged into cloudmesh
         user = cls.getUser(cloud) or cls.cm_db.user
 
@@ -121,6 +148,13 @@ class Group(object):
 
     @classmethod
     def delete(cls, name=None, cloud="general"):
+        """
+        Method to delete a group from
+            the cloudmesh database
+        :param name:
+        :param cloud:
+        :return:
+        """
         try:
             group = cls.get_group(name=name, cloud=cloud)
 
@@ -152,6 +186,12 @@ class Group(object):
 
     @classmethod
     def copy(cls, _fromName, _toName):
+        """
+        Method to make copy of a group
+        :param _fromName:
+        :param _toName:
+        :return:
+        """
         try:
             _fromGroup = cls.cm_db.find_by_name(model.GROUP, _fromName)
             _toGroup = cls.cm_db.find_by_name(model.GROUP, _toName)
@@ -210,6 +250,14 @@ class Group(object):
 
     @classmethod
     def merge(cls, _nameA, _nameB, mergeName):
+        """
+        Method to merge two groups into
+            one group
+        :param _nameA:
+        :param _nameB:
+        :param mergeName:
+        :return:
+        """
         try:
             groupA = cls.cm_db.find_by_name(model.GROUP, _nameA)
             groupB = cls.cm_db.find_by_name(model.GROUP, _nameB)
@@ -244,7 +292,12 @@ class Group(object):
             cls.cm_db.close()
 
     @classmethod
-    def toDict(cls, item):
+    def to_dict(cls, item):
+        """
+        Method to convert input to a dict
+        :param item:
+        :return:
+        """
         d = {}
         d[item.id] = {}
         for key in item.__dict__.keys():
@@ -253,7 +306,38 @@ class Group(object):
         return d
 
     @classmethod
+    def transform_dict(cls, dict):
+        """
+        Method to transform a dict,
+            to display multiple rows
+            per instance of a group
+        :param dict:
+        :return:
+        """
+        d = {}
+        i = 0
+
+        for key in dict.keys():
+            item = dict[key]
+            for value in item['value'].split(','):
+                d[i] = {}
+                d[i]['name'] = item['name']
+                d[i]['cloud'] = item['cloud']
+                d[i]['user'] = item['user']
+                d[i]['value'] = value
+                d[i]['type'] = item['type']
+                i += 1
+        return d
+
+    @classmethod
     def getUser(cls, cloudname):
+        """
+        Method to get the user information
+            from the cloudmesh database
+            for a given cloud
+        :param cloudname:
+        :return:
+        """
         try:
             # currently support India cloud
             if cloudname == "india":
