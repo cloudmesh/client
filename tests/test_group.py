@@ -45,16 +45,26 @@ class Test_group:
         return
 
     def test_002(self):
+        """testing cm group add --cloud india --id test-002 --type vm --name groupA"""
+        HEADING()
+        banner("cm group add --cloud india --id test-002 --type vm --name groupA")
+
+        run("cm group add --cloud india --id test-002 --type vm --name groupA")
+        id = str(Group.get_group(name="groupA", cloud="india").value)
+        assert "test-002" in id
+        return
+
+    def test_003(self):
         """testing cm group copy groupA groupB"""
         HEADING()
         banner("cm group copy groupA groupB")
 
         result = run("cm group copy groupA groupB")
-        assert "Created a new group [groupB] and added ID [test-001] to it" in result
+        assert "Created a new group [groupB] and added ID [test-001,test-002] to it" in result
 
         return
 
-    def test_003(self):
+    def test_004(self):
         """testing cm group merge groupA groupB groupC"""
         HEADING()
         banner("cm group merge groupA groupB groupC")
@@ -63,7 +73,7 @@ class Test_group:
         assert "Merge of group [groupA] & [groupB] to group [groupC] successful!" in result
         return
 
-    def test_004(self):
+    def test_005(self):
         """testing cm group info --cloud india groupA"""
         HEADING()
         banner("cm group info --cloud india groupA")
@@ -72,7 +82,7 @@ class Test_group:
         assert "groupA" in result
         return
 
-    def test_005(self):
+    def test_006(self):
         """testing cm group info --cloud india --format json groupA"""
         HEADING()
         banner("cm group info --cloud india  --format json groupA")
@@ -81,7 +91,7 @@ class Test_group:
         assert "groupA" in result
         return
 
-    def test_006(self):
+    def test_007(self):
         """testing cm group list --cloud india --format table"""
         HEADING()
         banner("cm group list --cloud india --format table")
@@ -90,7 +100,7 @@ class Test_group:
         assert "groupA" in result
         return
 
-    def test_007(self):
+    def test_008(self):
         """testing cm group add --name groupX --id gourav-00x [WITH DEFAULT CLOUD=INDIA, TYPE=VM]"""
         HEADING()
         banner("cm group add --name groupX --id gourav-00x")
@@ -108,7 +118,22 @@ class Test_group:
         assert "india" in result3
         assert "vm" in result3
 
-    def test_008(self):
+        return
+
+    def test_009(self):
+        """testing cm group remove --cloud india --name groupA --id test-002"""
+        HEADING()
+        banner("cm group remove --cloud india --name groupA --id test-002")
+
+        result1 = run("cm group remove --cloud india --name groupA --id test-002")
+        assert "Successfully removed ID [test-002] from the group [groupA]" in result1
+
+        result2 = run("cm group info groupA")
+        assert "test-002" not in result2
+
+        return
+
+    def test_010(self):
         """testing cm group delete --cloud india --name groupA"""
         HEADING()
         banner("cm group delete --cloud india --name groupA")
