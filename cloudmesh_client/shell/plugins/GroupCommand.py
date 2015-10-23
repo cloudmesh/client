@@ -24,6 +24,7 @@ class GroupCommand(object):
                 group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
                 group list [--cloud=CLOUD] [--format=FORMAT]
                 group delete [--cloud=CLOUD] [--name=NAME]
+                group remove [--cloud=CLOUD] --name=NAME --id=ID
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
 
@@ -70,6 +71,9 @@ class GroupCommand(object):
 
                 If finer grained deletion is needed, it can be achieved
                 with the delete command that supports deletion by name
+
+                It is also possible to remove a VM from the group using the
+                remove command, by supplying the ID
 
             Example:
                 default group mygroup
@@ -131,7 +135,6 @@ class GroupCommand(object):
                         name))
             return
 
-        # TODO: add logic to check VM exists in cloud
         elif arguments["add"]:
             name = arguments["--name"]
             type = arguments["--type"]
@@ -153,7 +156,6 @@ class GroupCommand(object):
             Group.add(name=name, type=type, id=id, cloud=cloud)
             return
 
-        # TODO: add logic to delete VM(s) in cloud
         elif arguments["delete"]:
             name = arguments["--name"]
             cloud = arguments["--cloud"]
@@ -169,6 +171,25 @@ class GroupCommand(object):
                 Console.error(
                     "No group with name [{}] in the database!".format(name))
             return
+
+        elif arguments["remove"]:
+            name = arguments["--name"]
+            id = arguments["--id"]
+            cloud = arguments["--cloud"] or \
+                    Default.get("cloud")
+
+            if not cloud:
+                Console.error("Default cloud not set!")
+                return
+
+            result = Group.remove(name, id, cloud)
+            if result:
+                Console.ok(result)
+            else:
+                Console.error(
+                    "Failed to delete ID [{}] from group [{}] in the database!".format(id, name))
+            return
+
 
         elif arguments["copy"]:
             _from = arguments["FROM"]
