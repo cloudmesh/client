@@ -143,9 +143,6 @@ class Group(object):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm_db.close()
-
     @classmethod
     def delete(cls, name=None, cloud="general"):
         """
@@ -183,6 +180,61 @@ class Group(object):
 
         finally:
             cls.cm_db.close()
+
+    @classmethod
+    def remove(cls, name, id, cloud):
+        """
+        Method to remove an ID from the group
+        in the cloudmesh database
+        :param name:
+        :param id:
+        :param cloud:
+        :return:
+        """
+        try:
+            group = cls.get_group(name=name, cloud=cloud)
+
+            if group:
+                vm_ids = group.value.split(",")
+                new_id_str = ","
+                del_group = False
+
+                # If group has single ID, then set delete flag
+                if len(vm_ids) == 1:
+                    del_group = True
+
+                if id in vm_ids:
+                    for vm_id in vm_ids:
+                        if id == vm_id:
+                            vm_ids.remove(vm_id)
+
+                    # Update the list of IDs for group
+                    new_id_str = new_id_str.join(vm_ids)
+                    group.value = new_id_str
+
+                    # Save the db record
+                    cls.cm_db.save()
+
+                    # If delete flag set, then delete group
+                    if del_group:
+                        Group.delete(name, cloud)
+
+                    return "Successfully removed ID [{}] from the group [{}]"\
+                        .format(id, name)
+                else:
+                    Console.error("The ID [{}] supplied does not belong to group [{}]"
+                                  .format(id, name))
+                    return None
+            else:
+                return None
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        finally:
+            cls.cm_db.close()
+
+        return
 
     @classmethod
     def copy(cls, _fromName, _toName):

@@ -44,6 +44,23 @@ the info option::
     | albert   | india | groupA | test-004 | vm   |
     +----------+-------+--------+----------+------+
 
+Group Remove ID
+^^^^^^^^^^^^^^^^
+
+To remove a VM from a particular group, you can use
+the remove option::
+
+  $ cm group remove --name groupA --id test-002
+    Successfully removed ID [test-002] from the group [groupA]
+
+  $ cm group info groupA
+    +----------+-------+--------+----------+------+
+    | user     | cloud | name   | value    | type |
+    +----------+-------+--------+----------+------+
+    | albert   | india | groupA | test-001 | vm   |
+    | albert   | india | groupA | test-004 | vm   |
+    +----------+-------+--------+----------+------+
+
 Group Add
 ^^^^^^^^^^
 
