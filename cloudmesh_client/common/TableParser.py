@@ -73,19 +73,21 @@ class TableParser(object):
         i = 0
         self.data = []
         for line in self.lines:
-            element = [h.strip() for h in line.split(self.seperator)]
-            if self.is_strip:
-                element  = element[1:-1]
+            print line, line[0], self.seperator
+            if line[0] not in  self.comment_chars:
+                element = [h.strip() for h in line.split(self.seperator)]
+                if self.is_strip:
+                    element  = element[1:-1]
 
-            entry = {}
-            for column in range(0, len(self.headers)):
-                entry[self.headers[column]] = element[column]
-            if self.index is None:
-                entry["_id"] = str(i)
-            else:
-                entry["_id"] = self.index
-            self.data.append(entry)
-            i += 1
+                entry = {}
+                for column in range(0, len(self.headers)):
+                    entry[self.headers[column]] = element[column]
+                if self.index is None:
+                    entry["_id"] = str(i)
+                else:
+                    entry["_id"] = self.index
+                self.data.append(entry)
+                i += 1
         return self.data
 
     def parse_to_dict(self, line):
@@ -101,18 +103,19 @@ class TableParser(object):
         i = 0
         self.data = {}
         for line in self.lines:
-            element = [h.strip() for h in line.split(self.seperator)]
-            if self.is_strip:
-                element  = element[1:-1]
+            if line[0] not in  self.comment_chars:
+                element = [h.strip() for h in line.split(self.seperator)]
+                if self.is_strip:
+                    element  = element[1:-1]
 
-            entry = {}
-            for column in range(0, len(self.headers)):
-                entry[self.headers[column]] = element[column]
-            if self.index is None:
-                self.data[str(i)] = entry
-            else:
-                self.data[entry[self.index]] = entry
-            i += 1
+                entry = {}
+                for column in range(0, len(self.headers)):
+                    entry[self.headers[column]] = element[column]
+                if self.index is None:
+                    self.data[str(i)] = entry
+                else:
+                    self.data[entry[self.index]] = entry
+                i += 1
         return self.data
 
     def json(self):
@@ -124,7 +127,7 @@ class TableParser(object):
 if __name__ == "__main__":
 
     parser = TableParser()
-    parser.parse_to_list("|a|b|c|\n|1|2|3|\n|4|5|6|")
+    parser.parse_to_list("|a|b|c|\n|1|2|3|\n+|4|5|6|\n|7|8|9|")
     print parser.json()
     print parser.headers
     print parser

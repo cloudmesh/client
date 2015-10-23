@@ -1,18 +1,11 @@
+import json
+
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common import tables
 from cloudmesh_client.common.TableParser import TableParser
 
-import json
-
 
 class Hpc(object):
-    @staticmethod
-    def _clean(str):
-        if str == '':
-            str = 'None'
-        return str.strip().lower().replace(":", "_"). \
-            replace("(", "_").replace(")", "").replace("/", "_")
-
     @classmethod
     def queue(cls, cluster, format='json', job=None):
         args = 'squeue '
@@ -53,7 +46,6 @@ class Hpc(object):
             result = Shell.ssh(
                 "comet",
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
-
 
         parser = TableParser()
         d = parser.parse_to_dict(result)
