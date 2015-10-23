@@ -1,5 +1,7 @@
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common import tables
+from cloudmesh_client.common.TableParser import TableParser
+
 import json
 
 
@@ -19,27 +21,13 @@ class Hpc(object):
         f = '--format=%all'
         args += f
         result = Shell.ssh(cluster, args)
-        if result.__contains__('error'):
-            return result
+        #
+        # TODO: this will not work as some jobs could have error in their names
+        # if result.__contains__('error'):
+        #    return result
 
-        lines = result.splitlines()
-
-        print lines[0]
-        headers = [Hpc._clean(h) for h in lines[0].split("|")]
-
-        lines = lines[1:]
-
-        print '\n'.join(headers)
-        # print lines
-
-        d = {}
-        for line in lines:
-            data = [h.strip() for h in line.split("|")]
-            print headers
-            entry = {}
-            for i in range(0, len(headers)):
-                entry[headers[i]] = data[i]
-            d[entry['jobid']] = entry
+        parser = TableParser()
+        d = parser.parse_to_dict(result)
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
@@ -66,19 +54,9 @@ class Hpc(object):
                 "comet",
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
-        lines = result.splitlines()
 
-        headers = [Hpc._clean(h) for h in lines[0].split("|")]
-
-        i = 0
-        d = {}
-        for line in lines:
-            data = [h.strip() for h in line.split("|")]
-            entry = {}
-            for index in range(0, len(headers)):
-                entry[headers[index]] = data[index]
-            d[str(i)] = entry
-            i += 1
+        parser = TableParser()
+        d = parser.parse_to_dict(result)
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
