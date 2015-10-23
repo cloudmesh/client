@@ -5,7 +5,7 @@ from cloudmesh_client.db import model
 from cloudmesh_client.common import tables
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import CloudProviderOpenstack
+from cloudmesh_client.common.authenticate import Authenticate
 
 
 class Image(object):
@@ -37,9 +37,7 @@ class Image(object):
         :param cloud: the cloud name
         """
         # set the environment
-        d = ConfigDict("cloudmesh.yaml")
-        cloud_details = d["cloudmesh"]["clouds"][cloud]
-        nova = CloudProviderOpenstack(cloud, cloud_details).nova
+        nova = Authenticate.get_environ(cloud)
 
         # delete previous data
         Image.clear(cloud)
@@ -90,12 +88,65 @@ class Image(object):
                 return "Image list empty, kindly do image refresh of the cloud"
 
             return tables.dict_printer(d,
-                                      order=['cloud',
-                                             'uuid',
-                                             'name'],
+                                      order=['uuid',
+                                             'name',
+                                             'cloud'],
                                       output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
         finally:
             cls.cm_db.close()
 
+    @classmethod
+    def show_image(cls, cloud, id, live=False, format="table"):
+        if live:
+            # taken live information from openstack
+            nova = Authenticate.get_environ(cloud)
+            details = nova.images.get(id)._info
+            d = {}
+            count = 0
+            for key in details.keys():
+                if key != 'links':
+                    if key == 'metadata':
+                        for meta_key in details['metadata'].keys():
+                            d[count] = {}
+                            d[count]["Property"], d[count]["Value"] = \
+                                'metadata '+meta_key, details['metadata'][meta_key]
+                            count += 1
+                    elif key == 'server':
+                        d[count] = {}
+                        d[count]["Property"], d[count]["Value"] = key, details['server']['id']
+                        count += 1
+                    else:
+                        d[count] = {}
+                        d[count]["Property"], d[count]["Value"] = key, details[key]
+                        count += 1
+            return tables.dict_printer(d, order=['Property',
+                                                 'Value'],
+                                       output=format)
+
+        else:
+            # data taken from local database
+            try:
+                element = cls.cm_db.query(model.IMAGE).filter(
+                    model.IMAGE.cloud == cloud,
+                    model.IMAGE.uuid == id
+                ).first()
+
+                d = {}
+                if element:
+                    for i, key in enumerate(element.__dict__.keys()):
+                        if not key.startswith("_sa"):
+                            d[i] = {}
+                            d[i]["Property"], d[i]["Value"] = key, str(element.__dict__[key])
+                return tables.dict_printer(d, order=['Property',
+                                                     'Value'],
+                                           output=format)
+            except Exception as ex:
+                Console.error(ex.message, ex)
+            finally:
+                cls.cm_db.close()
+
+
+if __name__ == "__main__":
+    Image.show_image("india", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
