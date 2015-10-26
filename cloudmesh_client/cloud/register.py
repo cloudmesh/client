@@ -65,6 +65,9 @@ class CloudRegister(object):
     def read_rc_file(cls, host, version, openrc=None):
         """
 
+        TODO: this function is broken it see register remote. The location
+        on india should be read from the config file and not hardcoded.
+
         :param host: the host name
         :type host: string
         :param openrc: the file name
@@ -134,11 +137,71 @@ class CloudRegister(object):
 
     @classmethod
     def remote(cls, host, force=False):
-        Console.error("NOt implemented yet")
+        """
+
+        TODO: there is a bug in the instalation of kilo the openrc file on
+        the remote machine is not called openrc.sh but contains username and
+        project number.
+
+        :param host: the remote host
+        :param force:
+        :return:
+        """
+        config = ConfigDict("cloudmesh.yaml")
+
+        host_credentials = config["cloudmesh.clouds." + host + ".credentials"]
+        from pprint import pprint
+        pprint (dict(host_credentials))
+
+        if 'OS_OPENRC' in host_credentials:
+            Console.ok("looking for openrc")
+        else:
+            Console.error("no OC_OPENRC specified in credentials")
+            return
+
+        hostname = config["cloudmesh.clouds." + host + ".cm_host"]
+        Console.ok("fetching information from {:}  ...".format(host))
+
+        openrc = host_credentials["OS_OPENRC"]
+
+        directory = os.path.dirname(openrc)
+
+        _from_dir = "{:}:{:}".format(hostname, directory)
+        _to_dir = Config.path_expand(directory)
+
+        print ("From:", _from_dir)
+        print ("To:  ", _to_dir)
+
+        Shell.scp('-r', _from_dir, _to_dir)
+
+        openrc= Config.path_expand(openrc)
+        with open(openrc, 'r') as f:
+            lines = f.read().split("\n")
+
+        Console.ok("Reading rc file from {}".format(host))
+
+        config = ConfigDict("cloudmesh.yaml")
+        for line in lines:
+            if line.strip().startswith("export"):
+                line = line.replace("export ", "")
+                key, value = line.split("=", 1)
+                config["cloudmesh"]["clouds"][host]["credentials"][key] = value
+        credentials = config["cloudmesh.clouds."+host+".credentials"]
+        if "OC_OPENRC" in credentials:
+            openrc = credentials["OC_OPENRC"]
+            for attribute in credentials:
+                if attribute in openrc:
+                    openrc.replace(attribute, credentials[attribute])
+        config.save()
+        return config["cloudmesh"]["clouds"][host]["credentials"]
+
 
     @classmethod
     def host(cls, host, force=False):
         """
+        TODO: This function does not work, see remote for a replacement of
+        host.
+
         copies the cloudmesh/clouds/india/juno directory from india
         to the ~/.cloudmesh/clouds/india/juno local directory.
 
