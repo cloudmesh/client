@@ -133,6 +133,10 @@ class CloudRegister(object):
             os.makedirs(Config.path_expand(dir_path))
 
     @classmethod
+    def remote(cls, host, force=False):
+        Console.error("NOt implemented yet")
+
+    @classmethod
     def host(cls, host, force=False):
         """
         copies the cloudmesh/clouds/india/juno directory from india
