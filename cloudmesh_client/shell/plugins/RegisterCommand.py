@@ -38,6 +38,7 @@ class RegisterCommand(object):
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
               register json HOST
+              register remote CLOUD [--force]
               register india [--force]
               register CLOUD CERT [--force]
               register CLOUD --dir=DIR
