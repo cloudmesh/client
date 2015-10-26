@@ -174,6 +174,17 @@ class CloudRegister(object):
 
         Shell.scp('-r', _from_dir, _to_dir)
 
+        #
+        # TODO: the permission are not yet right
+        #
+        os.chmod(_to_dir , 0o700)
+        for root,dirs,_ in os.walk(_to_dir):
+            for d in dirs :
+                os.chmod(os.path.join(root,d) , 0o700)
+        #
+        # END PERMISSION
+        #
+
         openrc= Config.path_expand(openrc)
         with open(openrc, 'r') as f:
             lines = f.read().split("\n")
