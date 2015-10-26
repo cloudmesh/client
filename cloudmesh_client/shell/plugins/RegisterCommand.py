@@ -127,6 +127,10 @@ class RegisterCommand(object):
               register json host
                   displays the host details in json format
 
+              register remote CLOUD
+                  registers a remote cloud and copies the openrc file
+                  specified in the credentials of the cloudmesh.yaml
+
               register india [--force]
                   copies the cloudmesh/clouds/india/juno directory from india
                   to the ~/.cloudmesh/clouds/india/juno local directory
@@ -247,7 +251,14 @@ class RegisterCommand(object):
                 print("Cloud {:} is not described in cloudmesh.yaml".format(host))
             return
 
-        elif arguments['india']:
+        elif arguments['remote']:
+
+            force = arguments['--force']
+            cloud = arguments['CLOUD']
+            CloudRegister.remote(cloud, force)
+            return
+
+        elif arguments['india'] and arguments["kilo"]:
             force = arguments['--force']
             CloudRegister.host("india", force)
             return
