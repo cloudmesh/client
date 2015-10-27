@@ -5,6 +5,7 @@ import os
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_base.ssh_config import ssh_config
 
+from cloudmesh_base.util import banner
 
 class SecureShellCommand(object):
     # def activate_cm_shell_ssh(self):
@@ -58,15 +59,15 @@ class SecureShellCommand(object):
         # pprint(arguments)
         if arguments["list"]:
             output_format = arguments["--format"]
-            Console.ok('list {}'.format(output_format))
+            banner('List SSH config hosts')
             hosts = ssh_config()
-            print(hosts.list())
-            TOTO("Complete implementation with dict_printer")
+            for host in hosts.list():
+                Console.ok(host)
         elif arguments["register"]:
             name = arguments["NAME"]
             parameters = arguments["PARAMETERS"]
             Console.ok('register {} {}'.format(name, parameters))
-            TODO("Not implemented")
+            TODO.implement("Not implemented")
         else:  # ssh ARGUMENTS...
             args = arguments["ARGUMENTS"]
             os.system("ssh {}".format(args))

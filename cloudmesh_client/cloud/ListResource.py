@@ -1,3 +1,5 @@
+"""
+
 from abc import ABCMeta, abstractmethod
 
 class ListResource(metaclass=ABCMeta):
@@ -88,3 +90,5 @@ class ListResource(metaclass=ABCMeta):
     @classmethod
     def count(self):
         raise NotImplementedError()
+
+"""

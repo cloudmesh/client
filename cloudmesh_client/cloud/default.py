@@ -10,14 +10,15 @@ class Default(object):
     # Create a static variable so that db is initialized once in a transaction
 
     @classmethod
-    def list(cls, format="table"):
+    def list(cls,
+             format="table",
+             order=['user','cloud','name','value'],
+             output=format):
+
         try:
             d = cls.cm_db.all(model.DEFAULT)
             return (tables.dict_printer(d,
-                                        order=['user',
-                                               'cloud',
-                                               'name',
-                                               'value'],
+                                        order=order,
                                         output=format))
         finally:
             cls.cm_db.close()

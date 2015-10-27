@@ -60,14 +60,12 @@ cloudmesh:
             cm_type_version: juno
             credentials:
                 OS_AUTH_URL: https://proxy.chameleon.tacc.utexas.edu:5000/v2.0
-                OS_CACERT: ~/.cloudmesh/clouds/india/kilo/cacert.pem
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_PROJECT_NAME: TBD
                 OS_USERNAME: TBD
                 OS_VERSION: kilo
                 OS_REGION_NAME: regionOne
-                OS_OPENRC: ~/.cloudmesh/clouds/india/kilo/openrc-OS_USER-OS_PROJECT_NAME
             default:
                 flavor: TBD
                 image: TBD
