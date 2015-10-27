@@ -1,5 +1,5 @@
 meta:
-  yaml_version: 2.1
+  yaml_version: 2.2
   kind: clouds
   filename: /Users/big/.cloudmesh/cloudmesh.yaml
   location: /Users/big/.cloudmesh/cloudmesh.yaml
@@ -16,7 +16,7 @@ cloudmesh:
   clouds:
     juno:
         cm_heading: India OpenStack, Juno
-        cm_host: india.futuregrid.org
+        cm_host: india
         cm_label: juno
         cm_type: openstack
         cm_type_version: juno
@@ -33,7 +33,7 @@ cloudmesh:
             image: TBD
     kilo:
         cm_heading: India OpenStack, Kilo
-        cm_host: india.futuregrid.org
+        cm_host: india
         cm_label: kilo
         cm_type: openstack
         cm_type_version: kilo
@@ -55,10 +55,10 @@ cloudmesh:
             image: TBD
     chameleon:
       cm_heading: India OpenStack, Juno
-      cm_host: india.futuregrid.org
-      cm_label: india
+      cm_host: chameleon.org
+      cm_label: chameleon
       cm_type: openstack
-      cm_type_version: juno
+      cm_type_version: kilo
       credentials:
         OS_AUTH_URL: https://proxy.chameleon.tacc.utexas.edu:5000/v2.0
         OS_PASSWORD: TBD
