@@ -95,52 +95,20 @@ class Flavor(object):
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
         if live:
-            # taken live information from openstack
-            cls.authenticate(cloud)
-            details = cls._source.get(id)._info
-            d = {}
-            count = 0
-            for key in details.keys():
-                if key != 'links':
-                    if key == 'metadata':
-                        for meta_key in details['metadata'].keys():
-                            d[count] = {}
-                            d[count]["Property"], d[count]["Value"] = \
-                                'metadata '+meta_key, details['metadata'][meta_key]
-                            count += 1
-                    elif key == 'server':
-                        d[count] = {}
-                        d[count]["Property"], d[count]["Value"] = key, details['server']['id']
-                        count += 1
-                    else:
-                        d[count] = {}
-                        d[count]["Property"], d[count]["Value"] = key, details[key]
-                        count += 1
-            return tables.dict_printer(d, order=['Property',
-                                                 'Value'],
-                                       output=format)
+            cls.refresh(cloud)
 
-        else:
-            # data taken from local database
-            try:
-                element = cls.cm_db.query(cls.table_model).filter(
-                    cls.table_model.cloud == cloud,
-                    cls.table_model.uuid == id
-                ).first()
+        try:
+            cm = CloudmeshDatabase(user="gregor")
 
-                d = {}
-                if element:
-                    for i, key in enumerate(element.__dict__.keys()):
-                        if not key.startswith("_sa"):
-                            d[i] = {}
-                            d[i]["Property"], d[i]["Value"] = key, str(element.__dict__[key])
-                return tables.dict_printer(d, order=['Property',
-                                                     'Value'],
+            elements = cm.find("flavor", cloud=cloud, uuid=id)
+            if format == "table":
+                element = elements.values()[0]
+                return tables.attribute_printer(element)
+            else:
+                return tables.dict_printer(elements,
                                            output=format)
-            except Exception as ex:
-                Console.error(ex.message, ex)
-            finally:
-                cls.cm_db.close()
+        except Exception as ex:
+            Console.error(ex.message, ex)
 
 
 if __name__ == "__main__":

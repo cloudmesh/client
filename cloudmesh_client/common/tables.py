@@ -172,3 +172,16 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True, show_none="")
         x.add_row(values)
     x.align = "l"
     return x
+
+def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True):
+
+    x = PrettyTable(header)
+    if sort_keys:
+        sorted_list = sorted(d, key=d.get)
+    else:
+        sorted_list = d
+
+    for key in sorted_list:
+        x.add_row([key, d[key]])
+    x.align = "l"
+    return x
