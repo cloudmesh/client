@@ -85,7 +85,7 @@ class Image(object):
                     for key in element.__dict__.keys():
                         d[element.id][key] = str(element.__dict__[key])
             else:
-                return "Image list empty, kindly do image refresh of the cloud"
+                return None
 
             return tables.dict_printer(d,
                                       order=['uuid',

@@ -52,8 +52,11 @@ class ImageCommand(object):
                 return
             output_format = arguments["--format"]
             result = Image.list(cloud, output_format)
-            print(result)
-            return
+            if result is None:
+                Console.error("No images found, please use 'cm refresh "
+                              "images'")
+            else:
+                Console.ok(str(result))
 
         if arguments["show"]:
             id = arguments['ID']
@@ -63,6 +66,6 @@ class ImageCommand(object):
                 Console.error("Default cloud doesn't exist")
                 return
             result = Image.details(cloud, id, live, output_format)
-            print(result)
+            Console.ok(str(result))
             return
 
