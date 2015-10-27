@@ -28,6 +28,7 @@ from cloudmesh_client.shell.plugins.VmCommand import VmCommand
 from cloudmesh_client.shell.plugins.LimitsCommand import LimitsCommand
 from cloudmesh_client.shell.plugins.CometCommand import CometCommand
 from cloudmesh_client.shell.plugins.ImageCommand import ImageCommand
+from cloudmesh_client.shell.plugins.FlavorCommand import FlavorCommand
 from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
 from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
 from cloudmesh_client.shell.plugins.UsageCommand import UsageCommand
@@ -68,6 +69,7 @@ class CloudmeshConsole(cmd.Cmd,
                        VmCommand,
                        CometCommand,
                        ImageCommand,
+                       FlavorCommand,
                        HpcCommand,
                        ColorCommand,
                        UsageCommand):
@@ -97,6 +99,7 @@ class CloudmeshConsole(cmd.Cmd,
                         CometCommand,
                         LimitsCommand,
                         ImageCommand,
+                        FlavorCommand,
                         HpcCommand,
                         ColorCommand,
                         UsageCommand]:

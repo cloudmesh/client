@@ -59,7 +59,7 @@ class Image(object):
                 cls.cm_db.add(image_obj)
                 cls.cm_db.save()
 
-            return "Images for cloud {} refreshed successfully".format(cloud)
+            return "Images for cloud {} refreshed. ok.".format(cloud)
 
         except Exception as ex:
             Console.error(ex.message, ex)

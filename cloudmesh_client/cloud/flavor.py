@@ -38,16 +38,15 @@ class Flavor(object):
         """
         # set the environment
         nova = Authenticate.get_environ(cloud)
-
         # delete previous data
         Flavor.clear(cloud)
-
         try:
             # get the user
             user = cls.cm_db.user
 
             # read data from openstack
-            for flavor in nova.flavor.list():
+
+            for flavor in nova.flavors.list():
                 flavor_dict = flavor._info
                 flavor_obj = model.FLAVOR(
                     flavor_dict['name'],
