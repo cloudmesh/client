@@ -2,7 +2,6 @@
 
 import os
 
-from sandman import app
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config
 
@@ -35,13 +34,23 @@ class ServerCommand(object):
 
         """
 
+        # import warnings
+        # with warnings.catch_warnings():
+        #    warnings.filter("ignore")
+        # ignore "SQLALCHEMY_TRACK_MODIFICATIONS")
+
+        from sandman import app
+        from sandman.model import activate
+
         filename = "sqlite:///{}".format(Config.path_expand(
             os.path.join("~", ".cloudmesh", "cloudmesh.db")))
 
         print("database: {}".format(filename))
-        app.config['SQLALCHEMY_DATABASE_URI'] = filename
 
-        from sandman.model import activate
+
+        app.config['SQLALCHEMY_DATABASE_URI'] = filename
+        app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 
         activate()
 
