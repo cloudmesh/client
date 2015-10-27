@@ -20,21 +20,20 @@ class ImageCommand(object):
 
             Usage:
                 image refresh [--cloud=CLOUD]
-                image list [--cloud=CLOUD] [--format=FORMAT]
-                image show ID [--cloud=CLOUD] [--live] [--format=FORMAT]
+                image list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
 
                 This lists out the images present for a cloud
 
             Options:
                --format=FORMAT  the output format [default: table]
                --cloud=CLOUD    the cloud name
-               --live           live data taken from the cloud
+               --refresh        live data taken from the cloud
 
             Examples:
                 cm image refresh
                 cm image list
                 cm image list --format=csv
-                cm image show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --live
+                cm image show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
         """
         cloud = arguments["--cloud"] or Default.get("cloud")
@@ -47,25 +46,27 @@ class ImageCommand(object):
             return
 
         if arguments["list"]:
-            if not cloud:
-                Console.error("Default cloud doesn't exist")
-                return
-            output_format = arguments["--format"]
-            result = Image.list(cloud, output_format)
-            if result is None:
-                Console.error("No images found, please use 'cm refresh "
-                              "images'")
-            else:
-                Console.ok(str(result))
 
-        if arguments["show"]:
             id = arguments['ID']
             output_format = arguments["--format"]
-            live = arguments['--live']
+            live = arguments['--refresh']
+            print ("ID", id)
             if not cloud:
                 Console.error("Default cloud doesn't exist")
                 return
-            result = Image.details(cloud, id, live, output_format)
-            Console.ok(str(result))
+
+            output_format = arguments["--format"]
+            if id is None:
+                result = Image.list(cloud, output_format)
+            else:
+                result = Image.details(cloud, id, live, output_format)
+            if result is None:
+
+                Console.error("Could not find this image.")
+            # Todo:
+            # if database size = 0:
+            #    Console.error("No images in the database, please refresh.")
+
+            print(result)
             return
 

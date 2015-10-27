@@ -70,82 +70,55 @@ class Image(object):
     @classmethod
     def list(cls, cloud, format="table"):
         """
-        This method lists all images of the cloud
+        This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
+        # TODO: make a CloudmeshDatabase without requireing the user=
+        cm = CloudmeshDatabase(user="gregor")
+
         try:
-            elements = cls.cm_db.query(model.IMAGE).filter(
-                model.IMAGE.cloud == cloud
-            ).all()
+            elements = cm.find("image", cloud=cloud)
 
-            if elements:
-                d = {}
-                for element in elements:
-                    d[element.id] = {}
-                    for key in element.__dict__.keys():
-                        d[element.id][key] = str(element.__dict__[key])
-            else:
-                return None
-
-            return tables.dict_printer(d,
-                                      order=['uuid',
-                                             'name',
-                                             'cloud'],
+            order=['id', 'uuid', 'name', 'cloud']
+            # order = None
+            return tables.dict_printer(elements,
+                                      order=order,
                                       output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
-        finally:
-            cls.cm_db.close()
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
         if live:
-            # taken live information from openstack
-            nova = Authenticate.get_environ(cloud)
-            details = nova.images.get(id)._info
-            d = {}
-            count = 0
-            for key in details.keys():
-                if key != 'links':
-                    if key == 'metadata':
-                        for meta_key in details['metadata'].keys():
-                            d[count] = {}
-                            d[count]["Property"], d[count]["Value"] = \
-                                'metadata '+meta_key, details['metadata'][meta_key]
-                            count += 1
-                    elif key == 'server':
-                        d[count] = {}
-                        d[count]["Property"], d[count]["Value"] = key, details['server']['id']
-                        count += 1
-                    else:
-                        d[count] = {}
-                        d[count]["Property"], d[count]["Value"] = key, details[key]
-                        count += 1
-            return tables.dict_printer(d, order=['Property',
-                                                 'Value'],
-                                       output=format)
+            cls.refresh(cloud)
 
-        else:
-            # data taken from local database
-            try:
-                element = cls.cm_db.query(model.IMAGE).filter(
-                    model.IMAGE.cloud == cloud,
-                    model.IMAGE.uuid == id
-                ).first()
+        try:
+            cm = CloudmeshDatabase(user="gregor")
 
-                d = {}
-                if element:
-                    for i, key in enumerate(element.__dict__.keys()):
-                        if not key.startswith("_sa"):
-                            d[i] = {}
-                            d[i]["Property"], d[i]["Value"] = key, str(element.__dict__[key])
-                return tables.dict_printer(d, order=['Property',
-                                                     'Value'],
+            elements = None
+            for idkey in ["name", "uuid", "id"]:
+                s = {idkey: id}
+                try:
+                    elements = cm.find("image", cloud=cloud, **s)
+                except:
+                    pass
+                if len(elements) > 0:
+                    break
+
+            if len(elements) == 0:
+                return None
+
+            if format == "table":
+                element = elements.values()[0]
+                return tables.attribute_printer(element)
+            else:
+                return tables.dict_printer(elements,
                                            output=format)
-            except Exception as ex:
-                Console.error(ex.message, ex)
-            finally:
-                cls.cm_db.close()
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+
+
 
 
 if __name__ == "__main__":
