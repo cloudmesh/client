@@ -14,6 +14,45 @@ cloudmesh:
   active:
   - india
   clouds:
+    juno:
+        cm_heading: India OpenStack, Juno
+        cm_host: india.futuregrid.org
+        cm_label: juno
+        cm_type: openstack
+        cm_type_version: juno
+        credentials:
+            OS_AUTH_URL: https://i5r.idp.iu.futuresystems.org:5000/v2.0
+            OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
+            OS_PASSWORD: TBD
+            OS_TENANT_NAME: TBD
+            OS_USERNAME: TBD
+            OS_VERSION: juno
+            OS_OPENRC: ~/.cloudmesh/clouds/india/juno/openrc.sh
+        default:
+            flavor: TBD
+            image: TBD
+    kilo:
+        cm_heading: India OpenStack, Kilo
+        cm_host: india.futuregrid.org
+        cm_label: kilo
+        cm_type: openstack
+        cm_type_version: kilo
+        credentials:
+            OS_AUTH_URL: https://i15r.idp.iu.futuresystems.org:5000/v3
+            OS_CACERT: ~/.cloudmesh/clouds/india/kilo/cacert.pem
+            OS_PASSWORD: TBD
+            OS_TENANT_NAME: TBD
+            OS_USERNAME: TBD
+            OS_PROJECT_DOMAIN_ID: default
+            OS_USER_DOMAIN_ID: default
+            OS_PROJECT_NAME: TBD
+            OS_IMAGE_API_VERSION: 2
+            OS_VOLUME_API_VERSION: 2
+            OS_VERSION: kilo
+            OS_OPENRC: ~/.cloudmesh/clouds/india/kilo/openrc.sh
+        default:
+            flavor: TBD
+            image: TBD
     chameleon:
       cm_heading: India OpenStack, Juno
       cm_host: india.futuregrid.org
@@ -27,22 +66,6 @@ cloudmesh:
         OS_USERNAME: TBD
         OS_VERSION: kilo
         OS_REGION_NAME: regionOne
-      default:
-        flavor: TBD
-        image: TBD
-    india:
-      cm_heading: India OpenStack, Juno
-      cm_host: india.futuregrid.org
-      cm_label: india
-      cm_type: openstack
-      cm_type_version: juno
-      credentials:
-        OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
-        OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
-        OS_PASSWORD: TBD
-        OS_TENANT_NAME: fg82
-        OS_USERNAME: TBD
-        OS_VERSION: juno
       default:
         flavor: TBD
         image: TBD
