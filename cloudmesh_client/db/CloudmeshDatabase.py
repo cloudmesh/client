@@ -89,6 +89,7 @@ class CloudmeshDatabase(object):
         :return: the object
         """
         table_type = kind
+
         if type(kind) == str:
             table_type = self.get_table_from_name(kind)
         return self.find(table_type, name=name).first()
@@ -103,7 +104,11 @@ class CloudmeshDatabase(object):
         table_type = kind
         if type(kind) == str:
             table_type = self.get_table_from_name(kind)
-        return self.session.query(table_type).filter_by(**kwargs)
+        result = self.object_to_dict(
+            self.session.query(table_type).filter_by(**kwargs)
+            )
+
+        return result
 
     def all(self, table):
         d = {}

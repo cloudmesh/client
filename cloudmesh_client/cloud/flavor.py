@@ -78,40 +78,19 @@ class Flavor(object):
         This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
-
-        cloud = "juno"
-
+        # TODO: make a CloudmeshDatabase without requireing the user=
         cm = CloudmeshDatabase(user="gregor")
 
-
-        #n = cm.all(model.FLAVOR)
-        n = cm.find("flavor", cloud=cloud)
-        print (n)
-
-
         try:
-            elements = cls.cm_db.query(cls.table_model).filter(
-                cls.table_model.cloud == cloud
-            ).all()
+            elements = cm.find("flavor", cloud=cloud)
 
-            if elements:
-                d = {}
-                for element in elements:
-                    d[element.id] = {}
-                    for key in element.__dict__.keys():
-                        d[element.id][key] = str(element.__dict__[key])
-            else:
-                return None
-
-            return tables.dict_printer(d,
-                                      order=['uuid',
-                                             'name',
-                                             'cloud'],
+            order=['id', 'uuid', 'name', 'cloud']
+            # order = None
+            return tables.dict_printer(elements,
+                                      order=order,
                                       output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
-        finally:
-            cls.cm_db.close()
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):

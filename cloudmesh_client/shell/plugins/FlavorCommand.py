@@ -42,7 +42,6 @@ class FlavorCommand(object):
         except:
             Console.error("xxx Default cloud doesn't exist")
 
-        print ("OOO", cloud)
         if arguments["refresh"]:
 
             if not cloud:
