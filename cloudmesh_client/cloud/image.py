@@ -30,7 +30,7 @@ class Image(object):
             cls.cm_db.close()
 
     @classmethod
-    def refresh_image_list(cls, cloud):
+    def refresh(cls, cloud):
         """
         This method would refresh the image list by first clearing
         the database, then inserting new data
@@ -68,7 +68,7 @@ class Image(object):
             cls.cm_db.close()
 
     @classmethod
-    def list_images(cls, cloud, format="table"):
+    def list(cls, cloud, format="table"):
         """
         This method lists all images of the cloud
         :param cloud: the cloud name
@@ -98,7 +98,7 @@ class Image(object):
             cls.cm_db.close()
 
     @classmethod
-    def show_image(cls, cloud, id, live=False, format="table"):
+    def details(cls, cloud, id, live=False, format="table"):
         if live:
             # taken live information from openstack
             nova = Authenticate.get_environ(cloud)
@@ -149,4 +149,4 @@ class Image(object):
 
 
 if __name__ == "__main__":
-    Image.show_image("india", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
+    Image.details("india", "58c9552c-8d93-42c0-9dea-5f48d90a3188")

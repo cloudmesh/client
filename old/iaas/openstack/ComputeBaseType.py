@@ -27,7 +27,7 @@ class ComputeBaseType:
     # : the dict for the stacks
     stacks = {}
 
-    # : the dict for usage data
+    # : the dict for list data
     usage = {}
 
     # : the dict for the set_credentials
@@ -181,7 +181,7 @@ class ComputeBaseType:
         raise NotImplementedError()
 
     def usage(self, start, end, format='dict'):
-        """returns the usage data between start and end date"""
+        """returns the list data between start and end date"""
         raise NotImplementedError()
 
     def limits(self):
@@ -193,7 +193,7 @@ class ComputeBaseType:
         raise NotImplementedError()
 
     def get_absolute_limits(self):
-        """returns a dict of absolute limits with current usage information"""
+        """returns a dict of absolute limits with current list information"""
         raise NotImplementedError()
 
     def get_usage(self):
@@ -236,7 +236,7 @@ class ComputeBaseType:
             'images': self.images,
             'security groups': self.security_groups,
             'stacks': self.stacks,
-            'usage': self.usage,
+            'list': self.usage,
             # 'users': self.users,
             # 'users': len(self.users),
             # 'tenants': self.tenants,

@@ -7,12 +7,12 @@ from cloudmesh_client.cloud.usage import Usage
 
 class UsageCommand(object):
 
-    topics = {"usage": "cloud"}
+    topics = {"list": "cloud"}
 
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print("init command usage")
+            print("init command list")
 
     @command
     def do_usage(self, args, arguments):
@@ -20,9 +20,9 @@ class UsageCommand(object):
         ::
 
             Usage:
-                usage [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
+                list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
-                Show usage data.
+                Show list data.
 
             Options:
                --format=FORMAT  the output format [default: table]
@@ -33,7 +33,7 @@ class UsageCommand(object):
 
 
             Examples:
-                cm usage
+                cm list
 
         """
 
@@ -47,6 +47,6 @@ class UsageCommand(object):
         start = arguments["--start"]
         end = arguments["--end"]
         tenant = arguments["--tenant"]
-        usage = Usage.usage(cloud, start=start, end=end, tenant=tenant, format=output_format)
+        usage = Usage.list(cloud, start=start, end=end, tenant=tenant, format=output_format)
         Console.msg(usage)
         return

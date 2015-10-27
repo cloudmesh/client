@@ -91,7 +91,7 @@ class Default(object):
             o = Default.get_object(key, cloud)
             if o is not None:
                 cls.cm_db.delete(o)
-                return "Deletion successful"
+                return "Deletion. ok."
             else:
                 return None
         finally:

@@ -33,7 +33,7 @@ nodes = driver.list_nodes()
 print nodes
 
 # obtain available images
-images = driver.list_images()
+images = driver.list()
 # print images
 
 # sizes/flavors

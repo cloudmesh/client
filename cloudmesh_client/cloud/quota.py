@@ -16,7 +16,7 @@ class Quota(object):
         return d
 
     @classmethod
-    def list_quotas(cls, cloud, tenant, format):
+    def list(cls, cloud, tenant, format):
         try:
             # set the environment variables
             nova = Limits.set_os_environment(cloud)

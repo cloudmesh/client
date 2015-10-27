@@ -29,9 +29,9 @@ class Test_usage():
 
     def test_001(self):
         """
-        test usage
+        test list
         :return:
         """
         HEADING()
-        result = run("cm usage --cloud=india")
+        result = run("cm list --cloud=india")
         assert "Usage from" in result

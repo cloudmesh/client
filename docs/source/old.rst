@@ -739,11 +739,11 @@ Limits
           Usage:
               limits [CLOUD...] [--format=FORMAT]
 
-          Current usage data with limits on a selected project/tenant
+          Current list data with limits on a selected project/tenant
 
           Arguments:
 
-            CLOUD          Cloud name to see the usage
+            CLOUD          Cloud name to see the list
 
           Options:
 

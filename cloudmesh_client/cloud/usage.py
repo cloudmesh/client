@@ -3,7 +3,7 @@ from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.Shell import Shell
 import os
-# Note: This command would be implemented using the shell since openstack usage isn't available as yet
+# Note: This command would be implemented using the shell since openstack list isn't available as yet
 
 
 class Usage(object):
@@ -33,12 +33,12 @@ class Usage(object):
             print(e)
 
     @classmethod
-    def usage(cls, cloud, start, end, tenant, format):
+    def list(cls, cloud, start, end, tenant, format):
         # set the environment variables
         Usage.set_os_environment(cloud)
         try:
             # execute the command
-            args = ["usage"]
+            args = ["list"]
             if start:
                 args.extend(["--start", start])
             if end:

@@ -5,7 +5,7 @@ The manual page of the group command can be found at: `default
 <../man/man.html#default>`_
 
 Cloudmesh has the ability to manage easily multiple clouds.
-One of the key concepts to make the usage of such clouds
+One of the key concepts to make the list of such clouds
 easier is the introduction of defaults for each cloud or globally.
 Hence it is possible to set default images, flavors for each cloud,
 and also create the default cloud. The default command is used to

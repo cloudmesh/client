@@ -69,7 +69,7 @@ class Command_vm(object):
 
             # obtain available images
             # type of images: <class 'libcloud.compute.base.NodeImage'>
-            images = driver.list_images()
+            images = driver.list()
             if not [i for i in images if i.name == image]:
                 Console.error("Image {:} not found".format(image))
                 return

@@ -21,7 +21,7 @@ class LimitsCommand(object):
             Usage:
                 limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
-                Current usage data with limits on a selected project/tenant.
+                Current list data with limits on a selected project/tenant.
                 The --tenant option can be used by admin only
 
             Options:

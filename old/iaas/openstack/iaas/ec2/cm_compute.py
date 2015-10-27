@@ -305,7 +305,7 @@ class ec2(ComputeBaseType):
         return self.images
 
     def list_images(self):
-        return self.conn.list_images()
+        return self.conn.list()
 
     def keypair_list(self):
         """Return a keypair list. keypair_list() function name is fixed

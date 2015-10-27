@@ -69,7 +69,7 @@ class SecgroupCommand(object):
                 Console.error("Default tenant not set!")
                 return
 
-            result = SecGroup.list_secgroup(tenant, cloud)
+            result = SecGroup.list(tenant, cloud)
             if result:
                 print(result)
             else:
@@ -144,7 +144,7 @@ class SecgroupCommand(object):
                 return
 
             # Get the security group
-            sec_group = SecGroup.get_secgroup(label, tenant, cloud)
+            sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Get the rules
                 result = SecGroup.delete_rule(sec_group, from_port, to_port,
@@ -173,7 +173,7 @@ class SecgroupCommand(object):
                 return
 
             # Get the security group
-            sec_group = SecGroup.get_secgroup(label, tenant, cloud)
+            sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Get the rules
                 result = SecGroup.get_rules(sec_group.uuid)
@@ -205,7 +205,7 @@ class SecgroupCommand(object):
                 return
 
             # Get the security group
-            sec_group = SecGroup.get_secgroup(label, tenant, cloud)
+            sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Add rules to the security group
                 SecGroup.add_rule(sec_group, from_port, to_port, protocol,

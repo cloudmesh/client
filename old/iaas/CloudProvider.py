@@ -162,7 +162,7 @@ class CloudProvider:
             # get data from db
             pass
         else:
-            self.images = self.driver.list_images()
+            self.images = self.driver.list()
             result = self._list(kind, self.images, output=output)
         return result
 
@@ -172,7 +172,7 @@ class CloudProvider:
             # get data from db
             pass
         else:
-            self.images = self.driver.list_images()
+            self.images = self.driver.list()
             result = self._list("image", self.images, kind)
         return result
 

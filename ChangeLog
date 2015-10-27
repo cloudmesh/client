@@ -152,7 +152,7 @@ Other
 - Make the config dictests more portable on windows. [Gregor von
   Laszewski]
 
-- Move some tests to an old dir for later usage. [Gregor von Laszewski]
+- Move some tests to an old dir for later list. [Gregor von Laszewski]
 
 - Version. [Gregor von Laszewski]
 
@@ -615,7 +615,7 @@ Other
 
 - Adding some function to SSHKeyDBManager. [Paulo Chagas]
 
-- Update function included. function usage documentation included.
+- Update function included. function list documentation included.
   [Paulo Chagas]
 
 - Created tests for nova command. [Daniel Silva]

@@ -20,7 +20,7 @@ driver = cls(subscription_id=cloudcred['subscriptionid'],
              key_file=cloudcred['managementcertfile'])
 
 # obtain available images
-images = driver.list_images()
+images = driver.list()
 # print images
 
 # sizes/flavors

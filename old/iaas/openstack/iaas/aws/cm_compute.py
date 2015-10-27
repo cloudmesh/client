@@ -276,7 +276,7 @@ class aws(ComputeBaseType):
         return res_dict
 
     def list_images(self):
-        return self.conn.list_images()
+        return self.conn.list()
 
     def keypair_list(self):
         return self.conn.ex_describe_all_keypairs()

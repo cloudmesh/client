@@ -42,7 +42,7 @@ class ImageCommand(object):
             if not cloud:
                 Console.error("Default cloud doesn't exist")
                 return
-            result = Image.refresh_image_list(cloud)
+            result = Image.refresh(cloud)
             Console.msg(result)
             return
 
@@ -51,7 +51,7 @@ class ImageCommand(object):
                 Console.error("Default cloud doesn't exist")
                 return
             output_format = arguments["--format"]
-            result = Image.list_images(cloud, output_format)
+            result = Image.list(cloud, output_format)
             print(result)
             return
 
@@ -62,7 +62,7 @@ class ImageCommand(object):
             if not cloud:
                 Console.error("Default cloud doesn't exist")
                 return
-            result = Image.show_image(cloud, id, live, output_format)
+            result = Image.details(cloud, id, live, output_format)
             print(result)
             return
 

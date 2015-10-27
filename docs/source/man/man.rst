@@ -230,7 +230,7 @@ Command - default::
     Description:
 
         Cloudmesh has the ability to manage easily multiple
-        clouds. One of the key concepts to make the usage of such
+        clouds. One of the key concepts to make the list of such
         clouds easier is the introduction of defaults for each
         cloud or globally. Hence it is possible to set default
         images, flavors for each cloud, and also the default
@@ -1126,15 +1126,15 @@ Command - ssh::
 
 
 
-usage
+list
 ----------------------------------------------------------------------
 
-Command - usage::
+Command - list::
 
     Usage:
-        usage [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
+        list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
-        Show usage data.
+        Show list data.
 
     Options:
        --format=FORMAT  the output format [default: table]
@@ -1145,7 +1145,7 @@ Command - usage::
 
 
     Examples:
-        cm usage
+        cm list
 
 
 

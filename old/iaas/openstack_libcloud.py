@@ -190,7 +190,7 @@ class OpenStack_libcloud(CloudmeshProviderBase):
         elif kind == "flavor":
             data = self.flavors = self.driver.list_sizes()
         elif kind == "image":
-            data = self.images = self.driver.list_images()
+            data = self.images = self.driver.list()
 
         # for element in data:
         #    pprint(element.__dict__)
@@ -201,7 +201,7 @@ class OpenStack_libcloud(CloudmeshProviderBase):
 
     def boot(self, cloud, user, name, image, flavor, key, meta):
         # TODO key not implemented
-        self.images = self.driver.list_images()
+        self.images = self.driver.list()
         self.flavors = self.driver.list_sizes()
 
         size = [s for s in self.flavors if s.name == flavor][0]

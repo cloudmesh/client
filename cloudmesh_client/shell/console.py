@@ -140,7 +140,7 @@ if __name__ == "__main__":
     Console.error("Error")
     Console.info("Info")
     Console.msg("msg")
-    Console.ok("Success")
+    Console.ok("Ok")
 
     Console.color = False
     print Console.color

@@ -811,10 +811,10 @@ class compute(ComputeBaseType):
         return self.stacks
 
     def get_usage(self):
-        """Report usage statistics on compute and storage resources."""
+        """Report list statistics on compute and storage resources."""
         time_stamp = self._now()
         tenant_id = self.user_token['access']['token']['tenant']['id']
-        msg = "os-simple-tenant-usage/{0}".format(tenant_id)
+        msg = "os-simple-tenant-list/{0}".format(tenant_id)
         param = {"start": datetime.now() - timedelta(hours=24),
                  "end": datetime.now()}
         _dict = self._get(msg, urltype=self.service_url_type,
@@ -1401,7 +1401,7 @@ class compute(ComputeBaseType):
     #
 
     def usage(self, tenant_id=None, serverid=None, start=None, end=None, format='dict'):
-        """ returns the usage information of the tennant"""
+        """ returns the list information of the tennant"""
         DEFAULT_STAT_DURATION = 30
         if not tenant_id:
             url = self._get_service_endpoint("compute")[self.service_url_type]
@@ -1422,7 +1422,7 @@ class compute(ComputeBaseType):
         # iso_start = self.parse_isotime(start)
         # iso_end = self.parse_isotime(end)
         # print ">>>>>", iso_start, iso_end
-        # info = self.cloud.usage.get(tenantid, iso_start, iso_end)
+        # info = self.cloud.list.get(tenantid, iso_start, iso_end)
 
         # print info.__dict__
         # sys.exit()
@@ -1430,7 +1430,7 @@ class compute(ComputeBaseType):
         # (start, rest) = start.split("T")  # ignore time for now
         # (end, rest) = end.split("T")  # ignore time for now
 
-        apiurl = "os-simple-tenant-usage/%s" % tenant_id
+        apiurl = "os-simple-tenant-list/%s" % tenant_id
         payload = {'start': start, 'end': end}
         result = self._get(apiurl, payload=payload, urltype=self.service_url_type)['tenant_usage']
         instances = result['server_usages']
@@ -1446,7 +1446,7 @@ class compute(ComputeBaseType):
                 if instance["instance_id"] == serverid:
                     ret = instance
                     break
-        # else return tenant usage info
+        # else return tenant list info
         else:
             ret = {'tenant_id': tenant_id,
                    'start': start.strftime('%Y-%m-%dT%H-%M-%SZ'),

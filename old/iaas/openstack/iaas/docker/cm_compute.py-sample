@@ -295,13 +295,13 @@ class docker(ComputeBaseType):
         return self.conn.list_sizes()
 
     def _get_images_dict(self):
-        res = self.list_images()
+        res = self.list()
         res_dict = self.convert_to_dict(res)
         self.images = res_dict
         return self.images
 
-    def list_images(self):
-        return self.conn.list_images()
+    def list(self):
+        return self.conn.list()
 
     def keypair_list(self):
         """Return a keypair list. keypair_list() function name is fixed

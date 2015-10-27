@@ -93,7 +93,7 @@ class SecGroup(object):
         user = cls.getUser(cloudname)
         uuid = None
 
-        if not cls.get_secgroup(label, tenant, cloudname):
+        if not cls.get(label, tenant, cloudname):
 
             # Create the security group in OS cloud
             try:
@@ -128,7 +128,7 @@ class SecGroup(object):
             return None
 
     @classmethod
-    def list_secgroup(cls, project, cloud="general"):
+    def list(cls, project, cloud="general"):
         """
         This method queries the database to fetch list of secgroups
         filtered by cloud, tenant.
@@ -173,7 +173,7 @@ class SecGroup(object):
             cls.cm_db.close()
 
     @classmethod
-    def get_secgroup(cls, name, project, cloud="general"):
+    def get(cls, name, project, cloud="general"):
         """
         This method queries the database to fetch secgroup
         with given name filtered by cloud.
@@ -270,7 +270,7 @@ class SecGroup(object):
             nova_client.security_groups.delete(sec_group)
 
             # perform local db deletion
-            sec_group = cls.get_secgroup(label, tenant, cloud)
+            sec_group = cls.get(label, tenant, cloud)
             if sec_group:
                 # Delete all rules for group
                 cls.delete_all_rules(sec_group)
