@@ -8,7 +8,8 @@ from sqlalchemy.orm import sessionmaker
 from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
-from cloudmesh_client.db.model import database, table, tablenames, DEFAULT, KEY
+from cloudmesh_client.db.model import database, table, tablenames, \
+    FLAVOR, DEFAULT, KEY, IMAGE, VM
 
 from cloudmesh_client.common.todo import TODO
 
@@ -66,8 +67,18 @@ class CloudmeshDatabase(object):
         self.save()
 
     def get_table_from_name(self, kind):
-        # TODO: Implement this method, as its being called in other functions
-        TODO.implement()
+        if kind.lower() in ["flavor"]:
+            return FLAVOR
+        elif kind.lower() in ["default"]:
+            return DEFAULT
+        elif kind.lower() in ["image"]:
+            return IMAGE
+        elif kind.lower() in ["vm"]:
+            return VM
+        elif kind.lower() in ["key"]:
+            return KEY
+        else:
+            TODO.implement("wrong table type")
 
     def find_by_name(self, kind, name):
         """
@@ -91,7 +102,7 @@ class CloudmeshDatabase(object):
         """
         table_type = kind
         if type(kind) == str:
-            table_type = self.db.get_table_from_name(kind)
+            table_type = self.get_table_from_name(kind)
         return self.session.query(table_type).filter_by(**kwargs)
 
     def all(self, table):

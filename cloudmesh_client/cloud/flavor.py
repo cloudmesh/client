@@ -11,6 +11,13 @@ from cloudmesh_client.common.authenticate import Authenticate
 class Flavor(object):
     cm_db = CloudmeshDatabase()
 
+    table_model = model.FLAVOR
+
+    @classmethod
+    def authenticate(cls, cloud):
+        cls.nova = Authenticate.get_environ(cloud)
+        cls._source = cls.nova.flavors
+
     @classmethod
     def clear(cls, cloud):
         """
@@ -18,12 +25,12 @@ class Flavor(object):
         :param cloud: the cloud name
         """
         try:
-            flavor = cls.cm_db.query(model.FLAVOR).filter(
-                model.FLAVOR.cloud == cloud
+            elements = cls.cm_db.query(cls.table_model).filter(
+                cls.table_model.cloud == cloud
             ).all()
 
-            for ima in flavor:
-                cls.cm_db.delete(ima)
+            for element in elements:
+                cls.cm_db.delete(element)
         except Exception as ex:
             Console.error(ex.message, ex)
         finally:
@@ -37,34 +44,33 @@ class Flavor(object):
         :param cloud: the cloud name
         """
         # set the environment
-        nova = Authenticate.get_environ(cloud)
+        cls.authenticate(cloud)
         # delete previous data
-        Flavor.clear(cloud)
+
         try:
+            cls.clear(cloud)
             # get the user
             user = cls.cm_db.user
 
             # read data from openstack
 
-            for flavor in nova.flavors.list():
-                flavor_dict = flavor._info
-                flavor_obj = model.FLAVOR(
-                    flavor_dict['name'],
-                    flavor_dict['id'],
+            for data in cls._source.list():
+                dictionary = data._info
+                element = cls.table_model(
+                    dictionary['name'],
+                    dictionary['id'],
                     type="string",
                     cloud=cloud,
                     user=user
                 )
-                cls.cm_db.add(flavor_obj)
+                cls.cm_db.add(element)
                 cls.cm_db.save()
-
-            return "Flavors for cloud {} refreshed successfully".format(cloud)
-
         except Exception as ex:
             Console.error(ex.message, ex)
-            return ex
+            return False
         finally:
             cls.cm_db.close()
+        return True
 
     @classmethod
     def list(cls, cloud, format="table"):
@@ -72,9 +78,20 @@ class Flavor(object):
         This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
+
+        cloud = "juno"
+
+        cm = CloudmeshDatabase(user="gregor")
+
+
+        #n = cm.all(model.FLAVOR)
+        n = cm.find("flavor", cloud=cloud)
+        print (n)
+
+
         try:
-            elements = cls.cm_db.query(model.FLAVOR).filter(
-                model.FLAVOR.cloud == cloud
+            elements = cls.cm_db.query(cls.table_model).filter(
+                cls.table_model.cloud == cloud
             ).all()
 
             if elements:
@@ -100,8 +117,8 @@ class Flavor(object):
     def details(cls, cloud, id, live=False, format="table"):
         if live:
             # taken live information from openstack
-            nova = Authenticate.get_environ(cloud)
-            details = nova.flavors.get(id)._info
+            cls.authenticate(cloud)
+            details = cls._source.get(id)._info
             d = {}
             count = 0
             for key in details.keys():
@@ -127,9 +144,9 @@ class Flavor(object):
         else:
             # data taken from local database
             try:
-                element = cls.cm_db.query(model.FLAVOR).filter(
-                    model.FLAVOR.cloud == cloud,
-                    model.FLAVOR.uuid == id
+                element = cls.cm_db.query(cls.table_model).filter(
+                    cls.table_model.cloud == cloud,
+                    cls.table_model.uuid == id
                 ).first()
 
                 d = {}
@@ -148,4 +165,4 @@ class Flavor(object):
 
 
 if __name__ == "__main__":
-    Flavor.details("india", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
+    Flavor.details("juno", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
