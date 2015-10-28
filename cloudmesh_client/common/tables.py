@@ -63,7 +63,7 @@ def dict_printer(d,
     elif output == "dict":
         return d
     else:
-        return "UNKOWN FORMAT"
+        return "UNKOWN FORMAT. Please use table, csv, json, yaml, dict."
 
 
 def dict_csv_printer(d,

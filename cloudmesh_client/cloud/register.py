@@ -62,11 +62,8 @@ class CloudRegister(object):
             Console.ok("  " + line)
 
     @classmethod
-    def read_rc_file(cls, host, version, openrc=None):
+    def read_rc_file(cls, host, openrc, force=False):
         """
-
-        TODO: this function is broken it see register remote. The location
-        on india should be read from the config file and not hardcoded.
 
         :param host: the host name
         :type host: string
@@ -74,30 +71,34 @@ class CloudRegister(object):
         :type openrc: string
         :return:
         """
-        # TODO: if host not in ["india"]: raise exception ("read rc file for
-        #  this host not supported")
-        host_openrc_mapping = {
-            ("india", None): ".cloudmesh/clouds/india/juno/openrc.sh",
-            ("india", "juno"): ".cloudmesh/clouds/india/juno/openrc.sh",
-            ("india", "kilo"): ".cloudmesh/clouds/india/kilo/openrc.sh"
-        }
-        try:
-            if openrc is None:
-                openrc = host_openrc_mapping[(host, version)]
-        except Exception:
-            Console.error("No openrc file specified or found")
+
+        openrc= Config.path_expand(openrc)
+
+        # check if file exists
+        if not os.path.isfile(openrc):
+            Console.error("File not found.")
             return
 
-        Console.ok("Reading rc file from {}".format(host))
-        result = Shell.ssh(host, "cat {}".format(openrc))
+        with open(openrc, 'r') as f:
+            lines = f.read().split("\n")
 
-        lines = result.split("\n")
         config = ConfigDict("cloudmesh.yaml")
+        credentials = {}
         for line in lines:
-            if line.strip().startswith("export"):
+            if line.strip().startswith("export "):
                 line = line.replace("export ", "")
                 key, value = line.split("=", 1)
-                config["cloudmesh"]["clouds"][host]["credentials"][key] = value
+                credentials[key] = value
+
+        if host not in config["cloudmesh.clouds"] or force:
+            config["cloudmesh"]["clouds"][host] = {}
+            config["cloudmesh"]["clouds"][host]["credentials"] = credentials
+            config["cloudmesh"]["clouds"][host]["cm_heading"] = "TBD"
+            config["cloudmesh"]["clouds"][host]["cm_host"]  = "TBD"
+            config["cloudmesh"]["clouds"][host]["cm_label"] = "TBD"
+            config["cloudmesh"]["clouds"][host]["cm_type"] = "TBD"
+            config["cloudmesh"]["clouds"][host]["cm_type_version"] = "TBD"
+
         config.save()
         return config["cloudmesh"]["clouds"][host]["credentials"]
 

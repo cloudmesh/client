@@ -6,9 +6,10 @@ import json
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_base.tables import row_table
+from cloudmesh_client.common.tables import attribute_printer, dict_printer
 
 
 class RegisterCommand(object):
@@ -32,7 +33,8 @@ class RegisterCommand(object):
               register list ssh
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
-              register rc HOST [--version=VERSION] [--openrc=OPENRC] [--password]
+              register export HOST [--password] [--format=FORMAT]
+              register rc HOST FILENAME [--force] [--format=FORMAT]
               register merge FILEPATH
               register form [--yaml=FILENAME]
               register check [--yaml=FILENAME]
@@ -87,32 +89,31 @@ class RegisterCommand(object):
               register edit [--yaml=FILENAME]
                   edits the cloudmesh.yaml file
 
-              register rc HOST [OPENRC]
+              register export HOST [--format=FORMAT]
 
-                    reads the Openstack OPENRC file from a host that
-                    is described in ./ssh/config and adds it to the
-                    configuration cloudmesh.yaml file. We assume that
+                    prints the contents of an openrc.sh file based on the
+                    information found in the cloudmesh.yaml file.
+
+              register rc HOST FILENAME [--force] [--format=FORMAT]
+
+                    reads from an rc file the data and adds to the
+                    cloudmesh.yaml file. If --force is used the existing
+                    previous entry will be overwritten with default TBD values.
+
+              register remote CLOUD [--force]
+
+                    reads the Openstack OPENRC file from a remote host that
+                    is described in cloudmesh.yaml file. We assume that
                     the file has already a template for this host. If
                     not it can be created from other examples before
                     you run this command.
 
-                    The hostname can be specified as follows in the
-                    ./ssh/config file.
+                    It uses the OS_OPENRC variable to locate the file and
+                    copy it onto your computer.
 
-                    Host india
-                        Hostname india.futuresystems.org
-                        User yourusername
-
-                    If the host is india and the OPENRC file is
-                    ommitted, it will automatically fill out the
-                    location for the openrc file. To obtain the
-                    information from india simply type in
-
-                        register rc india
-
-              register merge FILEPATH
+              register merge FILENAME
                   Replaces the TBD in cloudmesh.yaml with the contents
-                  present in FILEPATH's FILE
+                  present in the named file
 
               register form [--yaml=FILENAME]
                   interactively fills out the form wherever we find TBD.
@@ -154,6 +155,7 @@ class RegisterCommand(object):
                   interactively. Default PROVIDER is openstack and HOSTNAME
                   is localhost.
          """
+        # from pprint import pprint
         # pprint(arguments)
 
         def _get_file(arguments):
@@ -213,7 +215,7 @@ class RegisterCommand(object):
             return
 
         elif arguments['merge']:
-            file_path = arguments['FILEPATH']
+            file_path = arguments['FILENAME']
             CloudRegister.from_file(file_path)
             return
 
@@ -230,17 +232,39 @@ class RegisterCommand(object):
                 CloudRegister.fill_out_form(filename)
             return
 
+        elif arguments['export']:
+
+            output = arguments['--format']
+            host = arguments['HOST']
+
+            config = ConfigDict("cloudmesh.yaml")
+            credentials = dict(config["cloudmesh"]["clouds"][host]["credentials"])
+
+            if not arguments["--password"]:
+                credentials["OS_PASSWORD"] = "********"
+
+            if output is None:
+                for attribute, value in credentials.iteritems():
+                    print ("export {}={}".format(attribute, value))
+            elif output == "table":
+                print(attribute_printer(credentials))
+            else:
+                print (dict_printer(credentials,output=output))
+                # TODO: bug csv does not work
+            return
+
         elif arguments['rc']:
             host = arguments['HOST']
-            version = arguments['--version']
-            openrc = arguments['--openrc']
-            result = CloudRegister.read_rc_file(host, version, openrc)
-            dict_result = dict(result)
+            openrc = arguments['FILENAME']
+            force = arguments['--force'] or False
+
+            result = CloudRegister.read_rc_file(host, openrc, force)
+            credentials = dict(result)
 
             # output password as requested by user
             if not arguments["--password"]:
-                dict_result["OS_PASSWORD"] = "********"
-            print(row_table(dict_result, order=None, labels=["Variable", "Value"]))
+                credentials["OS_PASSWORD"] = "********"
+            print(row_table(credentials, order=None, labels=["Variable", "Value"]))
             return
 
         elif arguments['json']:
@@ -259,10 +283,6 @@ class RegisterCommand(object):
             CloudRegister.remote(cloud, force)
             return
 
-        elif arguments['india'] and arguments["kilo"]:
-            force = arguments['--force']
-            CloudRegister.host("india", force)
-            return
 
         elif arguments['CLOUD']:
             if arguments['CERT']:  # path to the cacert.pem
