@@ -2,6 +2,8 @@ from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
 import os
+import requests
+requests.packages.urllib3.disable_warnings()
 
 # credentials from sys env or configuration
 AUTH_URL = os.getenv("OS_AUTH_URL")
@@ -22,7 +24,7 @@ ksauth = v3.Password(auth_url=AUTH_URL,
 
 # nova client v2 based on previous ks auth
 sess = session.Session(auth=ksauth, verify=CERT)
-nova = client.Client(2, session=sess)
+nova = client.Client(2, session=sess, insecure=True)
 
 print nova.servers.list()
 print nova.flavors.list()
