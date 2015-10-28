@@ -16,7 +16,7 @@ cloudmesh:
     clouds:
         juno:
             cm_heading: India OpenStack, Juno
-            cm_host: india.futuregrid.org
+            cm_host: india
             cm_label: juno
             cm_type: openstack
             cm_type_version: juno
@@ -32,7 +32,7 @@ cloudmesh:
                 image: TBD
         kilo:
             cm_heading: India OpenStack, Kilo
-            cm_host: india.futuregrid.org
+            cm_host: india
             cm_label: kilo
             cm_type: openstack
             cm_type_version: kilo
