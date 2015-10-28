@@ -42,7 +42,7 @@ class Authenticate(object):
                 # assume that the credentials dict contains all we need to
                 # outhentocate. Than we rename the others to cm_ instead of
                 # OS_ and make sure we rewrite the register code and not
-                # only read the credentials but also the host. 
+                # only read the credentials but also the host.
 
                 if cert is not None:
                     nova = client.Client("2", credentials["OS_USERNAME"],

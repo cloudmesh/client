@@ -2,6 +2,8 @@ from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
 import os
+import requests
+requests.packages.urllib3.disable_warnings()
 
 # credentials from sys env or configuration
 AUTH_URL = os.getenv("OS_AUTH_URL")
