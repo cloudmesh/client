@@ -27,6 +27,7 @@ cloudmesh:
                 OS_TENANT_NAME: TBD
                 OS_USERNAME: TBD
                 OS_VERSION: juno
+                OS_OPENRC: ~/.cloudmesh/clouds/india/juno/openrc.sh
             default:
                 flavor: TBD
                 image: TBD
@@ -48,7 +49,7 @@ cloudmesh:
                 OS_IMAGE_API_VERSION: 2
                 OS_VOLUME_API_VERSION: 2
                 OS_VERSION: kilo
-                OS_OPENRC: ~/.cloudmesh/clouds/india/juno/openrc.sh
+                OS_OPENRC: ~/.cloudmesh/clouds/india/kilo/openrc.sh
             default:
                 flavor: TBD
                 image: TBD
