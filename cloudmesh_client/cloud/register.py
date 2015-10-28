@@ -72,7 +72,7 @@ class CloudRegister(object):
         :return:
         """
 
-        openrc= Config.path_expand(openrc)
+        openrc = Config.path_expand(openrc)
 
         # check if file exists
         if not os.path.isfile(openrc):
@@ -94,7 +94,7 @@ class CloudRegister(object):
             config["cloudmesh"]["clouds"][host] = {}
             config["cloudmesh"]["clouds"][host]["credentials"] = credentials
             config["cloudmesh"]["clouds"][host]["cm_heading"] = "TBD"
-            config["cloudmesh"]["clouds"][host]["cm_host"]  = "TBD"
+            config["cloudmesh"]["clouds"][host]["cm_host"] = "TBD"
             config["cloudmesh"]["clouds"][host]["cm_label"] = "TBD"
             config["cloudmesh"]["clouds"][host]["cm_type"] = "TBD"
             config["cloudmesh"]["clouds"][host]["cm_type_version"] = "TBD"
@@ -152,7 +152,7 @@ class CloudRegister(object):
 
         host_credentials = config["cloudmesh.clouds." + host + ".credentials"]
         from pprint import pprint
-        pprint (dict(host_credentials))
+        pprint(dict(host_credentials))
 
         if 'OS_OPENRC' in host_credentials:
             Console.ok("looking for openrc")
@@ -170,23 +170,23 @@ class CloudRegister(object):
         _from_dir = "{:}:{:}".format(hostname, directory)
         _to_dir = Config.path_expand(directory)
 
-        print ("From:", _from_dir)
-        print ("To:  ", _to_dir)
+        print("From:", _from_dir)
+        print("To:  ", _to_dir)
 
         Shell.scp('-r', _from_dir, _to_dir)
 
         #
         # TODO: the permission are not yet right
         #
-        os.chmod(_to_dir , 0o700)
-        for root,dirs,_ in os.walk(_to_dir):
-            for d in dirs :
-                os.chmod(os.path.join(root,d) , 0o700)
+        os.chmod(_to_dir, 0o700)
+        for root, dirs, _ in os.walk(_to_dir):
+            for d in dirs:
+                os.chmod(os.path.join(root, d), 0o700)
         #
         # END PERMISSION
         #
 
-        openrc= Config.path_expand(openrc)
+        openrc = Config.path_expand(openrc)
         with open(openrc, 'r') as f:
             lines = f.read().split("\n")
 
@@ -198,7 +198,7 @@ class CloudRegister(object):
                 line = line.replace("export ", "")
                 key, value = line.split("=", 1)
                 config["cloudmesh"]["clouds"][host]["credentials"][key] = value
-        credentials = config["cloudmesh.clouds."+host+".credentials"]
+        credentials = config["cloudmesh.clouds." + host + ".credentials"]
         if "OC_OPENRC" in credentials:
             openrc = credentials["OC_OPENRC"]
             for attribute in credentials:
@@ -206,7 +206,6 @@ class CloudRegister(object):
                     openrc.replace(attribute, credentials[attribute])
         config.save()
         return config["cloudmesh"]["clouds"][host]["credentials"]
-
 
     @classmethod
     def host(cls, host, force=False):
@@ -262,6 +261,8 @@ class CloudRegister(object):
         """
         Console.ok("register")
 
+        # TODO: we no longer hardcode this needs to be fixed
+        # TODO: kilo is not covered by this case
         if host == "india":
             # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
 
@@ -332,7 +333,8 @@ class CloudRegister(object):
 
             if os.path.exists(Config.path_expand(destination)):
                 if not yn_choice("Directory already exists. Would you like to "
-                                 "overwrite {:} directory y/n? ".format(destination)):
+                                 "overwrite {:} directory y/n? ".format(
+                    destination)):
                     return
             else:
                 CloudRegister.make_dir(destination)
@@ -371,9 +373,9 @@ class CloudRegister(object):
         Console.ok("Filling out form")
         print(filename)
         config = ConfigDict(filename)
-        # -----------------------------------------
+        #
         # edit profile
-        # -----------------------------------------
+        #
 
         profile = config["cloudmesh"]["profile"]
         keys = profile.keys()
@@ -399,9 +401,7 @@ class CloudRegister(object):
         config["cloudmesh"]["profile"] = profile
         config.save()
 
-        # -----------------------------------------
         # edit clouds
-        # -----------------------------------------
         clouds = config["cloudmesh"]["clouds"]
         for cloud in clouds.keys():
             print("Editing the credentials for cloud", cloud)
@@ -418,25 +418,25 @@ class CloudRegister(object):
         config.save()
 
     @classmethod
-    def from_file(cls, file_path):
+    def from_file(cls, filename):
         """
         Replaces the TBD in cloudmesh.yaml with the contents present in FILEPATH's FILE
-        :param file_path:
+        :param filename:
         :return:
         """
-        if not os.path.isfile(os.path.expanduser(file_path)):
-            Console.error("{} doesn't exist".format(file_path))
+        # TODO: why not just use filename
+        if not os.path.isfile(os.path.expanduser(filename)):
+            Console.error("{} doesn't exist".format(filename))
             return
 
-        path, file = file_path.rsplit("/", 1)
-        # ----------------------Config file to be read from ------------------------
+        path, file = filename.rsplit("/", 1)
+        # Config file to be read from
 
         from_config_file = ConfigDict(file, [path])
 
-        # -------------------- cloudmesh.yaml file present in . or ~/.cloudmesh ----------------
         config = ConfigDict("cloudmesh.yaml")
 
-        # -------------------- Merging profile -----------------------
+        # Merging profile
         profile = config["cloudmesh"]["profile"]
         for profile_key in profile.keys():
             if profile[profile_key] == "TBD":
@@ -444,7 +444,7 @@ class CloudRegister(object):
                     from_config_file["cloudmesh"]["profile"][profile_key]
         config.save()
 
-        # -------------------- Merging clouds -----------------------
+        # Merging clouds
         clouds = config["cloudmesh"]["clouds"]
         for cloud in clouds.keys():
             cloud_element = clouds[cloud]
@@ -474,7 +474,7 @@ class CloudRegister(object):
 
         Console.ok(
             "Overwritten the TBD of cloudmesh.yaml with {} contents".format(
-                file_path))
+                filename))
 
     @classmethod
     def read_env_config(cls):
@@ -505,7 +505,7 @@ class CloudRegister(object):
 
         cloudname_suggest = urlparse(env_config_data["OS_AUTH_URL"]).hostname
 
-        # -------------------- Command line inputs -----------------------
+        # Command line inputs
         cloudname_to_use = raw_input(
             "Name of the cloud (Default: {:}): ".format(
                 cloudname_suggest)) or cloudname_suggest
@@ -538,7 +538,7 @@ class CloudRegister(object):
         cm_type_version = raw_input(
             "Version of type {:} (Default: null): ".format(cm_type)) or None
 
-        # ------- Populate the dict with the data fetched from env -----------
+        #  Populate the dict with the data fetched from env
         yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = \
             {"cm_heading": cm_heading,
              "cm_host": cm_host,
@@ -548,7 +548,7 @@ class CloudRegister(object):
              "credentials": env_config_data
              }
 
-        # -------------------- Get defaults from user ------------------------
+        # Get defaults from user
 
         default_flavor = raw_input("Default flavor for the cloud instances"
                                    "(Default: null): ") or None
@@ -566,6 +566,6 @@ class CloudRegister(object):
              "location": default_location
              }
 
-        # -------------------- Save data in yaml -----------------------
+        # Save data in yaml
         yaml_data.save()
         print("New cloud config exported to {:}".format(yaml_data.filename))

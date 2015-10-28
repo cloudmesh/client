@@ -13,7 +13,6 @@ from cloudmesh_client.common.tables import attribute_printer, dict_printer
 
 
 class RegisterCommand(object):
-
     topics = {"register": "cloud"}
 
     def __init__(self, context):
@@ -177,7 +176,8 @@ class RegisterCommand(object):
         elif arguments["cat"]:
             filename = _get_file(arguments)
             if not filename:
-                Console.error("File {} doesn't exist".format(arguments["--yaml"] or 'cloudmesh.yaml'))
+                Console.error("File {} doesn't exist".format(
+                    arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 os.system("cat {:}".format(filename))
             return
@@ -185,7 +185,8 @@ class RegisterCommand(object):
         elif arguments["edit"]:
             filename = _get_file(arguments)
             if not filename:
-                Console.error("File {} doesn't exist".format(arguments["--yaml"] or 'cloudmesh.yaml'))
+                Console.error("File {} doesn't exist".format(
+                    arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 Console.ok("editing file " + filename)
                 os.system("vim {}".format(filename))
@@ -198,10 +199,12 @@ class RegisterCommand(object):
         elif arguments['list']:
             filename = _get_file(arguments)
             if not filename:
-                Console.error("File {} doesn't exist".format(arguments["--yaml"] or 'cloudmesh.yaml'))
+                Console.error("File {} doesn't exist".format(
+                    arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
-                if(arguments['--name']):
-                   print(CloudRegister.list(filename).get_string(fields=["Name"]))
+                if (arguments['--name']):
+                    print(CloudRegister.list(filename).get_string(
+                        fields=["Name"]))
                 else:
                     print(CloudRegister.list(filename))
             return
@@ -209,14 +212,15 @@ class RegisterCommand(object):
         elif arguments['check']:
             filename = _get_file(arguments)
             if not filename:
-                Console.error("File {} doesn't exist".format(arguments["--yaml"] or 'cloudmesh.yaml'))
+                Console.error("File {} doesn't exist".format(
+                    arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 CloudRegister.check_yaml_for_completeness(filename)
             return
 
         elif arguments['merge']:
-            file_path = arguments['FILENAME']
-            CloudRegister.from_file(file_path)
+            filename = arguments['FILENAME']
+            CloudRegister.from_file(filename)
             return
 
         elif arguments['test']:
@@ -227,7 +231,8 @@ class RegisterCommand(object):
         elif arguments['form']:
             filename = _get_file(arguments)
             if not filename:
-                Console.error("File {} doesn't exist".format(arguments["--yaml"] or 'cloudmesh.yaml'))
+                Console.error("File {} doesn't exist".format(
+                    arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 CloudRegister.fill_out_form(filename)
             return
@@ -238,18 +243,19 @@ class RegisterCommand(object):
             host = arguments['HOST']
 
             config = ConfigDict("cloudmesh.yaml")
-            credentials = dict(config["cloudmesh"]["clouds"][host]["credentials"])
+            credentials = dict(
+                config["cloudmesh"]["clouds"][host]["credentials"])
 
             if not arguments["--password"]:
                 credentials["OS_PASSWORD"] = "********"
 
             if output is None:
                 for attribute, value in credentials.iteritems():
-                    print ("export {}={}".format(attribute, value))
+                    print("export {}={}".format(attribute, value))
             elif output == "table":
                 print(attribute_printer(credentials))
             else:
-                print (dict_printer(credentials,output=output))
+                print(dict_printer(credentials, output=output))
                 # TODO: bug csv does not work
             return
 
@@ -264,7 +270,8 @@ class RegisterCommand(object):
             # output password as requested by user
             if not arguments["--password"]:
                 credentials["OS_PASSWORD"] = "********"
-            print(row_table(credentials, order=None, labels=["Variable", "Value"]))
+            print(row_table(credentials, order=None,
+                            labels=["Variable", "Value"]))
             return
 
         elif arguments['json']:
@@ -273,7 +280,8 @@ class RegisterCommand(object):
             if result:
                 print(json.dumps(result, indent=4))
             else:
-                print("Cloud {:} is not described in cloudmesh.yaml".format(host))
+                print("Cloud {:} is not described in cloudmesh.yaml".format(
+                    host))
             return
 
         elif arguments['remote']:
@@ -282,7 +290,6 @@ class RegisterCommand(object):
             cloud = arguments['CLOUD']
             CloudRegister.remote(cloud, force)
             return
-
 
         elif arguments['CLOUD']:
             if arguments['CERT']:  # path to the cacert.pem
@@ -303,7 +310,7 @@ class RegisterCommand(object):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
             return
 
         # if all fails do a simple list
