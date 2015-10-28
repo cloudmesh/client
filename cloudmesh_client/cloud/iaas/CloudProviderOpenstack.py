@@ -1,6 +1,9 @@
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudmeshProviderBase
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.common.ConfigDict import Config
 
+from keystoneclient.auth.identity import v3
+from keystoneclient import session
 from novaclient import client
 
 
@@ -9,18 +12,41 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
     def __init__(self, cloud_name, cloud_details):
         self.initialize(cloud_name, cloud_details)
 
+    def _ksv3_auth(self, credentials):
+        # auth to identity v3
+        ksauth = v3.Password(auth_url=credentials["OS_AUTH_URL"],
+                             username=credentials["OS_USERNAME"],
+                             password=credentials["OS_PASSWORD"],
+                             project_name=credentials["OS_PROJECT_NAME"],
+                             user_domain_name=credentials["OS_USER_DOMAIN_ID"],
+                             project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
+
+        return ksauth
+
     def initialize(self, cloud_name, cloud_details):
         self.cloud = cloud_name
         self.default_flavor = cloud_details["default"]["flavor"]
         self.default_image = cloud_details["default"]["image"]
         version = 2
         credentials = cloud_details["credentials"]
-        self.nova = client.Client(version,
-                                  credentials["OS_USERNAME"],
-                                  credentials["OS_PASSWORD"],
-                                  credentials["OS_TENANT_NAME"],
-                                  credentials["OS_AUTH_URL"],
-                                  credentials["OS_CACERT"])
+        cert = False
+        if "OS_CACERT" in credentials:
+            if credentials["OS_CACERT"] is not False:
+                cert = Config.path_expand(credentials["OS_CACERT"])
+        auth_url=credentials["OS_AUTH_URL"]
+        ksversion = auth_url.split("/")[-1]
+
+        if "v2.0" == ksversion:
+            self.nova = client.Client(version,
+                                      credentials["OS_USERNAME"],
+                                      credentials["OS_PASSWORD"],
+                                      credentials["OS_TENANT_NAME"],
+                                      credentials["OS_AUTH_URL"],
+                                      cert)
+        elif "v3" == ksversion:
+            sess = session.Session(auth=self._ksv3_auth(credentials),
+                                   verify=cert)
+            self.nova = client.Client(2, session=sess)
 
     def mode(self, source):
         """

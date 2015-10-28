@@ -1,6 +1,8 @@
 from novaclient import client
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import CloudProviderOpenstack
+
 import requests
 requests.packages.urllib3.disable_warnings()
 
@@ -28,6 +30,8 @@ class Authenticate(object):
             if cloud["cm_type"] == "openstack":
                 credentials = cloud["credentials"]
 
+                # why not reuse the code from iaas?
+                '''
                 if "OS_CACERT" in credentials:
                     cert = Config.path_expand(credentials["OS_CACERT"])
 
@@ -54,6 +58,8 @@ class Authenticate(object):
 
 
                 return nova
+                '''
+                return CloudProviderOpenstack(cloudname, cloud).nova
         except Exception, e:
             raise Exception("Error in getting environment"
                             " for cloud: {}, {}".format(cloudname, e))
