@@ -24,7 +24,7 @@ ksauth = v3.Password(auth_url=AUTH_URL,
 
 # nova client v2 based on previous ks auth
 sess = session.Session(auth=ksauth, verify=CERT)
-nova = client.Client(2, session=sess, insecure=True)
+nova = client.Client(2, session=sess)
 
 print nova.servers.list()
 print nova.flavors.list()
