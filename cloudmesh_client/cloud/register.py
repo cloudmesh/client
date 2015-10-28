@@ -142,9 +142,9 @@ class CloudRegister(object):
                 Console.error("  " + line, prefix=False)
 
     @classmethod
-    def make_dir(cls, dir_path):
-        if not os.path.exists(Config.path_expand(dir_path)):
-            os.makedirs(Config.path_expand(dir_path))
+    def make_dir(cls, directory):
+        if not os.path.exists(Config.path_expand(directory)):
+            os.makedirs(Config.path_expand(directory))
 
     @classmethod
     def remote(cls, host, force=False):
@@ -216,44 +216,6 @@ class CloudRegister(object):
                     openrc.replace(attribute, credentials[attribute])
         config.save()
         return config["cloudmesh"]["clouds"][host]["credentials"]
-
-    @classmethod
-    def host(cls, host, force=False):
-        """
-        TODO: This function does not work, see remote for a replacement of
-        host.
-
-        copies the cloudmesh/clouds/india/juno directory from india
-        to the ~/.cloudmesh/clouds/india/juno local directory.
-
-        :param host: the host name
-        :type host: string
-        :param force: overwrite the local directory
-        :type force: bool
-        :return:
-        """
-        Console.ok("register {}".format(host))
-        if host.lower() == "india":
-            _from = 'india:.cloudmesh/clouds/india/juno'
-            _to = "~/.cloudmesh/clouds/india"
-            if os.path.exists(Config.path_expand(os.path.join(_to))):
-
-                if not yn_choice("Directory already exists. Would "
-                                 "you like to overwrite the {:} "
-                                 "directory y/n? ".format(_to)):
-                    return
-
-            else:
-                CloudRegister.make_dir(_to)
-
-            try:
-                Console.ok("fetching information from india ...")
-                Shell.scp('-r', _from, _to)
-                Console.ok("registration complete. ok.")
-            except Exception, e:
-                Console.error(e.message)
-        else:
-            Console.error("Cloud {:} not found".format(host))
 
     @classmethod
     def certificate(cls, host, path_cert, force=False):
