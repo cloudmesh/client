@@ -59,13 +59,14 @@ cloudmesh:
             cm_type: openstack
             cm_type_version: juno
             credentials:
-                OS_AUTH_URL: https://proxy.chameleon.tacc.utexas.edu:5000/v2.0
+                OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v2.0
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
+                OS_TENANT_ID: TBD
                 OS_PROJECT_NAME: TBD
                 OS_USERNAME: TBD
                 OS_VERSION: kilo
-                OS_REGION_NAME: regionOne
+                OS_REGION_NAME: RegionOne
             default:
                 flavor: TBD
                 image: TBD

@@ -56,6 +56,7 @@ class Flavor(object):
 
             for data in cls._source.list():
                 dictionary = data._info
+                print (data._info.keys())
                 element = cls.table_model(
                     dictionary['name'],
                     dictionary['id'],

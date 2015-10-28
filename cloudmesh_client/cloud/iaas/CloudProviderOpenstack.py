@@ -15,8 +15,11 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         self.default_image = cloud_details["default"]["image"]
         version = 2
         credentials = cloud_details["credentials"]
-        self.nova = client.Client(version, credentials["OS_USERNAME"], credentials["OS_PASSWORD"],
-                                  credentials["OS_TENANT_NAME"], credentials["OS_AUTH_URL"],
+        self.nova = client.Client(version,
+                                  credentials["OS_USERNAME"],
+                                  credentials["OS_PASSWORD"],
+                                  credentials["OS_TENANT_NAME"],
+                                  credentials["OS_AUTH_URL"],
                                   credentials["OS_CACERT"])
 
     def mode(self, source):

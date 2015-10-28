@@ -48,7 +48,9 @@ class Image(object):
 
             # read data from openstack
             for image in nova.images.list():
+                from pprint import pprint
                 image_dict = image._info
+                print (image._info.keys())
                 image_obj = model.IMAGE(
                     image_dict['name'],
                     image_dict['id'],

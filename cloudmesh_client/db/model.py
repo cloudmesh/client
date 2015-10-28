@@ -75,6 +75,17 @@ class CloudmeshMixin(object):
 
 class IMAGE(CloudmeshMixin, db.Base):
 
+    # TODO: but OS has much more, why are we not storing?
+    # [u'status',
+    # u'updated',
+    # u'name',
+    # u'links', # we can ignore
+    # u'created',
+    # u'minDisk',
+    # u'progress',
+    # u'minRam',
+    # u'metadata',
+    # u'id', u'OS-EXT-IMG-SIZE:size']
     uuid = Column(String)
 
     def __init__(self,
@@ -103,6 +114,18 @@ class FLAVOR(CloudmeshMixin, db.Base):
 
     uuid = Column(String)
 
+    # TODO: OS has many more fields, why are we not storing?
+    [u'name',
+     u'links',
+     u'ram',
+     u'OS-FLV-DISABLED:disabled',
+     u'vcpus',
+     u'swap',
+     u'os-flavor-access:is_public',
+     u'rxtx_factor',
+     u'OS-FLV-EXT-DATA:ephemeral',
+     u'disk',
+     u'id']
     def __init__(self,
                  name,
                  uuid,

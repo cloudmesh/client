@@ -12,14 +12,29 @@ class Authenticate(object):
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud = d["cloudmesh"]["clouds"][cloudname]
+            cert = None
+            print (cloud)
 
             if cloud["cm_type"] == "openstack":
                 credentials = cloud["credentials"]
-                nova = client.Client("2", credentials["OS_USERNAME"],
-                                     credentials["OS_PASSWORD"],
-                                     credentials["OS_TENANT_NAME"],
-                                     credentials["OS_AUTH_URL"],
-                                     Config.path_expand(credentials["OS_CACERT"]))
+
+                if "OS_CACERT" in credentials:
+                    cert = Config.path_expand(credentials["OS_CACERT"])
+
+                if cert is not None:
+                    nova = client.Client("2", credentials["OS_USERNAME"],
+                                         credentials["OS_PASSWORD"],
+                                         credentials["OS_TENANT_NAME"],
+                                         credentials["OS_AUTH_URL"],
+                                         cert)
+                else:
+                    nova = client.Client("2", credentials["OS_USERNAME"],
+                                         credentials["OS_PASSWORD"],
+                                         credentials["OS_TENANT_NAME"],
+                                         credentials["OS_AUTH_URL"])
+
+
                 return nova
         except Exception, e:
-            raise Exception("Error in getting environment for cloud: {}, {}".format(cloudname, e))
+            raise Exception("Error in getting environment"
+                            " for cloud: {}, {}".format(cloudname, e))
