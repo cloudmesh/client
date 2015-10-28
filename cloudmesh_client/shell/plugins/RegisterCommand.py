@@ -9,7 +9,8 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_base.tables import row_table
-from cloudmesh_client.common.tables import attribute_printer, dict_printer
+from cloudmesh_client.common.tables import attribute_printer, dict_printer, \
+    print_list
 
 
 class RegisterCommand(object):
@@ -28,8 +29,8 @@ class RegisterCommand(object):
 
           Usage:
               register info
-              register list [--yaml=FILENAME] [--name]
-              register list ssh
+              register list [--yaml=FILENAME] [--name] [--all]
+              register list ssh [--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register export HOST [--password] [--format=FORMAT]
@@ -76,8 +77,10 @@ class RegisterCommand(object):
                   It looks out for the cloudmesh.yaml file in the current
                   directory, and then in ~/.cloudmesh
 
-              register list [--yaml=FILENAME]
-                  lists the clouds specified in the cloudmesh.yaml file
+              register list [--yaml=FILENAME] [--name] [--all]
+                  lists the clouds specified in the cloudmesh.yaml file. If
+                  all is specified it also prints the location of the yaml
+                  file.
 
               register list ssh
                   lists hosts from ~/.ssh/config
@@ -157,47 +160,60 @@ class RegisterCommand(object):
         # from pprint import pprint
         # pprint(arguments)
 
-        def _get_file(arguments):
-            if arguments["--yaml"]:
-                filename = Config.find_file(arguments["--yaml"])
-            else:
-                filename = Config.find_file("cloudmesh.yaml")
+        def _get_config_yaml_file(arguments):
+            filename = arguments["--yaml"] or "cloudmesh.yaml"
+            filename = Config.find_file(filename)
             return filename
 
+        def exists(filename):
+            return os.path.isfile(filename)
+
         if arguments["info"]:
-            try:
-                filename = _get_file(arguments)
-                if os.path.isfile(filename):
-                    Console.ok('File ' + filename + " exists")
-            except:
-                Console.error("File cloudmesh.yaml does not exist")
+
+            filename = _get_config_yaml_file(arguments)
+            if exists(filename):
+                Console.ok("File '{}' exists. ok.".format(filename))
+            else:
+                Console.error("File {} does not exist".format(filename))
             return
 
         elif arguments["cat"]:
-            filename = _get_file(arguments)
-            if not filename:
-                Console.error("File {} doesn't exist".format(
-                    arguments["--yaml"] or 'cloudmesh.yaml'))
+
+            filename = _get_config_yaml_file(arguments)
+            if exists(filename):
+                with open(filename, 'r') as f:
+                    lines = f.read().split("\n")
+                print('\n'.join(lines))
             else:
-                os.system("cat {:}".format(filename))
+                Console.error("File {} does not exist".format(filename))
             return
 
         elif arguments["edit"]:
-            filename = _get_file(arguments)
-            if not filename:
-                Console.error("File {} doesn't exist".format(
-                    arguments["--yaml"] or 'cloudmesh.yaml'))
+
+            filename = _get_config_yaml_file(arguments)
+            if exists(filename):
+                try:
+                    data = {"editor": os.environ["EDITOR"],
+                            "filename": filename}
+                    Console.ok("editing file " + filename)
+                    os.system("{editor} {filename}".format(**data))
+                except:
+                    Console.error("No EDITOR variable set in shell.")
             else:
-                Console.ok("editing file " + filename)
-                os.system("vim {}".format(filename))
+                Console.error("File {} does not exist".format(filename))
             return
 
         elif arguments['list'] and arguments['ssh']:
-            CloudRegister.list_ssh()
+            output = arguments['--format'] or 'table'
+            hosts = CloudRegister.list_ssh()
+            # print ("\n".join(hosts))
+            print (print_list(hosts, output=output))
             return
 
         elif arguments['list']:
-            filename = _get_file(arguments)
+            filename = _get_config_yaml_file(arguments)
+            info = arguments["--all"] or False
+
             if not filename:
                 Console.error("File {} doesn't exist".format(
                     arguments["--yaml"] or 'cloudmesh.yaml'))
@@ -210,7 +226,7 @@ class RegisterCommand(object):
             return
 
         elif arguments['check']:
-            filename = _get_file(arguments)
+            filename = _get_config_yaml_file(arguments)
             if not filename:
                 Console.error("File {} doesn't exist".format(
                     arguments["--yaml"] or 'cloudmesh.yaml'))
@@ -224,12 +240,12 @@ class RegisterCommand(object):
             return
 
         elif arguments['test']:
-            filename = _get_file(arguments)
+            filename = _get_config_yaml_file(arguments)
             CloudRegister.test(filename)
             return
 
         elif arguments['form']:
-            filename = _get_file(arguments)
+            filename = _get_config_yaml_file(arguments)
             if not filename:
                 Console.error("File {} doesn't exist".format(
                     arguments["--yaml"] or 'cloudmesh.yaml'))
@@ -315,7 +331,7 @@ class RegisterCommand(object):
 
         # if all fails do a simple list
 
-        filename = _get_file(arguments)
+        filename = _get_config_yaml_file(arguments)
         CloudRegister.list(filename)
 
         pass

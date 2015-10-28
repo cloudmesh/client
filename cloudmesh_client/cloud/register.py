@@ -19,9 +19,11 @@ class CloudRegister(object):
         config = ConfigDict("cloudmesh.yaml")
         if cloud in config["cloudmesh"]["clouds"]:
             return dict(config["cloudmesh"]["clouds"][cloud])
+        else:
+            return None
 
     @classmethod
-    def list(cls, filename):
+    def list(cls, filename, info=False):
         """
         lists clouds from cloudmesh.yaml file
 
@@ -31,18 +33,19 @@ class CloudRegister(object):
         """
         config = ConfigDict("cloudmesh.yaml")
         clouds = config["cloudmesh"]["clouds"]
-        Console.ok("Clouds specified in the configuration file " + filename)
-        print("")
+        if info:
+            Console.ok("Cloudmesh configuration file: {}".format(filename))
+            print("")
         d = {}
         for i, key in enumerate(clouds.keys()):
             d[i] = {
-                "Name": key,
+                "Cloud": key,
                 "Iaas": config["cloudmesh"]["clouds"][key]["cm_type"],
                 "Version":
                     config["cloudmesh"]["clouds"][key][
                         "cm_type_version"] or "N/A"
             }
-        return tables.dict_printer(d, order=['Name',
+        return tables.dict_printer(d, order=['Cloud',
                                              'Iaas',
                                              'Version'])
 
@@ -53,13 +56,16 @@ class CloudRegister(object):
 
         :return:
         """
-        result = Shell.fgrep("Host ",
-                             Config.path_expand("~/.ssh/config")).replace(
-            "Host ", "").replace(" ", "")
-        Console.ok("The following hosts are defined in ~/.ssh/config")
-        print("")
-        for line in result.split("\n"):
-            Console.ok("  " + line)
+        filename = Config.path_expand("~/.ssh/config")
+        with open(filename, 'r') as f:
+            lines = f.read().split("\n")
+        hosts = []
+        for line in lines:
+            if "Host " in line:
+                host = line.strip().replace("Host ", "", 1).replace(" ", "")
+                hosts.append(host)
+
+        return hosts
 
     @classmethod
     def read_rc_file(cls, host, openrc, force=False):
@@ -91,13 +97,13 @@ class CloudRegister(object):
                 credentials[key] = value
 
         if host not in config["cloudmesh.clouds"] or force:
-            config["cloudmesh"]["clouds"][host] = {}
-            config["cloudmesh"]["clouds"][host]["credentials"] = credentials
-            config["cloudmesh"]["clouds"][host]["cm_heading"] = "TBD"
-            config["cloudmesh"]["clouds"][host]["cm_host"] = "TBD"
-            config["cloudmesh"]["clouds"][host]["cm_label"] = "TBD"
-            config["cloudmesh"]["clouds"][host]["cm_type"] = "TBD"
-            config["cloudmesh"]["clouds"][host]["cm_type_version"] = "TBD"
+            config["cloudmesh"]["clouds"][host] = {
+                "credentials": credentials,
+                "cm_heading": "TBD",
+                "cm_host": "TBD",
+                "cm_label": "TBD",
+                "cm_type": "TBD",
+                "cm_type_version": "TBD"}
 
         config.save()
         return config["cloudmesh"]["clouds"][host]["credentials"]

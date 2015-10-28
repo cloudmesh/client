@@ -185,3 +185,34 @@ def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True):
         x.add_row([key, d[key]])
     x.align = "l"
     return x
+
+def print_list(l, output='table'):
+
+    def dict_from_list(l):
+        d = dict([(idx, item) for idx,item in enumerate(l)])
+        return d
+
+    if output == 'table':
+        x = PrettyTable(["Index", "Host"])
+        for (idx, item) in enumerate(l):
+            x.add_row([idx, item])
+        x.align = "l"
+        x.align["Index"] = "r"
+        return x
+    elif output == 'csv':
+        return (",".join(l))
+    elif output == 'dict':
+        d = dict_from_list(l)
+        return d
+    elif output == 'json':
+        d = dict_from_list(l)
+        result = json.dumps(d, indent=4)
+        return result
+    elif output == 'yaml':
+        d = dict_from_list(l)
+        result = yaml.dump(d,  default_flow_style=False)
+        return result
+    elif output == 'txt':
+        return ("\n".join(l))
+
+
