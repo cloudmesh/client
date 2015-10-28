@@ -29,8 +29,8 @@ class RegisterCommand(object):
 
           Usage:
               register info
-              register list [--yaml=FILENAME] [--name] [--all]
               register list ssh [--format=FORMAT]
+              register list [--yaml=FILENAME][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register export HOST [--password] [--format=FORMAT]
@@ -77,9 +77,9 @@ class RegisterCommand(object):
                   It looks out for the cloudmesh.yaml file in the current
                   directory, and then in ~/.cloudmesh
 
-              register list [--yaml=FILENAME] [--name] [--all]
+              register list [--yaml=FILENAME] [--name] [--info]
                   lists the clouds specified in the cloudmesh.yaml file. If
-                  all is specified it also prints the location of the yaml
+                  info is specified it also prints the location of the yaml
                   file.
 
               register list ssh
@@ -206,23 +206,22 @@ class RegisterCommand(object):
         elif arguments['list'] and arguments['ssh']:
             output = arguments['--format'] or 'table'
             hosts = CloudRegister.list_ssh()
-            # print ("\n".join(hosts))
             print (print_list(hosts, output=output))
             return
 
         elif arguments['list']:
+
             filename = _get_config_yaml_file(arguments)
-            info = arguments["--all"] or False
+            info = arguments["--info"] or False
+            output = arguments["--format"] or "table"
 
             if not filename:
-                Console.error("File {} doesn't exist".format(
-                    arguments["--yaml"] or 'cloudmesh.yaml'))
+                Console.error("File {} doesn't exist".format(filename))
             else:
-                if (arguments['--name']):
-                    print(CloudRegister.list(filename).get_string(
-                        fields=["Name"]))
-                else:
-                    print(CloudRegister.list(filename))
+                d = CloudRegister.list(filename,
+                                       info=info,
+                                       output=output)
+                print (d)
             return
 
         elif arguments['check']:

@@ -23,7 +23,7 @@ class CloudRegister(object):
             return None
 
     @classmethod
-    def list(cls, filename, info=False):
+    def list(cls, filename, info=False, output='table'):
         """
         lists clouds from cloudmesh.yaml file
 
@@ -39,15 +39,19 @@ class CloudRegister(object):
         d = {}
         for i, key in enumerate(clouds.keys()):
             d[i] = {
-                "Cloud": key,
-                "Iaas": config["cloudmesh"]["clouds"][key]["cm_type"],
-                "Version":
+                "id": i,
+                "cloud": key,
+                "iaas": config["cloudmesh"]["clouds"][key]["cm_type"],
+                "version":
                     config["cloudmesh"]["clouds"][key][
                         "cm_type_version"] or "N/A"
             }
-        return tables.dict_printer(d, order=['Cloud',
-                                             'Iaas',
-                                             'Version'])
+        return tables.dict_printer(d,
+                                   order=['id',
+                                          'cloud',
+                                          'iaas',
+                                          'version'],
+                                   output=output)
 
     @classmethod
     def list_ssh(cls):
