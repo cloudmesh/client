@@ -65,7 +65,7 @@ cloudmesh:
         OS_TENANT_NAME: FG-82
         OS_USERNAME: TBD
         OS_VERSION: kilo
-        OS_REGION_NAME: regionOne
+        OS_REGION_NAME: RegionOne
       default:
         flavor: TBD
         image: TBD
