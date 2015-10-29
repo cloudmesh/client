@@ -200,10 +200,10 @@ class CloudRegister(object):
         #
         # TODO: the permission are not yet right
         #
-        #os.chmod(_to_dir, 0o700)
-        #for root, dirs, _ in os.walk(_to_dir):
-        #    for d in dirs:
-        #        os.chmod(os.path.join(root, d), 0o700)
+        os.chmod(_to_dir, 0o700)
+        for root, dirs, _ in os.walk(_to_dir):
+            for d in dirs:
+                os.chmod(os.path.join(root, d), 0o700)
         #
         # END PERMISSION
         #
