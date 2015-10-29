@@ -21,9 +21,10 @@ The manual page of the key command can be found at: `reservation
 
 Adding a reservation
 ----------------------------------------------------------------------
-::   
+Please note that you have to escape the whitespaces with '\\' for commmand line arguments such as '--start', '--end'.
+::
 
-    $ cm reservation add --name=test3 --start="2015-09-30" --end="2016-09-30" --user=albert --project=cloudmesh --hosts=host001 --description=desc
+    $ cm reservation add --name=test3 --start='10/31/1988\ at\ 8:09\ pm' --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh --hosts=host001 --description=desc
     Reservation test3 added successfully
     info. OK.
 
@@ -32,14 +33,15 @@ List Reservation
 ::
 
     $ cm reservation list
-    +----+-------+------------+------------+-----------+-----------+---------+-------------+-------+
-    | id | name  | start_time | end_time   | user      | project   | hosts   | description | cloud |
-    +----+-------+------------+------------+-----------+-----------+---------+-------------+-------+
-    | 1  | test3 | 2015-09-30 | 2016-09-30 | albert    | cloudmesh | host001 | desc        | comet |
-    +----+-------+------------+------------+-----------+-----------+---------+-------------+-------+
+    +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
+    | id | name  | start_time      | end_time        | user   | project   | hosts   | description | cloud |
+    +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
+    | 1  | test3 | 10-31-1988 20:9 | 10-21-2015 21:0 | albert | cloudmesh | host001 | desc        | comet |
+    +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
 
 Update Reservation
 ----------------------------------------------------------------------
+Please note that you have to escape the whitespaces with '\\' for commmand line arguments such as '--start', '--end'.
 ::
 
     $ cm reservation update --name=test3 --project=cloudnauts
@@ -49,17 +51,17 @@ Update Reservation
 Verify by listing::
 
     $ cm reservation list
-    +----+-------+------------+------------+-----------+-----------+---------+-------------+-------+
-    | id | name  | start_time | end_time   | user      | project   | hosts   | description | cloud |
-    +----+-------+------------+------------+-----------+-----------+---------+-------------+-------+
-    | 1  | test3 | 2015-09-30 | 2016-09-30 | albert    | cloudnauts| host001 | desc        | comet |
-    +----+-------+------------+------------+-----------+-----------+---------+-------------+-------+
+    +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
+    | id | name  | start_time     | end_time       | user   | project    | hosts   | description | cloud |
+    +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
+    | 1  | test3 | 1-1-1901 19:30 | 12-31-2021 0:0 | albert | cloudnauts | host001 | desc        | comet |
+    +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
 
 Delete Reservation
 ----------------------------------------------------------------------
 ::
 
-    $ cm reservation delete --name=test2
+    $ cm reservation delete --name=test3
     info. OK.
 
 Verify by listing::

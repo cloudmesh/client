@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>test module &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Usage Command &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
-        <link rel="up" title="Modules and Classes" href="modules.html"/>
-        <link rel="next" title="Appendix" href="../appendix.html"/>
-        <link rel="prev" title="setup module" href="setup.html"/> 
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,28 +79,19 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../system.html">System Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html#cloud-database">Cloud Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules and Classes</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="fabfile.html">fabfile package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="importtest.html">importtest module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="rest.html">rest module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="sboy.html">sboy module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">test module</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
 </ul>
 
@@ -135,13 +123,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="modules.html">Modules and Classes</a> &raquo;</li>
-      
-    <li>test module</li>
+    <li>Usage Command</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/modules/test.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/commands/command_usage.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -151,23 +137,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="test-module">
-<h1>test module<a class="headerlink" href="#test-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="usage-command">
+<h1>Usage Command<a class="headerlink" href="#usage-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the quota command can be found at: <a class="reference external" href="../man/man.html#list">Usage</a></p>
+<p>This shows the resource list for a particular time frame. By default
+it will show the resource list for the past one month.</p>
+<div class="section" id="list">
+<h2>list<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<p>To list the list information:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm list
+Usage from 2015-09-24 to 2015-10-23:
++-----------+----------------+-------------+-----------------+
+|  Servers  |  RAM MB-Hours  |  CPU Hours  |  Disk GB-Hours  |
++-----------+----------------+-------------+-----------------+
+|  42       |  6275181.11    |  3064.05    |  61281.07       |
++-----------+----------------+-------------+-----------------+
+</pre></div>
+</div>
+</div>
 </div>
 
 
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../appendix.html" class="btn btn-neutral float-right" title="Appendix" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="setup.html" class="btn btn-neutral" title="setup module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

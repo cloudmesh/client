@@ -541,11 +541,11 @@ Quota (do)
               limits [CLOUD] [--format=json]
               limits help | -h
 
-          Current usage data with limits on a selected project (tenant)
+          Current list data with limits on a selected project (tenant)
 
           Arguments:
 
-            CLOUD          Cloud name to see the usage
+            CLOUD          Cloud name to see the list
             help           Prints this message
 
           Options:

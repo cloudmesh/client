@@ -11,7 +11,7 @@ them first. To make it easy for you cloudmesh reads the registered
 clouds from an easy to manage yaml file. This yam file is installed by
 default into the file::
 
-  %HOME/.cloudmesh/cloudmesh.yaml
+    ~/.cloudmesh/cloudmesh.yaml
 
 A number of templates in that file exist that refer to commonly used
 clouds. YOu can fill out the yaml file with your information, add new
@@ -20,14 +20,17 @@ several different typoes of clouds that we support. This includes
 OpenStack, AWS, and Azure clouds.
 
 .. todo:: at this time we have not integrated our AWS and Azure IaaS
-	  abstractions. We will make them available in future.
+	  abstractions in the new cloudmesh client. We will make them available in
+	  future.
+
+.. note in some of our examples we will be using the user name `albert`
 
 As it may be inconvenient to edit this file and look at the yaml
 format, we provide several administrative commands. The command::
 
   $ register info
 
-  File C:\Users\albert\.cloudmesh\cloudmesh.yaml exists
+  File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 
 identifies if the `cloudmesh.yaml` file exists.
 
@@ -52,7 +55,7 @@ which will print a table with elementary information defined for the
 clouds.::
 
     $ register list
-    Clouds specified in the configuration file $HOME/.cloudmesh\cloudmesh.yaml
+    Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
     +-------+-----------+---------+
     | Name  | Iaas      | Version |
@@ -67,7 +70,7 @@ clouds.::
 To list only the names, please use the command::
 
     $ register list --name
-    Clouds specified in the configuration file $HOME/.cloudmesh\cloudmesh.yaml
+    Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
     +-------+
     | Name  |
@@ -90,7 +93,7 @@ a host `india` in ~/.ssh/config in the following way:
         Hostname india.futuresystems.org
         User yourusername
 
-The list command followd by ssh will give  you a list of hosts defined
+The list command followed by ssh will give  you a list of hosts defined
 in that file::
 
     $ cm register list ssh
@@ -98,66 +101,78 @@ in that file::
     india
 
 
-register india
+register remote
 ----------------------------------------------------------------------
-
-The command::
-
-  register india [--force]
-
-Is the same command as::
-
-  register rc india
-
-
-register rc
------------
-
-.. todo:: I think this is wrong, the rc command should probably just
-	  take an openrc.sh file and create a new entry form it ...
-	  THis needs to be clarified ...
-  
 
 In case you already use an openstack cloud you may have come across an
 openrc.sh file. We are providing some very special helper functions, like
-for example obtain the openrc files from the futuresystems india
-cloud. This command will only work if you have an account on this
-machine and it is integrated into the ssh config file as discussed
-previously. Once this is done, you can obtain the india juno
-credentials with the command::
-
-  register rc india
+for example obtain the openrc files from the futuresystems
+cloud.
 
 The command::
 
-  register rc india --version=juno
+  register remote HOSTNAME
 
-will fetch the juno cloud credentials, while the command::
+will copy and register a machine on which an openrc.sh file is located into
+the `cloudmesh.yaml` file. With cloudmesh we provide some default host, thus
+ they are very easy to configure. This includes `juno`, and `kilo` our
+ current clouds in our lab. To register them you can use the commands::
 
-  register rc india --version=kilo
+    cm register reomte kilo
+    cm register remote juno
 
-will fetch the kilo cloud credentials.
+These commands will only work if you have an account on this
+machine and it is integrated into the ssh config file as discussed
+previously.
 
-You will also see a verbose output about what is included in that file.
-However the passwords will be masked with eight stars: `********`.
+register export
+----------------------------------------------------------------------
+
+To view the data associated with a particular cloud you can just use the
+command export::
+
+    register export kilo --format=table
+
+Which will look like this::
+
+    +-----------------------+------------------------------------------+
+    | Attribute             | Value                                    |
+    +-----------------------+------------------------------------------+
+    | OS_PASSWORD           | ********                                 |
+    | OS_VOLUME_API_VERSION | 2                                        |
+    | OS_IMAGE_API_VERSION  | 2                                        |
+    | OS_PROJECT_DOMAIN_ID  | default                                  |
+    | OS_USER_DOMAIN_ID     | default                                  |
+    | OS_TENANT_NAME        | fg1234                                   |
+    | OS_PROJECT_NAME       | fg1234                                   |
+    | OS_USERNAME           | albert                                   |
+    | OS_AUTH_URL           | https://kilo.futuresystems.org:5000/v3   |
+    | OS_VERSION            | kilo                                     |
+    | OS_OPENRC             | ~/.cloudmesh/clouds/india/kilo/openrc.sh |
+    +-----------------------+------------------------------------------+
+
+The default view returns a openrc.sh file::
+
+    cm register export kilo
+
+The output contains an rc file example
+
+::
+    export OS_PROJECT_DOMAIN_ID=default
+    export OS_USERNAME=albert
+    export OS_OPENRC=~/.cloudmesh/clouds/india/kilo/openrc.sh
+    export OS_AUTH_URL=https://kilo.futuresystems.org:5000/v3
+    export OS_TENANT_NAME=1234
+    export OS_USER_DOMAIN_ID=default
+    export OS_VERSION=kilo
+    export OS_VOLUME_API_VERSION=2
+    export OS_IMAGE_API_VERSION=2
+    export OS_PASSWORD=********
+    export OS_PROJECT_NAME=fg1234
+
+
+The passwords will be masked with eight stars: `********`.
 In case you like also to see the password you can use the --password flag.
-
-register rc india --version=kilo --password
-
-You will see an output similar to::
-
-    $ cm register rc india --version=juno
-    Reading rc file from india
-    +----------------+---------------------------------------------+
-    | Variable       | Value                                       |
-    +----------------+---------------------------------------------+
-    | OS_VERSION     | juno                                        |
-    | OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0 |
-    | OS_USERNAME    | albert                                    |
-    | OS_PASSWORD    | ********                                    |
-    | OS_CACERT      | ~/.cloudmesh/clouds/india/juno/cacert.pem   |
-    | OS_TENANT_NAME | fg478                                       |
-    +----------------+---------------------------------------------+
 
 
 register merge 

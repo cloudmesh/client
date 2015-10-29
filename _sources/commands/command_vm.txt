@@ -73,8 +73,8 @@ You can login to a VM in your target cloud::
 
       System information as of Mon Oct 19 04:17:48 UTC 2015
 
-      System load: 0.0               Memory usage: 2%   Processes:       52
-      Usage of /:  56.9% of 1.32GB   Swap usage:   0%   Users logged in: 0
+      System load: 0.0               Memory list: 2%   Processes:       52
+      Usage of /:  56.9% of 1.32GB   Swap list:   0%   Users logged in: 0
 
       Graph this data and manage this system at:
         https://landscape.canonical.com/

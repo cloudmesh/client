@@ -28,6 +28,22 @@ cloudmesh_client.common.FlatDict module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.TableParser module
+------------------------------------------
+
+.. automodule:: cloudmesh_client.common.TableParser
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.common.authenticate module
+-------------------------------------------
+
+.. automodule:: cloudmesh_client.common.authenticate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.tables module
 -------------------------------------
 
@@ -48,6 +64,14 @@ cloudmesh_client.common.type module
 -----------------------------------
 
 .. automodule:: cloudmesh_client.common.type
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.common.vmname module
+-------------------------------------
+
+.. automodule:: cloudmesh_client.common.vmname
     :members:
     :undoc-members:
     :show-inheritance:

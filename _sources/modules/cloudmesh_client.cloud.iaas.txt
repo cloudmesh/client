@@ -20,14 +20,6 @@ cloudmesh_client.cloud.iaas.CloudProviderOpenstack module
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.iaas.IndiaCloudProvider module
------------------------------------------------------
-
-.. automodule:: cloudmesh_client.cloud.iaas.IndiaCloudProvider
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

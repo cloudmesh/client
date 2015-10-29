@@ -19,6 +19,14 @@ cloudmesh_client.shell.cm module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.cm_shell_status module
+---------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.cm_shell_status
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.command module
 -------------------------------------
 
