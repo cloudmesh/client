@@ -30,9 +30,9 @@ class Nova(object):
     def remove_subjectAltName_warning(cls, content):
         result = []
         for line in content.split("\n"):
-            if "Certificate has no `subjectAltName`" in line:
+            if "subjectAltName" in line:
                 pass
-            elif "SecurityWarning" in line:
+            elif  "SubjectAltNameWarning" in line:
                 pass
             else:
                 result.append(line)

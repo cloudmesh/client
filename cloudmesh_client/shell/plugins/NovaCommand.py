@@ -70,6 +70,11 @@ class NovaCommand (object):
         elif arguments["info"]:
             Nova.set_os_environ(cloud)
             d = {}
+            #
+            # TODO: this naturally does not work as clouds will have
+            # different parameters. ALos it does not unset previous
+            # parameters from other clouds. See register
+            #
             for attribute in ['OS_USERNAME',
                               'OS_TENANT_NAME',
                               'OS_AUTH_URL',
@@ -109,6 +114,7 @@ class NovaCommand (object):
                     args = args[0].split()
 
                 result = Shell.execute("nova", args)
+
                 print(Nova.remove_subjectAltName_warning(result))
 
                 """
