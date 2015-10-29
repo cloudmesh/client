@@ -8,10 +8,10 @@ requests.packages.urllib3.disable_warnings()
 
 
 #
-# TODO: this class is in the wrong directory, it pelongs in iaas for openstack
+# TODO: this class is in the wrong directory, it belongs in iaas for openstack
 # TODO: the name get environment is quite awkward
 # TODO: what implication would there if the cloud would not be openstack,
-# we shoudl make at least provisions for that the others are not
+# we should make at least provisions for that the others are not
 # implemented, but in general authentication should take a provider and use
 # the provider to authenticate and not reimplementing what a provider is
 # supposed to do.
@@ -25,7 +25,6 @@ class Authenticate(object):
             d = ConfigDict("cloudmesh.yaml")
             cloud = d["cloudmesh"]["clouds"][cloudname]
             cert = None
-            print (cloud)
 
             if cloud["cm_type"] == "openstack":
                 credentials = cloud["credentials"]

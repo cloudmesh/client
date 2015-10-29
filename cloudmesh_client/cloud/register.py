@@ -9,6 +9,7 @@ from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import tables
+from cloudmesh_base.util import banner
 
 from urlparse import urlparse
 
@@ -162,7 +163,6 @@ class CloudRegister(object):
 
         host_credentials = config["cloudmesh.clouds." + host + ".credentials"]
         from pprint import pprint
-        pprint(dict(host_credentials))
 
         if 'OS_OPENRC' in host_credentials:
             Console.ok("looking for openrc")
@@ -176,31 +176,39 @@ class CloudRegister(object):
         openrc = host_credentials["OS_OPENRC"]
 
         directory = os.path.dirname(openrc)
+        base = os.path.basename(openrc)
 
-        _from_dir = "{:}:{:}".format(hostname, directory)
+        _from_dir = "{:}:{:}".format(hostname, directory).replace("~/","")
         _to_dir = Config.path_expand(directory)
+        openrc_file = Config.path_expand(openrc)
+        print("From:  ", _from_dir)
+        print("To:    ", _to_dir)
+        print("Openrc:", openrc_file)
 
-        print("From:", _from_dir)
-        print("To:  ", _to_dir)
 
-        Shell.scp('-r', _from_dir, _to_dir)
+        Console.ok("Reading rc file from {}".format(host))
+        try:
+            r = Shell.execute('scp', ['-r',
+                           _from_dir,
+                           _to_dir])
+        except Exception, e:
+            print (r)
+            print (e)
+            return
 
         #
         # TODO: the permission are not yet right
         #
-        os.chmod(_to_dir, 0o700)
-        for root, dirs, _ in os.walk(_to_dir):
-            for d in dirs:
-                os.chmod(os.path.join(root, d), 0o700)
+        #os.chmod(_to_dir, 0o700)
+        #for root, dirs, _ in os.walk(_to_dir):
+        #    for d in dirs:
+        #        os.chmod(os.path.join(root, d), 0o700)
         #
         # END PERMISSION
         #
 
-        openrc = Config.path_expand(openrc)
-        with open(openrc, 'r') as f:
+        with open(openrc_file, 'r') as f:
             lines = f.read().split("\n")
-
-        Console.ok("Reading rc file from {}".format(host))
 
         config = ConfigDict("cloudmesh.yaml")
         for line in lines:

@@ -38,8 +38,7 @@ cloudmesh:
             cm_type: openstack
             cm_type_version: kilo
             credentials:
-                OS_AUTH_URL: https://i15r.idp.iu.futuregrid.org:5000/v3
-                OS_CACERT: ~/.cloudmesh/clouds/india/kilo/cacert.pem
+                OS_AUTH_URL: https://kilo.futuresystems.org:5000/v3
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_USERNAME: TBD

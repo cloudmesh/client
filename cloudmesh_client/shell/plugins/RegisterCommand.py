@@ -168,6 +168,24 @@ class RegisterCommand(object):
         def exists(filename):
             return os.path.isfile(filename)
 
+        def export(host, output):
+            config = ConfigDict("cloudmesh.yaml")
+            credentials = dict(
+                config["cloudmesh"]["clouds"][host]["credentials"])
+
+            if not arguments["--password"]:
+                credentials["OS_PASSWORD"] = "********"
+
+            if output is None:
+                for attribute, value in credentials.iteritems():
+                    print("export {}={}".format(attribute, value))
+            elif output == "table":
+                print(attribute_printer(credentials))
+            else:
+                print(dict_printer(credentials, output=output))
+                # TODO: bug csv does not work
+            return
+
         if arguments["info"]:
 
             filename = _get_config_yaml_file(arguments)
@@ -257,22 +275,9 @@ class RegisterCommand(object):
             output = arguments['--format']
             host = arguments['HOST']
 
-            config = ConfigDict("cloudmesh.yaml")
-            credentials = dict(
-                config["cloudmesh"]["clouds"][host]["credentials"])
 
-            if not arguments["--password"]:
-                credentials["OS_PASSWORD"] = "********"
 
-            if output is None:
-                for attribute, value in credentials.iteritems():
-                    print("export {}={}".format(attribute, value))
-            elif output == "table":
-                print(attribute_printer(credentials))
-            else:
-                print(dict_printer(credentials, output=output))
-                # TODO: bug csv does not work
-            return
+            export(host, output)
 
         elif arguments['rc']:
             host = arguments['HOST']
@@ -304,6 +309,7 @@ class RegisterCommand(object):
             force = arguments['--force']
             cloud = arguments['CLOUD']
             CloudRegister.remote(cloud, force)
+            export(cloud, "table")
             return
 
         elif arguments['CLOUD']:
