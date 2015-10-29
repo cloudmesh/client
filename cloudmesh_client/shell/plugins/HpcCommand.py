@@ -1,6 +1,7 @@
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.hpc import Hpc
+from cloudmesh_client.cloud.default import Default
 
 
 class HpcCommand:
@@ -19,7 +20,7 @@ class HpcCommand:
             Usage:
                 hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
-                hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
+                hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
                 hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
@@ -87,10 +88,13 @@ class HpcCommand:
                     in that is being looked for to identify if the test is
                     successful. If time is used, the job is terminated
                     after the time is elapsed.
+
+            Examples:
+                cm hpc run uname
         """
 
         format = arguments['--format']
-        cluster = arguments['--cluster'] or 'comet'
+        cluster = arguments['--cluster']
 
         if arguments["queue"]:
             print(Hpc.queue(cluster, format=format))
@@ -106,7 +110,23 @@ class HpcCommand:
             print(Hpc.queue(cluster, job=job_id))
 
         if arguments["run"]:
-            Console.error("Not yet implemented.")
+            # If cluster is not specified, get default
+            if not cluster:
+                cluster = Default.get("cluster") or "india"  # TODO: need to clarify if throw error
+
+            queue = arguments['--queue'] or Default.get('queue')
+            if not queue:
+                Console.error('set default queue using: default queue=<value>')
+                return
+
+            cmd = arguments['SCRIPT']
+            arg_dict = {
+                '-name' : arguments['--name'],
+                '-p' : queue,
+                '-t' : arguments['--t'],
+                '-N' : arguments['--N']
+            }
+            Console.ok(Hpc.run(cluster, cmd, **arg_dict))
 
         if arguments["test"]:
             time_secs = arguments['--time']
