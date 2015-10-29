@@ -186,6 +186,7 @@ class CloudRegister(object):
         print("Openrc:", openrc_file)
 
 
+        r = ""
         Console.ok("Reading rc file from {}".format(host))
         try:
             r = Shell.execute('scp', ['-r',

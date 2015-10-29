@@ -34,7 +34,7 @@ class RegisterCommand(object):
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register export HOST [--password] [--format=FORMAT]
-              register rc HOST FILENAME [--force] [--format=FORMAT]
+              register source HOST
               register merge FILEPATH
               register form [--yaml=FILENAME]
               register check [--yaml=FILENAME]
@@ -258,6 +258,27 @@ class RegisterCommand(object):
                     arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 CloudRegister.fill_out_form(filename)
+            return
+
+        elif arguments['source']:
+
+            host = arguments['HOST']
+            config = ConfigDict("cloudmesh.yaml")
+            credentials = dict(
+                config["cloudmesh"]["clouds"][host]["credentials"])
+
+            # unset
+
+            variables = list(os.environ)
+            for attribute in variables:
+                if attribute.startswith("OS_"):
+                    del os.environ[attribute]
+
+            # set
+            for attribute, value in credentials.iteritems():
+                os.putenv(attribute, value)
+            export(host, "table")
+
             return
 
         elif arguments['export']:

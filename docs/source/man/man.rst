@@ -910,12 +910,6 @@ Command - register::
               prints the contents of an openrc.sh file based on the
               information found in the cloudmesh.yaml file.
 
-        register rc HOST FILENAME [--force] [--format=FORMAT]
-
-              reads from an rc file the data and adds to the
-              cloudmesh.yaml file. If --force is used the existing
-              previous entry will be overwritten with default TBD values.
-
         register remote CLOUD [--force]
 
               reads the Openstack OPENRC file from a remote host that
@@ -948,10 +942,6 @@ Command - register::
         register remote CLOUD
             registers a remote cloud and copies the openrc file
             specified in the credentials of the cloudmesh.yaml
-
-        register india [--force]
-            copies the cloudmesh/clouds/india/juno directory from india
-            to the ~/.cloudmesh/clouds/india/juno local directory
 
         register CLOUD CERT [--force]
             Copies the CERT to the ~/.cloudmesh/clouds/host directory

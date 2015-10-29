@@ -6,6 +6,44 @@ The manual page of the register command can be found at:
 `register <../man/man.html#register>`_
 
 
+Quickstart for registration of some clouds
+----------------------------------------------
+
+Please only use the quickstart if you know hat you are doing, otherwise,
+read the manual. We assume you have acces to the specific clouds that you
+like to access. On a terminal say::
+
+    cm register remote kilo
+
+to register the futuresystems kilo cloud
+
+    cm register remote juno
+
+to register the futuresystems juno cloud (this cloud will be disabled soon,
+so please transition to kilo). More information about the futuresystems
+cloud can be found at
+
+* https://portal.futuresystems.org
+
+To register an openstack cloud for which you have an existing openrc.sh file,
+you can simply say::
+
+    cm register openrc.sh
+
+.. todo:: verify if this works
+
+On chameleoncloud.org you can for example go to the horizon web interface and
+download the credentials in teh security panel.
+
+
+
+
+
+
+
+Introduction
+--------------
+
 As we are managing multiple clouds with cloudmesh we need to register
 them first. To make it easy for you cloudmesh reads the registered
 clouds from an easy to manage yaml file. This yam file is installed by
@@ -155,9 +193,8 @@ The default view returns a openrc.sh file::
 
     cm register export kilo
 
-The output contains an rc file example
+The output contains an rc file example::
 
-::
     export OS_PROJECT_DOMAIN_ID=default
     export OS_USERNAME=albert
     export OS_OPENRC=~/.cloudmesh/clouds/india/kilo/openrc.sh
