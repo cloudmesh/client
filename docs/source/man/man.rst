@@ -281,6 +281,32 @@ Command - EOF::
         Command to the shell to terminate reading a script.
 
 
+flavor
+----------------------------------------------------------------------
+
+Command - flavor::
+
+    Usage:
+        flavor refresh [--cloud=CLOUD]
+        flavor list [--cloud=CLOUD] [--format=FORMAT]
+        flavor show ID [--cloud=CLOUD] [--refresh] [--format=FORMAT]
+
+        This lists out the flavors present for a cloud
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+       --refresh        refreshes the data before displaying it
+                        from the cloud
+
+    Examples:
+        cm flavor refresh
+        cm flavor list
+        cm flavor list --format=csv
+        cm flavor show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
+
+
+
 group
 ----------------------------------------------------------------------
 
@@ -291,6 +317,7 @@ Command - group::
         group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
         group list [--cloud=CLOUD] [--format=FORMAT]
         group delete [--cloud=CLOUD] [--name=NAME]
+        group remove [--cloud=CLOUD] --name=NAME --id=ID
         group copy FROM TO
         group merge GROUPA GROUPB MERGEDGROUP
 
@@ -338,6 +365,9 @@ Command - group::
         If finer grained deletion is needed, it can be achieved
         with the delete command that supports deletion by name
 
+        It is also possible to remove a VM from the group using the
+        remove command, by supplying the ID
+
     Example:
         default group mygroup
 
@@ -373,7 +403,7 @@ Command - hpc::
     Usage:
         hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
         hpc info [--cluster=CLUSTER][--format=FORMAT]
-        hpc run SCRIPT [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
+        hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
         hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
         hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
         hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
@@ -442,6 +472,9 @@ Command - hpc::
             successful. If time is used, the job is terminated
             after the time is elapsed.
 
+    Examples:
+        cm hpc run uname
+
 
 image
 ----------------------------------------------------------------------
@@ -450,18 +483,20 @@ Command - image::
 
     Usage:
         image refresh [--cloud=CLOUD]
-        image list [--cloud=CLOUD] [--format=FORMAT]
+        image list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
 
         This lists out the images present for a cloud
 
     Options:
        --format=FORMAT  the output format [default: table]
        --cloud=CLOUD    the cloud name
+       --refresh        live data taken from the cloud
 
     Examples:
         cm image refresh
         cm image list
         cm image list --format=csv
+        cm image show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
 
 
@@ -808,16 +843,18 @@ Command - register::
 
     Usage:
         register info
-        register list [--yaml=FILENAME] [--name]
-        register list ssh
+        register list ssh [--format=FORMAT]
+        register list [--yaml=FILENAME][--info][--format=FORMAT]
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
-        register rc HOST [--version=VERSION] [--openrc=OPENRC] [--password]
+        register export HOST [--password] [--format=FORMAT]
+        register rc HOST FILENAME [--force] [--format=FORMAT]
         register merge FILEPATH
         register form [--yaml=FILENAME]
         register check [--yaml=FILENAME]
         register test [--yaml=FILENAME]
         register json HOST
+        register remote CLOUD [--force]
         register india [--force]
         register CLOUD CERT [--force]
         register CLOUD --dir=DIR
@@ -854,8 +891,10 @@ Command - register::
             It looks out for the cloudmesh.yaml file in the current
             directory, and then in ~/.cloudmesh
 
-        register list [--yaml=FILENAME]
-            lists the clouds specified in the cloudmesh.yaml file
+        register list [--yaml=FILENAME] [--name] [--info]
+            lists the clouds specified in the cloudmesh.yaml file. If
+            info is specified it also prints the location of the yaml
+            file.
 
         register list ssh
             lists hosts from ~/.ssh/config
@@ -866,32 +905,31 @@ Command - register::
         register edit [--yaml=FILENAME]
             edits the cloudmesh.yaml file
 
-        register rc HOST [OPENRC]
+        register export HOST [--format=FORMAT]
 
-              reads the Openstack OPENRC file from a host that
-              is described in ./ssh/config and adds it to the
-              configuration cloudmesh.yaml file. We assume that
+              prints the contents of an openrc.sh file based on the
+              information found in the cloudmesh.yaml file.
+
+        register rc HOST FILENAME [--force] [--format=FORMAT]
+
+              reads from an rc file the data and adds to the
+              cloudmesh.yaml file. If --force is used the existing
+              previous entry will be overwritten with default TBD values.
+
+        register remote CLOUD [--force]
+
+              reads the Openstack OPENRC file from a remote host that
+              is described in cloudmesh.yaml file. We assume that
               the file has already a template for this host. If
               not it can be created from other examples before
               you run this command.
 
-              The hostname can be specified as follows in the
-              ./ssh/config file.
+              It uses the OS_OPENRC variable to locate the file and
+              copy it onto your computer.
 
-              Host india
-                  Hostname india.futuresystems.org
-                  User yourusername
-
-              If the host is india and the OPENRC file is
-              ommitted, it will automatically fill out the
-              location for the openrc file. To obtain the
-              information from india simply type in
-
-                  register rc india
-
-        register merge FILEPATH
+        register merge FILENAME
             Replaces the TBD in cloudmesh.yaml with the contents
-            present in FILEPATH's FILE
+            present in the named file
 
         register form [--yaml=FILENAME]
             interactively fills out the form wherever we find TBD.
@@ -906,6 +944,10 @@ Command - register::
 
         register json host
             displays the host details in json format
+
+        register remote CLOUD
+            registers a remote cloud and copies the openrc file
+            specified in the credentials of the cloudmesh.yaml
 
         register india [--force]
             copies the cloudmesh/clouds/india/juno directory from india
@@ -1126,10 +1168,10 @@ Command - ssh::
 
 
 
-list
+usage
 ----------------------------------------------------------------------
 
-Command - list::
+Command - usage::
 
     Usage:
         list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
