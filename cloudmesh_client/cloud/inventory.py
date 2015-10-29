@@ -8,9 +8,9 @@ import yaml
 import hostlist
 import sys
 import os.path
+from cloudmesh_client.cloud.ListResource import ListResource
 
-
-class Inventory(object):
+class Inventory(ListResource):
     def info(self):
         banner("Configuration")
         Console.ok('Object Attibutes: {:}'.format(', '.join(self.order)))

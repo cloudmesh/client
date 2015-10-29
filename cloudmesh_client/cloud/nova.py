@@ -6,6 +6,11 @@ from cloudmesh_client.common.ConfigDict import Config
 
 
 class Nova(object):
+
+    #
+    # TODO: ist this method not to be part of register? We have duplicated
+    # code now.
+    #
     @classmethod
     def set_os_environ(cls, cloudname):
         """Set os environment variables on a given cloudname"""

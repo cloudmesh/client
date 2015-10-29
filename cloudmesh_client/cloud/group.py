@@ -7,9 +7,9 @@ from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.cloud.ListResource import ListResource
 
-
-class Group(object):
+class Group(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
     @classmethod

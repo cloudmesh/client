@@ -4,10 +4,9 @@ from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import CloudProviderOpen
 
 from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
+from cloudmesh_client.cloud.ListResource import ListResource
 
-
-class Vm(object):
-
+class Vm(ListResource):
     @classmethod
     def get_cloud_provider(cls, name="india"):
         try:

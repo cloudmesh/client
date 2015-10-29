@@ -13,11 +13,12 @@ from cloudmesh_client.common.authenticate import Authenticate
 
 from novaclient import client
 import requests
+from cloudmesh_client.cloud.ListResource import ListResource
 
 requests.packages.urllib3.disable_warnings()
 
 
-class SecGroup(object):
+class SecGroup(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
     @classmethod

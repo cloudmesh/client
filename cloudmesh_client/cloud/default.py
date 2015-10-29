@@ -3,9 +3,9 @@ from __future__ import print_function
 from cloudmesh_client.db import model
 from cloudmesh_client.common import tables
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.cloud.ListResource import ListResource
 
-
-class Default(object):
+class Default(ListResource):
     cm_db = CloudmeshDatabase()
     # Create a static variable so that db is initialized once in a transaction
 

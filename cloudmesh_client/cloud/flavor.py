@@ -6,9 +6,9 @@ from cloudmesh_client.common import tables
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.authenticate import Authenticate
+from cloudmesh_client.cloud.ListResource import ListResource
 
-
-class Flavor(object):
+class Flavor(ListResource):
     cm_db = CloudmeshDatabase()
 
     table_model = model.FLAVOR

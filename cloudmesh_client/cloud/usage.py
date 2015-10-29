@@ -5,8 +5,12 @@ from cloudmesh_base.Shell import Shell
 import os
 # Note: This command would be implemented using the shell since openstack list isn't available as yet
 
+from cloudmesh_client.cloud.ListResource import ListResource
 
-class Usage(object):
+class Usage(ListResource):
+    #
+    # TODO: please use the TableParser
+    #
     @classmethod
     def convert_to_dict(cls, openstack_result):
         filtered_lines = filter(lambda x:

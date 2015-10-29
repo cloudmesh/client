@@ -6,8 +6,9 @@ from cloudmesh_client.db.model import RESERVATION
 
 from cloudmesh_client.common.todo import TODO
 
+from cloudmesh_client.cloud.ListResource import ListResource
 
-class Reservation(object):
+class Reservation(ListResource):
 
     def __init__(self, user=None):
         self.db = CloudmeshDatabase.CloudmeshDatabase(user)

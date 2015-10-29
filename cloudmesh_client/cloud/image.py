@@ -7,8 +7,9 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.common.authenticate import Authenticate
 
+from cloudmesh_client.cloud.ListResource import ListResource
 
-class Image(object):
+class Image(ListResource):
     cm_db = CloudmeshDatabase()
 
     @classmethod

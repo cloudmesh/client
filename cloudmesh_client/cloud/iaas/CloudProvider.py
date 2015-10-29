@@ -17,7 +17,7 @@ requests.packages.urllib3.disable_warnings()
 # supposed to do.
 
 
-class Authenticate(object):
+class CloudProvider(object):
 
     @classmethod
     def get_environ(cls, cloudname):

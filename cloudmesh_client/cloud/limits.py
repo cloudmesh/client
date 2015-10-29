@@ -3,10 +3,15 @@ from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from novaclient import client
 import requests
+from cloudmesh_client.cloud.ListResource import ListResource
+
 requests.packages.urllib3.disable_warnings()
 
 
-class Limits(object):
+class Limits(ListResource):
+    #
+    # TODO: dont we have already a much better dict converter?
+    #
     @classmethod
     def convert_to_dict(cls, openstack_result):
         d = {}
@@ -15,6 +20,11 @@ class Limits(object):
             d[i]["Name"], d[i]["Value"] = obj.name, obj.value
         return d
 
+    #
+    # TODO: I do not understand why we are replicating this method so many
+    # times when we have it already in AUthentiacte and actually the cloud
+    # provider
+    #
     @classmethod
     def set_os_environment(cls, cloudname):
         try:
@@ -30,7 +40,7 @@ class Limits(object):
             raise Exception("Error in setting OS environment, {}".format(e))
 
     @classmethod
-    def list_limits(cls, cloud, format, tenant):
+    def list(cls, cloud, format, tenant):
         try:
             # set the environment variables
             nova = Limits.set_os_environment(cloud)

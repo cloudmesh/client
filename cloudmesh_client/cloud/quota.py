@@ -1,11 +1,16 @@
 from cloudmesh_client.common import tables
 from cloudmesh_client.cloud.limits import Limits
 import requests
+from cloudmesh_client.cloud.ListResource import ListResource
 
 requests.packages.urllib3.disable_warnings()
 
 
-class Quota(object):
+class Quota(ListResource):
+
+    #
+    # we already have a much better convert to dict function
+    #
     @classmethod
     def convert_to_dict(cls, openstack_result):
         d = {}

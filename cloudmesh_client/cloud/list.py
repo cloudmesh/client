@@ -13,7 +13,7 @@ class List(object):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
     @classmethod
-    def get_list(cls, kind, cloud, user=None,
+    def list(cls, kind, cloud, user=None,
                  tenant=None, order=None, header=None, output="table"):
         """
         Method lists the data in the db for
@@ -80,6 +80,9 @@ class List(object):
 
         return obj
 
+    #
+    # TODO: dont we have not already a conversion method
+    #
     @classmethod
     def toDict(cls, item):
         """
@@ -106,6 +109,12 @@ class List(object):
         # return the dict
         return d
 
+    #
+    # TODO: i do not see why this methid is here its also hardcoded and
+    # wrong as india does not exist. if a name is based on openstack,
+    # the kluod need to be checked if its openstack and than the user is
+    # returned. Than you also want o move this to cloud provider
+    #
     @classmethod
     def getUser(cls, cloudname):
         try:
