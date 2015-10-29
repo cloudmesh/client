@@ -272,11 +272,13 @@ class RegisterCommand(object):
             variables = list(os.environ)
             for attribute in variables:
                 if attribute.startswith("OS_"):
+                    print ("x ", attribute)
                     del os.environ[attribute]
 
             # set
             for attribute, value in credentials.iteritems():
                 os.putenv(attribute, value)
+                print ("+ ", attribute)
             export(host, "table")
 
             return
@@ -287,7 +289,11 @@ class RegisterCommand(object):
             host = arguments['HOST']
 
 
-
+            variables = list(os.environ)
+            for attribute in variables:
+                if attribute.startswith("OS_"):
+                    print ("unset ", attribute)
+                    del os.environ[attribute]
             export(host, output)
 
         elif arguments['rc']:

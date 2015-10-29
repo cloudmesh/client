@@ -37,9 +37,10 @@ def command(func):
             argv = shlex.split(args)
             arguments = docopt(doc, help=True, argv=argv)
             func(instance, args, arguments)
-        except SystemExit:
+        except SystemExit, e:
             if args not in ('-h', '--help'):
                 print("Could not execute the command.")
+                print (e)
             print(doc)
 
     new.__doc__ = doc

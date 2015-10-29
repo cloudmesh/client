@@ -2,23 +2,14 @@ from cloudmesh_client.common import tables
 from cloudmesh_client.cloud.limits import Limits
 import requests
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.common.tables import print_list
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import convert_to_dict
 
 requests.packages.urllib3.disable_warnings()
 
 
 class Quota(ListResource):
-
-    #
-    # we already have a much better convert to dict function
-    #
-    @classmethod
-    def convert_to_dict(cls, openstack_result):
-        d = {}
-        for i, key in enumerate(openstack_result.keys()):
-            d[i] = {}
-            if "id" not in key:
-                d[i]["Quota"], d[i]["Limit"] = key, openstack_result[key]
-        return d
 
     @classmethod
     def list(cls, cloud, tenant, format):
@@ -30,9 +21,7 @@ class Quota(ListResource):
             result = nova.quotas.defaults(tenant)._info
 
             # print results in a format
-            d = Quota.convert_to_dict(result)
-            return tables.dict_printer(d, order=['Quota',
-                                                 'Limit'],
-                                       output=format)
+            d = convert_to_dict(result)
+            return print_list(d, output=format)
         except Exception, e:
             return e

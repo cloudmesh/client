@@ -7,6 +7,20 @@ from keystoneclient import session
 from novaclient import client
 
 
+#
+# we already have a much better convert to dict function
+#
+# TODO: this function will be deprectaed
+@classmethod
+def convert_to_dict(cls, openstack_result):
+    d = {}
+    for i, key in enumerate(openstack_result.keys()):
+        d[i] = {}
+        if "id" not in key:
+            d[i]["Quota"], d[i]["Limit"] = key, openstack_result[key]
+    return d
+
+
 class CloudProviderOpenstack(CloudmeshProviderBase):
 
     def __init__(self, cloud_name, cloud_details):
