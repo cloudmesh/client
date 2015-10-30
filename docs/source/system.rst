@@ -167,58 +167,70 @@ CentOS
 This documentation assumes that the user is advanced enough to use
 linux terminal. We also assume you are not logged in as root, but you
 are a regular user. However to prepare the system we assume you have
-sudo access. First, we check for up-to-date versions of python
+sudoer privileges. First, we check for up-to-date versions of python
 and pip::
-
-   pip --version
-
-which should give the version 7.1.2::
 
    python --version
 
-which should give the version Python 2.7.10
+which should give the version Python 2.7.10::
 
-
-As CentOS typically comes with an outdated vesrion of python, we like
-to provide an altaerantive python instalation on. This can be achieved
-by following these steps executing as normal user::
+As CentOS typically comes with an outdated version of python, we would like to provide an alternative python
+installation. This can be achieved by following these steps executing as normal user.
+The following steps are customized for configuring python 2.7.10 to be used for virtualenv under $HOME/ENV
+to be installed later.
+(each line to be executed separately and sequentially)::
 
    sudo yum install -y gcc
    cd $HOME
    wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+
+If wget is reported not installed, you may install it using::
+
+   sudo yum install -y wget
+
+Make sure that you have the zlib-devel package installed.
+This is a required at this point to make sure python is installed with zlib module, which is required by virtualenv::
+
+   sudo yum install zlib-devel
+
+Further steps::
+
    tar xzf Python-2.7.10.tgz
    cd Python-2.7.10
    ./configure
-   make altinstall
+   sudo make
+   sudo make install
 
+Verify if you now have the correct python installed.
+At this point you may have to restart the terminal session in order to make the newly installed python 2.7.10 active::
 
-This should provide you with up to date versions. Alternatively the
-following may work, dependent on the CentOS repositories that you
-use. However to be on the save side you can do the steps described above::
+  python --version
+  Python 2.7.10
 
-  sudo yum install -y python
-  sudo yum install -y python-pip
+Verify if the pip is installed::
 
-Next you will have to update the PATH environment variable. Assuming
-that you have executed the above installation commands in home::
+  pip --version
 
-  export PATH=/home/<user>/Python-2.7.10:$PATH
+It is recommended that we install the latest version of pip (7.1.2 as on date).
+Install and upgrade pip with following commands if you do not find it installed or with required version.
+(each line to be executed separately and sequentially)::
 
-You will need an editor to modify the bashrc file. Lets assume you
-have emacs installed and use emacs as editor (any other editor will
-do).Open the file and ppend the above line to ~/.bashrc::
+  sudo easy_install pip
 
-  emacs ~/.bashrc
+Verify if you now have the required pip version installed::
+
+  pip --version
+  pip 7.1.2 from /usr/lib/python2.7/site-packages (python 2.7)
+
+If you see a lower version of pip, you may upgrade it with the following command::
+
+  pip install -U pip
 
 Next, Install a python virtual environment on your machine as we do
 not want to interfere with the system installed python
 versions. Inside your terminal run::
 
-  yum install -y virtualenv
-
-.. todo:: Mangirish. Is this not already coming with python 2.7.10 ?
-	  Also is pip not comming with version 2.7.10? If so we do not
-	  need to install pip?
+  sudo easy_install virtualenv
 
 Next we will create a python virtualenv in the directory $HOME/ENV. To
 activate virtualenv, execute the following steps. Get the location of
@@ -226,17 +238,18 @@ the current python command and make sure it is 2.7.10::
 
   which python
 
-YOu will see a path such as:
+You will see a path such as::
 
-  $HOME/Python-2.7.10/python
+  /usr/local/bin/python
 
-Copy the location of the python interpreter and execute::
-  
-  virtualenv -p $HOME/Python-2.7.10 $HOME/ENV
-  source ~/ENV/bin/activate
+Next execute the following::
+
+  sudo virtualenv -p python $HOME/ENV
+  source $HOME/ENV/bin/activate
 
 This will add a '(ENV)' to your prompt in the terminal like following::
-(ENV)[user@hostname ~]$
+
+  (ENV)[user@hostname ~]$
 
 On more permanent basis, if you want to avoid activating virtualenv
 every time you log in, You can add the activation of the virtualenv to
@@ -246,7 +259,7 @@ the ~/.bashrc file with your favourate editor::
 
 Add the command::
 
-  source ~/ENV/bin/activate
+  source $HOME/ENV/bin/activate
 
 to the file and save the file. You may test if this works, by
 launching a new terminal session and checking if (ENV) is seen
