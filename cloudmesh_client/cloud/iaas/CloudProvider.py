@@ -37,7 +37,11 @@ def set_os_environ(cloudname):
 class CloudProvider(object):
 
     @classmethod
-    def get_environ(cls, cloudname):
+    def __init__(cls, cloudname):
+        cls.provider = CloudProvider.set(cloudname).nova
+
+    @classmethod
+    def set(cls, cloudname):
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud = d["cloudmesh"]["clouds"][cloudname]
@@ -45,37 +49,26 @@ class CloudProvider(object):
 
             if cloud["cm_type"] == "openstack":
                 credentials = cloud["credentials"]
+                cls.provider = CloudProviderOpenstack(cloudname,
+                                                          cloud).nova
+                return cls.provider
 
-                # why not reuse the code from iaas?
-                '''
-                if "OS_CACERT" in credentials:
-                    cert = Config.path_expand(credentials["OS_CACERT"])
+            elif cloud["cm_type"] == "ec2":
 
-                # TODO regions, and other OS_ env variables are not passed
-                # along. we should use kwargs but make sure that vars not
-                # supported bu OS are not passed along. Maybe we need to
-                # separate them in the yaml file from the credentials and
-                # assume that the credentials dict contains all we need to
-                # outhentocate. Than we rename the others to cm_ instead of
-                # OS_ and make sure we rewrite the register code and not
-                # only read the credentials but also the host.
+                raise NotImplemented("Not implemented yet. IMplemented in "
+                                     "old cloudmesh")
 
-                if cert is not None:
-                    nova = client.Client("2", credentials["OS_USERNAME"],
-                                         credentials["OS_PASSWORD"],
-                                         credentials["OS_TENANT_NAME"],
-                                         credentials["OS_AUTH_URL"],
-                                         cert)
-                else:
-                    nova = client.Client("2", credentials["OS_USERNAME"],
-                                         credentials["OS_PASSWORD"],
-                                         credentials["OS_TENANT_NAME"],
-                                         credentials["OS_AUTH_URL"])
+            elif cloud["cm_type"] == "azure":
+
+                raise NotImplemented("Not implemented yet. implemented in "
+                                     "old cloudmesh")
+
+            elif cloud["cm_type"] == "aws":
+
+                raise NotImplemented("Not implemented yet. implemented in "
+                                     "old cloudmesh")
 
 
-                return nova
-                '''
-                return CloudProviderOpenstack(cloudname, cloud).nova
         except Exception, e:
             raise Exception("Error in getting environment"
                             " for cloud: {}, {}".format(cloudname, e))

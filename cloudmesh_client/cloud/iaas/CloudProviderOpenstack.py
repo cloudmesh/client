@@ -5,7 +5,12 @@ from cloudmesh_client.common.ConfigDict import Config
 from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
+import requests
+from cloudmesh_client.cloud.ListResource import ListResource
 
+from cloudmesh_client.common.tables import attribute_printer
+
+requests.packages.urllib3.disable_warnings()
 
 #
 # we already have a much better convert to dict function
@@ -167,3 +172,13 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         TODO: details TBD
         """
         TODO.implement()
+
+
+    @classmethod
+    def list_limits(cls, cloud, output="table", tenant=None):
+        try:
+            # nova = CloudProvider.set(cloud)
+            result = cls.nova.limits.get(tenant_id=tenant)._info["absolute"]
+            return attribute_printer(result, output=output)
+        except Exception, e:
+            return e

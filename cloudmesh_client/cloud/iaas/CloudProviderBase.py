@@ -7,37 +7,41 @@ from cloudmesh_base.hostlist import Parameter
 
 
 class CloudmeshProviderBase(object):
-    __metaclass__ = ABCMeta
 
-    def initialize(self, cloudname, user=None):
-        self.nodes = None
-        self.flavors = None
-        self.data = None
-        self.images = None
-        self.cloudname = cloudname
-        self.keys = None
-        self.user = user
-        self.secgroup = None
-        self.credential = None
-        self.driver = None
+    @classmethod
+    def initialize(cls, cloudname, user=None):
+        cls.nodes = None
+        cls.flavors = None
+        cls.data = None
+        cls.images = None
+        cls.cloudname = cloudname
+        cls.keys = None
+        cls.user = user
+        cls.secgroup = None
+        cls.credential = None
+        cls.driver = None
 
-    @abstractmethod
-    def mode(self, source):
+    @classmethod
+    def mode(cls, source):
         """
         Sets the source for the information to be returned. "db" and "cloud"
         :param source: the database can be queried in mode "db",
         the database can be bypassed in mode "cloud"
         """
-    @abstractmethod
-    def list(self):
+        raise NotImplemented("Not implemented yet.")
+        return None
+
+    @classmethod
+    def list(cls):
         """
         Listing of vm instances
         :return:
         """
+        raise NotImplemented("Not implemented yet.")
         return None
 
-    @abstractmethod
-    def boot(self, cloud, user, name, image, flavor, key, secgroup, meta):
+    @classmethod
+    def boot(cls, cloud, user, name, image, flavor, key, secgroup, meta):
         """
         Boots a new vm instance on the target cloud.
         :param cloud:
@@ -50,10 +54,11 @@ class CloudmeshProviderBase(object):
         :param meta:
         :return:
         """
+        raise NotImplemented("Not implemented yet.")
         return None
 
-    @abstractmethod
-    def delete(self, name, group=None, force=None):
+    @classmethod
+    def delete(cls, name, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
         :param name_or_id:
@@ -61,9 +66,11 @@ class CloudmeshProviderBase(object):
         :param force:
         :return:
         """
+        raise NotImplemented("Not implemented yet.")
+        return
 
-    @abstractmethod
-    def get_ips(self, name, group=None, force=None):
+    @classmethod
+    def get_ips(cls, name, group=None, force=None):
         """
         Returns the ip addresses of the instance indicated by name_or_id
         :param name_or_id:
@@ -71,8 +78,9 @@ class CloudmeshProviderBase(object):
         :param force:
         :return:
         """
+        raise NotImplemented("Not implemented yet.")
+        return
 
-    # TODO: define this
     @classmethod
     def get_image(cls, **kwargs):
         """
@@ -81,25 +89,24 @@ class CloudmeshProviderBase(object):
         """
         return None
 
-    # TODO: define this
     @classmethod
     def get_flavor(cls, **kwargs):
         """
         finds the flavor based on a query
         TODO: details TBD
         """
-        return None
+        raise NotImplemented("Not implemented yet.")
+        return
 
-    # TODO: define this
     @classmethod
     def get_vm(cls, **kwargs):
         """
         finds the flavor based on a query
         TODO: details TBD
         """
-        return None
+        raise NotImplemented("Not implemented yet.")
+        return
 
-    # TODO: define this
     @classmethod
     def refresh(cls, cloud, kind, **kwargs):
         """
@@ -111,7 +118,8 @@ class CloudmeshProviderBase(object):
 
         TODO: details TBD
         """
-        return None
+        raise NotImplemented("Not implemented yet.")
+        return
 
 
 
