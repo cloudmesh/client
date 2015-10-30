@@ -173,18 +173,23 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True, show_none="")
     x.align = "l"
     return x
 
-def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True):
+def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True,
+                      output="table"):
 
-    x = PrettyTable(header)
-    if sort_keys:
-        sorted_list = sorted(d, key=d.get)
+    if output == "table":
+        x = PrettyTable(header)
+        if sort_keys:
+            sorted_list = sorted(d, key=d.get)
+        else:
+            sorted_list = d
+
+        for key in sorted_list:
+            x.add_row([key, d[key]])
+        x.align = "l"
+        return x
     else:
-        sorted_list = d
+        return dict_printer(d)
 
-    for key in sorted_list:
-        x.add_row([key, d[key]])
-    x.align = "l"
-    return x
 
 def print_list(l, output='table'):
 

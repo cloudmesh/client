@@ -2,7 +2,7 @@ from novaclient import client
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import CloudProviderOpenstack
-
+import os
 import requests
 requests.packages.urllib3.disable_warnings()
 
@@ -15,6 +15,23 @@ requests.packages.urllib3.disable_warnings()
 # implemented, but in general authentication should take a provider and use
 # the provider to authenticate and not reimplementing what a provider is
 # supposed to do.
+
+#
+# This was duplicated all over and it will not work as we also have to unset
+#  the variables
+#
+def set_os_environ(cloudname):
+    """Set os environment variables on a given cloudname"""
+    try:
+        d = ConfigDict("cloudmesh.yaml")
+        credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+        for key, value in credentials.iteritems():
+            if key == "OS_CACERT":
+                os.environ[key] = Config.path_expand(value)
+            else:
+                os.environ[key] = value
+    except Exception, e:
+        print(e)
 
 
 class CloudProvider(object):

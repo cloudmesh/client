@@ -1,4 +1,4 @@
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.tables import attribute_printer, list_printer
 from cloudmesh_client.cloud.limits import Limits
 import requests
 from cloudmesh_client.cloud.ListResource import ListResource
@@ -12,16 +12,15 @@ requests.packages.urllib3.disable_warnings()
 class Quota(ListResource):
 
     @classmethod
-    def list(cls, cloud, tenant, format):
+    def list(cls, cloud, tenant, output="table"):
         try:
             # set the environment variables
-            nova = Limits.set_os_environment(cloud)
+            nova = CloudProvider.get_environ(cloud)
 
             # execute the command
             result = nova.quotas.defaults(tenant)._info
-
-            # print results in a format
-            d = convert_to_dict(result)
-            return print_list(d, output=format)
+            return attribute_printer(result, output=output)
         except Exception, e:
+            import sys
+            print(sys.exc_info()[0])
             return e

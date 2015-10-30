@@ -42,8 +42,8 @@ class QuotaCommand(object):
                 return
             tenant = arguments["--tenant"]
             output_format = arguments["--format"]
-            list_quotas = Quota.list(cloud, tenant, format=output_format)
-            Console.msg(list_quotas)
+            list_quotas = Quota.list(cloud, tenant, output=output_format)
+            print (list_quotas)
             return
 
 

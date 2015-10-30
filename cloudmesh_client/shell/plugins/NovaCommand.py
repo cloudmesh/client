@@ -9,6 +9,7 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.cloud.iaas.CloudProvider import set_os_environ
 
 log = LOGGER(__file__)
 
@@ -68,7 +69,7 @@ class NovaCommand (object):
             os.system("nova help")
             return
         elif arguments["info"]:
-            Nova.set_os_environ(cloud)
+            set_os_environ(cloud)
             d = {}
             #
             # TODO: this naturally does not work as clouds will have
@@ -96,7 +97,7 @@ class NovaCommand (object):
         elif arguments["set"]:
             if cloud:
 
-                Nova.set_os_environ(cloud)
+                set_os_environ(cloud)
 
                 msg = "{0} is set".format(cloud)
                 Console.ok(msg)
@@ -106,7 +107,7 @@ class NovaCommand (object):
         else:  # nova ARGUMENTS...
             print("Cloud = {0}".format(cloud))
             try:
-                Nova.set_os_environ(cloud)
+                set_os_environ(cloud)
                 args = arguments["ARGUMENTS"]
 
                 # arguments may contain multiple optional arguments
