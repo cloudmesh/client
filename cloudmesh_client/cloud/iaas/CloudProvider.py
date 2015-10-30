@@ -34,7 +34,7 @@ def set_os_environ(cloudname):
         print(e)
 
 
-class CloudProvider(object):
+class CloudProvider(CloudProviderBase):
 
     @classmethod
     def __init__(cls, cloudname):

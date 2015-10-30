@@ -1,15 +1,10 @@
-from abc import ABCMeta, abstractmethod, abstractproperty
-
 from cloudmesh_base.hostlist import Parameter
-#
-# Abstarct class to tell us what we have to define
-#
-
 
 class CloudmeshProviderBase(object):
 
     @classmethod
     def initialize(cls, cloudname, user=None):
+        cls.kind = ["image","flavor","vm", "quota", "limits", "usage"]
         cls.nodes = None
         cls.flavors = None
         cls.data = None
@@ -31,17 +26,82 @@ class CloudmeshProviderBase(object):
         raise NotImplemented("Not implemented yet.")
         return None
 
+    # #########################
+    # KIND MANAGEMENT
+    # #########################
     @classmethod
-    def list(cls):
+    def kinds(cls):
+        """
+        returns a list of supported list and detail kinds
+        :return: list of kinds supported
+        :rtype: list
+        """
+        return cls.kind
+
+    @classmethod
+    def is_kind(cls, name):
+        """
+        returns tru if the kind given by name exists
+        :param name:
+        :return:
+        """
+        return name in cls.kind
+
+    @classmethod
+    def add_kind(cls, name):
+        cls.kind.append(name)
+
+    @classmethod
+    def del_kind(cls, name):
+        cls.kind.del(name)
+
+    @classmethod
+    def check_kind(cls, name):
+        """
+        returns tru if the kind given by name exists
+        :param name:
+        :return:
+        """
+        if not cls.is_kind(name):
+            raise ValueError("Kind " + name + "not supported")
+
+    # #########################
+    # RESOURCE
+    # #########################
+
+    @classmethod
+    def list(cls, kind, cloudname, *kwargs):
+        """
+        returns the objects in json format
+        :param kind: the kind of list: vm, image, flavor, ...
+        :param cloudname:
+        :return:
+        """
         """
         Listing of vm instances
         :return:
         """
+        cls.check_kind(kind)
         raise NotImplemented("Not implemented yet.")
         return None
 
     @classmethod
-    def boot(cls, cloud, user, name, image, flavor, key, secgroup, meta):
+    def get(cls, kind, cloudname, identifier, *kwargs):
+        """
+        Listing of vm instances
+        :return:
+        """
+        cls.check_kind(kind)
+        raise NotImplemented("Not implemented yet.")
+        return None
+
+
+   # #########################
+    # VMS
+    # #########################
+
+    @classmethod
+    def boot_vm(cls, cloud, user, name, image, flavor, key, secgroup, meta, *kwargs):
         """
         Boots a new vm instance on the target cloud.
         :param cloud:
@@ -52,6 +112,35 @@ class CloudmeshProviderBase(object):
         :param key:
         :param secgroup:
         :param meta:
+        :return:
+        """
+        raise NotImplemented("Not implemented yet.")
+        return None
+
+    @classmethod
+    def list_vm(cls, cloudname, *kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of vm instances
+        :return:
+        """
+        raise NotImplemented("Not implemented yet.")
+        return None
+
+
+    @classmethod
+    def get_vm(cls, cloudname, identifier, **kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        get vm instance
         :return:
         """
         raise NotImplemented("Not implemented yet.")
@@ -81,6 +170,11 @@ class CloudmeshProviderBase(object):
         raise NotImplemented("Not implemented yet.")
         return
 
+
+    # #########################
+    # IMAGE
+    # #########################
+
     @classmethod
     def get_image(cls, **kwargs):
         """
@@ -88,6 +182,10 @@ class CloudmeshProviderBase(object):
         TODO: details TBD
         """
         return None
+
+    # #########################
+    # FLAVOR
+    # #########################
 
     @classmethod
     def get_flavor(cls, **kwargs):
@@ -98,15 +196,11 @@ class CloudmeshProviderBase(object):
         raise NotImplemented("Not implemented yet.")
         return
 
-    @classmethod
-    def get_vm(cls, **kwargs):
-        """
-        finds the flavor based on a query
-        TODO: details TBD
-        """
-        raise NotImplemented("Not implemented yet.")
-        return
 
+    # #########################
+    # REFRESH
+    # #########################
+    
     @classmethod
     def refresh(cls, cloud, kind, **kwargs):
         """
