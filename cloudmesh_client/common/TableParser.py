@@ -55,7 +55,6 @@ class TableParser(object):
     def _get_headers(self, line):
         self.output = line
         self.lines = self.output.splitlines()
-        print "III", self.lines[0]
         self.headers = \
             [self.clean(h) for h in self.lines[0].split(self.seperator)]
         if self.is_strip:

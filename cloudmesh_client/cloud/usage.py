@@ -15,7 +15,6 @@ class Usage(ListResource):
     def list(cls, cloud, start, end, tenant, format):
         # set the environment variables
         set_os_environ(cloud)
-        print "HHHHHH"
         try:
             # execute the command
             args = ["list"]
