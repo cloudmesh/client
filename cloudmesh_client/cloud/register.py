@@ -374,7 +374,7 @@ class CloudRegister(object):
         return env_config_data
 
     @classmethod
-    def register_from_env(cls, provider):
+    def from_environ(cls, provider):
         """
         Reads env OS_* variables and registers a new cloud in yaml, interactively.
         :return:

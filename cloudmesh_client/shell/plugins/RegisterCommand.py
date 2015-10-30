@@ -9,9 +9,9 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister
-from cloudmesh_base.tables import row_table
 from cloudmesh_client.common.tables import attribute_printer, dict_printer, \
     print_list
+from cloudmesh_base.util import path_expand
 
 
 class RegisterCommand(object):
@@ -30,9 +30,10 @@ class RegisterCommand(object):
 
           Usage:
               register info
+              register new
               register clean [--force]
               register list ssh [--format=FORMAT]
-              register list [--yaml=FILENAME][--info][--format=FORMAT]
+              register list [--yaml=FILENAMh bE][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register export HOST [--password] [--format=FORMAT]
@@ -180,6 +181,7 @@ class RegisterCommand(object):
                 # TODO: bug csv does not work
             return
 
+
         if arguments["info"]:
 
             filename = _get_config_yaml_file(arguments)
@@ -187,6 +189,28 @@ class RegisterCommand(object):
                 Console.ok("File '{}' exists. ok.".format(filename))
             else:
                 Console.error("File {} does not exist".format(filename))
+            return
+
+        elif arguments["new"]:
+
+            import shutil
+            import cloudmesh_client.etc
+            print (cloudmesh_client.etc.__file__)
+            filename = os.path.join(
+                os.path.dirname(cloudmesh_client.etc.__file__),
+                "cloudmesh.yaml")
+            Console.ok(filename)
+            yamlfile = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            shutil.copyfile(filename, yamlfile)
+            print("copy ")
+            print("From: ", filename)
+            print("To:   ", yamlfile)
+
+            #filename = _get_config_yaml_file(arguments)
+            #if _exists(filename):
+            #    Console.ok("File '{}' exists. ok.".format(filename))
+            #else:
+            #    Console.error("File {} does not exist".format(filename))
             return
 
         elif arguments["clean"]:
@@ -372,7 +396,7 @@ class RegisterCommand(object):
                 CloudRegister.directory(cloud, dir)
         elif arguments['env']:
             try:
-                CloudRegister.register_from_env(arguments['--provider'])
+                CloudRegister.from_environ(arguments['--provider'])
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
