@@ -1,45 +1,21 @@
+from cloudmesh_client.cloud.iaas.CloudProvider import set_os_environ
 from cloudmesh_client.common import tables
-from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.Shell import Shell
-import os
-# Note: This command would be implemented using the shell since openstack list isn't available as yet
-
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.common.TableParser import TableParser
+from cloudmesh_client.cloud.nova import  Nova
+
+# Note: This command is currently implemented using the nova command as we
+# have not yet found how to print it from the api. We may want to do a rest
+# call instead?
 
 class Usage(ListResource):
-    #
-    # TODO: please use the TableParser
-    #
-    @classmethod
-    def convert_to_dict(cls, openstack_result):
-        filtered_lines = filter(lambda x:
-                                x.startswith("|"),
-                                openstack_result.splitlines())
-        d = {0: {}}
-        for key, value in zip(filtered_lines[0].split("|"), filtered_lines[1].split("|")):
-            d[0][key] = value
-        del d[0][""]
-        return d
-
-    @classmethod
-    def set_os_environment(cls, cloudname):
-        """Set os environment variables on a given cloudname"""
-        try:
-            d = ConfigDict("cloudmesh.yaml")
-            credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
-            for key, value in credentials.iteritems():
-                if key == "OS_CACERT":
-                    os.environ[key] = Config.path_expand(value)
-                else:
-                    os.environ[key] = value
-        except Exception, e:
-            print(e)
 
     @classmethod
     def list(cls, cloud, start, end, tenant, format):
         # set the environment variables
-        Usage.set_os_environment(cloud)
+        set_os_environ(cloud)
+        print "HHHHHH"
         try:
             # execute the command
             args = ["list"]
@@ -51,10 +27,18 @@ class Usage(ListResource):
                 args.extend(["--tenant", tenant])
 
             result = Shell.execute("nova", args)
+            result = Nova.remove_subjectAltName_warning(result)
 
-            d = Usage.convert_to_dict(result)
+            #
+            # TODO: for some reason the nova command has returned not the
+            # first + char, so we could not ignore the line we may set - as
+            # additional comment char, but that did not work
+            #
+            result = "\n".join(result.splitlines()[1:])
+            parser = TableParser(comment_chars="+#-")
+            d = parser.parse_to_dict(result)
 
-            for line in result.splitlines():
+            for line in result:
                 if line.__contains__("Usage from"):
                     print(line)
 

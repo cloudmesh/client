@@ -47,6 +47,10 @@ class UsageCommand(object):
         start = arguments["--start"]
         end = arguments["--end"]
         tenant = arguments["--tenant"]
-        usage = Usage.list(cloud, start=start, end=end, tenant=tenant, format=output_format)
+        usage = Usage.list(cloud,
+                           start=start,
+                           end=end,
+                           tenant=tenant,
+                           format=output_format)
         Console.msg(usage)
         return

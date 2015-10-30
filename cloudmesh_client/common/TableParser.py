@@ -55,20 +55,22 @@ class TableParser(object):
     def _get_headers(self, line):
         self.output = line
         self.lines = self.output.splitlines()
+        print "III", self.lines[0]
         self.headers = \
             [self.clean(h) for h in self.lines[0].split(self.seperator)]
         if self.is_strip:
             self.headers = self.headers[1:-1]
         self.lines = self.lines[1:]
 
-    def parse_to_list(self, line):
+
+    def parse_to_list(self, stream):
         """
-        :param line: converts a stream called line to a list
-        :type line: string
+        :param stream: converts a stream called line to a list
+        :type stream: string
         :return: the list
         """
 
-        self._get_headers(line)
+        self._get_headers(stream)
 
         i = 0
         self.data = []
@@ -89,16 +91,15 @@ class TableParser(object):
                 i += 1
         return self.data
 
-    def parse_to_dict(self, line):
+    def parse_to_dict(self, stream):
         """
 
-        :param line: converts a stream called line to a dict
-        :type line: string
+        :param stream: converts a stream called line to a dict
+        :type stream: string
         :return: the dict
         """
 
-        self._get_headers(line)
-
+        self._get_headers(stream)
         i = 0
         self.data = {}
         for line in self.lines:
@@ -106,14 +107,13 @@ class TableParser(object):
                 element = [h.strip() for h in line.split(self.seperator)]
                 if self.is_strip:
                     element  = element[1:-1]
-
                 entry = {}
                 for column in range(0, len(self.headers)):
                     entry[self.headers[column]] = element[column]
                 if self.index is None:
-                    self.data[str(i)] = entry
+                    self.data[str(i)] = dict(entry)
                 else:
-                    self.data[entry[self.index]] = entry
+                    self.data[entry[self.index]] = dict(entry)
                 i += 1
         return self.data
 
