@@ -4,6 +4,134 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+New
+~~~
+
+- Makong the `cm limits` command working. [Gregor von Laszewski]
+
+- Refactorization of Authenticator to CloudProvider, introduction of
+  ListResources. [Gregor von Laszewski]
+
+- Adding a command `cm register source CLOUD` that adds the environment
+  variables to your shell. [Gregor von Laszewski]
+
+- Adding elementary support for chameleon cloud. [Gregor von Laszewski]
+
+- Fix the cm register list command. [Gregor von Laszewski]
+
+- Fixing cm register (list, ssh), adding some format options. [Gregor
+  von Laszewski]
+
+- Replace the "register rc" and and a "register export" [Gregor von
+  Laszewski]
+
+- Introducing inteligent serach on id, name, and uuid in image list.
+  [Gregor von Laszewski]
+
+- Add flavor command. [Gregor von Laszewski]
+
+- Changing some of the cloud api methods to use list and get more
+  uniformly. [Gregor von Laszewski]
+
+- Working on an alternative remote registration. [Gregor von Laszewski]
+
+- Working on an alternative remote registration. [Gregor von Laszewski]
+
+- Introducing a simple table parser. [Gregor von Laszewski]
+
+- Test and documentation for usage. [ehdsouza]
+
+- Makeing the color on off cpommand much more convenient and working.
+  [Gregor von Laszewski]
+
+- Adding format to comet list an ll commands. [Gregor von Laszewski]
+
+- Comet docs command. [Gregor von Laszewski]
+
+- Comet cluster list command. [Gregor von Laszewski]
+
+- Introducing a simple comet command. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- First fixes to the cm nova command. [Gregor von Laszewski]
+
+- Readding changing of permissions. [Gregor von Laszewski]
+
+- Updating the documentation for `cm register` [Gregor von Laszewski]
+
+- Adapting the authentication of kilo and modifying the register command
+  to do proper scp. [Gregor von Laszewski]
+
+- Remove insecure option. [Gregor von Laszewski]
+
+- Surpress cert warning. [Gregor von Laszewski]
+
+- Remove the register.host method as it is replaced by register.remote.
+  [Gregor von Laszewski]
+
+- Fixing the yaml file. [Gregor von Laszewski]
+
+- Implementing a working remote register command taht uses the etc file
+  to locate the remote openrc file. [Gregor von Laszewski]
+
+- Change format of cloudmesh yaml ant introduce openrc location. [Gregor
+  von Laszewski]
+
+- Removing india from etc and replacing with kilo and juno. Fixing the
+  etc cloudmesh.yaml for juno and kilo. [Gregor von Laszewski]
+
+- Returning an object in ll instead of printing it. [Gregor von
+  Laszewski]
+
+- Add the manpage for the future comet command. [Gregor von Laszewski]
+
+- Starting a prototype of the comet cluster command. [Gregor von
+  Laszewski]
+
+- Adding a future hpc test cluster comand. [Gregor von Laszewski]
+
+- Adding group attributes for future hpc commands. [Gregor von
+  Laszewski]
+
+- Update of hpc manual page for future commands. [Gregor von Laszewski]
+
+- Adding comet logon, logoff. [Gregor von Laszewski]
+
+- Simple docopts changes. [ehdsouza]
+
+- Modified register list user manual. [ehdsouza]
+
+- Modified a sentence in quota user manual. [ehdsouza]
+
+Fix
+~~~
+
+- Modified user manual for cm register rc. [ehdsouza]
+
+Other
+~~~~~
+
+- Dealing with both v2 and v3 of keystone. [fugangwang]
+
+- Example of working with keystone v3. [fugangwang]
+
+- :chg: usr: moving the import statements of sandman into the command so
+  we do not see the sqlalchemy warning at startup. [Gregor von
+  Laszewski]
+
+- Dev: new: Hpc command for squeue. [ehdsouza]
+
+- Chr: dev: change version to __version__ [Gregor von Laszewski]
+
+- 0.7.1. [Gregor von Laszewski]
+
+- Version 0.7.1. [Gregor von Laszewski]
+
+0.7.1 (2015-09-30)
+------------------
+
 - 0.7.0. [Gregor von Laszewski]
 
 - Version 0.7.0. [Gregor von Laszewski]
@@ -152,7 +280,7 @@ Other
 - Make the config dictests more portable on windows. [Gregor von
   Laszewski]
 
-- Move some tests to an old dir for later list. [Gregor von Laszewski]
+- Move some tests to an old dir for later usage. [Gregor von Laszewski]
 
 - Version. [Gregor von Laszewski]
 
@@ -615,7 +743,7 @@ Other
 
 - Adding some function to SSHKeyDBManager. [Paulo Chagas]
 
-- Update function included. function list documentation included.
+- Update function included. function usage documentation included.
   [Paulo Chagas]
 
 - Created tests for nova command. [Daniel Silva]
