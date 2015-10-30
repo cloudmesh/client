@@ -5,7 +5,7 @@ from cloudmesh_client.db import model
 from cloudmesh_client.common import tables
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.common.authenticate import Authenticate
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
 class Flavor(ListResource):
@@ -15,7 +15,7 @@ class Flavor(ListResource):
 
     @classmethod
     def authenticate(cls, cloud):
-        cls.nova = Authenticate.get_environ(cloud)
+        cls.nova = CloudProvider.get_environ(cloud)
         cls._source = cls.nova.flavors
 
     @classmethod

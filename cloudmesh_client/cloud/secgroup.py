@@ -1,21 +1,21 @@
 from __future__ import print_function
 
 import os
+
 from cloudmesh_client.db import model
-
 from cloudmesh_client.common import tables
-
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.common.authenticate import Authenticate
-
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from novaclient import client
 import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 
 requests.packages.urllib3.disable_warnings()
+
+
 
 
 class SecGroup(ListResource):
@@ -147,7 +147,7 @@ class SecGroup(ListResource):
             d = cls.toDict(elements)
             """
 
-            nova_client = Authenticate.get_environ(cloud)
+            nova = CloudProvider.get_environ(cloud)
             os_result = nova_client.security_groups.list()
             d = SecGroup.convert_list_to_dict(os_result)
 
@@ -169,9 +169,6 @@ class SecGroup(ListResource):
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
-        finally:
-            cls.cm_db.close()
 
     @classmethod
     def get(cls, name, project, cloud="general"):
