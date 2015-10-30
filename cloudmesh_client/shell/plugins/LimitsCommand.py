@@ -43,7 +43,7 @@ class LimitsCommand(object):
 
             output_format = arguments["--format"]
             tenant = arguments["--tenant"]
-            result = Limits.list(cloud, format=output_format,
+            result = Limits.list(cloud, output=output_format,
                                         tenant=tenant)
             Console.msg(result)
             return
