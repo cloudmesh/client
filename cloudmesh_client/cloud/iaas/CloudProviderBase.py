@@ -74,7 +74,7 @@ class CloudmeshProviderBase(object):
         """
         returns the objects in json format
         :param kind: the kind of list: vm, image, flavor, ...
-        :param cloudname:
+        :param cloudname: if cloudname = none all cloudes, or cloudname = "all"
         :return:
         """
         """
@@ -200,7 +200,7 @@ class CloudmeshProviderBase(object):
     # #########################
     # REFRESH
     # #########################
-    
+
     @classmethod
     def refresh(cls, cloud, kind, **kwargs):
         """
