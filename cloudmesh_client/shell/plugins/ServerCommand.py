@@ -47,10 +47,8 @@ class ServerCommand(object):
 
         print("database: {}".format(filename))
 
-
         app.config['SQLALCHEMY_DATABASE_URI'] = filename
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
 
         activate()
 

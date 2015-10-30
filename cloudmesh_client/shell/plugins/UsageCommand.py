@@ -6,7 +6,6 @@ from cloudmesh_client.cloud.usage import Usage
 
 
 class UsageCommand(object):
-
     topics = {"list": "cloud"}
 
     def __init__(self, context):

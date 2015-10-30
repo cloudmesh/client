@@ -5,6 +5,7 @@ from cloudmesh_client.common import tables
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 
+
 class Default(ListResource):
     cm_db = CloudmeshDatabase()
     # Create a static variable so that db is initialized once in a transaction
@@ -12,7 +13,7 @@ class Default(ListResource):
     @classmethod
     def list(cls,
              format="table",
-             order=['user','cloud','name','value'],
+             order=['user', 'cloud', 'name', 'value'],
              output=format):
 
         try:

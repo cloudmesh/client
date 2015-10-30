@@ -8,6 +8,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
+
 class Flavor(ListResource):
     cm_db = CloudmeshDatabase()
 
@@ -85,11 +86,11 @@ class Flavor(ListResource):
         try:
             elements = cm.find("flavor", cloud=cloud)
 
-            order=['id', 'uuid', 'name', 'cloud']
+            order = ['id', 'uuid', 'name', 'cloud']
             # order = None
             return tables.dict_printer(elements,
-                                      order=order,
-                                      output=format)
+                                       order=order,
+                                       output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
 

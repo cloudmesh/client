@@ -1,9 +1,8 @@
 from __future__ import print_function
 import os
 
+
 class Nova(object):
-
-
     # noinspection PyPep8Naming
     @classmethod
     def remove_subjectAltName_warning(cls, content):
@@ -11,7 +10,7 @@ class Nova(object):
         for line in content.split("\n"):
             if "subjectAltName" in line:
                 pass
-            elif  "SubjectAltNameWarning" in line:
+            elif "SubjectAltNameWarning" in line:
                 pass
             else:
                 result.append(line)

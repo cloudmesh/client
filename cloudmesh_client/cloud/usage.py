@@ -3,14 +3,14 @@ from cloudmesh_client.common import tables
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.TableParser import TableParser
-from cloudmesh_client.cloud.nova import  Nova
+from cloudmesh_client.cloud.nova import Nova
+
 
 # Note: This command is currently implemented using the nova command as we
 # have not yet found how to print it from the api. We may want to do a rest
 # call instead?
 
 class Usage(ListResource):
-
     @classmethod
     def list(cls, cloud, start, end, tenant, format):
         # set the environment variables

@@ -9,6 +9,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 
+
 class Group(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
@@ -219,11 +220,12 @@ class Group(ListResource):
                     if del_group:
                         Group.delete(name, cloud)
 
-                    return "Successfully removed ID [{}] from the group [{}]"\
+                    return "Successfully removed ID [{}] from the group [{}]" \
                         .format(id, name)
                 else:
-                    Console.error("The ID [{}] supplied does not belong to group [{}]"
-                                  .format(id, name))
+                    Console.error(
+                        "The ID [{}] supplied does not belong to group [{}]"
+                        .format(id, name))
                     return None
             else:
                 return None
@@ -285,13 +287,13 @@ class Group(ListResource):
                     cls.cm_db.save()
                     Console.ok(
                         "Created a new group [{}] and added ID [{}] to it"
-                        .format(_toName, from_id_str))
+                            .format(_toName, from_id_str))
 
             # _fromName group does not exist, error!
             else:
                 Console.error(
                     "Group [{}] does not exist in the cloudmesh database!"
-                    .format(_fromName))
+                        .format(_fromName))
                 return None
 
         except Exception as ex:
@@ -333,7 +335,7 @@ class Group(ListResource):
                 cls.cm_db.save()
                 Console.ok(
                     "Merge of group [{}] & [{}] to group [{}] successful!"
-                    .format(_nameA, _nameB, mergeName))
+                        .format(_nameA, _nameB, mergeName))
             else:
                 Console.error("Your groups [{}] and/or [{}] do not exist!"
                               .format(_nameA, _nameB))

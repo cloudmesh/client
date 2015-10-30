@@ -1,6 +1,7 @@
 import json
 from cloudmesh_client.cloud.hpc.hpc import Hpc
 
+
 # TODO: is this outdated and superceeded by hpc.py?
 class Squeue(object):
     @staticmethod

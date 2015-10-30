@@ -7,13 +7,13 @@ from prettytable import PrettyTable
 import yaml
 from cloudmesh_base.util import convert_from_unicode
 
+
 def list_printer(l,
                  order=None,
                  header=None,
                  output="table",
                  sort_keys=True,
                  show_none="", key="name"):
-
     d = {}
     for c in l:
         name = c[key]
@@ -25,7 +25,6 @@ def list_printer(l,
                         sort_keys=sort_keys,
                         output=output,
                         show_none=show_none)
-
 
 
 def dict_printer(d,
@@ -53,9 +52,11 @@ def dict_printer(d,
         if d == {}:
             return None
         else:
-            return dict_table_printer(d, order=order, header=header, sort_keys=sort_keys)
+            return dict_table_printer(d, order=order, header=header,
+                                      sort_keys=sort_keys)
     elif output == "csv":
-        return dict_csv_printer(d, order=order, header=header, sort_keys=sort_keys)
+        return dict_csv_printer(d, order=order, header=header,
+                                sort_keys=sort_keys)
     elif output == "json":
         return json.dumps(d, sort_keys=sort_keys, indent=4)
     elif output == "yaml":
@@ -124,7 +125,8 @@ def dict_csv_printer(d,
     return table
 
 
-def dict_table_printer(d, order=None, header=None, sort_keys=True, show_none=""):
+def dict_table_printer(d, order=None, header=None, sort_keys=True,
+                       show_none=""):
     """prints a pretty table from an dict of dicts
     :param d: A a dict with dicts of the same type.
                   Each key will be a column
@@ -173,9 +175,9 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True, show_none="")
     x.align = "l"
     return x
 
+
 def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True,
                       output="table"):
-
     if output == "table":
         x = PrettyTable(header)
         if sort_keys:
@@ -192,9 +194,8 @@ def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True,
 
 
 def print_list(l, output='table'):
-
     def dict_from_list(l):
-        d = dict([(idx, item) for idx,item in enumerate(l)])
+        d = dict([(idx, item) for idx, item in enumerate(l)])
         return d
 
     if output == 'table':
@@ -215,9 +216,7 @@ def print_list(l, output='table'):
         return result
     elif output == 'yaml':
         d = dict_from_list(l)
-        result = yaml.dump(d,  default_flow_style=False)
+        result = yaml.dump(d, default_flow_style=False)
         return result
     elif output == 'txt':
         return ("\n".join(l))
-
-

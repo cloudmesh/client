@@ -1,10 +1,9 @@
-
 from abc import ABCMeta, abstractmethod
 
-#class ListResource(metaclass=ABCMeta):
+
+# class ListResource(metaclass=ABCMeta):
 
 class ListResource(object):
-
     __metaclass__ = ABCMeta
 
     @classmethod
@@ -16,7 +15,6 @@ class ListResource(object):
     @abstractmethod
     def list(cls, **kwargs):
         raise NotImplementedError()
-
 
     @classmethod
     @abstractmethod

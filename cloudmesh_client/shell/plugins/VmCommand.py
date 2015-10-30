@@ -185,8 +185,7 @@ class VmCommand(object):
                     Default.get("group")
                 secgroup = arguments["--secgroup"]
                 # print("SecurityGrp : {:}".format(secgroup))
-                secgroup_list = []
-                secgroup_list.append("default")
+                secgroup_list = ["default"]
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
                 cloud = arguments["--cloud"] or \

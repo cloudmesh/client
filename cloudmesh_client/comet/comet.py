@@ -15,7 +15,6 @@ from cloudmesh_base.hostlist import Parameter
 
 
 class Comet(object):
-
     rest_version = "v1"
     base_uri = "http://localhost:8080/"
     auth_uri = "http://localhost:8080/rest-auth"
@@ -30,7 +29,6 @@ class Comet(object):
     def set_base_uri(uri):
         Comet.base_uri = uri
         Comet.auth_uri = Comet.base_uri + "/rest-auth"
-
 
     @staticmethod
     def url(endpoint):
@@ -70,7 +68,7 @@ class Comet(object):
     @staticmethod
     def state():
         pid = Comet.find_tunnel()
-        Console.ok ("Comet tunnel: {:}".format(pid))
+        Console.ok("Comet tunnel: {:}".format(pid))
 
     @staticmethod
     def find_tunnel():
@@ -106,8 +104,8 @@ class Comet(object):
                 data = {"username": username, "password": password}
                 r = requests.post(authuri,
                                   data=json.dumps(data),
-                                  headers = cls.HEADER,
-                                  verify = cls.verify)
+                                  headers=cls.HEADER,
+                                  verify=cls.verify)
                 try:
                     cls.token = r.json()["key"]
                     cls.AUTH_HEADER['Authorization'] = "Token {:}".format(
@@ -129,8 +127,8 @@ class Comet(object):
                 header = dict(cls.HEADER)
                 header['Authorization'] = "Token %s" % cls.token
                 r = requests.post(authuri,
-                                  headers = header,
-                                  verify = cls.verify)
+                                  headers=header,
+                                  verify=cls.verify)
                 cls.token = None
                 cls.AUTH_HEADER = cls.HEADER
             else:
@@ -151,8 +149,8 @@ class Comet(object):
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
     def old_get(url, headers=None):
-        print (Comet.AUTH_HEADER)
-        print (url)
+        print(Comet.AUTH_HEADER)
+        print(url)
         if headers is None:
             headers = Comet.AUTH_HEADER
         r = requests.get(url, headers=headers)
@@ -239,30 +237,28 @@ class Comet(object):
         return ret
 
 
-
-
 def main():
     comet = Comet()
 
     # change user, password to proper value as set in django
     # in shell, we may ask user input
 
-    print (comet.status())
-    print (comet.logon())
-    print (comet.status())
-    print (comet.logoff())
-    print (comet.status())
-    print (comet.logoff())
+    print(comet.status())
+    print(comet.logon())
+    print(comet.status())
+    print(comet.logoff())
+    print(comet.status())
+    print(comet.logoff())
+
 
 def test_get_cluster_list():
-
     token = ''
-    banner ("TEST 1: Get without logon")
+    banner("TEST 1: Get without logon")
     authheader = {'content-type': 'application/json', "Authorization":
         'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
-    r = requests.get(geturl, headers = authheader)
-    pprint (r.json())
+    r = requests.get(geturl, headers=authheader)
+    pprint(r.json())
 
     banner("TEST 2: Auth and then get cluster list")
     authurl = "http://localhost:8080/rest-auth"
@@ -273,37 +269,38 @@ def test_get_cluster_list():
 
     # construct a header with auth token after login
     # for all the following calls before log out
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
     r = Comet.get(geturl, headers=authheader)
-    pprint (r)
+    pprint(r)
 
     # as of 2:40pm ET Oct 15, this is changed to 'not implemented'
     # as of 5:30pm ET this is now fixed and working
     banner("TEST 3: Get cluster 'OSG'")
     geturl1 = "%s%s" % (geturl, "osg/")
     r1 = Comet.get(geturl1, headers=authheader)
-    pprint (r1)
+    pprint(r1)
 
     banner("TEST 4: logoff and get cluster list again")
     comet.logoff()
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
-    r = requests.get(geturl, headers = authheader)
-    pprint (r.json())
-
+    r = requests.get(geturl, headers=authheader)
+    pprint(r.json())
 
 
 def test_power_on_nodes():
-
     banner("TEST: power on a list of nodes")
 
-    print ("Authenticating...")
+    print("Authenticating...")
     # always logon first
     authurl = "http://localhost:8080/rest-auth"
     comet = Comet()
     token = comet.logon()
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
 
     url = "http://localhost:8080/v1/cluster/"
     vcname = "vc2"
@@ -311,18 +308,17 @@ def test_power_on_nodes():
     vmhosts = {}
     vmhosts[vmnames[0]] = "comet-01-05"
     vmhosts[vmnames[1]] = "comet-01-06"
-    data = [{"node":vm,"host":vmhosts[vm]} for vm in vmnames]
+    data = [{"node": vm, "host": vmhosts[vm]} for vm in vmnames]
 
-    print ("Issuing request to poweron nodes...")
+    print("Issuing request to poweron nodes...")
     posturl = "%s%s/compute/poweron" % (url, vcname)
     print("PPPP", posturl)
     r = Comet.post(posturl, headers=authheader, data=data)
-    print ("RETURNED RESULTS:")
-    print (r)
+    print("RETURNED RESULTS:")
+    print(r)
 
 
 if __name__ == "__main__":
     test_get_cluster_list()
-    #main()
+    # main()
     test_power_on_nodes()
-

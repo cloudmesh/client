@@ -1,11 +1,11 @@
 import json
 
-class TableParser(object):
 
+class TableParser(object):
     def __init__(self,
                  header=True,
                  index=None,
-                 change=[(":", "_"),("(", "_"),(")", ""),("/", "_")],
+                 change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
                  strip=True,
                  lower=True,
                  strip_seperator=True,
@@ -48,9 +48,8 @@ class TableParser(object):
         if self.is_strip:
             str = str.strip()
         for convert in self.change:
-            str = str.replace(convert[0],convert[1])
+            str = str.replace(convert[0], convert[1])
         return str
-
 
     def _get_headers(self, line):
         self.output = line
@@ -60,7 +59,6 @@ class TableParser(object):
         if self.is_strip:
             self.headers = self.headers[1:-1]
         self.lines = self.lines[1:]
-
 
     def parse_to_list(self, stream):
         """
@@ -74,10 +72,10 @@ class TableParser(object):
         i = 0
         self.data = []
         for line in self.lines:
-            if line[0] not in  self.comment_chars:
+            if line[0] not in self.comment_chars:
                 element = [h.strip() for h in line.split(self.seperator)]
                 if self.is_strip:
-                    element  = element[1:-1]
+                    element = element[1:-1]
 
                 entry = {}
                 for column in range(0, len(self.headers)):
@@ -102,10 +100,10 @@ class TableParser(object):
         i = 0
         self.data = {}
         for line in self.lines:
-            if line[0] not in  self.comment_chars:
+            if line[0] not in self.comment_chars:
                 element = [h.strip() for h in line.split(self.seperator)]
                 if self.is_strip:
-                    element  = element[1:-1]
+                    element = element[1:-1]
                 entry = {}
                 for column in range(0, len(self.headers)):
                     entry[self.headers[column]] = element[column]
@@ -122,15 +120,14 @@ class TableParser(object):
     def __str__(self):
         return json.dumps(self.data, indent=4, separators=(',', ': '))
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     parser = TableParser()
     d = parser.parse_to_list("|a|b|c|\n|1|2|3|\n+|4|5|6|\n|7|8|9|")
     print d
     print parser.json()
     print parser.headers
     print parser
-
 
     parser.parse_to_dict("|a|b|c|\n|1|2|3|\n|4|5|6|")
     print parser.json()

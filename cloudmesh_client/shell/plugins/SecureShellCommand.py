@@ -7,6 +7,7 @@ from cloudmesh_base.ssh_config import ssh_config
 
 from cloudmesh_base.util import banner
 
+
 class SecureShellCommand(object):
     # def activate_cm_shell_ssh(self):
 

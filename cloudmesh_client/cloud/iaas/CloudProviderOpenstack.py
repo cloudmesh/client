@@ -22,7 +22,6 @@ def convert_to_dict(cls, openstack_result):
 
 
 class CloudProviderOpenstack(CloudmeshProviderBase):
-
     def __init__(self, cloud_name, cloud_details):
         self.initialize(cloud_name, cloud_details)
 
@@ -33,7 +32,8 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
                              password=credentials["OS_PASSWORD"],
                              project_name=credentials["OS_PROJECT_NAME"],
                              user_domain_name=credentials["OS_USER_DOMAIN_ID"],
-                             project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
+                             project_domain_name=credentials[
+                                 "OS_PROJECT_DOMAIN_ID"])
 
         return ksauth
 
@@ -47,7 +47,7 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         if "OS_CACERT" in credentials:
             if credentials["OS_CACERT"] is not False:
                 cert = Config.path_expand(credentials["OS_CACERT"])
-        auth_url=credentials["OS_AUTH_URL"]
+        auth_url = credentials["OS_AUTH_URL"]
         ksversion = auth_url.split("/")[-1]
 
         if "v2.0" == ksversion:
@@ -77,7 +77,8 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         """
         return self.nova.servers.list()
 
-    def boot(self, name, image=None, flavor=None, cloud="India", key=None, secgroup=None, meta=None):
+    def boot(self, name, image=None, flavor=None, cloud="India", key=None,
+             secgroup=None, meta=None):
         """
         Spawns a VM instance on the cloud.
         If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.
@@ -95,7 +96,9 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
-        server = self.nova.servers.create(name, image, flavor, meta=meta, key_name=key, security_groups=secgroup)
+        server = self.nova.servers.create(name, image, flavor, meta=meta,
+                                          key_name=key,
+                                          security_groups=secgroup)
         # return the server id
         return server.__dict__["id"]
 
@@ -164,8 +167,3 @@ class CloudProviderOpenstack(CloudmeshProviderBase):
         TODO: details TBD
         """
         TODO.implement()
-
-
-
-
-

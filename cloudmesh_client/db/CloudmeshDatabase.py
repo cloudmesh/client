@@ -106,7 +106,7 @@ class CloudmeshDatabase(object):
             table_type = self.get_table_from_name(kind)
         result = self.object_to_dict(
             self.session.query(table_type).filter_by(**kwargs)
-            )
+        )
 
         return result
 

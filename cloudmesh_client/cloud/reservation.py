@@ -8,8 +8,8 @@ from cloudmesh_client.common.todo import TODO
 
 from cloudmesh_client.cloud.ListResource import ListResource
 
-class Reservation(ListResource):
 
+class Reservation(ListResource):
     def __init__(self, user=None):
         self.db = CloudmeshDatabase.CloudmeshDatabase(user)
 
@@ -183,6 +183,3 @@ class Reservation(ListResource):
             args['cloud'] = cloud
 
         self.db.update(RESERVATION, args)
-
-
-

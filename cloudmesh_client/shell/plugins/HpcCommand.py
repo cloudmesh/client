@@ -112,7 +112,8 @@ class HpcCommand:
         if arguments["run"]:
             # If cluster is not specified, get default
             if not cluster:
-                cluster = Default.get("cluster") or "india"  # TODO: need to clarify if throw error
+                cluster = Default.get(
+                    "cluster") or "india"  # TODO: need to clarify if throw error
 
             queue = arguments['--queue'] or Default.get('queue')
             if not queue:
@@ -121,19 +122,17 @@ class HpcCommand:
 
             cmd = arguments['SCRIPT']
             arg_dict = {
-                '-name' : arguments['--name'],
-                '-p' : queue,
-                '-t' : arguments['--t'],
-                '-N' : arguments['--N']
+                '-name': arguments['--name'],
+                '-p': queue,
+                '-t': arguments['--t'],
+                '-N': arguments['--N']
             }
             Console.ok(Hpc.run(cluster, cmd, **arg_dict))
 
         if arguments["test"]:
             time_secs = arguments['--time']
             if time_secs:
-                time = '00:00:'+time_secs
+                time = '00:00:' + time_secs
             else:
                 time = '00:00:10'  # give a  default time of 10 secs
             print(Hpc.test(cluster, time))
-
-

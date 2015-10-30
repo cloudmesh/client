@@ -1,10 +1,12 @@
 from __future__ import print_function
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import CloudProviderOpenstack
+from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import \
+    CloudProviderOpenstack
 
 from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.cloud.ListResource import ListResource
+
 
 class Vm(ListResource):
     @classmethod
@@ -27,7 +29,7 @@ class Vm(ListResource):
         except Exception, e:
             import traceback
             print(traceback.format_exc())
-            print (e)
+            print(e)
 
     @classmethod
     def construct_ip_dict(cls, ip_addr, name="india"):
@@ -61,4 +63,4 @@ class Vm(ListResource):
         except Exception, e:
             import traceback
             print(traceback.format_exc())
-            print (e)
+            print(e)

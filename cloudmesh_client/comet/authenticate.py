@@ -4,8 +4,9 @@ import time
 from pprint import pprint
 
 # for unit testing only.
-USERNAME=""
-PASSWORD=""
+USERNAME = ""
+PASSWORD = ""
+
 
 class Authenticator(object):
     base_uri = None
@@ -14,7 +15,7 @@ class Authenticator(object):
     # in case of https endpoint
     verify = False
 
-    def __init__(self, uri = None):
+    def __init__(self, uri=None):
         Authenticator.base_uri = uri
 
     @classmethod
@@ -30,8 +31,8 @@ class Authenticator(object):
                 data = {"username": username, "password": password}
                 r = requests.post(authuri,
                                   data=json.dumps(data),
-                                  headers = cls.HEADER,
-                                  verify = cls.verify)
+                                  headers=cls.HEADER,
+                                  verify=cls.verify)
                 try:
                     cls.token = r.json()["key"]
                 except:
@@ -50,8 +51,8 @@ class Authenticator(object):
                 header = cls.HEADER
                 header['Authorization'] = "Token %s" % cls.token
                 r = requests.post(authuri,
-                                  headers = header,
-                                  verify = cls.verify)
+                                  headers=header,
+                                  verify=cls.verify)
                 cls.token = None
             else:
                 ret = False
@@ -63,6 +64,7 @@ class Authenticator(object):
         if cls.token:
             ret = True
         return ret
+
 
 '''
 # To make GET calls for synchronous or asynchronous API
@@ -94,6 +96,7 @@ def hop_get(url, headers=None, timeout=10):
     return ret
 '''
 
+
 # To make GET calls for synchronous or asynchronous API
 def hop_get(url, headers=None):
     r = requests.get(url, headers=headers)
@@ -124,6 +127,7 @@ def hop_get(url, headers=None):
 
     return ret
 
+
 def main():
     url = "http://localhost:8080/rest-auth"
     auth = Authenticator(url)
@@ -139,15 +143,16 @@ def main():
     print auth.status()
     print auth.logoff()
 
-def test_get_cluster_list():
 
+def test_get_cluster_list():
     token = ''
     print "\nTEST 1: Get without logon"
     print "-" * 80
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
-    r = requests.get(geturl, headers = authheader)
-    pprint (r.json())
+    r = requests.get(geturl, headers=authheader)
+    pprint(r.json())
 
     print "\nTEST 2: Auth and then get cluster list"
     print "-" * 80
@@ -157,14 +162,15 @@ def test_get_cluster_list():
     # in shell, we may ask user input
     user = USERNAME
     password = PASSWORD
-    token = auth.logon(user,password)
+    token = auth.logon(user, password)
 
     # construct a header with auth token after login
     # for all the following calls before log out
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
     r = hop_get(geturl, headers=authheader)
-    pprint (r)
+    pprint(r)
 
     # as of 2:40pm ET Oct 15, this is changed to 'not implemented'
     # as of 5:30pm ET this is now fixed and working
@@ -172,17 +178,18 @@ def test_get_cluster_list():
     print "-" * 80
     geturl1 = "%s%s" % (geturl, "osg/")
     r1 = hop_get(geturl1, headers=authheader)
-    pprint (r1)
+    pprint(r1)
 
     print "\nTEST 4: logoff and get cluster list again"
     print "-" * 80
     auth.logoff()
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
-    r = requests.get(geturl, headers = authheader)
-    pprint (r.json())
+    r = requests.get(geturl, headers=authheader)
+    pprint(r.json())
+
 
 if __name__ == "__main__":
     test_get_cluster_list()
-    #main()
-
+    # main()
