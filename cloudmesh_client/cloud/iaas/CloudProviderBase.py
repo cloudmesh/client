@@ -9,6 +9,9 @@ class CloudmeshProviderBase(object):
         cls.flavors = None
         cls.data = None
         cls.images = None
+        cls.quota = None
+        cls.limits = None
+        cls.usage = None
         cls.cloudname = cloudname
         cls.keys = None
         cls.user = user
@@ -69,6 +72,22 @@ class CloudmeshProviderBase(object):
     # RESOURCE
     # #########################
 
+    def resource(cls, function, kind, cloudname, *kwargs):
+        """
+        returns the objects in json format
+        :param kind: the kind of list: vm, image, flavor, ...
+        :param cloudname: if cloudname = none all cloudes, or cloudname = "all"
+        :return:
+        """
+        """
+        Listing of vm instances
+        :return:
+        """
+        cls.check_kind(kind)
+        what = getattr(cls, function + "_" + kind)
+        return what(cloudname, **kwargs)
+
+
     @classmethod
     def list(cls, kind, cloudname, *kwargs):
         """
@@ -81,9 +100,7 @@ class CloudmeshProviderBase(object):
         Listing of vm instances
         :return:
         """
-        cls.check_kind(kind)
-        raise NotImplemented("Not implemented yet.")
-        return None
+        return cls.resource("list", kind, cloudname, **kwargs)
 
     @classmethod
     def get(cls, kind, cloudname, identifier, *kwargs):
@@ -91,9 +108,16 @@ class CloudmeshProviderBase(object):
         Listing of vm instances
         :return:
         """
-        cls.check_kind(kind)
-        raise NotImplemented("Not implemented yet.")
-        return None
+        return cls.resource("get", kind, cloudname, **kwargs)
+
+    @classmethod
+    def refresh(cls, kind, cloudname, identifier, *kwargs):
+        """
+        Listing of vm instances
+        :return:
+        """
+        return cls.resource("refresh", kind, cloudname, **kwargs)
+
 
 
    # #########################
@@ -147,6 +171,16 @@ class CloudmeshProviderBase(object):
         return None
 
     @classmethod
+    def refresh_vm(cls, cloudname, identifier, *kwargs):
+        """
+        Listing of vm instances
+        :return:
+        """
+        raise NotImplemented("Not implemented yet.")
+        return
+
+
+    @classmethod
     def delete(cls, name, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
@@ -176,6 +210,20 @@ class CloudmeshProviderBase(object):
     # #########################
 
     @classmethod
+    def list_image(cls, cloudname, *kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of iamge
+        :return:
+        """
+        raise NotImplemented("Not implemented yet.")
+        return None
+
+    @classmethod
     def get_image(cls, **kwargs):
         """
         finds the image based on a query
@@ -183,9 +231,32 @@ class CloudmeshProviderBase(object):
         """
         return None
 
+    @classmethod
+    def refresh_image(cls, cloudname, identifier, *kwargs):
+        """
+        Listing of vm instances
+        :return:
+        """
+        raise NotImplemented("Not implemented yet.")
+        return
+
     # #########################
     # FLAVOR
     # #########################
+
+    @classmethod
+    def list_flavor(cls, cloudname, *kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of iamge
+        :return:
+        """
+        raise NotImplemented("Not implemented yet.")
+        return None
 
     @classmethod
     def get_flavor(cls, **kwargs):
@@ -196,21 +267,11 @@ class CloudmeshProviderBase(object):
         raise NotImplemented("Not implemented yet.")
         return
 
-
-    # #########################
-    # REFRESH
-    # #########################
-
     @classmethod
-    def refresh(cls, cloud, kind, **kwargs):
+    def refresh_flavor(cls, cloudname, identifier, *kwargs):
         """
-        refreshes the information from the cloud into the db
-
-        refresh ("india,aws", "vm,images")
-
-        uses parametrized arguments defined by Parameter in cloudmesh.base
-
-        TODO: details TBD
+        Listing of vm instances
+        :return:
         """
         raise NotImplemented("Not implemented yet.")
         return
