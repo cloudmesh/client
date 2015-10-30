@@ -4,6 +4,7 @@ import os
 import os.path
 import json
 
+from cloudmesh_base.util import yn_choice
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
@@ -29,6 +30,7 @@ class RegisterCommand(object):
 
           Usage:
               register info
+              register clean [--force]
               register list ssh [--format=FORMAT]
               register list [--yaml=FILENAME][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
@@ -70,6 +72,8 @@ class RegisterCommand(object):
             --version=VERSION       Version of the openstack cloud.
             --openrc=OPENRC         The location of the openrc file
             --password              Prints the password
+            --force                 ignore interactive questions and execute
+                                    the action
 
           Description:
 
@@ -179,10 +183,34 @@ class RegisterCommand(object):
         if arguments["info"]:
 
             filename = _get_config_yaml_file(arguments)
-            if exists(filename):
+            if _exists(filename):
                 Console.ok("File '{}' exists. ok.".format(filename))
             else:
                 Console.error("File {} does not exist".format(filename))
+            return
+
+        elif arguments["clean"]:
+
+            filename = _get_config_yaml_file(arguments)
+            force = arguments["--force"] or False
+            if filename is not None:
+                print (filename, force)
+                if exists(filename):
+                    print("Delete cloudmesh.yaml file:", filename)
+                    if not force:
+                        force = yn_choice("Would you like to delete the "
+                                          "cloudmesh.yaml file")
+                        print (force)
+                    if force:
+                        os.remove(filename)
+                        Console.ok("Deleted the file " + filename + ". ok.")
+                    else:
+                        Console.ok("Please use Y to delete the file.")
+                    pass
+                else:
+                    Console.error("File {} does not exist".format(filename))
+            else:
+                Console.error("No cloudmesh.yaml file found.")
             return
 
         elif arguments["cat"]:
@@ -296,20 +324,20 @@ class RegisterCommand(object):
                     del os.environ[attribute]
             export(host, output)
 
-        elif arguments['rc']:
-            host = arguments['HOST']
-            openrc = arguments['FILENAME']
-            force = arguments['--force'] or False
-
-            result = CloudRegister.read_rc_file(host, openrc, force)
-            credentials = dict(result)
-
-            # output password as requested by user
-            if not arguments["--password"]:
-                credentials["OS_PASSWORD"] = "********"
-            print(row_table(credentials, order=None,
-                            labels=["Variable", "Value"]))
-            return
+        # elif arguments['rc']:
+        #    host = arguments['HOST']
+        #    openrc = arguments['FILENAME']
+        #    force = arguments['--force'] or False
+        #
+        #    result = CloudRegister.read_rc_file(host, openrc, force)
+        #    credentials = dict(result)
+        #
+        #    # output password as requested by user
+        #    if not arguments["--password"]:
+        #        credentials["OS_PASSWORD"] = "********"
+        #    print(row_table(credentials, order=None,
+        #                    labels=["Variable", "Value"]))
+        #    return
 
         elif arguments['json']:
             host = arguments['HOST']

@@ -6,6 +6,7 @@ cloudmesh:
         firstname: TBD
         lastname: TBD
         email: TBD
+        username: TBD
     github:
         username: TBD
     active:
@@ -20,14 +21,13 @@ cloudmesh:
             cm_label: juno
             cm_type: openstack
             cm_type_version: juno
+            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
             credentials:
                 OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
                 OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_USERNAME: TBD
-                OS_VERSION: juno
-                OS_OPENRC: ~/.cloudmesh/clouds/india/juno/openrc.sh
             default:
                 flavor: TBD
                 image: TBD
@@ -37,6 +37,7 @@ cloudmesh:
             cm_label: kilo
             cm_type: openstack
             cm_type_version: kilo
+            cm_openrc: ~/.cloudmesh/clouds/india/kilo/openrc.sh
             credentials:
                 OS_AUTH_URL: https://kilo.futuresystems.org:5000/v3
                 OS_PASSWORD: TBD
@@ -47,8 +48,6 @@ cloudmesh:
                 OS_PROJECT_NAME: TBD
                 OS_IMAGE_API_VERSION: 2
                 OS_VOLUME_API_VERSION: 2
-                OS_VERSION: kilo
-                OS_OPENRC: ~/.cloudmesh/clouds/india/kilo/openrc.sh
             default:
                 flavor: TBD
                 image: TBD

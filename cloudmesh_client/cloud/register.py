@@ -161,19 +161,22 @@ class CloudRegister(object):
         """
         config = ConfigDict("cloudmesh.yaml")
 
-        host_credentials = config["cloudmesh.clouds." + host + ".credentials"]
+        host_spec = config["cloudmesh.clouds." + host]
+        host_credentials = host_spec["credentials"]
+
         from pprint import pprint
 
-        if 'OS_OPENRC' in host_credentials:
+        if 'cm_openrc' in host_spec:
             Console.ok("looking for openrc")
         else:
-            Console.error("no OC_OPENRC specified in credentials")
+            Console.error("no cm_openrc specified in the host")
             return
 
         hostname = config["cloudmesh.clouds." + host + ".cm_host"]
         Console.ok("fetching information from {:}  ...".format(host))
 
-        openrc = host_credentials["OS_OPENRC"]
+
+        openrc = host_spec["cm_openrc"]
 
         directory = os.path.dirname(openrc)
         base = os.path.basename(openrc)
@@ -217,117 +220,17 @@ class CloudRegister(object):
                 line = line.replace("export ", "")
                 key, value = line.split("=", 1)
                 config["cloudmesh"]["clouds"][host]["credentials"][key] = value
-        credentials = config["cloudmesh.clouds." + host + ".credentials"]
-        if "OC_OPENRC" in credentials:
-            openrc = credentials["OC_OPENRC"]
+        host_spec = config["cloudmesh"]["clouds"][host]
+        credentials = host_spec["credentials"]
+
+        if "cm_openrc" in host_spec:
+            openrc = host_spec["cm_openrc"]
             for attribute in credentials:
                 if attribute in openrc:
                     openrc.replace(attribute, credentials[attribute])
         config.save()
+        config = ConfigDict("cloudmesh.yaml")
         return config["cloudmesh"]["clouds"][host]["credentials"]
-
-    @classmethod
-    def certificate(cls, host, path_cert, force=False):
-        """
-        copies the CERT to the ~/.cloudmesh/clouds/host directory and registers
-        that cert in the coudmesh.yaml file
-
-        :param host: the host name
-        :type host: string
-        :param path_cert: the path to cacert.pem
-        :type path_cert: string
-        :param force: overwrite cacert.pem
-        :type force: bool
-        :return:
-        """
-        Console.ok("register")
-
-        # TODO: we no longer hardcode this needs to be fixed
-        # TODO: kilo is not covered by this case
-        if host == "india":
-            # for india, CERT will be in india:.cloudmesh/clouds/india/juno/cacert.pem
-
-            _from = 'india:{:}'.format(path_cert)
-            _to = '~/.cloudmesh/clouds/india/juno'
-
-            # copies cacert.pem from india to the a local directory
-            if os.path.exists(_to):
-
-                if not yn_choice(
-                        "File already exists. Would you like to overwrite "
-                        "{:}/cacert.pem file y/n? ".format(_to)):
-                    return
-
-            try:
-                Console.ok("Fetching certificate from india...")
-                Shell.scp(_from, _to)
-                Console.ok("certificate fetched. ok")
-            except Exception, e:
-                Console.error(e.message)
-                return
-
-            # registers cert in the cloudmesh.yaml file
-            try:
-                Console.ok("registering cert in cloudmesh.yaml file")
-                filename = "~/.cloudmesh/clouds/india/juno/openrc.sh"
-                result = Shell.cat(filename)
-            except IOError, e:
-                print("ERROR: ", e)
-                return
-
-            lines = result.split("\n")
-            config = ConfigDict("cloudmesh.yaml")
-            for line in lines:
-                if line.strip().startswith("export"):
-                    line = line.replace("export ", "")
-                    key, value = line.split("=", 1)
-                    config["cloudmesh"]["clouds"][host]["credentials"][
-                        key] = value
-            config.save()
-            Console.ok("cert registered in cloudmesh.yaml file.")
-        else:
-            Console.error("Cloud {:} not found".format(host))
-
-    @classmethod
-    def directory(cls, host, directory, force=False):
-        """
-        Copies the entire directory from the cloud and puts it in ~/.cloudmesh/clouds/host
-
-        :param host: the host name
-        :type host: string
-        :param directory: the directory that will be fetched
-        :type directory: string
-        :param force: answer questions with yes
-        :type force: bool
-        :return:
-        """
-        Console.ok("register")
-        if host.lower() == "india":
-            _from = 'india:{:}'.format(directory)
-            _to = "~/.cloudmesh/clouds/india"
-
-            #
-            # BUG: the next line needs to be fixed to be linux and windows compatible
-            #
-            folder = directory.split('/')
-            destination = os.path.join(_to, (folder[-1:])[0])
-
-            if os.path.exists(Config.path_expand(destination)):
-                if not yn_choice("Directory already exists. Would you like to "
-                                 "overwrite {:} directory y/n? ".format(
-                    destination)):
-                    return
-            else:
-                CloudRegister.make_dir(destination)
-
-            try:
-                Console.ok("Fetching directory...")
-                Shell.scp('-r', _from, _to)
-                Console.ok("Directory fetched")
-            except Exception, e:
-                Console.error(e.message)
-        else:
-            Console.error("Cloud {:} not found".format(host))
 
     @classmethod
     def test(cls, filename):
@@ -405,7 +308,6 @@ class CloudRegister(object):
         :param filename:
         :return:
         """
-        # TODO: why not just use filename
         if not os.path.isfile(os.path.expanduser(filename)):
             Console.error("{} doesn't exist".format(filename))
             return

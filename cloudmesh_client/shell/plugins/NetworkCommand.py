@@ -18,7 +18,7 @@ class NetworkCommand(object):
         """
         ::
 
-            Usage:
+            Usage:A
                 network fixed-ip-get [--cloud=CLOUD] FIXED_IP
                 network fixed-ip-reserve [--cloud=CLOUD] FIXED_IP
                 network fixed-ip-unreserve [--cloud=CLOUD] FIXED_IP
