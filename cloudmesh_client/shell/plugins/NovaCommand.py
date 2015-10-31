@@ -9,7 +9,8 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.cloud.iaas.CloudProvider import set_os_environ
+from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
+    set_os_environ
 
 log = LOGGER(__file__)
 
