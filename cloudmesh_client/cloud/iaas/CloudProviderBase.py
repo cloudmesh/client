@@ -1,6 +1,6 @@
 from cloudmesh_base.hostlist import Parameter
 
-class CloudmeshProviderBase(object):
+class CloudProviderBase(object):
 
     @classmethod
     def initialize(cls, cloudname, user=None):
@@ -56,7 +56,7 @@ class CloudmeshProviderBase(object):
 
     @classmethod
     def del_kind(cls, name):
-        cls.kind.del(name)
+        cls.kind.remove(name)
 
     @classmethod
     def check_kind(cls, name):

@@ -1,4 +1,4 @@
-from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudmeshProviderBase
+from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.common.ConfigDict import Config
 
@@ -26,7 +26,7 @@ def convert_to_dict(cls, openstack_result):
     return d
 
 
-class CloudProviderOpenstack(CloudmeshProviderBase):
+class CloudProviderOpenstack(CloudProviderBase):
     def __init__(self, cloud_name, cloud_details):
         self.initialize(cloud_name, cloud_details)
 
