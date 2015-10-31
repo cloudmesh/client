@@ -7,6 +7,38 @@ Changelog
 New
 ~~~
 
+- Fix the usage command and refactor the TableParser, chnage tables to
+  Printer. [Gregor von Laszewski]
+
+- Switching to classmethods. [Gregor von Laszewski]
+
+- Add a function cm register new that copies the etc/yaml file into
+  .cloudmesh. It does not ask .... [Gregor von Laszewski]
+
+- Changing the credentials so that they can be used directly in
+  openstack api calls, removing OS_VERSION, as already defined as
+  cm_type_version. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Improve the base class. [Gregor von Laszewski]
+
+- Replace the authentication class. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- 0.7.2. [Gregor von Laszewski]
+
+- Version 0.7.2. [Gregor von Laszewski]
+
+0.7.2 (2015-10-30)
+------------------
+
+New
+~~~
+
 - Makong the `cm limits` command working. [Gregor von Laszewski]
 
 - Refactorization of Authenticator to CloudProvider, introduction of
