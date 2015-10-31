@@ -13,6 +13,23 @@ from cloudmesh_client.cloud.ListResource import ListResource
 class Group(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
+    # TODO: implement and extend to user
+    @classmethod
+    def exists(cls, name, cloud):
+        """
+        chexks if the group with the given name exists
+        """
+        raise ValueError("not implemented")
+
+    # TODO: implement and extend to user
+    @classmethod
+    def check(cls, name, cloud):
+        """
+        chexks if the group with the given name exists and rasies exception
+        """
+        if not cls.exists(name, cloud):
+            raise ValueError("the default value {} in cloud {} does not exist".format(name,cloud))
+        
     @classmethod
     def list(cls, format="table", cloud="general"):
         """
