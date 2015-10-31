@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP
 
 from cloudmesh_client.common.todo import TODO
 
@@ -83,10 +83,12 @@ class CloudmeshDatabase(object):
             return VM
         elif kind.lower() in ["key"]:
             return KEY
+        elif kind.lower() in ["group"]:
+            return GROUP
         else:
-            TODO.implement("wrong table type")
+            TODO.implement("wrong table type: `{}`".format(kind))
 
-    def find_by_name(self, kind, name):
+    def find_by_name(self, kind, **kwargs):
         """
         find an object by name in the given table.
          If multiple objects have the same name, the first one is returned.
@@ -95,11 +97,17 @@ class CloudmeshDatabase(object):
         :return: the object
         """
         def first(result):
-            return result[result.keys()[0]]
+            if len(result) == 0:
+                return None
+            else:
+                return result[result.keys()[0]]
+
+        if 'name' not in kwargs:
+            raise ValueError("name not specified in find_by_name")
 
         table_type = self.db_table(kind)
 
-        result = first(self.find(table_type, name=name))
+        result = first(self.find(table_type, **kwargs))
         return result
 
     def find(self, kind, output="dict", **kwargs):
@@ -110,9 +118,8 @@ class CloudmeshDatabase(object):
         :return:
         """
         table_type = self.db_table(kind)
-
         result = self.session.query(table_type).filter_by(**kwargs)
-        if result == 'dict':
+        if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
         return result
 

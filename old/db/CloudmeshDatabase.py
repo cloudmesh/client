@@ -12,7 +12,6 @@ from datetime import datetime
 from cloudmesh_base.hostlist import Parameter
 import getpass
 
-
 class CloudmeshDatabase(object):
     def __init__(self, cm_user=None):
         """

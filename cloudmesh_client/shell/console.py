@@ -1,10 +1,15 @@
 import textwrap
+import traceback
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from colorama import Fore, Back, Style
 import colorama
 
 colorama.init()
+
+import textwrap
+def indent(text, indent=2, width=128):
+  return "\n".join( textwrap.wrap(text, width=width, initial_indent=" "*indent, subsequent_indent=" "*indent) )
 
 
 class Console(object):
@@ -96,6 +101,9 @@ class Console(object):
             Console._print('FAIL', text, message)
         else:
             print Console._msg(text + message)
+        print
+        print "    \n".join(str(traceback.format_exc()).splitlines())
+        print
 
     @staticmethod
     def info(message):

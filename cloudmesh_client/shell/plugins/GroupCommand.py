@@ -4,7 +4,7 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-
+from cloudmesh_client.common.Printer import dict_printer
 
 class GroupCommand(object):
     topics = {"group": "cloud"}
@@ -20,9 +20,8 @@ class GroupCommand(object):
         ::
 
             Usage:
-                group info [--cloud=CLOUD] [--format=FORMAT] NAME
                 group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
-                group list [--cloud=CLOUD] [--format=FORMAT]
+                group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
                 group delete [--cloud=CLOUD] [--name=NAME]
                 group remove [--cloud=CLOUD] --name=NAME --id=ID
                 group copy FROM TO
@@ -91,69 +90,51 @@ class GroupCommand(object):
         # pprint(arguments)
 
         if arguments["list"]:
-            # name = arguments["NAME"]
-            output_format = arguments["--format"]
-            cloud = arguments["--cloud"]
 
-            # If cloud is not specified, get default
-            if not cloud:
-                cloud = Default.get("cloud") or "india"
-
-            # If format is not specified, get default
-            if not output_format:
-                output_format = Default.get("format") or "table"
-
-            result = Group.list(format=output_format, cloud=cloud)
-            if result:
-                print(result)
-            else:
-                print("There are no groups in the cloudmesh database!")
-
-            return
-
-        elif arguments["info"]:
-            output_format = arguments["--format"]
-            cloud = arguments["--cloud"]
+            output = arguments["--format"] or Default.get("format") or "table"
+            cloud = arguments["--cloud"] or Default.get("cloud")
             name = arguments["NAME"]
 
-            # If format is not specified, get default
-            if not output_format:
-                output_format = Default.get("format") or "table"
+            print (locals())
+            if name is None:
 
-            # Get default cloud
-            if not cloud:
-                cloud = Default.get("cloud") or "india"
+                result = Group.list(format=output, cloud=cloud)
+                if result:
+                    print (result)
+                else:
+                    print("There are no groups in the cloudmesh database!")
 
-            result = Group.get_info(cloud=cloud, name=name,
-                                    format=output_format)
-
-            if result:
-                print(result)
             else:
-                Console.error(
-                    "No group with name {} found in the cloudmesh database!".format(
-                        name))
-            return
+
+                print ("get details")
+                result = Group.get(name=name, cloud=cloud, output=output)
+
+                if result:
+                    print(result)
+                else:
+                    msg_a = ("No group found with name `{name}` found in the "
+                        "cloud `{cloud}`.".format(**locals()))
+
+                    # find alternate
+                    result = Group.get(name=name)
+                    msg_b = ""
+                    if result is not None:
+                        msg_b =  " However we found such a variable in " \
+                                 "cloud `{cloud}`. Please consider " \
+                                 "using --cloud={cloud}".format(**result)
+                        Console.error (msg_a + msg_b)
+
+                return
 
         elif arguments["add"]:
-            name = arguments["--name"]
-            type = arguments["--type"]
-            cloud = arguments["--cloud"]
-            id = arguments["--id"]
+            data = {
+                "name": arguments["--name"],
+                "type": arguments["--type"] or Default.get("type"),
+                "cloud": arguments["--cloud"] or Default.get("cloud"),
+                "id": arguments["--id"] or Default.get("id"),
+            }
 
-            # If type is not specified, get default
-            if not type:
-                type = Default.get("type")
-
-            # If id is not specified, get last created vm id
-            if not id:
-                id = Default.get("id")
-
-            # If cloud is not specified, get last created vm id
-            if not cloud:
-                cloud = Default.get("cloud") or "india"
-
-            Group.add(name=name, type=type, id=id, cloud=cloud)
+            Group.add(**data)
             return
 
         elif arguments["delete"]:
@@ -169,7 +150,7 @@ class GroupCommand(object):
                 Console.ok("Deletion Successful!")
             else:
                 Console.error(
-                    "No group with name [{}] in the database!".format(name))
+                    "No group with name `{}` in the database!".format(name))
             return
 
         elif arguments["remove"]:
@@ -187,9 +168,9 @@ class GroupCommand(object):
                 Console.ok(result)
             else:
                 Console.error(
-                    "Failed to delete ID [{}] from group [{}] in the database!".format(id, name))
+                    "Failed to delete ID [{}] from group [{}] in the database!".format(
+                        id, name))
             return
-
 
         elif arguments["copy"]:
             _from = arguments["FROM"]
@@ -205,7 +186,6 @@ class GroupCommand(object):
 
             Group.merge(_groupA, _groupB, _mergedGroup)
             return
-
 
 if __name__ == '__main__':
     # TODO: do something useful here

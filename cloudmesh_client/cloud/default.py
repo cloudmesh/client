@@ -83,6 +83,11 @@ class Default(ListResource):
                 return None
             else:
                 return o.value
+            if result is None:
+                if key == 'cloud':
+                    result = 'general'
+                elif key == 'group':
+                    result = 'default'
         finally:
             cls.cm_db.close()
 

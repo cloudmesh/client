@@ -68,6 +68,8 @@ class database(object):
             table = IMAGE
         elif name_lower == "flavor":
             table = FLAVOR
+        elif name_lower == "group":
+            table = FLAVOR
         elif name_lower == "key":
             table = KEY
         return table

@@ -8,10 +8,16 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
-
+from cloudmesh_client.cloud.default import Default
 
 class Group(ListResource):
-    cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
+    cm = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
+
+    order=["name",
+            "value",
+            "user",
+            "cloud",
+            "type"]
 
     # TODO: implement and extend to user
     @classmethod
@@ -42,33 +48,34 @@ class Group(ListResource):
         :return:
         """
         try:
-            d = cls.cm_db.all(model.GROUP)
+            d = cls.cm.all(model.GROUP)
             # Transform the dict to show multiple rows per vm
             newdict = Group.transform_dict(d)
             return (dict_printer(newdict,
-                                        order=["user",
-                                               "cloud",
-                                               "name",
-                                               "value",
-                                               "type"],
+                                        order=cls.order,
                                         output=format))
         except Exception as ex:
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
-    def get_info(cls, cloud="general", name=None, format="table"):
+    def get_info(cls, cloud="general", name=None, output="table"):
         """
         Method to get info about a group
         :param cloud:
         :param name:
-        :param format:
+        :param output:
         :return:
         """
         try:
-            group = cls.get_group(name=name, cloud=cloud)
+            cloud = cloud or Default.get("cloud")
+            print "PPP", name, cloud
+
+            #group = cls.get(group=name, name=name, cloud=cloud)
+            group = cls.get(name=name, cloud=cloud)
+            print "PPP", group
             if group:
                 d = cls.to_dict(group)
                 # Transform the dict to show multiple rows per vm
@@ -77,17 +84,13 @@ class Group(ListResource):
                 return None
 
             return dict_printer(newdict,
-                                       order=["user",
-                                              "cloud",
-                                              "name",
-                                              "value",
-                                              "type"],
-                                       output=format)
+                                       order=cls.order,
+                                       output=output)
         except Exception as ex:
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def add(cls, name, type="vm", id=None, cloud="general"):
@@ -101,12 +104,11 @@ class Group(ListResource):
         :return:
         """
         # user logged into cloudmesh
-        user = cls.getUser(cloud) or cls.cm_db.user
+        user = cls.getUser(cloud) or cls.cm.user
 
         try:
             # See if group already exists. If yes, add id to the group
-            existing_group = cls.cm_db.find_by_name(model.GROUP, name)
-
+            existing_group = cls.cm.find_by_name(model.GROUP, name)
             # Existing group
             if existing_group:
                 id_str = str(existing_group.value)
@@ -119,7 +121,7 @@ class Group(ListResource):
                 else:
                     id_str += ',' + id  # add the id to the group
                     existing_group.value = id_str
-                    cls.cm_db.save()
+                    cls.cm.save()
                     Console.ok("Added ID [{}] to Group [{}]"
                                .format(id, name))
 
@@ -132,8 +134,8 @@ class Group(ListResource):
                     cloud=cloud,
                     user=user
                 )
-                cls.cm_db.add(group_obj)
-                cls.cm_db.save()
+                cls.cm.add(group_obj)
+                cls.cm.save()
                 Console.ok("Created a new group [{}] and added ID [{}] to it"
                            .format(name, id))
 
@@ -141,11 +143,11 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
         return
 
     @classmethod
-    def get_group(cls, name, cloud="general"):
+    def get(cls,  **kwargs):
         """
         This method queries the database to fetch group(s)
         with given name filtered by cloud.
@@ -153,15 +155,22 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
-        try:
-            group = cls.cm_db.query(model.GROUP).filter(
-                model.GROUP.name == name,
-                model.GROUP.cloud == cloud,
-            ).first()
-            return group
+        print (kwargs)
+        query = dict(kwargs)
+        if 'output' in kwargs:
 
+            del query['output']
+        try:
+            group = cls.cm.find_by_name("group", **query)
+            print "AAAA"
+            if "output" in kwargs:
+                d = {"0": group}
+                group = dict_printer(d)
+                print d
+            return group
         except Exception as ex:
             Console.error(ex.message, ex)
+
 
     @classmethod
     def delete(cls, name=None, cloud="general"):
@@ -173,7 +182,7 @@ class Group(ListResource):
         :return:
         """
         try:
-            group = cls.get_group(name=name, cloud=cloud)
+            group = cls.get(group=name, name=name, cloud=cloud)
 
             if group:
                 # Delete VM from cloud before deleting group
@@ -190,7 +199,7 @@ class Group(ListResource):
                         continue
 
                 # Delete group record in local db
-                cls.cm_db.delete(group)
+                cls.cm.delete(group)
                 return "Delete Success"
             else:
                 return None
@@ -199,7 +208,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def remove(cls, name, id, cloud):
@@ -212,7 +221,7 @@ class Group(ListResource):
         :return:
         """
         try:
-            group = cls.get_group(name=name, cloud=cloud)
+            group = cls.get(group=name, name=name, cloud=cloud)
 
             if group:
                 vm_ids = group.value.split(",")
@@ -233,7 +242,7 @@ class Group(ListResource):
                     group.value = new_id_str
 
                     # Save the db record
-                    cls.cm_db.save()
+                    cls.cm.save()
 
                     # If delete flag set, then delete group
                     if del_group:
@@ -253,7 +262,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
         return
 
@@ -266,8 +275,8 @@ class Group(ListResource):
         :return:
         """
         try:
-            _fromGroup = cls.cm_db.find_by_name(model.GROUP, _fromName)
-            _toGroup = cls.cm_db.find_by_name(model.GROUP, _toName)
+            _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)
+            _toGroup = cls.cm.find_by_name(model.GROUP, _toName)
 
             # Get IDs from _fromName group
             from_id_str = str(_fromGroup.value)
@@ -289,7 +298,7 @@ class Group(ListResource):
                             to_id_str += ',' + _id
 
                     _toGroup.value = to_id_str
-                    cls.cm_db.save()
+                    cls.cm.save()
                     Console.ok("Copy from Group [{}] to Group [{}] successful!"
                                .format(_fromName, _toName))
 
@@ -302,8 +311,8 @@ class Group(ListResource):
                         cloud=_fromGroup.cloud,
                         user=_fromGroup.user
                     )
-                    cls.cm_db.add(group_obj)
-                    cls.cm_db.save()
+                    cls.cm.add(group_obj)
+                    cls.cm.save()
                     Console.ok(
                         "Created a new group [{}] and added ID [{}] to it"
                             .format(_toName, from_id_str))
@@ -319,7 +328,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def merge(cls, _nameA, _nameB, mergeName):
@@ -332,8 +341,8 @@ class Group(ListResource):
         :return:
         """
         try:
-            groupA = cls.cm_db.find_by_name(model.GROUP, _nameA)
-            groupB = cls.cm_db.find_by_name(model.GROUP, _nameB)
+            groupA = cls.cm.find_by_name(model.GROUP, _nameA)
+            groupB = cls.cm.find_by_name(model.GROUP, _nameB)
 
             if groupA and groupB:
                 id_str_a = groupA.value
@@ -350,8 +359,8 @@ class Group(ListResource):
                     cloud=cloud
                 )
 
-                cls.cm_db.add(mergeGroup)
-                cls.cm_db.save()
+                cls.cm.add(mergeGroup)
+                cls.cm.save()
                 Console.ok(
                     "Merge of group [{}] & [{}] to group [{}] successful!"
                         .format(_nameA, _nameB, mergeName))
@@ -362,7 +371,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def to_dict(cls, item):
