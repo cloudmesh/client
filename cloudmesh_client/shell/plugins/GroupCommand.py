@@ -20,7 +20,7 @@ class GroupCommand(object):
         ::
 
             Usage:
-                group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
+                group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
                 group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
                 group delete [--cloud=CLOUD] [--name=NAME]
                 group remove [--cloud=CLOUD] --name=NAME --id=ID
@@ -95,7 +95,6 @@ class GroupCommand(object):
             cloud = arguments["--cloud"] or Default.get("cloud")
             name = arguments["NAME"]
 
-            print (locals())
             if name is None:
 
                 result = Group.list(format=output, cloud=cloud)
@@ -106,7 +105,6 @@ class GroupCommand(object):
 
             else:
 
-                print ("get details")
                 result = Group.get(name=name, cloud=cloud, output=output)
 
                 if result:
@@ -128,10 +126,10 @@ class GroupCommand(object):
 
         elif arguments["add"]:
             data = {
-                "name": arguments["--name"],
+                "name": arguments["NAME"],
                 "type": arguments["--type"] or Default.get("type"),
                 "cloud": arguments["--cloud"] or Default.get("cloud"),
-                "id": arguments["--id"] or Default.get("id"),
+                "id": arguments["--id"] or Default.get("id") or "vm"
             }
 
             Group.add(**data)

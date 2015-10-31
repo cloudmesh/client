@@ -93,7 +93,7 @@ class Group(ListResource):
             cls.cm.close()
 
     @classmethod
-    def add(cls, name, type="vm", id=None, cloud="general"):
+    def add(cls, name=None, type="vm", id=None, cloud="general"):
         """
         Add an instance to a new group
             or add it to an existing one
@@ -108,8 +108,13 @@ class Group(ListResource):
 
         try:
             # See if group already exists. If yes, add id to the group
-            existing_group = cls.cm.find_by_name(model.GROUP, name)
+            query ={
+                'name': name,
+                'cloud': cloud
+            }
+            existing_group = cls.cm.find_by_name("group", **query)
             # Existing group
+            print ("EEE", existing_group)
             if existing_group:
                 id_str = str(existing_group.value)
                 ids = id_str.split(',')
@@ -155,18 +160,18 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
-        print (kwargs)
         query = dict(kwargs)
-        if 'output' in kwargs:
 
+        if 'output' in kwargs:
+            for key, value in kwargs.iteritems():
+                if value is None:
+                    query[key] = "None"
             del query['output']
         try:
             group = cls.cm.find_by_name("group", **query)
-            print "AAAA"
-            if "output" in kwargs:
+            if group is not None and "output" in kwargs:
                 d = {"0": group}
                 group = dict_printer(d)
-                print d
             return group
         except Exception as ex:
             Console.error(ex.message, ex)
