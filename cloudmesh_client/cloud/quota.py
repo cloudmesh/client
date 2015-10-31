@@ -11,7 +11,7 @@ class Quota(ListResource):
     @classmethod
     def list(cls, cloud, tenant, output="table"):
         try:
-            nova = CloudProvider.get_environ(cloud)
+            nova = CloudProvider.set(cloud)
             result = nova.quotas.defaults(tenant)._info
             return attribute_printer(result, output=output)
         except Exception, e:

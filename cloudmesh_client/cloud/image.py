@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.db import model
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -39,7 +39,7 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # set the environment
-        nova = CloudProvider.get_environ(cloud)
+        nova = CloudProvider.set(cloud)
 
         # delete previous data
         Image.clear(cloud)
@@ -83,7 +83,7 @@ class Image(ListResource):
 
             order = ['id', 'uuid', 'name', 'cloud']
             # order = None
-            return tables.dict_printer(elements,
+            return dict_printer(elements,
                                        order=order,
                                        output=format)
         except Exception as ex:
@@ -114,7 +114,7 @@ class Image(ListResource):
                 element = elements.values()[0]
                 return tables.attribute_printer(element)
             else:
-                return tables.dict_printer(elements,
+                return dict_printer(elements,
                                            output=format)
         except Exception as ex:
             Console.error(ex.message, ex)

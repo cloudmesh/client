@@ -1,5 +1,5 @@
 from cloudmesh_client.cloud.iaas.CloudProvider import set_os_environ
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.TableParser import TableParser
@@ -55,7 +55,7 @@ class Usage(ListResource):
 
             del d['0']
 
-            return tables.dict_printer(d,
+            return dict_printer(d,
                                        order=["start",
                                               "end",
                                               "servers",

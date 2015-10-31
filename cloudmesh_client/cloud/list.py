@@ -3,7 +3,7 @@ from __future__ import print_function
 import importlib
 from sqlalchemy import and_
 from cloudmesh_client.db import model
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
@@ -53,7 +53,7 @@ class List(object):
             if elements:
                 # convert the output to a dict
                 d = cls.toDict(elements)
-                return (tables.dict_printer(d,
+                return (dict_printer(d,
                                             order=order,
                                             header=header,
                                             output=output))

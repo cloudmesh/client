@@ -1,5 +1,5 @@
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.cloud._sh_quota import Quota
 
 
@@ -36,7 +36,7 @@ class Limits(object):
             return result
         else:
             d = Limits.convert_to_dict(result)
-            return tables.dict_printer(d, order=['Name',
+            return dict_printer(d, order=['Name',
                                                  'Used',
                                                  'Max'],
                                        output=format)

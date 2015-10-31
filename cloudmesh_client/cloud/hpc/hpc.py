@@ -1,7 +1,7 @@
 import json
 
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 
@@ -27,7 +27,7 @@ class Hpc(object):
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
-            return (tables.dict_printer(d,
+            return (dict_printer(d,
                                         order=['jobid',
                                                'partition',
                                                'name',
@@ -55,7 +55,7 @@ class Hpc(object):
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
-            return (tables.dict_printer(d,
+            return (dict_printer(d,
                                         order=['partition',
                                                'avail',
                                                'timelimit',

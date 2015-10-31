@@ -3,7 +3,7 @@ from __future__ import print_function
 import os
 
 from cloudmesh_client.db import model
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -98,7 +98,7 @@ class SecGroup(ListResource):
 
             # Create the security group in OS cloud
             try:
-                nova_client = CloudProvider.get_environ(cloudname)
+                nova_client = CloudProvider.set(cloudname)
                 secgroup = nova_client.security_groups \
                     .create(name=label,
                             description="Security group {}".format(label))
@@ -147,18 +147,18 @@ class SecGroup(ListResource):
             d = cls.toDict(elements)
             """
 
-            nova_client = CloudProvider.get_environ(cloud)
+            nova_client = CloudProvider.set(cloud)
             os_result = nova_client.security_groups.list()
             d = SecGroup.convert_list_to_dict(os_result)
 
-            return tables.dict_printer(d,
+            return dict_printer(d,
                                        order=["Id",
                                               "Name",
                                               "Description"],
                                        output="table")
 
             """
-            return (tables.dict_printer(d,
+            return (dict_printer(d,
                                         order=["uuid",
                                                "user",
                                                "cloud",
@@ -198,7 +198,7 @@ class SecGroup(ListResource):
     def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
         try:
             # Get the nova client object
-            nova_client = CloudProvider.get_environ(secgroup.cloud)
+            nova_client = CloudProvider.set(secgroup.cloud)
             # Create add secgroup rules to the cloud
             rule_id = nova_client.security_group_rules.create(secgroup.uuid, ip_protocol=protocol,
                                                               from_port=from_port, to_port=to_port, cidr=cidr)
@@ -239,7 +239,7 @@ class SecGroup(ListResource):
             ).all()
 
             d = cls.toDict(rule)
-            return (tables.dict_printer(d,
+            return (dict_printer(d,
                                         order=["user",
                                                "cloud",
                                                "name",
@@ -259,7 +259,7 @@ class SecGroup(ListResource):
     def delete_secgroup(cls, label, cloud, tenant):
         try:
             # Find the secgroup from the cloud
-            nova_client = CloudProvider.get_environ(cloud)
+            nova_client = CloudProvider.set(cloud)
             sec_group = nova_client.security_groups.find(name=label)
             if not sec_group:
                 return None
@@ -298,7 +298,7 @@ class SecGroup(ListResource):
 
             if rule:
                 # get the nova client for cloud
-                nova_client = CloudProvider.get_environ(secgroup.cloud)
+                nova_client = CloudProvider.set(secgroup.cloud)
                 # delete the rule from the cloud
                 nova_client.security_group_rules.delete(rule.uuid)
                 # delete the local db record
@@ -382,7 +382,7 @@ class SecGroup(ListResource):
 
 
 if __name__ == '__main__':
-    nova = CloudProvider.get_environ("india")
+    nova = CloudProvider.set("india")
 
     # groups = nova.security_groups.list()
     # print(groups)

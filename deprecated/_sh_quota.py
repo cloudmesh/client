@@ -1,7 +1,7 @@
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 import os
 
 
@@ -40,6 +40,6 @@ class Quota(object):
         Quota.set_os_environment(cloud)
         result = Shell.execute("nova", "quota-show")
         d = Quota.convert_to_dict(result)
-        return tables.dict_printer(d, order=['Quota',
+        return dict_printer(d, order=['Quota',
                                              'Limit'],
                                    output=format)

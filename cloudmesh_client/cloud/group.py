@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from cloudmesh_client.db import model
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common import tables
+from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -45,7 +45,7 @@ class Group(ListResource):
             d = cls.cm_db.all(model.GROUP)
             # Transform the dict to show multiple rows per vm
             newdict = Group.transform_dict(d)
-            return (tables.dict_printer(newdict,
+            return (dict_printer(newdict,
                                         order=["user",
                                                "cloud",
                                                "name",
@@ -76,7 +76,7 @@ class Group(ListResource):
             else:
                 return None
 
-            return tables.dict_printer(newdict,
+            return dict_printer(newdict,
                                        order=["user",
                                               "cloud",
                                               "name",
