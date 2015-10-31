@@ -50,6 +50,12 @@ class CloudmeshDatabase(object):
     def close(self):
         self.session.close()
 
+    def db_table(self, kind):
+        _type = kind
+        if type(kind) == str:
+            _type = self.get_table_from_name(kind)
+        return _type
+
     def delete(self, item):
         """
         :param item:
@@ -88,27 +94,28 @@ class CloudmeshDatabase(object):
         :param name: the name
         :return: the object
         """
-        table_type = kind
+        def first(result):
+            return result[result.keys()[0]]
 
-        if type(kind) == str:
-            table_type = self.get_table_from_name(kind)
-        return self.find(table_type, name=name).first()
+        table_type = self.db_table(kind)
 
-    def find(self, kind, **kwargs):
+        result = first(self.find(table_type, name=name))
+        return result
+
+    def find(self, kind, output="dict", **kwargs):
         """
         NOT teted
         :param kind:
         :param kwargs:
         :return:
         """
-        table_type = kind
-        if type(kind) == str:
-            table_type = self.get_table_from_name(kind)
-        result = self.object_to_dict(
-            self.session.query(table_type).filter_by(**kwargs)
-        )
+        table_type = self.db_table(kind)
 
+        result = self.session.query(table_type).filter_by(**kwargs)
+        if result == 'dict':
+            result = self.object_to_dict(result)
         return result
+
 
     def all(self, table):
         d = {}
@@ -137,7 +144,9 @@ class CloudmeshDatabase(object):
         :param name:
         :return:
         """
-        item = self.find(kind, name=name).first()
+        table_type = self.db_table(kind)
+
+        item = self.find(table_type, name=name, output="item").first()
         self.delete(item)
 
     def object_to_dict(self, obj):

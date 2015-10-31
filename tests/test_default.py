@@ -117,7 +117,9 @@ class Test_default():
         """cm default test=testValue --cloud=mycloud"""
         HEADING()
         result = run("cm default test=testValue --cloud=mycloud")
-        assert "Successfully added value: testValue for key: test" in result
+        print ("HHHH", result)
+
+        assert "ok." in result
 
     def test_009(self):
         """cm default test --cloud=mycloud"""
