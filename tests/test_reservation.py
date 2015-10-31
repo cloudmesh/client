@@ -13,7 +13,7 @@ nosetests -v
 # from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 # from cloudmesh_client.keys.SSHkey import SSHkey
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-# from cloudmesh_client.common.tables import dict_printer
+# from cloudmesh_client.common.Printer import dict_printer
 
 from cloudmesh_base.util import HEADING
 
