@@ -5,7 +5,7 @@ import requests
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
-from cloudmesh_client.common.tables import dict_printer, list_printer
+from cloudmesh_client.common.Printer import dict_printer, list_printer
 from cloudmesh_base.util import banner
 from cloudmesh_base.hostlist import Parameter
 

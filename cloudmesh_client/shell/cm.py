@@ -38,7 +38,7 @@ import cloudmesh_base
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
 import cloudmesh_base
-from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 
 

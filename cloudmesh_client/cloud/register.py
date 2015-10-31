@@ -8,7 +8,7 @@ from builtins import input
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
-from cloudmesh_client.common import tables
+from cloudmesh_client.common import Printer
 from cloudmesh_base.util import banner
 
 from urlparse import urlparse
@@ -47,7 +47,7 @@ class CloudRegister(object):
                     config["cloudmesh"]["clouds"][key][
                         "cm_type_version"] or "N/A"
             }
-        return tables.dict_printer(d,
+        return Printer.dict_printer(d,
                                    order=['id',
                                           'cloud',
                                           'iaas',

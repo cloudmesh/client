@@ -10,7 +10,7 @@ from cloudmesh_client.common.ConfigDict import Config
 # from cloudmesh_base.tables import dict_printer, two_column_table
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import yaml
 import json

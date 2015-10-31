@@ -1,7 +1,7 @@
 import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.common.tables import attribute_printer
+from cloudmesh_client.common.Printer import attribute_printer
 
 requests.packages.urllib3.disable_warnings()
 

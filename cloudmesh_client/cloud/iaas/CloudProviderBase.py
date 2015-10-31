@@ -1,10 +1,10 @@
 from cloudmesh_base.hostlist import Parameter
 
-class CloudProviderBase(object):
 
+class CloudProviderBase(object):
     @classmethod
     def initialize(cls, cloudname, user=None):
-        cls.kind = ["image","flavor","vm", "quota", "limits", "usage"]
+        cls.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
         cls.nodes = None
         cls.flavors = None
         cls.data = None
@@ -87,7 +87,6 @@ class CloudProviderBase(object):
         what = getattr(cls, function + "_" + kind)
         return what(cloudname, **kwargs)
 
-
     @classmethod
     def list(cls, kind, cloudname, *kwargs):
         """
@@ -120,12 +119,14 @@ class CloudProviderBase(object):
 
 
 
-   # #########################
+        # #########################
+
     # VMS
     # #########################
 
     @classmethod
-    def boot_vm(cls, cloud, user, name, image, flavor, key, secgroup, meta, *kwargs):
+    def boot_vm(cls, cloud, user, name, image, flavor, key, secgroup, meta,
+                *kwargs):
         """
         Boots a new vm instance on the target cloud.
         :param cloud:
@@ -155,7 +156,6 @@ class CloudProviderBase(object):
         raise NotImplemented("Not implemented yet.")
         return None
 
-
     @classmethod
     def get_vm(cls, cloudname, identifier, **kwargs):
         """
@@ -178,7 +178,6 @@ class CloudProviderBase(object):
         """
         raise NotImplemented("Not implemented yet.")
         return
-
 
     @classmethod
     def delete(cls, name, group=None, force=None):
@@ -203,7 +202,6 @@ class CloudProviderBase(object):
         """
         raise NotImplemented("Not implemented yet.")
         return
-
 
     # #########################
     # IMAGE
@@ -275,8 +273,3 @@ class CloudProviderBase(object):
         """
         raise NotImplemented("Not implemented yet.")
         return
-
-
-
-
-

@@ -8,9 +8,10 @@ from novaclient import client
 import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 
-from cloudmesh_client.common.tables import attribute_printer
+from cloudmesh_client.common.Printer import attribute_printer
 
 requests.packages.urllib3.disable_warnings()
+
 
 #
 # we already have a much better convert to dict function
@@ -26,7 +27,7 @@ def convert_to_dict(cls, openstack_result):
     return d
 
 
-class CloudProviderOpenstack(CloudProviderBase):
+class CloudProviderOpenstackAPI(CloudProviderBase):
     def __init__(self, cloud_name, cloud_details):
         self.initialize(cloud_name, cloud_details)
 
@@ -172,7 +173,6 @@ class CloudProviderOpenstack(CloudProviderBase):
         TODO: details TBD
         """
         TODO.implement()
-
 
     @classmethod
     def list_limits(cls, cloud, output="table", tenant=None):

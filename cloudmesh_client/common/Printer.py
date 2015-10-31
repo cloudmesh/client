@@ -52,10 +52,14 @@ def dict_printer(d,
         if d == {}:
             return None
         else:
-            return dict_table_printer(d, order=order, header=header,
+            return dict_table_printer(d,
+                                      order=order,
+                                      header=header,
                                       sort_keys=sort_keys)
     elif output == "csv":
-        return dict_csv_printer(d, order=order, header=header,
+        return dict_csv_printer(d,
+                                order=order,
+                                header=header,
                                 sort_keys=sort_keys)
     elif output == "json":
         return json.dumps(d, sort_keys=sort_keys, indent=4)

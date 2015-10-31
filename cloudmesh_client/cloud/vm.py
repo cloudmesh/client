@@ -1,7 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import \
-    CloudProviderOpenstack
+from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
+    CloudProviderOpenstackAPI
 
 from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
@@ -16,7 +16,7 @@ class Vm(ListResource):
             cloud_details = d["cloudmesh"]["clouds"][name]
 
             if cloud_details["cm_type"] == "openstack":
-                return CloudProviderOpenstack(name, cloud_details)
+                return CloudProviderOpenstackAPI(name, cloud_details)
 
             if cloud_details["cm_type"] == "ec2":
                 print("ec2 cloud provider yet to be implemented")

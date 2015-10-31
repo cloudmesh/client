@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client.db import model
-from cloudmesh_client.common import tables
+from cloudmesh_client.common import Printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 
@@ -18,7 +18,7 @@ class Default(ListResource):
 
         try:
             d = cls.cm_db.all(model.DEFAULT)
-            return (tables.dict_printer(d,
+            return (Printer.dict_printer(d,
                                         order=order,
                                         output=format))
         finally:
@@ -37,7 +37,7 @@ class Default(ListResource):
                     if not key.startswith("_sa"):
                         d[element.id][key] = str(element.__dict__[key])
 
-            return (tables.dict_printer(d,
+            return (Printer.dict_printer(d,
                                         order=['user',
                                                'cloud',
                                                'name',

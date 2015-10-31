@@ -1,7 +1,8 @@
 from novaclient import client
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstack import CloudProviderOpenstack
+from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
+    CloudProviderOpenstackAPI
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import os
 import requests
@@ -50,7 +51,7 @@ class CloudProvider(CloudProviderBase):
 
             if cloud["cm_type"] == "openstack":
                 credentials = cloud["credentials"]
-                cls.provider = CloudProviderOpenstack(cloudname,
+                cls.provider = CloudProviderOpenstackAPI(cloudname,
                                                           cloud).nova
                 return cls.provider
 

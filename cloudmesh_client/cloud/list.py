@@ -10,11 +10,12 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
 class List(object):
-    cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
+    cm_db = CloudmeshDatabase()
+    # Instance to communicate with the cloudmesh database
 
     @classmethod
     def list(cls, kind, cloud, user=None,
-                 tenant=None, order=None, header=None, output="table"):
+             tenant=None, order=None, header=None, output="table"):
         """
         Method lists the data in the db for
         given cloud and of given kind

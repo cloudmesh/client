@@ -9,7 +9,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister
-from cloudmesh_client.common.tables import attribute_printer, dict_printer, \
+from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
 from cloudmesh_base.util import path_expand
 

@@ -1,4 +1,4 @@
-from cloudmesh_client.common.tables import attribute_printer
+from cloudmesh_client.common.Printer import attribute_printer
 import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider

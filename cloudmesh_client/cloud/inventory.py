@@ -2,7 +2,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import banner
-from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
 import yaml
 import hostlist

@@ -10,7 +10,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class Flavor(ListResource):
-    cm_db = CloudmeshDatabase()
+    db = CloudmeshDatabase()
 
     table_model = model.FLAVOR
 
@@ -26,16 +26,16 @@ class Flavor(ListResource):
         :param cloud: the cloud name
         """
         try:
-            elements = cls.cm_db.query(cls.table_model).filter(
+            elements = cls.db.query(cls.table_model).filter(
                 cls.table_model.cloud == cloud
             ).all()
 
             for element in elements:
-                cls.cm_db.delete(element)
+                cls.db.delete(element)
         except Exception as ex:
             Console.error(ex.message, ex)
         finally:
-            cls.cm_db.close()
+            cls.db.close()
 
     @classmethod
     def refresh(cls, cloud):
@@ -51,7 +51,7 @@ class Flavor(ListResource):
         try:
             cls.clear(cloud)
             # get the user
-            user = cls.cm_db.user
+            user = cls.db.user
 
             # read data from openstack
 
@@ -65,13 +65,13 @@ class Flavor(ListResource):
                     cloud=cloud,
                     user=user
                 )
-                cls.cm_db.add(element)
-                cls.cm_db.save()
+                cls.db.add(element)
+                cls.db.save()
         except Exception as ex:
             Console.error(ex.message, ex)
             return False
         finally:
-            cls.cm_db.close()
+            cls.db.close()
         return True
 
     @classmethod

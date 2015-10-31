@@ -4,7 +4,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import json
 import pyaml

@@ -3,7 +3,7 @@ from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.common.tables import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.db.model import DEFAULT

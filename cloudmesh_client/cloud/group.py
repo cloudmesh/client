@@ -28,8 +28,10 @@ class Group(ListResource):
         chexks if the group with the given name exists and rasies exception
         """
         if not cls.exists(name, cloud):
-            raise ValueError("the default value {} in cloud {} does not exist".format(name,cloud))
-        
+            raise ValueError(
+                "the default value {} in cloud {} does not exist".format(name,
+                                                                         cloud))
+
     @classmethod
     def list(cls, format="table", cloud="general"):
         """
@@ -242,7 +244,7 @@ class Group(ListResource):
                 else:
                     Console.error(
                         "The ID [{}] supplied does not belong to group [{}]"
-                        .format(id, name))
+                            .format(id, name))
                     return None
             else:
                 return None
