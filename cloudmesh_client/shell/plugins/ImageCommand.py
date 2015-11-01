@@ -50,7 +50,6 @@ class ImageCommand(object):
             id = arguments['ID']
             output_format = arguments["--format"]
             live = arguments['--refresh']
-            print ("ID", id)
             if not cloud:
                 Console.error("Default cloud doesn't exist")
                 return

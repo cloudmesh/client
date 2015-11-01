@@ -20,8 +20,7 @@ class FlavorCommand(object):
 
             Usage:
                 flavor refresh [--cloud=CLOUD]
-                flavor list [--cloud=CLOUD] [--format=FORMAT]
-                flavor show ID [--cloud=CLOUD] [--refresh] [--format=FORMAT]
+                flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
 
                 This lists out the flavors present for a cloud
 
@@ -57,25 +56,26 @@ class FlavorCommand(object):
             return
 
         if arguments["list"]:
-            if not cloud:
-                Console.error("Default cloud doesn't exist")
-                return
-            output_format = arguments["--format"]
-            result = Flavor.list(cloud, output_format)
-            if result is None:
-                Console.error("No flavors found, please use 'cm flavor "
-                              "refresh'")
-            else:
-                print(result)
 
-        if arguments["show"]:
             id = arguments['ID']
             output_format = arguments["--format"]
             live = arguments['--refresh']
             if not cloud:
                 Console.error("Default cloud doesn't exist")
                 return
-            result = Flavor.details(cloud, id, live, output_format)
+
+            output_format = arguments["--format"]
+            if id is None:
+                result = Flavor.list(cloud, output_format)
+            else:
+                result = Flavor.details(cloud, id, live, output_format)
+            if result is None:
+
+                Console.error("Could not find this flavor.")
+            # Todo:
+            # if database size = 0:
+            #    Console.error("No images in the database, please refresh.")
+
             print(result)
             return
 

@@ -17,7 +17,7 @@ class Default(ListResource):
              output=format):
 
         try:
-            d = cls.cm.all(model.DEFAULT)
+            d = cls.cm.all("default")
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
