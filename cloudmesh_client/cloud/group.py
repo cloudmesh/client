@@ -187,7 +187,9 @@ class Group(ListResource):
         :return:
         """
         try:
-            group = cls.get(group=name, name=name, cloud=cloud)
+            group = cls.get(name=name, cloud=cloud)
+
+            print (group)
 
             if group:
                 # Delete VM from cloud before deleting group
@@ -196,6 +198,7 @@ class Group(ListResource):
                     try:
                         # Submit request to delete VM
                         args = ["delete", vm_id]
+                        # TODO: this is a bug as we should use VM class
                         result = Shell.execute("nova", args)
                         print(Nova.remove_subjectAltName_warning(result))
                     except Exception as e:
@@ -226,7 +229,7 @@ class Group(ListResource):
         :return:
         """
         try:
-            group = cls.get(group=name, name=name, cloud=cloud)
+            group = cls.get(name=name, cloud=cloud)
 
             if group:
                 vm_ids = group.value.split(",")
@@ -392,6 +395,7 @@ class Group(ListResource):
                 d[item.id][key] = str(item.__dict__[key])
         return d
 
+    #TODO we have a dict transformer elsewhere
     @classmethod
     def transform_dict(cls, dict):
         """
@@ -416,6 +420,8 @@ class Group(ListResource):
                 i += 1
         return d
 
+    # TODO Bug. This needs to go to the CLoudProviderOpenstackAPI
+    # TODO Bug naturally the india implementation here is buggy
     @classmethod
     def getUser(cls, cloudname):
         """

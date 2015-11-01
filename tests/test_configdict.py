@@ -108,7 +108,7 @@ class Test_configdict:
 
         assert d.filename == os.path.join(path, filename)
 
-       
+
 
 
 """	def main():

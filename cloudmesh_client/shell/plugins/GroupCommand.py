@@ -22,7 +22,7 @@ class GroupCommand(object):
             Usage:
                 group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
                 group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
-                group delete [--cloud=CLOUD] [--name=NAME]
+                group delete NAME [--cloud=CLOUD]
                 group remove [--cloud=CLOUD] --name=NAME --id=ID
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
@@ -136,19 +136,17 @@ class GroupCommand(object):
             return
 
         elif arguments["delete"]:
-            name = arguments["--name"]
-            cloud = arguments["--cloud"]
+            data = {
+                "name": arguments["NAME"],
+                "cloud": arguments["--cloud"] or Default.get("cloud"),
+            }
 
-            # If cloud is not specified, get default
-            if not cloud:
-                cloud = Default.get("cloud") or "india"
-
-            result = Group.delete(name=name, cloud=cloud)
+            result = Group.delete(**data)
             if result:
-                Console.ok("Deletion Successful!")
+                Console.ok("Deletion completed. ok.")
             else:
                 Console.error(
-                    "No group with name `{}` in the database!".format(name))
+                    "No group with name `{name}` found".format(**data))
             return
 
         elif arguments["remove"]:
