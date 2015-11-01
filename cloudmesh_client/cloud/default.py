@@ -7,7 +7,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class Default(ListResource):
-    cm_db = CloudmeshDatabase()
+    cm = CloudmeshDatabase()
     # Create a static variable so that db is initialized once in a transaction
 
     @classmethod
@@ -17,17 +17,17 @@ class Default(ListResource):
              output=format):
 
         try:
-            d = cls.cm_db.all(model.DEFAULT)
+            d = cls.cm.all(model.DEFAULT)
             return (Printer.dict_printer(d,
-                                        order=order,
-                                        output=format))
+                                         order=order,
+                                         output=format))
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def get_objects(cls, cloud, format="table"):
         try:
-            elements = cls.cm_db.query(model.DEFAULT).filter(
+            elements = cls.cm.query(model.DEFAULT).filter(
                 model.DEFAULT.cloud == cloud
             )
             d = {}
@@ -38,13 +38,13 @@ class Default(ListResource):
                         d[element.id][key] = str(element.__dict__[key])
 
             return (Printer.dict_printer(d,
-                                        order=['user',
-                                               'cloud',
-                                               'name',
-                                               'value'],
-                                        output=format))
+                                         order=['user',
+                                                'cloud',
+                                                'name',
+                                                'value'],
+                                         output=format))
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     #
     # GENERAL SETTER AND GETTER METHOD
@@ -54,26 +54,26 @@ class Default(ListResource):
     def set(cls, key, value, cloud=None, user=None):
         try:
             o = Default.get_object(key, cloud)
-            me = cls.cm_db.user or user
+            me = cls.cm.user or user
             if o is None:
                 o = model.DEFAULT(key, value, cloud=cloud, user=me)
             else:
                 o.value = value
-            cls.cm_db.add(o)
+            cls.cm.add(o)
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def get_object(cls, key, cloud=None):
         try:
             which_cloud = cloud or "general"
-            o = cls.cm_db.query(model.DEFAULT).filter(
+            o = cls.cm.query(model.DEFAULT).filter(
                 model.DEFAULT.name == key,
                 model.DEFAULT.cloud == which_cloud
             ).first()
             return o
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def get(cls, key, cloud=None):
@@ -89,31 +89,31 @@ class Default(ListResource):
                 elif key == 'group':
                     result = 'default'
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def delete(cls, key, cloud):
         try:
             o = Default.get_object(key, cloud)
             if o is not None:
-                cls.cm_db.delete(o)
+                cls.cm.delete(o)
                 return "Deletion. ok."
             else:
                 return None
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def clear(cls):
         try:
-            d = cls.cm_db.all(model.DEFAULT)
+            d = cls.cm.all(model.DEFAULT)
             for item in d:
                 name = d[item]["name"]
                 kind = model.DEFAULT
-                cls.cm_db.delete_by_name(kind, name)
-            cls.cm_db.save()
+                cls.cm.delete_by_name(kind, name)
+            cls.cm.save()
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     #
     # Set the default cloud
