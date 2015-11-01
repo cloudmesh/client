@@ -78,16 +78,16 @@ class Default(ListResource):
     @classmethod
     def get(cls, key, cloud=None):
         try:
-            o = cls.get_object(key, cloud=cloud)
-            if o is None:
-                return None
-            else:
-                return o.value
+            result = cls.get_object(key, cloud=cloud)
             if result is None:
                 if key == 'cloud':
                     result = 'general'
                 elif key == 'group':
                     result = 'default'
+                return None
+            else:
+                return result.value
+
         finally:
             cls.cm.close()
 

@@ -6,10 +6,6 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.db.model import DEFAULT
-from cloudmesh_client.db.model import KEY
-from cloudmesh_client.db.model import tables
-from cloudmesh_client.db.model import tablenames
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
