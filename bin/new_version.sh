@@ -1,9 +1,9 @@
 #! /bin/sh
 
 cm-authors > AUTHORS
-git tag
+git tag 
 echo "New Tag?"; read TAG
-git tag $TAG
+git tag -a $TAG
 echo $TAG
 echo "__version__ = \"$TAG\"" > cloudmesh_client/version.py
 git commit -m "version $TAG" cloudmesh_client/version.py
