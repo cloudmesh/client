@@ -4,6 +4,26 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+Changes
+~~~~~~~
+
+- Change CloudProvider.os_environ to CloudProvider.set. [Gregor von
+  Laszewski]
+
+Other
+~~~~~
+
+- Chk: dev: improving group command. [Gregor von Laszewski]
+
+- Update index.rst. [Gregor von Laszewski]
+
+- 0.7.3. [Gregor von Laszewski]
+
+- Version 0.7.3. [Gregor von Laszewski]
+
+0.7.3 (2015-10-31)
+------------------
+
 New
 ~~~
 
