@@ -151,7 +151,8 @@ class Reservation(ListResource):
 
         # print(args)
         result = self.db.find(RESERVATION, **args)
-        return self.db.object_to_dict(result)
+        # print("RESULT:- {}".format(result))
+        return result
 
     def update(self,
                name,
