@@ -5,9 +5,6 @@ class CloudProviderBase(object):
 
 
     def __init__(self, cloudname, user=None):
-        self.initialize(cloudname, user=user)
-
-    def initialize(self, cloudname, user=None):
         self.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
         self.nodes = None
         self.flavors = None

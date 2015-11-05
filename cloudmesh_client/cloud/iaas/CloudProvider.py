@@ -16,10 +16,7 @@ class CloudProvider(CloudProviderBase):
 
     def __init__(self, cloudname, user=None):
         super( CloudProvider, self ).__init__(cloudname, user=user)
-        self.provider = self.set(cloudname)
-        self.initialize(cloudname)
 
-    def set(self, cloudname):
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
@@ -30,8 +27,6 @@ class CloudProvider(CloudProviderBase):
                     cloudname,
                     cloud_details)
                 self.provider = provider
-
-                return provider
 
             if cloud_details["cm_type"] == "ec2":
                 print("ec2 cloud provider yet to be implemented")
@@ -55,13 +50,14 @@ def main():
     provider = CloudProvider(cloud)
     print (provider, type(provider))
 
-    pprint (provider.__dict__)
-    pprint (dir(provider))
+    #pprint (provider.__dict__)
+    #pprint (dir(provider))
 
 
-    #provider.provider.list("flavor", cloud)
+    r = provider.provider.list("flavor", cloud)
 
-    print(dir(provider.provider))
+    print (r)
+    # print(dir(provider.provider))
 
     #provider.list_flavor(cloud)
     #provider.list("flavor", cloud)
