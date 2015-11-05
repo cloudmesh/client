@@ -53,7 +53,7 @@ class CloudmeshDatabase(object):
     def db_table(self, kind):
         _type = kind
         if type(kind) == str:
-            _type = self.get_table_from_name(kind)
+            _type = self.get_table(kind)
         return _type
 
     def delete(self, item):
@@ -72,23 +72,26 @@ class CloudmeshDatabase(object):
         self.session.query(kind).delete()
         self.save()
 
-    def get_table_from_name(self, kind):
-        if kind.lower() in ["flavor"]:
-            return FLAVOR
-        elif kind.lower() in ["default"]:
-            return DEFAULT
-        elif kind.lower() in ["image"]:
-            return IMAGE
-        elif kind.lower() in ["vm"]:
-            return VM
-        elif kind.lower() in ["key"]:
-            return KEY
-        elif kind.lower() in ["group"]:
-            return GROUP
-        elif kind.lower() in ["reservation"]:
-            return RESERVATION
+    def get_table(self, kind):
+        if type(kind) == str:
+            if kind.lower() in ["flavor"]:
+                return FLAVOR
+            elif kind.lower() in ["default"]:
+                return DEFAULT
+            elif kind.lower() in ["image"]:
+                return IMAGE
+            elif kind.lower() in ["vm"]:
+                return VM
+            elif kind.lower() in ["key"]:
+                return KEY
+            elif kind.lower() in ["group"]:
+                return GROUP
+            elif kind.lower() in ["reservation"]:
+                return RESERVATION
+            else:
+                TODO.implement("wrong table type: `{}`".format(kind))
         else:
-            TODO.implement("wrong table type: `{}`".format(kind))
+            return kind
 
     def find_by_name(self, kind, **kwargs):
         """
@@ -107,7 +110,7 @@ class CloudmeshDatabase(object):
         if 'name' not in kwargs:
             raise ValueError("name not specified in find_by_name")
 
-        table_type = self.db_table(kind)
+        table_type = self.get_table(kind)
 
         result = first(self.find(table_type, **kwargs))
         return result
@@ -119,14 +122,25 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        table_type = self.db_table(kind)
-        result = self.session.query(table_type).filter_by(**kwargs)
+        result = self.query(kind, **kwargs)
         if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
         return result
 
+    def query(self, kind, **kwargs):
+        """
+        NOT teted
+        :param kind:
+        :param kwargs:
+        :return:
+        """
+        table_type = self.get_table(kind)
+        result = self.session.query(table_type).filter_by(**kwargs)
+        return result
+
+
     def all(self, table):
-        table_type = self.db_table(table)
+        table_type = self.get_table(table)
         elements = self.session.query(table_type).all()
         d = self.parse_objs(elements)
         return d
@@ -157,8 +171,6 @@ class CloudmeshDatabase(object):
         :param name:
         :return:
         """
-        table_type = self.db_table(kind)
-
         item = self.find(table_type, name=name, output="item").first()
         self.delete(item)
 
@@ -235,9 +247,6 @@ class CloudmeshDatabase(object):
 
         return count_result
 
-    def query(self, table):
-        return self.session.query(table)
-
     def db_obj_dict(self, kind, obj_dict=None, **kwargs):
         """
         This method is a generic method to populate an object dict.
@@ -270,7 +279,7 @@ class CloudmeshDatabase(object):
         for obj in obj_dict.values():
             # print(obj)
             for key in obj.keys():
-                table_name = self.db_table(key)
+                table_name = self.get_table(key)
                 obj_to_persist = table_name(**obj[key])
                 self.add(obj_to_persist)
 

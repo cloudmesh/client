@@ -101,8 +101,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         Returns list of all the vm instances.
         :return:List of Servers
         """
+        if kind not in self.kind:
+            raise ValueError ("list " + kind + "is not supported")
+
         if kind == "vm":
             return self.nova.servers.list()
+        elif kind == "flavor":
+            return self.nova.flavors.list()
+        elif kind == "image":
+            return self.nova.flavors.list()
+        elif kind == "limits":
+            raise ValueError("list limits not implemented")
+        elif kind == "quota":
+            raise ValueError("list quota not implemented")
+        elif kind == "usage":
+            raise ValueError("list usage not implemented")
         else:
             raise Exception("Invalid kind to list.")
 
@@ -205,6 +218,63 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             return attribute_printer(result, output=output)
         except Exception, e:
             return e
+
+
+    def attributes(cls, kind):
+        header = None
+        order = None
+        if kind == 'flavor':
+            order = [
+                'id',
+                'name',
+                'cm_cloud',
+                'disk',
+                'ephemeral_disk',
+                'ram',
+                'vcpus'
+            ]
+        elif kind == 'default':
+            order = ['user',
+                     'cloud',
+                     'name',
+                     'value',
+                     'created_at',
+                     'updated_at'
+                     ]
+        elif kind == 'image':
+            order = [
+                'cm_cloud',
+                'cm_user',
+                'instance_type_ephemeral_gb',
+                'instance_type_flavorid',
+                'instance_type_id',
+                'instance_type_memory_mb',
+                'instance_type_name',
+                'instance_type_root_gb',
+                'instance_type_rxtx_factor',
+                'instance_type_swap',
+                'instance_type_vcpus',
+                'minDisk',
+                'minRam',
+                'name',
+            ]
+            header = [
+                'cloud',
+                'user',
+                'ephemeral_gb',
+                'flavorid',
+                'id',
+                'memory_mb',
+                'flavor',
+                'root_gb',
+                'rxtx_factor',
+                'swap',
+                'vcpus',
+                'minDisk',
+                'minRam',
+                'name',
+            ]
+        return (order, header)
 
     """
     def list(cls, cloud, start, end, tenant, format):

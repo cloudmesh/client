@@ -7,7 +7,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
-
+from cloudmesh_client.cloud.list import List
 
 class Flavor(ListResource):
     db = CloudmeshDatabase()
@@ -16,8 +16,8 @@ class Flavor(ListResource):
 
     @classmethod
     def authenticate(cls, cloud):
-        cls.nova = CloudProvider.set(cloud)
-        cls._source = cls.nova.flavors
+        cls.provider = CloudProvider.set(cloud)
+        cls._source = cls.provider.flavors
 
     @classmethod
     def clear(cls, cloud):
@@ -80,14 +80,27 @@ class Flavor(ListResource):
         This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
-        # TODO: make a CloudmeshDatabase without requireing the user=
-        cm = CloudmeshDatabase(user="gregor")
+        # TODO: make a CloudmeshDatabase without requiring the user=
+
+        user = "gregor"
+        tenant = None
+        cm = CloudmeshDatabase(user=user)
 
         try:
             elements = cm.find("flavor", cloud=cloud)
 
-            order = ['id', 'uuid', 'name', 'cloud']
-            # order = None
+            provider = CloudProvider.set(cloud)
+            order, header = provider.attributes("flavor")
+
+
+            return List.list("flavor",
+                 cloud,
+                 user=user,
+                 tenant=None,
+                 order=order,
+                 header=header,
+                 output=format)
+
             return dict_printer(elements,
                                        order=order,
                                        output=format)

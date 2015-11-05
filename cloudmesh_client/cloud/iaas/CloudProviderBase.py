@@ -20,6 +20,19 @@ class CloudProviderBase(object):
         cls.driver = None
 
     @classmethod
+    def attributes(cls, kind):
+        """
+
+        :param kind:
+        :return: order and headers of the useful data
+        """
+        if kind in cls.kind:
+            header = None
+            order = None
+        else:
+            raise ValueError("Kind " + kind + " not supported")
+
+    @classmethod
     def mode(cls, source):
         """
         Sets the source for the information to be returned. "db" and "cloud"

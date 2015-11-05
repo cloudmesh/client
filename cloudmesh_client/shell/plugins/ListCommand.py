@@ -46,6 +46,10 @@ class ListCommand(object):
         # pprint(arguments)
 
         # Method to get the kind from args
+        #
+        # TODO: the kind are defined in the provider,
+        # TODO: keep the kind lower case
+        # why is there a reason to make the gind upper case
         def get_kind():
             for k in ["vm", "image", "flavor", "default"]:
                 if arguments[k]:
@@ -86,6 +90,10 @@ class ListCommand(object):
             return
 
         # Prepare the order & header based on kind
+        # TODO: use lower case so we have a convention thats easy to follow
+        # TODO: add quota
+        # TODO: add limits
+        # TODO: add usage
         if kind == 'FLAVOR':
             order = [
                 'cm_cloud',
@@ -139,8 +147,13 @@ class ListCommand(object):
             ]
 
         # Get the result & print it
-        result = List.list(kind, cloud, user,
-                               tenant, order, header, output_format)
+        result = List.list(kind,
+                           cloud,
+                           user,
+                           tenant,
+                           order,
+                           header,
+                           output_format)
         if result:
             print(result)
         else:

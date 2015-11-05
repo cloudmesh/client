@@ -16,6 +16,7 @@ import getpass
 import socket
 
 
+
 class VmCommand(object):
 
     topics = {"vm": "cloud"}
@@ -31,6 +32,7 @@ class VmCommand(object):
         ::
 
             Usage:
+                vm refresh [NAME] [--cloud=CLOUD]  [--group=GROUP]
                 vm start --name=NAME
                          [--count=COUNT]
                          [--cloud=CLOUD]
@@ -219,6 +221,12 @@ class VmCommand(object):
                 print(traceback.format_exc())
                 print (e)
                 Console.error("Problem starting instance {:}".format(name))
+
+        elif arguments["refresh"]:
+            id = arguments["NAME"]
+            group = arguments["--group"]
+
+            raise ValueError("TODO: refreshes the named vm is not implemented")
 
         elif arguments["delete"]:
             try:

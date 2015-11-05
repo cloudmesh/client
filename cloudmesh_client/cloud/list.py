@@ -30,7 +30,9 @@ class List(object):
         """
         try:
             # get the model object
-            model_kind = cls.get_classobj(kind)
+            print (kind)
+            model_kind =cls.cm_db.get_table_from_name(kind)
+            print
             filter_obj = cls.cm_db.query(model_kind).filter(
                 model_kind.cloud == cloud
             )
@@ -77,8 +79,13 @@ class List(object):
         # get the module reference
         module = importlib.import_module(model.__name__)
         # get tbe class obj reference
-        obj = getattr(module, kind)
 
+        print ("M", module)
+        print ("K", kind)
+        obj = getattr(module, kind)
+        #obj = getattr(module, "FLAVOR")
+        #obj = cls.cm_db.get_table(kind)
+        print (obj)
         return obj
 
     #

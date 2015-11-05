@@ -90,7 +90,7 @@ class CloudmeshDatabase(object):
         """
         table_type = kind
         if type(kind) == str:
-            table_type = self.db.get_table_from_name(kind)
+            table_type = self.db.get_table(kind)
         return self.session.query(table_type).filter_by(**kwargs)
 
     def delete_by_name(self, kind, name):
@@ -121,7 +121,7 @@ class CloudmeshDatabase(object):
             self.delete_all(clean)
         else:
             for k in kind:
-                t = database.get_table_from_name(k)
+                t = database.get_table(k)
                 if t is not None:
                     for e in self.data.query(t):
                         self.delete(e)
@@ -187,7 +187,7 @@ class CloudmeshDatabase(object):
         cm_id = content["cm_id"]
         cm_type = content["cm_type"]
 
-        table = self.db.get_table_from_name(cm_type)
+        table = self.db.get_table(cm_type)
         e = self.find(table, cm_id=cm_id).first()
         if e is None:
             e = table()
@@ -422,7 +422,7 @@ class CloudmeshDatabase(object):
             clouds = Parameter.expand(cloud)
 
         if type(kind) == str:
-            table = database.get_table_from_name(kind)
+            table = database.get_table(kind)
         else:
             table = kind
 
@@ -693,7 +693,7 @@ class Insert(object):
 
         :type d: dict
         """
-        cls._data(database.get_table_from_name('flavor'), cloud, user, group, d, existing)
+        cls._data(database.get_table('flavor'), cloud, user, group, d, existing)
 
     @classmethod
     def image(cls, cloud, user, group, d, existing):
@@ -701,7 +701,7 @@ class Insert(object):
 
         :type d: dict
         """
-        cls._data(database.get_table_from_name('image'), cloud, user, group, d, existing)
+        cls._data(database.get_table('image'), cloud, user, group, d, existing)
 
     @classmethod
     def vm(cls, cloud, user, group, d, existing):
@@ -709,7 +709,7 @@ class Insert(object):
 
         :type d: dict
         """
-        cls._data(database.get_table_from_name('vm'), cloud, user, group, d, existing)
+        cls._data(database.get_table('vm'), cloud, user, group, d, existing)
 
 
 def main():
