@@ -37,21 +37,25 @@ def set_os_environ(cloudname):
 #
 # we already have a much better convert to dict function
 #
-# TODO: this function will be deprectaed
-@classmethod
-def convert_to_dict(self, openstack_result):
-    d = {}
-    for i, key in enumerate(openstack_result.keys()):
-        d[i] = {}
-        if "id" not in key:
-            d[i]["Quota"], d[i]["Limit"] = key, openstack_result[key]
-    return d
 
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
     def __init__(self, cloud_name, cloud_details, user=None):
         super( CloudProviderOpenstackAPI, self ).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
+
+    def _to_dict(self, openstack_result):
+        d = {}
+
+        for i in enumerate(openstack_result):
+            print i
+
+        for index, value in enumerate(openstack_result):
+            print index, value
+            d[index] = value.__dict__["_info"]
+            del d[index]['links']
+
+        return d
 
     def _ksv3_auth(self, credentials):
         # auth to identity v3
@@ -105,28 +109,25 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         TODO.implement()
 
-    def list(self, kind, cloudname, *kwargs):
-        """
-        Returns list of all the vm instances.
-        :return:List of Servers
-        """
-        if kind not in self.kind:
-            raise ValueError ("list " + kind + "is not supported")
 
-        if kind == "vm":
-            return self.provider.servers.list()
-        elif kind == "flavor":
-            return self.provider.flavors.list()
-        elif kind == "image":
-            return self.provider.flavors.list()
-        elif kind == "limits":
-            raise ValueError("list limits not implemented")
-        elif kind == "quota":
-            raise ValueError("list quota not implemented")
-        elif kind == "usage":
-            raise ValueError("list usage not implemented")
-        else:
-            raise Exception("Invalid kind to list.")
+    def list_flavor(self, cloudname, **kwargs):
+        return self._to_dict(self.provider.flavors.list())
+
+    def list_image(self, cloudname, **kwargs):
+         return self._to_dict(self.provider.images.list())
+
+    def list_vm(self, cloudname, **kwargs):
+        return self._to_dict(self.provider.servers.list())
+
+    def list_limits(self, cloudname, **kwargs):
+        raise ValueError ("list limits is not supported")
+
+    def list_quota(self, cloudname, **kwargs):
+        raise ValueError ("list quota is not supported")
+
+    def list_usage(self, cloudname, **kwargs):
+        raise ValueError ("list usage is not supported")
+
 
     def boot(self, name, image=None, flavor=None, cloud="India", key=None,
              secgroup=None, meta=None):

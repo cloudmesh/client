@@ -55,12 +55,15 @@ def main():
     #pprint (dir(provider))
 
 
-    r = provider.list("flavor", cloud)
 
-    print (r)
 
     r = provider.list_flavor(cloud)
-    print (r)
+    pprint (r)
+
+    for kind in ["flavor", "image", "vm"]:
+        r = provider.list(kind, cloud)
+        pprint (r)
+
 
 if __name__ == "__main__":
     main()
