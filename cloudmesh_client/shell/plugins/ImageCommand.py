@@ -33,39 +33,32 @@ class ImageCommand(object):
                 cm image refresh
                 cm image list
                 cm image list --format=csv
-                cm image show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
+                cm image list 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
         """
         cloud = arguments["--cloud"] or Default.get("cloud")
+        if cloud is None:
+            Console.error("Default cloud doesn't exist")
+            return
+
         if arguments["refresh"]:
-            if not cloud:
-                Console.error("Default cloud doesn't exist")
-                return
             result = Image.refresh(cloud)
-            Console.msg(result)
+            Console.ok(result)
             return
 
         if arguments["list"]:
-
             id = arguments['ID']
-            output_format = arguments["--format"]
             live = arguments['--refresh']
-            if not cloud:
-                Console.error("Default cloud doesn't exist")
-                return
-
             output_format = arguments["--format"]
             if id is None:
                 result = Image.list(cloud, output_format)
             else:
                 result = Image.details(cloud, id, live, output_format)
             if result is None:
-
                 Console.error("Could not find this image.")
             # Todo:
             # if database size = 0:
             #    Console.error("No images in the database, please refresh.")
-
             print(result)
             return
 
