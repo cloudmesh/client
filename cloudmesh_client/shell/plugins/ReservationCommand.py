@@ -126,7 +126,9 @@ class ReservationCommand(object):
             :param date: Date object
             :return: Date as string with format expected in DB.
             """
-            db_date = "{:}-{:}-{:} {:}:{:}".format(date.month, date.day, date.year, date.hour, date.minute)
+            db_date = "{:}-{:}-{:} {:}:{:}".format(str(date.month).zfill(2), str(date.day).zfill(2),
+                                                   str(date.year).zfill(4), str(date.hour).zfill(2),
+                                                   str(date.minute).zfill(2))
             return db_date
 
         if (arguments["info"]):
