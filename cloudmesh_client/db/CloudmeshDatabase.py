@@ -149,15 +149,6 @@ class CloudmeshDatabase(object):
         d = self.parse_objs(elements)
         return d
 
-    def parse_objs(self, elements):
-        d = {}
-        for element in elements:
-            d[element.id] = {}
-            for key in element.__dict__.keys():
-                if not key.startswith("_sa"):
-                    d[element.id][key] = str(element.__dict__[key])
-        return d
-
     def update(self, kind, args):
         """
 
@@ -175,12 +166,12 @@ class CloudmeshDatabase(object):
         :param name:
         :return:
         """
-        item = self.find(table_type, name=name, output="item").first()
+        item = self.find(kind, name=name, output="item").first()
         self.delete(item)
 
     def object_to_dict(self, obj):
         """
-        converst the object to dict
+        convert the object to dict
 
         :param obj:
         :return:
@@ -194,6 +185,15 @@ class CloudmeshDatabase(object):
                     values[key] = u.__dict__[key]
             result[_id] = values
         return result
+
+    def parse_objs(self, elements):
+        d = {}
+        for element in elements:
+            d[element.id] = {}
+            for key in element.__dict__.keys():
+                if not key.startswith("_sa"):
+                    d[element.id][key] = str(element.__dict__[key])
+        return d
 
     def dict(self, table):
         """
