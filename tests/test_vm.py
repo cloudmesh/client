@@ -32,7 +32,7 @@ class Test_vm:
 
     def test_001(self):
         """
-        cm vm start --name=testvm --cloud=india --image=<image_id> --flavor=2
+        cm vm start --name=testvm --cloud=juno --image=<image_id> --flavor=2
         """
         image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
 
@@ -43,7 +43,7 @@ class Test_vm:
 
     def test_002(self):
         """
-        cm vm list --cloud=india
+        cm vm list --cloud=juno
         """
         HEADING()
         result = run("cm vm list --cloud=juno")
@@ -52,7 +52,7 @@ class Test_vm:
 
     def test_003(self):
         """
-        cm vm ip_show testvm --cloud=india
+        cm vm ip_show testvm --cloud=juno
         """
         HEADING()
         result = run("cm vm ip_show testvm --cloud=juno")
@@ -61,7 +61,7 @@ class Test_vm:
 
     def test_004(self):
         """
-        cm vm delete testvm --cloud=india
+        cm vm delete testvm --cloud=juno
         """
         HEADING()
         result = run("cm vm delete testvm --cloud=juno")
