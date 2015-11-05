@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION
 
 from cloudmesh_client.common.todo import TODO
 
@@ -85,6 +85,8 @@ class CloudmeshDatabase(object):
             return KEY
         elif kind.lower() in ["group"]:
             return GROUP
+        elif kind.lower() in ["reservation"]:
+            return RESERVATION
         else:
             TODO.implement("wrong table type: `{}`".format(kind))
 
@@ -123,7 +125,6 @@ class CloudmeshDatabase(object):
             result = self.object_to_dict(result)
         return result
 
-
     def all(self, table):
         table_type = self.db_table(kind)
         d = {}
@@ -142,7 +143,7 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        self.find(kind, name=args["name"]).update(args)
+        self.find(kind, output="object", name=args["name"]).update(args)
         self.save()
 
     def delete_by_name(self, kind, name):
@@ -233,10 +234,41 @@ class CloudmeshDatabase(object):
     def query(self, table):
         return self.session.query(table)
 
+    def db_obj_dict(self, kind, obj_dict=None, **kwargs):
+        """
+        This method is a generic method to populate an object dict.
+        The object dict can then be passed to database layer to add/ modify objects.
+        :param dict: Dict to add object to
+        :param kind: The table name in the db.
+        :param kwargs: object parameters
+        :return: Dict with object added
+        """
+        if obj_dict is None:
+            obj_dict = dict()
+
+        dict_length = len(obj_dict)
+
+        obj_dict[dict_length] = dict()
+        obj_dict[dict_length][kind] = kwargs
+
+        # print(obj_dict)
+        return obj_dict
+
     def add(self, o):
         self.session.add(o)
         self.session.commit()
         self.session.flush()
+
+    def add_obj(self, obj_dict):
+        # print("Inside add_obj")
+        # print("Object Dict to add: {}".format(obj_dict))
+
+        for obj in obj_dict.values():
+            # print(obj)
+            for key in obj.keys():
+                table_name = self.db_table(key)
+                obj_to_persist = table_name(**obj[key])
+                self.add(obj_to_persist)
 
     def get(self, table, **kwargs):
         return self.session.query(table).filter_by(**kwargs).first()

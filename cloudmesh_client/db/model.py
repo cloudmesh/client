@@ -126,6 +126,7 @@ class FLAVOR(CloudmeshMixin, db.Base):
      u'OS-FLV-EXT-DATA:ephemeral',
      u'disk',
      u'id']
+
     def __init__(self,
                  name,
                  uuid,
@@ -264,25 +265,17 @@ class RESERVATION(CloudmeshMixin, db.Base):
     start_time = Column(String)  # date, time
     end_time = Column(String)  # date, time
 
-    def __init__(self,
-                 name,
-                 hosts,
-                 start_time,
-                 end_time,
-                 description=None,
-                 cloud=None,
-                 user=None,
-                 project=None):
+    def __init__(self, **kwargs):
         # self.kind = __tablename__
-        self.label = name
-        self.hosts = hosts
-        self.cloud = cloud or "comet"
-        self.start_time = start_time
-        self.end_time = end_time
-        self.description = description
-        self.name = name
-        self.user = user
-        self.project = project
+        self.label = kwargs['name']
+        self.hosts = kwargs['hosts']
+        self.cloud = kwargs['cloud'] or "comet"
+        self.start_time = kwargs['start']
+        self.end_time = kwargs['end']
+        self.description = kwargs['description']
+        self.name = kwargs['name']
+        self.user = kwargs['user']
+        self.project = kwargs['project']
         self.kind = self.__tablename__
 
 

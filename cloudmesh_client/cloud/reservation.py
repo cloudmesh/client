@@ -2,7 +2,6 @@ from __future__ import print_function
 # from cloudmesh_client.shell.console import Console
 
 from cloudmesh_client.db import CloudmeshDatabase
-from cloudmesh_client.db.model import RESERVATION
 
 from cloudmesh_client.common.todo import TODO
 
@@ -14,13 +13,13 @@ class Reservation(ListResource):
         self.db = CloudmeshDatabase.CloudmeshDatabase(user)
 
     def info(self, user=None, project=None):
-        '''
+        """
         prints if the user has access to the reservation an on which host.
 
         :param user:
         :param project:
         :return:
-        '''
+        """
         TODO('implement')
 
     def add_from_file(self, filename):
@@ -52,15 +51,16 @@ class Reservation(ListResource):
         :param cloud: Cloud into which reservation done
         :return:
         """
-        reserve_obj = RESERVATION(name,
-                                  hosts,
-                                  start,
-                                  end,
-                                  description=description,
-                                  cloud=cloud,
-                                  user=user,
-                                  project=project)
-        self.db.add(reserve_obj)
+        obj_d = self.db.db_obj_dict("reservation",
+                                    name=name,
+                                    hosts=hosts,
+                                    start=start,
+                                    end=end,
+                                    description=description,
+                                    cloud=cloud,
+                                    user=user,
+                                    project=project)
+        self.db.add_obj(obj_d)
         self.db.save()
 
     def delete(self,
@@ -97,10 +97,10 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # TODO: Improve this logic
-        result = self.db.find(RESERVATION, **args).first()
+        result = self.db.find("RESERVATION", output="object", **args).first()
         while result is not None:
             self.db.delete(result)
-            result = self.db.find(RESERVATION, **args).first()
+            result = self.db.find("RESERVATION", output="object", **args).first()
 
     def delete_from_file(self, filename):
         '''
@@ -150,7 +150,7 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # print(args)
-        result = self.db.find(RESERVATION, **args)
+        result = self.db.find("RESERVATION", **args)
         # print("RESULT:- {}".format(result))
         return result
 
@@ -183,4 +183,4 @@ class Reservation(ListResource):
         if cloud is not None:
             args['cloud'] = cloud
 
-        self.db.update(RESERVATION, args)
+        self.db.update("RESERVATION", args)
