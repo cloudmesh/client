@@ -115,7 +115,7 @@ class CloudmeshDatabase(object):
         result = first(self.find(table_type, **kwargs))
         return result
 
-    def find(self, kind, output="dict", **kwargs):
+    def find(self, kind, scope="all", output="dict", **kwargs):
         """
         NOT teted
         :param kind:
@@ -125,6 +125,10 @@ class CloudmeshDatabase(object):
         result = self.query(kind, **kwargs)
         if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
+            if scope == "first":
+                first = result.keys()[0]
+                result = result[first]
+
         return result
 
     def query(self, kind, **kwargs):
