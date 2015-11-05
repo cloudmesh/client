@@ -26,8 +26,11 @@ class CloudProvider(CloudProviderBase):
 
             if cloud_details["cm_type"] == "openstack":
 
-                provider = CloudProviderOpenstackAPI(cloudname, cloud_details)
+                provider = CloudProviderOpenstackAPI(
+                    cloudname,
+                    cloud_details)
                 self.provider = provider
+
                 return provider
 
             if cloud_details["cm_type"] == "ec2":
@@ -56,7 +59,9 @@ def main():
     pprint (dir(provider))
 
 
-    #provider.list("flavor", cloud)
+    #provider.provider.list("flavor", cloud)
+
+    print(dir(provider.provider))
 
     #provider.list_flavor(cloud)
     #provider.list("flavor", cloud)

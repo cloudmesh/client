@@ -54,17 +54,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def _ksv3_auth(self, credentials):
         # auth to identity v3
-        ksauth = v3.Password(auth_url=credentials["OS_AUTH_URL"],
-                             username=credentials["OS_USERNAME"],
-                             password=credentials["OS_PASSWORD"],
-                             project_name=credentials["OS_PROJECT_NAME"],
-                             user_domain_name=credentials["OS_USER_DOMAIN_ID"],
-                             project_domain_name=credentials[
-                                 "OS_PROJECT_DOMAIN_ID"])
+        ksauth = v3.Password(
+            auth_url=credentials["OS_AUTH_URL"],
+            username=credentials["OS_USERNAME"],
+            password=credentials["OS_PASSWORD"],
+            project_name=credentials["OS_PROJECT_NAME"],
+            user_domain_name=credentials["OS_USER_DOMAIN_ID"],
+            project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
 
         return ksauth
 
-    def initialize(self, cloud_name, cloud_details):
+    def initialize(self, cloud_name, user=None):
+
+        d = ConfigDict("cloudmesh.yaml")
+        cloud_details = d["cloudmesh"]["clouds"][cloud_name]
+
         self.cloud = cloud_name
         self.default_flavor = cloud_details["default"]["flavor"]
         self.default_image = cloud_details["default"]["image"]
@@ -78,16 +82,17 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         ksversion = auth_url.split("/")[-1]
 
         if "v2.0" == ksversion:
-            self.nova = client.Client(version,
-                                      credentials["OS_USERNAME"],
-                                      credentials["OS_PASSWORD"],
-                                      credentials["OS_TENANT_NAME"],
-                                      credentials["OS_AUTH_URL"],
-                                      cert)
+            self.provider = client.Client(
+                version,
+                credentials["OS_USERNAME"],
+                credentials["OS_PASSWORD"],
+                credentials["OS_TENANT_NAME"],
+                credentials["OS_AUTH_URL"],
+                cert)
         elif "v3" == ksversion:
             sess = session.Session(auth=self._ksv3_auth(credentials),
                                    verify=cert)
-            self.nova = client.Client(2, session=sess)
+            self.provider = client.Client(2, session=sess)
 
     def mode(self, source):
         """
@@ -106,11 +111,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             raise ValueError ("list " + kind + "is not supported")
 
         if kind == "vm":
-            return self.nova.servers.list()
+            return self.provider.servers.list()
         elif kind == "flavor":
-            return self.nova.flavors.list()
+            return self.provider.flavors.list()
         elif kind == "image":
-            return self.nova.flavors.list()
+            return self.provider.flavors.list()
         elif kind == "limits":
             raise ValueError("list limits not implemented")
         elif kind == "quota":
@@ -139,7 +144,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
-        server = self.nova.servers.create(name, image, flavor, meta=meta,
+        server = self.provider.servers.create(name, image, flavor, meta=meta,
                                           key_name=key,
                                           security_groups=secgroup)
         # return the server id
@@ -153,7 +158,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param force: Force delete option
         :return:
         """
-        server = self.nova.servers.find(name=name)
+        server = self.provider.servers.find(name=name)
         server.delete()
 
     def get_ips(self, name, group=None, force=None):
@@ -164,8 +169,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param force:
         :return: IP address of the instance
         """
-        server = self.nova.servers.find(name=name)
-        return self.nova.servers.ips(server)
+        server = self.provider.servers.find(name=name)
+        return self.provider.servers.ips(server)
 
     def create_assign_floating_ip(self, server_name):
         """
@@ -174,15 +179,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :return: Floating IP | None if floating ip already assigned.
         """
 
-        float_pool = self.nova.floating_ip_pools.list()[0].name
+        float_pool = self.provider.floating_ip_pools.list()[0].name
 
-        floating_ip = self.nova.floating_ips.create(pool=float_pool)
-        server = self.nova.servers.find(name=server_name)
+        floating_ip = self.provider.floating_ips.create(pool=float_pool)
+        server = self.provider.servers.find(name=server_name)
         try:
             server.add_floating_ip(floating_ip)
         except Exception, e:
             print (e)
-            self.nova.floating_ips.delete(floating_ip)
+            self.provider.floating_ips.delete(floating_ip)
             return None
 
         return floating_ip.ip
