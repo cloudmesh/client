@@ -30,9 +30,9 @@ class Cluster(object):
             id = 0
             for cluster in r:
                 id += 1
-                name = cluster['name']
+                name = cluster['fe_name']
                 data[id] = {'id': id}
-                for a in ['name', 'ip', 'frontend']:
+                for a in ['fe_name', 'ip', 'frontend']:
                     data[id][a] = cluster[a]
                 data[id]['kind'] = 'frontend'
                 data[id]['type'] = 'frontend'
@@ -71,14 +71,10 @@ class Cluster(object):
             banner("Cluster List")
 
             print(list_printer(r,
-                               order=[
-                                   "name",
-                                   "frontend",
-                                   "ip"],
                                output=format))
 
             for cluster in r:
-                banner("Details: Client list of Cluster " + cluster["name"])
+                banner("Details: Client list of Cluster " + cluster["fe_name"])
 
                 clients = cluster["clients"]
                 print(list_printer(clients,

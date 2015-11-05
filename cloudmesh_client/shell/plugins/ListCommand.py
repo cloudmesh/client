@@ -139,7 +139,7 @@ class ListCommand(object):
             ]
 
         # Get the result & print it
-        result = List.get_list(kind, cloud, user,
+        result = List.list(kind, cloud, user,
                                tenant, order, header, output_format)
         if result:
             print(result)

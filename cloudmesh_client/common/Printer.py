@@ -14,10 +14,23 @@ def list_printer(l,
                  output="table",
                  sort_keys=True,
                  show_none="", key="name"):
+    """
+    :param l: l is a lsit not a dict
+    :param order:
+    :param header:
+    :param output:
+    :param sort_keys:
+    :param show_none:
+    :param key:
+    :return:
+    """
     d = {}
-    for c in l:
-        name = c[key]
-        d[name] = c
+    print (l)
+    count = 0
+    for entry in l:
+        name = str(count)
+        d[name] = entry
+        count = count + 1
 
     return dict_printer(d,
                         order=order,

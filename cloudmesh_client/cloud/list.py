@@ -111,7 +111,7 @@ class List(object):
         return d
 
     #
-    # TODO: i do not see why this methid is here its also hardcoded and
+    # TODO: i do not see why this method is here its also hardcoded and
     # wrong as india does not exist. if a name is based on openstack,
     # the kluod need to be checked if its openstack and than the user is
     # returned. Than you also want o move this to cloud provider

@@ -1,0 +1,37 @@
+color off
+banner logon
+comet logon
+
+banner logoff
+comet logoff
+
+banner logon
+comet logon
+
+
+banner ll
+comet ll
+
+banner ll\ vc1
+comet ll vc1
+comet ll vc1 --format=json
+comet ll vc1 --format=table
+comet ll vc1 --format=csv
+comet ll vc1 --format=rest
+
+banner cluster\ list
+comet list
+
+banner list\ vc1
+comet  list vc1
+comet list vc1 --format=json
+comet list vc1 --format=table
+comet list vc1 --format=csv
+comet list vc1 --format=rest
+
+
+banner power
+
+comet power on vc1 vm-vc1-\[0-2\]
+
+banner done
