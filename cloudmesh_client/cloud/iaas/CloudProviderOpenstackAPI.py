@@ -69,18 +69,20 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         return ksauth
 
-    def initialize(self, cloud_name, user=None):
+
+
+    def initialize(self, cloudname, user=None):
 
         d = ConfigDict("cloudmesh.yaml")
-        cloud_details = d["cloudmesh"]["clouds"][cloud_name]
+        self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-        pprint (cloud_details)
+        pprint (self.cloud_details)
 
-        self.cloud = cloud_name
-        self.default_flavor = cloud_details["default"]["flavor"]
-        self.default_image = cloud_details["default"]["image"]
+        self.cloud = cloudname
+        self.default_flavor = self.cloud_details["default"]["flavor"]
+        self.default_image = self.cloud_details["default"]["image"]
         version = 2
-        credentials = cloud_details["credentials"]
+        credentials = self.cloud_details["credentials"]
         cert = False
         if "OS_CACERT" in credentials:
             if credentials["OS_CACERT"] is not False:
@@ -120,10 +122,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return self._to_dict(self.provider.servers.list())
 
     def list_limits(self, cloudname, **kwargs):
-        raise ValueError ("list limits is not supported")
+        print (self.cloud_details)
+        return self.provider.limits.get(
+                tenant_id=self.cloud_details["credentials"]["OS_TENANT_NAME"]
+            )._info["absolute"]
+
 
     def list_quota(self, cloudname, **kwargs):
-        raise ValueError ("list quota is not supported")
+        return self.provider.quota.get(
+                tenant_id=self.cloud_details["credentials"]["OS_TENANT_NAME"]
+            )
 
     def list_usage(self, cloudname, **kwargs):
         raise ValueError ("list usage is not supported")
@@ -220,15 +228,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         TODO.implement()
 
-    @classmethod
-    def list_limits(self, cloud, output="table", tenant=None):
-        try:
-            # nova = CloudProvider.setet((cloud)
-            result = self.provider.limits.get(tenant_id=tenant)._info[
-                "absolute"]
-            return attribute_printer(result, output=output)
-        except Exception, e:
-            return e
+
 
 
     def attributes(self, kind):
