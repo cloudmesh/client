@@ -8,7 +8,7 @@ from novaclient import client
 import requests
 
 from cloudmesh_client.common.Printer import attribute_printer
-from cloudmesh_client.common.Printer  import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.cloud.nova import Nova
@@ -31,6 +31,7 @@ def set_os_environ(cloudname):
                 os.environ[key] = value
     except Exception, e:
         print(e)
+
 
 #
 # we already have a much better convert to dict function
@@ -95,12 +96,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         TODO.implement()
 
-    def list(self):
+    def list(self, kind, cloudname, *kwargs):
         """
         Returns list of all the vm instances.
         :return:List of Servers
         """
-        return self.nova.servers.list()
+        if kind == "vm":
+            return self.nova.servers.list()
+        else:
+            raise Exception("Invalid kind to list.")
 
     def boot(self, name, image=None, flavor=None, cloud="India", key=None,
              secgroup=None, meta=None):
@@ -202,6 +206,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         except Exception, e:
             return e
 
+    """
     def list(cls, cloud, start, end, tenant, format):
         # TODO: consider named arguments
         #def list(cls, cloud, start=None,
@@ -256,3 +261,4 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         except Exception, e:
             return e
+    """
