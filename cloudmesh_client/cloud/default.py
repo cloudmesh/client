@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-from cloudmesh_client.db import model
 from cloudmesh_client.common import Printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
@@ -47,10 +46,15 @@ class Default(ListResource):
             o = Default.get_object(key, cloud)
             me = cls.cm.user or user
             if o is None:
-                o = model.DEFAULT(key, value, cloud=cloud, user=me)
+                o = cls.cm.db_obj_dict('default',
+                                       name=key,
+                                       value=value,
+                                       cloud=cloud,
+                                       user=me)
+                cls.cm.add_obj(o)
             else:
                 o.value = value
-            cls.cm.add(o)
+                cls.cm.add(o)
         finally:
             cls.cm.close()
 
@@ -96,11 +100,10 @@ class Default(ListResource):
     @classmethod
     def clear(cls):
         try:
-            d = cls.cm.all(model.DEFAULT)
+            d = cls.cm.all('default')
             for item in d:
                 name = d[item]["name"]
-                kind = model.DEFAULT
-                cls.cm.delete_by_name(kind, name)
+                cls.cm.delete_by_name('default', name)
             cls.cm.save()
         finally:
             cls.cm.close()
