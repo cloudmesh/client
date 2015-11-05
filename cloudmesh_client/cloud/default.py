@@ -25,23 +25,14 @@ class Default(ListResource):
             cls.cm.close()
 
     @classmethod
-    def get_objects(cls, cloud, format="table"):
+    def get_objects(cls,
+                    cloud,
+                    format="table",
+                    order=['user', 'cloud', 'name', 'value']):
         try:
-            elements = cls.cm.query(model.DEFAULT).filter(
-                model.DEFAULT.cloud == cloud
-            )
-            d = {}
-            for element in elements:
-                d[element.id] = {}
-                for key in element.__dict__.keys():
-                    if not key.startswith("_sa"):
-                        d[element.id][key] = str(element.__dict__[key])
-
+            d = cls.cm.find_and_convert('default', cloud=cloud)
             return (Printer.dict_printer(d,
-                                         order=['user',
-                                                'cloud',
-                                                'name',
-                                                'value'],
+                                         order=order,
                                          output=format))
         finally:
             cls.cm.close()
@@ -69,7 +60,7 @@ class Default(ListResource):
             which_cloud = cloud or "general"
             kwargs = {'name': key,
                       'cloud': which_cloud}
-            o = cls.cm.find('DEFAULT', output='object', **kwargs).first()
+            o = cls.cm.find('default', output='object', **kwargs).first()
             return o
         finally:
             cls.cm.close()
