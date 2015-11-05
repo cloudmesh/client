@@ -14,7 +14,8 @@ requests.packages.urllib3.disable_warnings()
 
 class CloudProvider(CloudProviderBase):
 
-    def __init__(self, cloudname):
+    def __init__(self, cloudname, user=None):
+        super( CloudProvider, self ).__init__(cloudname, user=user)
         self.provider = self.set(cloudname)
         self.initialize(cloudname)
 
@@ -25,7 +26,9 @@ class CloudProvider(CloudProviderBase):
 
             if cloud_details["cm_type"] == "openstack":
 
-                return CloudProviderOpenstackAPI(cloudname, cloud_details)
+                provider = CloudProviderOpenstackAPI(cloudname, cloud_details)
+                self.provider = provider
+                return provider
 
             if cloud_details["cm_type"] == "ec2":
                 print("ec2 cloud provider yet to be implemented")
@@ -43,12 +46,20 @@ class CloudProvider(CloudProviderBase):
 
 
 def main():
+    from pprint import pprint
+
     cloud = "juno"
     provider = CloudProvider(cloud)
+    print (provider, type(provider))
 
-    print (provider)
+    pprint (provider.__dict__)
+    pprint (dir(provider))
+
+
+    #provider.list("flavor", cloud)
+
     #provider.list_flavor(cloud)
-    provider.list("flavor", cloud)
+    #provider.list("flavor", cloud)
 
 if __name__ == "__main__":
     main()

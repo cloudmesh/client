@@ -48,7 +48,8 @@ def convert_to_dict(self, openstack_result):
 
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    def __init__(self, cloud_name, cloud_details):
+    def __init__(self, cloud_name, cloud_details, user=None):
+        super( CloudProviderOpenstackAPI, self ).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
 
     def _ksv3_auth(self, credentials):
