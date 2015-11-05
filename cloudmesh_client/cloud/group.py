@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-from cloudmesh_client.db import model
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.cloud.nova import Nova
@@ -39,7 +38,7 @@ class Group(ListResource):
                                                                          cloud))
 
     @classmethod
-    def list(cls, format="table", cloud="general"):
+    def list(cls, format="table", cloud="juno"):
         """
         Method to get list of groups in
             the cloudmesh database
@@ -48,7 +47,9 @@ class Group(ListResource):
         :return:
         """
         try:
-            d = cls.cm.all(model.GROUP)
+            args = {}
+            d = cls.cm.find("GROUP", **args)
+            # d = cls.cm.all(model.GROUP)
             # Transform the dict to show multiple rows per vm
             newdict = Group.transform_dict(d)
             return (dict_printer(newdict,
@@ -61,7 +62,7 @@ class Group(ListResource):
             cls.cm.close()
 
     @classmethod
-    def get_info(cls, cloud="general", name=None, output="table"):
+    def get_info(cls, cloud="juno", name=None, output="table"):
         """
         Method to get info about a group
         :param cloud:
@@ -71,12 +72,15 @@ class Group(ListResource):
         """
         try:
             cloud = cloud or Default.get("cloud")
-            print "PPP", name, cloud
+            args = {
+                "name": name,
+                "cloud": cloud
+            }
 
-            #group = cls.get(group=name, name=name, cloud=cloud)
-            group = cls.get(name=name, cloud=cloud)
-            print "PPP", group
-            if group:
+            #group = cls.get(name=name, cloud=cloud)
+            group = cls.cm.find("group", output="object", **args).first()
+
+            if group is not None:
                 d = cls.to_dict(group)
                 # Transform the dict to show multiple rows per vm
                 newdict = Group.transform_dict(d)
@@ -93,7 +97,7 @@ class Group(ListResource):
             cls.cm.close()
 
     @classmethod
-    def add(cls, name=None, type="vm", id=None, cloud="general"):
+    def add(cls, name=None, type="vm", id=None, cloud="juno"):
         """
         Add an instance to a new group
             or add it to an existing one
@@ -112,10 +116,12 @@ class Group(ListResource):
                 'name': name,
                 'cloud': cloud
             }
-            existing_group = cls.cm.find_by_name("group", **query)
+
+            # Find an existing group with name
+            existing_group = cls.cm.find("group", output="object", **query).first()
+
             # Existing group
-            print ("EEE", existing_group)
-            if existing_group:
+            if existing_group is not None:
                 id_str = str(existing_group.value)
                 ids = id_str.split(',')
 
@@ -132,6 +138,16 @@ class Group(ListResource):
 
             # Create a new group
             else:
+                obj_d = cls.cm.db_obj_dict("group",
+                                           name=name,
+                                           value=id,
+                                           type=type,
+                                           cloud=cloud,
+                                           user=user)
+                cls.cm.add_obj(obj_d)
+                cls.cm.save()
+
+                """
                 group_obj = model.GROUP(
                     name,
                     id,
@@ -141,6 +157,7 @@ class Group(ListResource):
                 )
                 cls.cm.add(group_obj)
                 cls.cm.save()
+                """
                 Console.ok("Created a new group [{}] and added ID [{}] to it"
                            .format(name, id))
 
@@ -169,16 +186,18 @@ class Group(ListResource):
             del query['output']
         try:
             group = cls.cm.find_by_name("group", **query)
-            if group is not None and "output" in kwargs:
+            if group is not None \
+                    and "output" in kwargs:
                 d = {"0": group}
                 group = dict_printer(d)
             return group
+
         except Exception as ex:
             Console.error(ex.message, ex)
 
 
     @classmethod
-    def delete(cls, name=None, cloud="general"):
+    def delete(cls, name=None, cloud="juno"):
         """
         Method to delete a group from
             the cloudmesh database
@@ -187,9 +206,14 @@ class Group(ListResource):
         :return:
         """
         try:
-            group = cls.get(name=name, cloud=cloud)
+            # group = cls.get(name=name, cloud=cloud)
+            args = {}
+            if name is not None:
+                args["name"] = name
+            if cloud is not None:
+                args["cloud"] = cloud
 
-            print (group)
+            group = cls.cm.find("group", output="object", **args).first()
 
             if group:
                 # Delete VM from cloud before deleting group
@@ -229,9 +253,16 @@ class Group(ListResource):
         :return:
         """
         try:
-            group = cls.get(name=name, cloud=cloud)
+            #group = cls.get(name=name, cloud=cloud)
+            args = {
+                "name": name,
+                "cloud": cloud
+            }
 
-            if group:
+            # Find an existing group with name & cloud
+            group = cls.cm.find("group", output="object", **args)
+
+            if group is not None:
                 vm_ids = group.value.split(",")
                 new_id_str = ","
                 del_group = False
@@ -253,7 +284,7 @@ class Group(ListResource):
                     cls.cm.save()
 
                     # If delete flag set, then delete group
-                    if del_group:
+                    if del_group is not None:
                         Group.delete(name, cloud)
 
                     return "Successfully removed ID [{}] from the group [{}]" \
@@ -283,16 +314,25 @@ class Group(ListResource):
         :return:
         """
         try:
-            _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)
-            _toGroup = cls.cm.find_by_name(model.GROUP, _toName)
+            from_args = {
+                "name": _fromName
+            }
+            to_args = {
+                "name": _toName
+            }
+
+            # _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)
+            # _toGroup = cls.cm.find_by_name(model.GROUP, _toName)
+            _fromGroup = cls.cm.find("group", output="object", **from_args).first()
+            _toGroup = cls.cm.find("group", output="object", **to_args).first()
 
             # Get IDs from _fromName group
             from_id_str = str(_fromGroup.value)
             from_ids = from_id_str.split(",")
 
-            if _fromGroup:
+            if _fromGroup is not None:
                 # Check if _to group exists, if so add from _fromName
-                if _toGroup:
+                if _toGroup is not None:
                     # Get existing list of IDs from _to group
                     to_id_str = str(_toGroup.value)
                     to_ids = to_id_str.split(",")
@@ -312,6 +352,15 @@ class Group(ListResource):
 
                 # Create a new group & copy details from _fromName
                 else:
+                    group_obj = cls.cm.db_obj_dict("group",
+                                                   name=_toName,
+                                                   value=from_id_str,
+                                                   type=_fromGroup.type,
+                                                   cloud=_fromGroup.cloud,
+                                                   user=_fromGroup.user)
+                    cls.cm.add_obj(group_obj)
+                    cls.cm.save()
+                    """
                     group_obj = model.GROUP(
                         _toName,
                         from_id_str,
@@ -320,7 +369,7 @@ class Group(ListResource):
                         user=_fromGroup.user
                     )
                     cls.cm.add(group_obj)
-                    cls.cm.save()
+                    """
                     Console.ok(
                         "Created a new group [{}] and added ID [{}] to it"
                             .format(_toName, from_id_str))
@@ -349,26 +398,47 @@ class Group(ListResource):
         :return:
         """
         try:
-            groupA = cls.cm.find_by_name(model.GROUP, _nameA)
-            groupB = cls.cm.find_by_name(model.GROUP, _nameB)
+            args_a = {
+                "name": _nameA
+            }
+            args_b = {
+                "name": _nameB
+            }
 
-            if groupA and groupB:
+            #groupA = cls.cm.find_by_name(model.GROUP, _nameA)
+            #groupB = cls.cm.find_by_name(model.GROUP, _nameB)
+
+            groupA = cls.cm.find("group", output="object", **args_a).first()
+            groupB = cls.cm.find("group", output="object", **args_b).first()
+
+            if groupA is not None \
+                    and groupB is not None:
                 id_str_a = groupA.value
                 id_str_b = groupB.value
                 merge_str = id_str_a + ',' + id_str_b
+
                 # Copy default parameters
                 user = groupA.user
                 cloud = groupA.cloud
 
+                """
                 mergeGroup = model.GROUP(
                     mergeName,
                     merge_str,
                     user=user,
                     cloud=cloud
                 )
-
                 cls.cm.add(mergeGroup)
+                """
+
+                mergeGroup = cls.cm.db_obj_dict("group",
+                                                name=mergeName,
+                                                value=merge_str,
+                                                user=user,
+                                                cloud=cloud)
+                cls.cm.add_obj(mergeGroup)
                 cls.cm.save()
+
                 Console.ok(
                     "Merge of group [{}] & [{}] to group [{}] successful!"
                         .format(_nameA, _nameB, mergeName))
@@ -433,7 +503,8 @@ class Group(ListResource):
         """
         try:
             # currently support India cloud
-            if cloudname == "india":
+            if cloudname == "juno" \
+                    or cloudname == "kilo":
                 d = ConfigDict("cloudmesh.yaml")
                 credentials = d["cloudmesh"]["clouds"][cloudname][
                     "credentials"]

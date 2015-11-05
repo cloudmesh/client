@@ -105,7 +105,7 @@ class GroupCommand(object):
 
             else:
 
-                result = Group.get(name=name, cloud=cloud, output=output)
+                result = Group.get_info(name=name, cloud=cloud, output=output)
 
                 if result:
                     print(result)
