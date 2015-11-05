@@ -53,7 +53,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         for index, value in enumerate(openstack_result):
             print index, value
             d[index] = value.__dict__["_info"]
-            del d[index]['links']
+            if 'links' in d[index]:
+                del d[index]['links']
 
         return d
 
@@ -122,16 +123,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return self._to_dict(self.provider.servers.list())
 
     def list_limits(self, cloudname, **kwargs):
-        print (self.cloud_details)
-        return self.provider.limits.get(
-                tenant_id=self.cloud_details["credentials"]["OS_TENANT_NAME"]
-            )._info["absolute"]
+        return self.provider.limits.get().__dict__["_info"]
 
 
     def list_quota(self, cloudname, **kwargs):
-        return self.provider.quota.get(
-                tenant_id=self.cloud_details["credentials"]["OS_TENANT_NAME"]
-            )
+        pprint (self.provider.__dict__)
+        pprint(dir(self.provider.quotas))
+        tenant = self.cloud_details["credentials"]["OS_TENANT_NAME"]
+        print (tenant)
+        pprint(self.provider.quotas.get(tenant_id=tenant))
+        return(self.provider.quotas.get(tenant_id=tenant))
 
     def list_usage(self, cloudname, **kwargs):
         raise ValueError ("list usage is not supported")
