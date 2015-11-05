@@ -37,7 +37,7 @@ class Test_vm:
         image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
 
         HEADING()
-        result = run("cm vm start --name=testvm --cloud=india --image={:} --flavor=2".format(image_id))
+        result = run("cm vm start --name=testvm --cloud=juno --image={:} --flavor=2".format(image_id))
         print result
         assert "OK." in result
 
@@ -46,7 +46,7 @@ class Test_vm:
         cm vm list --cloud=india
         """
         HEADING()
-        result = run("cm vm list --cloud=india")
+        result = run("cm vm list --cloud=juno")
         print result
         assert "OK." in result
 
@@ -55,7 +55,7 @@ class Test_vm:
         cm vm ip_show testvm --cloud=india
         """
         HEADING()
-        result = run("cm vm ip_show testvm --cloud=india")
+        result = run("cm vm ip_show testvm --cloud=juno")
         print result
         assert "OK." in result
 
@@ -64,6 +64,6 @@ class Test_vm:
         cm vm delete testvm --cloud=india
         """
         HEADING()
-        result = run("cm vm delete testvm --cloud=india")
+        result = run("cm vm delete testvm --cloud=juno")
         print result
         assert "OK." in result
