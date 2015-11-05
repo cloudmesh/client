@@ -12,6 +12,7 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.cloud.nova import Nova
+from pprint import pprint
 
 requests.packages.urllib3.disable_warnings()
 
@@ -68,6 +69,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         d = ConfigDict("cloudmesh.yaml")
         cloud_details = d["cloudmesh"]["clouds"][cloud_name]
+
+        pprint (cloud_details)
 
         self.cloud = cloud_name
         self.default_flavor = cloud_details["default"]["flavor"]
