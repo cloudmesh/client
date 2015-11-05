@@ -260,7 +260,7 @@ class Group(ListResource):
             }
 
             # Find an existing group with name & cloud
-            group = cls.cm.find("group", output="object", **args)
+            group = cls.cm.find("group", output="object", **args).first()
 
             if group is not None:
                 vm_ids = group.value.split(",")
