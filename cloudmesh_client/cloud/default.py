@@ -67,10 +67,9 @@ class Default(ListResource):
     def get_object(cls, key, cloud=None):
         try:
             which_cloud = cloud or "general"
-            o = cls.cm.query(model.DEFAULT).filter(
-                model.DEFAULT.name == key,
-                model.DEFAULT.cloud == which_cloud
-            ).first()
+            kwargs = {'name': key,
+                      'cloud': which_cloud}
+            o = cls.cm.find('DEFAULT', output='object', **kwargs).first()
             return o
         finally:
             cls.cm.close()
@@ -79,11 +78,11 @@ class Default(ListResource):
     def get(cls, key, cloud=None):
         try:
             result = cls.get_object(key, cloud=cloud)
-            if result is None:
+            if result is None:  # TODO: Verify if this is needed
                 if key == 'cloud':
-                    result = 'general'
+                    return 'general'
                 elif key == 'group':
-                    result = 'default'
+                    return 'default'
                 return None
             else:
                 return result.value
