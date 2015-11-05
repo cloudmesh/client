@@ -140,20 +140,6 @@ class CloudmeshDatabase(object):
                     d[element.id][key] = str(element.__dict__[key])
         return d
 
-    def find_and_convert(self, kind, **kwargs):
-        """
-        this method queries the database based on the filters
-        and converts it into a dict of dicts
-        :param kind: the table type
-        :param kwargs: dict of attributes
-        :return:
-        """
-        table_type = self.db_table(kind)
-        elements = self.session.query(table_type).\
-            filter_by(**kwargs).all()
-        d = self.parse_objs(elements)
-        return d
-
     def update(self, kind, args):
         """
 

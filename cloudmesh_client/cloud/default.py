@@ -30,7 +30,7 @@ class Default(ListResource):
                     format="table",
                     order=['user', 'cloud', 'name', 'value']):
         try:
-            d = cls.cm.find_and_convert('default', cloud=cloud)
+            d = cls.cm.find('default', cloud=cloud)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
