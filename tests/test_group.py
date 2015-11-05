@@ -156,7 +156,7 @@ class Test_group:
         print(result)
         assert "ok." in result
         """
-        
+
         banner("cm group delete groupB --cloud=juno")
         result = run("cm group delete groupB --cloud=juno")
         assert "ok." in result

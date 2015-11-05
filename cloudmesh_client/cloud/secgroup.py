@@ -2,8 +2,8 @@ from __future__ import print_function
 
 import os
 
-from cloudmesh_client.db import model
-from cloudmesh_client.common.Printer  import dict_printer
+# from cloudmesh_client.db import model
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -14,8 +14,6 @@ import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 
 requests.packages.urllib3.disable_warnings()
-
-
 
 
 class SecGroup(ListResource):
@@ -112,6 +110,13 @@ class SecGroup(ListResource):
                 print("Exception creating security group in cloud, {}".format(e))
                 return None
 
+            secgroup_obj = cls.cm_db.db_obj_dict("secgroup",
+                                                 name=label,
+                                                 uuid=uuid,
+                                                 cloud=cloudname,
+                                                 user=user,
+                                                 project=tenant)
+            """
             secgroup_obj = model.SECGROUP(
                 label,
                 uuid=uuid,
@@ -120,6 +125,9 @@ class SecGroup(ListResource):
                 project=tenant
             )
             cls.cm_db.add(secgroup_obj)
+            """
+
+            cls.cm_db.add_obj(secgroup_obj)
             cls.cm_db.save()
             return uuid
 
@@ -152,10 +160,10 @@ class SecGroup(ListResource):
             d = SecGroup.convert_list_to_dict(os_result)
 
             return dict_printer(d,
-                                       order=["Id",
-                                              "Name",
-                                              "Description"],
-                                       output="table")
+                                order=["Id",
+                                       "Name",
+                                       "Description"],
+                                output="table")
 
             """
             return (dict_printer(d,
@@ -181,11 +189,20 @@ class SecGroup(ListResource):
         :return:
         """
         try:
+            args = {
+                "name": name,
+                "cloud": cloud,
+                "project": project
+            }
+
+            """
             secgroup = cls.cm_db.query(model.SECGROUP).filter(
                 model.SECGROUP.name == name,
                 model.SECGROUP.cloud == cloud,
                 model.SECGROUP.project == project
             ).first()
+            """
+            secgroup = cls.cm_db.find("secgroup", output="object", **args).first()
             return secgroup
 
         except Exception as ex:
@@ -202,6 +219,7 @@ class SecGroup(ListResource):
             # Create add secgroup rules to the cloud
             rule_id = nova_client.security_group_rules.create(secgroup.uuid, ip_protocol=protocol,
                                                               from_port=from_port, to_port=to_port, cidr=cidr)
+            """
             ruleObj = model.SECGROUPRULE(
                 uuid=str(rule_id),
                 name=secgroup.name,
@@ -215,7 +233,23 @@ class SecGroup(ListResource):
                 cidr=cidr
             )
             cls.cm_db.add(ruleObj)
+            """
+
+            ruleObj = cls.cm_db.db_obj_dict("secgrouprule",
+                                            uuid=str(rule_id),
+                                            name=secgroup.name,
+                                            groupid=secgroup.uuid,
+                                            cloud=secgroup.cloud,
+                                            user=secgroup.user,
+                                            project=secgroup.project,
+                                            fromPort=from_port,
+                                            toPort=to_port,
+                                            protocol=protocol,
+                                            cidr=cidr)
+
+            cls.cm_db.add_obj(ruleObj)
             cls.cm_db.save()
+
             Console.ok("Added rule [{} | {} | {} | {}] to secgroup [{}]"
                        .format(from_port, to_port, protocol, cidr,
                                secgroup.name))
@@ -234,20 +268,27 @@ class SecGroup(ListResource):
         :return:
         """
         try:
+            """
             rule = cls.cm_db.query(model.SECGROUPRULE).filter(
                 model.SECGROUPRULE.groupid == uuid
             ).all()
+            """
 
-            d = cls.toDict(rule)
-            return (dict_printer(d,
-                                        order=["user",
-                                               "cloud",
-                                               "name",
-                                               "fromPort",
-                                               "toPort",
-                                               "protocol",
-                                               "cidr"],
-                                        output="table"))
+            args = {
+                "groupid": uuid
+            }
+
+            rule = cls.cm_db.find("secgrouprule", **args)
+            # d = cls.toDict(rule)
+            return (dict_printer(rule,
+                                 order=["user",
+                                        "cloud",
+                                        "name",
+                                        "fromPort",
+                                        "toPort",
+                                        "protocol",
+                                        "cidr"],
+                                 output="table"))
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -288,6 +329,17 @@ class SecGroup(ListResource):
     @classmethod
     def delete_rule(cls, secgroup, from_port, to_port, protocol, cidr):
         try:
+            args = {
+                "groupid": secgroup.uuid,
+                "fromPort": from_port,
+                "toPort": to_port,
+                "protocol": protocol,
+                "cidr": cidr
+            }
+
+            rule = cls.cm_db.find("secgrouprule", output="object", **args).first()
+
+            """
             rule = cls.cm_db.query(model.SECGROUPRULE).filter(
                 model.SECGROUPRULE.groupid == secgroup.uuid,
                 model.SECGROUPRULE.fromPort == from_port,
@@ -295,8 +347,9 @@ class SecGroup(ListResource):
                 model.SECGROUPRULE.protocol == protocol,
                 model.SECGROUPRULE.cidr == cidr
             ).first()
+            """
 
-            if rule:
+            if rule is not None:
                 # get the nova client for cloud
                 nova_client = CloudProvider.set(secgroup.cloud)
                 # delete the rule from the cloud
@@ -318,11 +371,18 @@ class SecGroup(ListResource):
     @classmethod
     def delete_all_rules(cls, secgroup):
         try:
+            """
             rules = cls.cm_db.query(model.SECGROUPRULE).filter(
                 model.SECGROUPRULE.groupid == secgroup.uuid
             ).all()
+            """
 
-            if rules:
+            args = {
+                "groupid": secgroup.uuid
+            }
+            rules = cls.cm_db.find("secgrouprule", output="object", **args)
+
+            if rules is not None:
                 for rule in rules:
                     cls.cm_db.delete(rule)
                     Console.ok("Rule [{} | {} | {} | {}] deleted"
