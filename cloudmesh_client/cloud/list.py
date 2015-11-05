@@ -10,7 +10,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
 class List(object):
-    cm_db = CloudmeshDatabase()
+    cm = CloudmeshDatabase()
     # Instance to communicate with the cloudmesh database
 
     @classmethod
@@ -31,9 +31,9 @@ class List(object):
         try:
             # get the model object
             print (kind)
-            model_kind =cls.cm_db.get_table_from_name(kind)
+            model_kind = cls.cm.get_table(kind)
             print
-            filter_obj = cls.cm_db.query(model_kind).filter(
+            filter_obj = cls.cm.query(model_kind).filter(
                 model_kind.cloud == cloud
             )
 
@@ -66,7 +66,7 @@ class List(object):
             Console.error(ex.message, ex)
 
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def get_classobj(cls, kind):
