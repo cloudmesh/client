@@ -35,7 +35,7 @@ Group Info
 To get details about a particular group with specific name you can use
 the info option::
 
-  $ cm group info groupA
+  $ cm group list groupA
     +----------+-------+--------+----------+------+
     | user     | cloud | name   | value    | type |
     +----------+-------+--------+----------+------+
@@ -53,7 +53,7 @@ the remove option::
   $ cm group remove --name groupA --id test-002
     Successfully removed ID [test-002] from the group [groupA]
 
-  $ cm group info groupA
+  $ cm group list groupA
     +----------+-------+--------+----------+------+
     | user     | cloud | name   | value    | type |
     +----------+-------+--------+----------+------+
@@ -66,7 +66,7 @@ Group Add
 
 To add a vm resource with specified id to a group with given name::
 
-  $ cm group add --id test-001 --type vm --name groupA
+  $ cm group add groupA --id test-001 --type vm
   Created a new group [groupA] and added ID [test-001] to it
 
   $ cm group info groupA
@@ -113,13 +113,13 @@ Group Delete
 
 A named group can be easily deleted.::
 
-  $ cm group delete --name groupC
+  $ cm group delete groupC
   Request to delete server albert-001 has been accepted.
   Request to delete server albert-002 has been accepted.
   Request to delete server test-001 has been accepted.
   Deletion Successful!
 
-  $ cm group info groupC
+  $ cm group list groupC
   ERROR: No group with name groupC found in the cloudmesh database!
 
 .. warning:: When a group is deleted, all the instances (vms) are deleted,
