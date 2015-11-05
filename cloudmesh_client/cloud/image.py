@@ -1,9 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.db import model
-from cloudmesh_client.common.Printer  import dict_printer
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
@@ -11,7 +9,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class Image(ListResource):
-    cm_db = CloudmeshDatabase()
+    cm = CloudmeshDatabase()
 
     @classmethod
     def clear(cls, cloud):
@@ -20,16 +18,16 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         try:
-            image = cls.cm_db.query(model.IMAGE).filter(
-                model.IMAGE.cloud == cloud
-            ).all()
+            image = cls.cm.find('image',
+                                output='object',
+                                cloud=cloud).all()
 
             for ima in image:
-                cls.cm_db.delete(ima)
+                cls.cm.delete(ima)
         except Exception as ex:
             Console.error(ex.message, ex)
         finally:
-            cls.cm_db.close()
+            cls.cm.close()
 
     @classmethod
     def refresh(cls, cloud):
@@ -39,29 +37,26 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # set the environment
-        nova = CloudProvider.set(cloud)
+        nova = CloudProvider.set(cloud).nova
 
         # delete previous data
-        Image.clear(cloud)
+        cls.clear(cloud)
 
         try:
             # get the user
-            user = cls.cm_db.user
+            user = cls.cm.user
 
             # read data from openstack
             for image in nova.images.list():
-                from pprint import pprint
                 image_dict = image._info
-                # print (image._info.keys())
-                image_obj = model.IMAGE(
-                    image_dict['name'],
-                    image_dict['id'],
-                    type="string",
-                    cloud=cloud,
-                    user=user
-                )
-                cls.cm_db.add(image_obj)
-                cls.cm_db.save()
+                image_obj = cls.cm.db_obj_dict('image',
+                                               name=image_dict['name'],
+                                               uuid=image_dict['id'],
+                                               type='string',
+                                               cloud=cloud,
+                                               user=user)
+                cls.cm.add_obj(image_obj)
+                cls.cm.save()
 
             return "Images for cloud {} refreshed. ok.".format(cloud)
 
