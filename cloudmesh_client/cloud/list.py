@@ -30,9 +30,7 @@ class List(object):
         """
         try:
             # get the model object
-            print ("K1", kind)
-            model_kind = cls.cm.get_table(kind)
-            print (model_kind)
+            table = cls.cm.get_table(kind)
             #
             #
             # TODO why not use a dict?
@@ -40,27 +38,31 @@ class List(object):
             filter = {}
             if cloud is not None:
                 filter["cloud"] = cloud
-
             if user is not None:
                 filter["user"] = user
-
             if tenant is not None:
                 filter["tenant"] = tenant
 
-            elements = cls.cm.query(model_kind, **filter)
-            print(cls.cm.dict(elements))
+            print ("HHHH", filter)
+            elements = cls.cm.find(table, **filter)
 
-            if elements:
+            print ("XXX")
+            print(elements)
+            print ("YYY")
+
+            if elements is not None or elements is not {}:
                 # convert the output to a dict
-                d = cls.toDict(elements)
-                return (dict_printer(d,
-                                            order=order,
-                                            header=header,
-                                            output=output))
+                print ("UUU")
+                return (dict_printer(elements,
+                                    order=order,
+                                    header=header,
+                                    output=output))
+                print ("OOO")
             else:
                 return None
 
         except Exception as ex:
+            print ("ISSUE")
             Console.error(ex.message, ex)
 
         finally:

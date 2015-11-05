@@ -122,7 +122,9 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
+        print ("KW", kwargs)
         result = self.query(kind, **kwargs)
+        print ("LLL", result)
         if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
             if scope == "first":
@@ -138,8 +140,13 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        table_type = self.get_table(kind)
-        result = self.session.query(table_type).filter_by(**kwargs)
+        print ("AAA")
+        table = self.get_table(kind)
+        print (table)
+
+        result = self.session.query(table).filter_by(**kwargs)
+        print ("OK")
+        print (result.__dict__)
         return result
 
 

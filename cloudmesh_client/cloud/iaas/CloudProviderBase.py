@@ -1,91 +1,92 @@
 from cloudmesh_base.hostlist import Parameter
-
+import inspect
 
 class CloudProviderBase(object):
-    @classmethod
-    def initialize(cls, cloudname, user=None):
-        cls.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
-        cls.nodes = None
-        cls.flavors = None
-        cls.data = None
-        cls.images = None
-        cls.quota = None
-        cls.limits = None
-        cls.usage = None
-        cls.cloudname = cloudname
-        cls.keys = None
-        cls.user = user
-        cls.secgroup = None
-        cls.credential = None
-        cls.driver = None
 
-    @classmethod
-    def attributes(cls, kind):
+    
+    def initialize(self, cloudname, user=None):
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
+        self.nodes = None
+        self.flavors = None
+        self.data = None
+        self.images = None
+        self.quota = None
+        self.limits = None
+        self.usage = None
+        self.cloudname = cloudname
+        self.keys = None
+        self.user = user
+        self.secgroup = None
+        self.credential = None
+        self.driver = None
+
+    
+    def attributes(self, kind):
         """
 
         :param kind:
         :return: order and headers of the useful data
         """
-        if kind in cls.kind:
+        if kind in self.kind:
             header = None
             order = None
         else:
             raise ValueError("Kind " + kind + " not supported")
 
-    @classmethod
-    def mode(cls, source):
+    
+    def mode(self, source):
         """
         Sets the source for the information to be returned. "db" and "cloud"
         :param source: the database can be queried in mode "db",
         the database can be bypassed in mode "cloud"
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("Not implemented yet.")
         return None
 
     # #########################
     # KIND MANAGEMENT
     # #########################
-    @classmethod
-    def kinds(cls):
+    
+    def kinds(self,):
         """
         returns a list of supported list and detail kinds
         :return: list of kinds supported
         :rtype: list
         """
-        return cls.kind
+        return self.kind
 
-    @classmethod
-    def is_kind(cls, name):
+    
+    def is_kind(self, name):
         """
         returns tru if the kind given by name exists
         :param name:
         :return:
         """
-        return name in cls.kind
+        return name in self.kind
 
-    @classmethod
-    def add_kind(cls, name):
-        cls.kind.append(name)
+    
+    def add_kind(self, name):
+        self.kind.append(name)
 
-    @classmethod
-    def del_kind(cls, name):
-        cls.kind.remove(name)
+    
+    def del_kind(self, name):
+        self.kind.remove(name)
 
-    @classmethod
-    def check_kind(cls, name):
+    
+    def check_kind(self, name):
         """
         returns tru if the kind given by name exists
         :param name:
         :return:
         """
-        if not cls.is_kind(name):
+        if not self.is_kind(name):
             raise ValueError("Kind " + name + "not supported")
 
     # #########################
     # RESOURCE
     # #########################
 
-    def resource(cls, function, kind, cloudname, *kwargs):
+    def resource(self, function, kind, cloudname, **kwargs):
         """
         returns the objects in json format
         :param kind: the kind of list: vm, image, flavor, ...
@@ -96,12 +97,12 @@ class CloudProviderBase(object):
         Listing of vm instances
         :return:
         """
-        cls.check_kind(kind)
-        what = getattr(cls, function + "_" + kind)
+        self.check_kind(kind)
+        what = getattr(self, function + "_" + kind)
         return what(cloudname, **kwargs)
 
-    @classmethod
-    def list(cls, kind, cloudname, *kwargs):
+    
+    def list(self, kind, cloudname, **kwargs):
         """
         returns the objects in json format
         :param kind: the kind of list: vm, image, flavor, ...
@@ -112,33 +113,33 @@ class CloudProviderBase(object):
         Listing of vm instances
         :return:
         """
-        return cls.resource("list", kind, cloudname, **kwargs)
+        #print (kwargs)
+        return self.resource("list", kind, cloudname, **kwargs)
 
-    @classmethod
-    def get(cls, kind, cloudname, identifier, *kwargs):
+    
+    def get(self, kind, cloudname, identifier, **kwargs):
         """
         Listing of vm instances
         :return:
         """
-        return cls.resource("get", kind, cloudname, **kwargs)
+        return self.resource("get", kind, cloudname, **kwargs)
 
-    @classmethod
-    def refresh(cls, kind, cloudname, identifier, *kwargs):
+    
+    def refresh(self, kind, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        return cls.resource("refresh", kind, cloudname, **kwargs)
+        return self.resource("refresh", kind, cloudname, **kwargs)
 
 
 
-        # #########################
-
+    # #########################
     # VMS
     # #########################
 
-    @classmethod
-    def boot_vm(cls, cloud, user, name, image, flavor, key, secgroup, meta,
+    
+    def boot_vm(self, cloud, user, name, image, flavor, key, secgroup, meta,
                 *kwargs):
         """
         Boots a new vm instance on the target cloud.
@@ -152,11 +153,11 @@ class CloudProviderBase(object):
         :param meta:
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError(inspect.stack()[0][3] + ": Not implemented yet.")
         return None
 
-    @classmethod
-    def list_vm(cls, cloudname, *kwargs):
+    
+    def list_vm(self, cloudname, *kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -166,11 +167,11 @@ class CloudProviderBase(object):
         Listing of vm instances
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    @classmethod
-    def get_vm(cls, cloudname, identifier, **kwargs):
+    
+    def get_vm(self, cloudname, identifier, **kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -180,20 +181,20 @@ class CloudProviderBase(object):
         get vm instance
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    @classmethod
-    def refresh_vm(cls, cloudname, identifier, *kwargs):
+    
+    def refresh_vm(self, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    @classmethod
-    def delete(cls, name, group=None, force=None):
+    
+    def delete(self, name, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
         :param name_or_id:
@@ -201,11 +202,11 @@ class CloudProviderBase(object):
         :param force:
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    @classmethod
-    def get_ips(cls, name, group=None, force=None):
+    
+    def get_ips(self, name, group=None, force=None):
         """
         Returns the ip addresses of the instance indicated by name_or_id
         :param name_or_id:
@@ -213,15 +214,15 @@ class CloudProviderBase(object):
         :param force:
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
     # #########################
     # IMAGE
     # #########################
 
-    @classmethod
-    def list_image(cls, cloudname, *kwargs):
+    
+    def list_image(self, cloudname, *kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -231,32 +232,33 @@ class CloudProviderBase(object):
         Listing of iamge
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    @classmethod
-    def get_image(cls, **kwargs):
+    
+    def get_image(self, **kwargs):
         """
         finds the image based on a query
         TODO: details TBD
         """
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    @classmethod
-    def refresh_image(cls, cloudname, identifier, *kwargs):
+    
+    def refresh_image(self, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
     # #########################
     # FLAVOR
     # #########################
 
-    @classmethod
-    def list_flavor(cls, cloudname, *kwargs):
+    
+    def list_flavor(self, cloudname, *kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -266,23 +268,23 @@ class CloudProviderBase(object):
         Listing of iamge
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    @classmethod
-    def get_flavor(cls, **kwargs):
+    
+    def get_flavor(self, **kwargs):
         """
         finds the flavor based on a query
         TODO: details TBD
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    @classmethod
-    def refresh_flavor(cls, cloudname, identifier, *kwargs):
+    
+    def refresh_flavor(self, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        raise NotImplemented("Not implemented yet.")
+        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return

@@ -68,3 +68,15 @@ class Test_CloudmeshDatabase:
         n = cm.find("default", scope="all", name='hallo')
         print(n.keys())
         assert (len(n.keys()) > 0)
+
+    def test_003_find_filter(self):
+        """testing cm list --cloud india default"""
+        HEADING()
+        cm = CloudmeshDatabase(user="gregor")
+        m = DEFAULT("hallo", "world")
+
+        n = cm.find("default",
+                    scope="all",
+                    name='hallo')
+        print(n.keys())
+        assert (len(n.keys()) > 0)

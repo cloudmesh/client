@@ -14,17 +14,17 @@ requests.packages.urllib3.disable_warnings()
 
 class CloudProvider(CloudProviderBase):
 
-    @classmethod
-    def __init__(cls, cloudname):
-        cls.provider = CloudProvider.set(cloudname).nova
+    def __init__(self, cloudname):
+        self.provider = self.set(cloudname)
+        self.initialize(cloudname)
 
-    @classmethod
-    def set(cls, cloudname):
+    def set(self, cloudname):
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
             if cloud_details["cm_type"] == "openstack":
+
                 return CloudProviderOpenstackAPI(cloudname, cloud_details)
 
             if cloud_details["cm_type"] == "ec2":
@@ -39,3 +39,16 @@ class CloudProvider(CloudProviderBase):
             import traceback
             print(traceback.format_exc())
             print(e)
+
+
+
+def main():
+    cloud = "juno"
+    provider = CloudProvider(cloud)
+
+    print (provider)
+    #provider.list_flavor(cloud)
+    provider.list("flavor", cloud)
+
+if __name__ == "__main__":
+    main()

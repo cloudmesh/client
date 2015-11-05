@@ -44,11 +44,12 @@ class FlavorCommand(object):
 
         if arguments["refresh"]:
 
-            if not cloud:
+            if cloud is None:
                 Console.error("Default cloud doesn't exist")
                 return
 
             msg = "Refresh flavor for cloud {:}.".format(cloud)
+            Console.ok("{:} ...".format(msg))
             if Flavor.refresh(cloud):
                 Console.ok("{:} ok".format(msg))
             else:
@@ -66,16 +67,18 @@ class FlavorCommand(object):
 
             output_format = arguments["--format"]
             if id is None:
+                print ("99999")
                 result = Flavor.list(cloud, output_format)
             else:
+                print("88888")
                 result = Flavor.details(cloud, id, live, output_format)
             if result is None:
 
-                Console.error("Could not find this flavor.")
+                Console.error("No flavor(s) found.")
             # Todo:
             # if database size = 0:
             #    Console.error("No images in the database, please refresh.")
-
-            print(result)
+            else:
+                print(result)
             return
 

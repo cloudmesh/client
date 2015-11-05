@@ -38,7 +38,7 @@ def set_os_environ(cloudname):
 #
 # TODO: this function will be deprectaed
 @classmethod
-def convert_to_dict(cls, openstack_result):
+def convert_to_dict(self, openstack_result):
     d = {}
     for i, key in enumerate(openstack_result.keys()):
         d[i] = {}
@@ -211,16 +211,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         TODO.implement()
 
     @classmethod
-    def list_limits(cls, cloud, output="table", tenant=None):
+    def list_limits(self, cloud, output="table", tenant=None):
         try:
-            # nova = CloudProvider.set(cloud)
+            # nova = CloudProvider.setet((cloud)
             result = cls.nova.limits.get(tenant_id=tenant)._info["absolute"]
             return attribute_printer(result, output=output)
         except Exception, e:
             return e
 
 
-    def attributes(cls, kind):
+    def attributes(self, kind):
         header = None
         order = None
         if kind == 'flavor':
@@ -277,9 +277,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return (order, header)
 
     """
-    def list(cls, cloud, start, end, tenant, format):
+    def list(self, cloud, start, end, tenant, format):
         # TODO: consider named arguments
-        #def list(cls, cloud, start=None,
+        #def list(self, cloud, start=None,
         #         end=None, tenant=None, output="table"):
         # set the environment variables
         set_os_environ(cloud)
