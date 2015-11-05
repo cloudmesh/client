@@ -6,6 +6,9 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
+
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+
 import json
 import pyaml
 import os
@@ -146,7 +149,7 @@ class VmCommand(object):
             else:
                 return d
 
-        def list_vms_on_cloud(cloud="india", group=None, format="table"):
+        def list_vms_on_cloud(cloud="juno", group=None, format="table"):
             """
             Utility reusable function to list vms on the cloud.
             :param cloud:
@@ -158,8 +161,8 @@ class VmCommand(object):
             _group = group
             _format = format
 
-            cloud_provider = Vm.get_cloud_provider(_cloud)
-            servers = cloud_provider.list()
+            cloud_provider = CloudProvider.set(_cloud)
+            servers = cloud_provider.list("vm", _cloud)
 
             server_list = {}
             index = 0
@@ -202,7 +205,7 @@ class VmCommand(object):
                     Console.error("Default group not set!")
                     return
 
-                cloud_provider = Vm.get_cloud_provider(cloud)
+                cloud_provider = CloudProvider.set(cloud)
                 vm_id = cloud_provider.boot(name, image, flavor, key=key_name, secgroup=secgroup_list)
                 print("Machine {:} is being booted on {:} Cloud...".format(name, cloud_provider.cloud))
 
@@ -230,7 +233,7 @@ class VmCommand(object):
                     Console.error("Default cloud not set!")
                     return
 
-                cloud_provider = Vm.get_cloud_provider(cloud)
+                cloud_provider = CloudProvider.set(cloud)
                 for server in id:
                     cloud_provider.delete(server)
                     print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
@@ -252,7 +255,7 @@ class VmCommand(object):
                 Console.error("Default cloud not set!")
                 return
             try:
-                cloud_provider = Vm.get_cloud_provider(cloud)
+                cloud_provider = CloudProvider.set(cloud)
                 for sname in id:
                     floating_ip = cloud_provider.create_assign_floating_ip(sname)
                     if floating_ip is not None:
@@ -279,7 +282,7 @@ class VmCommand(object):
                 return
 
             try:
-                cloud_provider = Vm.get_cloud_provider(cloud)
+                cloud_provider = CloudProvider.set(cloud)
                 for server in id:
                     ip_addr = cloud_provider.get_ips(server)
 
@@ -309,7 +312,7 @@ class VmCommand(object):
                 Console.error("Default cloud not set!")
                 return
 
-            cloud_provider = Vm.get_cloud_provider(cloud)
+            cloud_provider = CloudProvider.set(cloud)
             # print("Name : {:}".format(name))
             ip_addr = cloud_provider.get_ips(name)
 

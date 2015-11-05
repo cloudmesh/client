@@ -6,6 +6,9 @@ from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import os
 import requests
+
+from cloudmesh_client.common.todo import TODO
+
 requests.packages.urllib3.disable_warnings()
 
 
@@ -19,31 +22,20 @@ class CloudProvider(CloudProviderBase):
     def set(cls, cloudname):
         try:
             d = ConfigDict("cloudmesh.yaml")
-            cloud = d["cloudmesh"]["clouds"][cloudname]
-            cert = None
+            cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-            if cloud["cm_type"] == "openstack":
-                credentials = cloud["credentials"]
-                cls.provider = CloudProviderOpenstackAPI(cloudname,
-                                                          cloud).nova
-                return cls.provider
+            if cloud_details["cm_type"] == "openstack":
+                return CloudProviderOpenstackAPI(cloudname, cloud_details)
 
-            elif cloud["cm_type"] == "ec2":
+            if cloud_details["cm_type"] == "ec2":
+                print("ec2 cloud provider yet to be implemented")
+                TODO.implement()
 
-                raise NotImplemented("Not implemented yet. IMplemented in "
-                                     "old cloudmesh")
-
-            elif cloud["cm_type"] == "azure":
-
-                raise NotImplemented("Not implemented yet. implemented in "
-                                     "old cloudmesh")
-
-            elif cloud["cm_type"] == "aws":
-
-                raise NotImplemented("Not implemented yet. implemented in "
-                                     "old cloudmesh")
-
+            if cloud_details["cm_type"] == "azure":
+                print("azure cloud provider yet to be implemented")
+                TODO.implement()
 
         except Exception, e:
-            raise Exception("Error in getting environment"
-                            " for cloud: {}, {}".format(cloudname, e))
+            import traceback
+            print(traceback.format_exc())
+            print(e)
