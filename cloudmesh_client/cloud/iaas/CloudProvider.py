@@ -47,20 +47,20 @@ def main():
     from pprint import pprint
 
     cloud = "juno"
-    provider = CloudProvider(cloud)
+    provider = CloudProvider(cloud).provider
+
     print (provider, type(provider))
 
     #pprint (provider.__dict__)
     #pprint (dir(provider))
 
 
-    r = provider.provider.list("flavor", cloud)
+    r = provider.list("flavor", cloud)
 
     print (r)
-    # print(dir(provider.provider))
 
-    #provider.list_flavor(cloud)
-    #provider.list("flavor", cloud)
+    r = provider.list_flavor(cloud)
+    print (r)
 
 if __name__ == "__main__":
     main()
