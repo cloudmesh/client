@@ -30,27 +30,25 @@ class List(object):
         """
         try:
             # get the model object
-            print (kind)
+            print ("K1", kind)
             model_kind = cls.cm.get_table(kind)
-            print
-            filter_obj = cls.cm.query(model_kind).filter(
-                model_kind.cloud == cloud
-            )
+            print (model_kind)
+            #
+            #
+            # TODO why not use a dict?
+            #
+            filter = {}
+            if cloud is not None:
+                filter["cloud"] = cloud
 
-            # If user is supplied, add to filter
-            if user:
-                filter_obj = filter_obj.filter(
-                    model_kind.user == user
-                )
+            if user is not None:
+                filter["user"] = user
 
-            # If tenant is supplied, add to filter
-            if tenant:
-                filter_obj = filter_obj.filter(
-                    model_kind.project == tenant
-                )
+            if tenant is not None:
+                filter["tenant"] = tenant
 
-            # get the elements from the db
-            elements = filter_obj.all()
+            elements = cls.cm.query(model_kind, **filter)
+            print(cls.cm.dict(elements))
 
             if elements:
                 # convert the output to a dict
