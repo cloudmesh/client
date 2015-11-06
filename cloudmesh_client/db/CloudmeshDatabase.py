@@ -43,9 +43,9 @@ class CloudmeshDatabase(object):
         try:
             elements = self.find(kind, output='object',
                                  scope="all", cloud=cloud)
-            #pprint(elements)
+            # pprint(elements)
             for element in elements:
-                #pprint(element)
+                # pprint(element)
                 self.delete(element)
 
         except Exception as ex:
@@ -79,17 +79,22 @@ class CloudmeshDatabase(object):
 
                     self.add_obj(db_obj)
                     self.save()
-                pass
 
             elif kind == "vm":
-                pass
+                vms = provider.list_vm(cloudname)
+                for image in vms.values():
+                    db_obj = self.db_obj_dict(kind,
+                                              name=image['name'],
+                                              uuid=image['id'],
+                                              type='string',
+                                              cloud=cloudname,
+                                              user=user)
 
-
+                    self.add_obj(db_obj)
+                    self.save()
 
         except Exception as ex:
             Console.error(ex.message)
-
-        return
 
     # noinspection PyPep8Naming
     def connect(self):
