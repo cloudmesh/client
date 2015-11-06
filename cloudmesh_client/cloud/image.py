@@ -40,8 +40,6 @@ class Image(ListResource):
         # Newly implemented refresh
         return cls.cm.refresh("image", cloud)
 
-        return "Images for cloud {} refreshed. ok.".format(cloud)
-
         """
         # set the environment
         nova = CloudProvider.set(cloud).nova

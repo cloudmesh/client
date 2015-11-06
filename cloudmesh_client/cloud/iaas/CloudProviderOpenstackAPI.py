@@ -84,7 +84,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         d = ConfigDict("cloudmesh.yaml")
         self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-        pprint(self.cloud_details)
+        # pprint(self.cloud_details)
 
         self.cloud = cloudname
         self.default_flavor = self.cloud_details["default"]["flavor"]
