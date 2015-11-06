@@ -15,6 +15,7 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 
+
 class CloudmeshDatabase(object):
     def __init__(self, user=None):
         """
@@ -33,38 +34,57 @@ class CloudmeshDatabase(object):
         else:
             self.user = user
 
-
-    @classmethod
-    def clear(cls, kind, cloud):
+    def clear(self, kind, cloud):
         """
         This method deletes all 'kind' entries
         from the cloudmesh database
         :param cloud: the cloud name
         """
         try:
-            elements = cls.db.find(kind, scope="all", cloud=cloud)
-
+            elements = self.find(kind, output='object',
+                                 scope="all", cloud=cloud)
+            #pprint(elements)
             for element in elements:
-                cls.db.delete(element)
+                #pprint(element)
+                self.delete(element)
+
         except Exception as ex:
             Console.error(ex.message, ex)
 
-    @classmethod
-    def refresh(cls, kind, cloudname, **kwargs):
+    def refresh(self, kind, cloudname, **kwargs):
 
         try:
+            # get the user
+            # TODO: Confirm user
+            user = self.user
+
             # get provider for specific cloud
             provider = CloudProvider(cloudname).provider
 
             # clear local db records for kind
-            cls.clear(kind, cloudname)
+            self.clear(kind, cloudname)
 
             if kind == "flavor":
                 pass
+
             elif kind == "image":
+                images = provider.list_image(cloudname)
+                for image in images.values():
+                    db_obj = self.db_obj_dict(kind,
+                                              name=image['name'],
+                                              uuid=image['id'],
+                                              type='string',
+                                              cloud=cloudname,
+                                              user=user)
+
+                    self.add_obj(db_obj)
+                    self.save()
                 pass
+
             elif kind == "vm":
                 pass
+
+
 
         except Exception as ex:
             Console.error(ex.message)
@@ -140,6 +160,7 @@ class CloudmeshDatabase(object):
         :param name: the name
         :return: the object
         """
+
         def first(result):
             if len(result) == 0:
                 return None
@@ -161,9 +182,9 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        print ("KW", kwargs)
+        # print("KW", kwargs)
         result = self.query(kind, **kwargs)
-        print ("LLL", result)
+        # print("LLL", result)
         if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
             if scope == "first":
@@ -179,15 +200,14 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        print ("AAA")
+        print("AAA")
         table = self.get_table(kind)
-        print (table)
+        print(table)
 
         result = self.session.query(table).filter_by(**kwargs)
-        print ("OK")
-        print (result.__dict__)
+        print("OK")
+        print(result.__dict__)
         return result
-
 
     def all(self, table):
         table_type = self.get_table(table)

@@ -51,11 +51,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def _to_dict(self, openstack_result):
         d = {}
 
-        for i in enumerate(openstack_result):
-            print i
+        # for i in enumerate(openstack_result):
+        #    print i
 
         for index, value in enumerate(openstack_result):
-            print index, value
+            #print index, value
             d[index] = value.__dict__["_info"]
             if 'links' in d[index]:
                 del d[index]['links']
