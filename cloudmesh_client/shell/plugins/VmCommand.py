@@ -230,7 +230,12 @@ class VmCommand(object):
             try:
                 cloud = arguments["--cloud"] or \
                         Default.get("cloud")
-                Vm.refresh(cloud=cloud)
+
+                msg = "Refresh VMs for cloud {:}.".format(cloud)
+                if Vm.refresh(cloud=cloud):
+                    Console.ok("{:} ok".format(msg))
+                else:
+                    Console.error("{:} failed".format(msg))
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())

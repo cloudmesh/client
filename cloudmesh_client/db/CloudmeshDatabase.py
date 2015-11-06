@@ -111,6 +111,7 @@ class CloudmeshDatabase(object):
 
                     self.add_obj(db_obj)
                     self.save()
+                return True
 
         except Exception as ex:
             Console.error(ex.message)

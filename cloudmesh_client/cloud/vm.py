@@ -61,4 +61,4 @@ class Vm(ListResource):
     @classmethod
     def refresh(cls, **kwargs):
         # print("Inside refresh")
-        cls.cm.refresh("vm", kwargs["cloud"])
+        return cls.cm.refresh("vm", kwargs["cloud"])
