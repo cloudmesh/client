@@ -111,9 +111,8 @@ class Flavor(ListResource):
             if format == "table":
                 # return attribute_printer(flavor)
 
-                # TODO: BUG
-                # Printing table fails
-                return list_printer(flavor)
+                return dict_printer({"0": flavor})
+
             else:
                 return dict_printer(flavor,
                                     output=format)
