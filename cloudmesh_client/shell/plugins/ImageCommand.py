@@ -42,9 +42,12 @@ class ImageCommand(object):
             return
 
         if arguments["refresh"]:
-            result = Image.refresh(cloud)
-            Console.ok(result)
-            return
+            msg = "Refresh image for cloud {:}.".format(cloud)
+            if Image.refresh(cloud):
+                Console.ok("{:} ok.".format(msg))
+            else:
+                Console.error("{:} failed.".format(msg))
+            return 
 
         if arguments["list"]:
             id = arguments['ID']

@@ -52,7 +52,14 @@ class CloudmeshDatabase(object):
             Console.error(ex.message, ex)
 
     def refresh(self, kind, cloudname, **kwargs):
-
+        """
+        This method refreshes the local database
+        with the live cloud details
+        :param kind:
+        :param cloudname:
+        :param kwargs:
+        :return:
+        """
         try:
             # get the user
             # TODO: Confirm user
@@ -65,7 +72,18 @@ class CloudmeshDatabase(object):
             self.clear(kind, cloudname)
 
             if kind == "flavor":
-                pass
+                flavors = provider.list_flavor(cloudname)
+                for flavor in flavors.values():
+                    db_obj = self.db_obj_dict(kind,
+                                              name=flavor['name'],
+                                              uuid=flavor['id'],
+                                              type='string',
+                                              cloud=cloudname,
+                                              user=user)
+
+                    self.add_obj(db_obj)
+                    self.save()
+                return True
 
             elif kind == "image":
                 images = provider.list_image(cloudname)
@@ -79,6 +97,7 @@ class CloudmeshDatabase(object):
 
                     self.add_obj(db_obj)
                     self.save()
+                return True
 
             elif kind == "vm":
                 vms = provider.list_vm(cloudname)
@@ -95,6 +114,7 @@ class CloudmeshDatabase(object):
 
         except Exception as ex:
             Console.error(ex.message)
+            return False
 
     # noinspection PyPep8Naming
     def connect(self):
@@ -205,13 +225,13 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        print("AAA")
+        # print("AAA")
         table = self.get_table(kind)
-        print(table)
+        # print(table)
 
         result = self.session.query(table).filter_by(**kwargs)
-        print("OK")
-        print(result.__dict__)
+        # print("OK")
+        # print(result.__dict__)
         return result
 
     def all(self, table):
