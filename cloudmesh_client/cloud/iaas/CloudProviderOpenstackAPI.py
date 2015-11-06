@@ -44,7 +44,7 @@ def set_os_environ(cloudname):
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
     def __init__(self, cloud_name, cloud_details, user=None, flat=False):
-        super( CloudProviderOpenstackAPI, self ).__init__(cloud_name, user=user)
+        super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
         self.flat = flat
 
@@ -79,14 +79,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         return ksauth
 
-
-
     def initialize(self, cloudname, user=None):
 
         d = ConfigDict("cloudmesh.yaml")
         self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-        pprint (self.cloud_details)
+        pprint(self.cloud_details)
 
         self.cloud = cloudname
         self.default_flavor = self.cloud_details["default"]["flavor"]
@@ -121,12 +119,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         TODO.implement()
 
-
     def list_flavor(self, cloudname, **kwargs):
         return self._to_dict(self.provider.flavors.list())
 
     def list_image(self, cloudname, **kwargs):
-         return self._to_dict(self.provider.images.list())
+        return self._to_dict(self.provider.images.list())
 
     def list_vm(self, cloudname, **kwargs):
         return self._to_dict(self.provider.servers.list())
@@ -134,9 +131,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_limits(self, cloudname, **kwargs):
         return self.provider.limits.get().__dict__["_info"]
 
-
     def list_quota(self, cloudname, **kwargs):
-        pprint (self.provider.__dict__)
+        pprint(self.provider.__dict__)
         pprint(dir(self.provider.quotas))
         tenant = self.cloud_details["credentials"]["OS_TENANT_NAME"]
         print (tenant)
@@ -144,8 +140,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return(self.provider.quotas.get(tenant_id=tenant))
 
     def list_usage(self, cloudname, **kwargs):
-        raise ValueError ("list usage is not supported")
-
+        raise ValueError("list usage is not supported")
 
     def boot(self, name, image=None, flavor=None, cloud="India", key=None,
              secgroup=None, meta=None):
@@ -167,8 +162,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             flavor = self.default_flavor
 
         server = self.provider.servers.create(name, image, flavor, meta=meta,
-                                          key_name=key,
-                                          security_groups=secgroup)
+                                              key_name=key,
+                                              security_groups=secgroup)
         # return the server id
         return server.__dict__["id"]
 
@@ -242,16 +237,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         TODO.implement()
 
-    # TODO: define this
     def get_vm(self, **kwargs):
         """
         finds the flavor based on a query
         TODO: details TBD
         """
-        TODO.implement()
-
-
-
+        vm_name = kwargs['name']
+        if self.isUuid(vm_name):
+            return self.provider.servers.get(vm_name)._info
+        else:
+            return self.provider.servers.find(name=vm_name)._info
 
     def attributes(self, kind):
         header = None
@@ -317,6 +312,6 @@ if __name__ == "__main__":
 
     cp = CloudProviderOpenstackAPI('juno', cloud_details)
 
-    d = {'name': '0f787e59-6ff9-466c-aaf6-cd3f3c9350d0'}
-    pprint(cp.get_image(**d))
+    d = {'name': 'mangirish_centos'}
+    pprint(cp.get_vm(**d))
 
