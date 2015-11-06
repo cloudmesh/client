@@ -40,9 +40,10 @@ def set_os_environ(cloudname):
 
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    def __init__(self, cloud_name, cloud_details, user=None):
+    def __init__(self, cloud_name, cloud_details, user=None, flat=False):
         super( CloudProviderOpenstackAPI, self ).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
+        self.flat = flat
 
     def _to_dict(self, openstack_result):
         d = {}
@@ -56,6 +57,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             if 'links' in d[index]:
                 del d[index]['links']
 
+        # if flat:
+        #    d = convert to falt dict
         return d
 
     def _ksv3_auth(self, credentials):
