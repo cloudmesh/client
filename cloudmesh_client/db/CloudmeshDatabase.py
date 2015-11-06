@@ -12,7 +12,8 @@ from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION
 
 from cloudmesh_client.common.todo import TODO
-
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.shell.console import Console
 
 class CloudmeshDatabase(object):
     def __init__(self, user=None):
@@ -34,9 +35,41 @@ class CloudmeshDatabase(object):
 
 
     @classmethod
+    def clear(cls, kind, cloud):
+        """
+        This method deletes all 'kind' entries
+        from the cloudmesh database
+        :param cloud: the cloud name
+        """
+        try:
+            elements = cls.db.find(kind, scope="all", cloud=cloud)
+
+            for element in elements:
+                cls.db.delete(element)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+    @classmethod
     def refresh(cls, kind, cloudname, **kwargs):
-        TODO.implement("To be implemented")
-        return 
+
+        try:
+            # get provider for specific cloud
+            provider = CloudProvider(cloudname).provider
+
+            # clear local db records for kind
+            cls.clear(kind, cloudname)
+
+            if kind == "flavor":
+                pass
+            elif kind == "image":
+                pass
+            elif kind == "vm":
+                pass
+
+        except Exception as ex:
+            Console.error(ex.message)
+
+        return
 
     # noinspection PyPep8Naming
     def connect(self):
