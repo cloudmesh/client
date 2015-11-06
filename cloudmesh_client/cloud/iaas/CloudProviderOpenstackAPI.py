@@ -1,11 +1,13 @@
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
+from cloudmesh_client.common.FlatDict import FlatDict
 
 from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
 import requests
+import os
 
 from cloudmesh_client.common.Printer import attribute_printer
 from cloudmesh_client.common.Printer import dict_printer
@@ -41,9 +43,10 @@ def set_os_environ(cloudname):
 
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    def __init__(self, cloud_name, cloud_details, user=None):
+    def __init__(self, cloud_name, cloud_details, user=None, flat=False):
         super( CloudProviderOpenstackAPI, self ).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
+        self.flat = flat
 
     def _to_dict(self, openstack_result):
         d = {}
@@ -56,6 +59,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             d[index] = value.__dict__["_info"]
             if 'links' in d[index]:
                 del d[index]['links']
+
+        # If flat dict flag set, convert to flatdict
+        if self.flat is True:
+            f = FlatDict(d)
+            d = f.dict
 
         return d
 

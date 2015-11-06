@@ -4,7 +4,7 @@ import inspect
 class CloudProviderBase(object):
 
 
-    def __init__(self, cloudname, user=None):
+    def __init__(self, cloudname, user=None, flat=False):
         self.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
         self.nodes = None
         self.flavors = None
@@ -19,6 +19,7 @@ class CloudProviderBase(object):
         self.secgroup = None
         self.credential = None
         self.driver = None
+        self.flag = flat
 
     
     def attributes(self, kind):

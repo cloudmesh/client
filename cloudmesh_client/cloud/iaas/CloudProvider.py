@@ -14,7 +14,7 @@ requests.packages.urllib3.disable_warnings()
 
 class CloudProvider(CloudProviderBase):
 
-    def __init__(self, cloudname, user=None):
+    def __init__(self, cloudname, user=None, flat=False):
         super( CloudProvider, self ).__init__(cloudname, user=user)
 
         try:
@@ -25,7 +25,8 @@ class CloudProvider(CloudProviderBase):
 
                 provider = CloudProviderOpenstackAPI(
                     cloudname,
-                    cloud_details)
+                    cloud_details,
+                    flat=flat)
                 self.provider = provider
 
             if cloud_details["cm_type"] == "ec2":
