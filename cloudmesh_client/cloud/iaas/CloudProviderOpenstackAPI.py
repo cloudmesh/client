@@ -229,13 +229,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         except ValueError:
             return False
 
-    # TODO: define this
     def get_flavor(self, **kwargs):
         """
         finds the flavor based on a query
         TODO: details TBD
         """
-        TODO.implement()
+        return self.provider.flavors.find(**kwargs)._info
 
     def get_vm(self, **kwargs):
         """

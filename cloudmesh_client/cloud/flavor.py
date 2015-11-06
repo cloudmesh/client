@@ -95,21 +95,27 @@ class Flavor(ListResource):
             cls.refresh(cloud)
 
         try:
-            cm = CloudmeshDatabase(user="gregor")
+            provider = CloudProvider(cloud).provider
 
-            elements = cm.find("flavor", cloud=cloud, uuid=id)
+            if id.isdigit():
+                args = {
+                    'id': id
+                }
+            else:
+                args = {
+                    'name': id
+                }
 
-            print (elements)
+            flavor = provider.get_flavor(**args)
 
             if format == "table":
-                element = elements.values()[0]
-                return attribute_printer(element)
+                return attribute_printer(flavor)
             else:
-                return dict_printer(elements,
-                                           output=format)
+                return dict_printer(flavor,
+                                    output=format)
+
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
 if __name__ == "__main__":
     Flavor.details("juno", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
