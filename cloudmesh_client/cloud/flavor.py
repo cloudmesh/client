@@ -33,7 +33,9 @@ class Flavor(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
+        return cls.db.refresh('flavor', cloud)
 
+        """
         try:
             provider = CloudProvider(cloud)
 
@@ -51,6 +53,7 @@ class Flavor(ListResource):
             Console.error(ex.message, ex)
             return False
         return True
+        """
 
     @classmethod
     def list(cls, cloud, format="table"):
