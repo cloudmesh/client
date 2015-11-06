@@ -32,6 +32,12 @@ class CloudmeshDatabase(object):
         else:
             self.user = user
 
+
+    @classmethod
+    def refresh(cls, kind, cloudname, **kwargs):
+        TODO.implement("To be implemented")
+        return 
+
     # noinspection PyPep8Naming
     def connect(self):
         """
