@@ -150,6 +150,8 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 print("RETURNED RESULTS:")
                 print(r)
+            else:
+                print("All the nodes are not in the specified cluster, or they are not running")
 
     @staticmethod
     def delete():
