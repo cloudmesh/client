@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import json
+from pprint import pprint
 
 from prettytable import PrettyTable
 import yaml
@@ -25,13 +26,15 @@ def list_printer(l,
     :return:
     """
     d = {}
-    print (l)
+    pprint (l)
     count = 0
     for entry in l:
         name = str(count)
         d[name] = entry
         count = count + 1
 
+    print("\n***DDD***\n")
+    pprint(d)
     return dict_printer(d,
                         order=order,
                         header=header,

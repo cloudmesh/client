@@ -2,7 +2,7 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.db import model
-from cloudmesh_client.common.Printer  import dict_printer, attribute_printer
+from cloudmesh_client.common.Printer  import dict_printer, attribute_printer, list_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -109,7 +109,11 @@ class Flavor(ListResource):
             flavor = provider.get_flavor(**args)
 
             if format == "table":
-                return attribute_printer(flavor)
+                # return attribute_printer(flavor)
+
+                # TODO: BUG
+                # Printing table fails
+                return list_printer(flavor)
             else:
                 return dict_printer(flavor,
                                     output=format)
