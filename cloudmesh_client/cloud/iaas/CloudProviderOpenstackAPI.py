@@ -1,6 +1,7 @@
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
+from cloudmesh_client.common.FlatDict import FlatDict
 
 from keystoneclient.auth.identity import v3
 from keystoneclient import session
@@ -57,8 +58,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             if 'links' in d[index]:
                 del d[index]['links']
 
-        # if flat:
-        #    d = convert to falt dict
+        # If flat dict flag set, convert to flatdict
+        if self.flat is True:
+            f = FlatDict(d)
+            d = f.dict
+
         return d
 
     def _ksv3_auth(self, credentials):
