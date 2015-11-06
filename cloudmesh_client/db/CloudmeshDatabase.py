@@ -52,7 +52,14 @@ class CloudmeshDatabase(object):
             Console.error(ex.message, ex)
 
     def refresh(self, kind, cloudname, **kwargs):
-
+        """
+        This method refreshes the local database
+        with the live cloud details
+        :param kind:
+        :param cloudname:
+        :param kwargs:
+        :return:
+        """
         try:
             # get the user
             # TODO: Confirm user
@@ -90,7 +97,7 @@ class CloudmeshDatabase(object):
 
                     self.add_obj(db_obj)
                     self.save()
-                pass
+                return True
 
             elif kind == "vm":
                 pass
