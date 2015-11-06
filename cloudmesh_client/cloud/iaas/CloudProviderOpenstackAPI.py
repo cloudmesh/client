@@ -13,6 +13,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.cloud.nova import Nova
 from pprint import pprint
+from uuid import UUID
 
 requests.packages.urllib3.disable_warnings()
 
@@ -207,11 +208,23 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     # TODO: define this
     def get_image(self, **kwargs):
+
         """
         finds the image based on a query
         TODO: details TBD
         """
-        TODO.implement()
+        name = kwargs['name']
+        if self.isUuid(name):
+            return self.provider.images.get(name)._info
+        else:
+            return self.provider.images.find(name=name)._info
+
+    def isUuid(self, name):
+        try:
+            UUID(name, version=4)
+            return True
+        except ValueError:
+            return False
 
     # TODO: define this
     def get_flavor(self, **kwargs):
@@ -287,4 +300,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'name',
             ]
         return (order, header)
+
+
+if __name__ == "__main__":
+    cloudname = 'juno'
+    d = ConfigDict("cloudmesh.yaml")
+    cloud_details = d["cloudmesh"]["clouds"][cloudname]
+
+    cp = CloudProviderOpenstackAPI('juno', cloud_details)
+
+    d = {'name': '0f787e59-6ff9-466c-aaf6-cd3f3c9350d0'}
+    pprint(cp.get_image(**d))
 
