@@ -7,6 +7,7 @@ from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
 import requests
+import os
 
 from cloudmesh_client.common.Printer import attribute_printer
 from cloudmesh_client.common.Printer import dict_printer
