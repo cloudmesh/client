@@ -36,6 +36,11 @@ class Image(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
+
+        # Newly implemented refresh
+        return cls.cm.refresh("image", cloud)
+
+        """
         # set the environment
         nova = CloudProvider.set(cloud).nova
 
@@ -64,6 +69,8 @@ class Image(ListResource):
             Console.error(ex.message, ex)
             return ex
 
+        """
+
     @classmethod
     def list(cls, cloud, format="table"):
         """
@@ -71,13 +78,16 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # TODO: make a CloudmeshDatabase without requireing the user=
-        cm = CloudmeshDatabase(user="gregor")
+        cm = CloudmeshDatabase(user="albert")
 
         try:
             elements = cm.find("image", cloud=cloud)
 
-            order = ['id', 'uuid', 'name', 'cloud']
-            # order = None
+            #order = ['id', 'uuid', 'name', 'cloud']
+            (order, header) = CloudProvider(cloud).get_attributes("image")
+
+
+            #order = None
             return dict_printer(elements,
                                        order=order,
                                        output=format)

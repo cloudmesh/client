@@ -12,7 +12,7 @@ from cloudmesh_base.util import banner
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 import webbrowser
 from cloudmesh_base.hostlist import Parameter
-
+requests.packages.urllib3.disable_warnings()
 
 class Comet(object):
     rest_version = "/v1"
@@ -178,7 +178,8 @@ class Comet(object):
                     time.sleep(1)
         elif r.status_code == 401:
             ret = {"error": "Not Authenticated"}
-
+        else:
+            ret = r
         return ret
 
     @staticmethod
@@ -190,18 +191,23 @@ class Comet(object):
         return Comet.http(url, action="post", headers=headers, data=data)
 
     @staticmethod
-    def post(url, headers=None, data=None):
+    def put(url, headers=None, data=None):
         return Comet.http(url, action="put", headers=headers)
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
     def http(url, action="get", headers=None, data=None, cacert=False):
+        if headers is None:
+            headers = Comet.AUTH_HEADER
         if 'post' == action:
             r = requests.post(url, headers=headers, data=json.dumps(data), verify=cacert)
         elif 'put' == action:
             r = requests.put(url, headers=headers, verify=cacert)
         else:
             r = requests.get(url, headers=headers, verify=cacert)
+
+        # banner("DEBUGGING HTTP CALL")
+        # print (r)
 
         ret = None
 
@@ -241,6 +247,13 @@ class Comet(object):
 
         return ret
 
+    @staticmethod
+    def get_computeset(id=None):
+        geturl = Comet.url("computeset/")
+        if id:
+            geturl = Comet.url("computeset/{}/".format(id))
+        r = Comet.get(geturl)
+        return r
 
 def main():
     comet = Comet()
@@ -295,13 +308,11 @@ def test_get_cluster_list():
     pprint (r1)
 
     banner ("TEST 4: Get compute nodes sets")
-    geturl1 = "%scomputeset/" % (geturl)
-    r1 = Comet.get(geturl1, headers=authheader)
+    r1 = Comet.get_computeset()
     pprint (r1)
 
     banner ("TEST 4a: Get compute nodes set with id")
-    geturl1 = "%scomputeset/%s/" % (geturl, 32)
-    r1 = Comet.get(geturl1, headers=authheader)
+    r1 = Comet.get_computeset(46)
     pprint (r1)
 
     banner ("TEST 10: logoff and get cluster list again")
@@ -340,9 +351,9 @@ def test_power_nodes(action='on'):
     elif 'off' == action:
         computesetid = 33
         banner ("Issuing request to poweroff nodes...")
-        posturl = "%s/computeset/%s/poweroff" % (url, computesetid)
+        puturl = "%s/computeset/%s/poweroff" % (url, computesetid)
         #posturl = "%s%s/compute/poweron" % (url, vcname)
-        r = Comet.http(posturl, action="put", headers=authheader)
+        r = Comet.http(puturl, action="put", headers=authheader)
         banner ("RETURNED RESULTS:")
         print (r)
     else:

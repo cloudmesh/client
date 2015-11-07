@@ -12,6 +12,8 @@ from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION
 
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.shell.console import Console
 
 
 class CloudmeshDatabase(object):
@@ -32,12 +34,88 @@ class CloudmeshDatabase(object):
         else:
             self.user = user
 
+    def clear(self, kind, cloud):
+        """
+        This method deletes all 'kind' entries
+        from the cloudmesh database
+        :param cloud: the cloud name
+        """
+        try:
+            elements = self.find(kind, output='object',
+                                 scope="all", cloud=cloud)
+            # pprint(elements)
+            for element in elements:
+                # pprint(element)
+                self.delete(element)
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
 
     def refresh(self, kind, cloudname, **kwargs):
+        """
+        This method refreshes the local database
+        with the live cloud details
+        :param kind:
+        :param cloudname:
+        :param kwargs:
+        :return:
+        """
+        try:
+            # get the user
+            # TODO: Confirm user
+            user = self.user
 
-        raise ValueError("refresh database is not yet implemented")
+            # get provider for specific cloud
+            provider = CloudProvider(cloudname).provider
 
+            # clear local db records for kind
+            self.clear(kind, cloudname)
 
+            if kind == "flavor":
+                flavors = provider.list_flavor(cloudname)
+                for flavor in flavors.values():
+                    db_obj = self.db_obj_dict(kind,
+                                              name=flavor['name'],
+                                              uuid=flavor['id'],
+                                              type='string',
+                                              cloud=cloudname,
+                                              user=user)
+
+                    self.add_obj(db_obj)
+                    self.save()
+                return True
+
+            elif kind == "image":
+                images = provider.list_image(cloudname)
+                for image in images.values():
+                    db_obj = self.db_obj_dict(kind,
+                                              name=image['name'],
+                                              uuid=image['id'],
+                                              type='string',
+                                              cloud=cloudname,
+                                              user=user)
+
+                    self.add_obj(db_obj)
+                    self.save()
+                return True
+
+            elif kind == "vm":
+                vms = provider.list_vm(cloudname)
+                for image in vms.values():
+                    db_obj = self.db_obj_dict(kind,
+                                              name=image['name'],
+                                              uuid=image['id'],
+                                              type='string',
+                                              cloud=cloudname,
+                                              user=user)
+
+                    self.add_obj(db_obj)
+                    self.save()
+                return True
+
+        except Exception as ex:
+            Console.error(ex.message)
+            return False
 
     def connect(self):
         """
@@ -107,6 +185,7 @@ class CloudmeshDatabase(object):
         :param name: the name
         :return: the object
         """
+
         def first(result):
             if len(result) == 0:
                 return None
@@ -128,9 +207,9 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        print ("KW", kwargs)
+        # print("KW", kwargs)
         result = self.query(kind, **kwargs)
-        print ("LLL", result)
+        # print("LLL", result)
         if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
             if scope == "first":
@@ -146,15 +225,14 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        print ("AAA")
+        # print("AAA")
         table = self.get_table(kind)
-        print (table)
+        # print(table)
 
         result = self.session.query(table).filter_by(**kwargs)
-        print ("OK")
-        print (result.__dict__)
+        # print("OK")
+        # print(result.__dict__)
         return result
-
 
     def all(self, table):
         table_type = self.get_table(table)

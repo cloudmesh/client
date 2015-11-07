@@ -33,7 +33,9 @@ class Flavor(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
+        return cls.db.refresh('flavor', cloud)
 
+        """
         try:
             provider = CloudProvider(cloud)
 
@@ -51,6 +53,8 @@ class Flavor(ListResource):
             Console.error(ex.message, ex)
             return False
         return True
+        """
+
 
     @classmethod
     def list(cls, cloud, format="table"):
@@ -58,11 +62,74 @@ class Flavor(ListResource):
         This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
+        # TODO: make a CloudmeshDatabase without requireing the user=
+        cm = CloudmeshDatabase(user="albert")
+
+        try:
+            elements = cm.find("flavor", cloud=cloud)
+
+            order = ['id', 'uuid', 'name', 'cloud']
+            # order = None
+            return dict_printer(elements,
+                                       order=order,
+                                       output=format)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+
+    @classmethod
+    def list(cls, cloud, live=False, format="table"):
+        """
+        This method lists all flavors of the cloud
+        :param cloud: the cloud name
+        """
+        # TODO: make a CloudmeshDatabase without requireing the user=
+
+        if live:
+            cls.refresh(cloud)
+
+        cm = CloudmeshDatabase(user="albert")
+
+        try:
+            elements = cm.find("image", cloud=cloud)
+
+            order = CloudProvider(cloud).get_attributes()
+
+            return dict_printer(elements,
+                                       order=order,
+                                       output=format)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+    '''
+    @classmethod
+    def list(cls, cloud, live=False, format="table"):
+        """
+        This method lists all flavors of the cloud
+        :param cloud: the cloud name
+        """
         # TODO: make a CloudmeshDatabase without requiring the user=
+
+        if live:
+            cls.refresh(cloud)
 
         user = "gregor"
         tenant = None
         cm = CloudmeshDatabase(user=user)
+
+        try:
+
+            if format == "table":
+                # return attribute_printer(flavor)
+
+                return dict_printer({"0": flavor})
+
+            else:
+                return dict_printer(flavor,
+                                    output=format)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
 
         try:
             elements = cm.find("flavor", cloud=cloud)
@@ -70,8 +137,9 @@ class Flavor(ListResource):
 
             print (type(elements))
 
-
-            provider = CloudProvider.set(cloud)
+            # TODO: this should call database
+            provider = CloudProvider(cloud).provider
+            #provider = CloudProvider.set(cloud)
             order, header = provider.attributes("flavor")
 
 
@@ -88,6 +156,7 @@ class Flavor(ListResource):
                                        output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
+    '''
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
@@ -95,16 +164,14 @@ class Flavor(ListResource):
             cls.refresh(cloud)
 
         try:
+
+            # TODO: this should call database
             provider = CloudProvider(cloud).provider
 
             if id.isdigit():
-                args = {
-                    'id': id
-                }
+                args = {'id': id}
             else:
-                args = {
-                    'name': id
-                }
+                args = {'name': id}
 
             flavor = provider.get_flavor(**args)
 

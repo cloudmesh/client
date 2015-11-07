@@ -4,7 +4,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import dict_printer, attribute_printer, list_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -14,7 +14,6 @@ import pyaml
 import os
 import getpass
 import socket
-
 
 
 class VmCommand(object):
@@ -32,7 +31,7 @@ class VmCommand(object):
         ::
 
             Usage:
-                vm refresh [NAME] [--cloud=CLOUD]  [--group=GROUP]
+                vm refresh [--cloud=CLOUD]
                 vm start --name=NAME
                          [--count=COUNT]
                          [--cloud=CLOUD]
@@ -163,9 +162,10 @@ class VmCommand(object):
             _group = group
             _format = format
 
-            cloud_provider = CloudProvider.set(_cloud)
-            servers = cloud_provider.list("vm", _cloud)
+            cloud_provider = CloudProvider(_cloud).provider
+            servers = cloud_provider.list_vm(_cloud)
 
+            """
             server_list = {}
             index = 0
             # TODO: Improve the implementation to display more fields if required.
@@ -175,10 +175,14 @@ class VmCommand(object):
                 server_list[index]["id"] = server.id
                 server_list[index]["status"] = server.status
                 index += 1
+            """
 
-            print(_print_dict(server_list, format=_format))
+            # TODO: Get this printed in a table
+            print("Print table")
+            dict_printer(servers, output=_format)
 
         # pprint(arguments)
+
         if arguments["start"]:
             try:
                 name = arguments["--name"]
@@ -207,7 +211,7 @@ class VmCommand(object):
                     Console.error("Default group not set!")
                     return
 
-                cloud_provider = CloudProvider.set(cloud)
+                cloud_provider = CloudProvider(cloud).provider
                 vm_id = cloud_provider.boot(name, image, flavor, key=key_name, secgroup=secgroup_list)
                 print("Machine {:} is being booted on {:} Cloud...".format(name, cloud_provider.cloud))
 
@@ -223,10 +227,20 @@ class VmCommand(object):
                 Console.error("Problem starting instance {:}".format(name))
 
         elif arguments["refresh"]:
-            id = arguments["NAME"]
-            group = arguments["--group"]
+            try:
+                cloud = arguments["--cloud"] or \
+                        Default.get("cloud")
 
-            raise ValueError("TODO: refreshes the named vm is not implemented")
+                msg = "Refresh VMs for cloud {:}.".format(cloud)
+                if Vm.refresh(cloud=cloud):
+                    Console.ok("{:} ok".format(msg))
+                else:
+                    Console.error("{:} failed".format(msg))
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem running VM refresh")
 
         elif arguments["delete"]:
             try:
@@ -241,7 +255,7 @@ class VmCommand(object):
                     Console.error("Default cloud not set!")
                     return
 
-                cloud_provider = CloudProvider.set(cloud)
+                cloud_provider = CloudProvider(cloud).provider
                 for server in id:
                     cloud_provider.delete(server)
                     print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
@@ -263,7 +277,7 @@ class VmCommand(object):
                 Console.error("Default cloud not set!")
                 return
             try:
-                cloud_provider = CloudProvider.set(cloud)
+                cloud_provider = CloudProvider(cloud).provider
                 for sname in id:
                     floating_ip = cloud_provider.create_assign_floating_ip(sname)
                     if floating_ip is not None:
@@ -290,7 +304,7 @@ class VmCommand(object):
                 return
 
             try:
-                cloud_provider = CloudProvider.set(cloud)
+                cloud_provider = CloudProvider(cloud).provider
                 for server in id:
                     ip_addr = cloud_provider.get_ips(server)
 
@@ -320,7 +334,7 @@ class VmCommand(object):
                 Console.error("Default cloud not set!")
                 return
 
-            cloud_provider = CloudProvider.set(cloud)
+            cloud_provider = CloudProvider(cloud).provider
             # print("Name : {:}".format(name))
             ip_addr = cloud_provider.get_ips(name)
 

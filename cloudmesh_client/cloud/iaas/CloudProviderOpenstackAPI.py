@@ -41,7 +41,6 @@ def set_os_environ(cloudname):
 # we already have a much better convert to dict function
 #
 
-
 class CloudProviderOpenstackAPI(CloudProviderBase):
     def __init__(self, cloud_name, cloud_details, user=None, flat=False):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
@@ -51,11 +50,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def _to_dict(self, openstack_result):
         d = {}
 
-        for i in enumerate(openstack_result):
-            print i
+        # for i in enumerate(openstack_result):
+        #    print i
 
         for index, value in enumerate(openstack_result):
-            print index, value
+            #print index, value
             d[index] = value.__dict__["_info"]
             if 'links' in d[index]:
                 del d[index]['links']
@@ -84,7 +83,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         d = ConfigDict("cloudmesh.yaml")
         self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-        pprint(self.cloud_details)
+        # pprint(self.cloud_details)
 
         self.cloud = cloudname
         self.default_flavor = self.cloud_details["default"]["flavor"]

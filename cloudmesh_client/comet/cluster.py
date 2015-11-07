@@ -30,9 +30,9 @@ class Cluster(object):
             id = 0
             for cluster in r:
                 id += 1
-                name = cluster['fe_name']
+                name = cluster['name']
                 data[id] = {'id': id}
-                for a in ['fe_name', 'ip', 'frontend']:
+                for a in ['name', 'ip', 'frontend']:
                     data[id][a] = cluster[a]
                 data[id]['kind'] = 'frontend'
                 data[id]['type'] = 'frontend'
@@ -74,11 +74,12 @@ class Cluster(object):
                                output=format))
 
             for cluster in r:
-                banner("Details: Client list of Cluster " + cluster["fe_name"])
+                banner("Details: Client list of Cluster " + cluster["name"])
 
-                clients = cluster["clients"]
+                clients = cluster["computes"]
                 print(list_printer(clients,
                                    output=format))
+
 
     @staticmethod
     def info():
@@ -108,21 +109,49 @@ class Cluster(object):
         print(id)
         print(computeids)
 
-        url = Comet.url("cluster")
+        url = Comet.url("computeset/")
 
         vmhosts = {}
-        for vm in computeids:
-            vmhosts[vm] = "comet-{:}".format(vm)
 
-        data = [{"node": vm, "host": vmhosts[vm]} for vm in computeids]
+        data = {"computes":[{"name":vm,"host":"comet-{:}".format(vm)} for vm in computeids],"cluster":"%s" % id}
 
-        print("Issuing request to poweron nodes...")
-        posturl = "{:}/{:}/compute/poweron".format(url, id)
-        print(data)
+        if on:
+            print("Issuing request to poweron nodes...")
+            posturl = url
+            # print(data)
 
-        r = Comet.post(posturl, data=data)
-        print("RETURNED RESULTS:")
-        print(r)
+            r = Comet.post(posturl, data=data)
+            print("RETURNED RESULTS:")
+            print(r)
+        else:
+            print ("finding the computesetid of the specified nodes...")
+            computesets = Comet.get_computeset()
+            #banner ("computesets")
+            #print (computesets)
+
+            isValidSet = False
+            computsetid = -1
+            for computeset in computesets:
+                if computeset["cluster"] == id and computeset["state"] == "started":
+                    computesetid = computeset["id"]
+                    hosts = set()
+                    for compute in computeset["computes"]:
+                        hosts.add(compute["name"])
+                    isValidSet = True
+                    for computeid in computeids:
+                        if computeid not in hosts:
+                            isValidSet = False
+                            break
+            if isValidSet:
+                print("Issuing request to poweroff nodes...")
+                print ("computesetid: {}".format(computesetid))
+                puturl = "{:}{:}/poweroff".format(url, computesetid)
+
+                r = Comet.put(puturl)
+                print("RETURNED RESULTS:")
+                print(r)
+            else:
+                print("All the nodes are not in the specified cluster, or they are not running")
 
     @staticmethod
     def delete():

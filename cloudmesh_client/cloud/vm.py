@@ -6,9 +6,11 @@ from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
 from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
 class Vm(ListResource):
+    cm = CloudmeshDatabase()
 
     @classmethod
     def construct_ip_dict(cls, ip_addr, name="india"):
@@ -43,3 +45,20 @@ class Vm(ListResource):
             import traceback
             print(traceback.format_exc())
             print(e)
+
+    @classmethod
+    def info(cls, **kwargs):
+        raise NotImplementedError()
+
+    @classmethod
+    def list(cls, **kwargs):
+        raise NotImplementedError()
+
+    @classmethod
+    def clear(cls, **kwargs):
+        raise NotImplementedError()
+
+    @classmethod
+    def refresh(cls, **kwargs):
+        # print("Inside refresh")
+        return cls.cm.refresh("vm", kwargs["cloud"])

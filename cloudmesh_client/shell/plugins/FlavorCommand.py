@@ -49,11 +49,10 @@ class FlavorCommand(object):
                 return
 
             msg = "Refresh flavor for cloud {:}.".format(cloud)
-            Console.ok("{:} ...".format(msg))
             if Flavor.refresh(cloud):
                 Console.ok("{:} ok".format(msg))
             else:
-                Console.error(msg)
+                Console.error("{:} failed".format(msg))
             return
 
         if arguments["list"]:
