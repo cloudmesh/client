@@ -32,7 +32,13 @@ class CloudmeshDatabase(object):
         else:
             self.user = user
 
-    # noinspection PyPep8Naming
+
+    def refresh(self, kind, cloudname, **kwargs):
+
+        raise ValueError("refresh database is not yet implemented")
+
+
+
     def connect(self):
         """
         before any method is called we need to connect to the database
