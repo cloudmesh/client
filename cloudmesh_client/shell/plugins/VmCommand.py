@@ -150,14 +150,15 @@ class VmCommand(object):
             else:
                 return d
 
+        """
         def list_vms_on_cloud(cloud="juno", group=None, format="table"):
-            """
+
             Utility reusable function to list vms on the cloud.
             :param cloud:
             :param group:
             :param format:
             :return:
-            """
+
             _cloud = cloud
             _group = group
             _format = format
@@ -165,7 +166,7 @@ class VmCommand(object):
             cloud_provider = CloudProvider(_cloud).provider
             servers = cloud_provider.list_vm(_cloud)
 
-            """
+
             server_list = {}
             index = 0
             # TODO: Improve the implementation to display more fields if required.
@@ -175,11 +176,12 @@ class VmCommand(object):
                 server_list[index]["id"] = server.id
                 server_list[index]["status"] = server.status
                 index += 1
-            """
+
 
             # TODO: Get this printed in a table
             print("Print table")
             dict_printer(servers, output=_format)
+        """
 
         # pprint(arguments)
 
@@ -386,7 +388,8 @@ class VmCommand(object):
                     d = ConfigDict("cloudmesh.yaml")
                     for cloud in d["cloudmesh"]["clouds"]:
                         print("Listing VMs on Cloud: {:}".format(cloud))
-                        list_vms_on_cloud(cloud, format=_format)
+                        result = Vm.list(cloud=cloud, output_format=_format)
+                        print(result)
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception, e:
@@ -407,7 +410,9 @@ class VmCommand(object):
                     group = arguments["--group"]
                     _format = arguments["--format"] or "table"
 
-                    list_vms_on_cloud(cloud, group, _format)
+                    # list_vms_on_cloud(cloud, group, _format)
+                    result = Vm.list(cloud=cloud, output_format=_format)
+                    print(result)
                     msg = "info. OK."
                     Console.ok(msg)
 

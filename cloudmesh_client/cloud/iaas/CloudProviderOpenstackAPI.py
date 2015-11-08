@@ -50,7 +50,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def _to_dict(self, openstack_result):
         d = {}
         for index, value in enumerate(openstack_result):
-            print "---"
+            # print "---"
             d[index] = dict(value.__dict__["_info"])
             if 'links' in d[index]:
                 del d[index]['links']
@@ -258,26 +258,26 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'vcpus'
             ]
         elif kind == 'image':
-            order=['OS-EXT-IMG-SIZE:size',
-                 'created',
-                 'id',
-                 'metadata__description',
-                 'minDisk',
-                 'minRam',
-                 'name',
-                 'progress',
-                 'status',
-                 'updated']
-            order=['os_image_size',
-                 'created',
-                 'id',
-                 'metadata__description',
-                 'minDisk',
-                 'minRam',
-                 'name',
-                 'progress',
-                 'status',
-                 'updated']
+            order = ['OS-EXT-IMG-SIZE:size',
+                     'created',
+                     'id',
+                     'metadata__description',
+                     'minDisk',
+                     'minRam',
+                     'name',
+                     'progress',
+                     'status',
+                     'updated']
+            order = ['os_image_size',
+                     'created',
+                     'id',
+                     'metadata__description',
+                     'minDisk',
+                     'minRam',
+                     'name',
+                     'progress',
+                     'status',
+                     'updated']
         elif kind == 'default':
             order = ['user',
                      'cloud',
@@ -288,20 +288,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                      ]
         elif kind == 'vm':
             order = [
-                'cm_cloud',
-                'cm_user',
-                'instance_type_ephemeral_gb',
-                'instance_type_flavorid',
-                'instance_type_id',
-                'instance_type_memory_mb',
-                'instance_type_name',
-                'instance_type_root_gb',
-                'instance_type_rxtx_factor',
-                'instance_type_swap',
-                'instance_type_vcpus',
-                'minDisk',
-                'minRam',
-                'name',
+                'id',
+                'uuid',
+                'label',
+                'project',
+                'user',
+                'cloud'
             ]
             header = [
                 'cloud',

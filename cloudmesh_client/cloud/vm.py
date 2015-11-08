@@ -5,8 +5,11 @@ from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
 
 from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
+from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 
 class Vm(ListResource):
@@ -52,7 +55,27 @@ class Vm(ListResource):
 
     @classmethod
     def list(cls, **kwargs):
-        raise NotImplementedError()
+        """
+        This method lists all VMs of the cloud
+        :param cloud: the cloud name
+        """
+        # TODO: make a CloudmeshDatabase without requiring the user=
+        cm = CloudmeshDatabase(user="albert")
+
+        try:
+            elements = cm.find("vm", cloud=kwargs["cloud"])
+
+            # print(elements)
+
+            # order = ['id', 'uuid', 'name', 'cloud']
+            (order, header) = CloudProvider(kwargs["cloud"]).get_attributes("vm")
+
+            # order = None
+            return dict_printer(elements,
+                                order=order,
+                                output=kwargs["output_format"])
+        except Exception as ex:
+            Console.error(ex.message, ex)
 
     @classmethod
     def clear(cls, **kwargs):
