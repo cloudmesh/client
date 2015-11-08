@@ -6,6 +6,7 @@ import json
 from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 from cloudmesh_client.common.todo import TODO
 
+from cloudmesh_base.util import path_expand
 
 class Config(object):
     @classmethod
@@ -18,6 +19,7 @@ class Config(object):
         :type filename: str
         :rtype: True if there are tabs in the file
         """
+        filename = path_expand(filename)
         file_contains_tabs = False
         with file(filename) as f:
             lines = f.read().split("\n")

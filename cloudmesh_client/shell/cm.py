@@ -42,6 +42,8 @@ import cloudmesh_base
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_base.util import path_expand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -136,10 +138,16 @@ class CloudmeshConsole(cmd.Cmd,
             """)
         # KeyCommands.__init__(self, context)
 
-
+        #
+        # set default cloud and default group if they do not exist
+        # use the first cloud in cloudmesh.yaml as default
+        #
         value = Default.get('cloud', 'general')
         if value is None:
-            Default.set('cloud', 'juno', 'general')
+            filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
+            cloud = clouds.keys()[0]
+            Default.set('cloud', cloud, 'general')
 
         value = Default.get('default', 'general')
         if value is None:
