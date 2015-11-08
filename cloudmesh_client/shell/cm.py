@@ -32,6 +32,7 @@ from cloudmesh_client.shell.plugins.FlavorCommand import FlavorCommand
 from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
 from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
 from cloudmesh_client.shell.plugins.UsageCommand import UsageCommand
+from cloudmesh_client.shell.plugins.ResetCommand import ResetCommand
 
 import cloudmesh_client
 import cloudmesh_base
@@ -70,6 +71,7 @@ class CloudmeshConsole(cmd.Cmd,
                        VmCommand,
                        CometCommand,
                        ImageCommand,
+                       ResetCommand,
                        FlavorCommand,
                        HpcCommand,
                        ColorCommand,
@@ -81,6 +83,7 @@ class CloudmeshConsole(cmd.Cmd,
         topics = {}
         for command in [TerminalCommands,
                         ManCommand,
+                        ResetCommand,
                         ServerCommand,
                         SelectCommand,
                         GroupCommand,

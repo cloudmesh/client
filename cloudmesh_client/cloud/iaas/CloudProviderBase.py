@@ -1,10 +1,11 @@
 from cloudmesh_base.hostlist import Parameter
 import inspect
+from abc import ABCMeta
 
 class CloudProviderBase(object):
+#    __metaclass__ = ABCMeta
 
-
-    def __init__(self, cloudname, user=None, flat=False):
+    def __init__(self, cloudname, user=None, flat=False, source="db"):
         self.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
         self.nodes = None
         self.flavors = None
@@ -20,6 +21,7 @@ class CloudProviderBase(object):
         self.credential = None
         self.driver = None
         self.flag = flat
+        self.source = source
 
     
     def attributes(self, kind):
@@ -35,13 +37,16 @@ class CloudProviderBase(object):
             raise ValueError("Kind " + kind + " not supported")
 
     
-    def mode(self, source):
+    def set_source(self, source):
         """
-        Sets the source for the information to be returned. "db" and "cloud"
+        Sets the source for the information to be returned. "db" and
+        "cloud", "memory"
         :param source: the database can be queried in mode "db",
         the database can be bypassed in mode "cloud"
         """
-        raise ValueError("Not implemented yet.")
+        self.source = source
+        if self.source in ["memory"]:
+            raise ValueError("Memory source ot implemented yet.")
         return None
 
     # #########################

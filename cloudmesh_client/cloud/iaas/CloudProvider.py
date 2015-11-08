@@ -15,7 +15,7 @@ requests.packages.urllib3.disable_warnings()
 
 class CloudProvider(CloudProviderBase):
 
-    def __init__(self, cloudname, user=None, flat=False):
+    def __init__(self, cloudname, user=None, flat=True):
         super( CloudProvider, self ).__init__(cloudname, user=user)
 
         try:

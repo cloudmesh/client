@@ -42,28 +42,26 @@ def set_os_environ(cloudname):
 #
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    def __init__(self, cloud_name, cloud_details, user=None, flat=False):
+    def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
         self.flat = flat
 
     def _to_dict(self, openstack_result):
         d = {}
-
-        # for i in enumerate(openstack_result):
-        #    print i
-
         for index, value in enumerate(openstack_result):
-            #print index, value
-            d[index] = value.__dict__["_info"]
+            print "---"
+            d[index] = dict(value.__dict__["_info"])
             if 'links' in d[index]:
                 del d[index]['links']
+            if 'server_links' in d[index]:
+                del d[index]['server_links']
 
-        # If flat dict flag set, convert to flatdict
-        if self.flat is True:
-            f = FlatDict(d)
-            d = f.dict
-
+            # If flat dict flag set, convert to flatdict
+            if self.flat is True:
+                d[index] = dict(FlatDict(d[index]).dict)
+            else:
+                ValueError("TODO: we only support flat for now")
         return d
 
     def _ksv3_auth(self, credentials):
@@ -259,6 +257,27 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'ram',
                 'vcpus'
             ]
+        elif kind == 'image':
+            order=['OS-EXT-IMG-SIZE:size',
+                 'created',
+                 'id',
+                 'metadata__description',
+                 'minDisk',
+                 'minRam',
+                 'name',
+                 'progress',
+                 'status',
+                 'updated']
+            order=['os_image_size',
+                 'created',
+                 'id',
+                 'metadata__description',
+                 'minDisk',
+                 'minRam',
+                 'name',
+                 'progress',
+                 'status',
+                 'updated']
         elif kind == 'default':
             order = ['user',
                      'cloud',
@@ -267,7 +286,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                      'created_at',
                      'updated_at'
                      ]
-        elif kind == 'image':
+        elif kind == 'vm':
             order = [
                 'cm_cloud',
                 'cm_user',
@@ -302,6 +321,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             ]
         return (order, header)
 
+# CloudProviderBase.register(CloudProviderOpenstackAPI)
 
 if __name__ == "__main__":
     cloudname = 'juno'

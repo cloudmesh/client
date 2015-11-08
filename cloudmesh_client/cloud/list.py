@@ -7,7 +7,7 @@ from cloudmesh_client.common.Printer  import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-
+from pprint import pprint
 
 class List(object):
     cm = CloudmeshDatabase()
@@ -47,8 +47,10 @@ class List(object):
             elements = cls.cm.find(table, **filter)
 
             print ("XXX")
-            print(elements)
+            pprint(elements)
             print ("YYY")
+
+
 
             if elements is not None or elements is not {}:
                 # convert the output to a dict
