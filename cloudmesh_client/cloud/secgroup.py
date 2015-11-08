@@ -208,8 +208,6 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm_db.close()
 
     @classmethod
     def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
@@ -255,8 +253,6 @@ class SecGroup(ListResource):
                                secgroup.name))
         except Exception as ex:
             Console.error(ex.message, ex)
-        finally:
-            cls.cm_db.close()
         return
 
     @classmethod
@@ -293,8 +289,6 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm_db.close()
 
     @classmethod
     def delete_secgroup(cls, label, cloud, tenant):
@@ -321,8 +315,6 @@ class SecGroup(ListResource):
 
         except Exception as ex:
             Console.error(ex.message, ex)
-        finally:
-            cls.cm_db.close()
 
         return
 
@@ -364,8 +356,6 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm_db.close()
         return
 
     @classmethod
@@ -393,8 +383,6 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm_db.close()
         return
 
     @classmethod

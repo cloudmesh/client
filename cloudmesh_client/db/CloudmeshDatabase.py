@@ -131,8 +131,14 @@ class CloudmeshDatabase(object):
 
         :return: the session of the database
         """
-        Session = sessionmaker(bind=self.db.engine)
-        self.session = Session()
+        try:
+            connected = self.connected
+        except:
+            connected = False
+        if not connected:
+            Session = sessionmaker(bind=self.db.engine)
+            self.session = Session()
+            self.connected = True
         return self.session
 
     def save(self):

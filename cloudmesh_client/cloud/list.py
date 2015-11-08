@@ -67,8 +67,6 @@ class List(object):
             print ("ISSUE")
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
     @classmethod
     def get_classobj(cls, kind):

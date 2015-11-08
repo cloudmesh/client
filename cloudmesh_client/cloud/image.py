@@ -26,8 +26,6 @@ class Image(ListResource):
                 cls.cm.delete(ima)
         except Exception as ex:
             Console.error(ex.message, ex)
-        finally:
-            cls.cm.close()
 
     @classmethod
     def refresh(cls, cloud):

@@ -58,8 +58,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
     @classmethod
     def get_info(cls, cloud="juno", name=None, output="table"):
@@ -93,8 +91,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
     @classmethod
     def add(cls, name=None, type="vm", id=None, cloud="juno"):
@@ -164,8 +160,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
         return
 
     @classmethod
@@ -239,8 +233,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
     @classmethod
     def remove(cls, name, id, cloud):
@@ -300,8 +292,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
         return
 
@@ -384,8 +374,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
     @classmethod
     def merge(cls, _nameA, _nameB, mergeName):
@@ -448,8 +436,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        finally:
-            cls.cm.close()
 
     @classmethod
     def to_dict(cls, item):

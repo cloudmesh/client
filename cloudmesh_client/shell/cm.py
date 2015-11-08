@@ -33,7 +33,7 @@ from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
 from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
 from cloudmesh_client.shell.plugins.UsageCommand import UsageCommand
 from cloudmesh_client.shell.plugins.ResetCommand import ResetCommand
-
+from cloudmesh_client.cloud.default import Default
 import cloudmesh_client
 import cloudmesh_base
 from cloudmesh_base.util import get_python
@@ -42,6 +42,8 @@ import cloudmesh_base
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_base.util import path_expand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -135,8 +137,26 @@ class CloudmeshConsole(cmd.Cmd,
                                  Cloudmesh Shell
             """)
         # KeyCommands.__init__(self, context)
+
+        #
+        # set default cloud and default group if they do not exist
+        # use the first cloud in cloudmesh.yaml as default
+        #
+        value = Default.get('cloud', 'general')
+        if value is None:
+            filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
+            clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
+            cloud = clouds.keys()[0]
+            Default.set('cloud', cloud, 'general')
+
+        value = Default.get('default', 'general')
+        if value is None:
+            Default.set('default', 'default', 'general')
+
         for c in CloudmeshConsole.__bases__[1:]:
             c.__init__(self, context)
+
+
 
     def preloop(self):
         """adds the banner to the preloop"""
