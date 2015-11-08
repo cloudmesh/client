@@ -193,7 +193,7 @@ class KeyCommand(object):
                     import traceback
                     print(traceback.format_exc())
                     print (e)
-                    Console.error("Problem listing git keys for user: " + username)
+                    Console.error("Problem listing git keys from database")
                     return
 
             elif arguments['--source'] == 'db':
