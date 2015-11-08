@@ -80,13 +80,10 @@ class DefaultCommand(object):
         if arguments["list"]:
             output_format = arguments["--format"]
             if arguments['--all']:
-                print ("ALL")
                 result = Default.list(format=output_format)
             else:
-                print ("OBJ")
                 result = Default.get_objects(cloud, format=output_format)
 
-            print(result)
             if result is None:
                 Console.error("No default values found")
             else:

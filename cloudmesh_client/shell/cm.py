@@ -137,36 +137,13 @@ class CloudmeshConsole(cmd.Cmd,
         # KeyCommands.__init__(self, context)
 
 
-        # TOD: if value do not exist, set them
-        # here we hardcode
+        value = Default.get('cloud', 'general')
+        if value is None:
+            Default.set('cloud', 'juno', 'general')
 
-        #print (Default.get_group())
-
-        print ("A")
-        c = Default.get('cloud', 'general')
-        print ("LLL", c)
-        print("B")
-        #Default.set('cloud', 'juno', 'general')
-        #Default.set('default', 'default'', 'general')
-
-        #Default.set('cloud', 'juno', 'general')
-        #Default.set('default', 'default', 'general')
-
-        '''
-        print ("TTTTTTTTTTTTTTTTTTT")
-        test = Default.get_group()
-        print ("OOO", test)
-        test = Default.get_cloud()
-        print ("OOO", test)
-        try:
-            test = Default.get_group()
-        except:
-            Default.set_group("juno")
-        try:
-            test = Default.get_cloud()
-        except:
-            Default.set_cloud("juno")
-        '''
+        value = Default.get('default', 'general')
+        if value is None:
+            Default.set('default', 'default', 'general')
 
         for c in CloudmeshConsole.__bases__[1:]:
             c.__init__(self, context)
