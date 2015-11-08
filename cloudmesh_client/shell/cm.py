@@ -33,7 +33,7 @@ from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
 from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
 from cloudmesh_client.shell.plugins.UsageCommand import UsageCommand
 from cloudmesh_client.shell.plugins.ResetCommand import ResetCommand
-
+from cloudmesh_client.cloud.default import Default
 import cloudmesh_client
 import cloudmesh_base
 from cloudmesh_base.util import get_python
@@ -135,8 +135,43 @@ class CloudmeshConsole(cmd.Cmd,
                                  Cloudmesh Shell
             """)
         # KeyCommands.__init__(self, context)
+
+
+        # TOD: if value do not exist, set them
+        # here we hardcode
+
+        #print (Default.get_group())
+
+        print ("A")
+        c = Default.get('cloud', 'general')
+        print ("LLL", c)
+        print("B")
+        #Default.set('cloud', 'juno', 'general')
+        #Default.set('default', 'default'', 'general')
+
+        #Default.set('cloud', 'juno', 'general')
+        #Default.set('default', 'default', 'general')
+
+        '''
+        print ("TTTTTTTTTTTTTTTTTTT")
+        test = Default.get_group()
+        print ("OOO", test)
+        test = Default.get_cloud()
+        print ("OOO", test)
+        try:
+            test = Default.get_group()
+        except:
+            Default.set_group("juno")
+        try:
+            test = Default.get_cloud()
+        except:
+            Default.set_cloud("juno")
+        '''
+
         for c in CloudmeshConsole.__bases__[1:]:
             c.__init__(self, context)
+
+
 
     def preloop(self):
         """adds the banner to the preloop"""

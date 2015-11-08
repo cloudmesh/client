@@ -20,8 +20,9 @@ class Default(ListResource):
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
-        finally:
-            cls.cm.close()
+        except:
+            return None
+
 
     @classmethod
     def get_objects(cls,
@@ -33,8 +34,8 @@ class Default(ListResource):
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
-        finally:
-            cls.cm.close()
+        except:
+            return None
 
     #
     # GENERAL SETTER AND GETTER METHOD
@@ -55,8 +56,8 @@ class Default(ListResource):
             else:
                 o.value = value
                 cls.cm.add(o)
-        finally:
-            cls.cm.close()
+        except:
+            return None
 
     @classmethod
     def get_object(cls, key, cloud=None):
@@ -66,24 +67,15 @@ class Default(ListResource):
                       'cloud': which_cloud}
             o = cls.cm.find('default', output='object', **kwargs).first()
             return o
-        finally:
-            cls.cm.close()
+        except:
+            return None
 
     @classmethod
     def get(cls, key, cloud=None):
         try:
             result = cls.get_object(key, cloud=cloud)
-            if result is None:  # TODO: Verify if this is needed
-                if key == 'cloud':
-                    return 'general'
-                elif key == 'group':
-                    return 'default'
-                return None
-            else:
-                return result.value
-
-        finally:
-            cls.cm.close()
+        except:
+            return None
 
     @classmethod
     def delete(cls, key, cloud):
@@ -94,8 +86,8 @@ class Default(ListResource):
                 return "Deletion. ok."
             else:
                 return None
-        finally:
-            cls.cm.close()
+        except:
+            return None
 
     @classmethod
     def clear(cls):
@@ -105,9 +97,8 @@ class Default(ListResource):
                 name = d[item]["name"]
                 cls.cm.delete_by_name('default', name)
             cls.cm.save()
-        finally:
-            cls.cm.close()
-
+        except:
+            return None
     #
     # Set the default cloud
     #
@@ -167,3 +158,4 @@ class Default(ListResource):
     @classmethod
     def get_key(cls):
         return cls.get("key", "general")
+
