@@ -76,7 +76,7 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # TODO: make a CloudmeshDatabase without requireing the user=
-        cm = CloudmeshDatabase(user="albert")
+        cm = CloudmeshDatabase()
 
         try:
             elements = cm.find("image", cloud=cloud)
@@ -98,7 +98,7 @@ class Image(ListResource):
             cls.refresh(cloud)
 
         try:
-            cm = CloudmeshDatabase(user="gregor")
+            cm = CloudmeshDatabase()
 
             elements = None
             for idkey in ["name", "uuid", "id"]:

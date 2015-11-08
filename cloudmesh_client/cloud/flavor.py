@@ -63,7 +63,7 @@ class Flavor(ListResource):
         :param cloud: the cloud name
         """
         # TODO: make a CloudmeshDatabase without requireing the user=
-        cm = CloudmeshDatabase(user="albert")
+        cm = CloudmeshDatabase()
 
         try:
             elements = cm.find("flavor", cloud=cloud)
@@ -88,7 +88,7 @@ class Flavor(ListResource):
         if live:
             cls.refresh(cloud)
 
-        cm = CloudmeshDatabase(user="albert")
+        cm = CloudmeshDatabase()
 
         try:
             elements = cm.find("image", cloud=cloud)
@@ -113,7 +113,7 @@ class Flavor(ListResource):
         if live:
             cls.refresh(cloud)
 
-        user = "gregor"
+        user = None
         tenant = None
         cm = CloudmeshDatabase(user=user)
 
