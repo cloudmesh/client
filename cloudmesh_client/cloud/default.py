@@ -70,7 +70,6 @@ class Default(ListResource):
             o = cls.cm.find('default', output='dict', **arguments)
             keys = o.keys()
             o = o[keys[0]]
-            print ("FOUND", o["value"])
             return o["value"]
         except Exception, e:
             return None
