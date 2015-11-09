@@ -4,6 +4,8 @@ import shlex
 
 from docopt import docopt
 
+class PluginCommand(object):
+    pass
 
 def command(func):
     '''

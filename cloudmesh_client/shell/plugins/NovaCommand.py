@@ -11,11 +11,12 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
     set_os_environ
+from cloudmesh_client.shell.command import PluginCommand
 
 log = LOGGER(__file__)
 
 
-class NovaCommand (object):
+class NovaCommand (PluginCommand):
 
     topics = {"nova": "cloud"}
 

@@ -15,9 +15,9 @@ import pyaml
 import os
 import getpass
 import socket
+from cloudmesh_client.shell.command import PluginCommand
 
-
-class VmCommand(object):
+class VmCommand(PluginCommand):
 
     topics = {"vm": "cloud"}
 

@@ -6,9 +6,9 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_base.ssh_config import ssh_config
 
 from cloudmesh_base.util import banner
+from cloudmesh_client.shell.command import PluginCommand
 
-
-class SecureShellCommand(object):
+class SecureShellCommand(PluginCommand):
     # def activate_cm_shell_ssh(self):
 
     topics = {"ssh": "security"}

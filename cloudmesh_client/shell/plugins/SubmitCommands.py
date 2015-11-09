@@ -1,7 +1,7 @@
 from __future__ import print_function
+from cloudmesh_client.shell.command import PluginCommand
 
-
-class SubmitCommands(object):
+class SubmitCommands(PluginCommand):
 
     topics = {"submit": "tbd"}
 

@@ -5,9 +5,9 @@ import sys
 from builtins import input
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.shell.command import PluginCommand
 
-
-class TerminalCommands(object):
+class TerminalCommands(PluginCommand):
     topics = {"clear": "shell",
               "banner": "shell"}
 

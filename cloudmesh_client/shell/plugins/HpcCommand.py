@@ -3,8 +3,9 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.hpc import Hpc
 from cloudmesh_client.cloud.default import Default
 
+from cloudmesh_client.shell.command import PluginCommand
 
-class HpcCommand:
+class HpcCommand(PluginCommand):
     topics = {"hpc": "hpc"}
 
     def __init__(self, context):

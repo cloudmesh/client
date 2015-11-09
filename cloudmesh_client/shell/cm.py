@@ -7,32 +7,8 @@ import string
 import textwrap
 
 from docopt import docopt
-from cloudmesh_client.shell.plugins.RegisterCommand import RegisterCommand
-from cloudmesh_client.shell.plugins.NovaCommand import NovaCommand
-from cloudmesh_client.shell.plugins.KeyCommand import KeyCommand
-from cloudmesh_client.shell.plugins.GroupCommand import GroupCommand
-from cloudmesh_client.shell.plugins.SelectCommand import SelectCommand
-from cloudmesh_client.shell.plugins.ManCommand import ManCommand
-from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
-from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
-from cloudmesh_client.shell.plugins.ReservationCommand import ReservationCommand
-from cloudmesh_client.shell.plugins.ServerCommand import ServerCommand
-from cloudmesh_client.shell.plugins.CloudCommand import CloudCommand
-from cloudmesh_client.shell.plugins.SecureShellCommand import SecureShellCommand
-from cloudmesh_client.shell.plugins.SecgroupCommand import SecgroupCommand
-from cloudmesh_client.shell.plugins.DefaultCommand import DefaultCommand
-from cloudmesh_client.shell.plugins.InventoryCommand import InventoryCommand
-from cloudmesh_client.shell.plugins.ListCommand import ListCommand
-from cloudmesh_client.shell.plugins.QuotaCommand import QuotaCommand
-from cloudmesh_client.shell.plugins.VmCommand import VmCommand
-from cloudmesh_client.shell.plugins.LimitsCommand import LimitsCommand
-from cloudmesh_client.shell.plugins.CometCommand import CometCommand
-from cloudmesh_client.shell.plugins.ImageCommand import ImageCommand
-from cloudmesh_client.shell.plugins.FlavorCommand import FlavorCommand
-from cloudmesh_client.shell.plugins.HpcCommand import HpcCommand
-from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
-from cloudmesh_client.shell.plugins.UsageCommand import UsageCommand
-from cloudmesh_client.shell.plugins.ResetCommand import ResetCommand
+from .plugins import *
+
 from cloudmesh_client.cloud.default import Default
 import cloudmesh_client
 import cloudmesh_base
@@ -44,71 +20,24 @@ from cloudmesh_client.shell.command import command
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import path_expand
+from cloudmesh_client.shell.command import PluginCommand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
 
 
-# noinspection PyPep8Naming
-class CloudmeshConsole(cmd.Cmd,
-                       ServerCommand,
-                       TerminalCommands,
-                       ManCommand,
-                       SelectCommand,
-                       GroupCommand,
-                       KeyCommand,
-                       SecureShellCommand,
-                       ReservationCommand,
-                       RegisterCommand,
-                       SecgroupCommand,
-                       CloudCommand,
-                       OpenCommand,
-                       NovaCommand,
-                       InventoryCommand,
-                       DefaultCommand,
-                       ListCommand,
-                       LimitsCommand,
-                       QuotaCommand,
-                       VmCommand,
-                       CometCommand,
-                       ImageCommand,
-                       ResetCommand,
-                       FlavorCommand,
-                       HpcCommand,
-                       ColorCommand,
-                       UsageCommand):
-    """
-    Cloudmesh Console
-    """
+PluginCommandClasses = type(
+    'CommandProxyClass',
+    tuple(PluginCommand.__subclasses__()),
+    {})
+
+
+class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
+
     def register_topics(self):
         topics = {}
-        for command in [TerminalCommands,
-                        ManCommand,
-                        ResetCommand,
-                        ServerCommand,
-                        SelectCommand,
-                        GroupCommand,
-                        KeyCommand,
-                        SecureShellCommand,
-                        RegisterCommand,
-                        ReservationCommand,
-                        OpenCommand,
-                        CloudCommand,
-                        SecgroupCommand,
-                        NovaCommand,
-                        InventoryCommand,
-                        DefaultCommand,
-                        ListCommand,
-                        QuotaCommand,
-                        VmCommand,
-                        CometCommand,
-                        LimitsCommand,
-                        ImageCommand,
-                        FlavorCommand,
-                        HpcCommand,
-                        ColorCommand,
-                        UsageCommand]:
+        for command in PluginCommand.__subclasses__():
             tmp = command.topics.copy()
             topics.update(tmp)
         for name in topics:

@@ -2,7 +2,7 @@ import webbrowser
 import os
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.command import command, PluginCommand
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_base.hostlist import Parameter
@@ -19,7 +19,7 @@ from pprint import pprint
 """
 
 # noinspection PyUnusedLocal
-class CometCommand:
+class CometCommand(PluginCommand):
     topics = {"comet": "comet"}
 
     def __init__(self, context):

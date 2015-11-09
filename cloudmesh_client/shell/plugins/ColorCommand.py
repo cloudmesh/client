@@ -1,10 +1,10 @@
 from __future__ import print_function
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.command import command,PluginCommand
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-class ColorCommand(object):
+class ColorCommand(PluginCommand):
     topics = {"color": "shell"}
 
     def __init__(self, context):

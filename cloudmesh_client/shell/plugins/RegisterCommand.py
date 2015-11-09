@@ -13,8 +13,9 @@ from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
 from cloudmesh_base.util import path_expand
 
+from cloudmesh_client.shell.command import PluginCommand
 
-class RegisterCommand(object):
+class RegisterCommand(PluginCommand):
     topics = {"register": "cloud"}
 
     def __init__(self, context):

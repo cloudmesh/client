@@ -3,9 +3,10 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.shell.command import PluginCommand
 
 
-class NetworkCommand(object):
+class NetworkCommand(PluginCommand):
     topics = {"network": "network"}
 
     def __init__(self, context):

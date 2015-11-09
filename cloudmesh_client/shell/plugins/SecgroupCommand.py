@@ -3,9 +3,9 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.secgroup import SecGroup
+from cloudmesh_client.shell.command import PluginCommand
 
-
-class SecgroupCommand(object):
+class SecgroupCommand(PluginCommand):
     topics = {"secgroup": "security"}
 
     def __init__(self, context):

@@ -1,6 +1,5 @@
 from __future__ import print_function
-from cloudmesh_client.shell.command_decorator import command
-
+from cloudmesh_client.shell.command import command
 
 class BarCommand(object):
 

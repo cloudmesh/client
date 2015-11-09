@@ -3,9 +3,9 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.usage import Usage
+from cloudmesh_client.shell.command import PluginCommand
 
-
-class UsageCommand(object):
+class UsageCommand(PluginCommand):
     topics = {"list": "cloud"}
 
     def __init__(self, context):
