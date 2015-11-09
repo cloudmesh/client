@@ -8,6 +8,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.cloud.list import List
+from pprint import pprint
 
 class Flavor(ListResource):
     db = CloudmeshDatabase()
@@ -35,137 +36,44 @@ class Flavor(ListResource):
         """
         return cls.db.refresh('flavor', cloud)
 
-        """
-        try:
-            provider = CloudProvider(cloud)
-
-            cls.clear(cloud)
-            # get the user
-            user = cls.db.user
-
-            print("A", cloud)
-            data = provider.list("flavor", cloud)
-            print("B")
-
-            cls.db.add(dict(data))
-            cls.db.save()
-        except Exception as ex:
-            Console.error(ex.message, ex)
-            return False
-        return True
-        """
-
-
-    @classmethod
-    def list(cls, cloud, format="table"):
-        """
-        This method lists all flavors of the cloud
-        :param cloud: the cloud name
-        """
-        # TODO: make a CloudmeshDatabase without requireing the user=
-        cm = CloudmeshDatabase()
-
-        try:
-            elements = cm.find("flavor", cloud=cloud)
-
-            order = ['id', 'uuid', 'name', 'cloud']
-            # order = None
-            return dict_printer(elements,
-                                       order=order,
-                                       output=format)
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
-
     @classmethod
     def list(cls, cloud, live=False, format="table"):
         """
         This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
-        # TODO: make a CloudmeshDatabase without requireing the user=
-
-        if live:
-            cls.refresh(cloud)
-
         cm = CloudmeshDatabase()
 
         try:
-            elements = cm.find("image", cloud=cloud)
 
-            order = CloudProvider(cloud).get_attributes()
+            if live:
+                cls.refresh(cloud)
 
-            return dict_printer(elements,
-                                       order=order,
-                                       output=format)
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
-    '''
-    @classmethod
-    def list(cls, cloud, live=False, format="table"):
-        """
-        This method lists all flavors of the cloud
-        :param cloud: the cloud name
-        """
-        # TODO: make a CloudmeshDatabase without requiring the user=
-
-        if live:
-            cls.refresh(cloud)
-
-        user = None
-        tenant = None
-        cm = CloudmeshDatabase(user=user)
-
-        try:
-
-            if format == "table":
-                # return attribute_printer(flavor)
-
-                return dict_printer({"0": flavor})
-
-            else:
-                return dict_printer(flavor,
-                                    output=format)
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
-
-        try:
             elements = cm.find("flavor", cloud=cloud)
 
-
-            print (type(elements))
-
-            # TODO: this should call database
-            provider = CloudProvider(cloud).provider
-            #provider = CloudProvider.set(cloud)
-            order, header = provider.attributes("flavor")
+            #order = ['id', 'uuid', 'name', 'cloud']
+            (order, header) = CloudProvider(cloud).get_attributes("flavor")
 
 
-            return List.list("flavor",
-                 cloud,
-                 user=user,
-                 tenant=None,
-                 order=order,
-                 header=header,
-                 output=format)
-
+            #order = None
             return dict_printer(elements,
                                        order=order,
                                        output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
-    '''
+
+
+
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
-        if live:
-            cls.refresh(cloud)
+
 
         try:
 
-            # TODO: this should call database
+            if live:
+                cls.refresh(cloud)
+
             provider = CloudProvider(cloud).provider
 
             if id.isdigit():

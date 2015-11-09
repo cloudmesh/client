@@ -230,6 +230,8 @@ class CloudmeshDatabase(object):
             if scope == "first":
                 first = result.keys()[0]
                 result = result[first]
+        #if result == {}:
+        #    return None
 
         return result
 

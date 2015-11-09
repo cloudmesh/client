@@ -34,45 +34,8 @@ class Image(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
-
-
-
-        print ("LIST")
-
-
         # Newly implemented refresh
         return cls.cm.refresh("image", cloud)
-
-        """
-        # set the environment
-        nova = CloudProvider.set(cloud).nova
-
-        # delete previous data
-        cls.clear(cloud)
-
-        try:
-            # get the user
-            user = cls.cm.user
-
-            # read data from openstack
-            for image in nova.images.list():
-                image_dict = image._info
-                image_obj = cls.cm.db_obj_dict('image',
-                                               name=image_dict['name'],
-                                               uuid=image_dict['id'],
-                                               type='string',
-                                               cloud=cloud,
-                                               user=user)
-                cls.cm.add_obj(image_obj)
-                cls.cm.save()
-
-            return "Images for cloud {} refreshed. ok.".format(cloud)
-
-        except Exception as ex:
-            Console.error(ex.message, ex)
-            return ex
-
-        """
 
     @classmethod
     def list(cls, cloud, format="table"):

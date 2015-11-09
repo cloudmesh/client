@@ -60,19 +60,23 @@ class FlavorCommand(object):
             id = arguments['ID']
             output_format = arguments["--format"]
             live = arguments['--refresh']
-            if not cloud:
-                Console.error("Default cloud doesn't exist")
-                return
 
             output_format = arguments["--format"]
             if id is None:
                 result = Flavor.list(cloud, output_format)
             else:
                 result = Flavor.details(cloud, id, live, output_format)
-            if result is None:
 
+            if result is None:
+                #
+                # outo refresh
+                #
                 Console.error("No flavor(s) found.")
+                #Flavor.refresh(cloud)
+                #Console.ok("Refreshing flavor(s). ok.")
+
             else:
+
                 print(result)
             return
 
