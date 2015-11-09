@@ -6,6 +6,7 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer, list_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from uuid import UUID
 
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
@@ -213,9 +214,8 @@ class VmCommand(object):
                     Console.error("Default group not set!")
                     return
 
-                cloud_provider = CloudProvider(cloud).provider
-                vm_id = cloud_provider.boot(name, image, flavor, key=key_name, secgroup=secgroup_list)
-                print("Machine {:} is being booted on {:} Cloud...".format(name, cloud_provider.cloud))
+                vm_id = Vm.boot(cloud=cloud, name=name, image=image, flavor=flavor, key_name=key_name,
+                                secgroup_list=secgroup_list)
 
                 # Add to group
                 Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
@@ -246,7 +246,7 @@ class VmCommand(object):
 
         elif arguments["delete"]:
             try:
-                id = arguments["NAME"]
+                servers = arguments["NAME"]
                 group = arguments["--group"]
                 force = arguments["--force"]
                 cloud = arguments["--cloud"] or \
@@ -257,10 +257,8 @@ class VmCommand(object):
                     Console.error("Default cloud not set!")
                     return
 
-                cloud_provider = CloudProvider(cloud).provider
-                for server in id:
-                    cloud_provider.delete(server)
-                    print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+                Vm.delete(cloud=cloud, servers=servers)
+
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:

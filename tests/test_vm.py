@@ -32,12 +32,12 @@ class Test_vm:
 
     def test_001(self):
         """
-        cm vm start --name=testvm --cloud=juno --image=<image_id> --flavor=2
+        cm vm start --name=testvm --cloud=juno --image=<image_id> --flavor=2 --group="test"
         """
         image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
 
         HEADING()
-        result = run("cm vm start --name=testvm --cloud=juno --image={:} --flavor=2".format(image_id))
+        result = run("cm vm start --name=testvm --cloud=juno --image={:} --flavor=2 --group=test".format(image_id))
         print result
         assert "OK." in result
 

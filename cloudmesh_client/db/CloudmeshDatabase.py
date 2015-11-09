@@ -109,10 +109,11 @@ class CloudmeshDatabase(object):
 
             elif kind == "vm":
                 vms = provider.list_vm(cloudname)
-                for image in vms.values():
+                for vm in vms.values():
                     db_obj = self.db_obj_dict(kind,
-                                              name=image['name'],
-                                              uuid=image['id'],
+                                              name=vm['name'],
+                                              uuid=vm['id'],
+                                              status=vm['status'],
                                               type='string',
                                               cloud=cloudname,
                                               user=user)

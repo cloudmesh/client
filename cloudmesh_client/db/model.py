@@ -152,27 +152,25 @@ class FLAVOR(CloudmeshMixin, db.Base):
 class VM(CloudmeshMixin, db.Base):
 
     uuid = Column(String)
+    status = Column(String)
 
-    def __init__(self,
-                 name,
-                 uuid,
-                 type="string",
-                 cloud=None,
-                 user=None,
-                 **kwargs):
+    def __init__(self, **kwargs):
         # self.kind = __tablename__
-        self.label = name
-        self.cloud = cloud or "general"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.uuid = uuid
+        self.label = kwargs["name"]
+        self.cloud = kwargs["cloud"] or "general"
+        self.type = kwargs["type"]
+        self.name = kwargs["name"]
+        self.user = kwargs["user"]
+        self.uuid = kwargs["uuid"]
+        self.status = kwargs["status"]
         self.kind = self.__tablename__
 
+        """
         if kwargs is not None:
             for key, value in kwargs.iteritems():
                 print ("{} = {}".format(key, value))
                 self[key] = value
+        """
 
 
 class DEFAULT(CloudmeshMixin, db.Base):

@@ -139,8 +139,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_usage(self, cloudname, **kwargs):
         raise ValueError("list usage is not supported")
 
-    def boot(self, name, image=None, flavor=None, cloud="India", key=None,
-             secgroup=None, meta=None):
+    def boot_vm(self, name, image=None, flavor=None, cloud="India", key=None,
+                secgroup=None, meta=None):
         """
         Spawns a VM instance on the cloud.
         If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.
@@ -164,7 +164,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # return the server id
         return server.__dict__["id"]
 
-    def delete(self, name, group=None, force=None):
+    def delete_vm(self, name, group=None, force=None):
         """
         Deletes a machine on the target cloud indicated by the id
         :param id: Name or ID of the instance to be deleted
@@ -172,7 +172,12 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param force: Force delete option
         :return:
         """
-        server = self.provider.servers.find(name=name)
+
+        if self.isUuid(name):
+            server = self.provider.servers.get(name)
+        else:
+            server = self.provider.servers.find(name=name)
+
         server.delete()
 
     def get_ips(self, name, group=None, force=None):
@@ -291,6 +296,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'id',
                 'uuid',
                 'label',
+                'status',
                 'project',
                 'user',
                 'cloud'

@@ -50,6 +50,28 @@ class Vm(ListResource):
             print(e)
 
     @classmethod
+    def boot(cls, **kwargs):
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
+                                       secgroup=kwargs["secgroup_list"])
+        print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
+
+        # Explicit refresh called after VM boot, to update db.
+        cls.refresh(cloud=kwargs["cloud"])
+
+        return vm_id
+
+    @classmethod
+    def delete(cls, **kwargs):
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        for server in kwargs["servers"]:
+            cloud_provider.delete_vm(server)
+            print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+
+        # Explicit refresh called after VM delete, to update db.
+        cls.refresh(cloud=kwargs["cloud"])
+
+    @classmethod
     def info(cls, **kwargs):
         raise NotImplementedError()
 
@@ -59,11 +81,9 @@ class Vm(ListResource):
         This method lists all VMs of the cloud
         :param cloud: the cloud name
         """
-        # TODO: make a CloudmeshDatabase without requiring the user=
-        cm = CloudmeshDatabase(user="albert")
 
         try:
-            elements = cm.find("vm", cloud=kwargs["cloud"])
+            elements = cls.cm.find("vm", cloud=kwargs["cloud"])
 
             # print(elements)
 
