@@ -38,12 +38,12 @@ install:
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
-  - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_pass.py
   - nosetests -v --nocapture tests/test_configdict.py
-  - nosetests -v --nocapture tests/test_shell.py
-  - nosetests -v --nocapture tests/test_tables.py
   - nosetests -v --nocapture tests/test_default.py
   - nosetests -v --nocapture tests/test_flatdict.py
+  - nosetests -v --nocapture tests/test_model.py
+  - nosetests -v --nocapture tests/test_shell.py
+  - nosetests -v --nocapture tests/test_tables.py
   - make doc
   - cm help

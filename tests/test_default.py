@@ -149,6 +149,7 @@ class Test_default():
         HEADING()
         run("cm default test=testValue --cloud=mycloud")
         result = run("cm default delete test --cloud=mycloud")
+        print result
         assert "Deleted key" in result
 
     def test_012(self):

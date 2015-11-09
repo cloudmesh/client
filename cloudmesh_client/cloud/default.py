@@ -80,6 +80,9 @@ class Default(ListResource):
 
     @classmethod
     def delete(cls, key, cloud):
+        #
+        # TODO: this is wrong implemented,
+        #
         try:
             o = Default.get_object(key, cloud)
             if o is not None:
