@@ -35,6 +35,11 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
 
+
+
+        print ("LIST")
+
+
         # Newly implemented refresh
         return cls.cm.refresh("image", cloud)
 

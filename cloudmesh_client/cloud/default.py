@@ -45,6 +45,8 @@ class Default(ListResource):
     def set(cls, key, value, cloud=None, user=None):
         try:
             o = Default.get_object(key, cloud)
+
+
             me = cls.cm.user or user
             if o is None:
                 o = cls.cm.db_obj_dict('default',
@@ -56,26 +58,26 @@ class Default(ListResource):
             else:
                 o.value = value
                 cls.cm.add(o)
+            cls.cm.save()
         except:
             return None
 
     @classmethod
-    def get_object(cls, key, cloud=None):
+    def get_object(cls, key, cloud="general"):
         try:
-            which_cloud = cloud or "general"
-            kwargs = {'name': key,
-                      'cloud': which_cloud}
-            o = cls.cm.find('default', output='object', **kwargs).first()
-            return o
-        except:
+            arguments = {'name': key,
+                      'cloud': cloud or "general"}
+            o = cls.cm.find('default', output='dict', **arguments)
+            keys = o.keys()
+            o = o[keys[0]]
+            print ("FOUND", o["value"])
+            return o["value"]
+        except Exception, e:
             return None
 
     @classmethod
-    def get(cls, key, cloud=None):
-        try:
-            result = cls.get_object(key, cloud=cloud)
-        except:
-            return None
+    def get(cls, key, cloud="general"):
+        return cls.get_object(key, cloud=cloud)
 
     @classmethod
     def delete(cls, key, cloud):
@@ -158,4 +160,5 @@ class Default(ListResource):
     @classmethod
     def get_key(cls):
         return cls.get("key", "general")
+
 

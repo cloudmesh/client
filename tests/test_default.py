@@ -51,8 +51,18 @@ class Test_default():
         :return:
         """
         HEADING()
+        result = Default.list()
+        print(result)
+
         name = "mycloud"
         Default.set_cloud(name)
+
+        result = Default.list()
+        print(result)
+
+        print    ("KKK", Default.get_cloud())
+
+
         assert Default.get_cloud() == name
         self._check(name)
 
