@@ -127,6 +127,8 @@ class FLAVOR(CloudmeshMixin, db.Base):
      u'disk',
      u'id']
 
+
+
     def __init__(self,
                  name,
                  uuid,

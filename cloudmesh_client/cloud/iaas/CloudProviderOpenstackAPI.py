@@ -1,21 +1,15 @@
+import os
+from pprint import pprint
+from uuid import UUID
+
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.common.FlatDict import FlatDict
-
 from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
 import requests
-import os
-
-from cloudmesh_client.common.Printer import attribute_printer
-from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common.TableParser import TableParser
-from cloudmesh_client.cloud.nova import Nova
-from pprint import pprint
-from uuid import UUID
 
 requests.packages.urllib3.disable_warnings()
 
@@ -134,7 +128,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         tenant = self.cloud_details["credentials"]["OS_TENANT_NAME"]
         print (tenant)
         pprint(self.provider.quotas.get(tenant_id=tenant))
-        return(self.provider.quotas.get(tenant_id=tenant))
+        return (self.provider.quotas.get(tenant_id=tenant))
 
     def list_usage(self, cloudname, **kwargs):
         raise ValueError("list usage is not supported")
@@ -286,13 +280,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         order = None
         if kind == 'flavor':
             order = [
-                'id',
                 'name',
-                'cm_cloud',
-                'disk',
-                'ephemeral_disk',
+                'user',
                 'ram',
-                'vcpus'
+                'OS-FLV-DISABLED:disabled',
+                'vcpus',
+                'swap',
+                'os-flavor-access:is_public',
+                'rxtx_factor',
+                'OS-FLV-EXT-DATA:ephemeral',
+                'disk',
+                'type',
+                'string',
+                'id',
+                'cloud',
+                'uuid'
             ]
         elif kind == 'image':
             order = ['OS-EXT-IMG-SIZE:size',
@@ -351,6 +353,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             ]
         return (order, header)
 
+
 # CloudProviderBase.register(CloudProviderOpenstackAPI)
 
 if __name__ == "__main__":
@@ -362,4 +365,3 @@ if __name__ == "__main__":
 
     d = {'name': '390792c3-66a0-4c83-a0d7-c81e1c787710'}
     pprint(cp.get_vm(**d))
-

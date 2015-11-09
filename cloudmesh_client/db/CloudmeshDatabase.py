@@ -22,7 +22,8 @@ class CloudmeshDatabase(object):
         initializes the CloudmeshDatabase for a specific user.
         The user is used to add entries augmented with it.
 
-        :param cm_user: The username that is used to be added to the objects in teh database
+        :param user: The username that is used to be added to the
+                        objects in teh database
         """
 
         self.db = database()
@@ -61,6 +62,7 @@ class CloudmeshDatabase(object):
         :return:
         """
         try:
+            print(cloudname)
             # get the user
             # TODO: Confirm user
             user = self.user
@@ -74,14 +76,21 @@ class CloudmeshDatabase(object):
             if kind == "flavor":
                 flavors = provider.list_flavor(cloudname)
                 for flavor in flavors.values():
-                    db_obj = self.db_obj_dict(kind,
-                                              name=flavor['name'],
-                                              uuid=flavor['id'],
-                                              type='string',
-                                              cloud=cloudname,
-                                              user=user)
+                    flavor["uuid"] = 'id'
+                    flavor["type"] = 'string'
+                    flavor["cloud"] = cloudname,
+                    flavor["user"] = user
+                    print ("--------------")
+                    print(flavor)
+                    print ("--------------")
+                    print ("THIS IS BROKEN")
+                    print ("please add the dict to the DB")
+                    ValueError("THE NEXT STUFF DOES NOT WORK")
 
-                    self.add_obj(db_obj)
+                    db_obj = self.db_obj_dict(kind, **flavor)
+
+
+                    self.add_obj(flavor)
                     self.save()
                 return True
 
@@ -116,7 +125,8 @@ class CloudmeshDatabase(object):
                                               status=vm['status'],
                                               type='string',
                                               cloud=cloudname,
-                                              user=user)
+                                              user=user,
+                                              )
 
                     self.add_obj(db_obj)
                     self.save()
@@ -165,7 +175,7 @@ class CloudmeshDatabase(object):
 
     def delete_all(self, kind):
         """
-        :param type:
+        :param kind:
         :return:
         """
         self.session.query(kind).delete()
@@ -217,7 +227,7 @@ class CloudmeshDatabase(object):
 
     def find(self, kind, scope="all", output="dict", **kwargs):
         """
-        NOT teted
+        NOT tested
         :param kind:
         :param kwargs:
         :return:
@@ -230,14 +240,14 @@ class CloudmeshDatabase(object):
             if scope == "first":
                 first = result.keys()[0]
                 result = result[first]
-        #if result == {}:
+        # if result == {}:
         #    return None
 
         return result
 
     def query(self, kind, **kwargs):
         """
-        NOT teted
+        NOT tested
         :param kind:
         :param kwargs:
         :return:
@@ -257,19 +267,19 @@ class CloudmeshDatabase(object):
         d = self.parse_objs(elements)
         return d
 
-    def update(self, kind, args):
+    def update(self, kind, kwargs):
         """
 
         :param kind:
         :param kwargs:
         :return:
         """
-        self.find(kind, output="object", name=args["name"]).update(args)
+        self.find(kind, output="object", name=args["name"]).update(kwargs)
         self.save()
 
     def delete_by_name(self, kind, name):
         """
-        NOTTESTED
+        NOT TESTED
         :param kind:
         :param name:
         :return:
@@ -346,7 +356,7 @@ class CloudmeshDatabase(object):
                     for column in inspector.get_columns(table_name):
                         print("  ", column['name'], column['type'])
 
-        sum = 0
+        counter = 0
         if "count" in infos:
             for table_name in inspector.get_table_names():
                 if table_name in kinds:
@@ -354,15 +364,16 @@ class CloudmeshDatabase(object):
                     rows = self.session.query(t).count()
                     count_result[table_name] = rows
                     print("Count {:}: {:}".format(table_name, rows))
-                    sum = sum + rows
-            count_result['sum'] = sum
+                    counter = counter + rows
+            count_result['sum'] = counter
 
         return count_result
 
     def db_obj_dict(self, kind, obj_dict=None, **kwargs):
         """
         This method is a generic method to populate an object dict.
-        The object dict can then be passed to database layer to add/ modify objects.
+        The object dict can then be passed to database layer to add/ modify
+        objects.
         :param dict: Dict to add object to
         :param kind: The table name in the db.
         :param kwargs: object parameters

@@ -48,14 +48,11 @@ class Flavor(ListResource):
 
             if live:
                 cls.refresh(cloud)
-
             elements = cm.find("flavor", cloud=cloud)
 
-            #order = ['id', 'uuid', 'name', 'cloud']
+            pprint (elements)
+
             (order, header) = CloudProvider(cloud).get_attributes("flavor")
-
-
-            #order = None
             return dict_printer(elements,
                                        order=order,
                                        output=format)
