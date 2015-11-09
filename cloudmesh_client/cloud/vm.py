@@ -62,6 +62,26 @@ class Vm(ListResource):
         return vm_id
 
     @classmethod
+    def start(cls, **kwargs):
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        for server in kwargs["servers"]:
+            cloud_provider.start_vm(server)
+            print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
+
+        # Explicit refresh called after VM start, to update db.
+        cls.refresh(cloud=kwargs["cloud"])
+
+    @classmethod
+    def stop(cls, **kwargs):
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        for server in kwargs["servers"]:
+            cloud_provider.stop_vm(server)
+            print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
+
+        # Explicit refresh called after VM stop, to update db.
+        cls.refresh(cloud=kwargs["cloud"])
+
+    @classmethod
     def delete(cls, **kwargs):
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
         for server in kwargs["servers"]:

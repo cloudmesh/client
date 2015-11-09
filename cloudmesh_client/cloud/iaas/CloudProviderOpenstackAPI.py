@@ -166,7 +166,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def delete_vm(self, name, group=None, force=None):
         """
-        Deletes a machine on the target cloud indicated by the id
+        Deletes a machine on the target cloud indicated by the id or name
         :param id: Name or ID of the instance to be deleted
         :param group: Security group of the instance to be deleted
         :param force: Force delete option
@@ -179,6 +179,38 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             server = self.provider.servers.find(name=name)
 
         server.delete()
+
+    def start_vm(self, name, group=None, force=None):
+        """
+        Starts a suspended machine on the target cloud indicated by the id or name
+        :param id: Name or ID of the instance to be deleted
+        :param group: Security group of the instance to be deleted
+        :param force: Force delete option
+        :return:
+        """
+
+        if self.isUuid(name):
+            server = self.provider.servers.get(name)
+        else:
+            server = self.provider.servers.find(name=name)
+
+        server.start()
+
+    def stop_vm(self, name, group=None, force=None):
+        """
+        Stops a machine on the target cloud indicated by the id or name
+        :param id: Name or ID of the instance to be deleted
+        :param group: Security group of the instance to be deleted
+        :param force: Force delete option
+        :return:
+        """
+
+        if self.isUuid(name):
+            server = self.provider.servers.get(name)
+        else:
+            server = self.provider.servers.find(name=name)
+
+        server.stop()
 
     def get_ips(self, name, group=None, force=None):
         """

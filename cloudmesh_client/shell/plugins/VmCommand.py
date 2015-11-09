@@ -33,7 +33,7 @@ class VmCommand(object):
 
             Usage:
                 vm refresh [--cloud=CLOUD]
-                vm start --name=NAME
+                vm boot --name=NAME
                          [--count=COUNT]
                          [--cloud=CLOUD]
                          [--image=IMAGE_OR_ID]
@@ -41,6 +41,14 @@ class VmCommand(object):
                          [--group=GROUP]
                          [--secgroup=SECGROUP]
                          [--keypair_name=KEYPAIR_NAME]
+                vm start NAME...
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
+                          [--force]
+                vm stop NAME...
+                          [--group=GROUP]
+                          [--cloud=CLOUD]
+                          [--force]
                 vm delete NAME...
                           [--group=GROUP]
                           [--cloud=CLOUD]
@@ -96,12 +104,14 @@ class VmCommand(object):
 
 
             Description:
-                commands used to start or delete servers of a cloud
+                commands used to boot, start or delete servers of a cloud
 
-                vm start [options...]       start servers of a cloud, user may specify
+                vm boot [options...]        Boots servers on a cloud, user may specify
                                             flavor, image .etc, otherwise default values
                                             will be used, see how to set default values
                                             of a cloud: cloud help
+                vm start [options...]       Starts a suspended or stopped vm instance.
+                vm stop [options...]        Stops a vm instance .
                 vm delete [options...]      delete servers of a cloud, user may delete
                                             a server by its name or id, delete servers
                                             of a group or servers of a cloud, give prefix
@@ -186,7 +196,7 @@ class VmCommand(object):
 
         # pprint(arguments)
 
-        if arguments["start"]:
+        if arguments["boot"]:
             try:
                 name = arguments["--name"]
                 # TODO: use count
@@ -226,7 +236,53 @@ class VmCommand(object):
                 import traceback
                 print(traceback.format_exc())
                 print (e)
-                Console.error("Problem starting instance {:}".format(name))
+                Console.error("Problem booting instance {:}".format(name))
+
+        elif arguments["start"]:
+            try:
+                servers = arguments["NAME"]
+                group = arguments["--group"]
+                force = arguments["--force"]
+                cloud = arguments["--cloud"] or \
+                    Default.get("cloud")
+
+                # if default cloud not set, return error
+                if not cloud:
+                    Console.error("Default cloud not set!")
+                    return
+
+                Vm.start(cloud=cloud, servers=servers)
+
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem starting instances")
+
+        elif arguments["stop"]:
+            try:
+                servers = arguments["NAME"]
+                group = arguments["--group"]
+                force = arguments["--force"]
+                cloud = arguments["--cloud"] or \
+                    Default.get("cloud")
+
+                # if default cloud not set, return error
+                if not cloud:
+                    Console.error("Default cloud not set!")
+                    return
+
+                Vm.stop(cloud=cloud, servers=servers)
+
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem stopping instances")
 
         elif arguments["refresh"]:
             try:
@@ -265,7 +321,7 @@ class VmCommand(object):
                 import traceback
                 print(traceback.format_exc())
                 print (e)
-                Console.error("Problem deleting instance {:}".format(id))
+                Console.error("Problem deleting instances")
 
         elif arguments["floating_ip_assign"]:
             id = arguments["NAME"]
