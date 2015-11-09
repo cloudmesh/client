@@ -7,9 +7,9 @@ from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_base.menu import dict_choice, menu_return_num
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.shell.command import PluginCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
-class SelectCommand(PluginCommand):
+class SelectCommand(PluginCommand, CloudCommand):
 
     topics = {"select": "cloud"}
 

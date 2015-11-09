@@ -1,10 +1,11 @@
 from __future__ import print_function
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command, PluginCommand
+from cloudmesh_client.shell.command import command, PluginCommand, \
+    CloudCommand, CometCommand
 from cloudmesh_client.cloud.default import Default
 
 
-class DefaultCommand(PluginCommand):
+class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
     topics = {"default": "cloud"}
 
     def __init__(self, context):

@@ -1,9 +1,9 @@
 from __future__ import print_function
-from cloudmesh_client.shell.command import command, PluginCommand
+from cloudmesh_client.shell.command import command, PluginCommand, CloudCommand
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.cloud.default import Default
 
-
-class CloudCommand(PluginCommand):
+class CloudCommand(PluginCommand, CloudCommand):
 
     topics = {"cloud": "cloud"}
 
@@ -18,7 +18,7 @@ class CloudCommand(PluginCommand):
         ::
 
           Usage:
-              cloud list [--format=FORMAT]
+              cloud list [--cloud=CLOUD] [--format=FORMAT]
               cloud activate CLOUD
               cloud deactivate CLOUD
               cloud info CLOUD
@@ -69,9 +69,9 @@ class CloudCommand(PluginCommand):
              register
         """
         # pprint(arguments)
-        cloud = arguments["--cloud"]
+        cloud = arguments["--cloud"] or Default.get_cloud()
         output_format = arguments["--format"]
-        Console.ok("cloud command called")
+        Console.error("TODO: Command not yet implemented.")
         pass
 
 

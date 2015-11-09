@@ -4,9 +4,9 @@ import os
 
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.shell.command import PluginCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
-class ServerCommand(PluginCommand):
+class ServerCommand(PluginCommand, CloudCommand):
     topics = {"server": "cloud"}
 
     def __init__(self, context):

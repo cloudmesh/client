@@ -20,7 +20,8 @@ from cloudmesh_client.shell.command import command
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import path_expand
-from cloudmesh_client.shell.command import PluginCommand
+#from cloudmesh_client.shell.command import PluginCommand
+from cloudmesh_client.shell.command import CometCommand
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -31,7 +32,7 @@ class CloudmeshContext(object):
 
 PluginCommandClasses = type(
     'CommandProxyClass',
-    tuple(PluginCommand.__subclasses__()),
+    tuple(CometCommand.__subclasses__()),
     {})
 
 
@@ -67,7 +68,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def register_topics(self):
         topics = {}
-        for command in PluginCommand.__subclasses__():
+        for command in CometCommand.__subclasses__():
             tmp = command.topics.copy()
             topics.update(tmp)
         for name in topics:

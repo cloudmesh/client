@@ -1,11 +1,11 @@
 from __future__ import print_function
 from cloudmesh_client.cloud.flavor import Flavor
-from cloudmesh_client.shell.command import command, PluginCommand
+from cloudmesh_client.shell.command import command, PluginCommand, CloudCommand
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 
 
-class FlavorCommand(PluginCommand):
+class FlavorCommand(PluginCommand, CloudCommand):
     topics = {"flavor": "cloud"}
 
     def __init__(self, context):

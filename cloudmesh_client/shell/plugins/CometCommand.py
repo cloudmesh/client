@@ -1,13 +1,9 @@
-import webbrowser
-import os
-
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command, PluginCommand
+from cloudmesh_client.shell.command import command, PluginCommand, CometCommand
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_base.hostlist import Parameter
 
-from pprint import pprint
 """
 
 
@@ -18,8 +14,9 @@ from pprint import pprint
                           you must specify it with ./FILENAME
 """
 
+
 # noinspection PyUnusedLocal
-class CometCommand(PluginCommand):
+class CometCommand(PluginCommand, CometCommand):
     topics = {"comet": "comet"}
 
     def __init__(self, context):
@@ -145,7 +142,6 @@ class CometCommand(PluginCommand):
 
         elif arguments["logoff"]:
 
-
             if self.context.comet_token is None:
                 Console.error("not logged in")
             else:
@@ -153,7 +149,8 @@ class CometCommand(PluginCommand):
                     Console.ok("Logging off")
                     self.context.comet_token = None
                 else:
-                    Console.error("some issue while logging off. Maybe comet not reachable")
+                    Console.error(
+                        "some issue while logging off. Maybe comet not reachable")
 
         elif arguments["ll"]:
 

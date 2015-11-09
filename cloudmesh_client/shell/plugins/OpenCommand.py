@@ -3,10 +3,10 @@ import os
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.command import PluginCommand
+from cloudmesh_client.shell.command import PluginCommand, ShellCommand, CometCommand
 
 # noinspection PyUnusedLocal
-class OpenCommand(PluginCommand):
+class OpenCommand(PluginCommand, ShellCommand, CometCommand):
     topics = {"open": "shell"}
 
     def __init__(self, context):

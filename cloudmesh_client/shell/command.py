@@ -7,6 +7,19 @@ from docopt import docopt
 class PluginCommand(object):
     pass
 
+class CloudCommand(object):
+    pass
+
+class ShellCommand(object):
+    pass
+
+class HPCCommand(object):
+    pass
+
+class CometCommand(object):
+    pass
+
+
 def command(func):
     '''
     A decorator to create a function with docopt arguments.

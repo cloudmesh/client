@@ -178,6 +178,8 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
+            'comet = cloudmesh_client.shell.comet:main',
+
         ],
     },
     tests_require=['tox'],
