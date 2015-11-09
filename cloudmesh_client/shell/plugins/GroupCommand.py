@@ -92,7 +92,7 @@ class GroupCommand(object):
         if arguments["list"]:
 
             output = arguments["--format"] or Default.get("format") or "table"
-            cloud = arguments["--cloud"] or Default.get("cloud")
+            cloud = arguments["--cloud"] or Default.get_cloud()
             name = arguments["NAME"]
 
             if name is None:

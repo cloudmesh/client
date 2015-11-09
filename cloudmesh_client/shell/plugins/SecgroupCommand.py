@@ -58,7 +58,7 @@ class SecgroupCommand(object):
 
         if arguments["list"]:
             # if no arguments read default
-            cloud = arguments["--cloud"] or Default.get("cloud")
+            cloud = arguments["--cloud"] or Default.get_cloud()
             tenant = arguments["--tenant"] or Default.get("tenant")
 
             # If default not set, terminate

@@ -59,7 +59,7 @@ class ListCommand(object):
 
         # Read commandline arguments
         output_format = arguments['--format']
-        cloud = arguments['--cloud']
+        cloud = arguments['--cloud'] or Default.get_cloud()
         user = arguments['--user']
         tenant = arguments['--tenant']
 

@@ -35,7 +35,7 @@ class LimitsCommand(object):
 
         """
         if arguments["list"]:
-            cloud = arguments["--cloud"] or Default.get("cloud")
+            cloud = arguments["--cloud"] or Default.get_cloud()
 
             if not cloud:
                 Console.error("cloud doesn't exist")

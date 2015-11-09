@@ -38,7 +38,7 @@ class FlavorCommand(object):
 
         """
         try:
-            cloud = arguments["--cloud"] or Default.get("cloud")
+            cloud = arguments["--cloud"] or Default.get_cloud()
         except:
             Console.error("xxx Default cloud doesn't exist")
 

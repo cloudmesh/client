@@ -196,6 +196,9 @@ class VmCommand(object):
 
         # pprint(arguments)
 
+
+        cloud = arguments["--cloud"] or Default.get_cloud()
+
         if arguments["boot"]:
             try:
                 name = arguments["--name"]
@@ -210,8 +213,7 @@ class VmCommand(object):
                 secgroup_list = ["default"]
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
-                cloud = arguments["--cloud"] or \
-                    Default.get("cloud")
+
                 key_name = arguments["--keypair_name"]
 
                 # if default cloud not set, return error
@@ -243,8 +245,6 @@ class VmCommand(object):
                 servers = arguments["NAME"]
                 group = arguments["--group"]
                 force = arguments["--force"]
-                cloud = arguments["--cloud"] or \
-                    Default.get("cloud")
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -266,8 +266,6 @@ class VmCommand(object):
                 servers = arguments["NAME"]
                 group = arguments["--group"]
                 force = arguments["--force"]
-                cloud = arguments["--cloud"] or \
-                    Default.get("cloud")
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -286,9 +284,6 @@ class VmCommand(object):
 
         elif arguments["refresh"]:
             try:
-                cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
-
                 msg = "Refresh VMs for cloud {:}.".format(cloud)
                 if Vm.refresh(cloud=cloud):
                     Console.ok("{:} ok".format(msg))
@@ -305,8 +300,6 @@ class VmCommand(object):
                 servers = arguments["NAME"]
                 group = arguments["--group"]
                 force = arguments["--force"]
-                cloud = arguments["--cloud"] or \
-                    Default.get("cloud")
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -325,8 +318,6 @@ class VmCommand(object):
 
         elif arguments["floating_ip_assign"]:
             id = arguments["NAME"]
-            cloud = arguments["--cloud"] or \
-                Default.get("cloud")
 
             # if default cloud not set, return error
             if not cloud:
@@ -351,8 +342,6 @@ class VmCommand(object):
             group = arguments["--group"]
             output_format = arguments["--format"] or "table"
             refresh = arguments["--refresh"]
-            cloud = arguments["--cloud"] or \
-                Default.get("cloud")
 
             # if default cloud not set, return error
             if not cloud:
@@ -382,8 +371,6 @@ class VmCommand(object):
             ip = arguments["--ip"]
             key = arguments["--key"]
             commands = arguments["--command"]
-            cloud = arguments["--cloud"] or \
-                Default.get("cloud")
 
             # if default cloud not set, return error
             if not cloud:
@@ -452,8 +439,6 @@ class VmCommand(object):
                     print (e)
                     Console.error("Problem listing all instances")
             else:
-                cloud = arguments["--cloud"] or \
-                        Default.get("cloud")
 
                 # if default cloud not set, return error
                 if not cloud:

@@ -36,15 +36,12 @@ class ImageCommand(object):
                 cm image list 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
         """
-        print ("DDD", Default.get_cloud())
-
         cloud = arguments["--cloud"] or Default.get_cloud()
         if cloud is None:
             Console.error("Default cloud doesn't exist")
             return
 
         if arguments["refresh"]:
-            print ("REFRESH")
             msg = "Refresh image for cloud {:}.".format(cloud)
             if Image.refresh(cloud):
                 Console.ok("{:} ok.".format(msg))

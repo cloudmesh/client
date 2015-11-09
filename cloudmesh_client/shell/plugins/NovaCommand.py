@@ -54,7 +54,7 @@ class NovaCommand (object):
         """
         # pprint(arguments)
         cloud = arguments['CLOUD'] or \
-                Default.get("cloud")
+                Default.get_cloud()
         if not cloud:
             Console.error("Default cloud not set!")
             return
