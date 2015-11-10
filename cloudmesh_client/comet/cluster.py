@@ -6,7 +6,6 @@ import requests
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
-from cloudmesh_base.util import banner
 import hostlist
 
 
@@ -27,11 +26,8 @@ class Cluster(object):
         result = None
         if format == "rest":
             result = r
+            return result
         else:
-            entry = {}
-            data = {}
-            id = 0
-
             elements = {}
             for cluster in r:
                 element = {}
@@ -49,28 +45,7 @@ class Cluster(object):
 
                 elements[cluster["name"]] = element
 
-            data = elements
-
-            """
-            for cluster in r:
-                id += 1
-                name = cluster['name']
-                data[id] = {'id': id}
-                for a in ['name', 'ip', 'frontend']:
-                    data[id][a] = cluster[a]
-                data[id]['kind'] = 'frontend'
-                data[id]['type'] = 'frontend'
-                data[id]['cluster'] = name
-
-                for client in cluster['clients']:
-                    id += 1
-                    data[id] = client
-                    data[id]['cluster'] = name
-                    data[id]['id'] = id
-                    data[id]['kind'] = 'client'
-                    data[id]['frontend'] = cluster['name']
-            """
-            result = dict_printer(data,
+            result = dict_printer(elements,
                                   order=[
                                       "name",
                                       "project",
@@ -161,13 +136,13 @@ class Cluster(object):
     @staticmethod
     def start(id):
         data = {"id": id}
-        r = requests.post(_url("cluster/{id}/start".format(**data)))
+        r = requests.post(Comet.url("cluster/{id}/start".format(**data)))
         print(r)
 
     @staticmethod
     def stop(id):
         data = {"id": id}
-        r = requests.post(_url("cluster/{id}/stop".format(**data)))
+        r = requests.post(Comet.url("cluster/{id}/stop".format(**data)))
         print(r)
 
     @staticmethod
@@ -178,8 +153,6 @@ class Cluster(object):
         print(computeids)
 
         url = Comet.url("computeset/")
-
-        vmhosts = {}
 
         data = {
             "computes": [{"name": vm, "host": "comet-{:}".format(vm)} for vm in
@@ -199,21 +172,21 @@ class Cluster(object):
             # banner ("computesets")
             # print (computesets)
 
-            isValidSet = False
-            computsetid = -1
+            is_valid_set = False
+            computesetid = -1
             for computeset in computesets:
-                if computeset["cluster"] == id and computeset[
-                    "state"] == "started":
+                if computeset["cluster"] == id \
+                        and computeset["state"] == "started":
                     computesetid = computeset["id"]
                     hosts = set()
                     for compute in computeset["computes"]:
                         hosts.add(compute["name"])
-                    isValidSet = True
+                    is_valid_set = True
                     for computeid in computeids:
                         if computeid not in hosts:
-                            isValidSet = False
+                            is_valid_set = False
                             break
-            if isValidSet:
+            if is_valid_set:
                 print("Issuing request to poweroff nodes...")
                 print("computesetid: {}".format(computesetid))
                 puturl = "{:}{:}/poweroff".format(url, computesetid)
@@ -223,7 +196,8 @@ class Cluster(object):
                 print(r)
             else:
                 print(
-                    "All the nodes are not in the specified cluster, or they are not running")
+                    "All the nodes are not in the specified cluster, "
+                    "or they are not running")
 
     @staticmethod
     def delete():

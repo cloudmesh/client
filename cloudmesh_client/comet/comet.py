@@ -1,19 +1,20 @@
 from __future__ import print_function
-from cloudmesh_client.shell.console import Console
 import os
 import signal
-from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common.ConfigDict import ConfigDict
-import requests
 import json
 import time
 from pprint import pprint
-from cloudmesh_base.util import banner
-from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 import webbrowser
 import getpass
-from cloudmesh_base.hostlist import Parameter
+
+from cloudmesh_client.shell.console import Console
+from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.ConfigDict import ConfigDict
+import requests
+from cloudmesh_base.util import banner
+
 requests.packages.urllib3.disable_warnings()
+
 
 class Comet(object):
     rest_version = "/v1"
@@ -83,7 +84,7 @@ class Comet(object):
         info = None
         for line in r:
             if ("localhost" in line and "nucleus" in line) or \
-               ("comet" in  line and "tunnel" in line):
+                    ("comet" in line and "tunnel" in line):
                 info = line.strip()
                 break
         if info:
@@ -176,7 +177,8 @@ class Comet(object):
             # now automatically redirect to result page
             # thus no need to check status periodically.
             # Currently it works well for cluster listing
-            # However not sure if the delay is large, what the behaviour would be
+            # However not sure if the delay is large, what the behaviour
+            # would be
             finished = False
             newurl = r.headers["Location"]
             while not finished:
@@ -212,7 +214,8 @@ class Comet(object):
         if headers is None:
             headers = Comet.AUTH_HEADER
         if 'post' == action:
-            r = requests.post(url, headers=headers, data=json.dumps(data), verify=cacert)
+            r = requests.post(url, headers=headers, data=json.dumps(data),
+                              verify=cacert)
         elif 'put' == action:
             r = requests.put(url, headers=headers, verify=cacert)
         else:
@@ -234,7 +237,8 @@ class Comet(object):
             # now automatically redirect to result page
             # thus no need to check status periodically.
             # Currently it works well for cluster listing
-            # However not sure if the delay is large, what the behaviour would be
+            # However not sure if the delay is large, what the behaviour
+            # would be
             finished = False
             newurl = r.headers["Location"]
             while not finished:
@@ -267,6 +271,7 @@ class Comet(object):
         r = Comet.get(geturl)
         return r
 
+
 def main():
     comet = Comet()
 
@@ -280,99 +285,106 @@ def main():
     print(comet.status())
     print(comet.logoff())
 
-def test_get_cluster_list():
 
+def test_get_cluster_list():
     token = ''
-    banner ("TEST 1: Get without logon")
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    banner("TEST 1: Get without logon")
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "https://localhost:8443/nucleus/v1/cluster/"
-    r = requests.get(geturl, headers = authheader, verify=False)
-    #pprint (r)
-    pprint (r.json())
-    
-    banner( "TEST 2: Auth and then get cluster list")
-    #authurl = "https://localhost:8443/nucleus/rest-auth"
-    #auth = Authenticator(authurl)
+    r = requests.get(geturl, headers=authheader, verify=False)
+    # pprint (r)
+    pprint(r.json())
+
+    banner("TEST 2: Auth and then get cluster list")
+    # authurl = "https://localhost:8443/nucleus/rest-auth"
+    # auth = Authenticator(authurl)
     # change user, password to proper value as set in django
     # in shell, we may ask user input
     comet = Comet()
     token = comet.logon()
-    
+
     # construct a header with auth token after login
     # for all the following calls before log out
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "https://localhost:8443/nucleus/v1/"
-    geturl1 = "%scluster/" % (geturl)
+    geturl1 = "{}cluster/".format(geturl)
     r = Comet.get(geturl1, headers=authheader)
-    pprint (r)
-    
+    pprint(r)
+
     # as of 2:40pm ET Oct 15, this is changed to 'not implemented'
     # as of 5:30pm ET this is now fixed and working
     # Getting only cluster details for those owned by the caller.
-    banner ("TEST 3a: Get cluster 'OSG'")
+    banner("TEST 3a: Get cluster 'OSG'")
     geturl1 = "%scluster/%s" % (geturl, "osg/")
     r1 = Comet.get(geturl1, headers=authheader)
-    pprint (r1)
-    
-    banner ( "\nTEST 3b: Get cluster 'vc2'")
+    pprint(r1)
+
+    banner("\nTEST 3b: Get cluster 'vc2'")
     geturl1 = "%scluster/%s" % (geturl, "vc2/")
     r1 = Comet.get(geturl1, headers=authheader)
-    pprint (r1)
+    pprint(r1)
 
-    banner ("TEST 4: Get compute nodes sets")
+    banner("TEST 4: Get compute nodes sets")
     r1 = Comet.get_computeset()
-    pprint (r1)
+    pprint(r1)
 
-    banner ("TEST 4a: Get compute nodes set with id")
+    banner("TEST 4a: Get compute nodes set with id")
     r1 = Comet.get_computeset(46)
-    pprint (r1)
+    pprint(r1)
 
-    banner ("TEST 10: logoff and get cluster list again")
+    banner("TEST 10: logoff and get cluster list again")
     comet.logoff()
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
     geturl = "https://localhost:8443/nucleus/v1/cluster/"
-    r = requests.get(geturl, headers = authheader, verify=False)
-    pprint (r.json())
+    r = requests.get(geturl, headers=authheader, verify=False)
+    pprint(r.json())
+
 
 def test_power_nodes(action='on'):
-    
-    banner ("TEST: power on/off a list of nodes")
+    banner("TEST: power on/off a list of nodes")
 
-    banner ("Authenticating...")
+    banner("Authenticating...")
     # always logon first
     comet = Comet()
     token = comet.logon()
-    
-    authheader = {'content-type': 'application/json', "Authorization": 'Token %s' % token}
+
+    authheader = {'content-type': 'application/json',
+                  "Authorization": 'Token %s' % token}
 
     url = "https://localhost:8443/nucleus/v1/"
     vcname = "vc2"
     vmnames = ["vm-vc2-0", "vm-vc2-1"]
-    vmhosts = {}
-    vmhosts[vmnames[0]] = "comet-01-05"
-    vmhosts[vmnames[1]] = "comet-01-06"
-    data = {"computes":[{"name":vm,"host":vmhosts[vm]} for vm in vmnames],"cluster":"%s" % vcname}
+    vmhosts = {
+        vmnames[0]: "comet-01-05",
+        vmnames[1]: "comet-01-06"
+    }
+    data = {"computes": [{"name": vm, "host": vmhosts[vm]} for vm in vmnames],
+            "cluster": "%s" % vcname}
 
     if 'on' == action:
-        banner ("Issuing request to poweron nodes...")
-        posturl = "%s/computeset/" % (url)
-        #posturl = "%s%s/compute/poweron" % (url, vcname)
+        banner("Issuing request to poweron nodes...")
+        posturl = "{}/computeset/".format(url)
+        # posturl = "%s%s/compute/poweron" % (url, vcname)
         r = Comet.http(posturl, action="post", headers=authheader, data=data)
-        banner ("RETURNED RESULTS:")
-        print (r)
+        banner("RETURNED RESULTS:")
+        print(r)
     elif 'off' == action:
         computesetid = 33
-        banner ("Issuing request to poweroff nodes...")
+        banner("Issuing request to poweroff nodes...")
         puturl = "%s/computeset/%s/poweroff" % (url, computesetid)
-        #posturl = "%s%s/compute/poweron" % (url, vcname)
+        # posturl = "%s%s/compute/poweron" % (url, vcname)
         r = Comet.http(puturl, action="put", headers=authheader)
-        banner ("RETURNED RESULTS:")
-        print (r)
+        banner("RETURNED RESULTS:")
+        print(r)
     else:
-        print ("The Specified Power Action NOT Supported!")
+        print("The Specified Power Action NOT Supported!")
+
 
 if __name__ == "__main__":
     test_get_cluster_list()
-    #main()
+    # main()
     test_power_nodes("off")
     test_power_nodes()
