@@ -87,6 +87,13 @@ class IMAGE(CloudmeshMixin, db.Base):
     # u'metadata',
     # u'id', u'OS-EXT-IMG-SIZE:size']
     uuid = Column(String)
+    status = Column(String)
+    updated = Column(String)
+    created = Column(String)
+    minDisk = Column(String)
+    progress = Column(String)
+    minRam = Column(String)
+    size = Column(String)
 
     def __init__(self,
                  name,
@@ -103,11 +110,18 @@ class IMAGE(CloudmeshMixin, db.Base):
         self.user = user
         self.uuid = uuid
         self.kind = self.__tablename__
+        self.status = kwargs.get('status')
+        self.updated = kwargs.get('updated')
+        self.created = kwargs.get('created')
+        self.minDisk = kwargs.get('minDisk')
+        self.progress = kwargs.get('progress')
+        self.minRam = kwargs.get('minRam')
+        self.size = kwargs.get('OS-EXT-IMG-SIZE:size')
 
-        if kwargs is not None:
+        """if kwargs is not None:
             for key, value in kwargs.iteritems():
                 print ("{} = {}".format(key, value))
-                self[key] = value
+                self[key] = value"""
 
 
 class FLAVOR(CloudmeshMixin, db.Base):

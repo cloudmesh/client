@@ -97,20 +97,10 @@ class CloudmeshDatabase(object):
             elif kind == "image":
                 images = provider.list_image(cloudname)
 
-                print("==========")
-                pprint(images)
-                print("==========")
-
                 for image in images.values():
-                    print("----------")
-                    pprint(image)
-                    print("----------")
-                    db_obj = self.db_obj_dict(kind,
-                                              name=image['name'],
-                                              uuid=image['id'],
-                                              type='string',
-                                              cloud=cloudname,
-                                              user=user)
+                    image['uuid'] = image['id']
+                    image['cloud'] = cloudname
+                    db_obj = {0: {kind: image}}
 
                     self.add_obj(db_obj)
                     self.save()
