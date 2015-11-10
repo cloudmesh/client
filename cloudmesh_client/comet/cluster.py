@@ -99,6 +99,7 @@ class Cluster(object):
                 'kind': 'frontend'
             }
 
+            counter = 0
             for cluster in r:
 
                 clients = cluster["computes"]
@@ -109,7 +110,7 @@ class Cluster(object):
                 data += [frontend]
                 data += clients
 
-            print(list_printer(data,
+            result = dict_printer(data,
                                order=[
                                    "name",
                                    "state",
@@ -122,7 +123,8 @@ class Cluster(object):
                                    "host",
                                    "memory",
                                    ],
-                               output=format))
+                               output=format)
+            return result
 
     @staticmethod
     def info():
