@@ -74,18 +74,6 @@ class CloudmeshMixin(object):
 
 
 class IMAGE(CloudmeshMixin, db.Base):
-
-    # TODO: but OS has much more, why are we not storing?
-    # [u'status',
-    # u'updated',
-    # u'name',
-    # u'links', # we can ignore
-    # u'created',
-    # u'minDisk',
-    # u'progress',
-    # u'minRam',
-    # u'metadata',
-    # u'id', u'OS-EXT-IMG-SIZE:size']
     uuid = Column(String)
     status = Column(String)
     updated = Column(String)
@@ -93,7 +81,28 @@ class IMAGE(CloudmeshMixin, db.Base):
     minDisk = Column(String)
     progress = Column(String)
     minRam = Column(String)
-    size = Column(String)
+    os_image_size = Column(String) # This is OS-EXT-IMG-SIZE:size
+    # metadata info..
+    metadata__base_image_ref = Column(String)
+    metadata__description = Column(String)
+    metadata__image_location = Column(String)
+    metadata__image_state = Column(String)
+    metadata__image_type = Column(String)
+    metadata__instance_type_ephemeral_gb = Column(String)
+    metadata__instance_type_flavorid = Column(String)
+    metadata__instance_type_id = Column(String)
+    metadata__instance_type_memory_mb = Column(String)
+    metadata__instance_type_name = Column(String)
+    metadata__instance_type_root_gb = Column(String)
+    metadata__instance_type_rxtx_factor = Column(String)
+    metadata__instance_type_swap = Column(String)
+    metadata__instance_type_vcpus = Column(String)
+    metadata__instance_uuid = Column(String)
+    metadata__kernel_id = Column(String)
+    metadata__network_allocated = Column(String)
+    metadata__owner_id = Column(String)
+    metadata__ramdisk_id = Column(String)
+    metadata__user_id = Column(String)
 
     def __init__(self,
                  name,
@@ -116,7 +125,27 @@ class IMAGE(CloudmeshMixin, db.Base):
         self.minDisk = kwargs.get('minDisk')
         self.progress = kwargs.get('progress')
         self.minRam = kwargs.get('minRam')
-        self.size = kwargs.get('OS-EXT-IMG-SIZE:size')
+        self.os_image_size = kwargs.get('OS-EXT-IMG-SIZE:size')
+        self.metadata__base_image_ref = kwargs.get('metadata__base_image_ref')
+        self.metadata__description = kwargs.get('metadata__description')
+        self.metadata__image_location = kwargs.get('metadata__image_location')
+        self.metadata__image_state = kwargs.get('metadata__image_state')
+        self.metadata__image_type = kwargs.get('metadata__image_type')
+        self.metadata__instance_type_ephemeral_gb = kwargs.get('metadata__instance_type_ephemeral_gb')
+        self.metadata__instance_type_flavorid = kwargs.get('metadata__instance_type_flavorid')
+        self.metadata__instance_type_id = kwargs.get('metadata__instance_type_id')
+        self.metadata__instance_type_memory_mb = kwargs.get('metadata__instance_type_memory_mb')
+        self.metadata__instance_type_name = kwargs.get('metadata__instance_type_name')
+        self.metadata__instance_type_root_gb = kwargs.get('metadata__instance_type_root_gb')
+        self.metadata__instance_type_rxtx_factor = kwargs.get('metadata__instance_type_rxtx_factor')
+        self.metadata__instance_type_swap = kwargs.get('metadata__instance_type_swap')
+        self.metadata__instance_type_vcpus = kwargs.get('metadata__instance_type_vcpus')
+        self.metadata__instance_uuid = kwargs.get('metadata__instance_uuid')
+        self.metadata__kernel_id = kwargs.get('metadata__kernel_id')
+        self.metadata__network_allocated = kwargs.get('metadata__network_allocated')
+        self.metadata__owner_id = kwargs.get('metadata__owner_id')
+        self.metadata__ramdisk_id = kwargs.get('metadata__ramdisk_id')
+        self.metadata__user_id = kwargs.get('metadata__user_id')
 
         """if kwargs is not None:
             for key, value in kwargs.iteritems():
