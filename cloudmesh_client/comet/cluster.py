@@ -1,15 +1,13 @@
 from __future__ import print_function
 
-import json
+from pprint import pprint
+
 import requests
-from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
 from cloudmesh_base.util import banner
-from cloudmesh_base.hostlist import Parameter
-
-from pprint import pprint
+import hostlist
 
 
 class Cluster(object):
@@ -20,6 +18,11 @@ class Cluster(object):
             r = Comet.get(Comet.url("cluster/"))
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
+            if r is None:
+                Console.error("Could not find cluster `{}`"
+                              .format(id))
+                return ""
+            r = [r]
 
         result = None
         if format == "rest":
@@ -28,6 +31,27 @@ class Cluster(object):
             entry = {}
             data = {}
             id = 0
+
+            elements = {}
+            for cluster in r:
+                element = {}
+                for attribute in ["project", "name", "description"]:
+                    element[attribute] = cluster[attribute]
+                    element["nodes"] = len(cluster["computes"])
+                for attribute in cluster["frontend"].keys():
+                    element["frontend " + attribute] = cluster["frontend"][
+                        attribute]
+                names = []
+                for compute in cluster["computes"]:
+                    names.append(compute["name"])
+
+                element["computes"] = hostlist.collect_hostlist(names)
+
+                elements[cluster["name"]] = element
+
+            data = elements
+
+            """
             for cluster in r:
                 id += 1
                 name = cluster['name']
@@ -45,15 +69,31 @@ class Cluster(object):
                     data[id]['id'] = id
                     data[id]['kind'] = 'client'
                     data[id]['frontend'] = cluster['name']
-
+            """
             result = dict_printer(data,
                                   order=[
-                                      'id',
-                                      'cluster',
-                                      'name',
-                                      'type',
-                                      'ip',
-                                      'kind'],
+                                      "name",
+                                      "project",
+                                      "nodes",
+                                      "computes",
+                                      "frontend name",
+                                      "frontend state",
+                                      "frontend type",
+                                      "frontend rocks_name",
+                                      "description",
+                                  ],
+                                  header=[
+                                      "Name",
+                                      "Project",
+                                      "Count",
+                                      "Nodes",
+                                      "Frontend (Fe)",
+                                      "State (Fe)",
+                                      "Type (Fe)",
+                                      "Rocks name (Fe)",
+                                      "Description",
+                                  ],
+
                                   output=format)
             return result
 
@@ -68,18 +108,46 @@ class Cluster(object):
         if format == "rest":
             pprint(r)
         else:
-            banner("Cluster List")
 
-            print(list_printer(r,
-                               output=format))
+            data = []
+
+            empty = {
+                'cluster': None,
+                'cpus': None,
+                'host': None,
+                'ip': None,
+                'memory': None,
+                'name': None,
+                'rocks_name': None,
+                'state': None,
+                'type': None,
+                'kind': 'frontend'
+            }
 
             for cluster in r:
-                banner("Details: Client list of Cluster " + cluster["name"])
 
                 clients = cluster["computes"]
-                print(list_printer(clients,
-                                   output=format))
+                for client in clients:
+                    client["kind"] = "compute"
+                frontend = dict(empty)
+                frontend.update(cluster["frontend"])
+                data += [frontend]
+                data += clients
 
+            print(list_printer(data,
+                               order=[
+                                   "name",
+                                   "state",
+                                   "kind",
+                                   "type"
+                                   "ip",
+                                   "rocks_name",
+                                   "cpus",
+                                   "cluster",
+                                   "host",
+                                   "memory",
+                                   ],
+                               output=format))
 
     @staticmethod
     def info():
@@ -113,7 +181,9 @@ class Cluster(object):
 
         vmhosts = {}
 
-        data = {"computes":[{"name":vm,"host":"comet-{:}".format(vm)} for vm in computeids],"cluster":"%s" % id}
+        data = {
+            "computes": [{"name": vm, "host": "comet-{:}".format(vm)} for vm in
+                         computeids], "cluster": "%s" % id}
 
         if on:
             print("Issuing request to poweron nodes...")
@@ -124,15 +194,16 @@ class Cluster(object):
             print("RETURNED RESULTS:")
             print(r)
         else:
-            print ("finding the computesetid of the specified nodes...")
+            print("finding the computesetid of the specified nodes...")
             computesets = Comet.get_computeset()
-            #banner ("computesets")
-            #print (computesets)
+            # banner ("computesets")
+            # print (computesets)
 
             isValidSet = False
             computsetid = -1
             for computeset in computesets:
-                if computeset["cluster"] == id and computeset["state"] == "started":
+                if computeset["cluster"] == id and computeset[
+                    "state"] == "started":
                     computesetid = computeset["id"]
                     hosts = set()
                     for compute in computeset["computes"]:
@@ -144,14 +215,15 @@ class Cluster(object):
                             break
             if isValidSet:
                 print("Issuing request to poweroff nodes...")
-                print ("computesetid: {}".format(computesetid))
+                print("computesetid: {}".format(computesetid))
                 puturl = "{:}{:}/poweroff".format(url, computesetid)
 
                 r = Comet.put(puturl)
                 print("RETURNED RESULTS:")
                 print(r)
             else:
-                print("All the nodes are not in the specified cluster, or they are not running")
+                print(
+                    "All the nodes are not in the specified cluster, or they are not running")
 
     @staticmethod
     def delete():

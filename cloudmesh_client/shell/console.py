@@ -101,9 +101,13 @@ class Console(object):
             Console._print('FAIL', text, message)
         else:
             print Console._msg(text + message)
-        print
-        print "    \n".join(str(traceback.format_exc()).splitlines())
-        print
+
+        trace = traceback.format_exc().strip()
+
+        if trace != "None":
+            print
+            print "\n".join(str(trace).splitlines())
+            print
 
     @staticmethod
     def info(message):

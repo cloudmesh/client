@@ -1,14 +1,13 @@
 from pprint import pprint
-import requests
-import json
-from cloudmesh_base.util import banner
-r = requests.get('https://api.github.com/repos/cloudmesh/client/issues')
 
+import requests
+from cloudmesh_base.util import banner
+
+r = requests.get('https://api.github.com/repos/cloudmesh/client/issues')
 
 issues = r.json()
 
-pprint (issues)
-
+pprint(issues)
 
 for issue in issues:
     banner(issue["title"])
@@ -22,5 +21,3 @@ for issue in issues:
                       "body"]:
         if issue[attribute]:
             print attribute, ":", issue[attribute]
-        
-                      

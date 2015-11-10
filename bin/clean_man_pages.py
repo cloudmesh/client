@@ -13,7 +13,7 @@ with open(filename) as file:
         if not tag_found:
             if TAG in line:
                 tag_found = True
-            
+
 content = "\n".join(output)
 with open(filename, 'w') as file:
     file.write(content)

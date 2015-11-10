@@ -52,7 +52,7 @@ class Comet(object):
     @staticmethod
     def tunnel(start):
         if start:
-            os.system("ssh -L 8443:localhost:443 gregor@nucleus")
+            os.system("ssh -L 8443:localhost:443 nucleus")
         else:
             Comet.kill_tunnel()
 
@@ -71,16 +71,23 @@ class Comet(object):
         Console.ok("Comet tunnel: {:}".format(pid))
 
     @staticmethod
+    def is_tunnel():
+        pid = Comet.find_tunnel()
+        return pid is not None
+
+    @staticmethod
     def find_tunnel():
         r = Shell.execute("ps", ["-ax"]).split("\n")
         pid = None
         info = None
         for line in r:
-            if "localhost" in line and "nucleus" in line:
-                info = line
+            if ("localhost" in line and "nucleus" in line) or \
+               ("comet" in  line and "tunnel" in line):
+                info = line.strip()
                 break
         if info:
             pid = int(info.split(" ", 1)[0])
+
         return pid
 
     # ##############################

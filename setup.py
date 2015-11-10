@@ -178,7 +178,7 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
-            'comet = cloudmesh_client.shell.comet:main',
+            'ghost = cloudmesh_client.shell.ghost:main',
 
         ],
     },
