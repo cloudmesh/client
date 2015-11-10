@@ -110,12 +110,12 @@ class Cluster(object):
                 data += [frontend]
                 data += clients
 
-            result = dict_printer(data,
+            result = list_printer(data,
                                order=[
                                    "name",
                                    "state",
                                    "kind",
-                                   "type"
+                                   "type",
                                    "ip",
                                    "rocks_name",
                                    "cpus",
