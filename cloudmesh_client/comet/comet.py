@@ -11,6 +11,7 @@ from pprint import pprint
 from cloudmesh_base.util import banner
 from cloudmesh_client.shell.plugins.OpenCommand import OpenCommand
 import webbrowser
+import getpass
 from cloudmesh_base.hostlist import Parameter
 requests.packages.urllib3.disable_warnings()
 
@@ -103,6 +104,10 @@ class Comet(object):
             username = config["cloudmesh.comet.username"]
         if password is None:
             password = config["cloudmesh.comet.password"]
+            if password.lower() == "readline":
+                password = getpass.getpass()
+            elif password.lower() == "env":
+                password = os.environ.get("COMET_PASSWORD", getpass.getpass())
 
         ret = False
         if cls.token is None:

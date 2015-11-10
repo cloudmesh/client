@@ -108,7 +108,7 @@ class CometCommand(PluginCommand, CometCommand):
             print
             print ("    comet tunnel start")
             print
-            return
+            return ""
 
         try:
 
@@ -116,7 +116,7 @@ class CometCommand(PluginCommand, CometCommand):
                 logon = Comet.logon()
                 if logon is False:
                     Console.error("Could not logon")
-                    return
+                    return ""
         except:
             Console.error("Could not logon")
         # pprint (arguments)
@@ -210,3 +210,5 @@ class CometCommand(PluginCommand, CometCommand):
                 on = False
 
             Cluster.power(clusterid, computeids, on)
+
+        return ""
