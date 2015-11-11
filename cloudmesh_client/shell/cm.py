@@ -21,7 +21,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.command import PluginCommand
-
+from cloudmesh_base.ssh_config import ssh_config
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -98,16 +98,29 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # set default cloud and default group if they do not exist
         # use the first cloud in cloudmesh.yaml as default
         #
-        value = Default.get('cloud', 'general')
+        value = Default.get('cloud', cloud='general')
         if value is None:
             filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
             cloud = clouds.keys()[0]
-            Default.set('cloud', cloud, 'general')
+            Default.set('cloud', cloud, cloud='general')
 
-        value = Default.get('default', 'general')
+        value = Default.get('default', cloud='general')
         if value is None:
-            Default.set('default', 'default', 'general')
+            Default.set('default', 'default', cloud='general')
+
+        cluster = 'india'  # hardcode a value if not defined
+        value = Default.get('cluster', cloud='general')
+        if value is None:
+            try:
+                hosts = ssh_config().names()
+                if hosts is not None:
+                    cluster = hosts[0]
+            except:
+                pass  # use the hardcoded cluster
+        Default.set('cluster', cluster,  cloud='general')
+
+
 
         for c in CloudmeshConsole.__bases__[1:]:
             c.__init__(self, context)
