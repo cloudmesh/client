@@ -13,21 +13,7 @@ from pprint import pprint
 
 
 class Flavor(ListResource):
-    db = CloudmeshDatabase()
-
-    @classmethod
-    def clear(cls, cloud):
-        """
-        This method deletes all flavors of the cloud
-        :param cloud: the cloud name
-        """
-        try:
-            elements = cls.db.find("flavor", scope="all", cloud=cloud)
-
-            for element in elements:
-                cls.db.delete(element)
-        except Exception as ex:
-            Console.error(ex.message, ex)
+    cm = CloudmeshDatabase()
 
     @classmethod
     def refresh(cls, cloud):
@@ -36,7 +22,7 @@ class Flavor(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
-        return cls.db.refresh('flavor', cloud)
+        return cls.cm.refresh('flavor', cloud)
 
     @classmethod
     def list(cls, cloud, live=False, format="table"):
@@ -44,49 +30,52 @@ class Flavor(ListResource):
         This method lists all flavors of the cloud
         :param cloud: the cloud name
         """
-        cm = CloudmeshDatabase()
-
+        # cm = CloudmeshDatabase()
         try:
 
             if live:
                 cls.refresh(cloud)
-            elements = cm.find("flavor", cloud=cloud)
 
-            pprint(elements)
+            elements = cls.cm.find("flavor", cloud=cloud)
+
+            # pprint(elements)
 
             (order, header) = CloudProvider(cloud).get_attributes("flavor")
+
             return dict_printer(elements,
                                 order=order,
+                                header=header,
                                 output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
 
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
+        if live:
+            cls.refresh(cloud)
 
         try:
+            cm = CloudmeshDatabase()
 
-            if live:
-                cls.refresh(cloud)
+            elements = None
+            for idkey in ["name", "uuid", "id"]:
+                s = {idkey: id}
+                try:
+                    elements = cm.find("flavor", cloud=cloud, **s)
+                except:
+                    pass
+                if len(elements) > 0:
+                    break
 
-            provider = CloudProvider(cloud).provider
-
-            if id.isdigit():
-                args = {'id': id}
-            else:
-                args = {'name': id}
-
-            flavor = provider.get_flavor(**args)
+            if len(elements) == 0:
+                return None
 
             if format == "table":
-                # return attribute_printer(flavor)
-
-                return dict_printer({"0": flavor})
-
+                element = elements.values()[0]
+                return attribute_printer(element)
             else:
-                return dict_printer(flavor,
+                return dict_printer(elements,
                                     output=format)
-
         except Exception as ex:
             Console.error(ex.message, ex)
 

@@ -37,17 +37,13 @@ class FlavorCommand(PluginCommand, CloudCommand):
                 cm flavor show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
         """
-        try:
-            cloud = arguments["--cloud"] or Default.get_cloud()
-        except:
-            Console.error("xxx Default cloud doesn't exist")
+
+        cloud = arguments["--cloud"] or Default.get_cloud()
+        if cloud is None:
+            Console.error("Default cloud doesn't exist")
+            return
 
         if arguments["refresh"]:
-
-            if cloud is None:
-                Console.error("Default cloud doesn't exist")
-                return
-
             msg = "Refresh flavor for cloud {:}.".format(cloud)
             if Flavor.refresh(cloud):
                 Console.ok("{:} ok".format(msg))
@@ -56,22 +52,20 @@ class FlavorCommand(PluginCommand, CloudCommand):
             return ""
 
         if arguments["list"]:
-
             id = arguments['ID']
+            refresh = arguments['--refresh']
             output_format = arguments["--format"]
-            live = arguments['--refresh']
 
-            output_format = arguments["--format"]
             if id is None:
                 result = Flavor.list(cloud, output_format)
             else:
-                result = Flavor.details(cloud, id, live, output_format)
+                result = Flavor.details(cloud, id, refresh, output_format)
 
             if result is None:
                 #
                 # outo refresh
                 #
-                Console.error("No flavor(s) found.")
+                Console.error("No flavor(s) found. Failed")
                 # Flavor.refresh(cloud)
                 # Console.ok("Refreshing flavor(s). ok.")
 
