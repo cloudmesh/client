@@ -278,24 +278,96 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def attributes(self, kind):
         header = None
         order = None
+
+        """
+        TODO: I suggest we do a dict
+
+        layout = {
+            'flavor': {
+                'order': [
+                    'id',
+                    'name',
+                    'user',
+                    'ram',
+                    'os_flv_disabled',
+                    'vcpus',
+                    'swap',
+                    'os_flavor_acces',
+                    'rxtx_factor',
+                    'os_flv_ext_data',
+                    'disk',
+                    'type',
+                    'string',
+                    'cloud',
+                    'uuid'
+                ],
+                'header': [
+                    'Id',
+                    'Name',
+                    'User',
+                    'RAM',
+                    'Disabled',
+                    'vCPUs',
+                    'Swap',
+                    'Access',
+                    'rxtx_factor',
+                    'os_flv_ext_data',
+                    'Disk',
+                    'Type',
+                    'String',
+                    'Cloud',
+                    'UUID'
+                ]
+            },
+            'image': {
+                'order': None,
+                'header': None,
+            },
+            'vm': {
+                'order': None,
+                'header': None,
+            },
+            'limits': {
+                'order': None,
+                'header': None,
+            },
+            'quota': {
+                'order': None,
+                'header': None,
+            },
+            'default': {
+                'order': None,
+                'header': None,
+            }
+
+        }
+
+        if kind in layout:
+            order = layout[kind]["order"]
+            header = layout[kind]["header"]
+        else:
+            order = None
+            header = None
+        """
+
         if kind == 'flavor':
             order = [
-                'id',
-                'name',
-                'user',
-                'ram',
-                'os_flv_disabled',
-                'vcpus',
-                'swap',
-                'os_flavor_acces',
-                'rxtx_factor',
-                'os_flv_ext_data',
-                'disk',
-                'type',
-                'string',
-                'cloud',
-                'uuid'
-            ]
+                    'id',
+                    'name',
+                    'user',
+                    'ram',
+                    'os_flv_disabled',
+                    'vcpus',
+                    'swap',
+                    'os_flavor_acces',
+                    'rxtx_factor',
+                    'os_flv_ext_data',
+                    'disk',
+                    'type',
+                    'string',
+                    'cloud',
+                    'uuid'
+                ],
         elif kind == 'image':
             order = ['id',
                      'OS-EXT-IMG-SIZE:size',
@@ -307,7 +379,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                      'progress',
                      'status',
                      'updated']
-            order = ['id',
+            header = ['id',
                      'os_image_size',
                      'created',
                      'metadata__description',

@@ -51,5 +51,5 @@ class WhoCommand(PluginCommand):
             pass
 
         ValueError("NOT yet implemented")
-        
+
         return ""
