@@ -54,30 +54,7 @@ class Flavor(ListResource):
         if live:
             cls.refresh(cloud)
 
-        try:
-            cm = CloudmeshDatabase()
-
-            elements = None
-            for idkey in ["name", "uuid", "id"]:
-                s = {idkey: id}
-                try:
-                    elements = cm.find("flavor", cloud=cloud, **s)
-                except:
-                    pass
-                if len(elements) > 0:
-                    break
-
-            if len(elements) == 0:
-                return None
-
-            if format == "table":
-                element = elements.values()[0]
-                return attribute_printer(element)
-            else:
-                return dict_printer(elements,
-                                    output=format)
-        except Exception as ex:
-            Console.error(ex.message, ex)
+        return CloudProvider(cloud).details('flavor', cloud, id, format)
 
 
 if __name__ == "__main__":
