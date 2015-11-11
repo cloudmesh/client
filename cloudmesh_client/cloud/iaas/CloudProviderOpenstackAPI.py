@@ -280,6 +280,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         order = None
         if kind == 'flavor':
             order = [
+                'id',
                 'name',
                 'user',
                 'ram',
@@ -292,14 +293,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'disk',
                 'type',
                 'string',
-                'id',
                 'cloud',
                 'uuid'
             ]
         elif kind == 'image':
-            order = ['OS-EXT-IMG-SIZE:size',
+            order = ['id',
+                     'OS-EXT-IMG-SIZE:size',
                      'created',
-                     'id',
                      'metadata__description',
                      'minDisk',
                      'minRam',
@@ -307,9 +307,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                      'progress',
                      'status',
                      'updated']
-            order = ['os_image_size',
+            order = ['id',
+                     'os_image_size',
                      'created',
-                     'id',
                      'metadata__description',
                      'minDisk',
                      'minRam',
