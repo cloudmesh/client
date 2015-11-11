@@ -62,7 +62,7 @@ class CloudmeshDatabase(object):
         :return:
         """
         try:
-            print(cloudname)
+            # print(cloudname)
             # get the user
             # TODO: Confirm user
             user = self.user
