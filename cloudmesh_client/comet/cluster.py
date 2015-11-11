@@ -81,7 +81,7 @@ class Cluster(object):
             r = Comet.get(Comet.url("cluster/" + id + "/"))
 
         if format == "rest":
-            pprint(r)
+            return r
         else:
 
             data = []
