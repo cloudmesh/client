@@ -103,14 +103,11 @@ class CloudmeshDatabase(object):
             elif kind == "vm":
                 vms = provider.list_vm(cloudname)
                 for vm in vms.values():
-                    db_obj = self.db_obj_dict(kind,
-                                              name=vm['name'],
-                                              uuid=vm['id'],
-                                              status=vm['status'],
-                                              type='string',
-                                              cloud=cloudname,
-                                              user=user,
-                                              )
+                    vm['uuid'] = vm['id']
+                    vm['type'] = 'string'
+                    vm['cloud'] = cloudname
+                    vm['user'] = user
+                    db_obj = {0: {kind: vm}}
 
                     self.add_obj(db_obj)
                     self.save()

@@ -210,7 +210,31 @@ class FLAVOR(CloudmeshMixin, db.Base):
 
 class VM(CloudmeshMixin, db.Base):
     uuid = Column(String)
+    diskConfig = Column(String)
+    availability_zone = Column(String)
+    power_state = Column(String)
+    task_state = Column(String)
+    vm_state = Column(String)
+    launched_at = Column(String)
+    terminated_at = Column(String)
+    accessIPv4 = Column(String)
+    accessIPv6 = Column(String)
+    static_ip = Column(String)
+    floating_ip = Column(String)
+    config_drive = Column(String)
+    created = Column(String)
+    flavor__id = Column(String)
+    hostId = Column(String)
+    image__id = Column(String)
+    key_name = Column(String)
+    name = Column(String)
+    volumes_attached = Column(String)
+    progress = Column(String)
+    security_groups = Column(String)
     status = Column(String)
+    tenant_id = Column(String)
+    updated = Column(String)
+    user_id = Column(String)
 
     def __init__(self, **kwargs):
         # self.kind = __tablename__
@@ -220,7 +244,33 @@ class VM(CloudmeshMixin, db.Base):
         self.name = kwargs["name"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
-        self.status = kwargs["status"]
+
+        self.diskConfig = kwargs["OS-DCF:diskConfig"] or None
+        self.availability_zone = kwargs["OS-EXT-AZ:availability_zone"] or None
+        self.power_state = kwargs["OS-EXT-STS:power_state"] or None
+        self.task_state = kwargs["OS-EXT-STS:task_state"] or None
+        self.vm_state = kwargs["OS-EXT-STS:vm_state"] or None
+        self.launched_at = kwargs["OS-SRV-USG:launched_at"] or None
+        self.terminated_at = kwargs["OS-SRV-USG:terminated_at"] or None
+        self.accessIPv4 = kwargs["accessIPv4"] or None
+        self.accessIPv6 = kwargs["accessIPv6"] or None
+        # self.static_ip = kwargs["static_ip"] or None
+        # self.floating_ip = kwargs["floating_ip"] or None
+        self.config_drive = kwargs["config_drive"] or None
+        self.created = kwargs["created"] or None
+        self.flavor__id = kwargs["flavor__id"] or None
+        self.hostId = kwargs["hostId"] or None
+        self.image__id = kwargs["image__id"] or None
+        self.key_name = kwargs["key_name"] or None
+        self.name = kwargs["name"] or None
+        # self.volumes_attached = kwargs["volumes_attached"] or None
+        # self.progress = kwargs["progress"] or None
+        # self.security_groups = kwargs["security_ groups"] or None
+        self.status = kwargs["status"] or None
+        self.tenant_id = kwargs["tenant_id"] or None
+        self.updated = kwargs["updated"] or None
+        self.user_id = kwargs["user_id"] or None
+
         self.kind = self.__tablename__
 
         """
