@@ -1,8 +1,11 @@
 Nova Command
 ======================================================================
 
-This is a wrapper nova command provided by cloudmesh which in turn calls the openstack nova command on the target cloud.
-This also provides you with the capability of setting the target cloud.
+This is a wrapper nova command provided by cloudmesh which in turn calls the
+openstack nova command on the target cloud. This also provides you with the
+capability of setting the target cloud. However, we recommend not using
+the command and instead use the cloudmesh command sas they allow for
+information caching
 
 The manual page of the key command can be found at: `Nova <../man/man.html#nova>`_
 
@@ -24,21 +27,20 @@ You may get the cloud info in the following manner::
 
     $ cm nova info
     WARNING: OS environment variable OS_REGION not found
-    +----------------+---------------------------------------------------------+
-    | Variable       | Value                                                   |
-    +----------------+---------------------------------------------------------+
-    | OS_REGION      | None                                                    |
-    | OS_USERNAME    | albert                                                |
-    | OS_CACERT      | /home/albert/.cloudmesh/clouds/india/juno/cacert.pem |
-    | OS_TENANT_NAME | fg478                                                   |
-    | OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0             |
-    | OS_PASSWORD    | ********                                                |
-    +----------------+---------------------------------------------------------+
+    +----------------+--------------------------------------------------------+
+    | Variable       | Value                                                  |
+    +----------------+--------------------------------------------------------+
+    | OS_REGION      | None                                                   |
+    | OS_USERNAME    | albert                                                 |
+    | OS_CACERT      | /home/albert/.cloudmesh/clouds/india/juno/cacert.pem   |
+    | OS_TENANT_NAME | fg478                                                  |
+    | OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0            |
+    | OS_PASSWORD    | ********                                               |
+    +----------------+--------------------------------------------------------+
 
 By default it gives the 'india' cloud info. To check for specific cloud, here is an example for kilo cloud::
 
     $ cm nova info kilo
-    WARNING: OS environment variable OS_REGION not found
     +----------------+------------------------------------------------+
     | Variable       | Value                                          |
     +----------------+------------------------------------------------+
@@ -53,7 +55,8 @@ By default it gives the 'india' cloud info. To check for specific cloud, here is
 Running openstack nova commands
 ----------------------------------------------------------------------
 
-Syntax is pretty much the same as what is used for openstack nova. Following are couple of examples::
+The syntax is  the same as what is used for openstack nova.
+Following are couple of examples::
 
 Listing images::
 

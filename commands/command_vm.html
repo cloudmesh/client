@@ -97,8 +97,10 @@
 <li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a></li>
 <li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">VM Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#starting-a-vm-instance">Starting a VM instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#booting-a-vm-instance">Booting a VM instance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stop-a-vm">Stop a VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#start-a-vm">Start a VM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#retrieving-ip-address-details">Retrieving IP Address details</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#login-to-vm">Login to VM</a></li>
@@ -170,12 +172,12 @@
 It is like a one stop interface that can be used to perform various VM
 operations on various clouds available to Cloudmesh.</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#vm">VM</a></p>
-<div class="section" id="starting-a-vm-instance">
-<h2>Starting a VM instance<a class="headerlink" href="#starting-a-vm-instance" title="Permalink to this headline">¶</a></h2>
-<p>You can start a VM on any target cloud like &#8216;india&#8217; by using the &#8216;vm start&#8217;
+<div class="section" id="booting-a-vm-instance">
+<h2>Booting a VM instance<a class="headerlink" href="#booting-a-vm-instance" title="Permalink to this headline">¶</a></h2>
+<p>You can start a VM on any target cloud like &#8216;juno&#8217; by using the &#8216;vm start&#8217;
 like the one provided below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm start --name=testvm --cloud=india --image=619b8942-2355-4aa2-bae3-74b8f1751911 --flavor=2
-Machine testvm is being booted on india Cloud...
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm boot --name=testvm --cloud=juno --image=619b8942-2355-4aa2-bae3-74b8f1751911 --flavor=2
+Machine testvm is being booted on juno Cloud...
 </pre></div>
 </div>
 </div>
@@ -183,15 +185,36 @@ Machine testvm is being booted on india Cloud...
 <h2>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h2>
 <p>You can list all the VM instances running on the cloud by &#8216;vm list&#8217; command
 like the one below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm list --cloud=india
-+--------------------------------------+--------------+--------+
-| id                                   | name         | status |
-+--------------------------------------+--------------+--------+
-| 21305503-2649-4338-8876-d825758c83f3 | albert-001   | ACTIVE |
-| 6437e054-b761-4408-890a-ced65cc848e2 | albert-002   | ACTIVE |
-| 94f01af3-ee2a-44c9-b228-75627f358169 | albert-003   | ACTIVE |
-| d0f923f9-b4c0-411a-87dc-99870b49ae6e | testvm       | ACTIVE |
-+--------------------------------------+--------------+--------+
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm list --cloud=juno
++----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
+| id | uuid                                 | label                        | status  | project   | user      | cloud |
++----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
+| 1  | 6d2b8e67-a296-45f0-9132-b65aeddff8ff | testvm                       | ACTIVE  | undefined | albert    | juno  |
+| 2  | 390792c3-66a0-4c83-a0d7-c81e1c787710 | albert_vm002                 | ACTIVE  | undefined | albert    | juno  |
+| 3  | fa3580f3-2dbd-4d67-9178-326b39916c09 | albert_vm003                 | ACTIVE  | undefined | albert    | juno  |
+| 4  | 6730c273-609f-426d-a481-313ff4200d82 | albert_vm004                 | ACTIVE  | undefined | albert    | juno  |
+| 5  | 2f275d38-62af-4f71-a04a-0456e0d6466f | albert_vm005                 | ACTIVE  | undefined | albert    | juno  |
+| 6  | 94f01af3-ee2a-44c9-b228-75627f358169 | albert_vm006                 | SHUTOFF | undefined | albert    | juno  |
+| 7  | 21305503-2649-4338-8876-d825758c83f3 | albert_vm007                 | ACTIVE  | undefined | albert    | juno  |
++----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop-a-vm">
+<h2>Stop a VM<a class="headerlink" href="#stop-a-vm" title="Permalink to this headline">¶</a></h2>
+<p>You can stop a VM by supplying it&#8217;s label or UUID:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm stop testvm --cloud=juno
+Machine testvm is being stopped on juno Cloud...
+info. OK.
+</pre></div>
+</div>
+</div>
+<div class="section" id="start-a-vm">
+<h2>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h2>
+<p>You can start a VM by supplying it&#8217;s label or UUID:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm start testvm --cloud=juno
+Machine testvm is being started on juno Cloud...
+info. OK.
 </pre></div>
 </div>
 </div>
@@ -199,7 +222,7 @@ like the one below:</p>
 <h2>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h2>
 <p>In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
 accessed publicly:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm floating_ip_assign testvm
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm floating_ip_assign testvm --cloud=juno
 Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 </pre></div>
 </div>
@@ -207,7 +230,7 @@ Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 <div class="section" id="retrieving-ip-address-details">
 <h2>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h2>
 <p>You can get the IP address details of a VM by the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm ip_show testvm --cloud=india
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm ip_show testvm --cloud=juno
 IP Addresses of instance testvm are as follows:-
 +---------+---------+----------------+
 | network | version | addr           |
@@ -221,7 +244,7 @@ IP Addresses of instance testvm are as follows:-
 <div class="section" id="login-to-vm">
 <h2>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h2>
 <p>You can login to a VM in your target cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=juno
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
 Cannot reach 10.23.2.XX.
@@ -263,7 +286,7 @@ albert@testvm:~$
 <div class="section" id="running-command-on-vm">
 <h2>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h2>
 <p>You can use the vm login to simply run a command on the target VM:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot;
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=juno
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
 Cannot reach 10.23.2.XX.
@@ -277,8 +300,8 @@ OS testvm &lt;VERSION&gt; #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 &lt;BIT_SPEC&
 <div class="section" id="deleting-a-vm">
 <h2>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h2>
 <p>You can delete a VM on the target cloud by using &#8216;vm delete&#8217; command as below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm delete testvm --cloud=india
-Machine testvm is being deleted on india Cloud...
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm delete testvm --cloud=juno
+Machine testvm is being deleted on juno Cloud...
 </pre></div>
 </div>
 </div>

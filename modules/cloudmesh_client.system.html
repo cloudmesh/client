@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quota Command &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>cloudmesh_client.system package &mdash; cloudmesh_client 0.1 documentation</title>
   
 
   
@@ -30,10 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
-        <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Key Command" href="command_key.html"/>
-        <link rel="prev" title="List Command" href="command_list.html"/> 
+    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,35 +79,19 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../system.html">System Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html#cloud-database">Cloud Database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
 </ul>
 
@@ -142,13 +123,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-          <li><a href="index.html">User Manual</a> &raquo;</li>
-      
-    <li>Quota Command</li>
+    <li>cloudmesh_client.system package</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/commands/command_quota.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/modules/cloudmesh_client.system.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,56 +137,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="quota-command">
-<h1>Quota Command<a class="headerlink" href="#quota-command" title="Permalink to this headline">¶</a></h1>
-<p>Many clouds have some kind of quota limitations on how many ip
-addresses one can obtain, or how many cores a user can have. To get an
-overview of the quotas set for a user in a project we are providing a
-quota command.</p>
-<p>The manual page of the quota command can be found at: <a class="reference external" href="../man/man.html#quota">Quota</a></p>
-<div class="section" id="quota-list">
-<h2>quota list<a class="headerlink" href="#quota-list" title="Permalink to this headline">¶</a></h2>
-<p>To list the quota limit on a default project/tenant you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm quota list
-  +-----------------------------+-------+
-  | Quota                       | Limit |
-  +-----------------------------+-------+
-  | fixed_ips                   | -1    |
-  | floating_ips                | 10    |
-  | instances                   | 10    |
-  | security_groups             | 10    |
-  | server_group_members        | 10    |
-  | server_groups               | 10    |
-  | key_pairs                   | 100   |
-  | injected_file_content_bytes | 10240 |
-  | metadata_items              | 128   |
-  | cores                       | 20    |
-  | security_group_rules        | 20    |
-  | injected_file_path_bytes    | 255   |
-  | injected_files              | 5     |
-  | ram                         | 51200 |
-  +-----------------------------+-------+
-</pre></div>
+  <div class="section" id="cloudmesh-client-system-package">
+<h1>cloudmesh_client.system package<a class="headerlink" href="#cloudmesh-client-system-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<p>To export it in csv format,:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm quota list --format=csv
-Quota,Limit
-instances,10
-cores,20
-ram,51200
-floating_ips,10
-fixed_ips,-1
-metadata_items,128
-injected_files,5
-injected_file_content_bytes,10240
-injected_file_path_bytes,255
-key_pairs,100
-security_groups,10
-security_group_rules,20
-server_groups,10
-server_group_members,10
-</pre></div>
+<div class="section" id="cloudmesh-client-system-rack-module">
+<h2>cloudmesh_client.system.rack module<a class="headerlink" href="#cloudmesh-client-system-rack-module" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="cloudmesh-client-system-who-module">
+<h2>cloudmesh_client.system.who module<a class="headerlink" href="#cloudmesh-client-system-who-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -215,15 +157,6 @@ server_group_members,10
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="command_key.html" class="btn btn-neutral float-right" title="Key Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="command_list.html" class="btn btn-neutral" title="List Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

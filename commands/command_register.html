@@ -90,6 +90,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Register Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introduction">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-remote">register remote</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#register-export">register export</a></li>
@@ -166,8 +168,47 @@
             
   <div class="section" id="register-command">
 <h1>Register Command<a class="headerlink" href="#register-command" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>Registering different clouds with the cloudmesh register command is easy. We</dt>
+<dd><p class="first">have a number of predefined templates that are stored in the ~/.cloudmesh
+.yaml file that you can use and modify. However for some clouds such as the</p>
+<blockquote class="last">
+<div>once at IU an easy registration exists if you have appropriate access.</div></blockquote>
+</dd>
+</dl>
 <p>The manual page of the register command can be found at:
 <a class="reference external" href="../man/man.html#register">register</a></p>
+<div class="section" id="quickstart-for-registration-of-some-clouds">
+<h2>Quickstart for registration of some clouds<a class="headerlink" href="#quickstart-for-registration-of-some-clouds" title="Permalink to this headline">¶</a></h2>
+<p>Please only use the quickstart if you know hat you are doing, otherwise,
+read the manual. We assume you have access to the specific clouds that you
+like to access. On a terminal say:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register remote kilo
+</pre></div>
+</div>
+<p>to register the FutureSystems kilo cloud</p>
+<blockquote>
+<div>cm register remote juno</div></blockquote>
+<p>to register the  juno cloud (this cloud will be disabled soon,
+so please transition to kilo). More information about the
+cloud can be found at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.futuresystems.org">https://portal.futuresystems.org</a></li>
+</ul>
+<p>To register an openstack cloud for which you have an existing openrc.sh file,
+you can simply say:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register openrc.sh
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">verify if this works</p>
+</div>
+<p>On chameleoncloud.org you can for example go to the horizon web interface and
+download the credentials in teh security panel.</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>As we are managing multiple clouds with cloudmesh we need to register
 them first. To make it easy for you cloudmesh reads the registered
 clouds from an easy to manage yaml file. This yam file is installed by
@@ -180,7 +221,7 @@ clouds. YOu can fill out the yaml file with your information, add new
 clouds, or delete templates of clouds that you do not use. We have
 several different typoes of clouds that we support. This includes
 OpenStack, AWS, and Azure clouds.</p>
-<div class="admonition-todo admonition" id="index-0">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">at this time we have not integrated our AWS and Azure IaaS
 abstractions in the new cloudmesh client. We will make them available in
@@ -201,6 +242,7 @@ File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 <p>To edit the file, you can use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre>register edit
 </pre></div>
+</div>
 </div>
 <div class="section" id="register-list">
 <h2>register list<a class="headerlink" href="#register-list" title="Permalink to this headline">¶</a></h2>
@@ -265,7 +307,7 @@ india
 <h2>register remote<a class="headerlink" href="#register-remote" title="Permalink to this headline">¶</a></h2>
 <p>In case you already use an openstack cloud you may have come across an
 openrc.sh file. We are providing some very special helper functions, like
-for example obtain the openrc files from the futuresystems
+for example obtain the openrc files from the FutureSystems
 cloud.</p>
 <p>The command:</p>
 <div class="highlight-python"><div class="highlight"><pre>register remote HOSTNAME
@@ -314,10 +356,8 @@ command export:</p>
 <div class="highlight-python"><div class="highlight"><pre>cm register export kilo
 </pre></div>
 </div>
-<p>The output contains an rc file example</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd>export OS_PROJECT_DOMAIN_ID=default
+<p>The output contains an rc file example:</p>
+<div class="highlight-python"><div class="highlight"><pre>export OS_PROJECT_DOMAIN_ID=default
 export OS_USERNAME=albert
 export OS_OPENRC=~/.cloudmesh/clouds/india/kilo/openrc.sh
 export OS_AUTH_URL=https://kilo.futuresystems.org:5000/v3
@@ -327,14 +367,15 @@ export OS_VERSION=kilo
 export OS_VOLUME_API_VERSION=2
 export OS_IMAGE_API_VERSION=2
 export OS_PASSWORD=********
-export OS_PROJECT_NAME=fg1234</dd>
-</dl>
+export OS_PROJECT_NAME=fg1234
+</pre></div>
+</div>
 <p>The passwords will be masked with eight stars: <cite>********</cite>.
 In case you like also to see the password you can use the &#8211;password flag.</p>
 </div>
 <div class="section" id="register-merge">
 <h2>register merge<a class="headerlink" href="#register-merge" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-1">
+<div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">the description of what this is doing was ambigous, we need
 to clarify if it only replaces to do or actually add things
@@ -345,7 +386,7 @@ you can merge two of them into the same cloudmesh yaml file. You
 simply have to specify the location of the file that you like to merge
 into the existing yaml file. However, please be carefull, as it will
 overwrite the contents in ~/.cloudmesh/cloudmesh.yaml</p>
-<div class="admonition-todo admonition" id="index-2">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">Erika. we used to have a .bak.# when we modified the yaml file, do
 you still have this</p>

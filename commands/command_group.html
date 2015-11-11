@@ -168,7 +168,8 @@
 <h1>Group Command<a class="headerlink" href="#group-command" title="Permalink to this headline">¶</a></h1>
 <p>One of cloudmesh major functionality is to group cloud and other
 resources into a named group. Such named groups can than be used to
-perform actions on them.</p>
+perform actions on them. Upon start the default group is set to general if
+no default group exists.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
 <p class="last">at this time we have limited to groups to just hold ID
@@ -195,7 +196,7 @@ of vms.</p>
 <h2>Group Info<a class="headerlink" href="#group-info" title="Permalink to this headline">¶</a></h2>
 <p>To get details about a particular group with specific name you can use
 the info option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group info groupA
+<div class="highlight-python"><div class="highlight"><pre>$ cm group list groupA
   +----------+-------+--------+----------+------+
   | user     | cloud | name   | value    | type |
   +----------+-------+--------+----------+------+
@@ -213,7 +214,7 @@ the remove option:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm group remove --name groupA --id test-002
   Successfully removed ID [test-002] from the group [groupA]
 
-$ cm group info groupA
+$ cm group list groupA
   +----------+-------+--------+----------+------+
   | user     | cloud | name   | value    | type |
   +----------+-------+--------+----------+------+
@@ -226,7 +227,7 @@ $ cm group info groupA
 <div class="section" id="group-add">
 <h2>Group Add<a class="headerlink" href="#group-add" title="Permalink to this headline">¶</a></h2>
 <p>To add a vm resource with specified id to a group with given name:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group add --id test-001 --type vm --name groupA
+<div class="highlight-python"><div class="highlight"><pre>$ cm group add groupA --id test-001 --type vm
 Created a new group [groupA] and added ID [test-001] to it
 
 $ cm group info groupA
@@ -273,13 +274,13 @@ $ cm group info groupC
 <div class="section" id="group-delete">
 <h2>Group Delete<a class="headerlink" href="#group-delete" title="Permalink to this headline">¶</a></h2>
 <p>A named group can be easily deleted.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group delete --name groupC
+<div class="highlight-python"><div class="highlight"><pre>$ cm group delete groupC
 Request to delete server albert-001 has been accepted.
 Request to delete server albert-002 has been accepted.
 Request to delete server test-001 has been accepted.
 Deletion Successful!
 
-$ cm group info groupC
+$ cm group list groupC
 ERROR: No group with name groupC found in the cloudmesh database!
 </pre></div>
 </div>

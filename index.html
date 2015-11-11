@@ -144,7 +144,7 @@
 cloudmesh that does not require to run the user services on the
 machine where the client is hosted. It is developed while using a file
 based database and stores the cloud credentials in a configuration
-file. This documentation and cos is available on github at:</p>
+file. This documentation and code is available on github at:</p>
 <ul class="simple">
 <li>Documentation: <a class="reference external" href="http://cloudmesh.github.io/client/">http://cloudmesh.github.io/client/</a></li>
 <li>Code: <a class="reference external" href="https://github.com/cloudmesh/client">https://github.com/cloudmesh/client</a></li>
@@ -199,6 +199,8 @@ file. This documentation and cos is available on github at:</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="commands/command_register.html">Register Command</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#introduction">Introduction</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-list">register list</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-remote">register remote</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-export">register export</a></li>
@@ -227,6 +229,7 @@ file. This documentation and cos is available on github at:</p>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="commands/command_list.html">List Command</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_list.html#list-default">List Default</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_list.html#list-cloud-objects">list Cloud objects</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="commands/command_quota.html">Quota Command</a><ul>
@@ -253,8 +256,10 @@ file. This documentation and cos is available on github at:</p>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="commands/command_vm.html">VM Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#starting-a-vm-instance">Starting a VM instance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#booting-a-vm-instance">Booting a VM instance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#stop-a-vm">Stop a VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#start-a-vm">Start a VM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#retrieving-ip-address-details">Retrieving IP Address details</a></li>
 <li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#login-to-vm">Login to VM</a></li>
@@ -293,8 +298,10 @@ file. This documentation and cos is available on github at:</p>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#key">key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#network">network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#open">open</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">pause</a></li>
@@ -303,10 +310,12 @@ file. This documentation and cos is available on github at:</p>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#quota">quota</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#reservation">reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#reset">reset</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#secgroup">secgroup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#select">select</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#server">server</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#submit">submit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#usage">usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#version">version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#vm">vm</a></li>
@@ -507,29 +516,47 @@ file. This documentation and cos is available on github at:</p>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="changes_gitlog.html">Changelog</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id1">0.7.0 (2015-09-30)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#new">New</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#changes">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#fix">Fix</a></li>
 <li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#other">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id2">0.6.9 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id3">0.6.8 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id4">0.6.7 (2015-09-05)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id5">0.6.6 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id6">0.6.5 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id7">0.6.4 (2015-09-02)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id8">0.6.3 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id9">0.6.2 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id10">0.6.1 (2015-08-31)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id11">0.6.0 (2015-08-29)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id12">0.5.8 (2015-06-28)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id13">0.5.7 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id14">0.5.6 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id15">0.5.5 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id16">0.5.4 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id1">0.7.3 (2015-10-31)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#new">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id2">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id3">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id4">0.7.2 (2015-10-30)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id5">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id6">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#fix">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id7">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id8">0.7.1 (2015-09-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id9">0.7.0 (2015-09-30)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id10">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id11">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id12">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id13">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id14">0.6.9 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id15">0.6.8 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id16">0.6.7 (2015-09-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id17">0.6.6 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id18">0.6.5 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id19">0.6.4 (2015-09-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id20">0.6.3 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id21">0.6.2 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id22">0.6.1 (2015-08-31)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id23">0.6.0 (2015-08-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id24">0.5.8 (2015-06-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id25">0.5.7 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id26">0.5.6 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id27">0.5.5 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id28">0.5.4 (2015-06-17)</a></li>
 </ul>
 </li>
 </ul>

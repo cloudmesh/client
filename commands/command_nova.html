@@ -162,8 +162,11 @@
             
   <div class="section" id="nova-command">
 <h1>Nova Command<a class="headerlink" href="#nova-command" title="Permalink to this headline">¶</a></h1>
-<p>This is a wrapper nova command provided by cloudmesh which in turn calls the openstack nova command on the target cloud.
-This also provides you with the capability of setting the target cloud.</p>
+<p>This is a wrapper nova command provided by cloudmesh which in turn calls the
+openstack nova command on the target cloud. This also provides you with the
+capability of setting the target cloud. However, we recommend not using
+the command and instead use the cloudmesh command sas they allow for
+information caching</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#nova">Nova</a></p>
 <div class="section" id="setting-the-target-cloud">
 <h2>Setting the Target Cloud<a class="headerlink" href="#setting-the-target-cloud" title="Permalink to this headline">¶</a></h2>
@@ -179,21 +182,20 @@ india is set
 <p>You may get the cloud info in the following manner:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm nova info
 WARNING: OS environment variable OS_REGION not found
-+----------------+---------------------------------------------------------+
-| Variable       | Value                                                   |
-+----------------+---------------------------------------------------------+
-| OS_REGION      | None                                                    |
-| OS_USERNAME    | albert                                                |
-| OS_CACERT      | /home/albert/.cloudmesh/clouds/india/juno/cacert.pem |
-| OS_TENANT_NAME | fg478                                                   |
-| OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0             |
-| OS_PASSWORD    | ********                                                |
-+----------------+---------------------------------------------------------+
++----------------+--------------------------------------------------------+
+| Variable       | Value                                                  |
++----------------+--------------------------------------------------------+
+| OS_REGION      | None                                                   |
+| OS_USERNAME    | albert                                                 |
+| OS_CACERT      | /home/albert/.cloudmesh/clouds/india/juno/cacert.pem   |
+| OS_TENANT_NAME | fg478                                                  |
+| OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0            |
+| OS_PASSWORD    | ********                                               |
++----------------+--------------------------------------------------------+
 </pre></div>
 </div>
 <p>By default it gives the &#8216;india&#8217; cloud info. To check for specific cloud, here is an example for kilo cloud:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm nova info kilo
-WARNING: OS environment variable OS_REGION not found
 +----------------+------------------------------------------------+
 | Variable       | Value                                          |
 +----------------+------------------------------------------------+
@@ -209,7 +211,8 @@ WARNING: OS environment variable OS_REGION not found
 </div>
 <div class="section" id="running-openstack-nova-commands">
 <h2>Running openstack nova commands<a class="headerlink" href="#running-openstack-nova-commands" title="Permalink to this headline">¶</a></h2>
-<p>Syntax is pretty much the same as what is used for openstack nova. Following are couple of examples:</p>
+<p>The syntax is  the same as what is used for openstack nova.
+Following are couple of examples:</p>
 <p>Listing images:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm nova image-list
 Cloud = india

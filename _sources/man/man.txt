@@ -40,7 +40,7 @@ cloud
 Command - cloud::
 
     Usage:
-        cloud list [--format=FORMAT]
+        cloud list [--cloud=CLOUD] [--format=FORMAT]
         cloud activate CLOUD
         cloud deactivate CLOUD
         cloud info CLOUD
@@ -288,8 +288,7 @@ Command - flavor::
 
     Usage:
         flavor refresh [--cloud=CLOUD]
-        flavor list [--cloud=CLOUD] [--format=FORMAT]
-        flavor show ID [--cloud=CLOUD] [--refresh] [--format=FORMAT]
+        flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
 
         This lists out the flavors present for a cloud
 
@@ -313,10 +312,9 @@ group
 Command - group::
 
     Usage:
-        group info [--cloud=CLOUD] [--format=FORMAT] NAME
-        group add [--name=NAME] [--type=TYPE] [--cloud=CLOUD] --id=IDs
-        group list [--cloud=CLOUD] [--format=FORMAT]
-        group delete [--cloud=CLOUD] [--name=NAME]
+        group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
+        group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
+        group delete NAME [--cloud=CLOUD]
         group remove [--cloud=CLOUD] --name=NAME --id=ID
         group copy FROM TO
         group merge GROUPA GROUPB MERGEDGROUP
@@ -401,6 +399,7 @@ hpc
 Command - hpc::
 
     Usage:
+        hpc set CLUSTER
         hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
         hpc info [--cluster=CLUSTER][--format=FORMAT]
         hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
@@ -496,7 +495,7 @@ Command - image::
         cm image refresh
         cm image list
         cm image list --format=csv
-        cm image show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
+        cm image list 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
 
 
@@ -679,6 +678,28 @@ Command - key::
 
 
 
+limits
+----------------------------------------------------------------------
+
+Command - limits::
+
+    Usage:
+        limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
+
+        Current list data with limits on a selected project/tenant.
+        The --tenant option can be used by admin only
+
+    Options:
+       --format=FORMAT  the output format [default: table]
+       --cloud=CLOUD    the cloud name
+       --tenant=TENANT  the tenant name
+
+    Examples:
+        cm limits list
+        cm limits list --cloud=india --format=csv
+
+
+
 list
 ----------------------------------------------------------------------
 
@@ -730,6 +751,46 @@ Command - man::
 
         man COMMAND
             Prints out the help page for a specific command
+
+
+network
+----------------------------------------------------------------------
+
+Command - network::
+
+    Usage:A
+        network fixed-ip-get [--cloud=CLOUD] FIXED_IP
+        network fixed-ip-reserve [--cloud=CLOUD] FIXED_IP
+        network fixed-ip-unreserve [--cloud=CLOUD] FIXED_IP
+        network floating-ip-associate [--cloud=CLOUD] --server=SERVER FLOATING_IP
+        network floating-ip-disassociate [--cloud=CLOUD] --server=SERVER FLOATING_IP
+        network floating-ip-create [--cloud=CLOUD] [--floating-ip-pool=FLOATING_IP_POOL]
+        network floating-ip-delete [--cloud=CLOUD] FLOATING_IP
+        network floating-ip-list [--cloud=CLOUD]
+        network floating-ip-pool-list [--cloud=CLOUD]
+        network -h | --help
+
+    Options:
+        -h                  help message
+        --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
+        --server=SERVER     Server Name
+        --floating-ip-pool  Name of Floating IP Pool
+
+    Arguments:
+        FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
+        FLOATING_IP     Fixed IP Address, e.g. 192.1.66.8
+
+    Examples:
+        $ network fixed-ip-get --cloud india 10.1.2.5
+        $ network fixed-ip-reserve --cloud india 10.1.2.5
+        $ network fixed-ip-unreserve --cloud india 10.1.2.5
+        $ network floating-ip-associate --cloud india --server=albert-001 192.1.66.8
+        $ network floating-ip-disassociate --cloud india --server=albert-001 192.1.66.8
+        $ network floating-ip-create --cloud india --floating-ip-pool=albert-f01
+        $ network floating-ip-delete --cloud india 192.1.66.8
+        $ network floating-ip-list --cloud india
+        $ network floating-ip-pool-list --cloud india
+
 
 
 nova
@@ -843,12 +904,14 @@ Command - register::
 
     Usage:
         register info
+        register new
+        register clean [--force]
         register list ssh [--format=FORMAT]
-        register list [--yaml=FILENAME][--info][--format=FORMAT]
+        register list [--yaml=FILENAMh bE][--info][--format=FORMAT]
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
         register export HOST [--password] [--format=FORMAT]
-        register rc HOST FILENAME [--force] [--format=FORMAT]
+        register source HOST
         register merge FILEPATH
         register form [--yaml=FILENAME]
         register check [--yaml=FILENAME]
@@ -884,6 +947,8 @@ Command - register::
       --version=VERSION       Version of the openstack cloud.
       --openrc=OPENRC         The location of the openrc file
       --password              Prints the password
+      --force                 ignore interactive questions and execute
+                              the action
 
     Description:
 
@@ -1034,6 +1099,24 @@ Command - reservation::
             a given user or project.
 
 
+reset
+----------------------------------------------------------------------
+
+Command - reset::
+
+      Usage:
+          reset
+
+    Description:
+
+        DANGER: This method erases the database.
+
+
+    Examples:
+        clean
+
+
+
 secgroup
 ----------------------------------------------------------------------
 
@@ -1158,6 +1241,13 @@ Command - ssh::
 
 
 
+submit
+----------------------------------------------------------------------
+
+Command - submit::
+
+    Command documentation submit missing, help_submit
+
 usage
 ----------------------------------------------------------------------
 
@@ -1203,7 +1293,8 @@ vm
 Command - vm::
 
     Usage:
-        vm start --name=NAME
+        vm refresh [--cloud=CLOUD]
+        vm boot --name=NAME
                  [--count=COUNT]
                  [--cloud=CLOUD]
                  [--image=IMAGE_OR_ID]
@@ -1211,6 +1302,14 @@ Command - vm::
                  [--group=GROUP]
                  [--secgroup=SECGROUP]
                  [--keypair_name=KEYPAIR_NAME]
+        vm start NAME...
+                  [--group=GROUP]
+                  [--cloud=CLOUD]
+                  [--force]
+        vm stop NAME...
+                  [--group=GROUP]
+                  [--cloud=CLOUD]
+                  [--force]
         vm delete NAME...
                   [--group=GROUP]
                   [--cloud=CLOUD]
@@ -1266,12 +1365,14 @@ Command - vm::
 
 
     Description:
-        commands used to start or delete servers of a cloud
+        commands used to boot, start or delete servers of a cloud
 
-        vm start [options...]       start servers of a cloud, user may specify
+        vm boot [options...]        Boots servers on a cloud, user may specify
                                     flavor, image .etc, otherwise default values
                                     will be used, see how to set default values
                                     of a cloud: cloud help
+        vm start [options...]       Starts a suspended or stopped vm instance.
+        vm stop [options...]        Stops a vm instance .
         vm delete [options...]      delete servers of a cloud, user may delete
                                     a server by its name or id, delete servers
                                     of a group or servers of a cloud, give prefix
