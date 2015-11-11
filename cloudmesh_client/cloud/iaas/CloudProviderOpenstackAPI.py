@@ -379,10 +379,10 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                      'progress',
                      'status',
                      'updated']
-            header = ['id',
-                     'os_image_size',
+            header = ['Id',
+                     'Size',
                      'created',
-                     'metadata__description',
+                     'Description',
                      'minDisk',
                      'minRam',
                      'name',
