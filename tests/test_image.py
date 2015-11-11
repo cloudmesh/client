@@ -52,7 +52,7 @@ class Test_image():
         """
         HEADING()
         result = run("cm image list --cloud=juno")
-        assert "metadata__description" in result
+        assert "description" in result
 
     def test_004(self):
         """

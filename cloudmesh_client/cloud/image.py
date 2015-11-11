@@ -12,22 +12,6 @@ class Image(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def clear(cls, cloud):
-        """
-        This method deletes all images of the cloud
-        :param cloud: the cloud name
-        """
-        try:
-            image = cls.cm.find('image',
-                                output='object',
-                                cloud=cloud).all()
-
-            for ima in image:
-                cls.cm.delete(ima)
-        except Exception as ex:
-            Console.error(ex.message, ex)
-
-    @classmethod
     def refresh(cls, cloud):
         """
         This method would refresh the image list by first clearing
@@ -44,10 +28,10 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # TODO: make a CloudmeshDatabase without requireing the user=
-        cm = CloudmeshDatabase()
+        # cm = CloudmeshDatabase()
 
         try:
-            elements = cm.find("image", cloud=cloud)
+            elements = cls.cm.find("image", cloud=cloud)
 
             # order = ['id', 'uuid', 'name', 'cloud']
             (order, header) = CloudProvider(cloud).get_attributes("image")
