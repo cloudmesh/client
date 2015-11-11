@@ -9,8 +9,8 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
-class SelectCommand(PluginCommand, CloudCommand):
 
+class SelectCommand(PluginCommand, CloudCommand):
     topics = {"select": "cloud"}
 
     def __init__(self, context):
@@ -61,7 +61,7 @@ class SelectCommand(PluginCommand, CloudCommand):
             else:
                 cloud = clouds.keys()[number]
 
-            print ("Selected cloud " + cloud)
+            print("Selected cloud " + cloud)
             Default.set("cloud", cloud, "general")
 
         elif arguments["key"]:
@@ -90,4 +90,3 @@ if __name__ == '__main__':
     command.do_select("flavor")
     command.do_select("cloud")
     command.do_select("key")
-

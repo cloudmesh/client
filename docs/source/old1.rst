@@ -775,7 +775,8 @@ Cluster (do)
 
               cluster create <name> --count=<count> --ln=<LoginName> [options...]
                   Start a cluster of VMs, and each of them can log into all others.
-                  CAUTION: you sould do some default setting before using this command:
+                  CAUTION: you should do some default setting before using
+                  this command:
                   1. select cloud to work on, e.g. cloud select india
                   2. activate the cloud, e.g. cloud on india
                   3. set the default key to start VMs, e.g. key default [NAME]

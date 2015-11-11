@@ -3,11 +3,12 @@ from __future__ import print_function
 import importlib
 from sqlalchemy import and_
 from cloudmesh_client.db import model
-from cloudmesh_client.common.Printer  import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
+
 
 class List(object):
     cm = CloudmeshDatabase()
@@ -43,30 +44,27 @@ class List(object):
             if tenant is not None:
                 filter["tenant"] = tenant
 
-            print ("HHHH", filter)
+            print("HHHH", filter)
             elements = cls.cm.find(table, **filter)
 
-            print ("XXX")
+            print("XXX")
             pprint(elements)
-            print ("YYY")
-
-
+            print("YYY")
 
             if elements is not None or elements is not {}:
                 # convert the output to a dict
-                print ("UUU")
+                print("UUU")
                 return (dict_printer(elements,
-                                    order=order,
-                                    header=header,
-                                    output=output))
-                print ("OOO")
+                                     order=order,
+                                     header=header,
+                                     output=output))
+                print("OOO")
             else:
                 return None
 
         except Exception as ex:
-            print ("ISSUE")
+            print("ISSUE")
             Console.error(ex.message, ex)
-
 
     @classmethod
     def get_classobj(cls, kind):
@@ -80,12 +78,12 @@ class List(object):
         module = importlib.import_module(model.__name__)
         # get tbe class obj reference
 
-        print ("M", module)
-        print ("K", kind)
+        print("M", module)
+        print("K", kind)
         obj = getattr(module, kind)
-        #obj = getattr(module, "FLAVOR")
-        #obj = cls.cm_db.get_table(kind)
-        print (obj)
+        # obj = getattr(module, "FLAVOR")
+        # obj = cls.cm_db.get_table(kind)
+        print(obj)
         return obj
 
     #

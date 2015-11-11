@@ -19,25 +19,25 @@ currently we have
   
 * we need to work on vm/boot command.
 
-Parameterized commands
+Parametrized commands
 ----------------------
 
 Many commands take a number of parameters. Some of thes parameters can
-be easily refering to a number of different objects, while sing a
-parameterized syntax when specifying the command.
+be easily referring to a number of different objects, while sing a
+parametrized syntax when specifying the command.
 
-For example when using the string "machine[01-03]" in a parameterized
+For example when using the string "machine[01-03]" in a parametrized
 argument we refer to machine01, machine02, machine03. As you can see
 it is a simple way of expressing arrays as part of a
 string. Additionally you can use `,` to add to it. Thus
 machine[01-03],machine[06-07] refers to the machines  machine01,
-machine02, machine03, machine06, machine07. This fexible mechnism of
-specifying parameters is followed consitently within cloudmesh. We
-indicate in a manual page if a paramter is parameterized by including
-(parameterized) in its definition of the arguments
+machine02, machine03, machine06, machine07. This flexible mechanism of
+specifying parameters is followed consistently within cloudmesh. We
+indicate in a manual page if a parameter is parametrized by including
+(parametrized) in its definition of the arguments
 
 In addition we utilize in some cases also the PARAMETER... notation
-meaning that the parameter can be specified multiple imes separated by
+meaning that the parameter can be specified multiple times separated by
 a space. This is well known from many Linux commandline clients.
 
 Refresh 
@@ -56,11 +56,11 @@ Refresh
 
    Arguments:
 
-       CLOUD  (parameterized) the name of a cloud
+       CLOUD  (parametrized) the name of a cloud
        
    Description:
 
-       Refreshes are activated on all cloudsthat are "active". A cloud
+       Refreshes are activated on all clouds that are "active". A cloud
        can be activated with the cloud command
 
           cloud activate CLOUD
@@ -118,7 +118,7 @@ Select
        select cloud
        
    Arguments:
-       LIST   (parameterized) List of items to choose from
+       LIST   (parametrized) List of items to choose from
        CLOUD  a single cloudname ti identify from which we select the
               information
        
@@ -158,27 +158,27 @@ List
 
       Arguments:
 
-          CLOUD...    (parameterized) the names of the clouds for
+          CLOUD...    (parametrized) the names of the clouds for
                       which we want to obtain a list,  e.g. india. If
-		      no cloud name is provided the defailt cold is
+		      no cloud name is provided the default cold is
 		      used. If instead --all is used all active clouds
 		      are used. A default cloud an be set with 
 
                          default cloud CLOUD
 			 
-		      If instaall activated clouds
+		      If install activated clouds
 		      ar used. If the cloud is not specifies
 
       Options:
 
-          --refresh              refresh data before the list is retrned
+          --refresh              refresh data before the list is refreshed
           --group=GROUP          give the group name in list vm
           --detail               for table print format, with all
 	                         information. This may however be
 				 difficult to read as a lot of
 				 information may be returned. If the
-				 parameter is ommitted a small subset
-				 is printed. The colmns can be defined
+				 parameter is omitted a small subset
+				 is printed. The columns can be defined
 				 with
 
 				    default CLOUD [image|flavor|vm] COLUMNS
@@ -195,7 +195,7 @@ List
                                  all, email to display all except
                                  credentials and defaults). If the
 				 columns parameter is used a single
-				 table is ruturned. If not a table is
+				 table is returned. If not a table is
 				 printed for each cloud.
 				 
           --format=FORMAT        output format: table, json, csv, dict
@@ -224,15 +224,15 @@ List
       Examples:
 
           list flavor india aws
-             lists the cloud flavrs for india and aws. Two different
+             lists the cloud flavors for india and aws. Two different
 	     tables are returned
 
 	  list flavor india aws --detail
-             lists the cloud flavrs for india and aws with lots of
+             lists the cloud flavors for india and aws with lots of
 	     details. Two different tables are returned.
 
 	  list flavor india aws --columns=cloud,name,cm_id
-             lists the cloud flavrs for india and aws with the
+             lists the cloud flavors for india and aws with the
 	     cloudname, the name of the flavor, and the unique
 	     cloudmesh id for this flavor. A single table is returned.
 	  
@@ -384,7 +384,7 @@ Cloud
                 cloudmesh.yaml
 
                 options: --force. By default, existing cloud in
-                         database cannot be overwirtten, the --force
+                         database cannot be overwritten, the --force
                          allows overwriting the database values.
 
             cloud remove [CLOUD|--all]
@@ -449,9 +449,9 @@ VM
 				 is suggested before you input the
 				 commands
 			    
-                NAME_OR_ID  (parameterized for delete) server name or
+                NAME_OR_ID  (parametrized for delete) server name or
 		            id 
-		CLOUD       (parameterized for list) the name of the
+		CLOUD       (parametrized for list) the name of the
 		            cloud. If not specified the deafult clod
 			    will be used
 		KEY         the name of the key to be used at login. 
@@ -797,7 +797,7 @@ Project
                   delete the project
               project completed
                   set a completed project, this will remove the project
-                  from active projects list and defalut project if it is
+                  from active projects list and default project if it is
 
 Loglevel 
 ---------
@@ -822,7 +822,7 @@ Loglevel
               debug    - shows log message in debug level including info
 
 
-Launcher (do, Hyungro)
+Launcher
 --------
 
 ::
@@ -1037,11 +1037,11 @@ color (not cmd3, Gregor)
               color off  switches the color off
 
               color      without parameters prints a test to display
-                         the various colored mesages. It is intended
+                         the various colored messages. It is intended
                          as a test to see if your terminal supports
                          colors.
 
-Cluster (Hyungro)
+Cluster
 --------
 
 ::
@@ -1098,7 +1098,8 @@ Cluster (Hyungro)
 
               cluster create NAME --count=COUNT --user=USER [options...]
                   Start a cluster of VMs, and each of them can log into all others.
-                  CAUTION: you sould do some default setting before using this command:
+                  CAUTION: you should do some default setting before using
+                  this command:
                   1. select cloud to work on, e.g. cloud select india
                   2. activate the cloud, e.g. cloud on india
                   3. set the default key to start VMs, e.g. key default [NAME]

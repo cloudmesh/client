@@ -23,7 +23,6 @@ class Default(ListResource):
         except:
             return None
 
-
     @classmethod
     def get_objects(cls,
                     cloud,
@@ -46,7 +45,6 @@ class Default(ListResource):
         try:
             o = Default.get_object(key, cloud)
 
-
             me = cls.cm.user or user
             if o is None:
                 o = cls.cm.db_obj_dict('default',
@@ -66,7 +64,7 @@ class Default(ListResource):
     def get_object(cls, key, cloud="general"):
         try:
             arguments = {'name': key,
-                      'cloud': cloud or "general"}
+                         'cloud': cloud or "general"}
             o = cls.cm.find('default', output='dict', **arguments)
             keys = o.keys()
             o = o[keys[0]]
@@ -103,6 +101,7 @@ class Default(ListResource):
             cls.cm.save()
         except:
             return None
+
     #
     # Set the default cloud
     #
@@ -162,5 +161,3 @@ class Default(ListResource):
     @classmethod
     def get_key(cls):
         return cls.get("key", "general")
-
-

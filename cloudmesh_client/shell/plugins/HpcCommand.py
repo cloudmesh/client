@@ -3,7 +3,9 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.hpc import Hpc
 from cloudmesh_client.cloud.default import Default
 
-from cloudmesh_client.shell.command import PluginCommand, HPCCommand, CometCommand
+from cloudmesh_client.shell.command import PluginCommand, HPCCommand, \
+    CometCommand
+
 
 class HpcCommand(PluginCommand, HPCCommand, CometCommand):
     topics = {"hpc": "hpc"}
@@ -114,7 +116,8 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         elif arguments["run"]:
             # If cluster is not specified, get default
             if not cluster:
-                cluster = Default.get("cluster") or "india"  # TODO: need to clarify if throw error
+                cluster = Default.get(
+                    "cluster") or "india"  # TODO: need to clarify if throw error
 
             queue = arguments['--queue'] or Default.get('queue')
             if not queue:

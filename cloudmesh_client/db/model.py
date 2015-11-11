@@ -6,7 +6,8 @@ from datetime import datetime
 
 from cloudmesh_client.common.ConfigDict import Config
 from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy import Column, Integer, String, DateTime, MetaData, create_engine, inspect
+from sqlalchemy import Column, Integer, String, DateTime, MetaData, \
+    create_engine, inspect
 from sqlalchemy.ext.declarative import declarative_base
 from cloudmesh_client.common.todo import TODO
 
@@ -38,7 +39,8 @@ class database(object):
 
         # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
 
-        self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
+        self.filename = Config.path_expand(
+            os.path.join("~", ".cloudmesh", "cloudmesh.db"))
         self.endpoint = 'sqlite:///{:}'.format(self.filename)
         self.engine = create_engine(self.endpoint)
         self.Base = declarative_base(bind=self.engine)
@@ -62,8 +64,10 @@ class CloudmeshMixin(object):
     id = Column(Integer, primary_key=True)
     # created_at = Column(DateTime, default=datetime.now)
     # updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
-    created_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    updated_at = Column(String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    created_at = Column(String,
+                        default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    updated_at = Column(String,
+                        default=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                         onupdate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     label = Column(String, default="undefined")
     name = Column(String, default="undefined")
@@ -81,7 +85,7 @@ class IMAGE(CloudmeshMixin, db.Base):
     minDisk = Column(String)
     progress = Column(String)
     minRam = Column(String)
-    os_image_size = Column(String) # This is OS-EXT-IMG-SIZE:size
+    os_image_size = Column(String)  # This is OS-EXT-IMG-SIZE:size
     # metadata info..
     metadata__base_image_ref = Column(String)
     metadata__description = Column(String)
@@ -131,18 +135,28 @@ class IMAGE(CloudmeshMixin, db.Base):
         self.metadata__image_location = kwargs.get('metadata__image_location')
         self.metadata__image_state = kwargs.get('metadata__image_state')
         self.metadata__image_type = kwargs.get('metadata__image_type')
-        self.metadata__instance_type_ephemeral_gb = kwargs.get('metadata__instance_type_ephemeral_gb')
-        self.metadata__instance_type_flavorid = kwargs.get('metadata__instance_type_flavorid')
-        self.metadata__instance_type_id = kwargs.get('metadata__instance_type_id')
-        self.metadata__instance_type_memory_mb = kwargs.get('metadata__instance_type_memory_mb')
-        self.metadata__instance_type_name = kwargs.get('metadata__instance_type_name')
-        self.metadata__instance_type_root_gb = kwargs.get('metadata__instance_type_root_gb')
-        self.metadata__instance_type_rxtx_factor = kwargs.get('metadata__instance_type_rxtx_factor')
-        self.metadata__instance_type_swap = kwargs.get('metadata__instance_type_swap')
-        self.metadata__instance_type_vcpus = kwargs.get('metadata__instance_type_vcpus')
+        self.metadata__instance_type_ephemeral_gb = kwargs.get(
+            'metadata__instance_type_ephemeral_gb')
+        self.metadata__instance_type_flavorid = kwargs.get(
+            'metadata__instance_type_flavorid')
+        self.metadata__instance_type_id = kwargs.get(
+            'metadata__instance_type_id')
+        self.metadata__instance_type_memory_mb = kwargs.get(
+            'metadata__instance_type_memory_mb')
+        self.metadata__instance_type_name = kwargs.get(
+            'metadata__instance_type_name')
+        self.metadata__instance_type_root_gb = kwargs.get(
+            'metadata__instance_type_root_gb')
+        self.metadata__instance_type_rxtx_factor = kwargs.get(
+            'metadata__instance_type_rxtx_factor')
+        self.metadata__instance_type_swap = kwargs.get(
+            'metadata__instance_type_swap')
+        self.metadata__instance_type_vcpus = kwargs.get(
+            'metadata__instance_type_vcpus')
         self.metadata__instance_uuid = kwargs.get('metadata__instance_uuid')
         self.metadata__kernel_id = kwargs.get('metadata__kernel_id')
-        self.metadata__network_allocated = kwargs.get('metadata__network_allocated')
+        self.metadata__network_allocated = kwargs.get(
+            'metadata__network_allocated')
         self.metadata__owner_id = kwargs.get('metadata__owner_id')
         self.metadata__ramdisk_id = kwargs.get('metadata__ramdisk_id')
         self.metadata__user_id = kwargs.get('metadata__user_id')
@@ -195,7 +209,6 @@ class FLAVOR(CloudmeshMixin, db.Base):
 
 
 class VM(CloudmeshMixin, db.Base):
-
     uuid = Column(String)
     status = Column(String)
 
@@ -323,7 +336,6 @@ class RESERVATION(CloudmeshMixin, db.Base):
 
 
 class SECGROUP(CloudmeshMixin, db.Base):
-
     uuid = Column(String)
 
     def __init__(self,
@@ -346,12 +358,11 @@ class SECGROUP(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key, value))
+                print("{} = {}".format(key, value))
                 self[key] = value
 
 
 class SECGROUPRULE(CloudmeshMixin, db.Base):
-
     groupid = Column(String)
     fromPort = Column(String)
     toPort = Column(String)
@@ -389,7 +400,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.iteritems():
-                print ("{} = {}".format(key, value))
+                print("{} = {}".format(key, value))
                 self[key] = value
 
 
@@ -418,7 +429,7 @@ def table(name):
         if t.__tablename__ == name:
             return t
 
-    raise("ERROR: unkown table {}".format(name))
+    raise ("ERROR: unkown table {}".format(name))
 
 
 """

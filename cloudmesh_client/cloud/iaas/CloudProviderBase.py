@@ -2,8 +2,9 @@ from cloudmesh_base.hostlist import Parameter
 import inspect
 from abc import ABCMeta
 
+
 class CloudProviderBase(object):
-#    __metaclass__ = ABCMeta
+    #    __metaclass__ = ABCMeta
 
     def __init__(self, cloudname, user=None, flat=False, source="db"):
         self.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
@@ -23,7 +24,6 @@ class CloudProviderBase(object):
         self.flag = flat
         self.source = source
 
-    
     def attributes(self, kind):
         """
 
@@ -36,7 +36,6 @@ class CloudProviderBase(object):
         else:
             raise ValueError("Kind " + kind + " not supported")
 
-    
     def set_source(self, source):
         """
         Sets the source for the information to be returned. "db" and
@@ -52,8 +51,8 @@ class CloudProviderBase(object):
     # #########################
     # KIND MANAGEMENT
     # #########################
-    
-    def kinds(self,):
+
+    def kinds(self, ):
         """
         returns a list of supported list and detail kinds
         :return: list of kinds supported
@@ -61,7 +60,6 @@ class CloudProviderBase(object):
         """
         return self.kind
 
-    
     def is_kind(self, name):
         """
         returns tru if the kind given by name exists
@@ -70,15 +68,12 @@ class CloudProviderBase(object):
         """
         return name in self.kind
 
-    
     def add_kind(self, name):
         self.kind.append(name)
 
-    
     def del_kind(self, name):
         self.kind.remove(name)
 
-    
     def check_kind(self, name):
         """
         returns tru if the kind given by name exists
@@ -107,7 +102,6 @@ class CloudProviderBase(object):
         what = getattr(self, function + "_" + kind)
         return what(cloudname, **kwargs)
 
-    
     def list(self, kind, cloudname, **kwargs):
         """
         returns the objects in json format
@@ -119,10 +113,9 @@ class CloudProviderBase(object):
         Listing of vm instances
         :return:
         """
-        #print (kwargs)
+        # print (kwargs)
         return self.resource("list", kind, cloudname, **kwargs)
 
-    
     def get(self, kind, cloudname, identifier, **kwargs):
         """
         Listing of vm instances
@@ -130,7 +123,6 @@ class CloudProviderBase(object):
         """
         return self.resource("get", kind, cloudname, **kwargs)
 
-    
     def refresh(self, kind, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
@@ -138,13 +130,10 @@ class CloudProviderBase(object):
         """
         return self.resource("refresh", kind, cloudname, **kwargs)
 
-
-
     # #########################
     # VMS
     # #########################
 
-    
     def boot_vm(self, cloud, user, name, image, flavor, key, secgroup, meta,
                 *kwargs):
         """
@@ -162,7 +151,6 @@ class CloudProviderBase(object):
         raise ValueError(inspect.stack()[0][3] + ": Not implemented yet.")
         return None
 
-    
     def list_vm(self, cloudname, *kwargs):
         """
         returns the objects in json format
@@ -173,10 +161,10 @@ class CloudProviderBase(object):
         Listing of vm instances
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    
     def get_vm(self, cloudname, identifier, **kwargs):
         """
         returns the objects in json format
@@ -187,19 +175,19 @@ class CloudProviderBase(object):
         get vm instance
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    
     def refresh_vm(self, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    
     def delete(self, name, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
@@ -208,10 +196,10 @@ class CloudProviderBase(object):
         :param force:
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    
     def get_ips(self, name, group=None, force=None):
         """
         Returns the ip addresses of the instance indicated by name_or_id
@@ -220,14 +208,14 @@ class CloudProviderBase(object):
         :param force:
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
     # #########################
     # IMAGE
     # #########################
 
-    
     def list_image(self, cloudname, *kwargs):
         """
         returns the objects in json format
@@ -238,32 +226,32 @@ class CloudProviderBase(object):
         Listing of iamge
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    
     def get_image(self, **kwargs):
         """
         finds the image based on a query
         TODO: details TBD
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    
     def refresh_image(self, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
     # #########################
     # FLAVOR
     # #########################
 
-    
     def list_flavor(self, cloudname, *kwargs):
         """
         returns the objects in json format
@@ -274,23 +262,24 @@ class CloudProviderBase(object):
         Listing of iamge
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    
     def get_flavor(self, **kwargs):
         """
         finds the flavor based on a query
         TODO: details TBD
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    
     def refresh_flavor(self, cloudname, identifier, *kwargs):
         """
         Listing of vm instances
         :return:
         """
-        raise ValueError("{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return

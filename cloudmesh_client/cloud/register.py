@@ -48,11 +48,11 @@ class CloudRegister(object):
                         "cm_type_version"] or "N/A"
             }
         return Printer.dict_printer(d,
-                                   order=['id',
-                                          'cloud',
-                                          'iaas',
-                                          'version'],
-                                   output=output)
+                                    order=['id',
+                                           'cloud',
+                                           'iaas',
+                                           'version'],
+                                    output=output)
 
     @classmethod
     def list_ssh(cls):
@@ -175,29 +175,27 @@ class CloudRegister(object):
         hostname = config["cloudmesh.clouds." + host + ".cm_host"]
         Console.ok("fetching information from {:}  ...".format(host))
 
-
         openrc = host_spec["cm_openrc"]
 
         directory = os.path.dirname(openrc)
         base = os.path.basename(openrc)
 
-        _from_dir = "{:}:{:}".format(hostname, directory).replace("~/","")
+        _from_dir = "{:}:{:}".format(hostname, directory).replace("~/", "")
         _to_dir = Config.path_expand(directory)
         openrc_file = Config.path_expand(openrc)
         print("From:  ", _from_dir)
         print("To:    ", _to_dir)
         print("Openrc:", openrc_file)
 
-
         r = ""
         Console.ok("Reading rc file from {}".format(host))
         try:
             r = Shell.execute('scp', ['-r',
-                           _from_dir,
-                           _to_dir])
+                                      _from_dir,
+                                      _to_dir])
         except Exception, e:
-            print (r)
-            print (e)
+            print(r)
+            print(e)
             return
 
         #

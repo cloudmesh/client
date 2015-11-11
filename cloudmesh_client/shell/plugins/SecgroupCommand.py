@@ -5,6 +5,7 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class SecgroupCommand(PluginCommand, CloudCommand):
     topics = {"secgroup": "security"}
 
@@ -221,6 +222,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
             Console.ok('Version: ')
 
         return ""
+
 
 if __name__ == '__main__':
     command = cm_shell_security_group()

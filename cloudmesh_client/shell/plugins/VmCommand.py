@@ -4,7 +4,8 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer, list_printer
+from cloudmesh_client.common.Printer import dict_printer, attribute_printer, \
+    list_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from uuid import UUID
 
@@ -17,8 +18,8 @@ import getpass
 import socket
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
-class VmCommand(PluginCommand, CloudCommand):
 
+class VmCommand(PluginCommand, CloudCommand):
     topics = {"vm": "cloud"}
 
     def __init__(self, context):
@@ -196,7 +197,6 @@ class VmCommand(PluginCommand, CloudCommand):
 
         # pprint(arguments)
 
-
         cloud = arguments["--cloud"] or Default.get_cloud()
 
         if arguments["boot"]:
@@ -207,7 +207,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 image = arguments["--image"]
                 flavor = arguments["--flavor"]
                 group = arguments["--group"] or \
-                    Default.get("group")
+                        Default.get("group")
                 secgroup = arguments["--secgroup"]
                 # print("SecurityGrp : {:}".format(secgroup))
                 secgroup_list = ["default"]
@@ -226,7 +226,8 @@ class VmCommand(PluginCommand, CloudCommand):
                     Console.error("Default group not set!")
                     return ""
 
-                vm_id = Vm.boot(cloud=cloud, name=name, image=image, flavor=flavor, key_name=key_name,
+                vm_id = Vm.boot(cloud=cloud, name=name, image=image,
+                                flavor=flavor, key_name=key_name,
                                 secgroup_list=secgroup_list)
 
                 # Add to group
@@ -237,7 +238,7 @@ class VmCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem booting instance {:}".format(name))
 
         elif arguments["start"]:
@@ -258,7 +259,7 @@ class VmCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem starting instances")
 
         elif arguments["stop"]:
@@ -279,7 +280,7 @@ class VmCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem stopping instances")
 
         elif arguments["refresh"]:
@@ -292,7 +293,7 @@ class VmCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem running VM refresh")
 
         elif arguments["delete"]:
@@ -313,7 +314,7 @@ class VmCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem deleting instances")
 
         elif arguments["floating_ip_assign"]:
@@ -326,15 +327,18 @@ class VmCommand(PluginCommand, CloudCommand):
             try:
                 cloud_provider = CloudProvider(cloud).provider
                 for sname in id:
-                    floating_ip = cloud_provider.create_assign_floating_ip(sname)
+                    floating_ip = cloud_provider.create_assign_floating_ip(
+                        sname)
                     if floating_ip is not None:
-                        print("Floating IP assigned to {:} successfully and it is: {:}".format(sname, floating_ip))
+                        print(
+                            "Floating IP assigned to {:} successfully and it is: {:}".format(
+                                sname, floating_ip))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem assigning floating ips...")
 
         elif arguments["ip_show"]:
@@ -355,15 +359,18 @@ class VmCommand(PluginCommand, CloudCommand):
 
                     ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
 
-                    print("IP Addresses of instance {:} are as follows:-".format(server))
+                    print(
+                        "IP Addresses of instance {:} are as follows:-".format(
+                            server))
                     print(_print_dict_ip(ipaddr_dict, format=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
-                Console.error("Problem getting ip addresses for instance {:}".format(id))
+                print(e)
+                Console.error(
+                    "Problem getting ip addresses for instance {:}".format(id))
 
         elif arguments["login"]:
             name = arguments["NAME"][0]
@@ -388,7 +395,8 @@ class VmCommand(PluginCommand, CloudCommand):
 
             if ip is not None:
                 if ip not in ip_addresses:
-                    print("ERROR: IP Address specified does not match with the host.")
+                    print(
+                        "ERROR: IP Address specified does not match with the host.")
                     return ""
             else:
                 print("Determining IP Address to use with a ping test...")
@@ -436,7 +444,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 except Exception, e:
                     import traceback
                     print(traceback.format_exc())
-                    print (e)
+                    print(e)
                     Console.error("Problem listing all instances")
             else:
 
@@ -458,8 +466,9 @@ class VmCommand(PluginCommand, CloudCommand):
                 except Exception, e:
                     import traceback
                     print(traceback.format_exc())
-                    print (e)
-                    Console.error("Problem listing instances on cloud {:}".format(cloud))
+                    print(e)
+                    Console.error(
+                        "Problem listing instances on cloud {:}".format(cloud))
         return ""
 
 

@@ -2,7 +2,6 @@ from __future__ import print_function
 
 
 class Network(object):
-
     @classmethod
     def fixed_ip_get(cls, cloud, fixed_ip):
         pass

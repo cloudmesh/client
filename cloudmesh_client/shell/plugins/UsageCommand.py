@@ -5,6 +5,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.usage import Usage
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class UsageCommand(PluginCommand, CloudCommand):
     topics = {"list": "cloud"}
 

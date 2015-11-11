@@ -7,6 +7,7 @@ from cloudmesh_client.cloud.default import Default
 
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class ListCommand(PluginCommand, CloudCommand):
     topics = {"list": "cloud"}
 

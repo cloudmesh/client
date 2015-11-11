@@ -22,18 +22,16 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.command import PluginCommand
 
+
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
-
-
 
 
 PluginCommandClasses = type(
     'CommandProxyClass',
     tuple(PluginCommand.__subclasses__()),
     {})
-
 
 """
 print (type(PluginCommand.__subclasses__()))
@@ -57,13 +55,12 @@ class ConsoleClasses(object):
 """
 
 
-#console = ConsoleFactory(PluginCommand)
+# console = ConsoleFactory(PluginCommand)
 
 
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
-
-#class CloudmeshConsole(cmd.Cmd,
-#                       ConsoleClasses(PluginCommand)):
+    # class CloudmeshConsole(cmd.Cmd,
+    #                       ConsoleClasses(PluginCommand)):
 
     def register_topics(self):
         topics = {}
@@ -114,8 +111,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         for c in CloudmeshConsole.__bases__[1:]:
             c.__init__(self, context)
-
-
 
     def preloop(self):
         """adds the banner to the preloop"""
@@ -206,7 +201,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             }
         }
 
-        print (dict_printer(versions, output=arguments["--format"], order=["name", "version"]))
+        print(dict_printer(versions, output=arguments["--format"],
+                           order=["name", "version"]))
         if arguments["--check"] in ["True"]:
             check_python()
 
@@ -275,7 +271,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
             for topic in self.command_topics:
                 topic_cmds = sorted(self.command_topics[topic], key=str.lower)
-                self.print_topics(string.capwords(topic + " commands"), topic_cmds, 15, 80)
+                self.print_topics(string.capwords(topic + " commands"),
+                                  topic_cmds, 15, 80)
 
     def help_help(self):
         """
@@ -286,7 +283,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
             Prints out the help message for a given function
         """
-        print (textwrap.dedent(self.help_help.__doc__))
+        print(textwrap.dedent(self.help_help.__doc__))
+
     '''
     @command
     def do_bar(self, arg, arguments):

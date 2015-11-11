@@ -15,6 +15,7 @@ from cloudmesh_client.common.todo import TODO
 
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class ReservationCommand(PluginCommand, CloudCommand):
     topics = {"reservation": "system"}
 
@@ -127,8 +128,10 @@ class ReservationCommand(PluginCommand, CloudCommand):
             :param date: Date object
             :return: Date as string with format expected in DB.
             """
-            db_date = "{:}-{:}-{:} {:}:{:}".format(str(date.month).zfill(2), str(date.day).zfill(2),
-                                                   str(date.year).zfill(4), str(date.hour).zfill(2),
+            db_date = "{:}-{:}-{:} {:}:{:}".format(str(date.month).zfill(2),
+                                                   str(date.day).zfill(2),
+                                                   str(date.year).zfill(4),
+                                                   str(date.hour).zfill(2),
                                                    str(date.minute).zfill(2))
             return db_date
 
@@ -149,7 +152,8 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 _format = arguments['--format']
 
                 reserve = Reservation()
-                dict = reserve.list(_name, _start, _end, _user, _project, _hosts)
+                dict = reserve.list(_name, _start, _end, _user, _project,
+                                    _hosts)
                 print(_print_dict(dict, format=_format))
                 msg = "info. OK."
                 Console.ok(msg)
@@ -157,7 +161,7 @@ class ReservationCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem listing reservations")
 
         elif (arguments["delete"]):
@@ -172,7 +176,7 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 except Exception, e:
                     import traceback
                     print(traceback.format_exc())
-                    print (e)
+                    print(e)
                     Console.error("Problem deleting all reservations")
 
             else:
@@ -187,14 +191,15 @@ class ReservationCommand(PluginCommand, CloudCommand):
                     _format = arguments['--format']
 
                     reserve = Reservation()
-                    reserve.delete(_name, _start, _end, _user, _project, _hosts)
+                    reserve.delete(_name, _start, _end, _user, _project,
+                                   _hosts)
                     msg = "info. OK."
                     Console.ok(msg)
 
                 except Exception, e:
                     import traceback
                     print(traceback.format_exc())
-                    print (e)
+                    print(e)
                     Console.error("Problem deleting reservations")
 
         elif (arguments["add"]):
@@ -208,14 +213,17 @@ class ReservationCommand(PluginCommand, CloudCommand):
                     project = arguments["--project"]
                     description = arguments["--description"]
 
-                    start_time = arguments["--start"] or "01/01/1901 at 07:30 pm"
+                    start_time = arguments[
+                                     "--start"] or "01/01/1901 at 07:30 pm"
                     end_time = arguments["--end"] or "12/31/2100 at 11:59 pm"
 
                     stime = Date(start_time)
                     etime = Date(end_time)
 
                     reserve = Reservation()
-                    reserve.add(name, _get_db_date_format(stime), _get_db_date_format(etime), hosts=hosts, user=user,
+                    reserve.add(name, _get_db_date_format(stime),
+                                _get_db_date_format(etime), hosts=hosts,
+                                user=user,
                                 project=project, description=description)
 
                     print("Reservation {:} added successfully".format(name))
@@ -225,8 +233,9 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 except Exception, e:
                     import traceback
                     print(traceback.format_exc())
-                    print (e)
-                    Console.error("Problem adding reservation {:}".format(name))
+                    print(e)
+                    Console.error(
+                        "Problem adding reservation {:}".format(name))
 
             else:
                 try:
@@ -246,9 +255,9 @@ class ReservationCommand(PluginCommand, CloudCommand):
                             db.add()
                     """
                 except Exception as e:
-                    print ("Error in adding from file. ", e)
+                    print("Error in adding from file. ", e)
 
-        elif(arguments["update"]):
+        elif (arguments["update"]):
 
             try:
                 name = arguments["--name"]
@@ -264,7 +273,9 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 etime = Date(end_time)
 
                 reserve = Reservation()
-                reserve.update(name, _get_db_date_format(stime), _get_db_date_format(etime), hosts=hosts, user=user,
+                reserve.update(name, _get_db_date_format(stime),
+                               _get_db_date_format(etime), hosts=hosts,
+                               user=user,
                                project=project, description=description)
 
                 print("Reservation {:} updated successfully".format(name))
@@ -274,7 +285,7 @@ class ReservationCommand(PluginCommand, CloudCommand):
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
-                print (e)
+                print(e)
                 Console.error("Problem updating reservation {:}".format(name))
 
         return ""

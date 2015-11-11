@@ -2,28 +2,27 @@ import json
 
 
 class TableParser(object):
-
     @classmethod
-    def convert(cls,table=None,
-                 output='dict',
-                 header=True,
-                 index=None,
-                 change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
-                 strip=True,
-                 lower=True,
-                 strip_seperator=True,
-                 seperator="|",
-                 comment_chars="+#"):
+    def convert(cls, table=None,
+                output='dict',
+                header=True,
+                index=None,
+                change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
+                strip=True,
+                lower=True,
+                strip_seperator=True,
+                seperator="|",
+                comment_chars="+#"):
         parser = TableParser(
-                     output=output,
-                     header=header,
-                     index=index,
-                     change=change,
-                     strip=strip,
-                     lower=lower,
-                     strip_seperator=strip_seperator,
-                     seperator=seperator,
-                     comment_chars=comment_chars)
+            output=output,
+            header=header,
+            index=index,
+            change=change,
+            strip=strip,
+            lower=lower,
+            strip_seperator=strip_seperator,
+            seperator=seperator,
+            comment_chars=comment_chars)
         if table is not None:
             if 'dict' in output:
                 return parser.to_dict(table)
@@ -31,7 +30,6 @@ class TableParser(object):
                 return parser.to_dict(table)
             else:
                 raise ValueError("output type not supported")
-
 
     def __init__(self,
                  output='dict',
@@ -67,7 +65,6 @@ class TableParser(object):
         self.strip_seperator = strip_seperator
         self.seperator = seperator
         self.comment_chars = comment_chars
-
 
     def clean(self, str):
         """
@@ -108,7 +105,6 @@ class TableParser(object):
         if self.is_strip:
             self.headers = self.headers[1:-1]
         return self.headers
-
 
     def to_dict(self, table):
         """
@@ -165,8 +161,6 @@ class TableParser(object):
             self.data.append(entry)
             i += 1
         return self.data
-
-
 
     def json(self):
         return self.data

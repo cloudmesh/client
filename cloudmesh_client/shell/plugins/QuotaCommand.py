@@ -5,8 +5,8 @@ from cloudmesh_client.cloud.quota import Quota
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
-class QuotaCommand(PluginCommand, CloudCommand):
 
+class QuotaCommand(PluginCommand, CloudCommand):
     topics = {"quota": "cloud"}
 
     def __init__(self, context):
@@ -43,7 +43,7 @@ class QuotaCommand(PluginCommand, CloudCommand):
             tenant = arguments["--tenant"]
             output_format = arguments["--format"]
             list_quotas = Quota.list(cloud, tenant, output=output_format)
-            print (list_quotas)
+            print(list_quotas)
             return
 
 

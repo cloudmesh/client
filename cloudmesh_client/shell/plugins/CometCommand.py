@@ -171,7 +171,6 @@ class CometCommand(PluginCommand, CometCommand):
 
             Comet.docs()
 
-
         elif arguments["list"]:
 
             id = arguments["ID"]
@@ -185,7 +184,6 @@ class CometCommand(PluginCommand, CometCommand):
 
             print ("add the cluster")
 
-
         elif arguments["start"]:
 
             id = arguments["ID"]
@@ -197,7 +195,6 @@ class CometCommand(PluginCommand, CometCommand):
             id = arguments["ID"]
             print("stop", id)
             Cluster.stop(id)
-
 
         elif arguments["power"]:
 
