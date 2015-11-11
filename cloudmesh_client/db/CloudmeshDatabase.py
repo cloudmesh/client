@@ -76,41 +76,25 @@ class CloudmeshDatabase(object):
             if kind == "flavor":
                 flavors = provider.list_flavor(cloudname)
                 for flavor in flavors.values():
-                    flavor["uuid"] = 'id'
-                    flavor["type"] = 'string'
-                    flavor["cloud"] = cloudname,
+                    flavor["uuid"] = flavor['id']
+                    flavor['type'] = 'string'
+                    flavor["cloud"] = cloudname
                     flavor["user"] = user
-                    print ("--------------")
-                    print(flavor)
-                    print ("--------------")
-                    print ("THIS IS BROKEN")
-                    print ("please add the dict to the DB")
-                    ValueError("THE NEXT STUFF DOES NOT WORK")
 
-                    db_obj = self.db_obj_dict(kind, **flavor)
-
-
-                    self.add_obj(flavor)
+                    db_obj = {0: {kind: flavor}}
+                    self.add_obj(db_obj)
                     self.save()
                 return True
 
             elif kind == "image":
                 images = provider.list_image(cloudname)
 
-                print("==========")
-                pprint(images)
-                print("==========")
-
                 for image in images.values():
-                    print("----------")
-                    pprint(image)
-                    print("----------")
-                    db_obj = self.db_obj_dict(kind,
-                                              name=image['name'],
-                                              uuid=image['id'],
-                                              type='string',
-                                              cloud=cloudname,
-                                              user=user)
+                    image['uuid'] = image['id']
+                    image['type'] = 'string'
+                    image['cloud'] = cloudname
+                    image['user'] = user
+                    db_obj = {0: {kind: image}}
 
                     self.add_obj(db_obj)
                     self.save()
