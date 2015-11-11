@@ -154,23 +154,15 @@ class IMAGE(CloudmeshMixin, db.Base):
 
 
 class FLAVOR(CloudmeshMixin, db.Base):
-
     uuid = Column(String)
-
-    # TODO: OS has many more fields, why are we not storing?
-    [u'name',
-     u'links',
-     u'ram',
-     u'OS-FLV-DISABLED:disabled',
-     u'vcpus',
-     u'swap',
-     u'os-flavor-access:is_public',
-     u'rxtx_factor',
-     u'OS-FLV-EXT-DATA:ephemeral',
-     u'disk',
-     u'id']
-
-
+    ram = Column(String)
+    os_flv_disabled = Column(String)
+    vcpus = Column(String)
+    swap = Column(String)
+    os_flavor_acces = Column(String)
+    rxtx_factor = Column(String)
+    os_flv_ext_data = Column(String)
+    disk = Column(String)
 
     def __init__(self,
                  name,
@@ -186,12 +178,20 @@ class FLAVOR(CloudmeshMixin, db.Base):
         self.name = name
         self.user = user
         self.uuid = uuid
+        self.ram = kwargs.get('ram')
+        self.os_flv_disabled = kwargs.get('OS-FLV-DISABLED:disabled')
+        self.vcpus = kwargs.get('vcpus')
+        self.swap = kwargs.get('swap')
+        self.os_flavor_acces = kwargs.get('os-flavor-access:is_public')
+        self.rxtx_factor = kwargs.get('rxtx_factor')
+        self.os_flv_ext_data = kwargs.get('OS-FLV-EXT-DATA:ephemeral')
+        self.disk = kwargs.get('disk')
         self.kind = self.__tablename__
 
-        if kwargs is not None:
+        """if kwargs is not None:
             for key, value in kwargs.iteritems():
                 print ("{} = {}".format(key, value))
-                self[key] = value
+                self[key] = value"""
 
 
 class VM(CloudmeshMixin, db.Base):
