@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common.Printer  import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -9,14 +9,15 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.cloud.default import Default
 
+
 class Group(ListResource):
     cm = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
-    order=["name",
-            "value",
-            "user",
-            "cloud",
-            "type"]
+    order = ["name",
+             "value",
+             "user",
+             "cloud",
+             "type"]
 
     # TODO: implement and extend to user
     @classmethod
@@ -53,11 +54,10 @@ class Group(ListResource):
             # Transform the dict to show multiple rows per vm
             newdict = Group.transform_dict(d)
             return (dict_printer(newdict,
-                                        order=cls.order,
-                                        output=format))
+                                 order=cls.order,
+                                 output=format))
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def get_info(cls, cloud="juno", name=None, output="table"):
@@ -75,7 +75,7 @@ class Group(ListResource):
                 "cloud": cloud
             }
 
-            #group = cls.get(name=name, cloud=cloud)
+            # group = cls.get(name=name, cloud=cloud)
             group = cls.cm.find("group", output="object", **args).first()
 
             if group is not None:
@@ -86,11 +86,10 @@ class Group(ListResource):
                 return None
 
             return dict_printer(newdict,
-                                       order=cls.order,
-                                       output=output)
+                                order=cls.order,
+                                output=output)
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def add(cls, name=None, type="vm", id=None, cloud="juno"):
@@ -108,13 +107,14 @@ class Group(ListResource):
 
         try:
             # See if group already exists. If yes, add id to the group
-            query ={
+            query = {
                 'name': name,
                 'cloud': cloud
             }
 
             # Find an existing group with name
-            existing_group = cls.cm.find("group", output="object", **query).first()
+            existing_group = cls.cm.find("group", output="object",
+                                         **query).first()
 
             # Existing group
             if existing_group is not None:
@@ -163,7 +163,7 @@ class Group(ListResource):
         return
 
     @classmethod
-    def get(cls,  **kwargs):
+    def get(cls, **kwargs):
         """
         This method queries the database to fetch group(s)
         with given name filtered by cloud.
@@ -188,7 +188,6 @@ class Group(ListResource):
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def delete(cls, name=None, cloud="juno"):
@@ -233,7 +232,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def remove(cls, name, id, cloud):
         """
@@ -245,7 +243,7 @@ class Group(ListResource):
         :return:
         """
         try:
-            #group = cls.get(name=name, cloud=cloud)
+            # group = cls.get(name=name, cloud=cloud)
             args = {
                 "name": name,
                 "cloud": cloud
@@ -292,7 +290,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
         return
 
     @classmethod
@@ -313,7 +310,8 @@ class Group(ListResource):
 
             # _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)
             # _toGroup = cls.cm.find_by_name(model.GROUP, _toName)
-            _fromGroup = cls.cm.find("group", output="object", **from_args).first()
+            _fromGroup = cls.cm.find("group", output="object",
+                                     **from_args).first()
             _toGroup = cls.cm.find("group", output="object", **to_args).first()
 
             # Get IDs from _fromName group
@@ -374,7 +372,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def merge(cls, _nameA, _nameB, mergeName):
         """
@@ -393,8 +390,8 @@ class Group(ListResource):
                 "name": _nameB
             }
 
-            #groupA = cls.cm.find_by_name(model.GROUP, _nameA)
-            #groupB = cls.cm.find_by_name(model.GROUP, _nameB)
+            # groupA = cls.cm.find_by_name(model.GROUP, _nameA)
+            # groupB = cls.cm.find_by_name(model.GROUP, _nameB)
 
             groupA = cls.cm.find("group", output="object", **args_a).first()
             groupB = cls.cm.find("group", output="object", **args_b).first()
@@ -436,7 +433,6 @@ class Group(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def to_dict(cls, item):
         """
@@ -451,7 +447,7 @@ class Group(ListResource):
                 d[item.id][key] = str(item.__dict__[key])
         return d
 
-    #TODO we have a dict transformer elsewhere
+    # TODO we have a dict transformer elsewhere
     @classmethod
     def transform_dict(cls, dict):
         """

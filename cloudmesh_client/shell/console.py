@@ -4,12 +4,18 @@ import traceback
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from colorama import Fore, Back, Style
 import colorama
+import textwrap
 
 colorama.init()
 
-import textwrap
+
+
 def indent(text, indent=2, width=128):
-  return "\n".join( textwrap.wrap(text, width=width, initial_indent=" "*indent, subsequent_indent=" "*indent) )
+    return "\n".join(
+        textwrap.wrap(text,
+                      width=width,
+                      initial_indent=" " * indent,
+                      subsequent_indent=" " * indent))
 
 
 class Console(object):

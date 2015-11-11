@@ -8,6 +8,7 @@ from cloudmesh_base.locations import config_file
 
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class InventoryCommand(PluginCommand, CloudCommand):
     topics = {"inventory": "system"}
 
@@ -16,9 +17,9 @@ class InventoryCommand(PluginCommand, CloudCommand):
         if self.context.debug:
             print("init command inventory")
 
-# TODO: delete row
-# TODO: add columns
-# TODO: ATTRIBUTE=VALUE
+        # TODO: delete row
+        # TODO: add columns
+        # TODO: ATTRIBUTE=VALUE
 
     @command
     def do_inventory(self, args, arguments):

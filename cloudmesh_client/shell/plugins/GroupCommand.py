@@ -7,6 +7,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class GroupCommand(PluginCommand, CloudCommand):
     topics = {"group": "cloud"}
 
@@ -100,7 +101,7 @@ class GroupCommand(PluginCommand, CloudCommand):
 
                 result = Group.list(format=output, cloud=cloud)
                 if result:
-                    print (result)
+                    print(result)
                 else:
                     print("There are no groups in the cloudmesh database!")
 
@@ -112,16 +113,16 @@ class GroupCommand(PluginCommand, CloudCommand):
                     print(result)
                 else:
                     msg_a = ("No group found with name `{name}` found in the "
-                        "cloud `{cloud}`.".format(**locals()))
+                             "cloud `{cloud}`.".format(**locals()))
 
                     # find alternate
                     result = Group.get(name=name)
                     msg_b = ""
                     if result is not None:
-                        msg_b =  " However we found such a variable in " \
-                                 "cloud `{cloud}`. Please consider " \
-                                 "using --cloud={cloud}".format(**result)
-                        Console.error (msg_a + msg_b)
+                        msg_b = " However we found such a variable in " \
+                                "cloud `{cloud}`. Please consider " \
+                                "using --cloud={cloud}".format(**result)
+                        Console.error(msg_a + msg_b)
 
                 return
 
@@ -183,6 +184,7 @@ class GroupCommand(PluginCommand, CloudCommand):
 
             Group.merge(_groupA, _groupB, _mergedGroup)
             return
+
 
 if __name__ == '__main__':
     # TODO: do something useful here

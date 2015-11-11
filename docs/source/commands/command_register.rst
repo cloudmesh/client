@@ -41,11 +41,6 @@ On chameleoncloud.org you can for example go to the horizon web interface and
 download the credentials in teh security panel.
 
 
-
-
-
-
-
 Introduction
 --------------
 
@@ -59,7 +54,7 @@ default into the file::
 A number of templates in that file exist that refer to commonly used
 clouds. YOu can fill out the yaml file with your information, add new
 clouds, or delete templates of clouds that you do not use. We have
-several different typoes of clouds that we support. This includes
+several different types of clouds that we support. This includes
 OpenStack, AWS, and Azure clouds.
 
 .. todo:: at this time we have not integrated our AWS and Azure IaaS
@@ -227,7 +222,7 @@ register merge
 IN case you have already a yaml file, form another project
 you can merge two of them into the same cloudmesh yaml file. You
 simply have to specify the location of the file that you like to merge
-into the existing yaml file. However, please be carefull, as it will
+into the existing yaml file. However, please be careful, as it will
 overwrite the contents in ~/.cloudmesh/cloudmesh.yaml
 
 .. todo:: Erika. we used to have a .bak.# when we modified the yaml file, do
@@ -237,7 +232,13 @@ Hence the command
 
     $ cm register merge my_cloudmesh.yaml
 
-does what ???
+This command allows the content from another yaml file to be merged into the
+regular cloudmesh.yaml file. A backup of the old cloudmesh.yaml file is
+created with an increased number.
+
+.. note: The merge command is not tested
+
+
 
 register form
 ---------------
@@ -275,7 +276,7 @@ o find any not filled out values, you can use the command::
   register check
 
 which hecks the yaml file for completness and list all fields that
-have the value TBD.
+have the value TBD::
 
     $ cm register check
     ERROR: The file has 11 values to be fixed

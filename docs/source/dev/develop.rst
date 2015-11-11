@@ -4,7 +4,7 @@ Developers Manual
 Editor
 ------
 
-Use PyChram.
+Use PyCharam.
 
 We made bad experience with people using editors other than emacs, vi, and PyCharm. When working on Windows make sure your editor handles newlines properly with git.
 

@@ -118,7 +118,6 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
             return ""
 
 
-
 if __name__ == '__main__':
     command = Default()
     command.do_default("list")

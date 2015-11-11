@@ -4,7 +4,7 @@ System Preparation
 The installation of cloudmesh is easy if you have prepared your system
 with updated software. We provide instructions to prepare your system
 for a number of operating systems listed in this section. After you
-have completed the system preparation you can follow the Instalation
+have completed the system preparation you can follow the Installation
 instructions which will be the same for all systems.
 
 The instructions provided here are for developers of the cloudmesh
@@ -18,7 +18,7 @@ OSX
 
 Prior to developing code on OSX, you will need a number of tools that
 are not distributed with the regular OSX operating system. First you
-need to install xcode if you have not done so. The easisets is to open
+need to install xcode if you have not done so. The easiest is to open
 a terminal and type::
 
   xcode-select --install

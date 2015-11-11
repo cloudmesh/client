@@ -2,8 +2,8 @@ import json
 import subprocess
 import re
 
-class Who(object):
 
+class Who(object):
     @classmethod
     def _run_command(cls, command):
         p = subprocess.Popen(command,
@@ -11,7 +11,7 @@ class Who(object):
                              stderr=subprocess.STDOUT)
         return p.stdout.readlines()
 
-    def __init__(self,hostname):
+    def __init__(self, hostname):
         self.get(hostname)
         self.parse()
         self.cache = {}
@@ -27,8 +27,8 @@ class Who(object):
         else:
             self.data = []
             for line in self.result:
-                host  = line.split("(")[1][:-1].replace(")", "")
-                name =  line.split()[0]
+                host = line.split("(")[1][:-1].replace(")", "")
+                name = line.split()[0]
                 self.data.append({
                     'name': name,
                     'host': host,
@@ -52,17 +52,15 @@ class Who(object):
                 result[attribute] = value.strip("\n")
             return result
 
-
     def whois(self):
         for entry in self.data:
             print ("EEE", entry)
             host = entry["host"]
             if ".edu" in host or ".org" in host:
                 host = host.split(".")
-                host = ".".join(host [-2:])
+                host = ".".join(host[-2:])
                 print (host)
             entry["domain"] = host
-
 
             if host in self.cache:
                 data = self.cache[host]
@@ -79,7 +77,7 @@ def main():
     who.whois()
 
     from pprint import pprint
-    pprint (who.data)
+    pprint(who.data)
 
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@ from cloudmesh_client.common.todo import TODO
 
 from cloudmesh_base.util import path_expand
 
+
 class Config(object):
     @classmethod
     def check_file_for_tabs(cls, filename, verbose=True):
@@ -31,7 +32,8 @@ class Config(object):
                 location = [
                     i for i in range(len(line)) if line.startswith('\t', i)]
                 if verbose:
-                    print("Tab found in line", line_no, "and column(s)", location)
+                    print("Tab found in line", line_no, "and column(s)",
+                          location)
             line_no += 1
         return file_contains_tabs
 

@@ -24,7 +24,8 @@ class SecGroup(ListResource):
         d = {}
         for i, obj in enumerate(os_result):
             d[i] = {}
-            d[i]["Id"], d[i]["Name"], d[i]["Description"] = obj.id, obj.name, obj.description
+            d[i]["Id"], d[i]["Name"], d[i][
+                "Description"] = obj.id, obj.name, obj.description
         return d
 
     @classmethod
@@ -32,8 +33,12 @@ class SecGroup(ListResource):
         d = {}
         for i, obj in enumerate(os_result):
             d[i] = {}
-            d[i]["IP Protocol"], d[i]["From Port"], d[i]["To Port"] = obj["ip_protocol"], obj["from_port"], obj[
-                "to_port"]
+            d[i]["IP Protocol"], d[i]["From Port"], d[i]["To Port"] = obj[
+                                                                          "ip_protocol"], \
+                                                                      obj[
+                                                                          "from_port"], \
+                                                                      obj[
+                                                                          "to_port"]
             if obj["ip_range"]["cidr"]:
                 ip_range = obj["ip_range"]["cidr"]
             else:
@@ -104,10 +109,12 @@ class SecGroup(ListResource):
                 if secgroup:
                     uuid = secgroup.id
                 else:
-                    print("Failed to create security group, {}".format(secgroup))
+                    print(
+                        "Failed to create security group, {}".format(secgroup))
                     return None
             except Exception, e:
-                print("Exception creating security group in cloud, {}".format(e))
+                print(
+                    "Exception creating security group in cloud, {}".format(e))
                 return None
 
             secgroup_obj = cls.cm_db.db_obj_dict("secgroup",
@@ -202,12 +209,12 @@ class SecGroup(ListResource):
                 model.SECGROUP.project == project
             ).first()
             """
-            secgroup = cls.cm_db.find("secgroup", output="object", **args).first()
+            secgroup = cls.cm_db.find("secgroup", output="object",
+                                      **args).first()
             return secgroup
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
@@ -215,8 +222,11 @@ class SecGroup(ListResource):
             # Get the nova client object
             nova_client = CloudProvider.set(secgroup.cloud)
             # Create add secgroup rules to the cloud
-            rule_id = nova_client.security_group_rules.create(secgroup.uuid, ip_protocol=protocol,
-                                                              from_port=from_port, to_port=to_port, cidr=cidr)
+            rule_id = nova_client.security_group_rules.create(secgroup.uuid,
+                                                              ip_protocol=protocol,
+                                                              from_port=from_port,
+                                                              to_port=to_port,
+                                                              cidr=cidr)
             """
             ruleObj = model.SECGROUPRULE(
                 uuid=str(rule_id),
@@ -289,7 +299,6 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def delete_secgroup(cls, label, cloud, tenant):
         try:
@@ -329,7 +338,8 @@ class SecGroup(ListResource):
                 "cidr": cidr
             }
 
-            rule = cls.cm_db.find("secgrouprule", output="object", **args).first()
+            rule = cls.cm_db.find("secgrouprule", output="object",
+                                  **args).first()
 
             """
             rule = cls.cm_db.query(model.SECGROUPRULE).filter(

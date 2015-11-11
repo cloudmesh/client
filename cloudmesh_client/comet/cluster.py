@@ -111,19 +111,19 @@ class Cluster(object):
                 data += clients
 
             result = list_printer(data,
-                               order=[
-                                   "name",
-                                   "state",
-                                   "kind",
-                                   "type",
-                                   "ip",
-                                   "rocks_name",
-                                   "cpus",
-                                   "cluster",
-                                   "host",
-                                   "memory",
-                                   ],
-                               output=format)
+                                  order=[
+                                      "name",
+                                      "state",
+                                      "kind",
+                                      "type",
+                                      "ip",
+                                      "rocks_name",
+                                      "cpus",
+                                      "cluster",
+                                      "host",
+                                      "memory",
+                                  ],
+                                  output=format)
             return result
 
     @staticmethod

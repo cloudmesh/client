@@ -29,7 +29,7 @@ Not yet done: It is also possible to set the default format for all
 commands that accept the format option. THis is done with the
 command::
 
-	$ default format FORMAT
+    $ default format FORMAT
 
 Once you have set it, the default format will be used for all commands
 the do not explicitly set the format option on the commandline.
@@ -37,7 +37,7 @@ the do not explicitly set the format option on the commandline.
 To switch off this behavior and use the build in behavior for each
 command, we specify::
 
-	 $ default format False
+     $ default format False
 
 Cloud
 ----------------------------------------------------------------------
@@ -74,7 +74,7 @@ easy review of past activities::
 Commands in history are preceeded by a number. A past command can be
 reissued by appending the number to the history. Thus the command::
 
-	 $cm history 3
+     $cm history 3
 
 would execute the 3rd command in the command history.
 
@@ -105,18 +105,18 @@ Cloudmesh client is a shell as well as a commandline tool. Thus all
 commands that you can type in as a single command could also be
 executed as a command shell. To enter the command shell, please type::
 
-	 $cm
+     $cm
 
-	 +=======================================================+
-	 .   ____ _                 _                     _      .
-	 .  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   .
-	 . | |   | |/ _ \| | | |/ _` | '_ ` _ \ / _ \/ __| '_ \  .
-	 . | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | .
-	 .  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| .
-	 +=======================================================+
-		            Cloudmesh Shell
+     +=======================================================+
+     .   ____ _                 _                     _      .
+     .  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   .
+     . | |   | |/ _ \| | | |/ _` | '_ ` _ \ / _ \/ __| '_ \  .
+     . | |___| | (_) | |_| | (_| | | | | | |  __/\__ \ | | | .
+     .  \____|_|\___/ \__,_|\__,_|_| |_| |_|\___||___/_| |_| .
+     +=======================================================+
+                    Cloudmesh Shell
 
-	 cm> 
+     cm>
 
 You will see the prompt and can interactively execute some of the
 commands without needing to type in cm in front of each command.  To

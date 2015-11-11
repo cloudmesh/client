@@ -15,6 +15,7 @@ from cloudmesh_base.util import path_expand
 
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
+
 class RegisterCommand(PluginCommand, CloudCommand):
     topics = {"register": "cloud"}
 
@@ -182,7 +183,6 @@ class RegisterCommand(PluginCommand, CloudCommand):
                 # TODO: bug csv does not work
             return ""
 
-
         if arguments["info"]:
 
             filename = _get_config_yaml_file(arguments)
@@ -196,7 +196,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
 
             import shutil
             import cloudmesh_client.etc
-            print (cloudmesh_client.etc.__file__)
+            print(cloudmesh_client.etc.__file__)
             filename = os.path.join(
                 os.path.dirname(cloudmesh_client.etc.__file__),
                 "cloudmesh.yaml")
@@ -207,10 +207,10 @@ class RegisterCommand(PluginCommand, CloudCommand):
             print("From: ", filename)
             print("To:   ", yamlfile)
 
-            #filename = _get_config_yaml_file(arguments)
-            #if _exists(filename):
+            # filename = _get_config_yaml_file(arguments)
+            # if _exists(filename):
             #    Console.ok("File '{}' exists. ok.".format(filename))
-            #else:
+            # else:
             #    Console.error("File {} does not exist".format(filename))
             return ""
 
@@ -219,13 +219,13 @@ class RegisterCommand(PluginCommand, CloudCommand):
             filename = _get_config_yaml_file(arguments)
             force = arguments["--force"] or False
             if filename is not None:
-                print (filename, force)
+                print(filename, force)
                 if exists(filename):
                     print("Delete cloudmesh.yaml file:", filename)
                     if not force:
                         force = yn_choice("Would you like to delete the "
                                           "cloudmesh.yaml file")
-                        print (force)
+                        print(force)
                     if force:
                         os.remove(filename)
                         Console.ok("Deleted the file " + filename + ". ok.")
@@ -267,7 +267,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
         elif arguments['list'] and arguments['ssh']:
             output = arguments['--format'] or 'table'
             hosts = CloudRegister.list_ssh()
-            print (print_list(hosts, output=output))
+            print(print_list(hosts, output=output))
             return ""
 
         elif arguments['list']:
@@ -282,7 +282,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                 d = CloudRegister.list(filename,
                                        info=info,
                                        output=output)
-                print (d)
+                print(d)
             return ""
 
         elif arguments['check']:
@@ -325,13 +325,13 @@ class RegisterCommand(PluginCommand, CloudCommand):
             variables = list(os.environ)
             for attribute in variables:
                 if attribute.startswith("OS_"):
-                    print ("x ", attribute)
+                    print("x ", attribute)
                     del os.environ[attribute]
 
             # set
             for attribute, value in credentials.iteritems():
                 os.putenv(attribute, value)
-                print ("+ ", attribute)
+                print("+ ", attribute)
             export(host, "table")
 
             return ""
@@ -341,11 +341,10 @@ class RegisterCommand(PluginCommand, CloudCommand):
             output = arguments['--format']
             host = arguments['HOST']
 
-
             variables = list(os.environ)
             for attribute in variables:
                 if attribute.startswith("OS_"):
-                    print ("unset ", attribute)
+                    print("unset ", attribute)
                     del os.environ[attribute]
             export(host, output)
 

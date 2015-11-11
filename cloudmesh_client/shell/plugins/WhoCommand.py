@@ -7,6 +7,7 @@ from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.system.who import Who
 
 from pprint import pprint
+
 """
 
 
@@ -16,6 +17,7 @@ from pprint import pprint
                           specified. If file in in cwd
                           you must specify it with ./FILENAME
 """
+
 
 # noinspection PyUnusedLocal
 class WhoCommand(PluginCommand):
@@ -28,7 +30,7 @@ class WhoCommand(PluginCommand):
             Console.ok("init Who command")
 
     @command
-    def do_who (self, args, arguments):
+    def do_who(self, args, arguments):
         """
         ::
 

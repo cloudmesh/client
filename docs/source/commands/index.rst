@@ -5,7 +5,7 @@ In this section we summarize a number of commands that are useful for
 managing your multiple clouds. We organize them in the way you would
 use them in some order while:
 
-* regisetring clouds
+* registering clouds
 * creating virtual machines
 * creating virtual clusters
 * creating platforms on the clusters
@@ -13,6 +13,8 @@ use them in some order while:
 If you have additional needs we provide a detailed list of man pages
 in alphabetical order in the Section ...
 
+Usable Commands
+^^^^^^^^^^^^^^^
 
 .. toctree::
    :glob:
@@ -27,5 +29,14 @@ in alphabetical order in the Section ...
    command_secgroup   
    command_vm
    command_nova
-   command_reservation      
+   command_ssh
+
+
+Proposed Commands
+^^^^^^^^^^^^^^^^^^
+
+.. toctree::
+   :glob:
+
+   command_reservation
     

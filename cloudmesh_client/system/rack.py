@@ -110,7 +110,6 @@ class Rack(object):
         subprocess.Popen(cmd)
 
 
-
 if __name__ == "__main__":
     rack = Rack(10)
     rack.set_template(None)

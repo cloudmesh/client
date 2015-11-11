@@ -12,18 +12,15 @@ from cloudmesh_client.common.todo import TODO
 requests.packages.urllib3.disable_warnings()
 
 
-
 class CloudProvider(CloudProviderBase):
-
     def __init__(self, cloudname, user=None, flat=True):
-        super( CloudProvider, self ).__init__(cloudname, user=user)
+        super(CloudProvider, self).__init__(cloudname, user=user)
 
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
             if cloud_details["cm_type"] == "openstack":
-
                 provider = CloudProviderOpenstackAPI(
                     cloudname,
                     cloud_details,
@@ -47,6 +44,7 @@ class CloudProvider(CloudProviderBase):
     def get_attributes(self, kind):
         return self.provider.attributes(kind)
 
+
 def main():
     from pprint import pprint
 
@@ -55,18 +53,15 @@ def main():
 
     print (provider, type(provider))
 
-    #pprint (provider.__dict__)
-    #pprint (dir(provider))
-
-
-
+    # pprint (provider.__dict__)
+    # pprint (dir(provider))
 
     r = provider.list_flavor(cloud)
-    pprint (r)
+    pprint(r)
 
     for kind in ["flavor", "image", "vm", "limits", "quota"]:
         r = provider.list(kind, cloud)
-        pprint (r)
+        pprint(r)
 
 
 if __name__ == "__main__":

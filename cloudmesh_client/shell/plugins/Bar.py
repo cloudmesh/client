@@ -1,8 +1,8 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command
 
-class BarCommand(object):
 
+class BarCommand(object):
     topics = {"bar": "example"}
 
     def __init__(self, context):

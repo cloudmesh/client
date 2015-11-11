@@ -3,7 +3,7 @@ Inventory Command
 
 The manual page of the key command can be found at: `Nova <../man/man.html#inventory>`_
 
-.. todo:: reforamt the inventory section to be a real manual.
+.. todo:: reformat the inventory section to be a real manual.
 
 Examples::
   

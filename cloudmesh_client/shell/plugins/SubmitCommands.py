@@ -1,8 +1,8 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import PluginCommand
 
-class SubmitCommands(PluginCommand):
 
+class SubmitCommands(PluginCommand):
     topics = {"submit": "tbd"}
 
     def __init__(self, context):

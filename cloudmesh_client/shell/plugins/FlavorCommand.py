@@ -72,11 +72,10 @@ class FlavorCommand(PluginCommand, CloudCommand):
                 # outo refresh
                 #
                 Console.error("No flavor(s) found.")
-                #Flavor.refresh(cloud)
-                #Console.ok("Refreshing flavor(s). ok.")
+                # Flavor.refresh(cloud)
+                # Console.ok("Refreshing flavor(s). ok.")
 
             else:
 
                 print(result)
             return ""
-

@@ -1,7 +1,7 @@
 import json
 
 from cloudmesh_base.Shell import Shell
-from cloudmesh_client.common.Printer  import dict_printer
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 
@@ -28,15 +28,15 @@ class Hpc(object):
 
         else:
             return (dict_printer(d,
-                                        order=['jobid',
-                                               'partition',
-                                               'name',
-                                               'user',
-                                               'st',
-                                               'time',
-                                               'nodes',
-                                               'nodelist'],
-                                        output=format))
+                                 order=['jobid',
+                                        'partition',
+                                        'name',
+                                        'user',
+                                        'st',
+                                        'time',
+                                        'nodes',
+                                        'nodelist'],
+                                 output=format))
 
     @classmethod
     def info(cls, format='json', all=False):
@@ -56,13 +56,13 @@ class Hpc(object):
 
         else:
             return (dict_printer(d,
-                                        order=['partition',
-                                               'avail',
-                                               'timelimit',
-                                               'nodes',
-                                               'state',
-                                               'nodelist'],
-                                        output=format))
+                                 order=['partition',
+                                        'avail',
+                                        'timelimit',
+                                        'nodes',
+                                        'state',
+                                        'nodelist'],
+                                 output=format))
 
     @classmethod
     def test(cls, cluster, time):
@@ -75,10 +75,12 @@ class Hpc(object):
     def run(cls, cluster, cmd, **kwargs):
         # determine the script name..
         d = ConfigDict("cloudmesh.yaml")
-        username = d["cloudmesh"]["profile"]["firstname"]  # FIX: need to determine the cloudmesh name
+        username = d["cloudmesh"]["profile"][
+            "firstname"]  # FIX: need to determine the cloudmesh name
 
         if not kwargs['-name']:
-            old_count = Shell.ssh(cluster, "ls {}*.sh | wc -l | sed 's/$/ count/'".
+            old_count = Shell.ssh(cluster,
+                                  "ls {}*.sh | wc -l | sed 's/$/ count/'".
                                   format(username))
             c = [f for f in old_count.splitlines() if 'count' in f]
             script_count = c[0].split()[0]
