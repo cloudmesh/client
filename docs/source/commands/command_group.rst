@@ -3,14 +3,16 @@ Group Command
 
 One of cloudmesh major functionality is to group cloud and other
 resources into a named group. Such named groups can than be used to
-perform actions on them.
+perform actions on them. Upon start the default group is set to general if
+no default group exists.
+
+
 
 .. warning:: at this time we have limited to groups to just hold ID
 	     of vms.
 
 The manual page of the group command can be found at: `group
 <../man/man.html#group>`_
-
 
 
 Group List

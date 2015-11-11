@@ -2,6 +2,11 @@ Register Command
 ======================================================================
 
 
+Registering different clouds with the cloudmesh register command is easy. We
+ have a number of predefined templates that are stored in the ~/.cloudmesh
+ .yaml file that you can use and modify. However for some clouds such as the
+  once at IU an easy registration exists if you have appropriate access.
+
 The manual page of the register command can be found at:
 `register <../man/man.html#register>`_
 
@@ -10,17 +15,17 @@ Quickstart for registration of some clouds
 ----------------------------------------------
 
 Please only use the quickstart if you know hat you are doing, otherwise,
-read the manual. We assume you have acces to the specific clouds that you
+read the manual. We assume you have access to the specific clouds that you
 like to access. On a terminal say::
 
     cm register remote kilo
 
-to register the futuresystems kilo cloud
+to register the FutureSystems kilo cloud
 
     cm register remote juno
 
-to register the futuresystems juno cloud (this cloud will be disabled soon,
-so please transition to kilo). More information about the futuresystems
+to register the  juno cloud (this cloud will be disabled soon,
+so please transition to kilo). More information about the
 cloud can be found at
 
 * https://portal.futuresystems.org
@@ -144,7 +149,7 @@ register remote
 
 In case you already use an openstack cloud you may have come across an
 openrc.sh file. We are providing some very special helper functions, like
-for example obtain the openrc files from the futuresystems
+for example obtain the openrc files from the FutureSystems
 cloud.
 
 The command::

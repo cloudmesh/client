@@ -12,6 +12,10 @@ and also create the default cloud. The default command is used to
 set and list the default values. These defaults are used in other
 commands if they are not overwritten by a command parameter.
 
+Upon start of cloudmesh, the default for cloud will be set to the first
+cloud that is found in the yaml file and the default group is set to
+`general`.
+
 default list
 ----------------------------------------------------------------------
 

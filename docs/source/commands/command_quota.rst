@@ -1,13 +1,14 @@
 Quota Command
 ======================================================================
 
-The manual page of the quota command can be found at: `Quota
-<../man/man.html#quota>`_
-
 Many clouds have some kind of quota limitations on how many ip
 addresses one can obtain, or how many cores a user can have. To get an
 overview of the quotas set for a user in a project we are providing a
 quota command.
+
+The manual page of the quota command can be found at: `Quota
+<../man/man.html#quota>`_
+
 
 quota list
 ----------------------------------------------------------------------

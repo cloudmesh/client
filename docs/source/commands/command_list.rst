@@ -85,3 +85,18 @@ To specify a different format, such as json, use::
             "value": "table"
         }
   }
+
+list Cloud objects
+--------------------
+
+The list command can also be used to list cloud objects, thus you can use::
+
+    list image
+    list flavor
+    list quota
+    list limits
+    list usage
+    list vm
+
+.. note: not everything may be implemented yet.
+
