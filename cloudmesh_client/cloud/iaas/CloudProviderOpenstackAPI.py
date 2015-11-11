@@ -262,6 +262,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         finds the flavor based on a query
         TODO: details TBD
         """
+        if kwargs['id'].isdigit():
+            pass
+        else:
+            kwargs['name'] = kwargs['id']
+            del kwargs['id']
         return self.provider.flavors.find(**kwargs)._info
 
     def get_vm(self, **kwargs):
@@ -293,8 +298,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'rxtx_factor',
                     'os_flv_ext_data',
                     'disk',
-                    'type',
-                    'string',
                     'cloud',
                     'uuid'
                 ],
@@ -310,8 +313,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'rxtx_factor',
                     'os_flv_ext_data',
                     'Disk',
-                    'Type',
-                    'String',
                     'Cloud',
                     'UUID'
                 ]
@@ -327,7 +328,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'name',
                     'progress',
                     'status',
-                    'updated'],
+                    'updated'
+                ],
                 'header': [
                     'id',
                     'size',
@@ -338,7 +340,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'name',
                     'progress',
                     'status',
-                    'updated']
+                    'updated'
+                ]
             },
             'vm': {
                 'order': None,
@@ -365,26 +368,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             order = None
             header = None
 
-
-        if kind == 'flavor':
-            order = [
-                    'id',
-                    'name',
-                    'user',
-                    'ram',
-                    'os_flv_disabled',
-                    'vcpus',
-                    'swap',
-                    'os_flavor_acces',
-                    'rxtx_factor',
-                    'os_flv_ext_data',
-                    'disk',
-                    'type',
-                    'string',
-                    'cloud',
-                    'uuid'
-                ],
-        elif kind == 'default':
+        if kind == 'default':
             order = ['user',
                      'cloud',
                      'name',

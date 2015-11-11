@@ -41,6 +41,7 @@ class FlavorCommand(PluginCommand, CloudCommand):
             cloud = arguments["--cloud"] or Default.get_cloud()
         except:
             Console.error("xxx Default cloud doesn't exist")
+            return
 
         if arguments["refresh"]:
 
@@ -56,16 +57,14 @@ class FlavorCommand(PluginCommand, CloudCommand):
             return ""
 
         if arguments["list"]:
-
             id = arguments['ID']
+            refresh = arguments['--refresh']
             output_format = arguments["--format"]
-            live = arguments['--refresh']
 
-            output_format = arguments["--format"]
             if id is None:
                 result = Flavor.list(cloud, output_format)
             else:
-                result = Flavor.details(cloud, id, live, output_format)
+                result = Flavor.details(cloud, id, refresh, output_format)
 
             if result is None:
                 #
