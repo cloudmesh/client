@@ -401,25 +401,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'uuid',
                 'label',
                 'status',
+                'static_ip',
+                'floating_ip',
                 'project',
                 'user',
                 'cloud'
             ]
             header = [
-                'cloud',
-                'user',
-                'ephemeral_gb',
-                'flavorid',
                 'id',
-                'memory_mb',
-                'flavor',
-                'root_gb',
-                'rxtx_factor',
-                'swap',
-                'vcpus',
-                'minDisk',
-                'minRam',
-                'name',
+                'uuid',
+                'label',
+                'status',
+                'static_ip',
+                'floating_ip',
+                'project',
+                'user',
+                'cloud'
             ]
         return (order, header)
 
