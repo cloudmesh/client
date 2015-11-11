@@ -59,7 +59,7 @@ class ImageCommand(PluginCommand, CloudCommand):
             else:
                 result = Image.details(cloud, id, live, output_format)
             if result is None:
-                Console.error("Could not find this image.")
+                Console.error("Could not find this image. Failed.")
             # Todo:
             # if database size = 0:
             #    Console.error("No images in the database, please refresh.")

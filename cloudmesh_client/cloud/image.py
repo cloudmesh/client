@@ -40,7 +40,7 @@ class Image(ListResource):
     @classmethod
     def list(cls, cloud, format="table"):
         """
-        This method lists all flavors of the cloud
+        This method lists all images of the cloud
         :param cloud: the cloud name
         """
         # TODO: make a CloudmeshDatabase without requireing the user=
@@ -49,11 +49,10 @@ class Image(ListResource):
         try:
             elements = cm.find("image", cloud=cloud)
 
-            #order = ['id', 'uuid', 'name', 'cloud']
+            # order = ['id', 'uuid', 'name', 'cloud']
             (order, header) = CloudProvider(cloud).get_attributes("image")
 
-
-            #order = None
+            # order = None
             return dict_printer(elements,
                                        order=order,
                                        output=format)
@@ -86,7 +85,7 @@ class Image(ListResource):
                 return attribute_printer(element)
             else:
                 return dict_printer(elements,
-                                           output=format)
+                                    output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
 
