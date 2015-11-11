@@ -66,7 +66,8 @@ class VmCommand(PluginCommand, CloudCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
-                vm list [--cloud=CLOUD|--all]
+                vm list [NAME_OR_ID]
+                        [--cloud=CLOUD|--all]
                         [--group=GROUP]
                         [--format=FORMAT]
 
@@ -77,6 +78,7 @@ class VmCommand(PluginCommand, CloudCommand):
                                the server, note that type in -- is suggested before
                                you input the commands
                 NAME           server name
+                NAME_OR_ID     server name or ID
                 KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
             Options:
@@ -438,7 +440,10 @@ class VmCommand(PluginCommand, CloudCommand):
                     for cloud in d["cloudmesh"]["clouds"]:
                         print("Listing VMs on Cloud: {:}".format(cloud))
                         result = Vm.list(cloud=cloud, output_format=_format)
-                        print(result)
+                        if result is not None:
+                            print(result)
+                        else:
+                            print("Sorry! No data found with requested parameters in DB.")
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception, e:
@@ -454,12 +459,18 @@ class VmCommand(PluginCommand, CloudCommand):
                     return ""
 
                 try:
+                    name_or_id = arguments["NAME_OR_ID"]
                     group = arguments["--group"]
                     _format = arguments["--format"] or "table"
 
                     # list_vms_on_cloud(cloud, group, _format)
-                    result = Vm.list(cloud=cloud, output_format=_format)
-                    print(result)
+                    result = Vm.list(name_or_id=name_or_id, cloud=cloud, output_format=_format)
+
+                    if result is not None:
+                        print(result)
+                    else:
+                        print("Sorry! No data found with requested parameters in DB.")
+
                     msg = "info. OK."
                     Console.ok(msg)
 

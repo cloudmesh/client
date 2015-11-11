@@ -7,9 +7,11 @@ from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Printer import dict_printer, list_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+
+from uuid import UUID
 
 
 class Vm(ListResource):
@@ -48,6 +50,14 @@ class Vm(ListResource):
             import traceback
             print(traceback.format_exc())
             print(e)
+
+    @classmethod
+    def isUuid(cls, name):
+        try:
+            UUID(name, version=4)
+            return True
+        except ValueError:
+            return False
 
     @classmethod
     def boot(cls, **kwargs):
@@ -103,7 +113,13 @@ class Vm(ListResource):
         """
 
         try:
-            elements = cls.cm.find("vm", cloud=kwargs["cloud"])
+            if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
+                if cls.isUuid(kwargs["name_or_id"]):
+                    elements = cls.cm.find("vm", cloud=kwargs["cloud"], uuid=kwargs["name_or_id"])
+                else:
+                    elements = cls.cm.find("vm", cloud=kwargs["cloud"], label=kwargs["name_or_id"])
+            else:
+                elements = cls.cm.find("vm", cloud=kwargs["cloud"])
 
             # print(elements)
 
