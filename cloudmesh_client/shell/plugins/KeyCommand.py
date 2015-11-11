@@ -195,7 +195,7 @@ class KeyCommand(PluginCommand, CloudCommand):
                     print(traceback.format_exc())
                     print (e)
                     Console.error("Problem listing git keys from database")
-                    return
+                    return ""
 
             elif arguments['--source'] == 'db':
 
@@ -227,7 +227,7 @@ class KeyCommand(PluginCommand, CloudCommand):
                         print("{:}: {:}".format(key['name'], key['fingerprint']))
                         msg = "info. OK."
                         Console.ok(msg)
-                        return
+                        return ""
                     else:
                         pass
                 Console.error("The key is not in the database")
@@ -269,7 +269,7 @@ class KeyCommand(PluginCommand, CloudCommand):
                 print(traceback.format_exc())
                 print (e)
                 Console.error("Problem adding keys to git for user: " + username)
-                return
+                return ""
 
             try:
                 # FIXME: correct code to add to git
@@ -367,7 +367,7 @@ class KeyCommand(PluginCommand, CloudCommand):
                             print("{:}: {:}".format(key['name'], key['fingerprint']))
                             msg = "info. OK."
                             Console.ok(msg)
-                            return
+                            return ""
                         else:
                             pass
                     Console.error("The key is not in the database")

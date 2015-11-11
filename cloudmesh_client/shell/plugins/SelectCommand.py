@@ -80,9 +80,8 @@ class SelectCommand(PluginCommand, CloudCommand):
 
             except:
                 print("ERROR: could not set key")
-            pass
 
-        pass
+        return ""
 
 
 if __name__ == '__main__':

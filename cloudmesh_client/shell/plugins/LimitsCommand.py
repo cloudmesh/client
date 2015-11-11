@@ -40,14 +40,14 @@ class LimitsCommand(PluginCommand, CloudCommand):
 
             if not cloud:
                 Console.error("cloud doesn't exist")
-                return
+                return ""
 
             output_format = arguments["--format"]
             tenant = arguments["--tenant"]
             result = Limits.list(cloud, output=output_format,
                                         tenant=tenant)
             Console.msg(result)
-            return
+            return ""
 
 
 if __name__ == '__main__':

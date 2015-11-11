@@ -48,3 +48,8 @@ class WhoCommand(PluginCommand):
         output_format = arguments["--format"] or "table"
 
         if arguments["status"]:
+            pass
+
+        ValueError("NOT yet implemented")
+        
+        return ""

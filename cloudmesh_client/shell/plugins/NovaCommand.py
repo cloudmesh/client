@@ -58,18 +58,18 @@ class NovaCommand (PluginCommand, CloudCommand):
                 Default.get_cloud()
         if not cloud:
             Console.error("Default cloud not set!")
-            return
+            return ""
 
         group = arguments["--group"] or \
                 Default.get("group")
 
         if not group:
             Console.error("Default group not set!")
-            return
+            return ""
 
         if arguments["help"]:
             os.system("nova help")
-            return
+            return ""
         elif arguments["info"]:
             set_os_environ(cloud)
             d = {}
@@ -95,7 +95,7 @@ class NovaCommand (PluginCommand, CloudCommand):
             print(row_table(d, order=None, labels=["Variable", "Value"]))
             msg = "info. OK."
             Console.ok(msg)
-            return
+            return ""
         elif arguments["set"]:
             if cloud:
 
@@ -137,4 +137,4 @@ class NovaCommand (PluginCommand, CloudCommand):
                     Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
             except Exception, ex:
                 Console.error("Error executing Nova command: {}".format(ex))
-            return
+            return ""

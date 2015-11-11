@@ -40,6 +40,7 @@ class ResetCommand(PluginCommand, CloudCommand):
         r = self.do_quit(None)
         Console.error("Quitting the shell does not yet work. please exit the shell now.")
 
+        return ""
 
 
 

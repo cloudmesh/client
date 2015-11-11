@@ -180,7 +180,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
             else:
                 print(dict_printer(credentials, output=output))
                 # TODO: bug csv does not work
-            return
+            return ""
 
 
         if arguments["info"]:
@@ -190,7 +190,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                 Console.ok("File '{}' exists. ok.".format(filename))
             else:
                 Console.error("File {} does not exist".format(filename))
-            return
+            return ""
 
         elif arguments["new"]:
 
@@ -212,7 +212,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
             #    Console.ok("File '{}' exists. ok.".format(filename))
             #else:
             #    Console.error("File {} does not exist".format(filename))
-            return
+            return ""
 
         elif arguments["clean"]:
 
@@ -236,7 +236,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                     Console.error("File {} does not exist".format(filename))
             else:
                 Console.error("No cloudmesh.yaml file found.")
-            return
+            return ""
 
         elif arguments["cat"]:
 
@@ -247,7 +247,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                 print('\n'.join(lines))
             else:
                 Console.error("File {} does not exist".format(filename))
-            return
+            return ""
 
         elif arguments["edit"]:
 
@@ -262,13 +262,13 @@ class RegisterCommand(PluginCommand, CloudCommand):
                     Console.error("No EDITOR variable set in shell.")
             else:
                 Console.error("File {} does not exist".format(filename))
-            return
+            return ""
 
         elif arguments['list'] and arguments['ssh']:
             output = arguments['--format'] or 'table'
             hosts = CloudRegister.list_ssh()
             print (print_list(hosts, output=output))
-            return
+            return ""
 
         elif arguments['list']:
 
@@ -283,7 +283,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                                        info=info,
                                        output=output)
                 print (d)
-            return
+            return ""
 
         elif arguments['check']:
             filename = _get_config_yaml_file(arguments)
@@ -292,7 +292,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                     arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 CloudRegister.check_yaml_for_completeness(filename)
-            return
+            return ""
 
         elif arguments['merge']:
             filename = arguments['FILENAME']
@@ -302,7 +302,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
         elif arguments['test']:
             filename = _get_config_yaml_file(arguments)
             CloudRegister.test(filename)
-            return
+            return ""
 
         elif arguments['form']:
             filename = _get_config_yaml_file(arguments)
@@ -311,7 +311,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                     arguments["--yaml"] or 'cloudmesh.yaml'))
             else:
                 CloudRegister.fill_out_form(filename)
-            return
+            return ""
 
         elif arguments['source']:
 
@@ -334,7 +334,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                 print ("+ ", attribute)
             export(host, "table")
 
-            return
+            return ""
 
         elif arguments['export']:
 
@@ -372,7 +372,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
             else:
                 print("Cloud {:} is not described in cloudmesh.yaml".format(
                     host))
-            return
+            return ""
 
         elif arguments['remote']:
 
@@ -380,7 +380,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
             cloud = arguments['CLOUD']
             CloudRegister.remote(cloud, force)
             export(cloud, "table")
-            return
+            return ""
 
         elif arguments['CLOUD']:
             if arguments['CERT']:  # path to the cacert.pem
@@ -402,7 +402,7 @@ class RegisterCommand(PluginCommand, CloudCommand):
                 import traceback
                 print(traceback.format_exc())
                 print(e)
-            return
+            return ""
 
         # if all fails do a simple list
 

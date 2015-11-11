@@ -61,4 +61,4 @@ class ColorCommand(PluginCommand, ShellCommand, CometCommand):
         Console.color = color_mode
         Console.ok("Color {:}".format(str(color_mode)))
 
-        pass
+        return ""

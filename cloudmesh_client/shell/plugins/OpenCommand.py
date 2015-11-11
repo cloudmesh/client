@@ -52,7 +52,7 @@ class OpenCommand(PluginCommand, ShellCommand, CometCommand):
             except:
                 Console.error(
                     "unsupported browser format in file {0}".format(filename))
-                return
+                return ""
 
         try:
             webbrowser.open("%s" % filename)

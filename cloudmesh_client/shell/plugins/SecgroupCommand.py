@@ -67,7 +67,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                 return
             if not tenant:
                 Console.error("Default tenant not set!")
-                return
+                return ""
 
             result = SecGroup.list(tenant, cloud)
             if result:
@@ -75,7 +75,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
             else:
                 Console.error(
                     "No Security Groups found in the cloudmesh database!")
-            return
+            return ""
 
         elif arguments["create"]:
             # if no arguments read default
@@ -89,7 +89,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                 return
             if not tenant:
                 Console.error("Default tenant not set!")
-                return
+                return ""
 
             # Create returns uuid of created sec-group
             uuid = SecGroup.create(label, cloud, tenant)
@@ -99,7 +99,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                            .format(label, uuid))
             else:
                 Console.error("Exiting!")
-            return
+            return ""
 
         elif arguments["delete"]:
             # if no arguments read default
@@ -110,10 +110,10 @@ class SecgroupCommand(PluginCommand, CloudCommand):
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
             if not tenant:
                 Console.error("Default tenant not set!")
-                return
+                return ""
 
             result = SecGroup.delete_secgroup(label, cloud, tenant)
             if result:
@@ -122,7 +122,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                 Console.error("Security Group [{}, {}, {}] could not be "
                               "deleted".format(label, cloud, tenant))
 
-            return
+            return ""
 
         elif arguments["rules-delete"]:
             # if no arguments read default
@@ -138,10 +138,10 @@ class SecgroupCommand(PluginCommand, CloudCommand):
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
             if not tenant:
                 Console.error("Default tenant not set!")
-                return
+                return ""
 
             # Get the security group
             sec_group = SecGroup.get(label, tenant, cloud)
@@ -156,7 +156,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                         "Rule [{} | {} | {} | {}] could not be deleted"
                             .format(from_port, to_port, protocol, cidr))
 
-            return
+            return ""
 
         elif arguments["rules-list"]:
             # if no arguments read default
@@ -167,10 +167,10 @@ class SecgroupCommand(PluginCommand, CloudCommand):
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
             if not tenant:
                 Console.error("Default tenant not set!")
-                return
+                return ""
 
             # Get the security group
             sec_group = SecGroup.get(label, tenant, cloud)
@@ -183,7 +183,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                     "Security Group with label [{}], cloud [{}], and "
                     "tenant [{}] not found!"
                         .format(label, cloud, tenant))
-                return
+                return ""
 
         elif arguments["rules-add"]:
             # if no arguments read default
@@ -199,10 +199,10 @@ class SecgroupCommand(PluginCommand, CloudCommand):
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
             if not tenant:
                 Console.error("Default tenant not set!")
-                return
+                return ""
 
             # Get the security group
             sec_group = SecGroup.get(label, tenant, cloud)
@@ -214,12 +214,13 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                 Console.error(
                     "Security Group with label [{}], cloud [{}], and tenant [{"
                     "}] not found!".format(label, cloud, tenant))
-                return
+                return ""
 
         # TODO: Add Implementation
         elif arguments["--version"]:
             Console.ok('Version: ')
 
+        return ""
 
 if __name__ == '__main__':
     command = cm_shell_security_group()

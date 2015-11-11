@@ -205,6 +205,7 @@ class InventoryCommand(PluginCommand, CloudCommand):
                 i.save()
             else:
                 Console.error("The source {:} does not exist".format(source))
+        return ""
 
 
 if __name__ == '__main__':

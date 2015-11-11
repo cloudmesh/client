@@ -19,6 +19,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         ::
 
             Usage:
+                hpc set CLUSTER
                 hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
                 hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
@@ -100,21 +101,20 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         if arguments["queue"]:
             print(Hpc.queue(cluster, format=format))
 
-        if arguments["info"]:
+        elif arguments["info"]:
             print(Hpc.info(format))
 
-        if arguments["kill"]:
+        elif arguments["kill"]:
             Console.error("Not yet implemented.")
 
-        if arguments["status"]:
+        elif arguments["status"]:
             job_id = arguments['--job']
             print(Hpc.queue(cluster, job=job_id))
 
-        if arguments["run"]:
+        elif arguments["run"]:
             # If cluster is not specified, get default
             if not cluster:
-                cluster = Default.get(
-                    "cluster") or "india"  # TODO: need to clarify if throw error
+                cluster = Default.get("cluster") or "india"  # TODO: need to clarify if throw error
 
             queue = arguments['--queue'] or Default.get('queue')
             if not queue:
@@ -130,10 +130,12 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
             }
             Console.ok(Hpc.run(cluster, cmd, **arg_dict))
 
-        if arguments["test"]:
+        elif arguments["test"]:
             time_secs = arguments['--time']
             if time_secs:
                 time = '00:00:' + time_secs
             else:
                 time = '00:00:10'  # give a  default time of 10 secs
             print(Hpc.test(cluster, time))
+
+        return ""

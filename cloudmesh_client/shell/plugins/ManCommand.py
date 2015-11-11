@@ -76,3 +76,4 @@ class ManCommand(PluginCommand, ShellCommand, CometCommand):
             except:
                 print "\n    Command documentation %s missing, help_%s" % (what, what)
             print
+        return ""

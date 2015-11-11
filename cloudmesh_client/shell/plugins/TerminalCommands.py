@@ -62,6 +62,8 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
         Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
         Console._print(color, "", i * " " + (n - i) * c)
 
+        return ""
+
     @command
     def do_pause(self, arg, arguments):
         """
@@ -79,3 +81,5 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
         if arguments["MESSAGE"] is None:
             arg = 'Press ENTER to continue'
         input(arg + '\n')
+
+        return ""

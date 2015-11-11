@@ -40,7 +40,7 @@ class UsageCommand(PluginCommand, CloudCommand):
 
         if not cloud:
             Console.error("cloud doesn't exist")
-            return
+            return ""
 
         output_format = arguments["--format"]
         start = arguments["--start"]
@@ -52,4 +52,4 @@ class UsageCommand(PluginCommand, CloudCommand):
                            tenant=tenant,
                            format=output_format)
         Console.msg(usage)
-        return
+        return ""

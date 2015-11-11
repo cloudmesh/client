@@ -219,12 +219,12 @@ class VmCommand(PluginCommand, CloudCommand):
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set!")
-                    return
+                    return ""
 
                 # if default group not set, return error
                 if not group:
                     Console.error("Default group not set!")
-                    return
+                    return ""
 
                 vm_id = Vm.boot(cloud=cloud, name=name, image=image, flavor=flavor, key_name=key_name,
                                 secgroup_list=secgroup_list)
@@ -249,7 +249,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set!")
-                    return
+                    return ""
 
                 Vm.start(cloud=cloud, servers=servers)
 
@@ -270,7 +270,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set!")
-                    return
+                    return ""
 
                 Vm.stop(cloud=cloud, servers=servers)
 
@@ -304,7 +304,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set!")
-                    return
+                    return ""
 
                 Vm.delete(cloud=cloud, servers=servers)
 
@@ -322,7 +322,7 @@ class VmCommand(PluginCommand, CloudCommand):
             # if default cloud not set, return error
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
             try:
                 cloud_provider = CloudProvider(cloud).provider
                 for sname in id:
@@ -346,7 +346,7 @@ class VmCommand(PluginCommand, CloudCommand):
             # if default cloud not set, return error
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
 
             try:
                 cloud_provider = CloudProvider(cloud).provider
@@ -375,7 +375,7 @@ class VmCommand(PluginCommand, CloudCommand):
             # if default cloud not set, return error
             if not cloud:
                 Console.error("Default cloud not set!")
-                return
+                return ""
 
             cloud_provider = CloudProvider(cloud).provider
             # print("Name : {:}".format(name))
@@ -389,7 +389,7 @@ class VmCommand(PluginCommand, CloudCommand):
             if ip is not None:
                 if ip not in ip_addresses:
                     print("ERROR: IP Address specified does not match with the host.")
-                    return
+                    return ""
             else:
                 print("Determining IP Address to use with a ping test...")
                 # This part assumes that the ping is allowed to the machine.
@@ -404,7 +404,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
             if ip is None:
                 print("SORRY! Unable to connect to the machine")
-                return
+                return ""
             else:
                 print("IP to be used is: {:}".format(ip))
 
@@ -443,7 +443,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set!")
-                    return
+                    return ""
 
                 try:
                     group = arguments["--group"]
@@ -460,7 +460,7 @@ class VmCommand(PluginCommand, CloudCommand):
                     print(traceback.format_exc())
                     print (e)
                     Console.error("Problem listing instances on cloud {:}".format(cloud))
-        pass
+        return ""
 
 
 if __name__ == '__main__':

@@ -72,7 +72,9 @@ class SecureShellCommand(PluginCommand, ShellCommand, CometCommand):
         else:  # ssh ARGUMENTS...
             args = arguments["ARGUMENTS"]
             os.system("ssh {}".format(args))
-            return
+            return ""
+
+        return ""
 
 
 if __name__ == '__main__':

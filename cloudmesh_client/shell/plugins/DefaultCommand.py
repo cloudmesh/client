@@ -89,7 +89,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
                 Console.error("No default values found")
             else:
                 print(result)
-            return
+            return ""
 
         elif arguments["delete"]:
             key = arguments["KEY"]
@@ -99,14 +99,14 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
             else:
                 Console.ok("Deleted key {} for cloud {}. ok.".format(key,
                                                                     cloud))
-            return
+            return ""
 
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
             Default.set(key, value, cloud)
             Console.ok(
                 "set in defaults {}={}. ok.".format(key, value))
-            return
+            return ""
 
         elif arguments["KEY"]:
             key = arguments["KEY"]
@@ -115,7 +115,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
                 Console.error("No default values found")
             else:
                 Console.ok("Default value for {} is {}".format(key, result))
-            return
+            return ""
 
 
 

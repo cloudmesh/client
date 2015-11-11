@@ -277,3 +277,4 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 print (e)
                 Console.error("Problem updating reservation {:}".format(name))
 
+        return ""

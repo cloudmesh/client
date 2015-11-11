@@ -48,7 +48,7 @@ class ImageCommand(PluginCommand, CloudCommand):
                 Console.ok("{:} ok.".format(msg))
             else:
                 Console.error("{:} failed.".format(msg))
-            return
+            return ""
 
         if arguments["list"]:
             id = arguments['ID']
@@ -64,5 +64,5 @@ class ImageCommand(PluginCommand, CloudCommand):
             # if database size = 0:
             #    Console.error("No images in the database, please refresh.")
             print(result)
-            return
+            return ""
 

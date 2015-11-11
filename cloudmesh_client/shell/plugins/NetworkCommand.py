@@ -83,6 +83,8 @@ class NetworkCommand(PluginCommand, CloudCommand):
             TODO.implement("Yet to implement")
             pass
 
+        return ""
+
 if __name__ == '__main__':
     command = cm_shell_security_group()
     command.do_security_group("list")

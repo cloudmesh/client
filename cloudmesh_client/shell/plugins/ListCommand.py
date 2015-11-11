@@ -88,7 +88,7 @@ class ListCommand(PluginCommand, CloudCommand):
         # print help message
         if kind == 'help':
             Console.ok("Print help!")
-            return
+            return ""
 
         # Prepare the order & header based on kind
         # TODO: use lower case so we have a convention thats easy to follow
@@ -160,7 +160,7 @@ class ListCommand(PluginCommand, CloudCommand):
         else:
             Console.error("List empty for [{}] in the database!"
                           .format(kind))
-        return
+        return ""
 
 
 if __name__ == '__main__':
