@@ -117,7 +117,26 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return self._to_dict(self.provider.images.list())
 
     def list_vm(self, cloudname, **kwargs):
-        return self._to_dict(self.provider.servers.list())
+        vm_dict = self._to_dict(self.provider.servers.list())
+
+        # Extracting and modifying dict with IP details as per the model requirement.
+        ip_detail_dict = dict()
+        for index in vm_dict:
+            ip_detail_dict[index] = dict()
+            for key in vm_dict[index]:
+                if key.startswith("addresses"):
+                    for ip_detail in vm_dict[index][key]:
+                        if ip_detail["OS-EXT-IPS:type"] is not None:
+                            if ip_detail["OS-EXT-IPS:type"] == "fixed":
+                                ip_detail_dict[index]["static_ip"] = ip_detail["addr"]
+                            elif ip_detail["OS-EXT-IPS:type"] == "floating":
+                                ip_detail_dict[index]["floating_ip"] = ip_detail["addr"]
+
+        for index in vm_dict:
+            vm_dict[index]["floating_ip"] = ip_detail_dict[index]["floating_ip"]
+            vm_dict[index]["static_ip"] = ip_detail_dict[index]["static_ip"]
+
+        return vm_dict
 
     def list_limits(self, cloudname, **kwargs):
         return self.provider.limits.get().__dict__["_info"]
