@@ -52,30 +52,8 @@ class Image(ListResource):
         if live:
             cls.refresh(cloud)
 
-        try:
-            cm = CloudmeshDatabase()
+        return CloudProvider(cloud).details('image', cloud, id, format)
 
-            elements = None
-            for idkey in ["name", "uuid", "id"]:
-                s = {idkey: id}
-                try:
-                    elements = cm.find("image", cloud=cloud, **s)
-                except:
-                    pass
-                if len(elements) > 0:
-                    break
-
-            if len(elements) == 0:
-                return None
-
-            if format == "table":
-                element = elements.values()[0]
-                return attribute_printer(element)
-            else:
-                return dict_printer(elements,
-                                    output=format)
-        except Exception as ex:
-            Console.error(ex.message, ex)
 
 
 if __name__ == "__main__":

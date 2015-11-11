@@ -2,6 +2,9 @@ from cloudmesh_base.hostlist import Parameter
 import inspect
 from abc import ABCMeta
 
+from cloudmesh_client.common.Printer import dict_printer, attribute_printer
+from cloudmesh_client.shell.console import Console
+
 
 class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
@@ -283,3 +286,33 @@ class CloudProviderBase(object):
         raise ValueError(
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
+
+    def details(self, kind, cloud, id, format="table"):
+        from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+        try:
+            cm = CloudmeshDatabase()
+
+            if kind not in self.kind:
+                raise ValueError('{} not defined'.format(kind))
+
+            elements = None
+            for idkey in ["name", "uuid", "id"]:
+                s = {idkey: id}
+                try:
+                    elements = cm.find(kind, cloud=cloud, **s)
+                except:
+                    pass
+                if len(elements) > 0:
+                    break
+
+            if len(elements) == 0:
+                return None
+
+            if format == "table":
+                element = elements.values()[0]
+                return attribute_printer(element)
+            else:
+                return dict_printer(elements,
+                                    output=format)
+        except Exception as ex:
+            Console.error(ex.message, ex)
