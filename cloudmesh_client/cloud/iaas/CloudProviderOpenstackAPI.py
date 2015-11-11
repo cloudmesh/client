@@ -279,9 +279,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         header = None
         order = None
 
-        """
-        TODO: I suggest we do a dict
-
         layout = {
             'flavor': {
                 'order': [
@@ -320,8 +317,28 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ]
             },
             'image': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'id',
+                    'os_image_size',
+                    'created',
+                    'metadata__description',
+                    'minDisk',
+                    'minRam',
+                    'name',
+                    'progress',
+                    'status',
+                    'updated'],
+                'header': [
+                    'id',
+                    'size',
+                    'created',
+                    'description',
+                    'minDisk',
+                    'minRam',
+                    'name',
+                    'progress',
+                    'status',
+                    'updated']
             },
             'vm': {
                 'order': None,
@@ -339,7 +356,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'order': None,
                 'header': None,
             }
-
         }
 
         if kind in layout:
@@ -348,7 +364,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         else:
             order = None
             header = None
-        """
+
 
         if kind == 'flavor':
             order = [
@@ -368,27 +384,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'cloud',
                     'uuid'
                 ],
-        elif kind == 'image':
-            order = ['id',
-                     'OS-EXT-IMG-SIZE:size',
-                     'created',
-                     'metadata__description',
-                     'minDisk',
-                     'minRam',
-                     'name',
-                     'progress',
-                     'status',
-                     'updated']
-            header = ['Id',
-                     'Size',
-                     'created',
-                     'Description',
-                     'minDisk',
-                     'minRam',
-                     'name',
-                     'progress',
-                     'status',
-                     'updated']
         elif kind == 'default':
             order = ['user',
                      'cloud',

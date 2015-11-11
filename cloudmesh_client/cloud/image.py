@@ -63,35 +63,35 @@ class Image(ListResource):
             Console.error(ex.message, ex)
 
 
-@classmethod
-def details(cls, cloud, id, live=False, format="table"):
-    if live:
-        cls.refresh(cloud)
+    @classmethod
+    def details(cls, cloud, id, live=False, format="table"):
+        if live:
+            cls.refresh(cloud)
 
-    try:
-        cm = CloudmeshDatabase()
+        try:
+            cm = CloudmeshDatabase()
 
-        elements = None
-        for idkey in ["name", "uuid", "id"]:
-            s = {idkey: id}
-            try:
-                elements = cm.find("image", cloud=cloud, **s)
-            except:
-                pass
-            if len(elements) > 0:
-                break
+            elements = None
+            for idkey in ["name", "uuid", "id"]:
+                s = {idkey: id}
+                try:
+                    elements = cm.find("image", cloud=cloud, **s)
+                except:
+                    pass
+                if len(elements) > 0:
+                    break
 
-        if len(elements) == 0:
-            return None
+            if len(elements) == 0:
+                return None
 
-        if format == "table":
-            element = elements.values()[0]
-            return attribute_printer(element)
-        else:
-            return dict_printer(elements,
-                                output=format)
-    except Exception as ex:
-        Console.error(ex.message, ex)
+            if format == "table":
+                element = elements.values()[0]
+                return attribute_printer(element)
+            else:
+                return dict_printer(elements,
+                                    output=format)
+        except Exception as ex:
+            Console.error(ex.message, ex)
 
 
 if __name__ == "__main__":
