@@ -11,9 +11,16 @@ class Quota(ListResource):
     @classmethod
     def list(cls, cloud, tenant, output="table"):
         try:
-            nova = CloudProvider.set(cloud)
-            result = nova.quotas.defaults(tenant)._info
-            return attribute_printer(result, output=output)
+
+            provider = CloudProvider(cloud).provider
+
+            result = provider.list_quota(cloud)
+
+            (order, header) = CloudProvider(cloud).get_attributes("quota")
+
+            return attribute_printer(result,
+                                     header=header,
+                                     output=output)
         except Exception, e:
             import sys
             print(sys.exc_info()[0])
