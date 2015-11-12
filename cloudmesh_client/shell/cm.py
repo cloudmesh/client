@@ -414,7 +414,6 @@ def main():
         #   arguments['help'] = 'False'
 
         script_file = arg['--file']
-        print (script_file)
 
     except:
         script_file = None
@@ -463,6 +462,12 @@ def main():
             pass
 
     """
+
+    if len(arg['COMMAND']) ==  1:
+        command = arg['COMMAND'][0]
+        print (command)
+        if command.endswith(".cm"):
+            script_file = command
 
     if script_file is not None:
          cmd.do_exec(script_file)
