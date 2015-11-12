@@ -2,42 +2,59 @@
 # test. make sure you have done cm reset before
 #
 
+banner REGISTRATION
+
 register remote juno
 register remote kilo
 
+banner DEFAULT
+
 default list
 
+banner LIST
+
 #
+# Nothing should be in the list
+#
+
 list flavor
 list image
 list vm
 
-# Nothing in the list
+banner REFRESH
 
 flavor refresh
 image refresh
 vm refresh
 
+banner LIST
+
 list flavor
 list image
 list vm
 
+banner VMS
 
 # list the default values
+
 vm default
 
+# boot
 vm boot
 
+# list
 list vm
 
+# refresh
 vm refresh
 
-# refreshes the details of the last vm
-
+# list the details of the last started VM
 vm list
 
-# lists the details of the last vm
+# returns the status of  the last vm
+vm status
 
+# lists the details of the last vm
 
 default refresh=True
 
