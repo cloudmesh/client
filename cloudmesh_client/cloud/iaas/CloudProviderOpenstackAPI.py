@@ -442,6 +442,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'status',
                 'static_ip',
                 'floating_ip',
+                'key_name',
                 'project',
                 'user',
                 'cloud'
@@ -453,6 +454,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'status',
                 'static_ip',
                 'floating_ip',
+                'key_name',
                 'project',
                 'user',
                 'cloud'
