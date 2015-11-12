@@ -41,26 +41,18 @@ class List(object):
             if tenant is not None:
                 filter["tenant"] = tenant
 
-            print("HHHH", filter)
             elements = cls.cm.find(table, **filter)
-
-            print("XXX")
-            pprint(elements)
-            print("YYY")
 
             if elements is not None or elements is not {}:
                 # convert the output to a dict
-                print("UUU")
                 return (dict_printer(elements,
                                      order=order,
                                      header=header,
                                      output=output))
-                print("OOO")
             else:
                 return None
 
         except Exception as ex:
-            print("ISSUE")
             Console.error(ex.message, ex)
 
     #
