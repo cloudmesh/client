@@ -1,8 +1,5 @@
 from __future__ import print_function
 
-import importlib
-from sqlalchemy import and_
-from cloudmesh_client.db import model
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -65,26 +62,6 @@ class List(object):
         except Exception as ex:
             print("ISSUE")
             Console.error(ex.message, ex)
-
-    @classmethod
-    def get_classobj(cls, kind):
-        """
-        Method returns an object from model.py
-        corresponding to the given kind type
-        :param kind:
-        :return:
-        """
-        # get the module reference
-        module = importlib.import_module(model.__name__)
-        # get tbe class obj reference
-
-        print("M", module)
-        print("K", kind)
-        obj = getattr(module, kind)
-        # obj = getattr(module, "FLAVOR")
-        # obj = cls.cm_db.get_table(kind)
-        print(obj)
-        return obj
 
     #
     # TODO: dont we have not already a conversion method
