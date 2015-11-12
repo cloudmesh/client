@@ -1,0 +1,2 @@
+py a = "hallo"
+py print a
