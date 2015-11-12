@@ -11,8 +11,10 @@ class Limits(ListResource):
     @classmethod
     def list(cls, cloud, output="table", tenant=None):
         try:
-            nova = CloudProvider.set(cloud)
-            result = nova.limits.get(tenant_id=tenant)._info["absolute"]
-            return attribute_printer(result, output=output)
+            provider = CloudProvider(cloud).provider
+            result = provider.list_limits(tenant)["absolute"]
+            return attribute_printer(result,
+                                     header=["Name", "Value"],
+                                     output=output)
         except Exception, e:
             return e

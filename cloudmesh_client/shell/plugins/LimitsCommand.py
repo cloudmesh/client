@@ -32,7 +32,7 @@ class LimitsCommand(PluginCommand, CloudCommand):
 
             Examples:
                 cm limits list
-                cm limits list --cloud=india --format=csv
+                cm limits list --cloud=juno --format=csv
 
         """
         if arguments["list"]:
@@ -44,8 +44,9 @@ class LimitsCommand(PluginCommand, CloudCommand):
 
             output_format = arguments["--format"]
             tenant = arguments["--tenant"]
-            result = Limits.list(cloud, output=output_format,
-                                        tenant=tenant)
+            result = Limits.list(cloud,
+                                 output=output_format,
+                                 tenant=tenant)
             Console.msg(result)
             return ""
 

@@ -138,8 +138,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         return vm_dict
 
-    def list_limits(self, cloudname, **kwargs):
-        return self.provider.limits.get().__dict__["_info"]
+    def list_limits(self, tenant, **kwargs):
+        return self.provider.limits.get(tenant_id=tenant).__dict__["_info"]
 
     def list_quota(self, cloudname, **kwargs):
         pprint(self.provider.__dict__)
