@@ -402,6 +402,10 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ]
             },
             'vm': {
+                'order': None,
+                'header': None,
+            },
+            'floating_ip': {
                 'order': [
                     "fixed_ip",
                     "id",
@@ -411,15 +415,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ],
                 'header': [
                     "fixed_ip",
-                    "id",
+                    "floating_ip_id",
                     "instance_id",
                     "floating_ip",
                     "floating_ip_pool"
                 ],
-            },
-            'floating_ip': {
-                'order': None,
-                'header': None,
             },
             'limits': {
                 'order': [

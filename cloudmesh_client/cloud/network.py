@@ -20,7 +20,10 @@ class Network(ListResource):
             result = cloud_provider.get_floating_ip(floating_ip_id=floating_ip_id)
 
             return attribute_printer(result,
-                                     header=None)
+                                     header=[
+                                         "name",
+                                         "value"
+                                     ])
         except Exception as ex:
             Console.error(ex.message, ex)
 
