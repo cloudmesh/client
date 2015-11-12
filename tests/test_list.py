@@ -74,6 +74,6 @@ class Test_list:
         banner("cm list --cloud trial --user fake default")
 
         result = run("cm list --cloud trial --user fake default")
-        assert "List empty for [DEFAULT] in the database!" in result
+        assert "No" in result
 
         return

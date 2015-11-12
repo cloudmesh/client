@@ -159,8 +159,8 @@ class ListCommand(PluginCommand, CloudCommand):
         if result:
             print(result)
         else:
-            Console.error("List empty for [{}] in the database!"
-                          .format(kind))
+             Console.error("No {}s found in the database."
+                          .format(kind.lower()))
         return ""
 
 
