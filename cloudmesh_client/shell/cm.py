@@ -5,7 +5,7 @@ import sys
 import traceback
 import string
 import textwrap
-
+import os
 from docopt import docopt
 from .plugins import *
 
@@ -22,6 +22,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_base.ssh_config import ssh_config
+from cloudmesh_client.shell.console import Console
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -350,6 +351,32 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         print(arguments)
     '''
 
+    def do_exec(self, filename):
+        """
+        ::
+
+            Usage:
+               exec FILENAME
+
+            executes the commands in the file. See also the script command.
+
+            Arguments:
+              FILENAME   The name of the file
+        """
+        if not filename:
+            Console.error("the command requires a filename as parameter")
+            return
+
+        if os.path.exists(filename):
+            with open(filename, "r") as f:
+                for line in f:
+                    Console.ok("> {:}".format(str(line)))
+                    self.onecmd(line)
+        else:
+            Console.error('file "{:}" does not exist.'.format(filename))
+            sys.exit()
+
+
 
 def simple():
     context = CloudmeshContext(debug=False,
@@ -387,6 +414,7 @@ def main():
         #   arguments['help'] = 'False'
 
         script_file = arg['--file']
+        print (script_file)
 
     except:
         script_file = None
@@ -436,8 +464,8 @@ def main():
 
     """
 
-    # if script_file is not None:
-    #     cmd.do_exec(script_file)
+    if script_file is not None:
+         cmd.do_exec(script_file)
 
     if len(arg['COMMAND']) > 0:
         try:
