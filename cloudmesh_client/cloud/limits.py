@@ -12,9 +12,13 @@ class Limits(ListResource):
     def list(cls, cloud, output="table", tenant=None):
         try:
             provider = CloudProvider(cloud).provider
+
             result = provider.list_limits(tenant)["absolute"]
+
+            (order, header) = CloudProvider(cloud).get_attributes("limits")
+
             return attribute_printer(result,
-                                     header=["Name", "Value"],
+                                     header=header,
                                      output=output)
         except Exception, e:
             return e

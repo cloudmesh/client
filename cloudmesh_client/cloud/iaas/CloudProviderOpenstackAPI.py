@@ -142,12 +142,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return self.provider.limits.get(tenant_id=tenant).__dict__["_info"]
 
     def list_quota(self, cloudname, **kwargs):
-        pprint(self.provider.__dict__)
-        pprint(dir(self.provider.quotas))
+        # pprint(self.provider.__dict__)
+        # pprint(dir(self.provider.quotas))
         tenant = self.cloud_details["credentials"]["OS_TENANT_NAME"]
-        print (tenant)
-        pprint(self.provider.quotas.get(tenant_id=tenant))
-        return (self.provider.quotas.get(tenant_id=tenant))
+        # print (tenant)
+        # pprint(self.provider.quotas.defaults(tenant))
+        result = self.provider.quotas.defaults(tenant).__dict__["_info"]
+        del result['id']
+        return result
 
     def list_usage(self, cloudname, **kwargs):
         raise ValueError("list usage is not supported")
@@ -367,12 +369,24 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'header': None,
             },
             'limits': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'Name',
+                    'Value'
+                ],
+                'header': [
+                    'Name',
+                    'Value'
+                ]
             },
             'quota': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'Quota',
+                    'Limit'
+                ],
+                'header': [
+                    'Quota',
+                    'Limit'
+                ]
             },
             'default': {
                 'order': None,
@@ -431,4 +445,4 @@ if __name__ == "__main__":
     cp = CloudProviderOpenstackAPI('juno', cloud_details)
 
     d = {'name': '390792c3-66a0-4c83-a0d7-c81e1c787710'}
-    pprint(cp.get_vm(**d))
+    pprint(cp.list_quota('juno'))
