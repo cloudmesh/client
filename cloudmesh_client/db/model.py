@@ -265,7 +265,10 @@ class VM(CloudmeshMixin, db.Base):
         self.name = kwargs["name"]
         # self.volumes_attached = kwargs["volumes_attached"] or None
         # self.progress = kwargs["progress"]
-        # self.security_groups = kwargs["security_ groups"] or None
+
+        # Expects a comma separated string list of security groups.
+        self.security_groups = kwargs["security_ groups"]
+
         self.status = kwargs["status"]
         self.tenant_id = kwargs["tenant_id"]
         self.updated = kwargs["updated"]
