@@ -70,5 +70,17 @@ class Network(ListResource):
         return
 
     @classmethod
-    def floating_ip_pool_list(cls, cloud):
+    def list_floating_ip_pool(cls, cloudname):
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            floating_ip_pools = cloud_provider.list_floating_ip_pools()
+
+            (order, header) = CloudProvider(cloudname).get_attributes("floating_ip_pool")
+
+            return dict_printer(floating_ip_pools,
+                                order=order,
+                                header=header)
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
         pass

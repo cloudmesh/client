@@ -68,10 +68,10 @@ class NetworkCommand(PluginCommand, CloudCommand):
         """
 
         # Get the cloud parameter OR read default
-        cloud = arguments["--cloud"] \
+        cloudname = arguments["--cloud"] \
                 or Default.get_cloud()
 
-        if cloud is None:
+        if cloudname is None:
             Console.error("Default cloud has not been set!"
                           "Please use the following to set it:\n"
                           "cm default cloud=CLOUDNAME\n"
@@ -85,7 +85,8 @@ class NetworkCommand(PluginCommand, CloudCommand):
         if arguments["get"] \
                 and arguments["floating"]:
             floating_ip_id = arguments["FLOATING_IP_ID"]
-            result = Network.get_floating_ip(cloud, floating_ip_id=floating_ip_id)
+            result = Network.get_floating_ip(cloudname,
+                                             floating_ip_id=floating_ip_id)
             Console.msg(result)
             return
         elif arguments["reserve"] \
@@ -115,11 +116,12 @@ class NetworkCommand(PluginCommand, CloudCommand):
         elif arguments["list"] \
                 and arguments["floating"]\
                 and arguments["pool"]:
-            TODO.implement("Yet to implement <list floating pool>")
-            pass
+            result = Network.list_floating_ip_pool(cloudname)
+            Console.msg(result)
+            return
         elif arguments["list"] \
                 and arguments["floating"]:
-            result = Network.list_floating_ip(cloud)
+            result = Network.list_floating_ip(cloudname)
             Console.msg(result)
             pass
 

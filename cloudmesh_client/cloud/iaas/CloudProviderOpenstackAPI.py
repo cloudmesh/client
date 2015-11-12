@@ -169,6 +169,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_floating_ips(self, **kwargs):
         return self._to_dict(self.provider.floating_ips.list())
 
+    def list_floating_ip_pools(self, **kwargs):
+        return self._to_dict(self.provider.floating_ip_pools.list())
+
     def list_quota(self, cloudname, **kwargs):
         # pprint(self.provider.__dict__)
         # pprint(dir(self.provider.quotas))
@@ -418,6 +421,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "floating_ip_id",
                     "instance_id",
                     "floating_ip",
+                    "floating_ip_pool"
+                ],
+            },
+            'floating_ip_pool': {
+                'order': [
+                    "name"
+                ],
+                'header': [
                     "floating_ip_pool"
                 ],
             },
