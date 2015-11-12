@@ -166,6 +166,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_limits(self, tenant, **kwargs):
         return self.provider.limits.get(tenant_id=tenant).__dict__["_info"]
 
+    def list_floating_ips(self, **kwargs):
+        return self._to_dict(self.provider.floating_ips.list())
+
     def list_quota(self, cloudname, **kwargs):
         # pprint(self.provider.__dict__)
         # pprint(dir(self.provider.quotas))
@@ -262,6 +265,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         server = self.provider.servers.find(name=name)
         return self.provider.servers.ips(server)
+
+    def get_floating_ip(self, floating_ip_id):
+        """
+        Returns the floating ip info associated with floating_ip_id
+        :param floating_ip_id:
+        :return: floating ip info
+        """
+        float_ip = self.provider.floating_ips.get(floating_ip_id)
+        return float_ip.__dict__["_info"]
 
     def create_assign_floating_ip(self, server_name):
         """
@@ -390,6 +402,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ]
             },
             'vm': {
+                'order': [
+                    "fixed_ip",
+                    "id",
+                    "instance_id",
+                    "ip",
+                    "pool"
+                ],
+                'header': [
+                    "fixed_ip",
+                    "id",
+                    "instance_id",
+                    "floating_ip",
+                    "floating_ip_pool"
+                ],
+            },
+            'floating_ip': {
                 'order': None,
                 'header': None,
             },
