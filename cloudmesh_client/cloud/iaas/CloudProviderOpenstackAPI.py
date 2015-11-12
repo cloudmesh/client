@@ -10,6 +10,7 @@ from keystoneclient.auth.identity import v3
 from keystoneclient import session
 from novaclient import client
 import requests
+import getpass
 
 requests.packages.urllib3.disable_warnings()
 
@@ -89,11 +90,23 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         auth_url = credentials["OS_AUTH_URL"]
         ksversion = auth_url.split("/")[-1]
 
+        """
+        # GitHub issue 101
+        # mechanism to interactively ask for password
+        # when OS_PASSWORD set as "readline",
+        # or read os.environ if set as "env".
+        """
+        os_password = credentials["OS_PASSWORD"]
+        if os_password.lower() == "readline":
+            os_password = getpass.getpass()
+        elif os_password.lower() == "env":
+                os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
+
         if "v2.0" == ksversion:
             self.provider = client.Client(
                 version,
                 credentials["OS_USERNAME"],
-                credentials["OS_PASSWORD"],
+                os_password,
                 credentials["OS_TENANT_NAME"],
                 credentials["OS_AUTH_URL"],
                 cert)
