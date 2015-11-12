@@ -26,6 +26,6 @@ from cloudmesh_client.shell.plugins.SubmitCommands import SubmitCommands
 from cloudmesh_client.shell.plugins.TerminalCommands import TerminalCommands
 from cloudmesh_client.shell.plugins.UsageCommand import UsageCommand
 from cloudmesh_client.shell.plugins.VmCommand import VmCommand
-from cloudmesh_client.shell.plugins.PyCommand import PyCommand
+from cloudmesh_client.shell.plugins.py import PyCommand
 # from cloudmesh_client.shell.plugins.WhoCommand .import WhoCommand
 
