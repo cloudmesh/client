@@ -134,6 +134,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         # Extracting and modifying dict with IP details as per the model requirement.
         ip_detail_dict = dict()
+        secgroup_list_dict = dict()
         for index in vm_dict:
             ip_detail_dict[index] = dict()
             for key in vm_dict[index]:
@@ -145,9 +146,20 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                             elif ip_detail["OS-EXT-IPS:type"] == "floating":
                                 ip_detail_dict[index]["floating_ip"] = ip_detail["addr"]
 
+            secgroup_list_dict[index] = ""
+
+            sec_index = 0
+            for secgroup in vm_dict[index]["security_groups"]:
+                secgroup_list_dict[index] += secgroup["name"]
+                sec_index += 1
+                # Append comma if not the last element
+                if sec_index < len(vm_dict[index]["security_groups"]):
+                    secgroup_list_dict[index] += ","
+
         for index in vm_dict:
             vm_dict[index]["floating_ip"] = ip_detail_dict[index]["floating_ip"]
             vm_dict[index]["static_ip"] = ip_detail_dict[index]["static_ip"]
+            vm_dict[index]["security_ groups"] = secgroup_list_dict[index]
 
         return vm_dict
 
@@ -430,6 +442,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'status',
                 'static_ip',
                 'floating_ip',
+                'key_name',
                 'project',
                 'user',
                 'cloud'
@@ -441,6 +454,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'status',
                 'static_ip',
                 'floating_ip',
+                'key_name',
                 'project',
                 'user',
                 'cloud'
