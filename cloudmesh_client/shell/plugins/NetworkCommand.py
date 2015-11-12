@@ -20,74 +20,92 @@ class NetworkCommand(PluginCommand, CloudCommand):
         ::
 
             Usage:A
-                network fixed-ip-get [--cloud=CLOUD] FIXED_IP
-                network fixed-ip-reserve [--cloud=CLOUD] FIXED_IP
-                network fixed-ip-unreserve [--cloud=CLOUD] FIXED_IP
-                network floating-ip-associate [--cloud=CLOUD] --server=SERVER FLOATING_IP
-                network floating-ip-disassociate [--cloud=CLOUD] --server=SERVER FLOATING_IP
-                network floating-ip-create [--cloud=CLOUD] [--floating-ip-pool=FLOATING_IP_POOL]
-                network floating-ip-delete [--cloud=CLOUD] FLOATING_IP
-                network floating-ip-list [--cloud=CLOUD]
-                network floating-ip-pool-list [--cloud=CLOUD]
+                network get fixed [ip] [--cloud=CLOUD] FIXED_IP
+                network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
+                network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
+                network associate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
+                network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
+                network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
+                network delete floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
+                network list floating [ip] [--cloud=CLOUD]
+                network list floating pool [--cloud=CLOUD]
                 network -h | --help
 
             Options:
-                -h                  help message
-                --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-                --server=SERVER     Server Name
-                --floating-ip-pool  Name of Floating IP Pool
+                -h                          help message
+                --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
+                --server=SERVER             Server Name
+                --pool=FLOATING_IP_POOL     Name of Floating IP Pool
 
             Arguments:
                 FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
                 FLOATING_IP     Fixed IP Address, e.g. 192.1.66.8
 
             Examples:
-                $ network fixed-ip-get --cloud india 10.1.2.5
-                $ network fixed-ip-reserve --cloud india 10.1.2.5
-                $ network fixed-ip-unreserve --cloud india 10.1.2.5
-                $ network floating-ip-associate --cloud india --server=albert-001 192.1.66.8
-                $ network floating-ip-disassociate --cloud india --server=albert-001 192.1.66.8
-                $ network floating-ip-create --cloud india --floating-ip-pool=albert-f01
-                $ network floating-ip-delete --cloud india 192.1.66.8
-                $ network floating-ip-list --cloud india
-                $ network floating-ip-pool-list --cloud india
+                $ network get fixed ip --cloud india 10.1.2.5
+                $ network get fixed --cloud india 10.1.2.5
+                $ network reserve fixed ip --cloud india 10.1.2.5
+                $ network reserve fixed --cloud india 10.1.2.5
+                $ network unreserve fixed ip --cloud india 10.1.2.5
+                $ network unreserve fixed --cloud india 10.1.2.5
+                $ network associate floating ip --cloud india --server=albert-001 192.1.66.8
+                $ network associate floating --cloud india --server=albert-001 192.1.66.8
+                $ network disassociate floating ip --cloud india --server=albert-001 192.1.66.8
+                $ network disassociate floating --cloud india --server=albert-001 192.1.66.8
+                $ network create floating ip --cloud india --floating-ip-pool=albert-f01
+                $ network create floating --cloud india --floating-ip-pool=albert-f01
+                $ network delete floating ip --cloud india 192.1.66.8
+                $ network delete floating --cloud india 192.1.66.8
+                $ network list floating ip --cloud india
+                $ network list floating --cloud india
+                $ network list floating pool --cloud india
 
         """
         # pprint(arguments)
 
-        if arguments["fixed-ip-get"]:
-            TODO.implement("Yet to implement")
+        if arguments["get"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <get fixed ip>")
             pass
-        elif arguments["fixed-ip-reserve"]:
-            TODO.implement("Yet to implement")
+        elif arguments["reserve"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <reserve fixed ip>")
             pass
-        elif arguments["fixed-ip-unreserve"]:
-            TODO.implement("Yet to implement")
+        elif arguments["unreserve"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <unreserve fixed ip>")
             pass
-        elif arguments["floating-ip-associate"]:
-            TODO.implement("Yet to implement")
+        elif arguments["associate"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <associate fixed ip>")
             pass
-        elif arguments["floating-ip-disassociate"]:
-            TODO.implement("Yet to implement")
+        elif arguments["disassociate"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <disassociate fixed ip>")
             pass
-        elif arguments["floating-ip-create"]:
-            TODO.implement("Yet to implement")
+        elif arguments["create"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <create fixed ip>")
             pass
-        elif arguments["floating-ip-delete"]:
-            TODO.implement("Yet to implement")
+        elif arguments["delete"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <delete fixed ip>")
             pass
-        elif arguments["floating-ip-list"]:
-            TODO.implement("Yet to implement")
+        elif arguments["list"] \
+                and arguments["fixed"]\
+                and arguments["pool"]:
+            TODO.implement("Yet to implement <list fixed pool>")
             pass
-        elif arguments["floating-ip-pool-list"]:
-            TODO.implement("Yet to implement")
+        elif arguments["list"] \
+                and arguments["fixed"]:
+            TODO.implement("Yet to implement <list fixed ip>")
             pass
 
         return ""
 
 
 if __name__ == '__main__':
-    command = cm_shell_security_group()
-    command.do_security_group("list")
-    command.do_security_group("a=x")
-    command.do_security_group("x")
+    command = cm_shell_network()
+    command.do_network("list")
+    command.do_network("a=x")
+    command.do_network("x")
