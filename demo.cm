@@ -1,1 +1,54 @@
+#
+# test. make sure you have done cm reset before
+#
+
+register remote juno
+register remote kilo
+
 default list
+
+#
+list flavor
+list image
+list vm
+
+# Nothing in the list
+
+flavor refresh
+image refresh
+vm refresh
+
+list flavor
+list image
+list vm
+
+
+# list the default values
+vm default
+
+vm boot
+
+list vm
+
+vm refresh
+
+# refreshes the details of the last vm
+
+vm list
+
+# lists the details of the last vm
+
+
+default refresh=True
+
+# a refresh is called automatically
+
+list flavor
+list image
+list vm
+
+
+
+
+
+
