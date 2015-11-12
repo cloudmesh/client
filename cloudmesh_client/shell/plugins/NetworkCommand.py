@@ -19,7 +19,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
         """
         ::
 
-            Usage:A
+            Usage:
                 network get fixed [ip] [--cloud=CLOUD] FIXED_IP
                 network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
                 network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
@@ -101,7 +101,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
             TODO.implement("Yet to implement <list fixed ip>")
             pass
 
-        return ""
+        return
 
 
 if __name__ == '__main__':
