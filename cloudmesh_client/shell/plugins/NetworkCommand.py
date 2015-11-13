@@ -80,8 +80,11 @@ class NetworkCommand(PluginCommand, CloudCommand):
 
         if arguments["get"] \
                 and arguments["fixed"]:
-            TODO.implement("Yet to implement <get fixed ip>")
-            pass
+            fixed_ip = arguments["FIXED_IP"]
+            result = Network.get_fixed_ip(cloudname,
+                                          fixed_ip_addr=fixed_ip)
+            Console.msg(result)
+            return
         if arguments["get"] \
                 and arguments["floating"]:
             floating_ip_id = arguments["FLOATING_IP_ID"]
