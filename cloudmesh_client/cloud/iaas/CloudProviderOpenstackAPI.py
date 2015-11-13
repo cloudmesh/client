@@ -278,6 +278,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         float_ip = self.provider.floating_ips.get(floating_ip_id)
         return float_ip.__dict__["_info"]
 
+    def get_fixed_ip(self, fixed_ip_addr):
+        """
+        Returns the fixed ip info associated with fixed ip addr
+        :param fixed_ip_addr:
+        :return: fixed ip info
+        """
+        fixed_ip = self.provider.fixed_ips.get(fixed_ip_addr)
+        return fixed_ip.__dict__["_info"]
+
     def create_assign_floating_ip(self, server_name):
         """
         Function creates a new floating ip and associates it with the machine specified.

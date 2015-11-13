@@ -10,8 +10,20 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 class Network(ListResource):
     @classmethod
-    def get_fixed_ip(cls, cloud, fixed_ip):
-        pass
+    def get_fixed_ip(cls, cloudname, fixed_ip_addr):
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            result = cloud_provider.get_fixed_ip(fixed_ip_addr=fixed_ip_addr)
+
+            return attribute_printer(result,
+                                     header=[
+                                         "name",
+                                         "value"
+                                     ])
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        return
 
     @classmethod
     def get_floating_ip(cls, cloudname, floating_ip_id):
