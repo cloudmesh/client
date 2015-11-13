@@ -7,7 +7,7 @@ from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import dict_printer, list_printer
+from cloudmesh_client.common.Printer import dict_printer, list_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
@@ -127,9 +127,13 @@ class Vm(ListResource):
             (order, header) = CloudProvider(kwargs["cloud"]).get_attributes("vm")
 
             # order = None
-            return dict_printer(elements,
-                                order=order,
-                                output=kwargs["output_format"])
+            if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
+                return attribute_printer(elements.values()[0],
+                                         output=kwargs["output_format"])
+            else:
+                return dict_printer(elements,
+                                    order=order,
+                                    output=kwargs["output_format"])
         except Exception as ex:
             Console.error(ex.message, ex)
 
