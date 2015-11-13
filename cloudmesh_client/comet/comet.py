@@ -232,7 +232,7 @@ class Comet(object):
             try:
                 ret = r.json()
             except:
-                ret = r
+                ret = r.text
         # code 202, accepted call and processing
         elif r.status_code == 202:
             # now automatically redirect to result page

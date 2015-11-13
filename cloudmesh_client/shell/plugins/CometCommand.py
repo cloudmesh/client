@@ -42,7 +42,7 @@ class CometCommand(PluginCommand, CometCommand):
                comet info [--user=USER]
                             [--project=PROJECT]
                             [--format=FORMAT]
-               comet list [ID][--name=NAMES]
+               comet cluster [ID][--name=NAMES]
                             [--user=USER]
                             [--project=PROJECT]
                             [--hosts=HOSTS]
@@ -50,9 +50,10 @@ class CometCommand(PluginCommand, CometCommand):
                             [--end=TIME_END]
                             [--hosts=HOSTS]
                             [--format=FORMAT]
+               comet computeset [COMPUTESETID]
                comet start ID
                comet stop ID
-               comet power (on|off) CLUSTERID COMPUTEIDS
+               comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
                comet delete [all]
                               [--user=USER]
                               [--project=PROJECT]
@@ -171,10 +172,14 @@ class CometCommand(PluginCommand, CometCommand):
 
             Comet.docs()
 
-        elif arguments["list"]:
+        elif arguments["cluster"]:
 
             id = arguments["ID"]
             print(Cluster.list(id, format=output_format))
+
+        elif arguments["computeset"]:
+            id = arguments["COMPUTESETID"]
+            print (Cluster.computeset(id))
 
         elif arguments["info"]:
 
@@ -199,13 +204,34 @@ class CometCommand(PluginCommand, CometCommand):
         elif arguments["power"]:
 
             clusterid = arguments["CLUSTERID"]
-            computeids = Parameter.expand(arguments["COMPUTEIDS"])
+            fuzzyparam = arguments["PARAM"]
+            param = fuzzyparam
+
+            try:
+                param = int(fuzzyparam)
+                subject = "COMPUTESET"
+                param = str(param)
+            except ValueError:
+                if 'FE' == fuzzyparam:
+                    subject = "FE"
+                    param = None
+                elif '[' in fuzzyparam and ']' in fuzzyparam:
+                    subject = "HOSTS"
+                else:
+                    subject = "HOST"
 
             if arguments["on"]:
-                on = True
+                action = "on"
+            elif arguments["off"]:
+                action = "off"
+            elif arguments["reboot"]:
+                action = "reboot"
+            elif arguments["reset"]:
+                action = "reset"
+            elif arguments["shutdown"]:
+                action = "shutdown"
             else:
-                on = False
-
-            Cluster.power(clusterid, computeids, on)
+                action = None
+            Cluster.power(clusterid, subject, param, action)
 
         return ""
