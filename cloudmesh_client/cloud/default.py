@@ -11,17 +11,15 @@ class Default(ListResource):
 
     @classmethod
     def list(cls,
-             cloud=cloud,
+             cloud=None,
              format="table",
              order=['user', 'cloud', 'name', 'value'],
              output=format):
-
         try:
             if cloud is None:
                 d = cls.cm.all("default")
             else:
                 d = cls.cm.find('default', cloud=cloud)
-            pprint (d)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))

@@ -245,6 +245,7 @@ class CloudmeshDatabase(object):
     def all(self, table):
         table_type = self.get_table(table)
         elements = self.session.query(table_type).all()
+        pprint(elements)
         d = self.parse_objs(elements)
         return d
 

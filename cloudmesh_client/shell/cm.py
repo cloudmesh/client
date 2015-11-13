@@ -168,10 +168,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         defaults = {'clouds': {},
                     'key': {}}
 
-        import yaml
         for cloud in clouds:
             if "default" in  config['clouds'][cloud]:
-                print (config["clouds"][cloud]["default"])
                 defaults['clouds'][cloud] = config["clouds"][cloud]['default']
 
         if "default" in config["keys"]:
@@ -179,7 +177,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         else:
             defaults['key'] = None
 
-        pprint (defaults)
 
         for cloud in defaults["clouds"]:
             for default,value in defaults["clouds"][cloud].iteritems():

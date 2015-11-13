@@ -76,12 +76,13 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
             default delete image
             default delete image --cloud=kilo
         """
-        from pprint import pprint; pprint(arguments)
+        # pprint(arguments)
         cloud = arguments["--cloud"]
 
         if arguments["list"]:
             output_format = arguments["--format"]
-            if arguments['--all'] or cloud is None or cloud is "all":
+
+            if arguments['--all'] or cloud in ["None", "all"]:
                 cloud = None
             result = Default.list(cloud=cloud, format=output_format)
 
