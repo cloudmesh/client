@@ -1,0 +1,20 @@
+#
+# test. make sure you have done cm reset before
+#
+
+# lines that do not work but should are commented out for now with ##
+
+banner DEFAULTS
+
+cm default
+
+banner REGISTRATION
+
+# PUT YOUR COMMANDS HERE
+
+default hpc=juliet
+
+hpc info
+hpc queue
+
+

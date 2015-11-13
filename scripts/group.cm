@@ -1,0 +1,44 @@
+#
+# test. make sure you have done cm reset before
+#
+
+# lines that do not work but should are commented out for now with ##
+
+banner DEFAULTS
+
+cm default
+
+banner REGISTRATION
+
+register remote juno
+register remote kilo
+
+vm default
+
+default group=group_a
+
+vm boot
+vm boot
+vm boot
+
+vm list
+
+default group=group_b
+
+vm boot
+vm boot
+vm boot
+
+vm list
+
+vm delete group_a
+
+default group=group_c
+
+py n = 3
+py for i in range(0,n): cm vm boot
+
+vm list
+
+
+

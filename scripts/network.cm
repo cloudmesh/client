@@ -1,0 +1,16 @@
+#
+# test. make sure you have done cm reset before
+#
+
+# lines that do not work but should are commented out for now with ##
+
+banner DEFAULTS
+
+cm default
+
+banner REGISTRATION
+
+register remote juno
+register remote kilo
+
+# PUT YOUR COMMANDS HERE
