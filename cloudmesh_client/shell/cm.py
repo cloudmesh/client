@@ -180,7 +180,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         for cloud in defaults["clouds"]:
             for default,value in defaults["clouds"][cloud].iteritems():
-                print (cloud, default, value)
                 Default.set(default, value, cloud=cloud)
 
         for c in CloudmeshConsole.__bases__[1:]:
