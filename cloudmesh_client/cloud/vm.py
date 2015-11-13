@@ -145,3 +145,9 @@ class Vm(ListResource):
     def refresh(cls, **kwargs):
         # print("Inside refresh")
         return cls.cm.refresh("vm", kwargs["cloud"])
+
+    @classmethod
+    def status_from_cloud(cls, **kwargs):
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        vm = cloud_provider.get_vm(name=kwargs["name_or_id"])
+        return vm["status"]

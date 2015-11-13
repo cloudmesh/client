@@ -71,6 +71,8 @@ class VmCommand(PluginCommand, CloudCommand):
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
                         [--format=FORMAT]
+                vm status NAME_OR_ID
+                          [--cloud=CLOUD]
 
             Arguments:
                 COMMAND        positional arguments, the commands you want to
@@ -110,6 +112,7 @@ class VmCommand(PluginCommand, CloudCommand):
             Description:
                 commands used to boot, start or delete servers of a cloud
 
+                vm default [options...]     Displays default parameters that are set for VM boot.
                 vm boot [options...]        Boots servers on a cloud, user may specify
                                             flavor, image .etc, otherwise default values
                                             will be used, see how to set default values
@@ -126,6 +129,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 vm ip_show [options...]     show the ips of VMs
                 vm login [options...]       login to a server or execute commands on it
                 vm list [options...]        same as command "list vm", please refer to it
+                vm status [options...]      Retrieves status of VM from cloud and displays it.
 
             Tip:
                 give the VM name, but in a hostlist style, which is very
@@ -258,14 +262,31 @@ class VmCommand(PluginCommand, CloudCommand):
                 Console.error("Problem booting instance {:}".format(name))
 
         elif arguments["default"]:
+            try:
+                data = {"cloud": arguments["--cloud"] or Default.get_cloud()}
+                for attribute in ["name", "image", "flavor", "keypair", "secgroup"]:
+                    data[attribute] = Default.get(attribute, cloud=cloud)
+                output_format = arguments["--format"] or "table"
+                print (attribute_printer(data, output=output_format))
+                ValueError("default command not implemented properly. Upon "
+                           "first install the defaults should be read from yaml.")
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print(e)
+                Console.error("Problem listing defaults")
 
-            data = {"cloud": arguments["--cloud"] or Default.get_cloud()}
-            for attribute in ["name", "image", "flavor", "keypair", "secgroup"]:
-                data[attribute] = Default.get(attribute, cloud=cloud)
-            output_format = arguments["--format"] or "table"
-            print (attribute_printer(data, output=output_format))
-            ValueError("default command not implemented properly. Upon "
-                       "first install the defaults should be read from yaml.")
+        elif arguments["status"]:
+            try:
+                name_or_id = arguments["NAME_OR_ID"]
+                cloud = arguments["--cloud"] or Default.get_cloud()
+                status = Vm.status_from_cloud(cloud=cloud, name_or_id = name_or_id)
+                print("Status of VM {} is {}".format(name_or_id, status))
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print(e)
+                Console.error("Problem retrieving status of the VM")
 
         elif arguments["start"]:
             try:
