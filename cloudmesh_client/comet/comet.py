@@ -54,7 +54,8 @@ class Comet(object):
     @staticmethod
     def tunnel(start):
         if start:
-            os.system("ssh -L 8443:localhost:443 nucleus")
+            command =  "ssh -L 8443:localhost:443 nucleus"
+            os.system(command)
         else:
             Comet.kill_tunnel()
 
