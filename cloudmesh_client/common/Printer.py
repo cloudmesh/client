@@ -203,7 +203,7 @@ def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True,
             sorted_list = d
 
         for key in sorted_list:
-            x.add_row([key, d[key]])
+            x.add_row([key, d[key] or ""])
         x.align = "l"
         return x
     else:
