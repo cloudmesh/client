@@ -67,7 +67,7 @@ class Vm(ListResource):
         print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
 
         # Explicit refresh called after VM boot, to update db.
-        cls.refresh(cloud=kwargs["cloud"])
+        # cls.refresh(cloud=kwargs["cloud"])
 
         return vm_id
 
@@ -79,7 +79,7 @@ class Vm(ListResource):
             print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
         # Explicit refresh called after VM start, to update db.
-        cls.refresh(cloud=kwargs["cloud"])
+        # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def stop(cls, **kwargs):
@@ -89,7 +89,7 @@ class Vm(ListResource):
             print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
         # Explicit refresh called after VM stop, to update db.
-        cls.refresh(cloud=kwargs["cloud"])
+        # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def delete(cls, **kwargs):
@@ -99,7 +99,7 @@ class Vm(ListResource):
             print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
 
         # Explicit refresh called after VM delete, to update db.
-        cls.refresh(cloud=kwargs["cloud"])
+        # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def info(cls, **kwargs):

@@ -37,13 +37,12 @@ class VmCommand(PluginCommand, CloudCommand):
                 vm default [--cloud=CLOUD][--format=FORMAT]
                 vm refresh [--cloud=CLOUD]
                 vm boot [--name=NAME]
-                         [--count=COUNT]
-                         [--cloud=CLOUD]
-                         [--image=IMAGE_OR_ID]
-                         [--flavor=FLAVOR_OR_ID]
-                         [--group=GROUP]
-                         [--secgroup=SECGROUP]
-                         [--keypair_name=KEYPAIR_NAME]
+                        [--cloud=CLOUD]
+                        [--image=IMAGE_OR_ID]
+                        [--flavor=FLAVOR_OR_ID]
+                        [--group=GROUP]
+                        [--secgroup=SECGROUP]
+                        [--keypair_name=KEYPAIR_NAME]
                 vm start [NAME...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
@@ -206,28 +205,41 @@ class VmCommand(PluginCommand, CloudCommand):
         if arguments["boot"]:
             try:
                 name = arguments["--name"]
-                # TODO: use count
-                count = arguments["--count"]
-                image = arguments["--image"]
-                flavor = arguments["--flavor"]
-                group = arguments["--group"] or \
-                    Default.get("group")
-                secgroup = arguments["--secgroup"]
-                # print("SecurityGrp : {:}".format(secgroup))
-                secgroup_list = ["default"]
-                if secgroup is not None:
-                    secgroup_list.append(secgroup)
-
-                key_name = arguments["--keypair_name"]
 
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set.")
                     return ""
 
+                image = arguments["--image"] or Default.get("image", cloud=cloud)
+                # if default image not set, return error
+                if not image:
+                    Console.error("Default image not set.")
+                    return ""
+
+                flavor = arguments["--flavor"] or Default.get("flavor", cloud=cloud)
+                # if default flavor not set, return error
+                if not flavor:
+                    Console.error("Default flavor not set.")
+                    return ""
+
+                group = arguments["--group"] or \
+                    Default.get("group", cloud=cloud)
                 # if default group not set, return error
                 if not group:
                     Console.error("Default group not set.")
+                    return ""
+
+                secgroup = arguments["--secgroup"] or Default.get("secgroup", cloud=cloud)
+                # print("SecurityGrp : {:}".format(secgroup))
+                secgroup_list = ["default"]
+                if secgroup is not None:
+                    secgroup_list.append(secgroup)
+
+                key_name = arguments["--keypair_name"] or Default.get("keypair", cloud=cloud)
+                # if default keypair not set, return error
+                if not key_name:
+                    Console.error("Default keypair not set.")
                     return ""
 
                 vm_id = Vm.boot(cloud=cloud, name=name, image=image,
@@ -248,8 +260,8 @@ class VmCommand(PluginCommand, CloudCommand):
         elif arguments["default"]:
 
             data = {"cloud": arguments["--cloud"] or Default.get_cloud()}
-            for attribute in ["name", "image", "flavor", "key", "secgroup"]:
-                data[attribute] = Default.get("name", cloud=cloud)
+            for attribute in ["name", "image", "flavor", "keypair", "secgroup"]:
+                data[attribute] = Default.get(attribute, cloud=cloud)
             output_format = arguments["--format"] or "table"
             print (attribute_printer(data, output=output_format))
             ValueError("default command not implemented properly. Upon "

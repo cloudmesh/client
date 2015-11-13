@@ -141,6 +141,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 if key.startswith("addresses"):
                     for ip_detail in vm_dict[index][key]:
                         if ip_detail["OS-EXT-IPS:type"] is not None:
+                            ip_detail_dict[index]["floating_ip"] = None
                             if ip_detail["OS-EXT-IPS:type"] == "fixed":
                                 ip_detail_dict[index]["static_ip"] = ip_detail["addr"]
                             elif ip_detail["OS-EXT-IPS:type"] == "floating":
