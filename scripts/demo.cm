@@ -4,6 +4,10 @@
 
 # lines that do not work but should are commented out for now with ##
 
+banner DEFAULTS
+
+cm default
+
 banner REGISTRATION
 
 register remote juno
@@ -46,7 +50,7 @@ banner VMS
 
 # list the default values
 
-## vm default
+vm default
 
 # boot
 ## vm boot

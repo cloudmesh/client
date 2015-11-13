@@ -3,7 +3,7 @@ from __future__ import print_function
 from cloudmesh_client.common import Printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
-
+from pprint import pprint
 
 class Default(ListResource):
     cm = CloudmeshDatabase()
@@ -11,25 +11,17 @@ class Default(ListResource):
 
     @classmethod
     def list(cls,
+             cloud=cloud,
              format="table",
              order=['user', 'cloud', 'name', 'value'],
              output=format):
 
         try:
-            d = cls.cm.all("default")
-            return (Printer.dict_printer(d,
-                                         order=order,
-                                         output=format))
-        except:
-            return None
-
-    @classmethod
-    def get_objects(cls,
-                    cloud,
-                    format="table",
-                    order=['user', 'cloud', 'name', 'value']):
-        try:
-            d = cls.cm.find('default', cloud=cloud)
+            if cloud is None:
+                d = cls.cm.all("default")
+            else:
+                d = cls.cm.find('default', cloud=cloud)
+            pprint (d)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))

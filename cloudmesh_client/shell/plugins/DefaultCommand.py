@@ -31,7 +31,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
 
           Options:
 
-             --cloud=CLOUD    the name of the cloud [default: general]
+             --cloud=CLOUD    the name of the cloud [default: all]
              --format=FORMAT  the output format [default: table]
              --all            lists all the default values
 
@@ -70,20 +70,20 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
             default list --all
             default list --cloud=general
             default image=xyz
-            default image=abc --cloud=chameleon
+            default image=abc --cloud=kilo
             default image
-            default image --cloud=chameleon
+            default image --cloud=kilo
             default delete image
-            default delete image --cloud=chameleon
+            default delete image --cloud=kilo
         """
-        # pprint(arguments)
+        from pprint import pprint; pprint(arguments)
         cloud = arguments["--cloud"]
+
         if arguments["list"]:
             output_format = arguments["--format"]
-            if arguments['--all']:
-                result = Default.list(format=output_format)
-            else:
-                result = Default.get_objects(cloud, format=output_format)
+            if arguments['--all'] or cloud is None or cloud is "all":
+                cloud = None
+            result = Default.list(cloud=cloud, format=output_format)
 
             if result is None:
                 Console.error("No default values found")
@@ -92,6 +92,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
             return ""
 
         elif arguments["delete"]:
+
             key = arguments["KEY"]
             result = Default.delete(key, cloud)
             if result is None:

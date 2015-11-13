@@ -23,6 +23,9 @@ from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_base.ssh_config import ssh_config
 from cloudmesh_client.shell.console import Console
+from pprint import pprint
+
+from cloudmesh_client.common.ConfigDict import dprint
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -57,6 +60,7 @@ class ConsoleClasses(object):
 
 
 # console = ConsoleFactory(PluginCommand)
+
 
 
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
@@ -154,6 +158,33 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         Default.set('cluster', cluster,  cloud='general')
 
 
+        #
+        # Read cloud details from yaml file
+        #
+        filename = 'cloudmesh.yaml'
+        config = ConfigDict(filename=filename)["cloudmesh"]
+        clouds = config["clouds"]
+
+        defaults = {'clouds': {},
+                    'key': {}}
+
+        import yaml
+        for cloud in clouds:
+            if "default" in  config['clouds'][cloud]:
+                print (config["clouds"][cloud]["default"])
+                defaults['clouds'][cloud] = config["clouds"][cloud]['default']
+
+        if "default" in config["keys"]:
+            defaults["keys"] = config["keys"]["default"]
+        else:
+            defaults['key'] = None
+
+        pprint (defaults)
+
+        for cloud in defaults["clouds"]:
+            for default,value in defaults["clouds"][cloud].iteritems():
+                print (cloud, default, value)
+                Default.set(default, value, cloud=cloud)
 
         for c in CloudmeshConsole.__bases__[1:]:
             c.__init__(self, context)
