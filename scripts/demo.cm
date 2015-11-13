@@ -2,6 +2,8 @@
 # test. make sure you have done cm reset before
 #
 
+# lines that do not work but should are commented out for now with ##
+
 banner REGISTRATION
 
 register remote juno
@@ -27,32 +29,39 @@ flavor refresh
 image refresh
 vm refresh
 
-banner LIST
+banner LIST COMMAND
 
 list flavor
 list image
 list vm
 
+banner LIST COMMANDS FROM WITHIN
+
+flavor list
+image list
+vm list
+
+
 banner VMS
 
 # list the default values
 
-vm default
+## vm default
 
 # boot
-vm boot
+## vm boot
 
 # list
-list vm
+## list vm
 
 # refresh
-vm refresh
+## vm refresh
 
 # list the details of the last started VM
 vm list
 
 # returns the status of  the last vm
-vm status
+## vm status
 
 # lists the details of the last vm
 
@@ -63,7 +72,6 @@ default refresh=True
 list flavor
 list image
 list vm
-
 
 
 

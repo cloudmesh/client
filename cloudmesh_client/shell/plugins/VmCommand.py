@@ -17,7 +17,7 @@ import os
 import getpass
 import socket
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
-
+from pprint import pprint
 
 class VmCommand(PluginCommand, CloudCommand):
     topics = {"vm": "cloud"}
@@ -33,8 +33,9 @@ class VmCommand(PluginCommand, CloudCommand):
         ::
 
             Usage:
+                vm default [--cloud=CLOUD][--format=FORMAT]
                 vm refresh [--cloud=CLOUD]
-                vm boot --name=NAME
+                vm boot [--name=NAME]
                          [--count=COUNT]
                          [--cloud=CLOUD]
                          [--image=IMAGE_OR_ID]
@@ -42,26 +43,26 @@ class VmCommand(PluginCommand, CloudCommand):
                          [--group=GROUP]
                          [--secgroup=SECGROUP]
                          [--keypair_name=KEYPAIR_NAME]
-                vm start NAME...
+                vm start [NAME...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm stop NAME...
+                vm stop [NAME...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm delete NAME...
+                vm delete [NAME...]
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm floating_ip_assign NAME...
+                vm floating_ip_assign [NAME...]
                                       [--cloud=CLOUD]
-                vm ip_show NAME...
+                vm ip_show [NAME...]
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
-                vm login NAME [--user=USER]
+                vm login [NAME] [--user=USER]
                          [--ip=IP]
                          [--cloud=CLOUD]
                          [--key=KEY]
@@ -220,12 +221,12 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set!")
+                    Console.error("Default cloud not set.")
                     return ""
 
                 # if default group not set, return error
                 if not group:
-                    Console.error("Default group not set!")
+                    Console.error("Default group not set.")
                     return ""
 
                 vm_id = Vm.boot(cloud=cloud, name=name, image=image,
@@ -242,6 +243,15 @@ class VmCommand(PluginCommand, CloudCommand):
                 print(traceback.format_exc())
                 print(e)
                 Console.error("Problem booting instance {:}".format(name))
+        elif arguments["default"] is not None:
+
+            data = {"cloud": arguments["--cloud"] or Default.get_cloud()}
+            for attribute in ["name", "image", "flavor", "key", "secgroup"]:
+                data[attribute] = Default.get("name", cloud=cloud)
+            output_format = arguments["--format"] or "table"
+            print (attribute_printer(data, output=output_format))
+            ValueError("default command not implemented properly. Upon "
+                       "first install the defaults should be read from yaml.")
 
         elif arguments["start"]:
             try:
@@ -251,7 +261,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set!")
+                    Console.error("Default cloud not set.")
                     return ""
 
                 Vm.start(cloud=cloud, servers=servers)
@@ -272,7 +282,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set!")
+                    Console.error("Default cloud not set.")
                     return ""
 
                 Vm.stop(cloud=cloud, servers=servers)
@@ -306,7 +316,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set!")
+                    Console.error("Default cloud not set.")
                     return ""
 
                 Vm.delete(cloud=cloud, servers=servers)
@@ -324,7 +334,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
             # if default cloud not set, return error
             if not cloud:
-                Console.error("Default cloud not set!")
+                Console.error("Default cloud not set.")
                 return ""
             try:
                 cloud_provider = CloudProvider(cloud).provider
@@ -341,7 +351,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 import traceback
                 print(traceback.format_exc())
                 print(e)
-                Console.error("Problem assigning floating ips...")
+                Console.error("Problem assigning floating ips.")
 
         elif arguments["ip_show"]:
             id = arguments["NAME"]
@@ -351,7 +361,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
             # if default cloud not set, return error
             if not cloud:
-                Console.error("Default cloud not set!")
+                Console.error("Default cloud not set.")
                 return ""
 
             try:
@@ -383,7 +393,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
             # if default cloud not set, return error
             if not cloud:
-                Console.error("Default cloud not set!")
+                Console.error("Default cloud not set.")
                 return ""
 
             cloud_provider = CloudProvider(cloud).provider
@@ -401,7 +411,7 @@ class VmCommand(PluginCommand, CloudCommand):
                         "ERROR: IP Address specified does not match with the host.")
                     return ""
             else:
-                print("Determining IP Address to use with a ping test...")
+                print("Determining IP Address to use with a ping test.")
                 # This part assumes that the ping is allowed to the machine.
                 for ipadd in ip_addresses:
                     print("Checking {:}...".format(ipadd))
@@ -413,7 +423,7 @@ class VmCommand(PluginCommand, CloudCommand):
                         print("Cannot reach {:}.".format(ipadd))
 
             if ip is None:
-                print("SORRY! Unable to connect to the machine")
+                print("SORRY. Unable to connect to the machine")
                 return ""
             else:
                 print("IP to be used is: {:}".format(ip))
@@ -443,7 +453,7 @@ class VmCommand(PluginCommand, CloudCommand):
                         if result is not None:
                             print(result)
                         else:
-                            print("Sorry! No data found with requested parameters in DB.")
+                            print("Sorry. No data found with requested parameters in DB.")
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception, e:
@@ -455,7 +465,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 # if default cloud not set, return error
                 if not cloud:
-                    Console.error("Default cloud not set!")
+                    Console.error("Default cloud not set.")
                     return ""
 
                 try:
@@ -469,7 +479,8 @@ class VmCommand(PluginCommand, CloudCommand):
                     if result is not None:
                         print(result)
                     else:
-                        print("Sorry! No data found with requested parameters in DB.")
+                        Console.error("No data found with the"
+                                      "requested parameters.")
 
                     msg = "info. OK."
                     Console.ok(msg)
