@@ -19,6 +19,7 @@ import socket
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 from pprint import pprint
 
+
 class VmCommand(PluginCommand, CloudCommand):
     topics = {"vm": "cloud"}
 
@@ -210,7 +211,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 image = arguments["--image"]
                 flavor = arguments["--flavor"]
                 group = arguments["--group"] or \
-                        Default.get("group")
+                    Default.get("group")
                 secgroup = arguments["--secgroup"]
                 # print("SecurityGrp : {:}".format(secgroup))
                 secgroup_list = ["default"]
@@ -243,7 +244,8 @@ class VmCommand(PluginCommand, CloudCommand):
                 print(traceback.format_exc())
                 print(e)
                 Console.error("Problem booting instance {:}".format(name))
-        elif arguments["default"] is not None:
+
+        elif arguments["default"]:
 
             data = {"cloud": arguments["--cloud"] or Default.get_cloud()}
             for attribute in ["name", "image", "flavor", "key", "secgroup"]:
