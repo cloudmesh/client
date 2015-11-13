@@ -6,7 +6,7 @@ cloudmesh:
         firstname: TBD
         lastname: TBD
         email: TBD
-        username: TBD
+        username: None
     github:
         username: TBD
     active:

@@ -39,7 +39,7 @@ list flavor
 list image
 list vm
 
-banner LIST COMMANDS FROM WITHIN
+banner "LIST COMMANDS FROM WITHIN"
 
 flavor list
 image list
@@ -72,6 +72,15 @@ vm list
 default refresh=True
 
 # a refresh is called automatically
+
+list flavor
+list image
+list vm
+
+
+default refresh=False
+
+# a refresh is not called automatically
 
 list flavor
 list image
