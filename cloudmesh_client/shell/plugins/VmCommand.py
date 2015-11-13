@@ -390,12 +390,16 @@ class VmCommand(PluginCommand, CloudCommand):
             name = arguments["NAME"][0]
             user = arguments["--user"] or getpass.getuser()
             ip = arguments["--ip"]
-            key = arguments["--key"]
             commands = arguments["--command"]
 
             # if default cloud not set, return error
             if not cloud:
                 Console.error("Default cloud not set.")
+                return ""
+
+            key = arguments["--key"] or Default.get("key", cloud=cloud)
+            if not key:
+                Console.error("Default key not set.")
                 return ""
 
             cloud_provider = CloudProvider(cloud).provider
