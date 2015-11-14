@@ -151,3 +151,15 @@ class Default(ListResource):
     @classmethod
     def get_key(cls):
         return cls.get("key", "general")
+
+    #
+    # Set the default cluster
+    #
+
+    @classmethod
+    def set_cluster(cls, value):
+        cls.set("cluster", value, "general")
+
+    @classmethod
+    def get_cluster(cls):
+        return cls.get("cluster", "general")

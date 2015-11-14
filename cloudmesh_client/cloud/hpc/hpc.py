@@ -39,13 +39,13 @@ class Hpc(object):
                                  output=format))
 
     @classmethod
-    def info(cls, format='json', all=False):
+    def info(cls, cluster, format='json', all=False):
 
         if all:
-            result = Shell.ssh("comet", 'sinfo --format=\"%all\"')
+            result = Shell.ssh(cluster, 'sinfo --format=\"%all\"')
         else:
             result = Shell.ssh(
-                "comet",
+                cluster,
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
         parser = TableParser()

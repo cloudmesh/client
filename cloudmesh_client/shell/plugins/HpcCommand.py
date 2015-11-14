@@ -98,13 +98,16 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         """
 
         format = arguments['--format']
-        cluster = arguments['--cluster']
+        cluster = arguments['--cluster'] or Default.get_cluster()
+        if cluster is None:
+            Console.error("Default cluster doesn't exist")
+            return
 
         if arguments["queue"]:
             print(Hpc.queue(cluster, format=format))
 
         elif arguments["info"]:
-            print(Hpc.info(format))
+            print(Hpc.info(cluster, format))
 
         elif arguments["kill"]:
             Console.error("Not yet implemented.")
