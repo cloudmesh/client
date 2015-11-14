@@ -9,34 +9,41 @@ from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 class Hpc(object):
     @classmethod
     def queue(cls, cluster, format='json', job=None):
-        args = 'squeue '
-        if job:
-            args += '--job={} '.format(job)
-        f = '--format=%all'
-        args += f
-        result = Shell.ssh(cluster, args)
-        #
-        # TODO: this will not work as some jobs could have error in their names
-        # if result.__contains__('error'):
-        #    return result
+        try:
+            args = 'squeue '
+            if job is not None:
+                if job.isdigit():
+                    args += ' -j {} '.format(job)  # search by job id
+                else:
+                    args += ' -n {} '.format(job)  # search by job name
+            f = '--format=%all'
+            args += f
+            result = Shell.ssh(cluster, args)
+            #
+            # TODO: this will not work as some jobs could have error in their names
+            # if result.__contains__('error'):
+            #    return result
 
-        parser = TableParser()
-        d = parser.to_dict(result)
+            parser = TableParser()
+            d = parser.to_dict(result)
 
-        if format == 'json':
-            return json.dumps(d, indent=4, separators=(',', ': '))
+            if format == 'json':
+                return json.dumps(d, indent=4, separators=(',', ': '))
 
-        else:
-            return (dict_printer(d,
-                                 order=['jobid',
-                                        'partition',
-                                        'name',
-                                        'user',
-                                        'st',
-                                        'time',
-                                        'nodes',
-                                        'nodelist'],
-                                 output=format))
+            else:
+                return (dict_printer(d,
+                                     order=['jobid',
+                                            'partition',
+                                            'name',
+                                            'user',
+                                            'st',
+                                            'time',
+                                            'nodes',
+                                            'nodelist'],
+                                     output=format))
+        except Exception as ex:
+            return ex
+
 
     @classmethod
     def info(cls, cluster, format='json', all=False):

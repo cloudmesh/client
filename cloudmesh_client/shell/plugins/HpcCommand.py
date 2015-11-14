@@ -94,20 +94,26 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                     after the time is elapsed.
 
             Examples:
+                cm hpc queue
+                cm hpc queue --name=xxx
+                cm hpc info
                 cm hpc run uname
         """
 
         format = arguments['--format']
         cluster = arguments['--cluster'] or Default.get_cluster()
+
         if cluster is None:
             Console.error("Default cluster doesn't exist")
             return
 
         if arguments["queue"]:
-            print(Hpc.queue(cluster, format=format))
+            name = arguments['--name']
+            result = Hpc.queue(cluster, format=format, job=name)
+            Console.msg(result)
 
         elif arguments["info"]:
-            print(Hpc.info(cluster, format))
+            Console.msg(Hpc.info(cluster, format))
 
         elif arguments["kill"]:
             Console.error("Not yet implemented.")
