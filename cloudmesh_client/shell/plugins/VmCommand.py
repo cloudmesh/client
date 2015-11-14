@@ -43,26 +43,26 @@ class VmCommand(PluginCommand, CloudCommand):
                         [--group=GROUP]
                         [--secgroup=SECGROUP]
                         [--keypair_name=KEYPAIR_NAME]
-                vm start [NAME...]
+                vm start NAME...
+                         [--group=GROUP]
+                         [--cloud=CLOUD]
+                         [--force]
+                vm stop NAME...
+                        [--group=GROUP]
+                        [--cloud=CLOUD]
+                        [--force]
+                vm delete NAME...
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm stop [NAME...]
-                          [--group=GROUP]
-                          [--cloud=CLOUD]
-                          [--force]
-                vm delete [NAME...]
-                          [--group=GROUP]
-                          [--cloud=CLOUD]
-                          [--force]
-                vm floating_ip_assign [NAME...]
+                vm floating_ip_assign NAME...
                                       [--cloud=CLOUD]
-                vm ip_show [NAME...]
+                vm ip_show NAME...
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
-                vm login [NAME] [--user=USER]
+                vm login NAME [--user=USER]
                          [--ip=IP]
                          [--cloud=CLOUD]
                          [--key=KEY]
@@ -268,6 +268,8 @@ class VmCommand(PluginCommand, CloudCommand):
                     data[attribute] = Default.get(attribute, cloud=cloud)
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
+                msg = "info. OK."
+                Console.ok(msg)
                 ValueError("default command not implemented properly. Upon "
                            "first install the defaults should be read from yaml.")
             except Exception, e:
@@ -280,8 +282,10 @@ class VmCommand(PluginCommand, CloudCommand):
             try:
                 name_or_id = arguments["NAME_OR_ID"]
                 cloud = arguments["--cloud"] or Default.get_cloud()
-                status = Vm.status_from_cloud(cloud=cloud, name_or_id = name_or_id)
+                status = Vm.status_from_cloud(cloud=cloud, name_or_id=name_or_id)
                 print("Status of VM {} is {}".format(name_or_id, status))
+                msg = "info. OK."
+                Console.ok(msg)
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
@@ -334,7 +338,7 @@ class VmCommand(PluginCommand, CloudCommand):
             try:
                 msg = "Refresh VMs for cloud {:}.".format(cloud)
                 if Vm.refresh(cloud=cloud):
-                    Console.ok("{:} ok".format(msg))
+                    Console.ok("{:} OK.".format(msg))
                 else:
                     Console.error("{:} failed".format(msg))
             except Exception, e:
