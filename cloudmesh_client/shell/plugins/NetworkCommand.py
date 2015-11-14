@@ -109,7 +109,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
             TODO.implement("Yet to implement <disassociate floating ip>")
             pass
         elif arguments["create"] \
-                and arguments["fixed"]:
+                and arguments["floating"]:
             TODO.implement("Yet to implement <create floating ip>")
             pass
         elif arguments["delete"] \

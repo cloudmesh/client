@@ -420,18 +420,20 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'floating_ip': {
                 'order': [
+                    "instance_name",
+                    "ip",
+                    "pool",
                     "fixed_ip",
                     "id",
-                    "instance_id",
-                    "ip",
-                    "pool"
+                    "instance_id"
                 ],
                 'header': [
+                    "instance_name",
+                    "floating_ip",
+                    "floating_ip_pool",
                     "fixed_ip",
                     "floating_ip_id",
-                    "instance_id",
-                    "floating_ip",
-                    "floating_ip_pool"
+                    "instance_id"
                 ],
             },
             'floating_ip_pool': {
