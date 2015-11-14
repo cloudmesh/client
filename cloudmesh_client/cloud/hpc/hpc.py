@@ -21,7 +21,7 @@ class Hpc(object):
         #    return result
 
         parser = TableParser()
-        d = parser.parse_to_dict(result)
+        d = parser.to_dict(result)
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
@@ -49,7 +49,7 @@ class Hpc(object):
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
         parser = TableParser()
-        d = parser.parse_to_dict(result)
+        d = parser.to_dict(result)
 
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))

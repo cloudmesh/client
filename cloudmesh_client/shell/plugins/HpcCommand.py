@@ -31,7 +31,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 hpc test --cluster=CLUSTER [--time=SECONDS]
 
             Options:
-               --format=FORMAT  the output format [default: json]
+               --format=FORMAT  the output format [default: table]
 
             Examples:
 
