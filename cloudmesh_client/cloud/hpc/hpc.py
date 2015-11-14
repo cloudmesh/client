@@ -48,7 +48,7 @@ class Hpc(object):
                 cluster,
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
-        parser = TableParser()
+        parser = TableParser(strip=False)
         d = parser.to_dict(result)
 
         if format == 'json':
