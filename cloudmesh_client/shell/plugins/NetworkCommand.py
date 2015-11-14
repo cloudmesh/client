@@ -29,7 +29,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
                 network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
                 network delete floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
-                network list floating [ip] [--cloud=CLOUD] [IP_OR_ID]
+                network list floating [ip] [--cloud=CLOUD] [--instance=INSTANCE_ID] [IP_OR_ID]
                 network list floating pool [--cloud=CLOUD]
                 network -h | --help
 
@@ -38,6 +38,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
                 --server=SERVER             Server Name
                 --pool=FLOATING_IP_POOL     Name of Floating IP Pool
+                --instance=INSTANCE_ID      ID of the vm instance
 
             Arguments:
                 IP_OR_ID        IP Address or ID
@@ -65,6 +66,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 $ network list floating ip --cloud india
                 $ network list floating --cloud india
                 $ network list floating --cloud india 192.1.66.8
+                $ network list floating --cloud india --instance=323c5195-7yy34-4e7b-8581-703abec4b
                 $ network list floating pool --cloud india
 
         """
@@ -128,10 +130,30 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["floating"]:
 
             ip_or_id = arguments["IP_OR_ID"]
+            instance_id = arguments["--instance"]
+
+            # If instance id is supplied
+            if instance_id is not None:
+                instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                          instance_id=instance_id)
+                # Read the floating_ip from the dict
+                ip_or_id = instance_dict["floating_ip"]
+                
+                if ip_or_id is None:
+                    Console.error("Instance with ID [{}] does not have a floating IP address!"
+                                  .format(instance_id))
+                    return
+
+            # If the floating ip or associated ID is supplied
             if ip_or_id is not None:
                 result = Network.get_floating_ip(cloudname,
                                                  floating_ip_or_id=ip_or_id)
-                Console.msg(result)
+
+                if result is not None:
+                    Console.msg(result)
+                else:
+                    Console.error("Floating IP not found! Please check your arguments.")
+                    return
             else:
                 result = Network.list_floating_ip(cloudname)
                 Console.msg(result)

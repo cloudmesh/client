@@ -43,6 +43,7 @@ class Network(ListResource):
         """
         try:
             cloud_provider = CloudProvider(cloudname).provider
+            result = None
 
             # check if argument is ip or uuid
             if cls.isIPAddr(ip_or_id=floating_ip_or_id):
@@ -54,9 +55,14 @@ class Network(ListResource):
                     # if argument ip matches floating ip addr
                     if ip_addr == floating_ip_or_id:
                         result = floating_ip
+                        break
             else:
                 # find by floating ip uuid
                 result = cloud_provider.get_floating_ip(floating_ip_id=floating_ip_or_id)
+
+            # Could not find floating IP from given args
+            if result is None:
+                return None
 
             instance_id = result["instance_id"]
             # lookup instance_name from id
@@ -206,3 +212,20 @@ class Network(ListResource):
 
         return instance_name
 
+    @classmethod
+    def get_instance_dict(cls, **kwargs):
+        """
+        Method to get instance dict
+        :param kwargs:
+        :return: instance dict
+        """
+        cloudname = kwargs["cloudname"]
+        instance_id = kwargs["instance_id"]
+
+        # Cloudmesh database instance
+        db = CloudmeshDatabase()
+
+        # Lookup instance details from db
+        instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
+
+        return (instance_dict.values()[0])
