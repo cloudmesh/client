@@ -43,6 +43,15 @@ class Test_vm:
 
     def test_002(self):
         """
+        cm vm refresh --cloud=juno
+        """
+        HEADING()
+        result = run("cm vm refresh --cloud=juno")
+        print result
+        assert "OK." in result
+
+    def test_003(self):
+        """
         cm vm list --cloud=juno
         """
         HEADING()
@@ -50,7 +59,25 @@ class Test_vm:
         print result
         assert "OK." in result
 
-    def test_003(self):
+    def test_004(self):
+        """
+        cm vm list testvm --cloud=juno
+        """
+        HEADING()
+        result = run("cm vm list testvm --cloud=juno")
+        print result
+        assert "OK." in result
+
+    def test_005(self):
+        """
+        cm vm status testvm --cloud=juno
+        """
+        HEADING()
+        result = run("cm vm status testvm --cloud=juno")
+        print result
+        assert "OK." in result
+
+    def test_006(self):
         """
         cm vm ip_show testvm --cloud=juno
         """
@@ -59,7 +86,7 @@ class Test_vm:
         print result
         assert "OK." in result
 
-    def test_004(self):
+    def test_007(self):
         """
         cm vm delete testvm --cloud=juno
         """
