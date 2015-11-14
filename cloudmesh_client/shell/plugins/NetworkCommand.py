@@ -29,7 +29,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
                 network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
                 network delete floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
-                network list floating [ip] [--cloud=CLOUD]
+                network list floating [ip] [--cloud=CLOUD] [IP_OR_ID]
                 network list floating pool [--cloud=CLOUD]
                 network -h | --help
 
@@ -40,6 +40,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 --pool=FLOATING_IP_POOL     Name of Floating IP Pool
 
             Arguments:
+                IP_OR_ID        IP Address or ID
                 FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
                 FLOATING_IP     Floating IP Address, e.g. 192.1.66.8
                 FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
@@ -63,6 +64,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 $ network delete floating --cloud india 192.1.66.8
                 $ network list floating ip --cloud india
                 $ network list floating --cloud india
+                $ network list floating --cloud india 192.1.66.8
                 $ network list floating pool --cloud india
 
         """
@@ -89,7 +91,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["floating"]:
             floating_ip_id = arguments["FLOATING_IP_ID"]
             result = Network.get_floating_ip(cloudname,
-                                             floating_ip_id=floating_ip_id)
+                                             floating_ip_or_id=floating_ip_id)
             Console.msg(result)
             return
         elif arguments["reserve"] \
@@ -124,8 +126,15 @@ class NetworkCommand(PluginCommand, CloudCommand):
             return
         elif arguments["list"] \
                 and arguments["floating"]:
-            result = Network.list_floating_ip(cloudname)
-            Console.msg(result)
+
+            ip_or_id = arguments["IP_OR_ID"]
+            if ip_or_id is not None:
+                result = Network.get_floating_ip(cloudname,
+                                                 floating_ip_or_id=ip_or_id)
+                Console.msg(result)
+            else:
+                result = Network.list_floating_ip(cloudname)
+                Console.msg(result)
             pass
 
         return
