@@ -13,12 +13,10 @@ from cloudmesh_client.cloud.nova import Nova
 
 class Usage(ListResource):
     @classmethod
-    def list(cls, cloud, start, end, tenant, format):
-        # TODO: consider named arguments
-        # def list(cls, cloud, start=None,
-        #         end=None, tenant=None, output="table"):
+    def list(cls, cloud, start=None, end=None, tenant=None, format="table"):
         # set the environment variables
         set_os_environ(cloud)
+
         try:
             # execute the command
             args = ["usage"]
@@ -35,6 +33,13 @@ class Usage(ListResource):
             lines = result.splitlines()
             dates = lines[0]
 
+            # TODO: as stated below, nova returns additional lines,
+            # on my pc, SecurityWarning is returned, so filtering..
+
+            for l in lines[1:]:
+                if l.__contains__("SecurityWarning"):
+                    lines.remove(l)
+
             table = '\n'.join(lines[1:])
 
             dates = dates.replace("Usage from ", ""). \
@@ -45,15 +50,16 @@ class Usage(ListResource):
             # first + char, so we could not ignore the line we may set - as
             # additional comment char, but that did not work
             #
-            d = TableParser.convert(result, comment_chars="+#")
 
-            d["0"]["start"] = "start"
-            d["0"]["end"] = "end"
+            d = TableParser.convert(table, comment_chars="+#")
 
-            d["1"]["start"] = dates[0]
-            d["1"]["end"] = dates[1]
+            # d["0"]["start"] = "start"
+            # d["0"]["end"] = "end"
 
-            del d['0']
+            d["0"]["start"] = dates[0]
+            d["0"]["end"] = dates[1]
+
+            # del d['0']
 
             return dict_printer(d,
                                 order=["start",

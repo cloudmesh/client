@@ -7,7 +7,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
 
 class UsageCommand(PluginCommand, CloudCommand):
-    topics = {"list": "cloud"}
+    topics = {"usage": "cloud"}
 
     def __init__(self, context):
         self.context = context
@@ -20,9 +20,9 @@ class UsageCommand(PluginCommand, CloudCommand):
         ::
 
             Usage:
-                list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
+                usage list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
-                Show list data.
+                Show usage data.
 
             Options:
                --format=FORMAT  the output format [default: table]
@@ -33,24 +33,24 @@ class UsageCommand(PluginCommand, CloudCommand):
 
 
             Examples:
-                cm list
+                cm usage list
 
         """
 
-        cloud = arguments["--cloud"] or Default.get("cloud")
+        if arguments["list"]:
+            cloud = arguments["--cloud"] or Default.get("cloud")
 
-        if not cloud:
-            Console.error("cloud doesn't exist")
+            if not cloud:
+                Console.error("cloud doesn't exist")
+                return ""
+            output_format = arguments["--format"]
+            start = arguments["--start"]
+            end = arguments["--end"]
+            tenant = arguments["--tenant"]
+            usage = Usage.list(cloud,
+                               start=start,
+                               end=end,
+                               tenant=tenant,
+                               format=output_format)
+            Console.msg(usage)
             return ""
-
-        output_format = arguments["--format"]
-        start = arguments["--start"]
-        end = arguments["--end"]
-        tenant = arguments["--tenant"]
-        usage = Usage.list(cloud,
-                           start=start,
-                           end=end,
-                           tenant=tenant,
-                           format=output_format)
-        Console.msg(usage)
-        return ""

@@ -101,7 +101,7 @@ class TableParser(object):
         self.lines = self.lines[1:]
 
         self.headers = \
-            [self.clean(h) for h in self.lines[0].split(self.seperator)]
+            [self.clean(h) for h in header.split(self.seperator)]
         if self.is_strip:
             self.headers = self.headers[1:-1]
         return self.headers
