@@ -284,6 +284,34 @@ class VM(CloudmeshMixin, db.Base):
         """
 
 
+class VMUSERMAP(CloudmeshMixin, db.Base):
+    """
+    Table to store mapping of VM and login username.
+    """
+    vm_uuid = Column(String, primary_key=True)
+    username = Column(String)
+
+    def __init__(self, **kwargs):
+        self.id = kwargs["vm_uuid"]
+        self.vm_uuid = kwargs["vm_uuid"]
+        self.username = kwargs["username"]
+        self.kind = self.__tablename__
+
+
+class PREFIXCOUNT(CloudmeshMixin, db.Base):
+    """
+    Table to store Prefix Count for VM auto-naming.
+    """
+    prefix = Column(String, primary_key=True)
+    count = Column(Integer)
+
+    def __init__(self, **kwargs):
+        self.id = kwargs["prefix"]
+        self.prefix = kwargs["prefix"]
+        self.count = kwargs["count"]
+        self.kind = self.__tablename__
+
+
 class DEFAULT(CloudmeshMixin, db.Base):
     """table to store default values
 

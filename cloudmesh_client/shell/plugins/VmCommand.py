@@ -209,6 +209,18 @@ class VmCommand(PluginCommand, CloudCommand):
         if arguments["boot"]:
             try:
                 name = arguments["--name"]
+                is_name_provided = True
+
+                if name is None:
+                    is_name_provided = False
+
+                    prefix, count = Vm.get_prefix_and_count()
+
+                    if prefix is None or count is None:
+                        Console.error("Prefix and Count could not be retrieved correctly.")
+                        return
+
+                    name = prefix + str(count).zfill(3)
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -250,6 +262,10 @@ class VmCommand(PluginCommand, CloudCommand):
                                 flavor=flavor, key_name=key_name,
                                 secgroup_list=secgroup_list)
 
+                if is_name_provided is False:
+                    # Incrementing count
+                    Vm.inc_count_for_prefix()
+
                 # Add to group
                 Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
                 msg = "info. OK."
@@ -263,8 +279,16 @@ class VmCommand(PluginCommand, CloudCommand):
 
         elif arguments["default"]:
             try:
-                data = {"cloud": arguments["--cloud"] or Default.get_cloud()}
-                for attribute in ["name", "image", "flavor", "keypair", "secgroup"]:
+                prefix, count = Vm.get_prefix_and_count()
+
+                if prefix is None or count is None:
+                    Console.error("Prefix and Count could not be retrieved correctly.")
+                    return
+
+                vm_name = prefix + str(count).zfill(3)
+                data = {"name": vm_name,
+                        "cloud": arguments["--cloud"] or Default.get_cloud()}
+                for attribute in ["image", "flavor", "keypair", "secgroup"]:
                     data[attribute] = Default.get(attribute, cloud=cloud)
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
