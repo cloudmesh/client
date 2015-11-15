@@ -61,7 +61,7 @@ class NovaCommand (PluginCommand, CloudCommand):
             return ""
 
         group = arguments["--group"] or \
-                Default.get("group")
+                Default.get("group", cloud=cloud)
 
         if not group:
             Console.error("Default group not set!")
