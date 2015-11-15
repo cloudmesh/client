@@ -155,3 +155,26 @@ class Hpc(object):
         return (sbatch_result +
                 '\n .The output file {} is in ~ directory of the cluster'.
                 format(option_mapping['-o']))
+
+    @classmethod
+    def kill(cls, cluster, job):
+        """
+        This method is used to terminate a job with the specified
+        job_id or job_name in a given cluster
+        :param cluster: the cluster like comet
+        :param job: the job id or name
+        :return: success message or error
+        """
+        try:
+            args = 'scancel '
+            if job.isdigit():
+                args += job
+            else:
+                args += "-n {}".format(job)
+
+            Shell.ssh(cluster, args)
+            return "Job {} killed successfully".format(job)
+        except Exception as ex:
+            return ex
+
+
