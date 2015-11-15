@@ -66,9 +66,12 @@ class Network(ListResource):
                 return None
 
             instance_id = result["instance_id"]
-            # lookup instance_name from id
-            instance_name = cls.find_instance_name(cloudname=cloudname,
-                                                   instance_id=instance_id)
+            instance_name = None
+
+            if instance_id is not None:
+                # lookup instance_name from id
+                instance_name = cls.find_instance_name(cloudname=cloudname,
+                                                       instance_id=instance_id)
 
             # add instance_name to dict
             result["instance_name"] = instance_name
@@ -100,8 +103,14 @@ class Network(ListResource):
         pass
 
     @classmethod
-    def floating_ip_create(cls, cloud, floating_pool=None):
-        pass
+    def create_floating_ip(cls, cloudname, floating_pool=None):
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            floating_ip = cloud_provider.create_floating_ip(float_pool=floating_pool)
+            return floating_ip
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
 
     @classmethod
     def floating_ip_delete(cls, cloud, floating_ip):
@@ -191,7 +200,6 @@ class Network(ListResource):
             return floating_ips
         except Exception as ex:
             Console.error(ex.message, ex)
-
 
     @classmethod
     def find_instance_name(cls, **kwargs):

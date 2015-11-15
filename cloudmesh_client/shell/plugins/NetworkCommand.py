@@ -27,7 +27,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
                 network associate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
                 network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
-                network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
+                network create floating [ip] [--cloud=CLOUD] --pool=FLOATING_IP_POOL
                 network delete floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
                 network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
                 network list floating pool [--cloud=CLOUD]
@@ -59,8 +59,8 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 $ network associate floating --cloud india --server=albert-001 192.1.66.8
                 $ network disassociate floating ip --cloud india --server=albert-001 192.1.66.8
                 $ network disassociate floating --cloud india --server=albert-001 192.1.66.8
-                $ network create floating ip --cloud india --floating-ip-pool=albert-f01
-                $ network create floating --cloud india --floating-ip-pool=albert-f01
+                $ network create floating ip --cloud india --pool=albert-f01
+                $ network create floating --cloud india --pool=albert-f01
                 $ network delete floating ip --cloud india 192.1.66.8
                 $ network delete floating --cloud india 192.1.66.8
                 $ network list floating ip --cloud india
@@ -117,8 +117,16 @@ class NetworkCommand(PluginCommand, CloudCommand):
             pass
         elif arguments["create"] \
                 and arguments["floating"]:
-            TODO.implement("Yet to implement <create floating ip>")
-            pass
+            floating_pool = arguments["--pool"]
+            result = Network.create_floating_ip(cloudname=cloudname,
+                                                floating_pool=floating_pool)
+            if result is not None:
+                Console.ok("Created new floating IP [{}]".format(result))
+            else:
+                Console.error("Failed to create floating IP! Please check arguments.")
+
+            return
+
         elif arguments["delete"] \
                 and arguments["floating"]:
             TODO.implement("Yet to implement <delete floating ip>")

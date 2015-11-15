@@ -309,6 +309,15 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         return floating_ip.ip
 
+    def create_floating_ip(self, float_pool):
+        """
+        Method creates a new floating ip under the specified pool
+        :param float_pool:
+        :return: Floating IP
+        """
+        floating_ip = self.provider.floating_ips.create(pool=float_pool)
+        return floating_ip.ip
+
     # TODO: define this
     def get_image(self, **kwargs):
 
