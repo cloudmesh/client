@@ -4,6 +4,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
+from datetime import datetime
 
 
 class Hpc(object):
@@ -24,22 +25,29 @@ class Hpc(object):
             # if result.__contains__('error'):
             #    return result
 
-            parser = TableParser()
+            parser = TableParser(strip=False)
             d = parser.to_dict(result)
+
+            # add cluster and updated to each entry
+            for key in d.keys():
+                d[key]['cluster'] = cluster
+                d[key]['updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             if format == 'json':
                 return json.dumps(d, indent=4, separators=(',', ': '))
 
             else:
                 return (dict_printer(d,
-                                     order=['jobid',
-                                            'partition',
+                                     order=['cluster',
+                                            'jobid',
+                                            'partition ',
                                             'name',
                                             'user',
                                             'st',
-                                            'time',
-                                            'nodes',
-                                            'nodelist'],
+                                            'time ',
+                                            'nodes ',
+                                            'nodelist ',
+                                            'updated'],
                                      output=format))
         except Exception as ex:
             return ex
@@ -58,17 +66,24 @@ class Hpc(object):
         parser = TableParser(strip=False)
         d = parser.to_dict(result)
 
+        # add cluster and updated to each entry
+        for key in d.keys():
+            d[key]['cluster'] = cluster
+            d[key]['updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         if format == 'json':
             return json.dumps(d, indent=4, separators=(',', ': '))
 
         else:
             return (dict_printer(d,
-                                 order=['partition',
+                                 order=['cluster',
+                                        'partition',
                                         'avail',
                                         'timelimit',
                                         'nodes',
                                         'state',
-                                        'nodelist'],
+                                        'nodelist',
+                                        'updated'],
                                  output=format))
 
     @classmethod
