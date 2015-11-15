@@ -25,7 +25,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
                 hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
-                hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+                hpc kill --job=NAME [--cluster=CLUSTER][--group=GROUP]
                 hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
                 hpc test --cluster=CLUSTER [--time=SECONDS]
@@ -68,8 +68,8 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 cm hpc kill all -cluster=all
                     kills all jobs on all clusters
 
-                cm kill job=NAME
-                    kills a job with a given name
+                cm hpc kill --job=NAME
+                    kills a job with a given name or job id
 
                 cm hpc default cluster=NAME
                     sets the default hpc cluster
@@ -97,6 +97,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 cm hpc queue
                 cm hpc queue --name=xxx
                 cm hpc info
+                cm hpc kill --job=6
                 cm hpc run uname
         """
 
@@ -116,31 +117,27 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
             Console.msg(Hpc.info(cluster, format))
 
         elif arguments["kill"]:
-            Console.error("Not yet implemented.")
+            job = arguments['--job']
+            Console.ok(Hpc.kill(cluster, job))
 
         elif arguments["status"]:
             job_id = arguments['--job']
             print(Hpc.queue(cluster, job=job_id))
 
         elif arguments["run"]:
-            # If cluster is not specified, get default
-            if not cluster:
-                cluster = Default.get(
-                    "cluster") or "india"  # TODO: need to clarify if throw error
-
             queue = arguments['--queue'] or Default.get('queue')
             if not queue:
                 Console.error('set default queue using: default queue=<value>')
                 return
 
-            cmd = arguments['SCRIPT']
+            script = arguments['SCRIPT']
             arg_dict = {
                 '-name': arguments['--name'],
                 '-p': queue,
                 '-t': arguments['--t'],
                 '-N': arguments['--N']
             }
-            Console.ok(Hpc.run(cluster, cmd, **arg_dict))
+            Console.ok(Hpc.run(cluster, script, **arg_dict))
 
         elif arguments["test"]:
             time_secs = arguments['--time']
