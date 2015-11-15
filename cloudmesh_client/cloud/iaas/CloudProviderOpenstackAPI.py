@@ -228,6 +228,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         server.delete()
 
+    def delete_floating_ip(self, floating_ip):
+        """
+        Method deletes a floating IP address
+        :param floating_ip:
+        :return: None
+        """
+        return self.provider.floating_ips.delete(floating_ip)
+
     def start_vm(self, name, group=None, force=None):
         """
         Starts a suspended machine on the target cloud indicated by the id or name

@@ -104,6 +104,12 @@ class Network(ListResource):
 
     @classmethod
     def create_floating_ip(cls, cloudname, floating_pool=None):
+        """
+        Method to create a floating ip address under a pool
+        :param cloudname:
+        :param floating_pool:
+        :return: floating ip addr
+        """
         try:
             cloud_provider = CloudProvider(cloudname).provider
             floating_ip = cloud_provider.create_floating_ip(float_pool=floating_pool)
@@ -113,8 +119,45 @@ class Network(ListResource):
             return
 
     @classmethod
-    def floating_ip_delete(cls, cloud, floating_ip):
-        pass
+    def delete_floating_ip(cls, cloudname, floating_ip_or_id):
+        """
+        Method to delete a floating ip address
+        :param cloudname:
+        :param floating_ip_or_id:
+        :return:
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            floating_ip_dict = None
+
+            # check if argument is ip or uuid
+            if cls.isIPAddr(ip_or_id=floating_ip_or_id):
+                # get floating ip list
+                floating_ips = cls.get_floating_ip_list(cloudname)
+                for floating_ip in floating_ips.values():
+                    ip_addr = floating_ip["ip"]
+
+                    # if argument ip matches floating ip addr
+                    if ip_addr == floating_ip_or_id:
+                        floating_ip_dict = floating_ip
+                        break
+            else:
+                # find by floating ip uuid
+                floating_ip_dict = cloud_provider.get_floating_ip(floating_ip_id=floating_ip_or_id)
+
+            # Could not find floating IP from given args
+            if floating_ip_dict is None:
+                return None
+
+            # Delete the floating ip; returns None if success
+            result = cloud_provider.delete_floating_ip(floating_ip_dict["id"])
+            if result is None:
+                return "Floating IP [{}] deleted successfully!"\
+                    .format(floating_ip_dict["ip"])
+
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
 
     @classmethod
     def list_floating_ip(cls, cloudname):
