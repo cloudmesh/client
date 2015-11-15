@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import socket
+from uuid import UUID
 from pprint import pprint
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
@@ -226,6 +227,38 @@ class Network(ListResource):
         db = CloudmeshDatabase()
 
         # Lookup instance details from db
-        instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
+        if cls.isUuid(instance_id):
+            instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
+        else:
+            instance_dict = db.find(kind="vm", cloud=cloudname, name=instance_id)
 
-        return (instance_dict.values()[0])
+        # Instance not found in DB
+        if cls.isDictEmpty(instance_dict):
+            return None
+        else:
+            return instance_dict.values()[0]
+
+    @classmethod
+    def isUuid(cls, argument):
+        """
+        Method to check if arg is an UUID
+        :param argument:
+        :return:
+        """
+        try:
+            UUID(argument, version=4)
+            return True
+        except ValueError:
+            return False
+
+    @classmethod
+    def isDictEmpty(cls, dict):
+        """
+        Method to test empty Dict
+        :param dict:
+        :return:
+        """
+        if bool(dict):
+            return False
+        else:
+            return True
