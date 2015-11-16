@@ -25,6 +25,13 @@ class Hpc(object):
             # if result.__contains__('error'):
             #    return result
 
+            # TODO: process till u find the header...(Need a better way)
+            l = result.splitlines()
+            for i, res in enumerate(l):
+                if 'ACCOUNT|GRES|' in res:
+                    result = "\n".join(l[i:])
+                    break
+
             parser = TableParser(strip=False)
             d = parser.to_dict(result)
 
