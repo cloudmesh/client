@@ -25,7 +25,7 @@ class Hpc(object):
             # if result.__contains__('error'):
             #    return result
 
-            # TODO: process till u find the header...(Need a better way)
+            # TODO: process till header is found...(Need a better way)
             l = result.splitlines()
             for i, res in enumerate(l):
                 if 'ACCOUNT|GRES|' in res:
@@ -69,6 +69,13 @@ class Hpc(object):
             result = Shell.ssh(
                 cluster,
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
+
+        # TODO: process till header is found...(Need a better way)
+        l = result.splitlines()
+        for i, res in enumerate(l):
+            if 'PARTITION|AVAIL|' in res:
+                result = "\n".join(l[i:])
+                break
 
         parser = TableParser(strip=False)
         d = parser.to_dict(result)
