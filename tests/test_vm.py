@@ -70,10 +70,10 @@ class Test_vm:
 
     def test_005(self):
         """
-        cm vm status testvm --cloud=juno
+        cm vm status --cloud=juno
         """
         HEADING()
-        result = run("cm vm status testvm --cloud=juno")
+        result = run("cm vm status --cloud=juno")
         print result
         assert "OK." in result
 
