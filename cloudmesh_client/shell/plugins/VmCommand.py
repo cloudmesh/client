@@ -288,7 +288,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 vm_name = prefix + str(count).zfill(3)
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.get_cloud()}
-                for attribute in ["image", "flavor", "keypair", "secgroup"]:
+                for attribute in ["image", "flavor", "keypair", "login_key","group", "secgroup"]:
                     data[attribute] = Default.get(attribute, cloud=cloud)
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
@@ -449,7 +449,15 @@ class VmCommand(PluginCommand, CloudCommand):
 
         elif arguments["login"]:
             name = arguments["NAME"][0]
-            user = arguments["--user"] or getpass.getuser()
+            user = arguments["--user"]
+
+            # Get user if user argument not specified.
+            if user is None:
+                user_from_db = Vm.get_vm_login_user(name, cloud)
+                user_suggest = user_from_db or getpass.getuser()
+                user = raw_input("Enter the user to login (Default: {}):".format(user_suggest)) or user_suggest
+                Vm.set_vm_login_user(name, cloud, user)
+
             ip = arguments["--ip"]
             commands = arguments["--command"]
 
@@ -458,9 +466,9 @@ class VmCommand(PluginCommand, CloudCommand):
                 Console.error("Default cloud not set.")
                 return ""
 
-            key = arguments["--key"] or Default.get("key", cloud=cloud)
+            key = arguments["--key"] or Default.get("login_key", cloud=cloud)
             if not key:
-                Console.error("Default key not set.")
+                Console.error("Default login_key not set.")
                 return ""
 
             cloud_provider = CloudProvider(cloud).provider

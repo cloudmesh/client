@@ -276,7 +276,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param force:
         :return: IP address of the instance
         """
-        server = self.provider.servers.find(name=name)
+        if self.isUuid(name):
+            server = self.provider.servers.get(name)
+        else:
+            server = self.provider.servers.find(name=name)
+
         return self.provider.servers.ips(server)
 
     def get_floating_ip(self, floating_ip_id):

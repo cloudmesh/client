@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT, VMUSERMAP
 
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -180,6 +180,8 @@ class CloudmeshDatabase(object):
                 return RESERVATION
             elif kind.lower() in ["prefixcount"]:
                 return PREFIXCOUNT
+            elif kind.lower() in ["vmusermap"]:
+                return VMUSERMAP
             else:
                 TODO.implement("wrong table type: `{}`".format(kind))
         else:
@@ -262,11 +264,20 @@ class CloudmeshDatabase(object):
 
     def update_prefix(self, **kwargs):
         """
-        Special function to update prefix count.
+        Special function to update vm prefix count.
         :param kwargs:
         :return:
         """
         self.find(PREFIXCOUNT, output="object", prefix=kwargs["prefix"]).update(kwargs)
+        self.save()
+
+    def update_vm_username(self, **kwargs):
+        """
+        Special function to update vm prefix count.
+        :param kwargs:
+        :return:
+        """
+        self.find(VMUSERMAP, output="object", vm_uuid=kwargs["vm_uuid"]).update(kwargs)
         self.save()
 
     def delete_by_name(self, kind, name):

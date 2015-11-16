@@ -157,17 +157,15 @@ class Vm(ListResource):
         d = ConfigDict("cloudmesh.yaml")
 
         if "username" not in d["cloudmesh"]["profile"]:
-            Console.error("Profile username is not set in yaml file.")
-            return ""
+            raise RuntimeError("Profile username is not set in yaml file.")
 
         prefix_username = d["cloudmesh"]["profile"]["username"]
 
         prefix_item = cls.cm.find("PREFIXCOUNT", prefix=prefix_username)
 
-        if prefix_item is None:
-            Console.error("ERROR while incrementing prefix count. Prefix item not found for prefix_username {}"
-                          .format(prefix_username))
-            return ""
+        if prefix_item is None or len(prefix_item) == 0:
+            raise RuntimeError("ERROR while incrementing prefix count. Prefix not found in database\
+                                for prefix_username {}".format(prefix_username))
 
         # Incrementing the count here
         count = prefix_item[prefix_username]["count"]
@@ -186,8 +184,7 @@ class Vm(ListResource):
         d = ConfigDict("cloudmesh.yaml")
 
         if "username" not in d["cloudmesh"]["profile"]:
-            Console.error("Profile username is not set in yaml file.")
-            return None, None
+            raise RuntimeError("Profile username is not set in yaml file.")
 
         prefix_username = d["cloudmesh"]["profile"]["username"]
 
@@ -206,10 +203,44 @@ class Vm(ListResource):
         return prefix_username, count
 
     @classmethod
-    def set_vm_login_user(cls):
-        print("Implement")
+    def set_vm_login_user(cls, name_or_id, cloud, username):
+
+        if cls.isUuid(name_or_id):
+            uuid = name_or_id
+        else:
+            vm_data = cls.cm.find("vm", cloud=cloud, label=name_or_id)
+            if vm_data is None or len(vm_data) == 0:
+                raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
+            uuid = vm_data.values()[0]["uuid"]
+
+        user_map_entry = cls.cm.find("VMUSERMAP", vm_uuid=uuid)
+
+        if user_map_entry is None or len(user_map_entry) == 0:
+            user_map_dict = cls.cm.db_obj_dict("VMUSERMAP", vm_uuid=uuid, username=username)
+            cls.cm.add_obj(user_map_dict)
+            cls.cm.save()
+        else:
+            cls.cm.update_vm_username(vm_uuid=uuid, username=username)
 
     @classmethod
-    def get_vm_login_user(cls):
-        print("Implement")
+    def get_vm_login_user(cls, name_or_id, cloud):
+
+        if cls.isUuid(name_or_id):
+            uuid = name_or_id
+        else:
+            vm_data = cls.cm.find("vm", cloud=cloud, label=name_or_id)
+            if vm_data is None or len(vm_data) == 0:
+                raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
+            uuid = vm_data.values()[0]["uuid"]
+
+        # print(uuid)
+
+        user_map_entry = cls.cm.find("VMUSERMAP", vm_uuid=uuid)
+
+        # print(user_map_entry)
+
+        if user_map_entry is None or len(user_map_entry) == 0:
+            return None
+        else:
+            return user_map_entry.values()[0]["username"]
 
