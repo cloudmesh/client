@@ -219,7 +219,7 @@ class VmCommand(PluginCommand, CloudCommand):
                         Console.error("Prefix and Count could not be retrieved correctly.")
                         return
 
-                    name = prefix + str(count).zfill(3)
+                    name = prefix + "-" + str(count).zfill(3)
 
                 # if default cloud not set, return error
                 if not cloud:
@@ -284,10 +284,10 @@ class VmCommand(PluginCommand, CloudCommand):
                     Console.error("Prefix and Count could not be retrieved correctly.")
                     return
 
-                vm_name = prefix + str(count).zfill(3)
+                vm_name = prefix + "-" + str(count).zfill(3)
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.get_cloud()}
-                for attribute in ["image", "flavor", "keypair", "login_key","group", "secgroup"]:
+                for attribute in ["image", "flavor", "keypair", "login_key", "group", "secgroup"]:
                     data[attribute] = Default.get(attribute, cloud=cloud)
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
