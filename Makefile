@@ -40,23 +40,17 @@ log:
 ######################################################################
 
 clean:
-	cd docs; make clean
-	rm -rf build dist docs/build .eggs *.egg-info
-	rm -rf *.egg-info
-	find . -name "*~" -exec rm {} \;
-	find . -name "*.pyc" -exec rm {} \;
-	echo "clean done"
+	python setup.py clean
 
 ######################################################################
 # TAGGING
 ######################################################################
 
 tag: log
-	bin/new_version.sh
+	python setup.py tag
 
 rmtag:
-	git tag
-	@echo "rm Tag?"; read TAG; git tag -d $$TAG; git push origin :refs/tags/$$TAG
+	python setup.py rmtag
 
 ######################################################################
 # DOCKER

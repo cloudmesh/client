@@ -16,13 +16,11 @@
 # limitations under the License.                                          #
 # ------------------------------------------------------------------------#
 from __future__ import print_function
-from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
-from setuptools.command.install import install
-import os
-import shutil
-import sys
 import platform
+
+from setuptools.command.test import test as TestCommand
+from setuptools import setup, find_packages
+from cloudmesh_base.setup import *
 
 try:
     import cloudmesh_base
@@ -32,8 +30,7 @@ except:
     os.system("pip install git+https://github.com/cloudmesh/base.git")
 
 from cloudmesh_base.util import banner
-from cloudmesh_base.setup import os_execute, get_version_from_git
-
+from cloudmesh_base.setup import os_execute
 
 from cloudmesh_client import __version__
 
@@ -58,6 +55,22 @@ requirements = ['pyreadline<=1.7.1.dev-r0',
 
 
 
+class UploadToPypitest(install):
+    """Upload the package to pypi. -- only for Maintainers."""
+
+    description = __doc__
+
+    def run(self):
+        os.system("make clean")
+        commands = """
+            python setup.py install
+            python setup.py bdist_wheel            
+            python setup.py sdist --format=bztar,zip upload -r pypitest
+            python setup.py bdist_wheel upload -r pypitest
+            """
+        os_execute(commands)    
+
+    
 class UploadToPypi(install):
     """Upload the package to pypi. -- only for Maintainers."""
 
@@ -92,7 +105,6 @@ class InstallBase(install):
                 """
         if commands:
             os_execute(commands)
-        import cloudmesh_client
         banner("Install Cloudmesh_client {:}".format(__version__))
         install.run(self)
 
@@ -147,7 +159,8 @@ class Tox(TestCommand):
 setup(
     version=__version__,
     name="cloudmesh_client",
-    description="cloudmesh_client - A dynamic CMD shell with plugins",
+    description="cloudmesh_client - A heterogeneous multi cloud command "
+                "client command shell",
     long_description=read('README.rst'),
     license="Apache License, Version 2.0",
     author="Gregor von Laszewski",
@@ -183,10 +196,20 @@ setup(
         ],
     },
     tests_require=['tox'],
-    cmdclass={
+     cmdclass={
         'install': InstallBase,
-        'pypi': UploadToPypi,
+        'pypi': Make("pypi", repo='pypi'),
+        'pypifinal': Make("pypi", repo='final'),
+        'registerpypi': Make("pypi", repo='pypi'),
+        'registerfinal': Make("pypi", repo='final'),
+        'rmtag': Make('rmtag'),
+        'tag': Make("tag"),
+        'doc': Make("doc"),
+        'view': Make("view"),
+        'clean': Make("clean"),
         'test': Tox,
-    },
+        },
     dependency_links = []
 )
+
+

@@ -79,7 +79,7 @@ class TableParser(object):
             str = str.strip()
         for convert in self.change:
             str = str.replace(convert[0], convert[1])
-        return str
+        return str.strip(' ')
 
     def extract_lines(self, table):
         lines = table.splitlines()

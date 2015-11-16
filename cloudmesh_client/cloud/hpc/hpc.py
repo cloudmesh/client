@@ -40,13 +40,13 @@ class Hpc(object):
                 return (dict_printer(d,
                                      order=['cluster',
                                             'jobid',
-                                            'partition ',
+                                            'partition',
                                             'name',
                                             'user',
                                             'st',
-                                            'time ',
-                                            'nodes ',
-                                            'nodelist ',
+                                            'time',
+                                            'nodes',
+                                            'nodelist',
                                             'updated'],
                                      output=format))
         except Exception as ex:
