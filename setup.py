@@ -18,6 +18,7 @@
 from __future__ import print_function
 import platform
 
+from setuptools.command.install import install
 from setuptools.command.test import test as TestCommand
 from setuptools import setup, find_packages
 from cloudmesh_base.setup import *
