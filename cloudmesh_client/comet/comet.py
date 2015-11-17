@@ -12,6 +12,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
 import requests
 from cloudmesh_base.util import banner
+from cloudmesh_client.comet.authenticate import AuthenticationException
 
 requests.packages.urllib3.disable_warnings()
 

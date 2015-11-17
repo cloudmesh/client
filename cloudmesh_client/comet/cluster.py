@@ -8,6 +8,7 @@ from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
 import hostlist
 from cloudmesh_base.hostlist import Parameter
+from cloudmesh_client.comet.authenticate import AuthenticationException
 
 class Cluster(object):
     @staticmethod
@@ -20,8 +21,12 @@ class Cluster(object):
             if r is None:
                 Console.error("Could not find cluster `{}`"
                               .format(id))
-                return ""
+                return None
             r = [r]
+
+        if 'error' in r and 'Not Authenticated' in r:
+            Console.error("Not authenticated")
+            raise ValueError("Not Authenticated")
 
         result = None
         if format == "rest":
@@ -80,6 +85,8 @@ class Cluster(object):
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
             r = [r]
+        if 'error' in r and 'Not Authenticated' in r:
+            raise ValueError("Not Authenticated")
 
         if format == "rest":
             return r
@@ -101,6 +108,7 @@ class Cluster(object):
             }
 
             counter = 0
+            print ("LLL", r)
             for cluster in r:
 
                 clients = cluster["computes"]
