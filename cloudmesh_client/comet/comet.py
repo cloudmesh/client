@@ -89,7 +89,6 @@ class Comet(object):
                     or ("comet" in line and "tunnel" in line) \
                     and not 'status' in line:
                 info = line.strip()
-                print(info)
                 break
         if info:
             pid = int(info.split(" ", 1)[0])

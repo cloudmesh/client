@@ -85,8 +85,8 @@ class Cluster(object):
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
             r = [r]
-        if 'error' in r and 'Not Authenticated' in r:
-            raise ValueError("Not Authenticated")
+        if r is None:
+            return ""
 
         if format == "rest":
             return r
