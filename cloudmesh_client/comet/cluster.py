@@ -59,7 +59,6 @@ class Cluster(object):
                                       "frontend name",
                                       "frontend state",
                                       "frontend type",
-                                      "frontend rocks_name",
                                       "description",
                                   ],
                                   header=[
@@ -70,7 +69,6 @@ class Cluster(object):
                                       "Frontend (Fe)",
                                       "State (Fe)",
                                       "Type (Fe)",
-                                      "Rocks name (Fe)",
                                       "Description",
                                   ],
 
@@ -98,17 +96,17 @@ class Cluster(object):
                 'cluster': None,
                 'cpus': None,
                 'host': None,
+                "mac": None,
                 'ip': None,
                 'memory': None,
                 'name': None,
-                'rocks_name': None,
                 'state': None,
                 'type': None,
                 'kind': 'frontend'
             }
 
             counter = 0
-            print ("LLL", r)
+
             for cluster in r:
 
                 clients = cluster["computes"]
@@ -119,17 +117,28 @@ class Cluster(object):
                 data += [frontend]
                 data += clients
 
+            for anode in data:
+                for attribute in anode.keys():
+                    if "interface" == attribute:
+                        macs = []
+                        ips = []
+                        for ipaddr in anode["interface"]:
+                            macs.append(ipaddr["mac"])
+                            ips.append(ipaddr["ip"] or "N/A")
+                        anode["mac"] = "; ".join(macs)
+                        anode["ip"] = "; ".join(ips)
+                del anode["interface"]
+
             result = list_printer(data,
                                   order=[
                                       "name",
                                       "state",
                                       "kind",
                                       "type",
+                                      "mac",
                                       "ip",
-                                      "rocks_name",
                                       "cpus",
                                       "cluster",
-                                      "host",
                                       "memory",
                                   ],
                                   output=format)
@@ -185,8 +194,8 @@ class Cluster(object):
                               "state",
                               "kind",
                               "type",
+                              "mac",
                               "ip",
-                              "rocks_name",
                               "cpus",
                               "cluster",
                               "host",
