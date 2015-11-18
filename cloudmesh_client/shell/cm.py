@@ -113,17 +113,15 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def create_cloudmesh_yaml(self, filename):
 
-
         if not os.path.exists(filename):
             path = os.path.dirname(filename)
             if not os.path.isdir(path):
                 Console.Error("no ~/.cloudmesh directory.")
                 Shell.mkdir(path)
-                Console.ok("no ~/.cloudmesh created.")
-        etc_dir = os.path.dirname(cloudmesh_client.etc.__file__)
-        Console.error(etc_dir)
-
-            #create file from template
+                Console.ok("~/.cloudmesh created.")
+            etc_file = os.path.dirname(cloudmesh_client.etc.__file__)
+            to_dir = path_expand("~/.cloudmesh")
+            Shell.cp(etc_file, to_dir)
 
 
     def __init__(self, context):
@@ -156,7 +154,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
         self.create_cloudmesh_yaml(filename)
 
-        sys,exit(1)
+        #sys,exit(1)
 
 
         value = Default.get('cloud', cloud='general')
