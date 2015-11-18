@@ -17,6 +17,7 @@
 # ------------------------------------------------------------------------#
 from __future__ import print_function
 import platform
+import os
 
 from setuptools.command.install import install
 from setuptools.command.test import test as TestCommand
@@ -116,22 +117,12 @@ def read(fname):
 
 home = os.path.expanduser("~")
 
-#home + '/.cloudmesh'
-#print [ (home + '/.cloudmesh/' + d, [os.path.join(d, f) for f in files]) for d, folders, files in os.walk('etc')],
-#sys.exit()
-
-data_files= [ (os.path.join(home, '.cloudmesh'),
-                [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
+data_files= [ ([os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
                     os.path.join('cloudmesh_client', 'etc'))]
 
-import fnmatch
-import os
-
-matches = []
-for root, dirnames, filenames in os.walk(os.path.join('cloudmesh_client', 'etc')):
-  for filename in fnmatch.filter(filenames, '*'):
-    matches.append(os.path.join(root, filename).lstrip('cloudmesh_client/'))
-data_dirs = matches
+package_data={
+   'cloudmesh_client.etc': ['*.yaml', '*.py'],
+},
 
 
 # Hack because for some reason requirements does not work
@@ -188,7 +179,9 @@ setup(
     install_requires=requirements,
     include_package_data=True,
     data_files= data_files,
-    package_data={'cloudmesh_client': data_dirs},
+    package_data={
+        'cloudmesh_client.etc': ['*.yaml', '*.py'],
+    },
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
