@@ -26,9 +26,13 @@ def create_cloudmesh_yaml(filename):
         to_dir = path_expand("~/.cloudmesh")
         shutil.copy(etc_file, to_dir)
         Console.ok("~/.cloudmesh/cloudmesh.yaml created")
-        
+
 filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
 create_cloudmesh_yaml(filename)
+os.system("chmod -R go-rwx " + filename = path_expand("~/.cloudmesh"))
+#
+# cahnge permission
+#
 
 from .plugins import *
 
