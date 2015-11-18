@@ -117,7 +117,8 @@ def read(fname):
 
 home = os.path.expanduser("~")
 
-data_files= [ ([os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
+data_files= [ (os.path.join(home, '.cloudmesh'),
+               [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
                     os.path.join('cloudmesh_client', 'etc'))]
 
 package_data={
