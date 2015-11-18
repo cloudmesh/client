@@ -23,56 +23,57 @@ class Cluster(object):
                               .format(id))
                 return None
             r = [r]
-
-        if 'error' in r and 'Not Authenticated' in r:
-            Console.error("Not authenticated")
-            raise ValueError("Not Authenticated")
-
         result = None
-        if format == "rest":
-            result = r
-            return result
-        else:
-            elements = {}
-            for cluster in r:
-                element = {}
-                for attribute in ["project", "name", "description"]:
-                    element[attribute] = cluster[attribute]
-                    element["nodes"] = len(cluster["computes"])
-                for attribute in cluster["frontend"].keys():
-                    element["frontend " + attribute] = cluster["frontend"][
-                        attribute]
-                names = []
-                for compute in cluster["computes"]:
-                    names.append(compute["name"])
+        if r is not None:
+            if 'error' in r and 'Not Authenticated' in r:
+                Console.error("Not authenticated")
+                raise ValueError("Not Authenticated")
 
-                element["computes"] = hostlist.collect_hostlist(names)
 
-                elements[cluster["name"]] = element
+            if format == "rest":
+                result = r
+                return result
+            else:
+                elements = {}
+                for cluster in r:
+                    element = {}
+                    for attribute in ["project", "name", "description"]:
+                        element[attribute] = cluster[attribute]
+                        element["nodes"] = len(cluster["computes"])
+                    for attribute in cluster["frontend"].keys():
+                        element["frontend " + attribute] = cluster["frontend"][
+                            attribute]
+                    names = []
+                    for compute in cluster["computes"]:
+                        names.append(compute["name"])
 
-            result = dict_printer(elements,
-                                  order=[
-                                      "name",
-                                      "project",
-                                      "nodes",
-                                      "computes",
-                                      "frontend name",
-                                      "frontend state",
-                                      "frontend type",
-                                      "description",
-                                  ],
-                                  header=[
-                                      "Name",
-                                      "Project",
-                                      "Count",
-                                      "Nodes",
-                                      "Frontend (Fe)",
-                                      "State (Fe)",
-                                      "Type (Fe)",
-                                      "Description",
-                                  ],
+                    element["computes"] = hostlist.collect_hostlist(names)
 
-                                  output=format)
+                    elements[cluster["name"]] = element
+
+                result = dict_printer(elements,
+                                      order=[
+                                          "name",
+                                          "project",
+                                          "nodes",
+                                          "computes",
+                                          "frontend name",
+                                          "frontend state",
+                                          "frontend type",
+                                          "description",
+                                      ],
+                                      header=[
+                                          "Name",
+                                          "Project",
+                                          "Count",
+                                          "Nodes",
+                                          "Frontend (Fe)",
+                                          "State (Fe)",
+                                          "Type (Fe)",
+                                          "Description",
+                                      ],
+
+                                      output=format)
             return result
 
     @staticmethod
