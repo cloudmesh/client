@@ -24,8 +24,10 @@ from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_base.ssh_config import ssh_config
 from cloudmesh_client.shell.console import Console
 from pprint import pprint
-
+from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import dprint
+
+import cloudmesh_client.etc
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -109,6 +111,21 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         for name in ["q", "EOF", "man"]:
             self.register_command_topic("shell", name)
 
+    def create_cloudmesh_yaml(self, filename):
+
+
+        if not os.path.exists(filename):
+            path = os.path.dirname(filename)
+            if not os.path.isdir(path):
+                Console.Error("no ~/.cloudmesh directory.")
+                Shell.mkdir(path)
+                Console.ok("no ~/.cloudmesh created.")
+        etc_dir = os.path.dirname(cloudmesh_client.etc.__file__)
+        Console.error(etc_dir)
+
+            #create file from template
+
+
     def __init__(self, context):
         cmd.Cmd.__init__(self)
         self.command_topics = {}
@@ -135,9 +152,15 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # set default cloud and default group if they do not exist
         # use the first cloud in cloudmesh.yaml as default
         #
+
+        filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
+        self.create_cloudmesh_yaml(filename)
+
+        sys,exit(1)
+
+
         value = Default.get('cloud', cloud='general')
         if value is None:
-            filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
             cloud = clouds.keys()[0]
             Default.set('cloud', cloud, cloud='general')
