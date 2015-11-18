@@ -1,6 +1,7 @@
 include AUTHORS
 include ChangeLog
 include requirements.txt
+include cloudmesh_client/etc/cloudmesh.yaml
 
 exclude .gitignore
 exclude .gitreview
