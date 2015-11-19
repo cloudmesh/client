@@ -29,10 +29,7 @@ def create_cloudmesh_yaml(filename):
 
 filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
 create_cloudmesh_yaml(filename)
-os.system("chmod -R go-rwx " + filename = path_expand("~/.cloudmesh"))
-#
-# cahnge permission
-#
+os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
 from .plugins import *
 

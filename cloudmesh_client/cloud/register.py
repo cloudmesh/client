@@ -7,7 +7,7 @@ from cloudmesh_base.util import yn_choice
 from builtins import input
 
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import ConfigDict, Config
+from cloudmesh_client.common.ConfigDict import ConfigDict, Config, path_expand
 from cloudmesh_client.common import Printer
 from cloudmesh_base.util import banner
 
@@ -181,20 +181,18 @@ class CloudRegister(object):
         base = os.path.basename(openrc)
 
         _from_dir = "{:}:{:}".format(hostname, directory).replace("~/", "")
-        _to_dir = Config.path_expand(directory)
+        _to_dir = os.path.dirname(Config.path_expand(directory))
         openrc_file = Config.path_expand(openrc)
         print("From:  ", _from_dir)
         print("To:    ", _to_dir)
         print("Openrc:", openrc_file)
 
+        cls.make_dir(_to_dir)
         r = ""
         Console.ok("Reading rc file from {}".format(host))
         try:
-            r = Shell.execute('scp', ['-r',
-                                      _from_dir,
-                                      _to_dir])
+            r = Shell.scp('-r', _from_dir, _to_dir)
         except Exception, e:
-            print(r)
             print(e)
             return
 
