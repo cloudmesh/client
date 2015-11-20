@@ -66,8 +66,13 @@ class Default(ListResource):
 
     @classmethod
     def get(cls, key, cloud="general"):
-        result = cls.get_object(key, cloud=cloud)
-        return
+        arguments = {'name': key,
+                    'cloud': cloud}
+        o = cls.cm.find('default',
+                        output='dict',
+                        scope='first',
+                        **arguments)
+        return o['value']
 
     @classmethod
     def delete(cls, key, cloud):
