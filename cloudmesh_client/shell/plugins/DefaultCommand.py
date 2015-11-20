@@ -102,7 +102,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
         if arguments["list"]:
             output_format = arguments["--format"]
 
-            if arguments['--all']:
+            if arguments['--all'] or arguments["--cloud"] is None:
                 cloud = None
             result = Default.list(cloud=cloud, format=output_format)
 
