@@ -31,11 +31,12 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
 
           Options:
 
-             --cloud=CLOUD    the name of the cloud [default: all]
+             --cloud=CLOUD    the name of the cloud
              --format=FORMAT  the output format [default: table]
              --all            lists all the default values
 
         Description:
+
 
             Cloudmesh has the ability to manage easily multiple
             clouds. One of the key concepts to make the list of such
@@ -82,7 +83,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
         if arguments["list"]:
             output_format = arguments["--format"]
 
-            if arguments['--all'] or cloud in ["None", "all"]:
+            if arguments['--all'] or cloud in ["None", "general"]:
                 cloud = None
             result = Default.list(cloud=cloud, format=output_format)
 

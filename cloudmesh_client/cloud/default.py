@@ -5,6 +5,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from pprint import pprint
 
+
 class Default(ListResource):
     cm = CloudmeshDatabase()
     # Create a static variable so that db is initialized once in a transaction
@@ -55,16 +56,18 @@ class Default(ListResource):
         try:
             arguments = {'name': key,
                          'cloud': cloud or "general"}
-            o = cls.cm.find('default', output='dict', **arguments)
-            keys = o.keys()
-            o = o[keys[0]]
-            return o["value"]
+            o = cls.cm.find('default',
+                            output='object',
+                            **arguments).first()
+            return o
         except Exception, e:
+            print("in except")
             return None
 
     @classmethod
     def get(cls, key, cloud="general"):
-        return cls.get_object(key, cloud=cloud)
+        result = cls.get_object(key, cloud=cloud)
+        return
 
     @classmethod
     def delete(cls, key, cloud):
