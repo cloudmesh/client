@@ -55,19 +55,18 @@ class Default(ListResource):
     def get_object(cls, key, cloud="general"):
         try:
             arguments = {'name': key,
-                         'cloud': cloud or "general"}
+                         'cloud': cloud}
             o = cls.cm.find('default',
                             output='object',
                             **arguments).first()
             return o
         except Exception, e:
-            print("in except")
             return None
 
     @classmethod
     def get(cls, key, cloud="general"):
         arguments = {'name': key,
-                    'cloud': cloud}
+                     'cloud': cloud}
         o = cls.cm.find('default',
                         output='dict',
                         scope='first',
