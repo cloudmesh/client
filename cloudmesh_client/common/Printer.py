@@ -143,7 +143,7 @@ def dict_csv_printer(d,
 
 
 def dict_table_printer(d, order=None, header=None, sort_keys=True,
-                       show_none=""):
+                       show_none="", max_width=40):
     """prints a pretty table from an dict of dicts
     :param d: A a dict with dicts of the same type.
                   Each key will be a column
@@ -178,6 +178,7 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True,
         header = _keys()
 
     x = PrettyTable(header)
+    x.max_width = max_width
 
     if sort_keys:
         sorted_list = sorted(d, key=d.get)
@@ -190,6 +191,8 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True,
             values.append(_get(element, key))
         x.add_row(values)
     x.align = "l"
+    #    if "node;ist" in header:
+    #    x.max_width["nodelist"] = 25
     return x
 
 
