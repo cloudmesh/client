@@ -191,6 +191,19 @@ setup(
         ],
     },
     tests_require=['tox'],
+    cmdclass={
+        'install': InstallBase,
+        'pypi': Make("pypi", repo='pypi'),
+        'pypifinal': Make("pypi", repo='final'),
+        'registerpypi': Make("pypi", repo='pypi'),
+        'registerfinal': Make("pypi", repo='final'),
+        'rmtag': Make('rmtag'),
+        'tag': Make("tag"),
+        'doc': Make("doc"),
+        'view': Make("view"),
+        'clean': Make("clean"),
+        'test': Tox,
+        },
 
     dependency_links = []
 )
