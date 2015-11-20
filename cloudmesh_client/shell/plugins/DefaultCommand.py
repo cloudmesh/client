@@ -91,14 +91,13 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
         will have 'cloud' column in db as the default cloud that was set.
         (eg. image=yyy for cloud=xxx).
         """
+
         if arguments["KEY"] in general_keys:
             cloud = "general"
         else:
             cloud = arguments["--cloud"] \
                     or Default.get("cloud", "general") \
                     or "general"
-
-        print("Default cloud used is: " + cloud)
 
         if arguments["list"]:
             output_format = arguments["--format"]
@@ -126,6 +125,8 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
 
         elif "=" in arguments["KEY"]:
             key, value = arguments["KEY"].split("=")
+            if key in general_keys:
+                cloud = "general"
             Default.set(key, value, cloud)
             Console.ok(
                 "set in defaults {}={}. ok.".format(key, value))
