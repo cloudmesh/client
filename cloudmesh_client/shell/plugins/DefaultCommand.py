@@ -78,6 +78,26 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
             default delete image --cloud=kilo
         """
         # pprint(arguments)
+
+        """
+        For these keys, the 'cloud' column in db
+        will always be 'general'.
+        """
+        general_keys = ["cloud", "cluster"]
+
+        """
+        If the default cloud has been set (eg. default cloud=xxx),
+        then subsequent defaults for any key (eg. default image=yyy),
+        will have 'cloud' column in db as the default cloud that was set.
+        (eg. image=yyy for cloud=xxx).
+        """
+        if arguments["KEY"] in general_keys:
+            cloud = "general"
+        else:
+            cloud = arguments["--cloud"] \
+                    or Default.get("cloud", "general") \
+                    or "general"
+
         cloud = arguments["--cloud"]
 
         if arguments["list"]:
