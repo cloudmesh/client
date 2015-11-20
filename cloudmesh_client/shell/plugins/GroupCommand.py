@@ -91,10 +91,13 @@ class GroupCommand(PluginCommand, CloudCommand):
         """
         # pprint(arguments)
 
+        cloud = arguments["--cloud"] or Default.get_cloud()
+
         if arguments["list"]:
 
-            output = arguments["--format"] or Default.get("format") or "table"
-            cloud = arguments["--cloud"] or Default.get_cloud()
+            output = arguments["--format"] or \
+                     Default.get("format", cloud) \
+                     or "table"
             name = arguments["NAME"]
 
             if name is None:
@@ -127,11 +130,18 @@ class GroupCommand(PluginCommand, CloudCommand):
                 return
 
         elif arguments["add"]:
+            type = arguments["--type"] or \
+                   Default.get("type", cloud)
+
+            id = arguments["--id"] or \
+                 Default.get("id", cloud) or \
+                 "vm"
+
             data = {
                 "name": arguments["NAME"],
-                "type": arguments["--type"] or Default.get("type"),
-                "cloud": arguments["--cloud"] or Default.get("cloud"),
-                "id": arguments["--id"] or Default.get("id") or "vm"
+                "type": type,
+                "cloud": cloud,
+                "id": id
             }
 
             Group.add(**data)
@@ -140,7 +150,7 @@ class GroupCommand(PluginCommand, CloudCommand):
         elif arguments["delete"]:
             data = {
                 "name": arguments["NAME"],
-                "cloud": arguments["--cloud"] or Default.get("cloud"),
+                "cloud": cloud,
             }
 
             result = Group.delete(**data)
@@ -154,8 +164,6 @@ class GroupCommand(PluginCommand, CloudCommand):
         elif arguments["remove"]:
             name = arguments["--name"]
             id = arguments["--id"]
-            cloud = arguments["--cloud"] or \
-                    Default.get("cloud")
 
             if not cloud:
                 Console.error("Default cloud not set!")
