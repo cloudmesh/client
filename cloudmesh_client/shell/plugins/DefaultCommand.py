@@ -98,7 +98,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
                     or Default.get("cloud", "general") \
                     or "general"
 
-        cloud = arguments["--cloud"]
+        print("Default cloud used is: " + cloud)
 
         if arguments["list"]:
             output_format = arguments["--format"]

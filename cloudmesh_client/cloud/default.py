@@ -72,7 +72,10 @@ class Default(ListResource):
                         output='dict',
                         scope='first',
                         **arguments)
-        return o['value']
+        if o is not None:
+            return o['value']
+        else:
+            return None
 
     @classmethod
     def delete(cls, key, cloud):

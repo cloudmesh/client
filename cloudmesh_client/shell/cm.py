@@ -187,6 +187,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                     cluster = hosts[0]
             except:
                 pass  # use the hardcoded cluster
+
+        else:
+            cluster = value
         Default.set('cluster', cluster,  cloud='general')
 
 
