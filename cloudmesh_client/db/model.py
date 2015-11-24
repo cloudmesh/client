@@ -340,6 +340,35 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.value = value
         self.kind = self.__tablename__
 
+class LAUNCHER(CloudmeshMixin, db.Base):
+    """table to store default values
+
+    if the cloud is "global" it is meant to be a global variable
+
+    todo: check if its global or general
+    """
+    # name defined in mixin
+    value = Column(String)
+    type = Column(String, default="string")
+    parameters = Column(String)  # This is the parameter represented as yaml object
+
+    # cloud = Column(String)
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 cloud=None,
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
 
 # TODO: BUG the value is not properly used here
 class KEY(CloudmeshMixin, db.Base):
