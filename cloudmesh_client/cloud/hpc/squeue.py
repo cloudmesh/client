@@ -11,9 +11,13 @@ class Squeue(object):
             if not line.startswith('Warning:') and not line.__contains__(
                     'NODELIST(REASON)'):
                 d[i] = {}
-                d[i]['jobid'], d[i]['partition'], \
-                d[i]['name'], d[i]['user'], d[i]['st'], \
-                d[i]['time'], d[i]['nodes'], \
+                d[i]['jobid'], \
+                d[i]['partition'], \
+                d[i]['name'], \
+                d[i]['user'], \
+                d[i]['st'], \
+                d[i]['time'], \
+                d[i]['nodes'], \
                 d[i]['nodelist(reason)'] = line.split()
 
         json_str = json.dumps(d, indent=4, separators=(',', ': '))

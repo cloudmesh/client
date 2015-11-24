@@ -36,7 +36,9 @@ cloudmesh:
                     - cloud:
                         type: selector
                         value:
-                        - india
+                        - kilo
+                        - juno
+                        - comet
                         - bravo
                         - echo
                         required: True
