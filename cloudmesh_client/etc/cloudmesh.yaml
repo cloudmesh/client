@@ -10,8 +10,11 @@ cloudmesh:
     github:
         username: TBD
     comet:
+        auth_provider: APIKEY
         username: TBD
         password: TBD
+        api_key: TBD
+        api_secret: TBD
     hpc:
         - comet
         - juliet
