@@ -104,7 +104,7 @@ class CometCommand(PluginCommand, CometCommand):
             Opens the given URL in a browser window.
         """
 
-        if not arguments["tunnel"] and not Comet.is_tunnel():
+        if not arguments["tunnel"] and Comet.tunnelled and not Comet.is_tunnel():
             Console.error("Please establish a tunnel first with:")
             print
             print ("    comet tunnel start")

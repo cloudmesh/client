@@ -20,10 +20,6 @@ class Hpc(object):
             f = '--format=%all'
             args += f
             result = Shell.ssh(cluster, args)
-            #
-            # TODO: this will not work as some jobs could have error in their names
-            # if result.__contains__('error'):
-            #    return result
 
             # TODO: process till header is found...(Need a better way)
             l = result.splitlines()
@@ -32,7 +28,7 @@ class Hpc(object):
                     result = "\n".join(l[i:])
                     break
 
-            parser = TableParser(strip=False)
+            parser = TableParser(strip=True)
             d = parser.to_dict(result)
 
             # add cluster and updated to each entry
@@ -191,4 +187,10 @@ class Hpc(object):
         except Exception as ex:
             return ex
 
+
+
+if __name__ == "__main__":
+    from pprint import pprint
+
+    print(Hpc.queue("comet",format="json"))
 

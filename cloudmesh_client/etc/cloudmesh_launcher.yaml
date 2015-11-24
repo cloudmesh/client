@@ -36,11 +36,13 @@ cloudmesh:
                     - cloud:
                         type: selector
                         value:
-                        - india
+                        - kilo
+                        - juno
+                        - comet
                         - bravo
                         - echo
                         required: True
-                image: /static/img/launcher/mooc.png
+                image: img/launcher/mooc.png
                 script: 
                     type: sh
                     value: ssh {username}@{india} "ls -l"
@@ -79,7 +81,7 @@ cloudmesh:
                         - india
                         - sierra
                         required: True
-                image: /static/img/launcher/slurm.png
+                image: img/launcher/slurm.png
                 script: 
                     type: sh
                     value: ls -l
@@ -116,7 +118,7 @@ cloudmesh:
                         - india
                         required: True
                 template: https://raw.githubusercontent.com/cloudmesh/cloudmesh/master/heat-templates/ubuntu-14.04/hadoop-cluster/hadoop-cluster.yaml
-                image: /static/img/launcher/hadoop.jpg
+                image: img/launcher/hadoop.jpg
                 script: 
                     type: sh
                     value: echo "Hello"
@@ -151,7 +153,7 @@ cloudmesh:
                         - india
                         - sierra
                         required: True
-                image: /static/img/launcher/hadoop.jpg
+                image: img/launcher/hadoop.jpg
                 script: 
                     type: sh
                     value: echo "Hello"
@@ -187,7 +189,7 @@ cloudmesh:
                         - india
                         - sierra
                         required: True
-                image: /static/img/launcher/hadoop.jpg
+                image: img/launcher/hadoop.jpg
                 script: 
                     type: sh
                     value: echo "Hello"
@@ -195,6 +197,7 @@ cloudmesh:
             openmpi:
                 name: OpenMPI
                 shortdescription: Deploys a Open MPI cluster.
+                image: img/launcher/mooc.png
                 description:
                         Deploys a Open MPI cluster.
                 parameters:
@@ -246,7 +249,7 @@ cloudmesh:
                         - india
                         - sierra
                         required: True
-                image: /static/img/launcher/ganglia.jpg
+                image: img/launcher/ganglia.jpg
                 script: 
                     type: sh
                     value: echo "Hello"
@@ -284,7 +287,7 @@ cloudmesh:
                         - india
                         - sierra
                         required: True
-                image: /static/img/launcher/nagios.png
+                image: img/launcher/nagios.png
                 script: 
                     type: sh
                     value: echo "Hello"

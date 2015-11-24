@@ -71,14 +71,17 @@ class TableParser(object):
         :param str: cleans the string
         :return:
         """
+        print ("-"+ str + "-")
         if str == '':
             str = 'None'
         if self.is_lower:
             str = str.lower()
-        if self.is_strip:
-            str = str.strip()
+        if str == "user ":  # for slurm which has "user" and "user "
+            str = "userid"
         for convert in self.change:
             str = str.replace(convert[0], convert[1])
+        if self.is_strip:
+            str = str.strip()
         return str.strip(' ')
 
     def extract_lines(self, table):
@@ -105,6 +108,7 @@ class TableParser(object):
         if self.is_strip:
             self.headers = self.headers[1:-1]
         return self.headers
+
 
     def to_dict(self, table):
         """

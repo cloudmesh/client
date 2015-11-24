@@ -9,11 +9,18 @@ cloudmesh:
         username: None
     github:
         username: TBD
-    active:
-    - india
     comet:
+        auth_provider: APIKEY
         username: TBD
         password: TBD
+        api_key: TBD
+        api_secret: TBD
+    hpc:
+        - comet
+        - juliet
+    active:
+        - juno
+        - kilo
     clouds:
         juno:
             cm_heading: India OpenStack, Juno
