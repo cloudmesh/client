@@ -7,7 +7,7 @@ class TableParser(object):
                 output='dict',
                 header=True,
                 index=None,
-                change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_"), (" ", "_")],
+                change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
                 strip=True,
                 lower=True,
                 strip_seperator=True,
@@ -35,7 +35,7 @@ class TableParser(object):
                  output='dict',
                  header=True,
                  index=None,
-                 change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_"), (" ", "_")],
+                 change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
                  strip=True,
                  lower=True,
                  strip_seperator=True,
@@ -71,16 +71,18 @@ class TableParser(object):
         :param str: cleans the string
         :return:
         """
+        print ("-"+ str + "-")
         if str == '':
             str = 'None'
         if self.is_lower:
             str = str.lower()
+        if str == "user ":  # for slurm which has "user" and "user "
+            str = "userid"
         for convert in self.change:
             str = str.replace(convert[0], convert[1])
-        #if self.is_strip:
-        #    str = str.strip()
-        return str
-        #.strip(' ')
+        if self.is_strip:
+            str = str.strip()
+        return str.strip(' ')
 
     def extract_lines(self, table):
         lines = table.splitlines()
@@ -105,7 +107,6 @@ class TableParser(object):
             [self.clean(h) for h in header.split(self.seperator)]
         if self.is_strip:
             self.headers = self.headers[1:-1]
-
         return self.headers
 
 

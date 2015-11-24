@@ -28,7 +28,7 @@ class Hpc(object):
                     result = "\n".join(l[i:])
                     break
 
-            parser = TableParser(strip=False, strip_seperator=False)
+            parser = TableParser(strip=True)
             d = parser.to_dict(result)
 
             # add cluster and updated to each entry
