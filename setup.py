@@ -53,8 +53,8 @@ requirements = ['pyreadline<=1.7.1.dev-r0',
                 'sandman',
                 'gitchangelog',
                 'six',
-                'python-novaclient']
-
+                'python-novaclient',
+                'cloudmesh_timestring']
 
 
 class UploadToPypitest(install):
