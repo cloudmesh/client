@@ -8,61 +8,41 @@ import os
 import subprocess
 
 
-class Launcher():
+class Launcher(ListResource):
     # cm = CloudmeshDatabase()
 
-    def list(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running list on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
+    def get_command_output(self, action):
+
+        # Running command
+        proc = subprocess.Popen(['echo', 'Running ' + action + ' on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
 
         output, err = proc.communicate()
         return output
+
+    def info(self, **kwargs):
+        return self.get_command_output("info")
+
+    def list(self, **kwargs):
+        return self.get_command_output("list")
 
     def run(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running run on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("run")
 
     def resume(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running resume on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("resume")
 
     def suspend(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running suspend on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("suspend")
 
     def kill(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running kill on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("kill")
 
     def details(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running details on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("details")
 
     def clear(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running clear on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("clear")
 
     def refresh(self, **kwargs):
-        proc = subprocess.Popen(['echo', 'Running refresh on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-
-        output, err = proc.communicate()
-        return output
+        return self.get_command_output("refresh")
