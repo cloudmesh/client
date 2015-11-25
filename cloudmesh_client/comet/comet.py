@@ -6,11 +6,14 @@ import time
 from pprint import pprint
 import webbrowser
 import getpass
+import requests
+from httpsig.requests_auth import HTTPSignatureAuth
+import random
+import string
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
-import requests
 from cloudmesh_base.util import banner
 from cloudmesh_client.comet.authenticate import AuthenticationException
 
@@ -19,9 +22,17 @@ requests.packages.urllib3.disable_warnings()
 
 class Comet(object):
     rest_version = "/v1"
-    base_uri = "https://localhost:8443/nucleus"
-    auth_uri = "https://localhost:8443/nucleus/rest-auth"
+    base_uri = "https://comet-nucleus.sdsc.edu/nucleus"
+    local_base_uri = "https://localhost:8443/nucleus"
+    auth_uri = "{}/rest-auth".format(base_uri)
+    local_auth_uri = "{}/rest-auth".format(local_base_uri)
+    tunnelled = False
+    # "USERPASS", "APIKEY"
+    auth_provider = None
     token = None
+    api_key = None
+    api_secret = None
+    api_auth = None
     HEADER = {'content-type': 'application/json'}
     AUTH_HEADER = {'content-type': 'application/json'}
 
@@ -35,7 +46,11 @@ class Comet(object):
 
     @staticmethod
     def url(endpoint):
-        return Comet.base_uri + Comet.rest_version + "/" + endpoint
+        if Comet.tunnelled:
+            url = Comet.local_base_uri + Comet.rest_version + "/" + endpoint
+        else:
+            url = Comet.base_uri + Comet.rest_version + "/" + endpoint
+        return url
 
     def __init__(self):
         #
@@ -46,7 +61,7 @@ class Comet(object):
     @staticmethod
     def docs():
 
-        webbrowser.open("https://localhost:8443/nucleus/docs/#!/v1")
+        webbrowser.open("{}/docs/#!/v1".format(Comet.base_uri) )
 
     # #####################
     # TUNNEL
@@ -55,6 +70,7 @@ class Comet(object):
     @staticmethod
     def tunnel(start):
         if start:
+            cls.tunnelled = True
             command =  "ssh -L 8443:localhost:443 nucleus"
             os.system(command)
         else:
@@ -98,64 +114,117 @@ class Comet(object):
     # ##############################
     # AUTHENTICATE
     # ##############################
+    '''
+    import json
+    import requests
+    from httpsig.requests_auth import HTTPSignatureAuth
+    import time, random, string
+
+    secret = "rjUvIk8gmdLL49kvOn"
+
+    auth = HTTPSignatureAuth(secret=secret, headers=["nonce", "timestamp"])
+
+    nonce = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+
+    nodes2op = {"computes":"vm-vc2-[6-7]","cluster":"vc2"}
+    z = requests.post('https://comet-nucleus.sdsc.edu/nucleus/v1/computeset/',data=json.dumps(nodes2op), auth=auth, headers={"timestamp": int(time.time()), "nonce":nonce, "X-Api-Key":"Fugang"})
+    print z.status_code
+    print z.headers
+    print z.text
+
+    '''
+    @staticmethod
+    def get_nonce():
+        nonce = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
+        return nonce
+
+    @classmethod
+    def set_auth_provider(cls, auth_provider=None):
+        # try to load from yaml file if not specified
+        if not auth_provider:
+            config = ConfigDict("cloudmesh.yaml")
+            auth_provider = config["cloudmesh.comet.auth_provider"]
+            # value not set in yaml file, use USERPASS as default
+            if not auth_provider:
+                auth_provider = "USERPASS"
+        cls.auth_provider = auth_provider
 
     @classmethod
     def logon(cls, username=None, password=None):
-
-        config = ConfigDict("cloudmesh.yaml")
-        # for unit testing only.
-        if username is None:
-            username = config["cloudmesh.comet.username"]
-        if password is None:
-            password = config["cloudmesh.comet.password"]
-            if password.lower() == "readline":
-                password = getpass.getpass()
-            elif password.lower() == "env":
-                password = os.environ.get("COMET_PASSWORD", getpass.getpass())
-
+        cls.set_auth_provider()
+        # print (cls.auth_provider)
         ret = False
-        if cls.token is None:
-            if cls.auth_uri:
-                authuri = "%s/login/" % cls.auth_uri
-                data = {"username": username, "password": password}
-                r = requests.post(authuri,
-                                  data=json.dumps(data),
-                                  headers=cls.HEADER,
-                                  verify=cls.verify)
-                try:
-                    cls.token = r.json()["key"]
-                    cls.AUTH_HEADER['Authorization'] = "Token {:}".format(
-                        cls.token)
-                except:
-                    ret = False
-                ret = cls.token
-        else:
-            ret = cls.token
+        if "USERPASS" == cls.auth_provider:
+            config = ConfigDict("cloudmesh.yaml")
+            # for unit testing only.
+            if username is None:
+                username = config["cloudmesh.comet.username"]
+            if password is None:
+                password = config["cloudmesh.comet.password"]
+                if password.lower() == "readline":
+                    password = getpass.getpass()
+                elif password.lower() == "env":
+                    password = os.environ.get("COMET_PASSWORD", getpass.getpass())
 
+            if cls.token is None:
+                if cls.auth_uri:
+                    if cls.tunnelled:
+                        authuri = "%s/login/" % cls.local_auth_uri
+                    else:
+                        authuri = "%s/login/" % cls.auth_uri
+                    data = {"username": username, "password": password}
+                    r = requests.post(authuri,
+                                      data=json.dumps(data),
+                                      headers=cls.HEADER,
+                                      verify=cls.verify)
+                    try:
+                        cls.token = r.json()["key"]
+                        cls.AUTH_HEADER['Authorization'] = "Token {:}".format(
+                            cls.token)
+                    except:
+                        ret = False
+                    ret = cls.token
+            else:
+                ret = cls.token
+        elif "APIKEY" == cls.auth_provider:
+            # print ("API KEY based auth goes here")
+            config = ConfigDict("cloudmesh.yaml")
+            cls.api_key = config["cloudmesh.comet.api_key"]
+            cls.api_secret = config["cloudmesh.comet.api_secret"]
+            cls.api_auth = HTTPSignatureAuth(secret=cls.api_secret, headers=["nonce", "timestamp"])
+            #
+            # api key based auth does not maintain a session
+            # once values specified, considered as AuthNed.
+            if  cls.api_key and cls.api_secret and cls.api_auth:
+                ret = True
+        else:
+            print ("The specified AUTH Provider Not Currently Supported")
+            pass
         return ret
 
     @classmethod
     def logoff(cls):
         ret = True
-        if cls.token:
-            if cls.auth_uri:
-                authuri = "%s/logout/" % cls.auth_uri
-                header = dict(cls.HEADER)
-                header['Authorization'] = "Token %s" % cls.token
-                r = requests.post(authuri,
-                                  headers=header,
-                                  verify=cls.verify)
-                cls.token = None
-                cls.AUTH_HEADER = cls.HEADER
-            else:
-                ret = False
+        if "USERPASS" == cls.auth_provider:
+            if cls.token:
+                if cls.auth_uri:
+                    authuri = "%s/logout/" % cls.auth_uri
+                    header = dict(cls.HEADER)
+                    header['Authorization'] = "Token %s" % cls.token
+                    r = requests.post(authuri,
+                                      headers=header,
+                                      verify=cls.verify)
+                    cls.token = None
+                    cls.AUTH_HEADER = cls.HEADER
+                else:
+                    ret = False
         return ret
 
     @classmethod
     def status(cls):
-        ret = False
-        if cls.token:
-            ret = True
+        ret = True
+        if "USERPASS" == cls.auth_provider and cls.token is None:
+            ret = False
         return ret
 
     # #############################
@@ -163,41 +232,6 @@ class Comet(object):
     # #############################
 
     # To make GET calls for synchronous or asynchronous API
-    @staticmethod
-    def old_get(url, headers=None):
-        print(Comet.AUTH_HEADER)
-        print(url)
-        if headers is None:
-            headers = Comet.AUTH_HEADER
-        r = requests.get(url, headers=headers)
-        ret = None
-
-        # responded immediately
-        if r.status_code == 200:
-            ret = r.json()
-        # code 202, accepted call and processing
-        elif r.status_code == 202:
-            # now automatically redirect to result page
-            # thus no need to check status periodically.
-            # Currently it works well for cluster listing
-            # However not sure if the delay is large, what the behaviour
-            # would be
-            finished = False
-            newurl = r.headers["Location"]
-            while not finished:
-                ret = requests.get(newurl, headers=headers).json()
-                # in some occasions, when the result is not ready,
-                # the result still has 'status' in it (value as '0')
-                # otherwise it's the correct value after redirection
-                if 'status' not in ret:
-                    finished = True
-                else:
-                    time.sleep(1)
-        elif r.status_code == 401:
-            ret = {"error": "Not Authenticated"}
-        else:
-            ret = r
-        return ret
 
     @staticmethod
     def get(url, headers=None):
@@ -213,57 +247,135 @@ class Comet(object):
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
-    def http(url, action="get", headers=None, data=None, cacert=False):
-        if headers is None:
-            headers = Comet.AUTH_HEADER
-        if 'post' == action:
-            r = requests.post(url, headers=headers, data=json.dumps(data),
-                              verify=cacert)
-        elif 'put' == action:
-            r = requests.put(url, headers=headers, verify=cacert)
-        else:
-            r = requests.get(url, headers=headers, verify=cacert)
-
-        # banner("DEBUGGING HTTP CALL")
-        # print (r)
-
+    def http(url, action="get", headers=None, data=None, cacert=True):
+        # print ("KKK", url)
+        # print ("KKK", action)
+        # print ("KKK", Comet.auth_provider)
         ret = None
+        if Comet.tunnelled:
+            cacert = False
+        if "USERPASS" == Comet.auth_provider:
+            if headers is None:
+                headers = Comet.AUTH_HEADER
+            if 'post' == action:
+                r = requests.post(url, headers=headers, data=json.dumps(data),
+                                  verify=cacert)
+            elif 'put' == action:
+                r = requests.put(url, headers=headers, verify=cacert)
+            else:
+                r = requests.get(url, headers=headers, verify=cacert)
 
-        # responded immediately
-        if r.status_code == 200:
-            try:
-                ret = r.json()
-            except:
-                ret = r.text
-        # code 202, accepted call and processing
-        elif r.status_code == 202:
-            # now automatically redirect to result page
-            # thus no need to check status periodically.
-            # Currently it works well for cluster listing
-            # However not sure if the delay is large, what the behaviour
-            # would be
-            finished = False
-            newurl = r.headers["Location"]
-            while not finished:
-                ret = requests.get(newurl, headers=headers)
+            # print ("KKK --- DEBUGGING HTTP CALL")
+            # pprint (r)
+
+            # responded immediately
+            if r.status_code == 200:
                 try:
-                    ret = ret.json()
+                    ret = r.json()
+                except:
+                    ret = r.text
+            # processed successfully, but returned empty
+            elif r.status_code == 204:
+                ret = ''
+            # code 201, created for the post request
+            elif r.status_code == 201:
+                # now automatically redirect to result page
+                # thus no need to check status periodically.
+                # Currently it works well for cluster listing
+                # However not sure if the delay is large, what the behaviour
+                # would be
+                finished = False
+                newurl = r.headers["Location"]
+                while not finished:
+                    ret = requests.get(newurl, headers=headers)
+                    try:
+                        ret = ret.json()
+                    except:
+                        pass
+                    # in some occasions, when the result is not ready,
+                    # the result still has 'status' in it (value as '0')
+                    # otherwise it's the correct value after redirection
+                    if 'status' not in ret:
+                        finished = True
+                    else:
+                        time.sleep(1)
+            elif r.status_code == 401:
+                ret = {"error": "Not Authenticated"}
+            elif r.status_code == 403:
+                ret = {"error": "Permission denied"}
+            elif r.status_code == 400:
+                ret = {"error": "%s" % r.text}
+        elif "APIKEY" == Comet.auth_provider:
+            headers = {'content-type': 'application/json'}
+            headers["timestamp"] = int(time.time())
+            headers["nonce"] = Comet.get_nonce()
+            headers["X-Api-Key"] = Comet.api_key
+            # print ("KKK", headers)
+            # print ("KKK", Comet.api_auth)
+            # print ("KKK", data)
+            # print ("KKK", cacert)
+            if 'post' == action:
+                r = requests.post(url, auth=Comet.api_auth, headers=headers, data=json.dumps(data), verify=cacert)
+            elif 'put' == action:
+                r = requests.put(url, auth=Comet.api_auth, headers=headers, verify=cacert)
+            else:
+                r = requests.get(url, auth=Comet.api_auth, headers=headers, verify=cacert)
+                
+            ret = None
+            
+            # print ("KKK", r.status_code)
+            # print ("KKK", r.text)
+
+            # responded immediately
+            if r.status_code == 200:
+                try:
+                    ret = r.json()
+                except:
+                    ret = r.text
+            # processed successfully, but returned empty
+            elif r.status_code == 204:
+                ret = ''
+            # code 201, created for the post request
+            elif r.status_code == 201:
+                finished = False
+                newurl = r.headers["Location"]
+                headers["timestamp"] = int(time.time())
+                headers["nonce"] = Comet.get_nonce()
+                while not finished:
+                    ret = requests.get(newurl, auth=Comet.api_auth, headers=headers)
+                    try:
+                        ret = ret.json()
+                    except:
+                        pass
+                    if 'status' not in ret:
+                        finished = True
+                    else:
+                        time.sleep(1)
+            elif r.status_code == 401:
+                try:
+                    ret = r.json()
+                    ret = {"error": ret}
                 except:
                     pass
-                # in some occasions, when the result is not ready,
-                # the result still has 'status' in it (value as '0')
-                # otherwise it's the correct value after redirection
-                if 'status' not in ret:
-                    finished = True
-                else:
-                    time.sleep(1)
-        elif r.status_code == 401:
-            ret = {"error": "Not Authenticated"}
-        elif r.status_code == 403:
-            ret = {"error": "Permission denied"}
-        elif r.status_code == 400:
-            ret = {"error": "%s" % r.text}
-
+                if not ret:
+                    ret = {"error": "Not Authenticated"}
+            elif r.status_code == 403:
+                try:
+                    ret = r.json()
+                    ret = {"error": ret}
+                except:
+                    pass
+                if not ret:
+                    ret = {"error": "Permission denied"}
+            elif r.status_code == 400:
+                try:
+                    ret = r.json()
+                    ret = {"error": ret}
+                except:
+                    pass
+                if not ret:
+                    ret = {"error": "%s" % r.text}
+        # print ("KKKKK", ret)
         return ret
 
     @staticmethod
@@ -305,6 +417,7 @@ def test_get_cluster_list():
     # change user, password to proper value as set in django
     # in shell, we may ask user input
     comet = Comet()
+    Comet.tunnelled = True
     token = comet.logon()
 
     # construct a header with auth token after login
@@ -324,12 +437,19 @@ def test_get_cluster_list():
     r1 = Comet.get(geturl1, headers=authheader)
     pprint(r1)
 
-    banner("\nTEST 3b: Get cluster 'vc2'")
+    banner("\nTEST 3b: Get cluster 'vc2' via tunnel")
     geturl1 = "%scluster/%s" % (geturl, "vc2/")
     r1 = Comet.get(geturl1, headers=authheader)
     pprint(r1)
 
+    banner("\nTEST 3c: Get cluster 'vc2' directly")
+    Comet.tunnelled = False
+    geturl1 = Comet.url("cluster/vc2/")
+    r1 = Comet.get(geturl1, headers=authheader)
+    pprint(r1)
+
     banner("TEST 4: Get compute nodes sets")
+    Comet.tunnelled = True
     r1 = Comet.get_computeset()
     pprint(r1)
 
@@ -352,6 +472,7 @@ def test_power_nodes(action='on'):
     banner("Authenticating...")
     # always logon first
     comet = Comet()
+    Comet.tunnelled = True
     token = comet.logon()
 
     authheader = {'content-type': 'application/json',

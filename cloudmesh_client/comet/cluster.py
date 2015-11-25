@@ -13,7 +13,7 @@ from cloudmesh_client.comet.authenticate import AuthenticationException
 class Cluster(object):
     @staticmethod
     def simple_list(id=None, format="table"):
-
+        result = ""
         if id is None:
             r = Comet.get(Comet.url("cluster/"))
         else:
@@ -21,18 +21,16 @@ class Cluster(object):
             if r is None:
                 Console.error("Could not find cluster `{}`"
                               .format(id))
-                return None
+                return result
             r = [r]
-        result = None
-        if r is not None:
-            if 'error' in r and 'Not Authenticated' in r:
-                Console.error("Not authenticated")
-                raise ValueError("Not Authenticated")
 
+        if r is not None:
+            if 'error' in r[0]:
+                Console.error("An error occurred: {}".format(r[0]["error"]))
+                raise ValueError("COMET Error")
 
             if format == "rest":
                 result = r
-                return result
             else:
                 elements = {}
                 for cluster in r:
@@ -78,71 +76,78 @@ class Cluster(object):
 
     @staticmethod
     def list(id=None, format="table"):
-
+        result = ""
         if id is None:
             r = Comet.get(Comet.url("cluster/"))
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
+            if r is None:
+                Console.error("Could not find cluster `{}`"
+                              .format(id))
+                return result
             r = [r]
-        if r is None:
-            return ""
 
-        if format == "rest":
-            return r
-        else:
+        if r is not None:
+            if 'error' in r[0]:
+                Console.error("An error occurred: {}".format(r[0]["error"]))
+                raise ValueError("COMET Error")
+                
+            if format == "rest":
+                result = r
+            else:
 
-            data = []
+                data = []
 
-            empty = {
-                'cluster': None,
-                'cpus': None,
-                'host': None,
-                "mac": None,
-                'ip': None,
-                'memory': None,
-                'name': None,
-                'state': None,
-                'type': None,
-                'kind': 'frontend'
-            }
+                empty = {
+                    'cluster': None,
+                    'cpus': None,
+                    'host': None,
+                    "mac": None,
+                    'ip': None,
+                    'memory': None,
+                    'name': None,
+                    'state': None,
+                    'type': None,
+                    'kind': 'frontend'
+                }
 
-            counter = 0
+                counter = 0
 
-            for cluster in r:
+                for cluster in r:
 
-                clients = cluster["computes"]
-                for client in clients:
-                    client["kind"] = "compute"
-                frontend = dict(empty)
-                frontend.update(cluster["frontend"])
-                data += [frontend]
-                data += clients
+                    clients = cluster["computes"]
+                    for client in clients:
+                        client["kind"] = "compute"
+                    frontend = dict(empty)
+                    frontend.update(cluster["frontend"])
+                    data += [frontend]
+                    data += clients
 
-            for anode in data:
-                for attribute in anode.keys():
-                    if "interface" == attribute:
-                        macs = []
-                        ips = []
-                        for ipaddr in anode["interface"]:
-                            macs.append(ipaddr["mac"])
-                            ips.append(ipaddr["ip"] or "N/A")
-                        anode["mac"] = "; ".join(macs)
-                        anode["ip"] = "; ".join(ips)
-                del anode["interface"]
+                for anode in data:
+                    for attribute in anode.keys():
+                        if "interface" == attribute:
+                            macs = []
+                            ips = []
+                            for ipaddr in anode["interface"]:
+                                macs.append(ipaddr["mac"])
+                                ips.append(ipaddr["ip"] or "N/A")
+                            anode["mac"] = "; ".join(macs)
+                            anode["ip"] = "; ".join(ips)
+                    del anode["interface"]
 
-            result = list_printer(data,
-                                  order=[
-                                      "name",
-                                      "state",
-                                      "kind",
-                                      "type",
-                                      "mac",
-                                      "ip",
-                                      "cpus",
-                                      "cluster",
-                                      "memory",
-                                  ],
-                                  output=format)
+                result = list_printer(data,
+                                      order=[
+                                          "name",
+                                          "state",
+                                          "kind",
+                                          "type",
+                                          "mac",
+                                          "ip",
+                                          "cpus",
+                                          "cluster",
+                                          "memory",
+                                      ],
+                                      output=format)
             return result
 
     @staticmethod
@@ -237,11 +242,11 @@ class Cluster(object):
             if "on" == action:
                 # print("Issuing request to poweron nodes...")
                 posturl = url
-                # print(data)
+                # print (data)
 
                 r = Comet.post(posturl, data=data)
                 # print("RETURNED RESULTS:")
-                # print(r)
+                # print (r)
                 if 'cluster' in r:
                     if 'state' in r and 'queued' == r['state']:
                         computesetid = r['id']
@@ -291,7 +296,7 @@ class Cluster(object):
                     # print("Issuing request to poweroff nodes...")
                     # print("computesetid: {}".format(computesetid))
                     puturl = "{:}{:}/{}".format(url, computesetid, action)
-                    print (puturl)
+                    # print (puturl)
                     r = Comet.put(puturl)
                     # print("RETURNED RESULTS:")
                     # print(r)
@@ -319,7 +324,7 @@ class Cluster(object):
                 if action in ["on", "off"]:
                     action = "power{}".format(action)
                 puturl = "{}{}".format(url, action)
-                print (puturl)
+                # print (puturl)
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
@@ -340,7 +345,7 @@ class Cluster(object):
                 if action in ["off"]:
                     action = "power{}".format(action)
                 puturl = "{:}{:}/{}".format(url, param, action)
-                print (puturl)
+                # print (puturl)
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
@@ -359,7 +364,7 @@ class Cluster(object):
                 if action in ["on", "off"]:
                     action = "power{}".format(action)
                 puturl = "{}{}".format(url, action)
-                print (puturl)
+                # print (puturl)
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():

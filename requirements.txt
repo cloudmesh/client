@@ -15,3 +15,4 @@ gitchangelog
 six
 python-novaclient
 cloudmesh_timestring
+httpsig
