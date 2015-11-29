@@ -415,12 +415,12 @@ hpc
 Command - hpc::
 
     Usage:
-        hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
+        hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
         hpc info [--cluster=CLUSTER][--format=FORMAT]
         hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
         hpc kill --job=NAME [--cluster=CLUSTER][--group=GROUP]
         hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-        hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
+        hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
         hpc test --cluster=CLUSTER [--time=SECONDS]
 
     Options:
@@ -486,7 +486,7 @@ Command - hpc::
 
     Examples:
         cm hpc queue
-        cm hpc queue --name=xxx
+        cm hpc queue --job=xxx
         cm hpc info
         cm hpc kill --job=6
         cm hpc run uname

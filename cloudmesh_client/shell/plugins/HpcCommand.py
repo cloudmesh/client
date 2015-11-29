@@ -21,12 +21,12 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         ::
 
             Usage:
-                hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
+                hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
                 hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
                 hpc kill --job=NAME [--cluster=CLUSTER][--group=GROUP]
                 hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-                hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
+                hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
                 hpc test --cluster=CLUSTER [--time=SECONDS]
 
             Options:
@@ -92,7 +92,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
 
             Examples:
                 cm hpc queue
-                cm hpc queue --name=xxx
+                cm hpc queue --job=xxx
                 cm hpc info
                 cm hpc kill --job=6
                 cm hpc run uname
@@ -106,7 +106,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
             return
 
         if arguments["queue"]:
-            name = arguments['--name']
+            name = arguments['--job']
             result = Hpc.queue(cluster, format=format, job=name)
             Console.msg(result)
 
@@ -118,8 +118,9 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
             Console.ok(Hpc.kill(cluster, job))
 
         elif arguments["status"]:
-            job_id = arguments['--job']
-            print(Hpc.queue(cluster, job=job_id))
+            name = arguments['--job']
+            result = Hpc.queue(cluster, format=format, job=name)
+            Console.msg(result)
 
         elif arguments["run"]:
             queue = arguments['--queue'] or Default.get('queue')

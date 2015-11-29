@@ -48,13 +48,17 @@ Reports the state of jobs or job sets::
     | india   | 1304301 | compute      | ooooooooooo        | y_user    | R  | 23:38:55   | 8     | yy-04-[20-21,63-68]  | 2015-11-29 16:16:27 |
     +---------+---------+--------------+--------------------+-----------+----+------------+-------+----------------------+---------------------+
 
-To view the state of a specific job, use the --name=NAME option, where NAME can be the
+To view the state of a specific job, use the --job=NAME option, where NAME can be the
 job id or the job name ::
 
-    $ cm hpc queue --name=6
+    $ cm hpc queue --job=6
     +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
     | cluster | jobid | partition | name        | user      | st | time | nodes | nodelist | updated             |
     +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
     | india   | 6     | xxxxx     | somethin.sh | xxxxxxxxx | PD | 0:00 | 1     |          | 2015-11-29 16:24:15 |
     +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
 
+hpc status
+----------------------------------------------------------------------
+
+Similar to hpc queue where the status of job(s) can be viewed.
