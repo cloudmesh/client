@@ -132,7 +132,7 @@ Command - comet::
        comet info [--user=USER]
                     [--project=PROJECT]
                     [--format=FORMAT]
-       comet list [ID][--name=NAMES]
+       comet cluster [ID][--name=NAMES]
                     [--user=USER]
                     [--project=PROJECT]
                     [--hosts=HOSTS]
@@ -140,9 +140,10 @@ Command - comet::
                     [--end=TIME_END]
                     [--hosts=HOSTS]
                     [--format=FORMAT]
+       comet computeset [COMPUTESETID]
        comet start ID
        comet stop ID
-       comet power (on|off) CLUSTERID COMPUTEIDS
+       comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
        comet delete [all]
                       [--user=USER]
                       [--project=PROJECT]
@@ -223,11 +224,12 @@ Command - default::
 
       Options:
 
-         --cloud=CLOUD    the name of the cloud [default: general]
+         --cloud=CLOUD    the name of the cloud
          --format=FORMAT  the output format [default: table]
          --all            lists all the default values
 
     Description:
+
 
         Cloudmesh has the ability to manage easily multiple
         clouds. One of the key concepts to make the list of such
@@ -262,11 +264,11 @@ Command - default::
         default list --all
         default list --cloud=general
         default image=xyz
-        default image=abc --cloud=chameleon
+        default image=abc --cloud=kilo
         default image
-        default image --cloud=chameleon
+        default image --cloud=kilo
         default delete image
-        default delete image --cloud=chameleon
+        default delete image --cloud=kilo
 
 
 EOF
@@ -279,6 +281,20 @@ Command - EOF::
 
     Description:
         Command to the shell to terminate reading a script.
+
+
+exec
+----------------------------------------------------------------------
+
+Command - exec::
+
+    Usage:
+       exec FILENAME
+
+    executes the commands in the file. See also the script command.
+
+    Arguments:
+      FILENAME   The name of the file
 
 
 flavor
@@ -399,39 +415,36 @@ hpc
 Command - hpc::
 
     Usage:
-        hpc set CLUSTER
         hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
         hpc info [--cluster=CLUSTER][--format=FORMAT]
         hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
-        hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+        hpc kill --job=NAME [--cluster=CLUSTER][--group=GROUP]
         hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
         hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
         hpc test --cluster=CLUSTER [--time=SECONDS]
 
     Options:
-       --format=FORMAT  the output format [default: json]
+       --format=FORMAT  the output format [default: table]
 
     Examples:
 
         Special notes
 
            if the group is specified only jobs from that group are
-           considered. Otherwise the default group is used. If he
+           considered. Otherwise the default group is used. If the
            group is set to None, all groups are used.
 
         cm hpc queue
-            lists the details of the queues of the default hpc cluster
+            lists the details of the queues of the hpc cluster
 
         cm hpc queue --name=NAME
-            lists the details of the named queue of the default hpc
-            cluster
+            lists the details of the job in the queue of the hpc cluster
 
         cm hpc info
             lists the details of the hpc cluster
-            hpc cluster
 
         cm hpc run SCRIPT
-            submits the script to the cluster. THe script will be
+            submits the script to the cluster. The script will be
             copied prior to execution into the home directory on the
             remote machine. If a DIR is specified it will be copied
             into that dir.
@@ -446,8 +459,8 @@ Command - hpc::
         cm hpc kill all -cluster=all
             kills all jobs on all clusters
 
-        cm kill job=NAME
-            kills a job with a given name
+        cm hpc kill --job=NAME
+            kills a job with a given name or job id
 
         cm hpc default cluster=NAME
             sets the default hpc cluster
@@ -472,6 +485,10 @@ Command - hpc::
             after the time is elapsed.
 
     Examples:
+        cm hpc queue
+        cm hpc queue --name=xxx
+        cm hpc info
+        cm hpc kill --job=6
         cm hpc run uname
 
 
@@ -678,6 +695,52 @@ Command - key::
 
 
 
+launcher
+----------------------------------------------------------------------
+
+Command - launcher::
+
+      Usage:
+          launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
+          launcher kill KEY [--cloud=CLOUD]
+          launcher run
+          launcher resume
+          launcher suspend
+          launcher details
+          launcher clear
+          launcher refresh
+
+      Arguments:
+
+        KEY    the name of the launcher
+
+      Options:
+
+         --cloud=CLOUD    the name of the cloud
+         --format=FORMAT  the output format [launcher: table]
+         --all            lists all the launcher values
+
+    Description:
+
+    Launcher is a command line tool to test the portal launch functionalities through command
+
+    The current launcher values can by listed with --all option:(
+    if you have a launcher cloud specified. You can also add a
+    cloud parameter to apply the command to a specific cloud)
+
+           launcher list
+
+        A launcher can be deleted with
+
+            launcher kill KEY
+
+
+    Examples:
+        launcher list --all
+        launcher list --cloud=general
+        launcher kill <KEY>
+
+
 limits
 ----------------------------------------------------------------------
 
@@ -696,7 +759,7 @@ Command - limits::
 
     Examples:
         cm limits list
-        cm limits list --cloud=india --format=csv
+        cm limits list --cloud=juno --format=csv
 
 
 
@@ -758,38 +821,54 @@ network
 
 Command - network::
 
-    Usage:A
-        network fixed-ip-get [--cloud=CLOUD] FIXED_IP
-        network fixed-ip-reserve [--cloud=CLOUD] FIXED_IP
-        network fixed-ip-unreserve [--cloud=CLOUD] FIXED_IP
-        network floating-ip-associate [--cloud=CLOUD] --server=SERVER FLOATING_IP
-        network floating-ip-disassociate [--cloud=CLOUD] --server=SERVER FLOATING_IP
-        network floating-ip-create [--cloud=CLOUD] [--floating-ip-pool=FLOATING_IP_POOL]
-        network floating-ip-delete [--cloud=CLOUD] FLOATING_IP
-        network floating-ip-list [--cloud=CLOUD]
-        network floating-ip-pool-list [--cloud=CLOUD]
+    Usage:
+        network get fixed [ip] [--cloud=CLOUD] FIXED_IP
+        network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
+        network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
+        network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
+        network associate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
+        network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
+        network create floating [ip] [--cloud=CLOUD] --pool=FLOATING_IP_POOL
+        network delete floating [ip] [--cloud=CLOUD] FLOATING_IP
+        network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+        network list floating pool [--cloud=CLOUD]
         network -h | --help
 
     Options:
-        -h                  help message
-        --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-        --server=SERVER     Server Name
-        --floating-ip-pool  Name of Floating IP Pool
+        -h                          help message
+        --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
+        --server=SERVER             Server Name
+        --pool=FLOATING_IP_POOL     Name of Floating IP Pool
+        --instance=INS_ID_OR_NAME   ID of the vm instance
 
     Arguments:
+        IP_OR_ID        IP Address or ID
         FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
-        FLOATING_IP     Fixed IP Address, e.g. 192.1.66.8
+        FLOATING_IP     Floating IP Address, e.g. 192.1.66.8
+        FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
 
     Examples:
-        $ network fixed-ip-get --cloud india 10.1.2.5
-        $ network fixed-ip-reserve --cloud india 10.1.2.5
-        $ network fixed-ip-unreserve --cloud india 10.1.2.5
-        $ network floating-ip-associate --cloud india --server=albert-001 192.1.66.8
-        $ network floating-ip-disassociate --cloud india --server=albert-001 192.1.66.8
-        $ network floating-ip-create --cloud india --floating-ip-pool=albert-f01
-        $ network floating-ip-delete --cloud india 192.1.66.8
-        $ network floating-ip-list --cloud india
-        $ network floating-ip-pool-list --cloud india
+        $ network get fixed ip --cloud=india 10.1.2.5
+        $ network get fixed --cloud=india 10.1.2.5
+        $ network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+        $ network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+        $ network reserve fixed ip --cloud=india 10.1.2.5
+        $ network reserve fixed --cloud=india 10.1.2.5
+        $ network unreserve fixed ip --cloud=india 10.1.2.5
+        $ network unreserve fixed --cloud=india 10.1.2.5
+        $ network associate floating ip --cloud=india --server=albert-001 192.1.66.8
+        $ network associate floating --cloud=india --server=albert-001 192.1.66.8
+        $ network disassociate floating ip --cloud=india --server=albert-001 192.1.66.8
+        $ network disassociate floating --cloud=india --server=albert-001 192.1.66.8
+        $ network create floating ip --cloud=india --pool=albert-f01
+        $ network create floating --cloud=india --pool=albert-f01
+        $ network delete floating ip --cloud=india 192.1.66.8
+        $ network delete floating --cloud=india 192.1.66.8
+        $ network list floating ip --cloud=india
+        $ network list floating --cloud=india
+        $ network list floating --cloud=india 192.1.66.8
+        $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
+        $ network list floating pool --cloud=india
 
 
 
@@ -852,6 +931,33 @@ Command - pause::
        MESSAGE  message to be displayed
 
 
+py
+----------------------------------------------------------------------
+
+Command - py::
+
+    Usage:
+        py
+        py COMMAND
+
+    Arguments:
+        COMMAND   the command to be executed
+
+    Description:
+
+        The command without a parameter will be executed and the
+        interactive python mode is entered. The python mode can be
+        ended with ``Ctrl-D`` (Unix) / ``Ctrl-Z`` (Windows),
+        ``quit()``,'`exit()``. Non-python commands can be issued with
+        ``cmd("your command")``.  If the python code is located in an
+        external file it can be run with ``run("filename.py")``.
+
+        In case a COMMAND is provided it will be executed and the
+        python interpreter will return to the command shell.
+
+        This code is copied from Cmd2.
+
+
 q
 ----------------------------------------------------------------------
 
@@ -861,7 +967,7 @@ Command - q::
         quit
 
     Description:
-        Action to be performed when quit is typed
+        Action to be performed whne quit is typed
 
 
 quit
@@ -873,7 +979,7 @@ Command - quit::
         quit
 
     Description:
-        Action to be performed when quit is typed
+        Action to be performed whne quit is typed
 
 
 quota
@@ -994,7 +1100,7 @@ Command - register::
             interactively fills out the form wherever we find TBD.
 
         register check [--yaml=FILENAME]
-            checks the yaml file for completeness
+            checks the yaml file for completness
 
         register test [--yaml=FILENAME]
             checks the yaml file and executes tests to check if
@@ -1225,26 +1331,26 @@ Command - ssh::
                   the commands to login to them
       PARAMETERS  Register te resource and add the given
                   parameters to the ssh config file.  if the
-                  resource exists, it will be overwritten. The
+                  resoource exists, it will be overwritten. The
                   information will be written in /.ssh/config
 
     Options:
 
        -v       verbose mode
        --format=FORMAT   the format in which this list is given
-                         formats include table, json, yaml, dict
+                         formats incluse table, json, yaml, dict
                          [default: table]
 
        --user=USER       overwrites the username that is
                          specified in ~/.ssh/config
 
        --key=KEY         The keyname as defined in the key list
-                         or a location that contains a public key
+                         or a location that contains a pblic key
 
     Description:
 
         ssh list
-            lists the hostnames  that are present in the
+            lists the hostsnames  that are present in the
             ~/.ssh/config file
 
         ssh cat
@@ -1280,9 +1386,9 @@ usage
 Command - usage::
 
     Usage:
-        list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
+        usage list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
-        Show list data.
+        Show usage data.
 
     Options:
        --format=FORMAT  the output format [default: table]
@@ -1293,7 +1399,7 @@ Command - usage::
 
 
     Examples:
-        cm list
+        cm usage list
 
 
 
@@ -1319,23 +1425,23 @@ vm
 Command - vm::
 
     Usage:
+        vm default [--cloud=CLOUD][--format=FORMAT]
         vm refresh [--cloud=CLOUD]
-        vm boot --name=NAME
-                 [--count=COUNT]
-                 [--cloud=CLOUD]
-                 [--image=IMAGE_OR_ID]
-                 [--flavor=FLAVOR_OR_ID]
-                 [--group=GROUP]
-                 [--secgroup=SECGROUP]
-                 [--keypair_name=KEYPAIR_NAME]
+        vm boot [--name=NAME]
+                [--cloud=CLOUD]
+                [--image=IMAGE_OR_ID]
+                [--flavor=FLAVOR_OR_ID]
+                [--group=GROUP]
+                [--secgroup=SECGROUP]
+                [--keypair_name=KEYPAIR_NAME]
         vm start NAME...
-                  [--group=GROUP]
-                  [--cloud=CLOUD]
-                  [--force]
+                 [--group=GROUP]
+                 [--cloud=CLOUD]
+                 [--force]
         vm stop NAME...
-                  [--group=GROUP]
-                  [--cloud=CLOUD]
-                  [--force]
+                [--group=GROUP]
+                [--cloud=CLOUD]
+                [--force]
         vm delete NAME...
                   [--group=GROUP]
                   [--cloud=CLOUD]
@@ -1352,9 +1458,11 @@ Command - vm::
                  [--cloud=CLOUD]
                  [--key=KEY]
                  [--command=COMMAND]
-        vm list [--cloud=CLOUD|--all]
+        vm list [NAME_OR_ID]
+                [--cloud=CLOUD|--all]
                 [--group=GROUP]
                 [--format=FORMAT]
+        vm status [--cloud=CLOUD]
 
     Arguments:
         COMMAND        positional arguments, the commands you want to
@@ -1363,6 +1471,7 @@ Command - vm::
                        the server, note that type in -- is suggested before
                        you input the commands
         NAME           server name
+        NAME_OR_ID     server name or ID
         KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
     Options:
@@ -1393,6 +1502,7 @@ Command - vm::
     Description:
         commands used to boot, start or delete servers of a cloud
 
+        vm default [options...]     Displays default parameters that are set for VM boot.
         vm boot [options...]        Boots servers on a cloud, user may specify
                                     flavor, image .etc, otherwise default values
                                     will be used, see how to set default values
@@ -1409,6 +1519,7 @@ Command - vm::
         vm ip_show [options...]     show the ips of VMs
         vm login [options...]       login to a server or execute commands on it
         vm list [options...]        same as command "list vm", please refer to it
+        vm status [options...]      Retrieves status of last VM booted on cloud and displays it.
 
     Tip:
         give the VM name, but in a hostlist style, which is very

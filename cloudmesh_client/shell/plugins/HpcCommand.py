@@ -21,7 +21,6 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         ::
 
             Usage:
-                hpc set CLUSTER
                 hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
                 hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
@@ -38,22 +37,20 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 Special notes
 
                    if the group is specified only jobs from that group are
-                   considered. Otherwise the default group is used. If he
+                   considered. Otherwise the default group is used. If the
                    group is set to None, all groups are used.
 
                 cm hpc queue
-                    lists the details of the queues of the default hpc cluster
+                    lists the details of the queues of the hpc cluster
 
                 cm hpc queue --name=NAME
-                    lists the details of the named queue of the default hpc
-                    cluster
+                    lists the details of the job in the queue of the hpc cluster
 
                 cm hpc info
                     lists the details of the hpc cluster
-                    hpc cluster
 
                 cm hpc run SCRIPT
-                    submits the script to the cluster. THe script will be
+                    submits the script to the cluster. The script will be
                     copied prior to execution into the home directory on the
                     remote machine. If a DIR is specified it will be copied
                     into that dir.
