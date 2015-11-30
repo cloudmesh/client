@@ -70,7 +70,7 @@ class Comet(object):
     @staticmethod
     def tunnel(start):
         if start:
-            cls.tunnelled = True
+            Comet.tunnelled = True
             command =  "ssh -L 8443:localhost:443 nucleus"
             os.system(command)
         else:
@@ -143,7 +143,7 @@ class Comet(object):
         # try to load from yaml file if not specified
         if not auth_provider:
             config = ConfigDict("cloudmesh.yaml")
-            auth_provider = config["cloudmesh.comet.auth_provider"]
+            auth_provider = config["cloudmesh.comet.auth_provider"].upper()
             # value not set in yaml file, use USERPASS as default
             if not auth_provider:
                 auth_provider = "USERPASS"
@@ -158,9 +158,9 @@ class Comet(object):
             config = ConfigDict("cloudmesh.yaml")
             # for unit testing only.
             if username is None:
-                username = config["cloudmesh.comet.username"]
+                username = config["cloudmesh.comet.userpass.username"]
             if password is None:
-                password = config["cloudmesh.comet.password"]
+                password = config["cloudmesh.comet.userpass.password"]
                 if password.lower() == "readline":
                     password = getpass.getpass()
                 elif password.lower() == "env":
@@ -189,8 +189,8 @@ class Comet(object):
         elif "APIKEY" == cls.auth_provider:
             # print ("API KEY based auth goes here")
             config = ConfigDict("cloudmesh.yaml")
-            cls.api_key = config["cloudmesh.comet.api_key"]
-            cls.api_secret = config["cloudmesh.comet.api_secret"]
+            cls.api_key = config["cloudmesh.comet.apikey.api_key"]
+            cls.api_secret = config["cloudmesh.comet.apikey.api_secret"]
             cls.api_auth = HTTPSignatureAuth(secret=cls.api_secret, headers=["nonce", "timestamp"])
             #
             # api key based auth does not maintain a session
