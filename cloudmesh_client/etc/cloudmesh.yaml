@@ -11,10 +11,10 @@ cloudmesh:
         username: TBD
     comet:
         auth_provider: userpass
-	      userpass:
+        userpass:
             username: TBD
             password: TBD
-	      apikey:
+        apikey:
             api_key: TBD
             api_secret: TBD
     hpc:
