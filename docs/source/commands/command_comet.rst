@@ -102,6 +102,7 @@ comet_cluster
 ---------------
 
 ::
+
        comet cluster [ID][--name=NAMES]
                     [--user=USER]
                     [--project=PROJECT]
@@ -112,9 +113,10 @@ comet_cluster
                     [--format=FORMAT]
 
 comet computeset
-_________________
+--------------------
 
 ::
+
        comet computeset [COMPUTESETID]
 
 
@@ -122,9 +124,11 @@ comet start and stop
 ----------------------
 
 ::
+
        comet start ID
 
 ::
+
        comet stop ID
 
 
@@ -132,12 +136,14 @@ comet power
 -------------------
 
 ::
+
        comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
 
 comet delete
 -------------
 
 ::
+
        comet delete [all]
                       [--user=USER]
                       [--project=PROJECT]
@@ -153,6 +159,7 @@ comet update
 -------------
 
 ::
+
        comet update [--name=NAMES]
                       [--hosts=HOSTS]
                       [--start=TIME_START]
@@ -162,6 +169,7 @@ comet add
 -----------
 
 ::
+
        comet add [--user=USER]
                    [--project=PROJECT]
                    [--host=HOST]
