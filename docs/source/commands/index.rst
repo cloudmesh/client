@@ -32,6 +32,14 @@ Usable Commands
    command_ssh
 
 
+Comet Commands
+^^^^^^^^^^^^^^^^^^
+
+.. toctree::
+   :glob:
+
+   command_comet
+
 Proposed Commands
 ^^^^^^^^^^^^^^^^^^
 
