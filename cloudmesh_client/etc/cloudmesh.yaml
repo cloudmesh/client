@@ -10,7 +10,7 @@ cloudmesh:
     github:
         username: TBD
     portal:
-        home: TBD
+        location: TBD
         browser: firefox
     comet:
         auth_provider: userpass
