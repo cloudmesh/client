@@ -25,7 +25,10 @@ class Cluster(object):
             r = [r]
 
         if r is not None:
-            if 'error' in r[0]:
+            if 'error' in r:
+                Console.error("An error occurred: {}".format(r["error"]))
+                raise ValueError("COMET Error")
+            elif 'error' in r[0]:
                 Console.error("An error occurred: {}".format(r[0]["error"]))
                 raise ValueError("COMET Error")
 
@@ -88,7 +91,10 @@ class Cluster(object):
             r = [r]
 
         if r is not None:
-            if 'error' in r[0]:
+            if 'error' in r:
+                Console.error("An error occurred: {}".format(r["error"]))
+                raise ValueError("COMET Error")
+            elif 'error' in r[0]:
                 Console.error("An error occurred: {}".format(r[0]["error"]))
                 raise ValueError("COMET Error")
                 
