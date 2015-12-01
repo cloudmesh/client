@@ -9,6 +9,9 @@ cloudmesh:
         username: None
     github:
         username: TBD
+    portal:
+        home: TBD
+        browser: firefox
     comet:
         auth_provider: userpass
         userpass:
