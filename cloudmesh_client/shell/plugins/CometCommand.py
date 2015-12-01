@@ -3,6 +3,7 @@ from cloudmesh_client.shell.command import command, PluginCommand, CometCommand
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_base.hostlist import Parameter
+import os
 
 """
 
@@ -37,12 +38,12 @@ class CometCommand(PluginCommand, CometCommand):
                comet tunnel status
                comet logon
                comet logoff
-               comet ll [ID] [--format=FORMAT]
+               comet ll [CLUSTERID] [--format=FORMAT]
                comet docs
                comet info [--user=USER]
                             [--project=PROJECT]
                             [--format=FORMAT]
-               comet cluster [ID][--name=NAMES]
+               comet cluster [CLUSTERID][--name=NAMES]
                             [--user=USER]
                             [--project=PROJECT]
                             [--hosts=HOSTS]
@@ -53,7 +54,8 @@ class CometCommand(PluginCommand, CometCommand):
                comet computeset [COMPUTESETID]
                comet start ID
                comet stop ID
-               comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
+               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+               comet console CLUSTERID [COMPUTENODEID]
                comet delete [all]
                               [--user=USER]
                               [--project=PROJECT]
@@ -164,7 +166,7 @@ class CometCommand(PluginCommand, CometCommand):
 
         elif arguments["ll"]:
 
-            id = arguments["ID"] or None
+            id = arguments["CLUSTERID"] or None
 
             print(Cluster.simple_list(id, format=output_format))
 
@@ -174,7 +176,7 @@ class CometCommand(PluginCommand, CometCommand):
 
         elif arguments["cluster"]:
 
-            id = arguments["ID"]
+            id = arguments["CLUSTERID"]
             print(Cluster.list(id, format=output_format))
 
         elif arguments["computeset"]:
@@ -204,21 +206,26 @@ class CometCommand(PluginCommand, CometCommand):
         elif arguments["power"]:
 
             clusterid = arguments["CLUSTERID"]
-            fuzzyparam = arguments["PARAM"]
+            fuzzyparam = None
+            if 'NODESPARAM' in arguments:
+                fuzzyparam = arguments["NODESPARAM"]
             param = fuzzyparam
 
-            try:
-                param = int(fuzzyparam)
-                subject = "COMPUTESET"
-                param = str(param)
-            except ValueError:
-                if 'FE' == fuzzyparam:
-                    subject = "FE"
-                    param = None
-                elif '[' in fuzzyparam and ']' in fuzzyparam:
-                    subject = "HOSTS"
-                else:
-                    subject = "HOST"
+            # no nodes param provided, action on front end
+            if not fuzzyparam:
+                subject = "FE"
+                param = None
+            # parse the nodes param
+            else:
+                try:
+                    param = int(fuzzyparam)
+                    subject = "COMPUTESET"
+                    param = str(param)
+                except ValueError:
+                    if '[' in fuzzyparam and ']' in fuzzyparam:
+                        subject = "HOSTS"
+                    else:
+                        subject = "HOST"
 
             if arguments["on"]:
                 action = "on"
@@ -233,5 +240,10 @@ class CometCommand(PluginCommand, CometCommand):
             else:
                 action = None
             Cluster.power(clusterid, subject, param, action)
-
+        elif arguments["console"]:
+            clusterid = arguments["CLUSTERID"]
+            nodeid = None
+            if 'COMPUTENODEID' in arguments:
+                nodeid = arguments["COMPUTENODEID"]
+            Comet.console(clusterid, nodeid)
         return ""

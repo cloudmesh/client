@@ -312,12 +312,8 @@ class Cluster(object):
                     print(
                         "All the nodes are not in the specified cluster, "
                         "or they are not running")
-            elif "reboot" == action:
-                print ("To be implemented: REBOOT, COMPUTESET")
-            elif "reset" == action:
-                print ("To be implemented: RESET, COMPUTESET")
-            elif "shutdown" == action:
-                print ("To be implemented: SHUTDOWN, COMPUTESET")
+            else:
+                print ("Action not supported! Try these: on/off/reboot/reset/shutdown")
         elif 'FE' == subject:
             url = Comet.url("cluster/{}/frontend/".format(clusterid))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
