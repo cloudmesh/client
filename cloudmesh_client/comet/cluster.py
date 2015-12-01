@@ -187,43 +187,44 @@ class Cluster(object):
                 result = ''
                 for acomputeset in computesets:
                     result += Cluster.output_computeset(acomputeset)
-                    result += '\n'
         else:
             result = "No computeset exists with the specified ID"
         return result
 
     @staticmethod
     def output_computeset(computesetdict):
-        result = "Cluster: {}\tComputesetID: {}\t State: {}\n"\
-                    .format(computesetdict["cluster"],
-                            computesetdict["id"],
-                            computesetdict["state"]
-                            )
-        data = computesetdict["computes"]
-        for anode in data:
-            for attribute in anode.keys():
-                if "interface" == attribute:
-                    macs = []
-                    ips = []
-                    for ipaddr in anode["interface"]:
-                        macs.append(ipaddr["mac"])
-                        ips.append(ipaddr["ip"] or "N/A")
-                    anode["mac"] = "; ".join(macs)
-                    anode["ip"] = "; ".join(ips)
-            del anode["interface"]
-        result += str(list_printer(data,
-                      order=[
-                              "name",
-                              "state",
-                              "type",
-                              "mac",
-                              "ip",
-                              "cpus",
-                              "cluster",
-                              "host",
-                              "memory",
-                            ],
-                      output="table"))
+        result = ""
+        if computesetdict["state"] not in ["completed"]:
+            result += "\nCluster: {}\tComputesetID: {}\t State: {}\n"\
+                        .format(computesetdict["cluster"],
+                                computesetdict["id"],
+                                computesetdict["state"]
+                                )
+            data = computesetdict["computes"]
+            for anode in data:
+                for attribute in anode.keys():
+                    if "interface" == attribute:
+                        macs = []
+                        ips = []
+                        for ipaddr in anode["interface"]:
+                            macs.append(ipaddr["mac"])
+                            ips.append(ipaddr["ip"] or "N/A")
+                        anode["mac"] = "; ".join(macs)
+                        anode["ip"] = "; ".join(ips)
+                del anode["interface"]
+            result += str(list_printer(data,
+                          order=[
+                                  "name",
+                                  "state",
+                                  "type",
+                                  "mac",
+                                  "ip",
+                                  "cpus",
+                                  "cluster",
+                                  "host",
+                                  "memory",
+                                ],
+                          output="table"))
         return result
 
     @staticmethod
