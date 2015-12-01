@@ -1,21 +1,27 @@
 from __future__ import print_function
 
-from cloudmesh_client.common import Printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.cloud.ListResource import ListResource
-from pprint import pprint
-import os
 import subprocess
+import platform
+
+from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class Launcher(ListResource):
     # cm = CloudmeshDatabase()
 
     def get_command_output(self, action):
-
         # Running command
-        proc = subprocess.Popen(['echo', 'Running ' + action + ' on ' + os.environ["HOSTNAME"]], stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
+
+        hostname = platform.node()
+
+        proc = subprocess.Popen(
+            [
+                'echo',
+                'Running {} on {}'.format(action, hostname)
+            ],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE
+        )
 
         output, err = proc.communicate()
         return output
