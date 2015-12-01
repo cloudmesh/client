@@ -121,7 +121,7 @@ class Comet(object):
     from httpsig.requests_auth import HTTPSignatureAuth
     import time, random, string
 
-    secret = "rjUvIk8gmdLL49kvOn"
+    secret = "REALAPISECRET"
 
     auth = HTTPSignatureAuth(secret=secret, headers=["nonce", "timestamp"])
 
@@ -393,15 +393,38 @@ class Comet(object):
             url = Comet.url("cluster/{}/frontend/console/".format(clusterid))
         else:
             url = Comet.url("cluster/{}/compute/{}/console/".format(clusterid, nodeid))
+        if "USERPASS" == Comet.auth_provider:
+            r = requests.get(url,
+                             headers=Comet.AUTH_HEADER,
+                             allow_redirects=False,
+                             verify=True)
+        elif "APIKEY" == Comet.auth_provider:
+            headers = {'content-type': 'application/json'}
+            headers["timestamp"] = int(time.time())
+            headers["nonce"] = Comet.get_nonce()
+            headers["X-Api-Key"] = Comet.api_key
+            r = requests.get(url,
+                             auth=Comet.api_auth,
+                             headers=headers,
+                             allow_redirects=False,
+                             verify=True)
+        # print (url)
+        # print (r.status_code)
+        # print (r.headers)
+        # print (r.text)
+        if 303 == r.status_code:
+            newurl = r.headers["Location"]
+            newurl_esc = newurl.replace("&","\&")
+        # print (newurl)
         # for OSX
         if 'darwin' == sys.platform:
-            os.system("open {}".format(url))
+            os.system("open {}".format(newurl_esc))
         # for linux - tested on Ubuntu 14.04 and CentOS 7.1
         elif 'linux2' == sys.platform:
-            os.system("firefox {}".format(url))
+            os.system("firefox {}".format(newurl_esc))
         else:
             print ("OS not supported!"\
-                   "Use the following url manually in your brower:\n{}".format(url) )
+                   "Use the following url manually in your brower:\n{}".format(newurl) )
 
 def main():
     comet = Comet()
