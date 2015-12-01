@@ -394,10 +394,10 @@ class Comet(object):
         else:
             url = Comet.url("cluster/{}/compute/{}/console/".format(clusterid, nodeid))
         # for OSX
-        if 'darwin' == sys.platform():
+        if 'darwin' == sys.platform:
             os.system("open {}".format(url))
         # for linux - tested on Ubuntu 14.04 and CentOS 7.1
-        elif 'linux2' == sys.platform():
+        elif 'linux2' == sys.platform:
             os.system("firefox {}".format(url))
         else:
             print ("OS not supported!"\
