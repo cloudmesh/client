@@ -21,11 +21,30 @@ cloudmesh:
                     - computer:
                         type: selector
                         value:
+                        - comet
+                        - india
+                        required: True
+                image: img/launcher/terminal.png
+                script: 
+                    type: sh
+                    value: |-
+                           cm hpc run uname --cluster={computer};
+            HPC_example:
+                name: HPC Example
+                shortdescription: Example to start a HPC script.
+                description:
+                    >
+                        Execute a simple HPC command on a remote machine.
+                label: mooc
+                parameters:
+                    - computer:
+                        type: selector
+                        value:
                         - india
                         - comet
                         required: True
                 image: img/launcher/terminal.png
-                script: 
+                script:
                     type: sh
                     value: |-
                            echo "Login {username} on {computer}";
