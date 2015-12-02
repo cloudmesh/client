@@ -28,7 +28,8 @@ cloudmesh:
                 script: 
                     type: sh
                     value: |-
-                           cm hpc run uname --cluster={computer};
+                           echo "Login {username} on {computer}";
+                           ssh {username}@{computer} "ls -l";
             HPC_example:
                 name: HPC Example
                 shortdescription: Example to start a HPC script.
@@ -47,8 +48,7 @@ cloudmesh:
                 script:
                     type: sh
                     value: |-
-                           echo "Login {username} on {computer}";
-                           ssh {username}@{computer} "ls -l";
+                           cm hpc run uname --cluster={computer};
             slurm:
                 name: Slurm Cluster
                 shortdescription: Deploys a Slurm cluster.
