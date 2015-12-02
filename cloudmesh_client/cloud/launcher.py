@@ -1,54 +1,67 @@
 from __future__ import print_function
-
 import subprocess
 import platform
 
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-class Launcher(ListResource):
-    # cm = CloudmeshDatabase()
-
-    def get_command_output(self, action):
-        # Running command
-
-        hostname = platform.node()
-
-        proc = subprocess.Popen(
-            [
-                'echo',
-                'Running {} on {}'.format(action, hostname)
-            ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
-        )
-
-        output, err = proc.communicate()
-        return output
+class LauncherProvider(ListResource):
 
     def info(self, **kwargs):
-        return self.get_command_output("info")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def list(self, **kwargs):
-        return self.get_command_output("list")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def run(self, **kwargs):
-        return self.get_command_output("run")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def resume(self, **kwargs):
-        return self.get_command_output("resume")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def suspend(self, **kwargs):
-        return self.get_command_output("suspend")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def kill(self, **kwargs):
-        return self.get_command_output("kill")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def details(self, **kwargs):
-        return self.get_command_output("details")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def clear(self, **kwargs):
-        return self.get_command_output("clear")
+        ValueError("not yet implemented")
+        return "not yet implemente"
 
     def refresh(self, **kwargs):
-        return self.get_command_output("refresh")
+        ValueError("not yet implemented")
+        return "not yet implemente"
+
+
+class LauncherShell(LauncherProvider):
+
+    def run(self, **kwargs):
+
+        script = kwargs["script"]
+        output = subprocess.check_output("script", shell=True)
+
+        return output
+
+
+class Launcher(ListResource):
+
+    def __init__(self, kind):
+
+        if kind.lower() in ["sh", "shell"]:
+            return LauncherShell
+        else:
+            ValueError("not yet implemented")
+            return "not yet implemente"
+
+
