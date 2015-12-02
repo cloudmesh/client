@@ -6,46 +6,31 @@ cloudmesh:
         default:
             template: https://raw.githubusercontent.com/cloudmesh/cloudmesh/master/heat-templates/centos6/launcher/launcher.yaml
         recipes:
-            bigdata_mooc:
-                name: Big Data Class at IU
-                shortdescription: Deploys an Image for a class taught on Big Data.
+            shell_example:
+                name: Shell Example
+                shortdescription: Example to start a shell script.
                 description:
                     >
                         Deploys an Image for a class taught on Big Data.
                 label: mooc
                 parameters:
-                    - nodes: 
-                        type: integer
-                        value: 1
-                        required: True
-                    - Application: 
+                    - username:
                         type: string
-                        value: genome_analysis
+                        value:
                         required: True
-                    - parameters: 
-                        type: string
-                        value: --verbose
-                        required: True
-                    - selector:
+                    - computer:
                         type: selector
                         value:
-                        - VM
-                        - Baremetal
-                        - HPC
-                        required: True
-                    - cloud:
-                        type: selector
-                        value:
-                        - kilo
-                        - juno
+                        - india
                         - comet
-                        - bravo
-                        - echo
                         required: True
-                image: img/launcher/mooc.png
+                image: img/launcher/terminal.png
                 script: 
                     type: sh
-                    value: ssh {username}@{india} "ls -l"
+                    value:
+                        >
+                            echo "Login {username} on {computer}"
+                            ssh {username}@{computer} "ls -l"
             slurm:
                 name: Slurm Cluster
                 shortdescription: Deploys a Slurm cluster.
