@@ -8,7 +8,7 @@ from cloudmesh_client.shell.command import PluginCommand, HPCCommand, \
 
 
 class HpcCommand(PluginCommand, HPCCommand, CometCommand):
-    topics = {"hpc": "hpc"}
+    topics = {"hpc": "system"}
 
     def __init__(self, context):
         self.context = context

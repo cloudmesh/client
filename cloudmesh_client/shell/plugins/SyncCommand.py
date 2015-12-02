@@ -12,20 +12,33 @@ from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 log = LOGGER(__file__)
 
 
-class SyncCommand (PluginCommand, CloudCommand):
-
-    topics = {"sync": "cloud",
-              "rsync": "cloud"}
+class SyncCommand(PluginCommand, CloudCommand):
+    topics = {"sync": "system",
+              "rsync": "system"}
 
     def __init__(self, context):
         self.context = context
         if self.context.debug:
-            print ("init command sync")
+            print("init command sync")
 
     @command
     def do_rsync(self, args, arguments):
+        """
+        ::
 
-        return ""
+            Usage:
+                rsync ARGUMENTS...
+
+            A simple wrapper for rsync command
+
+            Arguments:
+                ARGUMENTS       The arguments passed to nova
+
+            Options:
+                -v              verbose mode
+
+        """
+        return "Not implemented yet."
 
     @command
     def do_sync(self, args, arguments):
@@ -66,4 +79,4 @@ class SyncCommand (PluginCommand, CloudCommand):
             TODO.implement("Yet to implement sync-get command!")
             pass
 
-        return
+        return ""

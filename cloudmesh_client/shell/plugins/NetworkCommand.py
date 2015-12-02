@@ -8,7 +8,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudCommand
 
 
 class NetworkCommand(PluginCommand, CloudCommand):
-    topics = {"network": "network"}
+    topics = {"network": "cloud"}
 
     def __init__(self, context):
         self.context = context
