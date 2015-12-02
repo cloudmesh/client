@@ -11,7 +11,7 @@ cloudmesh:
                 shortdescription: Example to start a shell script.
                 description:
                     >
-                        Deploys an Image for a class taught on Big Data.
+                        Execute a simple ls command on a remote machine.
                 label: mooc
                 parameters:
                     - username:
@@ -29,8 +29,8 @@ cloudmesh:
                     type: sh
                     value:
                         >
-                            echo "Login {username} on {computer}"
-                            ssh {username}@{computer} "ls -l"
+                            echo "Login {username} on {computer}";
+                            ssh {username}@{computer} "ls -l";
             slurm:
                 name: Slurm Cluster
                 shortdescription: Deploys a Slurm cluster.
