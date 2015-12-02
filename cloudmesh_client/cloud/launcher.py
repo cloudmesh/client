@@ -9,39 +9,39 @@ class LauncherProvider(ListResource):
 
     def info(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def list(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def run(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def resume(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def suspend(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def kill(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def details(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def clear(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
     def refresh(self, **kwargs):
         ValueError("not yet implemented")
-        return "not yet implemente"
+        return "not yet implemented"
 
 
 class LauncherShell(LauncherProvider):
@@ -54,14 +54,12 @@ class LauncherShell(LauncherProvider):
         return output
 
 
-class Launcher(ListResource):
-
-    def __init__(self, kind):
+def Launcher(kind):
 
         if kind.lower() in ["sh", "shell"]:
-            return LauncherShell
+            return LauncherShell()
         else:
             ValueError("not yet implemented")
-            return "not yet implemente"
+            return "not yet implemented"
 
 
