@@ -44,12 +44,18 @@ class LauncherProvider(ListResource):
         return "not yet implemented"
 
 
+from cloudmesh_base.Shell import Shell
+
 class LauncherShell(LauncherProvider):
 
     def run(self, **kwargs):
 
-        script = kwargs["script"]
-        output = subprocess.check_output("script", shell=True)
+        script = kwargs["script"].strip("\n")
+
+        print (">>>>", script)
+        #output = Shell.sh(script)
+        output = subprocess.check_output(script, shell=True)
+        print ("OOOOOO", output)
 
         return output
 
