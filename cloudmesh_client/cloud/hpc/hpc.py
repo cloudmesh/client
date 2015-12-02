@@ -108,7 +108,7 @@ class Hpc(object):
         # determine the script name..
         d = ConfigDict("cloudmesh.yaml")
         username = d["cloudmesh"]["profile"][
-            "firstname"]  # FIX: need to determine the cloudmesh name
+            "username"]  # FIX: need to determine the cloudmesh name
 
         if not kwargs['-name']:
             old_count = Shell.ssh(cluster,
