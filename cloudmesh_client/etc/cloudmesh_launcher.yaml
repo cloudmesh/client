@@ -27,10 +27,9 @@ cloudmesh:
                 image: img/launcher/terminal.png
                 script: 
                     type: sh
-                    value:
-                        >
-                            echo "Login {username} on {computer}";
-                            ssh {username}@{computer} "ls -l";
+                    value: |-
+                           echo "Login {username} on {computer}";
+                           ssh {username}@{computer} "ls -l";
             slurm:
                 name: Slurm Cluster
                 shortdescription: Deploys a Slurm cluster.
