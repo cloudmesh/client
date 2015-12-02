@@ -48,6 +48,9 @@ from cloudmesh_base.Shell import Shell
 
 class LauncherShell(LauncherProvider):
 
+    def __init__(self):
+        pass
+
     def run(self, **kwargs):
 
         script = kwargs["script"].strip("\n")
