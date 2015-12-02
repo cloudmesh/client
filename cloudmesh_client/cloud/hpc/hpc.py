@@ -143,10 +143,10 @@ class Hpc(object):
         # print(result)
 
         script_name = script + '.sh'
-        _from = '~/.cloudmesh/{}'.format(script_name)
-        _to = '{}:~/'.format(cluster)
+        _from = Config.path_expand('~/.cloudmesh/{}'.format(script_name))
+        _to = '{}:.'.format(cluster)
         # write the script to local
-        with open(Config.path_expand(_from), 'w') as local_file:
+        with open(_from, 'w') as local_file:
             local_file.write(result)
 
         # copy to remote host

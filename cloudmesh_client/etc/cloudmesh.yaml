@@ -20,6 +20,31 @@ cloudmesh:
         apikey:
             api_key: TBD
             api_secret: TBD
+    newhpc:
+        experiment:
+                name: gregor-00000
+        active:
+        - comet
+        - juliet
+        clusters:
+            india:
+                cm_heading: India HPC CLuster
+                cm_host: india
+                cm_label: indiahpc
+                cm_type: slurm
+                cm_type_version: 14.11.9
+                default:
+                    queue: delta
+                    experiment_dir: ./experiment
+            comet:
+                cm_heading: Comet HPC CLuster
+                cm_host: comet
+                cm_label: comethpc
+                cm_type: slurm
+                cm_type_version: 14.11.9
+                default:
+                    queue: debug
+                    experiment_dir: ./experiment
     hpc:
         - comet
         - juliet
