@@ -239,7 +239,7 @@ class Hpc(object):
             srun -l {command}
             srun -l echo '#CLOUDMESH: Test ok'
             """
-        ).format(**data).replace("\r\n","\n")
+        ).format(**data).replace("\r\n","\n").strip()
 
         print (script)
         pprint(option_mapping)
@@ -263,7 +263,7 @@ class Hpc(object):
 
         # delete local file
         # Shell.execute('rm', _from)
-        import sys; sys.exit()
+        # import sys; sys.exit()
 
         # run the sbatch command
         sbatch_result = Shell.ssh(
