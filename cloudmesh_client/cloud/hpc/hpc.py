@@ -250,6 +250,7 @@ class Hpc(object):
         _to = '{cluster}:{remote_experiment_dir}'.format(**data)
         data["from"] = _from
         data["to"] = _to
+        data["script"] = script
         # write the script to local
         print(_from)
         print(_to)
