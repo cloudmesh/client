@@ -205,7 +205,7 @@ class Hpc(object):
         option_mapping = {'-t': '1',
                           '-N': '1',
                           '-p': '',
-                          '-o': '{script_output}'.format(**data)}
+                          '-o': '{remote_experiment_dir}/{script_output}'.format(**data)}
 
         map(lambda (k, v):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
@@ -240,7 +240,7 @@ class Hpc(object):
             srun -l {command}
             srun -l echo '#CLOUDMESH: Test ok'
             """
-        ).format(**data)
+        ).format(**data).replace("\r\n","\n")
 
         print (script)
         pprint(option_mapping)
@@ -250,23 +250,26 @@ class Hpc(object):
 
 
         _from = Config.path_expand('~/.cloudmesh/{script_name}'.format(**data))
-        _to = '{cluster}:./{remote_experiment_dir}'.format(**data)
+        _to = '{cluster}:{remote_experiment_dir}'.format(**data)
         # write the script to local
+        print(_from)
+        print(_to)
+
         with open(_from, 'w') as local_file:
             local_file.write(script)
 
-
-        import sys; sys.exit()
         # copy to remote host
         Shell.scp(_from, _to)
-        Shell.ssh(cluster,
-                  'dos2unix {}'.format(script_name))
+
 
         # delete local file
         # Shell.execute('rm', _from)
 
         # run the sbatch command
-        sbatch_result = Shell.ssh(cluster, 'sbatch {script_name}'.format(**data))
+        sbatch_result = Shell.ssh(
+            cluster,
+            'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
+        )
 
         return (sbatch_result +
                 '\nThe output file {script_output} is in the home directory of the cluster'.
