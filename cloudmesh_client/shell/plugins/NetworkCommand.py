@@ -3,6 +3,7 @@ from __future__ import print_function
 import json
 from pprint import pprint
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
@@ -155,6 +156,8 @@ class NetworkCommand(PluginCommand, CloudCommand):
                         if floating_ip is not None:
                             Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
                                        .format(floating_ip, instance_name))
+                            # Refresh VM in db
+                            self.refresh_vm(cloudname)
                 else:
                     Console.error("No group [{}] in the Cloudmesh database.")
                     return ""
@@ -207,13 +210,112 @@ class NetworkCommand(PluginCommand, CloudCommand):
 
             # Invalid parameters
             else:
-                Console.error("Please provide at least one of [--group] OR [--instance] parameters. "
-                              "You can also provide [FLOATING_IP] and [--instance]. "
+                Console.error("Please provide at least one of [--group] OR [--instance] parameters.\n"
+                              "You can also provide [FLOATING_IP] AND [--instance] parameters.\n"
                               "See 'cm network --help' for more info.")
+
+            # Refresh VM in db
+            self.refresh_vm(cloudname)
 
         elif arguments["disassociate"] \
                 and arguments["floating"]:
-            TODO.implement("Yet to implement <disassociate floating ip>")
+
+            # Get all command-line arguments
+            group = arguments["--group"]
+            instance_id = arguments["--instance"]
+            floating_ip = arguments["FLOATING_IP"]
+
+            # group supplied
+            if group is not None:
+                """
+                Group name has been provided.
+                Remove floating IPs of all vms in the group
+                and return
+                """
+                # Get the group information
+                group = Group.get_info(name=group,
+                                       cloud=cloudname,
+                                       output="json")
+                if group is not None:
+                    # Convert from str to json
+                    group = json.loads(group)
+                    # For each vm in the group
+                    # Create and assign a floating IP
+                    for item in group:
+                        instance_id = group[item]["value"]
+                        # Get the instance dict
+                        instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                                  instance_id=instance_id)
+                        # Instance not found
+                        if instance_dict is None:
+                            Console.error("Instance [{}] not found in the cloudmesh database!"
+                                          .format(instance_id))
+                            return ""
+
+                        # Get the instance name
+                        instance_name = instance_dict["name"]
+                        floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+                                                                        instance_name=instance_name)
+                        if floating_ip is not None:
+                            Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                                       .format(floating_ip, instance_name))
+                else:
+                    Console.error("No group [{}] in the Cloudmesh database.")
+                    return ""
+
+            # floating-ip not supplied, instance-id supplied
+            elif floating_ip is None and \
+                            instance_id is not None:
+                """
+                Floating IP has not been provided, instance-id provided.
+                Remove floating ip allocated to vm
+                and return
+                """
+                instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                          instance_id=instance_id)
+                # Instance not found
+                if instance_dict is None:
+                    Console.error("Instance [{}] not found in the cloudmesh database!"
+                                  .format(instance_id))
+                    return ""
+
+                instance_name = instance_dict["name"]
+                floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+                                                                instance_name=instance_name)
+                if floating_ip is not None:
+                    Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                               .format(floating_ip, instance_name))
+
+            # instance-id & floating-ip supplied
+            elif instance_id is not None:
+                """
+                Floating IP & Instance ID have been provided
+                Remove the IP from the instance
+                and return
+                """
+                instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                          instance_id=instance_id)
+                # Instance not found
+                if instance_dict is None:
+                    Console.error("Instance [{}] not found in the cloudmesh database!"
+                                  .format(instance_id))
+                    return ""
+
+                instance_name = instance_dict["name"]
+
+                result = Network.associate_floating_ip(cloudname=cloudname,
+                                                       instance_name=instance_name,
+                                                       floating_ip=floating_ip)
+                if result is not None:
+                    Console.ok("Associated Floating IP [{}] to instance [{}]."
+                               .format(floating_ip, instance_name))
+
+            # Invalid parameters
+            else:
+                Console.error("Please provide at least one of [--group] OR [--instance] parameters.\n"
+                              "You can also provide [FLOATING_IP] AND [--instance] parameters.\n"
+                              "See 'cm network --help' for more info.")
+
             pass
 
         # Create new floating ip under floating pool
@@ -253,6 +355,9 @@ class NetworkCommand(PluginCommand, CloudCommand):
             ip_or_id = arguments["IP_OR_ID"]
             instance_id = arguments["--instance"]
 
+            # Refresh VM in db
+            self.refresh_vm(cloudname)
+
             # If instance id is supplied
             if instance_id is not None:
                 instance_dict = Network.get_instance_dict(cloudname=cloudname,
@@ -287,6 +392,18 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 Console.msg(result)
 
         return ""
+
+    @classmethod
+    def refresh_vm(cls, cloudname):
+        try:
+            msg = "Refresh VMs for cloud {:}.".format(cloudname)
+            Console.msg(msg)
+            if Vm.refresh(cloud=cloudname) is not None:
+                Console.ok("Complete.")
+            else:
+                Console.error("{:} failed".format(msg))
+        except Exception, e:
+            Console.error("Problem running VM refresh")
 
 
 if __name__ == '__main__':
