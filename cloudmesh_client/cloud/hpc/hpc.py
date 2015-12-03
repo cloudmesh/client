@@ -21,11 +21,8 @@ class Hpc(object):
         return "0"
 
     @classmethod
-    def create_remote_experiment_dir(cls, cluster):
-        config = cls.read_hpc_config(cluster)
-        data = {"dir": config["default"]["experiment_dir"]}
-        Shell.ssh(cluster, "mkdir -p {dir}".format(**data))
-        return data["dir"]
+    def create_remote_dir(cls, cluster, dir):
+        Shell.ssh(cluster, "mkdir -p {dir}".format(dir=dir))
 
     @classmethod
     def read_hpc_config(cls, cluster):
@@ -248,7 +245,7 @@ class Hpc(object):
         pprint(option_mapping)
         pprint(data)
 
-        cls.create_remote_experiment_dir(cluster)
+        cls.create_remote_dir(cluster, data["remote_experiment_dir"])
 
 
         _from = Config.path_expand('~/.cloudmesh/{script_name}'.format(**data))
@@ -266,6 +263,7 @@ class Hpc(object):
 
         # delete local file
         # Shell.execute('rm', _from)
+        import sys; sys.exit()
 
         # run the sbatch command
         sbatch_result = Shell.ssh(
