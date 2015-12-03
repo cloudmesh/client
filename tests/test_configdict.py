@@ -19,7 +19,7 @@ class Test_configdict:
     root_path = os.path.abspath(os.sep)
 
     def setup(self):
-        os.sytsem ("cm help")
+        os.system("cm help")
         self.etc_yaml = os.path.join(self.root_path, "cloudmesh_client", "etc", "cloudmesh.yaml")
         self.tmp_yaml = os.path.join(self.root_path, "tmp", "cloudmesh.yaml")
         self.tmp_dir = os.path.join(self.root_path, "tmp")
