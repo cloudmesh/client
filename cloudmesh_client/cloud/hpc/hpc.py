@@ -200,6 +200,8 @@ class Hpc(object):
         data["script_output"] = "{username}-{count}.out".format(**data)
         config = cls.read_hpc_config(cluster)
         data["remote_experiment_dir"] = config["default"]["experiment_dir"]
+        data["remote_experiment_dir"] = \
+            "{remote_experiment_dir}/{script_base_name}".format(**data)
 
         # overwrite defaults
         option_mapping = {'-t': '1',
