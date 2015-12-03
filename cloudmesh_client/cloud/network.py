@@ -76,6 +76,11 @@ class Network(ListResource):
             # add instance_name to dict
             result["instance_name"] = instance_name
 
+            # add misc details to response
+            result["cloud"] = cloudname
+            result["user"] = cloud_provider.cloud_details["credentials"]["OS_USERNAME"]
+            result["project"] = cloud_provider.cloud_details["credentials"]["OS_TENANT_NAME"]
+
             return attribute_printer(result,
                                      header=[
                                          "name",
