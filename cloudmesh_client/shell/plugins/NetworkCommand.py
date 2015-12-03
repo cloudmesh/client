@@ -118,19 +118,19 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["floating"]:
 
             # Get all command-line arguments
-            group = arguments["--group"]
+            group_name = arguments["--group"]
             instance_id = arguments["--instance"]
             floating_ip = arguments["FLOATING_IP"]
 
             # group supplied
-            if group is not None:
+            if group_name is not None:
                 """
                 Group name has been provided.
                 Assign floating IPs to all vms in the group
                 and return
                 """
                 # Get the group information
-                group = Group.get_info(name=group,
+                group = Group.get_info(name=group_name,
                                        cloud=cloudname,
                                        output="json")
                 if group is not None:
@@ -159,7 +159,8 @@ class NetworkCommand(PluginCommand, CloudCommand):
                             # Refresh VM in db
                             self.refresh_vm(cloudname)
                 else:
-                    Console.error("No group [{}] in the Cloudmesh database.")
+                    Console.error("No group [{}] in the Cloudmesh database."
+                                  .format(group_name))
                     return ""
 
             # floating-ip not supplied, instance-id supplied
@@ -222,19 +223,19 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["floating"]:
 
             # Get all command-line arguments
-            group = arguments["--group"]
+            group_name = arguments["--group"]
             instance_id = arguments["--instance"]
             floating_ip = arguments["FLOATING_IP"]
 
             # group supplied
-            if group is not None:
+            if group_name is not None:
                 """
                 Group name has been provided.
                 Remove floating IPs of all vms in the group
                 and return
                 """
                 # Get the group information
-                group = Group.get_info(name=group,
+                group = Group.get_info(name=group_name,
                                        cloud=cloudname,
                                        output="json")
                 if group is not None:
@@ -255,13 +256,23 @@ class NetworkCommand(PluginCommand, CloudCommand):
 
                         # Get the instance name
                         instance_name = instance_dict["name"]
-                        floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
-                                                                        instance_name=instance_name)
-                        if floating_ip is not None:
-                            Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                        floating_ip = instance_dict["floating_ip"]
+
+                        # Floating ip argument invalid
+                        if floating_ip is None:
+                            Console.error("Instance[{}] does not have a floating_ip."
+                                          .format(instance_name))
+                            return ""
+
+                        result = Network.disassociate_floating_ip(cloudname=cloudname,
+                                                                  instance_name=instance_name,
+                                                                  floating_ip=floating_ip)
+                        if result is not None:
+                            Console.ok("Disassociated Floating IP [{}] from instance [{}]."
                                        .format(floating_ip, instance_name))
                 else:
-                    Console.error("No group [{}] in the Cloudmesh database.")
+                    Console.error("No group [{}] in the Cloudmesh database."
+                                  .format(group_name))
                     return ""
 
             # floating-ip not supplied, instance-id supplied
@@ -281,10 +292,19 @@ class NetworkCommand(PluginCommand, CloudCommand):
                     return ""
 
                 instance_name = instance_dict["name"]
-                floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
-                                                                instance_name=instance_name)
-                if floating_ip is not None:
-                    Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                floating_ip = instance_dict["floating_ip"]
+
+                # Floating ip argument invalid
+                if floating_ip is None:
+                    Console.error("Instance[{}] does not have a floating_ip."
+                                  .format(instance_name))
+                    return ""
+
+                result = Network.disassociate_floating_ip(cloudname=cloudname,
+                                                          instance_name=instance_name,
+                                                          floating_ip=floating_ip)
+                if result is not None:
+                    Console.ok("Disassociated Floating IP [{}] from instance [{}]."
                                .format(floating_ip, instance_name))
 
             # instance-id & floating-ip supplied
@@ -306,14 +326,14 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 _floating_ip = instance_dict["floating_ip"]
 
                 # Floating ip argument invalid
-                if _floating_ip != floating_ip :
+                if _floating_ip != floating_ip:
                     Console.error("Invalid floating_ip [{}] for instance [{}]."
                                   .format(floating_ip, instance_name))
                     return ""
 
                 result = Network.disassociate_floating_ip(cloudname=cloudname,
-                                                       instance_name=instance_name,
-                                                       floating_ip=floating_ip)
+                                                          instance_name=instance_name,
+                                                          floating_ip=floating_ip)
                 if result is not None:
                     Console.ok("Disassociated Floating IP [{}] from instance [{}]."
                                .format(floating_ip, instance_name))
