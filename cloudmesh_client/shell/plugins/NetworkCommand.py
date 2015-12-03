@@ -1,6 +1,9 @@
 from __future__ import print_function
+
+import json
 from pprint import pprint
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
@@ -57,7 +60,8 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 $ network unreserve fixed ip --cloud=india 10.1.2.5
                 $ network unreserve fixed --cloud=india 10.1.2.5
                 $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
-                $ network associate floating --cloud=india --instance=albert-001 192.1.66.8
+                $ network associate floating --cloud=india --instance=albert-001
+                $ network associate floating --cloud=india --group=albert_group
                 $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
                 $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
                 $ network create floating ip --cloud=india --pool=albert-f01
@@ -81,7 +85,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                           "Please use the following to set it:\n"
                           "cm default cloud=CLOUDNAME\n"
                           "or provide it via the --cloud=CLOUDNAME argument.")
-            return
+            return ""
 
         # Fixed IP info
         if arguments["get"] \
@@ -90,16 +94,15 @@ class NetworkCommand(PluginCommand, CloudCommand):
             result = Network.get_fixed_ip(cloudname,
                                           fixed_ip_addr=fixed_ip)
             Console.msg(result)
-            return
 
         # Floating IP info
-        if arguments["get"] \
+        elif arguments["get"] \
                 and arguments["floating"]:
             floating_ip_id = arguments["FLOATING_IP_ID"]
             result = Network.get_floating_ip(cloudname,
                                              floating_ip_or_id=floating_ip_id)
             Console.msg(result)
-            return
+
         elif arguments["reserve"] \
                 and arguments["fixed"]:
             TODO.implement("Yet to implement <reserve fixed ip>")
@@ -125,10 +128,39 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 Assign floating IPs to all vms in the group
                 and return
                 """
-                pass
+                # Get the group information
+                group = Group.get_info(name=group,
+                                       cloud=cloudname,
+                                       output="json")
+                if group is not None:
+                    # Convert from str to json
+                    group = json.loads(group)
+                    # For each vm in the group
+                    # Create and assign a floating IP
+                    for item in group:
+                        instance_id = group[item]["value"]
+                        # Get the instance dict
+                        instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                                  instance_id=instance_id)
+                        # Instance not found
+                        if instance_dict is None:
+                            Console.error("Instance [{}] not found in the cloudmesh database!"
+                                          .format(instance_id))
+                            return ""
+
+                        # Get the instance name
+                        instance_name = instance_dict["name"]
+                        floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+                                                                        instance_name=instance_name)
+                        if floating_ip is not None:
+                            Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                                       .format(floating_ip, instance_name))
+                else:
+                    Console.error("No group [{}] in the Cloudmesh database.")
+                    return ""
 
             # floating-ip not supplied, instance-id supplied
-            if floating_ip is None and \
+            elif floating_ip is None and \
                             instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
@@ -141,7 +173,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
                                   .format(instance_id))
-                    return
+                    return ""
 
                 instance_name = instance_dict["name"]
                 floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
@@ -149,7 +181,6 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 if floating_ip is not None:
                     Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
                                .format(floating_ip, instance_name))
-                return
 
             # instance-id & floating-ip supplied
             elif instance_id is not None:
@@ -164,7 +195,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
                                   .format(instance_id))
-                    return
+                    return ""
 
                 instance_name = instance_dict["name"]
                 result = Network.associate_floating_ip(cloudname=cloudname,
@@ -173,7 +204,6 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 if result is not None:
                     Console.ok("Associated Floating IP [{}] to instance [{}]."
                                .format(floating_ip, instance_name))
-                return
 
             # Invalid parameters
             else:
@@ -181,7 +211,6 @@ class NetworkCommand(PluginCommand, CloudCommand):
                               "You can also provide [FLOATING_IP] and [--instance]. "
                               "See 'cm network --help' for more info.")
 
-            return
         elif arguments["disassociate"] \
                 and arguments["floating"]:
             TODO.implement("Yet to implement <disassociate floating ip>")
@@ -198,8 +227,6 @@ class NetworkCommand(PluginCommand, CloudCommand):
             else:
                 Console.error("Failed to create floating IP! Please check arguments.")
 
-            return
-
         # Delete a floating ip address
         elif arguments["delete"] \
                 and arguments["floating"]:
@@ -211,7 +238,6 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 Console.ok(result)
             else:
                 Console.error("Failed to delete floating IP address!")
-            return
 
         # Floating IP Pool List
         elif arguments["list"] \
@@ -219,7 +245,6 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["pool"]:
             result = Network.list_floating_ip_pool(cloudname)
             Console.msg(result)
-            return
 
         # Floating IP list [or info]
         elif arguments["list"] \
@@ -236,7 +261,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
                                   .format(instance_id))
-                    return
+                    return ""
 
                 # Read the floating_ip from the dict
                 ip_or_id = instance_dict["floating_ip"]
@@ -244,7 +269,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 if ip_or_id is None:
                     Console.error("Instance with ID [{}] does not have a floating IP address!"
                                   .format(instance_id))
-                    return
+                    return ""
 
             # If the floating ip or associated ID is supplied
             if ip_or_id is not None:
@@ -255,14 +280,13 @@ class NetworkCommand(PluginCommand, CloudCommand):
                     Console.msg(result)
                 else:
                     Console.error("Floating IP not found! Please check your arguments.")
-                    return
+                    return ""
             # Retrieve the full list
             else:
                 result = Network.list_floating_ip(cloudname)
                 Console.msg(result)
-            pass
 
-        return
+        return ""
 
 
 if __name__ == '__main__':
