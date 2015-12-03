@@ -135,7 +135,8 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 '-t': arguments['--t'],
                 '-N': arguments['--N']
             }
-            Console.ok(Hpc.run(cluster, script, **arg_dict))
+            result = Hpc.run(cluster, script, **arg_dict)
+            Console.ok("Started batch job {id} on {cluster}".format(**result))
 
         elif arguments["test"]:
             time_secs = arguments['--time']

@@ -1,16 +1,15 @@
 import json
+from datetime import datetime
+import textwrap
 
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-from datetime import datetime
 
-import textwrap
 from pprint import pprint
 
 class Hpc(object):
-
     @classmethod
     def get_script_base_name(cls):
         # config = cls.read_hpc_config(cluster)
@@ -53,7 +52,7 @@ class Hpc(object):
         :param cluster:
         :return:
         """
-        hpc = "newhpc" # change to hpc when transition is made
+        hpc = "newhpc"  # change to hpc when transition is made
 
         try:
             config = cls.config
@@ -61,10 +60,9 @@ class Hpc(object):
             cls.config = None
         if cls.config is None:
             cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.newhpc"]
-            pprint (cls.config)
+            pprint(cls.config)
             cls.experiment_name_format = cls.config["experiment"]["name"]
         return cls.config["clusters"][cluster]
-
 
     @classmethod
     def queue(cls, cluster, format='json', job=None):
@@ -112,7 +110,6 @@ class Hpc(object):
                                      output=format))
         except Exception as ex:
             return ex
-
 
     @classmethod
     def info(cls, cluster, format='json', all=False):
@@ -176,14 +173,14 @@ class Hpc(object):
         # there maybe s a similar thing already in the old cloudmesh
         #
 
-        #if not kwargs['-name']:
+        # if not kwargs['-name']:
         #
         #    old_count = Shell.ssh(cluster,
         #                          "ls {}*.sh | wc -l | sed 's/$/ count/'".
         #                          format(username))
         #    c = [f for f in old_count.splitlines() if 'count' in f]
         #    script_count = c[0].split()[0]
-        #else:
+        # else:
         #    script_count = kwargs['-name']
 
         config = cls.read_hpc_config(cluster)
@@ -192,7 +189,8 @@ class Hpc(object):
             "count": cls.count(),
             "username": config["credentials"]["username"],
             "remote_experiment_dir": config["default"]["experiment_dir"],
-            "queue": config["default"]["queue"]
+            "queue": config["default"]["queue"],
+            "id": None
         }
         data["script_base_name"] = "{username}-{count}".format(**data)
         data["script_name"] = "{username}-{count}.sh".format(**data)
@@ -211,7 +209,6 @@ class Hpc(object):
         map(lambda (k, v):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
             option_mapping.iteritems())
-
 
         config = cls.read_hpc_config(cluster)
         project = None
@@ -241,7 +238,7 @@ class Hpc(object):
             srun -l {command}
             srun -l echo '#CLOUDMESH: Test ok'
             """
-        ).format(**data).replace("\r\n","\n").strip()
+        ).format(**data).replace("\r\n", "\n").strip()
 
         print (script)
         pprint(option_mapping)
@@ -249,9 +246,10 @@ class Hpc(object):
 
         cls.create_remote_dir(cluster, data["remote_experiment_dir"])
 
-
         _from = Config.path_expand('~/.cloudmesh/{script_name}'.format(**data))
         _to = '{cluster}:{remote_experiment_dir}'.format(**data)
+        data["from"] = _from
+        data["to"] = _to
         # write the script to local
         print(_from)
         print(_to)
@@ -270,12 +268,22 @@ class Hpc(object):
         # run the sbatch command
 
         cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
+        data["cmd"] = cmd
         print ("CMD>", cmd)
-        sbatch_result = Shell.ssh(cluster, cmd)
+        result = Shell.ssh(cluster, cmd)
 
-        return (sbatch_result +
-                '\nThe output file {script_output} is in the home directory of the cluster'.
-                format(**data))
+        data["output"] = result
+
+
+        #find id
+        for line in result.split("\n"):
+            print ("LLL>", line)
+            if "Submitted batch job" in line:
+                data["id"] = int(line.replace("Submitted batch job ","").strip())
+                break
+
+        pprint(data)
+        return data
 
     @classmethod
     def kill(cls, cluster, job):
@@ -299,9 +307,7 @@ class Hpc(object):
             return ex
 
 
-
 if __name__ == "__main__":
     from pprint import pprint
 
-    print(Hpc.queue("comet",format="json"))
-
+    print(Hpc.queue("comet", format="json"))
