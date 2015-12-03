@@ -95,7 +95,24 @@ class Network(ListResource):
         pass
 
     @classmethod
-    def floating_ip_associate(cls, cloud, server, floating_ip):
+    def associate_floating_ip(cls, cloudname, instance_name, floating_ip):
+        """
+        Method to associate floating ip to an instance
+        :param cloudname:
+        :param instance_name:
+        :param floating_ip:
+        :return:
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            # Find the server instance
+            server = cloud_provider.provider.servers.find(name=instance_name)
+            # Add the floating ip to the instance
+            server.add_floating_ip(floating_ip)
+            return "Success."
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
         pass
 
     @classmethod
@@ -129,6 +146,13 @@ class Network(ListResource):
         """
         try:
             cloud_provider = CloudProvider(cloudname).provider
+            # If floating pool is not given,
+            # get first from list
+            if floating_pool is None:
+                floating_pool = cloud_provider.provider.floating_ip_pools.list()[0].name
+                Console.ok("Floating pool not provided, selected [{}] as the pool."
+                            .format(floating_pool))
+
             floating_ip = cloud_provider.create_floating_ip(float_pool=floating_pool)
             return floating_ip
         except Exception as ex:

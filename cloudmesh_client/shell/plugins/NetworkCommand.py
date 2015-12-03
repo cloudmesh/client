@@ -28,7 +28,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
                 network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
-                network create floating [ip] [--cloud=CLOUD] --pool=FLOATING_IP_POOL
+                network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
                 network delete floating [ip] [--cloud=CLOUD] FLOATING_IP
                 network list floating pool [--cloud=CLOUD]
                 network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
@@ -146,8 +146,9 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 instance_name = instance_dict["name"]
                 floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
                                                                 instance_name=instance_name)
-                Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
-                           .format(floating_ip, instance_name))
+                if floating_ip is not None:
+                    Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                               .format(floating_ip, instance_name))
                 return
 
             # instance-id & floating-ip supplied
@@ -157,7 +158,24 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 Associate the IP to the instance
                 and return
                 """
-                pass
+                instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                          instance_id=instance_id)
+                # Instance not found
+                if instance_dict is None:
+                    Console.error("Instance [{}] not found in the cloudmesh database!"
+                                  .format(instance_id))
+                    return
+
+                instance_name = instance_dict["name"]
+                result = Network.associate_floating_ip(cloudname=cloudname,
+                                                       instance_name=instance_name,
+                                                       floating_ip=floating_ip)
+                if result is not None:
+                    Console.ok("Associated Floating IP [{}] to instance [{}]."
+                               .format(floating_ip, instance_name))
+                return
+
+            # Invalid parameters
             else:
                 Console.error("Please provide at least one of [--group] OR [--instance] parameters. "
                               "You can also provide [FLOATING_IP] and [--instance]. "
