@@ -65,7 +65,7 @@ class Test_configdict:
         """test if json is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["etc"],
+                       load_order=["cloudmesh_client/etc"],
                        verbose=True)
 
         assert d.json.startswith('{')
@@ -81,7 +81,7 @@ class Test_configdict:
         """test if yaml is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["etc"],
+                       load_order=["cloudmesh_client/etc"],
                        verbose=True)
         result = d.yaml
 
@@ -100,7 +100,7 @@ class Test_configdict:
         #  check if d.filename is the same as the filename we have
         HEADING()
         filename = "cloudmesh.yaml"
-        path = "etc"
+        path = "cloudmesh_client/etc"
 
         d = ConfigDict(filename,
                        load_order=[path],
