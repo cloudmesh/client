@@ -19,7 +19,7 @@ class Test_configdict:
     root_path = os.path.abspath(os.sep)
 
     def setup(self):
-        self.etc_yaml = os.path.join("etc", "cloudmesh.yaml")
+        self.etc_yaml = os.path.join("cloudmesh_client", "etc", "cloudmesh.yaml")
         self.tmp_yaml = os.path.join(self.root_path, "tmp", "cloudmesh.yaml")
         self.tmp_dir = os.path.join(self.root_path, "tmp")
         pass
@@ -31,14 +31,14 @@ class Test_configdict:
         """test if cloudmesh.yaml is loaded"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["etc"],
+                       load_order=[self.etc_yaml],
                        verbose=True)
 
         assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
 
         try:
             d = ConfigDict("cloudmesh.yam",
-                           load_order=["etc"],
+                           load_order=[self.etc_yaml],
                            verbose=True)
             print("the file cloudmesh.yam should not exists")
             assert False
@@ -65,7 +65,7 @@ class Test_configdict:
         """test if json is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["cloudmesh_client/etc"],
+                       load_order=[self.etc_yaml],
                        verbose=True)
 
         assert d.json.startswith('{')
@@ -81,7 +81,7 @@ class Test_configdict:
         """test if yaml is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["cloudmesh_client/etc"],
+                       load_order=[self.etc_yaml],
                        verbose=True)
         result = d.yaml
 
@@ -100,7 +100,7 @@ class Test_configdict:
         #  check if d.filename is the same as the filename we have
         HEADING()
         filename = "cloudmesh.yaml"
-        path = "cloudmesh_client/etc"
+        path = self.etc_yaml
 
         d = ConfigDict(filename,
                        load_order=[path],
