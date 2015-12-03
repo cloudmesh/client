@@ -132,5 +132,23 @@ these are defined under ``resources:`` in a Heat template.
 example, we replace a SSH key name and a number of VM instances.
 
 
+Deletion
+-------------------------------------------------------------------------------
+
+A simple command to terminate a stack is ``heat stack-delete``. This will
+release any leasing resources including VM instances and floating IP addresses.
+In our example, five VM instances will be terminated.
+
+
+.. code::
+
+  heat stack-delete hello-world-five
+
+  +--------------------------------------+------------------+--------------------+----------------------+
+  | id                                   | stack_name       | stack_status       | creation_time        |
+  +--------------------------------------+------------------+--------------------+----------------------+
+  | 43f6a7c2-88b8-4a66-9a9c-63ea2e28941b | hello-world-five | DELETE_IN_PROGRESS | 2015-12-03T21:10:34Z |
+  +--------------------------------------+------------------+--------------------+----------------------+
+
 [1] http://docs.openstack.org/developer/heat/template_guide/
 [2] http://docs.openstack.org/developer/heat/template_guide/hot_spec.html#heat-template-version
