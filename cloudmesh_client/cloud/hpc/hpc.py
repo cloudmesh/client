@@ -6,8 +6,68 @@ from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from datetime import datetime
 
+import textwrap
+from pprint import pprint
 
 class Hpc(object):
+
+    @classmethod
+    def get_script_base_name(cls):
+        # config = cls.read_hpc_config(cluster)
+        return "gregor"
+
+    @classmethod
+    def count(cls):
+        return "0"
+
+    @classmethod
+    def create_remote_experiment_dir(cls, cluster):
+        config = cls.read_hpc_config(cluster)
+        data = {"dir": config["default"]["experiment_dir"]}
+        Shell.ssh(cluster, "mkdir -p {dir}".format(**data))
+        return data["dir"]
+
+    @classmethod
+    def read_hpc_config(cls, cluster):
+        """
+        reads in the cluster config from the yaml file and returns the specific cluster informationt
+
+        newhpc:
+            experiment:
+                    name: gregor-00000
+            active:
+            - comet
+            - juliet
+            clusters:
+                india:
+                    cm_heading: India HPC CLuster
+                    cm_host: india
+                    cm_label: indiahpc
+                    cm_type: slurm
+                    cm_type_version: 14.11.9
+                    credentials:
+                        project: None
+                    default:
+                        queue: delta
+                        experiment_dir: ./experiment
+
+        :param cls:
+        :param cluster:
+        :return:
+        """
+        hpc = "newhpc" # change to hpc when transition is made
+
+        try:
+            config = cls.config
+        except:
+            cls.config = None
+        if cls.config is None:
+            cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.newhpc"]
+            pprint (cls.config)
+            cls.experiment_name_format = cls.config["experiment"]["name"]
+        return cls.config["clusters"][cluster]
+
+
     @classmethod
     def queue(cls, cluster, format='json', job=None):
         try:
@@ -66,7 +126,7 @@ class Hpc(object):
                 cluster,
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
-        # TODO: process till header is found...(Need a better way)
+        # ignor leading lines till header is found
         l = result.splitlines()
         for i, res in enumerate(l):
             if 'PARTITION|AVAIL|' in res:
@@ -105,66 +165,112 @@ class Hpc(object):
 
     @classmethod
     def run(cls, cluster, cmd, **kwargs):
+
+        print ("CCCC>", cluster)
         # determine the script name..
-        d = ConfigDict("cloudmesh.yaml")
-        username = d["cloudmesh"]["profile"][
-            "username"]  # FIX: need to determine the cloudmesh name
 
-        if not kwargs['-name']:
-            old_count = Shell.ssh(cluster,
-                                  "ls {}*.sh | wc -l | sed 's/$/ count/'".
-                                  format(username))
-            c = [f for f in old_count.splitlines() if 'count' in f]
-            script_count = c[0].split()[0]
-        else:
-            script_count = kwargs['-name']
+        username = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
 
-        script = username + '-' + script_count
+        #
+        # TODO: script count is variable in data base, we test if fil exists and if it
+        # does increase counter till we find one that does not, that will be new counter.
+        # new couner will than be placed in db.
+        #
+        # define get_script_name(dirctory, prefix, counter)
+        # there maybe s a similar thing already in the old cloudmesh
+        #
+
+        #if not kwargs['-name']:
+        #
+        #    old_count = Shell.ssh(cluster,
+        #                          "ls {}*.sh | wc -l | sed 's/$/ count/'".
+        #                          format(username))
+        #    c = [f for f in old_count.splitlines() if 'count' in f]
+        #    script_count = c[0].split()[0]
+        #else:
+        #    script_count = kwargs['-name']
+
+        data = {
+            "cluster": cluster,
+            "count": cls.count(),
+            "username": username
+        }
+        data["script_base_name"] = "{username}-{count}".format(**data)
+        data["script_name"] = "{username}-{count}.sh".format(**data)
+        data["script_output"] = "{username}-{count}.out".format(**data)
+        config = cls.read_hpc_config(cluster)
+        data["remote_experiment_dir"] = config["default"]["experiment_dir"]
 
         # overwrite defaults
         option_mapping = {'-t': '1',
                           '-N': '1',
                           '-p': '',
-                          '-o': script + '.out'}
+                          '-o': '{script_output}'.format(**data)}
+
         map(lambda (k, v):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
             option_mapping.iteritems())
 
-        # create the script...
-        result = ['#!/bin/sh']
+
+        config = cls.read_hpc_config(cluster)
+        project = None
+        try:
+            project = config["credentials"]["project"]
+            if project.lower() not in ["tbd", "none"]:
+                option_mapping["-A"] = project
+        except:
+            pass
+
+        for key in option_mapping:
+            data[key] = option_mapping[key]
+
+        # create the options for the script
+        options = ""
         for key, value in option_mapping.iteritems():
-            result.append('#SBATCH {} {}'.format(key, value))
+            options += '#SBATCH {} {}\n'.format(key, value)
 
-        # append the commands...
-        result.extend(["srun -l echo '#CLOUDMESH: Starting'",
-                       'srun -l {}'.format(cmd),
-                       "srun -l echo '#CLOUDMESH: Test ok'"])
-        result = '\n'.join(result)
-        # print(result)
+        data["command"] = cmd
+        data["options"] = options
 
-        script_name = script + '.sh'
-        _from = Config.path_expand('~/.cloudmesh/{}'.format(script_name))
-        _to = '{}:.'.format(cluster)
+        script = textwrap.dedent(
+            """
+            #! /bin/sh
+            {options}
+            srun -l echo '#CLOUDMESH: Starting'
+            srun -l {command}
+            srun -l echo '#CLOUDMESH: Test ok'
+            """
+        ).format(**data)
+
+        print (script)
+        pprint(option_mapping)
+        pprint(data)
+
+        cls.create_remote_experiment_dir(cluster)
+
+
+        _from = Config.path_expand('~/.cloudmesh/{script_name}'.format(**data))
+        _to = '{cluster}:./{remote_experiment_dir}'.format(**data)
         # write the script to local
         with open(_from, 'w') as local_file:
-            local_file.write(result)
+            local_file.write(script)
 
+
+        import sys; sys.exit()
         # copy to remote host
         Shell.scp(_from, _to)
         Shell.ssh(cluster,
                   'dos2unix {}'.format(script_name))
 
         # delete local file
-        Shell.execute('rm', _from)
+        # Shell.execute('rm', _from)
 
         # run the sbatch command
-        sbatch_result = Shell.ssh(
-            cluster,
-            'sbatch {}'.format(script_name))
+        sbatch_result = Shell.ssh(cluster, 'sbatch {script_name}'.format(**data))
 
         return (sbatch_result +
-                '\n .The output file {} is in ~ directory of the cluster'.
-                format(option_mapping['-o']))
+                '\nThe output file {script_output} is in the home directory of the cluster'.
+                format(**data))
 
     @classmethod
     def kill(cls, cluster, job):
