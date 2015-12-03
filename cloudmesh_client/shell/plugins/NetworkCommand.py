@@ -104,14 +104,23 @@ class NetworkCommand(PluginCommand, CloudCommand):
                                              floating_ip_or_id=floating_ip_id)
             Console.msg(result)
 
+        # Reserve a fixed ip
         elif arguments["reserve"] \
                 and arguments["fixed"]:
-            TODO.implement("Yet to implement <reserve fixed ip>")
-            pass
+            fixed_ip = arguments["FIXED_IP"]
+            result = Network.reserve_fixed_ip(cloudname=cloudname,
+                                              fixed_ip_addr=fixed_ip)
+            if result is not None:
+                Console.ok("Reserve fixed ip address [{}] complete.".format(fixed_ip))
+
+        # Un-Reserve a fixed ip
         elif arguments["unreserve"] \
                 and arguments["fixed"]:
-            TODO.implement("Yet to implement <unreserve fixed ip>")
-            pass
+            fixed_ip = arguments["FIXED_IP"]
+            result = Network.unreserve_fixed_ip(cloudname=cloudname,
+                                              fixed_ip_addr=fixed_ip)
+            if result is not None:
+                Console.ok("Un-Reserve fixed ip address [{}] complete.".format(fixed_ip))
 
         # Associate floating IP
         elif arguments["associate"] \
@@ -426,14 +435,14 @@ class NetworkCommand(PluginCommand, CloudCommand):
     @classmethod
     def refresh_vm(cls, cloudname):
         try:
-            msg = "Refresh VMs for cloud {:}.".format(cloudname)
+            msg = "Refreshing database for cloud {:}.".format(cloudname)
             Console.msg(msg)
             if Vm.refresh(cloud=cloudname) is not None:
                 Console.ok("Complete.")
             else:
                 Console.error("{:} failed".format(msg))
         except Exception, e:
-            Console.error("Problem running VM refresh")
+            Console.error("Problem running database refresh")
 
 
 if __name__ == '__main__':

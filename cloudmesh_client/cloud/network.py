@@ -107,12 +107,38 @@ class Network(ListResource):
         return
 
     @classmethod
-    def fixed_ip_reserve(cls, cloud, fixed_ip):
-        pass
+    def reserve_fixed_ip(cls, cloudname, fixed_ip_addr):
+        """
+        Reserve a fixed ip address
+        :param cloudname:
+        :param fixed_ip_addr:
+        :return:
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            cloud_provider.reserve_fixed_ip(fixed_ip_addr=fixed_ip_addr)
+            return "Success."
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        return
 
     @classmethod
-    def fixed_ip_unreserve(cls, cloud, fixed_ip):
-        pass
+    def fixed_ip_unreserve(cls, cloudname, fixed_ip_addr):
+        """
+        Unreserve a fixed ip address
+        :param cloudname:
+        :param fixed_ip_addr:
+        :return:
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            cloud_provider.unreserve_fixed_ip(fixed_ip_addr=fixed_ip_addr)
+            return "Success."
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+        return
 
     @classmethod
     def associate_floating_ip(cls, cloudname, instance_name, floating_ip):
@@ -137,6 +163,13 @@ class Network(ListResource):
 
     @classmethod
     def disassociate_floating_ip(cls, cloudname, instance_name, floating_ip):
+        """
+        Disassociates a floating ip from an instance
+        :param cloudname:
+        :param instance_name:
+        :param floating_ip:
+        :return:
+        """
         try:
             cloud_provider = CloudProvider(cloudname).provider
             # Find the server instance
