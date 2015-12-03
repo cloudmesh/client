@@ -11,6 +11,8 @@ Run
 
 Start five VM instances with your registered key on india.futuresystems.org.
 
+.. note:: ``export KEYNAME=YOUR_REGISTERED_KEY_NAME`` Find your key name by ``nova keypair-list``a
+
 .. code::
 
   heat stack-create -u https://raw.githubusercontent.com/cloudmesh/client/master/cloudmesh_client/etc/heat-templates/helloworld/helloworld.yaml -P "key_name=$KEYNAME;cluster_size=5" hello-world-five
