@@ -32,14 +32,12 @@ class Test_configdict:
         """test if cloudmesh.yaml is loaded"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=[self.etc_yaml],
                        verbose=True)
 
         assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
 
         try:
             d = ConfigDict("cloudmesh.yam",
-                           load_order=[self.etc_yaml],
                            verbose=True)
             print("the file cloudmesh.yam should not exists")
             assert False
@@ -66,7 +64,6 @@ class Test_configdict:
         """test if json is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=[self.etc_yaml],
                        verbose=True)
 
         assert d.json.startswith('{')
@@ -82,7 +79,6 @@ class Test_configdict:
         """test if yaml is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=[self.etc_yaml],
                        verbose=True)
         result = d.yaml
 
@@ -91,23 +87,6 @@ class Test_configdict:
         except Exception, e:
             print ("not valid yaml file.")
             assert False
-
-
-
-
-    def test_005_info(self):
-        """test if some general information is there"""
-        # read yaml file from file
-        #  check if d.filename is the same as the filename we have
-        HEADING()
-        filename = "cloudmesh.yaml"
-        path = self.etc_yaml
-
-        d = ConfigDict(filename,
-                       load_order=[path],
-                       verbose=True)
-
-        assert d.filename == os.path.join(path, filename)
 
 
 
