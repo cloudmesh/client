@@ -11,7 +11,7 @@ Run
 
 Start five VM instances with your registered key on india.futuresystems.org.
 
-.. note:: ``export KEYNAME=YOUR_REGISTERED_KEY_NAME`` Find your key name by ``nova keypair-list``a
+.. note:: ``export KEYNAME=YOUR_REGISTERED_KEY_NAME`` Find your key name by ``nova keypair-list``.
 
 .. code::
 
