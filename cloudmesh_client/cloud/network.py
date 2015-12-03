@@ -136,7 +136,17 @@ class Network(ListResource):
         pass
 
     @classmethod
-    def floating_ip_disassociate(cls, cloud, server, floating_ip):
+    def disassociate_floating_ip(cls, cloudname, instance_name, floating_ip):
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            # Find the server instance
+            server = cloud_provider.provider.servers.find(name=instance_name)
+            # Add the floating ip to the instance
+            server.remove_floating_ip(floating_ip)
+            return "Success."
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
         pass
 
     @classmethod

@@ -213,6 +213,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 Console.error("Please provide at least one of [--group] OR [--instance] parameters.\n"
                               "You can also provide [FLOATING_IP] AND [--instance] parameters.\n"
                               "See 'cm network --help' for more info.")
+                return ""
 
             # Refresh VM in db
             self.refresh_vm(cloudname)
@@ -302,12 +303,19 @@ class NetworkCommand(PluginCommand, CloudCommand):
                     return ""
 
                 instance_name = instance_dict["name"]
+                _floating_ip = instance_dict["floating_ip"]
 
-                result = Network.associate_floating_ip(cloudname=cloudname,
+                # Floating ip argument invalid
+                if _floating_ip != floating_ip :
+                    Console.error("Invalid floating_ip [{}] for instance [{}]."
+                                  .format(floating_ip, instance_name))
+                    return ""
+
+                result = Network.disassociate_floating_ip(cloudname=cloudname,
                                                        instance_name=instance_name,
                                                        floating_ip=floating_ip)
                 if result is not None:
-                    Console.ok("Associated Floating IP [{}] to instance [{}]."
+                    Console.ok("Disassociated Floating IP [{}] from instance [{}]."
                                .format(floating_ip, instance_name))
 
             # Invalid parameters
@@ -315,8 +323,10 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 Console.error("Please provide at least one of [--group] OR [--instance] parameters.\n"
                               "You can also provide [FLOATING_IP] AND [--instance] parameters.\n"
                               "See 'cm network --help' for more info.")
+                return ""
 
-            pass
+            # Refresh VM in db
+            self.refresh_vm(cloudname)
 
         # Create new floating ip under floating pool
         elif arguments["create"] \
