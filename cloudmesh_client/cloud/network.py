@@ -76,14 +76,34 @@ class Network(ListResource):
             # add instance_name to dict
             result["instance_name"] = instance_name
 
+            # add misc details to response
+            result["cloud"] = cloudname
+            result["user"] = cloud_provider.cloud_details["credentials"]["OS_USERNAME"]
+            result["project"] = cloud_provider.cloud_details["credentials"]["OS_TENANT_NAME"]
+
             return attribute_printer(result,
                                      header=[
                                          "name",
                                          "value"
                                      ])
         except Exception as ex:
-            Console.error(ex.message, ex)
-
+            # auto detect floating-ip-id
+            floating_ips = cls.get_floating_ip_list(cloudname)
+            # for each floating-ip from list
+            for floating_ip in floating_ips.values():
+                if floating_ip["id"].startswith(floating_ip_or_id) or \
+                        floating_ip["ip"].startswith(floating_ip_or_id):
+                    # confirm choice with user
+                    print("Did you mean floating-ip [{}] ? (y/n)".format(floating_ip["ip"]))
+                    choice = raw_input().lower()
+                    # if yes, return dict
+                    if choice == 'y':
+                        return attribute_printer(floating_ip,
+                                                 header=[
+                                                     "name",
+                                                     "value"
+                                                 ])
+                        # Console.error(ex.message)
         return
 
     @classmethod
@@ -95,12 +115,46 @@ class Network(ListResource):
         pass
 
     @classmethod
-    def floating_ip_associate(cls, cloud, server, floating_ip):
+    def associate_floating_ip(cls, cloudname, instance_name, floating_ip):
+        """
+        Method to associate floating ip to an instance
+        :param cloudname:
+        :param instance_name:
+        :param floating_ip:
+        :return:
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            # Find the server instance
+            server = cloud_provider.provider.servers.find(name=instance_name)
+            # Add the floating ip to the instance
+            server.add_floating_ip(floating_ip)
+            return "Success."
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
         pass
 
     @classmethod
     def floating_ip_disassociate(cls, cloud, server, floating_ip):
         pass
+
+    @classmethod
+    def create_assign_floating_ip(cls, cloudname, instance_name):
+        """
+        Method to create a new floating-ip
+        and associate it with the instance
+        :param cloudname: cloud
+        :param instance_name: name of instance
+        :return: floating_ip
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            floating_ip = cloud_provider.create_assign_floating_ip(instance_name)
+            return floating_ip
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
 
     @classmethod
     def create_floating_ip(cls, cloudname, floating_pool=None):
@@ -112,6 +166,13 @@ class Network(ListResource):
         """
         try:
             cloud_provider = CloudProvider(cloudname).provider
+            # If floating pool is not given,
+            # get first from list
+            if floating_pool is None:
+                floating_pool = cloud_provider.provider.floating_ip_pools.list()[0].name
+                Console.ok("Floating pool not provided, selected [{}] as the pool."
+                           .format(floating_pool))
+
             floating_ip = cloud_provider.create_floating_ip(float_pool=floating_pool)
             return floating_ip
         except Exception as ex:
@@ -152,7 +213,7 @@ class Network(ListResource):
             # Delete the floating ip; returns None if success
             result = cloud_provider.delete_floating_ip(floating_ip_dict["id"])
             if result is None:
-                return "Floating IP [{}] deleted successfully!"\
+                return "Floating IP [{}] deleted successfully!" \
                     .format(floating_ip_dict["ip"])
 
         except Exception as ex:
@@ -259,10 +320,12 @@ class Network(ListResource):
 
         # Lookup instance details from db
         instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
-        # Get instance_name for vm
-        instance_name = instance_dict.values()[0]["name"]
 
-        return instance_name
+        # Get instance_name for vm
+        if len(instance_dict) > 0:
+            instance_name = instance_dict.values()[0]["name"]
+
+            return instance_name
 
     @classmethod
     def get_instance_dict(cls, **kwargs):
@@ -285,6 +348,19 @@ class Network(ListResource):
 
         # Instance not found in DB
         if cls.isDictEmpty(instance_dict):
+            # auto detect instance_id feature
+            vms = db.find("vm", cloud=cloudname)
+            # check for each instance in db
+            for vm in vms.values():
+                # if match found in either name/id
+                if vm["uuid"].startswith(instance_id) or \
+                        vm["name"].startswith(instance_id):
+                    # confirm choice with user
+                    print("Did you mean instance [{}] ? (y/n)".format(vm["name"]))
+                    choice = raw_input().lower()
+                    # if yes, return dict
+                    if choice == 'y':
+                        return vm
             return None
         else:
             return instance_dict.values()[0]
