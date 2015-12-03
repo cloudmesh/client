@@ -9,7 +9,9 @@ from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 
 from pprint import pprint
 
-class Hpc(object):
+from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
+
+class BatchProviderSLURM(BatchProviderBase):
     @classmethod
     def get_script_base_name(cls):
         # config = cls.read_hpc_config(cluster)

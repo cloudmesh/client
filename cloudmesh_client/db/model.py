@@ -552,7 +552,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.dir = dir
         self.script = script
         self.output_file = output_file
-        self.username = username 
+        self.username = username
         self.kind = self.__tablename__
 
 def tables():
