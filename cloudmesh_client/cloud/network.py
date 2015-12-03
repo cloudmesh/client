@@ -87,8 +87,23 @@ class Network(ListResource):
                                          "value"
                                      ])
         except Exception as ex:
-            Console.error(ex.message, ex)
-
+            # auto detect floating-ip-id
+            floating_ips = cls.get_floating_ip_list(cloudname)
+            # for each floating-ip from list
+            for floating_ip in floating_ips.values():
+                if floating_ip["id"].startswith(floating_ip_or_id) or \
+                        floating_ip["ip"].startswith(floating_ip_or_id):
+                    # confirm choice with user
+                    print("Did you mean floating-ip [{}] ? (y/n)".format(floating_ip["ip"]))
+                    choice = raw_input().lower()
+                    # if yes, return dict
+                    if choice == 'y':
+                        return attribute_printer(floating_ip,
+                                                 header=[
+                                                     "name",
+                                                     "value"
+                                                 ])
+                        # Console.error(ex.message)
         return
 
     @classmethod
@@ -156,7 +171,7 @@ class Network(ListResource):
             if floating_pool is None:
                 floating_pool = cloud_provider.provider.floating_ip_pools.list()[0].name
                 Console.ok("Floating pool not provided, selected [{}] as the pool."
-                            .format(floating_pool))
+                           .format(floating_pool))
 
             floating_ip = cloud_provider.create_floating_ip(float_pool=floating_pool)
             return floating_ip
@@ -198,7 +213,7 @@ class Network(ListResource):
             # Delete the floating ip; returns None if success
             result = cloud_provider.delete_floating_ip(floating_ip_dict["id"])
             if result is None:
-                return "Floating IP [{}] deleted successfully!"\
+                return "Floating IP [{}] deleted successfully!" \
                     .format(floating_ip_dict["ip"])
 
         except Exception as ex:
@@ -333,6 +348,19 @@ class Network(ListResource):
 
         # Instance not found in DB
         if cls.isDictEmpty(instance_dict):
+            # auto detect instance_id feature
+            vms = db.find("vm", cloud=cloudname)
+            # check for each instance in db
+            for vm in vms.values():
+                # if match found in either name/id
+                if vm["uuid"].startswith(instance_id) or \
+                        vm["name"].startswith(instance_id):
+                    # confirm choice with user
+                    print("Did you mean instance [{}] ? (y/n)".format(vm["name"]))
+                    choice = raw_input().lower()
+                    # if yes, return dict
+                    if choice == 'y':
+                        return vm
             return None
         else:
             return instance_dict.values()[0]
