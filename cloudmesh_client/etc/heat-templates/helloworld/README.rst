@@ -36,7 +36,7 @@ The output looks like this, if it is requested successfully:
 Status
 -------------------------------------------------------------------------------
 
-The VMs launched can be found via ``nova`` command. For example:
+The VMs launched can be found via ``nova list`` command. For example:
 
 .. code::
 
