@@ -14,7 +14,7 @@ class Hpc(object):
     @classmethod
     def get_script_base_name(cls):
         # config = cls.read_hpc_config(cluster)
-        return "gregor"
+        return "gvonlasz"
 
     @classmethod
     def count(cls):
@@ -43,6 +43,7 @@ class Hpc(object):
                     cm_type: slurm
                     cm_type_version: 14.11.9
                     credentials:
+                        username: gregor
                         project: None
                     default:
                         queue: delta
@@ -166,8 +167,6 @@ class Hpc(object):
         print ("CCCC>", cluster)
         # determine the script name..
 
-        username = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
-
         #
         # TODO: script count is variable in data base, we test if fil exists and if it
         # does increase counter till we find one that does not, that will be new counter.
@@ -187,24 +186,27 @@ class Hpc(object):
         #else:
         #    script_count = kwargs['-name']
 
+        config = cls.read_hpc_config(cluster)
         data = {
             "cluster": cluster,
             "count": cls.count(),
-            "username": username
+            "username": config["credentials"]["username"],
+            "remote_experiment_dir": config["default"]["experiment_dir"],
+            "queue": config["default"]["queue"]
         }
         data["script_base_name"] = "{username}-{count}".format(**data)
         data["script_name"] = "{username}-{count}.sh".format(**data)
         data["script_output"] = "{username}-{count}.out".format(**data)
-        config = cls.read_hpc_config(cluster)
-        data["remote_experiment_dir"] = config["default"]["experiment_dir"]
         data["remote_experiment_dir"] = \
-            "{remote_experiment_dir}/{script_base_name}".format(**data)
+            "{remote_experiment_dir}/{count}".format(**data).format(**data)
+
 
         # overwrite defaults
         option_mapping = {'-t': '1',
                           '-N': '1',
-                          '-p': '',
-                          '-o': '{remote_experiment_dir}/{script_output}'.format(**data)}
+                          '-p': '{queue}'.format(**data),
+                          '-o': '{script_output}'.format(**data),
+                          '-D': '{remote_experiment_dir}'.format(**data)}
 
         map(lambda (k, v):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
@@ -266,10 +268,10 @@ class Hpc(object):
         # import sys; sys.exit()
 
         # run the sbatch command
-        sbatch_result = Shell.ssh(
-            cluster,
-            'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
-        )
+
+        cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
+        print ("CMD>", cmd)
+        sbatch_result = Shell.ssh(cluster, cmd)
 
         return (sbatch_result +
                 '\nThe output file {script_output} is in the home directory of the cluster'.

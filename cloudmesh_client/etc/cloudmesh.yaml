@@ -34,10 +34,11 @@ cloudmesh:
                 cm_type: slurm
                 cm_type_version: 14.11.9
                 credentials:
+                    username: TBD
                     project: None
                 default:
                     queue: delta
-                    experiment_dir: ./experiment
+                    experiment_dir: /N/u/{username}/experiment
             comet:
                 cm_heading: Comet HPC CLuster
                 cm_host: comet
