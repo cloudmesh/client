@@ -1,0 +1,2 @@
+class BatchProvider(object):
+    pass

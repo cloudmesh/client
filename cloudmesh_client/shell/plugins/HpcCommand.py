@@ -1,6 +1,6 @@
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.cloud.hpc.hpc import Hpc
+from cloudmesh_client.cloud.hpc.BatchProviderSLURM import BatchProviderSLURM as Hpc
 from cloudmesh_client.cloud.default import Default
 
 from cloudmesh_client.shell.command import PluginCommand, HPCCommand, \

@@ -1,5 +1,5 @@
 meta:
-    yaml_version: 2.1
+    yaml_version: 3.0
     kind: clouds
 cloudmesh:
     profile:
@@ -22,7 +22,7 @@ cloudmesh:
             api_secret: TBD
     newhpc:
         experiment:
-                name: gregor-00000
+           name: gregor-00000
         active:
         - comet
         - juliet
@@ -39,6 +39,7 @@ cloudmesh:
                 default:
                     queue: delta
                     experiment_dir: /N/u/{username}/experiment
+                    prefix: {username}
             comet:
                 cm_heading: Comet HPC CLuster
                 cm_host: comet
@@ -49,7 +50,8 @@ cloudmesh:
                     project: None
                 default:
                     queue: debug
-                    experiment_dir: ./experiment
+                    experiment_dir: /home/{username}/experiment
+                    prefix: {username}
     hpc:
         - comet
         - juliet
