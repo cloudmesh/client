@@ -1,4 +1,5 @@
 from __future__ import print_function
+from pprint import pprint
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
@@ -25,23 +26,23 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
                 network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
                 network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
-                network associate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
-                network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
+                network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+                network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network create floating [ip] [--cloud=CLOUD] --pool=FLOATING_IP_POOL
                 network delete floating [ip] [--cloud=CLOUD] FLOATING_IP
-                network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
                 network list floating pool [--cloud=CLOUD]
+                network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
                 network -h | --help
 
             Options:
                 -h                          help message
                 --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
-                --server=SERVER             Server Name
+                --group=GROUP               Name of the group in Cloudmesh
                 --pool=FLOATING_IP_POOL     Name of Floating IP Pool
-                --instance=INS_ID_OR_NAME   ID of the vm instance
+                --instance=INS_ID_OR_NAME   ID or Name of the vm instance
 
             Arguments:
-                IP_OR_ID        IP Address or ID
+                IP_OR_ID        IP Address or ID of IP Address
                 FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
                 FLOATING_IP     Floating IP Address, e.g. 192.1.66.8
                 FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
@@ -55,10 +56,10 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 $ network reserve fixed --cloud=india 10.1.2.5
                 $ network unreserve fixed ip --cloud=india 10.1.2.5
                 $ network unreserve fixed --cloud=india 10.1.2.5
-                $ network associate floating ip --cloud=india --server=albert-001 192.1.66.8
-                $ network associate floating --cloud=india --server=albert-001 192.1.66.8
-                $ network disassociate floating ip --cloud=india --server=albert-001 192.1.66.8
-                $ network disassociate floating --cloud=india --server=albert-001 192.1.66.8
+                $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
+                $ network associate floating --cloud=india --instance=albert-001 192.1.66.8
+                $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
+                $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
                 $ network create floating ip --cloud=india --pool=albert-f01
                 $ network create floating --cloud=india --pool=albert-f01
                 $ network delete floating ip --cloud=india 192.1.66.8
@@ -70,7 +71,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 $ network list floating pool --cloud=india
 
         """
-
+        # pprint(arguments)
         # Get the cloud parameter OR read default
         cloudname = arguments["--cloud"] \
                     or Default.get_cloud()
@@ -91,7 +92,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
             Console.msg(result)
             return
 
-            # Floating IP info
+        # Floating IP info
         if arguments["get"] \
                 and arguments["floating"]:
             floating_ip_id = arguments["FLOATING_IP_ID"]
@@ -107,10 +108,62 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["fixed"]:
             TODO.implement("Yet to implement <unreserve fixed ip>")
             pass
+
+        # Associate floating IP
         elif arguments["associate"] \
                 and arguments["floating"]:
-            TODO.implement("Yet to implement <associate floating ip>")
-            pass
+
+            # Get all command-line arguments
+            group = arguments["--group"]
+            instance_id = arguments["--instance"]
+            floating_ip = arguments["FLOATING_IP"]
+
+            # group supplied
+            if group is not None:
+                """
+                Group name has been provided.
+                Assign floating IPs to all vms in the group
+                and return
+                """
+                pass
+
+            # floating-ip not supplied, instance-id supplied
+            if floating_ip is None and \
+                            instance_id is not None:
+                """
+                Floating IP has not been provided, instance-id provided.
+                Generate one from the pool, and assign to vm
+                and return
+                """
+                instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                          instance_id=instance_id)
+                # Instance not found
+                if instance_dict is None:
+                    Console.error("Instance [{}] not found in the cloudmesh database!"
+                                  .format(instance_id))
+                    return
+
+                instance_name = instance_dict["name"]
+                floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+                                                                instance_name=instance_name)
+                Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                           .format(floating_ip, instance_name))
+                return
+
+            # instance-id & floating-ip supplied
+            elif instance_id is not None:
+                """
+                Floating IP & Instance ID have been provided
+                Associate the IP to the instance
+                and return
+                """
+                pass
+            else:
+                Console.error("Please provide at least one of [--group] OR [--instance] parameters. "
+                              "You can also provide [FLOATING_IP] and [--instance]. "
+                              "See 'cm network --help' for more info.")
+
+            return
         elif arguments["disassociate"] \
                 and arguments["floating"]:
             TODO.implement("Yet to implement <disassociate floating ip>")

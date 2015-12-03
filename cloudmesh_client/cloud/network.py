@@ -103,6 +103,23 @@ class Network(ListResource):
         pass
 
     @classmethod
+    def create_assign_floating_ip(cls, cloudname, instance_name):
+        """
+        Method to create a new floating-ip
+        and associate it with the instance
+        :param cloudname: cloud
+        :param instance_name: name of instance
+        :return: floating_ip
+        """
+        try:
+            cloud_provider = CloudProvider(cloudname).provider
+            floating_ip = cloud_provider.create_assign_floating_ip(instance_name)
+            return floating_ip
+        except Exception as ex:
+            Console.error(ex.message, ex)
+            return
+
+    @classmethod
     def create_floating_ip(cls, cloudname, floating_pool=None):
         """
         Method to create a floating ip address under a pool
@@ -259,10 +276,12 @@ class Network(ListResource):
 
         # Lookup instance details from db
         instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
-        # Get instance_name for vm
-        instance_name = instance_dict.values()[0]["name"]
 
-        return instance_name
+        # Get instance_name for vm
+        if len(instance_dict) > 0:
+            instance_name = instance_dict.values()[0]["name"]
+
+            return instance_name
 
     @classmethod
     def get_instance_dict(cls, **kwargs):
