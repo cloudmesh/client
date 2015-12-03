@@ -514,6 +514,47 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
                 self[key] = value
 
 
+class BATCHJOB(CloudmeshMixin, db.Base):
+    """table to store default values
+
+    if the cloud is "global" it is meant to be a global variable
+
+    todo: check if its global or general
+    """
+    # name defined in mixin
+    value = Column(String)
+    type = Column(String, default="string")
+
+    # cloud = Column(String)
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 user=None,
+                 cluster=None,
+                 id = None,
+                 queue = None,
+                 dir = None,
+                 script = None,
+                 output_file = None,
+                 username = None,
+                 ):
+        self.label = name
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+
+        self.cluster = cluster
+        self.id = id
+        self.queue = queue
+        self.dir = dir
+        self.script = script
+        self.output_file = output_file
+        self.username = username 
+        self.kind = self.__tablename__
+
 def tables():
     """
     :return: the list of tables in model
