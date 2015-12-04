@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT, VMUSERMAP
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT, VMUSERMAP, BATCHJOB
 
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -52,12 +52,12 @@ class CloudmeshDatabase(object):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-    def refresh(self, kind, cloudname, **kwargs):
+    def refresh(self, kind, name, **kwargs):
         """
         This method refreshes the local database
         with the live cloud details
         :param kind:
-        :param cloudname:
+        :param name:
         :param kwargs:
         :return:
         """
@@ -67,51 +67,56 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
             user = self.user
 
-            # get provider for specific cloud
-            provider = CloudProvider(cloudname).provider
 
-            # clear local db records for kind
-            self.clear(kind, cloudname)
+            if kind in ["flavor", "image", "vm"]:
 
-            if kind == "flavor":
-                flavors = provider.list_flavor(cloudname)
-                for flavor in flavors.values():
-                    flavor["uuid"] = flavor['id']
-                    flavor['type'] = 'string'
-                    flavor["cloud"] = cloudname
-                    flavor["user"] = user
+                # get provider for specific cloud
+                provider = CloudProvider(name).provider
 
-                    db_obj = {0: {kind: flavor}}
-                    self.add_obj(db_obj)
-                    self.save()
-                return True
+                # clear local db records for kind
+                self.clear(kind, name)
 
-            elif kind == "image":
-                images = provider.list_image(cloudname)
+                if kind == "flavor":
+                    flavors = provider.list_flavor(name)
+                    for flavor in flavors.values():
+                        flavor["uuid"] = flavor['id']
+                        flavor['type'] = 'string'
+                        flavor["cloud"] = name
+                        flavor["user"] = user
 
-                for image in images.values():
-                    image['uuid'] = image['id']
-                    image['type'] = 'string'
-                    image['cloud'] = cloudname
-                    image['user'] = user
-                    db_obj = {0: {kind: image}}
+                        db_obj = {0: {kind: flavor}}
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
 
-                    self.add_obj(db_obj)
-                    self.save()
-                return True
+                elif kind == "image":
+                    images = provider.list_image(name)
 
-            elif kind == "vm":
-                vms = provider.list_vm(cloudname)
-                for vm in vms.values():
-                    vm['uuid'] = vm['id']
-                    vm['type'] = 'string'
-                    vm['cloud'] = cloudname
-                    vm['user'] = user
-                    db_obj = {0: {kind: vm}}
+                    for image in images.values():
+                        image['uuid'] = image['id']
+                        image['type'] = 'string'
+                        image['cloud'] = name
+                        image['user'] = user
+                        db_obj = {0: {kind: image}}
 
-                    self.add_obj(db_obj)
-                    self.save()
-                return True
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                elif kind == "vm":
+                    vms = provider.list_vm(name)
+                    for vm in vms.values():
+                        vm['uuid'] = vm['id']
+                        vm['type'] = 'string'
+                        vm['cloud'] = name
+                        vm['user'] = user
+                        db_obj = {0: {kind: vm}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+            else:
+                Console.error("refresh not supported for this kind: {}".format(kind))
 
         except Exception as ex:
             Console.error(ex.message)
@@ -182,6 +187,8 @@ class CloudmeshDatabase(object):
                 return PREFIXCOUNT
             elif kind.lower() in ["vmusermap"]:
                 return VMUSERMAP
+            elif kind.lower() in ["batchjob"]:
+                return BATCHJOB
             else:
                 TODO.implement("wrong table type: `{}`".format(kind))
         else:

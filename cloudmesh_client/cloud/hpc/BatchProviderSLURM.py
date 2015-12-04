@@ -14,7 +14,7 @@ from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 class BatchProviderSLURM(BatchProviderBase):
     @classmethod
     def get_script_base_name(cls):
-        # config = cls.read_hpc_config(cluster)
+        # config = cls.read_config(cluster)
         return "gvonlasz"
 
     @classmethod
@@ -26,7 +26,7 @@ class BatchProviderSLURM(BatchProviderBase):
         Shell.ssh(cluster, "mkdir -p {dir}".format(dir=dir))
 
     @classmethod
-    def read_hpc_config(cls, cluster):
+    def read_config(cls, cluster):
         """
         reads in the cluster config from the yaml file and returns the specific cluster informationt
 
@@ -54,14 +54,13 @@ class BatchProviderSLURM(BatchProviderBase):
         :param cluster:
         :return:
         """
-        hpc = "newhpc"  # change to hpc when transition is made
 
         try:
             config = cls.config
         except:
             cls.config = None
         if cls.config is None:
-            cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.newhpc"]
+            cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.hpc"]
             pprint(cls.config)
             cls.experiment_name_format = cls.config["experiment"]["name"]
         return cls.config["clusters"][cluster]
@@ -185,7 +184,7 @@ class BatchProviderSLURM(BatchProviderBase):
         # else:
         #    script_count = kwargs['-name']
 
-        config = cls.read_hpc_config(cluster)
+        config = cls.read_config(cluster)
         data = {
             "cluster": cluster,
             "count": cls.count(),
@@ -212,7 +211,7 @@ class BatchProviderSLURM(BatchProviderBase):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
             option_mapping.iteritems())
 
-        config = cls.read_hpc_config(cluster)
+        config = cls.read_config(cluster)
         project = None
         try:
             project = config["credentials"]["project"]
@@ -289,7 +288,7 @@ class BatchProviderSLURM(BatchProviderBase):
         return data
 
     @classmethod
-    def kill(cls, cluster, job):
+    def delete(cls, cluster, job):
         """
         This method is used to terminate a job with the specified
         job_id or job_name in a given cluster

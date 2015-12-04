@@ -21,7 +21,7 @@ class LauncherCommand(PluginCommand, CloudCommand, CometCommand):
 
           Usage:
               launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
-              launcher kill KEY [--cloud=CLOUD]
+              launcher delete KEY [--cloud=CLOUD]
               launcher run
               launcher resume
               launcher suspend
@@ -51,13 +51,13 @@ class LauncherCommand(PluginCommand, CloudCommand, CometCommand):
 
             A launcher can be deleted with
 
-                launcher kill KEY
+                launcher delete KEY
 
 
         Examples:
             launcher list --all
             launcher list --cloud=general
-            launcher kill <KEY>
+            launcher delete <KEY>
         """
         # pprint(arguments)
 
@@ -72,8 +72,8 @@ class LauncherCommand(PluginCommand, CloudCommand, CometCommand):
             result = launcher.list()
             print (result)
 
-        elif arguments["kill"]:
-            result = launcher.kill()
+        elif arguments["delete"]:
+            result = launcher.delete()
             print (result)
 
         elif arguments["run"]:
