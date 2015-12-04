@@ -6,6 +6,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
+from cloudmesh_client.cloud.counter import Counter
 
 from pprint import pprint
 
@@ -271,6 +272,9 @@ class BatchProviderSLURM(BatchProviderBase):
 
         cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
         data["cmd"] = cmd
+        Counter.incr()
+        prefix, data["counter"] = Counter.get()
+
         print ("CMD>", cmd)
         result = Shell.ssh(cluster, cmd)
 
