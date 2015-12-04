@@ -12,6 +12,8 @@ from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT, VMUSERMAP, BATCHJOB
 
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
+
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 
@@ -115,6 +117,21 @@ class CloudmeshDatabase(object):
                         self.add_obj(db_obj)
                         self.save()
                     return True
+            elif kind in ["batchjob"]:
+                
+                provider = BatchProvider(name).provider
+                vms = provider.list_job(name)
+                for vm in vms.values():
+                    vm['uuid'] = vm['id']
+                    vm['type'] = 'string'
+                    vm['cloud'] = name
+                    vm['user'] = user
+                    db_obj = {0: {kind: vm}}
+
+                    self.add_obj(db_obj)
+                    self.save()
+                return True
+
             else:
                 Console.error("refresh not supported for this kind: {}".format(kind))
 

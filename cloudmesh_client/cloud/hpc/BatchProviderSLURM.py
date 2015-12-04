@@ -20,7 +20,8 @@ class BatchProviderSLURM(BatchProviderBase):
 
     @classmethod
     def count(cls):
-        return "0"
+        prefix, counter = Counter.get()
+        return counter
 
     @classmethod
     def create_remote_dir(cls, cluster, dir):
@@ -186,6 +187,7 @@ class BatchProviderSLURM(BatchProviderBase):
         #    script_count = kwargs['-name']
 
         config = cls.read_config(cluster)
+        Counter.incr()
         data = {
             "cluster": cluster,
             "count": cls.count(),
@@ -272,8 +274,6 @@ class BatchProviderSLURM(BatchProviderBase):
 
         cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
         data["cmd"] = cmd
-        Counter.incr()
-        prefix, data["counter"] = Counter.get()
 
         print ("CMD>", cmd)
         result = Shell.ssh(cluster, cmd)

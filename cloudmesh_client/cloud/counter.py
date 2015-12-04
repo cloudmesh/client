@@ -10,6 +10,11 @@ class Counter(ListResource):
 
     @classmethod
     def incr(cls):
+
+        # make sure counter is there, this coudl be done cleaner
+        prefix, data = Counter.get()
+
+
         d = ConfigDict("cloudmesh.yaml")
 
         if "username" not in d["cloudmesh"]["profile"]:
