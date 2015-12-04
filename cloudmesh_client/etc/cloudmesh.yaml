@@ -47,6 +47,7 @@ cloudmesh:
                 cm_type: slurm
                 cm_type_version: 14.11.9
                 credentials:
+                    username: TBD
                     project: None
                 default:
                     queue: debug
