@@ -10,6 +10,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import dict_printer, list_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.cloud.counter import Counter
 
 from uuid import UUID
 
@@ -152,55 +153,6 @@ class Vm(ListResource):
         vm = cloud_provider.get_vm(name=kwargs["name_or_id"])
         return vm["status"]
 
-    @classmethod
-    def inc_count_for_prefix(cls):
-        d = ConfigDict("cloudmesh.yaml")
-
-        if "username" not in d["cloudmesh"]["profile"]:
-            raise RuntimeError("Profile username is not set in yaml file.")
-
-        prefix_username = d["cloudmesh"]["profile"]["username"]
-
-        prefix_item = cls.cm.find("PREFIXCOUNT", prefix=prefix_username)
-
-        if prefix_item is None or len(prefix_item) == 0:
-            raise RuntimeError("ERROR while incrementing prefix count. Prefix not found in database\
-                                for prefix_username {}".format(prefix_username))
-
-        # Incrementing the count here
-        count = prefix_item[prefix_username]["count"]
-        count += 1
-
-        cls.cm.update_prefix(prefix=prefix_username, count=count)
-        cls.cm.save()
-
-    @classmethod
-    def get_prefix_and_count(cls):
-        """
-        Function that returns the prefix username and count for vm naming.
-        If it is not present in db, it creates a new entry.
-        :return:
-        """
-        d = ConfigDict("cloudmesh.yaml")
-
-        if "username" not in d["cloudmesh"]["profile"]:
-            raise RuntimeError("Profile username is not set in yaml file.")
-
-        prefix_username = d["cloudmesh"]["profile"]["username"]
-
-        prefix_item = cls.cm.find("PREFIXCOUNT", prefix=prefix_username)
-
-        # If prefix entry not present, add it.
-        if prefix_item is None or len(prefix_item) == 0:
-            prefix_item_dict = cls.cm.db_obj_dict("PREFIXCOUNT", prefix=prefix_username, count=1)
-            count = 1
-            cls.cm.add_obj(prefix_item_dict)
-            cls.cm.save()
-        else:
-            count = prefix_item[prefix_username]["count"]
-
-        # print(prefix_item)
-        return prefix_username, count
 
     @classmethod
     def set_vm_login_user(cls, name_or_id, cloud, username):

@@ -8,6 +8,7 @@ from cloudmesh_client.common.Printer import dict_printer, attribute_printer, \
     list_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from uuid import UUID
+from cloudmesh_client.cloud.counter import Counter
 
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
@@ -213,7 +214,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 if name is None:
                     is_name_provided = False
 
-                    prefix, count = Vm.get_prefix_and_count()
+                    prefix, count = Counter.get()
 
                     if prefix is None or count is None:
                         Console.error("Prefix and Count could not be retrieved correctly.")
@@ -263,7 +264,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 if is_name_provided is False:
                     # Incrementing count
-                    Vm.inc_count_for_prefix()
+                    Counter.incr()
 
                 # Add to group
                 Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
@@ -278,7 +279,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
         elif arguments["default"]:
             try:
-                prefix, count = Vm.get_prefix_and_count()
+                prefix, count = Counter.get()
 
                 if prefix is None or count is None:
                     Console.error("Prefix and Count could not be retrieved correctly.")

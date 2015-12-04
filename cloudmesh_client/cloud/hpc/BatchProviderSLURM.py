@@ -285,6 +285,12 @@ class BatchProviderSLURM(BatchProviderBase):
                 break
 
         pprint(data)
+
+        #
+        # add data to database
+        #
+
+
         return data
 
     @classmethod
