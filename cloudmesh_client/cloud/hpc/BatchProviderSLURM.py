@@ -6,7 +6,6 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-from cloudmesh_client.cloud.counter import Counter
 
 from pprint import pprint
 
@@ -21,7 +20,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
     @classmethod
     def count(cls):
-        prefix, counter = Counter.get()
+        prefix, counter = "gregor", 0 # Counter.get()
         return counter
 
     @classmethod

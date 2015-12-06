@@ -10,7 +10,6 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import dict_printer, list_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.cloud.counter import Counter
 
 from uuid import UUID
 
