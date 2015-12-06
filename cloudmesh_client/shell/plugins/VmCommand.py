@@ -11,13 +11,12 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 import pyaml
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class VmCommand(PluginCommand, CloudCommand):
+class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
 
     def __init__(self, context):

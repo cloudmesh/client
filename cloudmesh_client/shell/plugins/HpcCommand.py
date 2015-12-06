@@ -3,11 +3,11 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.BatchProviderSLURM import BatchProviderSLURM as Hpc
 from cloudmesh_client.cloud.default import Default
 
-from cloudmesh_client.shell.command import PluginCommand, HPCCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
+    CometPluginCommand
 
 
-class HpcCommand(PluginCommand, HPCCommand, CometCommand):
+class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
     topics = {"hpc": "system"}
 
     def __init__(self, context):

@@ -270,6 +270,14 @@ class ConfigDict(object):
         """
         TODO.implement()
 
+def Username():
+    d = ConfigDict("cloudmesh.yaml")
+
+    if "username" not in d["cloudmesh"]["profile"]:
+        raise RuntimeError("Profile username is not set in yaml file.")
+
+    user = d["cloudmesh"]["profile"]["username"]
+    return user
 
 def main():
     d = ConfigDict("cloudmesh.yaml")

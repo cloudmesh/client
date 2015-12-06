@@ -5,10 +5,10 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class GroupCommand(PluginCommand, CloudCommand):
+class GroupCommand(PluginCommand, CloudPluginCommand):
     topics = {"group": "cloud"}
 
     def __init__(self, context):

@@ -15,10 +15,10 @@ import yaml
 import json
 from cloudmesh_client.cloud.default import Default
 # from cloudmesh_base.menu import num_choice, dict_choice
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class KeyCommand(PluginCommand, CloudCommand):
+class KeyCommand(PluginCommand, CloudPluginCommand):
 
     topics = {"key": "security"}
 

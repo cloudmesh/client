@@ -6,22 +6,17 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-
+# from cloudmesh_client.cloud.counter import Counter
+from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from pprint import pprint
 
-from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
-
-
 class BatchProviderSLURM(BatchProviderBase):
-    @classmethod
-    def get_script_base_name(cls):
-        # config = cls.read_config(cluster)
-        return "gvonlasz"
 
     @classmethod
     def count(cls):
-        prefix, counter = "gregor", 0 # Counter.get()
-        return counter
+        # count = Counter.get("counter")
+        count = 0
+        return count
 
     @classmethod
     def create_remote_dir(cls, cluster, dir):
@@ -187,7 +182,7 @@ class BatchProviderSLURM(BatchProviderBase):
         #    script_count = kwargs['-name']
 
         config = cls.read_config(cluster)
-        Counter.incr()
+        # Counter.incr()
         data = {
             "cluster": cluster,
             "count": cls.count(),

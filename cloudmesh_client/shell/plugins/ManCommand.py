@@ -1,11 +1,11 @@
 import textwrap
 
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.command import PluginCommand, ShellCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
+    CometPluginCommand
 
 
-class ManCommand(PluginCommand, ShellCommand, CometCommand):
+class ManCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"man": "shell"}
 
     def __init__(self, context):

@@ -13,10 +13,10 @@ from timestring import Date
 
 from cloudmesh_client.common.todo import TODO
 
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class ReservationCommand(PluginCommand, CloudCommand):
+class ReservationCommand(PluginCommand, CloudPluginCommand):
     topics = {"reservation": "system"}
 
     def __init__(self, context):

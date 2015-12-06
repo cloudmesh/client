@@ -6,10 +6,10 @@ from cloudmesh_client.cloud.inventory import Inventory
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_base.locations import config_file
 
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class InventoryCommand(PluginCommand, CloudCommand):
+class InventoryCommand(PluginCommand, CloudPluginCommand):
     topics = {"inventory": "system"}
 
     def __init__(self, context):

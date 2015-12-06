@@ -16,24 +16,15 @@ from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import ConfigDict, Username
 
 class CloudmeshDatabase(object):
 
 
-    def _get_username(self):
-        d = ConfigDict("cloudmesh.yaml")
-
-        if "username" not in d["cloudmesh"]["profile"]:
-            raise RuntimeError("Profile username is not set in yaml file.")
-
-        user = d["cloudmesh"]["profile"]["username"]
-        return user
-
 
     def counter_incr(self, name="counter", user=None):
 
-        user = user or self._get_username()
+        user = user or Username()
         count = self.counter_get(name=name, user=user)
 
         count += 1
@@ -47,7 +38,7 @@ class CloudmeshDatabase(object):
         If it is not present in db, it creates a new entry.
         :return:
         """
-        user = user or self._get_username()
+        user = user or Username()
 
         try:
             count = self.query("COUNTER", name=name, user=user).first().value

@@ -5,11 +5,11 @@ import sys
 from builtins import input
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import PluginCommand, ShellCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
+    CometPluginCommand
 
 
-class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
+class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"clear": "shell",
               "banner": "shell"}
 
