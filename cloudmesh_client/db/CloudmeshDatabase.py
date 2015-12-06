@@ -50,13 +50,11 @@ class CloudmeshDatabase(object):
         user = user or self._get_username()
 
         try:
-            count = self.find("COUNTER", name=name, user=user)
-            print (count)
-            count = count[0]
+            count = self.query("COUNTER", name=name, user=user).first().value
         except:
-            element_dict = self.db_obj_dict("COUNTER", counter="counter", user=user, count=1)
             count = 1
-            self.counter_set(name=name, user=user, value=count)
+            c = COUNTER(name=name, value=count, user=user)
+            self.add(c)
 
         return count
 
@@ -66,12 +64,13 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        if isinstance(value, int ):
+        if type(value) != int:
             raise ValueError("counter must be integer")
         if value is None:
             value = 0
 
-        self.find(COUNTER, output="object", name=name, user=user).update(value=value)
+        element = self.find(COUNTER, output="object", name=name, user=user)
+        element.first().value=value
         self.save()
 
     def __init__(self, user=None):
@@ -513,21 +512,21 @@ def main():
 
     cm.info()
 
-    print ("AAA")
     m = COUNTER("counter", 2, user="gregor")
     cm.add(m)
-    print ("BBB")
 
     o = cm.get(COUNTER, name='counter', user="gregor")
-    print ("CCC")
 
     print("\n\n")
 
     pprint(o.__dict__)
 
-    print ("LLL")
-    print(cm.counter_incr(name="counter", user="gregor"))
+    cm.counter_set(name="counter", user="gregor", value=0)
 
+    for i in range(0,10):
+        cm.counter_incr(name="counter", user="gregor")
+
+    print(cm.counter_get(name="counter", user="gregor"))
     """
 
 
