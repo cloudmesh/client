@@ -296,18 +296,34 @@ class VMUSERMAP(CloudmeshMixin, db.Base):
         self.kind = self.__tablename__
 
 
-class PREFIXCOUNT(CloudmeshMixin, db.Base):
+class COUNTER(CloudmeshMixin, db.Base):
     """
     Table to store Prefix Count for VM auto-naming.
     """
-    prefix = Column(String, primary_key=True)
-    count = Column(Integer)
+    type = Column(String, default="integer")
+    value = Column(Integer)
 
-    def __init__(self, **kwargs):
-        self.id = kwargs["prefix"]
-        self.prefix = kwargs["prefix"]
-        self.count = kwargs["count"]
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
         self.kind = self.__tablename__
+
+
+# OLD: TODO delete this when done
+#
+#    def __init__(self, **kwargs):
+#        self.id = kwargs["prefix"]
+#        self.prefix = kwargs["prefix"]
+#        self.count = kwargs["count"]
+#        self.kind = self.__tablename__
 
 
 class DEFAULT(CloudmeshMixin, db.Base):

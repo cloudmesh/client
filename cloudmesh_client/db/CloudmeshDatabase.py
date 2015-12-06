@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT, VMUSERMAP, BATCHJOB
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB
 
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
@@ -19,7 +19,6 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class CloudmeshDatabase(object):
-
 
     def counter_incr(self):
 
@@ -33,7 +32,7 @@ class CloudmeshDatabase(object):
 
         username = d["cloudmesh"]["profile"]["username"]
 
-        element = self.find("PREFIXCOUNT", prefix=username)
+        element = self.find("COUNTER", prefix=username)
 
         if element is None or len(element) == 0:
             raise RuntimeError("ERROR while incrementing prefix count. Prefix not found in database\
@@ -43,7 +42,7 @@ class CloudmeshDatabase(object):
         count = element[username]["count"]
         count += 1
 
-        self.update_prefix(prefix=username, count=count)
+        self.counter_set(name="counter", user=username, value=count)
         self.save()
 
     def counter_get(self):
@@ -59,19 +58,28 @@ class CloudmeshDatabase(object):
 
         username = d["cloudmesh"]["profile"]["username"]
 
-        element = self.find("PREFIXCOUNT", prefix=username)
+        element = self.find("COUNTER", user=username)
 
         # If prefix entry not present, add it.
         if element is None or len(element) == 0:
-            element_dict = self.db_obj_dict("PREFIXCOUNT", prefix=username, count=1)
+            element_dict = self.db_obj_dict("COUNTER", counter="counter", user=username, count=1)
             count = 1
-            self.add_obj(element_dict)
-            self.save()
+            self.counter_set(name="counter", user=username, value=count)
         else:
-            count = element[username]["count"]
+            count = element[username]["counter"]
 
         # print(element)
         return username, count
+
+    def counter_set(self, name=None, value=None, user=None):
+        """
+        Special function to update vm prefix count.
+        :param kwargs:
+        :return:
+        """
+        self.find(COUNTER, output="object", name=name, user=user).update(value=count)
+        self.save()
+
 
     def __init__(self, user=None):
         """
@@ -253,8 +261,8 @@ class CloudmeshDatabase(object):
                 return GROUP
             elif kind.lower() in ["reservation"]:
                 return RESERVATION
-            elif kind.lower() in ["prefixcount"]:
-                return PREFIXCOUNT
+            elif kind.lower() in ["counter"]:
+                return COUNTER
             elif kind.lower() in ["vmusermap"]:
                 return VMUSERMAP
             elif kind.lower() in ["batchjob"]:
@@ -342,14 +350,6 @@ class CloudmeshDatabase(object):
         self.find(kind, output="object", name=args["name"]).update(kwargs)
         self.save()
 
-    def update_prefix(self, **kwargs):
-        """
-        Special function to update vm prefix count.
-        :param kwargs:
-        :return:
-        """
-        self.find(PREFIXCOUNT, output="object", prefix=kwargs["prefix"]).update(kwargs)
-        self.save()
 
     def update_vm_username(self, **kwargs):
         """
@@ -495,30 +495,42 @@ class CloudmeshDatabase(object):
 def main():
     cm = CloudmeshDatabase(user="gregor")
 
-    m = DEFAULT("hallo", "world")
-    m.newfield__hhh = 13.9
+#    m = DEFAULT("hallo", "world")
+#    m.newfield__hhh = 13.9
+#    cm.add(m)
+
+#    n = cm.query(DEFAULT).filter_by(name='hallo').first()
+
+#    print("\n\n")
+
+#    pprint(n.__dict__)
+
+#    o = cm.get(DEFAULT, 'hallo')
+
+#    print("\n\n")
+
+#    pprint(o.__dict__)
+
+#    m = DEFAULT("other", "world")
+#    m.other = "ooo"
+#    cm.add(m)
+
+#    print("\n\n")
+#    pprint(cm.get(DEFAULT, 'other').__dict__)
+
+    cm.info()
+
+    print ("AAA")
+    m = COUNTER("counter", 2, user="gregor")
     cm.add(m)
+    print ("BBB")
 
-    n = cm.query(DEFAULT).filter_by(name='hallo').first()
-
-    print("\n\n")
-
-    pprint(n.__dict__)
-
-    o = cm.get(DEFAULT, 'hallo')
+    o = cm.get(COUNTER, name='counter', user="gregor")
+    print ("CCC")
 
     print("\n\n")
 
     pprint(o.__dict__)
-
-    m = DEFAULT("other", "world")
-    m.other = "ooo"
-    cm.add(m)
-
-    print("\n\n")
-    pprint(cm.get(DEFAULT, 'other').__dict__)
-
-    cm.info()
 
     """
 
