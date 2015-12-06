@@ -3,11 +3,11 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.BatchProviderSLURM import BatchProviderSLURM as Hpc
 from cloudmesh_client.cloud.default import Default
 
-from cloudmesh_client.shell.command import PluginCommand, HPCCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
+    CometPluginCommand
 
 
-class HpcCommand(PluginCommand, HPCCommand, CometCommand):
+class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
     topics = {"hpc": "system"}
 
     def __init__(self, context):
@@ -24,8 +24,8 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
                 hpc info [--cluster=CLUSTER][--format=FORMAT]
                 hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
-                hpc kill --job=NAME [--cluster=CLUSTER][--group=GROUP]
-                hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+                hpc delete --job=NAME [--cluster=CLUSTER][--group=GROUP]
+                hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                 hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
                 hpc test --cluster=CLUSTER [--time=SECONDS]
 
@@ -59,13 +59,13 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                     cloudmesh is used using the same index incremented name
                     as in vms fro clouds: cloudmeshusername-index
 
-                cm hpc kill all
+                cm hpc delete all
                     kills all jobs on the default hpc cluster
 
-                cm hpc kill all -cluster=all
+                cm hpc delete all -cluster=all
                     kills all jobs on all clusters
 
-                cm hpc kill --job=NAME
+                cm hpc delete --job=NAME
                     kills a job with a given name or job id
 
                 cm hpc default cluster=NAME
@@ -94,7 +94,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
                 cm hpc queue
                 cm hpc queue --job=xxx
                 cm hpc info
-                cm hpc kill --job=6
+                cm hpc delete --job=6
                 cm hpc run uname
         """
 
@@ -113,7 +113,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
         elif arguments["info"]:
             Console.msg(Hpc.info(cluster, format))
 
-        elif arguments["kill"]:
+        elif arguments["delete"]:
             job = arguments['--job']
             Console.ok(Hpc.kill(cluster, job))
 
@@ -124,7 +124,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
 
         elif arguments["run"]:
             queue = arguments['--queue'] or Default.get('queue')
-            #if not queue:
+            # if not queue:
             #    Console.error('set default queue using: default queue=<value>')
             #    return
 

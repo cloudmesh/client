@@ -46,14 +46,12 @@ class Image(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
         if live:
             cls.refresh(cloud)
 
         return CloudProvider(cloud).details('image', cloud, id, format)
-
 
 
 if __name__ == "__main__":

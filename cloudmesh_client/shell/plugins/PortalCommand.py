@@ -2,12 +2,13 @@ from __future__ import print_function
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.setup import os_execute
 
-class PortalCommand(PluginCommand, CloudCommand):
+
+class PortalCommand(PluginCommand, CloudPluginCommand):
     topics = {"portal": "cloud"}
 
     def __init__(self, context):
@@ -18,7 +19,7 @@ class PortalCommand(PluginCommand, CloudCommand):
     def get_conf(self):
         config = ConfigDict("cloudmesh.yaml")
         data = dict(config["cloudmesh.portal"])
-        print (data)
+        print(data)
         return data
 
     @command
@@ -46,7 +47,7 @@ class PortalCommand(PluginCommand, CloudCommand):
                 cd {location}; make run &
                 cd {location}; make view &
                 """.format(**data)
-            print (data)
+            print(data)
             os_execute(commands)
 
         if arguments["start"]:
@@ -56,9 +57,8 @@ class PortalCommand(PluginCommand, CloudCommand):
             commands = """
                 cd {location}; make run
                 """.format(**data)
-            print (data)
+            print(data)
             os_execute(commands)
-
 
         elif arguments["stop"]:
             ValueError("Not yet implemented")

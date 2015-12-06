@@ -71,7 +71,7 @@ class TableParser(object):
         :param str: cleans the string
         :return:
         """
-        print ("-"+ str + "-")
+        print ("-" + str + "-")
         if str == '':
             str = 'None'
         if self.is_lower:
@@ -108,7 +108,6 @@ class TableParser(object):
         if self.is_strip:
             self.headers = self.headers[1:-1]
         return self.headers
-
 
     def to_dict(self, table):
         """

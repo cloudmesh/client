@@ -63,7 +63,7 @@ class DictDB(dict):
         """
         pass
 
-    def delete(operator="and", **kwargs):
+    def delete(self, operator="and", **kwargs):
         """
         deletes all elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
@@ -73,7 +73,7 @@ class DictDB(dict):
         """
         pass
 
-    def find(operator="and", **kwargs):
+    def find(self, operator="and", **kwargs):
         """
         finds all elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
@@ -83,7 +83,7 @@ class DictDB(dict):
         """
         pass
 
-    def get(operator="and", **kwargs):
+    def get(self, operator="and", **kwargs):
         """
         finds the first elements in that match the query formulated by kwargs and the operator
         operators that are allowed are = and, or
@@ -98,14 +98,14 @@ class DictDB(dict):
         """
         :return: the json object of the database
         """
-        pass
+        return None
 
     @property
     def yaml(self):
         """
         :return: a yaml string of the database
         """
-        pass
+        return None
 
     def backup(self, filename=None):
         """

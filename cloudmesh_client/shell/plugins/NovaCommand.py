@@ -11,12 +11,12 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
     set_os_environ
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 log = LOGGER(__file__)
 
 
-class NovaCommand (PluginCommand, CloudCommand):
+class NovaCommand (PluginCommand, CloudPluginCommand):
 
     topics = {"nova": "cloud"}
 
@@ -54,14 +54,12 @@ class NovaCommand (PluginCommand, CloudCommand):
 
         """
         # pprint(arguments)
-        cloud = arguments['CLOUD'] or \
-                Default.get_cloud()
+        cloud = arguments['CLOUD'] or Default.get_cloud()
         if not cloud:
             Console.error("Default cloud not set!")
             return ""
 
-        group = arguments["--group"] or \
-                Default.get("group", cloud=cloud)
+        group = arguments["--group"] or Default.get("group", cloud=cloud)
 
         if not group:
             Console.error("Default group not set!")

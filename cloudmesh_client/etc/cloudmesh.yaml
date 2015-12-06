@@ -20,7 +20,7 @@ cloudmesh:
         apikey:
             api_key: TBD
             api_secret: TBD
-    newhpc:
+    hpc:
         experiment:
            name: gregor-00000
         active:
@@ -47,14 +47,12 @@ cloudmesh:
                 cm_type: slurm
                 cm_type_version: 14.11.9
                 credentials:
+                    username: TBD
                     project: None
                 default:
                     queue: debug
                     experiment_dir: /home/{username}/experiment
                     prefix: {username}
-    hpc:
-        - comet
-        - juliet
     active:
         - juno
         - kilo

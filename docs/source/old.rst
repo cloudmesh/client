@@ -758,7 +758,7 @@ notebook (not)
           Usage:
               notebook create
               notebook start
-              notebook kill
+              notebook delete
 
           Manages the ipython notebook server
 

@@ -418,8 +418,8 @@ Command - hpc::
         hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
         hpc info [--cluster=CLUSTER][--format=FORMAT]
         hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
-        hpc kill --job=NAME [--cluster=CLUSTER][--group=GROUP]
-        hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+        hpc delete --job=NAME [--cluster=CLUSTER][--group=GROUP]
+        hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
         hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
         hpc test --cluster=CLUSTER [--time=SECONDS]
 
@@ -453,13 +453,13 @@ Command - hpc::
             cloudmesh is used using the same index incremented name
             as in vms fro clouds: cloudmeshusername-index
 
-        cm hpc kill all
+        cm hpc delete all
             kills all jobs on the default hpc cluster
 
-        cm hpc kill all -cluster=all
+        cm hpc delete all -cluster=all
             kills all jobs on all clusters
 
-        cm hpc kill --job=NAME
+        cm hpc delete --job=NAME
             kills a job with a given name or job id
 
         cm hpc default cluster=NAME
@@ -488,7 +488,7 @@ Command - hpc::
         cm hpc queue
         cm hpc queue --job=xxx
         cm hpc info
-        cm hpc kill --job=6
+        cm hpc delete --job=6
         cm hpc run uname
 
 
@@ -702,7 +702,7 @@ Command - launcher::
 
       Usage:
           launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
-          launcher kill KEY [--cloud=CLOUD]
+          launcher delete KEY [--cloud=CLOUD]
           launcher run
           launcher resume
           launcher suspend
@@ -732,13 +732,13 @@ Command - launcher::
 
         A launcher can be deleted with
 
-            launcher kill KEY
+            launcher delete KEY
 
 
     Examples:
         launcher list --all
         launcher list --cloud=general
-        launcher kill <KEY>
+        launcher delete <KEY>
 
 
 limits

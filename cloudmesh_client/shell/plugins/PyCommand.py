@@ -4,8 +4,8 @@ import os
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.command import PluginCommand, ShellCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
+    CometPluginCommand
 
 
 import sys
@@ -34,7 +34,7 @@ class Statekeeper(object):
                 setattr(self.obj, attrib, getattr(self, attrib))
 
 
-class PyCommand(PluginCommand, ShellCommand, CometCommand):
+class PyCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
     pystate = {}
     locals_in_py = True

@@ -7,6 +7,7 @@ from pprint import pprint
 USERNAME = ""
 PASSWORD = ""
 
+
 class AuthenticationException(Exception):
     pass
 

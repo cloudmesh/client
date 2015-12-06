@@ -1,18 +1,17 @@
 from __future__ import print_function
 
 import json
-from pprint import pprint
-from cloudmesh_client.common.todo import TODO
+
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.network import Network
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class NetworkCommand(PluginCommand, CloudCommand):
+class NetworkCommand(PluginCommand, CloudPluginCommand):
     topics = {"network": "cloud"}
 
     def __init__(self, context):
@@ -78,8 +77,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
         """
         # pprint(arguments)
         # Get the cloud parameter OR read default
-        cloudname = arguments["--cloud"] \
-                    or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.get_cloud()
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"
@@ -118,7 +116,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["fixed"]:
             fixed_ip = arguments["FIXED_IP"]
             result = Network.unreserve_fixed_ip(cloudname=cloudname,
-                                              fixed_ip_addr=fixed_ip)
+                                                fixed_ip_addr=fixed_ip)
             if result is not None:
                 Console.ok("Un-Reserve fixed ip address [{}] complete.".format(fixed_ip))
 
@@ -173,8 +171,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and \
-                            instance_id is not None:
+            elif floating_ip is None and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Generate one from the pool, and assign to vm

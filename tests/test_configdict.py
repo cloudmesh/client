@@ -19,7 +19,8 @@ class Test_configdict:
     root_path = os.path.abspath(os.sep)
 
     def setup(self):
-        self.etc_yaml = os.path.join("etc", "cloudmesh.yaml")
+        os.system("cm help")
+        self.etc_yaml = os.path.join(self.root_path, "cloudmesh_client", "etc", "cloudmesh.yaml")
         self.tmp_yaml = os.path.join(self.root_path, "tmp", "cloudmesh.yaml")
         self.tmp_dir = os.path.join(self.root_path, "tmp")
         pass
@@ -31,14 +32,12 @@ class Test_configdict:
         """test if cloudmesh.yaml is loaded"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["etc"],
                        verbose=True)
 
         assert d["cloudmesh"]["profile"]["firstname"] == "TBD"
 
         try:
             d = ConfigDict("cloudmesh.yam",
-                           load_order=["etc"],
                            verbose=True)
             print("the file cloudmesh.yam should not exists")
             assert False
@@ -65,7 +64,6 @@ class Test_configdict:
         """test if json is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["etc"],
                        verbose=True)
 
         assert d.json.startswith('{')
@@ -81,7 +79,6 @@ class Test_configdict:
         """test if yaml is produced"""
         HEADING()
         d = ConfigDict("cloudmesh.yaml",
-                       load_order=["etc"],
                        verbose=True)
         result = d.yaml
 
@@ -90,23 +87,6 @@ class Test_configdict:
         except Exception, e:
             print ("not valid yaml file.")
             assert False
-
-
-
-
-    def test_005_info(self):
-        """test if some general information is there"""
-        # read yaml file from file
-        #  check if d.filename is the same as the filename we have
-        HEADING()
-        filename = "cloudmesh.yaml"
-        path = "etc"
-
-        d = ConfigDict(filename,
-                       load_order=[path],
-                       verbose=True)
-
-        assert d.filename == os.path.join(path, filename)
 
 
 

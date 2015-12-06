@@ -9,14 +9,61 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, PREFIXCOUNT, VMUSERMAP
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB
 
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
+
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
-
+from cloudmesh_client.common.ConfigDict import ConfigDict, Username
 
 class CloudmeshDatabase(object):
+
+
+
+    def counter_incr(self, name="counter", user=None):
+
+        user = user or Username()
+        count = self.counter_get(name=name, user=user)
+
+        count += 1
+
+        self.counter_set(name=name, user=user, value=count)
+        self.save()
+
+    def counter_get(self, name="counter", user=None):
+        """
+        Function that returns the prefix username and count for vm naming.
+        If it is not present in db, it creates a new entry.
+        :return:
+        """
+        user = user or Username()
+
+        try:
+            count = self.query("COUNTER", name=name, user=user).first().value
+        except:
+            count = 1
+            c = COUNTER(name=name, value=count, user=user)
+            self.add(c)
+
+        return count
+
+    def counter_set(self, name=None, value=None, user=None):
+        """
+        Special function to update vm prefix count.
+        :param kwargs:
+        :return:
+        """
+        if type(value) != int:
+            raise ValueError("counter must be integer")
+        if value is None:
+            value = 0
+
+        element = self.find(COUNTER, output="object", name=name, user=user)
+        element.first().value=value
+        self.save()
+
     def __init__(self, user=None):
         """
         initializes the CloudmeshDatabase for a specific user.
@@ -52,12 +99,12 @@ class CloudmeshDatabase(object):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-    def refresh(self, kind, cloudname, **kwargs):
+    def refresh(self, kind, name, **kwargs):
         """
         This method refreshes the local database
         with the live cloud details
         :param kind:
-        :param cloudname:
+        :param name:
         :param kwargs:
         :return:
         """
@@ -67,51 +114,70 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
             user = self.user
 
-            # get provider for specific cloud
-            provider = CloudProvider(cloudname).provider
+            if kind in ["flavor", "image", "vm"]:
 
-            # clear local db records for kind
-            self.clear(kind, cloudname)
+                # get provider for specific cloud
+                provider = CloudProvider(name).provider
 
-            if kind == "flavor":
-                flavors = provider.list_flavor(cloudname)
-                for flavor in flavors.values():
-                    flavor["uuid"] = flavor['id']
-                    flavor['type'] = 'string'
-                    flavor["cloud"] = cloudname
-                    flavor["user"] = user
+                # clear local db records for kind
+                self.clear(kind, name)
 
-                    db_obj = {0: {kind: flavor}}
-                    self.add_obj(db_obj)
-                    self.save()
-                return True
+                if kind == "flavor":
+                    flavors = provider.list_flavor(name)
+                    for flavor in flavors.values():
+                        flavor["uuid"] = flavor['id']
+                        flavor['type'] = 'string'
+                        flavor["cloud"] = name
+                        flavor["user"] = user
 
-            elif kind == "image":
-                images = provider.list_image(cloudname)
+                        db_obj = {0: {kind: flavor}}
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
 
-                for image in images.values():
-                    image['uuid'] = image['id']
-                    image['type'] = 'string'
-                    image['cloud'] = cloudname
-                    image['user'] = user
-                    db_obj = {0: {kind: image}}
+                elif kind == "image":
+                    images = provider.list_image(name)
 
-                    self.add_obj(db_obj)
-                    self.save()
-                return True
+                    for image in images.values():
+                        image['uuid'] = image['id']
+                        image['type'] = 'string'
+                        image['cloud'] = name
+                        image['user'] = user
+                        db_obj = {0: {kind: image}}
 
-            elif kind == "vm":
-                vms = provider.list_vm(cloudname)
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                elif kind == "vm":
+                    vms = provider.list_vm(name)
+                    for vm in vms.values():
+                        vm['uuid'] = vm['id']
+                        vm['type'] = 'string'
+                        vm['cloud'] = name
+                        vm['user'] = user
+                        db_obj = {0: {kind: vm}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+            elif kind in ["batchjob"]:
+
+                provider = BatchProvider(name).provider
+                vms = provider.list_job(name)
                 for vm in vms.values():
                     vm['uuid'] = vm['id']
                     vm['type'] = 'string'
-                    vm['cloud'] = cloudname
+                    vm['cloud'] = name
                     vm['user'] = user
                     db_obj = {0: {kind: vm}}
 
                     self.add_obj(db_obj)
                     self.save()
                 return True
+
+            else:
+                Console.error("refresh not supported for this kind: {}".format(kind))
 
         except Exception as ex:
             Console.error(ex.message)
@@ -178,10 +244,12 @@ class CloudmeshDatabase(object):
                 return GROUP
             elif kind.lower() in ["reservation"]:
                 return RESERVATION
-            elif kind.lower() in ["prefixcount"]:
-                return PREFIXCOUNT
+            elif kind.lower() in ["counter"]:
+                return COUNTER
             elif kind.lower() in ["vmusermap"]:
                 return VMUSERMAP
+            elif kind.lower() in ["batchjob"]:
+                return BATCHJOB
             else:
                 TODO.implement("wrong table type: `{}`".format(kind))
         else:
@@ -265,14 +333,6 @@ class CloudmeshDatabase(object):
         self.find(kind, output="object", name=args["name"]).update(kwargs)
         self.save()
 
-    def update_prefix(self, **kwargs):
-        """
-        Special function to update vm prefix count.
-        :param kwargs:
-        :return:
-        """
-        self.find(PREFIXCOUNT, output="object", prefix=kwargs["prefix"]).update(kwargs)
-        self.save()
 
     def update_vm_username(self, **kwargs):
         """
@@ -415,36 +475,51 @@ class CloudmeshDatabase(object):
     def get(self, table, **kwargs):
         return self.session.query(table).filter_by(**kwargs).first()
 
-
 def main():
     cm = CloudmeshDatabase(user="gregor")
 
-    m = DEFAULT("hallo", "world")
-    m.newfield__hhh = 13.9
+#    m = DEFAULT("hallo", "world")
+#    m.newfield__hhh = 13.9
+#    cm.add(m)
+
+#    n = cm.query(DEFAULT).filter_by(name='hallo').first()
+
+#    print("\n\n")
+
+#    pprint(n.__dict__)
+
+#    o = cm.get(DEFAULT, 'hallo')
+
+#    print("\n\n")
+
+#    pprint(o.__dict__)
+
+#    m = DEFAULT("other", "world")
+#    m.other = "ooo"
+#    cm.add(m)
+
+#    print("\n\n")
+#    pprint(cm.get(DEFAULT, 'other').__dict__)
+
+    cm.info()
+
+    m = COUNTER("counter", 2, user="gregor")
     cm.add(m)
 
-    n = cm.query(DEFAULT).filter_by(name='hallo').first()
-
-    print("\n\n")
-
-    pprint(n.__dict__)
-
-    o = cm.get(DEFAULT, 'hallo')
+    o = cm.get(COUNTER, name='counter', user="gregor")
 
     print("\n\n")
 
     pprint(o.__dict__)
 
-    m = DEFAULT("other", "world")
-    m.other = "ooo"
-    cm.add(m)
+    cm.counter_set(name="counter", user="gregor", value=0)
 
-    print("\n\n")
-    pprint(cm.get(DEFAULT, 'other').__dict__)
+    for i in range(0,10):
+        cm.counter_incr(name="counter", user="gregor")
 
-    cm.info()
-
+    print(cm.counter_get(name="counter", user="gregor"))
     """
+
 
 
     cm.info()

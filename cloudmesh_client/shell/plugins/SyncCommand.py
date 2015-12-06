@@ -7,12 +7,12 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 log = LOGGER(__file__)
 
 
-class SyncCommand(PluginCommand, CloudCommand):
+class SyncCommand(PluginCommand, CloudPluginCommand):
     topics = {"sync": "system",
               "rsync": "system"}
 
@@ -61,8 +61,7 @@ class SyncCommand(PluginCommand, CloudCommand):
                 --cloud=CLOUD   Sync with cloud
 
         """
-        cloudname = arguments["--cloud"] \
-                    or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.get_cloud()
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"

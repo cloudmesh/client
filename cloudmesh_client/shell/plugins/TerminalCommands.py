@@ -5,11 +5,11 @@ import sys
 from builtins import input
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import PluginCommand, ShellCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
+    CometPluginCommand
 
 
-class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
+class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"clear": "shell",
               "banner": "shell"}
 
@@ -54,9 +54,9 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
         Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
 
         return ""
 
@@ -89,12 +89,11 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
         Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
 
         return ""
-
 
     @command
     def do_pause(self, arg, arguments):

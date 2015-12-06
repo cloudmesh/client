@@ -1,12 +1,15 @@
 from __future__ import print_function
 import os
-from cmd3.console import Console
-from cmd3.shell import command
+
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
+    CometPluginCommand
+
 from pprint import pprint
 # from cloudmesh_client.cloud.command_status import command_status
 
 
-class cm_shell_status:
+class cm_shell_status(PluginCommand, ShellPluginCommand):
     def activate_cm_shell_status(self):
         self.register_command_topic('cloud', 'status')
 

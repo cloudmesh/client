@@ -1,11 +1,11 @@
 from __future__ import print_function
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command, PluginCommand, \
-    CloudCommand, CometCommand
+    CloudPluginCommand, CometPluginCommand
 from cloudmesh_client.cloud.default import Default
 
 
-class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
+class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"default": "cloud"}
 
     def __init__(self, context):
@@ -120,7 +120,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
                 Console.error("Key {} not present".format(key))
             else:
                 Console.ok("Deleted key {} for cloud {}. ok.".format(key,
-                                                                    cloud))
+                                                                     cloud))
             return ""
 
         elif "=" in arguments["KEY"]:

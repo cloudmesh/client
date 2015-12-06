@@ -7,22 +7,22 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-class Flavor(ListResource):
+class Hpc(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
     def refresh(cls, cloud):
         """
-        This method would refresh the flavor list by first clearing
+        This method would refresh the hpc list by first clearing
         the database, then inserting new data
         :param cloud: the cloud name
         """
-        return cls.cm.refresh('flavor', cloud)
+        return cls.cm.refresh('hpc', cloud)
 
     @classmethod
     def list(cls, cloud, live=False, format="table"):
         """
-        This method lists all flavors of the cloud
+        This method lists all hpcs of the cloud
         :param cloud: the cloud name
         """
         # cm = CloudmeshDatabase()
@@ -31,11 +31,11 @@ class Flavor(ListResource):
             if live:
                 cls.refresh(cloud)
 
-            elements = cls.cm.find("flavor", cloud=cloud)
+            elements = cls.cm.find("hpc", cloud=cloud)
 
             # pprint(elements)
 
-            (order, header) = CloudProvider(cloud).get_attributes("flavor")
+            (order, header) = CloudProvider(cloud).get_attributes("hpc")
 
             return dict_printer(elements,
                                 order=order,
@@ -49,8 +49,9 @@ class Flavor(ListResource):
         if live:
             cls.refresh(cloud)
 
-        return CloudProvider(cloud).details('flavor', cloud, id, format)
+        return CloudProvider(cloud).details('hpc', cloud, id, format)
 
 
 if __name__ == "__main__":
-    Flavor.details("juno", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
+    Hpc.details("juno", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
+

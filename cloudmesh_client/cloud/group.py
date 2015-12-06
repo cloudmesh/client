@@ -282,7 +282,7 @@ class Group(ListResource):
                 else:
                     Console.error(
                         "The ID [{}] supplied does not belong to group [{}]"
-                            .format(id, name))
+                        .format(id, name))
                     return None
             else:
                 return None
@@ -360,13 +360,13 @@ class Group(ListResource):
                     """
                     Console.ok(
                         "Created a new group [{}] and added ID [{}] to it"
-                            .format(_toName, from_id_str))
+                        .format(_toName, from_id_str))
 
             # _fromName group does not exist, error!
             else:
                 Console.error(
                     "Group [{}] does not exist in the cloudmesh database!"
-                        .format(_fromName))
+                    .format(_fromName))
                 return None
 
         except Exception as ex:
@@ -426,7 +426,7 @@ class Group(ListResource):
 
                 Console.ok(
                     "Merge of group [{}] & [{}] to group [{}] successful!"
-                        .format(_nameA, _nameB, mergeName))
+                    .format(_nameA, _nameB, mergeName))
             else:
                 Console.error("Your groups [{}] and/or [{}] do not exist!"
                               .format(_nameA, _nameB))
@@ -440,8 +440,7 @@ class Group(ListResource):
         :param item:
         :return:
         """
-        d = {}
-        d[item.id] = {}
+        d = {item.id: {}}
         for key in item.__dict__.keys():
             if not key.startswith("_sa"):
                 d[item.id][key] = str(item.__dict__[key])

@@ -6,15 +6,15 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_base.ssh_config import ssh_config
 
 from cloudmesh_base.util import banner
-from cloudmesh_client.shell.command import PluginCommand, ShellCommand, \
-    CometCommand
+from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
+    CometPluginCommand
 from cloudmesh_client.common.ConfigDict import path_expand
 from cloudmesh_client.common.Printer import list_printer
 
 from pprint import pprint
 
 
-class SecureShellCommand(PluginCommand, ShellCommand, CometCommand):
+class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
     # def activate_cm_shell_ssh(self):
 
     topics = {"ssh": "security"}

@@ -2,7 +2,6 @@ from __future__ import print_function
 # import os
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from pprint import pprint
 # from cloudmesh_client.cloud.command_key import command_key
 from cloudmesh_client.common.ConfigDict import Config
 # from os import listdir
@@ -16,10 +15,10 @@ import yaml
 import json
 from cloudmesh_client.cloud.default import Default
 # from cloudmesh_base.menu import num_choice, dict_choice
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class KeyCommand(PluginCommand, CloudCommand):
+class KeyCommand(PluginCommand, CloudPluginCommand):
 
     topics = {"key": "security"}
 

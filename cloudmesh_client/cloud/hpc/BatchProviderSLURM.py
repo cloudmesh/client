@@ -6,27 +6,24 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-
+# from cloudmesh_client.cloud.counter import Counter
+from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from pprint import pprint
 
-from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
-
 class BatchProviderSLURM(BatchProviderBase):
-    @classmethod
-    def get_script_base_name(cls):
-        # config = cls.read_hpc_config(cluster)
-        return "gvonlasz"
 
     @classmethod
     def count(cls):
-        return "0"
+        # count = Counter.get("counter")
+        count = 0
+        return count
 
     @classmethod
     def create_remote_dir(cls, cluster, dir):
         Shell.ssh(cluster, "mkdir -p {dir}".format(dir=dir))
 
     @classmethod
-    def read_hpc_config(cls, cluster):
+    def read_config(cls, cluster):
         """
         reads in the cluster config from the yaml file and returns the specific cluster informationt
 
@@ -54,14 +51,13 @@ class BatchProviderSLURM(BatchProviderBase):
         :param cluster:
         :return:
         """
-        hpc = "newhpc"  # change to hpc when transition is made
 
         try:
             config = cls.config
         except:
             cls.config = None
         if cls.config is None:
-            cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.newhpc"]
+            cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.hpc"]
             pprint(cls.config)
             cls.experiment_name_format = cls.config["experiment"]["name"]
         return cls.config["clusters"][cluster]
@@ -185,7 +181,8 @@ class BatchProviderSLURM(BatchProviderBase):
         # else:
         #    script_count = kwargs['-name']
 
-        config = cls.read_hpc_config(cluster)
+        config = cls.read_config(cluster)
+        # Counter.incr()
         data = {
             "cluster": cluster,
             "count": cls.count(),
@@ -200,7 +197,6 @@ class BatchProviderSLURM(BatchProviderBase):
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
-
         # overwrite defaults
         option_mapping = {'-t': '1',
                           '-N': '1',
@@ -212,7 +208,7 @@ class BatchProviderSLURM(BatchProviderBase):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
             option_mapping.iteritems())
 
-        config = cls.read_hpc_config(cluster)
+        config = cls.read_config(cluster)
         project = None
         try:
             project = config["credentials"]["project"]
@@ -263,7 +259,6 @@ class BatchProviderSLURM(BatchProviderBase):
         # copy to remote host
         Shell.scp(_from, _to)
 
-
         # delete local file
         # Shell.execute('rm', _from)
         # import sys; sys.exit()
@@ -272,24 +267,29 @@ class BatchProviderSLURM(BatchProviderBase):
 
         cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
         data["cmd"] = cmd
+
         print ("CMD>", cmd)
         result = Shell.ssh(cluster, cmd)
 
         data["output"] = result
 
-
-        #find id
+        # find id
         for line in result.split("\n"):
             print ("LLL>", line)
             if "Submitted batch job" in line:
-                data["id"] = int(line.replace("Submitted batch job ","").strip())
+                data["id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
 
         pprint(data)
+
+        #
+        # add data to database
+        #
+
         return data
 
     @classmethod
-    def kill(cls, cluster, job):
+    def delete(cls, cluster, job):
         """
         This method is used to terminate a job with the specified
         job_id or job_name in a given cluster

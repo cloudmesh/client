@@ -12,7 +12,7 @@ def kill(server="server", debug=True):
         for line in result:
             if line is not '':
                 pid = line.split(" ")[0]
-                local("kill -9 {0}".format(pid))
+                local("delete -9 {0}".format(pid))
                 # local("fab queue.stop")
 @task
 def dir():

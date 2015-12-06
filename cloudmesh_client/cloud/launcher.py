@@ -6,7 +6,6 @@ from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class LauncherProvider(ListResource):
-
     def info(self, **kwargs):
         ValueError("not yet implemented")
         return "not yet implemented"
@@ -46,29 +45,25 @@ class LauncherProvider(ListResource):
 
 from cloudmesh_base.Shell import Shell
 
-class LauncherShell(LauncherProvider):
 
+class LauncherShell(LauncherProvider):
     def __init__(self):
         pass
 
     def run(self, **kwargs):
-
         script = kwargs["script"].strip("\n")
 
-        print (">>>>", script)
-        #output = Shell.sh(script)
+        print(">>>>", script)
+        # output = Shell.sh(script)
         output = subprocess.check_output(script, shell=True)
-        print ("OOOOOO", output)
+        print("OOOOOO", output)
 
         return output
 
 
 def Launcher(kind):
-
-        if kind.lower() in ["sh", "shell"]:
-            return LauncherShell()
-        else:
-            ValueError("not yet implemented")
-            return "not yet implemented"
-
-
+    if kind.lower() in ["sh", "shell"]:
+        return LauncherShell()
+    else:
+        ValueError("not yet implemented")
+        return "not yet implemented"

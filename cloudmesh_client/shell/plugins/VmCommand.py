@@ -1,26 +1,22 @@
 from __future__ import print_function
+import json
+import os
+import getpass
+import socket
+
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer, \
-    list_printer
+from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from uuid import UUID
-
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-
-import json
 import pyaml
-import os
-import getpass
-import socket
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
-from pprint import pprint
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class VmCommand(PluginCommand, CloudCommand):
+class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
 
     def __init__(self, context):
@@ -213,7 +209,7 @@ class VmCommand(PluginCommand, CloudCommand):
                 if name is None:
                     is_name_provided = False
 
-                    prefix, count = Vm.get_prefix_and_count()
+                    prefix, count = Counter.get()
 
                     if prefix is None or count is None:
                         Console.error("Prefix and Count could not be retrieved correctly.")
@@ -263,7 +259,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
                 if is_name_provided is False:
                     # Incrementing count
-                    Vm.inc_count_for_prefix()
+                    Counter.incr()
 
                 # Add to group
                 Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
@@ -278,7 +274,7 @@ class VmCommand(PluginCommand, CloudCommand):
 
         elif arguments["default"]:
             try:
-                prefix, count = Vm.get_prefix_and_count()
+                prefix, count = Counter.get()
 
                 if prefix is None or count is None:
                     Console.error("Prefix and Count could not be retrieved correctly.")

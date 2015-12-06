@@ -6,10 +6,10 @@ from cloudmesh_base.util import path_expand
 # from cloudmesh_client.shell.cm import c
 import sys
 import os
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class ResetCommand(PluginCommand, CloudCommand):
+class ResetCommand(PluginCommand, CloudPluginCommand):
     topics = {"reset": "cloud"}
 
     def __init__(self, context):

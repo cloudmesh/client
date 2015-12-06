@@ -9,19 +9,19 @@ class PluginCommand(object):
     pass
 
 
-class CloudCommand(object):
+class CloudPluginCommand(object):
     pass
 
 
-class ShellCommand(object):
+class ShellPluginCommand(object):
     pass
 
 
-class HPCCommand(object):
+class HPCPluginCommand(object):
     pass
 
 
-class CometCommand(object):
+class CometPluginCommand(object):
     pass
 
 

@@ -1,15 +1,13 @@
 from __future__ import print_function
 
-from six import iteritems
 import os
 from datetime import datetime
 
 from cloudmesh_client.common.ConfigDict import Config
 from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy import Column, Integer, String, DateTime, MetaData, \
-    create_engine, inspect
+from sqlalchemy import Column, Integer, String, MetaData, \
+    create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from cloudmesh_client.common.todo import TODO
 
 
 class database(object):
@@ -298,18 +296,34 @@ class VMUSERMAP(CloudmeshMixin, db.Base):
         self.kind = self.__tablename__
 
 
-class PREFIXCOUNT(CloudmeshMixin, db.Base):
+class COUNTER(CloudmeshMixin, db.Base):
     """
     Table to store Prefix Count for VM auto-naming.
     """
-    prefix = Column(String, primary_key=True)
-    count = Column(Integer)
+    type = Column(String, default="integer")
+    value = Column(Integer)
 
-    def __init__(self, **kwargs):
-        self.id = kwargs["prefix"]
-        self.prefix = kwargs["prefix"]
-        self.count = kwargs["count"]
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
         self.kind = self.__tablename__
+
+
+# OLD: TODO delete this when done
+#
+#    def __init__(self, **kwargs):
+#        self.id = kwargs["prefix"]
+#        self.prefix = kwargs["prefix"]
+#        self.count = kwargs["count"]
+#        self.kind = self.__tablename__
 
 
 class DEFAULT(CloudmeshMixin, db.Base):
@@ -339,6 +353,7 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.user = user
         self.value = value
         self.kind = self.__tablename__
+
 
 class LAUNCHER(CloudmeshMixin, db.Base):
     """table to store default values
@@ -533,12 +548,12 @@ class BATCHJOB(CloudmeshMixin, db.Base):
                  type="string",
                  user=None,
                  cluster=None,
-                 id = None,
-                 queue = None,
-                 dir = None,
-                 script = None,
-                 output_file = None,
-                 username = None,
+                 id=None,
+                 queue=None,
+                 dir=None,
+                 script=None,
+                 output_file=None,
+                 username=None,
                  ):
         self.label = name
         self.type = type
@@ -554,6 +569,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.output_file = output_file
         self.username = username
         self.kind = self.__tablename__
+
 
 def tables():
     """

@@ -3,10 +3,10 @@ from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.limits import Limits
-from cloudmesh_client.shell.command import PluginCommand, CloudCommand
+from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class LimitsCommand(PluginCommand, CloudCommand):
+class LimitsCommand(PluginCommand, CloudPluginCommand):
     topics = {"limits": "cloud"}
 
     def __init__(self, context):
