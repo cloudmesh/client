@@ -440,8 +440,7 @@ class Group(ListResource):
         :param item:
         :return:
         """
-        d = {}
-        d[item.id] = {}
+        d = {item.id: {}}
         for key in item.__dict__.keys():
             if not key.startswith("_sa"):
                 d[item.id][key] = str(item.__dict__[key])

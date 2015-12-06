@@ -11,6 +11,7 @@ class Squeue(object):
             if not line.startswith('Warning:') and not line.__contains__(
                     'NODELIST(REASON)'):
                 d[i] = {}
+                # noinspection PyPep8
                 d[i]['jobid'], \
                 d[i]['partition'], \
                 d[i]['name'], \

@@ -19,7 +19,7 @@ class SSHkey(object):
 
     def read(self, file_path, keyname=None):
         self.__key__ = {}
-        if(file_path is not None):
+        if file_path is not None:
             file_path = Config.path_expand(file_path)
             uri = 'file://{}'.format(file_path)
             self.__key__ = {

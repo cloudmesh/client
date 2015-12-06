@@ -10,30 +10,34 @@ from cloudmesh_base.util import path_expand
 from collections import OrderedDict
 
 
-def dprint(OD, mode='dict', s="", indent=' '*4, level=0):
+def dprint(OD, mode='dict', s="", indent=' ' * 4, level=0):
     def is_number(s):
         try:
             float(s)
             return True
         except ValueError:
             return False
+
     def fstr(s):
-        return s if is_number(s) else '"%s"'%s
+        return s if is_number(s) else '"%s"' % s
+
     if mode != 'dict':
         kv_tpl = '("%s", %s)'
-        ST = 'OrderedDict([\n'; END = '])'
+        ST = 'OrderedDict([\n';
+        END = '])'
     else:
         kv_tpl = '"%s": %s'
-        ST = '{\n'; END = '}'
-    for i,k in enumerate(OD.keys()):
+        ST = '{\n';
+        END = '}'
+    for i, k in enumerate(OD.keys()):
         if type(OD[k]) in [dict, OrderedDict]:
             level += 1
-            s += (level-1)*indent+kv_tpl%(k,ST+dprint(OD[k], mode=mode,
-                                                 indent=indent, level=level)+(level-1)*indent+END)
+            s += (level - 1) * indent + kv_tpl % (k, ST + dprint(OD[k], mode=mode,
+                                                                 indent=indent, level=level) + (level - 1) * indent + END)
             level -= 1
         else:
-            s += level*indent+kv_tpl%(k,fstr(OD[k]))
-        if i!=len(OD)-1:
+            s += level * indent + kv_tpl % (k, fstr(OD[k]))
+        if i != len(OD) - 1:
             s += ","
         s += "\n"
     return s

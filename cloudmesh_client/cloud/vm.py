@@ -79,8 +79,8 @@ class Vm(ListResource):
             cloud_provider.start_vm(server)
             print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM start, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM start, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def stop(cls, **kwargs):
@@ -89,8 +89,8 @@ class Vm(ListResource):
             cloud_provider.stop_vm(server)
             print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM stop, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM stop, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def delete(cls, **kwargs):
@@ -99,8 +99,8 @@ class Vm(ListResource):
             cloud_provider.delete_vm(server)
             print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM delete, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM delete, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def info(cls, **kwargs):
@@ -153,7 +153,6 @@ class Vm(ListResource):
         vm = cloud_provider.get_vm(name=kwargs["name_or_id"])
         return vm["status"]
 
-
     @classmethod
     def set_vm_login_user(cls, name_or_id, cloud, username):
 
@@ -195,4 +194,3 @@ class Vm(ListResource):
             return None
         else:
             return user_map_entry.values()[0]["username"]
-

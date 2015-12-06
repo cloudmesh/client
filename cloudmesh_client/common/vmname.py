@@ -23,7 +23,7 @@ class VMName(object):
         :param name: the name that derives a format for
         :return: prefix, index, padding
         """
-        raise ("implement me")
+        raise "implement me"
 
     @staticmethod
     def get(prefix=None, idx=None, user=None):

@@ -124,7 +124,7 @@ class HpcCommand(PluginCommand, HPCCommand, CometCommand):
 
         elif arguments["run"]:
             queue = arguments['--queue'] or Default.get('queue')
-            #if not queue:
+            # if not queue:
             #    Console.error('set default queue using: default queue=<value>')
             #    return
 

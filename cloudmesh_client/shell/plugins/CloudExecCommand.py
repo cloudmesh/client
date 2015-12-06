@@ -4,7 +4,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
 
 
-class CloudCommand(PluginCommand, CloudCommand):
+class CloudExecCommand(PluginCommand, CloudCommand):
     topics = {"cloud": "cloud"}
 
     def __init__(self, context):

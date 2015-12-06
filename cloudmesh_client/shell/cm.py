@@ -16,6 +16,7 @@ from cloudmesh_base.Shell import Shell
 
 import cloudmesh_client
 
+
 def create_cloudmesh_yaml(filename):
     if not os.path.exists(filename):
         path = os.path.dirname(filename)
@@ -27,12 +28,12 @@ def create_cloudmesh_yaml(filename):
         shutil.copy(etc_file, to_dir)
         Console.ok("~/.cloudmesh/cloudmesh.yaml created")
 
+
 filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
 create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
 from .plugins import *
-
 
 from cloudmesh_client.cloud.default import Default
 
@@ -51,6 +52,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import dprint
 
 import cloudmesh_client.etc
+
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -87,7 +89,6 @@ class ConsoleClasses(object):
 # console = ConsoleFactory(PluginCommand)
 
 
-
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):
@@ -108,12 +109,12 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if line.startswith('#') \
                 or line.startswith('//') \
                 or line.startswith('/*'):
-            print (line)
+            print(line)
             return self.emptyline()
         if cmd is None:
             return self.default(line)
         self.lastcmd = line
-        if line == 'EOF' :
+        if line == 'EOF':
             self.lastcmd = ''
         if cmd == '':
             return self.default(line)
@@ -133,7 +134,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             self.register_command_topic(topics[name], name)
         for name in ["q", "EOF", "man"]:
             self.register_command_topic("shell", name)
-
 
     def __init__(self, context):
         cmd.Cmd.__init__(self)
@@ -165,8 +165,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
         create_cloudmesh_yaml(filename)
 
-        #sys,exit(1)
-
+        # sys,exit(1)
 
         value = Default.get('cloud', cloud='general')
         if value is None:
@@ -190,8 +189,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         else:
             cluster = value
-        Default.set('cluster', cluster,  cloud='general')
-
+        Default.set('cluster', cluster, cloud='general')
 
         #
         # Read cloud details from yaml file
@@ -204,7 +202,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                     'key': {}}
 
         for cloud in clouds:
-            if "default" in  config['clouds'][cloud]:
+            if "default" in config['clouds'][cloud]:
                 defaults['clouds'][cloud] = config["clouds"][cloud]['default']
 
         if "default" in config["keys"]:
@@ -212,9 +210,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         else:
             defaults['key'] = None
 
-
         for cloud in defaults["clouds"]:
-            for default,value in defaults["clouds"][cloud].iteritems():
+            for default, value in defaults["clouds"][cloud].iteritems():
                 Default.set(default, value, cloud=cloud)
 
         for c in CloudmeshConsole.__bases__[1:]:
@@ -439,7 +436,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             sys.exit()
 
 
-
 def simple():
     context = CloudmeshContext(debug=False,
                                splash=True)
@@ -525,14 +521,14 @@ def main():
 
     """
 
-    if len(arg['COMMAND']) ==  1:
+    if len(arg['COMMAND']) == 1:
         command = arg['COMMAND'][0]
-        print (command)
+        print(command)
         if command.endswith(".cm"):
             script_file = command
 
     if script_file is not None:
-         cmd.do_exec(script_file)
+        cmd.do_exec(script_file)
 
     if len(arg['COMMAND']) > 0:
         try:

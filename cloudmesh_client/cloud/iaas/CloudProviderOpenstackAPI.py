@@ -548,7 +548,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'user',
                 'cloud'
             ]
-        return (order, header)
+        return order, header
 
 
 # CloudProviderBase.register(CloudProviderOpenstackAPI)

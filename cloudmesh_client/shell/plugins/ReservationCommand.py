@@ -135,11 +135,11 @@ class ReservationCommand(PluginCommand, CloudCommand):
                                                    str(date.minute).zfill(2))
             return db_date
 
-        if (arguments["info"]):
+        if arguments["info"]:
 
             TODO.implement()
 
-        elif (arguments["list"]):
+        elif arguments["list"]:
 
             try:
                 _name = arguments['--name']
@@ -164,8 +164,8 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 print(e)
                 Console.error("Problem listing reservations")
 
-        elif (arguments["delete"]):
-            if (arguments["all"]):
+        elif arguments["delete"]:
+            if arguments["all"]:
 
                 try:
                     reserve = Reservation()
@@ -202,7 +202,7 @@ class ReservationCommand(PluginCommand, CloudCommand):
                     print(e)
                     Console.error("Problem deleting reservations")
 
-        elif (arguments["add"]):
+        elif arguments["add"]:
 
             if arguments["--file"] is None:
 
@@ -257,7 +257,7 @@ class ReservationCommand(PluginCommand, CloudCommand):
                 except Exception as e:
                     print("Error in adding from file. ", e)
 
-        elif (arguments["update"]):
+        elif arguments["update"]:
 
             try:
                 name = arguments["--name"]

@@ -95,7 +95,6 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
 
         return ""
 
-
     @command
     def do_pause(self, arg, arguments):
         """

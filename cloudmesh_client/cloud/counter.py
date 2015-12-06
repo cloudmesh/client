@@ -1,8 +1,8 @@
 from __future__ import print_function
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
-from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.cloud.ListResource import ListResource
 
 
 class Counter(ListResource):
@@ -13,7 +13,6 @@ class Counter(ListResource):
 
         # make sure counter is there, this coudl be done cleaner
         prefix, data = Counter.get()
-
 
         d = ConfigDict("cloudmesh.yaml")
 

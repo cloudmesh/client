@@ -30,7 +30,7 @@ def list_printer(l,
     for entry in l:
         name = str(count)
         d[name] = entry
-        count = count + 1
+        count += 1
 
     return dict_printer(d,
                         order=order,
@@ -226,7 +226,7 @@ def print_list(l, output='table'):
         x.align["Index"] = "r"
         return x
     elif output == 'csv':
-        return (",".join(l))
+        return ",".join(l)
     elif output == 'dict':
         d = dict_from_list(l)
         return d
@@ -239,4 +239,4 @@ def print_list(l, output='table'):
         result = yaml.dump(d, default_flow_style=False)
         return result
     elif output == 'txt':
-        return ("\n".join(l))
+        return "\n".join(l)

@@ -55,6 +55,5 @@ class Image(ListResource):
         return CloudProvider(cloud).details('image', cloud, id, format)
 
 
-
 if __name__ == "__main__":
     Image.details("india", "58c9552c-8d93-42c0-9dea-5f48d90a3188")

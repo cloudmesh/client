@@ -10,6 +10,7 @@ import hostlist
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.comet.authenticate import AuthenticationException
 
+
 class Cluster(object):
     @staticmethod
     def simple_list(id=None, format="table"):
@@ -97,7 +98,7 @@ class Cluster(object):
             elif 'error' in r[0]:
                 Console.error("An error occurred: {}".format(r[0]["error"]))
                 raise ValueError("COMET Error")
-                
+
             if format == "rest":
                 result = r
             else:
@@ -195,11 +196,11 @@ class Cluster(object):
     def output_computeset(computesetdict):
         result = ""
         if computesetdict["state"] not in ["completed"]:
-            result += "\nCluster: {}\tComputesetID: {}\t State: {}\n"\
-                        .format(computesetdict["cluster"],
-                                computesetdict["id"],
-                                computesetdict["state"]
-                                )
+            result += "\nCluster: {}\tComputesetID: {}\t State: {}\n" \
+                .format(computesetdict["cluster"],
+                        computesetdict["id"],
+                        computesetdict["state"]
+                        )
             data = computesetdict["computes"]
             for anode in data:
                 for attribute in anode.keys():
@@ -213,18 +214,18 @@ class Cluster(object):
                         anode["ip"] = "; ".join(ips)
                 del anode["interface"]
             result += str(list_printer(data,
-                          order=[
-                                  "name",
-                                  "state",
-                                  "type",
-                                  "mac",
-                                  "ip",
-                                  "cpus",
-                                  "cluster",
-                                  "host",
-                                  "memory",
-                                ],
-                          output="table"))
+                                       order=[
+                                           "name",
+                                           "state",
+                                           "type",
+                                           "mac",
+                                           "ip",
+                                           "cpus",
+                                           "cluster",
+                                           "host",
+                                           "memory",
+                                       ],
+                                       output="table"))
         return result
 
     @staticmethod
@@ -257,20 +258,20 @@ class Cluster(object):
                 if 'cluster' in r:
                     if 'state' in r and 'queued' == r['state']:
                         computesetid = r['id']
-                        ret = 'Request accepted! Check status with:\n'\
-                                'comet cluster {}\n'.format(clusterid) + \
-                                'or:\n'\
-                                'comet computeset {}\n'.format(computesetid)
+                        ret = 'Request accepted! Check status with:\n' \
+                              'comet cluster {}\n'.format(clusterid) + \
+                              'or:\n' \
+                              'comet computeset {}\n'.format(computesetid)
                     else:
                         # in case of some internal problem
                         ret = ''
                 elif 'error' in r:
                     ret = "An error occurred: {}".format(r['error'])
                 else:
-                    ret = "An internal error occured. "\
-                          "Please submit a ticket with following info:\n {}\n"\
-                          .format(r)
-                print (ret)
+                    ret = "An internal error occured. " \
+                          "Please submit a ticket with following info:\n {}\n" \
+                        .format(r)
+                print(ret)
             elif action in ["off", "reboot", "reset", "shutdown"]:
                 if action in ["off"]:
                     action = "power{}".format(action)
@@ -309,18 +310,18 @@ class Cluster(object):
                     # print(r)
                     if r is not None:
                         if '' != r.strip():
-                            print (r)
+                            print(r)
                         else:
-                            print ("Requeset Accepted. In the process of {} the nodes" \
-                                .format(action))
+                            print("Requeset Accepted. In the process of {} the nodes" \
+                                  .format(action))
                     else:
-                        print ("Unknown error: POWER, HOSTS")
+                        print("Unknown error: POWER, HOSTS")
                 else:
                     print(
                         "All the nodes are not in the specified cluster, "
                         "or they are not running")
             else:
-                print ("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
         elif 'FE' == subject:
             url = Comet.url("cluster/{}/frontend/".format(clusterid))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
@@ -331,19 +332,19 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
-                        print (r)
+                        print(r)
                     else:
-                        print ("Requeset Accepted. In the process of {} the front end" \
-                                .format(action))
+                        print("Requeset Accepted. In the process of {} the front end" \
+                              .format(action))
                 else:
-                    print ("Problem executing the request. "\
-                            "Check if the cluster exists")
+                    print("Problem executing the request. " \
+                          "Check if the cluster exists")
             else:
-                print ("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
         elif 'COMPUTESET' == subject:
             url = Comet.url("computeset/")
             if 'on' == action:
-                print ("NOT SUPPORTED! Use hostslist to specify the hosts to power on!")
+                print("NOT SUPPORTED! Use hostslist to specify the hosts to power on!")
             elif action in ["off", "reboot", "reset", "shutdown"]:
                 if action in ["off"]:
                     action = "power{}".format(action)
@@ -352,15 +353,15 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
-                        print (r)
+                        print(r)
                     else:
-                        print ("Requeset Accepted. In the process of {} the computeset" \
-                                .format(action))
+                        print("Requeset Accepted. In the process of {} the computeset" \
+                              .format(action))
                 else:
-                    print ("Problem executing the request. "\
-                            "Check if the computeset exists")
+                    print("Problem executing the request. " \
+                          "Check if the computeset exists")
             else:
-                print ("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
         elif 'HOST' == subject:
             url = Comet.url("cluster/{}/compute/{}/".format(clusterid, param))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
@@ -371,15 +372,16 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
-                        print (r)
+                        print(r)
                     else:
-                        print ("Requeset Accepted. In the process of {} the host" \
-                                .format(action))
+                        print("Requeset Accepted. In the process of {} the host" \
+                              .format(action))
                 else:
-                    print ("Problem executing the request. "\
-                            "Check if the node belongs to the cluster")
+                    print("Problem executing the request. " \
+                          "Check if the node belongs to the cluster")
             else:
-                print ("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
+
     @staticmethod
     def delete():
         pass

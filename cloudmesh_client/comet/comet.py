@@ -7,16 +7,15 @@ import time
 from pprint import pprint
 import webbrowser
 import getpass
-import requests
-from httpsig.requests_auth import HTTPSignatureAuth
 import random
 import string
 
+import requests
+from httpsig.requests_auth import HTTPSignatureAuth
 from cloudmesh_client.shell.console import Console
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import banner
-from cloudmesh_client.comet.authenticate import AuthenticationException
 
 requests.packages.urllib3.disable_warnings()
 
@@ -62,7 +61,7 @@ class Comet(object):
     @staticmethod
     def docs():
 
-        webbrowser.open("{}/docs/#!/v1".format(Comet.base_uri) )
+        webbrowser.open("{}/docs/#!/v1".format(Comet.base_uri))
 
     # #####################
     # TUNNEL
@@ -72,7 +71,7 @@ class Comet(object):
     def tunnel(start):
         if start:
             Comet.tunnelled = True
-            command =  "ssh -L 8443:localhost:443 nucleus"
+            command = "ssh -L 8443:localhost:443 nucleus"
             os.system(command)
         else:
             Comet.kill_tunnel()
@@ -104,7 +103,7 @@ class Comet(object):
         for line in r:
             if ("localhost" in line and "nucleus" in line) \
                     or ("comet" in line and "tunnel" in line) \
-                    and not 'status' in line:
+                            and not 'status' in line:
                 info = line.strip()
                 break
         if info:
@@ -134,6 +133,7 @@ class Comet(object):
     print z.text
 
     '''
+
     @staticmethod
     def get_nonce():
         nonce = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
@@ -196,10 +196,10 @@ class Comet(object):
             #
             # api key based auth does not maintain a session
             # once values specified, considered as AuthNed.
-            if  cls.api_key and cls.api_secret and cls.api_auth:
+            if cls.api_key and cls.api_secret and cls.api_auth:
                 ret = True
         else:
-            print ("The specified AUTH Provider Not Currently Supported")
+            print("The specified AUTH Provider Not Currently Supported")
             pass
         return ret
 
@@ -307,10 +307,10 @@ class Comet(object):
             elif r.status_code == 400:
                 ret = {"error": "%s" % r.text}
         elif "APIKEY" == Comet.auth_provider:
-            headers = {'content-type': 'application/json'}
-            headers["timestamp"] = int(time.time())
-            headers["nonce"] = Comet.get_nonce()
-            headers["X-Api-Key"] = Comet.api_key
+            headers = {'content-type': 'application/json',
+                       "timestamp": int(time.time()),
+                       "nonce": Comet.get_nonce(),
+                       "X-Api-Key": Comet.api_key}
             # print ("KKK", headers)
             # print ("KKK", Comet.api_auth)
             # print ("KKK", data)
@@ -321,9 +321,9 @@ class Comet(object):
                 r = requests.put(url, auth=Comet.api_auth, headers=headers, verify=cacert)
             else:
                 r = requests.get(url, auth=Comet.api_auth, headers=headers, verify=cacert)
-                
+
             ret = None
-            
+
             # print ("KKK", r.status_code)
             # print ("KKK", r.text)
 
@@ -399,10 +399,10 @@ class Comet(object):
                              allow_redirects=False,
                              verify=True)
         elif "APIKEY" == Comet.auth_provider:
-            headers = {'content-type': 'application/json'}
-            headers["timestamp"] = int(time.time())
-            headers["nonce"] = Comet.get_nonce()
-            headers["X-Api-Key"] = Comet.api_key
+            headers = {'content-type': 'application/json',
+                       "timestamp": int(time.time()),
+                       "nonce": Comet.get_nonce(),
+                       "X-Api-Key": Comet.api_key}
             r = requests.get(url,
                              auth=Comet.api_auth,
                              headers=headers,
@@ -414,7 +414,7 @@ class Comet(object):
         # print (r.text)
         if 303 == r.status_code:
             newurl = r.headers["Location"]
-            newurl_esc = newurl.replace("&","\&")
+            newurl_esc = newurl.replace("&", "\&")
         # print (newurl)
         # for OSX
         if 'darwin' == sys.platform:
@@ -423,8 +423,9 @@ class Comet(object):
         elif 'linux2' == sys.platform:
             os.system("firefox {}".format(newurl_esc))
         else:
-            print ("OS not supported!"\
-                   "Use the following url manually in your brower:\n{}".format(newurl) )
+            print("OS not supported!" \
+                  "Use the following url manually in your brower:\n{}".format(newurl))
+
 
 def main():
     comet = Comet()

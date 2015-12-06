@@ -1,24 +1,20 @@
 from __future__ import print_function
+import json
+import os
+import getpass
+import socket
+
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.common.Printer import dict_printer, attribute_printer, \
-    list_printer
+from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from uuid import UUID
 from cloudmesh_client.cloud.counter import Counter
-
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-
-import json
 import pyaml
-import os
-import getpass
-import socket
 from cloudmesh_client.shell.command import PluginCommand, CloudCommand
-from pprint import pprint
 
 
 class VmCommand(PluginCommand, CloudCommand):

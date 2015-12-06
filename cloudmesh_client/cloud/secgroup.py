@@ -28,6 +28,7 @@ class SecGroup(ListResource):
                 "Description"] = obj.id, obj.name, obj.description
         return d
 
+    # noinspection PyPep8
     @classmethod
     def convert_rules_to_dict(cls, os_result):
         d = {}

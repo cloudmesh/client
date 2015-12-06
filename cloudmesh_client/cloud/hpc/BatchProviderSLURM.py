@@ -12,6 +12,7 @@ from pprint import pprint
 
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 
+
 class BatchProviderSLURM(BatchProviderBase):
     @classmethod
     def get_script_base_name(cls):
@@ -202,7 +203,6 @@ class BatchProviderSLURM(BatchProviderBase):
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
-
         # overwrite defaults
         option_mapping = {'-t': '1',
                           '-N': '1',
@@ -265,7 +265,6 @@ class BatchProviderSLURM(BatchProviderBase):
         # copy to remote host
         Shell.scp(_from, _to)
 
-
         # delete local file
         # Shell.execute('rm', _from)
         # import sys; sys.exit()
@@ -281,11 +280,11 @@ class BatchProviderSLURM(BatchProviderBase):
         data["output"] = result
 
 
-        #find id
+        # find id
         for line in result.split("\n"):
             print ("LLL>", line)
             if "Submitted batch job" in line:
-                data["id"] = int(line.replace("Submitted batch job ","").strip())
+                data["id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
 
         pprint(data)
@@ -293,7 +292,6 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # add data to database
         #
-
 
         return data
 

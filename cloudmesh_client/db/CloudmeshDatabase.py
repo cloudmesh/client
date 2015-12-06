@@ -69,7 +69,6 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
             user = self.user
 
-
             if kind in ["flavor", "image", "vm"]:
 
                 # get provider for specific cloud
@@ -118,7 +117,7 @@ class CloudmeshDatabase(object):
                         self.save()
                     return True
             elif kind in ["batchjob"]:
-                
+
                 provider = BatchProvider(name).provider
                 vms = provider.list_job(name)
                 for vm in vms.values():
