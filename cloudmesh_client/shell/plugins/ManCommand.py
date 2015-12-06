@@ -74,7 +74,6 @@ class ManCommand(PluginCommand, ShellCommand, CometCommand):
                     print 70 * "-"
                 self._print_rst(what)
             except:
-                print "\n    Command documentation %s missing, help_%s" % (
-                what, what)
+                print "\n    Command documentation %s missing, help_%s" % (what, what)
             print
         return ""

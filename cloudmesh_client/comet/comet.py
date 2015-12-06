@@ -103,7 +103,7 @@ class Comet(object):
         for line in r:
             if ("localhost" in line and "nucleus" in line) \
                     or ("comet" in line and "tunnel" in line) \
-                            and not 'status' in line:
+                    and not 'status' in line:
                 info = line.strip()
                 break
         if info:
@@ -423,7 +423,7 @@ class Comet(object):
         elif 'linux2' == sys.platform:
             os.system("firefox {}".format(newurl_esc))
         else:
-            print("OS not supported!" \
+            print("OS not supported!"
                   "Use the following url manually in your brower:\n{}".format(newurl))
 
 

@@ -159,7 +159,7 @@ class ListCommand(PluginCommand, CloudCommand):
         if result:
             print(result)
         else:
-             Console.error("No {}s found in the database."
+            Console.error("No {}s found in the database."
                           .format(kind.lower()))
         return ""
 

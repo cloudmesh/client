@@ -213,8 +213,7 @@ class ReservationCommand(PluginCommand, CloudCommand):
                     project = arguments["--project"]
                     description = arguments["--description"]
 
-                    start_time = arguments[
-                                     "--start"] or "01/01/1901 at 07:30 pm"
+                    start_time = arguments["--start"] or "01/01/1901 at 07:30 pm"
                     end_time = arguments["--end"] or "12/31/2100 at 11:59 pm"
 
                     stime = Date(start_time)

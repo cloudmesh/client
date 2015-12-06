@@ -46,7 +46,6 @@ class Image(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-
     @classmethod
     def details(cls, cloud, id, live=False, format="table"):
         if live:

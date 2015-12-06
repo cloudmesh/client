@@ -279,7 +279,6 @@ class BatchProviderSLURM(BatchProviderBase):
 
         data["output"] = result
 
-
         # find id
         for line in result.split("\n"):
             print ("LLL>", line)

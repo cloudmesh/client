@@ -1,7 +1,10 @@
 from __future__ import print_function
 import os
-from cmd3.console import Console
-from cmd3.shell import command
+
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.command import PluginCommand, ShellCommand, \
+    CometCommand
+
 from pprint import pprint
 # from cloudmesh_client.cloud.command_status import command_status
 

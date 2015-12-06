@@ -57,8 +57,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
         """
         # pprint(arguments)
 
-        cloud = arguments["--cloud"] or \
-                Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.get_cloud()
 
         if arguments["list"]:
             # if no arguments read default
@@ -82,8 +81,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
 
         elif arguments["create"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or \
-                     Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -106,8 +104,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
 
         elif arguments["delete"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or \
-                     Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -130,8 +127,7 @@ class SecgroupCommand(PluginCommand, CloudCommand):
         elif arguments["rules-delete"]:
             # if no arguments read default
             cloud = arguments["--cloud"]
-            tenant = arguments["--tenant"] or \
-                     Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -158,14 +154,13 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                 else:
                     Console.error(
                         "Rule [{} | {} | {} | {}] could not be deleted"
-                            .format(from_port, to_port, protocol, cidr))
+                        .format(from_port, to_port, protocol, cidr))
 
             return ""
 
         elif arguments["rules-list"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or \
-                     Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -186,13 +181,12 @@ class SecgroupCommand(PluginCommand, CloudCommand):
                 Console.error(
                     "Security Group with label [{}], cloud [{}], and "
                     "tenant [{}] not found!"
-                        .format(label, cloud, tenant))
+                    .format(label, cloud, tenant))
                 return ""
 
         elif arguments["rules-add"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or \
-                     Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]

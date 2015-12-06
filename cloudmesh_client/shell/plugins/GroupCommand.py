@@ -130,12 +130,9 @@ class GroupCommand(PluginCommand, CloudCommand):
                 return
 
         elif arguments["add"]:
-            type = arguments["--type"] or \
-                   Default.get("type", cloud)
+            type = arguments["--type"] or Default.get("type", cloud)
 
-            id = arguments["--id"] or \
-                 Default.get("id", cloud) or \
-                 "vm"
+            id = arguments["--id"] or Default.get("id", cloud) or "vm"
 
             data = {
                 "name": arguments["NAME"],

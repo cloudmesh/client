@@ -54,14 +54,12 @@ class NovaCommand (PluginCommand, CloudCommand):
 
         """
         # pprint(arguments)
-        cloud = arguments['CLOUD'] or \
-                Default.get_cloud()
+        cloud = arguments['CLOUD'] or Default.get_cloud()
         if not cloud:
             Console.error("Default cloud not set!")
             return ""
 
-        group = arguments["--group"] or \
-                Default.get("group", cloud=cloud)
+        group = arguments["--group"] or Default.get("group", cloud=cloud)
 
         if not group:
             Console.error("Default group not set!")

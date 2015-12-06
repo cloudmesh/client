@@ -1,6 +1,6 @@
 from cloudmesh_client.shell.plugins.ColorCommand import ColorCommand
 from cloudmesh_client.shell.plugins.CloudExecCommand import CloudExecCommand
-from cloudmesh_client.shell.plugins.CometCommand import CometCommand
+from cloudmesh_client.shell.plugins.CometExecCommand import CometExecCommand
 from cloudmesh_client.shell.plugins.DefaultCommand import DefaultCommand
 from cloudmesh_client.shell.plugins.FlavorCommand import FlavorCommand
 from cloudmesh_client.shell.plugins.GroupCommand import GroupCommand

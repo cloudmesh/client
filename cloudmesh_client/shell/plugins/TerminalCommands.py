@@ -54,9 +54,9 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
         Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
 
         return ""
 
@@ -89,9 +89,9 @@ class TerminalCommands(PluginCommand, ShellCommand, CometCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
         Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "", i * " " + (n - i) * c)
+        Console._print(color, "", i * " " + str((n - i) * c))
 
         return ""
 

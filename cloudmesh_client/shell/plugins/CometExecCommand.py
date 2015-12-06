@@ -17,7 +17,7 @@ import os
 
 
 # noinspection PyUnusedLocal
-class CometCommand(PluginCommand, CometCommand):
+class CometExecCommand(PluginCommand, CometCommand):
     topics = {"comet": "comet"}
 
     def __init__(self, context):

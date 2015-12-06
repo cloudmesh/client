@@ -77,8 +77,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
         """
         # pprint(arguments)
         # Get the cloud parameter OR read default
-        cloudname = arguments["--cloud"] \
-                    or Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.get_cloud()
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"
@@ -117,7 +116,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                 and arguments["fixed"]:
             fixed_ip = arguments["FIXED_IP"]
             result = Network.unreserve_fixed_ip(cloudname=cloudname,
-                                              fixed_ip_addr=fixed_ip)
+                                                fixed_ip_addr=fixed_ip)
             if result is not None:
                 Console.ok("Un-Reserve fixed ip address [{}] complete.".format(fixed_ip))
 
@@ -172,8 +171,7 @@ class NetworkCommand(PluginCommand, CloudCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and \
-                            instance_id is not None:
+            elif floating_ip is None and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Generate one from the pool, and assign to vm

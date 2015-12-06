@@ -120,7 +120,7 @@ class DefaultCommand(PluginCommand, CloudCommand, CometCommand):
                 Console.error("Key {} not present".format(key))
             else:
                 Console.ok("Deleted key {} for cloud {}. ok.".format(key,
-                                                                    cloud))
+                                                                     cloud))
             return ""
 
         elif "=" in arguments["KEY"]:

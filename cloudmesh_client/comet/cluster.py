@@ -312,7 +312,7 @@ class Cluster(object):
                         if '' != r.strip():
                             print(r)
                         else:
-                            print("Requeset Accepted. In the process of {} the nodes" \
+                            print("Requeset Accepted. In the process of {} the nodes"
                                   .format(action))
                     else:
                         print("Unknown error: POWER, HOSTS")
@@ -334,10 +334,10 @@ class Cluster(object):
                     if '' != r.strip():
                         print(r)
                     else:
-                        print("Requeset Accepted. In the process of {} the front end" \
+                        print("Requeset Accepted. In the process of {} the front end"
                               .format(action))
                 else:
-                    print("Problem executing the request. " \
+                    print("Problem executing the request. "
                           "Check if the cluster exists")
             else:
                 print("Action not supported! Try these: on/off/reboot/reset/shutdown")
@@ -355,10 +355,10 @@ class Cluster(object):
                     if '' != r.strip():
                         print(r)
                     else:
-                        print("Requeset Accepted. In the process of {} the computeset" \
+                        print("Requeset Accepted. In the process of {} the computeset"
                               .format(action))
                 else:
-                    print("Problem executing the request. " \
+                    print("Problem executing the request. "
                           "Check if the computeset exists")
             else:
                 print("Action not supported! Try these: on/off/reboot/reset/shutdown")
@@ -374,10 +374,10 @@ class Cluster(object):
                     if '' != r.strip():
                         print(r)
                     else:
-                        print("Requeset Accepted. In the process of {} the host" \
+                        print("Requeset Accepted. In the process of {} the host"
                               .format(action))
                 else:
-                    print("Problem executing the request. " \
+                    print("Problem executing the request. "
                           "Check if the node belongs to the cluster")
             else:
                 print("Action not supported! Try these: on/off/reboot/reset/shutdown")
