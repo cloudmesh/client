@@ -11,6 +11,12 @@ ifeq ($(UNAME), CYGWIN_NT-6.3)
 BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
+d:
+	rm -rf build
+	pip uninstall -y cloudmesh_client
+	pip uninstall -y cloudmesh_client
+	python setup.py install; python cloudmesh_client/db/CloudmeshDatabase.py
+
 test:
 	echo $(UNAME)
 

@@ -1,9 +1,8 @@
-from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.cloud.hpc.BatchProviderSLURM import BatchProviderSLURM
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-class BatchProvider(BatchProviderBase):
+class BatchProvider(object):
 
     def __init__(self, name, user=None, flat=True):
         super(BatchProvider, self).__init__(name)

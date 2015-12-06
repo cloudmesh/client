@@ -12,15 +12,12 @@ from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB
 
 from cloudmesh_client.common.todo import TODO
-from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
-
+# from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Username
 
 class CloudmeshDatabase(object):
-
-
 
     def counter_incr(self, name="counter", user=None):
 

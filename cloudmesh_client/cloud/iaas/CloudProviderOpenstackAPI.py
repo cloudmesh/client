@@ -18,7 +18,7 @@ requests.packages.urllib3.disable_warnings()
 # TODO: unset as not allowing to smoothly switch
 def set_os_environ(cloudname):
     """Set os environment variables on a given cloudname"""
-    # TODO: this has a severe bug as it is not unsetting variabes
+    # TODO: this has a severe bug as it is not unsetting variables
     # Also this coded duplicates in part from register
     try:
         d = ConfigDict("cloudmesh.yaml")

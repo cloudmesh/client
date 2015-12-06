@@ -1,6 +1,9 @@
+from cloudmesh_client.cloud.counter import Counter
+
 class BatchProviderBase(object):
 
     prefix = "job"
+    jobid = 0
 
     @classmethod
     def queue(cls, **kwargs):
@@ -16,13 +19,14 @@ class BatchProviderBase(object):
 
     @classmethod
     def counter(cls):
-        cls.jobid = 0
-        return 0
+        cls.jobid = Counter.get()
+        return cls.jobid
 
     @classmethod
     def incr(cls):
-        cls.jobid += 1
-        return cls.counter()
+        Counter.incr()
+        cls.jobid = Counter.get()
+        return cls.jobid
 
     @classmethod
     def jobname(cls, counter=None):
