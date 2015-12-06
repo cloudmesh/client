@@ -20,7 +20,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class CloudmeshDatabase(object):
 
-    def counter_incr(self):
+    def counter_incr(self, name="counter"):
 
         # make sure counter is there, this coudl be done cleaner
         prefix, data = self.counter_get()
@@ -32,7 +32,7 @@ class CloudmeshDatabase(object):
 
         username = d["cloudmesh"]["profile"]["username"]
 
-        element = self.find("COUNTER", prefix=username)
+        element = self.find("COUNTER", name=name, user=username)
 
         if element is None or len(element) == 0:
             raise RuntimeError("ERROR while incrementing prefix count. Prefix not found in database\
@@ -42,10 +42,10 @@ class CloudmeshDatabase(object):
         count = element[username]["count"]
         count += 1
 
-        self.counter_set(name="counter", user=username, value=count)
+        self.counter_set(name=name, user=username, value=count)
         self.save()
 
-    def counter_get(self):
+    def counter_get(self, name="counter"):
         """
         Function that returns the prefix username and count for vm naming.
         If it is not present in db, it creates a new entry.
@@ -58,13 +58,13 @@ class CloudmeshDatabase(object):
 
         username = d["cloudmesh"]["profile"]["username"]
 
-        element = self.find("COUNTER", user=username)
+        element = self.find("COUNTER", name=name, user=username)
 
         # If prefix entry not present, add it.
         if element is None or len(element) == 0:
             element_dict = self.db_obj_dict("COUNTER", counter="counter", user=username, count=1)
             count = 1
-            self.counter_set(name="counter", user=username, value=count)
+            self.counter_set(name=name, user=username, value=count)
         else:
             count = element[username]["counter"]
 
@@ -79,7 +79,6 @@ class CloudmeshDatabase(object):
         """
         self.find(COUNTER, output="object", name=name, user=user).update(value=count)
         self.save()
-
 
     def __init__(self, user=None):
         """
