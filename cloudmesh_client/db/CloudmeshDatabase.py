@@ -20,56 +20,45 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class CloudmeshDatabase(object):
 
-    def counter_incr(self, name="counter"):
 
-        # make sure counter is there, this coudl be done cleaner
-        prefix, data = self.counter_get()
-
+    def _get_username(self):
         d = ConfigDict("cloudmesh.yaml")
 
         if "username" not in d["cloudmesh"]["profile"]:
             raise RuntimeError("Profile username is not set in yaml file.")
 
-        username = d["cloudmesh"]["profile"]["username"]
+        user = d["cloudmesh"]["profile"]["username"]
+        return user
 
-        element = self.find("COUNTER", name=name, user=username)
 
-        if element is None or len(element) == 0:
-            raise RuntimeError("ERROR while incrementing prefix count. Prefix not found in database\
-                                for username {}".format(username))
+    def counter_incr(self, name="counter", user=None):
 
-        # Incrementing the count here
-        count = element[username]["count"]
+        user = user or self._get_username()
+        count = self.counter_get(name=name, user=user)
+
         count += 1
 
-        self.counter_set(name=name, user=username, value=count)
+        self.counter_set(name=name, user=user, value=count)
         self.save()
 
-    def counter_get(self, name="counter"):
+    def counter_get(self, name="counter", user=None):
         """
         Function that returns the prefix username and count for vm naming.
         If it is not present in db, it creates a new entry.
         :return:
         """
-        d = ConfigDict("cloudmesh.yaml")
+        user = user or self._get_username()
 
-        if "username" not in d["cloudmesh"]["profile"]:
-            raise RuntimeError("Profile username is not set in yaml file.")
-
-        username = d["cloudmesh"]["profile"]["username"]
-
-        element = self.find("COUNTER", name=name, user=username)
-
-        # If prefix entry not present, add it.
-        if element is None or len(element) == 0:
-            element_dict = self.db_obj_dict("COUNTER", counter="counter", user=username, count=1)
+        try:
+            count = self.find("COUNTER", name=name, user=user)
+            print (count)
+            count = count[0]
+        except:
+            element_dict = self.db_obj_dict("COUNTER", counter="counter", user=user, count=1)
             count = 1
-            self.counter_set(name=name, user=username, value=count)
-        else:
-            count = element[username]["counter"]
+            self.counter_set(name=name, user=user, value=count)
 
-        # print(element)
-        return username, count
+        return count
 
     def counter_set(self, name=None, value=None, user=None):
         """
@@ -77,7 +66,12 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        self.find(COUNTER, output="object", name=name, user=user).update(value=count)
+        if isinstance(value, int ):
+            raise ValueError("counter must be integer")
+        if value is None:
+            value = 0
+
+        self.find(COUNTER, output="object", name=name, user=user).update(value=value)
         self.save()
 
     def __init__(self, user=None):
@@ -531,7 +525,11 @@ def main():
 
     pprint(o.__dict__)
 
+    print ("LLL")
+    print(cm.counter_incr(name="counter", user="gregor"))
+
     """
+
 
 
     cm.info()
