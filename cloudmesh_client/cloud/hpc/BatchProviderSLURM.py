@@ -225,6 +225,25 @@ class BatchProviderSLURM(BatchProviderBase):
             """
             #! /bin/sh
             {options}
+            echo '#CLOUDMESH: BATCH ENVIRONMENT'
+            echo 'BASIL_RESERVATION_ID:' $BASIL_RESERVATION_ID
+            echo 'SLURM_CPU_BIND:' $SLURM_CPU_BIND
+            echo 'SLURM_JOB_ID:' $SLURM_JOB_ID
+            echo 'SLURM_JOB_CPUS_PER_NODE:' $SLURM_JOB_CPUS_PER_NODE
+            echo 'SLURM_JOB_DEPENDENCY:' $SLURM_JOB_DEPENDENCY
+            echo 'SLURM_JOB_NAME:' $SLURM_JOB_NAME
+            echo 'SLURM_JOB_NODELIST:' $SLURM_JOB_NODELIST
+            echo 'SLURM_JOB_NUM_NODES:' $SLURM_JOB_NUM_NODES
+            echo 'SLURM_MEM_BIND:' $SLURM_MEM_BIND
+            echo 'SLURM_TASKS_PER_NODE:' $SLURM_TASKS_PER_NODE
+            echo 'MPIRUN_NOALLOCATE:' $MPIRUN_NOALLOCATE
+            echo 'MPIRUN_NOFREE:' $MPIRUN_NOFREE
+            echo 'SLURM_NTASKS_PER_CORE:' $SLURM_NTASKS_PER_CORE
+            echo 'SLURM_NTASKS_PER_NODE:' $SLURM_NTASKS_PER_NODE
+            echo 'SLURM_NTASKS_PER_SOCKET:' $SLURM_NTASKS_PER_SOCKET
+            echo 'SLURM_RESTART_COUNT:' $SLURM_RESTART_COUNT
+            echo 'SLURM_SUBMIT_DIR:' $SLURM_SUBMIT_DIR
+            echo 'MPIRUN_PARTITION:' $MPIRUN_PARTITION
             srun -l echo '#CLOUDMESH: Starting'
             srun -l {command}
             srun -l echo '#CLOUDMESH: Test ok'
@@ -274,6 +293,68 @@ class BatchProviderSLURM(BatchProviderBase):
                 break
 
         pprint(data)
+
+        #
+        # HACK, should not depend on Model.py
+        #
+
+        #from cloudmesh_client.db.model import BATCHJOB
+        #name = ""
+        #BATCHJOB(name,
+        #         cluster=data["cluster"],
+        #         id=data["id"],
+        #         script=data["script"]) # has user and username which seems wrong
+
+        # here what we have in data and want to store the - options are obviously wrong and need to be full names
+        """
+        {'-D': '/N/u/gvonlasz/experiment/3',
+         '-N': '1',
+         '-o': 'gvonlasz-3.out',
+         '-p': 'delta',
+         '-t': '1',
+         'cluster': 'india',
+         'cmd': 'sbatch /N/u/gvonlasz/experiment/3/gvonlasz-3.sh',
+         'command': 'uname',
+         'count': 3,
+         'from': '/Users/big/.cloudmesh/gvonlasz-3.sh',
+         'id': 1346,
+         'options': '#SBATCH -t 1\n#SBATCH -o gvonlasz-3.out\n#SBATCH -N 1\n#SBATCH -p delta\n#SBATCH -D /N/u/gvonlasz/experiment/3\n',
+         'output': 'Submitted batch job 1346',
+         'queue': 'delta',
+         'remote_experiment_dir': '/N/u/gvonlasz/experiment/3',
+         'script': "#! /bin/sh\n#SBATCH -t 1\n#SBATCH -o gvonlasz-3.out\n#SBATCH -N 1\n#SBATCH -p delta\n#SBATCH -D /N/u/gvonlasz/experiment/3\n\nsrun -l echo '#CLOUDMESH: Starting'\nsrun -l uname\nsrun -l echo '#CLOUDMESH: Test ok'",
+         'script_base_name': 'gvonlasz-3',
+         'script_name': 'gvonlasz-3.sh',
+         'script_output': 'gvonlasz-3.out',
+         'to': 'india:/N/u/gvonlasz/experiment/3',
+         'username': 'gvonlasz'}
+        """
+
+        """
+        we also want to store what part of the .out file,
+
+        BASIL_RESERVATION_ID:
+        SLURM_CPU_BIND:
+        SLURM_JOB_ID: 1351
+        SLURM_JOB_CPUS_PER_NODE: 12
+        SLURM_JOB_DEPENDENCY:
+        SLURM_JOB_NAME: gvonlasz-8.sh
+        SLURM_JOB_NODELIST: d001
+        SLURM_JOB_NUM_NODES: 1
+        SLURM_MEM_BIND:
+        SLURM_TASKS_PER_NODE: 12
+        MPIRUN_NOALLOCATE:
+        MPIRUN_NOFREE:
+        SLURM_NTASKS_PER_CORE:
+        SLURM_NTASKS_PER_NODE:
+        SLURM_NTASKS_PER_SOCKET:
+        SLURM_RESTART_COUNT:
+        SLURM_SUBMIT_DIR: /N/u/gvonlasz
+        MPIRUN_PARTITION:
+
+        so maybe we want to use some of the names here as they reflect the env vars
+        """
+
 
         #
         # add data to database
