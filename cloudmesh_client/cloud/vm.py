@@ -12,6 +12,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 from uuid import UUID
+from pprint import pprint
 
 
 class Vm(ListResource):
@@ -62,8 +63,27 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
-                                       secgroup=kwargs["secgroup_list"])
+
+        if kwargs["cloud"] == 'kilo':
+            # For kilo, we use a different network interface
+            net_id = None
+
+            # Get list of networks in kilo
+            network_list = cloud_provider.provider.networks.list()
+
+            # Validate each interface
+            for network in network_list:
+                # Check if interface name is fg478-net,
+                # Get the interface id
+                if network.label == "fg478-net":
+                    net_id = network.id
+
+            nics = [{"net-id": net_id}]
+            vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
+                                           secgroup=kwargs["secgroup_list"], nics=nics)
+        else:
+            vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
+                                           secgroup=kwargs["secgroup_list"])
         print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
 
         # Explicit refresh called after VM boot, to update db.
@@ -78,8 +98,8 @@ class Vm(ListResource):
             cloud_provider.start_vm(server)
             print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM start, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM start, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def stop(cls, **kwargs):
@@ -88,8 +108,8 @@ class Vm(ListResource):
             cloud_provider.stop_vm(server)
             print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM stop, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM stop, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def delete(cls, **kwargs):
@@ -98,8 +118,8 @@ class Vm(ListResource):
             cloud_provider.delete_vm(server)
             print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM delete, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
+            # Explicit refresh called after VM delete, to update db.
+            # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def info(cls, **kwargs):
@@ -243,4 +263,3 @@ class Vm(ListResource):
             return None
         else:
             return user_map_entry.values()[0]["username"]
-
