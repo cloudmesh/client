@@ -9,8 +9,8 @@ from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from pprint import pprint
 
-class BatchProviderSLURM(BatchProviderBase):
 
+class BatchProviderSLURM(BatchProviderBase):
     kind = "slurm"
 
     @classmethod
@@ -148,7 +148,6 @@ class BatchProviderSLURM(BatchProviderBase):
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
-
         data["nodes"] = 1
         data["tasks_per_node"] = 1
         # overwrite defaults
@@ -259,14 +258,15 @@ class BatchProviderSLURM(BatchProviderBase):
         # HACK, should not depend on Model.py
         #
 
-        #from cloudmesh_client.db.model import BATCHJOB
-        #name = ""
-        #BATCHJOB(name,
+        # from cloudmesh_client.db.model import BATCHJOB
+        # name = ""
+        # BATCHJOB(name,
         #         cluster=data["cluster"],
         #         id=data["id"],
         #         script=data["script"]) # has user and username which seems wrong
 
-        # here what we have in data and want to store the - options are obviously wrong and need to be full names
+        # here what we have in data and want to store the - options are obviously wrong
+        # and need to be full names
         """
         {'-D': '/N/u/gvonlasz/experiment/3',
          '-N': '1',
@@ -315,7 +315,6 @@ class BatchProviderSLURM(BatchProviderBase):
 
         so maybe we want to use some of the names here as they reflect the env vars
         """
-
 
         #
         # add data to database

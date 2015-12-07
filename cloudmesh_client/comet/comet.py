@@ -127,7 +127,9 @@ class Comet(object):
     nonce = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10))
 
     nodes2op = {"computes":"vm-vc2-[6-7]","cluster":"vc2"}
-    z = requests.post('https://comet-nucleus.sdsc.edu/nucleus/v1/computeset/',data=json.dumps(nodes2op), auth=auth, headers={"timestamp": int(time.time()), "nonce":nonce, "X-Api-Key":"Fugang"})
+    z = requests.post('https://comet-nucleus.sdsc.edu/nucleus/v1/computeset/',
+        data=json.dumps(nodes2op), auth=auth, headers={"timestamp": int(time.time()),
+        "nonce":nonce, "X-Api-Key":"Fugang"})
     print z.status_code
     print z.headers
     print z.text

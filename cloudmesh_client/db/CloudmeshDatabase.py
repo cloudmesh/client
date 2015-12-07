@@ -17,8 +17,8 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Username
 
-class CloudmeshDatabase(object):
 
+class CloudmeshDatabase(object):
     def counter_incr(self, name="counter", user=None):
 
         user = user or Username()
@@ -58,7 +58,7 @@ class CloudmeshDatabase(object):
             value = 0
 
         element = self.find(COUNTER, output="object", name=name, user=user)
-        element.first().value=value
+        element.first().value = value
         self.save()
 
     def __init__(self, user=None):
@@ -160,7 +160,9 @@ class CloudmeshDatabase(object):
                     return True
             elif kind in ["batchjob"]:
 
-                provider = BatchProvider(name).provider
+                # provider = BatchProvider(name).provider
+                provider = BatchProvider(name)
+
                 vms = provider.list_job(name)
                 for vm in vms.values():
                     vm['uuid'] = vm['id']
@@ -330,7 +332,6 @@ class CloudmeshDatabase(object):
         self.find(kind, output="object", name=args["name"]).update(kwargs)
         self.save()
 
-
     def update_vm_username(self, **kwargs):
         """
         Special function to update vm prefix count.
@@ -472,31 +473,32 @@ class CloudmeshDatabase(object):
     def get(self, table, **kwargs):
         return self.session.query(table).filter_by(**kwargs).first()
 
+
 def main():
     cm = CloudmeshDatabase(user="gregor")
 
-#    m = DEFAULT("hallo", "world")
-#    m.newfield__hhh = 13.9
-#    cm.add(m)
+    #    m = DEFAULT("hallo", "world")
+    #    m.newfield__hhh = 13.9
+    #    cm.add(m)
 
-#    n = cm.query(DEFAULT).filter_by(name='hallo').first()
+    #    n = cm.query(DEFAULT).filter_by(name='hallo').first()
 
-#    print("\n\n")
+    #    print("\n\n")
 
-#    pprint(n.__dict__)
+    #    pprint(n.__dict__)
 
-#    o = cm.get(DEFAULT, 'hallo')
+    #    o = cm.get(DEFAULT, 'hallo')
 
-#    print("\n\n")
+    #    print("\n\n")
 
-#    pprint(o.__dict__)
+    #    pprint(o.__dict__)
 
-#    m = DEFAULT("other", "world")
-#    m.other = "ooo"
-#    cm.add(m)
+    #    m = DEFAULT("other", "world")
+    #    m.other = "ooo"
+    #    cm.add(m)
 
-#    print("\n\n")
-#    pprint(cm.get(DEFAULT, 'other').__dict__)
+    #    print("\n\n")
+    #    pprint(cm.get(DEFAULT, 'other').__dict__)
 
     cm.info()
 
@@ -511,7 +513,7 @@ def main():
 
     cm.counter_set(name="counter", user="gregor", value=0)
 
-    for i in range(0,10):
+    for i in range(0, 10):
         cm.counter_incr(name="counter", user="gregor")
 
     print(cm.counter_get(name="counter", user="gregor"))

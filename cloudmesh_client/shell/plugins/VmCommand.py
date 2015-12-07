@@ -202,6 +202,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         cloud = arguments["--cloud"] or Default.get_cloud()
 
         if arguments["boot"]:
+            name = None
             try:
                 name = arguments["--name"]
                 is_name_provided = True

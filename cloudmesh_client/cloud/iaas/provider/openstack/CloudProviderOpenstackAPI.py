@@ -46,6 +46,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         self.flat = flat
         self.kind = "openstack"
 
+
     def _to_dict(self, openstack_result):
         d = {}
         for index, value in enumerate(openstack_result):

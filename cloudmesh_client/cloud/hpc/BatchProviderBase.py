@@ -2,8 +2,8 @@ from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
-class BatchProviderBase(object):
 
+class BatchProviderBase(object):
     prefix = "job"
     jobid = 0
 

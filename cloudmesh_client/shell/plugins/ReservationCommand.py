@@ -205,7 +205,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
         elif arguments["add"]:
 
             if arguments["--file"] is None:
-
+                name = None
                 try:
                     name = arguments["--name"]
                     hosts = arguments["--hosts"]
@@ -257,7 +257,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     print("Error in adding from file. ", e)
 
         elif arguments["update"]:
-
+            name = None
             try:
                 name = arguments["--name"]
                 hosts = arguments["--hosts"]

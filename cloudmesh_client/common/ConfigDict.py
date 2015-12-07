@@ -10,6 +10,7 @@ from cloudmesh_base.util import path_expand
 from collections import OrderedDict
 
 
+# noinspection PyPep8Naming
 def dprint(OD, mode='dict', s="", indent=' ' * 4, level=0):
     def is_number(s):
         try:
@@ -270,6 +271,7 @@ class ConfigDict(object):
         """
         TODO.implement()
 
+
 def Username():
     d = ConfigDict("cloudmesh.yaml")
 
@@ -278,6 +280,7 @@ def Username():
 
     user = d["cloudmesh"]["profile"]["username"]
     return user
+
 
 def main():
     d = ConfigDict("cloudmesh.yaml")

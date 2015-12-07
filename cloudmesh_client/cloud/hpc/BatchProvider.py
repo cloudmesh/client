@@ -1,14 +1,11 @@
-
 from cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM import BatchProviderSLURM
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
-def BatchProvider(name, user=None):
 
+def BatchProvider(name, user=None):
     try:
         d = ConfigDict("cloudmesh.yaml")
         details = d["cloudmesh"]["hpc"]["clusters"][name]
-
-        print ("DDDD", details)
 
         if details["cm_type"].lower() in ["slurm"]:
             return BatchProviderSLURM()

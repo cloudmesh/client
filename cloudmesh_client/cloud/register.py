@@ -1,17 +1,13 @@
 from __future__ import print_function
 import textwrap
 import os
+from urlparse import urlparse
 
 from cloudmesh_base.Shell import Shell
-from cloudmesh_base.util import yn_choice
 from builtins import input
-
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import ConfigDict, Config, path_expand
+from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
-from cloudmesh_base.util import banner
-
-from urlparse import urlparse
 
 
 class CloudRegister(object):
@@ -165,8 +161,6 @@ class CloudRegister(object):
         host_spec = config["cloudmesh.clouds." + host]
         host_credentials = host_spec["credentials"]
 
-        from pprint import pprint
-
         if 'cm_openrc' in host_spec:
             Console.ok("looking for openrc")
         else:
@@ -289,8 +283,7 @@ class CloudRegister(object):
             credentials = clouds[cloud]["credentials"]
 
             for key in credentials:
-                if key not in ["OS_VERSION", "OS_AUTH_URL"] and \
-                                credentials[key] == "TBD":
+                if key not in ["OS_VERSION", "OS_AUTH_URL"] and credentials[key] == "TBD":
                     result = raw_input("Please enter {:}[{:}]:"
                                        .format(key, credentials[key])) or \
                              credentials[key]

@@ -211,7 +211,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     import traceback
                     print(traceback.format_exc())
                     print (e)
-                    Console.error("Problem listing keys from database for user: " + username)
+                    Console.error("Problem listing keys from database")
 
         elif arguments['get']:
 
@@ -325,6 +325,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             # print("default")
 
             if arguments['KEYNAME']:
+                keyname = None
                 try:
                     keyname = arguments['KEYNAME']
                     sshdb = SSHKeyDBManager()
@@ -340,6 +341,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Setting default for key {:} failed.".format(keyname))
 
             elif arguments['--select']:
+                keyname = None
                 try:
                     sshdb = SSHKeyDBManager()
                     select = sshdb.select()
@@ -391,6 +393,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print (e)
                     Console.error("Problem deleting keys")
             elif arguments['--select']:
+                keyname = None
                 sshdb = SSHKeyDBManager()
                 select = sshdb.select()
                 if select != 'q':
@@ -406,6 +409,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         print (e)
                         Console.error("Problem deleting the key `{:}`".format(keyname))
             else:
+                keyname = None
                 try:
                     keyname = arguments['KEYNAME']
                     sshdb = SSHKeyDBManager()

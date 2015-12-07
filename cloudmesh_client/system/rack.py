@@ -9,6 +9,7 @@ from jinja2 import Template
 class Rack(object):
     def __init__(self, servers):
         self.servers = servers
+        self.diag = NOne
 
     def set_template(self, template):
 

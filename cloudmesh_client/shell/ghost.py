@@ -397,6 +397,7 @@ def main():
     #     cmd.do_exec(script_file)
 
     if len(arg['COMMAND']) > 0:
+        user_cmd = None
         try:
             user_cmd = " ".join(arg['COMMAND'])
             if debug:

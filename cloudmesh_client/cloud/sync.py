@@ -49,7 +49,7 @@ class Sync(object):
         # rsync has issues with latest win10
         if 'windows' in os_type:
             ppk_file = ''
-            while (ppk_file == ''):
+            while ppk_file == '':
                 ppk_file = raw_input("Please enter putty private key(ppk) "
                                      "file path: ")
                 # expand the path
@@ -66,7 +66,7 @@ class Sync(object):
                 hostname = cls.get_hostname(host)
                 user = cls.get_hostuser(host)
 
-                #Console.msg("Syncing local dir [{}] with remote host [{}]"
+                # Console.msg("Syncing local dir [{}] with remote host [{}]"
                 #            .format(localdir, user + "@" + hostname))
 
                 if operation == "put":

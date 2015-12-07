@@ -282,8 +282,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and \
-                            instance_id is not None:
+            elif floating_ip is None and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Remove floating ip allocated to vm

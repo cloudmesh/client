@@ -378,7 +378,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             force = arguments['--force']
             cloud = arguments['CLOUD']
 
-
             if cloud is None:
                 clouds = ["juno", "kilo"]
             else:

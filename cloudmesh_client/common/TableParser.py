@@ -56,6 +56,7 @@ class TableParser(object):
         :param comment_chars: lines starting with this chars will be ignored
         :return:
         """
+        self.data = None
         self.output = None
         self.with_header = header
         self.change = change
@@ -65,6 +66,7 @@ class TableParser(object):
         self.strip_seperator = strip_seperator
         self.seperator = seperator
         self.comment_chars = comment_chars
+
 
     def clean(self, str):
         """

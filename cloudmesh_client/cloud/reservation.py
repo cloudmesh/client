@@ -23,11 +23,11 @@ class Reservation(ListResource):
         TODO('implement')
 
     def add_from_file(self, filename):
-        '''
+        """
 
         :param filename:
         :return:
-        '''
+        """
         TODO.implement()
 
     def add(self,
@@ -103,11 +103,11 @@ class Reservation(ListResource):
             result = self.db.find("RESERVATION", output="object", **args).first()
 
     def delete_from_file(self, filename):
-        '''
+        """
 
         :param filename:
         :return:
-        '''
+        """
         TODO.implement()
 
     def suspend(self, names=None):

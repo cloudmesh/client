@@ -25,6 +25,7 @@ class CometPluginCommand(object):
     pass
 
 
+# noinspection PySingleQuotedDocstring
 def command(func):
     '''
     A decorator to create a function with docopt arguments.
