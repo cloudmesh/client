@@ -537,39 +537,40 @@ class BATCHJOB(CloudmeshMixin, db.Base):
     todo: check if its global or general
     """
     # name defined in mixin
-    value = Column(String)
     type = Column(String, default="string")
+    dir = Column(String, default="string")
+    nodes = Column(String, default="string")
+    output_file = Column(String, default="string")
+    queue = Column(String, default="string")
+    time = Column(String, default="string")
+    cluster = Column(String, default="string")
+    sbatch_file_path = Column(String, default="string")
+    cmd = Column(String, default="string")
+    time = Column(String, default="string")
 
     # cloud = Column(String)
 
     def __init__(self,
                  name,
-                 value,
                  type="string",
                  user=None,
-                 cluster=None,
-                 id=None,
-                 queue=None,
-                 dir=None,
-                 script=None,
-                 output_file=None,
-                 username=None,
+                 **kwargs
                  ):
         self.label = name
         self.type = type
         self.name = name
         self.user = user
-        self.value = value
 
-        self.cluster = cluster
-        self.id = id
-        self.queue = queue
-        self.dir = dir
-        self.script = script
-        self.output_file = output_file
-        self.username = username
+        self.dir = kwargs.get('dir')
+        self.nodes = kwargs.get('nodes')
+        self.output_file = kwargs.get('output_file')
+        self.queue = kwargs.get('queue')
+        self.time = kwargs.get('time')
+        self.cluster = kwargs.get('cluster')
+        self.sbatch_file_path = kwargs.get('sbatch_file_path')
+        self.cmd = kwargs.get('cmd')
+        self.time = kwargs.get('time')
         self.kind = self.__tablename__
-
 
 def tables():
     """

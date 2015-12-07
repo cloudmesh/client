@@ -7,6 +7,7 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
 
 
@@ -319,6 +320,7 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # add data to database
         #
+        cls.add_db(**data)
 
         return data
 
@@ -342,6 +344,22 @@ class BatchProviderSLURM(BatchProviderBase):
             return "Job {} killed successfully".format(job)
         except Exception as ex:
             return ex
+
+    @classmethod
+    def add_db(cls, **kwargs):
+        cm = CloudmeshDatabase()
+
+        # replace options with correct values
+        kwargs['dir'] = kwargs.pop('-D')
+        kwargs['nodes'] = kwargs.pop('-N')
+        kwargs['output_file'] = kwargs.pop('-o')
+        kwargs['output_file'] = kwargs.pop('-t')
+        kwargs['name'] = kwargs.get('script_name')
+        pprint(kwargs)
+
+        db_obj = {0: {"batchjob": kwargs}}
+        cm.add_obj(db_obj)
+        cm.save()
 
 
 if __name__ == "__main__":
