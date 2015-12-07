@@ -16,6 +16,7 @@ d:
 	pip uninstall -y cloudmesh_client
 	pip uninstall -y cloudmesh_client
 	python setup.py install; python cloudmesh_client/db/CloudmeshDatabase.py
+	cm hpc run uname --cluster=india
 
 test:
 	echo $(UNAME)

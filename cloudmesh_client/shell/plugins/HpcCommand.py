@@ -1,6 +1,6 @@
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_client.cloud.hpc.BatchProviderSLURM import BatchProviderSLURM as Hpc
+from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 from cloudmesh_client.cloud.default import Default
 
 from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
@@ -101,25 +101,29 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         format = arguments['--format']
         cluster = arguments['--cluster'] or Default.get_cluster()
 
+        print ("CCC", cluster)
+
         if cluster is None:
             Console.error("Default cluster doesn't exist")
             return
 
+        batch = BatchProvider(cluster)
+
         if arguments["queue"]:
             name = arguments['--job']
-            result = Hpc.queue(cluster, format=format, job=name)
+            result = batch.queue(cluster, format=format, job=name)
             Console.msg(result)
 
         elif arguments["info"]:
-            Console.msg(Hpc.info(cluster, format))
+            Console.msg(batch.info(cluster, format))
 
         elif arguments["delete"]:
             job = arguments['--job']
-            Console.ok(Hpc.kill(cluster, job))
+            Console.ok(batch.kill(cluster, job))
 
         elif arguments["status"]:
             name = arguments['--job']
-            result = Hpc.queue(cluster, format=format, job=name)
+            result = batch.queue(cluster, format=format, job=name)
             Console.msg(result)
 
         elif arguments["run"]:
@@ -135,7 +139,8 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                 '-t': arguments['--t'],
                 '-N': arguments['--N']
             }
-            result = Hpc.run(cluster, script, **arg_dict)
+
+            result = batch.run(cluster, script, **arg_dict)
             Console.ok("Started batch job {id} on {cluster}".format(**result))
 
         elif arguments["test"]:
@@ -144,6 +149,6 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                 time = '00:00:' + time_secs
             else:
                 time = '00:00:10'  # give a  default time of 10 secs
-            print(Hpc.test(cluster, time))
+            print(batch.test(cluster, time))
 
         return ""

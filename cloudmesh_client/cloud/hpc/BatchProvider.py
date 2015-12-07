@@ -1,25 +1,21 @@
-from cloudmesh_client.cloud.hpc.BatchProviderSLURM import BatchProviderSLURM
+
+from cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM import BatchProviderSLURM
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
+def BatchProvider(name, user=None):
 
-class BatchProvider(object):
+    try:
+        d = ConfigDict("cloudmesh.yaml")
+        details = d["cloudmesh"]["hpc"]["clusters"][name]
 
-    def __init__(self, name, user=None, flat=True):
-        super(BatchProvider, self).__init__(name)
+        print ("DDDD", details)
 
-        try:
-            d = ConfigDict("cloudmesh.yaml")
-            details = d["cloudmesh"]["hpc"]["clusters"][name]
+        if details["cm_type"].lower() in ["slurm"]:
+            return BatchProviderSLURM()
+        else:
+            ValueError("batch  provider not supported.")
 
-            if details["cm_type"] == "slurm":
-                self.provider = BatchProviderSLURM(name)
-                self.provider_class = BatchProviderSLURM
-
-            else:
-                ValueError("batch  provider not yet supported")
-
-        except Exception, e:
-            import traceback
-            print(traceback.format_exc())
-            print(e)
-
+    except Exception, e:
+        import traceback
+        print(traceback.format_exc())
+        print(e)

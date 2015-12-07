@@ -1,4 +1,5 @@
 from cloudmesh_client.cloud.counter import Counter
+from cloudmesh_base.Shell import Shell
 
 class BatchProviderBase(object):
 
@@ -37,3 +38,47 @@ class BatchProviderBase(object):
             "prefix": cls.prefix
         }
         return "{prefix}-{conunter}".format(**data)
+
+    @classmethod
+    def create_remote_dir(cls, cluster, dir):
+        Shell.ssh(cluster, "mkdir -p {dir}".format(dir=dir))
+
+    @classmethod
+    def read_config(cls, cluster):
+        """
+        reads in the cluster config from the yaml file and returns the specific cluster informationt
+
+        newhpc:
+            experiment:
+                    name: gregor-00000
+            active:
+            - comet
+            - juliet
+            clusters:
+                india:
+                    cm_heading: India HPC CLuster
+                    cm_host: india
+                    cm_label: indiahpc
+                    cm_type: slurm
+                    cm_type_version: 14.11.9
+                    credentials:
+                        username: gregor
+                        project: None
+                    default:
+                        queue: delta
+                        experiment_dir: ./experiment
+
+        :param cls:
+        :param cluster:
+        :return:
+        """
+
+        try:
+            config = cls.config
+        except:
+            cls.config = None
+        if cls.config is None:
+            cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.hpc"]
+            pprint(cls.config)
+            cls.experiment_name_format = cls.config["experiment"]["name"]
+        return cls.config["clusters"][cluster]
