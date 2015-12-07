@@ -72,28 +72,39 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
                           "or provide it via the --cloud=CLOUDNAME argument.")
             return
 
+        # Get the arguments
+        group = arguments["--group"] or \
+                Default.get("group", cloudname)
+
+        localdir = arguments["LOCALDIR"]
+        remotedir = arguments["REMOTEDIR"]
+
         if arguments["put"]:
-            # Get the arguments
-            group = arguments["--group"] or \
-                    Default.get("group", cloudname)
-
-            localdir = arguments["LOCALDIR"]
-            remotedir = arguments["REMOTEDIR"]
-
             # validate local directory exists
             if localdir is None:
                 Console.error("Please provide the [LOCALDIR] argument.")
                 return ""
 
-            result = Sync.sync_put(cloudname=cloudname,
-                                   localdir=localdir,
-                                   remotedir=remotedir)
+            result = Sync.sync(cloudname=cloudname,
+                               localdir=localdir,
+                               remotedir=remotedir,
+                               operation="put")
 
             if result is not None:
                 Console.ok("Successuly synced local and remote directories.")
 
         elif arguments["get"]:
-            TODO.implement("Yet to implement sync-get command!")
-            pass
+            # validate local directory exists
+            if localdir is None:
+                Console.error("Please provide the [LOCALDIR] argument.")
+                return ""
+
+            result = Sync.sync(cloudname=cloudname,
+                               localdir=localdir,
+                               remotedir=remotedir,
+                               operation="get")
+
+            if result is not None:
+                Console.ok("Successuly synced local and remote directories.")
 
         return ""

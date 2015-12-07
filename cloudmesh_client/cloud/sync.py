@@ -9,9 +9,17 @@ from cloudmesh_base.Shell import Shell
 
 
 class Sync(object):
-
     @classmethod
-    def sync_put(cls, cloudname, localdir, remotedir):
+    def sync(cls, cloudname, localdir, remotedir, operation=None):
+        """
+        Syncs a local directory with a remote directory.
+        Either from local to remote OR vice-versa
+        :param cloudname:
+        :param localdir:
+        :param remotedir:
+        :param operation: get/put
+        :return:
+        """
         # Get the operating system
         os_type = cls.operating_system()
 
@@ -20,18 +28,28 @@ class Sync(object):
 
         # check if local directory exists
         if not os.path.exists(localdir):
-            Console.error("The local directory [{}] does not exist."
-                          .format(localdir))
-            return None
+            if operation == "put":
+                Console.error("The local directory [{}] does not exist."
+                              .format(localdir))
+                return None
+            elif operation == "get":
+                # for receiving, create local dir
+                os.mkdir(localdir)
+                Console.msg("Created local directory [{}] for sync."
+                            .format(localdir))
+
         # sync entire local directory
         elif os.path.isdir(localdir):
-            localdir = localdir + "/*"
+            if operation == "put":
+                localdir += "/*"
+            elif operation == "get":
+                localdir += "/"
 
         # for windows use pscp
         # rsync has issues with latest win10
         if 'windows' in os_type:
             ppk_file = ''
-            while(ppk_file == ''):
+            while (ppk_file == ''):
                 ppk_file = raw_input("Please enter putty private key(ppk) "
                                      "file path: ")
                 # expand the path
@@ -48,18 +66,30 @@ class Sync(object):
                 hostname = cls.get_hostname(host)
                 user = cls.get_hostuser(host)
 
-                Console.msg("Syncing local dir [{}] with remote host [{}]"
-                            .format(localdir, user + "@" + hostname))
+                #Console.msg("Syncing local dir [{}] with remote host [{}]"
+                #            .format(localdir, user + "@" + hostname))
 
-                # Construct the arguments
-                args = [
-                    "-i",
-                    ppk_file,
-                    localdir,
-                    user + "@" + hostname + ":" + remotedir
-                ]
+                if operation == "put":
+                    # Construct the arguments
+                    # local dir comes first (send)
+                    args = [
+                        "-i",
+                        ppk_file,
+                        localdir,
+                        user + "@" + hostname + ":" + remotedir
+                    ]
+                elif operation == "get":
+                    # Construct the arguments
+                    # remote dir comes first (receive)
+                    args = [
+                        "-i",
+                        ppk_file,
+                        user + "@" + hostname + ":" + remotedir,
+                        localdir
+                    ]
 
                 try:
+                    # Convert command to string
                     cmd = " ".join(["pscp"] + args)
                     result = os.system(cmd)
                     if result != 0:
@@ -78,13 +108,19 @@ class Sync(object):
                               .format(cloudname))
                 return None
             else:
-                args = [
-                    localdir,
-                    host + ":" + remotedir
-                ]
-
+                if operation == "put":
+                    args = [
+                        localdir,
+                        host + ":" + remotedir
+                    ]
+                elif operation == "get":
+                    args = [
+                        host + ":" + remotedir,
+                        localdir
+                    ]
                 # call rsync
                 return Shell.rsync(args)
+
     @classmethod
     def operating_system(cls):
         return platform.system().lower()
