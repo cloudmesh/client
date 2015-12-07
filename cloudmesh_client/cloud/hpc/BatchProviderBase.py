@@ -1,5 +1,6 @@
 from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class BatchProviderBase(object):
 
@@ -79,6 +80,5 @@ class BatchProviderBase(object):
             cls.config = None
         if cls.config is None:
             cls.config = ConfigDict("cloudmesh.yaml")["cloudmesh.hpc"]
-            pprint(cls.config)
             cls.experiment_name_format = cls.config["experiment"]["name"]
         return cls.config["clusters"][cluster]

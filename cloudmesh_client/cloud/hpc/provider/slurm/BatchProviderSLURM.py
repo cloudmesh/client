@@ -148,9 +148,12 @@ class BatchProviderSLURM(BatchProviderBase):
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
+
+        data["nodes"] = 1
+        data["tasks_per_node"] = 1
         # overwrite defaults
-        option_mapping = {'-t': '1',
-                          '-N': '1',
+        option_mapping = {'-t': '{tasks_per_node}'.format(**data),
+                          '-N': '{nodes}'.format(**data),
                           '-p': '{queue}'.format(**data),
                           '-o': '{script_output}'.format(**data),
                           '-D': '{remote_experiment_dir}'.format(**data)}

@@ -37,10 +37,14 @@ def set_os_environ(cloudname):
 #
 
 class CloudProviderOpenstackAPI(CloudProviderBase):
+
+    kind = "openstack"
+
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.initialize(cloud_name, cloud_details)
         self.flat = flat
+        self.kind = "openstack"
 
     def _to_dict(self, openstack_result):
         d = {}
