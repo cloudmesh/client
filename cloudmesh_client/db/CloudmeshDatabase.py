@@ -12,7 +12,6 @@ from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB
 
 from cloudmesh_client.common.todo import TODO
-# from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Username
@@ -159,7 +158,7 @@ class CloudmeshDatabase(object):
                         self.save()
                     return True
             elif kind in ["batchjob"]:
-
+                from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
                 provider = BatchProvider(name).provider
                 vms = provider.list_job(name)
                 for vm in vms.values():
@@ -327,7 +326,7 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        self.find(kind, output="object", name=args["name"]).update(kwargs)
+        self.find(kind, output="object", name=kwargs["name"]).update(kwargs)
         self.save()
 
 
