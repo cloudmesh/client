@@ -2,6 +2,7 @@ from __future__ import print_function
 
 from cloudmesh_base.logger import LOGGER
 from cloudmesh_base.Shell import Shell
+from cloudmesh_client.cloud.sync import Sync
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
@@ -61,7 +62,8 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
                 --cloud=CLOUD   Sync with cloud
 
         """
-        cloudname = arguments["--cloud"] or Default.get_cloud()
+        cloudname = arguments["--cloud"] or \
+                    Default.get_cloud()
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"
@@ -71,9 +73,25 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
             return
 
         if arguments["put"]:
-            TODO.implement("Yet to implement sync-put command!")
-            Shell.rsync()
-            pass
+            # Get the arguments
+            group = arguments["--group"] or \
+                    Default.get("group", cloudname)
+
+            localdir = arguments["LOCALDIR"]
+            remotedir = arguments["REMOTEDIR"]
+
+            # validate local directory exists
+            if localdir is None:
+                Console.error("Please provide the [LOCALDIR] argument.")
+                return ""
+
+            result = Sync.sync_put(cloudname=cloudname,
+                                   localdir=localdir,
+                                   remotedir=remotedir)
+
+            if result is not None:
+                Console.ok("Successuly synced local and remote directories.")
+
         elif arguments["get"]:
             TODO.implement("Yet to implement sync-get command!")
             pass
