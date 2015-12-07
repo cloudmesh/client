@@ -159,6 +159,7 @@ class CloudRegister(object):
         :param force:
         :return:
         """
+
         config = ConfigDict("cloudmesh.yaml")
 
         host_spec = config["cloudmesh.clouds." + host]

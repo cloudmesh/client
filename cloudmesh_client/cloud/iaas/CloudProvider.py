@@ -1,7 +1,7 @@
 from novaclient import client
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
+from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import \
     CloudProviderOpenstackAPI
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import os

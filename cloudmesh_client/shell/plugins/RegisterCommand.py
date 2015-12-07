@@ -45,7 +45,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register check [--yaml=FILENAME]
               register test [--yaml=FILENAME]
               register json HOST
-              register remote CLOUD [--force]
+              register remote [CLOUD] [--force]
               register india [--force]
               register CLOUD CERT [--force]
               register CLOUD --dir=DIR
@@ -377,8 +377,16 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             force = arguments['--force']
             cloud = arguments['CLOUD']
-            CloudRegister.remote(cloud, force)
-            export(cloud, "table")
+
+
+            if cloud is None:
+                clouds = ["juno", "kilo"]
+            else:
+                clouds = [cloud]
+
+            for cloud in clouds:
+                CloudRegister.remote(cloud, force)
+                export(cloud, "table")
             return ""
 
         elif arguments['CLOUD']:
