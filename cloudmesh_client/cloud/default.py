@@ -6,6 +6,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from pprint import pprint
 
 
+# noinspection PyBroadException
 class Default(ListResource):
     cm = CloudmeshDatabase()
     # Create a static variable so that db is initialized once in a transaction

@@ -7,6 +7,7 @@ from os.path import basename
 from cloudmesh_client.common.ConfigDict import Config
 
 
+# noinspection PyBroadException
 class SSHkey(object):
     def __init__(self, file_path=None, keyname=None):
         self.read(file_path, keyname)

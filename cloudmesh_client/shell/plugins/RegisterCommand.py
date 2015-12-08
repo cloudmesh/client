@@ -16,6 +16,7 @@ from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
+# noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
     topics = {"register": "cloud"}
 

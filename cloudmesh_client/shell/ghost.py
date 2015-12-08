@@ -56,6 +56,7 @@ class ConsoleClasses(object):
 # console = ConsoleFactory(PluginCommand)
 
 
+# noinspection PyBroadException
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):
@@ -320,6 +321,7 @@ def simple():
     con.cmdloop()
 
 
+# noinspection PyBroadException
 def main():
     """cm.
 

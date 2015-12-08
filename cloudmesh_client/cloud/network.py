@@ -11,6 +11,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 
+# noinspection PyBroadException
 class Network(ListResource):
     @classmethod
     def get_fixed_ip(cls, cloudname, fixed_ip_addr):

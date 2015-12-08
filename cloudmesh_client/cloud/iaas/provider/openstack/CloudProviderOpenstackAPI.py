@@ -398,8 +398,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             return self.provider.servers.find(name=vm_name)._info
 
     def attributes(self, kind):
-        header = None
-        order = None
 
         layout = {
             'flavor': {

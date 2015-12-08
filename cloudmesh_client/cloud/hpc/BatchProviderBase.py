@@ -3,7 +3,7 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-# noinspection PyUnusedLocal
+# noinspection PyUnusedLocal,PyBroadException
 class BatchProviderBase(object):
     prefix = "job"
     jobid = 0

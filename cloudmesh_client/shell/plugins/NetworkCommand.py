@@ -11,6 +11,7 @@ from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
+# noinspection PyBroadException
 class NetworkCommand(PluginCommand, CloudPluginCommand):
     topics = {"network": "cloud"}
 
@@ -438,7 +439,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 Console.ok("Complete.")
             else:
                 Console.error("{:} failed".format(msg))
-        except Exception, e:
+        except Exception:
             Console.error("Problem running database refresh")
 
 

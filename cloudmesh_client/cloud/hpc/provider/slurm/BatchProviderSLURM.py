@@ -11,6 +11,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
 
 
+# noinspection PyBroadException
 class BatchProviderSLURM(BatchProviderBase):
     kind = "slurm"
 

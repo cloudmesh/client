@@ -7,7 +7,7 @@ from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
 
 
-# noinspection PyUnusedLocal
+# noinspection PyUnusedLocal,PyBroadException,PyBroadException
 class OpenCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"open": "shell"}
 

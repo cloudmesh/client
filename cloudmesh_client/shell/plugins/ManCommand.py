@@ -5,6 +5,7 @@ from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
 
 
+# noinspection PyBroadException
 class ManCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"man": "shell"}
 

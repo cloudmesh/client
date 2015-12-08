@@ -12,6 +12,7 @@ class AuthenticationException(Exception):
     pass
 
 
+# noinspection PyBroadException
 class Authenticator(object):
     base_uri = None
     token = None

@@ -10,6 +10,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
+# noinspection PyBroadException,PyBroadException
 class SelectCommand(PluginCommand, CloudPluginCommand):
     topics = {"select": "cloud"}
 

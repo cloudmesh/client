@@ -9,6 +9,7 @@ from cloudmesh_base.locations import config_file
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
+# noinspection PyBroadException
 class InventoryCommand(PluginCommand, CloudPluginCommand):
     topics = {"inventory": "system"}
 

@@ -16,7 +16,7 @@ from pprint import pprint
 """
 
 
-# noinspection PyUnusedLocal
+# noinspection PyUnusedLocal,PyBroadException
 class WhoCommand(PluginCommand):
     topics = {"Who ": "system"}
 

@@ -84,6 +84,7 @@ def dict_printer(d,
         return "UNKOWN FORMAT. Please use table, csv, json, yaml, dict."
 
 
+# noinspection PyBroadException
 def dict_csv_printer(d,
                      order=None,
                      header=None,
@@ -107,6 +108,7 @@ def dict_csv_printer(d,
     def _keys():
         return d[first_element].keys()
 
+    # noinspection PyBroadException
     def _get(element, key):
         try:
             tmp = str(d[element][key])
@@ -157,6 +159,7 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True,
     def _keys():
         return d[first_element].keys()
 
+    # noinspection PyBroadException
     def _get(item, key):
         try:
             tmp = str(d[item][key])

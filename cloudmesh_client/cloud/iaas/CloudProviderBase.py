@@ -6,6 +6,7 @@ from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.shell.console import Console
 
 
+# noinspection PyBroadException
 class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
 
@@ -154,7 +155,7 @@ class CloudProviderBase(object):
         raise ValueError(inspect.stack()[0][3] + ": Not implemented yet.")
         return None
 
-    def list_vm(self, cloudname, *kwargs):
+    def list_vm(self, cloudname, **kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -182,7 +183,7 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    def refresh_vm(self, cloudname, identifier, *kwargs):
+    def refresh_vm(self, cloudname, identifier, **kwargs):
         """
         Listing of vm instances
         :return:
@@ -219,7 +220,7 @@ class CloudProviderBase(object):
     # IMAGE
     # #########################
 
-    def list_image(self, cloudname, *kwargs):
+    def list_image(self, cloudname, **kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -242,7 +243,7 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
-    def refresh_image(self, cloudname, identifier, *kwargs):
+    def refresh_image(self, cloudname, identifier, **kwargs):
         """
         Listing of vm instances
         :return:
@@ -255,7 +256,7 @@ class CloudProviderBase(object):
     # FLAVOR
     # #########################
 
-    def list_flavor(self, cloudname, *kwargs):
+    def list_flavor(self, cloudname, **kwargs):
         """
         returns the objects in json format
         :param cloudname:
@@ -278,7 +279,8 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    def refresh_flavor(self, cloudname, identifier, *kwargs):
+    # noinspection PyUnusedLocal
+    def refresh_flavor(self, cloudname, identifier, **kwargs):
         """
         Listing of vm instances
         :return:

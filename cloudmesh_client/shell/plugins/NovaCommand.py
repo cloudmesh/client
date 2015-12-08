@@ -16,6 +16,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 log = LOGGER(__file__)
 
 
+# noinspection PyBroadException
 class NovaCommand (PluginCommand, CloudPluginCommand):
 
     topics = {"nova": "cloud"}

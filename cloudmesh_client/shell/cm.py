@@ -82,6 +82,7 @@ class ConsoleClasses(object):
 # console = ConsoleFactory(PluginCommand)
 
 
+# noinspection PyBroadException
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):
@@ -311,7 +312,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def register_command_topic(self, topic, command_name):
         try:
-            a = self.command_topics[topic]
+            tmp = self.command_topics[topic]
         except:
             self.command_topics[topic] = []
         self.command_topics[topic].append(command_name)
@@ -441,6 +442,7 @@ def simple():
     con.cmdloop()
 
 
+# noinspection PyBroadException
 def main():
     """cm.
 
@@ -529,7 +531,7 @@ def main():
         cmd.do_exec(script_file)
 
     if len(arg['COMMAND']) > 0:
-        usr_cmd = None
+        user_cmd = None
         try:
             user_cmd = " ".join(arg['COMMAND'])
             if debug:

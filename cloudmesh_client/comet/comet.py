@@ -20,6 +20,7 @@ from cloudmesh_base.util import banner
 requests.packages.urllib3.disable_warnings()
 
 
+# noinspection PyBroadException,PyBroadException
 class Comet(object):
     rest_version = "/v1"
     base_uri = "https://comet-nucleus.sdsc.edu/nucleus"
@@ -410,15 +411,15 @@ class Comet(object):
 
     @staticmethod
     def console_url(clusterid, nodeid=None):
-        returl = None
-        r = None
+        return_url = None
         if not nodeid:
             url = Comet.url("cluster/{}/frontend/console/".format(clusterid))
         else:
             url = Comet.url("cluster/{}/compute/{}/console/".format(clusterid, nodeid))
-        returl = Comet.get(url, allow_redirects=False)
-        # print ("KKK", returl)
+        return_url = Comet.get(url, allow_redirects=False)
+        # print ("KKK", return_url)
         '''
+        r = None
         if "USERPASS" == Comet.auth_provider:
             r = requests.get(url,
                              headers=Comet.AUTH_HEADER,
@@ -439,9 +440,9 @@ class Comet(object):
         # print (r.headers)
         # print (r.text)
         if r and 303 == r.status_code:
-            returl = r.headers["Location"]
+            return_url = r.headers["Location"]
         '''
-        return returl
+        return return_url
 
     @staticmethod
     def console(clusterid, nodeid=None):
