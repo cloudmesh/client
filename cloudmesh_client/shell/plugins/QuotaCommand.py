@@ -14,6 +14,7 @@ class QuotaCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command quota")
 
+    # noinspection PyUnusedLocal
     @command
     def do_quota(self, args, arguments):
         """

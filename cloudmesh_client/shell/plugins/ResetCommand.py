@@ -17,6 +17,7 @@ class ResetCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command reset")
 
+    # noinspection PyUnusedLocal
     @command
     def do_reset(self, args, arguments):
         """
@@ -44,7 +45,3 @@ class ResetCommand(PluginCommand, CloudPluginCommand):
 
         return ""
 
-
-if __name__ == '__main__':
-    command = ResetCommand()
-    command.do_reset()

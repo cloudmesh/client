@@ -19,6 +19,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command network")
 
+    # noinspection PyUnusedLocal
     @command
     def do_network(self, args, arguments):
         """

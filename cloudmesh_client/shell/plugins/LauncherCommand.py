@@ -14,6 +14,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         if self.context.debug:
             print("init command launcher")
 
+    # noinspection PyUnusedLocal
     @command
     def do_launcher(self, args, arguments):
         """

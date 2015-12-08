@@ -15,6 +15,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         if self.context.debug:
             print("init hpc command")
 
+    # noinspection PyUnusedLocal
     @command
     def do_hpc(self, args, arguments):
         """

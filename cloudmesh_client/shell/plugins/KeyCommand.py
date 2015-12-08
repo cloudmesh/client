@@ -27,6 +27,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command key")
 
+    # noinspection PyUnusedLocal
     @command
     def do_key(self, args, arguments):
         """

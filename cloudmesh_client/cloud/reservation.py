@@ -20,7 +20,7 @@ class Reservation(ListResource):
         :param project:
         :return:
         """
-        TODO('implement')
+        TODO.implement()
 
     def add_from_file(self, filename):
         """

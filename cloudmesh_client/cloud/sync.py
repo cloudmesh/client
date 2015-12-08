@@ -139,7 +139,7 @@ class Sync(object):
         clouds = config["cloudmesh"]["clouds"]
 
         # check if cloud exists in yaml
-        if clouds[cloudname] != None:
+        if clouds[cloudname] is not None:
             # get the host for cloud
             hostname = clouds[cloudname]["cm_host"]
             return hostname

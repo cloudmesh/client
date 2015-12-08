@@ -18,6 +18,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command select")
 
+    # noinspection PyUnusedLocal
     @command
     def do_select(self, args, arguments):
         """

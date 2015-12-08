@@ -21,6 +21,7 @@ class InventoryCommand(PluginCommand, CloudPluginCommand):
         # TODO: add columns
         # TODO: ATTRIBUTE=VALUE
 
+    # noinspection PyUnusedLocal
     @command
     def do_inventory(self, args, arguments):
         """
@@ -208,7 +209,3 @@ class InventoryCommand(PluginCommand, CloudPluginCommand):
                 Console.error("The source {:} does not exist".format(source))
         return ""
 
-
-if __name__ == '__main__':
-    command = InventoryCommand()
-    command.do_system("iu.edu")

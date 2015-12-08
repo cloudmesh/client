@@ -31,6 +31,7 @@ class ManCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
         h = textwrap.dedent(h).replace("\n", "\n    ")
         print h
 
+    # noinspection PyUnusedLocal
     @command
     def do_man(self, args, arguments):
         """

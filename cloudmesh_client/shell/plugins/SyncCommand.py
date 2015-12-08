@@ -22,6 +22,7 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command sync")
 
+    # noinspection PyUnusedLocal
     @command
     def do_rsync(self, args, arguments):
         """
@@ -41,6 +42,7 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
         """
         return "Not implemented yet."
 
+    # noinspection PyUnusedLocal
     @command
     def do_sync(self, args, arguments):
         """

@@ -13,6 +13,7 @@ class ColorCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
         if self.context.debug:
             print("init command color")
 
+    # noinspection PyUnusedLocal
     @command
     def do_color(self, args, arguments):
         """

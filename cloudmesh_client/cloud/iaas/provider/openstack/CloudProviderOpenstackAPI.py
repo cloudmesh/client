@@ -352,6 +352,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         return floating_ip.ip
 
     # TODO: define this
+    # noinspection PyProtectedMember,PyProtectedMember
     def get_image(self, **kwargs):
 
         """
@@ -371,6 +372,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         except ValueError:
             return False
 
+    # noinspection PyProtectedMember
     def get_flavor(self, **kwargs):
         """
         finds the flavor based on a query
@@ -383,6 +385,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             del kwargs['id']
         return self.provider.flavors.find(**kwargs)._info
 
+    # noinspection PyProtectedMember,PyProtectedMember
     def get_vm(self, **kwargs):
         """
         finds the flavor based on a query

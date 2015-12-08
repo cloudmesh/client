@@ -14,6 +14,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command secgroup")
 
+    # noinspection PyUnusedLocal
     @command
     def do_secgroup(self, args, arguments):
         """

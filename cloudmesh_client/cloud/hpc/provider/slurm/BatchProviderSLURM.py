@@ -140,7 +140,9 @@ class BatchProviderSLURM(BatchProviderBase):
             "username": config["credentials"]["username"],
             "remote_experiment_dir": config["default"]["experiment_dir"],
             "queue": config["default"]["queue"],
-            "id": None
+            "id": None,
+            "nodes": 1,
+            "tasks_per_node":  1,
         }
         data["script_base_name"] = "{username}-{count}".format(**data)
         data["script_name"] = "{username}-{count}.sh".format(**data)
@@ -148,8 +150,7 @@ class BatchProviderSLURM(BatchProviderBase):
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
-        data["nodes"] = 1
-        data["tasks_per_node"] = 1
+
         # overwrite defaults
         option_mapping = {'-t': '{tasks_per_node}'.format(**data),
                           '-N': '{nodes}'.format(**data),

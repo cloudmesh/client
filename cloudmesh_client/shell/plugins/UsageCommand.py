@@ -14,6 +14,7 @@ class UsageCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command list")
 
+    # noinspection PyUnusedLocal
     @command
     def do_usage(self, args, arguments):
         """

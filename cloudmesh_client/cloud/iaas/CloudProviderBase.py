@@ -126,7 +126,7 @@ class CloudProviderBase(object):
         """
         return self.resource("get", kind, cloudname, **kwargs)
 
-    def refresh(self, kind, cloudname, identifier, *kwargs):
+    def refresh(self, kind, cloudname, identifier, **kwargs):
         """
         Listing of vm instances
         :return:

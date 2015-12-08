@@ -13,6 +13,7 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command flavor")
 
+    # noinspection PyUnusedLocal
     @command
     def do_flavor(self, args, arguments):
         """

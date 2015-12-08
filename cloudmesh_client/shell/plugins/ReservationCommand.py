@@ -25,6 +25,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command reservation")
 
+    # noinspection PyUnusedLocal
     @command
     def do_reservation(self, args, arguments):
         """

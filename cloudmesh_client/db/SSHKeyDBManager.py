@@ -31,6 +31,7 @@ class SSHKeyDBManager(object):
         pprint(d)
 
         keyname = d['keyname']
+        # TODO: BUG value is not defined
         key_obj = KEY(name=keyname,
                       cloud="general",
                       user=d['user']

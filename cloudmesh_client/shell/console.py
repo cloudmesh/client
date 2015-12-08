@@ -87,7 +87,7 @@ class Console(object):
             return Console.theme['BLACK']
 
     @staticmethod
-    def _msg(message, width=90):
+    def msg(message, width=90):
         return textwrap.fill(message, width=width)
 
     @staticmethod
@@ -101,9 +101,9 @@ class Console(object):
         else:
             text = ""
         if Console.color:
-            Console._print('FAIL', text, message)
+            Console.cprint('FAIL', text, message)
         else:
-            print Console._msg(text + message)
+            print Console.msg(text + message)
 
         trace = traceback.format_exc().strip()
 
@@ -115,29 +115,29 @@ class Console(object):
     @staticmethod
     def info(message):
         if Console.color:
-            Console._print('OKBLUE', "INFO: ", message)
+            Console.cprint('OKBLUE', "INFO: ", message)
         else:
-            print Console._msg("INFO: " + message)
+            print Console.msg("INFO: " + message)
 
     @staticmethod
     def warning(message):
         if Console.color:
-            Console._print('WARNING', "WARNING: ", message)
+            Console.cprint('WARNING', "WARNING: ", message)
         else:
-            print Console._msg("WARNING: " + message)
+            print Console.msg("WARNING: " + message)
 
     @staticmethod
     def ok(message):
         if Console.color:
-            Console._print('OKGREEN', "", message)
+            Console.cprint('OKGREEN', "", message)
         else:
-            print Console._msg(message)
+            print Console.msg(message)
 
     @staticmethod
-    def _print(color, prefix, message):
+    def cprint(color, prefix, message):
         print (Console.theme[color] +
                prefix +
-               Console._msg(message) +
+               Console.msg(message) +
                Console.theme['ENDC'])
 
 

@@ -22,6 +22,7 @@ class PortalCommand(PluginCommand, CloudPluginCommand):
         print(data)
         return data
 
+    # noinspection PyUnusedLocal
     @command
     def do_portal(self, args, arguments):
         """

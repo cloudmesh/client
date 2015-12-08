@@ -25,6 +25,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print ("init command nova")
 
+    # noinspection PyUnusedLocal
     @command
     def do_nova(self, args, arguments):
         """

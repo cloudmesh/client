@@ -15,6 +15,7 @@ class ServerCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command server")
 
+    # noinspection PyUnusedLocal
     @command
     def do_server(self, args, arguments):
         """

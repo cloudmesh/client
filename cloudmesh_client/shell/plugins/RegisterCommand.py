@@ -25,6 +25,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command register")
 
+    # noinspection PyUnusedLocal
     @command
     def do_register(self, args, arguments):
         """

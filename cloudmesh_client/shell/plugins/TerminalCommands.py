@@ -21,8 +21,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
             # self.register_command_topic('cloud', 'admin')
 
+    # noinspection PyUnusedLocal
     @command
-    def do_clear(self, arg, arguments):
+    def do_clear(self, args, arguments):
         """
         Usage:
             clear
@@ -31,8 +32,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
         sys.stdout.write(os.popen('clear').read())
 
+    # noinspection PyUnusedLocal
     @command
-    def do_echo(self, arg, arguments):
+    def do_echo(self, args, arguments):
         """
         ::
 
@@ -54,9 +56,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        Console._print(color, "", i * " " + str((n - i) * c))
-        Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "", i * " " + str((n - i) * c))
+        Console.cprint(color, "", i * " " + str((n - i) * c))
+        Console.cprint(color, "", i * " " + c + " " + arguments['TEXT'])
+        Console.cprint(color, "", i * " " + str((n - i) * c))
 
         return ""
 
@@ -89,9 +91,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
-        Console._print(color, "", i * " " + str((n - i) * c))
-        Console._print(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console._print(color, "", i * " " + str((n - i) * c))
+        Console.cprint(color, "", i * " " + str((n - i) * c))
+        Console.cprint(color, "", i * " " + c + " " + arguments['TEXT'])
+        Console.cprint(color, "", i * " " + str((n - i) * c))
 
         return ""
 

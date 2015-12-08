@@ -33,24 +33,19 @@ filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
 create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
+# noinspection PyPep8
 from .plugins import *
-
 from cloudmesh_client.cloud.default import Default
-
 import cloudmesh_base
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
 import cloudmesh_base
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
-
 from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_base.ssh_config import ssh_config
-
 from pprint import pprint
-
 from cloudmesh_client.common.ConfigDict import dprint
-
 import cloudmesh_client.etc
 
 
@@ -215,6 +210,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 Default.set(default, value, cloud=cloud)
 
         for c in CloudmeshConsole.__bases__[1:]:
+            # noinspection PyArgumentList
             c.__init__(self, context)
 
     def preloop(self):
@@ -223,9 +219,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if self.context.splash:
             lines = textwrap.dedent(self.banner).split("\n")
             for line in lines:
-                # Console._print("BLUE", "", line)
+                # Console.cprint("BLUE", "", line)
                 print(line)
 
+    # noinspection PyUnusedLocal
     def do_EOF(self, args):
         """
         ::
@@ -238,6 +235,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         return True
 
+    # noinspection PyUnusedLocal
     def do_quit(self, args):
         """
         ::
@@ -255,6 +253,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     def emptyline(self):
         return
 
+    # noinspection PyUnusedLocal
     def do_context(self, args):
         """
         ::
@@ -271,6 +270,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         print(self.context.__dict__)
 
+    # noinspection PyUnusedLocal
     @command
     def do_version(self, args, arguments):
         """

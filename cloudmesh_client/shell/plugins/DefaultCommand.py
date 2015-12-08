@@ -13,6 +13,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         if self.context.debug:
             print("init command default")
 
+    # noinspection PyUnusedLocal
     @command
     def do_default(self, args, arguments):
         """

@@ -13,6 +13,7 @@ class cm_shell_status(PluginCommand, ShellPluginCommand):
     def activate_cm_shell_status(self):
         self.register_command_topic('cloud', 'status')
 
+    # noinspection PyUnusedLocal
     @command
     def do_status(self, args, arguments):
         """

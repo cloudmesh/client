@@ -60,6 +60,7 @@ class SSHKeyManager(object):
             options.append(line)
         return menu_return_num('KEYS', options)
 
+    # noinspection PyProtectedMember,PyProtectedMember,PyProtectedMember,PyProtectedMember,PyProtectedMember,PyProtectedMember,PyProtectedMember
     def get_from_yaml(self, filename=None, load_order=None):
         """
         :param filename: name of the yaml file
@@ -127,6 +128,7 @@ class SSHKeyManager(object):
             i = sshkey.comment
             self.__keys__[i] = sshkey.__key__
 
+    # noinspection PyProtectedMember
     def get_from_git(self, username):
         """
 

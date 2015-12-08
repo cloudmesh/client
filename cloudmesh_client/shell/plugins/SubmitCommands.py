@@ -12,6 +12,7 @@ class SubmitCommands(PluginCommand):
         if self.context.debug:
             print("init SubmitCommands")
 
+    # noinspection PyUnusedLocal
     @command
     def do_submit(self, args, arguments):
         """

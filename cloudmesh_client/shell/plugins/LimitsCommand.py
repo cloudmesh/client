@@ -14,6 +14,7 @@ class LimitsCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command limits")
 
+    # noinspection PyUnusedLocal
     @command
     def do_limits(self, args, arguments):
         """

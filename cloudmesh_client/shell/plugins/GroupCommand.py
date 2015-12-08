@@ -191,7 +191,3 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             return
 
 
-if __name__ == '__main__':
-    # TODO: do something useful here
-    command = GroupCommand()
-    command.do_group("list")

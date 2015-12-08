@@ -112,6 +112,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Default.set('default', 'default', 'general')
 
         for c in CloudmeshConsole.__bases__[1:]:
+            # noinspection PyArgumentList
             c.__init__(self, context)
 
     def preloop(self):
@@ -120,7 +121,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if self.context.splash:
             lines = textwrap.dedent(self.banner).split("\n")
             for line in lines:
-                # Console._print("BLUE", "", line)
+                # Console.cprint("BLUE", "", line)
                 print(line)
 
     def do_EOF(self, args):
@@ -152,6 +153,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     def emptyline(self):
         return
 
+    # noinspection PyUnusedLocal
     def do_context(self, args):
         """
         ::
@@ -168,6 +170,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         print(self.context.__dict__)
 
+    # noinspection PyUnusedLocal
     @command
     def do_version(self, args, arguments):
         """

@@ -12,6 +12,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command cloud")
 
+    # noinspection PyUnusedLocal
     @command
     def do_cloud(self, args, arguments):
         """
@@ -75,6 +76,3 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
         pass
 
 
-if __name__ == '__main__':
-    command = CloudCommand()
-    command.do_cloud("list")

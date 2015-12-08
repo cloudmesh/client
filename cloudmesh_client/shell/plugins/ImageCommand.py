@@ -14,6 +14,7 @@ class ImageCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command image")
 
+    # noinspection PyUnusedLocal
     @command
     def do_image(self, args, arguments):
         """
