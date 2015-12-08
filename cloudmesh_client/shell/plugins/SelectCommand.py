@@ -85,10 +85,3 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
         return ""
 
-
-if __name__ == '__main__':
-    command = cm_shell_select()
-    command.do_select("image")
-    command.do_select("flavor")
-    command.do_select("cloud")
-    command.do_select("key")

@@ -24,10 +24,10 @@ class Cluster(object):
 
         if r is not None:
             if 'error' in r:
-                Console.error("An error occurred: {}".format(r["error"]))
+                Console.error("An error occurred: {error}".format(**r))
                 raise ValueError("COMET Error")
             elif 'error' in r[0]:
-                Console.error("An error occurred: {}".format(r[0]["error"]))
+                Console.error("An error occurred: {error}".format(**r[0]))
                 raise ValueError("COMET Error")
 
             if format == "rest":
@@ -90,10 +90,10 @@ class Cluster(object):
 
         if r is not None:
             if 'error' in r:
-                Console.error("An error occurred: {}".format(r["error"]))
+                Console.error("An error occurred: {error}".format(**r))
                 raise ValueError("COMET Error")
             elif 'error' in r[0]:
-                Console.error("An error occurred: {}".format(r[0]["error"]))
+                Console.error("An error occurred: {error}".format(**r[0]))
                 raise ValueError("COMET Error")
 
             if format == "rest":

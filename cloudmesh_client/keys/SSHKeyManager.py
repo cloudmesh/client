@@ -60,12 +60,13 @@ class SSHKeyManager(object):
             options.append(line)
         return menu_return_num('KEYS', options)
 
-    # noinspection PyProtectedMember
+    # noinspection PyProtectedMember,PyUnreachableCode
     def get_from_yaml(self, filename=None, load_order=None):
         """
         :param filename: name of the yaml file
         :return: a SSHKeyManager (dict of keys)
         """
+        config = None
         if filename is None:
             # default = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.yaml"))
             # config = ConfigDict("cloudmesh.yaml")
@@ -75,6 +76,7 @@ class SSHKeyManager(object):
             config = ConfigDict(filename, load_order)
         else:
             Console.error("Wrong arguments")
+            return
         config_keys = config["cloudmesh"]["keys"]
         default = config_keys["default"]
         keylist = config_keys["keylist"]

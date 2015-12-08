@@ -49,9 +49,3 @@ class QuotaCommand(PluginCommand, CloudPluginCommand):
             Console.msg(list_quotas)
             return
 
-
-if __name__ == '__main__':
-    command = cm_shell_quota()
-    command.do_quota("list")
-    command.do_quota("a=x")
-    command.do_quota("x")

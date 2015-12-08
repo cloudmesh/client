@@ -154,6 +154,7 @@ class SecGroup(ListResource):
         :param cloud:
         :return:
         """
+        # noinspection PyUnreachableCode
         try:
             """
             elements = cls.cm_db.query(model.SECGROUP).filter(
@@ -173,16 +174,6 @@ class SecGroup(ListResource):
                                        "Name",
                                        "Description"],
                                 output="table")
-
-            """
-            return (dict_printer(d,
-                                        order=["uuid",
-                                               "user",
-                                               "cloud",
-                                               "name",
-                                               "project"],
-                                        output="table"))
-            """
 
         except Exception as ex:
             Console.error(ex.message, ex)

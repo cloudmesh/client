@@ -72,23 +72,23 @@ class TableParser(object):
         self.comment_chars = comment_chars
         self.lines = None
 
-    def clean(self, str):
+    def clean(self, line):
         """
-        :param str: cleans the string
+        :param line: cleans the string
         :return:
         """
-        print ("-" + str + "-")
-        if str == '':
-            str = 'None'
+        print ("-" + line + "-")
+        if line == '':
+            line = 'None'
         if self.is_lower:
-            str = str.lower()
-        if str == "user ":  # for slurm which has "user" and "user "
-            str = "userid"
+            line = line.lower()
+        if line == "user ":  # for slurm which has "user" and "user "
+            line = "userid"
         for convert in self.change:
-            str = str.replace(convert[0], convert[1])
+            line = line.replace(convert[0], convert[1])
         if self.is_strip:
-            str = str.strip()
-        return str.strip(' ')
+            line = line.strip()
+        return line.strip(' ')
 
     def extract_lines(self, table):
         lines = table.splitlines()

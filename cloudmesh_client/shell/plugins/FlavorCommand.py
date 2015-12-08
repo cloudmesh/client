@@ -53,14 +53,14 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
             return ""
 
         if arguments["list"]:
-            id = arguments['ID']
+            cluster_id = arguments['ID']
             refresh = arguments['--refresh']
             output_format = arguments["--format"]
 
-            if id is None:
+            if cluster_id is None:
                 result = Flavor.list(cloud, output_format)
             else:
-                result = Flavor.details(cloud, id, refresh, output_format)
+                result = Flavor.details(cloud, cluster_id, refresh, output_format)
 
             if result is None:
                 #

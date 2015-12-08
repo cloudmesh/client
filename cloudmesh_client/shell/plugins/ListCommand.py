@@ -163,8 +163,3 @@ class ListCommand(PluginCommand, CloudPluginCommand):
             Console.error("No {}s found in the database."
                           .format(kind.lower()))
         return ""
-
-
-if __name__ == '__main__':
-    command = cm_shell_list()
-    command.do_list("flavor")

@@ -65,7 +65,7 @@ class SSHkey(object):
 
     def _fingerprint(self, entirekey):
         """returns the fingerprint of a key.
-        :param entireky: the key
+        :param entirekey: the key
         :type entirekey: string
         """
         t, keystring, comment = self._parse(entirekey)
@@ -104,7 +104,7 @@ class SSHkey(object):
         """reads the key string from a file. THIS FUNCTION HAS A BUG.
 
         :param key: either the name of  a file that contains the key, or the entire contents of such a file
-        :param ketypye: if 'file' the key is read form the file specified in key.
+        :param keytype: if 'file' the key is read form the file specified in key.
                         if 'string' the key is passed as a string in key
         """
         keystring = "undefined"

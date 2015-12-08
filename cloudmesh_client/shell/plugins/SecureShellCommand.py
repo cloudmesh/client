@@ -169,9 +169,3 @@ class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
         return ""
 
-
-if __name__ == '__main__':
-    command = cm_shell_ssh()
-    command.do_ssh("list")
-    command.do_ssh("a=x")
-    command.do_ssh("x")

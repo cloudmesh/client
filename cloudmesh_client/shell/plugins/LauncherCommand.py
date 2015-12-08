@@ -101,9 +101,3 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             result = launcher.refresh()
             print (result)
 
-
-if __name__ == '__main__':
-    command = Launcher
-    command.do_launcher("list")
-    command.do_launcher("run")
-    command.do_launcher("suspend")

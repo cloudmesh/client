@@ -5,10 +5,9 @@ import textwrap
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
-from cloudmesh_client.common.ConfigDict import Config, ConfigDict
+from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from pprint import pprint
 
 
 # noinspection PyBroadException

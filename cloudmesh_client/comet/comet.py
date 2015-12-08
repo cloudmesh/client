@@ -102,9 +102,7 @@ class Comet(object):
         pid = None
         info = None
         for line in r:
-            if ("localhost" in line and "nucleus" in line) \
-                    or ("comet" in line and "tunnel" in line) \
-                            and not 'status' in line:
+            if ("localhost" in line and "nucleus" in line) or ("comet" in line and "tunnel" in line) and not 'status' in line:
                 info = line.strip()
                 break
         if info:

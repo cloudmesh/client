@@ -139,10 +139,3 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             else:
                 Console.ok("Default value for {} is {}".format(key, result))
             return ""
-
-
-if __name__ == '__main__':
-    command = Default()
-    command.do_default("list")
-    command.do_default("a=x")
-    command.do_default("x")

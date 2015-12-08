@@ -2,7 +2,6 @@
 from __future__ import print_function
 
 import json
-from pprint import pprint
 
 from prettytable import PrettyTable
 import yaml

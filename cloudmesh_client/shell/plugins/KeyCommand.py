@@ -424,9 +424,3 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print (e)
                     Console.error("Problem deleting the key `{:}`".format(keyname))
 
-
-if __name__ == '__main__':
-    command = cm_shell_key()
-    command.do_key("list")
-    command.do_key("a=x")
-    command.do_key("x")

@@ -64,9 +64,3 @@ class PortalCommand(PluginCommand, CloudPluginCommand):
 
         return ""
 
-
-if __name__ == '__main__':
-    command = cm_shell_portal()
-    command.do_portal("list")
-    command.do_portal("a=x")
-    command.do_portal("x")

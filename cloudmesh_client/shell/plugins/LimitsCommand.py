@@ -51,9 +51,3 @@ class LimitsCommand(PluginCommand, CloudPluginCommand):
             Console.msg(result)
             return ""
 
-
-if __name__ == '__main__':
-    command = cm_shell_limits()
-    command.do_limits("list")
-    command.do_limits("a=x")
-    command.do_limits("x")

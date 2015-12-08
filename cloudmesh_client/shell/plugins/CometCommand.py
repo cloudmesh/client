@@ -164,9 +164,9 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
         elif arguments["ll"]:
 
-            id = arguments["CLUSTERID"] or None
+            cluster_id = arguments["CLUSTERID"] or None
 
-            print(Cluster.simple_list(id, format=output_format))
+            print(Cluster.simple_list(cluster_id, format=output_format))
 
         elif arguments["docs"]:
 
@@ -174,12 +174,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
         elif arguments["cluster"]:
 
-            id = arguments["CLUSTERID"]
-            print(Cluster.list(id, format=output_format))
+            cluster_id = arguments["CLUSTERID"]
+            print(Cluster.list(cluster_id, format=output_format))
 
         elif arguments["computeset"]:
-            id = arguments["COMPUTESETID"]
-            print (Cluster.computeset(id))
+            cluster_id = arguments["COMPUTESETID"]
+            print (Cluster.computeset(cluster_id))
 
         elif arguments["info"]:
 
@@ -191,15 +191,15 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
         elif arguments["start"]:
 
-            id = arguments["ID"]
-            print("start", id)
-            Cluster.start(id)
+            cluster_id = arguments["ID"]
+            print("start", cluster_id)
+            Cluster.start(cluster_id)
 
         elif arguments["stop"]:
 
-            id = arguments["ID"]
-            print("stop", id)
-            Cluster.stop(id)
+            cluster_id = arguments["ID"]
+            print("stop", cluster_id)
+            Cluster.stop(cluster_id)
 
         elif arguments["power"]:
 

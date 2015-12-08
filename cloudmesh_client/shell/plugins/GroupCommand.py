@@ -4,7 +4,6 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
@@ -130,13 +129,13 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["add"]:
             type = arguments["--type"] or Default.get("type", cloud)
 
-            id = arguments["--id"] or Default.get("id", cloud) or "vm"
+            cloud_id = arguments["--id"] or Default.get("id", cloud) or "vm"
 
             data = {
                 "name": arguments["NAME"],
                 "type": type,
                 "cloud": cloud,
-                "id": id
+                "id": cloud_id
             }
 
             Group.add(**data)
@@ -158,19 +157,19 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["remove"]:
             name = arguments["--name"]
-            id = arguments["--id"]
+            cloud_id = arguments["--id"]
 
             if not cloud:
                 Console.error("Default cloud not set!")
                 return
 
-            result = Group.remove(name, id, cloud)
+            result = Group.remove(name, cloud_id, cloud)
             if result:
                 Console.ok(result)
             else:
                 Console.error(
                     "Failed to delete ID [{}] from group [{}] in the database!".format(
-                        id, name))
+                        cloud_id, name))
             return
 
         elif arguments["copy"]:

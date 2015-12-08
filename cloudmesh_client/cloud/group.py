@@ -449,19 +449,19 @@ class Group(ListResource):
 
     # TODO we have a dict transformer elsewhere
     @classmethod
-    def transform_dict(cls, dict):
+    def transform_dict(cls, dictionary):
         """
         Method to transform a dict,
             to display multiple rows
             per instance of a group
-        :param dict:
+        :param dictionary:
         :return:
         """
         d = {}
         i = 0
 
-        for key in dict.keys():
-            item = dict[key]
+        for key in dictionary.keys():
+            item = dictionary[key]
             for value in item['value'].split(','):
                 d[i] = {}
                 d[i]['name'] = item['name']

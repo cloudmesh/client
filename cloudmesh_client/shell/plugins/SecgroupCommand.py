@@ -221,9 +221,3 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         return ""
 
-
-if __name__ == '__main__':
-    command = cm_shell_security_group()
-    command.do_security_group("list")
-    command.do_security_group("a=x")
-    command.do_security_group("x")

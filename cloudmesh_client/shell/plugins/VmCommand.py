@@ -564,9 +564,3 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         "Problem listing instances on cloud {:}".format(cloud))
         return ""
 
-
-if __name__ == '__main__':
-    command = cm_shell_vm()
-    command.do_vm("list")
-    command.do_vm("a=x")
-    command.do_vm("x")

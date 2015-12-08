@@ -45,10 +45,3 @@ class cm_shell_status(PluginCommand, ShellPluginCommand):
             print ('status CLOUDS...')
         else:
             print ('status')
-
-
-if __name__ == '__main__':
-    command = cm_shell_status()
-    command.do_status("list")
-    command.do_status("a=x")
-    command.do_status("x")

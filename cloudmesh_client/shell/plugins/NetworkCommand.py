@@ -442,9 +442,3 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         except Exception:
             Console.error("Problem running database refresh")
 
-
-if __name__ == '__main__':
-    command = cm_shell_network()
-    command.do_network("list")
-    command.do_network("a=x")
-    command.do_network("x")

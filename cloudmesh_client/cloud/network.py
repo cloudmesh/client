@@ -2,7 +2,7 @@ from __future__ import print_function
 
 import socket
 from uuid import UUID
-from pprint import pprint
+
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.cloud.ListResource import ListResource
