@@ -192,7 +192,7 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    def delete(self, name, group=None, force=None):
+    def delete(self, name_or_id, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
         :param name_or_id:
@@ -204,7 +204,7 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
-    def get_ips(self, name, group=None, force=None):
+    def get_ips(self, name_or_id, group=None, force=None):
         """
         Returns the ip addresses of the instance indicated by name_or_id
         :param name_or_id:

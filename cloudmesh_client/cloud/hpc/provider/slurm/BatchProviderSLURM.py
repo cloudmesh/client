@@ -211,10 +211,6 @@ class BatchProviderSLURM(BatchProviderBase):
             """
         ).format(**data).replace("\r\n", "\n").strip()
 
-        print (script)
-        pprint(option_mapping)
-        pprint(data)
-
         cls.create_remote_dir(cluster, data["remote_experiment_dir"])
 
         _from = Config.path_expand('~/.cloudmesh/{script_name}'.format(**data))
@@ -253,7 +249,6 @@ class BatchProviderSLURM(BatchProviderBase):
                 data["id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
 
-        pprint(data)
 
         #
         # HACK, should not depend on Model.py
@@ -356,14 +351,8 @@ class BatchProviderSLURM(BatchProviderBase):
         kwargs['output_file'] = kwargs.pop('-o')
         kwargs['output_file'] = kwargs.pop('-t')
         kwargs['name'] = kwargs.get('script_name')
-        pprint(kwargs)
 
         db_obj = {0: {"batchjob": kwargs}}
         cm.add_obj(db_obj)
         cm.save()
 
-
-if __name__ == "__main__":
-    from pprint import pprint
-
-    print(Hpc.queue("comet", format="json"))
