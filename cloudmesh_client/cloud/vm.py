@@ -77,8 +77,13 @@ class Vm(ListResource):
                     net_id = network.id
 
             nics = [{"net-id": net_id}]
-            vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
-                                           secgroup=kwargs["secgroup_list"], nics=nics)
+            # TODO: BUG: nics seems unexpected argument
+            vm_id = cloud_provider.boot_vm(kwargs["name"],
+                                           kwargs["image"],
+                                           kwargs["flavor"],
+                                           key=kwargs["key_name"],
+                                           secgroup=kwargs["secgroup_list"],
+                                           nics=nics)
         else:
             vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
                                            secgroup=kwargs["secgroup_list"])

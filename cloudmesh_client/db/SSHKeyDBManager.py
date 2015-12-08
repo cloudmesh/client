@@ -31,21 +31,16 @@ class SSHKeyDBManager(object):
     def add_from_dict(self, d):
         pprint(d)
 
-        keyname = d['keyname']
-        # TODO: BUG value is not defined
-        key_obj = KEY(name=keyname,
+        key_obj = KEY(name='{keyname}'.format(**d),
+                      uri='{uri}'.format(**d),
+                      source='{source}'.format(**d),
+                      comment='{comment}'.format(**d),
                       cloud="general",
-                      user=d['user']
+                      user='{user}'.format(**d),
+                      fingerprint='{fingerprint}'.format(**d),
+                      value='{string} {comment}'.format(**d),
                       )
 
-        key_obj.name = d['keyname']
-        key_obj.uri = d['uri']
-        key_obj.source = d['source']
-        key_obj.comment = d['comment']
-        key_obj.value = d['string'] + " " + d['comment']
-        key_obj.fingerprint = d['fingerprint']
-
-        # pprint (key_obj.__dict__)
         self.db.add([key_obj])
         self.db.save()
 

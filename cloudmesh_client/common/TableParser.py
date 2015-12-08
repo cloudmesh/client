@@ -7,12 +7,14 @@ class TableParser(object):
                 output='dict',
                 header=True,
                 index=None,
-                change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
+                change=None,
                 strip=True,
                 lower=True,
                 strip_seperator=True,
                 seperator="|",
                 comment_chars="+#"):
+        if change is None:
+            change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")]
         parser = TableParser(
             output=output,
             header=header,
@@ -35,7 +37,7 @@ class TableParser(object):
                  output='dict',
                  header=True,
                  index=None,
-                 change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
+                 change=None,
                  strip=True,
                  lower=True,
                  strip_seperator=True,
@@ -56,6 +58,8 @@ class TableParser(object):
         :param comment_chars: lines starting with this chars will be ignored
         :return:
         """
+        if change is None:
+            change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
         self.data = None
         self.output = None
         self.with_header = header

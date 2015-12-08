@@ -63,7 +63,7 @@ class LauncherCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         # pprint(arguments)
 
         cloud = arguments["--cloud"] or Default.get_cloud()
-        launcher = Launcher()
+        launcher = Launcher(kind=None)
 
         if cloud is None:
             Console.error("Default cloud not set")

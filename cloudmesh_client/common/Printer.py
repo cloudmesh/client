@@ -199,8 +199,10 @@ def dict_table_printer(d, order=None, header=None, sort_keys=True,
     return x
 
 
-def attribute_printer(d, header=["Attribute", "Value"], sort_keys=True,
+def attribute_printer(d, header=None, sort_keys=True,
                       output="table"):
+    if header is None:
+        header=["Attribute", "Value"]
     if output == "table":
         x = PrettyTable(header)
         if sort_keys:
