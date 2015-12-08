@@ -10,6 +10,7 @@ from sqlalchemy import Column, Integer, String, MetaData, \
 from sqlalchemy.ext.declarative import declarative_base
 
 
+# noinspection PyPep8Naming
 class database(object):
     """
     A simple class with all the details to create and
@@ -495,6 +496,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
     cidr = Column(String)
     uuid = Column(String)
 
+    # noinspection PyPep8Naming
     def __init__(self,
                  uuid,
                  name,
@@ -546,6 +548,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
     cluster = Column(String, default="string")
     sbatch_file_path = Column(String, default="string")
     cmd = Column(String, default="string")
+    # noinspection PyRedeclaration
     time = Column(String, default="string")
 
     # cloud = Column(String)

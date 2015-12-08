@@ -109,7 +109,7 @@ class Inventory(ListResource):
                 print (self.data[key])
 
 
-# noinspection PyBroadException
+# noinspection PyBroadException,PyPep8Naming
 class command_system(object):
     @classmethod
     def status(cls, host):

@@ -57,6 +57,7 @@ class LauncherShell(LauncherProvider):
         return output
 
 
+# noinspection PyPep8Naming
 def Launcher(kind):
     if kind.lower() in ["sh", "shell"]:
         return LauncherShell()

@@ -12,6 +12,7 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from uuid import UUID
 
 
+# noinspection PyPep8Naming
 class Vm(ListResource):
     cm = CloudmeshDatabase()
 

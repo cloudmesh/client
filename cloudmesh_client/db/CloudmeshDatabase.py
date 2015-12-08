@@ -16,7 +16,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Username
 
 
-# noinspection PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyBroadException
+# noinspection PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyBroadException,PyPep8Naming
 class CloudmeshDatabase(object):
     def counter_incr(self, name="counter", user=None):
 

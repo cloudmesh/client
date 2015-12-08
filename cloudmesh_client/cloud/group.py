@@ -10,6 +10,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.cloud.default import Default
 
 
+# noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
 class Group(ListResource):
     cm = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 

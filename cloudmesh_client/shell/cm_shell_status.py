@@ -9,6 +9,7 @@ from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand
 # from cloudmesh_client.cloud.command_status import command_status
 
 
+# noinspection PyPep8Naming
 class cm_shell_status(PluginCommand, ShellPluginCommand):
     def activate_cm_shell_status(self):
         self.register_command_topic('cloud', 'status')

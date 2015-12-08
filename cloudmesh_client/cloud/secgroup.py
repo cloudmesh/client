@@ -16,6 +16,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 requests.packages.urllib3.disable_warnings()
 
 
+# noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming
 class SecGroup(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 

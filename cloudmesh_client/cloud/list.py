@@ -7,6 +7,7 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from pprint import pprint
 
 
+# noinspection PyPep8Naming,PyPep8Naming
 class List(object):
     cm = CloudmeshDatabase()
     # Instance to communicate with the cloudmesh database
