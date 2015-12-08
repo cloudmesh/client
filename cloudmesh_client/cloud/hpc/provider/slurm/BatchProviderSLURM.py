@@ -144,7 +144,7 @@ class BatchProviderSLURM(BatchProviderBase):
             "queue": config["default"]["queue"],
             "id": None,
             "nodes": 1,
-            "tasks_per_node":  1,
+            "tasks_per_node": 1,
         }
         data["script_base_name"] = "{username}-{count}".format(**data)
         data["script_name"] = "{username}-{count}.sh".format(**data)

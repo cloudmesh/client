@@ -8,8 +8,10 @@ from jinja2 import Template
 
 class Rack(object):
     def __init__(self, servers):
+        self.template_string = None
         self.servers = servers
-        self.diag = NOne
+        self.diag = None
+        self.data = None
 
     def set_template(self, template):
 

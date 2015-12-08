@@ -38,15 +38,19 @@ def set_os_environ(cloudname):
 
 # noinspection PyPep8Naming
 class CloudProviderOpenstackAPI(CloudProviderBase):
-
     kind = "openstack"
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
-        self.initialize(cloud_name, cloud_details)
         self.flat = flat
         self.kind = "openstack"
+        self.provider = None
+        self.default_image = None
+        self.default_flavor = None
+        self.cloud = None
+        self.cloud_details = None
 
+        self.initialize(cloud_name, cloud_details)
 
     def _to_dict(self, openstack_result):
         d = {}
@@ -106,7 +110,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if os_password.lower() == "readline":
             os_password = getpass.getpass()
         elif os_password.lower() == "env":
-                os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
+            os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
 
         if "v2.0" == ksversion:
             self.provider = client.Client(

@@ -14,7 +14,7 @@ class TableParser(object):
                 seperator="|",
                 comment_chars="+#"):
         if change is None:
-            change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")]
+            change = [(":", "_"), ("(", "_"), (")", ""), ("/", "_")]
         parser = TableParser(
             output=output,
             header=header,
@@ -59,7 +59,7 @@ class TableParser(object):
         :return:
         """
         if change is None:
-            change=[(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
+            change = [(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
         self.data = None
         self.output = None
         self.with_header = header
@@ -70,7 +70,7 @@ class TableParser(object):
         self.strip_seperator = strip_seperator
         self.seperator = seperator
         self.comment_chars = comment_chars
-
+        self.lines = None
 
     def clean(self, str):
         """

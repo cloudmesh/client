@@ -25,6 +25,12 @@ class database(object):
 
     def __init__(self):
         """Initializes the database and shares the state with other instantiations of it"""
+        self.debug = False
+        self.filename = None
+        self.endpoint = None
+        self.engine = None
+        self.Base = None
+        self.meta = None
         if not database.__monostate:
             database.__monostate = self.__dict__
             self.activate()
@@ -34,7 +40,6 @@ class database(object):
 
     def activate(self):
         """activates the shared variables"""
-        self.debug = False
 
         # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
 
@@ -574,6 +579,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.cmd = kwargs.get('cmd')
         self.time = kwargs.get('time')
         self.kind = self.__tablename__
+
 
 def tables():
     """

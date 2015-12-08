@@ -13,6 +13,8 @@ class Who(object):
     def __init__(self, hostname):
         self.get(hostname)
         self.parse()
+        self.data = None
+        self.result = None
         self.cache = {}
 
     def get(self, hostname):
