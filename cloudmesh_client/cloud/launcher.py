@@ -1,6 +1,5 @@
 from __future__ import print_function
 import subprocess
-import platform
 
 from cloudmesh_client.cloud.ListResource import ListResource
 
@@ -41,9 +40,6 @@ class LauncherProvider(ListResource):
     def refresh(self, **kwargs):
         ValueError("not yet implemented")
         return "not yet implemented"
-
-
-from cloudmesh_base.Shell import Shell
 
 
 class LauncherShell(LauncherProvider):

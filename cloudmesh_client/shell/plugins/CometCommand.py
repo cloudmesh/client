@@ -2,8 +2,6 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command, PluginCommand, CometPluginCommand
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
-from cloudmesh_base.hostlist import Parameter
-import os
 
 """
 

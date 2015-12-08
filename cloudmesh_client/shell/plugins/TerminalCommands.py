@@ -62,8 +62,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
         return ""
 
+    # noinspection PyUnusedLocal
     @command
-    def do_banner(self, arg, arguments):
+    def do_banner(self, args, arguments):
         """
         ::
 

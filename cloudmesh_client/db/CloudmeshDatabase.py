@@ -10,11 +10,10 @@ from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB
-
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import ConfigDict, Username
+from cloudmesh_client.common.ConfigDict import Username
 
 
 class CloudmeshDatabase(object):
@@ -95,6 +94,7 @@ class CloudmeshDatabase(object):
         except Exception as ex:
             Console.error(ex.message, ex)
 
+    # noinspection PyUnusedLocal
     def refresh(self, kind, name, **kwargs):
         """
         This method refreshes the local database

@@ -1,18 +1,15 @@
 from __future__ import print_function
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
-    CloudProviderOpenstackAPI
 
 from cloudmesh_client.common.todo import TODO
 # add imports for other cloud providers in future
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.common.Printer import dict_printer, list_printer, attribute_printer
+from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 from uuid import UUID
-from pprint import pprint
 
 
 class Vm(ListResource):

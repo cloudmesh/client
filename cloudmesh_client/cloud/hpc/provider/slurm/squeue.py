@@ -39,8 +39,7 @@ class Squeue(object):
         for i, key in enumerate(json_obj.keys()):
             # both user, name parameters are specified
             if user and name:
-                if user == json_obj[key]["user"] and \
-                                name == json_obj[key]["name"]:
+                if user == json_obj[key]["user"] and name == json_obj[key]["name"]:
                     d[i] = json_obj[key]
             # only user parameter is specified
             elif user:

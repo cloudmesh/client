@@ -10,8 +10,9 @@ class BarCommand(object):
         if self.context.debug:
             print("init Bar")
 
+    # noinspection PyUnusedLocal
     @command
-    def do_bar(self, arg, arguments):
+    def do_bar(self, args, arguments):
         """
         ::
 

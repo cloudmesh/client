@@ -24,6 +24,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         if self.context.debug:
             print("init command vm")
 
+    # noinspection PyUnusedLocal
     @command
     def do_vm(self, args, arguments):
         """

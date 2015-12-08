@@ -1,14 +1,8 @@
 from code import InteractiveConsole
-import webbrowser
-import os
+import sys
 
-from cloudmesh_client.shell.console import Console
-from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
-
-
-import sys
 """ This code has been copied and modified from cmd2 to work with cmd3"""
 
 

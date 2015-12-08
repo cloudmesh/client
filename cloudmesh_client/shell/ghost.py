@@ -124,6 +124,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 # Console.cprint("BLUE", "", line)
                 print(line)
 
+    # noinspection PyUnusedLocal
     def do_EOF(self, args):
         """
         ::
@@ -136,6 +137,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         return True
 
+    # noinspection PyUnusedLocal
     def do_quit(self, args):
         """
         ::

@@ -1,14 +1,11 @@
 from __future__ import print_function
 
-from pprint import pprint
-
 import requests
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
 import hostlist
 from cloudmesh_base.hostlist import Parameter
-from cloudmesh_client.comet.authenticate import AuthenticationException
 
 
 class Cluster(object):
