@@ -62,8 +62,7 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
                 --cloud=CLOUD   Sync with cloud
 
         """
-        cloudname = arguments["--cloud"] or \
-                    Default.get_cloud()
+        cloudname = arguments["--cloud"] or Default.get_cloud()
 
         if cloudname is None:
             Console.error("Default cloud has not been set!"
@@ -73,8 +72,7 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
             return
 
         # Get the arguments
-        group = arguments["--group"] or \
-                Default.get("group", cloudname)
+        group = arguments["--group"] or Default.get("group", cloudname)
 
         localdir = arguments["LOCALDIR"]
         remotedir = arguments["REMOTEDIR"]

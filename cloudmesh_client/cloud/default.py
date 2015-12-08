@@ -18,7 +18,7 @@ class Default(ListResource):
              order=None,
              output=format):
         if order is None:
-             order=['user', 'cloud', 'name', 'value'],
+            order = ['user', 'cloud', 'name', 'value'],
         try:
             if cloud is None:
                 d = cls.cm.all("default")

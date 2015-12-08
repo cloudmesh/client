@@ -152,7 +152,6 @@ class BatchProviderSLURM(BatchProviderBase):
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
-
         # overwrite defaults
         option_mapping = {'-t': '{tasks_per_node}'.format(**data),
                           '-N': '{nodes}'.format(**data),
@@ -270,29 +269,30 @@ class BatchProviderSLURM(BatchProviderBase):
 
         # here what we have in data and want to store the - options are obviously wrong
         # and need to be full names
+        # noinspection PyPep8,PyPep8
         """
-        {'-D': '/N/u/gvonlasz/experiment/3',
-         '-N': '1',
-         '-o': 'gvonlasz-3.out',
-         '-p': 'delta',
-         '-t': '1',
-         'cluster': 'india',
-         'cmd': 'sbatch /N/u/gvonlasz/experiment/3/gvonlasz-3.sh',
-         'command': 'uname',
-         'count': 3,
-         'from': '/Users/big/.cloudmesh/gvonlasz-3.sh',
-         'id': 1346,
-         'options': '#SBATCH -t 1\n#SBATCH -o gvonlasz-3.out\n#SBATCH -N 1\n#SBATCH -p delta\n#SBATCH -D /N/u/gvonlasz/experiment/3\n',
-         'output': 'Submitted batch job 1346',
-         'queue': 'delta',
-         'remote_experiment_dir': '/N/u/gvonlasz/experiment/3',
-         'script': "#! /bin/sh\n#SBATCH -t 1\n#SBATCH -o gvonlasz-3.out\n#SBATCH -N 1\n#SBATCH -p delta\n#SBATCH -D /N/u/gvonlasz/experiment/3\n\nsrun -l echo '#CLOUDMESH: Starting'\nsrun -l uname\nsrun -l echo '#CLOUDMESH: Test ok'",
-         'script_base_name': 'gvonlasz-3',
-         'script_name': 'gvonlasz-3.sh',
-         'script_output': 'gvonlasz-3.out',
-         'to': 'india:/N/u/gvonlasz/experiment/3',
-         'username': 'gvonlasz'}
-        """
+                {'-D': '/N/u/gvonlasz/experiment/3',
+                 '-N': '1',
+                 '-o': 'gvonlasz-3.out',
+                 '-p': 'delta',
+                 '-t': '1',
+                 'cluster': 'india',
+                 'cmd': 'sbatch /N/u/gvonlasz/experiment/3/gvonlasz-3.sh',
+                 'command': 'uname',
+                 'count': 3,
+                 'from': '/Users/big/.cloudmesh/gvonlasz-3.sh',
+                 'id': 1346,
+                 'options': '#SBATCH -t 1\n#SBATCH -o gvonlasz-3.out\n#SBATCH -N 1\n#SBATCH -p delta\n#SBATCH -D /N/u/gvonlasz/experiment/3\n',
+                 'output': 'Submitted batch job 1346',
+                 'queue': 'delta',
+                 'remote_experiment_dir': '/N/u/gvonlasz/experiment/3',
+                 'script': "#! /bin/sh\n#SBATCH -t 1\n#SBATCH -o gvonlasz-3.out\n#SBATCH -N 1\n#SBATCH -p delta\n#SBATCH -D /N/u/gvonlasz/experiment/3\n\nsrun -l echo '#CLOUDMESH: Starting'\nsrun -l uname\nsrun -l echo '#CLOUDMESH: Test ok'",
+                 'script_base_name': 'gvonlasz-3',
+                 'script_name': 'gvonlasz-3.sh',
+                 'script_output': 'gvonlasz-3.out',
+                 'to': 'india:/N/u/gvonlasz/experiment/3',
+                 'username': 'gvonlasz'}
+                """
 
         """
         we also want to store what part of the .out file,

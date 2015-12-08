@@ -104,7 +104,7 @@ class Comet(object):
         for line in r:
             if ("localhost" in line and "nucleus" in line) \
                     or ("comet" in line and "tunnel" in line) \
-                    and not 'status' in line:
+                            and not 'status' in line:
                 info = line.strip()
                 break
         if info:
@@ -254,7 +254,7 @@ class Comet(object):
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
-    def http(url, action="get", 
+    def http(url, action="get",
              headers=None, data=None, cacert=True, allow_redirects=True):
         # print ("KKK", url)
         # print ("KKK", action)
@@ -446,7 +446,7 @@ class Comet(object):
 
     @staticmethod
     def console(clusterid, nodeid=None):
-        url= Comet.console_url(clusterid, nodeid)
+        url = Comet.console_url(clusterid, nodeid)
         newurl_esc = url.replace("&", "\&")
         # print (newurl)
         # for OSX
@@ -457,7 +457,7 @@ class Comet(object):
             os.system("firefox {}".format(newurl_esc))
         else:
             print("OS not supported!"
-                  "Use the following url manually in your brower:\n{}".format(newurl))
+                  "Use the following url manually in your brower:\n{}".format(newurl_esc))
 
 
 def main():

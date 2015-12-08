@@ -42,8 +42,7 @@ class Usage(ListResource):
 
             table = '\n'.join(lines[1:])
 
-            dates = dates.replace("Usage from ", ""). \
-                        replace("to", "").replace(" +", " ")[:-1].split()
+            dates = dates.replace("Usage from ", "").replace("to", "").replace(" +", " ")[:-1].split()
 
             #
             # TODO: for some reason the nova command has returned not the

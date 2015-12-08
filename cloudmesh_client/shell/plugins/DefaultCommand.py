@@ -96,9 +96,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         if arguments["KEY"] in general_keys:
             cloud = "general"
         else:
-            cloud = arguments["--cloud"] \
-                    or Default.get("cloud", "general") \
-                    or "general"
+            cloud = arguments["--cloud"] or Default.get("cloud", "general") or "general"
 
         if arguments["list"]:
             output_format = arguments["--format"]

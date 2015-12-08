@@ -95,9 +95,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
         if arguments["list"]:
 
-            output = arguments["--format"] or \
-                     Default.get("format", cloud) \
-                     or "table"
+            output = arguments["--format"] or Default.get("format", cloud) or "table"
             name = arguments["NAME"]
 
             if name is None:

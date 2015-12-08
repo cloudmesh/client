@@ -68,7 +68,7 @@ class Sync(object):
 
                 # Console.msg("Syncing local dir [{}] with remote host [{}]"
                 #            .format(localdir, user + "@" + hostname))
-
+                args = None
                 if operation == "put":
                     # Construct the arguments
                     # local dir comes first (send)
@@ -108,6 +108,7 @@ class Sync(object):
                               .format(cloudname))
                 return None
             else:
+                args = None
                 if operation == "put":
                     args = [
                         localdir,
@@ -169,8 +170,7 @@ class Sync(object):
                     pass
 
             # search for hostname
-            if "Hostname " in line and \
-                            found is True:
+            if "Hostname " in line and found is True:
                 # return corresponding hostname
                 hostname = line.strip().replace("Hostname ", "", 1).replace(" ", "")
                 return hostname
@@ -198,8 +198,7 @@ class Sync(object):
                     pass
 
             # search for user
-            if "User " in line and \
-                            found is True:
+            if "User " in line and found is True:
                 # return corresponding user
                 username = line.strip().replace("User ", "", 1).replace(" ", "")
                 return username

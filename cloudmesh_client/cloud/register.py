@@ -268,9 +268,7 @@ class CloudRegister(object):
 
         for key in keys:
             if profile[key] == "TBD":
-                result = input(
-                    "Please enter {:}[{:}]:".format(key, profile[key])) or \
-                         profile[key]
+                result = input("Please enter {:}[{:}]:".format(key, profile[key])) or profile[key]
                 profile[key] = result
 
         config["cloudmesh"]["profile"] = profile
@@ -284,9 +282,7 @@ class CloudRegister(object):
 
             for key in credentials:
                 if key not in ["OS_VERSION", "OS_AUTH_URL"] and credentials[key] == "TBD":
-                    result = raw_input("Please enter {:}[{:}]:"
-                                       .format(key, credentials[key])) or \
-                             credentials[key]
+                    result = raw_input("Please enter {:}[{:}]:".format(key, credentials[key])) or credentials[key]
                     credentials[key] = result
             config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()
@@ -384,15 +380,12 @@ class CloudRegister(object):
                 cloudname_suggest)) or cloudname_suggest
 
         cm_label = raw_input(
-            "Label for the cloud (Default: {:}): ".format(cloudname_to_use)) \
-                   or "{:}".format(cloudname_to_use)
+            "Label for the cloud (Default: {:}): ".format(cloudname_to_use)) or "{:}".format(cloudname_to_use)
 
         cm_heading = raw_input(
-            "Heading for the cloud (Default: {:} Cloud): ".format(
-                cm_label)) or "{:} Cloud".format(cm_label)
+            "Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = raw_input("Cloud host name (Default: {:}): ".format(
-            cloudname_suggest)) or "{:}".format(cloudname_suggest)
+        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}".format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically

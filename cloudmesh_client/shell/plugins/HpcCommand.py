@@ -18,86 +18,87 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
     # noinspection PyUnusedLocal
     @command
     def do_hpc(self, args, arguments):
+        # noinspection PyPep8
         """
-        ::
+                ::
 
-            Usage:
-                hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
-                hpc info [--cluster=CLUSTER][--format=FORMAT]
-                hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
-                hpc delete --job=NAME [--cluster=CLUSTER][--group=GROUP]
-                hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-                hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
-                hpc test --cluster=CLUSTER [--time=SECONDS]
+                    Usage:
+                        hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
+                        hpc info [--cluster=CLUSTER][--format=FORMAT]
+                        hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
+                        hpc delete --job=NAME [--cluster=CLUSTER][--group=GROUP]
+                        hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+                        hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
+                        hpc test --cluster=CLUSTER [--time=SECONDS]
 
-            Options:
-               --format=FORMAT  the output format [default: table]
+                    Options:
+                       --format=FORMAT  the output format [default: table]
 
-            Examples:
+                    Examples:
 
-                Special notes
+                        Special notes
 
-                   if the group is specified only jobs from that group are
-                   considered. Otherwise the default group is used. If the
-                   group is set to None, all groups are used.
+                           if the group is specified only jobs from that group are
+                           considered. Otherwise the default group is used. If the
+                           group is set to None, all groups are used.
 
-                cm hpc queue
-                    lists the details of the queues of the hpc cluster
+                        cm hpc queue
+                            lists the details of the queues of the hpc cluster
 
-                cm hpc queue --name=NAME
-                    lists the details of the job in the queue of the hpc cluster
+                        cm hpc queue --name=NAME
+                            lists the details of the job in the queue of the hpc cluster
 
-                cm hpc info
-                    lists the details of the hpc cluster
+                        cm hpc info
+                            lists the details of the hpc cluster
 
-                cm hpc run SCRIPT
-                    submits the script to the cluster. The script will be
-                    copied prior to execution into the home directory on the
-                    remote machine. If a DIR is specified it will be copied
-                    into that dir.
-                    The name of the script is either specified in the script
-                    itself, or if not the default nameing scheme of
-                    cloudmesh is used using the same index incremented name
-                    as in vms fro clouds: cloudmeshusername-index
+                        cm hpc run SCRIPT
+                            submits the script to the cluster. The script will be
+                            copied prior to execution into the home directory on the
+                            remote machine. If a DIR is specified it will be copied
+                            into that dir.
+                            The name of the script is either specified in the script
+                            itself, or if not the default nameing scheme of
+                            cloudmesh is used using the same index incremented name
+                            as in vms fro clouds: cloudmeshusername-index
 
-                cm hpc delete all
-                    kills all jobs on the default hpc cluster
+                        cm hpc delete all
+                            kills all jobs on the default hpc cluster
 
-                cm hpc delete all -cluster=all
-                    kills all jobs on all clusters
+                        cm hpc delete all -cluster=all
+                            kills all jobs on all clusters
 
-                cm hpc delete --job=NAME
-                    kills a job with a given name or job id
+                        cm hpc delete --job=NAME
+                            kills a job with a given name or job id
 
-                cm hpc default cluster=NAME
-                    sets the default hpc cluster
+                        cm hpc default cluster=NAME
+                            sets the default hpc cluster
 
-                cm hpc status
-                    returns the status of all jobs
+                        cm hpc status
+                            returns the status of all jobs
 
-                cm hpc status job=ID
-                    returns the status of the named job
+                        cm hpc status job=ID
+                            returns the status of the named job
 
-                cm hpc test --cluster=CLUSTER --time=SECONDS
-                    submits a simple test job to the named cluster and returns
-                    if the job could be successfully executed. This is a
-                    blocking call and may take a long time to complete
-                    dependent on if the queuing system of that cluster is
-                    busy. It will only use one node/core and print the message
+                        cm hpc test --cluster=CLUSTER --time=SECONDS
+                            submits a simple test job to the named cluster and returns
+                            if the job could be successfully executed. This is a
+                            blocking call and may take a long time to complete
+                            dependent on if the queuing system of that cluster is
+                            busy. It will only use one node/core and print the message
 
-                    #CLOUDMESH: Test ok
+                            #CLOUDMESH: Test ok
 
-                    in that is being looked for to identify if the test is
-                    successful. If time is used, the job is terminated
-                    after the time is elapsed.
+                            in that is being looked for to identify if the test is
+                            successful. If time is used, the job is terminated
+                            after the time is elapsed.
 
-            Examples:
-                cm hpc queue
-                cm hpc queue --job=xxx
-                cm hpc info
-                cm hpc delete --job=6
-                cm hpc run uname
-        """
+                    Examples:
+                        cm hpc queue
+                        cm hpc queue --job=xxx
+                        cm hpc info
+                        cm hpc delete --job=6
+                        cm hpc run uname
+                """
 
         format = arguments['--format']
         cluster = arguments['--cluster'] or Default.get_cluster()

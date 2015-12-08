@@ -50,6 +50,7 @@ class Who(object):
             for element in data:
                 if "Access to Public Interest Registry" not in element:
                     attribute, value = element.split(":", 1)
+                # noinspection PyUnboundLocalVariable,PyUnboundLocalVariable
                 result[attribute] = value.strip("\n")
             return result
 
