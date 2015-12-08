@@ -92,10 +92,12 @@ class Console(object):
 
     @staticmethod
     def msg(message):
+        message = message or ""
         print (message)
 
     @staticmethod
     def error(message, prefix=True):
+        message = message or ""
         if prefix:
             text = "ERROR: "
         else:
@@ -114,6 +116,7 @@ class Console(object):
 
     @staticmethod
     def info(message):
+        message = message or ""
         if Console.color:
             Console.cprint('OKBLUE', "INFO: ", message)
         else:
@@ -121,6 +124,7 @@ class Console(object):
 
     @staticmethod
     def warning(message):
+        message = message or ""
         if Console.color:
             Console.cprint('WARNING', "WARNING: ", message)
         else:
@@ -128,6 +132,7 @@ class Console(object):
 
     @staticmethod
     def ok(message):
+        message = message or ""
         if Console.color:
             Console.cprint('OKGREEN', "", message)
         else:
@@ -135,9 +140,11 @@ class Console(object):
 
     @staticmethod
     def cprint(color, prefix, message):
+        message = message or ""
+        prefix = prefix or ""
         print (Console.theme[color] +
                prefix +
-               Console.msg(message) +
+               message +
                Console.theme['ENDC'])
 
 
