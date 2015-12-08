@@ -237,20 +237,24 @@ class Comet(object):
     # To make GET calls for synchronous or asynchronous API
 
     @staticmethod
-    def get(url, headers=None):
-        return Comet.http(url, action="get", headers=headers, data=None)
+    def get(url, headers=None, allow_redirects=True):
+        return Comet.http(url, action="get", headers=headers,
+                          allow_redirects=allow_redirects)
 
     @staticmethod
-    def post(url, headers=None, data=None):
-        return Comet.http(url, action="post", headers=headers, data=data)
+    def post(url, headers=None, data=None, allow_redirects=True):
+        return Comet.http(url, action="post", headers=headers,
+                          data=data, allow_redirects=allow_redirects)
 
     @staticmethod
-    def put(url, headers=None, data=None):
-        return Comet.http(url, action="put", headers=headers)
+    def put(url, headers=None, data=None, allow_redirects=True):
+        return Comet.http(url, action="put", headers=headers,
+                          allow_redirects=allow_redirects)
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
-    def http(url, action="get", headers=None, data=None, cacert=True):
+    def http(url, action="get", 
+             headers=None, data=None, cacert=True, allow_redirects=True):
         # print ("KKK", url)
         # print ("KKK", action)
         # print ("KKK", Comet.auth_provider)
@@ -262,17 +266,23 @@ class Comet(object):
                 headers = Comet.AUTH_HEADER
             if 'post' == action:
                 r = requests.post(url, headers=headers, data=json.dumps(data),
+                                  allow_redirects=allow_redirects,
                                   verify=cacert)
             elif 'put' == action:
-                r = requests.put(url, headers=headers, verify=cacert)
+                r = requests.put(url, headers=headers,
+                                 allow_redirects=allow_redirects, verify=cacert)
             else:
-                r = requests.get(url, headers=headers, verify=cacert)
+                r = requests.get(url, headers=headers,
+                                 allow_redirects=allow_redirects, verify=cacert)
 
             # print ("KKK --- DEBUGGING HTTP CALL")
             # pprint (r)
 
+            # 303 redirect
+            if r.status_code == 303:
+                ret = r.headers["Location"]
             # responded immediately
-            if r.status_code == 200:
+            elif r.status_code == 200:
                 try:
                     ret = r.json()
                 except:
@@ -318,19 +328,28 @@ class Comet(object):
             # print ("KKK", data)
             # print ("KKK", cacert)
             if 'post' == action:
-                r = requests.post(url, auth=Comet.api_auth, headers=headers, data=json.dumps(data), verify=cacert)
+                r = requests.post(url, auth=Comet.api_auth, headers=headers,
+                                  data=json.dumps(data),
+                                  allow_redirects=allow_redirects,
+                                  verify=cacert)
             elif 'put' == action:
-                r = requests.put(url, auth=Comet.api_auth, headers=headers, verify=cacert)
+                r = requests.put(url, auth=Comet.api_auth, headers=headers,
+                                 allow_redirects=allow_redirects,
+                                 verify=cacert)
             else:
-                r = requests.get(url, auth=Comet.api_auth, headers=headers, verify=cacert)
-
+                r = requests.get(url, auth=Comet.api_auth, headers=headers,
+                                 allow_redirects=allow_redirects,
+                                 verify=cacert)
             ret = None
 
             # print ("KKK", r.status_code)
             # print ("KKK", r.text)
 
+            # 303 redirect
+            if r.status_code == 303:
+                ret = r.headers["Location"]
             # responded immediately
-            if r.status_code == 200:
+            elif r.status_code == 200:
                 try:
                     ret = r.json()
                 except:
@@ -390,11 +409,16 @@ class Comet(object):
         return r
 
     @staticmethod
-    def console(clusterid, nodeid):
+    def console_url(clusterid, nodeid=None):
+        returl = None
+        r = None
         if not nodeid:
             url = Comet.url("cluster/{}/frontend/console/".format(clusterid))
         else:
             url = Comet.url("cluster/{}/compute/{}/console/".format(clusterid, nodeid))
+        returl = Comet.get(url, allow_redirects=False)
+        # print ("KKK", returl)
+        '''
         if "USERPASS" == Comet.auth_provider:
             r = requests.get(url,
                              headers=Comet.AUTH_HEADER,
@@ -414,9 +438,15 @@ class Comet(object):
         # print (r.status_code)
         # print (r.headers)
         # print (r.text)
-        if 303 == r.status_code:
-            newurl = r.headers["Location"]
-            newurl_esc = newurl.replace("&", "\&")
+        if r and 303 == r.status_code:
+            returl = r.headers["Location"]
+        '''
+        return returl
+
+    @staticmethod
+    def console(clusterid, nodeid=None):
+        url= Comet.console_url(clusterid, nodeid)
+        newurl_esc = url.replace("&", "\&")
         # print (newurl)
         # for OSX
         if 'darwin' == sys.platform:
