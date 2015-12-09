@@ -138,7 +138,7 @@ class CloudProviderBase(object):
     # VMS
     # #########################
 
-    def boot_vm(self, cloud, user, name, image, flavor, key, secgroup, meta,
+    def boot_vm(self, cloud, user, name, image, flavor, key, secgroup, meta, nics,
                 *kwargs):
         """
         Boots a new vm instance on the target cloud.

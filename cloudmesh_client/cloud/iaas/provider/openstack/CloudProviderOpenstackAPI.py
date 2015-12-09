@@ -198,7 +198,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         raise ValueError("list usage is not supported")
 
     def boot_vm(self, name, image=None, flavor=None, cloud="India", key=None,
-                secgroup=None, meta=None):
+                secgroup=None, meta=None, nics=None, **kwargs):
         """
         Spawns a VM instance on the cloud.
         If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.
@@ -218,7 +218,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         server = self.provider.servers.create(name, image, flavor, meta=meta,
                                               key_name=key,
-                                              security_groups=secgroup)
+                                              security_groups=secgroup,
+                                              nics=nics)
         # return the server id
         return server.__dict__["id"]
 
