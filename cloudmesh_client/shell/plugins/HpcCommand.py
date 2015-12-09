@@ -5,7 +5,7 @@ from cloudmesh_client.cloud.default import Default
 
 from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
     CometPluginCommand
-
+from cloudmesh_base.Shell import Shell
 
 class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
     topics = {"hpc": "system"}
@@ -30,6 +30,8 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
                         hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
                         hpc test --cluster=CLUSTER [--time=SECONDS]
+                        hpc experiment list [ID] [--cluster=CLUSTER]
+                        hpc experiment output ID [--cluster=CLUSTER]
 
                     Options:
                        --format=FORMAT  the output format [default: table]
@@ -102,6 +104,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
 
         format = arguments['--format']
         cluster = arguments['--cluster'] or Default.get_cluster()
+        arguments["CLUSTER"] = cluster
 
         if cluster is None:
             Console.error("Default cluster doesn't exist")
@@ -150,5 +153,23 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             else:
                 time = '00:00:10'  # give a  default time of 10 secs
             print(batch.test(cluster, time))
+
+        elif arguments["experiment"] and arguments["list"]:
+            # hpc experiment list [--cluster=CLUSTER]
+            if arguments["ID"]:
+                result = Shell.ssh(cluster, "ls experiment/{ID}".format(**arguments)).split("\n")
+                print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                print ("\n".join(result))
+            else:
+                result = Shell.ssh(cluster, "ls experiment").split("\n")
+                ids = sorted([int(i) for i in result])
+                print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
+                print (", ".join([str(i) for i in ids]))
+
+
+        elif arguments["experiment"] and arguments["output"]:
+            # hpc experiment output ID [--cluster=CLUSTER]
+            result = Shell.ssh(cluster, "ls experiment {ID}".format(**arguments))
+            print (result)
 
         return ""
