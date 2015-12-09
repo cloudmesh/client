@@ -455,7 +455,7 @@ class Comet(object):
             os.system("firefox {}".format(newurl_esc))
         else:
             print("OS not supported!"
-                  "Use the following url manually in your brower:\n{}".format(newurl_esc))
+                  "Use the following url manually in your brower:\n{}".format(url))
 
 
 def main():
