@@ -125,7 +125,7 @@ class Network(ListResource):
         return
 
     @classmethod
-    def fixed_ip_unreserve(cls, cloudname, fixed_ip_addr):
+    def unreserve_fixed_ip(cls, cloudname, fixed_ip_addr):
         """
         Unreserve a fixed ip address
         :param cloudname:
