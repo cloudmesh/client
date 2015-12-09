@@ -103,8 +103,6 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         format = arguments['--format']
         cluster = arguments['--cluster'] or Default.get_cluster()
 
-        print ("CCC", cluster)
-
         if cluster is None:
             Console.error("Default cluster doesn't exist")
             return

@@ -111,7 +111,6 @@ class BatchProviderSLURM(BatchProviderBase):
     @classmethod
     def run(cls, cluster, cmd, **kwargs):
 
-        print ("CCCC>", cluster)
         # determine the script name..
 
         #
@@ -219,8 +218,9 @@ class BatchProviderSLURM(BatchProviderBase):
         data["to"] = _to
         data["script"] = script
         # write the script to local
-        print(_from)
-        print(_to)
+
+        # print(_from)
+        # print(_to)
 
         with open(_from, 'w') as local_file:
             local_file.write(script)
@@ -237,14 +237,14 @@ class BatchProviderSLURM(BatchProviderBase):
         cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
         data["cmd"] = cmd
 
-        print ("CMD>", cmd)
+        # print ("CMD>", cmd)
         result = Shell.ssh(cluster, cmd)
 
         data["output"] = result
 
         # find id
         for line in result.split("\n"):
-            print ("LLL>", line)
+            # print ("LLL>", line)
             if "Submitted batch job" in line:
                 data["id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
