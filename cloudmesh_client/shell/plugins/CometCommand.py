@@ -178,8 +178,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
             print(Cluster.list(cluster_id, format=output_format))
 
         elif arguments["computeset"]:
-            cluster_id = arguments["COMPUTESETID"]
-            print (Cluster.computeset(cluster_id))
+            computeset_id = arguments["COMPUTESETID"]
+            print (Cluster.computeset(computeset_id))
 
         elif arguments["info"]:
 
