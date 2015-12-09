@@ -37,7 +37,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register new
               register clean [--force]
               register list ssh [--format=FORMAT]
-              register list [--yaml=FILENAMh bE][--info][--format=FORMAT]
+              register list [--yaml=FILENAME][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register export HOST [--password] [--format=FORMAT]

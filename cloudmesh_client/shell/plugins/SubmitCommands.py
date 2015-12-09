@@ -21,7 +21,7 @@ class SubmitCommands(PluginCommand):
             Usage:
                 submit ARGUMENTS...
 
-            We donot yet kno what this command will do ;-)
+            We do not yet know what this command will do ;-)
 
             Arguments:
                 ARGUMENTS       The arguments passed to nova

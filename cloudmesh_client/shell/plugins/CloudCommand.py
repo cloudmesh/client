@@ -37,7 +37,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
           Description:
              Cloudmesh contains a cloudmesh.yaml file that contains
              templates for multiple clouds that you may or may not have
-             access to. Hence it is useful to activate and deacivate clouds
+             access to. Hence it is useful to activate and deactivate clouds
              you like to use in other commands.
 
              To activate a cloud a user can simply use the activate

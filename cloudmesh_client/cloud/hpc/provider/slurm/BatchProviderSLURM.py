@@ -71,7 +71,7 @@ class BatchProviderSLURM(BatchProviderBase):
                 cluster,
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
-        # ignor leading lines till header is found
+        # ignore leading lines till header is found
         l = result.splitlines()
         for i, res in enumerate(l):
             if 'PARTITION|AVAIL|' in res:
@@ -117,9 +117,9 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # TODO: script count is variable in data base, we test if fil exists and if it
         # does increase counter till we find one that does not, that will be new counter.
-        # new couner will than be placed in db.
+        # new counter will than be placed in db.
         #
-        # define get_script_name(dirctory, prefix, counter)
+        # define get_script_name(directory, prefix, counter)
         # there maybe s a similar thing already in the old cloudmesh
         #
 

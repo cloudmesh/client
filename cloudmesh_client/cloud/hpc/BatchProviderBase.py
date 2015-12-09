@@ -39,7 +39,7 @@ class BatchProviderBase(object):
             "counter": counter,
             "prefix": cls.prefix
         }
-        return "{prefix}-{conunter}".format(**data)
+        return "{prefix}-{counter}".format(**data)
 
     @classmethod
     def create_remote_dir(cls, cluster, directory):
@@ -48,7 +48,7 @@ class BatchProviderBase(object):
     @classmethod
     def read_config(cls, cluster):
         """
-        reads in the cluster config from the yaml file and returns the specific cluster informationt
+        reads in the cluster config from the yaml file and returns the specific cluster information
 
         newhpc:
             experiment:

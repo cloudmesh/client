@@ -56,7 +56,7 @@ class List(object):
             Console.error(ex.message, ex)
 
     #
-    # TODO: dont we have not already a conversion method
+    # TODO: don't we have not already a conversion method
     #
     @classmethod
     def toDict(cls, item):
@@ -87,7 +87,7 @@ class List(object):
     #
     # TODO: i do not see why this method is here its also hardcoded and
     # wrong as india does not exist. if a name is based on openstack,
-    # the kluod need to be checked if its openstack and than the user is
+    # the cloud need to be checked if its openstack and than the user is
     # returned. Than you also want o move this to cloud provider
     #
     @classmethod
