@@ -3,6 +3,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 from cloudmesh_client.cloud.default import Default
 
+from cloudmesh_client.cloud.experiment import Experiment
 from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
     CometPluginCommand
 from cloudmesh_base.Shell import Shell
@@ -32,6 +33,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         hpc test --cluster=CLUSTER [--time=SECONDS]
                         hpc experiment list [ID] [--cluster=CLUSTER]
                         hpc experiment output ID [--cluster=CLUSTER]
+                         hpc experiment rm [ID] [--cluster=CLUSTER]
 
                     Options:
                        --format=FORMAT  the output format [default: table]
@@ -157,14 +159,34 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         elif arguments["experiment"] and arguments["list"]:
             # hpc experiment list [--cluster=CLUSTER]
             if arguments["ID"]:
-                result = Shell.ssh(cluster, "ls experiment/{ID}".format(**arguments)).split("\n")
                 print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
-                print ("\n".join(result))
+                result = Experiment.list(cluster, id=arguments["ID"], format="list")
+                if result is not None:
+                    print ("\n".join(result))
+                else:
+                    Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
             else:
-                result = Shell.ssh(cluster, "ls experiment").split("\n")
-                ids = sorted([int(i) for i in result])
                 print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
-                print (", ".join([str(i) for i in ids]))
+                ids = Experiment.list(cluster, id=None, format="list")
+                if ids is not None:
+                    print (", ".join([str(i) for i in ids]))
+                else:
+                    Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
+
+        elif arguments["experiment"] and arguments["rm"]:
+            # hpc experiment list [--cluster=CLUSTER]
+            if arguments["ID"]:
+                print ("# List of experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                try:
+                    result = Experiment.rm(cluster, id=arguments["ID"])
+                except:
+                    Console.error("Could not delete experiment {ID} on {CLUSTER}".format(**arguments))
+            else:
+                print ("# List of experiments on Cluster {CLUSTER}".format(**arguments))
+                try:
+                    result = Experiment.rm(cluster, id=None)
+                except:
+                    Console.error("Could delete the experiments on {CLUSTER}".format(**arguments))
 
 
         elif arguments["experiment"] and arguments["output"]:
