@@ -118,7 +118,7 @@ class SSHkey(object):
 
         try:
 
-            keytype, key_string, comment = key_parse(keystring)
+            keytype, key_string, comment = self._parse(keystring)
             data = base64.decodestring(key_string)
             int_len = 4
             str_len = struct.unpack('>I', data[:int_len])[0]

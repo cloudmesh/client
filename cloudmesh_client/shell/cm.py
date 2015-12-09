@@ -36,7 +36,6 @@ os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 # noinspection PyPep8
 from .plugins import *
 from cloudmesh_client.cloud.default import Default
-import cloudmesh_base
 from cloudmesh_base.util import get_python
 from cloudmesh_base.util import check_python
 import cloudmesh_base

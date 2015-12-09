@@ -18,6 +18,9 @@ from cloudmesh_client.common.ConfigDict import Username
 
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshDatabase(object):
+
+    # TODO: see also common/VMname
+
     def counter_incr(self, name="counter", user=None):
 
         user = user or Username()
@@ -48,7 +51,10 @@ class CloudmeshDatabase(object):
     def counter_set(self, name=None, value=None, user=None):
         """
         Special function to update vm prefix count.
-        :param kwargs:
+
+        :param name:
+        :param value:
+        :param user:
         :return:
         """
         if type(value) != int:

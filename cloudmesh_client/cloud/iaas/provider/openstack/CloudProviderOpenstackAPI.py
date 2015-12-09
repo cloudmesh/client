@@ -36,7 +36,7 @@ def set_os_environ(cloudname):
 # we already have a much better convert to dict function
 #
 
-# noinspection PyPep8Naming
+# noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
     kind = "openstack"
 

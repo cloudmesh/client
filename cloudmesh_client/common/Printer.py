@@ -13,7 +13,8 @@ def list_printer(l,
                  header=None,
                  output="table",
                  sort_keys=True,
-                 show_none="", key="name"):
+                 show_none="",
+                 key="name"):
     """
     :param l: l is a lsit not a dict
     :param order:

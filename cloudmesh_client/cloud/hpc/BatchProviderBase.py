@@ -42,8 +42,8 @@ class BatchProviderBase(object):
         return "{prefix}-{conunter}".format(**data)
 
     @classmethod
-    def create_remote_dir(cls, cluster, dir):
-        Shell.ssh(cluster, "mkdir -p {dir}".format(dir=dir))
+    def create_remote_dir(cls, cluster, directory):
+        Shell.ssh(cluster, "mkdir -p {dir}".format(dir=directory))
 
     @classmethod
     def read_config(cls, cluster):

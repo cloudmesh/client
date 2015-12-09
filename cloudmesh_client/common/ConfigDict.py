@@ -257,7 +257,6 @@ class ConfigDict(object):
         """
         if start is not None:
             data = self.data[start]
-            json.dumps(self.data[start], indent=4)
         return json.dumps(self.data, indent=4)
 
     @classmethod

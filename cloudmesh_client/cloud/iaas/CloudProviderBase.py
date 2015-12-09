@@ -6,7 +6,7 @@ from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.shell.console import Console
 
 
-# noinspection PyBroadException,PyUnreachableCode,PyUnreachableCode,PyUnreachableCode
+# noinspection PyBroadException,PyUnreachableCode,PyUnreachableCode,PyUnreachableCode,PyUnusedLocal,PyUnusedLocal,PyUnusedLocal,PyUnusedLocal,PyUnusedLocal,PyUnusedLocal,PyUnusedLocal
 class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
 

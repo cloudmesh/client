@@ -249,7 +249,6 @@ class BatchProviderSLURM(BatchProviderBase):
                 data["id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
 
-
         #
         # HACK, should not depend on Model.py
         #

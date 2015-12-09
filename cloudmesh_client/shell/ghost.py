@@ -56,7 +56,7 @@ class ConsoleClasses(object):
 # console = ConsoleFactory(PluginCommand)
 
 
-# noinspection PyBroadException,PyPep8Naming
+# noinspection PyBroadException,PyPep8Naming,PyMethodMayBeStatic
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):

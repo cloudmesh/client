@@ -89,6 +89,7 @@ class Cluster(object):
             r = [r]
 
         if r is not None:
+            # TODO: BUG r is list
             if 'error' in r:
                 Console.error("An error occurred: {error}".format(**r))
                 raise ValueError("COMET Error")
@@ -114,8 +115,6 @@ class Cluster(object):
                     'type': None,
                     'kind': 'frontend'
                 }
-
-                counter = 0
 
                 for cluster in r:
 

@@ -1,18 +1,17 @@
 from __future__ import print_function
-
-from pprint import pprint
-
-from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand
-
-
-# from cloudmesh_client.cloud.command_status import command_status
+from cloudmesh_client.shell.command import command, PluginCommand, \
+    ShellPluginCommand
 
 
 # noinspection PyPep8Naming
 class cm_shell_status(PluginCommand, ShellPluginCommand):
-    def activate_cm_shell_status(self):
-        self.register_command_topic('cloud', 'status')
+
+    topics = {"status": "cloud"}
+
+    def __init__(self, context):
+        self.context = context
+        if self.context.debug:
+            print("init status default")
 
     # noinspection PyUnusedLocal
     @command
@@ -37,7 +36,7 @@ class cm_shell_status(PluginCommand, ShellPluginCommand):
 
 
         """
-        pprint(arguments)
+        # pprint(arguments)
 
         if arguments['db']:
             print ('status db')

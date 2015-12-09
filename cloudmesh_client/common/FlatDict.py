@@ -79,8 +79,8 @@ class FlatDict(dict):
     def values(self):
         return self.__dict__.values()
 
-    def __cmp__(self, dict):
-        return cmp(self.__dict__, dict)
+    def __cmp__(self, dictionary):
+        return cmp(self.__dict__, dictionary)
 
     def __contains__(self, item):
         return item in self.__dict__

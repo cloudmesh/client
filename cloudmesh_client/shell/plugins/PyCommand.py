@@ -28,6 +28,7 @@ class Statekeeper(object):
                 setattr(self.obj, attrib, getattr(self, attrib))
 
 
+# noinspection PyUnresolvedReferences
 class PyCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
     pystate = {}

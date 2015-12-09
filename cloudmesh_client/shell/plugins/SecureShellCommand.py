@@ -91,7 +91,9 @@ class SecureShellCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
         """
         # pprint(arguments)
 
-        def read(filename="~/.ssh/config"):
+        def read(filename=None):
+            if filename is None:
+                filename = "~/.ssh/config"
             with open(path_expand("~/.ssh/config"), "r") as f:
                 content = f.readlines()
             return "".join(content)

@@ -16,4 +16,4 @@ class Counter(object):
 
     @classmethod
     def set(cls, name='counter', value=None, user=None):
-        cls.cm.counter_set(name=None, value=None, user=None)
+        cls.cm.counter_set(name=name, value=value, user=user)

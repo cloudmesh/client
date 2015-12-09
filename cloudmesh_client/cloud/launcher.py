@@ -4,6 +4,7 @@ import subprocess
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
+# noinspection PyUnusedLocal
 class LauncherProvider(ListResource):
     def info(self, **kwargs):
         ValueError("not yet implemented")
