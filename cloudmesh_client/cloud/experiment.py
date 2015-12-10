@@ -1,6 +1,8 @@
 from cloudmesh_base.Shell import Shell
-class Experiment(object):
 
+
+# noinspection PyBroadException
+class Experiment(object):
     @classmethod
     def rm(cls, cluster, id=None, format=None):
         data = {
@@ -39,15 +41,29 @@ class Experiment(object):
                 result = Shell.ssh(cluster, "ls experiment").split("\n")
                 ids = sorted([int(i) for i in result])
                 if format not in [None, 'txt']:
-                   result = ids
+                    result = ids
             except Exception, e:
                 result = None
 
         return result
 
-"""
-        elif arguments["experiment"] and arguments["output"]:
-            # hpc experiment output ID [--cluster=CLUSTER]
-            result = Shell.ssh(cluster, "ls experiment {ID}".format(**arguments))
-            print (result)
-"""
+    @classmethod
+    def output(cls, cluster, id=None, format=None):
+        data = {
+            "CLUSTER": cluster,
+            "ID": id,
+        }
+        result = None
+        if id is None:
+            ids = list(cluster)
+        else:
+            ids = [id]
+        result = []
+        for i in ids:
+            try:
+                result.append(Shell.ssh(cluster, "cat experiment/{}/*.out".format(i)))
+            except:
+                result.append("")
+        # if result == []:
+        #    result = None
+        return result

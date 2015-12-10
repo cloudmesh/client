@@ -181,10 +181,12 @@ class BatchProviderSLURM(BatchProviderBase):
         data["command"] = cmd
         data["options"] = options
 
+
         script = textwrap.dedent(
             """
             #! /bin/sh
             {options}
+
             echo '#CLOUDMESH: BATCH ENVIRONMENT'
             echo 'BASIL_RESERVATION_ID:' $BASIL_RESERVATION_ID
             echo 'SLURM_CPU_BIND:' $SLURM_CPU_BIND
@@ -204,9 +206,14 @@ class BatchProviderSLURM(BatchProviderBase):
             echo 'SLURM_RESTART_COUNT:' $SLURM_RESTART_COUNT
             echo 'SLURM_SUBMIT_DIR:' $SLURM_SUBMIT_DIR
             echo 'MPIRUN_PARTITION:' $MPIRUN_PARTITION
-            srun -l echo '#CLOUDMESH: Starting'
+            d = $(date)
+            echo '#CLOUDMESH: status, start, $d'
+            srun -l echo '#CLOUDMESH: status, start, $d'
             srun -l {command}
-            srun -l echo '#CLOUDMESH: Test ok'
+            d = $(date)
+            srun -l echo '#CLOUDMESH: status, finished, $d'
+            d = $(date)
+            echo '#CLOUDMESH: status, finished, $d'
             """
         ).format(**data).replace("\r\n", "\n").strip()
 
@@ -315,6 +322,13 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # add data to database
         #
+        # remove the - options
+
+        for key in ['-t','-N','-p','-o','-D']:
+            if key in data:
+                print (key, data[key])
+                del data[key]
+        data['status'] = 'started'
         cls.add_db(**data)
 
         return data
@@ -344,11 +358,6 @@ class BatchProviderSLURM(BatchProviderBase):
     def add_db(cls, **kwargs):
         cm = CloudmeshDatabase()
 
-        # replace options with correct values
-        kwargs['dir'] = kwargs.pop('-D')
-        kwargs['nodes'] = kwargs.pop('-N')
-        kwargs['output_file'] = kwargs.pop('-o')
-        kwargs['output_file'] = kwargs.pop('-t')
         kwargs['name'] = kwargs.get('script_name')
 
         db_obj = {0: {"batchjob": kwargs}}
