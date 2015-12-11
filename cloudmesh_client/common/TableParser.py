@@ -59,7 +59,7 @@ class TableParser(object):
         :return:
         """
         if change is None:
-            change = [(":", "_"), ("(", "_"), (")", ""), ("/", "_")],
+            change = [(":", "_"), ("(", "_"), (")", ""), ("/", "_")]
         self.data = None
         self.output = None
         self.with_header = header
@@ -77,7 +77,7 @@ class TableParser(object):
         :param line: cleans the string
         :return:
         """
-        print ("-" + line + "-")
+        # print ("-" + line + "-")
         if line == '':
             line = 'None'
         if self.is_lower:

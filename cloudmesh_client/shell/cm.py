@@ -125,7 +125,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             topics.update(tmp)
         for name in topics:
             self.register_command_topic(topics[name], name)
-        for name in ["q", "EOF", "man"]:
+        for name in ["q", "EOF", "man", "version", "help", "pause", "quit"]:
             self.register_command_topic("shell", name)
 
     def __init__(self, context):

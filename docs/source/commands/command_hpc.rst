@@ -119,6 +119,14 @@ the number::
 
 In future we will provide the ability to add custom scripts.
 
+hpc delete
+----------------------------------------------------------------------
+If for any reason, you need to kill a job that you have submitted, use the
+delete command with the job name or the job id::
+
+    $ hpc delete --job=1463
+    Job 1463 killed successfully
+
 
 
 
