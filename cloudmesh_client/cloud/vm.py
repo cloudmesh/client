@@ -77,7 +77,7 @@ class Vm(ListResource):
                     net_id = network.id
 
             nics = [{"net-id": net_id}]
-            # TODO: BUG: nics seems unexpected argument
+            
             vm_id = cloud_provider.boot_vm(kwargs["name"],
                                            kwargs["image"],
                                            kwargs["flavor"],
