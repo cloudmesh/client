@@ -129,7 +129,7 @@ cloudmesh:
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com
-            cm_label: waz
+            cm_label: azure
             cm_type: azure
             cm_type_version: null
             credentials:

@@ -8,6 +8,7 @@ from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
     CometPluginCommand
 from cloudmesh_client.common.Printer import attribute_printer
 
+
 # noinspection PyBroadException
 class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
     topics = {"hpc": "system"}
@@ -103,6 +104,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc info
                         cm hpc delete --job=6
                         cm hpc run uname
+                        cm hpc run ~/test.sh --cluster=india
                 """
 
         format = arguments['--format']
