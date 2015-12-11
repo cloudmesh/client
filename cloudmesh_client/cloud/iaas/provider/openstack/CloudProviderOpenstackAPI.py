@@ -141,7 +141,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())
-
+        pprint(vm_dict)
         # Extracting and modifying dict with IP details as per the model requirement.
         ip_detail_dict = dict()
         secgroup_list_dict = dict()
@@ -161,12 +161,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             secgroup_list_dict[index] = ""
 
             sec_index = 0
-            for secgroup in vm_dict[index]["security_groups"]:
-                secgroup_list_dict[index] += secgroup["name"]
-                sec_index += 1
-                # Append comma if not the last element
-                if sec_index < len(vm_dict[index]["security_groups"]):
-                    secgroup_list_dict[index] += ","
+            if vm_dict[index].has_key("security_groups"):
+                for secgroup in vm_dict[index]["security_groups"]:
+                    secgroup_list_dict[index] += secgroup["name"]
+                    sec_index += 1
+                    # Append comma if not the last element
+                    if sec_index < len(vm_dict[index]["security_groups"]):
+                        secgroup_list_dict[index] += ","
 
         for index in vm_dict:
             vm_dict[index]["floating_ip"] = ip_detail_dict[index]["floating_ip"]
