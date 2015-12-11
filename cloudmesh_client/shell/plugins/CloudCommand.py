@@ -1,7 +1,10 @@
 from __future__ import print_function
-from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
+
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 
 
 class CloudCommand(PluginCommand, CloudPluginCommand):
@@ -20,6 +23,8 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
 
           Usage:
               cloud list [--cloud=CLOUD] [--format=FORMAT]
+              cloud logon CLOUD
+              cloud logout CLOUD
               cloud activate CLOUD
               cloud deactivate CLOUD
               cloud info CLOUD
@@ -31,7 +36,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
             VALUE  the value to set the key to
 
           Options:
-             --cloud=CLOUD    the name of the cloud [default: general]
+             --cloud=CLOUD    the name of the cloud
              --format=FORMAT  the output format [default: table]
 
           Description:
@@ -70,9 +75,42 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
              register
         """
         # pprint(arguments)
-        cloud = arguments["--cloud"] or Default.get_cloud()
-        output_format = arguments["--format"]
-        Console.error("TODO: Command not yet implemented.")
+
+        cloudname = arguments["--cloud"] or Default.get_cloud()
+
+        if arguments["logon"]:
+            cloudname = arguments["CLOUD"]
+            provider = CloudProvider(cloudname).provider
+            provider.logon(cloudname)
+            Console.ok("Logged into cloud: " + cloudname)
+
+        elif arguments["logout"]:
+            cloudname = arguments["CLOUD"]
+            provider = CloudProvider(cloudname).provider
+            provider.logout(cloudname)
+            Console.ok("Logged out of cloud: " + cloudname)
+
+        elif arguments["activate"]:
+            cloudname = arguments["CLOUD"]
+            provider = CloudProvider(cloudname).provider
+            provider.activate(cloudname)
+            Console.ok("Activated cloud: " + cloudname)
+
+
+        elif arguments["deactivate"]:
+            cloudname = arguments["CLOUD"]
+            provider = CloudProvider(cloudname).provider
+            provider.deactivate(cloudname)
+            Console.ok("Deactivated cloud: " + cloudname)
+
+        elif arguments["list"]:
+            provider = CloudProvider(cloudname).provider
+            clouds = provider.list_clouds()
+            (order, header) = CloudProvider(cloudname).get_attributes("clouds")
+
+            Console.msg(dict_printer(clouds,
+                                order=order,
+                                header=header))
         pass
 
 

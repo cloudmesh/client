@@ -39,6 +39,7 @@ def set_os_environ(cloudname):
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
     kind = "openstack"
+    cloud_pwd = {}
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
@@ -80,6 +81,76 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
 
         return ksauth
+
+    def logon(self, cloudname):
+        """
+        Logs onto a cloud
+        :param cloudname:
+        :return:
+        """
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname] = {}
+        d = ConfigDict("cloudmesh.yaml")
+        credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
+
+        os_password = credentials["OS_PASSWORD"]
+        if os_password.lower() == "readline":
+            os_password = getpass.getpass()
+        elif os_password.lower() == "env":
+            os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
+
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"] = os_password
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Active"
+
+        return
+
+    def activate(self, cloudname):
+        """
+        Activates a cloud
+        :param cloudname:
+        :return:
+        """
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Active"
+        return
+
+    def deactivate(self, cloudname):
+        """
+        Deactivates a cloud
+        :param cloudname:
+        :return:
+        """
+        CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Inactive"
+        return
+
+    def logout(self, cloudname):
+        """
+        Logs out from a cloud
+        :param cloudname:
+        :return:
+        """
+        CloudProviderOpenstackAPI.cloud_pwd.pop(cloudname)
+        return
+
+    def list_clouds(self):
+        """
+        Lists clouds
+        :return:
+        """
+        dict = {}
+        d = ConfigDict("cloudmesh.yaml")
+        clouds = d["cloudmesh"]["clouds"].keys()
+        for i, cloud in enumerate(clouds):
+            if CloudProviderOpenstackAPI.cloud_pwd.has_key(cloud):
+                dict[i] = {
+                    "cloud": cloud,
+                    "status": CloudProviderOpenstackAPI.cloud_pwd[cloud]["status"]
+                }
+            else:
+                dict[i] = {
+                    "cloud": cloud,
+                    "status": "Logged Out"
+                }
+
+        return dict
 
     def initialize(self, cloudname, user=None):
 
@@ -493,6 +564,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ],
                 'header': [
                     "floating_ip_pool"
+                ],
+            },
+            'clouds': {
+                'order': [
+                    "cloud",
+                    "status"
+                ],
+                'header': [
+                    "cloud name",
+                    "status"
                 ],
             },
             'limits': {
