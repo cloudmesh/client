@@ -66,7 +66,7 @@ class Squeue(object):
 
 
 if __name__ == "__main__":
-    #TODO: user should be read from yaml file
+    # TODO: user should be read from yaml file
     print(Squeue.read_squeue())
     print(Squeue.get(name="NGBW-JOB", user="cipres"))
     # print(Squeue.get(name="NGBW-JOB"))

@@ -181,7 +181,6 @@ class BatchProviderSLURM(BatchProviderBase):
         data["command"] = cmd
         data["options"] = options
 
-
         script = textwrap.dedent(
             """
             #! /bin/sh
@@ -324,7 +323,7 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # remove the - options
 
-        for key in ['-t','-N','-p','-o','-D']:
+        for key in ['-t', '-N', '-p', '-o', '-D']:
             if key in data:
                 print (key, data[key])
                 del data[key]
@@ -363,4 +362,3 @@ class BatchProviderSLURM(BatchProviderBase):
         db_obj = {0: {"batchjob": kwargs}}
         cm.add_obj(db_obj)
         cm.save()
-

@@ -154,7 +154,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
 
                 reserve = Reservation()
                 dictionary = reserve.list(_name, _start, _end, _user, _project,
-                                    _hosts)
+                                          _hosts)
                 print(_print_dict(dictionary, format=_format))
                 msg = "info. OK."
                 Console.ok(msg)
