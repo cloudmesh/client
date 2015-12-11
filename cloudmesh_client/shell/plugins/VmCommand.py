@@ -12,6 +12,7 @@ from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 import pyaml
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
@@ -212,7 +213,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if name is None:
                     is_name_provided = False
 
-                    prefix, count = Counter.get()
+                    count = Counter.get()
+                    prefix = Username()
 
                     if prefix is None or count is None:
                         Console.error("Prefix and Count could not be retrieved correctly.")
@@ -277,7 +279,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["default"]:
             try:
-                prefix, count = Counter.get()
+                count = Counter.get()
+                prefix = Username()
 
                 if prefix is None or count is None:
                     Console.error("Prefix and Count could not be retrieved correctly.")
@@ -551,8 +554,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     if result is not None:
                         print(result)
                     else:
-                        Console.error("No data found with the"
-                                      "requested parameters.")
+                        print("No data found with the requested parameters.")
 
                     msg = "info. OK."
                     Console.ok(msg)

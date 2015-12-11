@@ -68,7 +68,6 @@ class Rack(object):
         return '\n'.join(result)
 
     def set(self, server, **kwargs):
-        values = []
         for attribute in kwargs:
             comma = ' '
             if attribute is not 'color':

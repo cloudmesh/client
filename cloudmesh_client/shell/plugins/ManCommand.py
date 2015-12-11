@@ -25,7 +25,7 @@ class ManCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
         print
         print "Command - %s::" % what
-
+        h = None
         exec ("h = self.do_%s.__doc__" % what)
         # noinspection PyUnboundLocalVariable
         h = textwrap.dedent(h).replace("::\n\n", "")

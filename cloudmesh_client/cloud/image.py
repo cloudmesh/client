@@ -27,7 +27,7 @@ class Image(ListResource):
         This method lists all images of the cloud
         :param cloud: the cloud name
         """
-        # TODO: make a CloudmeshDatabase without requireing the user=
+        # TODO: make a CloudmeshDatabase without requiring the user=
         # cm = CloudmeshDatabase()
 
         try:

@@ -1,8 +1,8 @@
 import json
-from cloudmesh_client.cloud.hpc.hpc import Hpc
+from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 
 
-# TODO: is this outdated and superceeded by hpc.py?
+# TODO: is this outdated and superseded by hpc.py?
 class Squeue(object):
     @staticmethod
     def squeue_to_json(input_str):
@@ -59,10 +59,14 @@ class Squeue(object):
     @staticmethod
     def read_squeue():
         # read squeue from comet
-        return Hpc.read_squeue(format="json")
+        # TODO: check this function
+        name = None
+        provider = BatchProvider(name)
+        return provider.read_squeue(format="json")
 
 
 if __name__ == "__main__":
+    #TODO: user should be read from yaml file
     print(Squeue.read_squeue())
     print(Squeue.get(name="NGBW-JOB", user="cipres"))
     # print(Squeue.get(name="NGBW-JOB"))

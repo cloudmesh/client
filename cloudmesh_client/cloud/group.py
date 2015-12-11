@@ -24,7 +24,7 @@ class Group(ListResource):
     @classmethod
     def exists(cls, name, cloud):
         """
-        chexks if the group with the given name exists
+        checks if the group with the given name exists
         """
         raise ValueError("not implemented")
 
@@ -32,7 +32,7 @@ class Group(ListResource):
     @classmethod
     def check(cls, name, cloud):
         """
-        chexks if the group with the given name exists and rasies exception
+        checks if the group with the given name exists and raises exception
         """
         if not cls.exists(name, cloud):
             raise ValueError(

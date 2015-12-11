@@ -71,7 +71,7 @@ class BatchProviderSLURM(BatchProviderBase):
                 cluster,
                 'sinfo --format=\"%P|%a|%l|%D|%t|%N\"')
 
-        # ignor leading lines till header is found
+        # ignore leading lines till header is found
         l = result.splitlines()
         for i, res in enumerate(l):
             if 'PARTITION|AVAIL|' in res:
@@ -111,15 +111,14 @@ class BatchProviderSLURM(BatchProviderBase):
     @classmethod
     def run(cls, cluster, cmd, **kwargs):
 
-        print ("CCCC>", cluster)
         # determine the script name..
 
         #
         # TODO: script count is variable in data base, we test if fil exists and if it
         # does increase counter till we find one that does not, that will be new counter.
-        # new couner will than be placed in db.
+        # new counter will than be placed in db.
         #
-        # define get_script_name(dirctory, prefix, counter)
+        # define get_script_name(directory, prefix, counter)
         # there maybe s a similar thing already in the old cloudmesh
         #
 
@@ -182,10 +181,12 @@ class BatchProviderSLURM(BatchProviderBase):
         data["command"] = cmd
         data["options"] = options
 
+
         script = textwrap.dedent(
             """
             #! /bin/sh
             {options}
+
             echo '#CLOUDMESH: BATCH ENVIRONMENT'
             echo 'BASIL_RESERVATION_ID:' $BASIL_RESERVATION_ID
             echo 'SLURM_CPU_BIND:' $SLURM_CPU_BIND
@@ -205,9 +206,14 @@ class BatchProviderSLURM(BatchProviderBase):
             echo 'SLURM_RESTART_COUNT:' $SLURM_RESTART_COUNT
             echo 'SLURM_SUBMIT_DIR:' $SLURM_SUBMIT_DIR
             echo 'MPIRUN_PARTITION:' $MPIRUN_PARTITION
-            srun -l echo '#CLOUDMESH: Starting'
+            d = $(date)
+            echo '#CLOUDMESH: status, start, $d'
+            srun -l echo '#CLOUDMESH: status, start, $d'
             srun -l {command}
-            srun -l echo '#CLOUDMESH: Test ok'
+            d = $(date)
+            srun -l echo '#CLOUDMESH: status, finished, $d'
+            d = $(date)
+            echo '#CLOUDMESH: status, finished, $d'
             """
         ).format(**data).replace("\r\n", "\n").strip()
 
@@ -219,8 +225,9 @@ class BatchProviderSLURM(BatchProviderBase):
         data["to"] = _to
         data["script"] = script
         # write the script to local
-        print(_from)
-        print(_to)
+
+        # print(_from)
+        # print(_to)
 
         with open(_from, 'w') as local_file:
             local_file.write(script)
@@ -237,18 +244,17 @@ class BatchProviderSLURM(BatchProviderBase):
         cmd = 'sbatch {remote_experiment_dir}/{script_name}'.format(**data)
         data["cmd"] = cmd
 
-        print ("CMD>", cmd)
+        # print ("CMD>", cmd)
         result = Shell.ssh(cluster, cmd)
 
         data["output"] = result
 
         # find id
         for line in result.split("\n"):
-            print ("LLL>", line)
+            # print ("LLL>", line)
             if "Submitted batch job" in line:
                 data["id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
-
 
         #
         # HACK, should not depend on Model.py
@@ -316,6 +322,13 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # add data to database
         #
+        # remove the - options
+
+        for key in ['-t','-N','-p','-o','-D']:
+            if key in data:
+                print (key, data[key])
+                del data[key]
+        data['status'] = 'started'
         cls.add_db(**data)
 
         return data
@@ -345,11 +358,6 @@ class BatchProviderSLURM(BatchProviderBase):
     def add_db(cls, **kwargs):
         cm = CloudmeshDatabase()
 
-        # replace options with correct values
-        kwargs['dir'] = kwargs.pop('-D')
-        kwargs['nodes'] = kwargs.pop('-N')
-        kwargs['output_file'] = kwargs.pop('-o')
-        kwargs['output_file'] = kwargs.pop('-t')
         kwargs['name'] = kwargs.get('script_name')
 
         db_obj = {0: {"batchjob": kwargs}}

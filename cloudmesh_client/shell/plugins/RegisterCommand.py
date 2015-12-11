@@ -37,7 +37,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register new
               register clean [--force]
               register list ssh [--format=FORMAT]
-              register list [--yaml=FILENAMh bE][--info][--format=FORMAT]
+              register list [--yaml=FILENAME][--info][--format=FORMAT]
               register cat [--yaml=FILENAME]
               register edit [--yaml=FILENAME]
               register export HOST [--password] [--format=FORMAT]
@@ -188,7 +188,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         if arguments["info"]:
 
             filename = _get_config_yaml_file(arguments)
-            if _exists(filename):
+
+            if os.path.isfile(filename):
                 Console.ok("File '{}' exists. ok.".format(filename))
             else:
                 Console.error("File {} does not exist".format(filename))
@@ -400,9 +401,9 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 CloudRegister.certificate(cloud, path, force)
             elif arguments['--dir']:
                 cloud = arguments['CLOUD']
-                dir = arguments['--dir']
-                Console.ok(dir)
-                CloudRegister.directory(cloud, dir)
+                directory = arguments['--dir']
+                Console.ok(directory)
+                CloudRegister.directory(cloud, directory)
         elif arguments['env']:
             try:
                 CloudRegister.from_environ(arguments['--provider'])

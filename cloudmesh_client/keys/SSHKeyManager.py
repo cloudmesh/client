@@ -60,7 +60,7 @@ class SSHKeyManager(object):
             options.append(line)
         return menu_return_num('KEYS', options)
 
-    # noinspection PyProtectedMember,PyUnreachableCode
+    # noinspection PyProtectedMember,PyUnreachableCode,PyUnusedLocal
     def get_from_yaml(self, filename=None, load_order=None):
         """
         :param filename: name of the yaml file

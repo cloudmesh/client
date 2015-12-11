@@ -87,7 +87,7 @@ class Network(ListResource):
                                          "name",
                                          "value"
                                      ])
-        except Exception as ex:
+        except Exception:
             # auto detect floating-ip-id
             floating_ips = cls.get_floating_ip_list(cloudname)
             # for each floating-ip from list
@@ -423,13 +423,13 @@ class Network(ListResource):
             return False
 
     @classmethod
-    def isDictEmpty(cls, dict):
+    def isDictEmpty(cls, dictionary):
         """
         Method to test empty Dict
-        :param dict:
+        :param dictionary:
         :return:
         """
-        if bool(dict):
+        if bool(dictionary):
             return False
         else:
             return True

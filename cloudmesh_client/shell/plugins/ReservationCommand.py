@@ -153,9 +153,9 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 _format = arguments['--format']
 
                 reserve = Reservation()
-                dict = reserve.list(_name, _start, _end, _user, _project,
+                dictionary = reserve.list(_name, _start, _end, _user, _project,
                                     _hosts)
-                print(_print_dict(dict, format=_format))
+                print(_print_dict(dictionary, format=_format))
                 msg = "info. OK."
                 Console.ok(msg)
 
