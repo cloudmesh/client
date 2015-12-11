@@ -55,6 +55,10 @@ a virtual ENV with::
 
   virtualenv -p /user/local/bin/python ~/ENV
 
+Note: in case the virtualenv is not installed::
+
+  pip install virtualenv
+
 You will need to activate the virtualenv::
 
   source ~/ENV/bin/activate
