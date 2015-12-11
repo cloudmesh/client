@@ -237,7 +237,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 action = "shutdown"
             else:
                 action = None
-            Cluster.power(clusterid, subject, param, action)
+            print (Cluster.power(clusterid, subject, param, action))
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
             nodeid = None

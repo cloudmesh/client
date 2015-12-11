@@ -235,6 +235,7 @@ class Cluster(object):
         # the API is now accepting hostlist format directly
         # computeIdsHostlist = hostlist.collect_hostlist(computeids)
         # print (computeIdsHostlist)
+        ret = ''
         if 'HOSTS' == subject:
             url = Comet.url("computeset/")
 
@@ -267,7 +268,7 @@ class Cluster(object):
                     ret = "An internal error occured. " \
                           "Please submit a ticket with following info:\n {}\n" \
                         .format(r)
-                print(ret)
+                # print(ret)
             elif action in ["off", "reboot", "reset", "shutdown"]:
                 if action in ["off"]:
                     action = "power{}".format(action)
@@ -306,18 +307,18 @@ class Cluster(object):
                     # print(r)
                     if r is not None:
                         if '' != r.strip():
-                            print(r)
+                            ret = r
+                            # print(r)
                         else:
-                            print("Requeset Accepted. In the process of {} the nodes"
-                                  .format(action))
+                            ret = "Requeset Accepted. "\
+                                  "In the process of {} the nodes".format(action)
                     else:
-                        print("Unknown error: POWER, HOSTS")
+                        ret = "Unknown error: POWER, HOSTS"
                 else:
-                    print(
-                        "All the nodes are not in the specified cluster, "
-                        "or they are not running")
+                    ret = "All the nodes are not in the specified cluster, "\
+                          "or they are not running"
             else:
-                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
         elif 'FE' == subject:
             url = Comet.url("cluster/{}/frontend/".format(clusterid))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
@@ -328,19 +329,19 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
-                        print(r)
+                        ret = r
                     else:
-                        print("Requeset Accepted. In the process of {} the front end"
-                              .format(action))
+                        ret = "Requeset Accepted. "\
+                              "In the process of {} the nodes".format(action)
                 else:
-                    print("Problem executing the request. "
-                          "Check if the cluster exists")
+                    ret = "Problem executing the request. "\
+                          "Check if the cluster exists"
             else:
-                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
         elif 'COMPUTESET' == subject:
             url = Comet.url("computeset/")
             if 'on' == action:
-                print("NOT SUPPORTED! Use hostslist to specify the hosts to power on!")
+                ret = "NOT SUPPORTED! Use hostslist to specify the hosts to power on!"
             elif action in ["off", "reboot", "reset", "shutdown"]:
                 if action in ["off"]:
                     action = "power{}".format(action)
@@ -349,15 +350,15 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
-                        print(r)
+                        ret = r
                     else:
-                        print("Requeset Accepted. In the process of {} the computeset"
-                              .format(action))
+                        ret = "Requeset Accepted. "\
+                              "In the process of {} the nodes".format(action)
                 else:
-                    print("Problem executing the request. "
-                          "Check if the computeset exists")
+                    ret = "Problem executing the request. "\
+                          "Check if the computeset exists"
             else:
-                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
         elif 'HOST' == subject:
             url = Comet.url("cluster/{}/compute/{}/".format(clusterid, param))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
@@ -368,15 +369,16 @@ class Cluster(object):
                 r = Comet.put(puturl)
                 if r is not None:
                     if '' != r.strip():
-                        print(r)
+                        ret = r
                     else:
-                        print("Requeset Accepted. In the process of {} the host"
-                              .format(action))
+                        ret = "Requeset Accepted. "\
+                              "In the process of {} the nodes".format(action)
                 else:
-                    print("Problem executing the request. "
-                          "Check if the node belongs to the cluster")
+                    ret = "Problem executing the request. "\
+                          "Check if the node belongs to the cluster"
             else:
-                print("Action not supported! Try these: on/off/reboot/reset/shutdown")
+                ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
+        return ret
 
     @staticmethod
     def delete():
