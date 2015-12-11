@@ -51,7 +51,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc queue
                             lists the details of the queues of the hpc cluster
 
-                        cm hpc queue --name=NAME
+                        cm hpc queue --job=NAME
                             lists the details of the job in the queue of the hpc cluster
 
                         cm hpc info
@@ -76,7 +76,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc delete --job=NAME
                             kills a job with a given name or job id
 
-                        cm hpc default cluster=NAME
+                        cm default cluster=NAME
                             sets the default hpc cluster
 
                         cm hpc status
