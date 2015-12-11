@@ -141,7 +141,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())
-        pprint(vm_dict)
+
         # Extracting and modifying dict with IP details as per the model requirement.
         ip_detail_dict = dict()
         secgroup_list_dict = dict()
