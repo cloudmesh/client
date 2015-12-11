@@ -84,8 +84,12 @@ can use the run command:
   hpc run uname --cluster=india
 
 It will create on the cluster india a new experiment directory by
- increasing an experiment number, put the batch script, run teh
+ increasing an experiment number, put the batch script, run the
  command, and put the output into this directory.
+
+One can also transfer a script for the experiment, for example:
+
+  hpc run <script_path> --cluster=india
 
 To list experiments that have been previously run you can use the
 command::

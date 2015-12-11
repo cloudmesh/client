@@ -104,6 +104,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc info
                         cm hpc delete --job=6
                         cm hpc run uname
+                        cm hpc run ~/test.sh --cluster=india
                 """
 
         format = arguments['--format']
