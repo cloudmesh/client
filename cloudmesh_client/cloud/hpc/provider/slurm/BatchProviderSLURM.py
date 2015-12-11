@@ -21,7 +21,7 @@ class BatchProviderSLURM(BatchProviderBase):
             args = 'squeue '
             if job is not None:
                 if job.isdigit():
-                    args += ' -j {} '.format(job)  # search by job id
+                    args += ' -j {} '.format(str(job))  # search by job id
                 else:
                     args += ' -n {} '.format(job)  # search by job name
             f = '--format=%all'

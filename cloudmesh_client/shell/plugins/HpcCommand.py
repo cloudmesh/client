@@ -103,6 +103,8 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc queue --job=xxx
                         cm hpc info
                         cm hpc delete --job=6
+                        cm hpc status
+                        cm hpc status --job=6
                         cm hpc run uname
                         cm hpc run ~/test.sh --cluster=india
                 """

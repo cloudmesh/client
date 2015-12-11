@@ -6,15 +6,20 @@
 
 banner DEFAULTS
 
-cm default
+cm default list
 
 banner REGISTRATION
 
-# PUT YOUR COMMANDS HERE
+banner HPC
 
-default hpc=juliet
+default cluster=india
 
 hpc info
+
 hpc queue
 
+hpc run uname
 
+hpc status --job=6
+
+# hpc delete --job={JOB_ID}
