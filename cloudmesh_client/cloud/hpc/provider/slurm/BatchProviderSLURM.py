@@ -8,6 +8,7 @@ from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+import os
 
 
 # noinspection PyBroadException
@@ -178,7 +179,20 @@ class BatchProviderSLURM(BatchProviderBase):
         for key, value in option_mapping.iteritems():
             options += '#SBATCH {} {}\n'.format(key, value)
 
-        data["command"] = cmd
+        cls.create_remote_dir(cluster, data["remote_experiment_dir"])
+
+        # if the command is a script, copy the script
+        if os.path.isfile(cmd):
+            _from = Config.path_expand(cmd)
+            _to = '{cluster}:{remote_experiment_dir}'.format(**data)
+
+            local_file_name = cmd.split('/')[-1]
+            Shell.execute("rsync", [_from, _to])
+            data["command"] = '{remote_experiment_dir}/{local_file_name}'.format(local_file_name=local_file_name,
+                                                                                 **data)
+        else:
+            data["command"] = cmd
+
         data["options"] = options
 
         script = textwrap.dedent(
@@ -215,8 +229,6 @@ class BatchProviderSLURM(BatchProviderBase):
             echo '#CLOUDMESH: status, finished, $d'
             """
         ).format(**data).replace("\r\n", "\n").strip()
-
-        cls.create_remote_dir(cluster, data["remote_experiment_dir"])
 
         _from = Config.path_expand('~/.cloudmesh/{script_name}'.format(**data))
         _to = '{cluster}:{remote_experiment_dir}'.format(**data)
