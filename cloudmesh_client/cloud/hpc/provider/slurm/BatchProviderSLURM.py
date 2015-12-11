@@ -148,6 +148,7 @@ class BatchProviderSLURM(BatchProviderBase):
         data["script_base_name"] = "{username}-{count}".format(**data)
         data["script_name"] = "{username}-{count}.sh".format(**data)
         data["script_output"] = "{username}-{count}.out".format(**data)
+        data["script_error"] = "{username}-{count}.err".format(**data)
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
 
@@ -156,7 +157,8 @@ class BatchProviderSLURM(BatchProviderBase):
                           '-N': '{nodes}'.format(**data),
                           '-p': '{queue}'.format(**data),
                           '-o': '{script_output}'.format(**data),
-                          '-D': '{remote_experiment_dir}'.format(**data)}
+                          '-D': '{remote_experiment_dir}'.format(**data),
+                          '-e': '{script_error}'.format(**data)}
 
         map(lambda (k, v):
             option_mapping.__setitem__(k, kwargs.get(k) or v),
@@ -335,7 +337,7 @@ class BatchProviderSLURM(BatchProviderBase):
         #
         # remove the - options
 
-        for key in ['-t', '-N', '-p', '-o', '-D']:
+        for key in ['-t', '-N', '-p', '-o', '-D', '-e']:
             if key in data:
                 print (key, data[key])
                 del data[key]

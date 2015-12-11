@@ -127,7 +127,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
 
         elif arguments["delete"]:
             job = arguments['--job']
-            Console.ok(batch.kill(cluster, job))
+            Console.ok(batch.delete(cluster, job))
 
         elif arguments["status"]:
             name = arguments['--job']
