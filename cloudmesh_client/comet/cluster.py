@@ -77,11 +77,20 @@ class Cluster(object):
 
     @staticmethod
     def list(id=None, format="table"):
+
+        def check_for_error(r):
+            if r is not None:
+                if 'error' in r:
+                    Console.error("An error occurred: {error}".format(**r))
+                    raise ValueError("COMET Error")
+
         result = ""
         if id is None:
             r = Comet.get(Comet.url("cluster/"))
+            check_for_error(r)
         else:
             r = Comet.get(Comet.url("cluster/" + id + "/"))
+            check_for_error(r)
             if r is None:
                 Console.error("Could not find cluster `{}`"
                               .format(id))
@@ -89,14 +98,6 @@ class Cluster(object):
             r = [r]
 
         if r is not None:
-            # TODO: BUG r is list
-            if 'error' in r:
-                Console.error("An error occurred: {error}".format(**r))
-                raise ValueError("COMET Error")
-            elif 'error' in r[0]:
-                Console.error("An error occurred: {error}".format(**r[0]))
-                raise ValueError("COMET Error")
-
             if format == "rest":
                 result = r
             else:
