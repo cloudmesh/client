@@ -96,7 +96,6 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
             provider.activate(cloudname)
             Console.ok("Activated cloud: " + cloudname)
 
-
         elif arguments["deactivate"]:
             cloudname = arguments["CLOUD"]
             provider = CloudProvider(cloudname).provider
@@ -108,9 +107,5 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
             clouds = provider.list_clouds()
             (order, header) = CloudProvider(cloudname).get_attributes("clouds")
 
-            Console.msg(dict_printer(clouds,
-                                order=order,
-                                header=header))
+            Console.msg(dict_printer(clouds, order=order, header=header))
         pass
-
-

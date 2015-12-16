@@ -139,7 +139,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         d = ConfigDict("cloudmesh.yaml")
         clouds = d["cloudmesh"]["clouds"].keys()
         for i, cloud in enumerate(clouds):
-            if CloudProviderOpenstackAPI.cloud_pwd.has_key(cloud):
+            if cloud in CloudProviderOpenstackAPI.cloud_pwd:
                 dict[i] = {
                     "cloud": cloud,
                     "status": CloudProviderOpenstackAPI.cloud_pwd[cloud]["status"]
@@ -232,7 +232,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             secgroup_list_dict[index] = ""
 
             sec_index = 0
-            if vm_dict[index].has_key("security_groups"):
+            if "security_groups" in vm_dict[index]:
                 for secgroup in vm_dict[index]["security_groups"]:
                     secgroup_list_dict[index] += secgroup["name"]
                     sec_index += 1
