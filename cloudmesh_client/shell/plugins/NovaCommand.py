@@ -9,7 +9,7 @@ from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
+from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import \
     set_os_environ
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
