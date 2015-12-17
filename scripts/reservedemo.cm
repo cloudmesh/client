@@ -1,0 +1,15 @@
+banner RESERVATION
+
+reservation add --name=test3 --start='10/31/1988\ at\ 8:09\ pm' --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh --hosts=host001 --description=desc
+
+reservation list
+reservation list --format=json
+reservation list --format=yaml
+
+reservation update --name=test3 --project=cloudnauts
+
+reservation list
+
+reservation delete --name=test3
+
+reservation list
