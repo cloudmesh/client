@@ -304,6 +304,20 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
 
+    def delete_key_from_cloud(self, name):
+        """
+        Deletes key from cloud for given name.
+        :param name: Name of the keypair to create.
+        :return:
+        """
+        """
+        Creating public key.
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+
     def details(self, kind, cloud, id, format="table"):
         from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
         try:

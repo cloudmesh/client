@@ -111,7 +111,7 @@ class SSHKeyDBManager(object):
 
         :return: Query object from all the entries
         """
-        return self.db.find(KEY).all()
+        return self.db.find(KEY)
 
     def table_dict(self):
         """
@@ -161,16 +161,51 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        keycloudmap = self.db.find(KEYCLOUDMAP, user=user, key_name=keyname, cloud_name=cloud)
-        # print("keycloudmap={:}".format(keycloudmap))
-        if keycloudmap is not None and len(keycloudmap) != 0:
-            keycloudmap.update(user=user, key_name=keyname, cloud_name=cloud, key_name_on_cloud=name_on_cloud)
+        keycloudmap = self.db.find(KEYCLOUDMAP, output="object", user=user, key_name=keyname, cloud_name=cloud)
+        keycloudmapdict = self.db.object_to_dict(keycloudmap)
+        # print(keycloudmap)
+        if keycloudmapdict is not None and len(keycloudmapdict) != 0:
+            keycloudmap.update({'user': user,
+                                'key_name': keyname,
+                                'cloud_name': cloud,
+                                'key_name_on_cloud': name_on_cloud})
             self.db.save()
         else:
             keycloudmap = KEYCLOUDMAP(user, keyname, cloud, name_on_cloud)
             self.db.add(keycloudmap)
             self.db.save()
 
-    def get_key_cloud_maps(self, cloud):
-        return self.db.find(KEYCLOUDMAP, cloud_name=cloud)
+    def get_key_cloud_maps(self):
+        """
+        Returns entries in Key-Cloud map table.
+        :param keyname: Name of the key in db.
+        :return:
+        """
 
+        keycloudmap = self.db.find(KEYCLOUDMAP)
+
+        return keycloudmap
+
+    def get_key_cloud_map_entry(self, keyname):
+        """
+        Returns entries in Key-Cloud map table.
+        :param keyname: Name of the key in db.
+        :return:
+        """
+
+        keycloudmap = self.db.find(KEYCLOUDMAP, key_name=keyname)
+
+        return keycloudmap
+
+    def delete_key_cloud_map_entry(self, keyname):
+        """
+        Deletes an entry to Key-Cloud map table.
+        :param keyname: Name of the key in db.
+        :return:
+        """
+
+        keycloudmap = self.db.find(KEYCLOUDMAP, output="object", key_name=keyname)
+        # print(keycloudmap.values())
+        for key in keycloudmap:
+            # print("Deleting: {:}".format(key))
+            self.db.delete(key)
