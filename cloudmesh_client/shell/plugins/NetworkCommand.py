@@ -39,7 +39,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
                 network list floating pool [--cloud=CLOUD]
                 network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
-                network cluster create --group=demo_group
+                network create cluster --group=demo_group
                 network -h | --help
 
             Options:
@@ -78,7 +78,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 $ network list floating --cloud=india 192.1.66.8
                 $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
                 $ network list floating pool --cloud=india
-                $ network cluster create --group=demo_group
+                $ network create cluster --group=demo_group
 
         """
         # pprint(arguments)
