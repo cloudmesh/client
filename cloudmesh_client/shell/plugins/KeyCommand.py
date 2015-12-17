@@ -389,8 +389,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             # print('delete')
             if arguments['--all']:
                 try:
-                    sshdb = SSHKeyDBManager()
-                    sshdb.delete_all()
+                    sshm = SSHKeyManager()
+                    sshm.delete_all_keys()
                     print("All keys from the database deleted successfully.")
                     msg = "info. OK."
                     Console.ok(msg)
@@ -407,7 +407,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     try:
                         keyname = select.split(':')[0]
                         print("Deleting key: {:}...".format(keyname))
-                        sshdb.delete(keyname)
+                        sshm = SSHKeyManager()
+                        sshm.delete_key(keyname)
                         msg = "info. OK."
                         Console.ok(msg)
                     except Exception, e:
@@ -419,8 +420,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 keyname = None
                 try:
                     keyname = arguments['KEYNAME']
-                    sshdb = SSHKeyDBManager()
-                    sshdb.delete(keyname)
+                    sshm = SSHKeyManager()
+                    sshm.delete_key(keyname)
                     print("Key {:} deleted successfully from database.".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)

@@ -434,6 +434,19 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         keypair = self.provider.keypairs.create(name, public_key=public_key)
         return keypair
 
+    def delete_key_from_cloud(self, name):
+        """
+        Method to delete key from cloud, typically a keypair for openstack.
+        :param name: Name of the keypair.
+        :return:
+        """
+
+        # print("Name=" + name)
+        # print("public_key=" + public_key)
+
+        keypair = self.provider.keypairs.delete(name)
+        return keypair
+
     def create_floating_ip(self, float_pool):
         """
         Method creates a new floating ip under the specified pool
