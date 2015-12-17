@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, SECGROUPRULE
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
@@ -259,6 +259,10 @@ class CloudmeshDatabase(object):
                 return VMUSERMAP
             elif kind.lower() in ["batchjob"]:
                 return BATCHJOB
+            elif kind.lower() in ["secgroup"]:
+                return SECGROUP
+            elif kind.lower() in ["secgrouprule"]:
+                return SECGROUPRULE
             else:
                 TODO.implement("wrong table type: `{}`".format(kind))
         else:
