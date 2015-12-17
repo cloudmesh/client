@@ -70,7 +70,7 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
             return
 
         # Get the arguments
-        group = arguments["--group"] or Default.get("group", cloudname)
+        # group = arguments["--group"] or Default.get("group", cloudname)
 
         localdir = arguments["LOCALDIR"]
         remotedir = arguments["REMOTEDIR"]
