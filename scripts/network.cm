@@ -1,16 +1,71 @@
-#
-# test. make sure you have done cm reset before
-#
-
-# lines that do not work but should are commented out for now with ##
+## lines that do not work but should are commented out for now with ##
 
 banner DEFAULTS
+list default
 
-cm default
 
-banner REGISTRATION
+banner SET_DEFAULT_CLOUD_AND_GROUP
+default cloud=juno
+default group=demo_group
+default key=Gaurav-PC
 
-register remote juno
-register remote kilo
 
-# PUT YOUR COMMANDS HERE
+banner FLOATING_IP_LIST
+network list floating ip
+
+
+banner FLOATING_POOL_LIST
+network list floating pool
+
+
+banner CREATE_FLOATING_IP
+network create floating
+network list floating
+
+
+banner LIST_VM_DEFAULTS
+vm default
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm list
+
+
+banner ASSOCIATE_FLOATING_IP_AUTO_DETECT
+network associate floating --instance=goshenoy
+
+
+banner FLOATING_IP_LIST
+network list floating ip
+
+
+banner DISASSOCIATE_FLOATING_IP
+network disassociate floating --instance=goshenoy
+
+
+banner DELETE_GROUP
+group delete demo_group
+
+
+banner DEFAULT_GROUP
+default group=demo_group
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm list
+
+
+banner ASSOCIATE_FLOATING_IP_WITH_GROUP
+network associate floating --group=demo_group
+
+
+banner DISASSOCIATE_FLOATING_IP_WITH_GROUP
+network disassociate floating --group=demo_group
+
+
+banner DELETE_GROUP
+group delete demo_group

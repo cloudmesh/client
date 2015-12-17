@@ -34,7 +34,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
-                network delete floating [ip] [--cloud=CLOUD] FLOATING_IP
+                network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
                 network list floating pool [--cloud=CLOUD]
                 network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
                 network -h | --help
@@ -68,8 +68,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
                 $ network create floating ip --cloud=india --pool=albert-f01
                 $ network create floating --cloud=india --pool=albert-f01
-                $ network delete floating ip --cloud=india 192.1.66.8
-                $ network delete floating --cloud=india 192.1.66.8
+                $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
+                $ network delete floating --cloud=india 192.1.66.8 192.1.66.9
                 $ network list floating ip --cloud=india
                 $ network list floating --cloud=india
                 $ network list floating --cloud=india 192.1.66.8
@@ -131,6 +131,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
             instance_id = arguments["--instance"]
             floating_ip = arguments["FLOATING_IP"]
 
+            print(floating_ip)
+
             # group supplied
             if group_name is not None:
                 """
@@ -173,7 +175,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and instance_id is not None:
+            elif len(floating_ip)==0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Generate one from the pool, and assign to vm
@@ -203,6 +205,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 instance_dict = Network.get_instance_dict(cloudname=cloudname,
                                                           instance_id=instance_id)
+                floating_ip = floating_ip[0]
+
                 # Instance not found
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
@@ -284,7 +288,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and instance_id is not None:
+            elif len(floating_ip)==0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Remove floating ip allocated to vm
@@ -323,6 +327,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 instance_dict = Network.get_instance_dict(cloudname=cloudname,
                                                           instance_id=instance_id)
+                floating_ip = floating_ip[0]
+                
                 # Instance not found
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
@@ -369,14 +375,16 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         # Delete a floating ip address
         elif arguments["delete"] \
                 and arguments["floating"]:
-            floating_ip = arguments["FLOATING_IP"]
-            result = Network.delete_floating_ip(cloudname=cloudname,
-                                                floating_ip_or_id=floating_ip)
+            floating_ips = arguments["FLOATING_IP"]
 
-            if result is not None:
-                Console.ok(result)
-            else:
-                Console.error("Failed to delete floating IP address!")
+            for floating_ip in floating_ips:
+                result = Network.delete_floating_ip(cloudname=cloudname,
+                                                    floating_ip_or_id=floating_ip)
+
+                if result is not None:
+                    Console.ok(result)
+                else:
+                    Console.error("Failed to delete floating IP address!")
 
         # Floating IP Pool List
         elif arguments["list"] \

@@ -68,10 +68,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                             as in vms fro clouds: cloudmes husername-index
 
                         cm hpc delete all
-                            kills all jobs on the default hpc cluster
-
-                        cm hpc delete all -cluster=all
-                            kills all jobs on all clusters
+                            kills all jobs on the default hpc group
 
                         cm hpc delete --job=NAME
                             kills a job with a given name or job id
@@ -103,6 +100,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc queue --job=xxx
                         cm hpc info
                         cm hpc delete --job=6
+                        cm hpc delete all
                         cm hpc status
                         cm hpc status --job=6
                         cm hpc run uname
@@ -126,6 +124,14 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
 
         elif arguments["info"]:
             Console.msg(batch.info(cluster, format))
+
+        elif arguments['delete'] and arguments['all']:
+            group = arguments['--group'] or Default.get('group')
+            if group is None:
+                Console.error('set default group using: default group=<value>')
+                return
+            Console.ok(batch.delete(cluster,None,group))
+
 
         elif arguments["delete"]:
             job = arguments['--job']
@@ -226,7 +232,10 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             }
 
             result = batch.run(cluster, group, script, **arg_dict)
-            print (attribute_printer(result))
-            Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
+            if isinstance(result, dict):
+                print (attribute_printer(result))
+                Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
+            else:
+                Console.error(result)
 
         return ""

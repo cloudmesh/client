@@ -5,7 +5,7 @@ import textwrap
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
-from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import os
@@ -134,6 +134,9 @@ class BatchProviderSLURM(BatchProviderBase):
         #    script_count = kwargs['-name']
 
         config = cls.read_config(cluster)
+        if config["credentials"]["username"] == 'TBD':
+            return "Please enter username in cloudmesh.yaml for cluster {}".format(cluster)
+
         cls.incr()
         data = {
             "cluster": cluster,
@@ -185,7 +188,7 @@ class BatchProviderSLURM(BatchProviderBase):
         cls.create_remote_dir(cluster, data["remote_experiment_dir"])
 
         # if the command is a script, copy the script
-        if os.path.isfile(cmd):
+        if os.path.isfile(Config.path_expand(cmd)):
             _from = Config.path_expand(cmd)
             _to = '{cluster}:{remote_experiment_dir}'.format(**data)
 
@@ -348,24 +351,57 @@ class BatchProviderSLURM(BatchProviderBase):
         return data
 
     @classmethod
-    def delete(cls, cluster, job):
+    def delete(cls, cluster, job, group=None):
         """
-        This method is used to terminate a job with the specified
+        This method is used to terminate a job with the specified or a group of jobs
         job_id or job_name in a given cluster
+        :param group:
         :param cluster: the cluster like comet
         :param job: the job id or name
         :return: success message or error
         """
         try:
-            args = 'scancel '
-            if job.isdigit():
-                args += job
-            else:
-                args += "-n {}".format(job)
+            if group is not None:
+                # get the job ids from the db
+                cm = CloudmeshDatabase()
+                arguments = {'cluster': cluster,
+                             'group': group}
+                db_jobs = cm.find('batchjob',
+                                  **arguments)
 
-            Shell.ssh(cluster, args)
-            return "Job {} killed successfully".format(job)
+                list1 = []
+                for i in db_jobs:
+                    list1.append(db_jobs[i]['job_id'])
+
+                # read active jobs
+                active_jobs = json.loads(cls.queue(cluster))
+                list2 = []
+                for i in active_jobs:
+                    list2.append(active_jobs[i]['jobid'])
+
+                # find intersection
+                res = set(list1).intersection(set(list2))
+
+                if res is not None:
+                    for j in res:
+                        cmd = 'scancel {}'.format(str(j))
+                        Shell.ssh(cluster, cmd)
+                        print("Deleted {}".format(j))
+
+                return "All jobs for group {} killed successfully".format(group)
+
+            else:
+                args = 'scancel '
+                if job.isdigit():
+                    args += job
+                else:
+                    args += "-n {}".format(job)
+
+                Shell.ssh(cluster, args)
+                return "Job {} killed successfully".format(job)
         except Exception as ex:
+            print("in exceptio")
+            print(ex)
             return ex
 
     @classmethod
