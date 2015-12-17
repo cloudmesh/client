@@ -122,10 +122,19 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         if arguments["queue"]:
             name = arguments['--job']
             result = batch.queue(cluster, format=format, job=name)
+            print(type(result))
             Console.msg(result)
 
         elif arguments["info"]:
             Console.msg(batch.info(cluster, format))
+
+        elif arguments['delete'] and arguments['all']:
+            group = arguments['--group'] or Default.get('group')
+            if group is None:
+                Console.error('set default group using: default group=<value>')
+                return
+            Console.ok(batch.delete(cluster,None,group))
+
 
         elif arguments["delete"]:
             job = arguments['--job']
