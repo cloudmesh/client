@@ -233,7 +233,10 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             }
 
             result = batch.run(cluster, group, script, **arg_dict)
-            print (attribute_printer(result))
-            Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
+            if isinstance(result, dict):
+                print (attribute_printer(result))
+                Console.ok("Experiment {count}: Started batch job {job_id} on {cluster}".format(**result))
+            else:
+                Console.error(result)
 
         return ""
