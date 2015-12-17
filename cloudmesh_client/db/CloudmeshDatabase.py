@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
@@ -482,6 +482,9 @@ class CloudmeshDatabase(object):
 
     def get(self, table, **kwargs):
         return self.session.query(table).filter_by(**kwargs).first()
+
+    def get_key_cloud_mapping(self, username, key_name, cloud_name):
+        return self.find(KEYCLOUDMAP, scope='first', user=username, key_name=key_name, cloud_name=cloud_name)
 
 
 def main():

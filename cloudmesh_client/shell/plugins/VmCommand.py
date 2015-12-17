@@ -41,7 +41,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--flavor=FLAVOR_OR_ID]
                         [--group=GROUP]
                         [--secgroup=SECGROUP]
-                        [--keypair_name=KEYPAIR_NAME]
+                        [--key=KEY]
                 vm start NAME...
                          [--group=GROUP]
                          [--cloud=CLOUD]
@@ -252,7 +252,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
 
-                key_name = arguments["--keypair_name"] or Default.get("keypair", cloud=cloud)
+                key_name = arguments["--key"] or Default.get("key", cloud=cloud)
                 # if default keypair not set, return error
                 if not key_name:
                     Console.error("Default keypair not set.")
@@ -267,7 +267,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Counter.incr()
 
                 # Add to group
-                Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+                if vm_id is not None:
+                    Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+
                 msg = "info. OK."
                 Console.ok(msg)
 
@@ -289,7 +291,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm_name = prefix + "-" + str(count).zfill(3)
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.get_cloud()}
-                for attribute in ["image", "flavor", "keypair", "login_key", "group", "secgroup"]:
+                for attribute in ["image", "flavor", "key", "login_key", "group", "secgroup"]:
                     data[attribute] = Default.get(attribute, cloud=cloud)
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
