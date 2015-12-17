@@ -128,5 +128,10 @@ delete command with the job name or the job id::
     Job 1463 killed successfully
 
 
+To delete all jobs from a group::
 
+    $ hpc delete all
+    All jobs for group test killed successfully
 
+The above command will delete all active jobs from the default group.
+You can also use the --group to specify a group of your choice.

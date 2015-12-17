@@ -68,10 +68,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                             as in vms fro clouds: cloudmes husername-index
 
                         cm hpc delete all
-                            kills all jobs on the default hpc cluster
-
-                        cm hpc delete all -cluster=all
-                            kills all jobs on all clusters
+                            kills all jobs on the default hpc group
 
                         cm hpc delete --job=NAME
                             kills a job with a given name or job id
@@ -103,6 +100,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                         cm hpc queue --job=xxx
                         cm hpc info
                         cm hpc delete --job=6
+                        cm hpc delete all
                         cm hpc status
                         cm hpc status --job=6
                         cm hpc run uname
