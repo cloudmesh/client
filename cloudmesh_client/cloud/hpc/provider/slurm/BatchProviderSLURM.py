@@ -267,7 +267,7 @@ class BatchProviderSLURM(BatchProviderBase):
         for line in result.split("\n"):
             # print ("LLL>", line)
             if "Submitted batch job" in line:
-                data["id"] = int(line.replace("Submitted batch job ", "").strip())
+                data["job_id"] = int(line.replace("Submitted batch job ", "").strip())
                 break
 
         #
