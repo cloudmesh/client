@@ -47,10 +47,8 @@ class SyncCommand(PluginCommand, CloudPluginCommand):
         ::
         
             Usage:
-                sync put [--cloud=CLOUD] [--group=GROUP] LOCALDIR [REMOTEDIR]
-                sync get [--cloud=CLOUD] [--group=GROUP] REMOTEDIR LOCALDIR
-                sync put [--server=SERVER] [--group=GROUP] LOCALDIR [REMOTEDIR]
-                sync get [--server=SERVER] [--group=GROUP] REMOTEDIR LOCALDIR
+                sync put [--cloud=CLOUD] LOCALDIR [REMOTEDIR]
+                sync get [--cloud=CLOUD] REMOTEDIR LOCALDIR
 
             A simple wrapper for the openstack nova command
 
