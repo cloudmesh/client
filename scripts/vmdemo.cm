@@ -18,8 +18,14 @@ default key=testkey
 
 vm default
 
-vm boot
+vm boot --name=testvm
+
+vm floating_ip_assign testvm
 
 vm refresh
 
 vm status
+
+default login_key=/home/mangirish/indiakey/id_rsa
+
+vm login testvm
