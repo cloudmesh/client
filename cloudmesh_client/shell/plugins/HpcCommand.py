@@ -120,7 +120,6 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         if arguments["queue"]:
             name = arguments['--job']
             result = batch.queue(cluster, format=format, job=name)
-            print(type(result))
             Console.msg(result)
 
         elif arguments["info"]:
