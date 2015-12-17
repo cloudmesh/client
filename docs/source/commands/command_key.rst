@@ -30,7 +30,7 @@ To list the keys in the registry you can use the command::
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
         | name    | comment            | uri                                        | fingerprint                                     | source |
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
-        | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub           | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
+        | demokey | albert@Zweistein | file:///home/key_expt/id_rsa.pub             | 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39 | ssh    |
         +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
         info. OK.
 
@@ -173,3 +173,35 @@ To delete all keys from database use::
     All keys from the database deleted successfully.
     info. OK.
 
+
+Adding Key to Cloud
+^^^^^^^^^^^^^^^^^^^^
+
+This functionality is required for key management with VMs. We can add the key from database to the target cloud.::
+
+    $ cm key add_to_cloud albertkey
+    Adding key albertkey to cloud juno as albert-juno-albertkey
+    Key albertkey added successfully to cloud juno as albert-juno-albertkey.
+    info. OK.
+
+By default the target cloud key name format is <username>-<cloud>-<key-name>.
+However, you may choose to override it with '--name_on_cloud' argument.::
+
+
+    $ cm key add_to_cloud albertkey --name_on_cloud=someothername
+    key add_to_cloud albertkey --name_on_cloud=someothername
+    Adding key albertkey to cloud juno as someothername
+    Key albertkey added successfully to cloud juno as someothername.
+    info. OK.
+
+List Key Cloud Mapings
+^^^^^^^^^^^^^^^^^^^^^^^
+
+You may check out the mappings of database key names with the cloud key names.::
+
+    $ cm key list_cloud_mappings
+    +-----------+-----------+------------+-------------------------+
+    | user      | key_name  | cloud_name | key_name_on_cloud       |
+    +-----------+-----------+------------+-------------------------+
+    | albert    | albertkey | juno       | albert-juno-albertkey   |
+    +-----------+-----------+------------+-------------------------+
