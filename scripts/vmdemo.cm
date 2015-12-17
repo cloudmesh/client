@@ -1,0 +1,25 @@
+banner VMS
+
+default cloud
+
+vm refresh
+
+vm list
+vm list --format=json
+vm list --format=yaml
+
+key add --name testkey /home/mangirish/indiakey/id_rsa.pub
+key add_to_cloud testkey
+
+default flavor=2
+default image=619b8942-2355-4aa2-bae3-74b8f1751911
+default group=testgroup
+default key=testkey
+
+vm default
+
+vm boot
+
+vm refresh
+
+vm status
