@@ -1,4 +1,4 @@
-from cloudmesh_client.cloud.iaas.CloudProviderOpenstackAPI import \
+from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import \
     set_os_environ
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_base.Shell import Shell
