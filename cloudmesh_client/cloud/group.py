@@ -8,6 +8,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.cloud.vm import Vm
 
 
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
@@ -215,10 +216,11 @@ class Group(ListResource):
                 for vm_id in vm_ids:
                     try:
                         # Submit request to delete VM
-                        args = ["delete", vm_id]
-                        # TODO: this is a bug as we should use VM class
-                        result = Shell.execute("nova", args)
-                        print(Nova.remove_subjectAltName_warning(result))
+                        # args = ["delete", vm_id]
+                        # result = Shell.execute("nova", args)
+
+                        # FIX: Using vm.delete instead of nova
+                        Vm.delete(cloud=cloud, servers=[vm_id])
                     except Exception as e:
                         Console.error("Failed to delete VM {}, error: {}"
                                       .format(vm_id, e))
