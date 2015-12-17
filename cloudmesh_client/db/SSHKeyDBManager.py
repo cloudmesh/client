@@ -4,7 +4,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.keys.SSHKeyManager import SSHkey
-from cloudmesh_client.db.model import KEY
+from cloudmesh_client.db.model import KEY, KEYCLOUDMAP
 from cloudmesh_client.db import CloudmeshDatabase
 
 
@@ -104,7 +104,7 @@ class SSHKeyDBManager(object):
         :param keyname: name of the key to be found
         :return: Query object of the search
         """
-        return self.db.find_by_name(KEY, keyname)
+        return self.db.find_by_name(KEY, name=keyname)
 
     def find_all(self):
         """
@@ -151,3 +151,22 @@ class SSHKeyDBManager(object):
         :return: dict from the object
         """
         return self.db.object_to_dict(obj)
+
+    def add_key_cloud_map_entry(self, user, keyname, cloud, name_on_cloud):
+        """
+        Adds an entry to Key-Cloud map table.
+        :param keyname: Name of the key in db.
+        :param cloud: Cloud on which the key is being uploaded.
+        :param name_on_cloud: Name of the key on cloud.
+        :return:
+        """
+
+        keycloudmap = self.db.find(KEYCLOUDMAP, user=user, key_name=keyname, cloud_name=cloud)
+        # print("keycloudmap={:}".format(keycloudmap))
+        if keycloudmap is not None and len(keycloudmap) != 0:
+            keycloudmap.update(user=user, key_name=keyname, cloud_name=cloud, key_name_on_cloud=name_on_cloud)
+            self.db.save()
+        else:
+            keycloudmap = KEYCLOUDMAP(user, keyname, cloud, name_on_cloud)
+            self.db.add(keycloudmap)
+            self.db.save()

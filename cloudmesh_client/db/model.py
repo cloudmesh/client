@@ -6,7 +6,7 @@ from datetime import datetime
 from cloudmesh_client.common.ConfigDict import Config
 from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import Column, Integer, String, MetaData, \
-    create_engine
+    create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
 
@@ -424,6 +424,24 @@ class KEY(CloudmeshMixin, db.Base):
         self.user = user
         self.kind = self.__tablename__
         self.is_default = is_default
+
+
+class KEYCLOUDMAP(CloudmeshMixin, db.Base):
+
+    user = Column(String)
+    key_name = Column(String)
+    cloud_name = Column(String)
+    key_name_on_cloud = Column(String)
+
+    def __init__(self,
+                 user,
+                 name,
+                 cloud,
+                 name_on_cloud):
+        self.user = user
+        self.key_name = name
+        self.cloud_name = cloud
+        self.key_name_on_cloud = name_on_cloud
 
 
 class GROUP(CloudmeshMixin, db.Base):

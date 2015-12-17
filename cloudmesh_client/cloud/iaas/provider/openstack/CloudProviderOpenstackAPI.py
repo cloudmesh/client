@@ -420,6 +420,20 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         return floating_ip.ip
 
+    def add_key_to_cloud(self, name, public_key):
+        """
+        Method to add key to cloud, typically a keypair for openstack.
+        :param name: Name of the keypair.
+        :param public_key: public key string.
+        :return:
+        """
+
+        # print("Name=" + name)
+        # print("public_key=" + public_key)
+
+        keypair = self.provider.keypairs.create(name, public_key=public_key)
+        return keypair
+
     def create_floating_ip(self, float_pool):
         """
         Method creates a new floating ip under the specified pool

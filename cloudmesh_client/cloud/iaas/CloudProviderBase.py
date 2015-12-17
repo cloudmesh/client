@@ -289,6 +289,21 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
+    def add_key_to_cloud(self, name, public_key):
+        """
+        Adds key to cloud for given public key.
+        :param name: Name of the keypair to create
+        :param public_key: Existing public key string.
+        :return:
+        """
+        """
+        Creating public key.
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+
     def details(self, kind, cloud, id, format="table"):
         from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
         try:

@@ -10,6 +10,10 @@ from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+
+from urlparse import urlparse
 
 
 class SSHKeyManager(object):
@@ -160,6 +164,29 @@ class SSHKeyManager(object):
     def get_all(self, username):
         self.get_from_dir("~/.ssh")
         self.get_from_git(username)
+
+    def add_key_to_cloud(self, user, keyname, cloud, name_on_cloud):
+
+        sshdb = SSHKeyDBManager()
+        key_from_db = sshdb.find(keyname)
+
+        if key_from_db is None:
+            Console.error("Key with the name {:} not found in database.".format(keyname))
+            return
+
+        """
+        key_path = urlparse(key_from_db["uri"]).path
+        # print("keypath =" + key_path)
+        if key_path is None or len(key_path) == 0:
+            Console.error("There is no local path corresponding to the key {:} in database.".format(keyname))
+            return
+        """
+        # Add map entry
+        sshdb.add_key_cloud_map_entry(user, keyname, cloud, name_on_cloud)
+
+        print("Adding key {:} to cloud {:} as {:}".format(keyname, cloud, name_on_cloud))
+        cloud_provider = CloudProvider(cloud).provider
+        cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
 
 
 if __name__ == "__main__":

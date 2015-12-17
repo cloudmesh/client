@@ -45,6 +45,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [-f]
+             key add_to_cloud KEYNAME
+                              [--cloud=CLOUD]
+                              [--name_on_cloud=NAME_ON_CLOUD]
 
            Manages the keys
 
@@ -55,15 +58,17 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              FORMAT         The format of the output (table, json, yaml)
              FILENAME       The filename with full path in which the key
                             is located
+             NAME_ON_CLOUD  Typically the name of the keypair on the cloud.
 
            Options:
 
-              --dir=DIR            the directory with keys [default: ~/.ssh]
-              --format=FORMAT      the format of the output [default: table]
-              --source=SOURCE      the source for the keys [default: db]
-              --username=USERNAME  the source for the keys [default: none]              
-              --name=KEYNAME       The name of a key
-              --all                delete all keys
+              --dir=DIR                     the directory with keys [default: ~/.ssh]
+              --format=FORMAT               the format of the output [default: table]
+              --source=SOURCE               the source for the keys [default: db]
+              --username=USERNAME           the source for the keys [default: none]
+              --name=KEYNAME                The name of a key
+              --all                         delete all keys
+              --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
            Description:
 
@@ -424,3 +429,27 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print (e)
                     Console.error("Problem deleting the key `{:}`".format(keyname))
 
+        elif arguments['add_to_cloud']:
+            try:
+                conf = ConfigDict("cloudmesh.yaml")
+                username = conf["cloudmesh"]["profile"]["username"]
+
+                keyname = arguments["KEYNAME"]
+                cloud = arguments["--cloud"] or Default.get_cloud()
+                name_on_cloud = arguments["--name_on_cloud"]
+
+                if name_on_cloud is None:
+                    name_on_cloud = username + "-" + cloud + "-" + keyname
+
+                sshm = SSHKeyManager()
+                sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud)
+
+                print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
+                msg = "info. OK."
+                Console.ok(msg)
+
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem adding key to cloud")
