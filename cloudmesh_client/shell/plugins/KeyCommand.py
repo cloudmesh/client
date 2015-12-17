@@ -48,6 +48,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add_to_cloud KEYNAME
                               [--cloud=CLOUD]
                               [--name_on_cloud=NAME_ON_CLOUD]
+             key list_cloud_mappings [--cloud=CLOUD]
 
            Manages the keys
 
@@ -447,6 +448,20 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
                 msg = "info. OK."
                 Console.ok(msg)
+
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print (e)
+                Console.error("Problem adding key to cloud")
+
+        elif arguments['list_cloud_mappings']:
+            try:
+                cloud = arguments["--cloud"] or Default.get_cloud()
+                sshm = SSHKeyManager()
+                map_dict = sshm.get_key_cloud_maps(cloud)
+                print(dict_printer(map_dict,
+                                   order=["user", "key_name", "cloud_name", "key_name_on_cloud"]))
 
             except Exception, e:
                 import traceback

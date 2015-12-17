@@ -188,6 +188,11 @@ class SSHKeyManager(object):
         cloud_provider = CloudProvider(cloud).provider
         cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
 
+    def get_key_cloud_maps(self, cloud):
+
+        sshdb = SSHKeyDBManager()
+        return sshdb.get_key_cloud_maps(cloud)
+
 
 if __name__ == "__main__":
     print ("HALLO")
