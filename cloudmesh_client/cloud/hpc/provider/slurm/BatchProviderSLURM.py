@@ -110,7 +110,7 @@ class BatchProviderSLURM(BatchProviderBase):
         return result
 
     @classmethod
-    def run(cls, cluster, cmd, **kwargs):
+    def run(cls, cluster, group, cmd, **kwargs):
 
         # determine the script name..
 
@@ -151,6 +151,7 @@ class BatchProviderSLURM(BatchProviderBase):
         data["script_error"] = "{username}-{count}.err".format(**data)
         data["remote_experiment_dir"] = \
             "{remote_experiment_dir}/{count}".format(**data).format(**data)
+        data["group"] = group
 
         # overwrite defaults
         option_mapping = {'-t': '{tasks_per_node}'.format(**data),

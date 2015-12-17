@@ -212,6 +212,10 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             # if not queue:
             #    Console.error('set default queue using: default queue=<value>')
             #    return
+            group = arguments['--group'] or Default.get('group')
+            if group is None:
+                Console.error('set default group using: default group=<value>')
+                return
 
             script = arguments['SCRIPT']
             arg_dict = {
@@ -221,7 +225,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                 '-N': arguments['--N']
             }
 
-            result = batch.run(cluster, script, **arg_dict)
+            result = batch.run(cluster, group, script, **arg_dict)
             print (attribute_printer(result))
             Console.ok("Experiment {count}: Started batch job {id} on {cluster}".format(**result))
 

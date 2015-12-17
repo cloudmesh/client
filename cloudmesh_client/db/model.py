@@ -573,6 +573,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
     cmd = Column(String, default="string")
     # noinspection PyRedeclaration
     time = Column(String, default="string")
+    group = Column(String, default="string")
 
     # cloud = Column(String)
 
@@ -596,6 +597,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.sbatch_file_path = kwargs.get('sbatch_file_path')
         self.cmd = kwargs.get('cmd')
         self.time = kwargs.get('time')
+        self.group = kwargs.get('group')
         self.kind = self.__tablename__
 
 
