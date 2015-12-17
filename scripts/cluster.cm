@@ -1,0 +1,20 @@
+banner SET_DEFAULT_CLOUD_AND_GROUP
+default cloud=juno
+default group=demo_group
+default key=Gaurav-PC
+
+
+banner LIST_VM_DEFAULTS
+vm default
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm boot
+vm refresh
+vm list
+
+
+banner CREATE_VIRTUAL_CLUSTER
+network create cluster --group=demo_group

@@ -1,7 +1,9 @@
 from __future__ import print_function
 
 import json
+import getpass
 
+from cloudmesh_base.Shell import Shell
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
@@ -37,6 +39,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
                 network list floating pool [--cloud=CLOUD]
                 network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+                network create cluster --group=demo_group
                 network -h | --help
 
             Options:
@@ -75,6 +78,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 $ network list floating --cloud=india 192.1.66.8
                 $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
                 $ network list floating pool --cloud=india
+                $ network create cluster --group=demo_group
 
         """
         # pprint(arguments)
@@ -435,6 +439,104 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
             else:
                 result = Network.list_floating_ip(cloudname)
                 Console.msg(result)
+
+        # Create a virtual cluster
+        elif arguments["cluster"] and \
+                arguments["create"]:
+
+            group_name = arguments["--group"] or \
+                         Default.get("group", cloud=cloudname)
+
+            # Get the group information
+            group = Group.get_info(name=group_name,
+                                   cloud=cloudname,
+                                   output="json")
+            if group is not None:
+                # Convert from str to json
+                group = json.loads(group)
+
+                # var contains pub key of all vms
+                public_keys = ""
+                login_users = []
+                login_ips = []
+
+                # For each vm in the group
+                # Create and assign a floating IP
+                for item in group:
+                    instance_id = group[item]["value"]
+                    # Get the instance dict
+                    instance_dict = Network.get_instance_dict(cloudname=cloudname,
+                                                              instance_id=instance_id)
+                    # Instance not found
+                    if instance_dict is None:
+                        Console.error("Instance [{}] not found in the cloudmesh database!"
+                                      .format(instance_id))
+                        return ""
+
+                    # Get the instance name
+                    instance_name = instance_dict["name"]
+                    floating_ip = instance_dict["floating_ip"]
+
+                    # If vm does not have floating ip, then create
+                    if floating_ip is None:
+                        floating_ip = Network.create_assign_floating_ip(cloudname=cloudname,
+                                                                        instance_name=instance_name)
+                        if floating_ip is not None:
+                            Console.ok("Created and assigned Floating IP [{}] to instance [{}]."
+                                       .format(floating_ip, instance_name))
+                            # Refresh VM in db
+                            self.refresh_vm(cloudname)
+
+                    # Get the login user for this machine
+                    user = raw_input("Enter the login user for VM {} : ".format(instance_name))
+                    passphrase = getpass.getpass("Enter the passphrase key on VM {} : ".format(instance_name))
+
+                    # create list for second iteration
+                    login_users.append(user)
+                    login_ips.append(floating_ip)
+
+                    login_args = [
+                        user + "@" + floating_ip,
+                    ]
+
+                    keygen_args = [
+                        "ssh-keygen -t rsa -f ~/.ssh/id_rsa -N " + passphrase
+                    ]
+
+                    cat_pubkey_args = [
+                        "cat ~/.ssh/id_rsa.pub"
+                    ]
+
+                    generate_keypair = login_args + keygen_args
+                    result = Shell.ssh(*generate_keypair)
+
+                    #print("***** Keygen *****")
+                    #print(result)
+
+                    cat_public_key = login_args + cat_pubkey_args
+                    result = Shell.ssh(*cat_public_key)
+                    public_keys += "\n" + result
+
+                    #print("***** id_rsa.pub *****")
+                    #print(result)
+
+                #print("***** public keys *****")
+                #print(public_keys)
+
+                for user, ip in zip(login_users, login_ips):
+                    arguments = [
+                        user + "@" + ip,
+                        "echo '" + public_keys + "' >> ~/.ssh/authorized_keys"
+                    ]
+
+                    # copy the public key contents to auth_keys
+                    result = Shell.ssh(*arguments)
+
+                Console.ok("Virtual cluster creation successfull.")
+            else:
+                Console.error("No group [{}] in the Cloudmesh database."
+                              .format(group_name))
+                return ""
 
         return ""
 
