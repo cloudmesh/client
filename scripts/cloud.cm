@@ -1,0 +1,28 @@
+banner DEFAULTS
+list default
+
+
+banner LIST_CLOUDS
+cloud list
+
+
+banner LOGON_TO_A_CLOUD
+cloud logon juno
+cloud logon kilo
+cloud list
+
+
+banner DEACTIVATE_A_CLOUD
+cloud deactivate kilo
+cloud list
+
+
+banner ACTIVATE_A_CLOUD
+cloud activate kilo
+cloud list
+
+
+banner LOGOUT_FROM_CLOUD
+cloud logout juno
+cloud logout kilo
+cloud list
