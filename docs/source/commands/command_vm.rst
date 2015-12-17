@@ -7,13 +7,48 @@ operations on various clouds available to Cloudmesh.
 
 The manual page of the key command can be found at: `VM <../man/man.html#vm>`_
 
+Listing Defaults
+^^^^^^^^^^^^^^^^^
+
+You can have a list of relevant default attributes required for VM operations::
+
+    +-----------+--------------------------------------+
+    | Attribute | Value                                |
+    +-----------+--------------------------------------+
+    | secgroup  |                                      |
+    | login_key | /home/albert/key/id_rsa              |
+    | flavor    | 2                                    |
+    | image     | 619b8942-2355-4aa2-jaa5-74b8f1751911 |
+    | cloud     | juno                                 |
+    | name      | albert-015                           |
+    | key       | albertkey                            |
+    | group     | test                                 |
+    +-----------+--------------------------------------+
+
+- secgroup - Security Group to be provided for VM boot.
+- login_key - Path to private key required for VM login.
+- flavor - Flavor ID required for VM boot.
+- image - Image ID required for VM boot.
+- cloud - Target Cloud.
+- name - Name of the VM to be booted. This is in format <username>-<count>. Username retrieved from cloudmesh.yaml, count retrieved from a counter in database.
+- key - Key name from db used for VM boot.
+- group - Group for the VM to be booted.
+
+
 Booting a VM instance
 -----------------------
 
-You can start a VM on any target cloud like 'juno' by using the 'vm start'
-like the one provided below::
+If you have all the required attributes (secgroup not mandatory) setup and listed in the vm defaults,
+then you can simply run the following to boot a vm.::
 
-    $ cm vm boot --name=testvm --cloud=juno --image=619b8942-2355-4aa2-bae3-74b8f1751911 --flavor=2
+    $ cm vm boot
+    Machine albert-015 is being booted on juno Cloud...
+    Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
+    info. OK.
+
+Else you may explicitly specify the attribute values in the arguments to the vm boot command.::
+
+    $ cm vm boot --name=testvm --cloud=juno --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
     Machine testvm is being booted on juno Cloud...
 
 Listing a VM instances
@@ -22,18 +57,15 @@ Listing a VM instances
 You can list all the VM instances running on the cloud by 'vm list' command
 like the one below::
 
-    $ cm vm list --cloud=juno
-    +----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
-    | id | uuid                                 | label                        | status  | project   | user      | cloud |
-    +----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
-    | 1  | 6d2b8e67-a296-45f0-9132-b65aeddff8ff | testvm                       | ACTIVE  | undefined | albert    | juno  |
-    | 2  | 390792c3-66a0-4c83-a0d7-c81e1c787710 | albert_vm002                 | ACTIVE  | undefined | albert    | juno  |
-    | 3  | fa3580f3-2dbd-4d67-9178-326b39916c09 | albert_vm003                 | ACTIVE  | undefined | albert    | juno  |
-    | 4  | 6730c273-609f-426d-a481-313ff4200d82 | albert_vm004                 | ACTIVE  | undefined | albert    | juno  |
-    | 5  | 2f275d38-62af-4f71-a04a-0456e0d6466f | albert_vm005                 | ACTIVE  | undefined | albert    | juno  |
-    | 6  | 94f01af3-ee2a-44c9-b228-75627f358169 | albert_vm006                 | SHUTOFF | undefined | albert    | juno  |
-    | 7  | 21305503-2649-4338-8876-d825758c83f3 | albert_vm007                 | ACTIVE  | undefined | albert    | juno  |
-    +----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
+    +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
+    | id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |
+    +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
+    | 10 | 21305503-2649-3664-8876-d825758c83f3 | albert-001                   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | juno  |
+    | 9  | 94f01af3-ee2a-9887-b228-75627f358169 | albert-001                   | SHUTOFF   | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | juno  |
+    | 8  | 2f275d38-62af-1223-a04a-0456e0d6466f | albert-server-jzqc23pekfcu   | SUSPENDED | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | juno  |
+    | 7  | 6730c273-609f-9879-a481-313ff4200d82 | albert-server-ekbvvsmjyqlo   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | juno  |
+    | 6  | fa3580f3-2dbd-d666-9178-326b39916c09 | albert-server-cdmelfaefggf   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | juno  |
+    +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
 
 
 Stop a VM
