@@ -120,7 +120,7 @@ class Sync(object):
                         localdir
                     ]
                 # call rsync
-                return Shell.rsync(args)
+                return Shell.rsync(*args)
 
     @classmethod
     def operating_system(cls):
