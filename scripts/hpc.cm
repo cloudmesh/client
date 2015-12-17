@@ -17,8 +17,12 @@ hpc info
 
 hpc queue
 
-hpc run ~/test.sh
+hpc run ~/test.sh --group=test1
 
-hpc delete all
+hpc run ~/test.sh --group=test1
 
 hpc status --job=6
+
+hpc delete all --group=test1
+
+
