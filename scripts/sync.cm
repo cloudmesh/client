@@ -1,0 +1,14 @@
+banner DEFAULTS
+list default
+
+
+banner SET_DEFAULT_CLOUD
+default cloud=juno
+
+
+banner SYNC_FROM_LOCAL_TO_REMOTE
+sync put <path_to_local_file> <path_to_remote_dir>
+
+
+banner SYNC_FROM_REMOTE_TO_LOCAL
+sync get <path_to_remote_file> <path_to_local_dir>
