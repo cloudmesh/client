@@ -128,8 +128,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["rules-delete"]:
             # if no arguments read default
-            cloud = arguments["--cloud"]
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            cloud = arguments["--cloud"] or \
+                    Default.get_cloud()
+            tenant = arguments["--tenant"] or \
+                     Default.get("tenant", cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
