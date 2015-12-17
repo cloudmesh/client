@@ -11,11 +11,7 @@ default group=test
 
 default cluster=india
 
-banner REGISTRATION
-
 banner HPC
-
-default cluster=india
 
 hpc info
 

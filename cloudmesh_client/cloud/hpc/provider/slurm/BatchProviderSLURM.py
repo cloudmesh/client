@@ -5,7 +5,7 @@ import textwrap
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
-from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import os
@@ -134,6 +134,9 @@ class BatchProviderSLURM(BatchProviderBase):
         #    script_count = kwargs['-name']
 
         config = cls.read_config(cluster)
+        if config["credentials"]["username"] == 'TBD':
+            return "Please enter username in cloudmesh.yaml for cluster {}".format(cluster)
+
         cls.incr()
         data = {
             "cluster": cluster,
