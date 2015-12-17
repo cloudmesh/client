@@ -103,8 +103,9 @@ class SecGroup(ListResource):
 
             # Create the security group in OS cloud
             try:
-                nova_client = CloudProvider.set(cloudname)
-                secgroup = nova_client.security_groups \
+                # nova_client = CloudProvider.set(cloudname)
+                cloud_provider = CloudProvider(cloudname).provider.provider
+                secgroup = cloud_provider.security_groups \
                     .create(name=label,
                             description="Security group {}".format(label))
 
@@ -146,7 +147,7 @@ class SecGroup(ListResource):
             return None
 
     @classmethod
-    def list(cls, project, cloud="general"):
+    def list(cls, project, cloudname="general"):
         """
         This method queries the database to fetch list of secgroups
         filtered by cloud, tenant.
@@ -165,8 +166,9 @@ class SecGroup(ListResource):
             d = cls.toDict(elements)
             """
 
-            nova_client = CloudProvider.set(cloud)
-            os_result = nova_client.security_groups.list()
+            # nova_client = CloudProvider.set(cloud)
+            cloud_provider = CloudProvider(cloudname).provider.provider
+            os_result = cloud_provider.security_groups.list()
             d = SecGroup.convert_list_to_dict(os_result)
 
             return dict_printer(d,
@@ -210,12 +212,13 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add_rule(cls, secgroup, from_port, to_port, protocol, cidr):
+    def add_rule(cls, cloudname, secgroup, from_port, to_port, protocol, cidr):
         try:
             # Get the nova client object
-            nova_client = CloudProvider.set(secgroup.cloud)
+            # nova_client = CloudProvider.set(secgroup.cloud)
+            cloud_provider = CloudProvider(cloudname).provider.provider
             # Create add secgroup rules to the cloud
-            rule_id = nova_client.security_group_rules.create(secgroup.uuid,
+            rule_id = cloud_provider.security_group_rules.create(secgroup.uuid,
                                                               ip_protocol=protocol,
                                                               from_port=from_port,
                                                               to_port=to_port,
@@ -293,25 +296,26 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete_secgroup(cls, label, cloud, tenant):
+    def delete_secgroup(cls, label, cloudname, tenant):
         try:
             # Find the secgroup from the cloud
-            nova_client = CloudProvider.set(cloud)
-            sec_group = nova_client.security_groups.find(name=label)
+            # nova_client = CloudProvider.set(cloud)
+            cloud_provider = CloudProvider(cloudname).provider.provider
+            sec_group = cloud_provider.security_groups.find(name=label)
             if not sec_group:
                 return None
 
             # delete the secgroup in the cloud
-            nova_client.security_groups.delete(sec_group)
+            cloud_provider.security_groups.delete(sec_group)
 
             # perform local db deletion
-            sec_group = cls.get(label, tenant, cloud)
+            sec_group = cls.get(label, tenant, cloudname)
             if sec_group:
                 # Delete all rules for group
                 cls.delete_all_rules(sec_group)
                 cls.cm_db.delete(sec_group)
                 return "Security Group [{}] for cloud [{}], & tenant [{}] deleted" \
-                    .format(label, cloud, tenant)
+                    .format(label, cloudname, tenant)
             else:
                 return None
 
@@ -321,7 +325,7 @@ class SecGroup(ListResource):
         return
 
     @classmethod
-    def delete_rule(cls, secgroup, from_port, to_port, protocol, cidr):
+    def delete_rule(cls, cloudname, secgroup, from_port, to_port, protocol, cidr):
         try:
             args = {
                 "groupid": secgroup.uuid,
@@ -346,9 +350,10 @@ class SecGroup(ListResource):
 
             if rule is not None:
                 # get the nova client for cloud
-                nova_client = CloudProvider.set(secgroup.cloud)
+                # nova_client = CloudProvider.set(secgroup.cloud)
+                cloud_provider = CloudProvider(cloudname).provider.provider
                 # delete the rule from the cloud
-                nova_client.security_group_rules.delete(rule.uuid)
+                cloud_provider.security_group_rules.delete(rule.uuid)
                 # delete the local db record
                 cls.cm_db.delete(rule)
                 return "Rule [{} | {} | {} | {}] deleted" \

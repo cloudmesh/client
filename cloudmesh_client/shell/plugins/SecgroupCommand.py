@@ -72,7 +72,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default tenant not set!")
                 return ""
 
-            result = SecGroup.list(tenant, cloud)
+            result = SecGroup.list(project=tenant,
+                                   cloudname=cloud)
             if result:
                 print(result)
             else:
@@ -148,8 +149,12 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Get the rules
-                result = SecGroup.delete_rule(sec_group, from_port, to_port,
-                                              protocol, cidr)
+                result = SecGroup.delete_rule(cloudname=cloud,
+                                              secgroup=sec_group,
+                                              from_port=from_port,
+                                              to_port=to_port,
+                                              protocol=protocol,
+                                              cidr=cidr)
                 if result:
                     print(result)
                 else:
@@ -207,8 +212,12 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Add rules to the security group
-                SecGroup.add_rule(sec_group, from_port, to_port, protocol,
-                                  cidr)
+                SecGroup.add_rule(cloudname=cloud,
+                                  secgroup=sec_group,
+                                  from_port=from_port,
+                                  to_port=to_port,
+                                  protocol=protocol,
+                                  cidr=cidr)
             else:
                 Console.error(
                     "Security Group with label [{}], cloud [{}], and tenant [{"
