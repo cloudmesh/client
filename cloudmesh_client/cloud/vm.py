@@ -60,7 +60,26 @@ class Vm(ListResource):
 
     @classmethod
     def boot(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+
+        key_name = kwargs["key_name"]
+        cloud_name = kwargs["cloud"]
+
+        conf = ConfigDict("cloudmesh.yaml")
+        username = conf["cloudmesh"]["profile"]["username"]
+
+        keycloudmap = cls.cm.get_key_cloud_mapping(username, key_name, cloud_name)
+
+        if keycloudmap is None or len(keycloudmap) == 0:
+            Console.error("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
+                          .format(username, key_name, cloud_name))
+            return
+
+        # print("Keycloudmap = {:}".format(keycloudmap))
+        key_name_on_cloud = keycloudmap["key_name_on_cloud"]
+
+        # print("Booting with key_name_on_cloud as " + key_name_on_cloud)
+
+        cloud_provider = CloudProvider(cloud_name).provider
 
         if kwargs["cloud"] == 'kilo':
             # For kilo, we use a different network interface
@@ -81,11 +100,14 @@ class Vm(ListResource):
             vm_id = cloud_provider.boot_vm(kwargs["name"],
                                            kwargs["image"],
                                            kwargs["flavor"],
-                                           key=kwargs["key_name"],
+                                           key=key_name_on_cloud,
                                            secgroup=kwargs["secgroup_list"],
                                            nics=nics)
         else:
-            vm_id = cloud_provider.boot_vm(kwargs["name"], kwargs["image"], kwargs["flavor"], key=kwargs["key_name"],
+            vm_id = cloud_provider.boot_vm(kwargs["name"],
+                                           kwargs["image"],
+                                           kwargs["flavor"],
+                                           key=key_name_on_cloud,
                                            secgroup=kwargs["secgroup_list"])
         print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
 

@@ -170,3 +170,7 @@ class SSHKeyDBManager(object):
             keycloudmap = KEYCLOUDMAP(user, keyname, cloud, name_on_cloud)
             self.db.add(keycloudmap)
             self.db.save()
+
+    def get_key_cloud_maps(self, cloud):
+        return self.db.find(KEYCLOUDMAP, cloud_name=cloud)
+
