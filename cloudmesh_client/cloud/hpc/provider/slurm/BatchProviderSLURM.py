@@ -185,7 +185,7 @@ class BatchProviderSLURM(BatchProviderBase):
         cls.create_remote_dir(cluster, data["remote_experiment_dir"])
 
         # if the command is a script, copy the script
-        if os.path.isfile(cmd):
+        if os.path.isfile(Config.path_expand(cmd)):
             _from = Config.path_expand(cmd)
             _to = '{cluster}:{remote_experiment_dir}'.format(**data)
 

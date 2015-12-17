@@ -3,10 +3,13 @@
 #
 
 # lines that do not work but should are commented out for now with ##
-
 banner DEFAULTS
 
-cm default list
+default cloud=general
+
+default group=test
+
+default cluster=india
 
 banner REGISTRATION
 
@@ -18,8 +21,8 @@ hpc info
 
 hpc queue
 
-hpc run uname
+hpc run ~/test.sh
+
+hpc delete all
 
 hpc status --job=6
-
-# hpc delete --job={JOB_ID}
