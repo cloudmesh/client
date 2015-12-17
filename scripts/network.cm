@@ -47,3 +47,25 @@ network disassociate floating --instance=goshenoy
 
 banner DELETE_GROUP
 group delete demo_group
+
+
+banner DEFAULT_GROUP
+default group=demo_group
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm list
+
+
+banner ASSOCIATE_FLOATING_IP_WITH_GROUP
+network associate floating --group=demo_group
+
+
+banner DISASSOCIATE_FLOATING_IP_WITH_GROUP
+network disassociate floating --group=demo_group
+
+
+banner DELETE_GROUP
+group delete demo_group

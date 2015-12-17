@@ -131,6 +131,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
             instance_id = arguments["--instance"]
             floating_ip = arguments["FLOATING_IP"]
 
+            print(floating_ip)
+
             # group supplied
             if group_name is not None:
                 """
@@ -173,7 +175,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and instance_id is not None:
+            elif len(floating_ip)==0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Generate one from the pool, and assign to vm
@@ -203,6 +205,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 instance_dict = Network.get_instance_dict(cloudname=cloudname,
                                                           instance_id=instance_id)
+                floating_ip = floating_ip[0]
+
                 # Instance not found
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
@@ -284,7 +288,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif floating_ip is None and instance_id is not None:
+            elif len(floating_ip)==0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Remove floating ip allocated to vm
@@ -323,6 +327,8 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 instance_dict = Network.get_instance_dict(cloudname=cloudname,
                                                           instance_id=instance_id)
+                floating_ip = floating_ip[0]
+                
                 # Instance not found
                 if instance_dict is None:
                     Console.error("Instance [{}] not found in the cloudmesh database!"
