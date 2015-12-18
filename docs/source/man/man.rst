@@ -41,6 +41,8 @@ Command - cloud::
 
     Usage:
         cloud list [--cloud=CLOUD] [--format=FORMAT]
+        cloud logon CLOUD
+        cloud logout CLOUD
         cloud activate CLOUD
         cloud deactivate CLOUD
         cloud info CLOUD
@@ -52,13 +54,13 @@ Command - cloud::
       VALUE  the value to set the key to
 
     Options:
-       --cloud=CLOUD    the name of the cloud [default: general]
+       --cloud=CLOUD    the name of the cloud
        --format=FORMAT  the output format [default: table]
 
     Description:
        Cloudmesh contains a cloudmesh.yaml file that contains
        templates for multiple clouds that you may or may not have
-       access to. Hence it is useful to activate and deacivate clouds
+       access to. Hence it is useful to activate and deactivate clouds
        you like to use in other commands.
 
        To activate a cloud a user can simply use the activate
@@ -127,12 +129,12 @@ Command - comet::
        comet tunnel status
        comet logon
        comet logoff
-       comet ll [ID] [--format=FORMAT]
+       comet ll [CLUSTERID] [--format=FORMAT]
        comet docs
        comet info [--user=USER]
                     [--project=PROJECT]
                     [--format=FORMAT]
-       comet cluster [ID][--name=NAMES]
+       comet cluster [CLUSTERID][--name=NAMES]
                     [--user=USER]
                     [--project=PROJECT]
                     [--hosts=HOSTS]
@@ -143,7 +145,8 @@ Command - comet::
        comet computeset [COMPUTESETID]
        comet start ID
        comet stop ID
-       comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
+       comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+       comet console CLUSTERID [COMPUTENODEID]
        comet delete [all]
                       [--user=USER]
                       [--project=PROJECT]
@@ -269,6 +272,24 @@ Command - default::
         default image --cloud=kilo
         default delete image
         default delete image --cloud=kilo
+
+
+echo
+----------------------------------------------------------------------
+
+Command - echo::
+
+    Usage:
+        echo  [-r COLOR] TEXT
+
+    Arguments:
+        TEXT   The text message from which to create the banner
+        COLOR  the color
+
+    Options:
+        -r COLOR  The color of the banner. [default: BLACK]
+
+    Prints a banner form a one line text message.
 
 
 EOF
@@ -417,6 +438,9 @@ Command - hpc::
     Usage:
         hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
         hpc info [--cluster=CLUSTER][--format=FORMAT]
+        hpc run list [ID] [--cluster=CLUSTER]
+        hpc run output [ID] [--cluster=CLUSTER]
+        hpc run rm [ID] [--cluster=CLUSTER]
         hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
         hpc delete --job=NAME [--cluster=CLUSTER][--group=GROUP]
         hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
@@ -437,7 +461,7 @@ Command - hpc::
         cm hpc queue
             lists the details of the queues of the hpc cluster
 
-        cm hpc queue --name=NAME
+        cm hpc queue --job=NAME
             lists the details of the job in the queue of the hpc cluster
 
         cm hpc info
@@ -449,20 +473,17 @@ Command - hpc::
             remote machine. If a DIR is specified it will be copied
             into that dir.
             The name of the script is either specified in the script
-            itself, or if not the default nameing scheme of
+            itself, or if not the default naming scheme of
             cloudmesh is used using the same index incremented name
-            as in vms fro clouds: cloudmeshusername-index
+            as in vms fro clouds: cloudmes husername-index
 
         cm hpc delete all
-            kills all jobs on the default hpc cluster
-
-        cm hpc delete all -cluster=all
-            kills all jobs on all clusters
+            kills all jobs on the default hpc group
 
         cm hpc delete --job=NAME
             kills a job with a given name or job id
 
-        cm hpc default cluster=NAME
+        cm default cluster=NAME
             sets the default hpc cluster
 
         cm hpc status
@@ -489,7 +510,11 @@ Command - hpc::
         cm hpc queue --job=xxx
         cm hpc info
         cm hpc delete --job=6
+        cm hpc delete all
+        cm hpc status
+        cm hpc status --job=6
         cm hpc run uname
+        cm hpc run ~/test.sh --cluster=india
 
 
 image
@@ -621,6 +646,10 @@ Command - key::
       key get NAME
       key default [KEYNAME | --select]
       key delete (KEYNAME | --select | --all) [-f]
+      key add_to_cloud KEYNAME
+                       [--cloud=CLOUD]
+                       [--name_on_cloud=NAME_ON_CLOUD]
+      key list_cloud_mappings [--cloud=CLOUD]
 
     Manages the keys
 
@@ -631,15 +660,17 @@ Command - key::
       FORMAT         The format of the output (table, json, yaml)
       FILENAME       The filename with full path in which the key
                      is located
+      NAME_ON_CLOUD  Typically the name of the keypair on the cloud.
 
     Options:
 
-       --dir=DIR            the directory with keys [default: ~/.ssh]
-       --format=FORMAT      the format of the output [default: table]
-       --source=SOURCE      the source for the keys [default: db]
-       --username=USERNAME  the source for the keys [default: none]
-       --name=KEYNAME       The name of a key
-       --all                delete all keys
+       --dir=DIR                     the directory with keys [default: ~/.ssh]
+       --format=FORMAT               the format of the output [default: table]
+       --source=SOURCE               the source for the keys [default: db]
+       --username=USERNAME           the source for the keys [default: none]
+       --name=KEYNAME                The name of a key
+       --all                         delete all keys
+       --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
     Description:
 
@@ -826,23 +857,24 @@ Command - network::
         network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
         network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
         network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
-        network associate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
-        network disassociate floating [ip] [--cloud=CLOUD] --server=SERVER FLOATING_IP
-        network create floating [ip] [--cloud=CLOUD] --pool=FLOATING_IP_POOL
-        network delete floating [ip] [--cloud=CLOUD] FLOATING_IP
-        network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+        network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+        network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+        network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
+        network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
         network list floating pool [--cloud=CLOUD]
+        network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+        network create cluster --group=demo_group
         network -h | --help
 
     Options:
         -h                          help message
         --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
-        --server=SERVER             Server Name
+        --group=GROUP               Name of the group in Cloudmesh
         --pool=FLOATING_IP_POOL     Name of Floating IP Pool
-        --instance=INS_ID_OR_NAME   ID of the vm instance
+        --instance=INS_ID_OR_NAME   ID or Name of the vm instance
 
     Arguments:
-        IP_OR_ID        IP Address or ID
+        IP_OR_ID        IP Address or ID of IP Address
         FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
         FLOATING_IP     Floating IP Address, e.g. 192.1.66.8
         FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
@@ -856,19 +888,21 @@ Command - network::
         $ network reserve fixed --cloud=india 10.1.2.5
         $ network unreserve fixed ip --cloud=india 10.1.2.5
         $ network unreserve fixed --cloud=india 10.1.2.5
-        $ network associate floating ip --cloud=india --server=albert-001 192.1.66.8
-        $ network associate floating --cloud=india --server=albert-001 192.1.66.8
-        $ network disassociate floating ip --cloud=india --server=albert-001 192.1.66.8
-        $ network disassociate floating --cloud=india --server=albert-001 192.1.66.8
+        $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
+        $ network associate floating --cloud=india --instance=albert-001
+        $ network associate floating --cloud=india --group=albert_group
+        $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
+        $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
         $ network create floating ip --cloud=india --pool=albert-f01
         $ network create floating --cloud=india --pool=albert-f01
-        $ network delete floating ip --cloud=india 192.1.66.8
-        $ network delete floating --cloud=india 192.1.66.8
+        $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
+        $ network delete floating --cloud=india 192.1.66.8 192.1.66.9
         $ network list floating ip --cloud=india
         $ network list floating --cloud=india
         $ network list floating --cloud=india 192.1.66.8
         $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
         $ network list floating pool --cloud=india
+        $ network create cluster --group=demo_group
 
 
 
@@ -929,6 +963,24 @@ Command - pause::
 
     Arguments:
        MESSAGE  message to be displayed
+
+
+portal
+----------------------------------------------------------------------
+
+Command - portal::
+
+    Usage:
+        portal start
+        portal stop
+
+    Examples:
+        portal start
+            starts the portal and opens the default web page
+
+        portal stop
+            stops the portal
+
 
 
 py
@@ -1013,7 +1065,7 @@ Command - register::
         register new
         register clean [--force]
         register list ssh [--format=FORMAT]
-        register list [--yaml=FILENAMh bE][--info][--format=FORMAT]
+        register list [--yaml=FILENAME][--info][--format=FORMAT]
         register cat [--yaml=FILENAME]
         register edit [--yaml=FILENAME]
         register export HOST [--password] [--format=FORMAT]
@@ -1023,7 +1075,7 @@ Command - register::
         register check [--yaml=FILENAME]
         register test [--yaml=FILENAME]
         register json HOST
-        register remote CLOUD [--force]
+        register remote [CLOUD] [--force]
         register india [--force]
         register CLOUD CERT [--force]
         register CLOUD --dir=DIR
@@ -1223,6 +1275,24 @@ Command - reset::
 
 
 
+rsync
+----------------------------------------------------------------------
+
+Command - rsync::
+
+    Usage:
+        rsync ARGUMENTS...
+
+    A simple wrapper for rsync command
+
+    Arguments:
+        ARGUMENTS       The arguments passed to nova
+
+    Options:
+        -v              verbose mode
+
+
+
 secgroup
 ----------------------------------------------------------------------
 
@@ -1378,7 +1448,38 @@ submit
 
 Command - submit::
 
-    Command documentation submit missing, help_submit
+    Usage:
+        submit ARGUMENTS...
+
+    We do not yet know what this command will do ;-)
+
+    Arguments:
+        ARGUMENTS       The arguments passed to nova
+
+    Options:
+        -v              verbose mode
+
+
+
+sync
+----------------------------------------------------------------------
+
+Command - sync::
+
+    Usage:
+        sync put [--cloud=CLOUD] LOCALDIR [REMOTEDIR]
+        sync get [--cloud=CLOUD] REMOTEDIR LOCALDIR
+
+    A simple wrapper for the openstack nova command
+
+    Arguments:
+        LOCALDIR        A directory on local machine
+        REMOTEDIR       A directory on remote machine
+
+    Options:
+        --cloud=CLOUD   Sync with cloud
+
+
 
 usage
 ----------------------------------------------------------------------
@@ -1433,7 +1534,7 @@ Command - vm::
                 [--flavor=FLAVOR_OR_ID]
                 [--group=GROUP]
                 [--secgroup=SECGROUP]
-                [--keypair_name=KEYPAIR_NAME]
+                [--key=KEY]
         vm start NAME...
                  [--group=GROUP]
                  [--cloud=CLOUD]

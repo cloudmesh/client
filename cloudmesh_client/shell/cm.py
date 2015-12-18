@@ -433,6 +433,19 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Console.error('file "{:}" does not exist.'.format(filename))
             sys.exit()
 
+    # noinspection PyUnusedLocal
+    @command
+    def do_shell(self, args, arguments):
+        """
+        Usage:
+           shell ARGUMENTS...
+
+        Description:
+            Executes a shell command
+        """
+        # just ignore arguments and pass on args
+        os.system(args)
+
 
 def simple():
     context = CloudmeshContext(debug=False,
