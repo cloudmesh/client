@@ -98,6 +98,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         """
         line = self.replace_vars(line)
+        if line != "hist" and line:
+            self._hist += [line.strip()]
         cmd, arg, line = self.parseline(line)
         if not line:
             return self.emptyline()
@@ -139,6 +141,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.command_topics = {}
         self.register_topics()
         self.context = context
+        self._hist = []
         if self.context.debug:
             print("init CloudmeshConsole")
 
@@ -527,6 +530,36 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             variable = arg.split(' ')[1]
             self._delete_variable(variable)
             return
+
+    @command
+    def do_history(self, args, arguments):
+        """
+        Usage:
+            history list
+            history ID
+            history last
+        """
+        if arguments["list"]:
+            h = 0
+            for line in self._hist:
+                print ("{}: {}".format(h, self._hist[h]))
+                h = h + 1
+            return ""
+
+        if arguments["ID"]:
+            h = int(arguments["ID"])
+            if h in range(0, len(self._hist)):
+                print ("{}".format(self._hist[h]))
+                if not args.startswith("history"):
+                    self.onecmd(self._hist[h])
+            return ""
+
+        if arguments["last"]:
+            h = len(self._hist)
+            self.onecmd(self._hist[h])
+            return ""
+
+    do_h = do_history
 
 
 def simple():
