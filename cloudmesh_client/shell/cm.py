@@ -99,6 +99,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         cmd, arg, line = self.parseline(line)
         if not line:
             return self.emptyline()
+        if os.path.isfile(line):
+            self.do_exec(line)
+            return ""
         if line.startswith('#') \
                 or line.startswith('//') \
                 or line.startswith('/*'):
