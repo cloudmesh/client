@@ -151,4 +151,45 @@ The current list of commands contains::
     cloud  default  group  limits  list  nova  quota  register  select  server  vm
 
 
+Elementary Commands
+-------------------
+
+We have build in some convenience commands into the shell that include comments and execution of cm scripts.
+
+Comments
+^^^^^^^^^
+
+Comments are identified by the first characters in a command line. We allow the following comment charater identification
+strings::
+
+   #
+   /*
+   //
+
+If comments are to be done over multiple lines in a cloudmesh script, they have to be done for each line. If a space or other
+ character is in front of a comment string, the it will not be considered as a comment.
+
+Cloudmesh File Execution
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Multiple cloudmesh commands can be placed in a single file. We recommend that you use the ending `.cm`. You can satrt the
+execution of such a file with::
+
+   cm filename.cm
+
+A cloudmesh file could itself include references to other cloudmesh files. They can be started in one of two ways. You can
+use the `exec` command
+
+   $ cm
+   cm> exec filename.cm
+
+or you can use simply the filename. Cloudmesh will check if the filename exists and than execute it::
+
+   $ cm
+   cm> filename.cm
+
+
+
+
+
 

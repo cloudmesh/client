@@ -7,7 +7,9 @@ commands will be in the "Commands" section.
 
 Notes:
 
-* --format should become --output? reasoning in api format is keyword. in case we keep format we want to do output_format as api variable.
+* --format should become --output? reasoning in api format is keyword.
+In case we keep format we want to do output_format as
+api variable.
 
 currently we have
 
@@ -675,79 +677,7 @@ Stack (Hyungro)
                 List running stacks:
                 cm> stack list
 
-SSH 
-----
 
-::
-
-          Usage:
-              ssh list [--format=FORMAT]
-              ssh register NAME PARAMETERS
-              ssh NAME [--user=USER] [--key=KEY]
-
-
-          conducts a ssh login into a machine while using a set of
-          registered commands under the name of the machine.
-
-          Arguments:
-
-            NAME        Name or ip of the machine to log in
-            list        Lists the machines that are registered and
-                        the commands to login to them
-            PARAMETERS  Register te resource and add the given
-	                parameters to the ssh config file.  if the
-	                resoource exists, it will be overwritten. The
-	                information will be written in /.ssh/config
-
-          Options:
-             
-             -v       verbose mode
-	     --format=FORMAT   the format in which this list is given
-	                       formats incluse table, json, yaml, dict
-	                       [default: table]
-			       
-	     --user=USER       overwrites the username that is
-			       specified in ~/.ssh/config
-			       
-	     --key=KEY         The keyname as defined in the key list
-                               or a location that contains a pblic key 
-
-
-Quota 
------
-
-::
-        
-          Usage:
-              quota [CLOUD...] [--format=FORMAT]
-
-          print quota limit on a current project/tenant
-
-          Arguments:
-
-            CLOUD          Cloud name 
-	    
-          Options:
-
-             -v       verbose mode
-
-Limits 
--------
-
-::
-        
-          Usage:
-              limits [CLOUD...] [--format=FORMAT]
-
-          Current list data with limits on a selected project/tenant
-
-          Arguments:
-
-            CLOUD          Cloud name to see the list
-
-          Options:
-
-             -v       verbose mode
 
 
 notebook (not)

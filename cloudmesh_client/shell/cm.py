@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import datetime
 import cmd
 import sys
 import traceback
@@ -96,6 +97,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         commands by the interpreter should stop.
 
         """
+        line = self.replace_vars(line)
         cmd, arg, line = self.parseline(line)
         if not line:
             return self.emptyline()
@@ -133,6 +135,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def __init__(self, context):
         cmd.Cmd.__init__(self)
+        self.variables = {}
         self.command_topics = {}
         self.register_topics()
         self.context = context
@@ -448,6 +451,82 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         # just ignore arguments and pass on args
         os.system(args)
+
+    #
+    # VAR
+    #
+
+    def update_time(self):
+        time = datetime.datetime.now().strftime("%H:%M:%S")
+        date = datetime.datetime.now().strftime("%Y-%m-%d")
+
+        self.variables['time'] = time
+        self.variables['date'] = date
+
+    def replace_vars(self, line):
+
+        self.update_time()
+
+        newline = line
+        for v in self.variables:
+            newline = newline.replace("$" + v, self.variables[v])
+        for v in os.environ:
+            newline = newline.replace("$" + v, os.environ[v])
+        return newline
+
+    def _add_variable(self, name, value):
+        self.variables[name] = value
+        # self._list_variables()
+
+    def _delete_variable(self, name):
+        self._list_variables()
+        del self.variables[name]
+        # self._list_variables()
+
+    def _list_variables(self):
+        Console.ok(10 * "-")
+        Console.ok('Variables')
+        Console.ok(10 * "-")
+        for v in self.variables:
+            Console.ok("{:} = {:}".format(v, self.variables[v]))
+
+    @command
+    def do_var(self, arg, arguments):
+        """
+        Usage:
+            var list
+            var delete NAMES
+            var NAME=VALUE
+            var NAME
+        Arguments:
+            NAME    Name of the variable
+            NAMES   Names of the variable separated by spaces
+            VALUE   VALUE to be assigned
+        special vars date and time are defined
+        """
+        if arguments['list'] or arg == '' or arg is None:
+            self._list_variables()
+            return
+
+        elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
+            (variable, value) = arg.split('=', 1)
+            if value == "time" or value == "now":
+                value = datetime.datetime.now().strftime("%H:%M:%S")
+            elif value == "date":
+                value = datetime.datetime.now().strftime("%Y-%m-%d")
+            self._add_variable(variable, value)
+            return
+        elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
+            try:
+                v = arguments['NAME=VALUE']
+                Console.ok(str(self.variables[v]))
+            except:
+                Console.error('variable {:} not defined'.format(arguments['NAME=VALUE']))
+
+        elif arg.startswith('delete'):
+            variable = arg.split(' ')[1]
+            self._delete_variable(variable)
+            return
 
 
 def simple():

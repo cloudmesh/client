@@ -1378,6 +1378,18 @@ Command - server::
 
 
 
+shell
+----------------------------------------------------------------------
+
+Command - shell::
+
+    Usage:
+       shell ARGUMENTS...
+
+    Description:
+        Executes a shell command
+
+
 ssh
 ----------------------------------------------------------------------
 

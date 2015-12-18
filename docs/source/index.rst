@@ -1,29 +1,62 @@
-cloudmesh_client
+Cloudmesh Client Toolkit
 ============================================
 
-The *cloudmesh client* is a single user lightweight client interface of
-cloudmesh that does not require to run the user services on the
-machine where the client is hosted. It is developed while using a file
-based database and stores the cloud credentials in a configuration
-file. This documentation and code is available on github at:
+The *cloudmesh client* toolkit is a lightweight client interface of accessing
+heterogeneous clouds, clusters, and workstations right from the users computer.
+The user can manage his own set of resources he would like to utilize. Thus
+the user has the freedom to customize their cyber infrastructure they use.
+Cloudmesh client includes an API, a comandline client, and a commandline shell.
+It strives to abstract backends to databases that are used to manage the workflow
+utilizing the different infrastructure and also the services. Switching for example
+to stage virtual machines from openstack clouds to amazon is as simple as
+specifying the name of the cloud. Moreover, cloudmesh client can be installed on
+Linux, MacOSX, and even Windows. Currently we support backends to SLURM, SSH, Openstack,
+Heat. IN the past we supported AWS and Azure. We are in the process of integrating them
+back into the client.
+
+
+This documentation and code is available on github at:
 
 * Documentation: http://cloudmesh.github.io/client/
 * Code: https://github.com/cloudmesh/client
 
 .. toctree::
+   :caption: Installation
 
    prefix
    system
    installation
    configuration
+
+.. toctree::
+   :caption: Manuals
+
    commands/index
    man/man
+
+.. toctree::
+   :caption: API
+
    api
+   modules/modules
+
+.. toctree::
+   :caption: Appendix
+
+   appendix
+
+
+.. toctree::
+   :caption: Future
    docker
 
-   old 
-   modules/modules
-   appendix
+
+.. toctree::
+   :caption: Old
+
+   old
+
+
 
 
 Indices and tables
