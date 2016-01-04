@@ -1,4 +1,4 @@
-System Preparation
+Preparation
 ===================
 
 The installation of cloudmesh is easy if you have prepared your system

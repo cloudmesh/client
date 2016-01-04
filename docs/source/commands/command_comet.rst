@@ -40,11 +40,11 @@ for a cloud::
     | albert | chameleon | image | abc   |
     +--------+-----------+-------+-------+
 
-Conventions
+Options
 ------------
 
+::
 
-    Options::
         --user=USER           user name
         --name=NAMES          Names of the vcluster
         --start=TIME_START    Start time of the vcluster, in
@@ -64,12 +64,17 @@ Conventions
                               csv, rest
                               [default: table]
 
-    Arguments::
+Arguments
+----------
+
+::
+
         FILENAME  the file to open in the cwd if . is
                   specified. If file in in cwd
                   you must specify it with ./FILENAME
 
     Opens the given URL in a browser window.
+
 comet tunnel
 --------------
 

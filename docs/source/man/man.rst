@@ -209,6 +209,20 @@ Command - context::
         Lists the context variables and their values
 
 
+debug
+----------------------------------------------------------------------
+
+Command - debug::
+
+    Usage:
+          debug on
+          debug off
+
+          Turns the debug log level on and off.
+
+    NOTE: NOT YET IMPLEMENTED
+
+
 default
 ----------------------------------------------------------------------
 
@@ -417,6 +431,17 @@ Command - group::
             deletes all objects in the group
 
 
+h
+----------------------------------------------------------------------
+
+Command - h::
+
+    Usage:
+        history list
+        history ID
+        history last
+
+
 help
 ----------------------------------------------------------------------
 
@@ -429,6 +454,17 @@ Command - help::
     Description:
         List available commands with "help" or detailed help with
         "help COMMAND".
+
+history
+----------------------------------------------------------------------
+
+Command - history::
+
+    Usage:
+        history list
+        history ID
+        history last
+
 
 hpc
 ----------------------------------------------------------------------
@@ -822,6 +858,32 @@ Command - list::
         $ list --cloud india default
         $ list --cloud india --format table flavor
         $ list --cloud india --user albert --tenant fg82 flavor
+
+
+loglevel
+----------------------------------------------------------------------
+
+Command - loglevel::
+
+    Usage:
+        loglevel
+        loglevel critical
+        loglevel error
+        loglevel warning
+        loglevel info
+        loglevel debug
+
+        Shows current log level or changes it.
+
+        loglevel - shows current log level
+        critical - shows log message in critical level
+        error    - shows log message in error level including critical
+        warning  - shows log message in warning level including error
+        info     - shows log message in info level including warning
+        debug    - shows log message in debug level including info
+
+    NOTE:
+      NOT YET IMPLEMENTED
 
 
 man
@@ -1513,6 +1575,44 @@ Command - usage::
 
     Examples:
         cm usage list
+
+
+
+var
+----------------------------------------------------------------------
+
+Command - var::
+
+    Usage:
+        var list
+        var delete NAMES
+        var NAME=VALUE
+        var NAME
+    Arguments:
+        NAME    Name of the variable
+        NAMES   Names of the variable separated by spaces
+        VALUE   VALUE to be assigned
+    special vars date and time are defined
+
+
+verbose
+----------------------------------------------------------------------
+
+Command - verbose::
+
+    Usage:
+        verbose (True | False)
+        verbose
+
+    NOTE: NOT YET IMPLEMENTED.
+    If it sets to True, a command will be printed before execution.
+    In the interactive mode, you may want to set it to False.
+    When you use scripts, we recommend to set it to True.
+
+    The default is set to False
+
+    If verbose is specified without parameter the flag is
+    toggled.
 
 
 

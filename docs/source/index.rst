@@ -21,9 +21,13 @@ This documentation and code is available on github at:
 * Code: https://github.com/cloudmesh/client
 
 .. toctree::
-   :caption: Installation
 
    prefix
+
+
+.. toctree::
+   :caption: Installation
+
    system
    installation
    configuration

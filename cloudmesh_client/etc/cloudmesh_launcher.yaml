@@ -6,6 +6,39 @@ cloudmesh:
         default:
             template: https://raw.githubusercontent.com/cloudmesh/cloudmesh/master/heat-templates/centos6/launcher/launcher.yaml
         recipes:
+            ansible:
+                name: Ansible Server
+                shortdescription: Ansible Server.
+                description:
+                    >
+                        Setup of an ansible server.
+                label: ansible
+                parameters:
+                    - username:
+                        type: string
+                        value:
+                        required: True
+                    - os:
+                        type: selector
+                        value:
+                        - ubuntu
+                        - centos
+                     - computer:
+                        type: selector
+                        value:
+                        - comet
+                        - india
+                        - juliet
+                        - bravo
+                        - delta
+                        - echo
+                        required: True
+                image: img/launcher/ansible.png
+                script: 
+                    type: sh
+                    value: |-
+                           echo "Login {username} on {computer}";
+                           ssh {username}@{computer} "ls -l";
             shell_example:
                 name: Shell Example
                 shortdescription: Example to start a shell script.

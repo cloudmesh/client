@@ -11,6 +11,8 @@ from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
 
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"clear": "shell",
+              "echo": "shell",
+              "puase": "shell",
               "banner": "shell"}
 
     def __init__(self, context):
@@ -115,5 +117,134 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         if arguments["MESSAGE"] is None:
             arg = 'Press ENTER to continue'
         input(arg + '\n')
+
+        return ""
+
+    #
+    # Echo
+    #
+    def set_verbose(self, on):
+        #self.echo = on
+        pass
+
+    def set_debug(self, on):
+        """
+        filename = path_expand("~/.cloudmesh/cmd3.yaml")
+        config = ConfigDict(filename=filename)
+        if type(on) == bool:
+            self.debug = on
+        else:
+            self.debug = on.lower() in ['on', 'true']
+
+        config["cmd3"]["properties"]["debug"] = self.debug
+        Console.ok("Debug mode is {:}".format(self.debug))
+        config.write(filename=filename, output="yaml", attribute_indent="    ")
+        """
+        pass
+
+    def set_banner(self, banner):
+        self.banner = banner
+
+    @command
+    def do_debug(self, args, arguments):
+        """
+        ::
+
+        Usage:
+              debug on
+              debug off
+
+              Turns the debug log level on and off.
+
+        NOTE: NOT YET IMPLEMENTED
+        """
+        """
+        filename = path_expand("~/.cloudmesh/cmd3.yaml")
+
+        config = ConfigDict(filename=filename)
+        if arguments['on']:
+            self.set_debug(True)
+        elif arguments['off']:
+            self.set_debug(False)
+        """
+        Console.error("debug NOT YET IMPLEMENTED")
+        return ""
+
+    @command
+    def do_loglevel(self, args, arguments):
+        """
+        ::
+
+          Usage:
+              loglevel
+              loglevel critical
+              loglevel error
+              loglevel warning
+              loglevel info
+              loglevel debug
+
+              Shows current log level or changes it.
+
+              loglevel - shows current log level
+              critical - shows log message in critical level
+              error    - shows log message in error level including critical
+              warning  - shows log message in warning level including error
+              info     - shows log message in info level including warning
+              debug    - shows log message in debug level including info
+
+          NOTE:
+            NOT YET IMPLEMENTED
+        """
+
+
+        """
+        if arguments['debug']:
+            self.loglevel = "DEBUG"
+        elif arguments['error']:
+            self.loglevel = "ERROR"
+        elif arguments['warning']:
+            self.loglevel = "WARNING"
+        elif arguments['info']:
+            self.loglevel = "INFO"
+        elif arguments['critical']:
+            self.loglevel = "CRITICAL"
+        else:
+            Console.ok("Log level: {0}".format(self.loglevel))
+            return
+        Console.ok ("Log level: {0} is set".format(self.loglevel))
+
+        filename = path_expand("~/.cloudmesh/cmd3.yaml")
+        config = ConfigDict(filename=filename)
+        config["cmd3"]["properties"]["loglevel"] = self.loglevel
+        config.write(filename=filename, output="yaml", attribute_indent="    ")
+        """
+        Console.error("loglevel NOT YET IMPLEMENTED")
+        return ""
+
+
+    @command
+    def do_verbose(self, args, arguments):
+        """
+        Usage:
+            verbose (True | False)
+            verbose
+
+        NOTE: NOT YET IMPLEMENTED.
+        If it sets to True, a command will be printed before execution.
+        In the interactive mode, you may want to set it to False.
+        When you use scripts, we recommend to set it to True.
+
+        The default is set to False
+
+        If verbose is specified without parameter the flag is
+        toggled.
+
+        """
+        # if args == '':
+        #    self.echo = not self.echo
+        # else:
+        #    self.echo = arguments['True']
+
+        Console.error("verbose NOT YET IMPLEMENTED")
 
         return ""

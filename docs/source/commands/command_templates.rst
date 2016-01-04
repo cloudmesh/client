@@ -76,7 +76,8 @@ reissued by appending the number to the history. Thus the command::
 
      $cm history 3
 
-would execute the 3rd command in the command history.
+would execute the 3rd command in the command history. Instead of
+using the command history, you can also use the abbreviation `h`.
 
 Help
 ----------------------------------------------------------------------
@@ -97,6 +98,7 @@ optain the manual pages of all commands yo can use the command::
    $cm man
 
 which will print all man pages out.
+
 
 Shell & Commandline
 ----------------------------------------------------------------------
@@ -188,6 +190,58 @@ or you can use simply the filename. Cloudmesh will check if the filename exists 
    $ cm
    cm> filename.cm
 
+
+Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CMD3 contains the ability to use variables within the shell. To see a
+list of all variables, use the command::
+
+  var list
+
+or simply::
+
+  var
+
+To use the content of the variable, simple use it on the shell with a
+dollar sign such as::
+
+  $date
+
+Note that the variables $dat and $time are predefined and give the
+current date and time.
+
+Python
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can execute a python command as follows::
+
+  py COMMAND
+
+where command is the command you like to execute
+
+Quitting the shell
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To quit the shell you can use either the commands::
+
+  q
+  quit
+  EOF
+
+Manual Pages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Often you will run in the situation where you may have to create a
+list of manual pages for your commands for your users. To simplify
+that we have not provided this in Unix Man format, but simply in RST
+format. You can type in the command::
+
+  man
+
+and it will print you in RST format a list of all commands available
+to you for your cmd3 shell. This naturally you could put into a sphinx
+documentation to create a nice user manual for your users.
 
 
 

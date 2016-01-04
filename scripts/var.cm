@@ -1,0 +1,6 @@
+#
+# TESTING VARIABLES
+#
+var list
+var a=now
+banner $a
