@@ -22,7 +22,7 @@ import os
 from setuptools.command.install import install
 from setuptools.command.test import test as TestCommand
 from setuptools import setup, find_packages
-from cloudmesh_base.setup import *
+
 
 try:
     import cloudmesh_base
@@ -31,9 +31,9 @@ except:
     # os.system("pip install cloudmesh_base")
     os.system("pip install git+https://github.com/cloudmesh/base.git")
 
+from cloudmesh_base.setup import *
 from cloudmesh_base.util import banner
 from cloudmesh_base.setup import os_execute
-
 from cloudmesh_client import __version__
 
 banner("Installing Cloudmesh_client {:}".format(__version__))

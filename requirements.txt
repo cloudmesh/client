@@ -14,6 +14,7 @@ sandman
 gitchangelog
 six
 python-novaclient
+python-keystoneclient
 cloudmesh_timestring
 pycrypto
 httpsig
