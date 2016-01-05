@@ -17,12 +17,14 @@ class Default(ListResource):
              order=None,
              output=format):
         if order is None:
-            order = ['user', 'cloud', 'name', 'value'],
+            order = ['user', 'cloud', 'name', 'value']
         try:
             if cloud is None:
                 d = cls.cm.all("default")
             else:
                 d = cls.cm.find('default', cloud=cloud)
+            from pprint import pprint
+            pprint (d)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))

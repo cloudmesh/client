@@ -144,8 +144,12 @@ def dict_csv_printer(d,
     return table
 
 
-def dict_table_printer(d, order=None, header=None, sort_keys=True,
-                       show_none="", max_width=40):
+def dict_table_printer(d,
+                       order=None,
+                       header=None,
+                       sort_keys=True,
+                       show_none="",
+                       max_width=40):
     """prints a pretty table from an dict of dicts
     :param d: A a dict with dicts of the same type.
                   Each key will be a column

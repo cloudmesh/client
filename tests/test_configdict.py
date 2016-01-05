@@ -17,10 +17,11 @@ import os
 class Test_configdict:
 
     root_path = os.path.abspath(os.sep)
+    cwd_path = os.getcwd()
 
     def setup(self):
         os.system("cm help")
-        self.etc_yaml = os.path.join(self.root_path, "cloudmesh_client", "etc", "cloudmesh.yaml")
+        self.etc_yaml = os.path.join(self.cwd_path, "cloudmesh_client", "etc", "cloudmesh.yaml")
         self.tmp_yaml = os.path.join(self.root_path, "tmp", "cloudmesh.yaml")
         self.tmp_dir = os.path.join(self.root_path, "tmp")
         pass

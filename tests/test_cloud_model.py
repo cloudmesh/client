@@ -100,8 +100,8 @@ class Test_cloud_model(object):
         name = "vm1"
         uuid = d.id
 
-        vm = VM(name,
-                uuid,
+        vm = VM(name=name,
+                uuid=uuid,
                 type="VM",
                 cloud="mycloud",
                 **d)
