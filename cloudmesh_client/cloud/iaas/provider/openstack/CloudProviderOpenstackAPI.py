@@ -289,16 +289,28 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
-        # get net-id based on tenant network name
-        netname = "{0}-net".format(self.tenant)
-        nics = self.provider.networks.list()
-        nic = [x for x in nics if x.label==netname][0]
+        # if no nics specified, try to find one in case it's needed
+        [{'net-id': None}]
+        print (nics)
+        if nics is None or len(nics)==0 \
+            or (len(nics)==1 and nics[0]['net-id'] is None):
+            # get net-id based on tenant network name, and other possible
+            # default network names
+            netnames = ["{0}-net".format(self.tenant), "int-net"]
+            nicsmy = self.provider.networks.list()
+            for netname in netnames:
+                nic = [x for x in nicsmy if x.label==netname]
+                if len(nic) > 0:
+                    # found and break out of loop
+                    # use the value found here
+                    nic = nic[0]
+                    nics = [{"net-id": nic.id}]
+                    break
 
-        nicsparam = [{"net-id": nic.id}]
         server = self.provider.servers.create(name, image, flavor, meta=meta,
                                               key_name=key,
                                               security_groups=secgroup,
-                                              nics=nicsparam)
+                                              nics=nics)
         # return the server id
         return server.__dict__["id"]
 
