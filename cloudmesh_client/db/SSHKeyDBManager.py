@@ -7,6 +7,7 @@ from cloudmesh_client.keys.SSHKeyManager import SSHkey
 from cloudmesh_client.db.model import KEY, KEYCLOUDMAP
 from cloudmesh_client.db import CloudmeshDatabase
 
+from sqlite3 import IntegrityError
 
 # noinspection PyBroadException
 class SSHKeyDBManager(object):
@@ -28,6 +29,14 @@ class SSHKeyDBManager(object):
                              source=source,
                              uri=uri)
 
+    def _add(self, obj):
+        try:
+            self.db.add(obj)
+            self.db.save()
+        except IntegrityError, e:
+            raise ValueError("Key already exists")
+
+
     def add_from_dict(self, d):
         pprint(d)
 
@@ -41,8 +50,7 @@ class SSHKeyDBManager(object):
                       value='{string} {comment}'.format(**d),
                       )
 
-        self.db.add([key_obj])
-        self.db.save()
+        self._add([key_obj])
 
     def add_from_sshkey(self,
                         sshkey,
@@ -80,8 +88,7 @@ class SSHKeyDBManager(object):
             user=user)
 
         # pprint(key_obj.__dict__)
-        self.db.add(key_obj)
-        self.db.save()
+        self._add(key_obj)
 
     def delete(self, keyname):
         """
@@ -178,8 +185,7 @@ class SSHKeyDBManager(object):
             self.db.save()
         else:
             keycloudmap = KEYCLOUDMAP(user, keyname, cloud, name_on_cloud)
-            self.db.add(keycloudmap)
-            self.db.save()
+            self._add(keycloudmap)
 
     def get_key_cloud_maps(self):
         """

@@ -319,6 +319,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print("Key {:} successfully added to the database".format(keyname or ""))
                 msg = "info. OK."
                 Console.ok(msg)
+
+            except ValueError, e:
+                Console.error("The key `{}` alredy exists".format(keyname))
+
             except Exception, e:
                 import traceback
                 print(traceback.format_exc())
@@ -326,6 +330,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print (keyname)
                 print (filename)
                 Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
+
+            return ""
 
         elif arguments['default']:
 
