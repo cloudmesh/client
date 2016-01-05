@@ -290,8 +290,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             flavor = self.default_flavor
 
         # if no nics specified, try to find one in case it's needed
-        [{'net-id': None}]
-        print (nics)
         if nics is None or len(nics)==0 \
             or (len(nics)==1 and nics[0]['net-id'] is None):
             # get net-id based on tenant network name, and other possible
