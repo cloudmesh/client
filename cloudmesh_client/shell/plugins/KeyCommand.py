@@ -284,10 +284,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 d[gitkeyname]['source'] = 'git'
                 # sshdb.add_from_dict(d[gitkeyname])
             except Exception, e:
-                import traceback
-                print(traceback.format_exc())
-                print (e)
-                Console.error("The key may already there")
+                Console.error("The key already exists")
 
         elif arguments['add'] and arguments["--ssh"]:
 
@@ -301,11 +298,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:
+                """
                 import traceback
                 print(traceback.format_exc())
                 print (e)
                 print (keyname)
                 print (filename)
+                """
                 Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
 
         elif arguments['add'] and not arguments["--git"]:
