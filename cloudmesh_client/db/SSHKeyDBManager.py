@@ -33,7 +33,7 @@ class SSHKeyDBManager(object):
         try:
             self.db.add(obj)
             self.db.save()
-        except IntegrityError, e:
+        except Exception, e:
             raise ValueError("Key already exists")
 
 

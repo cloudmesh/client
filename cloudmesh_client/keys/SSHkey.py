@@ -127,7 +127,7 @@ class SSHkey(object):
             if data[int_len:int_len + str_len] == keytype:
                 return True
         except Exception, e:
-            print(e)
+            # print(e)
             return False
 
     def _keyname_sanitation(self, username, keyname):
