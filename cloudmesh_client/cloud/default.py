@@ -182,7 +182,7 @@ class Default(ListResource):
 
     @classmethod
     def set_debug(cls, value):
-        cls.set("key", value, "general")
+        cls.set("debug", value, "general")
 
     @classmethod
     def get_debug(cls):
