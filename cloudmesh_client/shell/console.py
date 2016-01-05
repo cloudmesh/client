@@ -96,7 +96,7 @@ class Console(object):
         print (message)
 
     @staticmethod
-    def error(message, prefix=True):
+    def error(message, prefix=True, traceflag=True):
         message = message or ""
         if prefix:
             text = "ERROR: "
@@ -109,7 +109,7 @@ class Console(object):
 
         trace = traceback.format_exc().strip()
 
-        if trace != "None":
+        if traceflag and trace != "None":
             print
             print "\n".join(str(trace).splitlines())
             print
