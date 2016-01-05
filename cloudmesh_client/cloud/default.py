@@ -49,6 +49,7 @@ class Default(ListResource):
             else:
                 o.value = value
                 cls.cm.add(o)
+                #cls.cm.update(o)
             cls.cm.save()
         except:
             return None
@@ -175,3 +176,15 @@ class Default(ListResource):
     @classmethod
     def get_cluster(cls):
         return cls.get("cluster", "general")
+    #
+    # Set the default key
+    #
+
+    @classmethod
+    def set_debug(cls, value):
+        cls.set("key", value, "general")
+
+    @classmethod
+    def get_debug(cls):
+        return cls.get("debug", "general")
+

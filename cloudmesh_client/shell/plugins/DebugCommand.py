@@ -11,6 +11,10 @@ class DebugCommand(PluginCommand, CloudPluginCommand):
         self.context = context
         if self.context.debug:
             print("init command debug")
+        try:
+            value = Default.get_debug()
+        except:
+            Default.set_debug("off")
 
     # noinspection PyUnusedLocal
     @command
@@ -21,16 +25,19 @@ class DebugCommand(PluginCommand, CloudPluginCommand):
             Usage:
                 debug on
                 debug off
+                debug list
 
                 switches on and off the debug messages
 
         """
         if arguments["on"]:
-
-            Console.ok("Switch on debug")
-
-        if arguments["off"]:
-
-            Console.ok("Switch off debug")
+            Default.set_debug("on")
+            Console.ok("Switch debug on")
+        elif arguments["off"]:
+            Default.set_debug("off")
+            Console.ok("Switch debug off")
+        elif arguments["list"]:
+            debug = Default.get_debug()
+            Console.ok("Debug is switched {}".format(self.debug))
 
         return ""

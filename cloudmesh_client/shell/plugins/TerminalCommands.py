@@ -127,48 +127,8 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         #self.echo = on
         pass
 
-    def set_debug(self, on):
-        """
-        filename = path_expand("~/.cloudmesh/cmd3.yaml")
-        config = ConfigDict(filename=filename)
-        if type(on) == bool:
-            self.debug = on
-        else:
-            self.debug = on.lower() in ['on', 'true']
-
-        config["cmd3"]["properties"]["debug"] = self.debug
-        Console.ok("Debug mode is {:}".format(self.debug))
-        config.write(filename=filename, output="yaml", attribute_indent="    ")
-        """
-        pass
-
     def set_banner(self, banner):
         self.banner = banner
-
-    @command
-    def do_debug(self, args, arguments):
-        """
-        ::
-
-        Usage:
-              debug on
-              debug off
-
-              Turns the debug log level on and off.
-
-        NOTE: NOT YET IMPLEMENTED
-        """
-        """
-        filename = path_expand("~/.cloudmesh/cmd3.yaml")
-
-        config = ConfigDict(filename=filename)
-        if arguments['on']:
-            self.set_debug(True)
-        elif arguments['off']:
-            self.set_debug(False)
-        """
-        Console.error("debug NOT YET IMPLEMENTED")
-        return ""
 
     @command
     def do_loglevel(self, args, arguments):
