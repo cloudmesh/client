@@ -201,8 +201,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         config = ConfigDict(filename=filename)["cloudmesh"]
         clouds = config["clouds"]
 
-        defaults = {'clouds': {},
-                    'key': {}}
+        defaults = {
+            'clouds': {},
+            'key': {}
+        }
 
         for cloud in clouds:
             if "default" in config['clouds'][cloud]:
@@ -210,6 +212,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         if "default" in config["keys"]:
             defaults["keys"] = config["keys"]["default"]
+            if config["keys"] in ["None", "TBD"]:
+                defaults['key'] = None
         else:
             defaults['key'] = None
 

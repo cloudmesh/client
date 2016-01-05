@@ -394,7 +394,7 @@ class LAUNCHER(CloudmeshMixin, db.Base):
 # TODO: BUG the value is not properly used here
 class KEY(CloudmeshMixin, db.Base):
     value = Column(String)
-    fingerprint = Column(String)
+    fingerprint = Column(String, unique=True)
     source = Column(String)
     comment = Column(String)
     uri = Column(String)

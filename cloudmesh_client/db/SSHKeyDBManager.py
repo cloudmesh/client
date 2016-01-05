@@ -61,6 +61,12 @@ class SSHKeyDBManager(object):
 
         # pprint(sshkey)
 
+
+        # find if the key with fingerprint already exists
+
+        # if so return warning and return command
+
+
         key_obj = KEY(
             keyname,
             sshkey['string'],

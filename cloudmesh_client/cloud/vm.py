@@ -144,7 +144,7 @@ class Vm(ListResource):
             print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
 
             # Explicit refresh called after VM delete, to update db.
-            # cls.refresh(cloud=kwargs["cloud"])
+            cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def info(cls, **kwargs):
