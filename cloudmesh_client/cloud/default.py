@@ -23,8 +23,6 @@ class Default(ListResource):
                 d = cls.cm.all("default")
             else:
                 d = cls.cm.find('default', cloud=cloud)
-            from pprint import pprint
-            pprint (d)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))

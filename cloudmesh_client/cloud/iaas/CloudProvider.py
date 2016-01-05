@@ -42,6 +42,7 @@ class CloudProvider(CloudProviderBase):
         return self.provider.attributes(kind)
 
 
+
 def main():
     from pprint import pprint
 

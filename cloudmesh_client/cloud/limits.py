@@ -12,6 +12,8 @@ class Limits(ListResource):
     def list(cls, cloud, output="table", tenant=None):
         try:
             provider = CloudProvider(cloud).provider
+            #if tenant is None:
+            #    tenant = provider.tenant
 
             result = provider.list_limits(tenant)["absolute"]
 

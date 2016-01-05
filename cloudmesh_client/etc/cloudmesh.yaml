@@ -54,25 +54,8 @@ cloudmesh:
                     experiment_dir: /home/{username}/experiment
                     prefix: {username}
     active:
-        - juno
         - kilo
     clouds:
-        juno:
-            cm_heading: India OpenStack, Juno
-            cm_host: india
-            cm_label: juno
-            cm_type: openstack
-            cm_type_version: juno
-            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
-            credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
-                OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
-                OS_PASSWORD: TBD
-                OS_TENANT_NAME: TBD
-                OS_USERNAME: TBD
-            default:
-                flavor: TBD
-                image: TBD
         kilo:
             cm_heading: India OpenStack, Kilo
             cm_host: india
@@ -108,6 +91,22 @@ cloudmesh:
                 OS_USERNAME: TBD
                 OS_VERSION: kilo
                 OS_REGION_NAME: RegionOne
+            default:
+                flavor: TBD
+                image: TBD
+        juno:
+            cm_heading: India OpenStack, Juno
+            cm_host: india
+            cm_label: juno
+            cm_type: openstack
+            cm_type_version: juno
+            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
+            credentials:
+                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
+                OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: TBD
+                OS_USERNAME: TBD
             default:
                 flavor: TBD
                 image: TBD

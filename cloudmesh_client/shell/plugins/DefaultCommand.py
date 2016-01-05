@@ -20,6 +20,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         ::
 
           Usage:
+              default
               default list [--cloud=CLOUD] [--format=FORMAT] [--all]
               default delete KEY [--cloud=CLOUD]
               default KEY [--cloud=CLOUD]
@@ -93,10 +94,18 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         (eg. image=yyy for cloud=xxx).
         """
 
+
+
         if arguments["KEY"] in general_keys:
             cloud = "general"
+        elif args == '':
+            cloud = "general"
+            arguments["--cloud"] = cloud
+            arguments["list"] = True
         else:
             cloud = arguments["--cloud"] or Default.get("cloud", "general") or "general"
+
+        print (arguments)
 
         if arguments["list"]:
             output_format = arguments["--format"]

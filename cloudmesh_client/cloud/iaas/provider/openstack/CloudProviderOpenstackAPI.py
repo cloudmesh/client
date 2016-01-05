@@ -162,6 +162,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         self.cloud = cloudname
         self.default_flavor = self.cloud_details["default"]["flavor"]
         self.default_image = self.cloud_details["default"]["image"]
+        self.tenant = self.cloud_details['credentials']['OS_TENANT_NAME']
         version = 2
         credentials = self.cloud_details["credentials"]
         cert = False

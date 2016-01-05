@@ -20,8 +20,8 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                flavor refresh [--cloud=CLOUD]
-                flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
+                flavor refresh [--cloud=CLOUD] [-v]
+                flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
 
                 This lists out the flavors present for a cloud
 
@@ -44,6 +44,9 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
             Console.error("Default cloud doesn't exist")
             return
 
+        if arguments["-v"]:
+            print ("Cloud: {}".format(cloud))
+
         if arguments["refresh"]:
             msg = "Refresh flavor for cloud {:}.".format(cloud)
             if Flavor.refresh(cloud):
@@ -64,7 +67,7 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
 
             if result is None:
                 #
-                # outo refresh
+                # auto refresh
                 #
                 Console.error("No flavor(s) found. Failed")
                 # Flavor.refresh(cloud)
