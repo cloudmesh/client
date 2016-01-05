@@ -30,5 +30,6 @@ from cloudmesh_client.shell.plugins.PyCommand import PyCommand
 from cloudmesh_client.shell.plugins.LauncherCommand import LauncherCommand
 from cloudmesh_client.shell.plugins.PortalCommand import PortalCommand
 from cloudmesh_client.shell.plugins.SyncCommand import SyncCommand
+from cloudmesh_client.shell.plugins.CheckCommand import CheckCommand
 # from cloudmesh_client.shell.plugins.WhoCommand .import WhoCommand
 
