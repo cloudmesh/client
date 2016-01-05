@@ -33,7 +33,7 @@ class LimitsCommand(PluginCommand, CloudPluginCommand):
 
             Examples:
                 cm limits list
-                cm limits list --cloud=juno --format=csv
+                cm limits list --cloud=kilo --format=csv
 
         """
         if arguments["list"]:

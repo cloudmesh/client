@@ -59,14 +59,14 @@ class Test_register():
     def test_005(self):
         """testing cm register CLOUD CERT"""
         HEADING()
-        cert =  " ~/.cloudmesh/clouds/india/juno/cacert.pem"
+        cert =  " ~/.cloudmesh/clouds/india/kilo/cacert.pem"
         result = run ("cm register india {} --force".format(cert))
         assert "cert registered " in result
 
     def test_006(self):
         """testing cm register CLOUD CERT"""
         HEADING()
-        cert =  " ~/.cloudmesh/clouds/donotexist/juno/cacert.pem"
+        cert =  " ~/.cloudmesh/clouds/donotexist/kilo/cacert.pem"
         result = run ("cm register india {} --force".format(cert))
         assert "ERROR" in result
 
@@ -107,9 +107,9 @@ class Test_register():
         assert "Reading rc file from" in result
 
     def test_013(self):
-        """testing cm register rc india --version=juno"""
+        """testing cm register rc india --version=kilo"""
         HEADING()
-        result = run("cm register rc india --version=juno")
+        result = run("cm register rc india --version=kilo")
         assert "Reading rc file from" in result
 
     def test_014(self):

@@ -69,7 +69,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list 1 --cloud=juno")
+        result = run("cm flavor list 1 --cloud=kilo")
         assert "Value" in result
 
     def test_006(self):

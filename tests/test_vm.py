@@ -37,60 +37,60 @@ class Test_vm:
         image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
 
         HEADING()
-        result = run("cm vm boot --name=testvm --cloud=juno --image={:} --flavor=2 --group=test".format(image_id))
+        result = run("cm vm boot --name=testvm --cloud=kilo --image={:} --flavor=2 --group=test".format(image_id))
         print result
         assert "OK." in result
 
     def test_002(self):
         """
-        cm vm refresh --cloud=juno
+        cm vm refresh --cloud=kilo
         """
         HEADING()
-        result = run("cm vm refresh --cloud=juno")
+        result = run("cm vm refresh --cloud=kilo")
         print result
         assert "OK." in result
 
     def test_003(self):
         """
-        cm vm list --cloud=juno
+        cm vm list --cloud=kilo
         """
         HEADING()
-        result = run("cm vm list --cloud=juno")
+        result = run("cm vm list --cloud=kilo")
         print result
         assert "OK." in result
 
     def test_004(self):
         """
-        cm vm list testvm --cloud=juno
+        cm vm list testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm list testvm --cloud=juno")
+        result = run("cm vm list testvm --cloud=kilo")
         print result
         assert "OK." in result
 
     def test_005(self):
         """
-        cm vm status --cloud=juno
+        cm vm status --cloud=kilo
         """
         HEADING()
-        result = run("cm vm status --cloud=juno")
+        result = run("cm vm status --cloud=kilo")
         print result
         assert "OK." in result
 
     def test_006(self):
         """
-        cm vm ip_show testvm --cloud=juno
+        cm vm ip_show testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm ip_show testvm --cloud=juno")
+        result = run("cm vm ip_show testvm --cloud=kilo")
         print result
         assert "OK." in result
 
     def test_007(self):
         """
-        cm vm delete testvm --cloud=juno
+        cm vm delete testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm delete testvm --cloud=juno")
+        result = run("cm vm delete testvm --cloud=kilo")
         print result
         assert "OK." in result

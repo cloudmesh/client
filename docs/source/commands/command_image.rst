@@ -10,17 +10,17 @@ Refresh
 ----------------------------------------------------------------------
 
 The refresh command would update the local database with the latest images.
-To refresh images of a cloud(in this example, juno), do the following::
+To refresh images of a cloud (in this example, kilo), do the following::
 
-    $cm image refresh --cloud=juno
-    Refresh image for cloud juno. ok.
+    $cm image refresh --cloud=kilo
+    Refresh image for cloud kilo. ok.
 
 List
 ----------------------------------------------------------------------
 
 To list the set of images of a cloud, do the following::
 
-    $cm image list --cloud=juno
+    $cm image list --cloud=kilo
     +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
     | id | size          | created              | description                  | minDisk | minRam | name                                    | progress | status | updated              |
     +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
@@ -36,7 +36,7 @@ To list the details of an image, give in the id, uuid or name of the image. In c
 the --refresh option can be used which would update the local database::
 
 
-    $cm image list 12 --cloud=juno
+    $cm image list 12 --cloud=kilo
     +--------------------------------------+--------------------------------------+
     | Attribute                            | Value                                |
     +--------------------------------------+--------------------------------------+
@@ -72,7 +72,7 @@ the --refresh option can be used which would update the local database::
     | label                                | ZZZ                                  |
     | name                                 | ZZZ                                  |
     | kind                                 | image                                |
-    | cloud                                | juno                                 |
+    | cloud                                | kilo                                 |
     | metadata__instance_type_name         | m1.small                             |
     | metadata__image_location             | snapshot                             |
     | metadata__image_type                 | snapshot                             |

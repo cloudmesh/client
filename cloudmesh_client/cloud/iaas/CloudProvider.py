@@ -45,7 +45,7 @@ class CloudProvider(CloudProviderBase):
 def main():
     from pprint import pprint
 
-    cloud = "juno"
+    cloud = "kilo"
     provider = CloudProvider(cloud).provider
 
     print (provider, type(provider))

@@ -33,7 +33,7 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image refresh --cloud=juno")
+        result = run("cm image refresh --cloud=kilo")
         assert "ok." in result
 
     def test_002(self):
@@ -42,7 +42,7 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image refresh --cloud=juno11")
+        result = run("cm image refresh --cloud=kilo11")
         assert "failed" in result
 
     def test_003(self):
@@ -51,7 +51,7 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image list --cloud=juno")
+        result = run("cm image list --cloud=kilo")
         assert "description" in result
 
     def test_004(self):
@@ -60,7 +60,7 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image list --cloud=juno11")
+        result = run("cm image list --cloud=kilo11")
         assert "Failed." in result
 
     def test_005(self):
@@ -69,7 +69,7 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image list 1 --cloud=juno")
+        result = run("cm image list 1 --cloud=kilo")
         assert "Value" in result
 
     def test_006(self):
@@ -78,6 +78,6 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image list i --cloud=juno11")
+        result = run("cm image list i --cloud=kilo11")
         assert "Failed." in result
 

@@ -2,8 +2,8 @@
 OS Heat - Hello World Example
 ===============================================================================
 
-The helloworld.yaml template provides a basic example of starting a number of
-instances using OpenStack Heat. Tested on FutureSystems Juno, not Kilo.
+Thehelloworld.yaml template provides a basic example of starting a number of
+instances using OpenStack Heat.
 
 
 Run

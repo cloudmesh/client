@@ -180,8 +180,8 @@ Adding Key to Cloud
 This functionality is required for key management with VMs. We can add the key from database to the target cloud.::
 
     $ cm key add_to_cloud albertkey
-    Adding key albertkey to cloud juno as albert-juno-albertkey
-    Key albertkey added successfully to cloud juno as albert-juno-albertkey.
+    Adding key albertkey to cloud kilo as albert-kilo-albertkey
+    Key albertkey added successfully to cloud kilo as albert-kilo-albertkey.
     info. OK.
 
 By default the target cloud key name format is <username>-<cloud>-<key-name>.
@@ -190,8 +190,8 @@ However, you may choose to override it with '--name_on_cloud' argument.::
 
     $ cm key add_to_cloud albertkey --name_on_cloud=someothername
     key add_to_cloud albertkey --name_on_cloud=someothername
-    Adding key albertkey to cloud juno as someothername
-    Key albertkey added successfully to cloud juno as someothername.
+    Adding key albertkey to cloud kilo as someothername
+    Key albertkey added successfully to cloud kilo as someothername.
     info. OK.
 
 List Key Cloud Mapings
@@ -203,5 +203,5 @@ You may check out the mappings of database key names with the cloud key names.::
     +-----------+-----------+------------+-------------------------+
     | user      | key_name  | cloud_name | key_name_on_cloud       |
     +-----------+-----------+------------+-------------------------+
-    | albert    | albertkey | juno       | albert-juno-albertkey   |
+    | albert    | albertkey | kilo       | albert-kilo-albertkey   |
     +-----------+-----------+------------+-------------------------+

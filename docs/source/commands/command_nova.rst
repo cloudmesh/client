@@ -32,7 +32,7 @@ You may get the cloud info in the following manner::
     +----------------+--------------------------------------------------------+
     | OS_REGION      | None                                                   |
     | OS_USERNAME    | albert                                                 |
-    | OS_CACERT      | /home/albert/.cloudmesh/clouds/india/juno/cacert.pem   |
+    | OS_CACERT      | /home/albert/.cloudmesh/clouds/india/kilo/cacert.pem   |
     | OS_TENANT_NAME | fg478                                                  |
     | OS_AUTH_URL    | https://i5r.idp.iu.futuregrid.org:5000/v2.0            |
     | OS_PASSWORD    | ********                                               |

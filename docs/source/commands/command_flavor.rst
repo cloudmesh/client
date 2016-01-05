@@ -6,7 +6,7 @@ The manual page of the flavor command can be found at: `Flavor
 
 Flavors define the compute, memory, and storage capacity of nova computing instances.
 To put it simply, a flavor is an available hardware configuration for a server. It
-defines the “size” of a virtual server that can be launched
+defines the ï¿½sizeï¿½ of a virtual server that can be launched
 
 Refresh
 ----------------------------------------------------------------------
@@ -14,27 +14,27 @@ Refresh
 The refresh command would update the local database with the latest flavors.
 To refresh flavors of a cloud, do the following::
 
-    $cm flavor refresh --cloud=juno
-    Refresh flavor for cloud juno. ok
+    $cm flavor refresh --cloud=kilo
+    Refresh flavor for cloud kilo. ok
 
 List
 ----------------------------------------------------------------------
 
 To list the set of flavors of a cloud, do the following::
 
-    $cm flavor list --cloud=juno
+    $cm flavor list --cloud=kilo
     +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
     | Id | Name           | User   | RAM   | Disabled | vCPUs | Swap | Access | rxtx_factor | os_flv_ext_data | Disk | Cloud | UUID |
     +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
-    | 1  | m1.tiny        | albert | 512   | 0        | 1     |      | 1      | 1.0         | 0               | 0    | juno  | 1    |
-    | 5  | m1.xlarge      | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 0               | 160  | juno  | 5    |
-    | 9  | m1.xlarge_e200 | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 200             | 160  | juno  | 9    |
-    | 2  | m1.small       | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 0               | 20   | juno  | 2    |
-    | 6  | m1.small_e30   | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 30              | 20   | juno  | 6    |
-    | 3  | m1.medium      | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 0               | 40   | juno  | 3    |
-    | 7  | m1.medium_e60  | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 60              | 40   | juno  | 7    |
-    | 4  | m1.large       | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 0               | 80   | juno  | 4    |
-    | 8  | m1.large_e100  | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 100             | 80   | juno  | 8    |
+    | 1  | m1.tiny        | albert | 512   | 0        | 1     |      | 1      | 1.0         | 0               | 0    | kilo  | 1    |
+    | 5  | m1.xlarge      | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 0               | 160  | kilo  | 5    |
+    | 9  | m1.xlarge_e200 | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 200             | 160  | kilo  | 9    |
+    | 2  | m1.small       | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 0               | 20   | kilo  | 2    |
+    | 6  | m1.small_e30   | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 30              | 20   | kilo  | 6    |
+    | 3  | m1.medium      | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 0               | 40   | kilo  | 3    |
+    | 7  | m1.medium_e60  | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 60              | 40   | kilo  | 7    |
+    | 4  | m1.large       | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 0               | 80   | kilo  | 4    |
+    | 8  | m1.large_e100  | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 100             | 80   | kilo  | 8    |
     +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
 
 List Details
@@ -43,7 +43,7 @@ List Details
 To list the details of a flavor, give in the id, uuid or name of the flavor. In case latest information is needed,
 the --refresh option can be used which would update the local database::
 
-    $cm flavor list 1 --cloud=juno
+    $cm flavor list 1 --cloud=kilo
     +-----------------+---------------------+
     | Attribute       | Value               |
     +-----------------+---------------------+
@@ -59,9 +59,9 @@ the --refresh option can be used which would update the local database::
     | created_at      | 2015-11-11 13:38:31 |
     | updated_at      | 2015-11-11 13:38:31 |
     | ram             | 512                 |
-    | user            | albert               |
+    | user            | albert              |
     | kind            | flavor              |
-    | cloud           | juno                |
+    | cloud           | kilo                |
     | name            | m1.tiny             |
     | label           | m1.tiny             |
     | project         | undefined           |

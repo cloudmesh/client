@@ -19,7 +19,7 @@ You can have a list of relevant default attributes required for VM operations::
     | login_key | /home/albert/key/id_rsa              |
     | flavor    | 2                                    |
     | image     | 619b8942-2355-4aa2-jaa5-74b8f1751911 |
-    | cloud     | juno                                 |
+    | cloud     | kilo                                 |
     | name      | albert-015                           |
     | key       | albertkey                            |
     | group     | test                                 |
@@ -42,14 +42,14 @@ If you have all the required attributes (secgroup not mandatory) setup and liste
 then you can simply run the following to boot a vm.::
 
     $ cm vm boot
-    Machine albert-015 is being booted on juno Cloud...
+    Machine albert-015 is being booted on kilo Cloud...
     Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
     info. OK.
 
 Else you may explicitly specify the attribute values in the arguments to the vm boot command.::
 
-    $ cm vm boot --name=testvm --cloud=juno --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
-    Machine testvm is being booted on juno Cloud...
+    $ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
+    Machine testvm is being booted on kilo Cloud...
 
 Listing a VM instances
 -----------------------
@@ -60,11 +60,11 @@ like the one below::
     +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
     | id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |
     +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
-    | 10 | 21305503-2649-3664-8876-d825758c83f3 | albert-001                   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | juno  |
-    | 9  | 94f01af3-ee2a-9887-b228-75627f358169 | albert-001                   | SHUTOFF   | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | juno  |
-    | 8  | 2f275d38-62af-1223-a04a-0456e0d6466f | albert-server-jzqc23pekfcu   | SUSPENDED | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | juno  |
-    | 7  | 6730c273-609f-9879-a481-313ff4200d82 | albert-server-ekbvvsmjyqlo   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | juno  |
-    | 6  | fa3580f3-2dbd-d666-9178-326b39916c09 | albert-server-cdmelfaefggf   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | juno  |
+    | 10 | 21305503-2649-3664-8876-d825758c83f3 | albert-001                   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
+    | 9  | 94f01af3-ee2a-9887-b228-75627f358169 | albert-001                   | SHUTOFF   | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
+    | 8  | 2f275d38-62af-1223-a04a-0456e0d6466f | albert-server-jzqc23pekfcu   | SUSPENDED | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
+    | 7  | 6730c273-609f-9879-a481-313ff4200d82 | albert-server-ekbvvsmjyqlo   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
+    | 6  | fa3580f3-2dbd-d666-9178-326b39916c09 | albert-server-cdmelfaefggf   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
     +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
 
 
@@ -73,8 +73,8 @@ Stop a VM
 
 You can stop a VM by supplying it's label or UUID::
 
-    $ cm vm stop testvm --cloud=juno
-    Machine testvm is being stopped on juno Cloud...
+    $ cm vm stop testvm --cloud=kilo
+    Machine testvm is being stopped on kilo Cloud...
     info. OK.
 
 Start a VM
@@ -82,8 +82,8 @@ Start a VM
 
 You can start a VM by supplying it's label or UUID::
 
-    $ cm vm start testvm --cloud=juno
-    Machine testvm is being started on juno Cloud...
+    $ cm vm start testvm --cloud=kilo
+    Machine testvm is being started on kilo Cloud...
     info. OK.
 
 Assign Floating IP to VM
@@ -92,7 +92,7 @@ Assign Floating IP to VM
 In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
 accessed publicly::
 
-    $ cm vm floating_ip_assign testvm --cloud=juno
+    $ cm vm floating_ip_assign testvm --cloud=kilo
     Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 
 Retrieving IP Address details
@@ -100,7 +100,7 @@ Retrieving IP Address details
 
 You can get the IP address details of a VM by the following command::
 
-    $ cm vm ip_show testvm --cloud=juno
+    $ cm vm ip_show testvm --cloud=kilo
     IP Addresses of instance testvm are as follows:-
     +---------+---------+----------------+
     | network | version | addr           |
@@ -113,7 +113,7 @@ Login to VM
 ------------
 You can login to a VM in your target cloud::
 
-    $ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=juno
+    $ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
     Determining IP Address to use with a ping test...
     Checking 10.23.2.XX...
     Cannot reach 10.23.2.XX.
@@ -156,7 +156,7 @@ Running command on VM
 
 You can use the vm login to simply run a command on the target VM::
 
-  $ cm vm login testvm --user=albert --key=/location/id_rsa --command="uname\ -a" --cloud=juno
+  $ cm vm login testvm --user=albert --key=/location/id_rsa --command="uname\ -a" --cloud=kilo
   Determining IP Address to use with a ping test...
   Checking 10.23.2.XX...
   Cannot reach 10.23.2.XX.
@@ -170,7 +170,7 @@ Deleting a VM
 
 You can delete a VM on the target cloud by using 'vm delete' command as below::
 
-    $ cm vm delete testvm --cloud=juno
-    Machine testvm is being deleted on juno Cloud...
+    $ cm vm delete testvm --cloud=kilo
+    Machine testvm is being deleted on kilo Cloud...
 
 

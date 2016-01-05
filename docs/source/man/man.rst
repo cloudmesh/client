@@ -826,7 +826,7 @@ Command - limits::
 
     Examples:
         cm limits list
-        cm limits list --cloud=juno --format=csv
+        cm limits list --cloud=kilo --format=csv
 
 
 
@@ -1232,8 +1232,8 @@ Command - register::
             Copies the CERT to the ~/.cloudmesh/clouds/host directory
             and registers that cert in the coudmesh.yaml file.
             For india, CERT will be in
-            india:.cloudmesh/clouds/india/juno/cacert.pem
-            and would be copied to ~/.cloudmesh/clouds/india/juno
+            india:.cloudmesh/clouds/india/kilo/cacert.pem
+            and would be copied to ~/.cloudmesh/clouds/india/kilo
 
         register CLOUD --dir
             Copies the entire directory from the cloud and puts it in

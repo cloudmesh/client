@@ -675,11 +675,11 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 # CloudProviderBase.register(CloudProviderOpenstackAPI)
 
 if __name__ == "__main__":
-    cloudname = 'juno'
+    cloudname = 'ilo'
     d = ConfigDict("cloudmesh.yaml")
     cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
-    cp = CloudProviderOpenstackAPI('juno', cloud_details)
+    cp = CloudProviderOpenstackAPI(cloudname, cloud_details)
 
     d = {'name': '390792c3-66a0-4c83-a0d7-c81e1c787710'}
-    pprint(cp.list_quota('juno'))
+    pprint(cp.list_quota(cloudname))

@@ -168,7 +168,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 return d
 
         """
-        def list_vms_on_cloud(cloud="juno", group=None, format="table"):
+        def list_vms_on_cloud(cloud="kilo", group=None, format="table"):
 
             Utility reusable function to list vms on the cloud.
             :param cloud:

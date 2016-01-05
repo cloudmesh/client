@@ -41,7 +41,7 @@ class Group(ListResource):
                                                                          cloud))
 
     @classmethod
-    def list(cls, format="table", cloud="juno"):
+    def list(cls, format="table", cloud="kilo"):
         """
         Method to get list of groups in
             the cloudmesh database
@@ -62,7 +62,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def get_info(cls, cloud="juno", name=None, output="table"):
+    def get_info(cls, cloud="kilo", name=None, output="table"):
         """
         Method to get info about a group
         :param cloud:
@@ -94,7 +94,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add(cls, name=None, type="vm", id=None, cloud="juno"):
+    def add(cls, name=None, type="vm", id=None, cloud="kilo"):
         """
         Add an instance to a new group
             or add it to an existing one
@@ -192,7 +192,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete(cls, name=None, cloud="juno"):
+    def delete(cls, name=None, cloud="kilo"):
         """
         Method to delete a group from
             the cloudmesh database
@@ -487,8 +487,7 @@ class Group(ListResource):
         """
         try:
             # currently support India cloud
-            if cloudname == "juno" \
-                    or cloudname == "kilo":
+            if cloudname in ["juno", "kilo"]:
                 d = ConfigDict("cloudmesh.yaml")
                 credentials = d["cloudmesh"]["clouds"][cloudname][
                     "credentials"]
