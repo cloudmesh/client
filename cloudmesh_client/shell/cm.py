@@ -215,6 +215,12 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         for cloud in defaults["clouds"]:
             for default, value in defaults["clouds"][cloud].iteritems():
+
+                try:
+                    value = Default.get(default, cloud=cloud)
+                except:
+                    pass
+
                 Default.set(default, value, cloud=cloud)
 
         for c in CloudmeshConsole.__bases__[1:]:
