@@ -20,7 +20,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
 
           Usage:
               cluster list [--format=FORMAT]
-              cluster create <name>
+              cluster create NAME
                              [--count=COUNT]
                              [--login=USERNAME]
                              [--cloud=CLOUD]
