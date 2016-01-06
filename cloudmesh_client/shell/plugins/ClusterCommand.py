@@ -11,10 +11,6 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
         self.context = context
         if self.context.debug:
             print("init command cluster ")
-        try:
-            value = Default.get_cluster ()
-        except:
-            Default.set_cluster ("off")
 
     # noinspection PyUnusedLocal
     @command
