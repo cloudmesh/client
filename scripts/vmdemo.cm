@@ -1,12 +1,24 @@
 banner VMS
 
+var username=cloudmesh.profile.username
+
+var keyname="$username-key"
+
+echo "Username: $username"
+echo "Keyname:  $keyname"
+
+register remote
+
 default cloud
+
+
 
 vm refresh
 
 vm list
 vm list --format=json
 vm list --format=yaml
+
 
 key add --name abc-key ~/.ssh/id_rsa.pub
 
@@ -32,3 +44,5 @@ key add --name abc-key ~/.ssh/id_rsa.pub
 #default login_key=/home/mangirish/indiakey/id_rsa
 
 #vm login testvm
+
+quit

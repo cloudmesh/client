@@ -447,6 +447,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if os.path.exists(filename):
             with open(filename, "r") as f:
                 for line in f:
+                    #if self.debug:
                     Console.ok("> {:}".format(str(line)))
                     self.onecmd(line)
         else:
@@ -531,10 +532,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             elif "." in value:
                 try:
                     config = ConfigDict("cloudmesh.yaml")
-                    print (config)
-                    print (value)
                     value = config[value]
-                    print (value)
                 except Exception, e:
                     Console.error("can not find variable {} in cloudmesh.yaml".format(value))
                     value = None
