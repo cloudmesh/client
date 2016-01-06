@@ -595,7 +595,7 @@ def main():
 
     Usage:
       cm --help
-      cm [--debug] [--nosplash] [--file=SCRIPT] [-i] [COMMAND ...]
+      cm [--debug] [--nosplash] [-i] [COMMAND ...]
 
     Arguments:
       COMMAND                  A command to be executed
@@ -607,94 +607,80 @@ def main():
       --nosplash    do not show the banner [default: False]
     """
 
+
     try:
-        arg = docopt(main.__doc__, help=True)
-        if arg['--help']:
+        arguments = docopt(main.__doc__, help=True)
+
+        if arguments['--help']:
             print(main.__doc__)
             sys.exit()
 
-        # fixing the help parameter parsing
-
-        #   arguments['COMMAND'] = ['help']
-        #   arguments['help'] = 'False'
-
-        script_file = arg['--file']
+        arguments["SCRIPT"] = None
 
     except:
-        script_file = None
-        interactive = False
 
-        arguments = sys.argv[1:]
-        arg = {
-            '--debug': '--debug' in arguments,
-            '--nosplash': '--nosplash' in arguments,
-            '-i': '-i' in arguments}
+        # a command has an option that is not part of this docopt
+        # create arguments by hand
 
-        for a in arg:
-            if arg[a]:
+        args = sys.argv[1:]
+        arguments = {
+            '--debug': '--debug' in args,
+            '--nosplash': '--nosplash' in args,
+            '-i': '-i' in args}
+
+        print ("PPP", args)
+        for a in arguments:
+            if arguments[a]:
                 arguments.remove(a)
 
-        arg['COMMAND'] = [' '.join(arguments)]
+        arguments['COMMAND'] = [' '.join(args)]
 
-    splash = not arg['--nosplash']
-    debug = arg['--debug']
-    interactive = arg['-i']
+
+    commands = arguments["COMMAND"]
+    if len(commands) > 0:
+        if ".cm" in commands[0]:
+            arguments["SCRIPT"] = commands[0]
+            commands = commands[1:]
+        else:
+            arguments["SCRIPT"] = None
+
+        arguments["COMMAND"] = ' '.join(commands)
+        if arguments["COMMAND"] == '':
+            arguments["COMMAND"] = None
+
+
+    if arguments['COMMAND'] == []:
+        arguments['COMMAND'] = None
+
+    splash = not arguments['--nosplash']
+    debug = arguments['--debug']
+    interactive = arguments['-i']
+    script = arguments["SCRIPT"]
+    command = arguments["COMMAND"]
+
+
 
     context = CloudmeshContext(debug=debug,
                                splash=splash)
     cmd = CloudmeshConsole(context)
 
-    # TODO: check if cludmesh_yaml exists and if not create it
-    # also creat .cloudmesh dir if it not exists
-    """
-    from cloudmesh_client.common import cloudmesh_yaml
 
-    create_cmd3_yaml_file(force=False, verbose=False)
+    if script is not None:
+        cmd.do_exec(script)
 
-    filename = cloudmesh_yaml
     try:
-        module_config = ConfigDict(filename=filename)
-        modules = module_config["cmd3"]["modules"]
-        properties = module_config["cmd3"]["properties"]
-    except:
-        modules = ['cloudmesh_cmd3.plugins']
-    for module_name in modules:
-        #print ("INSTALL", module_name)
-        try:
-            plugins.append(dict(get_plugins_from_module(module_name)))
-        except:
-            # print "WARNING: could not find", module_name
-            pass
+        if debug:
+            print(">", command)
+        if command is not None:
+            cmd.onecmd(command)
+    except Exception, e:
+        print("ERROR: executing command '{0}'".format(command))
+        print(70 * "=")
+        print(e)
+        print(70 * "=")
+        print(traceback.format_exc())
 
-    """
-
-    if len(arg['COMMAND']) == 1:
-        command = arg['COMMAND'][0]
-        print(command)
-        if command.endswith(".cm"):
-            script_file = command
-
-    if script_file is not None:
-        cmd.do_exec(script_file)
-
-    if len(arg['COMMAND']) > 0:
-        user_cmd = None
-        try:
-            user_cmd = " ".join(arg['COMMAND'])
-            if debug:
-                print(">", user_cmd)
-            cmd.onecmd(user_cmd)
-        except Exception, e:
-            print("ERROR: executing command '{0}'".format(user_cmd))
-            print(70 * "=")
-            print(e)
-            print(70 * "=")
-            print(traceback.format_exc())
-
-        if interactive:
-            cmd.cmdloop()
-
-    elif not script_file or interactive:
+    if interactive or (command is None and script is None):
         cmd.cmdloop()
 
 
