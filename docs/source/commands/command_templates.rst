@@ -211,6 +211,23 @@ dollar sign such as::
 Note that the variables $dat and $time are predefined and give the
 current date and time.
 
+To set variable values you can use:
+
+    var name=value
+
+Which will set the variable with the given name to the specified value.
+In case the value specifies an entry in the cloudmesh.yaml file it will
+be read from it and put into the named variable. For example the command
+
+    var username=cloudmesh.profile.username
+
+Will create a variable username and get the value form the yaml file
+specified by its object hierarchy.
+
+.. note:: Variables are not stored in the persistent database and have to be
+          recreated every time a script is run.
+
+
 Python
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
