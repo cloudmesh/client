@@ -41,12 +41,13 @@ class Console(object):
 
     theme_color = {
         'HEADER': Fore.MAGENTA,
-        'BLACK': Fore.RED,
+        'BLACK': Fore.BLACK,
         'CYAN': Fore.CYAN,
         'WHITE': Fore.WHITE,
         'BLUE': Fore.BLUE,
         'OKBLUE': Fore.BLUE,
         'OKGREEN': Fore.GREEN,
+        'GREEN': Fore.GREEN,
         'FAIL': Fore.RED,
         'WARNING': Fore.MAGENTA,
         'RED': Fore.RED,
@@ -62,6 +63,7 @@ class Console(object):
         'BLUE': '',
         'OKBLUE': '',
         'OKGREEN': '',
+        'GREEN': '',
         'FAIL': '',
         'WARNING': '',
         'RED': '',

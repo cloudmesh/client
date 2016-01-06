@@ -37,7 +37,7 @@ class DebugCommand(PluginCommand, CloudPluginCommand):
             Default.set_debug("off")
             Console.ok("Switch debug off")
         elif arguments["list"]:
-            debug = Default.get_debug()
-            Console.ok("Debug is switched {}".format(self.debug))
+            debug = Default.debug()
+            Console.ok("Debug is switched {}".format(debug))
 
         return ""

@@ -188,3 +188,7 @@ class Default(ListResource):
     def get_debug(cls):
         return cls.get("debug", "general")
 
+    @classmethod
+    def debug(cls):
+        return cls.get("debug", "general")
+

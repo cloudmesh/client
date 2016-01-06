@@ -4,3 +4,9 @@
 var list
 var a=now
 banner $a
+
+var username=cloudmesh.profile.username
+
+banner $username
+
+echo $username

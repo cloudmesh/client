@@ -44,23 +44,21 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
                 echo  [-r COLOR] TEXT
 
             Arguments:
-                TEXT   The text message from which to create the banner
+                TEXT   The text message to print
                 COLOR  the color
 
             Options:
-                -r COLOR  The color of the banner. [default: BLACK]
+                -r COLOR  The color of the text. [default: BLACK]
 
-            Prints a banner form a one line text message.
+            Prints a text in the given color
         """
-        Console.ok("banner")
-        n = int(arguments['-n'])
-        c = arguments['-c']
-        i = int(arguments['-i'])
-        color = arguments['-r'].upper()
-
-        Console.cprint(color, "", i * " " + str((n - i) * c))
-        Console.cprint(color, "", i * " " + c + " " + arguments['TEXT'])
-        Console.cprint(color, "", i * " " + str((n - i) * c))
+        color = arguments["-r"] or "black"
+        color = color.upper()
+        text = arguments["TEXT"]
+        if color is "black":
+            Console.msg(text)
+        else:
+            Console.cprint(color, "", text)
 
         return ""
 

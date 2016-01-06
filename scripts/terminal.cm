@@ -1,0 +1,8 @@
+#
+# TESTING VARIABLES
+#
+banner "my banner"
+echo "my echo"
+echo -r BLACK "my echo"
+echo -r BLUE "my echo"
+echo -r GREEN "my echo"

@@ -520,7 +520,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         if arguments['list'] or arg == '' or arg is None:
             self._list_variables()
-            return
+            return ""
 
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
             (variable, value) = arg.split('=', 1)
@@ -528,8 +528,18 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 value = datetime.datetime.now().strftime("%H:%M:%S")
             elif value == "date":
                 value = datetime.datetime.now().strftime("%Y-%m-%d")
+            elif "." in value:
+                try:
+                    config = ConfigDict("cloudmesh.yaml")
+                    print (config)
+                    print (value)
+                    value = config[value]
+                    print (value)
+                except Exception, e:
+                    Console.error("can not find variable {} in cloudmesh.yaml".format(value))
+                    value = None
             self._add_variable(variable, value)
-            return
+            return ""
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
             try:
                 v = arguments['NAME=VALUE']
@@ -540,7 +550,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         elif arg.startswith('delete'):
             variable = arg.split(' ')[1]
             self._delete_variable(variable)
-            return
+            return ""
 
     @command
     def do_history(self, args, arguments):
