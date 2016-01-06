@@ -20,6 +20,10 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
 
           Usage:
               cluster list [--format=FORMAT]
+              cluster list NAME
+                           [--format=FORMAT]
+                           [--column=COLUMN]
+                           [--detail]
               cluster create NAME
                              [--count=COUNT]
                              [--login=USERNAME]
@@ -27,12 +31,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                              [--image=IMAGE]
                              [--flavor=FLAVOR]
                              [--add]
-              cluster list NAME
-                           [--format=FORMAT]
-                           [--column=COLUMN]
-                           [--detail]
-              cluster remove NAME
-                             [--grouponly]
+              cluster delete NAME
 
           Description:
               with the help of the cluster command you can create a number
@@ -56,14 +55,14 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
                   6. set flavor of VMs, e.g. default flavor
                   7. Make sure to use a new unused group name
 
-              cluster show NAME
+              cluster list NAME
                   show the detailed information about the cluster VMs
 
-              cluster remove NAME
+              cluster delete NAME
                   remove the cluster and its VMs
 
           Arguments:
-              NAME        cluster name or group name
+              NAME              cluster name or group name
 
           Options:
               --count=COUNT     give the number of VMs to add into the cluster
