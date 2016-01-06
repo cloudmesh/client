@@ -147,7 +147,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             print("init CloudmeshConsole")
 
         self.prompt = 'cm> '
-
+        self.doc_header = "Documented commands (type help <command>):"
         self.banner = textwrap.dedent("""
             +=======================================================+
             .   ____ _                 _                     _      .
