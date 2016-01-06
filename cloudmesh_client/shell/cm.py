@@ -556,11 +556,12 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     def do_history(self, args, arguments):
         """
         Usage:
+            history
             history list
             history ID
             history last
         """
-        if arguments["list"]:
+        if arguments["list"] or args == "":
             h = 0
             for line in self._hist:
                 print ("{}: {}".format(h, self._hist[h]))
