@@ -5,7 +5,7 @@ from cloudmesh_client.cloud.default import Default
 
 
 class CheckCommand(PluginCommand, CloudPluginCommand):
-    topics = {"check": "cloud"}
+    topics = {"check": "notimplemented"}
 
     def __init__(self, context):
         self.context = context

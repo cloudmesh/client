@@ -17,7 +17,7 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
 class ReservationCommand(PluginCommand, CloudPluginCommand):
-    topics = {"reservation": "system"}
+    topics = {"reservation": "notimplemented"}
 
     def __init__(self, context):
         # super(self.__class__, self).__init__()

@@ -5,7 +5,7 @@ from cloudmesh_client.cloud.default import Default
 
 
 class ClusterCommand(PluginCommand, CloudPluginCommand):
-    topics = {"cluster": "shell"}
+    topics = {"cluster": "notimplemented"}
 
     def __init__(self, context):
         self.context = context
