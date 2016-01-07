@@ -61,8 +61,6 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
 
-        print (kwargs)
-
         key_name = kwargs["key_name"]
         cloud_name = kwargs["cloud"]
 
@@ -83,42 +81,23 @@ class Vm(ListResource):
 
         cloud_provider = CloudProvider(cloud_name).provider
 
-        if kwargs["cloud"] == 'kilo':
-            # For kilo, we use a different network interface
-            net_id = None
-
-            # Get list of networks in kilo
-            network_list = cloud_provider.provider.networks.list()
-
-            # Validate each interface
-            for network in network_list:
-                # Check if interface name is fg478-net,
-                # Get the interface id
-
-                # BUG THIS CAN NOT BE HARDCODED
-                if network.label == "fg478-net":
-                    net_id = network.id
-
-            nics = [{"net-id": net_id}]
-
-            vm_id = cloud_provider.boot_vm(kwargs["name"],
+        if "nics" in kwargs:
+           vm = cloud_provider.boot_vm(kwargs["name"],
                                            kwargs["image"],
                                            kwargs["flavor"],
                                            key=key_name_on_cloud,
                                            secgroup=kwargs["secgroup_list"],
                                            nics=nics)
         else:
-            vm_id = cloud_provider.boot_vm(kwargs["name"],
+            vm = cloud_provider.boot_vm(kwargs["name"],
                                            kwargs["image"],
                                            kwargs["flavor"],
                                            key=key_name_on_cloud,
-                                           secgroup=kwargs["secgroup_list"])
+                                           secgroup=kwargs["secgroup_list"],
+                                           nics=None)
+
         print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
-
-        # Explicit refresh called after VM boot, to update db.
-        # cls.refresh(cloud=kwargs["cloud"])
-
-        return vm_id
+        return vm
 
     @classmethod
     def start(cls, **kwargs):
