@@ -556,28 +556,33 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         Usage:
             history
             history list
-            history ID
             history last
+            history ID
         """
-        if arguments["list"] or args == "":
-            h = 0
-            for line in self._hist:
-                print ("{}: {}".format(h, self._hist[h]))
-                h = h + 1
-            return ""
+        try:
+            if arguments["list"] or args == "":
+                print ("LIST")
+                h = 0
+                for line in self._hist:
+                    print ("{}: {}".format(h, self._hist[h]))
+                    h = h + 1
+                return ""
 
-        if arguments["ID"]:
-            h = int(arguments["ID"])
-            if h in range(0, len(self._hist)):
-                print ("{}".format(self._hist[h]))
-                if not args.startswith("history"):
-                    self.onecmd(self._hist[h])
-            return ""
+            elif arguments["last"]:
+                h = len(self._hist)
+                if (h > 1):
+                    self.onecmd(self._hist[h-2])
+                return ""
 
-        if arguments["last"]:
-            h = len(self._hist)
-            self.onecmd(self._hist[h])
-            return ""
+            elif arguments["ID"]:
+                h = int(arguments["ID"])
+                if h in range(0, len(self._hist)):
+                    print ("{}".format(self._hist[h]))
+                    if not args.startswith("history"):
+                        self.onecmd(self._hist[h])
+                return ""
+        except:
+            Console.error("could not execute the last command")
 
     do_h = do_history
 
