@@ -45,10 +45,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [-f]
-             key add_to_cloud KEYNAME
+             key upload KEYNAME
                               [--cloud=CLOUD]
-                              [--name_on_cloud=NAME_ON_CLOUD]
-             key list_cloud_mappings [--cloud=CLOUD]
+                              [--name=NAME_ON_CLOUD]
+             key map [--cloud=CLOUD]
 
            Manages the keys
 
@@ -437,14 +437,14 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print (e)
                     Console.error("Problem deleting the key `{:}`".format(keyname))
 
-        elif arguments['add_to_cloud']:
+        elif arguments['upload']:
             try:
                 conf = ConfigDict("cloudmesh.yaml")
                 username = conf["cloudmesh"]["profile"]["username"]
 
                 keyname = arguments["KEYNAME"]
                 cloud = arguments["--cloud"] or Default.get_cloud()
-                name_on_cloud = arguments["--name_on_cloud"]
+                name_on_cloud = arguments["--name"]
 
                 if name_on_cloud is None:
                     name_on_cloud = username + "-" + cloud + "-" + keyname
@@ -462,7 +462,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print (e)
                 Console.error("Problem adding key to cloud")
 
-        elif arguments['list_cloud_mappings']:
+        elif arguments['map']:
             try:
                 cloud = arguments["--cloud"] or Default.get_cloud()
                 sshm = SSHKeyManager()
