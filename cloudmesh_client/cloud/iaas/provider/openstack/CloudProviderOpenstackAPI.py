@@ -557,24 +557,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             'image': {
                 'order': [
                     'id',
+                    'name',
                     'os_image_size',
-                    'created',
                     'metadata__description',
                     'minDisk',
                     'minRam',
-                    'name',
                     'progress',
                     'status',
                     'updated'
                 ],
                 'header': [
                     'id',
+                    'name',
                     'size',
-                    'created',
                     'description',
                     'minDisk',
                     'minRam',
-                    'name',
                     'progress',
                     'status',
                     'updated'

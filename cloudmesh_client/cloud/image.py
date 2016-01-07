@@ -33,10 +33,8 @@ class Image(ListResource):
         try:
             elements = cls.cm.find("image", cloud=cloud)
 
-            # order = ['id', 'uuid', 'name', 'cloud']
             (order, header) = CloudProvider(cloud).get_attributes("image")
 
-            # order = None
 
             return dict_printer(elements,
                                 order=order,
