@@ -83,7 +83,7 @@ cloudmesh:
             cm_type: openstack
             cm_type_version: juno
             credentials:
-                OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v2.0
+                OS_AUTH_URL: TBD
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_TENANT_ID: TBD
@@ -94,6 +94,40 @@ cloudmesh:
             default:
                 flavor: TBD
                 image: TBD
+        cybera-c:
+          cm_heading: Cybera Calgary OpenStack
+          cm_host: cybera
+          cm_label: cybera-c
+          cm_type: openstack
+          cm_type_version: kilo
+          credentials:
+            OS_AUTH_URL: TBD
+            OS_TENANT_ID: TBD
+            OS_TENANT_NAME: TBD
+            OS_PROJECT_NAME: TBD
+            OS_USERNAME: TBD
+            OS_PASSWORD: TBD
+            OS_REGION_NAME: Calgary
+          default:
+            flavor: TBD
+            image: TBD
+        cybera-e:
+          cm_heading: Cybera Edmonton OpenStack
+          cm_host: cybera
+          cm_label: kilo
+          cm_type: openstack
+          cm_type_version: kilo
+          credentials:
+            OS_AUTH_URL: https://keystone-yyc.cloud.cybera.ca:5000/v2.0
+            OS_TENANT_ID: TBD
+            OS_TENANT_NAME: TBD
+            OS_PROJECT_NAME: TBD
+            OS_USERNAME: TBD
+            OS_PASSWORD: TBD
+            OS_REGION_NAME: Edmonton
+          default:
+            flavor: TBD
+            image: TBD
         juno:
             cm_heading: India OpenStack, Juno
             cm_host: india
