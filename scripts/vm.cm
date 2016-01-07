@@ -52,7 +52,7 @@ vm status
 
 #default login_key=/home/mangirish/indiakey/id_rsa
 
-#vm login testvm
+vm login --key=~/.ssh/id_rsa testvm
 
 #vm list --format=json
 #vm list --format=yaml
