@@ -301,9 +301,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         image_id =  self.get_image_id(image)
         flavor_id =  self.get_flavor_id(flavor)
 
-        print ("II", image_id)
-        print ("FF", flavor_id)
-
         # if no nics specified, try to find one in case it's needed
         if nics is None or len(nics)==0 \
             or (len(nics)==1 and nics[0]['net-id'] is None):
@@ -543,7 +540,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         else:
             kwargs['name'] = kwargs['id']
             del kwargs['id']
-        print ("UUUUU", self.provider.flavors.find(**kwargs).__dict__)
         return self.provider.flavors.find(**kwargs)._info
 
     # noinspection PyProtectedMember,PyProtectedMember
