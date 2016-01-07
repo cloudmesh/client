@@ -123,6 +123,12 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             cloud = "general"
             arguments["--cloud"] = cloud
             arguments["list"] = True
+            order=['name', 'value']
+            output_format = arguments["--format"]
+            result = Default.list(cloud=cloud, order=order, format=output_format)
+            print (result)
+            return ""
+
         else:
             cloud = arguments["--cloud"] or Default.get("cloud", "general") or "general"
 
