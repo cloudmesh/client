@@ -50,6 +50,11 @@ vm refresh
 vm list
 vm status
 
+# according to scripts/secgroup.cm
+# setting secgrup rule to allow ssh login
+# secgroup rules-add --tenant=fg478 default 22 22 tcp 0.0.0.0/0
+# however this seems having problem now
+
 #default login_key=/home/mangirish/indiakey/id_rsa
 
 vm login --key=~/.ssh/id_rsa testvm
