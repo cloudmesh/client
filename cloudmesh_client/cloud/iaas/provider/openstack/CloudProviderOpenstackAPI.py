@@ -564,7 +564,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'minRam',
                     'progress',
                     'status',
-                    'updated'
+                    'updated',
+                    'uuid'
                 ],
                 'header': [
                     'id',
@@ -575,7 +576,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'minRam',
                     'progress',
                     'status',
-                    'updated'
+                    'updated',
+                    'uuid'
                 ]
             },
             'vm': {

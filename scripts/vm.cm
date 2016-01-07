@@ -3,6 +3,7 @@ banner -r BLUE VM
 
 banner -r BLUE -c "-" Setup
 
+var cloud=kilo
 var username=cloudmesh.profile.username
 
 var keyname="$username-key"
@@ -12,7 +13,7 @@ echo "Keyname:  $keyname"
 
 register remote
 
-default cloud=kilo
+default cloud=$cloud
 
 default cloud
 
@@ -29,14 +30,23 @@ key list
 
 key upload $keyname
 
-#default flavor=2
-#default image=619b8942-2355-4aa2-bae3-74b8f1751911
-#default group=testgroup
-#default key=testkey
 
-#vm default
+default flavor=m1.tiny --cloud=$cloud
+default image=Ubuntu-14.04-64 --cloud=$cloud
+default flavor=m1.tiny
+default image=Ubuntu-14.04-64
 
-#vm boot --name=testvm
+default flavor=2
+default image=619b8942-2355-4aa2-bae3-74b8f1751911
+
+
+default list --cloud=$cloud
+
+vm default
+
+vm boot --name=$username-1 --flavor=2 --image=619b8942-2355-4aa2-bae3-74b8f1751911
+
+#vm boot --name=$username-1
 
 #vm floating_ip_assign testvm
 

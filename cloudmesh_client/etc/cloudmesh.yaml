@@ -109,8 +109,8 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Calgary
           default:
-            flavor: TBD
-            image: TBD
+            flavor: m1.tiny
+            image: Ubuntu 14.04
         cybera-e:
           cm_heading: Cybera Edmonton OpenStack
           cm_host: cybera
@@ -126,8 +126,8 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Edmonton
           default:
-            flavor: TBD
-            image: TBD
+            flavor: m1.tiny
+            image: Ubuntu 14.04
         juno:
             cm_heading: India OpenStack, Juno
             cm_host: india
