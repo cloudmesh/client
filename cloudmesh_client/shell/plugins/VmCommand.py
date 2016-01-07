@@ -54,9 +54,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm floating_ip_assign NAME...
-                                      [--cloud=CLOUD]
-                vm ip_show NAME...
+                vm ip assign NAME...
+                          [--cloud=CLOUD]
+                vm ip show NAME...
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
@@ -220,6 +220,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         Console.error("Prefix and Count could not be retrieved correctly.")
                         return
 
+                    # BUG THE Z FILL SHOULD BE detected from yaml file
                     name = prefix + "-" + str(count).zfill(3)
 
                 # if default cloud not set, return error
@@ -239,8 +240,11 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default flavor not set.")
                     return ""
 
+                # BUG THIS SHOULD EB FROM GENERAL
                 group = arguments["--group"] or \
                     Default.get("group", cloud=cloud)
+
+
                 # if default group not set, return error
                 if not group:
                     Console.error("Default group not set.")
@@ -258,10 +262,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default keypair not set.")
                     return ""
 
-                vm_id = Vm.boot(cloud=cloud, name=name, image=image,
-                                flavor=flavor, key_name=key_name,
+                vm_id = Vm.boot(cloud=cloud,
+                                name=name,
+                                image=image,
+                                flavor=flavor,
+                                key_name=key_name,
                                 secgroup_list=secgroup_list)
 
+                # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                 if is_name_provided is False:
                     # Incrementing count
                     Counter.incr()
@@ -394,7 +402,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print(e)
                 Console.error("Problem deleting instances")
 
-        elif arguments["floating_ip_assign"]:
+        elif arguments["ip"] and arguments["assign"]:
             id = arguments["NAME"]
 
             # if default cloud not set, return error
@@ -418,7 +426,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print(e)
                 Console.error("Problem assigning floating ips.")
 
-        elif arguments["ip_show"]:
+        elif arguments["ip"] and arguments["show"]:
             id = arguments["NAME"]
             group = arguments["--group"]
             output_format = arguments["--format"] or "table"

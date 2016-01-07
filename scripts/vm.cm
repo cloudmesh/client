@@ -33,18 +33,19 @@ key upload $keyname
 
 default flavor=m1.tiny --cloud=$cloud
 default image=Ubuntu-14.04-64 --cloud=$cloud
-default flavor=m1.tiny
-default image=Ubuntu-14.04-64
 
 default flavor=2
 default image=9eb8416d-1313-4748-a832-5fe0ecbbdffc
+
+#default flavor=m1.tiny
+#default image=Ubuntu-14.04-64
 
 
 default list --cloud=$cloud
 
 vm default
 
-vm boot --name=$username-1 --flavor=2 --image=9eb8416d-1313-4748-a832-5fe0ecbbdffc
+vm boot --name=$username-1
 
 #vm floating_ip_assign testvm
 

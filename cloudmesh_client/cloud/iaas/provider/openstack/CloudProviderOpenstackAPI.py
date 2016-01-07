@@ -270,8 +270,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_usage(self, cloudname, **kwargs):
         raise ValueError("list usage is not supported")
 
-    def boot_vm(self, name, image=None, flavor=None, cloud="India", key=None,
-                secgroup=None, meta=None, nics=None, **kwargs):
+    def boot_vm(self,
+                name,
+                image=None,
+                flavor=None,
+                cloud="India",
+                key=None,
+                secgroup=None,
+                meta=None,
+                nics=None,
+                **kwargs):
         """
         Spawns a VM instance on the cloud.
         If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.
@@ -289,6 +297,13 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
+
+        image_id =  self.get_image_id(image)
+        flavor_id =  self.get_flavor_id(flavor)
+
+        print ("II", image_id)
+        print ("FF", flavor_id)
+
         # if no nics specified, try to find one in case it's needed
         if nics is None or len(nics)==0 \
             or (len(nics)==1 and nics[0]['net-id'] is None):
@@ -305,7 +320,10 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     nics = [{"net-id": nic.id}]
                     break
 
-        server = self.provider.servers.create(name, image, flavor, meta=meta,
+        server = self.provider.servers.create(name,
+                                              image_id,
+                                              flavor_id,
+                                              meta=meta,
                                               key_name=key,
                                               security_groups=secgroup,
                                               nics=nics)
@@ -473,6 +491,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         floating_ip = self.provider.floating_ips.create(pool=float_pool)
         return floating_ip.ip
 
+
     # TODO: define this
     # noinspection PyProtectedMember,PyProtectedMember
     def get_image(self, **kwargs):
@@ -486,6 +505,25 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             return self.provider.images.get(name)._info
         else:
             return self.provider.images.find(name=name)._info
+
+    # TODO: define this
+    # noinspection PyProtectedMember,PyProtectedMember
+    def get_image_id(self, name_or_id):
+
+        """
+        finds the image based on a query
+        TODO: details TBD
+        """
+        return self.get_image(name=name_or_id)["id"]
+
+    def get_flavor_id(self, name_or_id):
+
+        """
+        finds the image based on a query
+        TODO: details TBD
+        """
+        return self.get_flavor(id=name_or_id)["id"]
+
 
     def isUuid(self, name):
         try:
@@ -505,6 +543,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         else:
             kwargs['name'] = kwargs['id']
             del kwargs['id']
+        print ("UUUUU", self.provider.flavors.find(**kwargs).__dict__)
         return self.provider.flavors.find(**kwargs)._info
 
     # noinspection PyProtectedMember,PyProtectedMember

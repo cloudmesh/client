@@ -61,6 +61,8 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
 
+        print (kwargs)
+
         key_name = kwargs["key_name"]
         cloud_name = kwargs["cloud"]
 
@@ -92,6 +94,8 @@ class Vm(ListResource):
             for network in network_list:
                 # Check if interface name is fg478-net,
                 # Get the interface id
+
+                # BUG THIS CAN NOT BE HARDCODED
                 if network.label == "fg478-net":
                     net_id = network.id
 
