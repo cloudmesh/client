@@ -9,6 +9,7 @@ from cloudmesh_base.hostlist import Parameter
 
 
 class Cluster(object):
+    WALLTIME_MINS = 120
     @staticmethod
     def simple_list(id=None, format="table"):
         result = ""
@@ -243,7 +244,10 @@ class Cluster(object):
             # data = {
             #    "computes": [{"name": vm, "host": "comet-{:}".format(vm)} for vm in
             #                 computeids], "cluster": "%s" % id}
-            data = {"computes": "%s" % param, "cluster": "%s" % clusterid}
+            data = {"computes": "%s" % param,
+                    "cluster": "%s" % clusterid,
+                    "walltime_mins": "%s" % Cluster.WALLTIME_MINS}
+
             # print (data)
             if "on" == action:
                 # print("Issuing request to poweron nodes...")
