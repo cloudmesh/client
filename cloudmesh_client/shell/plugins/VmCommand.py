@@ -71,6 +71,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--group=GROUP]
                         [--format=FORMAT]
                 vm status [--cloud=CLOUD]
+                vm info [--cloud=CLOUD]
+                        [--format=FORMAT]
 
             Arguments:
                 COMMAND        positional arguments, the commands you want to
@@ -268,6 +270,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                 flavor=flavor,
                                 key_name=key_name,
                                 secgroup_list=secgroup_list)
+                Default.set("last_vm_id", vm_id)
+                Default.set("last_vm_name", name)
+
 
                 # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                 if is_name_provided is False:
@@ -318,6 +323,21 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 cloud_provider = CloudProvider(cloud).provider
                 vm_list = cloud_provider.list_vm(cloud)
                 print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print(e)
+                Console.error("Problem retrieving status of the VM")
+
+        elif arguments["info"]:
+            try:
+                cloud_provider = CloudProvider(cloud).provider
+                vms = cloud_provider.list_vm(cloud)
+                vm = vms[0]
+                output_format = arguments["--format"] or "table"
+                print (attribute_printer(vm, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception, e:
