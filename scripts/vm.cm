@@ -1,4 +1,7 @@
-banner VMS
+banner -r BLUE VM
+
+
+banner -r BLUE -c "-" Setup
 
 var username=cloudmesh.profile.username
 
@@ -9,22 +12,22 @@ echo "Keyname:  $keyname"
 
 register remote
 
+default cloud=kilo
+
 default cloud
 
-
+banner -r BLUE -c "-" "VM List"
 
 vm refresh
 
 vm list
-vm list --format=json
-vm list --format=yaml
 
 
-key add --name abc-key ~/.ssh/id_rsa.pub
+key add --name $keyname ~/.ssh/id_rsa.pub
+key list
 
 
-
-#key add_to_cloud testkey
+key upload $keyname
 
 #default flavor=2
 #default image=619b8942-2355-4aa2-bae3-74b8f1751911
@@ -45,4 +48,5 @@ key add --name abc-key ~/.ssh/id_rsa.pub
 
 #vm login testvm
 
-quit
+vm list --format=json
+vm list --format=yaml
