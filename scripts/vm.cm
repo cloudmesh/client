@@ -37,26 +37,24 @@ default flavor=m1.tiny
 default image=Ubuntu-14.04-64
 
 default flavor=2
-default image=619b8942-2355-4aa2-bae3-74b8f1751911
+default image=9eb8416d-1313-4748-a832-5fe0ecbbdffc
 
 
 default list --cloud=$cloud
 
 vm default
 
-vm boot --name=$username-1 --flavor=2 --image=619b8942-2355-4aa2-bae3-74b8f1751911
-
-#vm boot --name=$username-1
+vm boot --name=$username-1 --flavor=2 --image=9eb8416d-1313-4748-a832-5fe0ecbbdffc
 
 #vm floating_ip_assign testvm
 
-#vm refresh
-
-#vm status
+vm refresh
+vm list
+vm status
 
 #default login_key=/home/mangirish/indiakey/id_rsa
 
 #vm login testvm
 
-vm list --format=json
-vm list --format=yaml
+#vm list --format=json
+#vm list --format=yaml
