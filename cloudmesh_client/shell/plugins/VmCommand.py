@@ -70,6 +70,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
                         [--format=FORMAT]
+                        [--refresh]
                 vm status [--cloud=CLOUD]
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
@@ -203,6 +204,19 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         """
 
         # pprint(arguments)
+
+        def _refresh():
+            try:
+                msg = "Refresh VMs for cloud {:}.".format(cloud)
+                if Vm.refresh(cloud=cloud):
+                    Console.ok("{:} OK.".format(msg))
+                else:
+                    Console.error("{:} failed".format(msg))
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print(e)
+                Console.error("Problem running VM refresh")
 
         cloud = arguments["--cloud"] or Default.get_cloud()
 
@@ -389,17 +403,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem stopping instances")
 
         elif arguments["refresh"]:
-            try:
-                msg = "Refresh VMs for cloud {:}.".format(cloud)
-                if Vm.refresh(cloud=cloud):
-                    Console.ok("{:} OK.".format(msg))
-                else:
-                    Console.error("{:} failed".format(msg))
-            except Exception, e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
-                Console.error("Problem running VM refresh")
+
+            _refresh()
 
         elif arguments["delete"]:
             try:
@@ -548,11 +553,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             os.system(sshcommand)
 
         elif arguments["list"]:
+
+
             if arguments["--all"]:
                 try:
                     _format = arguments["--format"] or "table"
                     d = ConfigDict("cloudmesh.yaml")
                     for cloud in d["cloudmesh"]["clouds"]:
+
+                        if arguments["--refresh"] or Default.refresh():
+                            _refresh()
+
                         print("Listing VMs on Cloud: {:}".format(cloud))
                         result = Vm.list(cloud=cloud, output_format=_format)
                         if result is not None:
@@ -579,6 +590,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     _format = arguments["--format"] or "table"
 
                     # list_vms_on_cloud(cloud, group, _format)
+                    if arguments["--refresh"] or Default.refresh():
+                        _refresh()
+
                     result = Vm.list(name_or_id=name_or_id, cloud=cloud, output_format=_format)
 
                     if result is not None:

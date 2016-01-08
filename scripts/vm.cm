@@ -27,7 +27,6 @@ vm list
 key add --name $keyname ~/.ssh/id_rsa.pub
 key list
 
-
 key upload $keyname
 
 
@@ -44,15 +43,14 @@ vm default
 
 vm boot
 
-#vm floating_ip_assign testvm
+vm ip assign
 
 vm refresh
 vm list
 vm status
 
-#default login_key=/home/mangirish/indiakey/id_rsa
-
-#vm login testvm
+vm login
+#--key=~/.ssh/id_rsa
 
 #vm list --format=json
 #vm list --format=yaml

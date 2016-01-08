@@ -192,3 +192,24 @@ class Default(ListResource):
     def debug(cls):
         return cls.get("debug", "general")
 
+
+    #
+    # Set the default key
+    #
+
+    @classmethod
+    def set_refresh(cls, value):
+        cls.set("refresh", value, "general")
+
+    @classmethod
+    def get_refresh(cls):
+        return cls.get("refresh", "general")
+
+    @classmethod
+    def refresh(cls):
+        try:
+            value = cls.get_refresh()
+        except:
+            cls.set_refresh("off")
+            value = "off"
+        return value == "on"

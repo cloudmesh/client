@@ -32,6 +32,7 @@ from cloudmesh_client.shell.plugins.PortalCommand import PortalCommand
 from cloudmesh_client.shell.plugins.SyncCommand import SyncCommand
 from cloudmesh_client.shell.plugins.CheckCommand import CheckCommand
 from cloudmesh_client.shell.plugins.DebugCommand import DebugCommand
+from cloudmesh_client.shell.plugins.RefreshCommand import RefreshCommand
 from cloudmesh_client.shell.plugins.ClusterCommand import ClusterCommand
 # from cloudmesh_client.shell.plugins.WhoCommand .import WhoCommand
 

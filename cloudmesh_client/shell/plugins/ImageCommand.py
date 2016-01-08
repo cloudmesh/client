@@ -43,7 +43,7 @@ class ImageCommand(PluginCommand, CloudPluginCommand):
             Console.error("Default cloud doesn't exist")
             return
 
-        if arguments["refresh"]:
+        if arguments["refresh"] or Default.refresh():
             msg = "Refresh image for cloud {:}.".format(cloud)
             if Image.refresh(cloud):
                 Console.ok("{:} ok.".format(msg))
