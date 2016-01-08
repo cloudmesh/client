@@ -438,19 +438,32 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         :param server_name: Name of the machine to which the floating ip needs to be assigned.
         :return: Floating IP | None if floating ip already assigned.
         """
+        ret = None
+        allocated_ips = self.list_floating_ips()
+        fip = None
+        for idx, ipobj in allocated_ips.iteritems():
+            if ipobj['instance_id'] is None:
+                fip = ipobj['ip']
+                break
+        if not fip:
+            float_pool = self.provider.floating_ip_pools.list()[0].name
+            try:
+                floating_ip = self.provider.floating_ips.create(pool=float_pool)
+                fip = floating_ip.ip
+            except:
+                ret = "Error: No more floating ips available"
+        if fip:
+            server = self.provider.servers.find(name=server_name)
+            try:
+                server.add_floating_ip(fip)
+            except Exception, e:
+                print (e)
+                self.provider.floating_ips.delete(floating_ip)
 
-        float_pool = self.provider.floating_ip_pools.list()[0].name
-
-        floating_ip = self.provider.floating_ips.create(pool=float_pool)
-        server = self.provider.servers.find(name=server_name)
-        try:
-            server.add_floating_ip(floating_ip)
-        except Exception, e:
-            print (e)
-            self.provider.floating_ips.delete(floating_ip)
-            return None
-
-        return floating_ip.ip
+            ret = fip
+        else:
+            ret = "Error: failed to create floatingip"
+        return ret
 
     def add_key_to_cloud(self, name, public_key):
         """

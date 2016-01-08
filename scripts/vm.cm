@@ -5,7 +5,7 @@ banner -r BLUE -c "-" Setup
 
 var cloud=kilo
 var username=cloudmesh.profile.username
-
+var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
 var keyname="$username-key"
 
 echo "Username: $username"
@@ -51,6 +51,15 @@ vm status
 
 vm login
 #--key=~/.ssh/id_rsa
+=======
+# according to scripts/secgroup.cm
+# setting secgrup rule to allow ssh login
+# secgroup rules-add --tenant=$tenant default 22 22 tcp 0.0.0.0/0
+# however this seems having problem now
+
+#default login_key=/home/mangirish/indiakey/id_rsa
+
+vm login --key=~/.ssh/id_rsa testvm
 
 #vm list --format=json
 #vm list --format=yaml
