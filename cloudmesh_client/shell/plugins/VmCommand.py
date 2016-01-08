@@ -7,6 +7,7 @@ import socket
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
+from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.counter import Counter
 from cloudmesh_client.cloud.default import Default
@@ -554,6 +555,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             else:
                 print("IP to be used is: {:}".format(ip))
 
+            SecGroup.enable_ssh(cloud=cloud)
             # print("COMMANDS : {:}".format(commands))
 
             # Constructing the ssh command to connect to the machine.
