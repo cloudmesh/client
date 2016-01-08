@@ -42,6 +42,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--group=GROUP]
                         [--secgroup=SECGROUP]
                         [--key=KEY]
+                        [--dryrun]
                 vm start NAME...
                          [--group=GROUP]
                          [--cloud=CLOUD]
@@ -278,27 +279,42 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default keypair not set.")
                     return ""
 
-                vm_id = Vm.boot(cloud=cloud,
-                                name=name,
-                                image=image,
-                                flavor=flavor,
-                                key_name=key_name,
-                                secgroup_list=secgroup_list)
-                Default.set("last_vm_id", vm_id)
-                Default.set("last_vm_name", name)
+                if arguments["--dryrun"]:
+
+                    data = {
+                        "cloud": cloud,
+                        "name": name,
+                        "image": image,
+                        "flavor": flavor,
+                        "key_name": key_name,
+                        "secgroup_list": secgroup_list,
+                        "group": group
+                    }
+                    print (attribute_printer(data, output="table"))
+                    msg = "dryrun info. OK."
+                    Console.ok(msg)
+                else:
+                    vm_id = Vm.boot(cloud=cloud,
+                                    name=name,
+                                    image=image,
+                                    flavor=flavor,
+                                    key_name=key_name,
+                                    secgroup_list=secgroup_list)
+                    Default.set("last_vm_id", vm_id)
+                    Default.set("last_vm_name", name)
 
 
-                # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
-                if is_name_provided is False:
-                    # Incrementing count
-                    Counter.incr()
+                    # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
+                    if is_name_provided is False:
+                        # Incrementing count
+                        Counter.incr()
 
-                # Add to group
-                if vm_id is not None:
-                    Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+                    # Add to group
+                    if vm_id is not None:
+                        Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
 
-                msg = "info. OK."
-                Console.ok(msg)
+                    msg = "info. OK."
+                    Console.ok(msg)
 
             except Exception, e:
                 import traceback

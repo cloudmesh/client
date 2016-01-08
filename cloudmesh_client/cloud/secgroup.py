@@ -25,8 +25,9 @@ class SecGroup(ListResource):
         d = {}
         for i, obj in enumerate(os_result):
             d[i] = {}
-            d[i]["Id"], d[i]["Name"], d[i][
-                "Description"] = obj.id, obj.name, obj.description
+            d[i]["Id"] = obj.id
+            d[i]["Name"] = obj.name
+            d[i]["Description"] = obj.description
         return d
 
     # noinspection PyPep8
@@ -35,12 +36,9 @@ class SecGroup(ListResource):
         d = {}
         for i, obj in enumerate(os_result):
             d[i] = {}
-            d[i]["IP Protocol"], d[i]["From Port"], d[i]["To Port"] = obj[
-                                                                          "ip_protocol"], \
-                                                                      obj[
-                                                                          "from_port"], \
-                                                                      obj[
-                                                                          "to_port"]
+            d[i]["IP Protocol"] = obj["ip_protocol"]
+            d[i]["From Port"] = obj["from_port"]
+            d[i]["To Port"] = obj["to_port"]
             if obj["ip_range"]["cidr"]:
                 ip_range = obj["ip_range"]["cidr"]
             else:
@@ -63,7 +61,8 @@ class SecGroup(ListResource):
 
                 print("Key: " + key + ", Value: " + os.environ[key])
 
-            nova = client.Client("2", credentials["OS_USERNAME"],
+            nova = client.Client("2",
+                                 credentials["OS_USERNAME"],
                                  credentials["OS_PASSWORD"],
                                  credentials["OS_TENANT_NAME"],
                                  credentials["OS_AUTH_URL"],
@@ -219,10 +218,10 @@ class SecGroup(ListResource):
             cloud_provider = CloudProvider(cloudname).provider.provider
             # Create add secgroup rules to the cloud
             rule_id = cloud_provider.security_group_rules.create(secgroup.uuid,
-                                                              ip_protocol=protocol,
-                                                              from_port=from_port,
-                                                              to_port=to_port,
-                                                              cidr=cidr)
+                                                                 ip_protocol=protocol,
+                                                                 from_port=from_port,
+                                                                 to_port=to_port,
+                                                                 cidr=cidr)
             """
             ruleObj = model.SECGROUPRULE(
                 uuid=str(rule_id),
