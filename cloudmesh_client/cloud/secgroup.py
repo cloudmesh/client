@@ -180,6 +180,43 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
+    def enable_ssh(cls, secgroup_name='default', cloud="general"):
+        ret = False
+        cloud_provider = CloudProvider(cloud).provider.provider
+        secgroups = cloud_provider.security_groups.list()
+        for asecgroup in secgroups:
+            if asecgroup.name==secgroup_name:
+                rules = asecgroup.rules
+                rule_exists = False
+                # structure of a secgroup rule:
+                # {u'from_port': 22, u'group': {}, u'ip_protocol': u'tcp', u'to_port': 22, u'parent_group_id': u'UUIDHERE', u'ip_range': {u'cidr': u'0.0.0.0/0'}, u'id': u'UUIDHERE'}
+                for arule in rules:
+                    if arule["from_port"]==22 and \
+                       arule["to_port"]==22 and \
+                       arule["ip_protocol"]=='tcp' and \
+                       arule["ip_range"]=={'cidr': '0.0.0.0/0'}:
+                        # print (arule["id"])
+                        rule_exists=True
+                        break
+                if not rule_exists:
+                    cloud_provider.security_group_rules.create(asecgroup.id,
+                                                                 ip_protocol='tcp',
+                                                                 from_port=22,
+                                                                 to_port=22,
+                                                                 cidr='0.0.0.0/0')
+                # else:
+                #    print ("The rule allowing ssh login did exist!")
+                ret = True
+                break
+
+
+
+        # print ("*" * 80)
+        # d = SecGroup.convert_list_to_dict(secgroups)
+        # print (d)
+        return ret
+
+    @classmethod
     def get(cls, name, project, cloud="general"):
         """
         This method queries the database to fetch secgroup
@@ -262,6 +299,9 @@ class SecGroup(ListResource):
 
     @classmethod
     def get_rules(cls, uuid):
+        # problem:
+        # I don't see rules were ever updated/retrieved from the cloud
+        #
         """
         This method gets the security group rule
         from the cloudmesh database
