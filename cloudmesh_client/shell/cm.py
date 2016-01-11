@@ -633,7 +633,6 @@ def main():
             '--nosplash': '--nosplash' in args,
             '-i': '-i' in args}
 
-        print ("PPP", args)
         for a in arguments:
             if arguments[a]:
                 arguments.remove(a)

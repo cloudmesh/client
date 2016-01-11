@@ -12,7 +12,7 @@ nosetests -v tests/test_image.py
 
 from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
-
+import json
 
 def run(command):
     parameter = command.split(" ")
@@ -69,8 +69,16 @@ class Test_image():
         :return:
         """
         HEADING()
-        result = run("cm image list 1 --cloud=kilo")
-        assert "Value" in result
+        result = run("cm image list --cloud=kilo --format=json")
+        d = json.loads(result)
+
+        for image in d:
+            name = d[image]['name']
+            if "Ubuntu" in name and "14" in name:
+                break
+
+        assert "Ubuntu" in name
+        assert "14" in name
 
     def test_006(self):
         """
