@@ -93,14 +93,15 @@ class List(object):
     @classmethod
     def getUser(cls, cloudname):
         try:
-            # currently support India cloud
-            if cloudname == "india":
-                d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname][
-                    "credentials"]
-                for key, value in credentials.iteritems():
-                    if key == "OS_USERNAME":
-                        return value
+            d = ConfigDict("cloudmesh.yaml")
+            if cloudname in d["cloudmesh"]["clouds"]:
+                config = d["cloudmesh"]["clouds"][cloudname]
+                credentials = config["credentials"]
+                cloud_type = d["cloudmesh"]["clouds"][cloudname]
+            else:
+                raise ValueError("cloud {} not in yaml file".format(cloudname))
+            if config["credentials"] == "openstack":
+                return credentials["OS_USERNAME"]
             else:
                 return None
 
