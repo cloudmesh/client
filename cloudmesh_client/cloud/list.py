@@ -92,6 +92,7 @@ class List(object):
     #
     @classmethod
     def getUser(cls, cloudname):
+        # TODO: adapt to AWS, EC2, and Azure
         try:
             d = ConfigDict("cloudmesh.yaml")
             if cloudname in d["cloudmesh"]["clouds"]:
