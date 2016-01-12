@@ -434,6 +434,10 @@ class SecGroup(ListResource):
 
     @classmethod
     def getUser(cls, cloudname):
+        #
+        # TODO: this method is duplicated from the cloudprovider and must be removed.
+        # Also see the new code in cloudprovider
+        #
         try:
             # currently support India cloud
             if cloudname == "india":
@@ -477,7 +481,7 @@ class SecGroup(ListResource):
 
 
 if __name__ == '__main__':
-    nova = CloudProvider.set("india")
+    nova = CloudProvider.set("kilo")
 
     # groups = nova.security_groups.list()
     # print(groups)

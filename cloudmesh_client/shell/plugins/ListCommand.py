@@ -72,7 +72,7 @@ class ListCommand(PluginCommand, CloudPluginCommand):
 
         # If cloud is not specified, get default
         if cloud is None:
-            cloud = Default.get("cloud") or "india"
+            cloud = Default.get("cloud") or "kilo"
 
         # If user is not specified, get default
         if user is None:

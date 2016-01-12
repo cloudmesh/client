@@ -274,7 +274,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 name,
                 image=None,
                 flavor=None,
-                cloud="India",
+                cloud="kilo",
                 key=None,
                 secgroup=None,
                 meta=None,

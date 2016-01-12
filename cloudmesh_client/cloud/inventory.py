@@ -132,9 +132,9 @@ if __name__ == "__main__":
     i.info()
 
     banner("changing values")
-    i.add(host="i1", cluster="india", label="india")
-    i.add(host="i2", cluster="india", label="gregor")
-    i.add(host="d[1-4]", cluster="delta", label="delta")
+    i.add(host="i1", cluster="kilo", label="india")
+    i.add(host="i2", cluster="kilo", label="gregor")
+    i.add(host="d[1-4]", cluster="kilo", label="delta")
 
     banner("saving")
     i.save()

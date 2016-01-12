@@ -42,7 +42,7 @@ class Test_quota():
         :return:
         """
         HEADING()
-        result = run("cm quota list --cloud=india --format=csv")
+        result = run("cm quota list --cloud=kilo --format=csv")
         assert "Quota" in result
 
     def test_003(self):

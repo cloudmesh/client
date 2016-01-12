@@ -180,7 +180,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if value is None:
             Default.set('default', 'default', cloud='general')
 
-        cluster = 'india'  # hardcode a value if not defined
+        cluster = 'kilo'  # hardcode a value if not defined
         value = Default.get('cluster', cloud='general')
         if value is None:
             try:

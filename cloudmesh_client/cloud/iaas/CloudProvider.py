@@ -13,8 +13,13 @@ class CloudProvider(CloudProviderBase):
     def __init__(self, cloudname, user=None, flat=True):
         super(CloudProvider, self).__init__(cloudname, user=user)
 
+
         try:
             d = ConfigDict("cloudmesh.yaml")
+            if not cloudname in d["cloudmesh"]["clouds"]:
+                raise ValueError("the cloud {} is not defined in the yaml file"
+                                 .format(cloudname))
+
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
             if cloud_details["cm_type"] == "openstack":

@@ -17,7 +17,7 @@ class Vm(ListResource):
     cm = CloudmeshDatabase()
 
     @classmethod
-    def construct_ip_dict(cls, ip_addr, name="india"):
+    def construct_ip_dict(cls, ip_addr, name="kilo"):
         try:
             d = ConfigDict("cloudmesh.yaml")
             cloud_details = d["cloudmesh"]["clouds"][name]

@@ -666,7 +666,7 @@ add(d)
 c = Default()
 
 c.name  = "cloud"
-c.value = "india"
+c.value = "kilo"
 add(c)
 
 
