@@ -42,8 +42,8 @@ class Test_limits():
         :return:
         """
         HEADING()
-        result = run("cm limits list --format=csv")
-        assert "Name" in result
+        result = run("cm limits list --format=csv").split('\n')
+        assert "maxTotalFloatingIps" in result[0]
 
     def test_003(self):
         """
@@ -52,6 +52,8 @@ class Test_limits():
         """
         HEADING()
         result = run("cm limits list --cloud=india1")
+
+
         assert "Error" in result
 
     def test_004(self):

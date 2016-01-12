@@ -203,7 +203,9 @@ def dict_table_printer(d,
     return x
 
 
-def attribute_printer(d, header=None, sort_keys=True,
+def attribute_printer(d,
+                      header=None,
+                      sort_keys=True,
                       output="table"):
     if header is None:
         header = ["Attribute", "Value"]
@@ -219,7 +221,7 @@ def attribute_printer(d, header=None, sort_keys=True,
         x.align = "l"
         return x
     else:
-        return dict_printer(d)
+        return dict_printer({output: d}, output=output)
 
 
 def print_list(l, output='table'):
