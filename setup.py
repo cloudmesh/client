@@ -155,7 +155,7 @@ setup(
     version=__version__,
     name="cloudmesh_client",
     description="cloudmesh_client - A heterogeneous multi cloud command "
-                "client command shell",
+                "client and shell",
     long_description=read('README.rst'),
     license="Apache License, Version 2.0",
     author="Gregor von Laszewski",
