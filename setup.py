@@ -110,6 +110,7 @@ class InstallBase(install):
             os_execute(commands)
         banner("Install Cloudmesh_client {:}".format(__version__))
         install.run(self)
+        os_execute("cm help")
 
 
 def read(fname):
