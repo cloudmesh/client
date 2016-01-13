@@ -258,7 +258,8 @@ class Cluster(object):
                 # print("RETURNED RESULTS:")
                 # print (r)
                 if 'cluster' in r:
-                    if 'state' in r and 'queued' == r['state']:
+                    if 'state' in r and \
+                       ('queued' == r['state'] or 'submitted' == r['state']):
                         computesetid = r['id']
                         ret = 'Request accepted! Check status with:\n' \
                               'comet cluster {}\n'.format(clusterid) + \
