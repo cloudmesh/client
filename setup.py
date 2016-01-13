@@ -50,11 +50,13 @@ requirements = ['pyreadline<=1.7.1.dev-r0',
                 'sqlalchemy',
                 'urllib3',
                 'requests',
+                'pycrypto',
                 'httpsig',
                 'sandman',
                 'gitchangelog',
                 'six',
                 'python-novaclient',
+                'python-keystoneclient',
                 'cloudmesh_timestring']
 
 
