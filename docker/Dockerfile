@@ -1,5 +1,7 @@
-FROM ubuntu:latest
+FROM ubuntu;14.04
 FROM python:2.7
+
+RUN apt-get update
 ADD . /code
 WORKDIR /code
 
@@ -19,4 +21,4 @@ RUN ls
 RUN pip install -r requirements.txt
 RUN python setup.py install
 
-CMD cm
+CMD ["cm",  "-i"]
