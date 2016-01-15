@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#get-registration-from-india">Get Registration from India</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#get-registration-from-indiana-university">Get Registration from Indiana University</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#registration-of-clouds">Registration of clouds</a></li>
 </ul>
 </li>
@@ -157,19 +157,21 @@
             
   <div class="section" id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">implement</p>
-</div>
-<p>First you need to initialize cloudmesh by invoking the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span>
-</pre></div>
-</div>
-<p>This will create for you a default configuration file:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
-</pre></div>
-</div>
-<p>The file will be looking as follows. You will have several options to
+<p>During the installation of cloudmesh it will automatically generate
+a configuration file in the directory:</p>
+<blockquote>
+<div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
+<p>If this file is missing, you can run the command:</p>
+<blockquote>
+<div>cm help to automatically generate it from defaults.</div></blockquote>
+<p>The file will be a template and it can either be modified with your
+favourite editor, or if you are at indiana university and want to use the
+kilo cloud you can use the command</p>
+<blockquote>
+<div>cm remote register</div></blockquote>
+<p>This will add the appropriate information into the yaml file.
+The file will be looking as follows.
+You will have several options to
 modify the file as explained bellow</p>
 <div class="highlight-python"><div class="highlight"><pre>meta:
     yaml_version: 3.0
@@ -357,19 +359,22 @@ cloudmesh:
 </pre></div>
 </div>
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
-according to your information about your cloud. YOu can add new clouds
+according to your information about your cloud. You can add new clouds
 or delete the once that you do not want.</p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">please make sure the file is protected as it contains
-sensitive information.</p>
+<p>Just as private keys should be kept private so does
+the cloudmesh.yaml
+file. Please, make sure the file is protected as it contains</p>
+<blockquote class="last">
+<div>sensitive information.</div></blockquote>
 </div>
-<div class="section" id="get-registration-from-india">
-<h2>Get Registration from India<a class="headerlink" href="#get-registration-from-india" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-registration-from-indiana-university">
+<h2>Get Registration from Indiana University<a class="headerlink" href="#get-registration-from-indiana-university" title="Permalink to this headline">¶</a></h2>
 <p>In case you have an account on <a class="reference external" href="http::/portal.futuresystems.org">http::/portal.futuresystems.org</a> the
 integration can be done automatically for you with the account
-information available to you. The best way is to configure first your
-ssh client to conveniently log into india the machine where you can
+information available to you as previously explained.</p>
+<p>The best way is to configure first your ssh client to conveniently log into india the machine where you can
 find the configuration information. To do so, please edit the
 following file</p>
 <div class="highlight-python"><div class="highlight"><pre>~/./ssh/config
@@ -389,8 +394,7 @@ verify that you have access to india with a command such as:</p>
 </div>
 <p>Next register the FutureSystems clouds into your cloudmesh yaml file with
 the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm register remote juno (will be deprecated Jan 31. 2016)
-cm register remote kilo
+<div class="highlight-python"><div class="highlight"><pre>cm register remote
 </pre></div>
 </div>
 <p>This will update your cloudmesh.yaml file with the information retrieved
@@ -406,12 +410,15 @@ about using india can be found at <a class="reference external" href="http://por
 <h2>Registration of clouds<a class="headerlink" href="#registration-of-clouds" title="Permalink to this headline">¶</a></h2>
 <p>The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as</p>
+<p>To find out more about the registration command:</p>
 <div class="highlight-python"><div class="highlight"><pre>cm register help
 </pre></div>
 </div>
+<p>To edit the yaml file with the edior defined by the Shell variable <cite>$EDITOR</cite>:</p>
 <div class="highlight-python"><div class="highlight"><pre>register edit
 </pre></div>
 </div>
+<p>To list the <cite>cloudmesh.yaml</cite> file:</p>
 <div class="highlight-python"><div class="highlight"><pre>register list
 </pre></div>
 </div>
