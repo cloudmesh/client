@@ -225,14 +225,14 @@ class BatchProviderSLURM(BatchProviderBase):
             echo 'SLURM_RESTART_COUNT:' $SLURM_RESTART_COUNT
             echo 'SLURM_SUBMIT_DIR:' $SLURM_SUBMIT_DIR
             echo 'MPIRUN_PARTITION:' $MPIRUN_PARTITION
-            d = $(date)
-            echo '#CLOUDMESH: status, start, $d'
-            srun -l echo '#CLOUDMESH: status, start, $d'
+            d=$(date)
+            echo \"#CLOUDMESH: status, start, $d\"
+            srun -l echo \"#CLOUDMESH: status, start, $d\"
             srun -l {command}
-            d = $(date)
-            srun -l echo '#CLOUDMESH: status, finished, $d'
-            d = $(date)
-            echo '#CLOUDMESH: status, finished, $d'
+            d=$(date)
+            srun -l echo \"#CLOUDMESH: status, finished, $d\"
+            d=$(date)
+            echo \"#CLOUDMESH: status, finished, $d\"
             """
         ).format(**data).replace("\r\n", "\n").strip()
 

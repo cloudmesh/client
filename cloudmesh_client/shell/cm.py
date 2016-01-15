@@ -615,13 +615,7 @@ def main():
     def manual():
         print(main.__doc__)
 
-
-
     args = sys.argv[1:]
-
-
-    print (args)
-
 
     arguments = {
         '--debug': '--debug' in args,
@@ -633,8 +627,6 @@ def main():
             args.remove(a)
 
     arguments['COMMAND'] = [' '.join(args)]
-
-    print (arguments)
 
     commands = arguments["COMMAND"]
     if len(commands) > 0:
