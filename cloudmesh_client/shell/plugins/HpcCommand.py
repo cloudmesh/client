@@ -128,7 +128,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
         elif arguments['delete'] and arguments['all']:
             group = arguments['--group'] or Default.get('group')
             if group is None:
-                Console.error('set default group using: default group=<value>')
+                Console.error('set default group using: default group=<value> --cloud=general')
                 return
             Console.ok(batch.delete(cluster,None,group))
 
@@ -220,7 +220,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             #    return
             group = arguments['--group'] or Default.get('group')
             if group is None:
-                Console.error('set default group using: default group=<value>')
+                Console.error('set default group using: default group=<value> --cloud=general')
                 return
 
             script = arguments['SCRIPT']
