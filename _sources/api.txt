@@ -2,7 +2,7 @@ API
 ===
 
 Cloud Database
-==============
+---------------
 
 Cloudmesh contains a convenient Cloud database to store its
 objects. It also contains simple functions to synchronize the database
@@ -61,7 +61,7 @@ you use the native form or the dict representation.
 
 
 Updating an element in the database
-===================================
+------------------------------------
 
 The cloud related data have a number of attributes that make it easy
 to identify them.  The most important one is 'cm_id` which presents in

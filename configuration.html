@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Configuration &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="index.html"/>
         <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -81,24 +81,36 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Configuration</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#get-registration-from-india">Get Registration from India</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#registration-of-clouds">Registration of clouds</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -150,7 +162,7 @@
 <p class="last">implement</p>
 </div>
 <p>First you need to initialize cloudmesh by invoking the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm init
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span>
 </pre></div>
 </div>
 <p>This will create for you a default configuration file:</p>
@@ -159,6 +171,191 @@
 </div>
 <p>The file will be looking as follows. You will have several options to
 modify the file as explained bellow</p>
+<div class="highlight-python"><div class="highlight"><pre>meta:
+    yaml_version: 3.0
+    kind: clouds
+cloudmesh:
+    profile:
+        firstname: TBD
+        lastname: TBD
+        email: TBD
+        username: None
+    github:
+        username: TBD
+    portal:
+        location: TBD
+        browser: firefox
+    comet:
+        auth_provider: userpass
+        userpass:
+            username: TBD
+            password: TBD
+        apikey:
+            api_key: TBD
+            api_secret: TBD
+    hpc:
+        experiment:
+           name: gregor-00000
+        active:
+        - comet
+        - juliet
+        clusters:
+            india:
+                cm_heading: India HPC CLuster
+                cm_host: india
+                cm_label: indiahpc
+                cm_type: slurm
+                cm_type_version: 14.11.9
+                credentials:
+                    username: TBD
+                    project: None
+                default:
+                    queue: delta
+                    experiment_dir: /N/u/{username}/experiment
+                    prefix: {username}
+            comet:
+                cm_heading: Comet HPC CLuster
+                cm_host: comet
+                cm_label: comethpc
+                cm_type: slurm
+                cm_type_version: 14.11.9
+                credentials:
+                    username: TBD
+                    project: None
+                default:
+                    queue: debug
+                    experiment_dir: /home/{username}/experiment
+                    prefix: {username}
+    active:
+        - kilo
+    clouds:
+        kilo:
+            cm_heading: India OpenStack, Kilo
+            cm_host: india
+            cm_label: kilo
+            cm_type: openstack
+            cm_type_version: kilo
+            cm_openrc: ~/.cloudmesh/clouds/india/kilo/openrc.sh
+            credentials:
+                OS_AUTH_URL: https://kilo.futuresystems.org:5000/v3
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: TBD
+                OS_USERNAME: TBD
+                OS_PROJECT_DOMAIN_ID: default
+                OS_USER_DOMAIN_ID: default
+                OS_PROJECT_NAME: TBD
+                OS_IMAGE_API_VERSION: 2
+                OS_VOLUME_API_VERSION: 2
+            default:
+                flavor: TBD
+                image: TBD
+        chameleon:
+            cm_heading: Chameleon, Juno
+            cm_host: chameleoncloud.org
+            cm_label: chameleon
+            cm_type: openstack
+            cm_type_version: juno
+            credentials:
+                OS_AUTH_URL: TBD
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: TBD
+                OS_TENANT_ID: TBD
+                OS_PROJECT_NAME: TBD
+                OS_USERNAME: TBD
+                OS_VERSION: kilo
+                OS_REGION_NAME: RegionOne
+            default:
+                flavor: TBD
+                image: TBD
+        cybera-c:
+          cm_heading: Cybera Calgary OpenStack
+          cm_host: cybera
+          cm_label: cybera-c
+          cm_type: openstack
+          cm_type_version: kilo
+          credentials:
+            OS_AUTH_URL: TBD
+            OS_TENANT_ID: TBD
+            OS_TENANT_NAME: TBD
+            OS_PROJECT_NAME: TBD
+            OS_USERNAME: TBD
+            OS_PASSWORD: TBD
+            OS_REGION_NAME: Calgary
+          default:
+            flavor: m1.tiny
+            image: Ubuntu 14.04
+        cybera-e:
+          cm_heading: Cybera Edmonton OpenStack
+          cm_host: cybera
+          cm_label: kilo
+          cm_type: openstack
+          cm_type_version: kilo
+          credentials:
+            OS_AUTH_URL: https://keystone-yyc.cloud.cybera.ca:5000/v2.0
+            OS_TENANT_ID: TBD
+            OS_TENANT_NAME: TBD
+            OS_PROJECT_NAME: TBD
+            OS_USERNAME: TBD
+            OS_PASSWORD: TBD
+            OS_REGION_NAME: Edmonton
+          default:
+            flavor: m1.tiny
+            image: Ubuntu 14.04
+        juno:
+            cm_heading: India OpenStack, Juno
+            cm_host: india
+            cm_label: juno
+            cm_type: openstack
+            cm_type_version: juno
+            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
+            credentials:
+                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
+                OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
+                OS_PASSWORD: TBD
+                OS_TENANT_NAME: TBD
+                OS_USERNAME: TBD
+            default:
+                flavor: TBD
+                image: TBD
+        aws:
+            cm_heading: Amazon Cloud, AWS
+            cm_host: aws.amazon.com
+            cm_label: aws
+            cm_type: ec2
+            cm_type_version: null
+            credentials:
+                EC2_ACCESS_KEY: TBD
+                EC2_SECRET_KEY: TBD
+                keyname: TBD
+                userid: TBD
+            default:
+                flavor: t1.micro
+                image: ami-d85e75b0
+                location: us-east-1
+        azure:
+            cm_heading: Microsoft Azure Virtual Machines
+            cm_host: windowsazure.com
+            cm_label: azure
+            cm_type: azure
+            cm_type_version: null
+            credentials:
+                managementcertfile: TBD
+                servicecertfile: TBD
+                subscriptionid: TBD
+                thumbprint: TBD
+            default:
+                flavor: ExtraSmall
+                image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
+                location: East US
+    keys:
+        default:
+        keylist:
+          keyname: ~/.ssh/id_rsa.pub
+    system:
+        data: ~/.cloudmesh/cloudmesh_inventory.yaml
+        console_color: true
+</pre></div>
+</div>
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
 according to your information about your cloud. YOu can add new clouds
 or delete the once that you do not want.</p>
@@ -172,7 +369,7 @@ sensitive information.</p>
 <p>In case you have an account on <a class="reference external" href="http::/portal.futuresystems.org">http::/portal.futuresystems.org</a> the
 integration can be done automatically for you with the account
 information available to you. The best way is to configure first your
-ssh client to conveniently log into india the machine wher eyou can
+ssh client to conveniently log into india the machine where you can
 find the configuration information. To do so, please edit the
 following file</p>
 <div class="highlight-python"><div class="highlight"><pre>~/./ssh/config
@@ -180,31 +377,35 @@ following file</p>
 </div>
 <p>and add the following lines to it</p>
 <div class="highlight-python"><div class="highlight"><pre>Host india
-    User: gregor
+    User: albert
     Hostname: india.futuresystems.org
 </pre></div>
 </div>
-<p>please replace gregor with your portalname that you have used for
+<p>please replace albert with your portalname that you have used for
 registration with futuresystems.org. Once you have done this please
 verify that you have access to india with a command such as:</p>
 <div class="highlight-python"><div class="highlight"><pre>ssh india uname -a
 </pre></div>
 </div>
-<p>Next register india into your cloudmesh yaml file with the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm register india
+<p>Next register the FutureSystems clouds into your cloudmesh yaml file with
+the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm register remote juno (will be deprecated Jan 31. 2016)
+cm register remote kilo
 </pre></div>
 </div>
 <p>This will update your cloudmesh.yaml file with the information retrieved
-from india. While retriving the information on india from the file:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/clouds/india/juno/openrc.sh
+from india. While retrieving the information on india from the file:</p>
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/clouds/india/kilo/openrc.sh
+~/.cloudmesh/clouds/india/juno/openrc.sh
 </pre></div>
 </div>
-<p>Make sure you add a valid tennat to the yaml file. More information
+<p>Make sure you add a valid tenant to the yaml file. More information
 about using india can be found at <a class="reference external" href="http://portal.futuresystems.org">http://portal.futuresystems.org</a></p>
 </div>
 <div class="section" id="registration-of-clouds">
 <h2>Registration of clouds<a class="headerlink" href="#registration-of-clouds" title="Permalink to this headline">¶</a></h2>
-<p>See manual page ...</p>
+<p>The register command is quite powerful and useful and we encourage you to
+take a closer look at the manual pages. This includes command such as</p>
 <div class="highlight-python"><div class="highlight"><pre>cm register help
 </pre></div>
 </div>
@@ -258,7 +459,7 @@ about using india can be found at <a class="reference external" href="http://por
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

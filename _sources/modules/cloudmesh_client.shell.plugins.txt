@@ -12,10 +12,10 @@ cloudmesh_client.shell.plugins.Bar module
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.CloudCommand module
+cloudmesh_client.shell.plugins.CloudPluginCommand module
 --------------------------------------------------
 
-.. automodule:: cloudmesh_client.shell.plugins.CloudCommand
+.. automodule:: cloudmesh_client.shell.plugins.CloudPluginCommand
     :members:
     :undoc-members:
     :show-inheritance:
@@ -28,10 +28,10 @@ cloudmesh_client.shell.plugins.ColorCommand module
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.plugins.CometCommand module
+cloudmesh_client.shell.plugins.CometPluginCommand module
 --------------------------------------------------
 
-.. automodule:: cloudmesh_client.shell.plugins.CometCommand
+.. automodule:: cloudmesh_client.shell.plugins.CometPluginCommand
     :members:
     :undoc-members:
     :show-inheritance:

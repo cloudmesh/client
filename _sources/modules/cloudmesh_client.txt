@@ -17,10 +17,10 @@ Subpackages
 Submodules
 ----------
 
-cloudmesh_client.shell_commad module
+cloudmesh_client.shell_command module
 ------------------------------------
 
-.. automodule:: cloudmesh_client.shell_commad
+.. automodule:: cloudmesh_client.shell_command
     :members:
     :undoc-members:
     :show-inheritance:

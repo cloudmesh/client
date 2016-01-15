@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>VM Command &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>VM Command &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Nova Command" href="command_nova.html"/>
         <link rel="prev" title="SecGroup Command" href="command_secgroup.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -82,44 +82,53 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">VM Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#booting-a-vm-instance">Booting a VM instance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#listing-a-vm-instances">Listing a VM instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#stop-a-vm">Stop a VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#start-a-vm">Start a VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#retrieving-ip-address-details">Retrieving IP Address details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#login-to-vm">Login to VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#running-command-on-vm">Running command on VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#deleting-a-vm">Deleting a VM</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#usable-commands">Usable Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_register.html">Register Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">VM Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#listing-defaults">Listing Defaults</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_reservation.html">Reservation Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_ssh.html">Color Command</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -172,65 +181,96 @@
 It is like a one stop interface that can be used to perform various VM
 operations on various clouds available to Cloudmesh.</p>
 <p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#vm">VM</a></p>
+<div class="section" id="listing-defaults">
+<h2>Listing Defaults<a class="headerlink" href="#listing-defaults" title="Permalink to this headline">¶</a></h2>
+<p>You can have a list of relevant default attributes required for VM operations:</p>
+<div class="highlight-python"><div class="highlight"><pre>+-----------+--------------------------------------+
+| Attribute | Value                                |
++-----------+--------------------------------------+
+| secgroup  |                                      |
+| login_key | /home/albert/key/id_rsa              |
+| flavor    | 2                                    |
+| image     | 619b8942-2355-4aa2-jaa5-74b8f1751911 |
+| cloud     | kilo                                 |
+| name      | albert-015                           |
+| key       | albertkey                            |
+| group     | test                                 |
++-----------+--------------------------------------+
+</pre></div>
+</div>
+<ul class="simple">
+<li>secgroup - Security Group to be provided for VM boot.</li>
+<li>login_key - Path to private key required for VM login.</li>
+<li>flavor - Flavor ID required for VM boot.</li>
+<li>image - Image ID required for VM boot.</li>
+<li>cloud - Target Cloud.</li>
+<li>name - Name of the VM to be booted. This is in format &lt;username&gt;-&lt;count&gt;. Username retrieved from cloudmesh.yaml, count retrieved from a counter in database.</li>
+<li>key - Key name from db used for VM boot.</li>
+<li>group - Group for the VM to be booted.</li>
+</ul>
 <div class="section" id="booting-a-vm-instance">
-<h2>Booting a VM instance<a class="headerlink" href="#booting-a-vm-instance" title="Permalink to this headline">¶</a></h2>
-<p>You can start a VM on any target cloud like &#8216;juno&#8217; by using the &#8216;vm start&#8217;
-like the one provided below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm boot --name=testvm --cloud=juno --image=619b8942-2355-4aa2-bae3-74b8f1751911 --flavor=2
-Machine testvm is being booted on juno Cloud...
+<h3>Booting a VM instance<a class="headerlink" href="#booting-a-vm-instance" title="Permalink to this headline">¶</a></h3>
+<p>If you have all the required attributes (secgroup not mandatory) setup and listed in the vm defaults,
+then you can simply run the following to boot a vm.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm boot
+Machine albert-015 is being booted on kilo Cloud...
+Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
+info. OK.
+</pre></div>
+</div>
+<p>Else you may explicitly specify the attribute values in the arguments to the vm boot command.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
+Machine testvm is being booted on kilo Cloud...
 </pre></div>
 </div>
 </div>
 <div class="section" id="listing-a-vm-instances">
-<h2>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h2>
+<h3>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h3>
 <p>You can list all the VM instances running on the cloud by &#8216;vm list&#8217; command
 like the one below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm list --cloud=juno
-+----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
-| id | uuid                                 | label                        | status  | project   | user      | cloud |
-+----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
-| 1  | 6d2b8e67-a296-45f0-9132-b65aeddff8ff | testvm                       | ACTIVE  | undefined | albert    | juno  |
-| 2  | 390792c3-66a0-4c83-a0d7-c81e1c787710 | albert_vm002                 | ACTIVE  | undefined | albert    | juno  |
-| 3  | fa3580f3-2dbd-4d67-9178-326b39916c09 | albert_vm003                 | ACTIVE  | undefined | albert    | juno  |
-| 4  | 6730c273-609f-426d-a481-313ff4200d82 | albert_vm004                 | ACTIVE  | undefined | albert    | juno  |
-| 5  | 2f275d38-62af-4f71-a04a-0456e0d6466f | albert_vm005                 | ACTIVE  | undefined | albert    | juno  |
-| 6  | 94f01af3-ee2a-44c9-b228-75627f358169 | albert_vm006                 | SHUTOFF | undefined | albert    | juno  |
-| 7  | 21305503-2649-4338-8876-d825758c83f3 | albert_vm007                 | ACTIVE  | undefined | albert    | juno  |
-+----+--------------------------------------+------------------------------+---------+-----------+-----------+-------+
+<div class="highlight-python"><div class="highlight"><pre>+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
+| id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |
++----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
+| 10 | 21305503-2649-3664-8876-d825758c83f3 | albert-001                   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
+| 9  | 94f01af3-ee2a-9887-b228-75627f358169 | albert-001                   | SHUTOFF   | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
+| 8  | 2f275d38-62af-1223-a04a-0456e0d6466f | albert-server-jzqc23pekfcu   | SUSPENDED | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
+| 7  | 6730c273-609f-9879-a481-313ff4200d82 | albert-server-ekbvvsmjyqlo   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
+| 6  | fa3580f3-2dbd-d666-9178-326b39916c09 | albert-server-cdmelfaefggf   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-india-key        | undefined | albert    | kilo  |
++----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
 </pre></div>
 </div>
 </div>
 <div class="section" id="stop-a-vm">
-<h2>Stop a VM<a class="headerlink" href="#stop-a-vm" title="Permalink to this headline">¶</a></h2>
+<h3>Stop a VM<a class="headerlink" href="#stop-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can stop a VM by supplying it&#8217;s label or UUID:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm stop testvm --cloud=juno
-Machine testvm is being stopped on juno Cloud...
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm stop testvm --cloud=kilo
+Machine testvm is being stopped on kilo Cloud...
 info. OK.
 </pre></div>
 </div>
 </div>
 <div class="section" id="start-a-vm">
-<h2>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h2>
+<h3>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can start a VM by supplying it&#8217;s label or UUID:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm start testvm --cloud=juno
-Machine testvm is being started on juno Cloud...
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm start testvm --cloud=kilo
+Machine testvm is being started on kilo Cloud...
 info. OK.
 </pre></div>
 </div>
 </div>
 <div class="section" id="assign-floating-ip-to-vm">
-<h2>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h2>
+<h3>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
 accessed publicly:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm floating_ip_assign testvm --cloud=juno
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm floating_ip_assign testvm --cloud=kilo
 Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 </pre></div>
 </div>
 </div>
 <div class="section" id="retrieving-ip-address-details">
-<h2>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h2>
+<h3>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h3>
 <p>You can get the IP address details of a VM by the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm ip_show testvm --cloud=juno
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm ip_show testvm --cloud=kilo
 IP Addresses of instance testvm are as follows:-
 +---------+---------+----------------+
 | network | version | addr           |
@@ -242,9 +282,9 @@ IP Addresses of instance testvm are as follows:-
 </div>
 </div>
 <div class="section" id="login-to-vm">
-<h2>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h2>
+<h3>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can login to a VM in your target cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=juno
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
 Cannot reach 10.23.2.XX.
@@ -284,9 +324,9 @@ albert@testvm:~$
 </div>
 </div>
 <div class="section" id="running-command-on-vm">
-<h2>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h2>
+<h3>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can use the vm login to simply run a command on the target VM:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=juno
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=kilo
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
 Cannot reach 10.23.2.XX.
@@ -298,11 +338,12 @@ OS testvm &lt;VERSION&gt; #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 &lt;BIT_SPEC&
 </div>
 </div>
 <div class="section" id="deleting-a-vm">
-<h2>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h2>
+<h3>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can delete a VM on the target cloud by using &#8216;vm delete&#8217; command as below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm delete testvm --cloud=juno
-Machine testvm is being deleted on juno Cloud...
+<div class="highlight-python"><div class="highlight"><pre>$ cm vm delete testvm --cloud=kilo
+Machine testvm is being deleted on kilo Cloud...
 </pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -348,7 +389,7 @@ Machine testvm is being deleted on juno Cloud...
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

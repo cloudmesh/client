@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Hpc Command &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Hpc Command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/commands/command_hpc.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="hpc-command">
+<h1>Hpc Command<a class="headerlink" href="#hpc-command" title="Permalink to this headline">¶</a></h1>
+<p>High Performance Computing(HPC) allows to solve large complex problems
+in engineering, science and business using applications that require
+very high compute power and amplified bandwidth. The cloudmesh hpc
+command helps to easily manage hpc clusters.</p>
+<p>The manual page of the hpc command can be found at: <a class="reference external" href="../man/man.html#hpc">Hpc</a></p>
+<p>Before we get started, we can set the default hpc cluster or use the
+&#8211;cluster option. To set the default hpc cluster:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm default cluster=comet
+set in defaults cluster=comet. ok.
+</pre></div>
+</div>
+<div class="section" id="hpc-info">
+<h2>hpc info<a class="headerlink" href="#hpc-info" title="Permalink to this headline">¶</a></h2>
+<p>Returns the state of partitions and nodes on the hpc cluster:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm hpc info
+  +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
+  | cluster | partition | avail | timelimit  | nodes | state | nodelist                   | updated             |
+  +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
+  | india   | xxxxx     | up    | 3-00:00:00 | 8     | idle  | b[009-016]                 | 2015-11-29 16:06:25 |
+  | india   | yyyyy     | up    | 3-00:00:00 | 12    | idle  | d[001-012]                 | 2015-11-29 16:06:25 |
+  | india   | zzzzz     | up    | 3-00:00:00 | 16    | idle  | i[81-84,86-89,91-95,97-99] | 2015-11-29 16:06:25 |
+  +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="hpc-queue">
+<h2>hpc queue<a class="headerlink" href="#hpc-queue" title="Permalink to this headline">¶</a></h2>
+<p>Reports the state of jobs or job sets:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm hpc queue
++---------+---------+--------------+-------------------+-----------+----+------------+-------+---------------------+---------------------+
+| cluster | jobid   | partition    | name              | user      | st | time       | nodes | nodelist            | updated             |
++---------+---------+--------------+-------------------+-----------+----+------------+-------+---------------------+---------------------+
+| india   | 1205397 | gpu-shared   | xxx               | x_user    | PD | 0:00       | 1     |                     | 2015-11-29 16:16:27 |
+| india   | 1267689 | compute      | yyy               | y_user    | PD | 0:00       | 1     |                     | 2015-11-29 16:16:27 |
+| india   | 1267690 | compute      | zzz               | y_user    | PD | 0:00       | 8     |                     | 2015-11-29 16:16:27 |
+| india   | 1267691 | compute      | lll               | y_user    | PD | 0:00       | 3     |                     | 2015-11-29 16:16:27 |
+| india   | 1267693 | compute      | mmm               | y_user    | PD | 0:00       | 1     |                     | 2015-11-29 16:16:27 |
+| india   | 1295159 | gpu          | nnnnnnn           | z_user    | CG | 1-00:00:03 | 1     | xxxxx-30-13         | 2015-11-29 16:16:27 |
+| india   | 1304301 | compute      | ooooooooooo       | y_user    | R  | 23:38:55   | 8     | yy-04-[20-21,63-68] | 2015-11-29 16:16:27 |
++---------+---------+--------------+--------------------+-----------+----+------------+-------+--------------------+---------------------+
+</pre></div>
+</div>
+<p>To view the state of a specific job, use the &#8211;job=NAME option, where NAME can be the
+job id or the job name</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm hpc queue --job=6
++---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
+| cluster | jobid | partition | name        | user      | st | time | nodes | nodelist | updated             |
++---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
+| india   | 6     | xxxxx     | somethin.sh | xxxxxxxxx | PD | 0:00 | 1     |          | 2015-11-29 16:24:15 |
++---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="hpc-status">
+<h2>hpc status<a class="headerlink" href="#hpc-status" title="Permalink to this headline">¶</a></h2>
+<p>Similar to hpc queue where the status of job(s) can be viewed.</p>
+</div>
+<div class="section" id="experiment-management">
+<h2>Experiment management<a class="headerlink" href="#experiment-management" title="Permalink to this headline">¶</a></h2>
+<p>Often it is the case that you may want to rerun your script multiple
+times with potentially different parameters. We are working towards
+simplifying this mechanism for parameter studies. At this time we
+implemented the ability to run a simple shell command repeatedly.</p>
+<p>For this we provide a simple experiment abstraction. An experiment is
+created automatically once you run an hpc command.  The experiment is
+placed in an output directory that can be defined within the
+cloudmesh.yaml file. By default it will be the home directory
+~/experiment. In this experiment we create numbered sub directories
+for consecutive execution of the experiment run.</p>
+<p>To run an experiment (in this case just a shell command <cite>uname</cite>) you
+can use the run command:</p>
+<blockquote>
+<div>hpc run uname &#8211;cluster=india</div></blockquote>
+<dl class="docutils">
+<dt>It will create on the cluster india a new experiment directory by</dt>
+<dd>increasing an experiment number, put the batch script, run the
+command, and put the output into this directory.</dd>
+</dl>
+<p>One can also transfer a script for the experiment, for example:</p>
+<blockquote>
+<div>hpc run &lt;script_path&gt; &#8211;cluster=india</div></blockquote>
+<p>To list experiments that have been previously run you can use the
+command:</p>
+<div class="highlight-python"><div class="highlight"><pre>hpc run list
+</pre></div>
+</div>
+<p>To list the files in a particular experiment you can use the
+experiment number:</p>
+<div class="highlight-python"><div class="highlight"><pre>hpc run list 11
+</pre></div>
+</div>
+<p>Now you will see what the experiment script has created and you will
+be able to fr example view the output of the script:</p>
+<div class="highlight-python"><div class="highlight"><pre>hpc run output 11
+</pre></div>
+</div>
+<p>To delete an experiment you can say:</p>
+<div class="highlight-python"><div class="highlight"><pre>hpc run rm 11
+</pre></div>
+</div>
+<p>However, be careful as deleting it will permanently delete the
+file. To delete all experiments (be extra careful) you can just omit
+the number:</p>
+<div class="highlight-python"><div class="highlight"><pre>hpc run rm
+</pre></div>
+</div>
+<p>In future we will provide the ability to add custom scripts.</p>
+</div>
+<div class="section" id="hpc-delete">
+<h2>hpc delete<a class="headerlink" href="#hpc-delete" title="Permalink to this headline">¶</a></h2>
+<p>If for any reason, you need to kill a job that you have submitted, use the
+delete command with the job name or the job id:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ hpc delete --job=1463
+Job 1463 killed successfully
+</pre></div>
+</div>
+<p>To delete all jobs from a group:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ hpc delete all
+All jobs for group test killed successfully
+</pre></div>
+</div>
+<p>The above command will delete all active jobs from the default group.
+You can also use the &#8211;group to specify a group of your choice.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -6,7 +6,7 @@ This is an experimental effort with little documentation
 
 Start a virtual machine that runs docker in it::
 
-  make docker-mahine
+  make docker-machine
 
 The machine is called cloudmesh, do not confuse this with the docker image that is bing created and is also called cloudmesh.
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reservation Command &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Reservation Command &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,10 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Commands" href="../man/man.html"/>
-        <link rel="prev" title="Nova Command" href="command_nova.html"/> 
+        <link rel="prev" title="Comet Command" href="command_comet.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -82,39 +82,46 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_register.html">Register Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_default.html">Default Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_group.html">Group Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_list.html">List Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_key.html">Key Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_vm.html">VM Command</a></li>
-<li class="toctree-l2"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#delete-reservation">Delete Reservation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#usable-commands">Usable Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Reservation Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-reservation">List Reservation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-reservation">Update Reservation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -165,16 +172,16 @@
 <h1>Reservation Command<a class="headerlink" href="#reservation-command" title="Permalink to this headline">¶</a></h1>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">THis command is experimental and is not yet fully
+<p class="last">This command is experimental and is not yet fully
 integrated. It only stores reservations, but does not act
 upon them.</p>
 </div>
 <p>One of the features of cloudmesh is to build a mesh of resources and
 services. In some cases we which to reserve resources that allow
 reservations. However we also may want to use a resource till a
-particular time frane and release it. For this cases it is practical
+particular time frame and release it. For this cases it is practical
 to provide the concept of a reservation. A simple reservation is named
-and containes a start and end point. We currently store named virtual
+and contains a start and end point. We currently store named virtual
 machines into a reservation for named clouds. Reservations are similar
 to groups just that they have a time frame associated with them. A
 timeless reservation is like a group.</p>
@@ -201,7 +208,7 @@ info. OK.
 </div>
 <div class="section" id="update-reservation">
 <h2>Update Reservation<a class="headerlink" href="#update-reservation" title="Permalink to this headline">¶</a></h2>
-<p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for commmand line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.</p>
+<p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for command line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm reservation update --name=test3 --project=cloudnauts
 Reservation test3 updated successfully
 info. OK.
@@ -242,7 +249,7 @@ info. OK.
         <a href="../man/man.html" class="btn btn-neutral float-right" title="Commands" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_nova.html" class="btn btn-neutral" title="Nova Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_comet.html" class="btn btn-neutral" title="Comet Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -273,7 +280,7 @@ info. OK.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

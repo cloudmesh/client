@@ -1,20 +1,20 @@
 Reservation Command
 ======================================================================
 
-.. warning:: THis command is experimental and is not yet fully
-	     integrated. It only stores reservations, but does not act
-	     upon them.
+.. warning:: This command is experimental and is not yet fully
+             integrated. It only stores reservations, but does not act
+             upon them.
 
 One of the features of cloudmesh is to build a mesh of resources and
 services. In some cases we which to reserve resources that allow
 reservations. However we also may want to use a resource till a
-particular time frane and release it. For this cases it is practical
+particular time frame and release it. For this cases it is practical
 to provide the concept of a reservation. A simple reservation is named
-and containes a start and end point. We currently store named virtual
+and contains a start and end point. We currently store named virtual
 machines into a reservation for named clouds. Reservations are similar
 to groups just that they have a time frame associated with them. A
 timeless reservation is like a group.
-	     
+
 The manual page of the key command can be found at: `reservation
 <../man/man.html#reservation>`_
 
@@ -41,7 +41,7 @@ List Reservation
 
 Update Reservation
 ----------------------------------------------------------------------
-Please note that you have to escape the whitespaces with '\\' for commmand line arguments such as '--start', '--end'.
+Please note that you have to escape the whitespaces with '\\' for command line arguments such as '--start', '--end'.
 ::
 
     $ cm reservation update --name=test3 --project=cloudnauts

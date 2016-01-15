@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Existing original cloudmesh commands &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Existing original cloudmesh commands &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,9 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/>
-        <link rel="next" title="Modules and Classes" href="modules/modules.html"/>
-        <link rel="prev" title="Docker" href="docker.html"/> 
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="index.html"/>
+        <link rel="prev" title="ToDos" href="todo.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -60,7 +59,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -81,19 +80,33 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Existing original cloudmesh commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#parameterized-commands">Parameterized commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parametrized-commands">Parametrized commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#refresh">Refresh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#select">Select</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#list">List</a></li>
@@ -103,24 +116,19 @@
 <li class="toctree-l2"><a class="reference internal" href="#volume">Volume</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#status">Status</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stack-hyungro">Stack (Hyungro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ssh">SSH</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quota">Quota</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#limits">Limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#notebook-not">notebook (not)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#project">Project</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#loglevel">Loglevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#launcher-do-hyungro">Launcher (do, Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#launcher">Launcher</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#key">Key</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#inventory-not-gregor">Inventory (not, Gregor)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#experiment-do-gregor">Experiment (do, Gregor)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debug-not-cmd3-gregor">debug (not cmd3, Gregor)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#color-not-cmd3-gregor">color (not cmd3, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#cluster-hyungro">Cluster (Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cluster">Cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#admin">Admin</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
 </ul>
 
             
@@ -172,8 +180,10 @@ this list here as inspiration and for discussion. The finalized
 commands will be in the &#8220;Commands&#8221; section.</p>
 <p>Notes:</p>
 <ul class="simple">
-<li>&#8211;format should become &#8211;output? reasoning in api format is keyword. in case we keep format we want to do output_format as api variable.</li>
+<li>&#8211;format should become &#8211;output? reasoning in api format is keyword.</li>
 </ul>
+<p>In case we keep format we want to do output_format as
+api variable.</p>
 <p>currently we have</p>
 <ul class="simple">
 <li>list flavors and flavor list, ... maybe not needed and if the one should call just the other</li>
@@ -182,22 +192,22 @@ commands will be in the &#8220;Commands&#8221; section.</p>
 <li>we need to urgently work on defaults for list columns</li>
 <li>we need to work on vm/boot command.</li>
 </ul>
-<div class="section" id="parameterized-commands">
-<h2>Parameterized commands<a class="headerlink" href="#parameterized-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="parametrized-commands">
+<h2>Parametrized commands<a class="headerlink" href="#parametrized-commands" title="Permalink to this headline">¶</a></h2>
 <p>Many commands take a number of parameters. Some of thes parameters can
-be easily refering to a number of different objects, while sing a
-parameterized syntax when specifying the command.</p>
-<p>For example when using the string &#8220;machine[01-03]&#8221; in a parameterized
+be easily referring to a number of different objects, while sing a
+parametrized syntax when specifying the command.</p>
+<p>For example when using the string &#8220;machine[01-03]&#8221; in a parametrized
 argument we refer to machine01, machine02, machine03. As you can see
 it is a simple way of expressing arrays as part of a
 string. Additionally you can use <cite>,</cite> to add to it. Thus
 machine[01-03],machine[06-07] refers to the machines  machine01,
-machine02, machine03, machine06, machine07. This fexible mechnism of
-specifying parameters is followed consitently within cloudmesh. We
-indicate in a manual page if a paramter is parameterized by including
-(parameterized) in its definition of the arguments</p>
+machine02, machine03, machine06, machine07. This flexible mechanism of
+specifying parameters is followed consistently within cloudmesh. We
+indicate in a manual page if a parameter is parametrized by including
+(parametrized) in its definition of the arguments</p>
 <p>In addition we utilize in some cases also the PARAMETER... notation
-meaning that the parameter can be specified multiple imes separated by
+meaning that the parameter can be specified multiple times separated by
 a space. This is well known from many Linux commandline clients.</p>
 </div>
 <div class="section" id="refresh">
@@ -213,11 +223,11 @@ Usage:
 
 Arguments:
 
-    CLOUD  (parameterized) the name of a cloud
+    CLOUD  (parametrized) the name of a cloud
 
 Description:
 
-    Refreshes are activated on all cloudsthat are &quot;active&quot;. A cloud
+    Refreshes are activated on all clouds that are &quot;active&quot;. A cloud
     can be activated with the cloud command
 
        cloud activate CLOUD
@@ -273,7 +283,7 @@ Usage:
     select cloud
 
 Arguments:
-    LIST   (parameterized) List of items to choose from
+    LIST   (parametrized) List of items to choose from
     CLOUD  a single cloudname ti identify from which we select the
            information
 
@@ -312,27 +322,27 @@ Example:
 
 Arguments:
 
-    CLOUD...    (parameterized) the names of the clouds for
+    CLOUD...    (parametrized) the names of the clouds for
                 which we want to obtain a list,  e.g. india. If
-                no cloud name is provided the defailt cold is
+                no cloud name is provided the default cold is
                 used. If instead --all is used all active clouds
                 are used. A default cloud an be set with
 
                    default cloud CLOUD
 
-                If instaall activated clouds
+                If install activated clouds
                 ar used. If the cloud is not specifies
 
 Options:
 
-    --refresh              refresh data before the list is retrned
+    --refresh              refresh data before the list is refreshed
     --group=GROUP          give the group name in list vm
     --detail               for table print format, with all
                            information. This may however be
                            difficult to read as a lot of
                            information may be returned. If the
-                           parameter is ommitted a small subset
-                           is printed. The colmns can be defined
+                           parameter is omitted a small subset
+                           is printed. The columns can be defined
                            with
 
                               default CLOUD [image|flavor|vm] COLUMNS
@@ -349,7 +359,7 @@ Options:
                            all, email to display all except
                            credentials and defaults). If the
                            columns parameter is used a single
-                           table is ruturned. If not a table is
+                           table is returned. If not a table is
                            printed for each cloud.
 
     --format=FORMAT        output format: table, json, csv, dict
@@ -378,15 +388,15 @@ Description:
 Examples:
 
     list flavor india aws
-       lists the cloud flavrs for india and aws. Two different
+       lists the cloud flavors for india and aws. Two different
        tables are returned
 
     list flavor india aws --detail
-       lists the cloud flavrs for india and aws with lots of
+       lists the cloud flavors for india and aws with lots of
        details. Two different tables are returned.
 
     list flavor india aws --columns=cloud,name,cm_id
-       lists the cloud flavrs for india and aws with the
+       lists the cloud flavors for india and aws with the
        cloudname, the name of the flavor, and the unique
        cloudmesh id for this flavor. A single table is returned.
 
@@ -534,7 +544,7 @@ Description:
         cloudmesh.yaml
 
         options: --force. By default, existing cloud in
-                 database cannot be overwirtten, the --force
+                 database cannot be overwritten, the --force
                  allows overwriting the database values.
 
     cloud remove [CLOUD|--all]
@@ -598,9 +608,9 @@ Arguments: COMMAND   positional arguments, the commands
                      is suggested before you input the
                      commands
 
-    NAME_OR_ID  (parameterized for delete) server name or
+    NAME_OR_ID  (parametrized for delete) server name or
                 id
-    CLOUD       (parameterized for list) the name of the
+    CLOUD       (parametrized for list) the name of the
                 cloud. If not specified the deafult clod
                 will be used
     KEY         the name of the key to be used at login.
@@ -820,82 +830,12 @@ Examples:
 </pre></div>
 </div>
 </div>
-<div class="section" id="ssh">
-<h2>SSH<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    ssh list [--format=FORMAT]
-    ssh register NAME PARAMETERS
-    ssh NAME [--user=USER] [--key=KEY]
-
-
-conducts a ssh login into a machine while using a set of
-registered commands under the name of the machine.
-
-Arguments:
-
-  NAME        Name or ip of the machine to log in
-  list        Lists the machines that are registered and
-              the commands to login to them
-  PARAMETERS  Register te resource and add the given
-              parameters to the ssh config file.  if the
-              resoource exists, it will be overwritten. The
-              information will be written in /.ssh/config
-
-Options:
-
-   -v       verbose mode
-   --format=FORMAT   the format in which this list is given
-                     formats incluse table, json, yaml, dict
-                     [default: table]
-
-   --user=USER       overwrites the username that is
-                     specified in ~/.ssh/config
-
-   --key=KEY         The keyname as defined in the key list
-                     or a location that contains a pblic key
-</pre></div>
-</div>
-</div>
-<div class="section" id="quota">
-<h2>Quota<a class="headerlink" href="#quota" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    quota [CLOUD...] [--format=FORMAT]
-
-print quota limit on a current project/tenant
-
-Arguments:
-
-  CLOUD          Cloud name
-
-Options:
-
-   -v       verbose mode
-</pre></div>
-</div>
-</div>
-<div class="section" id="limits">
-<h2>Limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    limits [CLOUD...] [--format=FORMAT]
-
-Current list data with limits on a selected project/tenant
-
-Arguments:
-
-  CLOUD          Cloud name to see the list
-
-Options:
-
-   -v       verbose mode
-</pre></div>
-</div>
-</div>
 <div class="section" id="notebook-not">
 <h2>notebook (not)<a class="headerlink" href="#notebook-not" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     notebook create
     notebook start
-    notebook kill
+    notebook delete
 
 Manages the ipython notebook server
 
@@ -933,7 +873,7 @@ Description:
         delete the project
     project completed
         set a completed project, this will remove the project
-        from active projects list and defalut project if it is
+        from active projects list and default project if it is
 </pre></div>
 </div>
 </div>
@@ -958,8 +898,8 @@ Description:
 </pre></div>
 </div>
 </div>
-<div class="section" id="launcher-do-hyungro">
-<h2>Launcher (do, Hyungro)<a class="headerlink" href="#launcher-do-hyungro" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="launcher">
+<h2>Launcher<a class="headerlink" href="#launcher" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Software Launcher in Cloudmesh
 - works with Chef Cookbooks and OpenStack Heat
 
@@ -1163,14 +1103,14 @@ Description:
     color off  switches the color off
 
     color      without parameters prints a test to display
-               the various colored mesages. It is intended
+               the various colored messages. It is intended
                as a test to see if your terminal supports
                colors.
 </pre></div>
 </div>
 </div>
-<div class="section" id="cluster-hyungro">
-<h2>Cluster (Hyungro)<a class="headerlink" href="#cluster-hyungro" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cluster">
+<h2>Cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Create a Virtual Cluster
 
    Usage:
@@ -1223,7 +1163,8 @@ Description:
 
        cluster create NAME --count=COUNT --user=USER [options...]
            Start a cluster of VMs, and each of them can log into all others.
-           CAUTION: you sould do some default setting before using this command:
+           CAUTION: you should do some default setting before using
+           this command:
            1. select cloud to work on, e.g. cloud select india
            2. activate the cloud, e.g. cloud on india
            3. set the default key to start VMs, e.g. key default [NAME]
@@ -1274,10 +1215,8 @@ Description:
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="modules/modules.html" class="btn btn-neutral float-right" title="Modules and Classes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="docker.html" class="btn btn-neutral" title="Docker" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="todo.html" class="btn btn-neutral" title="ToDos" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1308,7 +1247,7 @@ Description:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

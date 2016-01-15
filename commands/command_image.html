@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Image Command &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Image Command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/commands/command_image.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="image-command">
+<h1>Image Command<a class="headerlink" href="#image-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the image command can be found at: <a class="reference external" href="../man/man.html#image">Image</a></p>
+<p>An image is a collection of files used to create or rebuild a server</p>
+<div class="section" id="refresh">
+<h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
+<p>The refresh command would update the local database with the latest images.
+To refresh images of a cloud (in this example, kilo), do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm image refresh --cloud=kilo
+Refresh image for cloud kilo. ok.
+</pre></div>
+</div>
+</div>
+<div class="section" id="list">
+<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<p>To list the set of images of a cloud, do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm image list --cloud=kilo
++----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
+| id | size          | created              | description                  | minDisk | minRam | name                                    | progress | status | updated              |
++----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
+| 1  | 158443520     | 2015-03-23T20:50:29Z |                              | 0       | 0      | XXX                                     | 100      | ACTIVE | 2015-03-23T20:50:33Z |
+| 2  | 1270546432    | 2015-03-26T18:15:47Z |                              | 20      | 0      | YYY                                     | 100      | ACTIVE | 2015-03-26T18:17:41Z |
+| 3  | 4845404160    | 2015-03-26T20:05:29Z |                              | 40      | 0      | mooc-backup                             | 100      | ACTIVE | 2015-03-27T20:57:02Z |
++----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-details">
+<h2>List Details<a class="headerlink" href="#list-details" title="Permalink to this headline">¶</a></h2>
+<p>To list the details of an image, give in the id, uuid or name of the image. In case latest information is needed,
+the &#8211;refresh option can be used which would update the local database:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm image list 12 --cloud=kilo
++--------------------------------------+--------------------------------------+
+| Attribute                            | Value                                |
++--------------------------------------+--------------------------------------+
+| metadata__ramdisk_id                 | None                                 |
+| metadata__description                | None                                 |
+| metadata__kernel_id                  | None                                 |
+| id                                   | 12                                   |
+| metadata__instance_type_ephemeral_gb | 0                                    |
+| minRam                               | 0                                    |
+| metadata__instance_type_swap         | 0                                    |
+| metadata__instance_type_vcpus        | 1                                    |
+| metadata__instance_type_rxtx_factor  | 1.0                                  |
+| progress                             | 100                                  |
+| os_image_size                        | 1977483264                           |
+| metadata__instance_type_flavorid     | 2                                    |
+| metadata__instance_type_root_gb      | 20                                   |
+| minDisk                              | 20                                   |
+| created                              | 2015-05-23T20:45:51Z                 |
+| updated                              | 2015-05-23T20:51:12Z                 |
+| updated_at                           | 2015-11-11 00:29:55                  |
+| created_at                           | 2015-11-11 00:29:55                  |
+| metadata__instance_type_memory_mb    | 2048                                 |
+| metadata__instance_type_id           | 5                                    |
+| metadata__base_image_ref             | 6a6a3474-8194-44ac-9f56-70cb93207f21 |
+| status                               | ACTIVE                               |
+| metadata__network_allocated          | True                                 |
+| uuid                                 | a59833a2-60c9-47f0-b333-4e0bc071ac3a |
+| metadata__image_state                | available                            |
+| metadata__user_id                    | b13b62690e984c7586df1cdd2df07b5f     |
+| metadata__owner_id                   | c713809dee494dccac34fcd02e012acb     |
+| user                                 | albert                               |
+| metadata__instance_uuid              | f01633b1-76b0-47b5-915e-eaae4559ba60 |
+| label                                | ZZZ                                  |
+| name                                 | ZZZ                                  |
+| kind                                 | image                                |
+| cloud                                | kilo                                 |
+| metadata__instance_type_name         | m1.small                             |
+| metadata__image_location             | snapshot                             |
+| metadata__image_type                 | snapshot                             |
+| project                              | undefined                            |
++--------------------------------------+--------------------------------------+
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

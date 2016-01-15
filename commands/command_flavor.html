@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Flavor Command &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Flavor Command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/commands/command_flavor.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="flavor-command">
+<h1>Flavor Command<a class="headerlink" href="#flavor-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the flavor command can be found at: <a class="reference external" href="../man/man.html#flavor">Flavor</a></p>
+<p>Flavors define the compute, memory, and storage capacity of nova computing instances.
+To put it simply, a flavor is an available hardware configuration for a server. It
+defines the �size� of a virtual server that can be launched</p>
+<div class="section" id="refresh">
+<h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
+<p>The refresh command would update the local database with the latest flavors.
+To refresh flavors of a cloud, do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm flavor refresh --cloud=kilo
+Refresh flavor for cloud kilo. ok
+</pre></div>
+</div>
+</div>
+<div class="section" id="list">
+<h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
+<p>To list the set of flavors of a cloud, do the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm flavor list --cloud=kilo
++----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
+| Id | Name           | User   | RAM   | Disabled | vCPUs | Swap | Access | rxtx_factor | os_flv_ext_data | Disk | Cloud | UUID |
++----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
+| 1  | m1.tiny        | albert | 512   | 0        | 1     |      | 1      | 1.0         | 0               | 0    | kilo  | 1    |
+| 5  | m1.xlarge      | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 0               | 160  | kilo  | 5    |
+| 9  | m1.xlarge_e200 | albert | 16384 | 0        | 8     |      | 1      | 1.0         | 200             | 160  | kilo  | 9    |
+| 2  | m1.small       | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 0               | 20   | kilo  | 2    |
+| 6  | m1.small_e30   | albert | 2048  | 0        | 1     |      | 1      | 1.0         | 30              | 20   | kilo  | 6    |
+| 3  | m1.medium      | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 0               | 40   | kilo  | 3    |
+| 7  | m1.medium_e60  | albert | 4096  | 0        | 2     |      | 1      | 1.0         | 60              | 40   | kilo  | 7    |
+| 4  | m1.large       | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 0               | 80   | kilo  | 4    |
+| 8  | m1.large_e100  | albert | 8192  | 0        | 4     |      | 1      | 1.0         | 100             | 80   | kilo  | 8    |
++----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="list-details">
+<h2>List Details<a class="headerlink" href="#list-details" title="Permalink to this headline">¶</a></h2>
+<p>To list the details of a flavor, give in the id, uuid or name of the flavor. In case latest information is needed,
+the &#8211;refresh option can be used which would update the local database:</p>
+<div class="highlight-python"><div class="highlight"><pre>$cm flavor list 1 --cloud=kilo
++-----------------+---------------------+
+| Attribute       | Value               |
++-----------------+---------------------+
+| id              | 1                   |
+| swap            |                     |
+| os_flv_disabled | 0                   |
+| os_flv_ext_data | 0                   |
+| disk            | 0                   |
+| os_flavor_acces | 1                   |
+| vcpus           | 1                   |
+| uuid            | 1                   |
+| rxtx_factor     | 1.0                 |
+| created_at      | 2015-11-11 13:38:31 |
+| updated_at      | 2015-11-11 13:38:31 |
+| ram             | 512                 |
+| user            | albert              |
+| kind            | flavor              |
+| cloud           | kilo                |
+| name            | m1.tiny             |
+| label           | m1.tiny             |
+| project         | undefined           |
++-----------------+---------------------+
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

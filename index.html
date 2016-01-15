@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="#"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="#"/>
         <link rel="next" title="Prefix" href="prefix.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -82,18 +82,30 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -124,7 +136,7 @@
   <ul class="wy-breadcrumbs">
     <li><a href="#">Docs</a> &raquo;</li>
       
-    <li>cloudmesh_client</li>
+    <li>Cloudmesh Client Toolkit</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -138,13 +150,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="cloudmesh-client">
-<h1>cloudmesh_client<a class="headerlink" href="#cloudmesh-client" title="Permalink to this headline">¶</a></h1>
-<p>The <em>cloudmesh client</em> is a single user lightweight client interface of
-cloudmesh that does not require to run the user services on the
-machine where the client is hosted. It is developed while using a file
-based database and stores the cloud credentials in a configuration
-file. This documentation and code is available on github at:</p>
+  <div class="section" id="cloudmesh-client-toolkit">
+<h1>Cloudmesh Client Toolkit<a class="headerlink" href="#cloudmesh-client-toolkit" title="Permalink to this headline">¶</a></h1>
+<p>The <em>cloudmesh client</em> toolkit is a lightweight client interface of accessing
+heterogeneous clouds, clusters, and workstations right from the users computer.
+The user can manage his own set of resources he would like to utilize. Thus
+the user has the freedom to customize their cyber infrastructure they use.
+Cloudmesh client includes an API, a commandline client, and a commandline shell.
+It strives to abstract backends to databases that are used to manage the workflow
+utilizing the different infrastructure and also the services. Switching for example
+to stage virtual machines from openstack clouds to amazon is as simple as
+specifying the name of the cloud. Moreover, cloudmesh client can be installed on
+Linux, MacOSX, and even Windows. Currently we support backends to SLURM, SSH, Openstack,
+Heat. In the past we supported AWS and Azure. We are in the process of integrating them
+back into the client.</p>
+<p>This documentation and code is available on github at:</p>
 <ul class="simple">
 <li>Documentation: <a class="reference external" href="http://cloudmesh.github.io/client/">http://cloudmesh.github.io/client/</a></li>
 <li>Code: <a class="reference external" href="https://github.com/cloudmesh/client">https://github.com/cloudmesh/client</a></li>
@@ -158,14 +178,19 @@ file. This documentation and code is available on github at:</p>
 <li class="toctree-l2"><a class="reference internal" href="prefix.html#contributing">Contributing</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System Preparation</a><ul>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="installation">
+<p class="caption"><span class="caption-text">Installation</span><a class="headerlink" href="#installation" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="system.html#osx">OSX</a></li>
 <li class="toctree-l2"><a class="reference internal" href="system.html#ubuntu-14-04-3">Ubuntu 14.04.3</a></li>
 <li class="toctree-l2"><a class="reference internal" href="system.html#ubuntu-15-04">Ubuntu 15.04</a></li>
 <li class="toctree-l2"><a class="reference internal" href="system.html#centos">CentOS</a></li>
 <li class="toctree-l2"><a class="reference internal" href="system.html#windows-10">Windows 10</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="system.html#install-python">Install Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="system.html#install-ssh-git-make-and-an-editor">Install ssh, git, make and an editor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#install-ssh-git-make-pscp-and-an-editor">Install ssh, git, make, pscp and an editor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="system.html#install-make-in-windows">Install make In Windows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="system.html#makeing-python-usable">Makeing python usable</a></li>
 </ul>
@@ -189,167 +214,216 @@ file. This documentation and code is available on github at:</p>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#registration-of-clouds">Registration of clouds</a></li>
 </ul>
 </li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="manuals">
+<p class="caption"><span class="caption-text">Manuals</span><a class="headerlink" href="#manuals" title="Permalink to this toctree">¶</a></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_templates.html">Basic Commands and Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_templates.html#format">Format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_templates.html#cloud">Cloud</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_templates.html#history">History</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_templates.html#help">Help</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_register.html">Register Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#introduction">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-list">register list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-remote">register remote</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-export">register export</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-merge">register merge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-form">register form</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-check">register check</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html#register-json-host">register json HOST</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_default.html">Default Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_default.html#default-list">default list</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_default.html#set-default-values">set default values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_default.html#looking-up-default-values">looking up default values</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_default.html#deleting-default-values">deleting default values</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_group.html">Group Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-list">Group List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-info">Group Info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-remove-id">Group Remove ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-add">Group Add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-copy">Group Copy</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-merge">Group Merge</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html#group-delete">Group Delete</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_list.html">List Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_list.html#list-default">List Default</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_list.html#list-cloud-objects">list Cloud objects</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_quota.html">Quota Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_quota.html#quota-list">quota list</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_key.html">Key Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="commands/command_key.html#list-keys">List Keys</a></li>
-<li class="toctree-l4"><a class="reference internal" href="commands/command_key.html#get-keys">Get Keys</a></li>
-<li class="toctree-l4"><a class="reference internal" href="commands/command_key.html#default-keys">Default Keys</a></li>
-<li class="toctree-l4"><a class="reference internal" href="commands/command_key.html#delete-keys">Delete Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html#usable-commands">Usable Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_templates.html">Basic Commands and Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_templates.html#format">Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_templates.html#cloud">Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_templates.html#history">History</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_templates.html#help">Help</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_templates.html#shell-commandline">Shell &amp; Commandline</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_templates.html#elementary-commands">Elementary Commands</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_templates.html#comments">Comments</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_templates.html#cloudmesh-file-execution">Cloudmesh File Execution</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_templates.html#variables">Variables</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_templates.html#python">Python</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_templates.html#quitting-the-shell">Quitting the shell</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_templates.html#manual-pages">Manual Pages</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_secgroup.html">SecGroup Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html#security-group-create">Security Group Create</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html#security-group-list">Security Group List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html#security-group-delete">Security Group Delete</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_register.html">Register Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-list">register list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-remote">register remote</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-export">register export</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-merge">register merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-form">register form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-check">register check</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_register.html#register-json-host">register json HOST</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_vm.html">VM Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#booting-a-vm-instance">Booting a VM instance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#listing-a-vm-instances">Listing a VM instances</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#stop-a-vm">Stop a VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#start-a-vm">Start a VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#retrieving-ip-address-details">Retrieving IP Address details</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#login-to-vm">Login to VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#running-command-on-vm">Running command on VM</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html#deleting-a-vm">Deleting a VM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_default.html">Default Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_default.html#default-list">default list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_default.html#set-default-values">set default values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_default.html#looking-up-default-values">looking up default values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_default.html#deleting-default-values">deleting default values</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_nova.html">Nova Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_group.html">Group Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-list">Group List</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-info">Group Info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-remove-id">Group Remove ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-add">Group Add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-copy">Group Copy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-merge">Group Merge</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_group.html#group-delete">Group Delete</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="commands/command_reservation.html">Reservation Command</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_reservation.html#list-reservation">List Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_reservation.html#update-reservation">Update Reservation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="commands/command_reservation.html#delete-reservation">Delete Reservation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_list.html">List Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_list.html#list-default">List Default</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_list.html#list-cloud-objects">list Cloud objects</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_quota.html">Quota Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_quota.html#quota-list">quota list</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_key.html">Key Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_key.html#adding-a-key-to-the-database">Adding a key to the database</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_key.html#list-keys">List Keys</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_key.html#get-keys">Get Keys</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_key.html#default-keys">Default Keys</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_key.html#delete-keys">Delete Keys</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_key.html#adding-key-to-cloud">Adding Key to Cloud</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_key.html#list-key-cloud-mapings">List Key Cloud Mapings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_secgroup.html">SecGroup Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_secgroup.html#security-group-create">Security Group Create</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_secgroup.html#security-group-list">Security Group List</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_secgroup.html#security-group-rule-add">Security Group Rule Add</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_secgroup.html#security-group-rules-list">Security Group Rules List</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_secgroup.html#security-group-rule-delete">Security Group Rule Delete</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_secgroup.html#security-group-delete">Security Group Delete</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_vm.html">VM Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_vm.html#listing-defaults">Listing Defaults</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#booting-a-vm-instance">Booting a VM instance</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#listing-a-vm-instances">Listing a VM instances</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#stop-a-vm">Stop a VM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#start-a-vm">Start a VM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#assign-floating-ip-to-vm">Assign Floating IP to VM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#retrieving-ip-address-details">Retrieving IP Address details</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#login-to-vm">Login to VM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#running-command-on-vm">Running command on VM</a></li>
+<li class="toctree-l5"><a class="reference internal" href="commands/command_vm.html#deleting-a-vm">Deleting a VM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_nova.html">Nova Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_nova.html#setting-the-target-cloud">Setting the Target Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_nova.html#getting-the-cloud-info">Getting the Cloud Info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_nova.html#running-openstack-nova-commands">Running openstack nova commands</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_ssh.html">Color Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_ssh.html#lists">Lists</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_ssh.html#executing-command">Executing Command</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_ssh.html#register">Register</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html#comet-commands">Comet Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_comet.html">Comet Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-list">comet list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#options">Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#arguments">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-tunnel">comet tunnel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-configuration">comet configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-logon">comet logon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-docs">comet docs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-status">comet status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-info">comet info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-cluster">comet_cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-computeset">comet computeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-start-and-stop">comet start and stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-power">comet power</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-delete">comet delete</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-update">comet update</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_comet.html#comet-add">comet add</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="commands/index.html#proposed-commands">Proposed Commands</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="commands/command_reservation.html">Reservation Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_reservation.html#adding-a-reservation">Adding a reservation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_reservation.html#list-reservation">List Reservation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_reservation.html#update-reservation">Update Reservation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="commands/command_reservation.html#delete-reservation">Delete Reservation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#banner">banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#check">check</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#cluster">cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#color">color</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#context">context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#debug">debug</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#default">default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#echo">echo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#eof">EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#exec">exec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#flavor">flavor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#group">group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#h">h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#history">history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#hpc">hpc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#key">key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#launcher">launcher</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#loglevel">loglevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#network">network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#open">open</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#pause">pause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#portal">portal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#py">py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#q">q</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#quit">quit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#quota">quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#refresh">refresh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#register">register</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#reservation">reservation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#reset">reset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#rsync">rsync</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#secgroup">secgroup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#select">select</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#server">server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#shell">shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#ssh">ssh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#submit">submit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#sync">sync</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#var">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="man/man.html#verbose">verbose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#version">version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#vm">vm</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="old.html#parameterized-commands">Parameterized commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#refresh">Refresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#select">Select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#list">List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#security-group">Security group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#cloud">Cloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#vm">VM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#volume">Volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#stack-hyungro">Stack (Hyungro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#ssh">SSH</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#quota">Quota</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#limits">Limits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#notebook-not">notebook (not)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#project">Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#loglevel">Loglevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#launcher-do-hyungro">Launcher (do, Hyungro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#key">Key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#inventory-not-gregor">Inventory (not, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#experiment-do-gregor">Experiment (do, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#debug-not-cmd3-gregor">debug (not cmd3, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#color-not-cmd3-gregor">color (not cmd3, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#cluster-hyungro">Cluster (Hyungro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#admin">Admin</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="api">
+<p class="caption"><span class="caption-text">API</span><a class="headerlink" href="#api" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#cloud-database">Cloud Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a><ul>
@@ -422,6 +496,10 @@ file. This documentation and code is available on github at:</p>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#module-contents">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.etc.html">cloudmesh_client.etc package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.etc.html#module-contents">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.keys.html">cloudmesh_client.keys package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#cloudmesh-client-keys-sshkeymanager-module">cloudmesh_client.keys.SSHKeyManager module</a></li>
@@ -434,9 +512,9 @@ file. This documentation and code is available on github at:</p>
 <li class="toctree-l6"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html">cloudmesh_client.shell.plugins package</a><ul>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#submodules">Submodules</a></li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-bar-module">cloudmesh_client.shell.plugins.Bar module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-cloudcommand-module">cloudmesh_client.shell.plugins.CloudCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-cloudplugincommand-module">cloudmesh_client.shell.plugins.CloudPluginCommand module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-colorcommand-module">cloudmesh_client.shell.plugins.ColorCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-cometcommand-module">cloudmesh_client.shell.plugins.CometCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-cometplugincommand-module">cloudmesh_client.shell.plugins.CometPluginCommand module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-defaultcommand-module">cloudmesh_client.shell.plugins.DefaultCommand module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-flavorcommand-module">cloudmesh_client.shell.plugins.FlavorCommand module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-groupcommand-module">cloudmesh_client.shell.plugins.GroupCommand module</a></li>
@@ -476,7 +554,7 @@ file. This documentation and code is available on github at:</p>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-shell-commad-module">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-shell-command-module">cloudmesh_client.shell_command module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-version-module">cloudmesh_client.version module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-contents">Module contents</a></li>
 </ul>
@@ -496,6 +574,11 @@ file. This documentation and code is available on github at:</p>
 <li class="toctree-l2"><a class="reference internal" href="modules/test.html">test module</a></li>
 </ul>
 </li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="appendix">
+<p class="caption"><span class="caption-text">Appendix</span><a class="headerlink" href="#appendix" title="Permalink to this toctree">¶</a></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dev/index.html">Developer Notes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="dev/develop.html">Developers Manual</a><ul>
@@ -566,6 +649,35 @@ file. This documentation and code is available on github at:</p>
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound" id="old">
+<p class="caption"><span class="caption-text">Old</span><a class="headerlink" href="#old" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="old.html#parametrized-commands">Parametrized commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#refresh">Refresh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#select">Select</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#list">List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#security-group">Security group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#cloud">Cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#vm">VM</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#volume">Volume</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#status">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#stack-hyungro">Stack (Hyungro)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#notebook-not">notebook (not)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#project">Project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#loglevel">Loglevel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#launcher">Launcher</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#key">Key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#inventory-not-gregor">Inventory (not, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#experiment-do-gregor">Experiment (do, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#debug-not-cmd3-gregor">debug (not cmd3, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#color-not-cmd3-gregor">color (not cmd3, Gregor)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#cluster">Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="old.html#admin">Admin</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
@@ -615,7 +727,7 @@ file. This documentation and code is available on github at:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

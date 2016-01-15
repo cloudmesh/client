@@ -7,7 +7,7 @@ the need to simplify access to multiple clouds for researchers and
 students easily. In contrast to our earlier versions of cloudmesh it
 explicitly separates the code to only target client code. Due to this
 simplification it is also possible to install the client code not only
-on Linux, OSX, but also Windows. We have tested the instalation on
+on Linux, OSX, but also Windows. We have tested the installation on
 Windows 10.
 
 If you like to contribute or like to participate in the further

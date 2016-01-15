@@ -9,7 +9,7 @@ no default group exists.
 
 
 .. warning:: at this time we have limited to groups to just hold ID
-	     of vms.
+             of vms.
 
 The manual page of the group command can be found at: `group
 <../man/man.html#group>`_
@@ -18,7 +18,7 @@ The manual page of the group command can be found at: `group
 Group List
 ^^^^^^^^^^^
 
-The named groups can be lited with the following command::
+The named groups can be listed with the following command::
 
   $ cm group list --cloud india --format table
     +----------+-------+--------+----------+------+

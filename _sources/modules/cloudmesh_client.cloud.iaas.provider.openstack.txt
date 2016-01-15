@@ -1,0 +1,22 @@
+cloudmesh_client.cloud.iaas.provider.openstack package
+======================================================
+
+Submodules
+----------
+
+cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI module
+-------------------------------------------------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: cloudmesh_client.cloud.iaas.provider.openstack
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,7 +1,8 @@
 System Preparation
 ===================
 
-The instalation of cloudmesh is easiest if you prepare your system with some elementary
+The installation of cloudmesh is easiest if you prepare your system with
+some elementary
 software. We provide such information for the following Operating systems:
 
 * Linux
@@ -13,7 +14,7 @@ software. We provide such information for the following Operating systems:
 * Windows
 
 For each of these operating systems we are provide specific
-instalation instructions.
+installation instructions.
 
 Prepare the system
 ------------------

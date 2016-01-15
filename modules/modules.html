@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Modules and Classes &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Modules and Classes &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,9 +30,9 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
         <link rel="next" title="cloudmesh_client package" href="cloudmesh_client.html"/>
-        <link rel="prev" title="Existing original cloudmesh commands" href="../old.html"/> 
+        <link rel="prev" title="API" href="../api.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -81,18 +81,23 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Modules and Classes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fabfile.html">fabfile package</a></li>
@@ -103,7 +108,14 @@
 <li class="toctree-l2"><a class="reference internal" href="test.html">test module</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -205,6 +217,10 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html#module-contents">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.etc.html#module-contents">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.keys.html">cloudmesh_client.keys package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.keys.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.keys.html#cloudmesh-client-keys-sshkeymanager-module">cloudmesh_client.keys.SSHKeyManager module</a></li>
@@ -225,7 +241,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-shell-commad-module">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-shell-command-module">cloudmesh_client.shell_command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#cloudmesh-client-version-module">cloudmesh_client.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-contents">Module contents</a></li>
 </ul>
@@ -257,7 +273,7 @@
         <a href="cloudmesh_client.html" class="btn btn-neutral float-right" title="cloudmesh_client package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../old.html" class="btn btn-neutral" title="Existing original cloudmesh commands" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../api.html" class="btn btn-neutral" title="API" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -288,7 +304,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

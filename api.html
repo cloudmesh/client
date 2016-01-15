@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>API &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="index.html"/>
-        <link rel="next" title="Docker" href="docker.html"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="index.html"/>
+        <link rel="next" title="Modules and Classes" href="modules/modules.html"/>
         <link rel="prev" title="Commands" href="man/man.html"/> 
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -81,20 +81,36 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#cloud-database">Cloud Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#updating-an-element-in-the-database">Updating an element in the database</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -141,9 +157,8 @@
             
   <div class="section" id="api">
 <h1>API<a class="headerlink" href="#api" title="Permalink to this headline">¶</a></h1>
-</div>
 <div class="section" id="cloud-database">
-<h1>Cloud Database<a class="headerlink" href="#cloud-database" title="Permalink to this headline">¶</a></h1>
+<h2>Cloud Database<a class="headerlink" href="#cloud-database" title="Permalink to this headline">¶</a></h2>
 <p>Cloudmesh contains a convenient Cloud database to store its
 objects. It also contains simple functions to synchronize the database
 with objects that are found in clouds. This includes images, flavors,
@@ -190,7 +205,7 @@ native database format and for example get information via:</p>
 you use the native form or the dict representation.</p>
 </div>
 <div class="section" id="updating-an-element-in-the-database">
-<h1>Updating an element in the database<a class="headerlink" href="#updating-an-element-in-the-database" title="Permalink to this headline">¶</a></h1>
+<h2>Updating an element in the database<a class="headerlink" href="#updating-an-element-in-the-database" title="Permalink to this headline">¶</a></h2>
 <p>The cloud related data have a number of attributes that make it easy
 to identify them.  The most important one is &#8216;cm_id` which presents in
 human readable format a unique id for the object in the database.</p>
@@ -235,6 +250,7 @@ on which the object belongs to.:</p>
 </pre></div>
 </div>
 </div>
+</div>
 
 
            </div>
@@ -243,7 +259,7 @@ on which the object belongs to.:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="docker.html" class="btn btn-neutral float-right" title="Docker" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="modules/modules.html" class="btn btn-neutral float-right" title="Modules and Classes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="man/man.html" class="btn btn-neutral" title="Commands" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -277,7 +293,7 @@ on which the object belongs to.:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Commands &mdash; cloudmesh_client 0.1 documentation</title>
+  <title>Commands &mdash; cloudmesh_client 1.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 0.1 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
         <link rel="next" title="API" href="../api.html"/>
         <link rel="prev" title="Reservation Command" href="../commands/command_reservation.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.1
+                1.1.2
               </div>
             
           
@@ -81,58 +81,87 @@
           
             
             
-                <ul class="current">
+                <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">System Preparation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Commands</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#banner">banner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check">check</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#clear">clear</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#cloud">cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cluster">cluster</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#color">color</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#comet">comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#context">context</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debug">debug</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#default">default</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#echo">echo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#eof">EOF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exec">exec</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#flavor">flavor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#group">group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#h">h</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#help">help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#history">history</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">hpc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#image">image</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#inventory">inventory</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#key">key</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#launcher">launcher</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#list">list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loglevel">loglevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network">network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nova">nova</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#open">open</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pause">pause</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#portal">portal</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#py">py</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#q">q</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quit">quit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#quota">quota</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#refresh">refresh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#register">register</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reservation">reservation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#reset">reset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rsync">rsync</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#secgroup">secgroup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#select">select</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#server">server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shell">shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssh">ssh</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#submit">submit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sync">sync</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#usage">usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#var">var</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#verbose">verbose</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#version">version</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#vm">vm</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#cloud-database">Cloud Database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api.html#updating-an-element-in-the-database">Updating an element in the database</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 
             
@@ -202,6 +231,25 @@ Prints a banner form a one line text message.
 </pre></div>
 </div>
 </div>
+<div class="section" id="check">
+<h2>check<a class="headerlink" href="#check" title="Permalink to this headline">¶</a></h2>
+<p>Command - check:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    check --cloud=CLOUD
+    check
+
+    checks some elementary setting for cloudmesh
+
+Options:
+   --format=FORMAT  the output format [default: table]
+   --cloud=CLOUD    the cloud name
+
+Examples:
+    cm check
+    cm check --cloud=kilo
+</pre></div>
+</div>
+</div>
 <div class="section" id="clear">
 <h2>clear<a class="headerlink" href="#clear" title="Permalink to this headline">¶</a></h2>
 <p>Command - clear:</p>
@@ -217,6 +265,8 @@ Clears the screen.
 <p>Command - cloud:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     cloud list [--cloud=CLOUD] [--format=FORMAT]
+    cloud logon CLOUD
+    cloud logout CLOUD
     cloud activate CLOUD
     cloud deactivate CLOUD
     cloud info CLOUD
@@ -228,13 +278,13 @@ Arguments:
   VALUE  the value to set the key to
 
 Options:
-   --cloud=CLOUD    the name of the cloud [default: general]
+   --cloud=CLOUD    the name of the cloud
    --format=FORMAT  the output format [default: table]
 
 Description:
    Cloudmesh contains a cloudmesh.yaml file that contains
    templates for multiple clouds that you may or may not have
-   access to. Hence it is useful to activate and deacivate clouds
+   access to. Hence it is useful to activate and deactivate clouds
    you like to use in other commands.
 
    To activate a cloud a user can simply use the activate
@@ -263,6 +313,75 @@ Description:
 
 See also:
    register
+</pre></div>
+</div>
+</div>
+<div class="section" id="cluster">
+<h2>cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
+<p>Command - cluster:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    cluster list [--format=FORMAT]
+    cluster list NAME
+                 [--format=FORMAT]
+                 [--column=COLUMN]
+                 [--detail]
+    cluster create NAME
+                   [--count=COUNT]
+                   [--login=USERNAME]
+                   [--cloud=CLOUD]
+                   [--image=IMAGE]
+                   [--flavor=FLAVOR]
+                   [--add]
+    cluster delete NAME
+
+Description:
+    with the help of the cluster command you can create a number
+    of virtual machines that are integrated in a named virtual cluster.
+    You will be able to login between the nodes of the virtual cluster
+    while using public keys.
+
+Examples:
+    cluster list
+        list the clusters
+
+    cluster create NAME --count=COUNT --login=USERNAME [options...]
+        Start a cluster of VMs, and each of them can log into each other.
+        CAUTION: you should specify defaults before using this command:
+        1. select cloud to work on, e.g. cloud select kilo
+             default cloud=kilo
+        2. test if you can create a single VM on the cloud to see if
+           everything is set up
+        3. set the default key to start VMs, e.g. key default [USERNAME-key]
+        5. set image of VMs, e.g. default image
+        6. set flavor of VMs, e.g. default flavor
+        7. Make sure to use a new unused group name
+
+    cluster list NAME
+        show the detailed information about the cluster VMs
+
+    cluster delete NAME
+        remove the cluster and its VMs
+
+Arguments:
+    NAME              cluster name or group name
+
+Options:
+    --count=COUNT     give the number of VMs to add into the cluster
+    --login=USERNAME  give a login name for the VMs, e.g. ubuntu
+    --cloud=CLOUD     give a cloud to work on
+    --flavor=FLAVOR   give the name of the flavor or flavor id
+    --image=IMAGE     give the name of the image or image id
+    --add             if a group exists and there are VMs in it
+                      additional vms will be added to this cluster and the
+                      keys will be added to each other so one can login between
+                      them
+    FORMAT            output format: table, json, csv
+    COLUMN            customize what information to display, for example:
+                      --column=status,addresses prints the columns status
+                      and addresses
+    --detail          for table print format, a brief version
+                      is used as default, use this flag to print
+                      detailed table
 </pre></div>
 </div>
 </div>
@@ -301,12 +420,12 @@ Examples:
    comet tunnel status
    comet logon
    comet logoff
-   comet ll [ID] [--format=FORMAT]
+   comet ll [CLUSTERID] [--format=FORMAT]
    comet docs
    comet info [--user=USER]
                 [--project=PROJECT]
                 [--format=FORMAT]
-   comet list [ID][--name=NAMES]
+   comet cluster [CLUSTERID][--name=NAMES]
                 [--user=USER]
                 [--project=PROJECT]
                 [--hosts=HOSTS]
@@ -314,9 +433,11 @@ Examples:
                 [--end=TIME_END]
                 [--hosts=HOSTS]
                 [--format=FORMAT]
+   comet computeset [COMPUTESETID]
    comet start ID
    comet stop ID
-   comet power (on|off) CLUSTERID COMPUTEIDS
+   comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+   comet console CLUSTERID [COMPUTENODEID]
    comet delete [all]
                   [--user=USER]
                   [--project=PROJECT]
@@ -379,41 +500,52 @@ Description:
 </pre></div>
 </div>
 </div>
+<div class="section" id="debug">
+<h2>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h2>
+<p>Command - debug:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    debug on
+    debug off
+    debug list
+
+    switches on and off the debug messages
+</pre></div>
+</div>
+</div>
 <div class="section" id="default">
 <h2>default<a class="headerlink" href="#default" title="Permalink to this headline">¶</a></h2>
 <p>Command - default:</p>
 <div class="highlight-python"><div class="highlight"><pre>  Usage:
+      default
       default list [--cloud=CLOUD] [--format=FORMAT] [--all]
       default delete KEY [--cloud=CLOUD]
       default KEY [--cloud=CLOUD]
       default KEY=VALUE [--cloud=CLOUD]
 
   Arguments:
-
     KEY    the name of the default
     VALUE  the value to set the key to
 
   Options:
-
-     --cloud=CLOUD    the name of the cloud [default: general]
-     --format=FORMAT  the output format [default: table]
+     --cloud=CLOUD    the name of the cloud
+     --format=FORMAT  the output format. Values include
+                      table, json, csv, yaml. [default: table]
      --all            lists all the default values
 
 Description:
-
     Cloudmesh has the ability to manage easily multiple
-    clouds. One of the key concepts to make the list of such
-    clouds easier is the introduction of defaults for each
-    cloud or globally. Hence it is possible to set default
-    images, flavors for each cloud, and also the default
-    cloud. The default command is used to set and list the
-    default values. These defaults are used in other commands
+    clouds. One of the key concepts to manage multiple clouds
+    is to use defaults for the cloud, the images, flavors,
+    and other values. The default command is used to manage
+    such default values. These defaults are used in other commands
     if they are not overwritten by a command parameter.
 
+    The current default values can by listed with
 
-The current default values can by listed with --all option:(
-if you have a default cloud specified. You can also add a
-cloud parameter to apply the command to a specific cloud)
+        default list --all
+
+    Via the default command you can list, set, get and delete
+    default values. You can list the defaults with
 
        default list
 
@@ -429,16 +561,56 @@ cloud parameter to apply the command to a specific cloud)
 
         default delete KEY
 
+    To be specific to a cloud you can specify the name of the
+    cloud with the --cloud=CLOUD option. The list command can
+    print the information in various formats iv specified.
 
 Examples:
+    default
+        lists the default for the current default cloud
+
     default list --all
-    default list --cloud=general
+        lists all default values
+
+    default list --cloud=kilo
+        lists the defaults for the cloud with the name kilo
+
     default image=xyz
-    default image=abc --cloud=chameleon
+        sets the default image for the default cloud to xyz
+
+    default image=abc --cloud=kilo
+        sets the default image for the cloud kilo to xyz
+
     default image
-    default image --cloud=chameleon
+        list the default image of the default cloud
+
+    default image --cloud=kilo
+        list the default image of the cloud kilo
+
     default delete image
-    default delete image --cloud=chameleon
+        deletes the value for the default image in the
+        default cloud
+
+    default delete image --cloud=kilo
+        deletes the value for the default image in the
+        cloud kilo
+</pre></div>
+</div>
+</div>
+<div class="section" id="echo">
+<h2>echo<a class="headerlink" href="#echo" title="Permalink to this headline">¶</a></h2>
+<p>Command - echo:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    echo  [-r COLOR] TEXT
+
+Arguments:
+    TEXT   The text message to print
+    COLOR  the color
+
+Options:
+    -r COLOR  The color of the text. [default: BLACK]
+
+Prints a text in the given color
 </pre></div>
 </div>
 </div>
@@ -453,12 +625,25 @@ Description:
 </pre></div>
 </div>
 </div>
+<div class="section" id="exec">
+<h2>exec<a class="headerlink" href="#exec" title="Permalink to this headline">¶</a></h2>
+<p>Command - exec:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+   exec FILENAME
+
+executes the commands in the file. See also the script command.
+
+Arguments:
+  FILENAME   The name of the file
+</pre></div>
+</div>
+</div>
 <div class="section" id="flavor">
 <h2>flavor<a class="headerlink" href="#flavor" title="Permalink to this headline">¶</a></h2>
 <p>Command - flavor:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
-    flavor refresh [--cloud=CLOUD]
-    flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
+    flavor refresh [--cloud=CLOUD] [-v]
+    flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
 
     This lists out the flavors present for a cloud
 
@@ -549,6 +734,17 @@ Example:
 </pre></div>
 </div>
 </div>
+<div class="section" id="h">
+<h2>h<a class="headerlink" href="#h" title="Permalink to this headline">¶</a></h2>
+<p>Command - h:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    history
+    history list
+    history last
+    history ID
+</pre></div>
+</div>
+</div>
 <div class="section" id="help">
 <h2>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
 <p>Command - help:</p>
@@ -562,61 +758,69 @@ Description:
 </pre></div>
 </div>
 </div>
+<div class="section" id="history">
+<h2>history<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<p>Command - history:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    history
+    history list
+    history last
+    history ID
+</pre></div>
+</div>
+</div>
 <div class="section" id="hpc">
 <h2>hpc<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
 <p>Command - hpc:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
-    hpc set CLUSTER
-    hpc queue [--name=NAME][--cluster=CLUSTER][--format=FORMAT]
+    hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
     hpc info [--cluster=CLUSTER][--format=FORMAT]
+    hpc run list [ID] [--cluster=CLUSTER]
+    hpc run output [ID] [--cluster=CLUSTER]
+    hpc run rm [ID] [--cluster=CLUSTER]
     hpc run SCRIPT [--queue=QUEUE] [--t=TIME] [--N=nodes] [--name=NAME] [--cluster=CLUSTER][--dir=DIR][--group=GROUP][--format=FORMAT]
-    hpc kill job==NAME [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-    hpc kill all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
-    hpc status [--cluster=CLUSTER][--group=GROUP][--job=ID]
+    hpc delete --job=NAME [--cluster=CLUSTER][--group=GROUP]
+    hpc delete all [--cluster=CLUSTER][--group=GROUP][--format=FORMAT]
+    hpc status [--job=name] [--cluster=CLUSTER] [--group=GROUP]
     hpc test --cluster=CLUSTER [--time=SECONDS]
 
 Options:
-   --format=FORMAT  the output format [default: json]
+   --format=FORMAT  the output format [default: table]
 
 Examples:
 
     Special notes
 
        if the group is specified only jobs from that group are
-       considered. Otherwise the default group is used. If he
+       considered. Otherwise the default group is used. If the
        group is set to None, all groups are used.
 
     cm hpc queue
-        lists the details of the queues of the default hpc cluster
+        lists the details of the queues of the hpc cluster
 
-    cm hpc queue --name=NAME
-        lists the details of the named queue of the default hpc
-        cluster
+    cm hpc queue --job=NAME
+        lists the details of the job in the queue of the hpc cluster
 
     cm hpc info
         lists the details of the hpc cluster
-        hpc cluster
 
     cm hpc run SCRIPT
-        submits the script to the cluster. THe script will be
+        submits the script to the cluster. The script will be
         copied prior to execution into the home directory on the
         remote machine. If a DIR is specified it will be copied
         into that dir.
         The name of the script is either specified in the script
-        itself, or if not the default nameing scheme of
+        itself, or if not the default naming scheme of
         cloudmesh is used using the same index incremented name
-        as in vms fro clouds: cloudmeshusername-index
+        as in vms fro clouds: cloudmes husername-index
 
-    cm hpc kill all
-        kills all jobs on the default hpc cluster
+    cm hpc delete all
+        kills all jobs on the default hpc group
 
-    cm hpc kill all -cluster=all
-        kills all jobs on all clusters
+    cm hpc delete --job=NAME
+        kills a job with a given name or job id
 
-    cm kill job=NAME
-        kills a job with a given name
-
-    cm hpc default cluster=NAME
+    cm default cluster=NAME
         sets the default hpc cluster
 
     cm hpc status
@@ -639,7 +843,15 @@ Examples:
         after the time is elapsed.
 
 Examples:
+    cm hpc queue
+    cm hpc queue --job=xxx
+    cm hpc info
+    cm hpc delete --job=6
+    cm hpc delete all
+    cm hpc status
+    cm hpc status --job=6
     cm hpc run uname
+    cm hpc run ~/test.sh --cluster=india
 </pre></div>
 </div>
 </div>
@@ -766,6 +978,10 @@ Examples:
   key get NAME
   key default [KEYNAME | --select]
   key delete (KEYNAME | --select | --all) [-f]
+  key upload KEYNAME
+                   [--cloud=CLOUD]
+                   [--name=NAME_ON_CLOUD]
+  key map [--cloud=CLOUD]
 
 Manages the keys
 
@@ -776,15 +992,17 @@ Arguments:
   FORMAT         The format of the output (table, json, yaml)
   FILENAME       The filename with full path in which the key
                  is located
+  NAME_ON_CLOUD  Typically the name of the keypair on the cloud.
 
 Options:
 
-   --dir=DIR            the directory with keys [default: ~/.ssh]
-   --format=FORMAT      the format of the output [default: table]
-   --source=SOURCE      the source for the keys [default: db]
-   --username=USERNAME  the source for the keys [default: none]
-   --name=KEYNAME       The name of a key
-   --all                delete all keys
+   --dir=DIR                     the directory with keys [default: ~/.ssh]
+   --format=FORMAT               the format of the output [default: table]
+   --source=SOURCE               the source for the keys [default: db]
+   --username=USERNAME           the source for the keys [default: none]
+   --name=KEYNAME                The name of a key
+   --all                         delete all keys
+   --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
 Description:
 
@@ -840,6 +1058,51 @@ key rename NAME NEW
 </pre></div>
 </div>
 </div>
+<div class="section" id="launcher">
+<h2>launcher<a class="headerlink" href="#launcher" title="Permalink to this headline">¶</a></h2>
+<p>Command - launcher:</p>
+<div class="highlight-python"><div class="highlight"><pre>  Usage:
+      launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
+      launcher delete KEY [--cloud=CLOUD]
+      launcher run
+      launcher resume
+      launcher suspend
+      launcher details
+      launcher clear
+      launcher refresh
+
+  Arguments:
+
+    KEY    the name of the launcher
+
+  Options:
+
+     --cloud=CLOUD    the name of the cloud
+     --format=FORMAT  the output format [launcher: table]
+     --all            lists all the launcher values
+
+Description:
+
+Launcher is a command line tool to test the portal launch functionalities through command
+
+The current launcher values can by listed with --all option:(
+if you have a launcher cloud specified. You can also add a
+cloud parameter to apply the command to a specific cloud)
+
+       launcher list
+
+    A launcher can be deleted with
+
+        launcher delete KEY
+
+
+Examples:
+    launcher list --all
+    launcher list --cloud=general
+    launcher delete &lt;KEY&gt;
+</pre></div>
+</div>
+</div>
 <div class="section" id="limits">
 <h2>limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h2>
 <p>Command - limits:</p>
@@ -856,7 +1119,7 @@ Options:
 
 Examples:
     cm limits list
-    cm limits list --cloud=india --format=csv
+    cm limits list --cloud=kilo --format=csv
 </pre></div>
 </div>
 </div>
@@ -889,6 +1152,31 @@ Examples:
 </pre></div>
 </div>
 </div>
+<div class="section" id="loglevel">
+<h2>loglevel<a class="headerlink" href="#loglevel" title="Permalink to this headline">¶</a></h2>
+<p>Command - loglevel:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    loglevel
+    loglevel critical
+    loglevel error
+    loglevel warning
+    loglevel info
+    loglevel debug
+
+    Shows current log level or changes it.
+
+    loglevel - shows current log level
+    critical - shows log message in critical level
+    error    - shows log message in error level including critical
+    warning  - shows log message in warning level including error
+    info     - shows log message in info level including warning
+    debug    - shows log message in debug level including info
+
+NOTE:
+  NOT YET IMPLEMENTED
+</pre></div>
+</div>
+</div>
 <div class="section" id="man">
 <h2>man<a class="headerlink" href="#man" title="Permalink to this headline">¶</a></h2>
 <p>Command - man:</p>
@@ -914,38 +1202,57 @@ Description:
 <div class="section" id="network">
 <h2>network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <p>Command - network:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:A
-    network fixed-ip-get [--cloud=CLOUD] FIXED_IP
-    network fixed-ip-reserve [--cloud=CLOUD] FIXED_IP
-    network fixed-ip-unreserve [--cloud=CLOUD] FIXED_IP
-    network floating-ip-associate [--cloud=CLOUD] --server=SERVER FLOATING_IP
-    network floating-ip-disassociate [--cloud=CLOUD] --server=SERVER FLOATING_IP
-    network floating-ip-create [--cloud=CLOUD] [--floating-ip-pool=FLOATING_IP_POOL]
-    network floating-ip-delete [--cloud=CLOUD] FLOATING_IP
-    network floating-ip-list [--cloud=CLOUD]
-    network floating-ip-pool-list [--cloud=CLOUD]
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    network get fixed [ip] [--cloud=CLOUD] FIXED_IP
+    network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
+    network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
+    network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
+    network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+    network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+    network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
+    network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
+    network list floating pool [--cloud=CLOUD]
+    network list floating [ip] [--cloud=CLOUD] [--instance=INS_ID_OR_NAME] [IP_OR_ID]
+    network create cluster --group=demo_group
     network -h | --help
 
 Options:
-    -h                  help message
-    --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-    --server=SERVER     Server Name
-    --floating-ip-pool  Name of Floating IP Pool
+    -h                          help message
+    --cloud=CLOUD               Name of the IaaS cloud e.g. india_openstack_grizzly.
+    --group=GROUP               Name of the group in Cloudmesh
+    --pool=FLOATING_IP_POOL     Name of Floating IP Pool
+    --instance=INS_ID_OR_NAME   ID or Name of the vm instance
 
 Arguments:
+    IP_OR_ID        IP Address or ID of IP Address
     FIXED_IP        Fixed IP Address, e.g. 10.1.5.2
-    FLOATING_IP     Fixed IP Address, e.g. 192.1.66.8
+    FLOATING_IP     Floating IP Address, e.g. 192.1.66.8
+    FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
 
 Examples:
-    $ network fixed-ip-get --cloud india 10.1.2.5
-    $ network fixed-ip-reserve --cloud india 10.1.2.5
-    $ network fixed-ip-unreserve --cloud india 10.1.2.5
-    $ network floating-ip-associate --cloud india --server=albert-001 192.1.66.8
-    $ network floating-ip-disassociate --cloud india --server=albert-001 192.1.66.8
-    $ network floating-ip-create --cloud india --floating-ip-pool=albert-f01
-    $ network floating-ip-delete --cloud india 192.1.66.8
-    $ network floating-ip-list --cloud india
-    $ network floating-ip-pool-list --cloud india
+    $ network get fixed ip --cloud=india 10.1.2.5
+    $ network get fixed --cloud=india 10.1.2.5
+    $ network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+    $ network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+    $ network reserve fixed ip --cloud=india 10.1.2.5
+    $ network reserve fixed --cloud=india 10.1.2.5
+    $ network unreserve fixed ip --cloud=india 10.1.2.5
+    $ network unreserve fixed --cloud=india 10.1.2.5
+    $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
+    $ network associate floating --cloud=india --instance=albert-001
+    $ network associate floating --cloud=india --group=albert_group
+    $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
+    $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
+    $ network create floating ip --cloud=india --pool=albert-f01
+    $ network create floating --cloud=india --pool=albert-f01
+    $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
+    $ network delete floating --cloud=india 192.1.66.8 192.1.66.9
+    $ network list floating ip --cloud=india
+    $ network list floating --cloud=india
+    $ network list floating --cloud=india 192.1.66.8
+    $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
+    $ network list floating pool --cloud=india
+    $ network create cluster --group=demo_group
 </pre></div>
 </div>
 </div>
@@ -1004,6 +1311,48 @@ Arguments:
 </pre></div>
 </div>
 </div>
+<div class="section" id="portal">
+<h2>portal<a class="headerlink" href="#portal" title="Permalink to this headline">¶</a></h2>
+<p>Command - portal:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    portal start
+    portal stop
+
+Examples:
+    portal start
+        starts the portal and opens the default web page
+
+    portal stop
+        stops the portal
+</pre></div>
+</div>
+</div>
+<div class="section" id="py">
+<h2>py<a class="headerlink" href="#py" title="Permalink to this headline">¶</a></h2>
+<p>Command - py:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    py
+    py COMMAND
+
+Arguments:
+    COMMAND   the command to be executed
+
+Description:
+
+    The command without a parameter will be executed and the
+    interactive python mode is entered. The python mode can be
+    ended with ``Ctrl-D`` (Unix) / ``Ctrl-Z`` (Windows),
+    ``quit()``,&#39;`exit()``. Non-python commands can be issued with
+    ``cmd(&quot;your command&quot;)``.  If the python code is located in an
+    external file it can be run with ``run(&quot;filename.py&quot;)``.
+
+    In case a COMMAND is provided it will be executed and the
+    python interpreter will return to the command shell.
+
+    This code is copied from Cmd2.
+</pre></div>
+</div>
+</div>
 <div class="section" id="q">
 <h2>q<a class="headerlink" href="#q" title="Permalink to this headline">¶</a></h2>
 <p>Command - q:</p>
@@ -1045,6 +1394,18 @@ Examples:
 </pre></div>
 </div>
 </div>
+<div class="section" id="refresh">
+<h2>refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
+<p>Command - refresh:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    refresh on
+    refresh off
+    refresh list
+
+    switches on and off the refresh for clouds
+</pre></div>
+</div>
+</div>
 <div class="section" id="register">
 <h2>register<a class="headerlink" href="#register" title="Permalink to this headline">¶</a></h2>
 <p>Command - register:</p>
@@ -1053,7 +1414,7 @@ Examples:
     register new
     register clean [--force]
     register list ssh [--format=FORMAT]
-    register list [--yaml=FILENAMh bE][--info][--format=FORMAT]
+    register list [--yaml=FILENAME][--info][--format=FORMAT]
     register cat [--yaml=FILENAME]
     register edit [--yaml=FILENAME]
     register export HOST [--password] [--format=FORMAT]
@@ -1063,7 +1424,7 @@ Examples:
     register check [--yaml=FILENAME]
     register test [--yaml=FILENAME]
     register json HOST
-    register remote CLOUD [--force]
+    register remote [CLOUD] [--force]
     register india [--force]
     register CLOUD CERT [--force]
     register CLOUD --dir=DIR
@@ -1261,6 +1622,22 @@ Examples:
 </pre></div>
 </div>
 </div>
+<div class="section" id="rsync">
+<h2>rsync<a class="headerlink" href="#rsync" title="Permalink to this headline">¶</a></h2>
+<p>Command - rsync:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    rsync ARGUMENTS...
+
+A simple wrapper for rsync command
+
+Arguments:
+    ARGUMENTS       The arguments passed to nova
+
+Options:
+    -v              verbose mode
+</pre></div>
+</div>
+</div>
 <div class="section" id="secgroup">
 <h2>secgroup<a class="headerlink" href="#secgroup" title="Permalink to this headline">¶</a></h2>
 <p>Command - secgroup:</p>
@@ -1340,11 +1717,24 @@ Description:
 </pre></div>
 </div>
 </div>
+<div class="section" id="shell">
+<h2>shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
+<p>Command - shell:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+   shell ARGUMENTS...
+
+Description:
+    Executes a shell command
+</pre></div>
+</div>
+</div>
 <div class="section" id="ssh">
 <h2>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h2>
 <p>Command - ssh:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
+    ssh table
     ssh list [--format=FORMAT]
+    ssh cat
     ssh register NAME PARAMETERS
     ssh ARGUMENTS
 
@@ -1374,13 +1764,65 @@ Options:
 
    --key=KEY         The keyname as defined in the key list
                      or a location that contains a pblic key
+
+Description:
+
+    ssh list
+        lists the hostsnames  that are present in the
+        ~/.ssh/config file
+
+    ssh cat
+        prints the ~/.ssh/config file
+
+    ssh table
+        prints contents of the ~/.ssh/config file in table format
+
+    ssh register NAME PARAMETERS
+        registers a host i ~/.ssh/config file
+        Parameters are attribute=value pairs
+        Note: Note yet implemented
+
+    ssh ARGUMENTS
+        executes the ssh command with the given arguments
+        Example:
+            ssh myhost
+
+                conducts an ssh login to myhost if it is defined in
+                ~/.ssh/config file
 </pre></div>
 </div>
 </div>
 <div class="section" id="submit">
 <h2>submit<a class="headerlink" href="#submit" title="Permalink to this headline">¶</a></h2>
 <p>Command - submit:</p>
-<div class="highlight-python"><div class="highlight"><pre>Command documentation submit missing, help_submit
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    submit ARGUMENTS...
+
+We do not yet know what this command will do ;-)
+
+Arguments:
+    ARGUMENTS       The arguments passed to nova
+
+Options:
+    -v              verbose mode
+</pre></div>
+</div>
+</div>
+<div class="section" id="sync">
+<h2>sync<a class="headerlink" href="#sync" title="Permalink to this headline">¶</a></h2>
+<p>Command - sync:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    sync put [--cloud=CLOUD] LOCALDIR [REMOTEDIR]
+    sync get [--cloud=CLOUD] REMOTEDIR LOCALDIR
+
+A simple wrapper for the openstack nova command
+
+Arguments:
+    LOCALDIR        A directory on local machine
+    REMOTEDIR       A directory on remote machine
+
+Options:
+    --cloud=CLOUD   Sync with cloud
 </pre></div>
 </div>
 </div>
@@ -1388,9 +1830,9 @@ Options:
 <h2>usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>Command - usage:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
-    list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
+    usage list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
-    Show list data.
+    Show usage data.
 
 Options:
    --format=FORMAT  the output format [default: table]
@@ -1401,7 +1843,42 @@ Options:
 
 
 Examples:
-    cm list
+    cm usage list
+</pre></div>
+</div>
+</div>
+<div class="section" id="var">
+<h2>var<a class="headerlink" href="#var" title="Permalink to this headline">¶</a></h2>
+<p>Command - var:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    var list
+    var delete NAMES
+    var NAME=VALUE
+    var NAME
+Arguments:
+    NAME    Name of the variable
+    NAMES   Names of the variable separated by spaces
+    VALUE   VALUE to be assigned
+special vars date and time are defined
+</pre></div>
+</div>
+</div>
+<div class="section" id="verbose">
+<h2>verbose<a class="headerlink" href="#verbose" title="Permalink to this headline">¶</a></h2>
+<p>Command - verbose:</p>
+<div class="highlight-python"><div class="highlight"><pre>Usage:
+    verbose (True | False)
+    verbose
+
+NOTE: NOT YET IMPLEMENTED.
+If it sets to True, a command will be printed before execution.
+In the interactive mode, you may want to set it to False.
+When you use scripts, we recommend to set it to True.
+
+The default is set to False
+
+If verbose is specified without parameter the flag is
+toggled.
 </pre></div>
 </div>
 </div>
@@ -1424,30 +1901,31 @@ Description:
 <h2>vm<a class="headerlink" href="#vm" title="Permalink to this headline">¶</a></h2>
 <p>Command - vm:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
+    vm default [--cloud=CLOUD][--format=FORMAT]
     vm refresh [--cloud=CLOUD]
-    vm boot --name=NAME
-             [--count=COUNT]
-             [--cloud=CLOUD]
-             [--image=IMAGE_OR_ID]
-             [--flavor=FLAVOR_OR_ID]
-             [--group=GROUP]
-             [--secgroup=SECGROUP]
-             [--keypair_name=KEYPAIR_NAME]
+    vm boot [--name=NAME]
+            [--cloud=CLOUD]
+            [--image=IMAGE_OR_ID]
+            [--flavor=FLAVOR_OR_ID]
+            [--group=GROUP]
+            [--secgroup=SECGROUP]
+            [--key=KEY]
+            [--dryrun]
     vm start NAME...
-              [--group=GROUP]
-              [--cloud=CLOUD]
-              [--force]
+             [--group=GROUP]
+             [--cloud=CLOUD]
+             [--force]
     vm stop NAME...
-              [--group=GROUP]
-              [--cloud=CLOUD]
-              [--force]
+            [--group=GROUP]
+            [--cloud=CLOUD]
+            [--force]
     vm delete NAME...
               [--group=GROUP]
               [--cloud=CLOUD]
               [--force]
-    vm floating_ip_assign NAME...
-                          [--cloud=CLOUD]
-    vm ip_show NAME...
+    vm ip assign NAME...
+              [--cloud=CLOUD]
+    vm ip show NAME...
                [--group=GROUP]
                [--cloud=CLOUD]
                [--format=FORMAT]
@@ -1457,8 +1935,13 @@ Description:
              [--cloud=CLOUD]
              [--key=KEY]
              [--command=COMMAND]
-    vm list [--cloud=CLOUD|--all]
+    vm list [NAME_OR_ID]
+            [--cloud=CLOUD|--all]
             [--group=GROUP]
+            [--format=FORMAT]
+            [--refresh]
+    vm status [--cloud=CLOUD]
+    vm info [--cloud=CLOUD]
             [--format=FORMAT]
 
 Arguments:
@@ -1468,6 +1951,7 @@ Arguments:
                    the server, note that type in -- is suggested before
                    you input the commands
     NAME           server name
+    NAME_OR_ID     server name or ID
     KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
 Options:
@@ -1498,6 +1982,7 @@ Options:
 Description:
     commands used to boot, start or delete servers of a cloud
 
+    vm default [options...]     Displays default parameters that are set for VM boot.
     vm boot [options...]        Boots servers on a cloud, user may specify
                                 flavor, image .etc, otherwise default values
                                 will be used, see how to set default values
@@ -1514,6 +1999,7 @@ Description:
     vm ip_show [options...]     show the ips of VMs
     vm login [options...]       login to a server or execute commands on it
     vm list [options...]        same as command &quot;list vm&quot;, please refer to it
+    vm status [options...]      Retrieves status of last VM booted on cloud and displays it.
 
 Tip:
     give the VM name, but in a hostlist style, which is very
@@ -1566,7 +2052,7 @@ Tip:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.1',
+            VERSION:'1.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

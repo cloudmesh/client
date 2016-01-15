@@ -1,0 +1,419 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Comet Command &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Reservation Command" href="command_reservation.html"/>
+        <link rel="prev" title="Color Command" href="command_ssh.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#usable-commands">Usable Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Comet Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#comet-list">comet list</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#options">Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#arguments">Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-tunnel">comet tunnel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-configuration">comet configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-logon">comet logon</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-docs">comet docs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-status">comet status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-info">comet info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-cluster">comet_cluster</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-computeset">comet computeset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-start-and-stop">comet start and stop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-power">comet power</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-delete">comet delete</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-update">comet update</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#comet-add">comet add</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>Comet Command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/commands/command_comet.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="comet-command">
+<h1>Comet Command<a class="headerlink" href="#comet-command" title="Permalink to this headline">¶</a></h1>
+<p>The manual page of the group command can be found at: <a class="reference external" href="../man/man.html#default">default</a></p>
+<p>Cloudmesh has the ability to manage easily multiple clouds.
+One of the key concepts to make the list of such clouds
+easier is the introduction of defaults for each cloud or globally.
+Hence it is possible to set default images, flavors for each cloud,
+and also create the default cloud. The default command is used to
+set and list the default values. These defaults are used in other
+commands if they are not overwritten by a command parameter.</p>
+<p>Upon start of cloudmesh, the default for cloud will be set to the first
+cloud that is found in the yaml file and the default group is set to
+<cite>general</cite>.</p>
+<div class="section" id="comet-list">
+<h2>comet list<a class="headerlink" href="#comet-list" title="Permalink to this headline">¶</a></h2>
+<p>All the current default values can by listed with &#8211;all option:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ comet ll
++--------+-----------+-------+-------+
+| user   | cloud     | name  | value |
++--------+-----------+-------+-------+
+| albert | chameleon | image | abc   |
+| albert | general   | cloud | azure |
+| albert | general   | image | zyx   |
++--------+-----------+-------+-------+
+</pre></div>
+</div>
+<p>You can also add a &#8211;cloud=CLOUD option to see the defaults set
+for a cloud:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ comet list
++--------+-----------+-------+-------+
+| user   | cloud     | name  | value |
++--------+-----------+-------+-------+
+| albert | chameleon | image | abc   |
++--------+-----------+-------+-------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="options">
+<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>--user=USER           user name
+--name=NAMES          Names of the vcluster
+--start=TIME_START    Start time of the vcluster, in
+                      YYYY/MM/DD HH:MM:SS format.
+                      [default: 1901-01-01]
+--end=TIME_END        End time of the vcluster, in YYYY/MM/DD
+                      HH:MM:SS format. In addition a duratio
+                      can be specified if the + sign is the
+                      first sig The duration will than be
+                      added to the start time.
+                      [default: 2100-12-31]
+--project=PROJECT     project id
+--host=HOST           host name
+--description=DESCRIPTION  description summary of the vcluster
+--file=FILE           Adding multiple vclusters from one file
+--format=FORMAT       Format is either table, json, yaml,
+                      csv, rest
+                      [default: table]
+</pre></div>
+</div>
+</div>
+<div class="section" id="arguments">
+<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>    FILENAME  the file to open in the cwd if . is
+              specified. If file in in cwd
+              you must specify it with ./FILENAME
+
+Opens the given URL in a browser window.
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-tunnel">
+<h2>comet tunnel<a class="headerlink" href="#comet-tunnel" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="comet-configuration">
+<h2>comet configuration<a class="headerlink" href="#comet-configuration" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="comet-logon">
+<h2>comet logon<a class="headerlink" href="#comet-logon" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="comet-docs">
+<h2>comet docs<a class="headerlink" href="#comet-docs" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="comet-status">
+<h2>comet status<a class="headerlink" href="#comet-status" title="Permalink to this headline">¶</a></h2>
+<p>TBD</p>
+</div>
+<div class="section" id="comet-info">
+<h2>comet info<a class="headerlink" href="#comet-info" title="Permalink to this headline">¶</a></h2>
+<p>TBD:</p>
+<div class="highlight-python"><div class="highlight"><pre>comet info [--user=USER]
+             [--project=PROJECT]
+             [--format=FORMAT]
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-cluster">
+<h2>comet_cluster<a class="headerlink" href="#comet-cluster" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet cluster [ID][--name=NAMES]
+             [--user=USER]
+             [--project=PROJECT]
+             [--hosts=HOSTS]
+             [--start=TIME_START]
+             [--end=TIME_END]
+             [--hosts=HOSTS]
+             [--format=FORMAT]
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-computeset">
+<h2>comet computeset<a class="headerlink" href="#comet-computeset" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet computeset [COMPUTESETID]
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-start-and-stop">
+<h2>comet start and stop<a class="headerlink" href="#comet-start-and-stop" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet start ID
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>comet stop ID
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-power">
+<h2>comet power<a class="headerlink" href="#comet-power" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-delete">
+<h2>comet delete<a class="headerlink" href="#comet-delete" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet delete [all]
+               [--user=USER]
+               [--project=PROJECT]
+               [--name=NAMES]
+               [--hosts=HOSTS]
+               [--start=TIME_START]
+               [--end=TIME_END]
+               [--host=HOST]
+comet delete --file=FILE
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-update">
+<h2>comet update<a class="headerlink" href="#comet-update" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet update [--name=NAMES]
+               [--hosts=HOSTS]
+               [--start=TIME_START]
+               [--end=TIME_END]
+</pre></div>
+</div>
+</div>
+<div class="section" id="comet-add">
+<h2>comet add<a class="headerlink" href="#comet-add" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>comet add [--user=USER]
+            [--project=PROJECT]
+            [--host=HOST]
+            [--description=DESCRIPTION]
+            [--start=TIME_START]
+            [--end=TIME_END]
+            NAME
+comet add --file=FILENAME
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="command_reservation.html" class="btn btn-neutral float-right" title="Reservation Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="command_ssh.html" class="btn btn-neutral" title="Color Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
