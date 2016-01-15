@@ -13,24 +13,49 @@ use them in some order while:
 If you have additional needs we provide a detailed list of man pages
 in alphabetical order in the Section ...
 
-Usable Commands
+
+Shell Commands
 ^^^^^^^^^^^^^^^
 
 .. toctree::
    :glob:
 
    command_templates
-   command_register
+   command_colors
    command_default
-   command_group   
-   command_list
-   command_quota
-   command_key
-   command_secgroup   
-   command_vm
-   command_nova
+   command_group
    command_ssh
 
+Cloud Commands
+^^^^^^^^^^^^^^^
+
+.. toctree::
+   :glob:
+
+   command_register
+   command_cloud
+   command_key
+   command_list
+   command_secgroup
+   command_vm
+   command_nova
+   command_flavor
+   command_image
+   command_network
+   command_nova
+   command_sync
+   command_limits
+   command_quota
+   command_usage
+
+
+HPC Commands
+^^^^^^^^^^^^^^^
+
+.. toctree::
+   :glob:
+
+   command_hpc
 
 Comet Commands
 ^^^^^^^^^^^^^^^^^^
@@ -47,4 +72,4 @@ Proposed Commands
    :glob:
 
    command_reservation
-    
+   command_inventory
