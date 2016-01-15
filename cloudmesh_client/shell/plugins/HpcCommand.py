@@ -171,7 +171,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             # hpc experiment list [--cluster=CLUSTER]
             if arguments["ID"]:
 
-                force = yn_choice("Would you lie to delete experiment {ID} on Cluster {CLUSTER}".format(**arguments))
+                force = yn_choice("Would you like to delete experiment {ID} on Cluster {CLUSTER}".format(**arguments))
                 if force:
                     try:
                         result = Experiment.rm(cluster, id=arguments["ID"])
@@ -186,7 +186,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
                     Console.error("Could not find experiment {ID} on {CLUSTER}".format(**arguments))
                     return ""
 
-                force = yn_choice("Would you lie to delete the experiments {experiments} on Cluster {CLUSTER}".format(
+                force = yn_choice("Would you like to delete the experiments {experiments} on Cluster {CLUSTER}".format(
                     **arguments))
                 if force:
                     try:
