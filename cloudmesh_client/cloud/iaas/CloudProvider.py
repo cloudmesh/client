@@ -3,7 +3,7 @@ from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI im
     CloudProviderOpenstackAPI
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import requests
-
+from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.todo import TODO
 
 requests.packages.urllib3.disable_warnings()
@@ -39,9 +39,7 @@ class CloudProvider(CloudProviderBase):
                 TODO.implement()
 
         except Exception, e:
-            import traceback
-            print(traceback.format_exc())
-            print(e)
+            Error.traceback(e)
 
     def get_attributes(self, kind):
         return self.provider.attributes(kind)

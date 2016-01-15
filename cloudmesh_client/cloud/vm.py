@@ -8,6 +8,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.common.Error import Error
 
 from uuid import UUID
 
@@ -46,9 +47,7 @@ class Vm(ListResource):
                 TODO.implement()
 
         except Exception, e:
-            import traceback
-            print(traceback.format_exc())
-            print(e)
+            Error.traceback(e)
 
     @classmethod
     def isUuid(cls, name):

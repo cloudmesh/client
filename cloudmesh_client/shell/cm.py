@@ -3,7 +3,6 @@ from __future__ import print_function
 import datetime
 import cmd
 import sys
-import traceback
 import string
 import textwrap
 import os
@@ -14,6 +13,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.console import Console
 from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Error import Error
 
 import cloudmesh_client
 
@@ -678,7 +678,7 @@ def main():
         print(70 * "=")
         print(e)
         print(70 * "=")
-        print(traceback.format_exc())
+        Error.traceback()
 
     if interactive or (command is None and script is None):
         cmd.cmdloop()

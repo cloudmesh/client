@@ -2,7 +2,6 @@ from __future__ import print_function
 
 import cmd
 import sys
-import traceback
 import string
 import textwrap
 
@@ -19,7 +18,7 @@ from cloudmesh_base.util import path_expand
 
 # from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.shell.command import CometPluginCommand
-
+from cloudmesh_client.common.Error import Error
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -415,7 +414,7 @@ def main():
             print(70 * "=")
             print(e)
             print(70 * "=")
-            print(traceback.format_exc())
+            Error.traceback()
 
         if interactive:
             cmd.cmdloop()

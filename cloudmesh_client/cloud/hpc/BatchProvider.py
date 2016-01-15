@@ -1,6 +1,6 @@
 from cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM import BatchProviderSLURM
 from cloudmesh_client.common.ConfigDict import ConfigDict
-
+from cloudmesh_client.common.Error import Error
 
 # noinspection PyPep8Naming
 def BatchProvider(name, user=None):
@@ -14,6 +14,4 @@ def BatchProvider(name, user=None):
             ValueError("batch  provider not supported.")
 
     except Exception, e:
-        import traceback
-        print(traceback.format_exc())
-        print(e)
+        Error.traceback(e)
