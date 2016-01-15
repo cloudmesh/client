@@ -612,33 +612,29 @@ def main():
       --nosplash    do not show the banner [default: False]
     """
 
+    def manual():
+        print(main.__doc__)
 
-    try:
-        arguments = docopt(main.__doc__, help=True)
 
-        if arguments['--help']:
-            print(main.__doc__)
-            sys.exit()
 
-        arguments["SCRIPT"] = None
+    args = sys.argv[1:]
 
-    except:
 
-        # a command has an option that is not part of this docopt
-        # create arguments by hand
+    print (args)
 
-        args = sys.argv[1:]
-        arguments = {
-            '--debug': '--debug' in args,
-            '--nosplash': '--nosplash' in args,
-            '-i': '-i' in args}
 
-        for a in arguments:
-            if arguments[a]:
-                arguments.remove(a)
+    arguments = {
+        '--debug': '--debug' in args,
+        '--nosplash': '--nosplash' in args,
+        '-i': '-i' in args}
 
-        arguments['COMMAND'] = [' '.join(args)]
+    for a in args:
+        if a in arguments:
+            args.remove(a)
 
+    arguments['COMMAND'] = [' '.join(args)]
+
+    print (arguments)
 
     commands = arguments["COMMAND"]
     if len(commands) > 0:
