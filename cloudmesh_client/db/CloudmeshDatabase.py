@@ -191,7 +191,7 @@ class CloudmeshDatabase(object):
                                                            protocol=rule['ip_protocol'])
 
                             if bool(rule['ip_range']) is not False:
-                                rule_db_obj['cidr'] = rule['ip_range']['cidr']
+                                rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
 
                             self.add_obj(rule_db_obj)
                             self.save()
