@@ -27,6 +27,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
                 secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
                 secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+                secgroup refresh [--cloud=CLOUD]
                 secgroup -h | --help
                 secgroup --version
 
@@ -225,6 +226,15 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     "Security Group with label [{}], cloud [{}], and tenant [{"
                     "}] not found!".format(label, cloud, tenant))
                 return ""
+
+        elif arguments["refresh"] or \
+                Default.refresh():
+            msg = "Refresh secgroup for cloud {:}.".format(cloud)
+            if SecGroup.refresh(cloud):
+                Console.ok("{:} ok".format(msg))
+            else:
+                Console.error("{:} failed".format(msg))
+            return ""
 
         # TODO: Add Implementation
         elif arguments["--version"]:
