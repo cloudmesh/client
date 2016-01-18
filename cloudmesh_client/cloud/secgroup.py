@@ -71,6 +71,15 @@ class SecGroup(ListResource):
         except Exception, e:
             print(e)
 
+    @classmethod
+    def refresh(cls, cloudname):
+        """
+        This method would refresh the secgroup list by first clearing
+        the database, then inserting new data
+        :param cloud: the cloud name
+        """
+        return cls.cm_db.refresh('secgroup', cloudname)
+
     # noinspection PyPep8Naming
     @classmethod
     def remove_subjectAltName_warning(cls, content):

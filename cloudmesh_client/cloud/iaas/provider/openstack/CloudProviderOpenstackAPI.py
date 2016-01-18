@@ -211,6 +211,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
     def list_image(self, cloudname, **kwargs):
         return self._to_dict(self.provider.images.list())
 
+    def list_secgroup(self, cloudname, **kwargs):
+        return self._to_dict(self.provider.security_groups.list())
+
     def list_vm(self, cloudname, **kwargs):
         vm_dict = self._to_dict(self.provider.servers.list())
 

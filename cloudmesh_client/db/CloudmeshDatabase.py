@@ -9,7 +9,8 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, SECGROUPRULE
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
+    SECGROUPRULE
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
@@ -18,7 +19,6 @@ from cloudmesh_client.common.ConfigDict import Username
 
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshDatabase(object):
-
     # TODO: see also common/VMname
 
     def counter_incr(self, name="counter", user=None):
@@ -118,7 +118,7 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
             user = self.user
 
-            if kind in ["flavor", "image", "vm"]:
+            if kind in ["flavor", "image", "vm", "secgroup"]:
 
                 # get provider for specific cloud
                 provider = CloudProvider(name).provider
@@ -165,6 +165,42 @@ class CloudmeshDatabase(object):
                         self.add_obj(db_obj)
                         self.save()
                     return True
+
+                elif kind == "secgroup":
+                    secgroups = provider.list_secgroup(name)
+                    # pprint(secgroups)
+                    for secgroup in secgroups.values():
+                        secgroup_db_obj = self.db_obj_dict("secgroup",
+                                                           name=secgroup['name'],
+                                                           uuid=secgroup['id'],
+                                                           cloud=name,
+                                                           project=secgroup['tenant_id'],
+                                                           user=user
+                                                           )
+
+                        for rule in secgroup['rules']:
+                            rule_db_obj = self.db_obj_dict("secgrouprule",
+                                                           uuid=rule['id'],
+                                                           name=secgroup['name'],
+                                                           groupid=rule['parent_group_id'],
+                                                           cloud=name,
+                                                           user=user,
+                                                           project=secgroup['tenant_id'],
+                                                           fromPort=rule['from_port'],
+                                                           toPort=rule['to_port'],
+                                                           protocol=rule['ip_protocol'])
+
+                            if bool(rule['ip_range']) is not False:
+                                rule_db_obj[0]['secgrouprule']['cidr'] = rule['ip_range']['cidr']
+
+                            self.add_obj(rule_db_obj)
+                            self.save()
+                        # rule-for-loop ends
+
+                        self.add_obj(secgroup_db_obj)
+                        self.save()
+                    return True
+
             elif kind in ["batchjob"]:
 
                 # provider = BatchProvider(name).provider
