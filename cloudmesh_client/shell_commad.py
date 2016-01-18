@@ -1,3 +1,4 @@
 from cloudmesh_base.Shell import Shell
 
-Shell.cm()
+if __name__ == "__main__":
+    Shell.cm()

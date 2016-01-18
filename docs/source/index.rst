@@ -60,8 +60,13 @@ This documentation and code is available on github at:
 
    old
 
+Code
+======
 
+.. toctree::
+   :maxdepth: 4   
 
+   code/cloudmesh_client
 
 Indices and tables
 ==================
