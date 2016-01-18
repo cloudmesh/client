@@ -15,6 +15,8 @@
 from cloudmesh_client.version import __version__
 import os
 
+os.path.abspath('../cloudmesh_client')
+
 # on_rtd is whether we are on readthedocs.org
 
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
