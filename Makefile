@@ -23,7 +23,8 @@ test:
 
 
 doc: man
-	sphinx-apidoc -f -o docs/source cloudmesh_client
+	sphinx-apidoc -f -o docs/source/code/base ../base/cloudmesh_base
+	sphinx-apidoc -f -o docs/source/code/client cloudmesh_client
 	cd docs; make html
 
 publish:

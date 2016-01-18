@@ -196,4 +196,4 @@ manpages:
 	mkdir -p source/man
 	cm man > source/man/man.rst
 	../bin/clean_man_pages.py source/man/man.rst
-	sphinx-apidoc -H "Modules and Classes" -o source/modules ..
+	#sphinx-apidoc -H "Modules and Classes" -o source/modules ..

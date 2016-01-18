@@ -66,6 +66,7 @@ Code
 .. toctree::
    :maxdepth: 4   
 
+   code/cloudmesh_base	      
    code/cloudmesh_client
 
 Indices and tables

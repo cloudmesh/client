@@ -1497,6 +1497,7 @@ Command - secgroup::
         secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
         secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
         secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup refresh [--cloud=CLOUD]
         secgroup -h | --help
         secgroup --version
 
