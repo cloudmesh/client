@@ -60,14 +60,38 @@ This documentation and code is available on github at:
 
    old
 
-Code
-======
 
 .. toctree::
-   :maxdepth: 4   
+   :caption: Developers Manual
+   :maxdepth: 4
+
+   hacking
+
+.. toctree::
+   :caption: Code
+   :maxdepth: 4
+
+   code/cloudmesh_base/modules
+   code/cloudmesh_client/modules
 
    code/cloudmesh_base	      
    code/cloudmesh_client
+
+#.. toctree::
+#   :caption: outdated
+#   :maxdepth: 4
+
+#   choco
+#   cloudmesh_base
+#   cloudmesh_client
+#   commands_nova
+#   commands_register
+#   docker
+#   man
+#   old1
+#   system-cygwin
+
+
 
 Indices and tables
 ==================
