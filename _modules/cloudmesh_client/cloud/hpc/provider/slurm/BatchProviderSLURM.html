@@ -82,13 +82,7 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../prefix.html">Prefix</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../introduction.html">Introduction</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
@@ -174,11 +168,11 @@
 
 
 <span class="c"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="BatchProviderSLURM"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM">[docs]</a><span class="k">class</span> <span class="nc">BatchProviderSLURM</span><span class="p">(</span><span class="n">BatchProviderBase</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM">[docs]</a><span class="k">class</span> <span class="nc">BatchProviderSLURM</span><span class="p">(</span><span class="n">BatchProviderBase</span><span class="p">):</span>
     <span class="n">kind</span> <span class="o">=</span> <span class="s">&quot;slurm&quot;</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.queue"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">job</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM.queue"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">job</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;squeue &#39;</span>
             <span class="k">if</span> <span class="n">job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -225,7 +219,7 @@
             <span class="k">return</span> <span class="n">ex</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.info"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span></div>
+<div class="viewcode-block" id="BatchProviderSLURM.info"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span></div>
 
         <span class="k">if</span> <span class="nb">all</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="s">&#39;sinfo --format=</span><span class="se">\&quot;</span><span class="s">%all</span><span class="se">\&quot;</span><span class="s">&#39;</span><span class="p">)</span>
@@ -265,14 +259,14 @@
                                  <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.test"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM.test"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span>
                            <span class="s">&quot;srun -n1 -t {} echo &#39;#CLOUDMESH: Test ok&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                <span class="n">time</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.run"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></div>
+<div class="viewcode-block" id="BatchProviderSLURM.run"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span></div>
 
         <span class="c"># determine the script name..</span>
 
@@ -513,7 +507,7 @@
         <span class="k">return</span> <span class="n">data</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.delete"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM.delete"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is used to terminate a job with the specified or a group of jobs</span>
 <span class="sd">        job_id or job_name in a given cluster</span>
@@ -567,7 +561,7 @@
             <span class="k">return</span> <span class="n">ex</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.add_db"><a class="viewcode-back" href="../../../../../../modules/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.add_db">[docs]</a>    <span class="k">def</span> <span class="nf">add_db</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM.add_db"><a class="viewcode-back" href="../../../../../../code/client/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.add_db">[docs]</a>    <span class="k">def</span> <span class="nf">add_db</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
         <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;script_name&#39;</span><span class="p">)</span>

@@ -82,13 +82,7 @@
             
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Introduction</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
@@ -180,7 +174,7 @@
 <span class="kn">import</span> <span class="nn">cloudmesh_client</span>
 
 
-<div class="viewcode-block" id="create_cloudmesh_yaml"><a class="viewcode-back" href="../../../modules/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.create_cloudmesh_yaml">[docs]</a><span class="k">def</span> <span class="nf">create_cloudmesh_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="create_cloudmesh_yaml"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.create_cloudmesh_yaml">[docs]</a><span class="k">def</span> <span class="nf">create_cloudmesh_yaml</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -209,7 +203,7 @@
 <span class="kn">import</span> <span class="nn">cloudmesh_client.etc</span>
 
 
-<div class="viewcode-block" id="CloudmeshContext"><a class="viewcode-back" href="../../../modules/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudmeshContext">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshContext"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudmeshContext">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">kwargs</span></div>
 
@@ -245,7 +239,7 @@
 
 
 <span class="c"># noinspection PyBroadException,PyPep8Naming</span>
-<div class="viewcode-block" id="CloudmeshConsole"><a class="viewcode-back" href="../../../modules/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudmeshConsole">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshConsole</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">,</span> <span class="n">PluginCommandClasses</span><span class="p">):</span></div>
+<div class="viewcode-block" id="CloudmeshConsole"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudmeshConsole">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshConsole</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">,</span> <span class="n">PluginCommandClasses</span><span class="p">):</span></div>
     <span class="c"># class CloudmeshConsole(cmd.Cmd,</span>
     <span class="c">#                       ConsoleClasses(PluginCommand)):</span>
 
@@ -749,7 +743,7 @@
     <span class="n">do_h</span> <span class="o">=</span> <span class="n">do_history</span>
 
 
-<div class="viewcode-block" id="simple"><a class="viewcode-back" href="../../../modules/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.simple">[docs]</a><span class="k">def</span> <span class="nf">simple</span><span class="p">():</span>
+<div class="viewcode-block" id="simple"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.simple">[docs]</a><span class="k">def</span> <span class="nf">simple</span><span class="p">():</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">CloudmeshContext</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                <span class="n">splash</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">con</span> <span class="o">=</span> <span class="n">CloudmeshConsole</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -757,7 +751,7 @@
 
 
 <span class="c"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../modules/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;cm.</span>
 
 <span class="sd">    Usage:</span>

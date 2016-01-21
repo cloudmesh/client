@@ -25,16 +25,7 @@ This documentation and code is available on github at:
 .. toctree::
 
    prefix
-
-.. toctree::
-   :caption: Introduction
-
    introduction
-
-
-.. toctree::
-   :caption: Installation
-
    setup	     
 
 .. toctree::
