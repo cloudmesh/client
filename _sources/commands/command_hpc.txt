@@ -9,6 +9,14 @@ command helps to easily manage hpc clusters.
 The manual page of the hpc command can be found at: `Hpc
 <../man/man.html#hpc>`_
 
+
+	 
+.. image:: ../images/cloudmesh-arch-3.svg
+
+.. image:: ../images/cloudmesh-arch-4.svg
+
+
+
 Before we get started, we can set the default hpc cluster or use the
 --cluster option. To set the default hpc cluster::
 

@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Default Command" href="command_default.html"/>
-        <link rel="prev" title="Basic Commands and Options" href="command_templates.html"/> 
+        <link rel="next" title="Cloud Command" href="command_cloud.html"/>
+        <link rel="prev" title="Color Command" href="command_ssh.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -85,17 +85,19 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html#usable-commands">Usable Commands</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="">Register Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#quickstart-for-registration-of-some-clouds">Quickstart for registration of some clouds</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
@@ -108,17 +110,23 @@
 <li class="toctree-l4"><a class="reference internal" href="#register-json-host">register json HOST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_cloud.html">Cloud Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_key.html">Key Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_list.html">List Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_secgroup.html">SecGroup Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_vm.html">VM Command</a></li>
 <li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
-<li class="toctree-l3"><a class="reference internal" href="command_ssh.html">Color Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_flavor.html">Flavor Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_image.html">Image Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_network.html">Network Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_nova.html">Nova Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_sync.html">Sync Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_limits.html">Limits Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_quota.html">Quota Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_usage.html">Usage Command</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a></li>
 </ul>
@@ -137,6 +145,13 @@
 <p class="caption"><span class="caption-text">Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
 </ul>
 
             
@@ -506,10 +521,10 @@ representation by issueing the command:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_default.html" class="btn btn-neutral float-right" title="Default Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_cloud.html" class="btn btn-neutral float-right" title="Cloud Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_templates.html" class="btn btn-neutral" title="Basic Commands and Options" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_ssh.html" class="btn btn-neutral" title="Color Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -549,7 +564,6 @@ representation by issueing the command:</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

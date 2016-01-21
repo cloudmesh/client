@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/> 
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
+        <link rel="next" title="fabfile package" href="fabfile.html"/>
+        <link rel="prev" title="cloudmesh_client.shell.plugins package" href="cloudmesh_client.shell.plugins.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,11 +85,13 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul>
@@ -94,9 +99,35 @@
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules and Classes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules and Classes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="fabfile.html">fabfile package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="importtest.html">importtest module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rest.html">rest module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sboy.html">sboy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="test.html">test module</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -105,6 +136,13 @@
 <p class="caption"><span class="caption-text">Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
 </ul>
 
             
@@ -135,6 +173,10 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
+          <li><a href="modules.html">Modules and Classes</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
     <li>cloudmesh_client.system package</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -154,14 +196,121 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="cloudmesh-client-system-rack-module">
-<h2>cloudmesh_client.system.rack module<a class="headerlink" href="#cloudmesh-client-system-rack-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cloudmesh_client.system.rack">
+<span id="cloudmesh-client-system-rack-module"></span><h2>cloudmesh_client.system.rack module<a class="headerlink" href="#module-cloudmesh_client.system.rack" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.system.rack.Rack">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.system.rack.</code><code class="descname">Rack</code><span class="sig-paren">(</span><em>servers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.diagram">
+<code class="descname">diagram</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.diagram"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.diagram" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.dump">
+<code class="descname">dump</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.dump" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.generate_rack">
+<code class="descname">generate_rack</code><span class="sig-paren">(</span><em>servers</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.generate_rack"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.generate_rack" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.render">
+<code class="descname">render</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set">
+<code class="descname">set</code><span class="sig-paren">(</span><em>server</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_color">
+<code class="descname">set_color</code><span class="sig-paren">(</span><em>server</em>, <em>color</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_color"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_fontsize">
+<code class="descname">set_fontsize</code><span class="sig-paren">(</span><em>server</em>, <em>fontsize</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_fontsize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_fontsize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_label">
+<code class="descname">set_label</code><span class="sig-paren">(</span><em>server</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_numbering">
+<code class="descname">set_numbering</code><span class="sig-paren">(</span><em>server</em>, <em>numbering</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_numbering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_numbering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_shape">
+<code class="descname">set_shape</code><span class="sig-paren">(</span><em>server</em>, <em>shape</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_template">
+<code class="descname">set_template</code><span class="sig-paren">(</span><em>template</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_template"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.set_textcolorl">
+<code class="descname">set_textcolorl</code><span class="sig-paren">(</span><em>server</em>, <em>textcolorl</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.set_textcolorl"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.set_textcolorl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.svg">
+<code class="descname">svg</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.svg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.svg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.rack.Rack.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/rack.html#Rack.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.rack.Rack.view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
-<div class="section" id="cloudmesh-client-system-who-module">
-<h2>cloudmesh_client.system.who module<a class="headerlink" href="#cloudmesh-client-system-who-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cloudmesh_client.system.who">
+<span id="cloudmesh-client-system-who-module"></span><h2>cloudmesh_client.system.who module<a class="headerlink" href="#module-cloudmesh_client.system.who" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.system.who.Who">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.system.who.</code><code class="descname">Who</code><span class="sig-paren">(</span><em>hostname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/who.html#Who"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.who.Who" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.system.who.Who.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>hostname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/who.html#Who.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.who.Who.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.who.Who.parse">
+<code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/who.html#Who.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.who.Who.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.who.Who.sanitize_whois">
+<code class="descname">sanitize_whois</code><span class="sig-paren">(</span><em>lines</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/who.html#Who.sanitize_whois"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.who.Who.sanitize_whois" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.system.who.Who.whois">
+<code class="descname">whois</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/who.html#Who.whois"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.who.Who.whois" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.system.who.main">
+<code class="descclassname">cloudmesh_client.system.who.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/system/who.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.system.who.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
-<div class="section" id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cloudmesh_client.system">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.system" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -169,6 +318,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="fabfile.html" class="btn btn-neutral float-right" title="fabfile package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.shell.plugins.html" class="btn btn-neutral" title="cloudmesh_client.shell.plugins package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -206,7 +364,6 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

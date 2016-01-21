@@ -1,0 +1,6 @@
+Setup
+========
+	     
+   system
+   installation
+   configuration

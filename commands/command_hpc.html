@@ -30,7 +30,10 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/> 
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../index.html"/>
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Comet Command" href="command_comet.html"/>
+        <link rel="prev" title="Usage Command" href="command_usage.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,15 +85,34 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../system.html">Preparation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">User Manual</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="">Hpc Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hpc-info">hpc info</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hpc-queue">hpc queue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hpc-status">hpc status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#experiment-management">Experiment management</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hpc-delete">hpc delete</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">API</span></p>
@@ -105,6 +127,13 @@
 <p class="caption"><span class="caption-text">Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
 </ul>
 
             
@@ -135,6 +164,8 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
     <li>Hpc Command</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -156,7 +187,7 @@ in engineering, science and business using applications that require
 very high compute power and amplified bandwidth. The cloudmesh hpc
 command helps to easily manage hpc clusters.</p>
 <p>The manual page of the hpc command can be found at: <a class="reference external" href="../man/man.html#hpc">Hpc</a></p>
-<p>Before we get started, we can set the default hpc cluster or use the
+<img src="../_images/cloudmesh-arch-3.svg" /><img src="../_images/cloudmesh-arch-4.svg" /><p>Before we get started, we can set the default hpc cluster or use the
 &#8211;cluster option. To set the default hpc cluster:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm default cluster=comet
 set in defaults cluster=comet. ok.
@@ -282,6 +313,15 @@ You can also use the &#8211;group to specify a group of your choice.</p>
           </div>
           <footer>
   
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="command_comet.html" class="btn btn-neutral float-right" title="Comet Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="command_usage.html" class="btn btn-neutral" title="Usage Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
 
   <hr/>
 
@@ -318,7 +358,6 @@ You can also use the &#8211;group to specify a group of your choice.</p>
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

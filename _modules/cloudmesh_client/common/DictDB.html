@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.common.DictDB &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.common.DictDB</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.common.DictDB</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="DictDB"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB">[docs]</a><span class="k">class</span> <span class="nc">DictDB</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Implements a persistent dictionary using sqlite</span>
+
+<span class="sd">    Usage:</span>
+
+<span class="sd">        element = {&quot;name&quot;:, &quot;abc&quot;,</span>
+<span class="sd">                    &quot;address&quot;: &quot;here&quot;,</span>
+<span class="sd">                    &quot;email&quot;: &quot;abc@example.com&quot;}</span>
+
+<span class="sd">        The name in the dict is identifies where to store it.</span>
+
+<span class="sd">        d = PersistentData(os.path.join(&quot;~&quot;, &quot;.cloudmesh/data.db&quot;))</span>
+
+<span class="sd">        d.add(element)</span>
+
+<span class="sd">        d.delete(&quot;name&quot;: &quot;abc&quot;)</span>
+<span class="sd">            # deletes all elements from the db where ethe name is matching abc</span>
+
+<span class="sd">        d.json</span>
+<span class="sd">            # exports to json</span>
+
+<span class="sd">        d.yaml</span>
+<span class="sd">            # exports a yaml as a string</span>
+
+<span class="sd">        d.get(&quot;name&quot;: &quot;abc&quot;)</span>
+<span class="sd">            gets the first match</span>
+
+<span class="sd">        d.find(&quot;name&quot;: &quot;abc&quot;)</span>
+<span class="sd">            finds the first match</span>
+
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">attributes</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        initializes the dict database</span>
+
+<span class="sd">        :param filename: filename where to store the database. The name can include ~.</span>
+<span class="sd">        :param d: an optional dict that is provided for initialization. If the elements</span>
+<span class="sd">                  are already in the database they will be overwritten with the new dict.</span>
+<span class="sd">                  Typically we initialize without a dict.</span>
+<span class="sd">        :param attributes: An optional list of attributes to be passed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="DictDB.attributes"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_names</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        defines the attributes that each record can have. If a database has previously</span>
+<span class="sd">        defined and new attributes are added the database records are updated.</span>
+
+<span class="sd">        :param attribute_names: The attribute names</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DictDB.add"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        adds the dict to the database. The attribute &quot;name&quot; is used to define a</span>
+<span class="sd">        unique name for the object in the database</span>
+
+<span class="sd">        :param d: the dict that at minimum must contain a name attribute</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DictDB.delete"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        deletes all elements in that match the query formulated by kwargs and the operator</span>
+<span class="sd">        operators that are allowed are = and, or</span>
+
+<span class="sd">        :param kwargs: the attributes that we look for</span>
+<span class="sd">        :param operator: the operator and / or</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DictDB.find"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds all elements in that match the query formulated by kwargs and the operator</span>
+<span class="sd">        operators that are allowed are = and, or</span>
+
+<span class="sd">        :param kwargs: the attributes that we look for</span>
+<span class="sd">        :param operator: the operator and / or</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="DictDB.get"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        finds the first elements in that match the query formulated by kwargs and the operator</span>
+<span class="sd">        operators that are allowed are = and, or</span>
+
+<span class="sd">        :param kwargs: the attributes that we look for</span>
+<span class="sd">        :param operator: the operator and / or</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: the json object of the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a yaml string of the database</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+<div class="viewcode-block" id="DictDB.backup"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.backup">[docs]</a>    <span class="k">def</span> <span class="nf">backup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        backs up the current database. If the filename is omitted, the backup will be</span>
+<span class="sd">        created in the same directory as the database with the postfix .bak.#</span>
+<span class="sd">        where # is the largest number that has not yet been assigned. For example.,</span>
+<span class="sd">        lets assume a backup exists with the name file.bak.9, than the next higher</span>
+<span class="sd">        number is used (e.g. 10) and the backup file file.back.10 is used.</span>
+
+<span class="sd">        :param filename: the backup filename.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

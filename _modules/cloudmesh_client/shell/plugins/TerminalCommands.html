@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.shell.plugins.TerminalCommands &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.shell.plugins.TerminalCommands</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.shell.plugins.TerminalCommands</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> \
+    <span class="n">CometPluginCommand</span>
+
+
+<div class="viewcode-block" id="TerminalCommands"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands">[docs]</a><span class="k">class</span> <span class="nc">TerminalCommands</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;clear&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span><span class="p">,</span>
+              <span class="s">&quot;echo&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span><span class="p">,</span>
+              <span class="s">&quot;puase&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span><span class="p">,</span>
+              <span class="s">&quot;banner&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command clear&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command banner&quot;</span><span class="p">)</span>
+
+            <span class="c"># self.register_command_topic(&#39;cloud&#39;, &#39;admin&#39;)</span>
+
+    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Usage:</span>
+<span class="sd">            clear</span>
+
+<span class="sd">        Clears the screen.&quot;&quot;&quot;</span>
+
+        <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s">&#39;clear&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+
+    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_echo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            Usage:</span>
+<span class="sd">                echo  [-r COLOR] TEXT</span>
+
+<span class="sd">            Arguments:</span>
+<span class="sd">                TEXT   The text message to print</span>
+<span class="sd">                COLOR  the color</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                -r COLOR  The color of the text. [default: BLACK]</span>
+
+<span class="sd">            Prints a text in the given color</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;-r&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;black&quot;</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;TEXT&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="s">&quot;black&quot;</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_banner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            Usage:</span>
+<span class="sd">                banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT</span>
+
+<span class="sd">            Arguments:</span>
+<span class="sd">                TEXT   The text message from which to create the banner</span>
+<span class="sd">                CHAR   The character for the frame.</span>
+<span class="sd">                WIDTH  Width of the banner</span>
+<span class="sd">                INDENT indentation of the banner</span>
+<span class="sd">                COLOR  the color</span>
+
+<span class="sd">            Options:</span>
+<span class="sd">                -c CHAR   The character for the frame. [default: #]</span>
+<span class="sd">                -n WIDTH  The width of the banner. [default: 70]</span>
+<span class="sd">                -i INDENT  The width of the banner. [default: 0]</span>
+<span class="sd">                -r COLOR  The color of the banner. [default: BLACK]</span>
+
+<span class="sd">            Prints a banner form a one line text message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;banner&quot;</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&#39;-n&#39;</span><span class="p">])</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;-c&#39;</span><span class="p">]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&#39;-i&#39;</span><span class="p">])</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;-r&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="p">))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;TEXT&#39;</span><span class="p">])</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">cprint</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">i</span> <span class="o">*</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_pause</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            Usage:</span>
+<span class="sd">                pause [MESSAGE]</span>
+
+<span class="sd">            Displays the specified text then waits for the user to press RETURN.</span>
+
+<span class="sd">            Arguments:</span>
+<span class="sd">               MESSAGE  message to be displayed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;MESSAGE&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="s">&#39;Press ENTER to continue&#39;</span>
+        <span class="nb">input</span><span class="p">(</span><span class="n">arg</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+    <span class="c">#</span>
+    <span class="c"># Echo</span>
+    <span class="c">#</span>
+<div class="viewcode-block" id="TerminalCommands.set_verbose"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.set_verbose">[docs]</a>    <span class="k">def</span> <span class="nf">set_verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on</span><span class="p">):</span></div>
+        <span class="c">#self.echo = on</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="TerminalCommands.set_banner"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.set_banner">[docs]</a>    <span class="k">def</span> <span class="nf">set_banner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">banner</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">banner</span> <span class="o">=</span> <span class="n">banner</span></div>
+
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_loglevel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">          Usage:</span>
+<span class="sd">              loglevel</span>
+<span class="sd">              loglevel critical</span>
+<span class="sd">              loglevel error</span>
+<span class="sd">              loglevel warning</span>
+<span class="sd">              loglevel info</span>
+<span class="sd">              loglevel debug</span>
+
+<span class="sd">              Shows current log level or changes it.</span>
+
+<span class="sd">              loglevel - shows current log level</span>
+<span class="sd">              critical - shows log message in critical level</span>
+<span class="sd">              error    - shows log message in error level including critical</span>
+<span class="sd">              warning  - shows log message in warning level including error</span>
+<span class="sd">              info     - shows log message in info level including warning</span>
+<span class="sd">              debug    - shows log message in debug level including info</span>
+
+<span class="sd">          NOTE:</span>
+<span class="sd">            NOT YET IMPLEMENTED</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        if arguments[&#39;debug&#39;]:</span>
+<span class="sd">            self.loglevel = &quot;DEBUG&quot;</span>
+<span class="sd">        elif arguments[&#39;error&#39;]:</span>
+<span class="sd">            self.loglevel = &quot;ERROR&quot;</span>
+<span class="sd">        elif arguments[&#39;warning&#39;]:</span>
+<span class="sd">            self.loglevel = &quot;WARNING&quot;</span>
+<span class="sd">        elif arguments[&#39;info&#39;]:</span>
+<span class="sd">            self.loglevel = &quot;INFO&quot;</span>
+<span class="sd">        elif arguments[&#39;critical&#39;]:</span>
+<span class="sd">            self.loglevel = &quot;CRITICAL&quot;</span>
+<span class="sd">        else:</span>
+<span class="sd">            Console.ok(&quot;Log level: {0}&quot;.format(self.loglevel))</span>
+<span class="sd">            return</span>
+<span class="sd">        Console.ok (&quot;Log level: {0} is set&quot;.format(self.loglevel))</span>
+
+<span class="sd">        filename = path_expand(&quot;~/.cloudmesh/cmd3.yaml&quot;)</span>
+<span class="sd">        config = ConfigDict(filename=filename)</span>
+<span class="sd">        config[&quot;cmd3&quot;][&quot;properties&quot;][&quot;loglevel&quot;] = self.loglevel</span>
+<span class="sd">        config.write(filename=filename, output=&quot;yaml&quot;, attribute_indent=&quot;    &quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;loglevel NOT YET IMPLEMENTED&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+
+
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Usage:</span>
+<span class="sd">            verbose (True | False)</span>
+<span class="sd">            verbose</span>
+
+<span class="sd">        NOTE: NOT YET IMPLEMENTED.</span>
+<span class="sd">        If it sets to True, a command will be printed before execution.</span>
+<span class="sd">        In the interactive mode, you may want to set it to False.</span>
+<span class="sd">        When you use scripts, we recommend to set it to True.</span>
+
+<span class="sd">        The default is set to False</span>
+
+<span class="sd">        If verbose is specified without parameter the flag is</span>
+<span class="sd">        toggled.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># if args == &#39;&#39;:</span>
+        <span class="c">#    self.echo = not self.echo</span>
+        <span class="c"># else:</span>
+        <span class="c">#    self.echo = arguments[&#39;True&#39;]</span>
+
+        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;verbose NOT YET IMPLEMENTED&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.shell.plugins.InventoryCommand &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.shell.plugins.InventoryCommand</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.shell.plugins.InventoryCommand</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.inventory</span> <span class="kn">import</span> <span class="n">Inventory</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_base.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_base.locations</span> <span class="kn">import</span> <span class="n">config_file</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+
+
+<span class="c"># noinspection PyBroadException</span>
+<div class="viewcode-block" id="InventoryCommand"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.InventoryCommand.InventoryCommand">[docs]</a><span class="k">class</span> <span class="nc">InventoryCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;inventory&quot;</span><span class="p">:</span> <span class="s">&quot;system&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command inventory&quot;</span><span class="p">)</span>
+
+        <span class="c"># TODO: delete row</span>
+        <span class="c"># TODO: add columns</span>
+        <span class="c"># TODO: ATTRIBUTE=VALUE</span>
+
+    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_inventory</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">          Usage:</span>
+<span class="sd">              inventory add NAMES [--label=LABEL]</span>
+<span class="sd">                                  [--service=SERVICES]</span>
+<span class="sd">                                  [--project=PROJECT]</span>
+<span class="sd">                                  [--owners=OWNERS]</span>
+<span class="sd">                                  [--comment=COMMENT]</span>
+<span class="sd">                                  [--cluster=CLUSTER]</span>
+<span class="sd">                                  [--ip=IP]</span>
+<span class="sd">              inventory set NAMES for ATTRIBUTE to VALUES</span>
+<span class="sd">              inventory delete NAMES</span>
+<span class="sd">              inventory clone NAMES from SOURCE</span>
+<span class="sd">              inventory list [NAMES] [--format=FORMAT] [--columns=COLUMNS]</span>
+<span class="sd">              inventory info</span>
+
+<span class="sd">          Arguments:</span>
+
+<span class="sd">            NAMES     Name of the resources (example i[10-20])</span>
+
+<span class="sd">            FORMAT    The format of the output is either txt,</span>
+<span class="sd">                      yaml, dict, table [default: table].</span>
+
+<span class="sd">            OWNERS    a comma separated list of owners for this resource</span>
+
+<span class="sd">            LABEL     a unique label for this resource</span>
+
+<span class="sd">            SERVICE   a string that identifies the service</span>
+
+<span class="sd">            PROJECT   a string that identifies the project</span>
+
+<span class="sd">            SOURCE    a single host name to clone from</span>
+
+<span class="sd">            COMMENT   a comment</span>
+<span class="sd">            </span>
+<span class="sd">          Options:</span>
+
+<span class="sd">             -v       verbose mode</span>
+
+<span class="sd">          Description:</span>
+
+<span class="sd">                add -- adds a resource to the resource inventory</span>
+
+<span class="sd">                list -- lists the resources in the given format</span>
+
+<span class="sd">                delete -- deletes objects from the table</span>
+
+<span class="sd">                clone -- copies the content of an existing object</span>
+<span class="sd">                         and creates new once with it</span>
+
+<span class="sd">                set   -- sets for the specified objects the attribute</span>
+<span class="sd">                         to the given value or values. If multiple values</span>
+<span class="sd">                         are used the values are assigned to the and</span>
+<span class="sd">                         objects in order. See examples</span>
+
+<span class="sd">                map   -- allows to set attibutes on a set of objects</span>
+<span class="sd">                         with a set of values</span>
+
+<span class="sd">          Examples:</span>
+
+<span class="sd">            cm inventory add x[0-3] --service=openstack</span>
+
+<span class="sd">                adds hosts x0, x1, x2, x3 and puts the string</span>
+<span class="sd">                openstack into the service column</span>
+
+<span class="sd">            cm lists</span>
+
+<span class="sd">                lists the repository</span>
+
+<span class="sd">            cm x[3-4] set temperature to 32</span>
+
+<span class="sd">                sets for the resources x3, x4 the value of the</span>
+<span class="sd">                temperature to 32</span>
+
+<span class="sd">            cm x[7-8] set ip 128.0.0.[0-1]</span>
+
+<span class="sd">                sets the value of x7 to 128.0.0.0</span>
+<span class="sd">                sets the value of x8 to 128.0.0.1</span>
+
+<span class="sd">            cm clone x[5-6] from x3</span>
+
+<span class="sd">                clones the values for x5, x6 from x3</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">config_file</span><span class="p">(</span><span class="s">&quot;/cloudmesh_inventory.yaml&quot;</span><span class="p">)</span>
+
+        <span class="n">sorted_keys</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;info&quot;</span><span class="p">]:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--columns&quot;</span><span class="p">]:</span>
+                <span class="n">order</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--columns&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">order</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">order</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAMES&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Please specify a host name&quot;</span><span class="p">)</span>
+        <span class="c"># elif arguments[&quot;set&quot;]:</span>
+        <span class="c">#    hosts = Parameter.expand_hostlist(arguments[&quot;NAMES&quot;])</span>
+        <span class="c">#    i = inventory()</span>
+        <span class="c">#    i.read()</span>
+        <span class="c">#    element = {}</span>
+
+        <span class="c">#    for attribute in i.order:</span>
+        <span class="c">#        try:</span>
+        <span class="c">#            attribute = arguments[&quot;ATTRIBUTE&quot;]</span>
+        <span class="c">#            value = arguments[&quot;VALUE&quot;]</span>
+        <span class="c">#            if value is not None:</span>
+        <span class="c">#                element[attribute] = value</span>
+        <span class="c">#        except:</span>
+        <span class="c">#            pass</span>
+        <span class="c">#    element[&#39;host&#39;] = arguments[&quot;NAMES&quot;]</span>
+        <span class="c">#    i.add(**element)</span>
+        <span class="c">#    print (i.list(format=&quot;table&quot;))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;set&quot;</span><span class="p">]:</span>
+            <span class="n">hosts</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAMES&quot;</span><span class="p">])</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;VALUES&quot;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">values</span> <span class="o">*=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+            <span class="n">attribute</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ATTRIBUTE&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hosts</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="s">&quot;Number of names {:} != number of values{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="nb">len</span><span class="p">(</span><span class="n">hosts</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">)))</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">hosts</span><span class="p">)):</span>
+                <span class="n">host</span> <span class="o">=</span> <span class="n">hosts</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+                <span class="n">host_object</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;host&#39;</span><span class="p">:</span> <span class="n">host</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span>
+
+                <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">host_object</span><span class="p">)</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;add&quot;</span><span class="p">]:</span>
+            <span class="n">hosts</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAMES&quot;</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">order</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--&quot;</span> <span class="o">+</span> <span class="n">attribute</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">element</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+            <span class="n">element</span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAMES&quot;</span><span class="p">]</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">element</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
+            <span class="n">hosts</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAMES&quot;</span><span class="p">])</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">host</span><span class="p">]</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;clone&quot;</span><span class="p">]:</span>
+            <span class="n">hosts</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAMES&quot;</span><span class="p">])</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;SOURCE&quot;</span><span class="p">]</span>
+
+            <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">source</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+
+                <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">:</span>
+                    <span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">host</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">source</span><span class="p">])</span>
+                <span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;The source {:} does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.common.ConfigDict &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.common.ConfigDict</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.common.ConfigDict</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">os.path</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_base.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span> <span class="k">as</span> <span class="n">BaseConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_base.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+
+<span class="c"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="dprint"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.dprint">[docs]</a><span class="k">def</span> <span class="nf">dprint</span><span class="p">(</span><span class="n">OD</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s">&#39; &#39;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">is_number</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">fstr</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">s</span> <span class="k">if</span> <span class="n">is_number</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">s</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="s">&#39;dict&#39;</span><span class="p">:</span>
+        <span class="n">kv_tpl</span> <span class="o">=</span> <span class="s">&#39;(&quot;</span><span class="si">%s</span><span class="s">&quot;, </span><span class="si">%s</span><span class="s">)&#39;</span>
+        <span class="n">ST</span> <span class="o">=</span> <span class="s">&#39;OrderedDict([</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="n">END</span> <span class="o">=</span> <span class="s">&#39;])&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">kv_tpl</span> <span class="o">=</span> <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot;: </span><span class="si">%s</span><span class="s">&#39;</span>
+        <span class="n">ST</span> <span class="o">=</span> <span class="s">&#39;{</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="n">END</span> <span class="o">=</span> <span class="s">&#39;}&#39;</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">OD</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">OD</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="ow">in</span> <span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">]:</span>
+            <span class="n">level</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="p">(</span><span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">indent</span> <span class="o">+</span> <span class="n">kv_tpl</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">ST</span> <span class="o">+</span> <span class="n">dprint</span><span class="p">(</span><span class="n">OD</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+                                                                 <span class="n">indent</span><span class="o">=</span><span class="n">indent</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">indent</span> <span class="o">+</span> <span class="n">END</span><span class="p">)</span>
+            <span class="n">level</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="n">level</span> <span class="o">*</span> <span class="n">indent</span> <span class="o">+</span> <span class="n">kv_tpl</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">fstr</span><span class="p">(</span><span class="n">OD</span><span class="p">[</span><span class="n">k</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">OD</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;,&quot;</span>
+        <span class="n">s</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="k">return</span> <span class="n">s</span></div>
+
+
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Config.check_file_for_tabs"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.check_file_for_tabs">[docs]</a>    <span class="k">def</span> <span class="nf">check_file_for_tabs</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;identifies if the file contains tabs and returns True if it</span>
+<span class="sd">        does. It also prints the location of the lines and columns. If</span>
+<span class="sd">        verbose is set to False, the location is not printed.</span>
+
+<span class="sd">        :param filename: the filename</span>
+<span class="sd">        :type filename: str</span>
+<span class="sd">        :rtype: True if there are tabs in the file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">file_contains_tabs</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">with</span> <span class="nb">file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+
+        <span class="n">line_no</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">file_contains_tabs</span> <span class="o">=</span> <span class="bp">True</span>
+                <span class="n">location</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">))</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Tab found in line&quot;</span><span class="p">,</span> <span class="n">line_no</span><span class="p">,</span> <span class="s">&quot;and column(s)&quot;</span><span class="p">,</span>
+                          <span class="n">location</span><span class="p">)</span>
+            <span class="n">line_no</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">file_contains_tabs</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Config.path_expand"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.path_expand">[docs]</a>    <span class="k">def</span> <span class="nf">path_expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        expands the path while replacing environment variables, ./, and ~/</span>
+
+<span class="sd">        :param path: the path to be expanded</span>
+<span class="sd">        :type path: string</span>
+<span class="sd">        :return:the new path</span>
+<span class="sd">        :rtype: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">current_dir</span> <span class="o">=</span> <span class="s">&quot;.&quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">current_dir</span><span class="p">):</span>
+            <span class="n">cwd</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="n">cwd</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">location</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Config.find_file"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.find_file">[docs]</a>    <span class="k">def</span> <span class="nf">find_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        find the specified file in the list of directories that are given in the</span>
+<span class="sd">        array load_order</span>
+
+<span class="sd">        :param filename: the file name</span>
+<span class="sd">        :type filename: str</span>
+<span class="sd">        :param load_order: an array with path names in with the filename is looked for.</span>
+<span class="sd">        :type load_order: list of str</span>
+<span class="sd">        :param verbose:</span>
+<span class="sd">        :type verbose: bool</span>
+<span class="sd">        :return: file name if successful</span>
+<span class="sd">        :rtype: string if the file exists or None otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">load_order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">load_order</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">,</span> <span class="s">&quot;.cloudmesh&quot;</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">load_order</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;try finding file&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Found File&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="bp">None</span></div></div>
+
+
+<div class="viewcode-block" id="ConfigDict"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict">[docs]</a><span class="k">class</span> <span class="nc">ConfigDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">filename</span><span class="p">,</span>
+                 <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a dictionary from a yaml configuration file</span>
+<span class="sd">        while using the filename to load it in the specified load_order.</span>
+<span class="sd">        The load order is an array of paths in which the file is searched.</span>
+<span class="sd">        By default the load order is set to . and ~/.cloudmesh</span>
+
+<span class="sd">        :param filename: the filename</span>
+<span class="sd">        :type filename: string</span>
+<span class="sd">        :param load_order: an array with path names in with the filename is looked for.</span>
+<span class="sd">        :type load_order: list of strings</span>
+<span class="sd">        :return: an instance of ConfigDict</span>
+<span class="sd">        :rtype: ConfigDict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">load_order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_order</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">,</span> <span class="s">&quot;.cloudmesh&quot;</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_order</span> <span class="o">=</span> <span class="n">load_order</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_order</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;try Loading ConfigDict&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Loading ConfigDict&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="k">return</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;could not find file {:} in {:}&quot;</span>
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_order</span><span class="p">))</span>
+
+<div class="viewcode-block" id="ConfigDict.load"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        loads the configuration from the yaml filename</span>
+
+<span class="sd">        :param filename:</span>
+<span class="sd">        :type filename: string</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">BaseConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ConfigDict.save"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        saves the configuration in the given filename,</span>
+<span class="sd">        if it is none the filename at load time is used.</span>
+
+<span class="sd">        :param filename: the file name</span>
+<span class="sd">        :type filename: string</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">yaml</span><span class="p">()</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">filename</span><span class="p">),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets an item with the given value while using . formatted keys</span>
+
+<span class="sd">        set(&#39;a.b.c&quot;, value)</span>
+
+<span class="sd">        :param item:</span>
+<span class="sd">        :type item:</span>
+<span class="sd">        :param value:</span>
+<span class="sd">        :type value:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="s">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets an item form the dict. The key is . separated</span>
+
+<span class="sd">        use it as follows get(&quot;a.b.c&quot;)</span>
+
+<span class="sd">        :param item:</span>
+<span class="sd">        :type item:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">element</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">element</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the dict in yaml format</span>
+
+<span class="sd">        :return: returns the yaml output of the dict</span>
+<span class="sd">        :rtype: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">yaml</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the dict in yaml format</span>
+
+<span class="sd">        :return: returns the yaml output of the dict</span>
+<span class="sd">        :rtype: string:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">yaml</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ConfigDict.info"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        prints out the dict type and its content</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param start: start key in dot notation</span>
+
+<span class="sd">        returns the dict in json format</span>
+
+<span class="sd">        :return: json string version</span>
+<span class="sd">        :rtype: string</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">start</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ConfigDict.check"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        checks the filename if it is syntactically correct and does not include tabs</span>
+
+<span class="sd">        :param filename:</span>
+<span class="sd">        :type filename: string</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div></div>
+
+
+<span class="c"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="Username"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Username">[docs]</a><span class="k">def</span> <span class="nf">Username</span><span class="p">():</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s">&quot;username&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;profile&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&quot;Profile username is not set in yaml file.&quot;</span><span class="p">)</span>
+
+    <span class="n">user</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;profile&quot;</span><span class="p">][</span><span class="s">&quot;username&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">user</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s">&quot;meta&quot;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s">&quot;meta.kind&quot;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s">&quot;meta&quot;</span><span class="p">][</span><span class="s">&quot;kind&quot;</span><span class="p">])</span>
+
+    <span class="c"># this does not yet work</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;profile&quot;</span><span class="p">][</span><span class="s">&quot;firstname&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;ABC&#39;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&quot;cat cmd3.yaml&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">json</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;YAML&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">yaml</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

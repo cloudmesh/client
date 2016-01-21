@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.cloud.default &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.cloud.default</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.cloud.default</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="kn">import</span> <span class="n">Printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
+
+
+<span class="c"># noinspection PyBroadException</span>
+<div class="viewcode-block" id="Default"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default">[docs]</a><span class="k">class</span> <span class="nc">Default</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Cloudmesh contains the concept of defaults. Defaults can have</span>
+<span class="sd">    categories (we will rename cloud to categories). A category can be a</span>
+<span class="sd">    cloud name or the name &#39;general&#39;. The category general is a &#39;global&#39;</span>
+<span class="sd">    name space and contains defaults of global value (in future we will</span>
+<span class="sd">    rename the value to global).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
+    <span class="sd">&quot;&quot;&quot;cm is  a static variable so that db is used uniformly.&quot;&quot;&quot;</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.list"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
+             <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+             <span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span>
+             <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+             <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        lists the default values in the specified format.</span>
+<span class="sd">        TODO: This method has a bug as it uses format and output,</span>
+<span class="sd">        only one should be used.</span>
+
+<span class="sd">        :param cloud: the category of the default value. If general is used</span>
+<span class="sd">                      it is a special category that is used for global values.</span>
+<span class="sd">        :param format: json, table, yaml, dict, csv</span>
+<span class="sd">        :param order: The order in which the attributes are returned</span>
+<span class="sd">        :param output: The output format.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">,</span> <span class="s">&#39;cloud&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                         <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
+                                         <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># GENERAL SETTER AND GETTER METHOD</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default value for a given category</span>
+<span class="sd">        :param key: the dictionary key of the value to store it at.</span>
+<span class="sd">        :param value: the value</span>
+<span class="sd">        :param cloud: the name of the category</span>
+<span class="sd">        :param user: the username to store this default value at.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+
+            <span class="n">me</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">user</span> <span class="ow">or</span> <span class="n">user</span>
+            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
+                                       <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                                       <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                                       <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                                       <span class="n">user</span><span class="o">=</span><span class="n">me</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+                <span class="c">#cls.cm.update(o)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_object"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the first object that matches the key in teh Default</span>
+<span class="sd">        database.</span>
+
+<span class="sd">        :param key: The dictionary key</span>
+<span class="sd">        :param cloud: The category</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+                         <span class="s">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">}</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
+                            <span class="n">output</span><span class="o">=</span><span class="s">&#39;object&#39;</span><span class="p">,</span>
+                            <span class="o">**</span><span class="n">arguments</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">o</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the value of the first objects matching the key</span>
+<span class="sd">        with the given category.</span>
+
+<span class="sd">        :param key: The dictionary key</span>
+<span class="sd">        :param cloud: The category</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+                     <span class="s">&#39;cloud&#39;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">}</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
+                        <span class="n">output</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">,</span>
+                        <span class="n">scope</span><span class="o">=</span><span class="s">&#39;first&#39;</span><span class="p">,</span>
+                        <span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">o</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.delete"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span></div>
+        <span class="c">#</span>
+        <span class="c"># TODO: this is wrong implemented,</span>
+        <span class="c">#</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s">&quot;Deletion. ok.&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">None</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.clear"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        deletes all default values in the database.</span>
+<span class="sd">        :param key: The dictionary key</span>
+<span class="sd">        :param cloud: The category</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_by_name</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">None</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># Set the default cloud</span>
+    <span class="c">#</span>
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_cloud"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">get_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the cloud in teh category general</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_cloud"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">set_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the cloud in the category general</span>
+<span class="sd">        :param value: the cloud as defined in cloudmesh.yaml</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># Set the default image</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_image"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default image for a specific cloud.</span>
+<span class="sd">        :param value: the image uuid or name</span>
+<span class="sd">        :param cloud: the cloud</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_image"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the image for a particular cloud</span>
+<span class="sd">        :param cloud: the cloud</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># Set the default flavor</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_flavor"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">set_flavor</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default flavor for a particular cloud</span>
+<span class="sd">        :param value: teh flavor name or uuid</span>
+<span class="sd">        :param cloud: the cloud</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_flavor"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets ths flavor default for a cloud</span>
+<span class="sd">        :param cloud: the cloud</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># Set the default group</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_group"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_group">[docs]</a>    <span class="k">def</span> <span class="nf">set_group</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default group</span>
+<span class="sd">        :param value: the group name</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;group&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_group"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_group">[docs]</a>    <span class="k">def</span> <span class="nf">get_group</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the default group</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;group&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># Set the default key</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_key"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_key">[docs]</a>    <span class="k">def</span> <span class="nf">set_key</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default key</span>
+<span class="sd">        :param value: the keyname</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_key"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_key</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        get the default keyname</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="c">#</span>
+    <span class="c"># Set the default cluster</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default cluster</span>
+<span class="sd">        :param value: the clustername as defined in the cloudmesh yaml file.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_cluster"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets the default cluster name.</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+    <span class="c">#</span>
+    <span class="c"># Set the default key</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_debug"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_debug">[docs]</a>    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        enables debugging</span>
+<span class="sd">        :param value: True/False</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_debug"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_debug">[docs]</a>    <span class="k">def</span> <span class="nf">get_debug</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        is dubugging switched on?</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.debug"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.debug">[docs]</a>    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: returns True if debugging is on</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c">#</span>
+    <span class="c"># Set the default key</span>
+    <span class="c">#</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_refresh"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_refresh">[docs]</a>    <span class="k">def</span> <span class="nf">set_refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default for all clouds to refresh</span>
+<span class="sd">        :param value:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;refresh&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_refresh"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_refresh">[docs]</a>    <span class="k">def</span> <span class="nf">get_refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        is refresh switched on?</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;refresh&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.refresh"><a class="viewcode-back" href="../../../modules/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: &quot;on&quot; if refresh is True, &quot;off&quot; otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_refresh</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">set_refresh</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;off&quot;</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&quot;on&quot;</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,514 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.shell.plugins.ReservationCommand &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../../index.html"/>
+        <link rel="up" title="Module code" href="../../../index.html"/> 
+
+  
+  <script src="../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.shell.plugins.ReservationCommand</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.shell.plugins.ReservationCommand</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.reservation</span> <span class="kn">import</span> <span class="n">Reservation</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pyaml</span>
+
+<span class="kn">from</span> <span class="nn">timestring</span> <span class="kn">import</span> <span class="n">Date</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
+
+
+<div class="viewcode-block" id="ReservationCommand"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ReservationCommand.ReservationCommand">[docs]</a><span class="k">class</span> <span class="nc">ReservationCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;reservation&quot;</span><span class="p">:</span> <span class="s">&quot;notimplemented&quot;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="c"># super(self.__class__, self).__init__()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command reservation&quot;</span><span class="p">)</span>
+
+    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="nd">@command</span>
+    <span class="k">def</span> <span class="nf">do_reservation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        ::</span>
+
+<span class="sd">            Usage:</span>
+<span class="sd">                reservation info --user=USER --project=PROJECT</span>
+<span class="sd">                reservation list [--name=NAME]</span>
+<span class="sd">                                 [--user=USER]</span>
+<span class="sd">                                 [--project=PROJECT]</span>
+<span class="sd">                                 [--hosts=HOSTS]</span>
+<span class="sd">                                 [--start=TIME_START]</span>
+<span class="sd">                                 [--end=TIME_END]</span>
+<span class="sd">                                 [--format=FORMAT]</span>
+<span class="sd">                reservation delete [all]</span>
+<span class="sd">                                   [--user=USER]</span>
+<span class="sd">                                   [--project=PROJECT]</span>
+<span class="sd">                                   [--name=NAME]</span>
+<span class="sd">                                   [--start=TIME_START]</span>
+<span class="sd">                                   [--end=TIME_END]</span>
+<span class="sd">                                   [--hosts=HOSTS]</span>
+<span class="sd">                reservation delete --file=FILE</span>
+<span class="sd">                reservation update --name=NAME</span>
+<span class="sd">                                  [--start=TIME_START]</span>
+<span class="sd">                                  [--end=TIME_END]</span>
+<span class="sd">                                  [--user=USER]</span>
+<span class="sd">                                  [--project=PROJECT]</span>
+<span class="sd">                                  [--hosts=HOSTS]</span>
+<span class="sd">                                  [--description=DESCRIPTION]</span>
+<span class="sd">                reservation add --name=NAME</span>
+<span class="sd">                                [--start=TIME_START]</span>
+<span class="sd">                                [--end=TIME_END]</span>
+<span class="sd">                                [--user=USER]</span>
+<span class="sd">                                [--project=PROJECT]</span>
+<span class="sd">                                [--hosts=HOSTS]</span>
+<span class="sd">                                [--description=DESCRIPTION]</span>
+<span class="sd">                reservation add --file=FILE</span>
+
+<span class="sd">            Arguments:</span>
+
+<span class="sd">                NAME            Name of the reservation</span>
+<span class="sd">                USER            Registration will be done for this user</span>
+<span class="sd">                PROJECT         Project to be used</span>
+<span class="sd">                HOSTS           Hosts to reserve</span>
+<span class="sd">                TIME_START      Start time of reservation</span>
+<span class="sd">                TIME_END        End time of reservation</span>
+<span class="sd">                FORMAT          Format of output</span>
+<span class="sd">                DESCRIPTION     Description for reservation</span>
+<span class="sd">                FILE            File that contains reservation data to be added/ deleted</span>
+
+<span class="sd">            Options:</span>
+
+<span class="sd">                --name=NAME           Names of the reservation</span>
+<span class="sd">                --user=USER           user name</span>
+<span class="sd">                --project=PROJECT     project id</span>
+<span class="sd">                --start=TIME_START    Start time of the reservation, in</span>
+<span class="sd">                                      MM/DD/YYYY at hh:mm aa format. (default value: 01/01/1901 at 12:00 am])</span>
+<span class="sd">                --end=TIME_END        End time of the reservation, in</span>
+<span class="sd">                                      MM/DD/YYYY at hh:mm aa format. (default value: 12/31/2100 at 11:59 pm])</span>
+<span class="sd">                --host=HOSTS          host name</span>
+<span class="sd">                --description=DESCRIPTION  description summary of the reservation</span>
+<span class="sd">                --file=FILE           Adding multiple reservations from one file</span>
+<span class="sd">                --format=FORMAT       Format is either table, json, yaml or csv</span>
+<span class="sd">                                      [default: table]</span>
+
+<span class="sd">            Description:</span>
+
+<span class="sd">                reservation info</span>
+<span class="sd">                    lists the resources that support reservation for</span>
+<span class="sd">                    a given user or project.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c"># print (arguments)</span>
+        <span class="k">def</span> <span class="nf">_print_dict</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;table&#39;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;json&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;yaml&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">pyaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;table&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
+                                    <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;name&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;start_time&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;end_time&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;user&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;project&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;hosts&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;description&quot;</span><span class="p">,</span>
+                                           <span class="s">&quot;cloud&quot;</span><span class="p">],</span>
+                                    <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span>
+                                    <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;csv&quot;</span><span class="p">:</span>
+                <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">d</span>
+                <span class="c"># return dict_printer(d,order=[&#39;cm_id, name, fingerprint&#39;])</span>
+
+        <span class="k">def</span> <span class="nf">_get_db_date_format</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Utility Function that accepts instance of Date object and returns a string with Datetime for DB.</span>
+<span class="sd">            :param date: Date object</span>
+<span class="sd">            :return: Date as string with format expected in DB.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">db_date</span> <span class="o">=</span> <span class="s">&quot;{:}-{:}-{:} {:}:{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">month</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                                                   <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">day</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                                                   <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">year</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+                                                   <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">hour</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+                                                   <span class="nb">str</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">minute</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">db_date</span>
+
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;info&quot;</span><span class="p">]:</span>
+
+            <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--name&#39;</span><span class="p">]</span>
+                <span class="n">_user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--user&#39;</span><span class="p">]</span>
+                <span class="n">_project</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--project&#39;</span><span class="p">]</span>
+                <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--format&#39;</span><span class="p">]</span>
+                <span class="n">_hosts</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--hosts&#39;</span><span class="p">]</span>
+                <span class="n">_start</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--start&#39;</span><span class="p">]</span>
+                <span class="n">_end</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--end&#39;</span><span class="p">]</span>
+                <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--format&#39;</span><span class="p">]</span>
+
+                <span class="n">reserve</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
+                <span class="n">dictionary</span> <span class="o">=</span> <span class="n">reserve</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="n">_start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">_user</span><span class="p">,</span> <span class="n">_project</span><span class="p">,</span>
+                                          <span class="n">_hosts</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">_print_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">_format</span><span class="p">))</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;info. OK.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">traceback</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem listing reservations&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;all&quot;</span><span class="p">]:</span>
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">reserve</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
+                    <span class="n">reserve</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;info. OK.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">traceback</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem deleting all reservations&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">_name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--name&#39;</span><span class="p">]</span>
+                    <span class="n">_user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--user&#39;</span><span class="p">]</span>
+                    <span class="n">_project</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--project&#39;</span><span class="p">]</span>
+                    <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--format&#39;</span><span class="p">]</span>
+                    <span class="n">_hosts</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--hosts&#39;</span><span class="p">]</span>
+                    <span class="n">_start</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--start&#39;</span><span class="p">]</span>
+                    <span class="n">_end</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--end&#39;</span><span class="p">]</span>
+                    <span class="n">_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--format&#39;</span><span class="p">]</span>
+
+                    <span class="n">reserve</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
+                    <span class="n">reserve</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">_name</span><span class="p">,</span> <span class="n">_start</span><span class="p">,</span> <span class="n">_end</span><span class="p">,</span> <span class="n">_user</span><span class="p">,</span> <span class="n">_project</span><span class="p">,</span>
+                                   <span class="n">_hosts</span><span class="p">)</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;info. OK.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">traceback</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem deleting reservations&quot;</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;add&quot;</span><span class="p">]:</span>
+
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--file&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--name&quot;</span><span class="p">]</span>
+                    <span class="n">hosts</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--hosts&quot;</span><span class="p">]</span>
+                    <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--user&quot;</span><span class="p">]</span>
+                    <span class="n">project</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--project&quot;</span><span class="p">]</span>
+                    <span class="n">description</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--description&quot;</span><span class="p">]</span>
+
+                    <span class="n">start_time</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--start&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;01/01/1901 at 07:30 pm&quot;</span>
+                    <span class="n">end_time</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--end&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;12/31/2100 at 11:59 pm&quot;</span>
+
+                    <span class="n">stime</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+                    <span class="n">etime</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="n">end_time</span><span class="p">)</span>
+
+                    <span class="n">reserve</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
+                    <span class="n">reserve</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">_get_db_date_format</span><span class="p">(</span><span class="n">stime</span><span class="p">),</span>
+                                <span class="n">_get_db_date_format</span><span class="p">(</span><span class="n">etime</span><span class="p">),</span> <span class="n">hosts</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span>
+                                <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                                <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Reservation {:} added successfully&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;info. OK.&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="kn">import</span> <span class="nn">traceback</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="s">&quot;Problem adding reservation {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
+                    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">                    with open(os.path.join(sys.path[0], arguments[&quot;--file&quot;])) as file:</span>
+<span class="sd">                        reader = csv.reader(file)</span>
+<span class="sd">                        for row in reader:</span>
+<span class="sd">                            reservations = Reservation(cm_id=row[0],</span>
+<span class="sd">                                                    label=row[1],</span>
+<span class="sd">                                                    user=row[2],</span>
+<span class="sd">                                                    project=row[3],</span>
+<span class="sd">                                                    start_time=row[4],</span>
+<span class="sd">                                                    end_time=row[5],</span>
+<span class="sd">                                                    host=row[6],</span>
+<span class="sd">                                                    summary=row[7])</span>
+<span class="sd">                            db.add()</span>
+<span class="sd">                    &quot;&quot;&quot;</span>
+                <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Error in adding from file. &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;update&quot;</span><span class="p">]:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--name&quot;</span><span class="p">]</span>
+                <span class="n">hosts</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--hosts&quot;</span><span class="p">]</span>
+                <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--user&quot;</span><span class="p">]</span>
+                <span class="n">project</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--project&quot;</span><span class="p">]</span>
+                <span class="n">description</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--description&quot;</span><span class="p">]</span>
+
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--start&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;01/01/1901 at 07:30 pm&quot;</span>
+                <span class="n">end_time</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--end&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;12/31/2100 at 11:59 pm&quot;</span>
+
+                <span class="n">stime</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="n">start_time</span><span class="p">)</span>
+                <span class="n">etime</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="n">end_time</span><span class="p">)</span>
+
+                <span class="n">reserve</span> <span class="o">=</span> <span class="n">Reservation</span><span class="p">()</span>
+                <span class="n">reserve</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">_get_db_date_format</span><span class="p">(</span><span class="n">stime</span><span class="p">),</span>
+                               <span class="n">_get_db_date_format</span><span class="p">(</span><span class="n">etime</span><span class="p">),</span> <span class="n">hosts</span><span class="o">=</span><span class="n">hosts</span><span class="p">,</span>
+                               <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                               <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">)</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;Reservation {:} updated successfully&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;info. OK.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">traceback</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem updating reservation {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

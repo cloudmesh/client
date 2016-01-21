@@ -1,0 +1,423 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.comet.authenticate &mdash; cloudmesh_client 1.1.2 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.comet.authenticate</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.comet.authenticate</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="c"># for unit testing only.</span>
+<span class="n">USERNAME</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="n">PASSWORD</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="AuthenticationException"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.AuthenticationException">[docs]</a><span class="k">class</span> <span class="nc">AuthenticationException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<span class="c"># noinspection PyBroadException</span>
+<div class="viewcode-block" id="Authenticator"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator">[docs]</a><span class="k">class</span> <span class="nc">Authenticator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">base_uri</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">HEADER</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">}</span>
+    <span class="c"># in case of https endpoint</span>
+    <span class="n">verify</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">Authenticator</span><span class="o">.</span><span class="n">base_uri</span> <span class="o">=</span> <span class="n">uri</span>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Authenticator.set_auth_base_uri"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.set_auth_base_uri">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_base_uri</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span> <span class="o">=</span> <span class="n">uri</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Authenticator.logon"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span><span class="p">:</span>
+                <span class="n">authuri</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">/login/&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="s">&quot;password&quot;</span><span class="p">:</span> <span class="n">password</span><span class="p">}</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">authuri</span><span class="p">,</span>
+                                  <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+                                  <span class="n">headers</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">HEADER</span><span class="p">,</span>
+                                  <span class="n">verify</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s">&quot;key&quot;</span><span class="p">]</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Authenticator.logoff"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span><span class="p">:</span>
+                <span class="n">authuri</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">/logout/&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span>
+                <span class="n">header</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">HEADER</span>
+                <span class="n">header</span><span class="p">[</span><span class="s">&#39;Authorization&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;Token </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span>
+                <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">authuri</span><span class="p">,</span>
+                                  <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+                                  <span class="n">verify</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Authenticator.status"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd"># To make GET calls for synchronous or asynchronous API</span>
+<span class="sd">def hop_get(url, headers=None, timeout=10):</span>
+<span class="sd">    r = requests.get(url, headers=headers)</span>
+<span class="sd">    ret = None</span>
+<span class="sd">    # responded immediately</span>
+<span class="sd">    if r.status_code == 200:</span>
+<span class="sd">        ret = r.json()</span>
+<span class="sd">    # code 202, accepted call and processing</span>
+<span class="sd">    elif r.status_code == 202:</span>
+<span class="sd">        success = 0</span>
+<span class="sd">        ntried = 0</span>
+<span class="sd">        # status check by visiting another URL</span>
+<span class="sd">        newurl = r.headers[&quot;Location&quot;]</span>
+<span class="sd">        ret = requests.get(newurl, headers=headers).json()</span>
+<span class="sd">        while not success and ntried&lt;timeout:</span>
+<span class="sd">            # result ready, status was set to 1; otherwise 0</span>
+<span class="sd">            success = ret[&#39;status&#39;]</span>
+<span class="sd">            if success:</span>
+<span class="sd">                ret = ret[&#39;data&#39;]</span>
+<span class="sd">            else:</span>
+<span class="sd">                #print &quot;trying again %s out of %s&quot; % (ntried, timeout)</span>
+<span class="sd">                time.sleep(1)</span>
+<span class="sd">                ret = requests.get(newurl, headers=headers).json()</span>
+<span class="sd">                ntried += 1</span>
+<span class="sd">        if timeout == ntried:</span>
+<span class="sd">            ret = None</span>
+<span class="sd">    return ret</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="c"># To make GET calls for synchronous or asynchronous API</span>
+<div class="viewcode-block" id="hop_get"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.hop_get">[docs]</a><span class="k">def</span> <span class="nf">hop_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="c"># responded immediately</span>
+    <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="c"># code 202, accepted call and processing</span>
+    <span class="k">elif</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">202</span><span class="p">:</span>
+        <span class="c"># now automatically redirect to result page</span>
+        <span class="c"># thus no need to check status periodically.</span>
+        <span class="c"># Currently it works well for cluster listing</span>
+        <span class="c"># However not sure if the delay is large, what the behaviour would be</span>
+        <span class="n">finished</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">newurl</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">&quot;Location&quot;</span><span class="p">]</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">finished</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">newurl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="c"># in some occasions, when the result is not ready,</span>
+            <span class="c"># the result still has &#39;status&#39; in it (value as &#39;0&#39;)</span>
+            <span class="c"># otherwise it&#39;s the correct value after redirection</span>
+            <span class="k">if</span> <span class="s">&#39;status&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ret</span><span class="p">:</span>
+                <span class="n">finished</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">r</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">401</span><span class="p">:</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;error&quot;</span><span class="p">:</span> <span class="s">&quot;Not Authenticated&quot;</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">ret</span></div>
+
+
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080/rest-auth&quot;</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">Authenticator</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c"># change user, password to proper value as set in django</span>
+    <span class="c"># in shell, we may ask user input</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">USERNAME</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PASSWORD</span>
+    <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">logon</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">status</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../modules/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">TEST 1: Get without logon&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span>
+    <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">,</span>
+                  <span class="s">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s">&#39;Token </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
+    <span class="n">geturl</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080/v1/cluster/&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">TEST 2: Auth and then get cluster list&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span>
+    <span class="n">authurl</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080/rest-auth&quot;</span>
+    <span class="n">auth</span> <span class="o">=</span> <span class="n">Authenticator</span><span class="p">(</span><span class="n">authurl</span><span class="p">)</span>
+    <span class="c"># change user, password to proper value as set in django</span>
+    <span class="c"># in shell, we may ask user input</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">USERNAME</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">PASSWORD</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="n">auth</span><span class="o">.</span><span class="n">logon</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+
+    <span class="c"># construct a header with auth token after login</span>
+    <span class="c"># for all the following calls before log out</span>
+    <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">,</span>
+                  <span class="s">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s">&#39;Token </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
+    <span class="n">geturl</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080/v1/cluster/&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">hop_get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="c"># as of 2:40pm ET Oct 15, this is changed to &#39;not implemented&#39;</span>
+    <span class="c"># as of 5:30pm ET this is now fixed and working</span>
+    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">TEST 3: Get cluster &#39;OSG&#39;&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span>
+    <span class="n">geturl1</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="s">&quot;osg/&quot;</span><span class="p">)</span>
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">hop_get</span><span class="p">(</span><span class="n">geturl1</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">r1</span><span class="p">)</span>
+
+    <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">TEST 4: logoff and get cluster list again&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span>
+    <span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">()</span>
+    <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;content-type&#39;</span><span class="p">:</span> <span class="s">&#39;application/json&#39;</span><span class="p">,</span>
+                  <span class="s">&quot;Authorization&quot;</span><span class="p">:</span> <span class="s">&#39;Token </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">token</span><span class="p">}</span>
+    <span class="n">geturl</span> <span class="o">=</span> <span class="s">&quot;http://localhost:8080/v1/cluster/&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">geturl</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">authheader</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">test_get_cluster_list</span><span class="p">()</span>
+    <span class="c"># main()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'1.1.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

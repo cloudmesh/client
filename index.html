@@ -83,11 +83,13 @@
                 <ul>
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Installation</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul>
@@ -106,6 +108,13 @@
 <p class="caption"><span class="caption-text">Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developers Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
 </ul>
 
             
@@ -152,18 +161,20 @@
             
   <div class="section" id="cloudmesh-client-toolkit">
 <h1>Cloudmesh Client Toolkit<a class="headerlink" href="#cloudmesh-client-toolkit" title="Permalink to this headline">¶</a></h1>
-<p>The <em>cloudmesh client</em> toolkit is a lightweight client interface of accessing
-heterogeneous clouds, clusters, and workstations right from the users computer.
-The user can manage his own set of resources he would like to utilize. Thus
-the user has the freedom to customize their cyber infrastructure they use.
-Cloudmesh client includes an API, a commandline client, and a commandline shell.
-It strives to abstract backends to databases that are used to manage the workflow
-utilizing the different infrastructure and also the services. Switching for example
-to stage virtual machines from openstack clouds to amazon is as simple as
-specifying the name of the cloud. Moreover, cloudmesh client can be installed on
-Linux, MacOSX, and even Windows. Currently we support backends to SLURM, SSH, Openstack,
-Heat. In the past we supported AWS and Azure. We are in the process of integrating them
-back into the client.</p>
+<p>The <em>cloudmesh client</em> toolkit is a lightweight client interface of
+accessing heterogeneous clouds, clusters, and workstations right from
+the users computer.  The user can manage his own set of resources he
+would like to utilize. Thus the user has the freedom to customize
+their cyber infrastructure they use.  Cloudmesh client includes an
+API, a commandline client, and a commandline shell.  It strives to
+abstract backends to databases that are used to manage the workflow
+utilizing the different infrastructure and also the
+services. Switching for example to stage virtual machines from
+openstack clouds to amazon is as simple as specifying the name of the
+cloud. Moreover, cloudmesh client can be installed on Linux, MacOSX,
+and even Windows. Currently we support backends to SLURM, SSH,
+Openstack, Heat. In the past we supported AWS and Azure. We are in the
+process of integrating them back into the client.</p>
 <p>This documentation and code is available on github at:</p>
 <ul class="simple">
 <li>Documentation: <a class="reference external" href="http://cloudmesh.github.io/client/">http://cloudmesh.github.io/client/</a></li>
@@ -180,38 +191,50 @@ back into the client.</p>
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound" id="introduction">
+<p class="caption"><span class="caption-text">Introduction</span><a class="headerlink" href="#introduction" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#where-to-go-next">Where to go next?</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="toctree-wrapper compound" id="installation">
 <p class="caption"><span class="caption-text">Installation</span><a class="headerlink" href="#installation" title="Permalink to this toctree">¶</a></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="system.html">Preparation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="system.html#osx">OSX</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system.html#ubuntu-14-04-3">Ubuntu 14.04.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system.html#ubuntu-15-04">Ubuntu 15.04</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system.html#centos">CentOS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system.html#windows-10">Windows 10</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="system.html#install-python">Install Python</a></li>
-<li class="toctree-l3"><a class="reference internal" href="system.html#install-ssh-git-make-pscp-and-an-editor">Install ssh, git, make, pscp and an editor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="system.html#install-make-in-windows">Install make In Windows</a></li>
-<li class="toctree-l3"><a class="reference internal" href="system.html#makeing-python-usable">Makeing python usable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="system.html#osx">OSX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#ubuntu-14-04-3">Ubuntu 14.04.3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#ubuntu-15-04">Ubuntu 15.04</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#centos">CentOS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="system.html#windows-10">Windows 10</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-python">Install Python</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-ssh-git-make-pscp-and-an-editor">Install ssh, git, make, pscp and an editor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#install-make-in-windows">Install make In Windows</a></li>
+<li class="toctree-l4"><a class="reference internal" href="system.html#makeing-python-usable">Makeing python usable</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#cloudmesh-client-via-pip">Cloudmesh Client via pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-repository">Developer with ssh access to git repository</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
-<li class="toctree-l3"><a class="reference internal" href="installation.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#cloudmesh-client-via-pip">Cloudmesh Client via pip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#preparing-the-virtualenv">Preparing the Virtualenv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#user-and-contributor">User and Contributor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#developer-with-ssh-access-to-git-repository">Developer with ssh access to git repository</a></li>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="installation.html#testing">Testing</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#get-registration-from-indiana-university">Get Registration from Indiana University</a></li>
-<li class="toctree-l2"><a class="reference internal" href="configuration.html#registration-of-clouds">Registration of clouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#get-registration-from-indiana-university">Get Registration from Indiana University</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration.html#registration-of-clouds">Registration of clouds</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -500,131 +523,189 @@ back into the client.</p>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html">cloudmesh_client.cloud.hpc package</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.html">cloudmesh_client.cloud.hpc.provider package</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l10"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.slurm.html">cloudmesh_client.cloud.hpc.provider.slurm package</a><ul>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.slurm.html#submodules">Submodules</a></li>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.slurm.html#module-cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM">cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.slurm.html#module-cloudmesh_client.cloud.hpc.provider.slurm.squeue">cloudmesh_client.cloud.hpc.provider.slurm.squeue module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.slurm.html#module-cloudmesh_client.cloud.hpc.provider.slurm">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.provider.html#module-cloudmesh_client.cloud.hpc.provider">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#submodules">Submodules</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#cloudmesh-client-cloud-hpc-hpc-module">cloudmesh_client.cloud.hpc.hpc module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#cloudmesh-client-cloud-hpc-squeue-module">cloudmesh_client.cloud.hpc.squeue module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#module-contents">Module contents</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#module-cloudmesh_client.cloud.hpc.BatchProvider">cloudmesh_client.cloud.hpc.BatchProvider module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#module-cloudmesh_client.cloud.hpc.BatchProviderBase">cloudmesh_client.cloud.hpc.BatchProviderBase module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.hpc.html#module-cloudmesh_client.cloud.hpc">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l6"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html">cloudmesh_client.cloud.iaas package</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l8"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.html">cloudmesh_client.cloud.iaas.provider package</a><ul>
+<li class="toctree-l9"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l10"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.openstack.html">cloudmesh_client.cloud.iaas.provider.openstack package</a><ul>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.openstack.html#submodules">Submodules</a></li>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.openstack.html#module-cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI">cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI module</a></li>
+<li class="toctree-l11"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.openstack.html#module-cloudmesh_client.cloud.iaas.provider.openstack">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l9"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.provider.html#module-cloudmesh_client.cloud.iaas.provider">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#submodules">Submodules</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#cloudmesh-client-cloud-iaas-cloudproviderbase-module">cloudmesh_client.cloud.iaas.CloudProviderBase module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#cloudmesh-client-cloud-iaas-cloudprovideropenstack-module">cloudmesh_client.cloud.iaas.CloudProviderOpenstack module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#module-contents">Module contents</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#module-cloudmesh_client.cloud.iaas.CloudProvider">cloudmesh_client.cloud.iaas.CloudProvider module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#module-cloudmesh_client.cloud.iaas.CloudProviderBase">cloudmesh_client.cloud.iaas.CloudProviderBase module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.cloud.iaas.html#module-cloudmesh_client.cloud.iaas">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-listresource-module">cloudmesh_client.cloud.ListResource module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-default-module">cloudmesh_client.cloud.default module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-flavor-module">cloudmesh_client.cloud.flavor module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-group-module">cloudmesh_client.cloud.group module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-image-module">cloudmesh_client.cloud.image module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-inventory-module">cloudmesh_client.cloud.inventory module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-limits-module">cloudmesh_client.cloud.limits module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-list-module">cloudmesh_client.cloud.list module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-nova-module">cloudmesh_client.cloud.nova module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-quota-module">cloudmesh_client.cloud.quota module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-register-module">cloudmesh_client.cloud.register module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-reservation-module">cloudmesh_client.cloud.reservation module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-secgroup-module">cloudmesh_client.cloud.secgroup module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-usage-module">cloudmesh_client.cloud.usage module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#cloudmesh-client-cloud-vm-module">cloudmesh_client.cloud.vm module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.default">cloudmesh_client.cloud.default module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.group">cloudmesh_client.cloud.group module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.hpc">cloudmesh_client.cloud.hpc module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.image">cloudmesh_client.cloud.image module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.inventory">cloudmesh_client.cloud.inventory module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.launcher">cloudmesh_client.cloud.launcher module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.limits">cloudmesh_client.cloud.limits module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.list">cloudmesh_client.cloud.list module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.network">cloudmesh_client.cloud.network module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.nova">cloudmesh_client.cloud.nova module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.quota">cloudmesh_client.cloud.quota module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.register">cloudmesh_client.cloud.register module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.reservation">cloudmesh_client.cloud.reservation module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.secgroup">cloudmesh_client.cloud.secgroup module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.sync">cloudmesh_client.cloud.sync module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.usage">cloudmesh_client.cloud.usage module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.vm">cloudmesh_client.cloud.vm module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.cloud.html#module-cloudmesh_client.cloud">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.comet.html">cloudmesh_client.comet package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#cloudmesh-client-comet-authenticate-module">cloudmesh_client.comet.authenticate module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#cloudmesh-client-comet-cluster-module">cloudmesh_client.comet.cluster module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#cloudmesh-client-comet-comet-module">cloudmesh_client.comet.comet module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#module-cloudmesh_client.comet.authenticate">cloudmesh_client.comet.authenticate module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#module-cloudmesh_client.comet.cluster">cloudmesh_client.comet.cluster module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#module-cloudmesh_client.comet.comet">cloudmesh_client.comet.comet module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.comet.html#module-cloudmesh_client.comet">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.common.html">cloudmesh_client.common package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-configdict-module">cloudmesh_client.common.ConfigDict module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-dictdb-module">cloudmesh_client.common.DictDB module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-flatdict-module">cloudmesh_client.common.FlatDict module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-tableparser-module">cloudmesh_client.common.TableParser module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-authenticate-module">cloudmesh_client.common.authenticate module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-tables-module">cloudmesh_client.common.tables module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-todo-module">cloudmesh_client.common.todo module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-type-module">cloudmesh_client.common.type module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#cloudmesh-client-common-vmname-module">cloudmesh_client.common.vmname module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.ConfigDict">cloudmesh_client.common.ConfigDict module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.TableParser">cloudmesh_client.common.TableParser module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.todo">cloudmesh_client.common.todo module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.type">cloudmesh_client.common.type module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common.vmname">cloudmesh_client.common.vmname module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.common.html#module-cloudmesh_client.common">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.db.html">cloudmesh_client.db package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#cloudmesh-client-db-cloudmeshdatabase-module">cloudmesh_client.db.CloudmeshDatabase module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#cloudmesh-client-db-sshkeydbmanager-module">cloudmesh_client.db.SSHKeyDBManager module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#cloudmesh-client-db-model-module">cloudmesh_client.db.model module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#module-cloudmesh_client.db.CloudmeshDatabase">cloudmesh_client.db.CloudmeshDatabase module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#module-cloudmesh_client.db.SSHKeyDBManager">cloudmesh_client.db.SSHKeyDBManager module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#module-cloudmesh_client.db.model">cloudmesh_client.db.model module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.db.html#module-cloudmesh_client.db">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.etc.html">cloudmesh_client.etc package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.etc.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.etc.html#module-cloudmesh_client.etc">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.keys.html">cloudmesh_client.keys package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#cloudmesh-client-keys-sshkeymanager-module">cloudmesh_client.keys.SSHKeyManager module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#cloudmesh-client-keys-sshkey-module">cloudmesh_client.keys.SSHkey module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#module-cloudmesh_client.keys.SSHKeyManager">cloudmesh_client.keys.SSHKeyManager module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#module-cloudmesh_client.keys.SSHkey">cloudmesh_client.keys.SSHkey module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.keys.html#module-cloudmesh_client.keys">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.shell.html">cloudmesh_client.shell package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l6"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html">cloudmesh_client.shell.plugins package</a><ul>
 <li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#submodules">Submodules</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-bar-module">cloudmesh_client.shell.plugins.Bar module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-cloudplugincommand-module">cloudmesh_client.shell.plugins.CloudPluginCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-colorcommand-module">cloudmesh_client.shell.plugins.ColorCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-cometplugincommand-module">cloudmesh_client.shell.plugins.CometPluginCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-defaultcommand-module">cloudmesh_client.shell.plugins.DefaultCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-flavorcommand-module">cloudmesh_client.shell.plugins.FlavorCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-groupcommand-module">cloudmesh_client.shell.plugins.GroupCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-hpccommand-module">cloudmesh_client.shell.plugins.HpcCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-imagecommand-module">cloudmesh_client.shell.plugins.ImageCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-inventorycommand-module">cloudmesh_client.shell.plugins.InventoryCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-keycommand-module">cloudmesh_client.shell.plugins.KeyCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-limitscommand-module">cloudmesh_client.shell.plugins.LimitsCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-listcommand-module">cloudmesh_client.shell.plugins.ListCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-mancommand-module">cloudmesh_client.shell.plugins.ManCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-novacommand-module">cloudmesh_client.shell.plugins.NovaCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-opencommand-module">cloudmesh_client.shell.plugins.OpenCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-quotacommand-module">cloudmesh_client.shell.plugins.QuotaCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-registercommand-module">cloudmesh_client.shell.plugins.RegisterCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-reservationcommand-module">cloudmesh_client.shell.plugins.ReservationCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-secgroupcommand-module">cloudmesh_client.shell.plugins.SecgroupCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-secureshellcommand-module">cloudmesh_client.shell.plugins.SecureShellCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-selectcommand-module">cloudmesh_client.shell.plugins.SelectCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-servercommand-module">cloudmesh_client.shell.plugins.ServerCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-submitcommands-module">cloudmesh_client.shell.plugins.SubmitCommands module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-terminalcommands-module">cloudmesh_client.shell.plugins.TerminalCommands module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-usagecommand-module">cloudmesh_client.shell.plugins.UsageCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#cloudmesh-client-shell-plugins-vmcommand-module">cloudmesh_client.shell.plugins.VmCommand module</a></li>
-<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-contents">Module contents</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.Bar">cloudmesh_client.shell.plugins.Bar module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CheckCommand">cloudmesh_client.shell.plugins.CheckCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CloudCommand">cloudmesh_client.shell.plugins.CloudCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ClusterCommand">cloudmesh_client.shell.plugins.ClusterCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ColorCommand">cloudmesh_client.shell.plugins.ColorCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CometCommand">cloudmesh_client.shell.plugins.CometCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DebugCommand">cloudmesh_client.shell.plugins.DebugCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DefaultCommand">cloudmesh_client.shell.plugins.DefaultCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.FlavorCommand">cloudmesh_client.shell.plugins.FlavorCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.GroupCommand">cloudmesh_client.shell.plugins.GroupCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.HpcCommand">cloudmesh_client.shell.plugins.HpcCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ImageCommand">cloudmesh_client.shell.plugins.ImageCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.InventoryCommand">cloudmesh_client.shell.plugins.InventoryCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.KeyCommand">cloudmesh_client.shell.plugins.KeyCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LauncherCommand">cloudmesh_client.shell.plugins.LauncherCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LimitsCommand">cloudmesh_client.shell.plugins.LimitsCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ListCommand">cloudmesh_client.shell.plugins.ListCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ManCommand">cloudmesh_client.shell.plugins.ManCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NetworkCommand">cloudmesh_client.shell.plugins.NetworkCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NovaCommand">cloudmesh_client.shell.plugins.NovaCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.OpenCommand">cloudmesh_client.shell.plugins.OpenCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.PortalCommand">cloudmesh_client.shell.plugins.PortalCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.PyCommand">cloudmesh_client.shell.plugins.PyCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.QuotaCommand">cloudmesh_client.shell.plugins.QuotaCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.RefreshCommand">cloudmesh_client.shell.plugins.RefreshCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.RegisterCommand">cloudmesh_client.shell.plugins.RegisterCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ReservationCommand">cloudmesh_client.shell.plugins.ReservationCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ResetCommand">cloudmesh_client.shell.plugins.ResetCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SecgroupCommand">cloudmesh_client.shell.plugins.SecgroupCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SecureShellCommand">cloudmesh_client.shell.plugins.SecureShellCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SelectCommand">cloudmesh_client.shell.plugins.SelectCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ServerCommand">cloudmesh_client.shell.plugins.ServerCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SubmitCommands">cloudmesh_client.shell.plugins.SubmitCommands module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SyncCommand">cloudmesh_client.shell.plugins.SyncCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TerminalCommands">cloudmesh_client.shell.plugins.TerminalCommands module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.UsageCommand">cloudmesh_client.shell.plugins.UsageCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.VmCommand">cloudmesh_client.shell.plugins.VmCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.WhoCommand">cloudmesh_client.shell.plugins.WhoCommand module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="modules/cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#cloudmesh-client-shell-cm-module">cloudmesh_client.shell.cm module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#cloudmesh-client-shell-cm-shell-status-module">cloudmesh_client.shell.cm_shell_status module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#cloudmesh-client-shell-command-module">cloudmesh_client.shell.command module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#cloudmesh-client-shell-console-module">cloudmesh_client.shell.console module</a></li>
-<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-contents">Module contents</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-cloudmesh_client.shell.cm">cloudmesh_client.shell.cm module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-cloudmesh_client.shell.cm_shell_status">cloudmesh_client.shell.cm_shell_status module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-cloudmesh_client.shell.command">cloudmesh_client.shell.command module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-cloudmesh_client.shell.console">cloudmesh_client.shell.console module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-cloudmesh_client.shell.ghost">cloudmesh_client.shell.ghost module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.shell.html#module-cloudmesh_client.shell">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="modules/cloudmesh_client.system.html">cloudmesh_client.system package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.system.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.system.html#module-cloudmesh_client.system.rack">cloudmesh_client.system.rack module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.system.html#module-cloudmesh_client.system.who">cloudmesh_client.system.who module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="modules/cloudmesh_client.system.html#module-cloudmesh_client.system">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-shell-command-module">cloudmesh_client.shell_command module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#cloudmesh-client-version-module">cloudmesh_client.version module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-contents">Module contents</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="modules/fabfile.html">fabfile package</a><ul>
@@ -746,6 +827,41 @@ back into the client.</p>
 </li>
 </ul>
 </div>
+<div class="toctree-wrapper compound" id="developers-manual">
+<p class="caption"><span class="caption-text">Developers Manual</span><a class="headerlink" href="#developers-manual" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hacking.html#git">Git</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hacking.html#closing-issues-via-commit-messages">Closing Issues via Commit Messages</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hacking.html#ssh-keys">SSH keys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hacking.html#sheetsheet">Sheetsheet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hacking.html#empty-commits">Empty Commits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="hacking.html#styled-git-log">Styled Git Log</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="code">
+<p class="caption"><span class="caption-text">Code</span><a class="headerlink" href="#code" title="Permalink to this toctree">¶</a></p>
+<ul class="simple">
+</ul>
+</div>
+<p>#.. toctree::
+#   :caption: outdated
+#   :maxdepth: 4</p>
+<p>#   choco
+#   cloudmesh_base
+#   cloudmesh_client
+#   commands_nova
+#   commands_register
+#   docker
+#   man
+#   old1
+#   system-cygwin</p>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
@@ -804,7 +920,6 @@ back into the client.</p>
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
