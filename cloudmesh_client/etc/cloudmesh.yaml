@@ -171,11 +171,11 @@ cloudmesh:
                 keyname: TBD
                 userid: TBD
                 EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
-                EC2_USER_ID=TBD
-                EC2_PRIVATE_KEY=TBD//pk.pem
-                EC2_CERT=TBD/cert.pem
-                NOVA_CERT=TBD//cacert.pem
-                EUCALYPTUS_CERT=TBD
+                EC2_USER_ID: TBD
+                EC2_PRIVATE_KEY: TBD//pk.pem
+                EC2_CERT: TBD/cert.pem
+                NOVA_CERT: TBD/cacert.pem
+                EUCALYPTUS_CERT: TBD
             default:
                 flavor: TBD
                 image: TBD
