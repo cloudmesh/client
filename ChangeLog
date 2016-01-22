@@ -4,14 +4,466 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+New
+~~~
+
+- Start of an integrated manual. [Gregor von Laszewski]
+
+- Makeing the api documentation work. [Gregor von Laszewski]
+
+- Added more user manual pages. [Gregor von Laszewski]
+
 Changes
 ~~~~~~~
 
-- Change CloudProvider.os_environ to CloudProvider.set. [Gregor von
+- Add template for ec2 chameleon cloud. [Gregor von Laszewski]
+
+- New chameleon cloud EC2 setup instructions. [Gregor von Laszewski]
+
+- Improve the configuration documentation. [Gregor von Laszewski]
+
+- Added --cloud=general note when no general default group is set.
+  [Gregor von Laszewski]
+
+Fix
+~~~
+
+- Enable date printing in hpc command submission. [Gregor von Laszewski]
+
+- Removed docopt parsing from cm main command to allow parsing of
+  parameters in cm command. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Usr: new: improve API documentation. [Gregor von Laszewski]
+
+- Apidoc dir. [Gregor von Laszewski]
+
+- 1.1.2. [Gregor von Laszewski]
+
+- Version 1.1.2. [Gregor von Laszewski]
+
+1.1.2 (2016-01-13)
+------------------
+
+- New state defined on comet backend. [fugangwang]
+
+- 1.1.1. [Gregor von Laszewski]
+
+- Version 1.1.1. [Gregor von Laszewski]
+
+1.1.1 (2016-01-13)
+------------------
+
+New
+~~~
+
+- Force cm help at install time to create the yaml files. [Gregor von
   Laszewski]
 
 Other
 ~~~~~
+
+- 1.1.0. [Gregor von Laszewski]
+
+- Version 1.1.0. [Gregor von Laszewski]
+
+1.1.0 (2016-01-13)
+------------------
+
+New
+~~~
+
+- Making a dickefile that creates a cloudmesh image. [Gregor von
+  Laszewski]
+
+- Adding an automatic refresh command for clouds. [Gregor von Laszewski]
+
+- Add id or name management to booting images. [Gregor von Laszewski]
+
+- Add uuid to image list. [Gregor von Laszewski]
+
+- Add template for cybera cloud. [Gregor von Laszewski]
+
+- Improve key command options. [Gregor von Laszewski]
+
+- Simplified the table when just saying "default" [Gregor von Laszewski]
+
+- Change the way cm is started. [Gregor von Laszewski]
+
+- Added cluster command prototype. [Gregor von Laszewski]
+
+- Template for a cluster command to be implemented similar to the old
+  cloudmesh. [Gregor von Laszewski]
+
+- Added yaml file variables to the manual. [Gregor von Laszewski]
+
+- Allow "history" without the list option to behave just like history
+  list. [Gregor von Laszewski]
+
+- Add variable support read from cloudmesh.yaml file; fix echo command.
+  [Gregor von Laszewski]
+
+- Adding a bebug toggle command. [Gregor von Laszewski]
+
+- Added docker makefile. [Gregor von Laszewski]
+
+- Added a check command template. [Gregor von Laszewski]
+
+- Adding more commands to the shell topic. [Gregor von Laszewski]
+
+- Add simple history command. [Gregor von Laszewski]
+
+- Adding var command and reorganizing documentation. [Gregor von
+  Laszewski]
+
+- Add comment example. [Gregor von Laszewski]
+
+- Detect if the line is a existing file than execute it. [Gregor von
+  Laszewski]
+
+- Add a shell command so we can execute them from cm. [Gregor von
+  Laszewski]
+
+- Added user manual for hpc kill. [Erika Dsouza]
+
+- Documentation for hpc experiment runs. [Gregor von Laszewski]
+
+- Moved the hpc experiment commands to hpc run commands. [Gregor von
+  Laszewski]
+
+- Easy way to list remote experiments. [Gregor von Laszewski]
+
+- List of experiments on remote clusters. [Gregor von Laszewski]
+
+- Batch provider template. [Gregor von Laszewski]
+
+- Database model for scripts. [Gregor von Laszewski]
+
+- Transformed the hpc.run to a proper dict return. [Gregor von
+  Laszewski]
+
+- Add credentials for project id to yaml file. [Gregor von Laszewski]
+
+- Start of comet command definition. [Gregor von Laszewski]
+
+- Added hpc info and queue user manual. [Erika Dsouza]
+
+Changes
+~~~~~~~
+
+- Def: merge. [Gregor von Laszewski]
+
+- Testing key management. [Gregor von Laszewski]
+
+- Do not overwrite existing default values from cloudmesh.yaml in the
+  database. [Gregor von Laszewski]
+
+- Fix default table printer, add -v to flavor. [Gregor von Laszewski]
+
+- Moving towards kilo as default cloud. [Gregor von Laszewski]
+
+- Addding demo script. [Erika Dsouza]
+
+- Adding user manual for hpc run when transfering script. [Erika Dsouza]
+
+- Introducing a better separation of the provider fro clouds. [Gregor
+  von Laszewski]
+
+- Restructure the HPC provider in a separate subdir and introducing a
+  factory. [Gregor von Laszewski]
+
+- Fix the sync command and also the topic assignment, start of an
+  echocommand. [Gregor von Laszewski]
+
+- Sr: improved indentation. [Gregor von Laszewski]
+
+- Improved heading. [Gregor von Laszewski]
+
+Fix
+~~~
+
+- Fix the image nose test. [Gregor von Laszewski]
+
+- Update the coloms in the image command. [Gregor von Laszewski]
+
+- Added commands in cm shell. [Erika Dsouza]
+
+Other
+~~~~~
+
+- Check and enabling secgroup rule to allow ssh login. [fugangwang]
+
+- Set secgroup rule or default to allow ssh login. [fugangwang]
+
+- Specifying default sshkey to login VM. [fugangwang]
+
+- Always check if there is any allocated IPs already before acquiring
+  new ones. [fugangwang]
+
+- Walltime_mins now required when booting a group of nodes due to the
+  integration with slurm. [fugangwang]
+
+- Removing debugging message of nics management. [fugangwang]
+
+- More robust handling of netid parameter. [fugangwang]
+
+- Nics parameter for boot vm in india kilo. [fugangwang]
+
+- Controlling if traceback is printed out when exception occured.
+  [fugangwang]
+
+- Adding missing keystone client requirement. [Gregor von Laszewski]
+
+- Usr: chg: adding hpc demo script for group. [Erika Dsouza]
+
+- Separating action and display so the power functions could be properly
+  called by the portal. [fugangwang]
+
+- Usr: chg: adding virtualenv to osx. [Erika Dsouza]
+
+- Displaying the unescaped url in case of non compatible os.
+  [fugangwang]
+
+- Making computeset_id semantically correct. [fugangwang]
+
+- Console_url for portal embedding. [fugangwang]
+
+- Username missing in config for comet. [fugangwang]
+
+- Minor. [Hyungro Lee]
+
+- Minor. [Hyungro Lee]
+
+- Minor. [Hyungro Lee]
+
+- Update README.rst. [Hyungro Lee]
+
+- Minor. [Hyungro Lee]
+
+- Hello world heat example. [Hyungro Lee]
+
+- Excluding 'completed' computeset as they have no use at all.
+  [fugangwang]
+
+- Handling redirection of the console url internally and open the final
+  url in browser. [fugangwang]
+
+- Fixing platform check. [fugangwang]
+
+- Better error handling when failed to authenticate. [fugangwang]
+
+- Added console command; better/consistent parameter handling.
+  [fugangwang]
+
+- Introduce portal command. [Gregor von Laszewski]
+
+- Changing prefix of comet auth credentials. [fugangwang]
+
+- 1.0.2. [Gregor von Laszewski]
+
+- Version 1.0.2. [Gregor von Laszewski]
+
+1.0.2 (2015-11-25)
+------------------
+
+New
+~~~
+
+- Starting to import the heat templates. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Added httpsig in setup.py so pip install can install the library.
+  [fugangwang]
+
+- 1.0.1. [Gregor von Laszewski]
+
+- Version 1.0.1. [Gregor von Laszewski]
+
+1.0.1 (2015-11-25)
+------------------
+
+- Pep8 fixes. [Mangirish Wagle]
+
+- Supporting both USERPASS and APIKEY auth method for comet.
+  [fugangwang]
+
+- Choice of auth provider for comet as USERPASS/APIKEY in yaml config.
+  [fugangwang]
+
+- 1.0.0. [Gregor von Laszewski]
+
+- Version 1.0.0. [Gregor von Laszewski]
+
+1.0.0 (2015-11-24)
+------------------
+
+New
+~~~
+
+- Chg: add max_width for columns to dict printer. [Gregor von Laszewski]
+
+- Fix to the regiter command upon first registration of a remote cloud.
+  [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Updated yaml file format. [Gregor von Laszewski]
+
+- Fix the userid vs user fields caused by double nameing in header of
+  slurm. [Gregor von Laszewski]
+
+- Add image for openmpi. [Gregor von Laszewski]
+
+- Dev removing general. [Erika Dsouza]
+
+Other
+~~~~~
+
+- Fix for slurm table to distingush "user" from "user ". E.g. replace
+  the space wit _ [Gregor von Laszewski]
+
+- 0.7.7. [Gregor von Laszewski]
+
+- Version 0.7.7. [Gregor von Laszewski]
+
+0.7.7 (2015-11-18)
+------------------
+
+New
+~~~
+
+- Creating cloudmesh yaml file on first call if it does not exist.
+  [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Adding error msg where we need to get the cloudmesh yaml file from
+  when it does not exist. [Gregor von Laszewski]
+
+- Fix the install in setup.py. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Fixing data_files format as tuple. [fugangwang]
+
+- More error handling for nucleus service error. [fugangwang]
+
+- Displaying mac/ip addresses for computeset. [fugangwang]
+
+- Fixing for mac/ip address. [fugangwang]
+
+- 0.7.6. [Gregor von Laszewski]
+
+- Version 0.7.6. [Gregor von Laszewski]
+
+0.7.6 (2015-11-15)
+------------------
+
+- 0.7.5. [Gregor von Laszewski]
+
+- Version 0.7.5. [Gregor von Laszewski]
+
+0.7.5 (2015-11-15)
+------------------
+
+- 0.7.4. [Gregor von Laszewski]
+
+- Version 0.7.4. [Gregor von Laszewski]
+
+0.7.4 (2015-11-15)
+------------------
+
+New
+~~~
+
+- Template profiles for additional scripts. [Gregor von Laszewski]
+
+- Implement a prototype (non working) for cm default. It does not yet
+  read from yaml files. THis may have not to be done here, but at
+  startup of cm if defaults are defined and the values in the database
+  are not set. [Gregor von Laszewski]
+
+- Demo on how touse py. [Gregor von Laszewski]
+
+- Adding a scripts directory with sample scripts. [Gregor von Laszewski]
+
+- When a single argument is given to cm that ends in .cm it is
+  interpreted as script. cm demo.cm. [Gregor von Laszewski]
+
+- Add a exec script command so it also works with cm --script=filename.
+  [Gregor von Laszewski]
+
+- A simple demo script. [Gregor von Laszewski]
+
+- Allowing commenst in cmd with #, // and /*, they must be on one line
+  and at the beginning. [Gregor von Laszewski]
+
+- Added manual for flavor command. [ehdsouza]
+
+- Added manual for image. [ehdsouza]
+
+- Adding the rack diagram. [Gregor von Laszewski]
+
+- Adapting the list command to the new comet rest interface. [Gregor von
+  Laszewski]
+
+- Creating a simple comet command. [Gregor von Laszewski]
+
+- Introducing dynamic class loading. [Gregor von Laszewski]
+
+- Whois data structure. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Placehoder for demo script. [Gregor von Laszewski]
+
+- Updating the user documentation. [Gregor von Laszewski]
+
+- Fix the default database class. [Gregor von Laszewski]
+
+- Set default cloud and group at startup of cm if they do not exists.
+  [Gregor von Laszewski]
+
+- Change CloudProvider.os_environ to CloudProvider.set. [Gregor von
+  Laszewski]
+
+Fix
+~~~
+
+- Removed debug message. [ehdsouza]
+
+- Added uniform user message for flavor refresh. [ehdsouza]
+
+- Modifications to image list. [ehdsouza]
+
+- Refactored default list to use cm database. [ehdsouza]
+
+Other
+~~~~~
+
+- Changes to support more power actions. [fugangwang]
+
+- Remove debug messages. [Gregor von Laszewski]
+
+- Set a cluster default. [Gregor von Laszewski]
+
+- Dev: usr: improved manual and pep8 formating. [Gregor von Laszewski]
+
+- Removing the user name. [Gregor von Laszewski]
+
+- More friendly output for power off. [fugangwang]
+
+- Comet client and cluster updated due to changes on API. [fugangwang]
+
+- Updating comet based on API and configuration changes. [fugangwang]
 
 - Chk: dev: improving group command. [Gregor von Laszewski]
 
