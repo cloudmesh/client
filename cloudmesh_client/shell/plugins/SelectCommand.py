@@ -45,76 +45,95 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
         # pprint(arguments)
         cloud = arguments["CLOUD"] or Default.get_cloud()
         if arguments["image"]:
-            image_dict = Image.list(cloud, format="dict")
+            try:
+                image_dict = Image.list(cloud, format="dict")
 
-            image_names = list()
-            for image in image_dict.values():
-                image_names.append(image["name"])
+                image_names = list()
+                for image in image_dict.values():
+                    image_names.append(image["name"])
 
-            number = menu_return_num(title="Select an Image",
-                                     menu_list=image_names,
-                                     tries=10,
-                                     with_display=True)
+                number = menu_return_num(title="Select an Image",
+                                         menu_list=image_names,
+                                         tries=10,
+                                         with_display=True)
 
-            if number == "q":
-                pass
-            else:
-                image = image_names[number]
-                print("Selected image " + image)
-                Default.set("image", image, cloud=cloud)
+                if number == "q":
+                    pass
+                else:
+                    image = image_names[number]
+                    print("Selected image " + image)
+                    Default.set("image", image, cloud=cloud)
+            except:
+                print("ERROR: could not set image.")
 
         elif arguments["flavor"]:
-            flavor_dict = Flavor.list(cloud, format="dict")
+            try:
+                flavor_dict = Flavor.list(cloud, format="dict")
 
-            flavor_names = list()
-            for flavor in flavor_dict.values():
-                flavor_names.append(flavor["name"])
+                flavor_names = list()
+                for flavor in flavor_dict.values():
+                    flavor_names.append(flavor["name"])
 
-            number = menu_return_num(title="Select a Flavor",
-                                     menu_list=flavor_names,
-                                     tries=10,
-                                     with_display=True)
+                number = menu_return_num(title="Select a Flavor",
+                                         menu_list=flavor_names,
+                                         tries=10,
+                                         with_display=True)
 
-            if number == "q":
-                pass
-            else:
-                flavor = flavor_names[number]
-                print("Selected flavor " + flavor)
-                Default.set("flavor", flavor, cloud=cloud)
+                if number == "q":
+                    pass
+                else:
+                    flavor = flavor_names[number]
+                    print("Selected flavor " + flavor)
+                    Default.set("flavor", flavor, cloud=cloud)
+            except:
+                print("ERROR: could not set flavor.")
 
         elif arguments["cloud"]:
+            try:
+                config = ConfigDict("cloudmesh.yaml")
+                clouds = config["cloudmesh"]["clouds"]
 
-            config = ConfigDict("cloudmesh.yaml")
-            clouds = config["cloudmesh"]["clouds"]
+                for key in clouds.keys():
+                    Console.ok("  " + key)
 
-            for key in clouds.keys():
-                Console.ok("  " + key)
-
-            number = menu_return_num(title="Select a cloud",
-                                     menu_list=clouds.keys(),
-                                     tries=10,
-                                     with_display=True)
-            if number == "q":
-                pass
-            else:
-                cloud = clouds.keys()[number]
-                print("Selected cloud " + cloud)
-                Default.set("cloud", cloud, "general")
+                number = menu_return_num(title="Select a cloud",
+                                         menu_list=clouds.keys(),
+                                         tries=10,
+                                         with_display=True)
+                if number == "q":
+                    pass
+                else:
+                    cloud = clouds.keys()[number]
+                    print("Selected cloud " + cloud)
+                    Default.set("cloud", cloud, "general")
+            except:
+                print("ERROR: could not set cloud.")
 
         elif arguments["key"]:
-
-            db = SSHKeyDBManager()
-
-            d = db.table_dict()
-
             try:
-                element = dict_choice(d)
+                db = SSHKeyDBManager()
 
-                keyname = element["name"]
-                print("Set default key to ", keyname)
-                db.set_default(keyname)
-                Default.set("key", keyname, "general")
+                key_dict = db.table_dict()
 
+                key_names = list()
+                for key in key_dict.values():
+                    key_names.append(key["name"])
+
+                number = menu_return_num(title="Select a Key",
+                                         menu_list=key_names,
+                                         tries=10,
+                                         with_display=True)
+
+                if number == "q":
+                    pass
+                else:
+                    key = key_names[number]
+                    print("Selected key " + key)
+
+                    # TODO Fix default key setting in key DB
+                    # db.set_default(key)
+
+                    Default.set("key", key, cloud=cloud)
             except:
                 print("ERROR: could not set key")
 
