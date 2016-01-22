@@ -58,7 +58,3 @@ Authors
 
 .. include:: ../../AUTHORS
 
-Contributing
-------------
-
-.. include:: ../../CONTRIBUTING   

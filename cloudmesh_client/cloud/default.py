@@ -78,7 +78,7 @@ class Default(ListResource):
             else:
                 o.value = value
                 cls.cm.add(o)
-                #cls.cm.update(o)
+                # cls.cm.update(o)
             cls.cm.save()
         except:
             return None
@@ -100,7 +100,7 @@ class Default(ListResource):
                             output='object',
                             **arguments).first()
             return o
-        except Exception, e:
+        except Exception:
             return None
 
     @classmethod
@@ -143,8 +143,6 @@ class Default(ListResource):
     def clear(cls):
         """
         deletes all default values in the database.
-        :param key: The dictionary key
-        :param cloud: The category
         :return:
         """
         try:
@@ -236,8 +234,6 @@ class Default(ListResource):
         """
         cls.set("group", value, "general")
 
-
-
     @classmethod
     def get_group(cls):
         """
@@ -254,7 +250,7 @@ class Default(ListResource):
     def set_key(cls, value):
         """
         sets the default key
-        :param value: the keyname
+        :param value: the key name
         :return:
         """
         cls.set("key", value, "general")
@@ -262,7 +258,7 @@ class Default(ListResource):
     @classmethod
     def get_key(cls):
         """
-        get the default keyname
+        get the default key name
         :return:
         """
         return cls.get("key", "general")
@@ -275,7 +271,7 @@ class Default(ListResource):
     def set_cluster(cls, value):
         """
         sets the default cluster
-        :param value: the clustername as defined in the cloudmesh yaml file.
+        :param value: the cluster name as defined in the cloudmesh yaml file.
         :return:
         """
         cls.set("cluster", value, "general")
@@ -288,6 +284,7 @@ class Default(ListResource):
         :return:
         """
         return cls.get("cluster", "general")
+
     #
     # Set the default key
     #
@@ -304,7 +301,7 @@ class Default(ListResource):
     @classmethod
     def get_debug(cls):
         """
-        is dubugging switched on?
+        is debugging switched on?
         :return:
         """
         return cls.get("debug", "general")
@@ -315,7 +312,6 @@ class Default(ListResource):
         :return: returns True if debugging is on
         """
         return cls.get("debug", "general")
-
 
     #
     # Set the default key
