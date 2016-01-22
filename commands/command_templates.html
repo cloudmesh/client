@@ -130,6 +130,10 @@
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
 </ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+</ul>
 
             
           
@@ -237,11 +241,9 @@ cloudmesh (see registration).</p>
 </div>
 <div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">reintroduce the history command</p>
-</div>
-<p>Not yet completed. As we may want to ruan multiple commands we also
+<p>The manual page of the history command can be found at:
+<a class="reference external" href="../man/man.html#history">register</a></p>
+<p>Not yet completed. As we may want to run multiple commands we also
 provide a history that can be invoked from cloudmesh to show which
 cloudmesh commands have been issued in the past. This allows a more
 easy review of past activities:</p>
@@ -424,6 +426,19 @@ format. You can type in the command:</p>
 <p>and it will print you in RST format a list of all commands available
 to you for your cmd3 shell. This naturally you could put into a sphinx
 documentation to create a nice user manual for your users.</p>
+</div>
+<div class="section" id="scripts">
+<h3>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h3>
+<p>Cloudmesh can easily execute multiple cloudmesh commands that are stored in
+cloudmesh script files. TO do so we recommend to place them in a file ending
+with <cite>.cm</cite>. Let us assume we call the file test.cm.</p>
+<p>Now we can simply execute the script with:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm test.cm
+</pre></div>
+</div>
+<p>you can also cat the file with</p>
+<blockquote>
+<div>cat test.cm | cm</div></blockquote>
 </div>
 </div>
 </div>

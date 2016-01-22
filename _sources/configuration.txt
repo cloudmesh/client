@@ -78,8 +78,8 @@ Make sure you add a valid tenant to the yaml file. More information
 about using india can be found at http://portal.futuresystems.org
 
 
-Registration of clouds
------------------------
+Registration of other clouds
+-----------------------------
 
 The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as
@@ -96,5 +96,43 @@ To list the `cloudmesh.yaml` file::
 
    register list
 
+Registration of Cybera Cloud
+-------------------------------
 
+.. todo:: supported. add cybera cloud registration here
+
+Registration of Chameleon Openstack Cloud
+------------------------------------------
+
+.. todo:: supported. add cloud registration here
+
+Registration of Chameleon EC2 Cloud
+--------------------------------------
+
+.. todo:: not yet supported. add cloud registration here
+
+Registration of CloudLab Openstack Cloud
+--------------------------------------
+
+.. todo:: not yet tested but should work. add cloud registration here
+
+Registration of AWS Cloud
+--------------------------------------
+
+.. todo:: not yet supported but used to be so we work on it ASAP. add cloud registration here
+
+Registration of Azure Cloud
+--------------------------------------
+
+.. todo:: not yet supported but used to be so we work on it ASAP. add cloud registration here
+
+Registration of devcloud
+--------------------------------------
+
+.. todo:: not tested, but should work as is regular openstack. add cloud registration here
+
+Registration of a libcloud available cloud
+--------------------------------------
+
+.. todo:: not yet supported. add cloud registration here
 
