@@ -62,9 +62,8 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 pass
             else:
                 cloud = clouds.keys()[number]
-
-            print("Selected cloud " + cloud)
-            Default.set("cloud", cloud, "general")
+                print("Selected cloud " + cloud)
+                Default.set("cloud", cloud, "general")
 
         elif arguments["key"]:
 
