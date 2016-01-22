@@ -61,7 +61,16 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         cloud = arguments["--cloud"] or Default.get_cloud()
 
-        if arguments["list"]:
+        if arguments["refresh"] or \
+                Default.refresh():
+            msg = "Refresh secgroup for cloud {:}.".format(cloud)
+            if SecGroup.refresh(cloud):
+                Console.ok("{:} ok".format(msg))
+            else:
+                Console.error("{:} failed".format(msg))
+            return ""
+
+        elif arguments["list"]:
             # if no arguments read default
             tenant = arguments["--tenant"] or Default.get("tenant")
 
@@ -226,15 +235,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     "Security Group with label [{}], cloud [{}], and tenant [{"
                     "}] not found!".format(label, cloud, tenant))
                 return ""
-
-        elif arguments["refresh"] or \
-                Default.refresh():
-            msg = "Refresh secgroup for cloud {:}.".format(cloud)
-            if SecGroup.refresh(cloud):
-                Console.ok("{:} ok".format(msg))
-            else:
-                Console.error("{:} failed".format(msg))
-            return ""
 
         # TODO: Add Implementation
         elif arguments["--version"]:

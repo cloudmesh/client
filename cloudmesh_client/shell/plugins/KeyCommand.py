@@ -330,7 +330,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print (filename)
                 Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
             """
-            print ("UUUU")
             return ""
 
         elif arguments['default']:
