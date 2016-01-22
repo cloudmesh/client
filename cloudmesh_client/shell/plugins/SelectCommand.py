@@ -7,6 +7,7 @@ from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_base.menu import dict_choice, menu_return_num
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.cloud.image import Image
+from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -41,7 +42,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
           Options:
 
         """
-        pprint(arguments)
+        # pprint(arguments)
         cloud = arguments["CLOUD"] or Default.get_cloud()
         if arguments["image"]:
             image_dict = Image.list(cloud, format="dict")
@@ -63,7 +64,24 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 Default.set("image", image, cloud=cloud)
 
         elif arguments["flavor"]:
-            pass
+            flavor_dict = Flavor.list(cloud, format="dict")
+
+            flavor_names = list()
+            for flavor in flavor_dict.values():
+                flavor_names.append(flavor["name"])
+
+            number = menu_return_num(title="Select a Flavor",
+                                     menu_list=flavor_names,
+                                     tries=10,
+                                     with_display=True)
+
+            if number == "q":
+                pass
+            else:
+                flavor = flavor_names[number]
+                print("Selected flavor " + flavor)
+                Default.set("flavor", flavor, cloud=cloud)
+
         elif arguments["cloud"]:
 
             config = ConfigDict("cloudmesh.yaml")
