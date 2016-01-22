@@ -78,6 +78,9 @@ client. To do so please issue the following commands::
    easy_install pycrypto
    pip install urllib3
 
+.. warning:: We found that ``cloudmesh.yaml`` is not created when using
+    pip install. We are working on this issue.
+
 .. warning:: We found that ``readline`` and ``pycrypto`` could not be
 	  installed with pip at the time of writing of this manual,
 	  despite the fact that pip claimed to have installed them. However, the
@@ -100,26 +103,7 @@ which should give the version Python 2.7.10
 
 .. _windows-install:
 
-Ubuntu 14.04.3
-----------------------------------------------------------------------
-
-* http://www.ubuntu.com/download/desktop
-
-.. todo:: Gurav provide instructions
-	  
-use fresh machine (VM).
-use standard python
-use ubuntu ???
-
-wahtch out for
-urllib 3
-readline
-pip update
-aptget update
-aptget upgrade
-....
-
-Ubuntu 15.04
+Ubuntu 14.04/15.04
 ----------------------------------------------------------------------
 
 Please conduct the following steps first to update your system::
