@@ -132,6 +132,7 @@ Please conduct the following steps first to update your system::
   sudo apt-get install python-pip
   sudo apt-get install python-dev
   sudo apt-get install libncurses-dev
+  sudo apt-get install git
   sudo easy_install readline
   sudo pip install pycrypto
 
