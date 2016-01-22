@@ -1,6 +1,12 @@
 Hacking
 =========
 
+Contributing
+------------
+
+.. include:: ../../CONTRIBUTING   
+
+
 Git
 ----
 

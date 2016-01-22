@@ -78,6 +78,9 @@ client. To do so please issue the following commands::
    easy_install pycrypto
    pip install urllib3
 
+.. warning:: We found that ``cloudmesh.yaml`` is not created when using
+    pip install. We are working on this issue.
+
 .. warning:: We found that ``readline`` and ``pycrypto`` could not be
 	  installed with pip at the time of writing of this manual,
 	  despite the fact that pip claimed to have installed them. However, the
@@ -100,26 +103,7 @@ which should give the version Python 2.7.10
 
 .. _windows-install:
 
-Ubuntu 14.04.3
-----------------------------------------------------------------------
-
-* http://www.ubuntu.com/download/desktop
-
-.. todo:: Gurav provide instructions
-	  
-use fresh machine (VM).
-use standard python
-use ubuntu ???
-
-wahtch out for
-urllib 3
-readline
-pip update
-aptget update
-aptget upgrade
-....
-
-Ubuntu 15.04
+Ubuntu 14.04/15.04
 ----------------------------------------------------------------------
 
 Please conduct the following steps first to update your system::
@@ -132,6 +116,7 @@ Please conduct the following steps first to update your system::
   sudo apt-get install python-pip
   sudo apt-get install python-dev
   sudo apt-get install libncurses-dev
+  sudo apt-get install git
   sudo easy_install readline
   sudo pip install pycrypto
 
@@ -174,82 +159,65 @@ are a regular user. However to prepare the system we assume you have
 sudoer privileges. First, we check for up-to-date versions of python
 and pip::
 
-   python --version
+   # python --version
 
 which should give the version Python 2.7.10::
 
-As CentOS typically comes with an outdated version of python, we would like to provide an alternative python
+As CentOS typically comes with an old version of python (2.7.5), we would like to provide an alternative python
 installation. This can be achieved by following these steps executing as normal user.
 The following steps are customized for configuring python 2.7.10 to be used for virtualenv under $HOME/ENV
 to be installed later.
 (each line to be executed separately and sequentially)::
 
-   sudo yum install -y gcc
+   sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
    cd $HOME
-   wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
-
-If wget is reported not installed, you may install it using::
-
-   sudo yum install -y wget
-
-Make sure that you have the zlib-devel package installed.
-This is a required at this point to make sure python is installed with zlib module, which is required by virtualenv::
-
-   sudo yum install zlib-devel
+   wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+   wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
 
 Further steps::
 
-   tar xzf Python-2.7.10.tgz
+   tar -xvzf Python-2.7.10.tgz
    cd Python-2.7.10
-   ./configure
-   sudo make
-   sudo make install
+   ./configure --prefix=/usr/local
+   sudo make && sudo make altinstall
+   export PATH="/usr/local/bin:$PATH"
 
-Verify if you now have the correct python installed.
-At this point you may have to restart the terminal session in order to make the newly installed python 2.7.10 active::
+Verify if you now have the correct alternative python installed::
 
-  python --version
-  Python 2.7.10
+   /usr/local/bin/python2.7 --version
+   Python 2.7.10
 
-Verify if the pip is installed::
+Install setuptools and pip::
 
-  pip --version
+   cd $HOME
+   sudo /usr/local/bin/python2.7 ez_setup.py
+   sudo /usr/local/bin/python2.7 get-pip.py
+Create symlinks::
 
-It is recommended that we install the latest version of pip (7.1.2 as on date).
-Install and upgrade pip with following commands if you do not find it installed or with required version.
-(each line to be executed separately and sequentially)::
-
-  sudo easy_install pip
+   sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+   sudo ln -s /usr/local/bin/pip /usr/bin/pip
 
 Verify if you now have the required pip version installed::
 
-  pip --version
-  pip 7.1.2 from /usr/lib/python2.7/site-packages (python 2.7)
+   pip --version
+   pip 8.0.2 from /usr/lib/python2.7/site-packages/pip-8.0.2-py2.7.egg (python 2.7)
 
 If you see a lower version of pip, you may upgrade it with the following command::
 
-  pip install -U pip
+   pip install -U pip
 
 Next, Install a python virtual environment on your machine as we do
 not want to interfere with the system installed python
 versions. Inside your terminal run::
 
-  sudo easy_install virtualenv
+   sudo pip install virtualenv
 
 Next we will create a python virtualenv in the directory $HOME/ENV. To
-activate virtualenv, execute the following steps. Get the location of
-the current python command and make sure it is 2.7.10::
+activate virtualenv, execute the following steps::
 
-  which python
-
-You will see a path such as::
-
-  /usr/local/bin/python
-
-Next execute the following::
-
-  sudo virtualenv -p python $HOME/ENV
-  source $HOME/ENV/bin/activate
+   virtualenv -p /usr/local/bin/python $HOME/ENV
+   source $HOME/ENV/bin/activate
 
 This will add a '(ENV)' to your prompt in the terminal like following::
 
@@ -259,11 +227,11 @@ On more permanent basis, if you want to avoid activating virtualenv
 every time you log in, You can add the activation of the virtualenv to
 the ~/.bashrc file with your favourate editor::
 
-  emacs ~/.bashrc
+   emacs ~/.bashrc
 
 Add the command::
 
-  source $HOME/ENV/bin/activate
+   source $HOME/ENV/bin/activate
 
 to the file and save the file. You may test if this works, by
 launching a new terminal session and checking if (ENV) is seen

@@ -31,7 +31,8 @@
 
   
     <link rel="top" title="cloudmesh_client 1.1.2 documentation" href="index.html"/>
-        <link rel="prev" title="Existing original cloudmesh commands" href="old.html"/> 
+        <link rel="next" title="Appendix" href="appendix.html"/>
+        <link rel="prev" title="test module" href="modules/test.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -80,38 +81,20 @@
           
             
             
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Introduction</span></p>
+                <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Appendix</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Old</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Developers Manual</span></p>
-<ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Hacking</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#git">Git</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#closing-issues-via-commit-messages">Closing Issues via Commit Messages</a></li>
 </ul>
@@ -124,6 +107,15 @@
 </li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -173,6 +165,66 @@
             
   <div class="section" id="hacking">
 <h1>Hacking<a class="headerlink" href="#hacking" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>The project is open source and if you like you can help. Here are some contribution guidelines:</p>
+<ul>
+<li><p class="first">we use the Apache 2.0 licence</p>
+</li>
+<li><p class="first">we recommend to use pycharm for editing and utlize the <cite>Inspect
+Code</cite> feature regularly on the files you modify and fix the sensible
+pep8 warnings.  Look at other warnings and errors</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">.format</span></code> instead of <code class="docutils literal"><span class="pre">%</span></code> in print statements</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">print_function</span></code> at the beginning of the file and use
+<code class="docutils literal"><span class="pre">print(&quot;msg&quot;)</span></code> instead of <code class="docutils literal"><span class="pre">print</span> <span class="pre">msg</span></code></p>
+</li>
+<li><p class="first">use as much python 3 like code but use python 2</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">class</span> <span class="pre">name(object):</span></code> and not just <code class="docutils literal"><span class="pre">class</span> <span class="pre">name:</span></code></p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">Console.error</span></code> when printing errors if you develop a command
+for the commandline</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">Console.ok</span></code> when printing something that confirms the action
+is ok. In many cases you may not want o use print, but
+Console.ok. Please note that Console.ok, takesa string argument.</p>
+</li>
+<li><p class="first">use <code class="docutils literal"><span class="pre">ConfigDict</span></code> when reading yaml files. It even allows you to
+read a yaml file in order, make changes to it and write it back</p>
+</li>
+<li><p class="first">use nosetests for testing your programs</p>
+<p>An example is provided in <code class="docutils literal"><span class="pre">tests/test_sample.py</span></code>:</p>
+<div class="highlight-python"><div class="highlight"><pre>nosetests -v --nocapture tests/test_sample.py
+</pre></div>
+</div>
+<p>you can copy this to <code class="docutils literal"><span class="pre">tests/test_yourfile.py</span></code> and then replace in
+that file the occurrence of <code class="docutils literal"><span class="pre">_sample</span></code> with <code class="docutils literal"><span class="pre">_yourfile</span></code></p>
+<p>make sure to create meaningful tests.</p>
+</li>
+<li><p class="first">the documentation is write in RST <a class="reference external" href="http://sphinx-doc.org/rest.html">http://sphinx-doc.org/rest.html</a></p>
+</li>
+<li><p class="first">look at <a class="reference external" href="http://python-future.org/compatible_idioms.html">http://python-future.org/compatible_idioms.html</a> for tips to
+make python 2 look more like python 3.  Be careful with dicts to
+make them not inefficient.</p>
+</li>
+<li><p class="first">we are using <a class="reference external" href="https://pypi.python.org/pypi/gitchangelog">https://pypi.python.org/pypi/gitchangelog</a> for creating
+changelogs automatically.  Thus you need to use a prefix in any
+commit. It includes the type and the user for which the commit is
+relevant.  Examples are:</p>
+<div class="highlight-python"><div class="highlight"><pre>chg: usr:    simple changes relevant for users (spelling, ...)
+fix: usr:    major changes for users
+new: usr:    new feature for users
+
+chg: dev:    simple changes relevant for developers (spelling, ...)
+fix: dev:    major changes for developers
+new: dev:    new feature for developers
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
 <div class="section" id="git">
 <h2>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="closing-issues-via-commit-messages">
@@ -217,8 +269,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="appendix.html" class="btn btn-neutral float-right" title="Appendix" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="old.html" class="btn btn-neutral" title="Existing original cloudmesh commands" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="modules/test.html" class="btn btn-neutral" title="test module" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -230,8 +284,7 @@
         &copy; Copyright 2015, Gregor von Laszewski.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 

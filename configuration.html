@@ -82,14 +82,12 @@
           
             
             
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Introduction</span></p>
+                <p class="caption"><span class="caption-text">Overview</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Installation</span></p>
+<p class="caption"><span class="caption-text">Manuals</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a></li>
@@ -101,28 +99,20 @@
 </li>
 </ul>
 </li>
-</ul>
-<p class="caption"><span class="caption-text">Manuals</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Old</span></p>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Developers Manual</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -351,6 +341,26 @@ cloudmesh:
                 flavor: t1.micro
                 image: ami-d85e75b0
                 location: us-east-1
+        chameleon-ec2:
+            cm_heading: Chameleon, EC2
+            cm_host: chameleoncloud.org
+            cm_label: chameleon_ec2
+            cm_type: ec2
+            cm_type_version: ec2
+            credentials:
+                EC2_ACCESS_KEY: TBD
+                EC2_SECRET_KEY: TBD
+                keyname: TBD
+                userid: TBD
+                EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
+                EC2_USER_ID: TBD
+                EC2_PRIVATE_KEY: TBD//pk.pem
+                EC2_CERT: TBD/cert.pem
+                NOVA_CERT: TBD/cacert.pem
+                EUCALYPTUS_CERT: TBD
+            default:
+                flavor: TBD
+                image: TBD
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com
@@ -464,8 +474,7 @@ take a closer look at the manual pages. This includes command such as</p>
         &copy; Copyright 2015, Gregor von Laszewski.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 

@@ -80,32 +80,28 @@
           
             
             
-                <ul>
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Old</span></p>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Developers Manual</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -234,7 +230,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-                <span class="c">#cls.cm.update(o)</span>
+                <span class="c"># cls.cm.update(o)</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span></div>
@@ -256,7 +252,7 @@
                             <span class="n">output</span><span class="o">=</span><span class="s">&#39;object&#39;</span><span class="p">,</span>
                             <span class="o">**</span><span class="n">arguments</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">o</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
@@ -299,8 +295,6 @@
 <div class="viewcode-block" id="Default.clear"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        deletes all default values in the database.</span>
-<span class="sd">        :param key: The dictionary key</span>
-<span class="sd">        :param cloud: The category</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
@@ -392,8 +386,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;group&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
 
-
-
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_group"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_group">[docs]</a>    <span class="k">def</span> <span class="nf">get_group</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -410,7 +402,7 @@
 <div class="viewcode-block" id="Default.set_key"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_key">[docs]</a>    <span class="k">def</span> <span class="nf">set_key</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default key</span>
-<span class="sd">        :param value: the keyname</span>
+<span class="sd">        :param value: the key name</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
@@ -418,7 +410,7 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_key"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_key</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        get the default keyname</span>
+<span class="sd">        get the default key name</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
@@ -431,7 +423,7 @@
 <div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.set_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default cluster</span>
-<span class="sd">        :param value: the clustername as defined in the cloudmesh yaml file.</span>
+<span class="sd">        :param value: the cluster name as defined in the cloudmesh yaml file.</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
@@ -444,6 +436,7 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
+
     <span class="c">#</span>
     <span class="c"># Set the default key</span>
     <span class="c">#</span>
@@ -460,7 +453,7 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_debug"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.default.Default.get_debug">[docs]</a>    <span class="k">def</span> <span class="nf">get_debug</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        is dubugging switched on?</span>
+<span class="sd">        is debugging switched on?</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
@@ -471,7 +464,6 @@
 <span class="sd">        :return: returns True if debugging is on</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span></div>
-
 
     <span class="c">#</span>
     <span class="c"># Set the default key</span>
@@ -519,8 +511,7 @@
         &copy; Copyright 2015, Gregor von Laszewski.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 

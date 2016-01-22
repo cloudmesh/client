@@ -79,32 +79,28 @@
           
             
             
-                <ul>
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setup</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../man/man.html">Commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API</span></p>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">Modules and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../appendix.html">Appendix</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Old</span></p>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../docker.html">Docker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../old.html">Existing original cloudmesh commands</a></li>
-</ul>
-<p class="caption"><span class="caption-text">Developers Manual</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -324,8 +320,6 @@ rename the value to global).</p>
 <dt id="cloudmesh_client.cloud.default.Default.clear">
 <em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/cloud/default.html#Default.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.default.Default.clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>deletes all default values in the database.
-:param key: The dictionary key
-:param cloud: The category
 :return:</p>
 </dd></dl>
 
@@ -399,7 +393,7 @@ with the given category.</p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.default.Default.get_debug">
 <em class="property">classmethod </em><code class="descname">get_debug</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/cloud/default.html#Default.get_debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.default.Default.get_debug" title="Permalink to this definition">¶</a></dt>
-<dd><p>is dubugging switched on?
+<dd><p>is debugging switched on?
 :return:</p>
 </dd></dl>
 
@@ -429,7 +423,7 @@ with the given category.</p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.default.Default.get_key">
 <em class="property">classmethod </em><code class="descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/cloud/default.html#Default.get_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.default.Default.get_key" title="Permalink to this definition">¶</a></dt>
-<dd><p>get the default keyname
+<dd><p>get the default key name
 :return:</p>
 </dd></dl>
 
@@ -524,7 +518,7 @@ it is a special category that is used for global values.</li>
 <dt id="cloudmesh_client.cloud.default.Default.set_cluster">
 <em class="property">classmethod </em><code class="descname">set_cluster</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/cloud/default.html#Default.set_cluster"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.default.Default.set_cluster" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the default cluster
-:param value: the clustername as defined in the cloudmesh yaml file.
+:param value: the cluster name as defined in the cloudmesh yaml file.
 :return:</p>
 </dd></dl>
 
@@ -566,7 +560,7 @@ it is a special category that is used for global values.</li>
 <dt id="cloudmesh_client.cloud.default.Default.set_key">
 <em class="property">classmethod </em><code class="descname">set_key</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/cloud/default.html#Default.set_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.default.Default.set_key" title="Permalink to this definition">¶</a></dt>
 <dd><p>sets the default key
-:param value: the keyname
+:param value: the key name
 :return:</p>
 </dd></dl>
 
@@ -1836,8 +1830,7 @@ Either from local to remote OR vice-versa
         &copy; Copyright 2015, Gregor von Laszewski.
 
     </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  </div> 
 
 </footer>
 
