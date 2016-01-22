@@ -23,31 +23,20 @@ This documentation and code is available on github at:
 * Code: https://github.com/cloudmesh/client
 
 .. toctree::
+   :caption: Overview
 
    prefix
-
-.. toctree::
-   :caption: Introduction
-
    introduction
-
-
-.. toctree::
-   :caption: Installation
-
-   setup	     
 
 .. toctree::
    :caption: Manuals
 
+   setup
    commands/index
    man/man
-
-.. toctree::
-   :caption: API
-
    api
    modules/modules
+   hacking
 
 .. toctree::
    :caption: Appendix
@@ -56,21 +45,11 @@ This documentation and code is available on github at:
 
 
 .. toctree::
-   :caption: Future
+   :caption: Future and Old
+
    docker
-
-
-.. toctree::
-   :caption: Old
-
    old
 
-
-.. toctree::
-   :caption: Developers Manual
-   :maxdepth: 4
-
-   hacking
 
 .. toctree::
    :caption: Code

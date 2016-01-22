@@ -12,6 +12,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
+
 from cloudmesh_client.version import __version__
 import os
 
@@ -23,6 +24,9 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 on_rtd = False
 
+bootstrap_theme = False
+if bootstrap_theme:
+    import sphinx_bootstrap_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -115,7 +119,7 @@ pygments_style = 'sphinx'
 # modindex_common_prefix = []
 
 # If true, keep warnings as "system message" paragraphs in the built documents.
-# keep_warnings = False
+keep_warnings = True
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
@@ -133,6 +137,11 @@ if not on_rtd:  # only import and set the theme if we're building docs locally
 else:
     html_theme = 'alabaster'
 
+if bootstrap_theme:
+    html_theme = 'bootstrap'
+    html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+
+    
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
@@ -146,7 +155,7 @@ else:
 # html_title = None
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-# html_short_title = None
+html_short_title = "cm client"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -177,6 +186,11 @@ html_static_path = ['_static']
 
 # Custom sidebar templates, maps document names to template names.
 # html_sidebars = {}
+html_sidebars = {'**': ['mypage.html',
+                        'localtoc.html',
+                        'mysidebar.html',
+                        'sourcelink.html']}
+
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
@@ -192,13 +206,13 @@ html_static_path = ['_static']
 # html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-# html_show_sourcelink = True
+html_show_sourcelink = True
 
 # If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
-# html_show_sphinx = True
+html_show_sphinx = False
 
 # If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
-# html_show_copyright = True
+html_show_copyright = True
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
