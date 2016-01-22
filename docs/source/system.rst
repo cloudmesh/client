@@ -120,7 +120,7 @@ Please conduct the following steps first to update your system::
   sudo easy_install readline
   sudo pip install pycrypto
 
-Cloudmesh shoould work in python 2.7.9, but if you like to upgrade to
+Cloudmesh should work in python 2.7.9, but if you like to upgrade to
 a new version, you can install it alternatively in your system with::
 
    sudo apt-get install build-essential checkinstall
@@ -142,7 +142,7 @@ a new version, you can install it alternatively in your system with::
    python2.7 -V
    which python2.7
 
-We recommend that you change your bashrc to include the python 2.7.10
+We recommend that you change your `.bashrc` to include the python 2.7.10
 path and you can issue::
 
    python --version
@@ -156,7 +156,7 @@ CentOS
 This documentation assumes that the user is advanced enough to use
 linux terminal. We also assume you are not logged in as root, but you
 are a regular user. However to prepare the system we assume you have
-sudoer privileges. First, we check for up-to-date versions of python
+sudo privileges. First, we check for up-to-date versions of python
 and pip::
 
    # python --version

@@ -30,6 +30,7 @@ This documentation and code is available on github at:
 
 .. toctree::
    :caption: Manuals
+   :maxdepth: 2
 
    setup
    commands/index
