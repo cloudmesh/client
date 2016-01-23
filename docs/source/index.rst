@@ -40,6 +40,7 @@ This documentation and code is available on github at:
    api
    modules/modules
    hacking
+   exercises
 
 .. toctree::
    :caption: Appendix
