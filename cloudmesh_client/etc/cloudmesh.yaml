@@ -159,6 +159,26 @@ cloudmesh:
                 flavor: t1.micro
                 image: ami-d85e75b0
                 location: us-east-1
+        chameleon-ec2:
+            cm_heading: Chameleon, EC2
+            cm_host: chameleoncloud.org
+            cm_label: chameleon_ec2
+            cm_type: ec2
+            cm_type_version: ec2
+            credentials:
+                EC2_ACCESS_KEY: TBD
+                EC2_SECRET_KEY: TBD
+                keyname: TBD
+                userid: TBD
+                EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
+                EC2_USER_ID: TBD
+                EC2_PRIVATE_KEY: TBD//pk.pem
+                EC2_CERT: TBD/cert.pem
+                NOVA_CERT: TBD/cacert.pem
+                EUCALYPTUS_CERT: TBD
+            default:
+                flavor: TBD
+                image: TBD
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com

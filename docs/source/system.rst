@@ -158,10 +158,11 @@ Install setuptools and pip::
    cd $HOME
    sudo /usr/local/bin/python2.7 ez_setup.py
    sudo /usr/local/bin/python2.7 get-pip.py
-Create symlinks::
 
-   sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
-   sudo ln -s /usr/local/bin/pip /usr/bin/pip
+Create soft symbolic links::
+
+   sudo ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
+   sudo ln -sf /usr/local/bin/pip /usr/bin/pip
 
 Verify if you now have the required pip version installed::
 
@@ -195,7 +196,7 @@ CentOS
 This documentation assumes that the user is advanced enough to use
 linux terminal. We also assume you are not logged in as root, but you
 are a regular user. However to prepare the system we assume you have
-sudoer privileges. First, we check for up-to-date versions of python
+sudo privileges. First, we check for up-to-date versions of python
 and pip::
 
    # python --version
