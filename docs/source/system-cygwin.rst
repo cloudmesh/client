@@ -335,30 +335,3 @@ We want also to install virtualenv::
 and pyreadline::
 
    pip install pyreadline
-
-Linux
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-use fresh machine (VM).
-use standard python
-use ubuntu ???
-
-wahtch out for
-urllib 3
-readline
-pip update
-aptget update
-aptget upgrade
-....
-
-CentOS
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. todo:: Mangirish provide instructions
-
-Ubuntu
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. todo:: Gurav provide instructions
-
-

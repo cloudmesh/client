@@ -32,6 +32,8 @@ This documentation and code is available on github at:
    :caption: Manuals
    :maxdepth: 2
 
+   quickstart
+   reference_card
    setup
    commands/index
    man/man
@@ -85,4 +87,9 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+
+.. toctree::
+   :caption: Todo
+
+   todo
 

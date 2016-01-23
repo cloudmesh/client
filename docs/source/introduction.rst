@@ -4,18 +4,18 @@ Introduction
 :download:`8 page slide presentation<images/cloudmesh-arch.pptx>`
 
 Cloudmesh client allows to easily manage virtual machines, containers,
-HPC tasks,  through a convenienet client and API. Hence cloudmesh is
+HPC tasks,  through a convenient client and API. Hence cloudmesh is
 not only a multi-cloud, but a multi-hpc environment that allows also
 to use container technologies (under development).
 
 
 **Client based.** The new cloudmesh is client based. That is cloudmesh
 is run on the users computers. THis also includes an add on component
-to the cloudmesh clienet which is a portal. Hence we destinguish the
-client that containes most of the functionality, as well as a portal
+to the cloudmesh client which is a portal. Hence we distinguish the
+client that contains most of the functionality, as well as a portal
 that can access the functionality of the portal. Important to note is
 that the user manages its own credentials as he runs the cloudmesh
-client on his own machine. This increses the security as access to any
+client on his own machine. This increases the security as access to any
 credential is managed by the user and is not part of a credential
 management system.
 	 
@@ -23,7 +23,7 @@ management system.
 that allows easy development of new features. This also allows
 contribution by the community while developing integrated and smaller
 sub components. Figure A depicts the various layers. A resource
-abstraction layer allowes the integration of a multitude of resources
+abstraction layer allows the integration of a multitude of resources
 spanning HPC, Containers, and Cloud resources. (At this time we focus
 on Openstack and Slurm resources. We are working on reintegrating
 resources such as Azure, AWS, Maui, Moab, and others which we
@@ -34,12 +34,12 @@ previously supported, as well as new resources such as docker).
    Figure A: Cloudmesh layered architecture.
 
 
-**Management Framework.** Cloudmesh clinet contains a management
+**Management Framework.** Cloudmesh client contains a management
 framework, and its components are depicted in Figure B. cloudmesh
 allows easy management of virtual machines, containers, and the data
-associated with them. We are currently developping a choreography
+associated with them. We are currently developing a choreography
 framework that leverages Ansible, chef, and heat. All of the
-functionality is easyly usable through a command shell that also can
+functionality is easily usable through a command shell that also can
 be used from the commandline, and a Python API. IN future we will be
 providing a REST API. 
    
@@ -58,19 +58,19 @@ operating systems without change.
 **Command shell and line.** Cloudmesh contains a command shell
 allowing scripts to be developed and run. However we designed the
 command shell in such a way that each command can also be called from
-the command line. Through the cloudmesh statemachine the state between
+the command line. Through the cloudmesh state machine the state between
 command shell, command client, and the portal is shared.
 
-**Cloudmesh Clienet Portal.** Previously, we distributed cloudmesh
+**Cloudmesh Client Portal.** Previously, we distributed cloudmesh
 with client, server, and a portal components in one package. This
 however turned out to be to complex to be installed for some of our
 less technically skilled user community. Thus we split up the install
-into two indepenendt packages. The cloudmesh client and the cloudmesh
-portal. The portal provides some elementary fieatures to manage
+into two independent packages. The cloudmesh client and the cloudmesh
+portal. The portal provides some elementary features to manage
 virtual machines and HPC jobs. At this time the portal is considered
 to be alpha technology. Just as the client the portal is to be run on
 the local user machine in oredr to allow increased security by
-managing the credentials locally ratherthan on a server.
+managing the credentials locally rather than on a server.
 
 **Cloudmesh Two Factor Authentication.** We have an exploratory
 project in place that looks at the use of Yubikeys for cloudmesh,
@@ -82,8 +82,6 @@ interface reuses cloudmesh components and technologies while
 interfacing with the comet cloud REST interface. The goal here is to
 manage virtual clusters.
 
-* 
-
 
 Where to go next?
 ------------------
@@ -91,15 +89,15 @@ Where to go next?
 What to read next may depend on your interest. Certainly you want to
 install cloudmesh while following the
 
-Instalation information
+Installation information
 
 Next we recommend that you get familiar with the concept of defaults
 in cloudmesh. After that you have several options:
 
-* If you are interestted in clouds such as Openstack read the `cloud Manual`
+* If you are interestted in clouds such as Openstack read the `cloud manual`
 
-* If you are interested in Comet read the :ref:`the comet command
-  manual <comet_command>``.
+* If you are interested in Comet read the
+  :ref:`the comet command manual <comet_command>`.
 
-* If you are interested in HPC read the `HPC command manaul`
+* If you are interested in HPC read the `HPC command manual`
 

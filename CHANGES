@@ -1,18 +1,4 @@
 Summary of Changes
 ===================
 
-.. todo:: update your changes here
-
-* developed a simple commandshell that also works in windows but does
-  not use cmd3
-
-3.2.1
-------
-
-* cm admin command implemented
-* Added bin/new-ENV:
-
-    - allows a developer to update the code and to start a new
-      virtualenv in a new terminal
-
-
+TBD

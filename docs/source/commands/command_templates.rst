@@ -62,9 +62,10 @@ cloudmesh (see registration).
 History
 ----------------------------------------------------------------------
 
-.. todo:: reintroduce the history command
+The manual page of the history command can be found at:
+`register <../man/man.html#history>`_
 
-Not yet completed. As we may want to ruan multiple commands we also
+Not yet completed. As we may want to run multiple commands we also
 provide a history that can be invoked from cloudmesh to show which
 cloudmesh commands have been issued in the past. This allows a more
 easy review of past activities::
@@ -260,6 +261,21 @@ and it will print you in RST format a list of all commands available
 to you for your cmd3 shell. This naturally you could put into a sphinx
 documentation to create a nice user manual for your users.
 
+
+Scripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cloudmesh can easily execute multiple cloudmesh commands that are stored in
+cloudmesh script files. TO do so we recommend to place them in a file ending
+with `.cm`. Let us assume we call the file test.cm.
+
+Now we can simply execute the script with::
+
+    cm test.cm
+
+you can also cat the file with
+
+    cat test.cm | cm
 
 
 
