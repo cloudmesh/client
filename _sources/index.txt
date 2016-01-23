@@ -32,6 +32,8 @@ This documentation and code is available on github at:
    :caption: Manuals
    :maxdepth: 2
 
+   quickstart
+   reference_card
    setup
    commands/index
    man/man
