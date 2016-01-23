@@ -120,34 +120,73 @@ Please conduct the following steps first to update your system::
   sudo easy_install readline
   sudo pip install pycrypto
 
-Cloudmesh shoould work in python 2.7.9, but if you like to upgrade to
+Install necessary dev & build tools with::
+
+  sudo apt-get install build-essential checkinstall
+  sudo apt-get install libreadline-gplv2-dev
+  sudo apt-get install libncursesw5-dev
+  sudo apt-get install libssl-dev
+  sudo apt-get install libsqlite3-dev
+  sudo apt-get install tk-dev
+  sudo apt-get install libgdbm-dev
+  sudo apt-get install libc6-dev
+  sudo apt-get install libbz2-dev
+
+Cloudmesh should work in python 2.7.9, but if you like to upgrade to
 a new version, you can install it alternatively in your system with::
 
-   sudo apt-get install build-essential checkinstall
-   sudo apt-get install libreadline-gplv2-dev
-   sudo apt-get install libncursesw5-dev
-   sudo apt-get install libssl-dev
-   sudo apt-get install libsqlite3-dev
-   sudo apt-get install tk-dev
-   sudo apt-get install libgdbm-dev
-   sudo apt-get install libc6-dev
-   sudo apt-get install libbz2-dev
    cd $HOME
-   wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+   wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+
+Next Steps::
+
    tar xzf Python-2.7.10.tgz
    cd Python-2.7.10
-   sudo ./configure
-   sudo make altinstall
+   ./configure --prefix=/usr/local
+   sudo make && sudo make altinstall
+   export PATH="/usr/local/bin:$PATH"
 
-   python2.7 -V
-   which python2.7
+Verify if you now have the correct alternative python installed::
 
-We recommend that you change your bashrc to include the python 2.7.10
-path and you can issue::
+   /usr/local/bin/python2.7 --version
+   Python 2.7.10
 
-   python --version
+Install setuptools and pip::
 
-to get the version 2.7.10
+   cd $HOME
+   sudo /usr/local/bin/python2.7 ez_setup.py
+   sudo /usr/local/bin/python2.7 get-pip.py
+Create symlinks::
+
+   sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+   sudo ln -s /usr/local/bin/pip /usr/bin/pip
+
+Verify if you now have the required pip version installed::
+
+   pip --version
+   pip 8.0.2 from /usr/lib/python2.7/site-packages/pip-8.0.2-py2.7.egg (python 2.7)
+
+If you see a lower version of pip, you may upgrade it with the following command::
+
+   pip install -U pip
+
+Next, Install a python virtual environment on your machine as we do
+not want to interfere with the system installed python
+versions. Inside your terminal run::
+
+   sudo pip install virtualenv
+
+Next we will create a python virtualenv in the directory $HOME/ENV. To
+activate virtualenv, execute the following steps::
+
+   virtualenv -p /usr/local/bin/python $HOME/ENV
+   source $HOME/ENV/bin/activate
+
+This will add a '(ENV)' to your prompt in the terminal like following::
+
+  (ENV)[user@hostname ~]$
 
 
 CentOS
