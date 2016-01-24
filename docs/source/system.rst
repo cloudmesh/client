@@ -177,7 +177,7 @@ Next, Install a python virtual environment on your machine as we do
 not want to interfere with the system installed python
 versions. Inside your terminal run::
 
-   sudo pip install virtualenv
+   sudo apt-get install virtualenv
 
 Next we will create a python virtualenv in the directory $HOME/ENV. To
 activate virtualenv, execute the following steps::
