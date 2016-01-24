@@ -229,7 +229,7 @@ the host operating system. In virtualbox you maus enable past frm
 clipboard in bidirectional mode.
 
 
-Obsolete - Install Gnu Like tools - Erika and Gourav
+Obsolete - Install Gnu Like tools 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Install Git in Windows
