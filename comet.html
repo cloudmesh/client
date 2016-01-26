@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 1.1.3 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 1.1.3 documentation</title>
   
 
   
@@ -30,9 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.3 documentation" href="index.html"/>
-        <link rel="next" title="Reference Card" href="reference_card.html"/>
-        <link rel="prev" title="Introduction" href="introduction.html"/> 
+    <link rel="top" title="cloudmesh_client 1.1.3 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -87,13 +85,8 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#shell">Shell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#clouds">Clouds</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
@@ -148,11 +141,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Quickstart</li>
+    <li>Comet Virtual Cluster</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/quickstart.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/comet.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,39 +155,70 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="quickstart">
-<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="shell">
-<h2>Shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Set defaults</li>
-<li>set the defualt cloud</li>
-<li>set color</li>
-<li>set refresh</li>
-</ul>
+  <div class="section" id="comet-virtual-cluster">
+<h1>Comet Virtual Cluster<a class="headerlink" href="#comet-virtual-cluster" title="Permalink to this headline">¶</a></h1>
+<p>Example CLI usage to manage comet virtual cluster using cloudmesh
+client</p>
+<p>Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
+auth_provider could be userpass or apikey. When specified, the
+corresponding credential is needed. Please communicate with comet
+admins to get the username/password or api key and secret assigned.:</p>
+<div class="highlight-python"><div class="highlight"><pre>comet:
+    auth_provider: apikey
+    userpass:
+        username: TBD
+        password: TBD
+    apikey:
+        api_key: KEYSTRING
+        api_secret: SECRETSTRING
+</pre></div>
 </div>
-<div class="section" id="clouds">
-<h2>Clouds<a class="headerlink" href="#clouds" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Register</li>
-<li>start a vm</li>
-<li>login</li>
-<li>dlete a vm</li>
-<li>list images</li>
-<li>list flavors</li>
-<li>select a different flavor</li>
-<li>Quota</li>
-</ul>
+<p>List all clusters owned by the authenticated identity (summarized
+format):</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet ll
+</pre></div>
 </div>
-<div class="section" id="hpc">
-<h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Register</li>
-<li>start a job</li>
-<li>show that status</li>
-<li>show the output</li>
-<li>cancel a job</li>
-</ul>
+<p>List all clusters owned by the authenticated identity (detailed
+list):</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet cluster
+</pre></div>
+</div>
+<p>List a cluster by name:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet cluster vc2
+</pre></div>
+</div>
+<p>List all defined computesets:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet computeset
+</pre></div>
+</div>
+<p>List one computeset:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet computeset 63
+</pre></div>
+</div>
+<p>Power on a set of compute nodes in cluster vc4:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3]
+</pre></div>
+</div>
+<p>You can also power on one single node as a computese:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[7]
+</pre></div>
+</div>
+<p>Power on the front end node of the specified cluster:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4
+</pre></div>
+</div>
+<p>Get console of a running node:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet console vc4 vm-vc4-0
+</pre></div>
+</div>
+<p>Get console of the front end:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet console vc4
+</pre></div>
+</div>
+<p>Power off one node or a set of nodes (if they all belonging to one
+active computeset):</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 vm-vc4-[0-3]
+</pre></div>
 </div>
 </div>
 
@@ -202,15 +226,6 @@
            </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="reference_card.html" class="btn btn-neutral float-right" title="Reference Card" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="introduction.html" class="btn btn-neutral" title="Introduction" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
