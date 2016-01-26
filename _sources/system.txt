@@ -47,11 +47,13 @@ command line::
 
 Make sure that you have the supported versions:
 
-  Software   Version
-  ========== =========
-  Python     2.7.10
-  pip        8.0.2
-  virtualenv 13.1.2
+  ==========  =========
+  Software    Version
+  ==========  =========
+  Python      2.7.10
+  pip         8.0.2
+  virtualenv  13.1.2
+  ==========  =========  
   
 On OSX as well as the other operating systems we **require** you to
 use virtualenv. First you need to find which version of python you
