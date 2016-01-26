@@ -288,11 +288,11 @@ and pip::
 
    # python --version
 
-which should give the version Python 2.7.10. As CentOS typically comes with
-an old version of python (2.7.5), we will install in addition to the
-system provided python, an alternative
-python installation. This is achieved by following the next steps executing
-them  as normal user. They will install python 2.7.10 under`$HOME/ENV`::
+As CentOS typically comes with an old version of python (2.7.5), we
+will install in addition to the system provided python, an alternative
+python installation. This is achieved by following the next steps
+executing them as normal user. They will install python 2.7.10
+under`$HOME/ENV`::
 
    sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
    cd $HOME
@@ -358,6 +358,35 @@ Add the command::
 to the file and save the file. You may test if this works, by
 launching a new terminal session and checking if (ENV) is seen
 added to the prompt.
+
+Centos Quick Install Scripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use at your own risk, we recommend that you follow the more detailed
+instructions above::
+
+   sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
+   cd $HOME
+   wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+   wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+   tar -xvzf Python-2.7.10.tgz
+   cd Python-2.7.10
+   ./configure --prefix=/usr/local
+   sudo make && sudo make altinstall
+   export PATH="/usr/local/bin:$PATH"
+   cd $HOME
+   sudo /usr/local/bin/python2.7 ez_setup.py
+   sudo /usr/local/bin/python2.7 get-pip.py
+   sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+   sudo ln -s /usr/local/bin/pip /usr/bin/pip
+   pip install -U pip
+   sudo pip install virtualenv
+   virtualenv -p /usr/local/bin/python $HOME/ENV
+
+Add the following to your .bashrc script::   
+
+   source $HOME/ENV/bin/activate
 
 
 Windows 10
