@@ -287,7 +287,8 @@ class Cluster(object):
                 # computesetid = -1
                 for computeset in computesets:
                     if computeset["cluster"] == clusterid \
-                            and computeset["state"] == "started":
+                            and (computeset["state"] == "started" \
+                                 or computeset["state"] == "running"):
                         computesetid = computeset["id"]
                         # print (computesetid)
                         hosts = set()
