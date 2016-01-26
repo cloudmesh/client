@@ -309,29 +309,3 @@ Add this location to the PATH variable::
 
   PATH = %PATH%;C:\Program Files (x86)\GnuWin32\bin;
 
-
-Makeing python usable
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-To test if you have the right version of python execute::
-
-  python --version
-
-which should return 2.7.10 and::
-
-  pip --version
-
-You might see version 7.0.1 in which case you should update with::
-
-  pip install -U pip 
-
-.. note:: the update may not work as some error is reported. This
-	  needs to be investigated and a workaround needs to be found.
-
-We want also to install virtualenv::
-
-  pip install virtualenv
-
-and pyreadline::
-
-   pip install pyreadline

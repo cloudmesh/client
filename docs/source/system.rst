@@ -2,47 +2,57 @@ Preparation
 ===================
 
 The installation of cloudmesh is easy if you have prepared your system
-with updated software. We provide instructions to prepare your system
-for a number of operating systems listed in this section. After you
-have completed the system preparation you can follow the Installation
-instructions which will be the same for all systems.
+with up-to-date software. We provide instructions to prepare your
+system for a number of operating systems. After you have completed the
+system preparation you can follow the Installation instructions which
+will be the same for all systems.
 
-The instructions provided here are for developers of the cloudmesh
-client. In future we will provide an even simpler install mechanism on
-the various operating systems. For now we ask you to prepare your
-system as if you were a developer. If you like to help us in making
-the instructions simpler based on your experience, please email us.
+In future we will provide an even simpler install mechanism on
+the various operating systems based on simple install scripts.
+
+If you like to help us in making the instructions simpler based on
+your experience, please email us or create a pull request in github.
 
 OSX
 ----------------------------------------------------------------------
 
-Prior to developing code on OSX, you will need a number of tools that
-are not distributed with the regular OSX operating system. First you
-need to install xcode if you have not done so. The easiest is to open
-a terminal and type::
+You will need a number of tools that are not distributed with the
+regular OSX operating system. First you need to install xcode. The
+easiest is to open a terminal and type::
 
   xcode-select --install
- 
 
-On OSX we recommend that you use at least python 2.7.10. This version
-of python is easy to install while downloading the dmg and installing
-it on the system. You can find the python version at:
+
+We recommend that you use python 2.7, e.g. at least python
+2.7.10. This version of python is easy to install while downloading
+the dmg and installing it on the system. You can find the python
+version at:
 
 * https://www.python.org/downloads/
 
 
 You will still have access to the python version distributed with the
-original OSX operating system. To test out which version you have
-activated, you can use in the command line::
+original OSX operating system. You will need to install pip, and
+virtualenv which you can do with::
+
+  sudo easy_install pip
+  sudo pip install virtualenv
+  
+To test out which version you have activated, you can use in the
+command line::
 
   python --version
   pip --version
+  virtualenv --version 
 
-They should show something similar to::
+Make sure that you have the supported versions:
 
-  Python 2.7.10
-  pip 7.0.3
-
+  Software   Version
+  ========== =========
+  Python     2.7.10
+  pip        8.0.2
+  virtualenv 13.1.2
+  
 On OSX as well as the other operating systems we **require** you to
 use virtualenv. First you need to find which version of python you
 use. You can say::
@@ -50,57 +60,75 @@ use. You can say::
   which python
 
 It will give you the path of the python interpreter. Let us assume the
-interpreter was found in `/usr/local/bin/python`.  Next you can create
+interpreter was found in `/usr/local/bin/python`. Next you can create
 a virtual ENV with::
 
   virtualenv -p /user/local/bin/python ~/ENV
 
-Note: in case the virtualenv is not installed::
 
-  pip install virtualenv
-
-You will need to activate the virtualenv::
+You will need to activate the virtualenv with::
 
   source ~/ENV/bin/activate
+  export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
 
 If successful, your terminal will have (ENV) as prefix to the prompt::
 
   (ENV)machinename:dirname user$
 
-As OSX comes with older versions of pip at this time, it is important
-that you first prepare the environment before you install cloudmesh
-client. To do so please issue the following commands::
+If you like to use this version of python consistently, you may elect
+to add it to your .bashrc file and add the command::
 
-   
+   source $HOME/ENV/bin/activate
    export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+
+We need to just do some simple updates in the virtualenv and you will
+have an up to date python environment in ~/ENV::
+
    pip install pip -U
    easy_install readline
    easy_install pycrypto
    pip install urllib3
 
-.. warning:: We found that ``cloudmesh.yaml`` is not created when using
-    pip install. We are working on this issue.
-
 .. warning:: We found that ``readline`` and ``pycrypto`` could not be
 	  installed with pip at the time of writing of this manual,
-	  despite the fact that pip claimed to have installed them. However, the
-	  version installed with pip were not usable. The workaround
-	  is to use easy_install for these packages. If you have a
-	  better idea how to fix this, let us know and send mail to
-	  laszewski@gmail.com. 
+	  despite the fact that pip claimed to have installed them.
+	  However, the version installed with pip were not usable. The
+	  workaround is to use easy_install for these packages as
+	  shown above.  If you have better idea how to fix this, let
+	  us know and send mail to laszewski@gmail.com.
 
 It is recommended that you test the version of the python interpreter
 and pip again::
    
    pip --version
 
-which should give the version 7.1.2::
+which should give the version 8.0.2::
 
    python --version
 
 which should give the version Python 2.7.10
 
+OSX Quick Install Scripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Use at your own risk, we recommend that you follow the more detailed
+instructions abouve::
+
+   xcode-select --install
+   open https://www.python.org/downloads/
+
+Install python 2.7.10. Next do::
+
+  sudo easy_install pip
+  sudo pip install virtualenv
+  virtualenv -p /user/local/bin/python ~/ENV
+  source ~/ENV/bin/activate
+  export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+  pip install pip -U
+  easy_install readline
+  easy_install pycrypto
+  pip install urllib3
+   
 .. _windows-install:
 
 Ubuntu 14.04/15.04
@@ -167,9 +195,9 @@ Create soft symbolic links::
 Verify if you now have the required pip version installed::
 
    pip --version
-   pip 8.0.2 from /usr/lib/python2.7/site-packages/pip-8.0.2-py2.7.egg (python 2.7)
 
-If you see a lower version of pip, you may upgrade it with the following command::
+It shoudl show the version 8.0.2. If you see a lower version of pip, you may
+upgrade it with the following command::
 
    pip install -U pip
 
@@ -201,22 +229,17 @@ and pip::
 
    # python --version
 
-which should give the version Python 2.7.10::
-
-As CentOS typically comes with an old version of python (2.7.5), we would like to provide an alternative python
-installation. This can be achieved by following these steps executing as normal user.
-The following steps are customized for configuring python 2.7.10 to be used for virtualenv under $HOME/ENV
-to be installed later.
-(each line to be executed separately and sequentially)::
+which should give the version Python 2.7.10. As CentOS typically comes with
+an old version of python (2.7.5), we will install in addition to the
+system provided python, an alternative
+python installation. This is achieved by following the next steps executing
+them  as normal user. They will install python 2.7.10 under`$HOME/ENV`::
 
    sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
    cd $HOME
    wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
    wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
-
-Further steps::
-
    tar -xvzf Python-2.7.10.tgz
    cd Python-2.7.10
    ./configure --prefix=/usr/local
@@ -228,22 +251,22 @@ Verify if you now have the correct alternative python installed::
    /usr/local/bin/python2.7 --version
    Python 2.7.10
 
-Install setuptools and pip::
+Install setuptools and pip and create symbolic links to them::
 
    cd $HOME
    sudo /usr/local/bin/python2.7 ez_setup.py
    sudo /usr/local/bin/python2.7 get-pip.py
-Create symlinks::
-
    sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
    sudo ln -s /usr/local/bin/pip /usr/bin/pip
 
-Verify if you now have the required pip version installed::
+Verify if you now have the required pip version installed (this may require
+a new terminal to test or a source or the .bashrc script)::
 
    pip --version
    pip 8.0.2 from /usr/lib/python2.7/site-packages/pip-8.0.2-py2.7.egg (python 2.7)
 
-If you see a lower version of pip, you may upgrade it with the following command::
+If you see an older version of pip, upgrade it with the following
+command::
 
    pip install -U pip
 
@@ -445,23 +468,20 @@ variable while you type in powershell::
 You need to start a new powershell to access make from the
 command line.
 
-Makeing python usable
+Making python usable
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 To test if you have the right version of python execute::
 
-  python --version
+  $ python --version
 
 which should return 2.7.10 and::
 
-  pip --version
+  $ pip --version
 
-You might see version 7.0.1 in which case you should update with::
+If you do not see version 8.02 please update ist with::
 
-  pip install -U pip 
-
-.. note:: the update may not work as some error is reported. This
-	  needs to be investigated and a workaround needs to be found.
+  $ pip install -U pip
 
 We want also to install virtualenv::
 
@@ -470,4 +490,8 @@ We want also to install virtualenv::
 and pyreadline::
 
    pip install pyreadline
+
+
+
+
 
