@@ -14,7 +14,9 @@ to replicate.
 Install Cloudmesh Client via pip
 ----------------------------------
 
-Users can install the cloudmesh client via pip::
+Users can install the cloudmesh client via pip
+
+.. prompt:: bash
 
     pip install cloudmesh_client
 
@@ -31,7 +33,9 @@ If you like to use a different directory, that is also possible, but
 the instructions we provide here assumes are targeted towards this
 base directory.
 
-Please use the following commands::
+Please use the following commands
+
+.. prompt:: bash
 
    mkdir -p github/cloudmesh
    cd github/cloudmesh
@@ -48,8 +52,9 @@ Updating an existing source distribution
 
 During the development phase of cloudmesh you may need to update the
 code from source, as cloudmesh client uses three different
-repositories please do not forget to update them accordingly::
+repositories please do not forget to update them accordingly
 
+.. prompt:: bash
   
    export CLOUDMESH_HOME=$HOME/github/cloudmesh
    cd $CLOUDMESH_HOME/base
@@ -70,15 +75,19 @@ Testing
 For now we do not assume that you need to run any tests after you
 install the source. We will address deployment tests later.
 
-::
+.. prompt:: bash
 
    pip install tox
 
-in the source dir say::
+in the source dir say
+
+.. prompt:: bash
 
   tox
 
-Nose tests can be started with::
+Nose tests can be started with
+
+.. prompt:: bash
 
   nosetests
 

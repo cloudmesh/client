@@ -50,7 +50,8 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
 ]
-
+extensions += ['sphinx-prompt']
+    
 todo_include_todos=True
 
 # Add any paths that contain templates here, relative to this directory.
