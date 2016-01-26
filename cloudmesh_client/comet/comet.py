@@ -445,18 +445,20 @@ class Comet(object):
     @staticmethod
     def console(clusterid, nodeid=None):
         url = Comet.console_url(clusterid, nodeid)
-        newurl_esc = url.replace("&", "\&")
-        # print (newurl)
-        # for OSX
-        if 'darwin' == sys.platform:
-            os.system("open {}".format(newurl_esc))
-        # for linux - tested on Ubuntu 14.04 and CentOS 7.1
-        elif 'linux2' == sys.platform:
-            os.system("firefox {}".format(newurl_esc))
+        if url:
+            newurl_esc = url.replace("&", "\&")
+            # print (newurl)
+            # for OSX
+            if 'darwin' == sys.platform:
+                os.system("open {}".format(newurl_esc))
+            # for linux - tested on Ubuntu 14.04 and CentOS 7.1
+            elif 'linux2' == sys.platform:
+                os.system("firefox {}".format(newurl_esc))
+            else:
+                print("OS not supported!"
+                      "Use the following url manually in your brower:\n{}".format(url))
         else:
-            print("OS not supported!"
-                  "Use the following url manually in your brower:\n{}".format(url))
-
+            print("Console URL not available. Please make sure the node is running and try again!")
 
 def main():
     comet = Comet()
