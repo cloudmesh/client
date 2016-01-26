@@ -47,11 +47,13 @@ command line::
 
 Make sure that you have the supported versions:
 
-  Software   Version
-  ========== =========
-  Python     2.7.10
-  pip        8.0.2
-  virtualenv 13.1.2
+  ==========  =========
+  Software    Version
+  ==========  =========
+  Python      2.7.10
+  pip         8.0.2
+  virtualenv  13.1.2
+  ==========  =========  
   
 On OSX as well as the other operating systems we **require** you to
 use virtualenv. First you need to find which version of python you
@@ -108,11 +110,11 @@ which should give the version 8.0.2::
 
 which should give the version Python 2.7.10
 
-OSX Quick Install Scripts
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+OSX Quick Install Scripts (untested)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use at your own risk, we recommend that you follow the more detailed
-instructions abouve::
+instructions above::
 
    xcode-select --install
    open https://www.python.org/downloads/
@@ -128,18 +130,27 @@ Install python 2.7.10. Next do::
   easy_install readline
   easy_install pycrypto
   pip install urllib3
-   
+
+In case you have not added the two lines in your .bashrc script, you
+will need to run them in any new terminal you start in which yo like
+to use the new python version. It may just be easier to add them to
+your .bashrc file.
+
+  source ~/ENV/bin/activate
+  export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+
+
 .. _windows-install:
 
 Ubuntu 14.04/15.04
 ----------------------------------------------------------------------
 
-Please conduct the following steps first to update your system::
+As your ubuntu version may be outdated we ask you to run the following
+commands::
 
   sudo apt-get update        
   sudo apt-get upgrade       
   sudo apt-get dist-upgrade
-
   sudo apt-get install python-setuptools
   sudo apt-get install python-pip
   sudo apt-get install python-dev
@@ -147,9 +158,6 @@ Please conduct the following steps first to update your system::
   sudo apt-get install git
   sudo easy_install readline
   sudo pip install pycrypto
-
-Install necessary dev & build tools with::
-
   sudo apt-get install build-essential checkinstall
   sudo apt-get install libreadline-gplv2-dev
   sudo apt-get install libncursesw5-dev
@@ -160,16 +168,17 @@ Install necessary dev & build tools with::
   sudo apt-get install libc6-dev
   sudo apt-get install libbz2-dev
 
-Cloudmesh should work in python 2.7.9, but if you like to upgrade to
-a new version, you can install it alternatively in your system with::
+.. note:: if pycrypto does not install with pip use easy_install
+	  pycrypto
+	  
+We recommend that you use python 2.7.10, which you can install it
+alternatively in your system with without overwriting the existing
+python version::
 
    cd $HOME
    wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
    wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
-
-Next Steps::
-
    tar xzf Python-2.7.10.tgz
    cd Python-2.7.10
    ./configure --prefix=/usr/local
@@ -217,7 +226,57 @@ This will add a '(ENV)' to your prompt in the terminal like following::
 
   (ENV)[user@hostname ~]$
 
+Ubuntu Quick Install Scripts (untested)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Use at your own risk, we recommend that you follow the more detailed
+instructions above. THe script bellow contains also an update of the
+python version from 2.7.9 to 2.7.10 in an alternate install. As
+cloudmesh is running fine in python 2.7.9 the update may not be needed
+and you may eliminate the steps in regards to this from the bellow
+script if you wish.::
+
+  sudo apt-get update        
+  sudo apt-get upgrade       
+  sudo apt-get dist-upgrade
+  sudo apt-get install python-setuptools
+  sudo apt-get install python-pip
+  sudo apt-get install python-dev
+  sudo apt-get install libncurses-dev
+  sudo apt-get install git
+  sudo easy_install readline
+  sudo pip install pycrypto
+  sudo apt-get install build-essential checkinstall
+  sudo apt-get install libreadline-gplv2-dev
+  sudo apt-get install libncursesw5-dev
+  sudo apt-get install libssl-dev
+  sudo apt-get install libsqlite3-dev
+  sudo apt-get install tk-dev
+  sudo apt-get install libgdbm-dev
+  sudo apt-get install libc6-dev
+  sudo apt-get install libbz2-dev
+  cd $HOME
+  wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+  wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+  wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+  tar xzf Python-2.7.10.tgz
+  cd Python-2.7.10
+  ./configure --prefix=/usr/local
+  sudo make && sudo make altinstall
+  export PATH="/usr/local/bin:$PATH"
+  cd $HOME
+  sudo /usr/local/bin/python2.7 ez_setup.py
+  sudo /usr/local/bin/python2.7 get-pip.py
+  sudo ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
+  sudo ln -sf /usr/local/bin/pip /usr/bin/pip
+  pip install -U pip
+  virtualenv -p /usr/local/bin/python $HOME/ENV
+
+Add the following to your .bashrc file::
+
+     source $HOME/ENV/bin/activate
+
+  
 CentOS
 ----------------------------------------------------------------------
 
@@ -229,11 +288,11 @@ and pip::
 
    # python --version
 
-which should give the version Python 2.7.10. As CentOS typically comes with
-an old version of python (2.7.5), we will install in addition to the
-system provided python, an alternative
-python installation. This is achieved by following the next steps executing
-them  as normal user. They will install python 2.7.10 under`$HOME/ENV`::
+As CentOS typically comes with an old version of python (2.7.5), we
+will install in addition to the system provided python, an alternative
+python installation. This is achieved by following the next steps
+executing them as normal user. They will install python 2.7.10
+under`$HOME/ENV`::
 
    sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
    cd $HOME
@@ -299,6 +358,35 @@ Add the command::
 to the file and save the file. You may test if this works, by
 launching a new terminal session and checking if (ENV) is seen
 added to the prompt.
+
+Centos Quick Install Scripts
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use at your own risk, we recommend that you follow the more detailed
+instructions above::
+
+   sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
+   cd $HOME
+   wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+   wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+   wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+   tar -xvzf Python-2.7.10.tgz
+   cd Python-2.7.10
+   ./configure --prefix=/usr/local
+   sudo make && sudo make altinstall
+   export PATH="/usr/local/bin:$PATH"
+   cd $HOME
+   sudo /usr/local/bin/python2.7 ez_setup.py
+   sudo /usr/local/bin/python2.7 get-pip.py
+   sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+   sudo ln -s /usr/local/bin/pip /usr/bin/pip
+   pip install -U pip
+   sudo pip install virtualenv
+   virtualenv -p /usr/local/bin/python $HOME/ENV
+
+Add the following to your .bashrc script::   
+
+   source $HOME/ENV/bin/activate
 
 
 Windows 10
