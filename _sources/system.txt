@@ -20,7 +20,9 @@ OSX
 
 You will need a number of tools that are not distributed with the
 regular OSX operating system. First you need to install xcode. The
-easiest is to open a terminal and type::
+easiest is to open a terminal and type
+
+.. prompt:: bash
 
   xcode-select --install
 
@@ -35,13 +37,17 @@ version at:
 
 You will still have access to the python version distributed with the
 original OSX operating system. You will need to install pip, and
-virtualenv which you can do with::
+virtualenv which you can do with
+
+.. prompt:: bash
 
   sudo easy_install pip
   sudo pip install virtualenv
   
 To test out which version you have activated, you can use in the
-command line::
+command line
+
+.. prompt:: bash
 
   python --version
   pip --version
@@ -59,18 +65,24 @@ Make sure that you have the supported versions:
   
 On OSX as well as the other operating systems we **require** you to
 use virtualenv. First you need to find which version of python you
-use. You can say::
+use. You can say
+
+.. prompt:: bash
 
   which python
 
 It will give you the path of the python interpreter. Let us assume the
 interpreter was found in `/usr/local/bin/python`. Next you can create
-a virtual ENV with::
+a virtual ENV with
+
+.. prompt:: bash
 
   virtualenv -p /user/local/bin/python ~/ENV
 
 
-You will need to activate the virtualenv with::
+You will need to activate the virtualenv with
+
+.. prompt:: bash
 
   source ~/ENV/bin/activate
   export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
@@ -86,7 +98,9 @@ to add it to your .bashrc file and add the command::
    export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
 
 We need to just do some simple updates in the virtualenv and you will
-have an up to date python environment in ~/ENV::
+have an up to date python environment in ~/ENV
+
+.. prompt:: bash
 
    pip install pip -U
    easy_install readline
@@ -102,11 +116,15 @@ have an up to date python environment in ~/ENV::
 	  us know and send mail to laszewski@gmail.com.
 
 It is recommended that you test the version of the python interpreter
-and pip again::
+and pip again
+
+.. prompt:: bash
    
    pip --version
 
-which should give the version 8.0.2::
+which should give the version 8.0.2
+
+.. prompt:: bash
 
    python --version
 
@@ -116,12 +134,16 @@ OSX Quick Install Scripts (untested)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use at your own risk, we recommend that you follow the more detailed
-instructions above::
+instructions above
+
+.. prompt:: bash
 
    xcode-select --install
    open https://www.python.org/downloads/
 
-Install python 2.7.10. Next do::
+Install python 2.7.10. Next do
+
+.. prompt:: bash
 
   sudo easy_install pip
   sudo pip install virtualenv
@@ -148,7 +170,9 @@ Ubuntu 14.04/15.04
 ----------------------------------------------------------------------
 
 As your ubuntu version may be outdated we ask you to run the following
-commands::
+commands
+
+.. prompt:: bash
 
   sudo apt-get update        
   sudo apt-get upgrade       
@@ -175,7 +199,9 @@ commands::
 	  
 We recommend that you use python 2.7.10, which you can install it
 alternatively in your system with without overwriting the existing
-python version::
+python version
+
+.. prompt:: bash
 
    cd $HOME
    wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
@@ -187,39 +213,52 @@ python version::
    sudo make && sudo make altinstall
    export PATH="/usr/local/bin:$PATH"
 
-Verify if you now have the correct alternative python installed::
+Verify if you now have the correct alternative python installed
+
+.. prompt:: bash
 
    /usr/local/bin/python2.7 --version
-   Python 2.7.10
 
-Install setuptools and pip::
+which will return Python 2.7.10. Next, Install setuptools and pip
+
+.. prompt:: bash
 
    cd $HOME
    sudo /usr/local/bin/python2.7 ez_setup.py
    sudo /usr/local/bin/python2.7 get-pip.py
 
-Create soft symbolic links::
+Create soft symbolic links
+
+.. prompt:: bash
 
    sudo ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
    sudo ln -sf /usr/local/bin/pip /usr/bin/pip
 
-Verify if you now have the required pip version installed::
+Verify if you now have the required pip version installed
+
+.. prompt:: bash
 
    pip --version
 
 It shoudl show the version 8.0.2. If you see a lower version of pip, you may
-upgrade it with the following command::
+upgrade it with the following command
+
+.. prompt:: bash
 
    pip install -U pip
 
 Next, Install a python virtual environment on your machine as we do
 not want to interfere with the system installed python
-versions. Inside your terminal run::
+versions. Inside your terminal run
+
+.. prompt:: bash
 
    sudo apt-get install virtualenv
 
 Next we will create a python virtualenv in the directory $HOME/ENV. To
-activate virtualenv, execute the following steps::
+activate virtualenv, execute the following steps
+
+.. prompt:: bash
 
    virtualenv -p /usr/local/bin/python $HOME/ENV
    source $HOME/ENV/bin/activate
@@ -236,7 +275,9 @@ instructions above. THe script bellow contains also an update of the
 python version from 2.7.9 to 2.7.10 in an alternate install. As
 cloudmesh is running fine in python 2.7.9 the update may not be needed
 and you may eliminate the steps in regards to this from the bellow
-script if you wish.::
+script if you wish.
+
+.. prompt:: bash
 
   sudo apt-get update        
   sudo apt-get upgrade       
@@ -286,15 +327,19 @@ This documentation assumes that the user is advanced enough to use
 linux terminal. We also assume you are not logged in as root, but you
 are a regular user. However to prepare the system we assume you have
 sudo privileges. First, we check for up-to-date versions of python
-and pip::
+and pip
 
-   # python --version
+.. prompt:: bash
+
+   python --version
 
 As CentOS typically comes with an old version of python (2.7.5), we
 will install in addition to the system provided python, an alternative
 python installation. This is achieved by following the next steps
 executing them as normal user. They will install python 2.7.10
-under`$HOME/ENV`::
+under`$HOME/ENV`
+
+.. prompt:: bash
 
    sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
    cd $HOME
@@ -307,12 +352,16 @@ under`$HOME/ENV`::
    sudo make && sudo make altinstall
    export PATH="/usr/local/bin:$PATH"
 
-Verify if you now have the correct alternative python installed::
+Verify if you now have the correct alternative python installed
+
+.. prompt:: bash
 
    /usr/local/bin/python2.7 --version
-   Python 2.7.10
 
-Install setuptools and pip and create symbolic links to them::
+which should return Python 2.7.10. Next, install setuptools and pip and
+create symbolic links to them
+
+.. prompt:: bash
 
    cd $HOME
    sudo /usr/local/bin/python2.7 ez_setup.py
@@ -321,24 +370,32 @@ Install setuptools and pip and create symbolic links to them::
    sudo ln -s /usr/local/bin/pip /usr/bin/pip
 
 Verify if you now have the required pip version installed (this may require
-a new terminal to test or a source or the .bashrc script)::
+a new terminal to test or a source or the .bashrc script)
+
+.. prompt:: bash
 
    pip --version
    pip 8.0.2 from /usr/lib/python2.7/site-packages/pip-8.0.2-py2.7.egg (python 2.7)
 
 If you see an older version of pip, upgrade it with the following
-command::
+command
+
+.. prompt:: bash
 
    pip install -U pip
 
 Next, Install a python virtual environment on your machine as we do
 not want to interfere with the system installed python
-versions. Inside your terminal run::
+versions. Inside your terminal run
+
+.. prompt:: bash
 
    sudo pip install virtualenv
 
 Next we will create a python virtualenv in the directory $HOME/ENV. To
-activate virtualenv, execute the following steps::
+activate virtualenv, execute the following steps
+
+.. prompt:: bash
 
    virtualenv -p /usr/local/bin/python $HOME/ENV
    source $HOME/ENV/bin/activate
@@ -365,7 +422,9 @@ Centos Quick Install Scripts
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use at your own risk, we recommend that you follow the more detailed
-instructions above::
+instructions above
+
+.. prompt:: bash
 
    sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
    cd $HOME
@@ -386,7 +445,7 @@ instructions above::
    sudo pip install virtualenv
    virtualenv -p /usr/local/bin/python $HOME/ENV
 
-Add the following to your .bashrc script::   
+Add the following to your .bashrc script::
 
    source $HOME/ENV/bin/activate
 

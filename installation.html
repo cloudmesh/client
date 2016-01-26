@@ -185,11 +185,13 @@ that has been proven to work for developers and users and is very easy
 to replicate.</p>
 <div class="section" id="install-cloudmesh-client-via-pip">
 <h2>Install Cloudmesh Client via pip<a class="headerlink" href="#install-cloudmesh-client-via-pip" title="Permalink to this headline">¶</a></h2>
-<p>Users can install the cloudmesh client via pip:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install cloudmesh_client
+<p>Users can install the cloudmesh client via pip</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">pip install cloudmesh_client</span>
 </pre></div>
-</div>
-</div>
 <div class="section" id="cloudmesh-installation-from-source">
 <h2>Cloudmesh Installation from Source<a class="headerlink" href="#cloudmesh-installation-from-source" title="Permalink to this headline">¶</a></h2>
 <p>Developers that wish to contribute to the source can obtain the code from
@@ -200,31 +202,27 @@ github. We assume that we conduct a source code install into the directory:</p>
 <p>If you like to use a different directory, that is also possible, but
 the instructions we provide here assumes are targeted towards this
 base directory.</p>
-<p>Please use the following commands:</p>
-<div class="highlight-python"><div class="highlight"><pre>mkdir -p github/cloudmesh
-cd github/cloudmesh
-git clone https://github.com/cloudmesh/base.git
-git clone https://github.com/cloudmesh/client.git
-cd base
-python setup.py install
-cd ../client
-python setup.py install
-</pre></div>
-</div>
-<div class="section" id="updating-an-existing-source-distribution">
+<p>Please use the following commands</p>
+<pre class="highlight"><span class="prompt1">mkdir -p github/cloudmesh</span>
+<span class="prompt1"><span class="nb">cd </span>github/cloudmesh</span>
+<span class="prompt1">git clone https://github.com/cloudmesh/base.git</span>
+<span class="prompt1">git clone https://github.com/cloudmesh/client.git</span>
+<span class="prompt1"><span class="nb">cd </span>base</span>
+<span class="prompt1">python setup.py install</span>
+<span class="prompt1"><span class="nb">cd</span> ../client</span>
+<span class="prompt1">python setup.py install</span>
+</pre><div class="section" id="updating-an-existing-source-distribution">
 <h3>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h3>
 <p>During the development phase of cloudmesh you may need to update the
 code from source, as cloudmesh client uses three different
-repositories please do not forget to update them accordingly:</p>
-<div class="highlight-python"><div class="highlight"><pre>export CLOUDMESH_HOME=$HOME/github/cloudmesh
-cd $CLOUDMESH_HOME/base
-git pull
-python setup.py install
-cd $CLOUDMESH_HOME/client
-python setup.py install
+repositories please do not forget to update them accordingly</p>
+<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">CLOUDMESH_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/github/cloudmesh</span>
+<span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/base</span>
+<span class="prompt1">git pull</span>
+<span class="prompt1">python setup.py install</span>
+<span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/client</span>
+<span class="prompt1">python setup.py install</span>
 </pre></div>
-</div>
-</div>
 <div class="section" id="testing">
 <h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
 <div class="admonition-todo admonition" id="index-0">
@@ -235,18 +233,12 @@ can run nosetests locally</p>
 </div>
 <p>For now we do not assume that you need to run any tests after you
 install the source. We will address deployment tests later.</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install tox
+<pre class="highlight"><span class="prompt1">pip install tox</span>
+</pre><p>in the source dir say</p>
+<pre class="highlight"><span class="prompt1">tox</span>
+</pre><p>Nose tests can be started with</p>
+<pre class="highlight"><span class="prompt1">nosetests</span>
 </pre></div>
-</div>
-<p>in the source dir say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">tox</span>
-</pre></div>
-</div>
-<p>Nose tests can be started with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 
