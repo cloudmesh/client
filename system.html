@@ -424,9 +424,8 @@ instructions above. THe script bellow contains also an update of the
 python version from 2.7.9 to 2.7.10 in an alternate install. As
 cloudmesh is running fine in python 2.7.9 the update may not be needed
 and you may eliminate the steps in regards to this from the bellow
-script if you wish.</p>
-<blockquote>
-<div>sudo apt-get update
+script if you wish.:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get update
 sudo apt-get upgrade
 sudo apt-get dist-upgrade
 sudo apt-get install python-setuptools
@@ -446,21 +445,23 @@ sudo apt-get install libgdbm-dev
 sudo apt-get install libc6-dev
 sudo apt-get install libbz2-dev
 cd $HOME
-wget &#8211;no-check-certificate <a class="reference external" href="https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz">https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz</a>
-wget &#8211;no-check-certificate <a class="reference external" href="https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py">https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</a>
-wget &#8211;no-check-certificate <a class="reference external" href="https://bootstrap.pypa.io/get-pip.py">https://bootstrap.pypa.io/get-pip.py</a>
+wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
 tar xzf Python-2.7.10.tgz
 cd Python-2.7.10
-./configure &#8211;prefix=/usr/local
+./configure --prefix=/usr/local
 sudo make &amp;&amp; sudo make altinstall
-export PATH=&#8221;/usr/local/bin:$PATH&#8221;
+export PATH=&quot;/usr/local/bin:$PATH&quot;
 cd $HOME
 sudo /usr/local/bin/python2.7 ez_setup.py
 sudo /usr/local/bin/python2.7 get-pip.py
 sudo ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
 sudo ln -sf /usr/local/bin/pip /usr/bin/pip
 pip install -U pip
-virtualenv -p /usr/local/bin/python $HOME/ENV</div></blockquote>
+virtualenv -p /usr/local/bin/python $HOME/ENV
+</pre></div>
+</div>
 <p>Add the following to your .bashrc file:</p>
 <div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
 </pre></div>

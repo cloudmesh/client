@@ -234,7 +234,7 @@ instructions above. THe script bellow contains also an update of the
 python version from 2.7.9 to 2.7.10 in an alternate install. As
 cloudmesh is running fine in python 2.7.9 the update may not be needed
 and you may eliminate the steps in regards to this from the bellow
-script if you wish. 
+script if you wish.::
 
   sudo apt-get update        
   sudo apt-get upgrade       
