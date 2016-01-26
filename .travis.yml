@@ -29,7 +29,7 @@ install:
   - pip --version
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
-  - sudo python setup.py install
+  - python setup.py install
   - cd ~
   - mkdir ~/.cloudmesh
   - mkdir -p github/cloudmesh
