@@ -225,7 +225,7 @@ simply have to specify the location of the file that you like to merge
 into the existing yaml file. However, please be careful, as it will
 overwrite the contents in ~/.cloudmesh/cloudmesh.yaml
 
-.. todo:: Erika. we used to have a .bak.# when we modified the yaml file, do
+.. todo:: We used to have a .bak.# when we modified the yaml file, do
 	  you still have this
 
 Hence the command 

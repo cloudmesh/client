@@ -4,8 +4,8 @@ Exercises
 Assignment A: Prerequisite
 ---------------------------
 
-* A.1) Get account on futuresystems.org or any other cloud you have access to. In case you take a class that uses cloudmesh and
- futuresystems, make sure to be in a valid project. Communicate with your teacher who will let you know.
+* A.1) Get account on futuresystems.org or any other cloud you have access to. In case you take a class that uses cloudmesh
+and futuresystems, make sure to be in a valid project. Communicate with your teacher who will let you know.
 * A.2) Why do you need to start assignment A.1 today and can not wait with it till the day before the due date?
 
 Assignment B: IaaS

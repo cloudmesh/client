@@ -8,7 +8,8 @@ Start a virtual machine that runs docker in it::
 
   make docker-machine
 
-The machine is called cloudmesh, do not confuse this with the docker image that is bing created and is also called cloudmesh.
+The machine is called cloudmesh, do not confuse this with the docker image
+that is bing created and is also called cloudmesh.
 
 Login to the started vm so you can execute docker commands::
   

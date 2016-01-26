@@ -89,16 +89,21 @@
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">Preparation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#osx-quick-install-scripts">OSX Quick Install Scripts</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#ubuntu-14-04-15-04">Ubuntu 14.04/15.04</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#centos">CentOS</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#install-python">Install Python</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-ssh-git-make-pscp-and-an-editor">Install ssh, git, make, pscp and an editor</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-make-in-windows">Install make In Windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#makeing-python-usable">Makeing python usable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#making-python-usable">Making python usable</a></li>
 </ul>
 </li>
 </ul>
@@ -112,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -124,6 +130,10 @@
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
 </ul>
 
             
@@ -173,42 +183,50 @@
   <div class="section" id="preparation">
 <h1>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h1>
 <p>The installation of cloudmesh is easy if you have prepared your system
-with updated software. We provide instructions to prepare your system
-for a number of operating systems listed in this section. After you
-have completed the system preparation you can follow the Installation
-instructions which will be the same for all systems.</p>
-<p>The instructions provided here are for developers of the cloudmesh
-client. In future we will provide an even simpler install mechanism on
-the various operating systems. For now we ask you to prepare your
-system as if you were a developer. If you like to help us in making
-the instructions simpler based on your experience, please email us.</p>
+with up-to-date software. We provide instructions to prepare your
+system for a number of operating systems. After you have completed the
+system preparation you can follow the Installation instructions which
+will be the same for all systems.</p>
+<p>In future we will provide an even simpler install mechanism on
+the various operating systems based on simple install scripts.</p>
+<p>If you like to help us in making the instructions simpler based on
+your experience, please email us or create a pull request in github.</p>
 <div class="section" id="osx">
 <h2>OSX<a class="headerlink" href="#osx" title="Permalink to this headline">¶</a></h2>
-<p>Prior to developing code on OSX, you will need a number of tools that
-are not distributed with the regular OSX operating system. First you
-need to install xcode if you have not done so. The easiest is to open
-a terminal and type:</p>
+<p>You will need a number of tools that are not distributed with the
+regular OSX operating system. First you need to install xcode. The
+easiest is to open a terminal and type:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">xcode</span><span class="o">-</span><span class="n">select</span> <span class="o">--</span><span class="n">install</span>
 </pre></div>
 </div>
-<p>On OSX we recommend that you use at least python 2.7.10. This version
-of python is easy to install while downloading the dmg and installing
-it on the system. You can find the python version at:</p>
+<p>We recommend that you use python 2.7, e.g. at least python
+2.7.10. This version of python is easy to install while downloading
+the dmg and installing it on the system. You can find the python
+version at:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></li>
 </ul>
 <p>You will still have access to the python version distributed with the
-original OSX operating system. To test out which version you have
-activated, you can use in the command line:</p>
+original OSX operating system. You will need to install pip, and
+virtualenv which you can do with:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo easy_install pip
+sudo pip install virtualenv
+</pre></div>
+</div>
+<p>To test out which version you have activated, you can use in the
+command line:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 <span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+<span class="n">virtualenv</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
-<p>They should show something similar to:</p>
-<div class="highlight-python"><div class="highlight"><pre>Python 2.7.10
-pip 7.0.3
-</pre></div>
-</div>
+<p>Make sure that you have the supported versions:</p>
+<blockquote>
+<div>Software   Version
+========== =========
+Python     2.7.10
+pip        8.0.2
+virtualenv 13.1.2</div></blockquote>
 <p>On OSX as well as the other operating systems we <strong>require</strong> you to
 use virtualenv. First you need to find which version of python you
 use. You can say:</p>
@@ -216,28 +234,29 @@ use. You can say:</p>
 </pre></div>
 </div>
 <p>It will give you the path of the python interpreter. Let us assume the
-interpreter was found in <cite>/usr/local/bin/python</cite>.  Next you can create
+interpreter was found in <cite>/usr/local/bin/python</cite>. Next you can create
 a virtual ENV with:</p>
 <div class="highlight-python"><div class="highlight"><pre>virtualenv -p /user/local/bin/python ~/ENV
 </pre></div>
 </div>
-<p>Note: in case the virtualenv is not installed:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
-</pre></div>
-</div>
-<p>You will need to activate the virtualenv:</p>
+<p>You will need to activate the virtualenv with:</p>
 <div class="highlight-python"><div class="highlight"><pre>source ~/ENV/bin/activate
+export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
 </pre></div>
 </div>
 <p>If successful, your terminal will have (ENV) as prefix to the prompt:</p>
 <div class="highlight-python"><div class="highlight"><pre>(ENV)machinename:dirname user$
 </pre></div>
 </div>
-<p>As OSX comes with older versions of pip at this time, it is important
-that you first prepare the environment before you install cloudmesh
-client. To do so please issue the following commands:</p>
-<div class="highlight-python"><div class="highlight"><pre>export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
-pip install pip -U
+<p>If you like to use this version of python consistently, you may elect
+to add it to your .bashrc file and add the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
+export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+</pre></div>
+</div>
+<p>We need to just do some simple updates in the virtualenv and you will
+have an up to date python environment in ~/ENV:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install pip -U
 easy_install readline
 easy_install pycrypto
 pip install urllib3
@@ -245,29 +264,45 @@ pip install urllib3
 </div>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p class="last">We found that <code class="docutils literal"><span class="pre">cloudmesh.yaml</span></code> is not created when using
-pip install. We are working on this issue.</p>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
 <p class="last">We found that <code class="docutils literal"><span class="pre">readline</span></code> and <code class="docutils literal"><span class="pre">pycrypto</span></code> could not be
 installed with pip at the time of writing of this manual,
-despite the fact that pip claimed to have installed them. However, the
-version installed with pip were not usable. The workaround
-is to use easy_install for these packages. If you have a
-better idea how to fix this, let us know and send mail to
-<a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p>
+despite the fact that pip claimed to have installed them.
+However, the version installed with pip were not usable. The
+workaround is to use easy_install for these packages as
+shown above.  If you have better idea how to fix this, let
+us know and send mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p>
 </div>
 <p>It is recommended that you test the version of the python interpreter
 and pip again:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
-<p>which should give the version 7.1.2:</p>
+<p>which should give the version 8.0.2:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </pre></div>
 </div>
 <p>which should give the version Python 2.7.10</p>
+<div class="section" id="osx-quick-install-scripts">
+<h3>OSX Quick Install Scripts<a class="headerlink" href="#osx-quick-install-scripts" title="Permalink to this headline">¶</a></h3>
+<p>Use at your own risk, we recommend that you follow the more detailed
+instructions abouve:</p>
+<div class="highlight-python"><div class="highlight"><pre>xcode-select --install
+open https://www.python.org/downloads/
+</pre></div>
+</div>
+<p>Install python 2.7.10. Next do:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo easy_install pip
+sudo pip install virtualenv
+virtualenv -p /user/local/bin/python ~/ENV
+source ~/ENV/bin/activate
+export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
+pip install pip -U
+easy_install readline
+easy_install pycrypto
+pip install urllib3
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="ubuntu-14-04-15-04">
 <span id="windows-install"></span><h2>Ubuntu 14.04/15.04<a class="headerlink" href="#ubuntu-14-04-15-04" title="Permalink to this headline">¶</a></h2>
@@ -285,8 +320,7 @@ sudo easy_install readline
 sudo pip install pycrypto
 </pre></div>
 </div>
-<p>Cloudmesh should work in python 2.7.9, but if you like to upgrade to
-a new version, you can install it alternatively in your system with:</p>
+<p>Install necessary dev &amp; build tools with:</p>
 <div class="highlight-python"><div class="highlight"><pre>sudo apt-get install build-essential checkinstall
 sudo apt-get install libreadline-gplv2-dev
 sudo apt-get install libncursesw5-dev
@@ -296,49 +330,18 @@ sudo apt-get install tk-dev
 sudo apt-get install libgdbm-dev
 sudo apt-get install libc6-dev
 sudo apt-get install libbz2-dev
-cd $HOME
-wget https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
-tar xzf Python-2.7.10.tgz
-cd Python-2.7.10
-sudo ./configure
-sudo make altinstall
-
-python2.7 -V
-which python2.7
 </pre></div>
 </div>
-<p>We recommend that you change your <cite>.bashrc</cite> to include the python 2.7.10
-path and you can issue:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</pre></div>
-</div>
-<p>to get the version 2.7.10</p>
-</div>
-<div class="section" id="centos">
-<h2>CentOS<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h2>
-<p>This documentation assumes that the user is advanced enough to use
-linux terminal. We also assume you are not logged in as root, but you
-are a regular user. However to prepare the system we assume you have
-sudo privileges. First, we check for up-to-date versions of python
-and pip:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># python --version</span>
-</pre></div>
-</div>
-<p>which should give the version Python 2.7.10:</p>
-<p>As CentOS typically comes with an old version of python (2.7.5), we would like to provide an alternative python
-installation. This can be achieved by following these steps executing as normal user.
-The following steps are customized for configuring python 2.7.10 to be used for virtualenv under $HOME/ENV
-to be installed later.
-(each line to be executed separately and sequentially):</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
-cd $HOME
+<p>Cloudmesh should work in python 2.7.9, but if you like to upgrade to
+a new version, you can install it alternatively in your system with:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd $HOME
 wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
 wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
 wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
 </pre></div>
 </div>
-<p>Further steps:</p>
-<div class="highlight-python"><div class="highlight"><pre>tar -xvzf Python-2.7.10.tgz
+<p>Next Steps:</p>
+<div class="highlight-python"><div class="highlight"><pre>tar xzf Python-2.7.10.tgz
 cd Python-2.7.10
 ./configure --prefix=/usr/local
 sudo make &amp;&amp; sudo make altinstall
@@ -356,17 +359,85 @@ sudo /usr/local/bin/python2.7 ez_setup.py
 sudo /usr/local/bin/python2.7 get-pip.py
 </pre></div>
 </div>
-<p>Create symlinks:</p>
-<div class="highlight-python"><div class="highlight"><pre>sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
-sudo ln -s /usr/local/bin/pip /usr/bin/pip
+<p>Create soft symbolic links:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo ln -sf /usr/local/bin/python2.7 /usr/local/bin/python
+sudo ln -sf /usr/local/bin/pip /usr/bin/pip
 </pre></div>
 </div>
 <p>Verify if you now have the required pip version installed:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+<p>It shoudl show the version 8.0.2. If you see a lower version of pip, you may
+upgrade it with the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install -U pip
+</pre></div>
+</div>
+<p>Next, Install a python virtual environment on your machine as we do
+not want to interfere with the system installed python
+versions. Inside your terminal run:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install virtualenv
+</pre></div>
+</div>
+<p>Next we will create a python virtualenv in the directory $HOME/ENV. To
+activate virtualenv, execute the following steps:</p>
+<div class="highlight-python"><div class="highlight"><pre>virtualenv -p /usr/local/bin/python $HOME/ENV
+source $HOME/ENV/bin/activate
+</pre></div>
+</div>
+<p>This will add a &#8216;(ENV)&#8217; to your prompt in the terminal like following:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV)[user@hostname ~]$
+</pre></div>
+</div>
+</div>
+<div class="section" id="centos">
+<h2>CentOS<a class="headerlink" href="#centos" title="Permalink to this headline">¶</a></h2>
+<p>This documentation assumes that the user is advanced enough to use
+linux terminal. We also assume you are not logged in as root, but you
+are a regular user. However to prepare the system we assume you have
+sudo privileges. First, we check for up-to-date versions of python
+and pip:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># python --version</span>
+</pre></div>
+</div>
+<p>which should give the version Python 2.7.10. As CentOS typically comes with
+an old version of python (2.7.5), we will install in addition to the
+system provided python, an alternative
+python installation. This is achieved by following the next steps executing
+them  as normal user. They will install python 2.7.10 under`$HOME/ENV`:</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel
+cd $HOME
+wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz
+wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py
+tar -xvzf Python-2.7.10.tgz
+cd Python-2.7.10
+./configure --prefix=/usr/local
+sudo make &amp;&amp; sudo make altinstall
+export PATH=&quot;/usr/local/bin:$PATH&quot;
+</pre></div>
+</div>
+<p>Verify if you now have the correct alternative python installed:</p>
+<div class="highlight-python"><div class="highlight"><pre>/usr/local/bin/python2.7 --version
+Python 2.7.10
+</pre></div>
+</div>
+<p>Install setuptools and pip and create symbolic links to them:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd $HOME
+sudo /usr/local/bin/python2.7 ez_setup.py
+sudo /usr/local/bin/python2.7 get-pip.py
+sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python
+sudo ln -s /usr/local/bin/pip /usr/bin/pip
+</pre></div>
+</div>
+<p>Verify if you now have the required pip version installed (this may require
+a new terminal to test or a source or the .bashrc script):</p>
 <div class="highlight-python"><div class="highlight"><pre>pip --version
 pip 8.0.2 from /usr/lib/python2.7/site-packages/pip-8.0.2-py2.7.egg (python 2.7)
 </pre></div>
 </div>
-<p>If you see a lower version of pip, you may upgrade it with the following command:</p>
+<p>If you see an older version of pip, upgrade it with the following
+command:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install -U pip
 </pre></div>
 </div>
@@ -565,24 +636,19 @@ variable while you type in powershell:</p>
 <p>You need to start a new powershell to access make from the
 command line.</p>
 </div>
-<div class="section" id="makeing-python-usable">
-<h3>Makeing python usable<a class="headerlink" href="#makeing-python-usable" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="making-python-usable">
+<h3>Making python usable<a class="headerlink" href="#making-python-usable" title="Permalink to this headline">¶</a></h3>
 <p>To test if you have the right version of python execute:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+<div class="highlight-python"><div class="highlight"><pre>$ python --version
 </pre></div>
 </div>
 <p>which should return 2.7.10 and:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pip</span> <span class="o">--</span><span class="n">version</span>
+<div class="highlight-python"><div class="highlight"><pre>$ pip --version
 </pre></div>
 </div>
-<p>You might see version 7.0.1 in which case you should update with:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install -U pip
+<p>If you do not see version 8.02 please update ist with:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ pip install -U pip
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">the update may not work as some error is reported. This
-needs to be investigated and a workaround needs to be found.</p>
 </div>
 <p>We want also to install virtualenv:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
