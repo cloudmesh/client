@@ -743,7 +743,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 # CloudProviderBase.register(CloudProviderOpenstackAPI)
 
 if __name__ == "__main__":
-    cloudname = 'ilo'
+    cloudname = 'kilo'
     d = ConfigDict("cloudmesh.yaml")
     cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
