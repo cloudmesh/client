@@ -81,9 +81,9 @@ cloudmesh:
             cm_host: chameleoncloud.org
             cm_label: chameleon
             cm_type: openstack
-            cm_type_version: juno
+            cm_type_version: kilo
             credentials:
-                OS_AUTH_URL: TBD
+                OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v2.0
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_TENANT_ID: TBD
