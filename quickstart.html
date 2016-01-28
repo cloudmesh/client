@@ -89,9 +89,11 @@
 <p class="caption"><span class="caption-text">Manuals</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shell">Shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#clouds">Clouds</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
@@ -164,38 +166,82 @@
             
   <div class="section" id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The quickstart guide has not bee written and tested yet.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>THe setup of cloudmesh client is quite simple and can be done with:</p>
+<div class="highlight-python"><div class="highlight"><pre>pip install cloudmesh_client
+</pre></div>
+</div>
+<p>However, you may want to read carefully our setup guide and prepare
+your machine as your OS may not have the required packages installed
+by default.</p>
+</div>
 <div class="section" id="shell">
 <h2>Shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Set defaults</li>
-<li>set the defualt cloud</li>
-<li>set color</li>
-<li>set refresh</li>
-</ul>
-</div>
+<p>The cloudmesh shell contains a number of simple abstractions. This
+includes defaults, variables and configuration flags.</p>
+<p>To set a default use for example the cloud to kilo:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">default cloud=kilo</span>
+</pre><p>To configure color output of the cloudmesh shell use:</p>
+<pre class="highlight"><span class="prompt1">color on</span>
+</pre><p>To conduct a life refresh in a cloud please use</p>
+<pre class="highlight"><span class="prompt1">refresh on</span>
+</pre></div>
 <div class="section" id="clouds">
 <h2>Clouds<a class="headerlink" href="#clouds" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Register</li>
-<li>start a vm</li>
-<li>login</li>
-<li>dlete a vm</li>
-<li>list images</li>
-<li>list flavors</li>
-<li>select a different flavor</li>
-<li>Quota</li>
-</ul>
+<p>Naturally you want to get started with clouds. IN case you have a
+username and project in futuresystems using cloudmesh is easy. Only
+thing you need is an entry in the .ssh/config file with the machine
+name india.</p>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">put a link here how to configure the .ssh/config file</p>
 </div>
+<p>Next you can register the cloud(s) with</p>
+<pre class="highlight"><span class="prompt1">register remote</span>
+</pre><p>To start a vm say</p>
+<pre class="highlight"><span class="prompt1">register remote</span>
+</pre><p>To login use</p>
+<pre class="highlight"><span class="prompt1">login</span>
+</pre><p>To delete the vm, log out of the vm in case you are in it and say</p>
+<pre class="highlight"><span class="prompt1">delete &lt;the last vm name&gt;</span>
+</pre><p>Where the &lt;last vm name&gt; is the name of your vm. If you forgot the
+name, look it up with</p>
+<pre class="highlight"><span class="prompt1">vm list</span>
+</pre><p>To find other flavors or images use</p>
+<pre class="highlight"><span class="prompt1">list images</span>
+<span class="prompt1">list flavors</span>
+</pre></div>
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Register</li>
-<li>start a job</li>
-<li>show that status</li>
-<li>show the output</li>
-<li>cancel a job</li>
-</ul>
-</div>
+<p>IN order to use the HPC experiment management functionality, you must
+register the queuing system in the yaml file and register the login
+node in the .ssh/config file. If you are using india and have used the
+clouds before, you may have already done this.</p>
+<p>To start a command such as uname and execute a command you can say:</p>
+<pre class="highlight"><span class="prompt1">run uname</span>
+</pre><p>It will print a job number that you may use to interact with the
+system further to for example list the output</p>
+<pre class="highlight"><span class="prompt1">run list 101</span>
+</pre><p>(We assume here 101 is your job id)</p>
+<p>To see the status and the output you can say</p>
+<pre class="highlight"><span class="prompt1">run status 101</span>
+<span class="prompt1">run output 101</span>
+</pre></div>
+<div class="section" id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p>Naturally there are many more commands in cloudmesh, and you can find
+out more about them while typing in</p>
+<pre class="highlight"><span class="prompt1">help</span>
+</pre></div>
 </div>
 
 

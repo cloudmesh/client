@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Scripts &mdash; cloudmesh_client 1.1.3 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.3 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.3
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Scripts</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/scripts.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="scripts">
+<h1>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h1>
+<p>In this section we present a a number of scripts that may inspire you
+to utilize the scriting abilities of cloudmesh. A script can be
+started with</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">cm sriptname.cm</span>
+</pre><div class="section" id="comment">
+<h2>Comment<a class="headerlink" href="#comment" title="Permalink to this headline">¶</a></h2>
+<p>At this time comments are only detected based on the first characters
+in a line. A comment line starts either with <cite>#</cite>, <cite>//</cite> or <cite>/*</cite>.</p>
+<div class="highlight-python"><div class="highlight"><pre># test comment 1
+
+// test comment 2
+
+/* test comment 3 */
+</pre></div>
+</div>
+</div>
+<div class="section" id="terminal-commands">
+<h2>Terminal Commands<a class="headerlink" href="#terminal-commands" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>#
+# TESTING VARIABLES
+#
+banner &quot;prints a banner with this text&quot;
+echo &quot;prints this text&quot;
+echo -r BLACK &quot;prints in balck &quot;
+echo -r BLUE &quot;prints in blue&quot;
+echo -r GREEN &quot;prints in green&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="executing-shell-commands">
+<h2>Executing Shell commands<a class="headerlink" href="#executing-shell-commands" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre># execute a shell command
+! ls
+</pre></div>
+</div>
+</div>
+<div class="section" id="executing-python">
+<h2>Executing Python<a class="headerlink" href="#executing-python" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>py a = &quot;hallo&quot;
+py print a
+
+py n = 3
+py for i in range(0,n): print i
+
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="variables">
+<h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>#
+# TESTING VARIABLES
+#
+
+# Listing the variables
+var list
+
+# Get the time and print a banner with the time
+var a=now
+banner $a
+
+# get a variable from the cloudmesh yaml file and print it
+var username=cloudmesh.profile.username
+echo $username
+</pre></div>
+</div>
+</div>
+<div class="section" id="group">
+<h2>Group<a class="headerlink" href="#group" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>register remote kilo
+
+# show teh defaukts
+cm default
+vm default
+
+banner &quot;GROUP A&quot;
+# boot 3 vms in goup a
+default group=group_a
+
+vm boot
+vm boot
+vm boot
+
+vm list
+
+banner &quot;GROUP B&quot;
+# boot 3 vms in group b
+default group=group_b
+
+vm boot
+vm boot
+vm boot
+
+vm list
+
+# delete all vms in group_a
+vm delete group_a
+
+banner &quot;GROUP C&quot;
+default group=group_c
+
+# create three vms in group_c
+py n = 3
+py for i in range(0,n): cm vm boot
+
+vm list
+
+# Cleanup
+vm delete group_b
+vm delete group_c
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="vms">
+<h2>VMs<a class="headerlink" href="#vms" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>banner -r BLUE VM
+
+banner -r BLUE -c &quot;-&quot; Setup
+
+var cloud=kilo
+var username=cloudmesh.profile.username
+var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
+var keyname=&quot;$username-key&quot;
+
+echo &quot;Username: $username&quot;
+echo &quot;Keyname:  $keyname&quot;
+
+register remote
+
+default cloud=$cloud
+
+default cloud
+
+banner -r BLUE -c &quot;-&quot; &quot;VM List&quot;
+
+vm refresh
+vm list
+
+key add --name $keyname ~/.ssh/id_rsa.pub
+key list
+key upload $keyname
+
+
+default flavor=m1.small
+default image=Ubuntu-14.04-64
+
+#default flavor=2
+#default image=9eb8416d-1313-4748-a832-5fe0ecbbdffc
+
+
+default list --cloud=$cloud
+
+vm default
+
+vm boot
+
+vm ip assign
+
+vm refresh
+vm list
+vm status
+
+vm login
+
+# vm ssh uname -a
+
+#--key=~/.ssh/id_rsa
+=======
+# according to scripts/secgroup.cm
+# setting secgrup rule to allow ssh login
+# secgroup rules-add --tenant=$tenant default 22 22 tcp 0.0.0.0/0
+# however this seems having problem now
+
+#default login_key=/home/mangirish/indiakey/id_rsa
+
+vm login --key=~/.ssh/id_rsa testvm
+
+#vm list --format=json
+#vm list --format=yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="copy">
+<h2>Copy<a class="headerlink" href="#copy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>default cloud=kilo
+
+banner SYNC_FROM_LOCAL_TO_REMOTE
+sync put ~/cm_sync/send sync_dir
+
+banner SYNC_FROM_REMOTE_TO_LOCAL
+sync get sync_dir/* ~/cm_sync/receive
+</pre></div>
+</div>
+</div>
+<div class="section" id="security-groups">
+<h2>Security Groups<a class="headerlink" href="#security-groups" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>default cloud=kilo
+var username=cloudmesh.profile.username
+var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
+var keyname=&quot;$username-key&quot;
+
+secgroup create --tenant=$tenant test-secgroup-01
+
+
+banner LIST_SECURITY_GROUPS
+secgroup list --tenant=$tenant
+
+
+banner SECURITY_GROUP_ADD_RULES
+secgroup rules-add --tenant=$tenant test-secgroup-01 80 80 tcp 0.0.0.0/0
+secgroup rules-add --tenant=$tenant test-secgroup-01 443 443 udp 0.0.0.0/0
+
+
+banner LIST_SECURITY_GROUP_RULES
+secgroup rules-list --tenant=$tenant test-secgroup-01
+
+
+banner SECURITY_GROUP_DELETE_RULE
+secgroup rules-delete --tenant=$tenant test-secgroup-01 80 80 tcp 0.0.0.0/0
+secgroup rules-list --tenant=$tenant test-secgroup-01
+
+
+banner DELETE_SECURITY_GROUP
+secgroup delete --tenant=$tenant test-secgroup-01
+
+
+banner LIST_SECURITY_GROUPS
+secgroup list --tenant=$tenant
+</pre></div>
+</div>
+</div>
+<div class="section" id="nova">
+<h2>Nova<a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>banner NOVA
+
+# this command should be avoided and you should use the vm command instead.
+# It is the same as ! nova ... but reads the configuration from the
+# cloudmesh.yaml file
+
+nova set kilo
+
+nova info
+
+nova list
+nova image-list
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="network">
+<h2>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>## lines that do not work but should are commented out for now with ##
+
+
+banner SET_DEFAULT_CLOUD_AND_GROUP
+
+var cloud=kilo
+var username=cloudmesh.profile.username
+var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
+var keyname=&quot;$username-key&quot;
+
+echo &quot;Username: $username&quot;
+echo &quot;Keyname:  $keyname&quot;
+
+default group=demo_group
+
+
+banner FLOATING_IP_LIST
+network list floating ip
+
+
+banner FLOATING_POOL_LIST
+network list floating pool
+
+
+banner CREATE_FLOATING_IP
+network create floating
+network list floating
+
+
+banner LIST_VM_DEFAULTS
+vm default
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm list
+
+
+banner ASSOCIATE_FLOATING_IP_AUTO_DETECT
+network associate floating --instance=goshenoy
+
+
+banner FLOATING_IP_LIST
+network list floating ip
+
+
+banner DISASSOCIATE_FLOATING_IP
+network disassociate floating --instance=goshenoy
+
+
+banner DELETE_GROUP
+group delete demo_group
+
+
+banner DEFAULT_GROUP
+default group=demo_group
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm list
+
+
+banner ASSOCIATE_FLOATING_IP_WITH_GROUP
+network associate floating --group=demo_group
+
+
+banner DISASSOCIATE_FLOATING_IP_WITH_GROUP
+network disassociate floating --group=demo_group
+
+
+banner DELETE_GROUP
+group delete demo_group
+</pre></div>
+</div>
+</div>
+<div class="section" id="keys">
+<h2>Keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>banner KEYS
+
+key delete --all
+
+# TODO: does ~ expansion works?
+key add --name=test-key ~/.ssh/id_rsa.pub
+
+key list
+key list --format=json
+key list --format=yaml
+
+key list --source=cloudmesh
+key list --source=ssh
+key list --source=git
+
+key get test-key
+
+default cloud
+key add_to_cloud test-key
+
+key list_cloud_mappings
+
+key delete --select
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="hpc">
+<h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>default cloud=general
+default group=test
+default cluster=india
+
+banner HPC
+
+hpc info
+
+hpc queue
+
+hpc run ~/test.sh --group=test1
+
+hpc run ~/test.sh --group=test1
+
+hpc status --job=6
+
+hpc delete all --group=test1
+
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="cluster">
+<h2>Cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>banner SET_DEFAULT_CLOUD_AND_GROUP
+default cloud=kilo
+default group=demo_group
+# TODO: make script independent of username and use var from cloudmesh.yaml
+default key=Gaurav-PC
+
+
+banner LIST_VM_DEFAULTS
+vm default
+
+
+banner CREATE_VM
+vm boot
+vm refresh
+vm boot
+vm refresh
+vm list
+
+
+banner CREATE_VIRTUAL_CLUSTER
+network create cluster --group=demo_group
+</pre></div>
+</div>
+</div>
+<div class="section" id="cloud">
+<h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>banner DEFAULTS
+list default
+
+
+banner LIST_CLOUDS
+cloud list
+
+
+banner LOGON_TO_A_CLOUD
+cloud logon kilo
+cloud list
+
+
+banner DEACTIVATE_A_CLOUD
+cloud deactivate kilo
+cloud list
+
+
+banner ACTIVATE_A_CLOUD
+cloud activate kilo
+cloud list
+
+
+banner LOGOUT_FROM_CLOUD
+cloud logout kilo
+cloud list
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.1.3',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
