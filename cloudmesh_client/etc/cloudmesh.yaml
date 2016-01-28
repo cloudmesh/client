@@ -92,8 +92,8 @@ cloudmesh:
                 OS_VERSION: kilo
                 OS_REGION_NAME: RegionOne
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         cybera-c:
           cm_heading: Cybera Calgary OpenStack
           cm_host: cybera
@@ -109,7 +109,7 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Calgary
           default:
-            flavor: m1.tiny
+            flavor: m1.small
             image: Ubuntu 14.04
         cybera-e:
           cm_heading: Cybera Edmonton OpenStack
@@ -126,7 +126,7 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Edmonton
           default:
-            flavor: m1.tiny
+            flavor: m1.small
             image: Ubuntu 14.04
         aws:
             cm_heading: Amazon Cloud, AWS
@@ -152,17 +152,17 @@ cloudmesh:
             credentials:
                 EC2_ACCESS_KEY: TBD
                 EC2_SECRET_KEY: TBD
-                keyname: TBD
-                userid: TBD
+                keyname: TBD_not_used
+                userid: TBD_not_used
                 EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
                 EC2_USER_ID: TBD
-                EC2_PRIVATE_KEY: TBD//pk.pem
-                EC2_CERT: TBD/cert.pem
-                NOVA_CERT: TBD/cacert.pem
-                EUCALYPTUS_CERT: TBD
+                EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
+                EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
+                NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
+                EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com

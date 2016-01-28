@@ -1362,6 +1362,7 @@ Command - register::
             Copies the CERT to the ~/.cloudmesh/clouds/host directory
             and registers that cert in the coudmesh.yaml file.
 
+
         register CLOUD --dir
             Copies the entire directory from the cloud and puts it in
             ~/.cloudmesh/clouds/host
