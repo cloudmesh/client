@@ -1,14 +1,7 @@
-banner DEFAULTS
-list default
-
-
-banner SET_DEFAULT_CLOUD
 default cloud=kilo
-
 
 banner SYNC_FROM_LOCAL_TO_REMOTE
 sync put ~/cm_sync/send sync_dir
-
 
 banner SYNC_FROM_REMOTE_TO_LOCAL
 sync get sync_dir/* ~/cm_sync/receive
