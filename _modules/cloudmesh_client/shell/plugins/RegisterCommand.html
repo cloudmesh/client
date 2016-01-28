@@ -300,9 +300,7 @@
 <span class="sd">              register CLOUD CERT [--force]</span>
 <span class="sd">                  Copies the CERT to the ~/.cloudmesh/clouds/host directory</span>
 <span class="sd">                  and registers that cert in the coudmesh.yaml file.</span>
-<span class="sd">                  For india, CERT will be in</span>
-<span class="sd">                  india:.cloudmesh/clouds/india/juno/cacert.pem</span>
-<span class="sd">                  and would be copied to ~/.cloudmesh/clouds/india/juno</span>
+
 
 <span class="sd">              register CLOUD --dir</span>
 <span class="sd">                  Copies the entire directory from the cloud and puts it in</span>
@@ -541,7 +539,7 @@
             <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;CLOUD&#39;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;juno&quot;</span><span class="p">,</span> <span class="s">&quot;kilo&quot;</span><span class="p">]</span>
+                <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;kilo&quot;</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">clouds</span> <span class="o">=</span> <span class="p">[</span><span class="n">cloud</span><span class="p">]</span>
 

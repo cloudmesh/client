@@ -9,13 +9,15 @@ not only a multi-cloud, but a multi-hpc environment that allows also
 to use container technologies (under development).
 
 
-**Client based.** The new cloudmesh is client based. That is cloudmesh
-is run on the users computers. THis also includes an add on component
-to the cloudmesh client which is a portal. Hence we distinguish the
-client that contains most of the functionality, as well as a portal
-that can access the functionality of the portal. Important to note is
-that the user manages its own credentials as he runs the cloudmesh
-client on his own machine. This increases the security as access to any
+**Client based.** Cloudmesh client as the name indicates is a client
+based toolkit that is installed and run on the users computers. This
+also includes an add on component to the cloudmesh client which is a
+portal. Hence we distinguish the client that contains most of the
+functionality, as well as a portal that can access the functionality
+through a locally maintaine Web portal. Important to note is that the
+user manages its own credentials and thus security and credential
+management is done directly on the users machine instead through a
+hosted Web portal. This increases the security as access to any
 credential is managed by the user and is not part of a credential
 management system.
 	 

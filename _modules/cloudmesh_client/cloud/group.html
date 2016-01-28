@@ -646,8 +646,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="c"># currently support India cloud</span>
-            <span class="k">if</span> <span class="n">cloudname</span> <span class="o">==</span> <span class="s">&quot;kilo&quot;</span> \
-                    <span class="ow">or</span> <span class="n">cloudname</span> <span class="o">==</span> <span class="s">&quot;kilo&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cloudname</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;kilo&quot;</span><span class="p">]:</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
                 <span class="n">credentials</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">][</span>
                     <span class="s">&quot;credentials&quot;</span><span class="p">]</span>

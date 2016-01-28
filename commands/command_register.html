@@ -216,11 +216,7 @@ like to access. On a terminal say:</p>
 </pre></div>
 </div>
 <p>to register the FutureSystems kilo cloud</p>
-<blockquote>
-<div>cm register remote juno</div></blockquote>
-<p>to register the  juno cloud (this cloud will be disabled soon,
-so please transition to kilo). More information about the
-cloud can be found at</p>
+<p>More information about the cloud can be found at</p>
 <ul class="simple">
 <li><a class="reference external" href="https://portal.futuresystems.org">https://portal.futuresystems.org</a></li>
 </ul>
@@ -290,8 +286,6 @@ Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 +-------+-----------+---------+
 | azure | azure     | N/A     |
 | aws   | ec2       | N/A     |
-| india | openstack | juno    |
-| juno  | openstack | juno    |
 | kilo  | openstack | kilo    |
 +-------+-----------+---------+
 </pre></div>
@@ -306,7 +300,6 @@ Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 | azure |
 | aws   |
 | india |
-| juno  |
 | kilo  |
 +-------+
 </pre></div>
@@ -345,10 +338,9 @@ cloud.</p>
 <p>will copy and register a machine on which an openrc.sh file is located into
 the <cite>cloudmesh.yaml</cite> file. With cloudmesh we provide some default host, thus</p>
 <blockquote>
-<div><p>they are very easy to configure. This includes <cite>juno</cite>, and <cite>kilo</cite> our
+<div><p>they are very easy to configure. This includes <cite>kilo</cite> our
 current clouds in our lab. To register them you can use the commands:</p>
 <div class="highlight-python"><div class="highlight"><pre>cm register reomte kilo
-cm register remote juno
 </pre></div>
 </div>
 </div></blockquote>

@@ -97,9 +97,16 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#get-registration-from-indiana-university">Get Registration from Indiana University</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-other-clouds">Registration of other clouds</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#registration-of-cybera-cloud">Registration of Cybera Cloud</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#registration-of-chameleon-openstack-cloud">Registration of Chameleon Openstack Cloud</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#registration-of-chameleon-ec2-cloud">Registration of Chameleon EC2 Cloud</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registration-of-cybera-cloud">Registration of Cybera Cloud</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration-of-cybera-openstack-cloud">Registration of Cybera Openstack Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration-of-cybera-ec2-cloud">Registration of Cybera EC2 Cloud</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#chameleon-cloud">Chameleon Cloud</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#registration-of-chameleon-openstack-cloud">Registration of Chameleon Openstack Cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registration-of-chameleon-ec2-cloud">Registration of Chameleon EC2 Cloud</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-cloudlab-openstack-cloud">Registration of CloudLab Openstack Cloud</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-aws-cloud">Registration of AWS Cloud</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-azure-cloud">Registration of Azure Cloud</a></li>
@@ -187,7 +194,7 @@ a configuration file in the directory:</p>
 <blockquote>
 <div>cm help to automatically generate it from defaults.</div></blockquote>
 <p>The file will be a template and it can either be modified with your
-favourite editor, or if you are at indiana university and want to use the
+favorite editor, or if you are at Indiana University and want to use the
 kilo cloud you can use the command</p>
 <blockquote>
 <div>cm remote register</div></blockquote>
@@ -274,13 +281,13 @@ cloudmesh:
                 flavor: TBD
                 image: TBD
         chameleon:
-            cm_heading: Chameleon, Juno
+            cm_heading: Chameleon
             cm_host: chameleoncloud.org
             cm_label: chameleon
             cm_type: openstack
-            cm_type_version: juno
+            cm_type_version: kilo
             credentials:
-                OS_AUTH_URL: TBD
+                OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v2.0
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_TENANT_ID: TBD
@@ -289,8 +296,8 @@ cloudmesh:
                 OS_VERSION: kilo
                 OS_REGION_NAME: RegionOne
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         cybera-c:
           cm_heading: Cybera Calgary OpenStack
           cm_host: cybera
@@ -306,7 +313,7 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Calgary
           default:
-            flavor: m1.tiny
+            flavor: m1.small
             image: Ubuntu 14.04
         cybera-e:
           cm_heading: Cybera Edmonton OpenStack
@@ -323,24 +330,8 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Edmonton
           default:
-            flavor: m1.tiny
+            flavor: m1.small
             image: Ubuntu 14.04
-        juno:
-            cm_heading: India OpenStack, Juno
-            cm_host: india
-            cm_label: juno
-            cm_type: openstack
-            cm_type_version: juno
-            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
-            credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
-                OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
-                OS_PASSWORD: TBD
-                OS_TENANT_NAME: TBD
-                OS_USERNAME: TBD
-            default:
-                flavor: TBD
-                image: TBD
         aws:
             cm_heading: Amazon Cloud, AWS
             cm_host: aws.amazon.com
@@ -365,17 +356,17 @@ cloudmesh:
             credentials:
                 EC2_ACCESS_KEY: TBD
                 EC2_SECRET_KEY: TBD
-                keyname: TBD
-                userid: TBD
+                keyname: TBD_not_used
+                userid: TBD_not_used
                 EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
                 EC2_USER_ID: TBD
-                EC2_PRIVATE_KEY: TBD//pk.pem
-                EC2_CERT: TBD/cert.pem
-                NOVA_CERT: TBD/cacert.pem
-                EUCALYPTUS_CERT: TBD
+                EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
+                EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
+                NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
+                EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com
@@ -428,7 +419,7 @@ following file</p>
     Hostname: india.futuresystems.org
 </pre></div>
 </div>
-<p>please replace albert with your portalname that you have used for
+<p>please replace albert with your portal name that you have used for
 registration with futuresystems.org. Once you have done this please
 verify that you have access to india with a command such as:</p>
 <div class="highlight-python"><div class="highlight"><pre>ssh india uname -a
@@ -442,7 +433,6 @@ the command:</p>
 <p>This will update your cloudmesh.yaml file with the information retrieved
 from india. While retrieving the information on india from the file:</p>
 <div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/clouds/india/kilo/openrc.sh
-~/.cloudmesh/clouds/india/juno/openrc.sh
 </pre></div>
 </div>
 <p>Make sure you add a valid tenant to the yaml file. More information
@@ -456,7 +446,7 @@ take a closer look at the manual pages. This includes command such as</p>
 <div class="highlight-python"><div class="highlight"><pre>cm register help
 </pre></div>
 </div>
-<p>To edit the yaml file with the edior defined by the Shell variable <cite>$EDITOR</cite>:</p>
+<p>To edit the yaml file with the editor defined by the Shell variable <cite>$EDITOR</cite>:</p>
 <div class="highlight-python"><div class="highlight"><pre>register edit
 </pre></div>
 </div>
@@ -467,56 +457,237 @@ take a closer look at the manual pages. This includes command such as</p>
 </div>
 <div class="section" id="registration-of-cybera-cloud">
 <h2>Registration of Cybera Cloud<a class="headerlink" href="#registration-of-cybera-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">supported. add cybera cloud registration here</p>
+<p>Cybera an organization from Canada provides an easy accessible
+openstack cloud. This cloud should only be used while following their
+access policies documented at:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.cybera.ca/projects/cloud-resources/rapid-access-cloud/faq/#What_is_RAC">http://www.cybera.ca/projects/cloud-resources/rapid-access-cloud/faq/#What_is_RAC</a></li>
+</ul>
+<p>YOu may ask for permission, if you do not fit this category. Once you
+have created an account at:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://rac-portal.cybera.ca/">https://rac-portal.cybera.ca/</a></li>
+</ul>
+<p>YOu can access to Openstack portal at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://cloud.cybera.ca/auth/login/">https://cloud.cybera.ca/auth/login/</a></li>
+</ul>
+<p>Just as Chameleon Cloud the Cybera cloud allows openstack rc and ec2
+rc files.</p>
+<div class="section" id="registration-of-cybera-openstack-cloud">
+<h3>Registration of Cybera Openstack Cloud<a class="headerlink" href="#registration-of-cybera-openstack-cloud" title="Permalink to this headline">¶</a></h3>
+<p>When you have an account ana a project it is simple to configure
+cloudmesh to include chameleon cloud in its resource set. To do so,
+edit the file:</p>
+<blockquote>
+<div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
+<p>Edit the follwoing lines:</p>
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: TBD
+OS_TENANT_NAME: TBD
+OS_TENANT_ID: TBD
+OS_PROJECT_NAME: TBD
+OS_USERNAME: TBD
+</pre></div>
+</div>
+<p>Let us assume you have the username <cite>albert</cite> and the project id
+<cite>FG-101</cite>, Than the lines need to be changed to:</p>
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: &lt;your user password&gt;
+OS_TENANT_NAME: FG-101
+OS_TENANT_ID: FG-101
+OS_PROJECT_NAME: FG-101
+OS_USERNAME: albert
+</pre></div>
+</div>
+<p>You can find this information also in the openrc.sh file which you can
+download via the Openstack Horizon interface by following this link:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://cloud.cybera.ca/project/access_and_security/api_access/openrc/">https://cloud.cybera.ca/project/access_and_security/api_access/openrc/</a></li>
+</ul>
+</div>
+<div class="section" id="registration-of-cybera-ec2-cloud">
+<h3>Registration of Cybera EC2 Cloud<a class="headerlink" href="#registration-of-cybera-ec2-cloud" title="Permalink to this headline">¶</a></h3>
+<p>Cybera cloud also support the usage of the EC2 interface which
+is a pit more complex to set up than the openstack configuration.
+First, you have to download a configuration directory, that is
+packaged as a zip file. This file can be found at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://cloud.cybera.ca/project/access_and_security/api_access/ec2/">https://cloud.cybera.ca/project/access_and_security/api_access/ec2/</a></li>
+</ul>
+<p>Let us assume you have the username albert and
+the project FG-101. Than the zip file will be called:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p>Let us set some environment variables to make the configuration
+description easier</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
+<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
+</pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
+directory with. (We assume that you are in the directory where your
+browser downloaded the zip file and you have uncompressed it)</p>
+<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
+</pre><p>The directory should include the files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
+</pre></div>
+</div>
+<p>Take a look at the ec2rc.sh file</p>
+<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
+</pre><p>Now you can edit the cloudmesh yaml file at:</p>
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
+</pre></div>
+</div>
+<p>locate the cybera-ec2 entry and change the TBD values with the
+values you see in the ec2rc.sh file:</p>
+<div class="highlight-python"><div class="highlight"><pre>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
+EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
+EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
+</pre></div>
+</div>
+<p>For the following lines in the cloudmesh file, please replace the TBD
+values with the cybera project ID that you use for this cloud:</p>
+<div class="highlight-python"><div class="highlight"><pre>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
+EC2_CERT: ~/.cloudmesh/clouds/cybera/TBD/cert.pem
+NOVA_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
+EUCALYPTUS_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
+</pre></div>
 </div>
 </div>
+</div>
+<div class="section" id="chameleon-cloud">
+<h2>Chameleon Cloud<a class="headerlink" href="#chameleon-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="registration-of-chameleon-openstack-cloud">
-<h2>Registration of Chameleon Openstack Cloud<a class="headerlink" href="#registration-of-chameleon-openstack-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-1">
-<p class="first admonition-title">Todo</p>
-<p class="last">supported. add cloud registration here</p>
+<h3>Registration of Chameleon Openstack Cloud<a class="headerlink" href="#registration-of-chameleon-openstack-cloud" title="Permalink to this headline">¶</a></h3>
+<p>NSF sponsors an experimental cloud environment called Chameleon at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.chameleoncloud.org">https://www.chameleoncloud.org</a></li>
+</ul>
+<p>It is a KVM based Openstack cloud of version kilo. The documentation
+can be found here:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.chameleoncloud.org/docs/user-guides/openstack-kvm-user-guide/">https://www.chameleoncloud.org/docs/user-guides/openstack-kvm-user-guide/</a></li>
+</ul>
+<p>When you have an account and a project it is simple to configure
+cloudmesh to include chameleon cloud in its resource set. To do so,
+edit the file:</p>
+<blockquote>
+<div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
+<p>Edit the follwoing lines:</p>
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: TBD
+OS_TENANT_NAME: TBD
+OS_TENANT_ID: TBD
+OS_PROJECT_NAME: TBD
+OS_USERNAME: TBD
+</pre></div>
 </div>
+<p>Let us assume you have the username <cite>albert</cite> and the project id
+<cite>FG-101</cite>, Than the lines need to be changed to:</p>
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: &lt;your user password&gt;
+OS_TENANT_NAME: FG-101
+OS_TENANT_ID: FG-101
+OS_PROJECT_NAME: FG-101
+OS_USERNAME: albert
+</pre></div>
+</div>
+<p>You can find this information also in the openrc.sh file which you can
+download via the Openstack Horizon interface by following this link:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/openrc/">https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/openrc/</a></li>
+</ul>
 </div>
 <div class="section" id="registration-of-chameleon-ec2-cloud">
-<h2>Registration of Chameleon EC2 Cloud<a class="headerlink" href="#registration-of-chameleon-ec2-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-2">
-<p class="first admonition-title">Todo</p>
-<p class="last">not yet supported. add cloud registration here</p>
+<h3>Registration of Chameleon EC2 Cloud<a class="headerlink" href="#registration-of-chameleon-ec2-cloud" title="Permalink to this headline">¶</a></h3>
+<p>The chameleon cloud also support the usage of the EC2 interface which
+is a pit more complex to set up than the openstack configuration.
+First, you have to download a configuration directory, that is
+packaged as a zip file. This file can be found at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/ec2/">https://openstack.tacc.chameleoncloud.org/dashboard/project/access_and_security/api_access/ec2/</a></li>
+</ul>
+<p>Let us assume you have the username albert and
+the project FG-101. Than the zip file will be called:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+</pre></div>
+</div>
+<p>Let us set some environment variables to make the configuration
+description easier</p>
+<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
+<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
+</pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
+directory with. (We assume that you are in the directory where your
+browser downloaded the zip file and you have uncompressed it)</p>
+<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
+</pre><p>The directory should include the files:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
+<span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
+<span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
+</pre></div>
+</div>
+<p>Take a look at the ec2rc.sh file</p>
+<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
+</pre><p>Now you can edit the cloudmesh yaml file at:</p>
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
+</pre></div>
+</div>
+<p>locate the chameleon-ec2 entry and change the TBD values with the
+values you see in the ec2rc.sh file:</p>
+<div class="highlight-python"><div class="highlight"><pre>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
+EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
+EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
+</pre></div>
+</div>
+<p>For the following lines in the cloudmesh file, please replace the TBD
+values with the chameleon project ID that you use for this cloud:</p>
+<div class="highlight-python"><div class="highlight"><pre>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
+EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
+NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
+EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
+</pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="registration-of-cloudlab-openstack-cloud">
 <h2>Registration of CloudLab Openstack Cloud<a class="headerlink" href="#registration-of-cloudlab-openstack-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-3">
+<div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <p class="last">not yet tested but should work. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-aws-cloud">
 <h2>Registration of AWS Cloud<a class="headerlink" href="#registration-of-aws-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-4">
+<div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
 <p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-azure-cloud">
 <h2>Registration of Azure Cloud<a class="headerlink" href="#registration-of-azure-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-5">
+<div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
 <p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-devcloud">
 <h2>Registration of devcloud<a class="headerlink" href="#registration-of-devcloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-6">
+<div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
 <p class="last">not tested, but should work as is regular openstack. add cloud registration here</p>
 </div>
 </div>
 <div class="section" id="registration-of-a-libcloud-available-cloud">
 <h2>Registration of a libcloud available cloud<a class="headerlink" href="#registration-of-a-libcloud-available-cloud" title="Permalink to this headline">¶</a></h2>
-<div class="admonition-todo admonition" id="index-7">
+<div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
 <p class="last">not yet supported. add cloud registration here</p>
 </div>

@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    cloudmesh_client.cloud.iaas.provider.libcloud
     cloudmesh_client.cloud.iaas.provider.openstack
 
 Module contents
