@@ -35,6 +35,7 @@ This documentation and code is available on github at:
    quickstart
    reference_card
    setup
+   scripts
    commands/index
    man/man
    api
