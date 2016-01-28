@@ -1,14 +1,17 @@
 ## lines that do not work but should are commented out for now with ##
 
-banner DEFAULTS
-list default
-
 
 banner SET_DEFAULT_CLOUD_AND_GROUP
-default cloud=kilo
+
+var cloud=kilo
+var username=cloudmesh.profile.username
+var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
+var keyname="$username-key"
+
+echo "Username: $username"
+echo "Keyname:  $keyname"
+
 default group=demo_group
-# TODO: make script independent of username and use var from cloudmesh.yaml
-default key=Gaurav-PC
 
 
 banner FLOATING_IP_LIST

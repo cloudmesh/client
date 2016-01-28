@@ -2,7 +2,8 @@ banner KEYS
 
 key delete --all
 
-key add --name=test-key /home/mangirish/indiakey/id_rsa.pub
+# TODO: does ~ expansion works?
+key add --name=test-key ~/.ssh/id_rsa.pub
 
 key list
 key list --format=json

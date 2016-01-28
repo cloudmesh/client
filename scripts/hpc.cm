@@ -1,14 +1,5 @@
-#
-# test. make sure you have done cm reset before
-#
-
-# lines that do not work but should are commented out for now with ##
-banner DEFAULTS
-
 default cloud=general
-
 default group=test
-
 default cluster=india
 
 banner HPC
