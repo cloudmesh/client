@@ -128,22 +128,6 @@ cloudmesh:
           default:
             flavor: m1.tiny
             image: Ubuntu 14.04
-        juno:
-            cm_heading: India OpenStack, Juno
-            cm_host: india
-            cm_label: juno
-            cm_type: openstack
-            cm_type_version: juno
-            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
-            credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
-                OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
-                OS_PASSWORD: TBD
-                OS_TENANT_NAME: TBD
-                OS_USERNAME: TBD
-            default:
-                flavor: TBD
-                image: TBD
         aws:
             cm_heading: Amazon Cloud, AWS
             cm_host: aws.amazon.com
