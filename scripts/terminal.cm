@@ -1,8 +1,8 @@
 #
 # TESTING VARIABLES
 #
-banner "my banner"
-echo "my echo"
-echo -r BLACK "my echo"
-echo -r BLUE "my echo"
-echo -r GREEN "my echo"
+banner "prints a banner with this text"
+echo "prints this text"
+echo -r BLACK "prints in balck "
+echo -r BLUE "prints in blue"
+echo -r GREEN "prints in green"
