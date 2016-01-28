@@ -1,6 +1,7 @@
 banner SET_DEFAULT_CLOUD_AND_GROUP
-default cloud=juno
+default cloud=kilo
 default group=demo_group
+# TODO: make script independent of username and use var from cloudmesh.yaml
 default key=Gaurav-PC
 
 

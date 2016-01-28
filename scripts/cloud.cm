@@ -7,7 +7,6 @@ cloud list
 
 
 banner LOGON_TO_A_CLOUD
-cloud logon juno
 cloud logon kilo
 cloud list
 
@@ -23,6 +22,5 @@ cloud list
 
 
 banner LOGOUT_FROM_CLOUD
-cloud logout juno
 cloud logout kilo
 cloud list

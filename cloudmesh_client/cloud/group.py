@@ -487,7 +487,7 @@ class Group(ListResource):
         """
         try:
             # currently support India cloud
-            if cloudname in ["juno", "kilo"]:
+            if cloudname in ["kilo"]:
                 d = ConfigDict("cloudmesh.yaml")
                 credentials = d["cloudmesh"]["clouds"][cloudname][
                     "credentials"]

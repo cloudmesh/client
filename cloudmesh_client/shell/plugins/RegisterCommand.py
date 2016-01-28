@@ -141,9 +141,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register CLOUD CERT [--force]
                   Copies the CERT to the ~/.cloudmesh/clouds/host directory
                   and registers that cert in the coudmesh.yaml file.
-                  For india, CERT will be in
-                  india:.cloudmesh/clouds/india/juno/cacert.pem
-                  and would be copied to ~/.cloudmesh/clouds/india/juno
+
 
               register CLOUD --dir
                   Copies the entire directory from the cloud and puts it in
@@ -382,7 +380,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             cloud = arguments['CLOUD']
 
             if cloud is None:
-                clouds = ["juno", "kilo"]
+                clouds = ["kilo"]
             else:
                 clouds = [cloud]
 

@@ -3,7 +3,7 @@ list default
 
 
 banner SET_DEFAULT_CLOUD
-default cloud=juno
+default cloud=kilo
 
 
 banner SYNC_FROM_LOCAL_TO_REMOTE

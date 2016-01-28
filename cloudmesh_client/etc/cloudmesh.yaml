@@ -77,7 +77,7 @@ cloudmesh:
                 flavor: TBD
                 image: TBD
         chameleon:
-            cm_heading: Chameleon, Juno
+            cm_heading: Chameleon
             cm_host: chameleoncloud.org
             cm_label: chameleon
             cm_type: openstack

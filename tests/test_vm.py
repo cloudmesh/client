@@ -32,7 +32,8 @@ class Test_vm:
 
     def test_001(self):
         """
-        cm vm boot --name=testvm --cloud=juno --image=<image_id> --flavor=2 --group=test
+        cm vm boot --name=testvm --cloud=kilo --image=<image_id> --flavor=2
+        --group=test
         """
         image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
 

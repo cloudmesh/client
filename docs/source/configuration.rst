@@ -72,7 +72,6 @@ This will update your cloudmesh.yaml file with the information retrieved
 from india. While retrieving the information on india from the file::
 
   ~/.cloudmesh/clouds/india/kilo/openrc.sh
-  ~/.cloudmesh/clouds/india/juno/openrc.sh
 
 Make sure you add a valid tenant to the yaml file. More information
 about using india can be found at http://portal.futuresystems.org

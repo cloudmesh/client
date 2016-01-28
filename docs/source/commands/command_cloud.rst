@@ -21,7 +21,6 @@ cloudmesh.yaml file use::
     | aws        | Logged Out |
     | azure      | Logged Out |
     | chameleon  | Logged Out |
-    | juno       | Logged Out |
     | kilo       | Logged Out |
     +------------+------------+
 
@@ -31,8 +30,8 @@ Login to a single/multiple clouds
 
 To logon to a cloud use::
 
-  cm> cloud logon juno
-    Logged into cloud: juno
+  cm> cloud logon kilo
+    Logged into cloud: kilo
 
 You can logon to multiple clouds::
 
@@ -46,7 +45,6 @@ You can logon to multiple clouds::
     | aws        | Logged Out |
     | azure      | Logged Out |
     | chameleon  | Logged Out |
-    | juno       | Active     |
     | kilo       | Active     |
     +------------+------------+
 
@@ -65,7 +63,6 @@ To deactivate a cloud use::
     | aws        | Logged Out |
     | azure      | Logged Out |
     | chameleon  | Logged Out |
-    | juno       | Active     |
     | kilo       | Inactive   |
     +------------+------------+
 
@@ -84,7 +81,6 @@ To activate a cloud use::
     | aws        | Logged Out |
     | azure      | Logged Out |
     | chameleon  | Logged Out |
-    | juno       | Active     |
     | kilo       | Active     |
     +------------+------------+
 
@@ -93,8 +89,8 @@ Log out from a cloud
 
 To log out from a cloud use::
 
-  cm> cloud logout juno
-    Logged out of cloud: juno
+  cm> cloud logout kilo
+    Logged out of cloud: kilo
 
   cm> cloud logout kilo
     Logged out of cloud: kilo
@@ -106,6 +102,5 @@ To log out from a cloud use::
     | aws        | Logged Out |
     | azure      | Logged Out |
     | chameleon  | Logged Out |
-    | juno       | Logged Out |
     | kilo       | Logged Out |
     +------------+------------+

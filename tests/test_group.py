@@ -38,7 +38,7 @@ class Test_group:
         pass
 
     def test_001(self):
-        """testing cm group add groupA --cloud=juno --id=test-001 --type=vm"""
+        """testing cm group add groupA --cloud=kilo --id=test-001 --type=vm"""
         HEADING()
 
         c = "cm group add groupA --cloud=kilo --id=test-001 --type=vm"

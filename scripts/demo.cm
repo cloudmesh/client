@@ -10,7 +10,6 @@ cm default
 
 banner REGISTRATION
 
-register remote juno
 register remote kilo
 
 banner DEFAULT

@@ -42,7 +42,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor refresh --cloud=juno11")
+        result = run("cm flavor refresh --cloud=kilo11")
         assert "failed" in result
 
     def test_003(self):
@@ -60,7 +60,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list --cloud=juno11")
+        result = run("cm flavor list --cloud=kilo11")
         assert "Failed" in result
 
     def test_005(self):
@@ -78,6 +78,6 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list i --cloud=juno11")
+        result = run("cm flavor list i --cloud=kilo11")
         assert "Failed" in result
 
