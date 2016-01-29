@@ -1,13 +1,16 @@
 banner SET_DEFAULT_CLOUD_AND_GROUP
-default cloud=kilo
-default group=demo_group
-# TODO: make script independent of username and use var from cloudmesh.yaml
-default key=Gaurav-PC
 
+var cloud=kilo
+var group=demo_group
+var key=cloudmesh.keys.keylist.keyname
+var username=cloudmesh.profile.username
+
+default cloud=$cloud
+default group=$group
+default key=$key
 
 banner LIST_VM_DEFAULTS
 vm default
-
 
 banner CREATE_VM
 vm boot
@@ -16,6 +19,5 @@ vm boot
 vm refresh
 vm list
 
-
 banner CREATE_VIRTUAL_CLUSTER
-network create cluster --group=demo_group
+network create cluster --group=$group
