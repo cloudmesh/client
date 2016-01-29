@@ -25,6 +25,7 @@ key add --name $keyname ~/.ssh/id_rsa.pub
 key list
 key upload $keyname
 
+default key=$keyname
 
 default flavor=m1.small
 default image=Ubuntu-14.04-64
@@ -37,15 +38,17 @@ default list --cloud=$cloud
 
 vm default
 
-vm boot
+vm boot --name=testvm
 
-vm ip assign
+vm ip assign testvm
 
 vm refresh
 vm list
 vm status
 
-vm login
+default login_key=~/.ssh/id_rsa
+
+vm login testvm
 
 # vm ssh uname -a
 
@@ -58,7 +61,7 @@ vm login
 
 #default login_key=/home/mangirish/indiakey/id_rsa
 
-vm login --key=~/.ssh/id_rsa testvm
+#vm login --key=~/.ssh/id_rsa testvm
 
 #vm list --format=json
 #vm list --format=yaml
