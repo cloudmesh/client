@@ -150,7 +150,7 @@ The output will look somewhat similar to the following::
 	| group     | test-group    |
 	| key       | id_rsa        |
 	| flavor    | m1.tiny       |
-	| login_key | 				|
+	| login_key |               |
 	+-----------+---------------+
 	info. OK.
 
