@@ -110,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#install-python">Install Python</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-ssh-git-make-pscp-and-an-editor">Install ssh, git, make, pscp and an editor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-puttygen-in-windows">Install PuttyGen In Windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#install-make-in-windows">Install make In Windows</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#making-python-usable">Making python usable</a></li>
 </ul>
@@ -120,6 +121,7 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
@@ -560,15 +562,16 @@ supported or tested. A direct link to the install can be found at</p>
 installer. It will walk you through the install process.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p>If you like to install it separately, you can find the
-downloaded msi in the <cite>~/Downloads</cite> directory. To install
-it in powershell use:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ~/Downloads
-msiexec /i python-2.7.10.msi /qb
-</pre></div>
-</div>
-<p class="last">This will open a basic dialog to perform installation and
-close after completion.</p>
+<dl class="docutils">
+<dt>If you like to install it separately, you can find the</dt>
+<dd>downloaded msi in the <cite>~/Downloads</cite> directory. To install
+it in powershell use:</dd>
+</dl>
+<p>cd ~/Downloads
+msiexec /i python-2.7.10.msi /qb</p>
+<blockquote class="last">
+<div>This will open a basic dialog to perform installation and
+close after completion.</div></blockquote>
 </div>
 <p>After you have installed python include it in the Path environment
 variable while you type in powershell:</p>
@@ -668,7 +671,7 @@ the following contents:</p>
 </div>
 <p>past and copy this key into a new ssh key in your futuresystems
 account at:</p>
-<div class="highlight-python"><div class="highlight"><pre>* http::portal.futuresystems.org/my/ssh-key
+<div class="highlight-python"><div class="highlight"><pre>http::portal.futuresystems.org/my/ssh-key
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -676,6 +679,19 @@ account at:</p>
 <p class="last">we recommend that you are not modifying your /etc/hosts
 in order not to confuse you about the definition of the
 hosts you define in .ssh/config</p>
+</div>
+</div>
+<div class="section" id="install-puttygen-in-windows">
+<h3>Install PuttyGen In Windows<a class="headerlink" href="#install-puttygen-in-windows" title="Permalink to this headline">¶</a></h3>
+<p>To download and install &#8220;puttygen&#8221; for windows, in powershell type:</p>
+<div class="highlight-python"><div class="highlight"><pre>explorer http://the.earth.li/~sgtatham/putty/latest/x86/puttygen.exe
+</pre></div>
+</div>
+<p>This will open the internet explorer and download the puttygen exe.
+To install it:</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ~/Downloads
+msiexec /i puttygen.exe /qb
+</pre></div>
 </div>
 </div>
 <div class="section" id="install-make-in-windows">

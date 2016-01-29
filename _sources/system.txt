@@ -496,9 +496,9 @@ installer. It will walk you through the install process.
 .. note:: If you like to install it separately, you can find the
 	  downloaded msi in the `~/Downloads` directory. To install
 	  it in powershell use::
-	    
-	    cd ~/Downloads
-	    msiexec /i python-2.7.10.msi /qb
+
+        cd ~/Downloads
+        msiexec /i python-2.7.10.msi /qb
 
 	  This will open a basic dialog to perform installation and
 	  close after completion.
@@ -605,15 +605,28 @@ open new powershell::
 past and copy this key into a new ssh key in your futuresystems
 account at::
 
-* http::portal.futuresystems.org/my/ssh-key
+  http::portal.futuresystems.org/my/ssh-key
 
 .. warning:: we recommend that you are not modifying your /etc/hosts
 	     in order not to confuse you about the definition of the
 	     hosts you define in .ssh/config 
 
+Install PuttyGen In Windows
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To download and install "puttygen" for windows, in powershell type::
+
+  explorer http://the.earth.li/~sgtatham/putty/latest/x86/puttygen.exe
+
+This will open the internet explorer and download the puttygen exe.
+To install it::
+
+    cd ~/Downloads
+    msiexec /i puttygen.exe /qb
+
 
 Install make In Windows
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 To download and install "make" for windows, in powershell type::
 

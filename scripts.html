@@ -30,7 +30,9 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.3 documentation" href="index.html"/> 
+    <link rel="top" title="cloudmesh_client 1.1.3 documentation" href="index.html"/>
+        <link rel="next" title="User Manual" href="commands/index.html"/>
+        <link rel="prev" title="Configuration" href="configuration.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -85,10 +87,28 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Manuals</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Scripts</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#comment">Comment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#terminal-commands">Terminal Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#executing-shell-commands">Executing Shell commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#executing-python">Executing Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#variables">Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#group">Group</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vms">VMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#copy">Copy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security-groups">Security Groups</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#nova">Nova</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#network">Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#keys">Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cluster">Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloud">Cloud</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
@@ -304,6 +324,7 @@ key add --name $keyname ~/.ssh/id_rsa.pub
 key list
 key upload $keyname
 
+default key=$keyname
 
 default flavor=m1.small
 default image=Ubuntu-14.04-64
@@ -316,15 +337,17 @@ default list --cloud=$cloud
 
 vm default
 
-vm boot
+vm boot --name=testvm
 
-vm ip assign
+vm ip assign testvm
 
 vm refresh
 vm list
 vm status
 
-vm login
+default login_key=~/.ssh/id_rsa
+
+vm login testvm
 
 # vm ssh uname -a
 
@@ -337,7 +360,7 @@ vm login
 
 #default login_key=/home/mangirish/indiakey/id_rsa
 
-vm login --key=~/.ssh/id_rsa testvm
+#vm login --key=~/.ssh/id_rsa testvm
 
 #vm list --format=json
 #vm list --format=yaml
@@ -547,15 +570,18 @@ hpc delete all --group=test1
 <div class="section" id="cluster">
 <h2>Cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>banner SET_DEFAULT_CLOUD_AND_GROUP
-default cloud=kilo
-default group=demo_group
-# TODO: make script independent of username and use var from cloudmesh.yaml
-default key=Gaurav-PC
 
+var cloud=kilo
+var group=demo_group
+var key=cloudmesh.keys.keylist.keyname
+var username=cloudmesh.profile.username
+
+default cloud=$cloud
+default group=$group
+default key=$key
 
 banner LIST_VM_DEFAULTS
 vm default
-
 
 banner CREATE_VM
 vm boot
@@ -564,9 +590,8 @@ vm boot
 vm refresh
 vm list
 
-
 banner CREATE_VIRTUAL_CLUSTER
-network create cluster --group=demo_group
+network create cluster --group=$group
 </pre></div>
 </div>
 </div>
@@ -607,6 +632,15 @@ cloud list
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="commands/index.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="configuration.html" class="btn btn-neutral" title="Configuration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
