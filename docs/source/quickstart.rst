@@ -1,13 +1,11 @@
 Quickstart
 ============
 
-.. warning:: The quickstart guide has not bee written and tested yet.
-   
 
 Setup
 ------
 
-THe setup of cloudmesh client is quite simple and can be done with::
+The setup of cloudmesh client is quite simple and can be done with::
 
     pip install cloudmesh_client
 
@@ -43,7 +41,7 @@ To conduct a live refresh in a cloud please use
 Getting started with the Cloud(s)
 ----------------------------------
 
-Naturally you want to get started with clouds. IN case you have a
+Naturally you want to get started with clouds. In case you have a
 username and project in futuresystems using cloudmesh is easy. Only
 thing you need is an entry in the .ssh/config file with the machine
 name india, like follows::
