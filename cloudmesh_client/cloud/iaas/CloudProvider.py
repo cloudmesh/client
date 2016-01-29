@@ -1,6 +1,8 @@
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import \
     CloudProviderOpenstackAPI
+from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 import \
+CloudProviderLibcloudEC2
 from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import requests
 from cloudmesh_client.common.Error import Error
@@ -30,12 +32,22 @@ class CloudProvider(CloudProviderBase):
                 self.provider = provider
                 self.provider_class = CloudProviderOpenstackAPI
 
-            if cloud_details["cm_type"] == "ec2":
+            if cloud_details["cm_type"] == "ec2-libcloud":
+                print("Picked up ec2 libcloud provider")
+                provider = CloudProviderLibcloudEC2(
+                    cloudname,
+                    cloud_details,
+                    flat=flat)
+                self.provider = provider
+                self.provider_class = CloudProviderLibcloudEC2
                 print("ec2 cloud provider yet to be implemented")
+
+            if cloud_details["cm_type"] == "openstack-libcloud":
+                print("openstack with libcloud cloud provider yet to be implemented")
                 TODO.implement()
 
-            if cloud_details["cm_type"] == "azure":
-                print("azure cloud provider yet to be implemented")
+            if cloud_details["cm_type"] == "azure-libcloud":
+                print("azure cloud provider yet  be implemented")
                 TODO.implement()
 
         except Exception, e:

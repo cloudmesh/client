@@ -1,5 +1,5 @@
 from libcloud.compute.types import Provider
-from libcloud.compute.providers import get_driver
+from libcloud.compute.providers import get_driverp
 import libcloud.security
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -11,7 +11,7 @@ OpenStack = get_driver(Provider.OPENSTACK)
 
 # get cloud credential from yaml file
 confd = ConfigDict("cloudmesh.yaml")
-cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
+cloudcred = confd['cloudmesh']['clouds']['chameleon']['credentials']
 
 pprint(cloudcred)
 
@@ -26,18 +26,22 @@ driver = OpenStack(cloudcred['OS_USERNAME'],
                    ex_force_auth_url=auth_url,
                    ex_tenant_name=cloudcred['OS_TENANT_NAME'],
                    ex_force_auth_version='2.0_password',
-                   ex_force_service_region='regionOne')
+                   ex_force_service_region='RegionOne')
 
 # list VMs
 nodes = driver.list_nodes()
 print nodes
 
 # obtain available images
-images = driver.list()
+images = driver.list_images()
 # print images
 
 # sizes/flavors
+print 'Printing the list sizes'
 sizes = driver.list_sizes()
+for asize in sizes:
+    print asize
+print 'Done printing the list sizes'
 # print sizes
 
 # specify flavor and image

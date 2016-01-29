@@ -148,7 +148,7 @@ cloudmesh:
             cm_heading: Amazon Cloud, AWS
             cm_host: aws.amazon.com
             cm_label: aws
-            cm_type: ec2
+            cm_type: ec2-libcloud
             cm_type_version: null
             credentials:
                 EC2_ACCESS_KEY: TBD
@@ -163,11 +163,11 @@ cloudmesh:
             cm_heading: Chameleon, EC2
             cm_host: chameleoncloud.org
             cm_label: chameleon_ec2
-            cm_type: ec2
+            cm_type: ec2-libcloud
             cm_type_version: ec2
             credentials:
-                EC2_ACCESS_KEY: TBD
-                EC2_SECRET_KEY: TBD
+                EC2_ACCESS_KEY: f247dfea6ffb452fb8ce69c9d19bc7b0
+                EC2_SECRET_KEY: f1a24ed2761640c9998d059acd71d529
                 keyname: TBD
                 userid: TBD
                 EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud

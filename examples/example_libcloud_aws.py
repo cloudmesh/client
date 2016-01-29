@@ -14,19 +14,26 @@ confd = ConfigDict("cloudmesh.yaml")
 cloudcred = confd['cloudmesh']['clouds']['aws']['credentials']
 clouddefault = confd['cloudmesh']['clouds']['aws']['default']
 
+PROXY_URL_NO_AUTH_1 = 'https://openstack.tacc.chameleoncloud.org:8773/services/Cloud'
+
 pprint(cloudcred)
+extra_args= {'path' : '/services/Cloud'}
 
 # AWS needs two values for authentication
 driver = cls(cloudcred['EC2_ACCESS_KEY'],
-             cloudcred['EC2_SECRET_KEY'])
+             cloudcred['EC2_SECRET_KEY'], host='openstack.tacc.chameleoncloud.org', port=8773, **extra_args)
 
 # list VMs
+print 'Printing nodes'
 nodes = driver.list_nodes()
+for anode in nodes:
+    print anode
+print 'DONE Printing nodes'
 #print nodes
 
 # THIS FUNCTION TAKES TIME TO LOAD 40K+ IMAGES
 # obtain available images
-images = driver.list()
+images = driver.list_images()
 #print images[0]
 
 # sizes/flavors
