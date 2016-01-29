@@ -50,17 +50,18 @@ name india, like follows::
     Hostname india.futuresystems.org
     User albert
 
-Next you can register the cloud(s). For example to register "kilo" cloud, use:
+Next you can register the cloud(s) with:
 
 .. prompt:: cm, cm>
 
-	     register remote kilo
+	     register remote
 
 This will fetch the necessary credentials from the cloud,
-and poplulate the cloudmesh.yaml file for you.
+and poplulate the cloudmesh.yaml file for you. At this time it will
+create an entry for a cloud named kilo.
 
 
-If you need to view the flavors & images in the cloud, use:
+If you need to view the flavors and images in the cloud, use:
 
 .. prompt:: cm, cm>
 
