@@ -1,5 +1,5 @@
-Scripts
-========
+Example Scripts
+================
 
 In this section we present a a number of scripts that may inspire you
 to utilize the scriting abilities of cloudmesh. A script can be

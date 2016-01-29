@@ -87,6 +87,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#repositories">Repositories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contact">Contact</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conventions">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#feature-requests">Feature Requests</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
@@ -96,6 +98,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
@@ -223,6 +226,58 @@ Bloomington, IN 47408 <br /></p>
 <li>0008 (2015-08-28): Mangirish Wagle (<a class="reference external" href="mailto:vaglomangirish&#37;&#52;&#48;gmail&#46;com">vaglomangirish<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
 <li>0009 (2015-08-28): Erika Dsouza (<a class="reference external" href="mailto:erika27desouza&#37;&#52;&#48;gmail&#46;com">erika27desouza<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
 <li>0010 (2015-09-13): ehdsouza (Erika Dsouza)</li>
+</ul>
+</div>
+<div class="section" id="conventions">
+<h2>Conventions<a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h2>
+<p>We will be using some simple conventions in this documentation. To
+indicate a command to be executed on the terminal we use <cite>$</cite> at the
+beginning of the line:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1"><span class="nb">echo</span> <span class="s2">&quot;Hello World&quot;</span></span>
+</pre><p>A command started in the cloudmesh client shell is preceded by <cite>cm&gt;</cite>:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt2:before {
+  content: "cm> ";
+}
+</style><span class="prompt2">help</span>
+</pre><p>Often we are in the need to refer to a username or project. We will be
+using the username <cite>albert</cite> and the project id <cite>FG-101</cite>. It will be up
+to you to replace them with information related to your username and
+project. Alternatively we assume that you have set the shell variables
+$CM_USERNAME and $CM_PROJECT with for example:</p>
+<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">CM_USERNAME</span><span class="o">=</span>albert</span>
+<span class="prompt1"><span class="nb">export </span><span class="nv">CM_PROJECT</span><span class="o">=</span>FG101</span>
+</pre><p>In this case we use in the documentation the values:</p>
+<div class="highlight-python"><div class="highlight"><pre>$CM_PROJECT
+$CM_USERNAME
+</pre></div>
+</div>
+<p>These values are typically set in the cloudmesh yaml file and if used
+they can be read from it into variables within cloudmesh scripts:</p>
+<pre class="highlight"><span class="prompt2">var cloud=kilo</span>
+<span class="prompt2">var username=cloudmesh.profile.username</span>
+<span class="prompt2">var project=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME</span>
+</pre><p>Please note that these values could be specific to a cloud as
+indicated by the example for the project in the above project is
+dependent on the specific cloud which can be easily integrated in the
+cloudmesh variables while using a <cite>$</cite> followed by the variable name.</p>
+</div>
+<div class="section" id="feature-requests">
+<h2>Feature Requests<a class="headerlink" href="#feature-requests" title="Permalink to this headline">¶</a></h2>
+<p>Please e-mail feature requests and bugs to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>.</p>
+<p>We will manage them through github as part of issues and milestones:</p>
+<ul class="simple">
+<li>Issues: <a class="reference external" href="https://github.com/cloudmesh/client/issues">https://github.com/cloudmesh/client/issues</a></li>
+<li>Milestones: <a class="reference external" href="https://github.com/cloudmesh/client/milestones">https://github.com/cloudmesh/client/milestones</a></li>
+</ul>
+<p>Questions unrelated to cloudmesh but relate to futuresystems such as
+network issues and outages are best send through the form at</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.futuresystems.org/help">https://portal.futuresystems.org/help</a></li>
 </ul>
 </div>
 </div>
