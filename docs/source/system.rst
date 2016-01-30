@@ -663,5 +663,24 @@ Then to install pycrypto, run the following::
 
     (ENV) PS> easy_install http://www.voidspace.org.uk/python/pycrypto-2.6.1/pycrypto-2.6.1.win32-py2.7.exe
 
-You have successfully setup your Windows 10 machine,
-and are all set now to install Cloudmesh.
+
+Install FireFox Browser
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cloudmesh contains tools for generating and viewing the html
+documentation files. It uses FireFox to render HTML pages. To install
+FireFox, run the following command::
+
+    (ENV) PS> explorer https://www.mozilla.org/en-US/firefox/new/#download-fx
+
+This will download the latest FireFox browser installer on your machine.
+Follow the on-screen instructions to install. Once complete, add FireFox to
+your path::
+
+    (ENV) PS> [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Program Files (x86)\Mozilla Firefox\", "User")
+    (ENV) PS> $env:Path=[Environment]::GetEnvironmentVariable("Path", "User")
+
+COngratulations! You have now successfully setup your Windows 10 machine,
+and are all ready to now install Cloudmesh.
+
+
