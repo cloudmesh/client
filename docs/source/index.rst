@@ -29,7 +29,7 @@ This documentation and code is available on github at:
    introduction
 
 .. toctree::
-   :caption: Manuals
+   :caption: User Manuals
    :maxdepth: 2
 
    quickstart
@@ -38,10 +38,21 @@ This documentation and code is available on github at:
    scripts
    commands/index
    man/man
+
+.. toctree::
+   :caption: Teaching
+   :maxdepth: 2
+   
+   exercises
+
+.. toctree::
+   :caption: Developer Manuals
+   :maxdepth: 2
+
+   
    api
    modules/modules
    hacking
-   exercises
 
 .. toctree::
    :caption: Appendix

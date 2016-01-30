@@ -134,6 +134,63 @@ package_data={
 #
 # os.system("pip install -r requirements.txt")
 
+
+    
+class CreateAPI(install):
+    """Create the API documentation. -- only for Maintainers."""
+
+    description = __doc__
+
+    def run(self):
+        commands = "sphinx-apidoc -f -o docs/source/api/cloudmesh_client cloudmesh_client\n"
+        os_execute(commands)
+        commands = "sphinx-apidoc -f -o docs/source/api/cloudmesh_base ../base/cloudmesh_base\n"
+        os_execute(commands)
+
+
+
+class CheckForPasswords(install):
+    """Create the API documentation. -- only for Maintainers."""
+
+    description = __doc__
+
+    from cloudmesh_base.Shell import Shell
+    
+    def check(self, search=""):
+      check_list = [("openstack", "'OS_PASSWORD': '[a-zA-Z0-9]+'"),
+                    ("aws", "'EC2_SECRET_KEY': '[a-zA-Z0-9]+'")]
+      for pair in check_list:
+          platform = pair[0]
+          _search = pair[1]
+          self._grep(_search, platform)
+      if search:
+          self._grep(search, 'CUSTOMIZED_SEARCH')
+
+
+    def _grep(self, search, platform):
+      if not search:
+          search = "'OS_PASSWORD': '[a-zA-Z0-9]+'"
+      cmd = "egrep -ri \"{0}\" * | cut -d\":\" -f1 > a.tmp".format(search)
+      print("[{0}]:{1}".format(platform, cmd))
+      os.system(cmd)
+      res = Shell.cat("a.tmp")
+      if res:
+          print ('[{0}]: [ERROR] PASSWORD(OR SECRET KEY) DETECTED, SEE FILES '
+                 'BELOW'.format(platform))
+          print ("")
+          print (res)
+      else:
+          print ("[{0}]: NO PASSWORD DETECTED".format(platform))
+      Shell.rm("a.tmp")
+      print ("")
+
+
+    def run(self):
+        self.check()
+    
+
+        
+
 class Tox(TestCommand):
     user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
     def initialize_options(self):
@@ -197,6 +254,8 @@ setup(
     tests_require=['tox'],
     cmdclass={
         'install': InstallBase,
+        'docapi': CreateAPI,
+        'check': CheckForPasswords,       
         'pypi': Make("pypi", repo='pypi'),
         'pypifinal': Make("pypi", repo='final'),
         'registerpypi': Make("pypi", repo='pypi'),

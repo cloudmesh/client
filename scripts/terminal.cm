@@ -1,6 +1,3 @@
-#
-# TESTING VARIABLES
-#
 banner "prints a banner with this text"
 echo "prints this text"
 echo -r BLACK "prints in balck "
