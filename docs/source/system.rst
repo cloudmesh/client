@@ -552,58 +552,6 @@ Follow the on screen instructions, selecting the default values
 for all of the options (except for above note). This will install
 Git & Git Bash successfully.
 
-Close the current Powershell window and open a new one.
-Now we are ready to use ssh and git. But first, let's create a key::
-
-    PS> ssh-keygen -t rsa
-
-Follow the instructions and leave the path unchanged. Make sure you
-specify a passphrase. It is a policy on many compute resources that your
-key has a passphrase. Look at the public key as we will need to upload
-it to some resources::
-
-    PS> cat ~/.ssh/id_rsa.pub
-
-Go to the futuresystems portal::
-
-    https://portal.futuresystems.org
-
-Once you log in you can use the following link to add
-your public key to futuresystems::
-
-    https://portal.futuresystems.org/my/ssh-keys
-
-Naturally this only works if you are eligible to register and get an
-account. Once you are in a valid project you can use indias
-resources. After that you need to upload your public key that you
-generated into the portal and did a cat on.
-
-.. warning:: Windows will not past and copy correctly, please make
-	     sure that newlines are removed for the text box where you
-	     past the key. This is cause for many errors. Make sure
-	     that the key in the text box is a single line and looks
-	     like when you did the cat on it.
-
-To simplify SSH access, you will need to configure a ssh config file.
-You will need to first create a `config` file as follows::
-
-    PS> vim ~/.ssh/config
-
-This should open the VIM editor and next you need to enter
-the following contents::
-
-   Host india
-        Hostname india.futuresystems.org
-        User <your_portal_username>
-        IdentityFile <path_to_id_rsa_file>
-
-Replace `your_portal_username` with your futuresystems username and
-`path_to_id_rsa_file` with the path to your private key file.
-It generally is at ~/.ssh/id_rsa.
-
-You can now easily perform ssh to futuresystems cloud using::
-
-    PS> ssh india
 
 Install VirtualEnv and Create a Virtual Python Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -684,3 +632,58 @@ COngratulations! You have now successfully setup your Windows 10 machine,
 and are all ready to now install Cloudmesh.
 
 
+Adding SSH Key to Futuresystems Portal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Close the current Powershell window and open a new one.
+Now we are ready to use ssh and git. But first, let's create a key::
+
+    PS> ssh-keygen -t rsa
+
+Follow the instructions and leave the path unchanged. Make sure you
+specify a passphrase. It is a policy on many compute resources that your
+key has a passphrase. Look at the public key as we will need to upload
+it to some resources::
+
+    PS> cat ~/.ssh/id_rsa.pub
+
+Go to the futuresystems portal::
+
+    https://portal.futuresystems.org
+
+Once you log in you can use the following link to add
+your public key to futuresystems::
+
+    https://portal.futuresystems.org/my/ssh-keys
+
+Naturally this only works if you are eligible to register and get an
+account. Once you are in a valid project you can use indias
+resources. After that you need to upload your public key that you
+generated into the portal and did a cat on.
+
+.. warning:: Windows will not past and copy correctly, please make
+	     sure that newlines are removed for the text box where you
+	     past the key. This is cause for many errors. Make sure
+	     that the key in the text box is a single line and looks
+	     like when you did the cat on it.
+
+To simplify SSH access, you will need to configure a ssh config file.
+You will need to first create a `config` file as follows::
+
+    PS> vim ~/.ssh/config
+
+This should open the VIM editor and next you need to enter
+the following contents::
+
+   Host india
+        Hostname india.futuresystems.org
+        User <your_portal_username>
+        IdentityFile <path_to_id_rsa_file>
+
+Replace `your_portal_username` with your futuresystems username and
+`path_to_id_rsa_file` with the path to your private key file.
+It generally is at ~/.ssh/id_rsa.
+
+You can now easily perform ssh to futuresystems cloud using::
+
+    PS> ssh india
