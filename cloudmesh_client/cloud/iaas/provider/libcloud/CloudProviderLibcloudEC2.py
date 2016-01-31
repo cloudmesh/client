@@ -22,9 +22,9 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloudEC2, self).__init__(cloud_name,cloud_details, user=user)
         self.flat = flat
-        self.kind = "libcloud" 
+        self.kind = "libcloud"
         self.cloudname = cloud_name
-        return self.initialize(cloud_name)
+        self.initialize(cloud_name)
 
     def initialize(self, cloudname, user=None):
 
@@ -34,7 +34,7 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         d = ConfigDict("cloudmesh.yaml")
         self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
         credentials = self.cloud_details["credentials"]
-        auth_url = credentials["OS_AUTH_URL"]
+        auth_url = credentials["EC2_URL"]
         pprint("Auth url is "+ auth_url)
         searchobj = re.match( r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)', auth_url, re.M|re.I)
 
@@ -59,8 +59,8 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         extra_args= {'path' : path}
 
         # AWS needs two values for authentication
-        self.driver = cls(credentials['EC2_ACCESS_KEY'],
-             credentials['EC2_SECRET_KEY'], host='openstack.tacc.chameleoncloud.org', port=8773, **extra_args)
-        return self.driver
+        self.provider = cls(credentials['EC2_ACCESS_KEY'],
+             credentials['EC2_SECRET_KEY'], host='openstack.tacc.chameleoncloud.org', port=port, **extra_args)
+
 
 

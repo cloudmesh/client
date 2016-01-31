@@ -23,11 +23,11 @@ class CloudProviderLibcloud(CloudProviderBase):
         self.default_flavor = None
         self.cloud = None
         self.cloud_details = None
-        self.driver = None
+        self.provider = None
 
     def list_vm(self, cloudname, **kwargs):
         pprint("In list_vm")
-        nodes = self.driver.list_nodes()
+        nodes = self.provider.list_nodes()
         vm_dict=self._to_dict(nodes)
 
         for vm in vm_dict:
