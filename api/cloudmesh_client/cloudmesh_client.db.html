@@ -152,7 +152,7 @@
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../_sources/code/client/cloudmesh_client.db.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/api/cloudmesh_client/cloudmesh_client.db.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -482,188 +482,15 @@ with the live cloud details
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-cloudmesh_client.db.SSHKeyDBManager">
-<span id="cloudmesh-client-db-sshkeydbmanager-module"></span><h2>cloudmesh_client.db.SSHKeyDBManager module<a class="headerlink" href="#module-cloudmesh_client.db.SSHKeyDBManager" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.SSHKeyDBManager.</code><code class="descname">SSHKeyDBManager</code><span class="sig-paren">(</span><em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>key_path</em>, <em>keyname=None</em>, <em>user=None</em>, <em>source=None</em>, <em>uri=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the key to the database based on the path</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key or path to the key</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_dict">
-<code class="descname">add_from_dict</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add_from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_sshkey">
-<code class="descname">add_from_sshkey</code><span class="sig-paren">(</span><em>sshkey</em>, <em>keyname=None</em>, <em>user=None</em>, <em>source=None</em>, <em>uri=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add_from_sshkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_sshkey" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_key_cloud_map_entry">
-<code class="descname">add_key_cloud_map_entry</code><span class="sig-paren">(</span><em>user</em>, <em>keyname</em>, <em>cloud</em>, <em>name_on_cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add_key_cloud_map_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_key_cloud_map_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds an entry to Key-Cloud map table.
-:param keyname: Name of the key in db.
-:param cloud: Cloud on which the key is being uploaded.
-:param name_on_cloud: Name of the key on cloud.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the key from the database based on the keyname</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key to be delete</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_all">
-<code class="descname">delete_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.delete_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes all the entries from KEY table</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_key_cloud_map_entry">
-<code class="descname">delete_key_cloud_map_entry</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.delete_key_cloud_map_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_key_cloud_map_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes an entry to Key-Cloud map table.
-:param keyname: Name of the key in db.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find">
-<code class="descname">find</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the key on the database based on the keyname</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key to be found</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Query object of the search</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find_all">
-<code class="descname">find_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.find_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find_all" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Query object from all the entries</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_default">
-<code class="descname">get_default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.get_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_map_entry">
-<code class="descname">get_key_cloud_map_entry</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.get_key_cloud_map_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_map_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns entries in Key-Cloud map table.
-:param keyname: Name of the key in db.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_maps">
-<code class="descname">get_key_cloud_maps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.get_key_cloud_maps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_maps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns entries in Key-Cloud map table.
-:param keyname: Name of the key in db.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.object_to_dict">
-<code class="descname">object_to_dict</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.object_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.object_to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; object to be converted to dict</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict from the object</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.select">
-<code class="descname">select</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.select" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.set_default">
-<code class="descname">set_default</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.set_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.set_default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.table_dict">
-<code class="descname">table_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.table_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.table_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict from all elements in the table KEY</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>clouds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="cloudmesh-client-db-sshkeydbmanager-module">
+<h2>cloudmesh_client.db.SSHKeyDBManager module<a class="headerlink" href="#cloudmesh-client-db-sshkeydbmanager-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-cloudmesh_client.db.model">
 <span id="cloudmesh-client-db-model-module"></span><h2>cloudmesh_client.db.model module<a class="headerlink" href="#module-cloudmesh_client.db.model" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.BATCHJOB">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">BATCHJOB</code><span class="sig-paren">(</span><em>name</em>, <em>type='string'</em>, <em>user=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#BATCHJOB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.BATCHJOB" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <p>table to store default values</p>
 <p>if the cloud is &#8220;global&#8221; it is meant to be a global variable</p>
 <p>todo: check if its global or general</p>
@@ -772,7 +599,7 @@ with the live cloud details
 <dl class="class">
 <dt id="cloudmesh_client.db.model.COUNTER">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">COUNTER</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>type='string'</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#COUNTER"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.COUNTER" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <p>Table to store Prefix Count for VM auto-naming.</p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.COUNTER.cloud">
@@ -885,7 +712,7 @@ with the live cloud details
 <dl class="class">
 <dt id="cloudmesh_client.db.model.DEFAULT">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">DEFAULT</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#DEFAULT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.DEFAULT" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <p>table to store default values</p>
 <p>if the cloud is &#8220;global&#8221; it is meant to be a global variable</p>
 <p>todo: check if its global or general</p>
@@ -949,7 +776,7 @@ with the live cloud details
 <dl class="class">
 <dt id="cloudmesh_client.db.model.FLAVOR">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">FLAVOR</code><span class="sig-paren">(</span><em>name</em>, <em>uuid</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#FLAVOR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.FLAVOR" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.FLAVOR.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.FLAVOR.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1050,7 +877,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.GROUP">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">GROUP</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>type='vm'</em>, <em>cloud=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#GROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.GROUP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.GROUP.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1111,7 +938,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.IMAGE">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">IMAGE</code><span class="sig-paren">(</span><em>name</em>, <em>uuid</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#IMAGE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.IMAGE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.IMAGE.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.IMAGE.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1307,7 +1134,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.KEY">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">KEY</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>uri=None</em>, <em>source=None</em>, <em>fingerprint=None</em>, <em>comment=None</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em>, <em>is_default='False'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#KEY"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.KEY" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.KEY.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.KEY.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1388,7 +1215,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.KEYCLOUDMAP">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">KEYCLOUDMAP</code><span class="sig-paren">(</span><em>user</em>, <em>name</em>, <em>cloud</em>, <em>name_on_cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#KEYCLOUDMAP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.KEYCLOUDMAP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.KEYCLOUDMAP.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.KEYCLOUDMAP.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1454,7 +1281,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.LAUNCHER">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">LAUNCHER</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#LAUNCHER"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.LAUNCHER" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <p>table to store default values</p>
 <p>if the cloud is &#8220;global&#8221; it is meant to be a global variable</p>
 <p>todo: check if its global or general</p>
@@ -1523,7 +1350,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.RESERVATION">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">RESERVATION</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#RESERVATION"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.RESERVATION" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.RESERVATION.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.RESERVATION.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1594,7 +1421,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.SECGROUP">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">SECGROUP</code><span class="sig-paren">(</span><em>name</em>, <em>uuid</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em>, <em>project=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#SECGROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.SECGROUP.cloud">
 <code class="descname">cloud</code><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUP.cloud" title="Permalink to this definition">¶</a></dt>
@@ -1650,7 +1477,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.SECGROUPRULE">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">SECGROUPRULE</code><span class="sig-paren">(</span><em>uuid</em>, <em>name</em>, <em>groupid</em>, <em>type='string'</em>, <em>cloud=None</em>, <em>user=None</em>, <em>project=None</em>, <em>fromPort=None</em>, <em>toPort=None</em>, <em>protocol=None</em>, <em>cidr=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#SECGROUPRULE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUPRULE" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.SECGROUPRULE.cidr">
 <code class="descname">cidr</code><a class="headerlink" href="#cloudmesh_client.db.model.SECGROUPRULE.cidr" title="Permalink to this definition">¶</a></dt>
@@ -1731,7 +1558,7 @@ self[key] = value</div></blockquote>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.VM">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">VM</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#VM"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.VM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.VM.accessIPv4">
 <code class="descname">accessIPv4</code><a class="headerlink" href="#cloudmesh_client.db.model.VM.accessIPv4" title="Permalink to this definition">¶</a></dt>
@@ -1916,7 +1743,7 @@ self[key] = value</dd>
 <dl class="class">
 <dt id="cloudmesh_client.db.model.VMUSERMAP">
 <em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">VMUSERMAP</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/model.html#VMUSERMAP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.VMUSERMAP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="../../code/client/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <p>Table to store mapping of VM and login username.</p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.VMUSERMAP.cloud">

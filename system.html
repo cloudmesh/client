@@ -87,7 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Manuals</span></p>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
@@ -109,10 +109,11 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#windows-10">Windows 10</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#install-python">Install Python</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-ssh-git-make-pscp-and-an-editor">Install ssh, git, make, pscp and an editor</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-puttygen-in-windows">Install PuttyGen In Windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#install-make-in-windows">Install make In Windows</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#making-python-usable">Making python usable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-chocolatey-git-virtualenv-make">Install Chocolatey, Git, VirtualEnv, Make</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-virtualenv-and-create-a-virtual-python-environment">Install VirtualEnv and Create a Virtual Python Environment</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-pycrypto">Install Pycrypto</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-firefox-browser">Install FireFox Browser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#adding-ssh-key-to-futuresystems-portal">Adding SSH Key to Futuresystems Portal</a></li>
 </ul>
 </li>
 </ul>
@@ -121,13 +122,19 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.html">Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -550,86 +557,175 @@ instructions above</p>
 <p>Python can be found at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. We recommend to download
 and install the newest version of python. At this time we recommend
 that you use version 2.7.10. Other versions may work to, but are not
-supported or tested. A direct link to the install can be found at</p>
-<ul class="simple">
-<li><a class="reference external" href="https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi">https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi</a></li>
-</ul>
-<p>In powershell you can type:</p>
-<div class="highlight-python"><div class="highlight"><pre>explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+supported or tested. A direct link to the install can be found at:</p>
+<div class="highlight-python"><div class="highlight"><pre>https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 </pre></div>
 </div>
-<p>This will open the internet explorer and download the python msi
+<p>In powershell you need to type:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+</pre></div>
+</div>
+<p>This will open the internet browser and download the python msi
 installer. It will walk you through the install process.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<dl class="docutils">
-<dt>If you like to install it separately, you can find the</dt>
-<dd>downloaded msi in the <cite>~/Downloads</cite> directory. To install
-it in powershell use:</dd>
-</dl>
-<p>cd ~/Downloads
-msiexec /i python-2.7.10.msi /qb</p>
-<blockquote class="last">
-<div>This will open a basic dialog to perform installation and
-close after completion.</div></blockquote>
-</div>
-<p>After you have installed python include it in the Path environment
-variable while you type in powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>[Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Python27\;C:\Python27\Scripts\&quot;, &quot;User&quot;)
+<p>If you like to install it separately, you can find the
+downloaded msi in the <cite>~/Downloads</cite> directory. To install
+it in powershell use:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; cd ~/Downloads
+PS&gt; msiexec /i python-2.7.10.msi /qb
 </pre></div>
 </div>
-<p>You need to start a new powershell to access python from the
-command line.</p>
+<p class="last">This will open a basic dialog to perform installation and
+close after completion.</p>
 </div>
-<div class="section" id="install-ssh-git-make-pscp-and-an-editor">
-<h3>Install ssh, git, make, pscp and an editor<a class="headerlink" href="#install-ssh-git-make-pscp-and-an-editor" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While installing python, you have the option to
+automatically include python binaries in the system Path.
+This is disabled by default, so you will need to enable it explicitly.
+Skip below step if you have choose to enable this feature.</p>
+</div>
+<p>After you have installed python (and not explicitly enabled the feature to add python to system path)
+include it in the Path environment variable while you type in powershell:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; [Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Python27\;C:\Python27\Scripts\&quot;, &quot;User&quot;)
+PS&gt; $env:Path=[Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;User&quot;)
+</pre></div>
+</div>
+<p>This should install Python 2.7.10 successfully. You can now proceed to the
+next step.</p>
+</div>
+<div class="section" id="install-chocolatey-git-virtualenv-make">
+<h3>Install Chocolatey, Git, VirtualEnv, Make<a class="headerlink" href="#install-chocolatey-git-virtualenv-make" title="Permalink to this headline">¶</a></h3>
 <p>As we need to do some editing you will need a nice editor. Please do
 not use notepad and notepad++ as they have significant issues, please
 use vi, vim, or emacs. Emacs is easy to use as it has a GUI on
 windows. Install emacs:</p>
-<div class="highlight-python"><div class="highlight"><pre>Start-Process powershell -Verb runAs
-Set-ExecutionPolicy Unrestricted -force
-iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))
-choco install emacs -y
-choco install make -y
-choco install pscp -y
-choco install vim -y
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; Start-Process powershell -Verb runAs
 </pre></div>
 </div>
-<p>To install Git and paste the following command into the powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>explorer https://github.com/git-for-windows/git/releases/latest
+<p>This will open a new Powershell window with administrator privileges.
+Continue the below steps to install chocolatey &amp; make:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; Set-ExecutionPolicy Unrestricted -force
+PS&gt; iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))
+PS&gt; choco install emacs -y
+PS&gt; choco install make -y
 </pre></div>
 </div>
+<p>Next, to install Git, type the following command into powershell:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; explorer https://git-scm.com/download/win
+</pre></div>
+</div>
+<p>This will open the internet browser and download the git
+installer. It will walk you through the install process.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">When installing you will see at one point a screen that asks
-you if you like to add the commands to the shell. This comes
-with a warning that some windows commands will be
-overwritten. This is different from bellows instructions.</p>
+you if you like to add the commands to the shell. It is recommended
+you select option (3) to add Unix shell commands to windows.
+This will install Unix style commands to Windows and include it in path.</p>
 </div>
-<p>Next we integrate git into powershell with</p>
-<div class="highlight-python"><div class="highlight"><pre>(new-object Net.WebClient).DownloadString(&quot;http://psget.net/GetPsGet.ps1&quot;) | iex
-Set-ExecutionPolicy Unrestricted
-install-module posh-git –force
-Set-ExecutionPolicy Restricted -force
+<p>Follow the on screen instructions, selecting the default values
+for all of the options (except for above note). This will install
+Git &amp; Git Bash successfully.</p>
+</div>
+<div class="section" id="install-virtualenv-and-create-a-virtual-python-environment">
+<h3>Install VirtualEnv and Create a Virtual Python Environment<a class="headerlink" href="#install-virtualenv-and-create-a-virtual-python-environment" title="Permalink to this headline">¶</a></h3>
+<p>At the time this guide was written, the latest version of python virtualenv
+was 14.0.2. But Windows 10 users were facing a lot of issues with this version,
+and so we recommend installing a lower version of virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; pip install virtualenv==13.0.2
 </pre></div>
 </div>
-<p>Now we are ready to use ssh and git. Let us create a key:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span>
+<p>This will install python virtualenv on your system. To setup the environment
+in powershell, run the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; virtualenv ~/ENV
+</pre></div>
+</div>
+<p>This will create a new directory <cite>~/ENV/</cite> comprising a local python environment.
+To activate this new environment, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; ~/ENV/Scripts/activate.ps1
+</pre></div>
+</div>
+<p>This will activate your new python virtual environment. As a proof,
+you will now see a <cite>(ENV)</cite> prefixed to the powershell. It will look like:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; python --version
+          Python 2.7.10
+</pre></div>
+</div>
+<p>Congratulations, you have now activated your python virtualenv.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>To deactivate this virtualenv, you need to run
+the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; deactivate
+</pre></div>
+</div>
+<p class="last">But always remember to activate the virtualenv before using cloudmesh.</p>
+</div>
+<p>Next step is to install necessary python packages.</p>
+</div>
+<div class="section" id="install-pycrypto">
+<h3>Install Pycrypto<a class="headerlink" href="#install-pycrypto" title="Permalink to this headline">¶</a></h3>
+<p>First, if not already done, activate your virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; ~/ENV/Scripts/activate.ps1
+</pre></div>
+</div>
+<p>Next, update your python-pip:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; pip install pip -U
+</pre></div>
+</div>
+<p>Check the python and pip version:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; python --version
+      Python 2.7.10
+
+(ENV) PS&gt; pip --version
+      pip 8.0.2 from c:\users\test-pc\ENV\lib\site-packages (python 2.7)
+</pre></div>
+</div>
+<p>Then to install pycrypto, run the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; easy_install http://www.voidspace.org.uk/python/pycrypto-2.6.1/pycrypto-2.6.1.win32-py2.7.exe
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-firefox-browser">
+<h3>Install FireFox Browser<a class="headerlink" href="#install-firefox-browser" title="Permalink to this headline">¶</a></h3>
+<p>Cloudmesh contains tools for generating and viewing the html
+documentation files. It uses FireFox to render HTML pages. To install
+FireFox, run the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; explorer https://www.mozilla.org/en-US/firefox/new/#download-fx
+</pre></div>
+</div>
+<p>This will download the latest FireFox browser installer on your machine.
+Follow the on-screen instructions to install. Once complete, add FireFox to
+your path:</p>
+<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; [Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Program Files (x86)\Mozilla Firefox\&quot;, &quot;User&quot;)
+(ENV) PS&gt; $env:Path=[Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;User&quot;)
+</pre></div>
+</div>
+<p>COngratulations! You have now successfully setup your Windows 10 machine,
+and are all ready to now install Cloudmesh.</p>
+</div>
+<div class="section" id="adding-ssh-key-to-futuresystems-portal">
+<h3>Adding SSH Key to Futuresystems Portal<a class="headerlink" href="#adding-ssh-key-to-futuresystems-portal" title="Permalink to this headline">¶</a></h3>
+<p>Close the current Powershell window and open a new one.
+Now we are ready to use ssh and git. But first, let&#8217;s create a key:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; ssh-keygen -t rsa
 </pre></div>
 </div>
 <p>Follow the instructions and leave the path unchanged. Make sure you
-specify a passphrase. It is policy on many compute resources that your
+specify a passphrase. It is a policy on many compute resources that your
 key has a passphrase. Look at the public key as we will need to upload
 it to some resources:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat ~/.ssh/id_rsa.pub
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; cat ~/.ssh/id_rsa.pub
 </pre></div>
 </div>
-<p>Go to:</p>
+<p>Go to the futuresystems portal:</p>
 <div class="highlight-python"><div class="highlight"><pre>https://portal.futuresystems.org
 </pre></div>
 </div>
-<p>Once you log in you can use the following link:</p>
+<p>Once you log in you can use the following link to add
+your public key to futuresystems:</p>
 <div class="highlight-python"><div class="highlight"><pre>https://portal.futuresystems.org/my/ssh-keys
 </pre></div>
 </div>
@@ -645,103 +741,24 @@ past the key. This is cause for many errors. Make sure
 that the key in the text box is a single line and looks
 like when you did the cat on it.</p>
 </div>
-<p>Throughout the manual we will be using the environment variable
-<cite>$PORTALNAME</cite> for your portal name on futuresytems. In order for you to
-conveniently access it you can set it as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>[Environment]::SetEnvironmentVariable(&quot;PORTALNAME&quot;,&quot;putyourportalnamehere&quot;)
+<p>To simplify SSH access, you will need to configure a ssh config file.
+You will need to first create a <cite>config</cite> file as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; vim ~/.ssh/config
 </pre></div>
 </div>
-<p>and replace the string <cite>putyourportalnamehere</cite> with your own portal name.</p>
-<p>Next you can ssh into the machine like this from powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>ssh  $PORTALNAME@india.futuregrid.org
-</pre></div>
-</div>
-<p>where $PORTALNAME is your futuresystems portal name. Note that a login
-without the -i seems not to work.</p>
-<p>To simplify access you will need to configure a ssh config file with
+<p>This should open the VIM editor and next you need to enter
 the following contents:</p>
 <div class="highlight-python"><div class="highlight"><pre>Host india
      Hostname india.futuresystems.org
-     User putyourportalnamehere
+     User &lt;your_portal_username&gt;
+     IdentityFile &lt;path_to_id_rsa_file&gt;
 </pre></div>
 </div>
-<p>open new powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>cat ~/.ssh/id_rsa.pub
-</pre></div>
-</div>
-<p>past and copy this key into a new ssh key in your futuresystems
-account at:</p>
-<div class="highlight-python"><div class="highlight"><pre>http::portal.futuresystems.org/my/ssh-key
-</pre></div>
-</div>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">we recommend that you are not modifying your /etc/hosts
-in order not to confuse you about the definition of the
-hosts you define in .ssh/config</p>
-</div>
-</div>
-<div class="section" id="install-puttygen-in-windows">
-<h3>Install PuttyGen In Windows<a class="headerlink" href="#install-puttygen-in-windows" title="Permalink to this headline">¶</a></h3>
-<p>To download and install &#8220;puttygen&#8221; for windows, in powershell type:</p>
-<div class="highlight-python"><div class="highlight"><pre>explorer http://the.earth.li/~sgtatham/putty/latest/x86/puttygen.exe
-</pre></div>
-</div>
-<p>This will open the internet explorer and download the puttygen exe.
-To install it:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ~/Downloads
-msiexec /i puttygen.exe /qb
-</pre></div>
-</div>
-</div>
-<div class="section" id="install-make-in-windows">
-<h3>Install make In Windows<a class="headerlink" href="#install-make-in-windows" title="Permalink to this headline">¶</a></h3>
-<p>To download and install &#8220;make&#8221; for windows, in powershell type:</p>
-<div class="highlight-python"><div class="highlight"><pre>explorer http://gnuwin32.sourceforge.net/downlinks/make.php
-</pre></div>
-</div>
-<p>This will open the internet explorer and download the make exe
-installer. It will walk you through the install process.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p>If you like to install it separately, you can find the
-downloaded exe in the <cite>~/Downloads</cite> directory. To install
-it in powershell use:</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ~/Downloads
-.\make-3.81.exe /install=agent /silent
-</pre></div>
-</div>
-<p class="last">This will open a basic dialog to perform installation and
-close after completion.</p>
-</div>
-<p>After you have installed make, include it in the Path environment
-variable while you type in powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>[Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Program Files (x86)\GnuWin32\bin\&quot;, &quot;User&quot;)
-</pre></div>
-</div>
-<p>You need to start a new powershell to access make from the
-command line.</p>
-</div>
-<div class="section" id="making-python-usable">
-<h3>Making python usable<a class="headerlink" href="#making-python-usable" title="Permalink to this headline">¶</a></h3>
-<p>To test if you have the right version of python execute:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python --version
-</pre></div>
-</div>
-<p>which should return 2.7.10 and:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ pip --version
-</pre></div>
-</div>
-<p>If you do not see version 8.02 please update ist with:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ pip install -U pip
-</pre></div>
-</div>
-<p>We want also to install virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install virtualenv
-</pre></div>
-</div>
-<p>and pyreadline:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install pyreadline
+<p>Replace <cite>your_portal_username</cite> with your futuresystems username and
+<cite>path_to_id_rsa_file</cite> with the path to your private key file.
+It generally is at ~/.ssh/id_rsa.</p>
+<p>You can now easily perform ssh to futuresystems cloud using:</p>
+<div class="highlight-python"><div class="highlight"><pre>PS&gt; ssh india
 </pre></div>
 </div>
 </div>
