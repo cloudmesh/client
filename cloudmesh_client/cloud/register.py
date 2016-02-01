@@ -176,7 +176,11 @@ class CloudRegister(object):
         base = os.path.basename(openrc)
 
         _from_dir = "{:}:{:}".format(hostname, directory).replace("~/", "")
-        _to_dir = os.path.dirname(Config.path_expand(directory))
+        # _to_dir = os.path.dirname(Config.path_expand(directory))
+        # FIX: Issues with path expanding on Windows
+        _to_dir = os.path.realpath(
+            os.path.expanduser(directory)
+        )
 
         # FIX: fix for scp not working on Windows, because scp does not understand
         # paths in format: "C:/Users/<>", rather expects "~/.cloudmesh/<>"
@@ -189,7 +193,7 @@ class CloudRegister(object):
         r = ""
         Console.ok("Reading rc file from {}".format(host))
         try:
-            r = Shell.scp('-r', _from_dir, directory)
+            r = Shell.scp('-r', _from_dir, _to_dir)
         except Exception, e:
             print(e)
             return
