@@ -3,20 +3,69 @@
 Comet Command
 ======================================================================
 
-The manual page of the group command can be found at: `default
-<../man/man.html#default>`_
+The manual page of the group command can be found at:
+`comet <../man/man.html#comet>`_
 
 Cloudmesh has the ability to manage easily multiple clouds.
-One of the key concepts to make the list of such clouds
-easier is the introduction of defaults for each cloud or globally.
-Hence it is possible to set default images, flavors for each cloud,
-and also create the default cloud. The default command is used to
-set and list the default values. These defaults are used in other
-commands if they are not overwritten by a command parameter.
+ONe such cloud is comet. comet cloud is special as it allows the management
+of virtual clusters. It is intended for advanced users that can manage their
+own cluster environment.
 
-Upon start of cloudmesh, the default for cloud will be set to the first
-cloud that is found in the yaml file and the default group is set to
-`general`.
+
+Configuration
+--------------
+
+Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
+auth_provider could be userpass or apikey. When specified, the
+corresponding credential is needed. Please communicate with comet
+admins to get the username/password or api key and secret assigned.::
+
+    comet:
+        auth_provider: apikey
+        userpass:
+            username: TBD
+            password: TBD
+        apikey:
+            api_key: KEYSTRING
+            api_secret: SECRETSTRING
+
+
+Reference Guide
+----------------
+
+Next, we include a small set of useful examples to manage comet
+virtual cluster using cloudmesh client.
+
++-------------------------------------+-----------------------------------------------+
+| Command                             | Description                                   |
++=====================================+===============================================+
+| cm comet ll                         | | short list                                  |
++-------------------------------------+-----------------------------------------------+
+| cm comet cluster                    | | List all clusters owned by the              |
+|                                     | | authenticated identity (summarized format)  |
++-------------------------------------+-----------------------------------------------+
+| cm comet cluster vc2                | | List a cluster by name                      |
++-------------------------------------+-----------------------------------------------+
+| cm comet computeset                 | | List all defined compute sets               |
++-------------------------------------+-----------------------------------------------+
+| cm comet computeset 63              | | List one compute set                        |
++-------------------------------------+-----------------------------------------------+
+| cm comet power on vc4 vm-vc4-[0-3]  | | Power on a set of compute nodes in          |
+|                                     | | cluster vc4                                 |
++-------------------------------------+-----------------------------------------------+
+| cm comet power on vc4 vm-vc4-[7]    | | You can also power on one single node as a  |
+|                                     | | compute set                                 |
++-------------------------------------+-----------------------------------------------+
+| cm comet power on vc4               | | Power on the front end node of the          |
+|                                     | | specified cluster                           |
++-------------------------------------+-----------------------------------------------+
+| cm comet console vc4 vm-vc4-0       | | Get console of a running node               |
++-------------------------------------+-----------------------------------------------+
+| cm comet console vc4                | | Get console of the front end                 |
++-------------------------------------+-----------------------------------------------+
+| cm comet power off vc4 vm-vc4-[0-3] | | Power off a node or a set of nodes (if they | 
+|                                     | | all belonging to one active compute set)    |
++-------------------------------------+-----------------------------------------------+
 
 comet list
 ----------------------------------------------------------------------

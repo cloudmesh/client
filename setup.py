@@ -150,7 +150,7 @@ class CreateAPI(install):
 
 
 class CheckForPasswords(install):
-    """Create the API documentation. -- only for Maintainers."""
+    """Check if a password is somewhere set in cleartext"""
 
     description = __doc__
 
