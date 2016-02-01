@@ -177,7 +177,7 @@
 
 
 <span class="c"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="dprint"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.dprint">[docs]</a><span class="k">def</span> <span class="nf">dprint</span><span class="p">(</span><span class="n">OD</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s">&#39; &#39;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="dprint"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.dprint">[docs]</a><span class="k">def</span> <span class="nf">dprint</span><span class="p">(</span><span class="n">OD</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="s">&#39; &#39;</span> <span class="o">*</span> <span class="mi">4</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">is_number</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
@@ -210,9 +210,9 @@
     <span class="k">return</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Config"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config">[docs]</a><span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.check_file_for_tabs"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.check_file_for_tabs">[docs]</a>    <span class="k">def</span> <span class="nf">check_file_for_tabs</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.check_file_for_tabs"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.check_file_for_tabs">[docs]</a>    <span class="k">def</span> <span class="nf">check_file_for_tabs</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;identifies if the file contains tabs and returns True if it</span>
 <span class="sd">        does. It also prints the location of the lines and columns. If</span>
 <span class="sd">        verbose is set to False, the location is not printed.</span>
@@ -239,7 +239,7 @@
         <span class="k">return</span> <span class="n">file_contains_tabs</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.path_expand"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.path_expand">[docs]</a>    <span class="k">def</span> <span class="nf">path_expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.path_expand"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.path_expand">[docs]</a>    <span class="k">def</span> <span class="nf">path_expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        expands the path while replacing environment variables, ./, and ~/</span>
 
@@ -256,7 +256,7 @@
         <span class="k">return</span> <span class="n">location</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Config.find_file"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.find_file">[docs]</a>    <span class="k">def</span> <span class="nf">find_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Config.find_file"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Config.find_file">[docs]</a>    <span class="k">def</span> <span class="nf">find_file</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find the specified file in the list of directories that are given in the</span>
 <span class="sd">        array load_order</span>
@@ -283,7 +283,7 @@
         <span class="k">return</span> <span class="bp">None</span></div></div>
 
 
-<div class="viewcode-block" id="ConfigDict"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict">[docs]</a><span class="k">class</span> <span class="nc">ConfigDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict">[docs]</a><span class="k">class</span> <span class="nc">ConfigDict</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">filename</span><span class="p">,</span>
                  <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -319,7 +319,7 @@
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;could not find file {:} in {:}&quot;</span>
                         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_order</span><span class="p">))</span>
 
-<div class="viewcode-block" id="ConfigDict.load"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict.load"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        loads the configuration from the yaml filename</span>
 
@@ -330,7 +330,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">BaseConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="ConfigDict.save"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict.save"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        saves the configuration in the given filename,</span>
 <span class="sd">        if it is none the filename at load time is used.</span>
@@ -404,7 +404,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">yaml</span><span class="p">()</span>
 
-<div class="viewcode-block" id="ConfigDict.info"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict.info"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        prints out the dict type and its content</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -426,7 +426,7 @@
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="ConfigDict.check"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="ConfigDict.check"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        checks the filename if it is syntactically correct and does not include tabs</span>
 
@@ -438,7 +438,7 @@
 
 
 <span class="c"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="Username"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Username">[docs]</a><span class="k">def</span> <span class="nf">Username</span><span class="p">():</span>
+<div class="viewcode-block" id="Username"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.Username">[docs]</a><span class="k">def</span> <span class="nf">Username</span><span class="p">():</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="s">&quot;username&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;profile&quot;</span><span class="p">]:</span>
@@ -448,7 +448,7 @@
     <span class="k">return</span> <span class="n">user</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../modules/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
     <span class="n">d</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
