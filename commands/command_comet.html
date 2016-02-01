@@ -87,17 +87,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Manuals</span></p>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="">Comet Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reference-guide">Reference Guide</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#comet-list">comet list</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#options">Options</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#arguments">Arguments</a></li>
@@ -122,10 +125,16 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
 <ul>
@@ -190,17 +199,34 @@
             
   <div class="section" id="comet-command">
 <span id="id1"></span><h1>Comet Command<a class="headerlink" href="#comet-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the group command can be found at: <a class="reference external" href="../man/man.html#default">default</a></p>
+<p>The manual page of the group command can be found at:
+<a class="reference external" href="../man/man.html#comet">comet</a></p>
 <p>Cloudmesh has the ability to manage easily multiple clouds.
-One of the key concepts to make the list of such clouds
-easier is the introduction of defaults for each cloud or globally.
-Hence it is possible to set default images, flavors for each cloud,
-and also create the default cloud. The default command is used to
-set and list the default values. These defaults are used in other
-commands if they are not overwritten by a command parameter.</p>
-<p>Upon start of cloudmesh, the default for cloud will be set to the first
-cloud that is found in the yaml file and the default group is set to
-<cite>general</cite>.</p>
+ONe such cloud is comet. comet cloud is special as it allows the management
+of virtual clusters. It is intended for advanced users that can manage their
+own cluster environment.</p>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
+auth_provider could be userpass or apikey. When specified, the
+corresponding credential is needed. Please communicate with comet
+admins to get the username/password or api key and secret assigned.:</p>
+<div class="highlight-python"><div class="highlight"><pre>comet:
+    auth_provider: apikey
+    userpass:
+        username: TBD
+        password: TBD
+    apikey:
+        api_key: KEYSTRING
+        api_secret: SECRETSTRING
+</pre></div>
+</div>
+</div>
+<div class="section" id="reference-guide">
+<h2>Reference Guide<a class="headerlink" href="#reference-guide" title="Permalink to this headline">¶</a></h2>
+<p>Next, we include a small set of useful examples to manage comet
+virtual cluster using cloudmesh client.</p>
+</div>
 <div class="section" id="comet-list">
 <h2>comet list<a class="headerlink" href="#comet-list" title="Permalink to this headline">¶</a></h2>
 <p>All the current default values can by listed with &#8211;all option:</p>
