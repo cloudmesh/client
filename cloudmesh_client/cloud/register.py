@@ -193,7 +193,7 @@ class CloudRegister(object):
         r = ""
         Console.ok("Reading rc file from {}".format(host))
         try:
-            r = Shell.scp('-r', _from_dir, _to_dir)
+            r = Shell.scp('-r', _from_dir, directory)
         except Exception, e:
             print(e)
             return
