@@ -1,6 +1,8 @@
 Introduction
 =============
 
+:download:`31 page slide presentation<images/Cloudmesh-Feb-2016.pptx.gz>`
+
 :download:`8 page slide presentation<images/cloudmesh-arch.pptx>`
 
 Cloudmesh client allows to easily manage virtual machines, containers,
