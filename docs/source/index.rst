@@ -19,8 +19,13 @@ process of integrating them back into the client.
 
 This documentation and code is available on github at:
 
-* Documentation: http://cloudmesh.github.io/client/
-* Code: https://github.com/cloudmesh/client
+* Documentation:
+
+  * on github: http://cloudmesh.github.io/client/
+  * on rtd: http://cloudmesh-client.readthedocs.org/
+
+    * Code: https://github.com/cloudmesh/client
+
 
 .. toctree::
    :caption: Overview
