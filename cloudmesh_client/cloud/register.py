@@ -1,6 +1,7 @@
 from __future__ import print_function
 import textwrap
 import os
+import platform
 from urlparse import urlparse
 
 from cloudmesh_base.Shell import Shell
@@ -181,6 +182,17 @@ class CloudRegister(object):
         _to_dir = os.path.realpath(
             os.path.expanduser(directory)
         )
+
+        """
+        In Windows, SCP fails with path such as 'C:\Users\...',
+            and passses with '~/.cloudmesh/...'
+        But on Linux machines, it fails with '~/.cloudmesh/...'
+            and passes with '/home/user/...'
+        Hence, adding OS check below for SCP copy directory
+        """
+        os_type = platform.system().lower()
+        if 'windows' not in os_type:
+            directory = _to_dir
 
         # FIX: fix for scp not working on Windows, because scp does not understand
         # paths in format: "C:/Users/<>", rather expects "~/.cloudmesh/<>"
