@@ -81,19 +81,19 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(cloud_name).provider
 
         if "nics" in kwargs:
-           vm = cloud_provider.boot_vm(kwargs["name"],
-                                           kwargs["image"],
-                                           kwargs["flavor"],
-                                           key=key_name_on_cloud,
-                                           secgroup=kwargs["secgroup_list"],
-                                           nics=nics)
+            vm = cloud_provider.boot_vm(kwargs["name"],
+                                        kwargs["image"],
+                                        kwargs["flavor"],
+                                        key=key_name_on_cloud,
+                                        secgroup=kwargs["secgroup_list"],
+                                        nics=kwargs["nics"])
         else:
             vm = cloud_provider.boot_vm(kwargs["name"],
-                                           kwargs["image"],
-                                           kwargs["flavor"],
-                                           key=key_name_on_cloud,
-                                           secgroup=kwargs["secgroup_list"],
-                                           nics=None)
+                                        kwargs["image"],
+                                        kwargs["flavor"],
+                                        key=key_name_on_cloud,
+                                        secgroup=kwargs["secgroup_list"],
+                                        nics=None)
 
         print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
         return vm
@@ -136,7 +136,6 @@ class Vm(ListResource):
     def list(cls, **kwargs):
         """
         This method lists all VMs of the cloud
-        :param cloud: the cloud name
         """
 
         try:
@@ -220,3 +219,10 @@ class Vm(ListResource):
             return None
         else:
             return user_map_entry.values()[0]["username"]
+
+    @classmethod
+    def get_last_vm(cls, cloud):
+        vm_data = cls.cm.find("vm", scope="first", cloud=cloud)
+        if vm_data is None or len(vm_data) == 0:
+            raise RuntimeError("VM data not found in database.")
+        return vm_data

@@ -44,26 +44,26 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         [--secgroup=SECGROUP]
                         [--key=KEY]
                         [--dryrun]
-                vm start NAME...
+                vm start [NAME]...
                          [--group=GROUP]
                          [--cloud=CLOUD]
                          [--force]
-                vm stop NAME...
+                vm stop [NAME]...
                         [--group=GROUP]
                         [--cloud=CLOUD]
                         [--force]
-                vm delete NAME...
+                vm delete [NAME]...
                           [--group=GROUP]
                           [--cloud=CLOUD]
                           [--force]
-                vm ip assign NAME...
+                vm ip assign [NAME]...
                           [--cloud=CLOUD]
-                vm ip show NAME...
+                vm ip show [NAME]...
                            [--group=GROUP]
                            [--cloud=CLOUD]
                            [--format=FORMAT]
                            [--refresh]
-                vm login NAME [--user=USER]
+                vm login [NAME] [--user=USER]
                          [--ip=IP]
                          [--cloud=CLOUD]
                          [--key=KEY]
@@ -83,7 +83,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                you will get a return of executing result instead of login to
                                the server, note that type in -- is suggested before
                                you input the commands
-                NAME           server name
+                NAME           server name. By default it is set to the name of last vm from database.
                 NAME_OR_ID     server name or ID
                 KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
@@ -262,7 +262,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 group = arguments["--group"] or \
                     Default.get("group", cloud=cloud)
 
-
                 # if default group not set, return error
                 if not group:
                     Console.error("Default group not set.")
@@ -303,7 +302,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                     secgroup_list=secgroup_list)
                     Default.set("last_vm_id", vm_id)
                     Default.set("last_vm_name", name)
-
 
                     # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                     if is_name_provided is False:
@@ -380,6 +378,18 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         elif arguments["start"]:
             try:
                 servers = arguments["NAME"]
+
+                # If names not provided, take the last vm from DB.
+                if servers is None or len(servers) == 0:
+                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    if last_vm is None:
+                        Console.error("No VM records in database. Please run vm refresh.")
+                        return ""
+                    name = last_vm["name"]
+                    # print(name)
+                    servers = list()
+                    servers.append(name)
+
                 group = arguments["--group"]
                 force = arguments["--force"]
 
@@ -387,7 +397,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if not cloud:
                     Console.error("Default cloud not set.")
                     return ""
-
                 Vm.start(cloud=cloud, servers=servers)
 
                 msg = "info. OK."
@@ -401,6 +410,18 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         elif arguments["stop"]:
             try:
                 servers = arguments["NAME"]
+
+                # If names not provided, take the last vm from DB.
+                if servers is None or len(servers) == 0:
+                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    if last_vm is None:
+                        Console.error("No VM records in database. Please run vm refresh.")
+                        return ""
+                    name = last_vm["name"]
+                    # print(name)
+                    servers = list()
+                    servers.append(name)
+
                 group = arguments["--group"]
                 force = arguments["--force"]
 
@@ -426,6 +447,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
         elif arguments["delete"]:
             try:
                 servers = arguments["NAME"]
+
+                # If names not provided, take the last vm from DB.
+                if servers is None or len(servers) == 0:
+                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    if last_vm is None:
+                        Console.error("No VM records in database. Please run vm refresh.")
+                        return ""
+                    name = last_vm["name"]
+                    servers = list()
+                    servers.append(name)
+
                 group = arguments["--group"]
                 force = arguments["--force"]
 
@@ -445,7 +477,17 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem deleting instances")
 
         elif arguments["ip"] and arguments["assign"]:
-            id = arguments["NAME"]
+            vmids = arguments["NAME"]
+
+            # If names not provided, take the last vm from DB.
+            if vmids is None or len(vmids) == 0:
+                last_vm = Vm.get_last_vm(cloud=cloud)
+                if last_vm is None:
+                    Console.error("No VM records in database. Please run vm refresh.")
+                    return ""
+                name = last_vm["name"]
+                vmids = list()
+                vmids.append(name)
 
             # if default cloud not set, return error
             if not cloud:
@@ -453,7 +495,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 return ""
             try:
                 cloud_provider = CloudProvider(cloud).provider
-                for sname in id:
+                for sname in vmids:
                     floating_ip = cloud_provider.create_assign_floating_ip(
                         sname)
                     if floating_ip is not None:
@@ -469,7 +511,18 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem assigning floating ips.")
 
         elif arguments["ip"] and arguments["show"]:
-            id = arguments["NAME"]
+            vmids = arguments["NAME"]
+
+            # If names not provided, take the last vm from DB.
+            if vmids is None or len(vmids) == 0:
+                last_vm = Vm.get_last_vm(cloud=cloud)
+                if last_vm is None:
+                    Console.error("No VM records in database. Please run vm refresh.")
+                    return ""
+                name = last_vm["name"]
+                vmids = list()
+                vmids.append(name)
+
             group = arguments["--group"]
             output_format = arguments["--format"] or "table"
             refresh = arguments["--refresh"]
@@ -481,7 +534,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             try:
                 cloud_provider = CloudProvider(cloud).provider
-                for server in id:
+                for server in vmids:
                     ip_addr = cloud_provider.get_ips(server)
 
                     ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
@@ -500,7 +553,20 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     "Problem getting ip addresses for instance {:}".format(id))
 
         elif arguments["login"]:
-            name = arguments["NAME"][0]
+            vm_names = arguments["NAME"]
+
+            # If names not provided, take the last vm from DB.
+            if vm_names is None or len(vm_names) == 0:
+                last_vm = Vm.get_last_vm(cloud=cloud)
+                if last_vm is None:
+                    Console.error("No VM records in database. Please run vm refresh.")
+                    return ""
+                name = last_vm["name"]
+            else:
+                name = vm_names[0]
+
+            print("Logging in into {:} machine...".format(name))
+
             user = arguments["--user"]
 
             # Get user if user argument not specified.
@@ -571,7 +637,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             os.system(sshcommand)
 
         elif arguments["list"]:
-
 
             if arguments["--all"]:
                 try:
