@@ -83,7 +83,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                you will get a return of executing result instead of login to
                                the server, note that type in -- is suggested before
                                you input the commands
-                NAME           server name
+                NAME           server name. By default it is set to the name of last vm from database.
                 NAME_OR_ID     server name or ID
                 KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
