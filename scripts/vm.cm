@@ -38,17 +38,19 @@ default list --cloud=$cloud
 
 vm default
 
-vm boot --name=testvm
-
-vm ip assign testvm
+vm boot
 
 vm refresh
+
+vm ip assign
+
 vm list
+
 vm status
 
 default login_key=~/.ssh/id_rsa
-
-vm login testvm
+# TODO: Monitor state change to check if the vm can be logged in
+# vm login
 
 # vm ssh uname -a
 
