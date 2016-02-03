@@ -454,7 +454,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
                         return ""
-                    name = last_vm.name
+                    name = last_vm["name"]
                     servers = list()
                     servers.append(name)
 
