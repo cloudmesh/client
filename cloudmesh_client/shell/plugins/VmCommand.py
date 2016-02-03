@@ -449,7 +449,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 servers = arguments["NAME"]
 
                 # If names not provided, take the last vm from DB.
-                if servers is None:
+                if servers is None or len(servers) == 0:
                     last_vm = Vm.get_last_vm(cloud=cloud)
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
