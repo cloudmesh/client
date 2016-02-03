@@ -22,9 +22,9 @@ This documentation and code is available on github at:
 * Documentation:
 
   * on github: http://cloudmesh.github.io/client/
-  * on rtd: http://cloudmesh-client.readthedocs.org/
+  * on rtd: http://cloudmesh-client.readthedocs.org/  (do not use old documentation)
 
-    * Code: https://github.com/cloudmesh/client
+* Code: https://github.com/cloudmesh/client
 
 
 .. toctree::
