@@ -90,11 +90,11 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#understanding-the-cloudmesh-shell">Understanding the cloudmesh shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#getting-started-with-the-cloud-s">Getting started with the Cloud(s)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#starting-up-a-new-vm-in-the-cloud">Starting up a new VM in the cloud</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
@@ -174,6 +174,12 @@
             
   <div class="section" id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This quickstart quide assumes that you have prepared your
+system according to the steps documented in the Section
+<a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>.</p>
+</div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
@@ -182,18 +188,26 @@
 </div>
 <p>However, you may want to read carefully our setup guide and prepare
 your machine as your OS may not have the required packages installed
-by default.</p>
+by default (see: <a class="reference internal" href="system.html#preparation"><span>Preparation</span></a>).</p>
 </div>
+<div class="section" id="help">
+<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
+<p>There are many commands in cloudmesh, and you can find
+out more about them while typing in</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "cm> ";
+}
+</style><span class="prompt1">help</span>
+</pre><p>When locationg a specific command you want to know more about, lets assume you want to know more about the command <cite>color</cite>, say</p>
+<pre class="highlight"><span class="prompt1">help color</span>
+</pre></div>
 <div class="section" id="understanding-the-cloudmesh-shell">
 <h2>Understanding the cloudmesh shell<a class="headerlink" href="#understanding-the-cloudmesh-shell" title="Permalink to this headline">¶</a></h2>
 <p>The cloudmesh shell contains a number of simple abstractions. This
 includes defaults, variables and configuration flags.</p>
 <p>To set a default value, for example to set the default cloud to kilo use:</p>
-<pre class="highlight"><style type="text/css">
-span.prompt1:before {
-  content: "cm> ";
-}
-</style><span class="prompt1">default cloud=kilo</span>
+<pre class="highlight"><span class="prompt1">default cloud=kilo</span>
 </pre><p>To configure color output of the cloudmesh shell use:</p>
 <pre class="highlight"><span class="prompt1">color on</span>
 </pre><p>To conduct a live refresh in a cloud please use</p>
@@ -240,12 +254,11 @@ to the key database. To do so, use:</p>
 </pre><p>You can list the keys in the key database by using:</p>
 <pre class="highlight"><span class="prompt1">key list</span>
 </pre><p>The output would look something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>+--------+------------------+------------------------------------------+------------------------------------------+--------+
-| name   | comment          | uri                                      | fingerprint                              | source |
-+--------+------------------+------------------------------------------+------------------------------------------+--------+
-| id_rsa | albert@albert-pc | file://C:\Users\albert-                  | 64:fa:bf:88:dc:1e:78:cc:ae:bc:38:af:fc:f | ssh    |
-|        |                  | PC/.ssh/id_rsa.pub                       | c:d3:dc                                  |        |
-+--------+------------------+------------------------------------------+------------------------------------------+--------+
+<div class="highlight-python"><div class="highlight"><pre>+--------+----------------+-------------------------------------+--------------+--------+
+| name   | comment        | uri                                 | fingerprint  | source |
++--------+----------------+-------------------------------------+--------------+--------+
+| id_rsa | albert@mycompi | file:///home/albert/.ssh/id_rsa.pub | 64:aa: ....  | ssh    |
++--------+----------------+-------------------------------------+--------------+--------+
 </pre></div>
 </div>
 <p>Then, to upload this key to the cloud (your default cloud) use:</p>
@@ -280,11 +293,11 @@ You need to refresh the database before listing VMs.</p>
 <pre class="highlight"><span class="prompt1">vm refresh</span>
 <span class="prompt1">vm list</span>
 </pre><p>The output will look something like follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-| id | uuid                                 | label        | status | static_ip | floating_ip     | key_name                   | project   | user      | cloud |
-+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-| 47 | 8af4177f-3aa8-47be-baa8-fc92534b9793 | albert-001   | ACTIVE | 10.0.2.37 |                 | id_rsa                     | fg478     | albert    | kilo  |
-+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
+<div class="highlight-python"><div class="highlight"><pre>+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+| id | uuid         | label      | status | static_ip | floating_ip | key_name | project | user   | cloud |
++----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 |             | id_rsa   | fg478   | albert | kilo  |
++----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
 </pre></div>
 </div>
 <p>Congratulations! you have now learnt how to set up cloudmesh, and use it to start a VM.
@@ -294,11 +307,11 @@ a public IP (also called floating IP).</p>
 <pre class="highlight"><span class="prompt1">network associate floating ip --instance=albert-001</span>
 </pre><p>Listing VMs will now show you this floating ip:</p>
 <pre class="highlight"><span class="prompt1">vm list</span>
-</pre><div class="highlight-python"><div class="highlight"><pre>+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-| id | uuid                                 | label        | status | static_ip | floating_ip     | key_name                   | project   | user      | cloud |
-+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-| 47 | 8af4177f-3aa8-47be-baa8-fc92534b9793 | albert-001   | ACTIVE | 10.0.2.37 | 152.25.6.101    | id_rsa                     | fg478     | albert    | kilo  |
-+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
+</pre><div class="highlight-python"><div class="highlight"><pre>+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+| id | uuid         | label      | status | static_ip | floating_ip  | key_name | project | user   | cloud |
++----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
++----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 </pre></div>
 </div>
 <p>Next, you need to set your login key to be able to ssh to the VM.
@@ -327,12 +340,6 @@ system further to for example list the output</p>
 <p>To see the status and the output you can say</p>
 <pre class="highlight"><span class="prompt1">run status 101</span>
 <span class="prompt1">run output 101</span>
-</pre></div>
-<div class="section" id="help">
-<h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
-<p>Naturally there are many more commands in cloudmesh, and you can find
-out more about them while typing in</p>
-<pre class="highlight"><span class="prompt1">help</span>
 </pre></div>
 </div>
 

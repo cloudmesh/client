@@ -26,6 +26,9 @@ Shell Commands
    command_group
    command_ssh
 
+
+.. _section_cloud_commands:
+
 Cloud Commands
 ^^^^^^^^^^^^^^^
 

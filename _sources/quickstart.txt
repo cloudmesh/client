@@ -1,6 +1,10 @@
 Quickstart
 ============
 
+.. warning:: This quickstart quide assumes that you have prepared your
+	     system according to the steps documented in the Section
+	     :ref:`preparation`.
+		  
 
 Setup
 ------
@@ -11,7 +15,24 @@ The setup of cloudmesh client is quite simple and can be done with::
 
 However, you may want to read carefully our setup guide and prepare
 your machine as your OS may not have the required packages installed
-by default.
+by default (see: :ref:`preparation`).
+	     
+Help
+-----
+
+There are many commands in cloudmesh, and you can find
+out more about them while typing in
+
+.. prompt::  cm, cm>
+
+	     help
+
+When locationg a specific command you want to know more about, lets assume you want to know more about the command `color`, say
+
+.. prompt::  cm, cm>
+
+	     help color
+
 	     
 
 Understanding the cloudmesh shell
@@ -112,12 +133,11 @@ You can list the keys in the key database by using:
 
 The output would look something like::
 
-    +--------+------------------+------------------------------------------+------------------------------------------+--------+
-    | name   | comment          | uri                                      | fingerprint                              | source |
-    +--------+------------------+------------------------------------------+------------------------------------------+--------+
-    | id_rsa | albert@albert-pc | file://C:\Users\albert-                  | 64:fa:bf:88:dc:1e:78:cc:ae:bc:38:af:fc:f | ssh    |
-    |        |                  | PC/.ssh/id_rsa.pub                       | c:d3:dc                                  |        |
-    +--------+------------------+------------------------------------------+------------------------------------------+--------+
+    +--------+----------------+-------------------------------------+--------------+--------+
+    | name   | comment        | uri                                 | fingerprint  | source |
+    +--------+----------------+-------------------------------------+--------------+--------+
+    | id_rsa | albert@mycompi | file:///home/albert/.ssh/id_rsa.pub | 64:aa: ....  | ssh    |
+    +--------+----------------+-------------------------------------+--------------+--------+
 
 Then, to upload this key to the cloud (your default cloud) use:
 
@@ -170,11 +190,11 @@ You need to refresh the database before listing VMs.
 
 The output will look something like follows::
 
-	+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-	| id | uuid                                 | label        | status | static_ip | floating_ip     | key_name                   | project   | user      | cloud |
-	+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-	| 47 | 8af4177f-3aa8-47be-baa8-fc92534b9793 | albert-001   | ACTIVE | 10.0.2.37 |                 | id_rsa                     | fg478     | albert    | kilo  |
-	+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
+	+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+	| id | uuid         | label      | status | static_ip | floating_ip | key_name | project | user   | cloud |
+	+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+	| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 |             | id_rsa   | fg478   | albert | kilo  |
+	+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
 
 
 Congratulations! you have now learnt how to set up cloudmesh, and use it to start a VM.
@@ -195,11 +215,11 @@ Listing VMs will now show you this floating ip:
 
 ::
 
-	+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-	| id | uuid                                 | label        | status | static_ip | floating_ip     | key_name                   | project   | user      | cloud |
-	+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
-	| 47 | 8af4177f-3aa8-47be-baa8-fc92534b9793 | albert-001   | ACTIVE | 10.0.2.37 | 152.25.6.101    | id_rsa                     | fg478     | albert    | kilo  |
-	+----+--------------------------------------+--------------+--------+-----------+-----------------+----------------------------+-----------+-----------+-------+
+	+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+	| id | uuid         | label      | status | static_ip | floating_ip  | key_name | project | user   | cloud |
+	+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+	| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
+	+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 
 Next, you need to set your login key to be able to ssh to the VM.
 This will be the path to the private key (id_rsa) corresponding to
@@ -255,13 +275,3 @@ To see the status and the output you can say
 	     run status 101
 	     run output 101	     
 
-Help
------
-
-Naturally there are many more commands in cloudmesh, and you can find
-out more about them while typing in
-
-.. prompt::  cm, cm>
-
-	     help
-	     

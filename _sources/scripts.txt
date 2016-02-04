@@ -16,63 +16,108 @@ Comment
 At this time comments are only detected based on the first characters
 in a line. A comment line starts either with `#`, `//` or `/*`.
 
+`comment.cm <scripts/comment.cm>`_:
+
 .. literalinclude:: ../../scripts/comment.cm
 
 Terminal Commands
 -----------------
+
+`terminal.cm <scripts/terminal.cm>`_:
+
 .. literalinclude:: ../../scripts/terminal.cm
 
 Executing Shell commands
------------------------
+------------------------
+
+`bash.cm <scripts/bash.cm>`_:
+
 .. literalinclude:: ../../scripts/bash.cm
 
 Executing Python 
---------------
+------------------
+
+`py.cm <scripts/py.cm>`_:
+
 .. literalinclude:: ../../scripts/py.cm
 
 Variables
 --------------
+
+`var.cm <scripts/var.cm>`_:
+
 .. literalinclude:: ../../scripts/var.cm
 
 Group
 --------------
+
+`group.cm <scripts/group.cm>`_:
+
 .. literalinclude:: ../../scripts/group.cm
 
+
+Keys
+--------------
+
+`key.cm <scripts/key.cm>`_:
+
+.. literalinclude:: ../../scripts/key.cm
+		    
 VMs
 --------------
+
+`vm.cm <scripts/vm.cm>`_:
+
 .. literalinclude:: ../../scripts/vm.cm
 
 Copy
 --------------
+
+`sync.cm <scripts/sync.cm>`_:
+
 .. literalinclude:: ../../scripts/sync.cm
 
 Security Groups
 --------------
+
+`secgroup.cm <scripts/secgroup.cm>`_:
+
 .. literalinclude:: ../../scripts/secgroup.cm
 
 Nova
 --------------
-.. literalinclude:: ../../scripts/novademo.cm
+
+`nova.cm <scripts/nova.cm>`_:
+
+.. literalinclude:: ../../scripts/nova.cm
 
 Network
 --------------
-.. literalinclude:: ../../scripts/network.cm
 
-Keys
---------------
-.. literalinclude:: ../../scripts/keydemo.cm
+`network.cm <scripts/network.cm>`_:
+
+.. literalinclude:: ../../scripts/network.cm
 
 HPC
 --------------
+
+`hpc.cm <scripts/hpc.cm>`_:
+
 .. literalinclude:: ../../scripts/hpc.cm
 
 
 Cluster
 --------------
+
+`cluster.cm <scripts/cluster.cm>`_:
+
 .. literalinclude:: ../../scripts/cluster.cm
 
 Cloud
 --------------
+
+`cloud.cm <scripts/cloud.cm>`_:
+
 .. literalinclude:: ../../scripts/cloud.cm
 
 

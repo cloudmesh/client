@@ -1,0 +1,5 @@
+banner "prints a banner with this text"
+echo "prints this text"
+echo -r BLACK "prints in balck "
+echo -r BLUE "prints in blue"
+echo -r GREEN "prints in green"

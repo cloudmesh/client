@@ -1,0 +1,14 @@
+#
+# TESTING VARIABLES
+#
+
+# Listing the variables
+var list
+
+# Get the time and print a banner with the time
+var a=now
+banner $a
+
+# get a variable from the cloudmesh yaml file and print it
+var username=cloudmesh.profile.username
+echo $username
