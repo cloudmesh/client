@@ -84,12 +84,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../../prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Manuals</span></p>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../reference_card.html">Reference Card</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../man/man.html">Commands</a></li>
 </ul>
@@ -482,181 +485,8 @@ with the live cloud details
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-cloudmesh_client.db.SSHKeyDBManager">
-<span id="cloudmesh-client-db-sshkeydbmanager-module"></span><h2>cloudmesh_client.db.SSHKeyDBManager module<a class="headerlink" href="#module-cloudmesh_client.db.SSHKeyDBManager" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.SSHKeyDBManager.</code><code class="descname">SSHKeyDBManager</code><span class="sig-paren">(</span><em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add">
-<code class="descname">add</code><span class="sig-paren">(</span><em>key_path</em>, <em>keyname=None</em>, <em>user=None</em>, <em>source=None</em>, <em>uri=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the key to the database based on the path</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key or path to the key</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_dict">
-<code class="descname">add_from_dict</code><span class="sig-paren">(</span><em>d</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add_from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_sshkey">
-<code class="descname">add_from_sshkey</code><span class="sig-paren">(</span><em>sshkey</em>, <em>keyname=None</em>, <em>user=None</em>, <em>source=None</em>, <em>uri=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add_from_sshkey"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_sshkey" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_key_cloud_map_entry">
-<code class="descname">add_key_cloud_map_entry</code><span class="sig-paren">(</span><em>user</em>, <em>keyname</em>, <em>cloud</em>, <em>name_on_cloud</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.add_key_cloud_map_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_key_cloud_map_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds an entry to Key-Cloud map table.
-:param keyname: Name of the key in db.
-:param cloud: Cloud on which the key is being uploaded.
-:param name_on_cloud: Name of the key on cloud.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete">
-<code class="descname">delete</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the key from the database based on the keyname</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key to be delete</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_all">
-<code class="descname">delete_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.delete_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_all" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes all the entries from KEY table</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_key_cloud_map_entry">
-<code class="descname">delete_key_cloud_map_entry</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.delete_key_cloud_map_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_key_cloud_map_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes an entry to Key-Cloud map table.
-:param keyname: Name of the key in db.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find">
-<code class="descname">find</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.find"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds the key on the database based on the keyname</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keyname</strong> &#8211; name of the key to be found</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Query object of the search</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find_all">
-<code class="descname">find_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.find_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find_all" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Query object from all the entries</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_default">
-<code class="descname">get_default</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.get_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_map_entry">
-<code class="descname">get_key_cloud_map_entry</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.get_key_cloud_map_entry"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_map_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns entries in Key-Cloud map table.
-:param keyname: Name of the key in db.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_maps">
-<code class="descname">get_key_cloud_maps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.get_key_cloud_maps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_maps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns entries in Key-Cloud map table.
-:param keyname: Name of the key in db.
-:return:</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.object_to_dict">
-<code class="descname">object_to_dict</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.object_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.object_to_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obj</strong> &#8211; object to be converted to dict</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dict from the object</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.select">
-<code class="descname">select</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.select"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.select" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.set_default">
-<code class="descname">set_default</code><span class="sig-paren">(</span><em>keyname</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.set_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.set_default" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.table_dict">
-<code class="descname">table_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.table_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.table_dict" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">dict from all elements in the table KEY</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.update">
-<code class="descname">update</code><span class="sig-paren">(</span><em>clouds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/db/SSHKeyDBManager.html#SSHKeyDBManager.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<div class="section" id="cloudmesh-client-db-sshkeydbmanager-module">
+<h2>cloudmesh_client.db.SSHKeyDBManager module<a class="headerlink" href="#cloudmesh-client-db-sshkeydbmanager-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-cloudmesh_client.db.model">
 <span id="cloudmesh-client-db-model-module"></span><h2>cloudmesh_client.db.model module<a class="headerlink" href="#module-cloudmesh_client.db.model" title="Permalink to this headline">¶</a></h2>
@@ -842,7 +672,7 @@ with the live cloud details
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.CloudmeshMixin.created_at">
-<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-02-04 18:02:55'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-02-04 18:21:36'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -872,7 +702,7 @@ with the live cloud details
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.CloudmeshMixin.updated_at">
-<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-02-04 18:02:55'), default=ColumnDefault('2016-02-04 18:02:55'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-02-04 18:21:36'), default=ColumnDefault('2016-02-04 18:21:36'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
