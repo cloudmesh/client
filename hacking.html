@@ -86,12 +86,15 @@
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Manuals</span></p>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 </ul>
@@ -105,14 +108,16 @@
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Hacking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#editor">Editor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#git">Git</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#closing-issues-via-commit-messages">Closing Issues via Commit Messages</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ssh-keys">SSH keys</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ssh-keys">SSH keys</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#sheetsheet">Sheetsheet</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#empty-commits">Empty Commits</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#styled-git-log">Styled Git Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tags">Tags</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#publish-on-github">Publish on Github</a></li>
 </ul>
 </li>
 </ul>
@@ -239,20 +244,36 @@ new: dev:    new feature for developers
 </li>
 </ul>
 </div>
+<div class="section" id="editor">
+<h2>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h2>
+<p>Use PyCharam.</p>
+<p>We made bad experience with people using editors other than emacs, vi, and PyCharm.
+When working on Windows make sure your editor handles newlines properly with git.</p>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Creating the documentation with sphinx is easy</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">pip install -r requirements-doc.txt</span>
+<span class="prompt1">make doc</span>
+</pre><p>View the documentation</p>
+<pre class="highlight"><span class="prompt1">make view</span>
+</pre></div>
 <div class="section" id="git">
 <h2>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="closing-issues-via-commit-messages">
 <h3>Closing Issues via Commit Messages<a class="headerlink" href="#closing-issues-via-commit-messages" title="Permalink to this headline">¶</a></h3>
-<p>To close an issue on github issues, you can use it in your commit messages as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>git commit -m &quot;Fix problem xyz, fixes #12&quot;
-</pre></div>
-</div>
-</div>
+<p>To close an issue on github issues, you can use it in your commit messages as follows</p>
+<p>git commit -m &#8220;Fix problem xyz, fixes #12&#8221;</p>
 </div>
 <div class="section" id="ssh-keys">
-<h2>SSH keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">¶</a></h2>
+<h3>SSH keys<a class="headerlink" href="#ssh-keys" title="Permalink to this headline">¶</a></h3>
 <p>You can get a list of public ssh keys in plain text format by visiting:</p>
 <p><a class="reference external" href="https://github.com">https://github.com</a>/{user}.keys</p>
+</div>
 <div class="section" id="sheetsheet">
 <h3>Sheetsheet<a class="headerlink" href="#sheetsheet" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
@@ -265,14 +286,26 @@ new: dev:    new feature for developers
 <div class="section" id="empty-commits">
 <h3>Empty Commits<a class="headerlink" href="#empty-commits" title="Permalink to this headline">¶</a></h3>
 <p>Commits can be pushed with no code changes by adding &#8211;allow-empty:</p>
-<p>$ git commit -m &#8220;Big-ass commit&#8221; &#8211;allow-empty</p>
-</div>
+<pre class="highlight"><span class="prompt1">git commit -m <span class="s2">&quot;Big-ass commit&quot;</span> --allow-empty</span>
+</pre></div>
 <div class="section" id="styled-git-log">
 <h3>Styled Git Log<a class="headerlink" href="#styled-git-log" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre>git log --all --graph --pretty=format:&#39;%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit --date=relative
+<pre class="highlight"><span class="prompt1">git log --all --graph --pretty<span class="o">=</span>format:<span class="s1">&#39;%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39;</span> --abbrev-commit --date<span class="o">=</span>relative</span>
 </pre></div>
-</div>
-</div>
+<div class="section" id="tags">
+<h3>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h3>
+<p>Tags are only created by Gregor von Laszewski.</p>
+<p>Create a tag. Always use x.y.z</p>
+<pre class="highlight"><span class="prompt1">make tag</span>
+</pre><p>Remove a tag</p>
+<pre class="highlight"><span class="prompt1">make rmtag</span>
+</pre></div>
+<div class="section" id="publish-on-github">
+<h3>Publish on Github<a class="headerlink" href="#publish-on-github" title="Permalink to this headline">¶</a></h3>
+<p>The documentation is only pushed by  Gregor von
+Laszewski.</p>
+<pre class="highlight"><span class="prompt1">make publish</span>
+</pre></div>
 </div>
 </div>
 
