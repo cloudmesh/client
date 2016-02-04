@@ -209,7 +209,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         def _refresh():
             try:
-                Console.ok("Starting the refresh, Sup")
                 msg = "Refresh VMs for cloud {:}.".format(cloud)
                 if Vm.refresh(cloud=cloud):
                     Console.ok("{:} OK.".format(msg))

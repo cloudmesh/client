@@ -1,17 +1,3 @@
-from libcloud.compute.types import Provider
-from libcloud.compute.providers import get_driver
-import libcloud.security
-import os
-from pprint import pprint
-from uuid import UUID
-import re
-from cloudmesh_client.common.todo import TODO
-from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-from cloudmesh_client.common.FlatDict import FlatDict
-from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
-
-from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud import CloudProviderLibcloud
-
 #def CloudProviderLibCloudEC2()
 
 #   return CloudProviderLibCloud(,,,, libcloudprovider="ec2", ....)
@@ -61,6 +47,4 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         # AWS needs two values for authentication
         self.provider = cls(credentials['EC2_ACCESS_KEY'],
              credentials['EC2_SECRET_KEY'], host='openstack.tacc.chameleoncloud.org', port=port, **extra_args)
-
-
 

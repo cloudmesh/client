@@ -19,7 +19,11 @@ Repositories
 ------------
 
 * Documentation: http://cloudmesh.github.io/client  
-* Code: https://github.com/cloudmesh/client.git
+* Code:
+
+  * https://github.com/cloudmesh/base.git
+  * https://github.com/cloudmesh/client.git
+
 * Issues: https://github.com/cloudmesh/client/issues
 * Milestones: https://github.com/cloudmesh/client/milestones
 * Contributors: https://github.com/cloudmesh/client/graphs/contributors
@@ -41,7 +45,7 @@ For more info please contact Gregor von Laszewski, laszewski@gmail.com
    901 E. 10th St. |br|
    Bloomington, IN 47408 |br|
 
-   and my office is at 
+and my office is at 
 
    611 N. Park Ave. |br|
    Bloomington, IN 47408 |br|

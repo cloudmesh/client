@@ -326,8 +326,31 @@ CentOS
 This documentation assumes that the user is advanced enough to use
 linux terminal. We also assume you are not logged in as root, but you
 are a regular user. However to prepare the system we assume you have
-sudo privileges. First, we check for up-to-date versions of python
-and pip
+sudo privileges.
+
+One line install
+^^^^^^^^^^^^^^^^^
+
+You can conduct these steps automatically as well as the install of
+cloudmesh by executing the following script in your command line.
+
+.. promt:: bash
+
+   curl http://cloudmesh.github.io/get/client/centos/install.sh | bash
+
+After this you not only have the system updated for coudmesh with
+necessary libraries and tools, but you will also have cloudmesh
+installed.
+
+We encourage you to inspect the script and assess if this is the way
+you like to proceed. If you rather do a step by step install, please
+read on.
+
+Deatailed Step-by-Step system preparation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+I you like to conduct these steps by hand please read on. First, we
+check for up-to-date versions of python and pip
 
 .. prompt:: bash
 
@@ -586,7 +609,7 @@ account at::
 
 .. warning:: we recommend that you are not modifying your /etc/hosts
 	     in order not to confuse you about the definition of the
-	     hosts you define in .ssh/config 
+	     hosts you define in .ssh/config
 
 
 Install make In Windows
