@@ -180,7 +180,7 @@
 
 
 <span class="c"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="NetworkCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand">[docs]</a><span class="k">class</span> <span class="nc">NetworkCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="NetworkCommand"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand">[docs]</a><span class="k">class</span> <span class="nc">NetworkCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;network&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
@@ -222,29 +222,29 @@
 <span class="sd">                FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01</span>
 
 <span class="sd">            Examples:</span>
-<span class="sd">                $ network get fixed ip --cloud=india 10.1.2.5</span>
-<span class="sd">                $ network get fixed --cloud=india 10.1.2.5</span>
-<span class="sd">                $ network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01</span>
-<span class="sd">                $ network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01</span>
-<span class="sd">                $ network reserve fixed ip --cloud=india 10.1.2.5</span>
-<span class="sd">                $ network reserve fixed --cloud=india 10.1.2.5</span>
-<span class="sd">                $ network unreserve fixed ip --cloud=india 10.1.2.5</span>
-<span class="sd">                $ network unreserve fixed --cloud=india 10.1.2.5</span>
-<span class="sd">                $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8</span>
-<span class="sd">                $ network associate floating --cloud=india --instance=albert-001</span>
-<span class="sd">                $ network associate floating --cloud=india --group=albert_group</span>
-<span class="sd">                $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8</span>
-<span class="sd">                $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8</span>
-<span class="sd">                $ network create floating ip --cloud=india --pool=albert-f01</span>
-<span class="sd">                $ network create floating --cloud=india --pool=albert-f01</span>
-<span class="sd">                $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9</span>
-<span class="sd">                $ network delete floating --cloud=india 192.1.66.8 192.1.66.9</span>
-<span class="sd">                $ network list floating ip --cloud=india</span>
-<span class="sd">                $ network list floating --cloud=india</span>
-<span class="sd">                $ network list floating --cloud=india 192.1.66.8</span>
-<span class="sd">                $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b</span>
-<span class="sd">                $ network list floating pool --cloud=india</span>
-<span class="sd">                $ network create cluster --group=demo_group</span>
+<span class="sd">                network get fixed ip --cloud=india 10.1.2.5</span>
+<span class="sd">                network get fixed --cloud=india 10.1.2.5</span>
+<span class="sd">                network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01</span>
+<span class="sd">                network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01</span>
+<span class="sd">                network reserve fixed ip --cloud=india 10.1.2.5</span>
+<span class="sd">                network reserve fixed --cloud=india 10.1.2.5</span>
+<span class="sd">                network unreserve fixed ip --cloud=india 10.1.2.5</span>
+<span class="sd">                network unreserve fixed --cloud=india 10.1.2.5</span>
+<span class="sd">                network associate floating ip --cloud=india --instance=albert-001 192.1.66.8</span>
+<span class="sd">                network associate floating --cloud=india --instance=albert-001</span>
+<span class="sd">                network associate floating --cloud=india --group=albert_group</span>
+<span class="sd">                network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8</span>
+<span class="sd">                network disassociate floating --cloud=india --instance=albert-001 192.1.66.8</span>
+<span class="sd">                network create floating ip --cloud=india --pool=albert-f01</span>
+<span class="sd">                network create floating --cloud=india --pool=albert-f01</span>
+<span class="sd">                network delete floating ip --cloud=india 192.1.66.8 192.1.66.9</span>
+<span class="sd">                network delete floating --cloud=india 192.1.66.8 192.1.66.9</span>
+<span class="sd">                network list floating ip --cloud=india</span>
+<span class="sd">                network list floating --cloud=india</span>
+<span class="sd">                network list floating --cloud=india 192.1.66.8</span>
+<span class="sd">                network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b</span>
+<span class="sd">                network list floating pool --cloud=india</span>
+<span class="sd">                network create cluster --group=demo_group</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c"># pprint(arguments)</span>
@@ -707,7 +707,7 @@
         <span class="k">return</span> <span class="s">&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="NetworkCommand.refresh_vm"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.refresh_vm">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="NetworkCommand.refresh_vm"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.refresh_vm">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Refreshing database for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
