@@ -11,6 +11,13 @@ ifeq ($(UNAME), CYGWIN_NT-6.3)
 BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
+doc: man
+	sphinx-apidoc -f -o docs/source/code/base ../base/cloudmesh_base
+	sphinx-apidoc -f -o docs/source/code/client cloudmesh_client
+	cd docs; make html
+	cp -r scripts docs/build/html
+
+
 d:
 	rm -rf build
 	pip uninstall -y cloudmesh_client
@@ -22,10 +29,6 @@ test:
 	echo $(UNAME)
 
 
-doc: man
-	sphinx-apidoc -f -o docs/source/code/base ../base/cloudmesh_base
-	sphinx-apidoc -f -o docs/source/code/client cloudmesh_client
-	cd docs; make html
 
 publish:
 	ghp-import -n -p docs/build/html
