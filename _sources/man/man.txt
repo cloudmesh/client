@@ -1777,26 +1777,26 @@ Command - vm::
                 [--secgroup=SECGROUP]
                 [--key=KEY]
                 [--dryrun]
-        vm start NAME...
+        vm start [NAME]...
                  [--group=GROUP]
                  [--cloud=CLOUD]
                  [--force]
-        vm stop NAME...
+        vm stop [NAME]...
                 [--group=GROUP]
                 [--cloud=CLOUD]
                 [--force]
-        vm delete NAME...
+        vm delete [NAME]...
                   [--group=GROUP]
                   [--cloud=CLOUD]
                   [--force]
-        vm ip assign NAME...
+        vm ip assign [NAME]...
                   [--cloud=CLOUD]
-        vm ip show NAME...
+        vm ip show [NAME]...
                    [--group=GROUP]
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
-        vm login NAME [--user=USER]
+        vm login [NAME] [--user=USER]
                  [--ip=IP]
                  [--cloud=CLOUD]
                  [--key=KEY]
@@ -1816,7 +1816,7 @@ Command - vm::
                        you will get a return of executing result instead of login to
                        the server, note that type in -- is suggested before
                        you input the commands
-        NAME           server name
+        NAME           server name. By default it is set to the name of last vm from database.
         NAME_OR_ID     server name or ID
         KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 

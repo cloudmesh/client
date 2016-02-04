@@ -33,3 +33,15 @@ Assignment C: Ansible
 * C.4) Develop an ansible script that generates an image that has cloudmesh installed in it
 * C.5) Bonus: use docopt to select from a command that you develop which OS is used and conduct the ansible install for the OS
 that you chose.
+
+Assignment D: Key Management
+-----------------------------
+
+* D.1) What is an RSA key?
+* D.2) Where are such keys stored in a user environment?
+* D.3) Describe the procedures needed to use the default key (rsa) in
+  Openstack with the openstack client commands.
+* D.4) Describe the procedures to use the default key (rsa) in cloudmesh client
+* D.5) do B.6 How can this be generalized to n virtual machines. Can you
+  write a script?
+

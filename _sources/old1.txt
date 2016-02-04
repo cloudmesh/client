@@ -134,8 +134,8 @@ List
           man cloud
 
 
-Security group (do, fugang)
---------------
+Security group
+----------------------------
 
 ::
 
@@ -166,7 +166,7 @@ Security group (do, fugang)
       TODO: much better examples
       
 Cloud (do)
-------
+-------------
 
 ::
 
@@ -288,7 +288,7 @@ Cloud (do)
                 not specified, it used the default cloud.
 
 VM (do)
----
+---------
 
 ::
 
@@ -389,7 +389,7 @@ VM (do)
 
 
 Volume (do)
-------
+------------
 
 ::
 
@@ -471,7 +471,7 @@ Volume (do)
 
 
 Status (do)
-------
+-------------
 
 ::
 
@@ -517,43 +517,8 @@ Stack (do)
              -v       verbose mode
 
 
-Quota (do)
------
-
-::
-        
-          Usage:
-              quota [CLOUD...] [--format=FORMAT]
-
-          print quota limit on a current project/tenant
-
-          Arguments:
-
-            CLOUD          Cloud name 
-	    
-          Options:
-
-             -v       verbose mode
-
-::
-        
-          Usage:
-              limits [CLOUD] [--format=json]
-              limits help | -h
-
-          Current list data with limits on a selected project (tenant)
-
-          Arguments:
-
-            CLOUD          Cloud name to see the list
-            help           Prints this message
-
-          Options:
-
-             -v       verbose mode
-
 Launcher (do)
---------
+--------------
 
 ::
 
@@ -583,7 +548,7 @@ Launcher (do)
                -v       verbose mode
 
 Key (do)
-----
+---------
 
 ::
 
@@ -649,7 +614,7 @@ Key (do)
 
 
 Inventory (not)
------------
+----------------
 
 ::
    
@@ -685,7 +650,7 @@ Inventory (not)
 
 
 Experiment (do)
------------
+----------------
 
 ::
         
@@ -713,7 +678,7 @@ Experiment (do)
              -v       verbose mode
 
 debug (not cmd3)
------
+------------------
 
 ::
        
@@ -724,7 +689,7 @@ debug (not cmd3)
               Turns the debug log level on and off.
 
 color (not cmd3)
------
+-----------------
 
 ::
         
@@ -747,7 +712,7 @@ color (not cmd3)
                          colors.
 
 Cluster (do)
---------
+--------------
 
 ::
        
@@ -819,7 +784,7 @@ Cluster (do)
 
 
 Admin (do)
-------
+--------------
 
 ::
         

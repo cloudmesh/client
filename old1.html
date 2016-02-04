@@ -289,8 +289,8 @@ See Also:
 </pre></div>
 </div>
 </div>
-<div class="section" id="security-group-do-fugang">
-<h2>Security group (do, fugang)<a class="headerlink" href="#security-group-do-fugang" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="security-group">
+<h2>Security group<a class="headerlink" href="#security-group" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     security_group list CLOUD...
     security_group add CLOUD LABEL PARAMETERS
@@ -439,8 +439,9 @@ Description:
         not specified, it used the default cloud.
 </pre></div>
 </div>
-<p>VM (do)
-&#8212;</p>
+</div>
+<div class="section" id="vm-do">
+<h2>VM (do)<a class="headerlink" href="#vm-do" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
     vm start [--name=NAME]
              [--count=COUNT]
@@ -653,39 +654,6 @@ An orchestration tool (OpenStack Heat)
 Arguments:
 
   NAME           stack name
-  help           Prints this message
-
-Options:
-
-   -v       verbose mode
-</pre></div>
-</div>
-</div>
-<div class="section" id="quota-do">
-<h2>Quota (do)<a class="headerlink" href="#quota-do" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    quota [CLOUD...] [--format=FORMAT]
-
-print quota limit on a current project/tenant
-
-Arguments:
-
-  CLOUD          Cloud name
-
-Options:
-
-   -v       verbose mode
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    limits [CLOUD] [--format=json]
-    limits help | -h
-
-Current list data with limits on a selected project (tenant)
-
-Arguments:
-
-  CLOUD          Cloud name to see the list
   help           Prints this message
 
 Options:

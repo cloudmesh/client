@@ -32,6 +32,13 @@ As we have so far a tight integrated group, we are typically not
 forking the repository, but cloning it directly. Members are than able
 to work on the clones. We may change this in case we see need for forks.
 
+
+Automated Builds and Reports
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Documentation: http://cloudmesh-client.readthedocs.org/
+* Code: https://travis-ci.org/cloudmesh/client
+
 Contact
 -------
 

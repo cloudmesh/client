@@ -185,7 +185,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
 
-<div class="viewcode-block" id="VmCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.VmCommand.VmCommand">[docs]</a><span class="k">class</span> <span class="nc">VmCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="VmCommand"><a class="viewcode-back" href="../../../../modules/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.VmCommand.VmCommand">[docs]</a><span class="k">class</span> <span class="nc">VmCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;vm&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
@@ -210,26 +210,26 @@
 <span class="sd">                        [--secgroup=SECGROUP]</span>
 <span class="sd">                        [--key=KEY]</span>
 <span class="sd">                        [--dryrun]</span>
-<span class="sd">                vm start NAME...</span>
+<span class="sd">                vm start [NAME]...</span>
 <span class="sd">                         [--group=GROUP]</span>
 <span class="sd">                         [--cloud=CLOUD]</span>
 <span class="sd">                         [--force]</span>
-<span class="sd">                vm stop NAME...</span>
+<span class="sd">                vm stop [NAME]...</span>
 <span class="sd">                        [--group=GROUP]</span>
 <span class="sd">                        [--cloud=CLOUD]</span>
 <span class="sd">                        [--force]</span>
-<span class="sd">                vm delete NAME...</span>
+<span class="sd">                vm delete [NAME]...</span>
 <span class="sd">                          [--group=GROUP]</span>
 <span class="sd">                          [--cloud=CLOUD]</span>
 <span class="sd">                          [--force]</span>
-<span class="sd">                vm ip assign NAME...</span>
+<span class="sd">                vm ip assign [NAME]...</span>
 <span class="sd">                          [--cloud=CLOUD]</span>
-<span class="sd">                vm ip show NAME...</span>
+<span class="sd">                vm ip show [NAME]...</span>
 <span class="sd">                           [--group=GROUP]</span>
 <span class="sd">                           [--cloud=CLOUD]</span>
 <span class="sd">                           [--format=FORMAT]</span>
 <span class="sd">                           [--refresh]</span>
-<span class="sd">                vm login NAME [--user=USER]</span>
+<span class="sd">                vm login [NAME] [--user=USER]</span>
 <span class="sd">                         [--ip=IP]</span>
 <span class="sd">                         [--cloud=CLOUD]</span>
 <span class="sd">                         [--key=KEY]</span>
@@ -249,7 +249,7 @@
 <span class="sd">                               you will get a return of executing result instead of login to</span>
 <span class="sd">                               the server, note that type in -- is suggested before</span>
 <span class="sd">                               you input the commands</span>
-<span class="sd">                NAME           server name</span>
+<span class="sd">                NAME           server name. By default it is set to the name of last vm from database.</span>
 <span class="sd">                NAME_OR_ID     server name or ID</span>
 <span class="sd">                KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.</span>
 
@@ -428,7 +428,6 @@
                 <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--group&quot;</span><span class="p">]</span> <span class="ow">or</span> \
                     <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;group&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
 
-
                 <span class="c"># if default group not set, return error</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">group</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default group not set.&quot;</span><span class="p">)</span>
@@ -469,7 +468,6 @@
                                     <span class="n">secgroup_list</span><span class="o">=</span><span class="n">secgroup_list</span><span class="p">)</span>
                     <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;last_vm_id&quot;</span><span class="p">,</span> <span class="n">vm_id</span><span class="p">)</span>
                     <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;last_vm_name&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-
 
                     <span class="c"># SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?</span>
                     <span class="k">if</span> <span class="n">is_name_provided</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
@@ -546,6 +544,18 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+
+                <span class="c"># If names not provided, take the last vm from DB.</span>
+                <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                    <span class="c"># print(name)</span>
+                    <span class="n">servers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+                    <span class="n">servers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
                 <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--group&quot;</span><span class="p">]</span>
                 <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--force&quot;</span><span class="p">]</span>
 
@@ -553,7 +563,6 @@
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set.&quot;</span><span class="p">)</span>
                     <span class="k">return</span> <span class="s">&quot;&quot;</span>
-
                 <span class="n">Vm</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="n">servers</span><span class="p">)</span>
 
                 <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;info. OK.&quot;</span>
@@ -567,6 +576,18 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;stop&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+
+                <span class="c"># If names not provided, take the last vm from DB.</span>
+                <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                    <span class="c"># print(name)</span>
+                    <span class="n">servers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+                    <span class="n">servers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
                 <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--group&quot;</span><span class="p">]</span>
                 <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--force&quot;</span><span class="p">]</span>
 
@@ -592,6 +613,17 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">servers</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+
+                <span class="c"># If names not provided, take the last vm from DB.</span>
+                <span class="k">if</span> <span class="n">servers</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">servers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                    <span class="n">servers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+                    <span class="n">servers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
                 <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--group&quot;</span><span class="p">]</span>
                 <span class="n">force</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--force&quot;</span><span class="p">]</span>
 
@@ -611,7 +643,17 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem deleting instances&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;assign&quot;</span><span class="p">]:</span>
-            <span class="nb">id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+            <span class="n">vmids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+
+            <span class="c"># If names not provided, take the last vm from DB.</span>
+            <span class="k">if</span> <span class="n">vmids</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vmids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">vmids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+                <span class="n">vmids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
             <span class="c"># if default cloud not set, return error</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
@@ -619,7 +661,7 @@
                 <span class="k">return</span> <span class="s">&quot;&quot;</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-                <span class="k">for</span> <span class="n">sname</span> <span class="ow">in</span> <span class="nb">id</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">sname</span> <span class="ow">in</span> <span class="n">vmids</span><span class="p">:</span>
                     <span class="n">floating_ip</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">create_assign_floating_ip</span><span class="p">(</span>
                         <span class="n">sname</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">floating_ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -635,7 +677,18 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem assigning floating ips.&quot;</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;show&quot;</span><span class="p">]:</span>
-            <span class="nb">id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+            <span class="n">vmids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+
+            <span class="c"># If names not provided, take the last vm from DB.</span>
+            <span class="k">if</span> <span class="n">vmids</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vmids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">vmids</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+                <span class="n">vmids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
             <span class="n">group</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--group&quot;</span><span class="p">]</span>
             <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;table&quot;</span>
             <span class="n">refresh</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--refresh&quot;</span><span class="p">]</span>
@@ -647,7 +700,7 @@
 
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-                <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="nb">id</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">vmids</span><span class="p">:</span>
                     <span class="n">ip_addr</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_ips</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
 
                     <span class="n">ipaddr_dict</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">construct_ip_dict</span><span class="p">(</span><span class="n">ip_addr</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
@@ -666,7 +719,20 @@
                     <span class="s">&quot;Problem getting ip addresses for instance {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;login&quot;</span><span class="p">]:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">vm_names</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+
+            <span class="c"># If names not provided, take the last vm from DB.</span>
+            <span class="k">if</span> <span class="n">vm_names</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">last_vm</span> <span class="o">=</span> <span class="n">Vm</span><span class="o">.</span><span class="n">get_last_vm</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">last_vm</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No VM records in database. Please run vm refresh.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">last_vm</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">vm_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Logging in into {:} machine...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
             <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--user&quot;</span><span class="p">]</span>
 
             <span class="c"># Get user if user argument not specified.</span>
@@ -737,7 +803,6 @@
             <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">sshcommand</span><span class="p">)</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
-
 
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--all&quot;</span><span class="p">]:</span>
                 <span class="k">try</span><span class="p">:</span>
