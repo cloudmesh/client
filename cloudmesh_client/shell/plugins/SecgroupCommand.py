@@ -51,10 +51,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
 
             Examples:
-                $ secgroup list --cloud india --tenant fg82
-                $ secgroup rules-list --cloud india --tenant fg82 default
-                $ secgroup create --cloud india --tenant fg82 webservice
-                $ secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+                secgroup list --cloud india --tenant fg82
+                secgroup rules-list --cloud india --tenant fg82 default
+                secgroup create --cloud india --tenant fg82 webservice
+                secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
         """
         # pprint(arguments)
