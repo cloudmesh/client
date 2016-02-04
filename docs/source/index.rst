@@ -22,9 +22,14 @@ This documentation and code is available on github at:
 * Documentation:
 
   * on github: http://cloudmesh.github.io/client/
-  * on rtd: http://cloudmesh-client.readthedocs.org/  (do not use old documentation)
+  * on rtd: http://cloudmesh-client.readthedocs.org/
 
 * Code: https://github.com/cloudmesh/client
+
+* Automated build reports and documentation:
+
+   * Documentation: http://cloudmesh-client.readthedocs.org
+   * Code: https://travis-ci.org/cloudmesh/client
 
 
 .. toctree::
