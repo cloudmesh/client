@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
+    FLAVOR, DEFAULT, KEY, IMAGE, VM, LIBCLOUD_VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
     SECGROUPRULE
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -118,6 +118,10 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
             user = self.user
 
+            #TODO AWS: Implement for all other clouds that libcloud supports
+            if name == "chameleon-ec2":
+                kind = "libcloud_"+kind
+
             if kind in ["flavor", "image", "vm", "secgroup"]:
 
                 # get provider for specific cloud
@@ -220,6 +224,26 @@ class CloudmeshDatabase(object):
                     self.add_obj(db_obj)
                     self.save()
                 return True
+            elif kind in ["libcloud_vm"]:
+
+                 # get provider for specific cloud
+                provider = CloudProvider(name).provider
+                pprint("In CloudmeshDatabase found provider "+str(provider.__dict__))
+                # clear local db records for kind
+                self.clear(kind, name)
+
+                if kind == "libcloud_vm":
+                    vms = provider.list_vm(name)
+                    for vm in vms.values():
+                        vm['uuid'] = "12333"
+                        vm['type'] = 'string'
+                        vm['cloud'] = name
+                        vm['user'] = user
+                        db_obj = {0: {kind: vm}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
 
             else:
                 Console.error("refresh not supported for this kind: {}".format(kind))
@@ -283,6 +307,8 @@ class CloudmeshDatabase(object):
                 return IMAGE
             elif kind.lower() in ["vm"]:
                 return VM
+            elif kind.lower() in ["libcloud_vm"]:
+                return LIBCLOUD_VM
             elif kind.lower() in ["key"]:
                 return KEY
             elif kind.lower() in ["group"]:

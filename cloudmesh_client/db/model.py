@@ -287,6 +287,35 @@ class VM(CloudmeshMixin, db.Base):
                 self[key] = value
         """
 
+class LIBCLOUD_VM(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+    name = Column(String)
+    state = Column(String)
+    public_ips = Column(String)
+    private_ips = Column(String)
+    size = Column(String)
+    image = Column(String)
+
+    def __init__(self, **kwargs):
+        # self.kind = __tablename__
+        self.label = kwargs["name"]
+        self.cloud = kwargs["cloud"] or "general"
+        self.type = kwargs["type"]
+        self.name = kwargs["name"]
+        self.user = kwargs["user"]
+        self.uuid = kwargs["uuid"]
+
+        self.state = kwargs["state"]
+        self.private_ips = kwargs["private_ips"]
+
+        self.kind = self.__tablename__
+
+        """
+        if kwargs is not None:
+            for key, value in kwargs.iteritems():
+                print ("{} = {}".format(key, value))
+                self[key] = value
+        """
 
 class VMUSERMAP(CloudmeshMixin, db.Base):
     """
