@@ -185,3 +185,6 @@ cloudmesh:
     system:
         data: ~/.cloudmesh/cloudmesh_inventory.yaml
         console_color: true
+    logging:
+        file: ~/.cloudmesh/cloudmesh_log.log
+        level: DEBUG

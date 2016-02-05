@@ -14,9 +14,9 @@ from cloudmesh_base.util import path_expand
 from cloudmesh_client.shell.console import Console
 from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.common.LogUtil import LogUtil
 
 import cloudmesh_client
-
 
 def create_cloudmesh_yaml(filename):
     if not os.path.exists(filename):
@@ -81,6 +81,8 @@ class ConsoleClasses(object):
 
 # console = ConsoleFactory(PluginCommand)
 
+LogUtil.init_logging()
+logger = LogUtil.get_logger()
 
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
