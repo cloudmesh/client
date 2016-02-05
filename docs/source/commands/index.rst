@@ -25,6 +25,7 @@ Shell Commands
    command_default
    command_group
    command_ssh
+   command_select
 
 
 .. _section_cloud_commands:
