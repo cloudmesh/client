@@ -1,53 +1,105 @@
 import inspect
 import logging
 from cloudmesh_base.util import path_expand
+from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
+
+# define global format for logs
+FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
+
+# set global key for log
+LOG_LEVEL_KEY = "log_level"
+
+# default log level is ERROR
+DEFAULT_LOG_LEVEL = "ERROR"
+
+# define the logger
+LOGGER = logging.getLogger('LogUtil')
+
 
 class LogUtil(object):
 
-    # TODO: review DebugCOmmand as example
-    # TODO: cm has loglevel command, please review what it does
 
     @staticmethod
-    def save(loglevel):
-        """Saves the current log level to the yaml file and the database"""
-        # TODO: implement see configdict save, see examples on how we set
-        # defaults
-        raise ValueError("not yet implemented")
+    def save(cloudname):
+        # Update the ConfigDict
+        config = ConfigDict("cloudmesh.yaml")
+
+        # get the log level from database
+        log_level = Default.get(key=LOG_LEVEL_KEY,
+                                cloud=cloudname) or \
+                    DEFAULT_LOG_LEVEL
+
+        # Update the cloudmesh config
+        config["cloudmesh"]["logging"]["level"] = log_level
+
+        # Save this into cloudmesh yaml
+        config.save()
+
+        return
 
     @staticmethod
-    def set(loglevel):
-        """Saves the current log level to the database"""
-        # TODO: implement see configdict save, see examples on how we set
-        # defaults
-        raise ValueError("not yet implemented")
+    def set_level(log_level, cloudname):
+        # set default log level
+        Default.set(key=LOG_LEVEL_KEY,
+                    value=log_level,
+                    cloud=cloudname)
 
-
-    @staticmethod
-    def get():
-        """Returns the loglevel set in the database. If the values is not
-        set it is read from the yaml file and than written into the
-        database. If the value is not set in the yaml file, The value is set
-        to ERROR"""
-        # TODO: implement
-        raise ValueError("not yet implemented")
-
-
-    @staticmethod
-    def init_logging():
-        # TODO: method name is awkward
-        # TODO: implement get and set methed oand use that in this method
-        # TODO: make FORMAT a variable global to the class
-        logger = logging.getLogger('LogUtil')
-        FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
+        # get log level obj
+        log_level_obj = LogUtil.get_level_obj(log_level)
 
         # Read the ConfigDict
         config = ConfigDict("cloudmesh.yaml")
-        log_dict = config["cloudmesh"]["logging"]
-        log_level = log_dict["level"]
-        log_file = log_dict["file"]
+        log_file = config["cloudmesh"]["logging"]["file"]
 
-        # Define Log Level
+        # Set the logger config
+        logging.basicConfig(format=FORMAT, level=log_level_obj, filename=path_expand(log_file))
+
+        LOGGER.info("Set log level to: " + log_level)
+        return "Ok."
+
+    @staticmethod
+    def get_level(cloudname):
+        # get the log level from database
+        log_level = Default.get(key=LOG_LEVEL_KEY,
+                                cloud=cloudname)
+
+        LOGGER.info("Returning Log Level: " + log_level)
+
+        # return the level
+        return log_level
+
+    @staticmethod
+    def initialize_logging():
+        # Read the ConfigDict
+        config = ConfigDict("cloudmesh.yaml")
+        log_level = config["cloudmesh"]["logging"]["level"] or \
+                    DEFAULT_LOG_LEVEL
+
+        # Get default cloud
+        cloudname = Default.get_cloud()
+
+        # Set the log level
+        LogUtil.set_level(log_level, cloudname)
+
+        return
+
+
+    @staticmethod
+    def get_logger():
+
+        # get caller file name
+        frame = inspect.stack()[1]
+        module = inspect.getmodule(frame[0])
+        the_class = module.__name__
+
+        # return logger object
+        return logging.getLogger(the_class)
+
+
+    @staticmethod
+    def get_level_obj(log_level):
+        # Return log level obj
         if log_level == "DEBUG":
             log_level = logging.DEBUG
         elif log_level == "INFO":
@@ -61,17 +113,4 @@ class LogUtil(object):
         else:
             log_level = logging.DEBUG
 
-        # Set the logger config
-        logging.basicConfig(format=FORMAT, level=log_level, filename=path_expand(log_file))
-
-        # TODO: I do not think its necessary to send a message that the
-        # logger was started
-        logger.info("Logger Initialized!")
-
-    @staticmethod
-    def get_logger():
-        frame = inspect.stack()[1]
-        module = inspect.getmodule(frame[0])
-        the_class = module.__name__
-
-        return logging.getLogger(the_class)
+        return log_level
