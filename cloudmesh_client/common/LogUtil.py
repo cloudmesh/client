@@ -9,11 +9,19 @@ class LogUtil(object):
     # TODO: cm has loglevel command, please review what it does
 
     @staticmethod
-    def set(loglevel):
+    def save(loglevel):
         """Saves the current log level to the yaml file and the database"""
         # TODO: implement see configdict save, see examples on how we set
         # defaults
         raise ValueError("not yet implemented")
+
+    @staticmethod
+    def set(loglevel):
+        """Saves the current log level to the database"""
+        # TODO: implement see configdict save, see examples on how we set
+        # defaults
+        raise ValueError("not yet implemented")
+
 
     @staticmethod
     def get():
