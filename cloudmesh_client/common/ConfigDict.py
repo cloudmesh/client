@@ -164,6 +164,59 @@ class ConfigDict(object):
 
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
 
+
+
+    def write(self, filename=None, output="dict", attribute_indent=attribute_indent):
+        """
+        This method writes the dict into various outout formats. This includes a dict,
+        json, and yaml
+
+        :param filename: the file in which the dict is written
+        :param output: is a string that is either "dict", "json", "yaml"
+        :param attribute_indent: character indentation of nested attributes in
+        """
+        if filename is not None:
+            location = path_expand(filename)
+        else:
+            location = self['meta']['location']
+
+        # with open('data.yml', 'w') as outfile:
+            #    outfile.write( yaml.dump(data, default_flow_style=True) )
+
+        # Make a backup
+        self.make_a_copy(location)
+
+        f = os.open(location, os.O_CREAT | os.O_TRUNC |
+                    os.O_WRONLY, stat.S_IRUSR | stat.S_IWUSR)
+        if output == "json":
+            os.write(f, self.json())
+        elif output in ['yml', 'yaml']:
+            # d = dict(self)
+            # os.write(f, yaml.dump(d, default_flow_style=False))
+            os.write(f, ordered_dump(OrderedDict(self),
+                                     Dumper=yaml.SafeDumper,
+                                     default_flow_style=False,
+                                     indent=attribute_indent))
+        elif output == "print":
+            os.write(f, custom_print(self, attribute_indent))
+        else:
+            os.write(f, self.dump())
+        os.close(f)
+
+    def make_a_copy(self, location=None):
+        """
+        Creates a backup of the file specified in the location. The backup
+        filename  appends a .bak.NO where number is a number that is not yet
+        used in the backup directory.
+
+        TODO: This function should be moved to another file maybe XShell
+
+        :param location: the location of the file to be backed up
+        """
+        import shutil
+        dest = backup_name(location)
+        shutil.copyfile(location, dest)
+
     def save(self, filename=None):
         """
         saves the configuration in the given filename,

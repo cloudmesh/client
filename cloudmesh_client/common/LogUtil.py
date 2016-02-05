@@ -5,8 +5,31 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class LogUtil(object):
 
+    # TODO: review DebugCOmmand as example
+    # TODO: cm has loglevel command, please review what it does
+
+    @staticmethod
+    def set(loglevel):
+        """Saves the current log level to the yaml file and the database"""
+        # TODO: implement see configdict save, see examples on how we set
+        # defaults
+        raise ValueError("not yet implemented")
+
+    @staticmethod
+    def get():
+        """Returns the loglevel set in the database. If the values is not
+        set it is read from the yaml file and than written into the
+        database. If the value is not set in the yaml file, The value is set
+        to ERROR"""
+        # TODO: implement
+        raise ValueError("not yet implemented")
+
+
     @staticmethod
     def init_logging():
+        # TODO: method name is awkward
+        # TODO: implement get and set methed oand use that in this method
+        # TODO: make FORMAT a variable global to the class
         logger = logging.getLogger('LogUtil')
         FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
 
@@ -33,6 +56,8 @@ class LogUtil(object):
         # Set the logger config
         logging.basicConfig(format=FORMAT, level=log_level, filename=path_expand(log_file))
 
+        # TODO: I do not think its necessary to send a message that the
+        # logger was started
         logger.info("Logger Initialized!")
 
     @staticmethod

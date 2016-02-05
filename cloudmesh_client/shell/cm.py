@@ -144,6 +144,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.command_topics = {}
         self.register_topics()
         self.context = context
+        # TODO get loglevel from DB or yaml file, if not defined set to ERROR
+        self.loglevel = "DEBUG"
         self._hist = []
         if self.context.debug:
             print("init CloudmeshConsole")

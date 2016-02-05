@@ -7,7 +7,8 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
-
+from cloudmesh_base.util import path_expand
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"clear": "shell",
@@ -155,7 +156,6 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         """
 
 
-        """
         if arguments['debug']:
             self.loglevel = "DEBUG"
         elif arguments['error']:
@@ -168,15 +168,14 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
             self.loglevel = "CRITICAL"
         else:
             Console.ok("Log level: {0}".format(self.loglevel))
-            return
+            return ""
         Console.ok ("Log level: {0} is set".format(self.loglevel))
 
-        filename = path_expand("~/.cloudmesh/cmd3.yaml")
-        config = ConfigDict(filename=filename)
-        config["cmd3"]["properties"]["loglevel"] = self.loglevel
-        config.write(filename=filename, output="yaml", attribute_indent="    ")
-        """
-        Console.error("loglevel NOT YET IMPLEMENTED")
+        filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
+        config = ConfigDict(filename)
+        config["cloudmesh.logging.level"] = self.loglevel
+        config.write("aaa.yaml")
+        #config.write(filename=filename, output="yaml", attribute_indent="    ")
         return ""
 
 

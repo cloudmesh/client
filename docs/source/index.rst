@@ -39,13 +39,18 @@ This documentation and code is available on github at:
    introduction
 
 .. toctree::
-   :caption: User Manuals
+   :caption: Short Manuals
    :maxdepth: 2
 
    quickstart
    reference_card
-   setup
    scripts
+
+.. toctree::
+   :caption: User Manuals
+   :maxdepth: 2
+
+   setup
    commands/index
    man/man
 
