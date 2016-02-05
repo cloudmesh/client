@@ -8,6 +8,37 @@ from cloudmesh_client.common.todo import TODO
 
 from cloudmesh_base.util import path_expand
 from collections import OrderedDict
+import yaml
+
+
+def custom_print(data_structure, indent, attribute_indent=4):
+    for key, value in data_structure.items():
+        print("\n%s%s:" % (' ' * attribute_indent * indent, str(key)), end=' ')
+        if isinstance(value, OrderedDict):
+            custom_print(value, indent + 1)
+        elif isinstance(value, dict):
+            custom_print(value, indent + 1)
+        else:
+            print("%s" % (str(value)), end=' ')
+
+
+def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
+    """
+    writes the dict into an ordered yaml.
+
+    :param data: The ordered dict
+    :param stream: the stream
+    :param Dumper: the dumper such as yaml.SafeDumper
+    """
+    class OrderedDumper(Dumper):
+        pass
+
+    def _dict_representer(dumper, data):
+        return dumper.represent_mapping(
+            yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+            data.items())
+    OrderedDumper.add_representer(OrderedDict, _dict_representer)
+    return yaml.dump(data, stream, OrderedDumper, **kwds)
 
 
 # noinspection PyPep8Naming
@@ -165,8 +196,7 @@ class ConfigDict(object):
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
 
 
-
-    def write(self, filename=None, output="dict", attribute_indent=attribute_indent):
+    def write(self, filename=None, output="dict"):
         """
         This method writes the dict into various outout formats. This includes a dict,
         json, and yaml
