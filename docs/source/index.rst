@@ -24,7 +24,12 @@ This documentation and code is available on github at:
   * on github: http://cloudmesh.github.io/client/
   * on rtd: http://cloudmesh-client.readthedocs.org/
 
-    * Code: https://github.com/cloudmesh/client
+* Code: https://github.com/cloudmesh/client
+
+* Automated build reports and documentation:
+
+   * Documentation: http://cloudmesh-client.readthedocs.org
+   * Code: https://travis-ci.org/cloudmesh/client
 
 
 .. toctree::
@@ -34,13 +39,18 @@ This documentation and code is available on github at:
    introduction
 
 .. toctree::
-   :caption: User Manuals
+   :caption: Short Manuals
    :maxdepth: 2
 
    quickstart
    reference_card
-   setup
    scripts
+
+.. toctree::
+   :caption: User Manuals
+   :maxdepth: 2
+
+   setup
    commands/index
    man/man
 

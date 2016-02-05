@@ -2,8 +2,9 @@ Introduction
 =============
 
 * `31 page slide presentation <https://drive.google.com/file/d/0Bx_sUfI4VkKSVG9KOE8xU05KREE/view?usp=sharing>`_
-and press the download link. The presentation comes with audio and can
-only be utilized once you download it.
+  is available. Please press the download link. The presentation comes with audio and can
+  only be utilized once you download it. An alternative link provides
+  the presentation with audio `online <https://mix.office.com/watch/1c7rd1l9i4c8o>`_
 	  
 * :download:`8 page slide presentation<images/cloudmesh-arch.pptx>`
 
@@ -100,10 +101,11 @@ Installation information
 Next we recommend that you get familiar with the concept of defaults
 in cloudmesh. After that you have several options:
 
-* If you are interestted in clouds such as Openstack read the `cloud manual`
+* If you are interestted in clouds such as Openstack read the Section 
+  :ref:`section_cloud_commands`
 
 * If you are interested in Comet read the
   :ref:`the comet command manual <comet_command>`.
 
-* If you are interested in HPC read the `HPC command manual`
+* If you are interested in HPC read the Section :ref:`section_hpc_commands`
 

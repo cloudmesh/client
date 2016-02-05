@@ -1,12 +1,17 @@
 from __future__ import print_function
+
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command, PluginCommand, \
     CloudPluginCommand, CometPluginCommand
 from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.common.LogUtil import LogUtil
 
+
+logger = LogUtil.get_logger()
 
 class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"default": "cloud"}
+
 
     def __init__(self, context):
         self.context = context
@@ -115,7 +120,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         (eg. image=yyy for cloud=xxx).
         """
 
-
+        logger.info(arguments)
 
         if arguments["KEY"] in general_keys:
             cloud = "general"

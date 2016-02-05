@@ -27,6 +27,9 @@ Shell Commands
    command_ssh
    command_select
 
+
+.. _section_cloud_commands:
+
 Cloud Commands
 ^^^^^^^^^^^^^^^
 
@@ -49,7 +52,8 @@ Cloud Commands
    command_quota
    command_usage
 
-
+.. _section_hpc_commands:
+   
 HPC Commands
 ^^^^^^^^^^^^^^^
 

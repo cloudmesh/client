@@ -633,7 +633,7 @@ Status
 
 
 Stack (Hyungro)
------
+----------------
 
 ::
 
@@ -681,7 +681,7 @@ Stack (Hyungro)
 
 
 notebook (not)
----------
+--------------
 
 ::
    
@@ -874,7 +874,7 @@ Key
 
 
 Inventory (not, Gregor)
------------
+------------------------
 
 ::
    
@@ -910,7 +910,7 @@ Inventory (not, Gregor)
 
 
 Experiment (do, Gregor)
------------
+------------------------
 
 ::
         
@@ -938,7 +938,7 @@ Experiment (do, Gregor)
              -v       verbose mode
 
 debug (not cmd3, Gregor)
------
+--------------------------
 
 ::
        
@@ -948,28 +948,6 @@ debug (not cmd3, Gregor)
 
               Turns the debug log level on and off.
 
-color (not cmd3, Gregor)
------
-
-::
-        
-          Usage:
-              color on
-              color off
-              color
-
-              Turns the shell color printing on or off
-
-          Description:
-
-              color on   switched the color on
-
-              color off  switches the color off
-
-              color      without parameters prints a test to display
-                         the various colored messages. It is intended
-                         as a test to see if your terminal supports
-                         colors.
 
 Cluster
 --------

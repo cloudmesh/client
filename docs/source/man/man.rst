@@ -1058,29 +1058,29 @@ Command - network::
         FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
 
     Examples:
-        $ network get fixed ip --cloud=india 10.1.2.5
-        $ network get fixed --cloud=india 10.1.2.5
-        $ network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
-        $ network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
-        $ network reserve fixed ip --cloud=india 10.1.2.5
-        $ network reserve fixed --cloud=india 10.1.2.5
-        $ network unreserve fixed ip --cloud=india 10.1.2.5
-        $ network unreserve fixed --cloud=india 10.1.2.5
-        $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
-        $ network associate floating --cloud=india --instance=albert-001
-        $ network associate floating --cloud=india --group=albert_group
-        $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
-        $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
-        $ network create floating ip --cloud=india --pool=albert-f01
-        $ network create floating --cloud=india --pool=albert-f01
-        $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
-        $ network delete floating --cloud=india 192.1.66.8 192.1.66.9
-        $ network list floating ip --cloud=india
-        $ network list floating --cloud=india
-        $ network list floating --cloud=india 192.1.66.8
-        $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
-        $ network list floating pool --cloud=india
-        $ network create cluster --group=demo_group
+        network get fixed ip --cloud=india 10.1.2.5
+        network get fixed --cloud=india 10.1.2.5
+        network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+        network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+        network reserve fixed ip --cloud=india 10.1.2.5
+        network reserve fixed --cloud=india 10.1.2.5
+        network unreserve fixed ip --cloud=india 10.1.2.5
+        network unreserve fixed --cloud=india 10.1.2.5
+        network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
+        network associate floating --cloud=india --instance=albert-001
+        network associate floating --cloud=india --group=albert_group
+        network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
+        network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
+        network create floating ip --cloud=india --pool=albert-f01
+        network create floating --cloud=india --pool=albert-f01
+        network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
+        network delete floating --cloud=india 192.1.66.8 192.1.66.9
+        network list floating ip --cloud=india
+        network list floating --cloud=india
+        network list floating --cloud=india 192.1.66.8
+        network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
+        network list floating pool --cloud=india
+        network create cluster --group=demo_group
 
 
 
@@ -1519,10 +1519,10 @@ Command - secgroup::
 
 
     Examples:
-        $ secgroup list --cloud india --tenant fg82
-        $ secgroup rules-list --cloud india --tenant fg82 default
-        $ secgroup create --cloud india --tenant fg82 webservice
-        $ secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+        secgroup list --cloud india --tenant fg82
+        secgroup rules-list --cloud india --tenant fg82 default
+        secgroup create --cloud india --tenant fg82 webservice
+        secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
 
 
@@ -1777,26 +1777,26 @@ Command - vm::
                 [--secgroup=SECGROUP]
                 [--key=KEY]
                 [--dryrun]
-        vm start NAME...
+        vm start [NAME]...
                  [--group=GROUP]
                  [--cloud=CLOUD]
                  [--force]
-        vm stop NAME...
+        vm stop [NAME]...
                 [--group=GROUP]
                 [--cloud=CLOUD]
                 [--force]
-        vm delete NAME...
+        vm delete [NAME]...
                   [--group=GROUP]
                   [--cloud=CLOUD]
                   [--force]
-        vm ip assign NAME...
+        vm ip assign [NAME]...
                   [--cloud=CLOUD]
-        vm ip show NAME...
+        vm ip show [NAME]...
                    [--group=GROUP]
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
-        vm login NAME [--user=USER]
+        vm login [NAME] [--user=USER]
                  [--ip=IP]
                  [--cloud=CLOUD]
                  [--key=KEY]
@@ -1816,7 +1816,7 @@ Command - vm::
                        you will get a return of executing result instead of login to
                        the server, note that type in -- is suggested before
                        you input the commands
-        NAME           server name
+        NAME           server name. By default it is set to the name of last vm from database.
         NAME_OR_ID     server name or ID
         KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
