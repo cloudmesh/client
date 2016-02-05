@@ -28,8 +28,8 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
         ::
 
           Usage:
-              select image [CLOUD]
-              select flavor [CLOUD]
+              select image [CLOUD] [--refresh]
+              select flavor [CLOUD] [--refresh]
               select cloud [CLOUD]
               select key [CLOUD]
 
@@ -41,11 +41,18 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
           Options:
 
+            --refresh   refreshes the data before displaying it
+                        from the cloud
+
         """
         # pprint(arguments)
         cloud = arguments["CLOUD"] or Default.get_cloud()
         if arguments["image"]:
             try:
+                refresh = arguments['--refresh'] or Default.refresh()
+                if refresh:
+                    Image.refresh(cloud)
+
                 image_dict = Image.list(cloud, format="dict")
 
                 image_names = list()
@@ -68,6 +75,10 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["flavor"]:
             try:
+                refresh = arguments['--refresh'] or Default.refresh()
+                if refresh:
+                    Flavor.refresh(cloud)
+
                 flavor_dict = Flavor.list(cloud, format="dict")
 
                 flavor_names = list()
