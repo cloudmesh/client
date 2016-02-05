@@ -34,15 +34,16 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         searchobj = re.match( r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)', auth_url, re.M|re.I)
 
         if searchobj:
-           print "searchObj.group() : ", searchobj.group()
-           print "host : ", searchobj.group(1)
-           host=searchobj.group(1)
-           print "port : ", searchobj.group(2)
-           port=searchobj.group(2)
-           print "path : ", searchobj.group(3)
-           path=searchobj.group(3)
+            print "searchObj.group() : ", searchobj.group()
+            print "host : ", searchobj.group(1)
+            host=searchobj.group(1)
+            print "port : ", searchobj.group(2)
+            port=searchobj.group(2)
+            print "path : ", searchobj.group(3)
+            path=searchobj.group(3)
         else:
-           print "Nothing found!!"
+            # TODO: use print ( ) style, better error description. full stop instead of ! ;-)
+            print "Nothing found!!"
 
         # if libcloudname == "ec2" :
         # url_split=auth_url.split("/:")
