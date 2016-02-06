@@ -22,7 +22,13 @@ class LogUtil(object):
 
     @staticmethod
     def save(cloudname):
-        # Update the ConfigDict
+        """
+        save the loglevel for a cloud to the cloudmesh.yaml file
+        :param cloudname: the name of the cloud
+        """
+        # TODO: BUG: this seems inconsistant as loglevels via default
+        # can now be defined for clouds, but the yaml file only
+        # specifies one value for all clouds.
         config = ConfigDict("cloudmesh.yaml")
 
         # get the log level from database
@@ -36,11 +42,18 @@ class LogUtil(object):
         # Save this into cloudmesh yaml
         config.save()
 
-        return
 
     @staticmethod
     def set_level(log_level, cloudname):
-        # set default log level
+        """
+        sets th eloglevel in teh database and the loglevel file from
+        cloudmesh.yaml
+        :param log_level: the loglevel
+        :param cloudname: the cloudname
+        :return:
+        """
+        # TODO: BUG: This seems inconsistent with our use as it mixes db and
+        # cloudmesh.yaml.
         Default.set(key=LOG_LEVEL_KEY,
                     value=log_level,
                     cloud=cloudname)
@@ -53,14 +66,20 @@ class LogUtil(object):
         log_file = config["cloudmesh"]["logging"]["file"]
 
         # Set the logger config
-        logging.basicConfig(format=FORMAT, level=log_level_obj, filename=path_expand(log_file))
+        logging.basicConfig(format=FORMAT,
+                            level=log_level_obj,
+                            filename=path_expand(log_file))
 
         LOGGER.info("Set log level to: " + log_level)
         return "Ok."
 
     @staticmethod
     def get_level(cloudname):
-        # get the log level from database
+        """
+        get the log level from database
+        :param cloudname: The name of the cloud
+        :return: the log level
+        """
         log_level = Default.get(key=LOG_LEVEL_KEY,
                                 cloud=cloudname)
 
@@ -71,7 +90,12 @@ class LogUtil(object):
 
     @staticmethod
     def initialize_logging():
-        # Read the ConfigDict
+        """
+        reads the log level from the cloudmesh.yaml file from
+        cloudmesh.logging.level. If the value is not set the logging will be
+        set to the default which is "ERROR"
+        :return: the loglevel
+        """
         config = ConfigDict("cloudmesh.yaml")
         log_level = config["cloudmesh"]["logging"]["level"] or \
                     DEFAULT_LOG_LEVEL
@@ -87,8 +111,11 @@ class LogUtil(object):
 
     @staticmethod
     def get_logger():
+        """
+        get caller file name
+        :return: file name based on the context where the logger is caller
+        """
 
-        # get caller file name
         frame = inspect.stack()[1]
         module = inspect.getmodule(frame[0])
         the_class = module.__name__
@@ -99,18 +126,25 @@ class LogUtil(object):
 
     @staticmethod
     def get_level_obj(log_level):
+        """
+        gets the log level when passing a string
+        :param log_level: case insensitive string. Valid values are debug,
+                          info, warning, critical, error
+        :return: a logging level
+        """
         # Return log level obj
-        if log_level == "DEBUG":
+        level = log_level.lower()
+        if level == "debug":
             log_level = logging.DEBUG
-        elif log_level == "INFO":
-            log_level = logging.INFO
-        elif log_level == "WARNING":
-            log_level = logging.WARNING
-        elif log_level == "CRITICAL":
-            log_level = logging.CRITICAL
-        elif log_level == "ERROR":
-            log_level = logging.ERROR
+        elif level == "info":
+            level = logging.INFO
+        elif log_level == "warning":
+            level = logging.WARNING
+        elif log_level == "critical":
+            level = logging.CRITICAL
+        elif level == "error":
+            level = logging.ERROR
         else:
-            log_level = logging.DEBUG
+            level = logging.DEBUG
 
-        return log_level
+        return level
