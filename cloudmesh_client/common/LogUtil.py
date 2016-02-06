@@ -4,14 +4,6 @@ from cloudmesh_base.util import path_expand
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
-# define global format for logs
-FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
-
-# set global key for log
-LOG_LEVEL_KEY = "log_level"
-
-# default log level is ERROR
-DEFAULT_LOG_LEVEL = "ERROR"
 
 # define the logger
 LOGGER = logging.getLogger('LogUtil')
@@ -19,12 +11,21 @@ LOGGER = logging.getLogger('LogUtil')
 
 class LogUtil(object):
 
+    # define global format for logs
+    FORMAT = "%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s"
+
+    # set global key for log
+    LOG_LEVEL_KEY = "log_level"
+
+    # default log level is ERROR
+    DEFAULT_LOG_LEVEL = "ERROR"
+
+    category = "general"
 
     @staticmethod
-    def save(cloudname):
+    def save():
         """
         save the loglevel for a cloud to the cloudmesh.yaml file
-        :param cloudname: the name of the cloud
         """
         # TODO: BUG: this seems inconsistant as loglevels via default
         # can now be defined for clouds, but the yaml file only
@@ -32,9 +33,9 @@ class LogUtil(object):
         config = ConfigDict("cloudmesh.yaml")
 
         # get the log level from database
-        log_level = Default.get(key=LOG_LEVEL_KEY,
-                                cloud=cloudname) or \
-                    DEFAULT_LOG_LEVEL
+        log_level = Default.get(
+            key=LogUtil.LOG_LEVEL_KEY,
+            cloud=LogUtil.category) or LogUtil.DEFAULT_LOG_LEVEL
 
         # Update the cloudmesh config
         config["cloudmesh"]["logging"]["level"] = log_level
@@ -44,19 +45,18 @@ class LogUtil(object):
 
 
     @staticmethod
-    def set_level(log_level, cloudname):
+    def set_level(log_level):
         """
         sets th eloglevel in teh database and the loglevel file from
         cloudmesh.yaml
         :param log_level: the loglevel
-        :param cloudname: the cloudname
         :return:
         """
         # TODO: BUG: This seems inconsistent with our use as it mixes db and
         # cloudmesh.yaml.
-        Default.set(key=LOG_LEVEL_KEY,
+        Default.set(key=LogUtil.LOG_LEVEL_KEY,
                     value=log_level,
-                    cloud=cloudname)
+                    cloud=LogUtil.category)
 
         # get log level obj
         log_level_obj = LogUtil.get_level_obj(log_level)
@@ -66,7 +66,7 @@ class LogUtil(object):
         log_file = config["cloudmesh"]["logging"]["file"]
 
         # Set the logger config
-        logging.basicConfig(format=FORMAT,
+        logging.basicConfig(format=LogUtil.FORMAT,
                             level=log_level_obj,
                             filename=path_expand(log_file))
 
@@ -74,14 +74,14 @@ class LogUtil(object):
         return "Ok."
 
     @staticmethod
-    def get_level(cloudname):
+    def get_level():
         """
         get the log level from database
         :param cloudname: The name of the cloud
         :return: the log level
         """
-        log_level = Default.get(key=LOG_LEVEL_KEY,
-                                cloud=cloudname)
+        log_level = Default.get(key=LogUtil.LOG_LEVEL_KEY,
+                                cloud=LogUtil.category)
 
         LOGGER.info("Returning Log Level: " + log_level)
 
@@ -98,13 +98,12 @@ class LogUtil(object):
         """
         config = ConfigDict("cloudmesh.yaml")
         log_level = config["cloudmesh"]["logging"]["level"] or \
-                    DEFAULT_LOG_LEVEL
+                    LogUtil.DEFAULT_LOG_LEVEL
 
-        # Get default cloud
-        cloudname = Default.get_cloud()
+        print ("PPPP",log_level)
 
         # Set the log level
-        LogUtil.set_level(log_level, cloudname)
+        LogUtil.set_level(log_level)
 
         return
 
@@ -134,13 +133,14 @@ class LogUtil(object):
         """
         # Return log level obj
         level = log_level.lower()
+
         if level == "debug":
             log_level = logging.DEBUG
         elif level == "info":
             level = logging.INFO
-        elif log_level == "warning":
+        elif level == "warning":
             level = logging.WARNING
-        elif log_level == "critical":
+        elif level == "critical":
             level = logging.CRITICAL
         elif level == "error":
             level = logging.ERROR
