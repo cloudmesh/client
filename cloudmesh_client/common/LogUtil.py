@@ -30,7 +30,6 @@ class LogUtil(object):
         # TODO: BUG: this seems inconsistant as loglevels via default
         # can now be defined for clouds, but the yaml file only
         # specifies one value for all clouds.
-        config = ConfigDict("cloudmesh.yaml")
 
         # get the log level from database
         log_level = Default.get(
@@ -38,6 +37,7 @@ class LogUtil(object):
             cloud=LogUtil.category) or LogUtil.DEFAULT_LOG_LEVEL
 
         # Update the cloudmesh config
+        config = ConfigDict("cloudmesh.yaml")
         config["cloudmesh"]["logging"]["level"] = log_level
 
         # Save this into cloudmesh yaml
@@ -54,6 +54,8 @@ class LogUtil(object):
         """
         # TODO: BUG: This seems inconsistent with our use as it mixes db and
         # cloudmesh.yaml.
+        level = log_level.upper()
+
         Default.set(key=LogUtil.LOG_LEVEL_KEY,
                     value=log_level,
                     cloud=LogUtil.category)

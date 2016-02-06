@@ -170,7 +170,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         create_cloudmesh_yaml(filename)
 
         # Initialize Logging
-        LogUtil.initialize_logging()
+        # LogUtil.initialize_logging()
 
         # sys,exit(1)
 
