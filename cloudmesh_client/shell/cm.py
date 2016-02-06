@@ -81,9 +81,6 @@ class ConsoleClasses(object):
 
 # console = ConsoleFactory(PluginCommand)
 
-LogUtil.init_logging()
-logger = LogUtil.get_logger()
-
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
@@ -171,6 +168,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
         create_cloudmesh_yaml(filename)
+
+        # Initialize Logging
+        LogUtil.initialize_logging()
 
         # sys,exit(1)
 
