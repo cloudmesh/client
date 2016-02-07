@@ -7,9 +7,6 @@ from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-from pprint import pprint
-
-
 # noinspection PyBroadException
 class Default(ListResource):
     """
@@ -356,9 +353,6 @@ class Default(ListResource):
         config = ConfigDict(filename=filename)["cloudmesh"]
         clouds = config["clouds"]
 
-        d = ConfigDict(filename)
-        # print (d)
-
         # FINDING DEFAULTS FOR CLOUDS
 
         for cloud in clouds:
@@ -380,9 +374,7 @@ class Default(ListResource):
         #     keylist:
         #       id_rsa: ~/.ssh/id_rsa.pub
 
-
         # key_db = SSHKeyDBManager()
-
 
         name_key = cls.get("key")
 
