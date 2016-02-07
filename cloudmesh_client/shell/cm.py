@@ -198,6 +198,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             cluster = value
         Default.set('cluster', cluster, cloud='general')
 
+        group = Default.get_group()
+        if group is None:
+            Default.set_group("default")
 
         Default.load("cloudmesh.yaml")
 
