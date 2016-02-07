@@ -198,38 +198,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             cluster = value
         Default.set('cluster', cluster, cloud='general')
 
-        #
-        # Read cloud details from yaml file
-        #
-        filename = 'cloudmesh.yaml'
-        config = ConfigDict(filename=filename)["cloudmesh"]
-        clouds = config["clouds"]
 
-        defaults = {
-            'clouds': {},
-            'key': {}
-        }
-
-        for cloud in clouds:
-            if "default" in config['clouds'][cloud]:
-                defaults['clouds'][cloud] = config["clouds"][cloud]['default']
-
-        if "default" in config["keys"]:
-            defaults["keys"] = config["keys"]["default"]
-            if config["keys"] in ["None", "TBD"]:
-                defaults['key'] = None
-        else:
-            defaults['key'] = None
-
-        for cloud in defaults["clouds"]:
-            for default, value in defaults["clouds"][cloud].iteritems():
-
-                try:
-                    value = Default.get(default, cloud=cloud)
-                except:
-                    pass
-
-                Default.set(default, value, cloud=cloud)
+        Default.load("cloudmesh.yaml")
 
         for c in CloudmeshConsole.__bases__[1:]:
             # noinspection PyArgumentList
