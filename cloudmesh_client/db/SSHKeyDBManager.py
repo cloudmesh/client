@@ -7,8 +7,6 @@ from cloudmesh_client.keys.SSHKeyManager import SSHkey
 from cloudmesh_client.db.model import KEY, KEYCLOUDMAP
 from cloudmesh_client.db import CloudmeshDatabase
 
-from sqlite3 import IntegrityError
-
 # noinspection PyBroadException
 class SSHKeyDBManager(object):
     def __init__(self, user=None):
@@ -35,7 +33,6 @@ class SSHKeyDBManager(object):
             self.db.save()
         except Exception, e:
             raise ValueError("Key already exists")
-
 
     def add_from_dict(self, d):
         pprint(d)
@@ -69,11 +66,9 @@ class SSHKeyDBManager(object):
 
         # pprint(sshkey)
 
-
         # find if the key with fingerprint already exists
 
         # if so return warning and return command
-
 
         key_obj = KEY(
             keyname,
@@ -174,7 +169,11 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        keycloudmap = self.db.find(KEYCLOUDMAP, output="object", user=user, key_name=keyname, cloud_name=cloud)
+        keycloudmap = self.db.find(KEYCLOUDMAP,
+                                   output="object",
+                                   user=user,
+                                   key_name=keyname,
+                                   cloud_name=cloud)
         keycloudmapdict = self.db.object_to_dict(keycloudmap)
         # print(keycloudmap)
         if keycloudmapdict is not None and len(keycloudmapdict) != 0:
@@ -190,7 +189,6 @@ class SSHKeyDBManager(object):
     def get_key_cloud_maps(self):
         """
         Returns entries in Key-Cloud map table.
-        :param keyname: Name of the key in db.
         :return:
         """
 
@@ -216,7 +214,9 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        keycloudmap = self.db.find(KEYCLOUDMAP, output="object", key_name=keyname)
+        keycloudmap = self.db.find(KEYCLOUDMAP,
+                                   output="object",
+                                   key_name=keyname)
         # print(keycloudmap.values())
         for key in keycloudmap:
             # print("Deleting: {:}".format(key))

@@ -1,9 +1,11 @@
 from __future__ import print_function
 
 from cloudmesh_client.common import Printer
+# from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
+
 
 from pprint import pprint
 
@@ -250,13 +252,12 @@ class Default(ListResource):
     #
 
     @classmethod
-    def set_key(cls, value):
+    def set_key(cls, name):
         """
-        sets the default key
-        :param value: the key name
+        :param name: the key name
         :return:
         """
-        cls.set("key", value, "general")
+        cls.set("key", name, "general")
 
     @classmethod
     def get_key(cls):
@@ -373,18 +374,24 @@ class Default(ListResource):
                     value = db[attribute] or defaults[attribute]
                 Default.set(attribute, value, cloud=cloud)
 
-        # FINDING DEFAUKTS FOR KEYS
+        # FINDING DEFAUlTS FOR KEYS
         # keys:
         #     default: id_rsa
         #     keylist:
         #       id_rsa: ~/.ssh/id_rsa.pub
 
 
-        db_key = cls.get("key")
+        # key_db = SSHKeyDBManager()
+
+
+        name_key = cls.get("key")
 
         keys = config["keys"]
         name = keys["default"]
         if name in keys["keylist"]:
-            value = db_key or keys["keylist"][name]
+            value = name_key or keys["keylist"][name]
+            # key_db.add(value, keyname=name)
 
-        Default.set_key(value)
+        Default.set_key(name)
+
+
