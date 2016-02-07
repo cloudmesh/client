@@ -38,6 +38,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key list [--source=db] [--format=FORMAT]
              key list --source=cloudmesh [--format=FORMAT]
              key list --source=ssh [--dir=DIR] [--format=FORMAT]
+             key load [--format=FORMAT]
              key list --source=git [--format=FORMAT] [--username=USERNAME]
              key add --git [--name=KEYNAME] FILENAME
              key add --ssh [--name=KEYNAME]
@@ -219,6 +220,35 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print(traceback.format_exc())
                     print (e)
                     Console.error("Problem listing keys from database")
+
+        elif arguments['load']:
+            _format = arguments['--format']
+            _dir = arguments['--dir']
+
+            try:
+                sshm = SSHKeyManager()
+                m = sshm.get_from_yaml(load_order=directory)
+                d = dict(m.__keys__)
+
+
+                sshdb = SSHKeyDBManager()
+
+                for keyname in m.__keys__:
+                    filename = m[keyname]["path"]
+                    try:
+                        sshdb.add(filename,
+                                  keyname,
+                                  source="yaml",
+                                  uri="file://" + filename)
+                    except Exception, e:
+                        Console.error("problem adding key {}:{}".format(
+                            keyname, filename))
+
+                print(_print_dict(d, format=_format))
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception, e:
+                Console.error("Problem adding keys from yaml file")
 
         elif arguments['get']:
 

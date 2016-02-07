@@ -22,10 +22,12 @@ class SSHkey(object):
     def read(self, file_path, keyname=None):
         self.__key__ = {}
         if file_path is not None:
+            orig_path = file_path
             file_path = Config.path_expand(file_path)
             uri = 'file://{}'.format(file_path)
             self.__key__ = {
                 'uri': uri,
+                'path': orig_path,
                 'string': open(file_path, "r").read().rstrip()
             }
 

@@ -6,6 +6,7 @@ from cloudmesh_base.menu import menu_return_num
 from cloudmesh_client.keys.SSHKeyManager import SSHkey
 from cloudmesh_client.db.model import KEY, KEYCLOUDMAP
 from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.shell.console import Console
 
 # noinspection PyBroadException
 class SSHKeyDBManager(object):
@@ -221,3 +222,23 @@ class SSHKeyDBManager(object):
         for key in keycloudmap:
             # print("Deleting: {:}".format(key))
             self.db.delete(key)
+    """
+    def load(self):
+
+        sshm = SSHKeyManager()
+        m = sshm.get_from_yaml(load_order="~/.cloudmesh/cloudmesh.yaml")
+        d = dict(m.__keys__)
+
+        sshdb = SSHKeyDBManager()
+
+        for keyname in m.__keys__:
+            filename = m[keyname]["path"]
+            try:
+                sshdb.add(filename,
+                          keyname,
+                          source="yaml",
+                          uri="file://" + filename)
+            except Exception, e:
+                Console.error("problem adding key {}:{}".format(
+                    keyname, filename))
+    """

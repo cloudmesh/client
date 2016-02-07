@@ -101,6 +101,7 @@ class SSHKeyManager(object):
                  sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
                 sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
                 sshkey.__key__['name'] = keyname
+                sshkey.__key__['filename'] = filename
                 sshmanager.add_from_object(sshkey)
         return sshmanager
         """

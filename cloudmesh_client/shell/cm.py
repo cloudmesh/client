@@ -47,6 +47,11 @@ from cloudmesh_base.ssh_config import ssh_config
 import cloudmesh_client.etc
 
 
+from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+
+
+
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
@@ -203,6 +208,29 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Default.set_group("default")
 
         Default.load("cloudmesh.yaml")
+
+        """
+        try:
+            sshm = SSHKeyManager()
+            m = sshm.get_from_yaml(
+                load_order="~/.cloudmesh/cloudmesh.yaml")
+            d = dict(m.__keys__)
+
+
+            sshdb = SSHKeyDBManager()
+
+            for keyname in m.__keys__:
+                filename = m[keyname]["path"]
+                try:
+                    sshdb.add(filename,
+                              keyname,
+                              source="yaml",
+                              uri="file://" + filename)
+                except Exception, e:
+                    pass
+        except Exception, e:
+            Console.error("Problem adding keys from yaml file")
+        """
 
         for c in CloudmeshConsole.__bases__[1:]:
             # noinspection PyArgumentList
