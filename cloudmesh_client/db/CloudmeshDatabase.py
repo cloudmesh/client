@@ -372,7 +372,7 @@ class CloudmeshDatabase(object):
         d = self.parse_objs(elements)
         return d
 
-    def update(self, kind, kwargs):
+    def update(self, kind, **kwargs):
         """
 
         :param kind:

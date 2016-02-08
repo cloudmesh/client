@@ -99,7 +99,14 @@ class SSHKeyDBManager(object):
         default_key = self.get_default()
         if default_key:
             default_key.is_default = 'False'
-        self.find(keyname).is_default = 'True'
+
+        key = self.find(keyname)
+        key["is_default"] = True
+
+        self.db.find("KEY", output="object", name=key["name"]).update(key)
+        self.db.save()
+        # self.db.update("KEY", key)
+        # self.db.find(keyname).is_default = 'True'
         self.db.save()
 
     def get_default(self):
@@ -129,9 +136,9 @@ class SSHKeyDBManager(object):
         """
         return self.db.dict(KEY)
 
-    def update(self, clouds):
+    def update(self, **kwargs):
         # i'm not sure how this function works
-        self.db.update("key", clouds)
+        self.db.update("key", kwargs)
 
     def delete_all(self):
         """

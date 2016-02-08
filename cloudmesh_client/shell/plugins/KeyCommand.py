@@ -45,7 +45,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [--name=KEYNAME] FILENAME
              key get NAME
              key default [KEYNAME | --select]
-             key delete (KEYNAME | --select | --all) [-f]
+             key delete (KEYNAME | --select | --all) [--force=VALUE]
              key upload KEYNAME
                               [--cloud=CLOUD]
                               [--name=NAME_ON_CLOUD]
@@ -70,6 +70,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
               --username=USERNAME           the source for the keys [default: none]
               --name=KEYNAME                The name of a key
               --all                         delete all keys
+              --force=VALUE                 delete teh key form the cloud
               --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
            Description:
@@ -372,7 +373,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     keyname = arguments['KEYNAME']
                     sshdb = SSHKeyDBManager()
                     sshdb.set_default(keyname)
-                    Default.set("key", keyname, "general")
+                    Default.set_key(keyname)
                     print("Key {:} set as default".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)
@@ -422,9 +423,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments['delete']:
             # print('delete')
+
+            delete_on_cloud=arguments["--force"]
+
             if arguments['--all']:
                 try:
-                    sshm = SSHKeyManager()
+                    sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
                     sshm.delete_all_keys()
                     print("All keys from the database deleted successfully.")
                     msg = "info. OK."
@@ -436,7 +440,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Problem deleting keys")
             elif arguments['--select']:
                 keyname = None
-                sshdb = SSHKeyDBManager()
+                sshdb = SSHKeyDBManager(delete_on_cloud=delete_on_cloud)
                 select = sshdb.select()
                 if select != 'q':
                     try:
@@ -455,7 +459,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 keyname = None
                 try:
                     keyname = arguments['KEYNAME']
-                    sshm = SSHKeyManager()
+                    sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
                     sshm.delete_key(keyname)
                     print("Key {:} deleted successfully from database.".format(keyname))
                     msg = "info. OK."
