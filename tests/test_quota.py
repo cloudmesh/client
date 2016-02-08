@@ -43,7 +43,7 @@ class Test_quota():
         """
         HEADING()
         result = run("cm quota list --cloud=kilo --format=csv")
-        assert "Quota" in result
+        assert "ram" in result
 
     def test_003(self):
         """
@@ -51,5 +51,5 @@ class Test_quota():
         :return:
         """
         HEADING()
-        result = run("cm quota list --cloud=india1")
-        assert "Error in setting OS environment" in result
+        result = run("cm quota list --cloud=doesnotexist")
+        assert "is not defined in the yaml file" in result

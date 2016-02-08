@@ -33,5 +33,6 @@ class Test_usage():
         :return:
         """
         HEADING()
-        result = run("cm list --cloud=india")
-        assert "Usage from" in result
+        result = run("cm usage list --cloud=kilo")
+        print(result)
+        assert "start" in result
