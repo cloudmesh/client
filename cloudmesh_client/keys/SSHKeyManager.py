@@ -12,13 +12,17 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
+from cloudmesh_base.util import yn_choice
 
 from urlparse import urlparse
 
 
 class SSHKeyManager(object):
-    def __init__(self):
+    def __init__(self, delete_on_cloud=None):
         self.__keys__ = {}
+        self.delete_on_cloud_question = delete_on_cloud is None
+        self.delete_on_cloud = (delete_on_cloud is not None) and \
+                               delete_on_cloud
 
     def add_from_file(self, file_path, keyname=None):
         sshkey = SSHkey(file_path, keyname)
@@ -193,11 +197,11 @@ class SSHKeyManager(object):
 
     def delete_all_keys(self):
 
-        delete_on_cloud = ""
-        while delete_on_cloud != "y" and delete_on_cloud != "n":
-            delete_on_cloud = raw_input("Do you want to delete the corresponding key on cloud if present? (y/n): ")
-            if delete_on_cloud != "y" and delete_on_cloud != "n":
-                print("Invalid Choice")
+        if self.delete_on_cloud_question:
+            delete_on_cloud = yn_choice(
+                "Do you want to delete the corresponding key on cloud if present?", default='y')
+        else:
+            delete_on_cloud = self.delete_on_cloud
 
         sshdb = SSHKeyDBManager()
         keys = sshdb.find_all()
@@ -206,7 +210,7 @@ class SSHKeyManager(object):
         for key in keys.values():
             keymap = sshdb.get_key_cloud_map_entry(key["name"])
             for map in keymap.values():
-                if delete_on_cloud == "y":
+                if delete_on_cloud:
                     self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
             sshdb.delete_key_cloud_map_entry(key["name"])
 
@@ -220,13 +224,14 @@ class SSHKeyManager(object):
         # Checking and deleting cloud mappings as well as cloud keys.
         keymap = sshdb.get_key_cloud_map_entry(key["name"])
         if keymap is not None and len(keymap) != 0:
-            delete_on_cloud = ""
-            while delete_on_cloud != "y" and delete_on_cloud != "n":
-                delete_on_cloud = raw_input("Do you want to delete the corresponding key on cloud if present? (y/n): ")
-            if delete_on_cloud != "y" and delete_on_cloud != "n":
-                print("Invalid Choice")
+            if self.delete_on_cloud_question:
+                delete_on_cloud = yn_choice(
+                    "Do you want to delete the corresponding key on cloud if present?", default='y')
+            else:
+                delete_on_cloud = self.delete_on_cloud
+
             for map in keymap.values():
-                if delete_on_cloud == "y":
+                if delete_on_cloud:
                     self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
             sshdb.delete_key_cloud_map_entry(key["name"])
 
