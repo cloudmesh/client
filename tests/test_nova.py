@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from cloudmesh_base.util import HEADING
 from cloudmesh_base.util import HEADING
 from cloudmesh_base.Shell import Shell
@@ -27,6 +29,16 @@ def run(command):
 class Test_nova():
     """tests nova command"""
 
+    data = {
+        "cloud": "kilo",
+        "group": "mygroup"
+    }
+
+    def setup(self):
+        result = run("cm default group={group}".format(**self.data))
+        print (result)
+        #assert "{cloud} is set".format(**self.data) in result
+
     def test_001(self):
         """
         cm nova set india
@@ -34,9 +46,9 @@ class Test_nova():
 
         HEADING()
         cloud = "india"
-        result = run("cm nova set {:}".format(cloud))
-        print result
-        assert "{:} is set".format(cloud) in result
+        result = run("cm nova set {cloud}".format(**self.data))
+        print (result)
+        assert "{cloud} is set".format(**self.data) in result
 
     def test_002(self):
         """
@@ -44,8 +56,8 @@ class Test_nova():
         """
 
         HEADING()
-        result = run("cm nova info india")
-        print ("resultado test 2: "+result)
+        result = run("cm nova info {cloud}".format(**self.data))
+        print (result)
         assert "OK." in result
 
     def test_003(self):
@@ -55,8 +67,8 @@ class Test_nova():
 
         HEADING()
         result = run("cm nova list")
-        print ("resultado test 3: "+result)
-        assert "OK." in result
+        print (result)
+        assert "+" in result
 
     def test_004(self):
         """
@@ -65,5 +77,5 @@ class Test_nova():
 
         HEADING()
         result = run("cm nova image-list")
-        print ("resultado test 3: "+result)
-        assert "OK." in result
+        print (result)
+        assert "ACTIVE" in result
