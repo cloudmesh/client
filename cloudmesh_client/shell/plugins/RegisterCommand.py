@@ -48,10 +48,10 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register test [--yaml=FILENAME]
               register json HOST
               register remote [CLOUD] [--force]
-              register india [--force]
-              register CLOUD CERT [--force]
-              register CLOUD --dir=DIR
               register env [--provider=PROVIDER]
+              register CLOUD [--force]
+              register CLOUD [--dir=DIR]
+
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -67,7 +67,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             USER   the user name
             FILEPATH the path of the file
             CLOUD the cloud name
-            CERT the path of the certificate
             PROVIDER the provider or type of cloud [Default: openstack]
 
           Options:
@@ -138,16 +137,11 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                   registers a remote cloud and copies the openrc file
                   specified in the credentials of the cloudmesh.yaml
 
-              register CLOUD CERT [--force]
-                  Copies the CERT to the ~/.cloudmesh/clouds/host directory
-                  and registers that cert in the coudmesh.yaml file.
-
-
               register CLOUD --dir
                   Copies the entire directory from the cloud and puts it in
                   ~/.cloudmesh/clouds/host
-                  For india, The directory would be copied to
-                  ~/.cloudmesh/clouds/india
+                  For kilo, The directory would be copied to
+                  ~/.cloudmesh/clouds/kilo
 
               register env [--provider=PROVIDER] [HOSTNAME]
                   Reads env OS_* variables and registers a new cloud in yaml,
@@ -398,19 +392,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 export(cloud, "table")
             return ""
 
-        elif arguments['CLOUD']:
-            if arguments['CERT']:  # path to the cacert.pem
-                cloud = arguments['CLOUD']
-                path = arguments['CERT']
-                force = False
-                if arguments['--force']:
-                    force = True
-                CloudRegister.certificate(cloud, path, force)
-            elif arguments['--dir']:
-                cloud = arguments['CLOUD']
-                directory = arguments['--dir']
-                Console.ok(directory)
-                CloudRegister.directory(cloud, directory)
         elif arguments['env']:
             try:
                 CloudRegister.from_environ(arguments['--provider'])
@@ -418,6 +399,25 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 import traceback
                 print(traceback.format_exc())
                 print(e)
+            return ""
+
+        elif arguments['CLOUD']:
+            if arguments['--dir']:
+                cloud = arguments['CLOUD']
+                directory = arguments['--dir']
+                Console.ok(directory)
+                CloudRegister.directory(cloud, directory)
+            else:
+                cloud = arguments['CLOUD']
+
+                if cloud is None:
+                    clouds = ["kilo"]
+                else:
+                    clouds = [cloud]
+
+                for cloud in clouds:
+                    CloudRegister.remote(cloud, True)
+                    export(cloud, "table")
             return ""
 
         # if all fails do a simple list
