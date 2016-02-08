@@ -129,7 +129,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                             Or user may specify more options to narrow
                                             the search
                 vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-                vm ip_show [options...]     show the ips of VMs
+                vm ip show [options...]     show the ips of VMs
                 vm login [options...]       login to a server or execute commands on it
                 vm list [options...]        same as command "list vm", please refer to it
                 vm status [options...]      Retrieves status of last VM booted on cloud and displays it.

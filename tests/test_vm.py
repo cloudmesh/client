@@ -25,7 +25,14 @@ def run(command):
 
 class Test_vm:
     def setup(self):
-        pass
+
+        self.data = {
+            "cloud": "kilo",
+            "group": "test",
+            "image": "Ubuntu-14.04-64",
+            "vm": "testvm",
+            "flavor": "m1.small"
+        }
 
     def tearDown(self):
         pass
@@ -35,10 +42,11 @@ class Test_vm:
         cm vm boot --name=testvm --cloud=kilo --image=<image_id> --flavor=2
         --group=test
         """
-        image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
 
         HEADING()
-        result = run("cm vm boot --name=testvm --cloud=kilo --image={:} --flavor=2 --group=test".format(image_id))
+        command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
+                  "--flavor={flavor} --group={group}"
+        result = run(command.format(**self.data))
         print result
         assert "OK." in result
 
@@ -47,7 +55,7 @@ class Test_vm:
         cm vm refresh --cloud=kilo
         """
         HEADING()
-        result = run("cm vm refresh --cloud=kilo")
+        result = run("cm vm refresh --cloud={cloud}".format(**self.data))
         print result
         assert "OK." in result
 
@@ -56,7 +64,7 @@ class Test_vm:
         cm vm list --cloud=kilo
         """
         HEADING()
-        result = run("cm vm list --cloud=kilo")
+        result = run("cm vm list --cloud={cloud}".format(**self.data))
         print result
         assert "OK." in result
 
@@ -65,7 +73,7 @@ class Test_vm:
         cm vm list testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm list testvm --cloud=kilo")
+        result = run("cm vm list {vm} --cloud={cloud}".format(**self.data))
         print result
         assert "OK." in result
 
@@ -74,7 +82,7 @@ class Test_vm:
         cm vm status --cloud=kilo
         """
         HEADING()
-        result = run("cm vm status --cloud=kilo")
+        result = run("cm vm status --cloud={cloud}".format(**self.data))
         print result
         assert "OK." in result
 
@@ -83,7 +91,7 @@ class Test_vm:
         cm vm ip_show testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm ip_show testvm --cloud=kilo")
+        result = run("cm vm ip show {vm} --cloud={cloud}".format(**self.data))
         print result
         assert "OK." in result
 
@@ -92,6 +100,6 @@ class Test_vm:
         cm vm delete testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm delete testvm --cloud=kilo")
+        result = run("cm vm delete {vm} --cloud={cloud}".format(**self.data))
         print result
         assert "OK." in result
