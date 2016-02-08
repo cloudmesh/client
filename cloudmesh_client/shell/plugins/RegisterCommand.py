@@ -189,8 +189,17 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             if os.path.isfile(filename):
                 Console.ok("File '{}' exists. ok.".format(filename))
+
+                Console.ok("The yaml file contains the following templates:")
+
+                d = CloudRegister.list(filename,
+                                       info=False,
+                                       output="table")
+                print(d)
+
             else:
                 Console.error("File {} does not exist".format(filename))
+
             return ""
 
         elif arguments["new"]:
