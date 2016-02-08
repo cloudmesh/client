@@ -35,7 +35,7 @@ class Test_secgroup:
             "cloud": "kilo",
         }
 
-        self.data["tenant"] = config["cloudmesh.clouds"][data["cloud"]][
+        self.data["tenant"] = config["cloudmesh.clouds"][self.data["cloud"]][
             "credentials"]["OS_TENANT_NAME"]
         pass
 
