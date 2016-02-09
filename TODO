@@ -36,3 +36,10 @@ see docopts
 if no name is specified use id_rsa if that does not exists take first key form key db table
 
 cm key upload  # applied to id_rsa key and default cloud
+
+
+
+WHAT
+
+cm load
+cm upload

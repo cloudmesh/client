@@ -1,12 +1,8 @@
 from __future__ import print_function
-# import os
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-# from cloudmesh_client.cloud.command_key import command_key
 from cloudmesh_client.common.ConfigDict import Config
-# from os import listdir
-# from os.path import expanduser, isfile, abspath
-# from cloudmesh_base.tables import dict_printer, two_column_table
+
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.Printer import dict_printer
@@ -14,7 +10,6 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 import yaml
 import json
 from cloudmesh_client.cloud.default import Default
-# from cloudmesh_base.menu import num_choice, dict_choice
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 

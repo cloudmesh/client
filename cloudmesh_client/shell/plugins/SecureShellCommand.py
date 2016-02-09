@@ -3,9 +3,9 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 import os
 from cloudmesh_client.common.todo import TODO
-from cloudmesh_base.ssh_config import ssh_config
+from cloudmesh_client.ssh_config import ssh_config
 
-from cloudmesh_base.util import banner
+from cloudmesh_client.util import banner
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
 from cloudmesh_client.common.ConfigDict import path_expand

@@ -5,14 +5,14 @@ import os
 
 from cloudmesh_client.common.ConfigDict import Config
 import requests
-from cloudmesh_base.menu import menu_return_num
+from cloudmesh_client.menu import menu_return_num
 from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_base.util import yn_choice
+from cloudmesh_client.util import yn_choice
 
 from urlparse import urlparse
 
@@ -248,7 +248,7 @@ class SSHKeyManager(object):
 
 if __name__ == "__main__":
     print ("HALLO")
-    from cloudmesh_base.util import banner
+    from cloudmesh_client.util import banner
 
     mykeys = SSHKeyManager()
     mykeys.get_all("laszewsk")
