@@ -231,7 +231,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 m = sshm.get_from_yaml(load_order=directory)
                 d = dict(m.__keys__)
 
-
                 sshdb = SSHKeyDBManager()
 
                 for keyname in m.__keys__:
@@ -424,7 +423,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
         elif arguments['delete']:
             # print('delete')
 
-            delete_on_cloud=arguments["--force"]
+            delete_on_cloud = arguments["--force"]
 
             if arguments['--all']:
                 try:
@@ -483,11 +482,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     name_on_cloud = username + "-" + cloud + "-" + keyname
 
                 sshm = SSHKeyManager()
-                sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud)
+                status = sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud)
 
-                print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
-                msg = "info. OK."
-                Console.ok(msg)
+                if status != 1:
+                    print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
+                    msg = "info. OK."
+                    Console.ok(msg)
 
             except Exception, e:
                 import traceback

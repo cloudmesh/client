@@ -21,8 +21,7 @@ class SSHKeyManager(object):
     def __init__(self, delete_on_cloud=None):
         self.__keys__ = {}
         self.delete_on_cloud_question = delete_on_cloud is None
-        self.delete_on_cloud = (delete_on_cloud is not None) and \
-                               delete_on_cloud
+        self.delete_on_cloud = (delete_on_cloud is not None) and delete_on_cloud
 
     def add_from_file(self, file_path, keyname=None):
         sshkey = SSHkey(file_path, keyname)
@@ -171,13 +170,21 @@ class SSHKeyManager(object):
         self.get_from_git(username)
 
     def add_key_to_cloud(self, user, keyname, cloud, name_on_cloud):
+        """
+
+        :param user:
+        :param keyname:
+        :param cloud:
+        :param name_on_cloud:
+        :return: 1 if the key is present in db, 0 if the key is added to db.
+        """
 
         sshdb = SSHKeyDBManager()
         key_from_db = sshdb.find(keyname)
 
         if key_from_db is None:
             Console.error("Key with the name {:} not found in database.".format(keyname))
-            return
+            return 1
 
         # Add map entry
         sshdb.add_key_cloud_map_entry(user, keyname, cloud, name_on_cloud)
@@ -185,6 +192,7 @@ class SSHKeyManager(object):
         print("Adding key {:} to cloud {:} as {:}".format(keyname, cloud, name_on_cloud))
         cloud_provider = CloudProvider(cloud).provider
         cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
+        return 0
 
     def get_key_cloud_maps(self, cloud):
 
