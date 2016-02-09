@@ -2,7 +2,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.cloud.hpc.BatchProvider import BatchProvider
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_base.util import yn_choice
+from cloudmesh_client.util import yn_choice
 from cloudmesh_client.cloud.experiment import Experiment
 from cloudmesh_client.shell.command import PluginCommand, HPCPluginCommand, \
     CometPluginCommand

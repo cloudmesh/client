@@ -6,7 +6,7 @@ import json
 from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
 from cloudmesh_client.common.todo import TODO
 
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 from collections import OrderedDict
 import yaml
 

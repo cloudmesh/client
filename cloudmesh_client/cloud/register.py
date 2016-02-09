@@ -4,7 +4,7 @@ import os
 import platform
 from urlparse import urlparse
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.Shell import Shell
 from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config

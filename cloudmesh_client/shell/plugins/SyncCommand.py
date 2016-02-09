@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from cloudmesh_base.logger import LOGGER
+from cloudmesh_client.logger import LOGGER
 from cloudmesh_client.cloud.sync import Sync
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console

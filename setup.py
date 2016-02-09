@@ -23,17 +23,9 @@ from setuptools.command.install import install
 from setuptools.command.test import test as TestCommand
 from setuptools import setup, find_packages
 
-
-try:
-    import cloudmesh_base
-    print ("Using cloudmesh_base version:", cloudmesh_base.__version__)
-except:
-    # os.system("pip install cloudmesh_base")
-    os.system("pip install git+https://github.com/cloudmesh/base.git")
-
-from cloudmesh_base.setup import *
-from cloudmesh_base.util import banner
-from cloudmesh_base.setup import os_execute
+from cloudmesh_client.setup import *
+from cloudmesh_client.util import banner
+from cloudmesh_client.setup import os_execute
 from cloudmesh_client import __version__
 
 banner("Installing Cloudmesh_client {:}".format(__version__))
@@ -57,8 +49,13 @@ requirements = ['pyreadline<=1.7.1.dev-r0',
                 'six',
                 'python-novaclient',
                 'python-keystoneclient',
-                'cloudmesh_timestring']
-
+                'cloudmesh_timestring',
+                'wheel',
+                'tox',
+                'nose',
+                'pytest',
+                'pytimeparse',
+                'pyyaml']
 
 class UploadToPypitest(install):
     """Upload the package to pypi. -- only for Maintainers."""
@@ -247,8 +244,7 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
-            'ghost = cloudmesh_client.shell.ghost:main',
-
+            # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },
     tests_require=['tox'],

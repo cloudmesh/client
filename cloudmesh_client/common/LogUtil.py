@@ -1,6 +1,6 @@
 import inspect
 import logging
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
