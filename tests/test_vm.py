@@ -38,12 +38,26 @@ class Test_vm:
     def tearDown(self):
         pass
 
+    def load_key(self):
+        try:
+            command = "cm key load"
+            result = run(command.format(**self.data))
+        except Exception, e:
+            print(result)
+        try:
+            command = "cm key upload id_rsa"
+            result = run(command.format(**self.data))
+        except Exception, e:
+            print(result)
+
+
+
     def test_001(self):
         """
         cm vm boot --name=testvm --cloud=kilo --image=<image_id> --flavor=2
         --group=test
         """
-
+        self.load_key()
         HEADING()
         command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
                   " --flavor={flavor} --group={group}"
