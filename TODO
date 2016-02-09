@@ -1,0 +1,23 @@
+A) FIX cm key upload
+
+cm key load
+
+    will generate id_rsa in keys
+
+cm key upload
+
+   will find id_rsa and upload to cloud with name
+
+   <username>-key
+
+    right now it uploads only if you specify the keyname
+
+    cm key upload id_rsa
+
+    its inconvenient to even think about the naming
+
+    if the key id_rsa does not exists the first key in the db will be used,
+    if no key is in the db a nice error msg should be printed
+    no exception ...
+
+B)

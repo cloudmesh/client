@@ -46,7 +46,7 @@ class Test_vm:
 
         HEADING()
         command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
-                  "--flavor={flavor} --group={group}"
+                  " --flavor={flavor} --group={group}"
         result = run(command.format(**self.data))
         print(result)
         assert "OK." in result
