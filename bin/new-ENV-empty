@@ -8,7 +8,7 @@ pip install pip -U
 
 PWD=`pwd`
 
-osascript -e "tell application \"Terminal\" to do script \"cd $PWD; cm help ; cm version\" "
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD\" "
 
 #xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
 #
