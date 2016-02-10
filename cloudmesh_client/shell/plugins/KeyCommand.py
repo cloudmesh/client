@@ -345,7 +345,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
 
             except ValueError, e:
-                Console.error("The key `{}` alredy exists".format(keyname), traceflag=False)
+                Console.error("The key `{}` already exists".format(keyname), traceflag=False)
             """
             except Exception, e:
                 import traceback
