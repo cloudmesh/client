@@ -18,3 +18,4 @@ python-keystoneclient
 cloudmesh_timestring
 pycrypto
 httpsig
+pytest

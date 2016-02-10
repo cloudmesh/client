@@ -7,7 +7,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):

@@ -3,7 +3,7 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.setup import os_execute
+from cloudmesh_client.setup import os_execute
 
 
 class PortalCommand(PluginCommand, CloudPluginCommand):

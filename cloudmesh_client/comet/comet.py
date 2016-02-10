@@ -13,9 +13,9 @@ import string
 import requests
 from httpsig.requests_auth import HTTPSignatureAuth
 from cloudmesh_client.shell.console import Console
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.util import banner
+from cloudmesh_client.util import banner
 
 requests.packages.urllib3.disable_warnings()
 

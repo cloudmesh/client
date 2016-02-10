@@ -10,9 +10,9 @@ from docopt import docopt
 import shutil
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.Shell import Shell
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.LogUtil import LogUtil
 
@@ -37,13 +37,13 @@ os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 # noinspection PyPep8
 from .plugins import *
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_base.util import get_python
-from cloudmesh_base.util import check_python
-import cloudmesh_base
+from cloudmesh_client.util import get_python
+from cloudmesh_client.util import check_python
+import cloudmesh_client
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand
-from cloudmesh_base.ssh_config import ssh_config
+from cloudmesh_client.ssh_config import ssh_config
 import cloudmesh_client.etc
 
 
@@ -315,10 +315,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 "name": "cloudmesh_client",
                 "version": str(cloudmesh_client.__version__)
             },
-            "cloudmesh_base": {
-                "name": "cloudmesh_base",
-                "version": str(cloudmesh_base.__version__)
-            },
+            #"cloudmesh_base": {
+            #    "name": "cloudmesh_base",
+            #    "version": str(cloudmesh_base.__version__)
+            #},
             "python": {
                 "name": "python",
                 "version": str(python_version)
