@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client.util import banner
-from cloudmesh_client.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 import os
 import pip
 import sys

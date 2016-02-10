@@ -5,9 +5,10 @@ import getpass
 from pprint import pprint
 
 from sqlalchemy.orm import sessionmaker
-from cloudmesh_client.util import banner
 from sqlalchemy import inspect
-from cloudmesh_client.hostlist import Parameter
+
+from cloudmesh_client.util import banner
+from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
     SECGROUPRULE

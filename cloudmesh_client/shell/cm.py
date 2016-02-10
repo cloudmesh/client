@@ -6,17 +6,14 @@ import sys
 import string
 import textwrap
 import os
-from docopt import docopt
 import shutil
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.util import path_expand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.Error import Error
-from cloudmesh_client.common.LogUtil import LogUtil
 
-import cloudmesh_client
 
 def create_cloudmesh_yaml(filename):
     if not os.path.exists(filename):
@@ -35,7 +32,6 @@ create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
 # noinspection PyPep8
-from .plugins import *
 from cloudmesh_client.cloud.default import Default
 from cloudmesh_client.util import get_python
 from cloudmesh_client.util import check_python
@@ -43,13 +39,8 @@ import cloudmesh_client
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand
-from cloudmesh_client.ssh_config import ssh_config
+from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
-
-
-from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-
 
 
 class CloudmeshContext(object):

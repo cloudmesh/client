@@ -12,10 +12,9 @@ BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
 doc: man
-	sphinx-apidoc -f -o docs/source/code/client cloudmesh_client
+	sphinx-apidoc -f -o docs/source cloudmesh_client
 	cd docs; make html
 	cp -r scripts docs/build/html
-
 
 d:
 	rm -rf build
@@ -30,8 +29,6 @@ db:
 
 test:
 	echo $(UNAME)
-
-
 
 publish:
 	ghp-import -n -p docs/build/html
@@ -48,6 +45,20 @@ man: cloudmesh
 cloudmesh:
 	python setup.py install
 
+setup:
+	python setup.py install
+
+dist: clean setup
+	python setup.py sdist --formats=gztar,zip
+	python setup.py bdist
+	python setup.py bdist_wheel
+
+upload_test:
+	python setup.py  sdist bdist bdist_wheel upload -r https://testpypi.python.org/pypi
+
+upload:
+	python setup.py  sdist bdist bdist_wheel upload -r https://pypi.python.org/pypi
+
 log:
 	gitchangelog | fgrep -v ":dev:" | fgrep -v ":new:" > ChangeLog
 	git commit -m "chg: dev: Update ChangeLog" ChangeLog
@@ -58,14 +69,17 @@ log:
 ######################################################################
 
 clean:
-	python setup.py clean
+	rm -rf *.egg-info *.eggs
+	rm -rf docs/build
+	rm -rf build
+	rm -rf dist
 
 ######################################################################
 # TAGGING
 ######################################################################
 
-tag: log
-	python setup.py tag
+tag: 
+	bin/new_version.sh
 
 rmtag:
 	python setup.py rmtag

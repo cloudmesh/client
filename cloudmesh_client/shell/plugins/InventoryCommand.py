@@ -3,7 +3,7 @@ from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.inventory import Inventory
-from cloudmesh_client.hostlist import Parameter
+from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.locations import config_file
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
