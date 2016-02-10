@@ -42,6 +42,7 @@ from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
 
+import cloudmesh_client.shell.plugins
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -53,9 +54,11 @@ PluginCommandClasses = type(
     tuple(PluginCommand.__subclasses__()),
     {})
 
-"""
-print (type(PluginCommand.__subclasses__()))
 
+print (type(PluginCommand.__subclasses__()))
+print (PluginCommand.__subclasses__())
+
+"""
 # not yet implemented
 class ConsoleClasses(object):
 
@@ -228,7 +231,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         for c in CloudmeshConsole.__bases__[1:]:
             print ("CCC", c)
             # noinspection PyArgumentList
-            c.__init__(context)
+            c.__init__(self, context)
 
     def preloop(self):
         """adds the banner to the preloop"""
@@ -625,7 +628,7 @@ def main():
     if arguments['--help']:
         manual()
         sys.exit()
-        
+
     for a in args:
         if a in arguments:
             args.remove(a)
