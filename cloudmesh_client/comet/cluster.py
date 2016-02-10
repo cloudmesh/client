@@ -5,11 +5,13 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
 import hostlist
-from cloudmesh_base.hostlist import Parameter
-
+#from cloudmesh_base.hostlist import Parameter
+from pprint import pprint
 
 class Cluster(object):
     WALLTIME_MINS = 120
+    N_ALLOCATIONS_PER_LINE = 5
+    MINS_PER_UNIT = {"m": 1, "h": 60, "d": 1440, "w": 10080}
     @staticmethod
     def simple_list(id=None, format="table"):
         result = ""
@@ -156,6 +158,37 @@ class Cluster(object):
             return result
 
     @staticmethod
+    def display_get_allocation(allocations):
+        allocation = None
+        allocations_sorted = sorted(allocations)
+        i = 1
+        while i < len(allocations_sorted)+1:
+            for j in range(0, Cluster.N_ALLOCATIONS_PER_LINE):
+                if i < len(allocations_sorted)+1:
+                    print ("{}: {}".format(i, allocations_sorted[i-1]), end="\t")
+                    i += 1
+            print ("")
+        print ("")
+        chosen_alloc = -1
+        while chosen_alloc < 0:
+            allocation_input = raw_input("Pick an allocation by specifying its index: ")
+            try:
+                chosen_alloc = int(allocation_input)
+                if chosen_alloc > 0 and chosen_alloc < len(allocations_sorted) + 1:
+                    allocation = allocations_sorted[chosen_alloc-1]
+                else:
+                    chosen_alloc = -1
+                    print ("Invalid index specified. "\
+                           "Please choose between 1 and {}"\
+                           .format(len(allocations_sorted))
+                           )
+            except:
+                if allocation_input in allocations_sorted:
+                    chosen_alloc = 0
+                    allocation = allocation_input
+        return allocation
+
+    @staticmethod
     def info():
         Console.error("comet cluster info: to be implemented")
         pass
@@ -227,105 +260,161 @@ class Cluster(object):
         return result
 
     @staticmethod
-    def power(clusterid, subject, param=None, action=None):
+    def convert_to_mins(s):
+        mins = None
+        if s is not None:
+            s = s.lower()
+            if s[-1] in Cluster.MINS_PER_UNIT.keys():
+                mins = int(s[:-1]) * Cluster.MINS_PER_UNIT[s[-1]]
+        return mins
 
-        # print("SUBJECT to perform action on: {}".format(subject))
-        # print("\ton cluster: {}".format(clusterid))
-        # print("\tAction: {}".format(action))
-        # print("\tParameter: {}".format(param))
+    @staticmethod
+    def power(clusterid, subject, param=None, action=None,
+              allocation=None, walltime=None):
+
+        print("SUBJECT to perform action on: {}".format(subject))
+        print("\ton cluster: {}".format(clusterid))
+        print("\tAction: {}".format(action))
+        print("\tParameter: {}".format(param))
+        print("\tAllocation: {}".format(allocation))
+        print("\tWalltime: {}".format(walltime))
 
         # the API is now accepting hostlist format directly
         # computeIdsHostlist = hostlist.collect_hostlist(computeids)
         # print (computeIdsHostlist)
         ret = ''
-        if 'HOSTS' == subject:
-            url = Comet.url("computeset/")
+        if not allocation:
+            cluster = Cluster.list(clusterid, format='rest')
+            # use the first one if no provided
+            allocation = cluster[0]['allocations'][0]
+        if not walltime:
+            walltime = Cluster.WALLTIME_MINS
 
-            # data = {
-            #    "computes": [{"name": vm, "host": "comet-{:}".format(vm)} for vm in
-            #                 computeids], "cluster": "%s" % id}
-            data = {"computes": "%s" % param,
-                    "cluster": "%s" % clusterid,
-                    "walltime_mins": "%s" % Cluster.WALLTIME_MINS}
+        if subject in ['HOSTS', 'HOST']:
+            hosts_param = hostlist.expand_hostlist(param)
+            hosts_param_set = set(hosts_param)
+            nodes_free = True
+            nodes_allocated = False
+            nodes_checked = False
+            # computesetid = -1
+            computesets = Comet.get_computeset()
+            for computeset in computesets:
+                if computeset["cluster"] == clusterid \
+                        and (computeset["state"] == "started" \
+                             or computeset["state"] == "running"):
+                    computesetid = computeset["id"]
+                    # print (computesetid)
+                    hosts = set()
+                    for compute in computeset["computes"]:
+                        hosts.add(compute["name"])
+                    # print (hosts)
+                    if hosts_param_set < hosts:
+                        nodes_allocated = True
+                        nodes_free = False
+                        nodes_checked = True
+                    # at least one specified host not in any Active computeset
+                    else:
+                        for host in hosts_param:
+                            # some specified nodes are in Active computeset
+                            if host in hosts:
+                                nodes_free = False
+                                nodes_checked = True
+                                break
+                # a cluster could have multiple 'started' set
+                if nodes_checked:
+                    break
+            print ("nodes_checked: %s" % nodes_checked)
+            print ("nodes_allocated: %s" % nodes_allocated)
+            print ("nodes_free: %s" % nodes_free)
+            if not (nodes_free or nodes_allocated):
+                ret = "Error: Some nodes are already in active computesets"
+            else:
+                #"""
+                # data = {
+                #    "computes": [{"name": vm, "host": "comet-{:}".format(vm)} for vm in
+                #                 computeids], "cluster": "%s" % id}
+                data = {"computes": "%s" % param,
+                        "cluster": "%s" % clusterid,
+                        "walltime_mins": "%s" % walltime,
+                        "allocation": "%s" % allocation}
 
-            # print (data)
-            if "on" == action:
-                # print("Issuing request to poweron nodes...")
-                posturl = url
                 # print (data)
 
-                r = Comet.post(posturl, data=data)
-                # print("RETURNED RESULTS:")
-                # print (r)
-                if 'cluster' in r:
-                    if 'state' in r and \
-                       ('queued' == r['state'] or 'submitted' == r['state']):
-                        computesetid = r['id']
-                        ret = 'Request accepted! Check status with:\n' \
-                              'comet cluster {}\n'.format(clusterid) + \
-                              'or:\n' \
-                              'comet computeset {}\n'.format(computesetid)
-                    else:
-                        # in case of some internal problem
-                        ret = ''
-                elif 'error' in r:
-                    ret = "An error occurred: {}".format(r['error'])
-                else:
-                    ret = "An internal error occured. " \
-                          "Please submit a ticket with following info:\n {}\n" \
-                        .format(r)
-                # print(ret)
-            elif action in ["off", "reboot", "reset", "shutdown"]:
-                if action in ["off"]:
-                    action = "power{}".format(action)
-                # print("finding the computesetid of the specified nodes...")
-                computesets = Comet.get_computeset()
-                # print ("computesets")
-                # pprint (computesets)
+                if "on" == action:
+                    if nodes_free:
+                        # print("Issuing request to poweron nodes...")
+                        url = Comet.url("computeset/")
+                        posturl = url
+                        # print (data)
 
-                is_valid_set = False
-                # computesetid = -1
-                for computeset in computesets:
-                    if computeset["cluster"] == clusterid \
-                            and (computeset["state"] == "started" \
-                                 or computeset["state"] == "running"):
-                        computesetid = computeset["id"]
-                        # print (computesetid)
-                        hosts = set()
-                        for compute in computeset["computes"]:
-                            hosts.add(compute["name"])
-                        # print (hosts)
-                        is_valid_set = True
-                        hostsparam = Parameter.expand(param)
-                        for host in hostsparam:
-                            if host not in hosts:
-                                is_valid_set = False
-                                break
-                    # a cluster could have multiple 'started' set
-                    if is_valid_set:
-                        break
-                if is_valid_set:
-                    # print("Issuing request to poweroff nodes...")
-                    # print("computesetid: {}".format(computesetid))
-                    puturl = "{:}{:}/{}".format(url, computesetid, action)
-                    # print (puturl)
-                    r = Comet.put(puturl)
-                    # print("RETURNED RESULTS:")
-                    # print(r)
-                    if r is not None:
-                        if '' != r.strip():
-                            ret = r
-                            # print(r)
+                        r = Comet.post(posturl, data=data)
+                        # print("RETURNED RESULTS:")
+                        # print (r)
+                        if 'cluster' in r:
+                            if 'state' in r and \
+                               ('queued' == r['state'] or 'submitted' == r['state']):
+                                computesetid = r['id']
+                                ret = 'Request accepted! Check status with:\n' \
+                                      'comet cluster {}\n'.format(clusterid) + \
+                                      'or:\n' \
+                                      'comet computeset {}\n'.format(computesetid)
+                            else:
+                                # in case of some internal problem
+                                ret = ''
+                        elif 'error' in r:
+                            ret = "An error occurred: {}".format(r['error'])
                         else:
-                            ret = "Requeset Accepted. "\
-                                  "In the process of {} the nodes".format(action)
-                    else:
-                        ret = "Unknown error: POWER, HOSTS"
+                            ret = "An internal error occured. "\
+                                  "Please submit a ticket with following info:\n {}\n"\
+                                  .format(r)
+                    elif nodes_allocated:
+                        ret = ""
+                        for host in hosts_param:
+                            url = Comet.url("cluster/{}/compute/{}/"\
+                                            .format(clusterid, host))
+                            action = "poweron"
+                            puturl = "{}{}".format(url, action)
+                            # print (puturl)
+                            r = Comet.put(puturl)
+                            if r is not None:
+                                if '' != r.strip():
+                                    ret += r
+                                else:
+                                    ret += "Requeset Accepted. "\
+                                            "In the process of power on node {}\n"\
+                                            .format(host)
+                            else:
+                                ret += "Problem executing the request. "\
+                                    "Check if the node {} belongs to the cluster"\
+                                    .format(host)
+                    # print(ret)
+                elif action in ["off", "reboot", "reset", "shutdown"]:
+                    if action in ["off"]:
+                        action = "power{}".format(action)
+                    if nodes_allocated:
+                        ret = ""
+                        for host in hosts_param:
+                            url = Comet.url("cluster/{}/compute/{}/" \
+                                            .format(clusterid, host)
+                                            )
+                            puturl = "{}{}".format(url, action)
+                            # print (puturl)
+                            r = Comet.put(puturl)
+                            if r is not None:
+                                if '' != r.strip():
+                                    ret = r
+                                else:
+                                    ret += "Requeset Accepted. "\
+                                        "In the process of {} node {}\n"\
+                                        .format(action, host)
+                            else:
+                                ret += "Problem executing the request. "\
+                                    "Check if the node {} belongs to the cluster"\
+                                    .format(host)
+                    elif nodes_free:
+                        ret = "Error: The specified nodes are not in active computesets"
                 else:
-                    ret = "All the nodes are not in the specified cluster, "\
-                          "or they are not running"
-            else:
-                ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
+                    ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
         elif 'FE' == subject:
             url = Comet.url("cluster/{}/frontend/".format(clusterid))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
@@ -366,7 +455,26 @@ class Cluster(object):
                           "Check if the computeset exists"
             else:
                 ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
+        '''
         elif 'HOST' == subject:
+            computesets = Comet.get_computeset()
+            pprint (computesets)
+            for computeset in computesets:
+                if computeset["cluster"] == clusterid \
+                        and (computeset["state"] == "started" \
+                             or computeset["state"] == "running"):
+                    computesetid = computeset["id"]
+                    # print (computesetid)
+                    hosts = set()
+                    for compute in computeset["computes"]:
+                        hosts.add(compute["name"])
+                    # print (hosts)
+                    is_valid_set = True
+                    hostsparam = Parameter.expand(param)
+                    for host in hostsparam:
+                        if host not in hosts:
+                            is_valid_set = False
+                            break 
             url = Comet.url("cluster/{}/compute/{}/".format(clusterid, param))
             if action in ["on", "off", "reboot", "reset", "shutdown"]:
                 if action in ["on", "off"]:
@@ -385,6 +493,8 @@ class Cluster(object):
                           "Check if the node belongs to the cluster"
             else:
                 ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
+        '''
+        #"""
         return ret
 
     @staticmethod

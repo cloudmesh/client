@@ -2,6 +2,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command, PluginCommand, CometPluginCommand
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
+import hostlist
 
 """
 
@@ -52,7 +53,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet computeset [COMPUTESETID]
                comet start ID
                comet stop ID
-               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+               comet power on CLUSTERID [NODESPARAM]
+                            [-a|--allocation=ALLOCATION]
+                            [-w|--walltime=WALLTIME]
+               comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
                comet delete [all]
                               [--user=USER]
@@ -95,6 +99,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 --format=FORMAT       Format is either table, json, yaml,
                                       csv, rest
                                       [default: table]
+                --allocation=ALLOCATION     Allocation to charge when power on
+                                            node(s)
 
             Arguments:
                 FILENAME  the file to open in the cwd if . is
@@ -209,6 +215,37 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 fuzzyparam = arguments["NODESPARAM"]
             param = fuzzyparam
 
+            cluster = Cluster.list(clusterid, format='rest')
+            try:
+                allocations = cluster[0]['allocations']
+            except:
+                print (cluster)
+                return ""
+            # for testing only
+            '''
+            allocations = ['sys200',
+                           'sys100',
+                           'sys300',
+                           'sys400',
+                           'sys500',
+                           'sys050',
+                           'tst010',
+                           'tst001']
+            '''
+            walltime = None
+            if "--walltime" in arguments:
+                walltime = arguments["--walltime"]
+                walltime = Cluster.convert_to_mins(walltime)
+                if not walltime:
+                    print ("No valid walltime specified. Using system default")
+            allocation = None
+            if "--allocation" in arguments:
+                allocation = arguments["--allocation"]
+            else:
+                if len(allocations) == 1:
+                    allocation = allocations[0]
+                else:
+                    allocation = Cluster.display_get_allocation(allocations)
             # no nodes param provided, action on front end
             if not fuzzyparam:
                 subject = "FE"
@@ -221,6 +258,11 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     param = str(param)
                 except ValueError:
                     if '[' in fuzzyparam and ']' in fuzzyparam:
+                        try:
+                            hosts_param = hostlist.expand_hostlist(fuzzyparam)
+                        except hostlist.BadHostlist:
+                            Console.error("Invalid hosts list specified!", traceflag=False)
+                            return ""
                         subject = "HOSTS"
                     else:
                         subject = "HOST"
@@ -237,7 +279,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 action = "shutdown"
             else:
                 action = None
-            print (Cluster.power(clusterid, subject, param, action))
+            print (Cluster.power(clusterid, subject, param, action, allocation, walltime))
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
             nodeid = None
