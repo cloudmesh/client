@@ -32,7 +32,7 @@
   
     <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
-        <link rel="next" title="Example Scripts" href="scripts.html"/>
+        <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
   
@@ -87,10 +87,14 @@
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Manuals</span></p>
-<ul class="current">
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
@@ -116,7 +120,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 </ul>
@@ -127,7 +130,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -396,6 +398,9 @@ cloudmesh:
     system:
         data: ~/.cloudmesh/cloudmesh_inventory.yaml
         console_color: true
+    logging:
+        file: ~/.cloudmesh/cloudmesh.log
+        level: DEBUG
 </pre></div>
 </div>
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
@@ -531,14 +536,14 @@ description easier</p>
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
+</style><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
 browser downloaded the zip file and you have uncompressed it)</p>
-<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
-<span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
-<span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
+<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT</span>
+<span class="prompt1">cp <span class="nv">$C_</span>PROJECT ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT</span>
+<span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT</span>
 </pre><p>The directory should include the files:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
@@ -547,7 +552,7 @@ browser downloaded the zip file and you have uncompressed it)</p>
 </pre></div>
 </div>
 <p>Take a look at the ec2rc.sh file</p>
-<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
+<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
 <div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
@@ -626,14 +631,14 @@ the project FG-101. Than the zip file will be called:</p>
 </div>
 <p>Let us set some environment variables to make the configuration
 description easier</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
 browser downloaded the zip file and you have uncompressed it)</p>
-<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
-<span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
-<span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
+<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT</span>
+<span class="prompt1">cp <span class="nv">$C_</span>PROJECT ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT</span>
+<span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT</span>
 </pre><p>The directory should include the files:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
@@ -642,7 +647,7 @@ browser downloaded the zip file and you have uncompressed it)</p>
 </pre></div>
 </div>
 <p>Take a look at the ec2rc.sh file</p>
-<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
+<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
 <div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
@@ -708,7 +713,7 @@ EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="scripts.html" class="btn btn-neutral float-right" title="Example Scripts" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="commands/index.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

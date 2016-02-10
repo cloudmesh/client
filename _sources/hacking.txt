@@ -103,3 +103,13 @@ Laszewski.
 .. prompt:: bash
 
     make publish
+
+Logging
+^^^^^^^^
+
+::
+
+    from cloudmesh_client.common.LogUtil import LogUtil
+
+    log = LogUtil.get_logger()
+    log.info("Cloud: " + cloud + ", Arguments: " + str(arguments))

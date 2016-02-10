@@ -160,7 +160,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -1171,25 +1170,30 @@ Examples:
 <div class="section" id="loglevel">
 <h2>loglevel<a class="headerlink" href="#loglevel" title="Permalink to this headline">¶</a></h2>
 <p>Command - loglevel:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    loglevel
-    loglevel critical
-    loglevel error
-    loglevel warning
-    loglevel info
-    loglevel debug
+<div class="highlight-python"><div class="highlight"><pre>    Usage:
+        loglevel set MODE [--cloud=CLOUD]
+        loglevel get [--cloud=CLOUD]
+        loglevel save [--cloud=CLOUD]
 
-    Shows current log level or changes it.
+    Arguments:
+        MODE    log level mode [DEBUG/INFO/WARNING/CRITICAL/ERROR]
 
-    loglevel - shows current log level
-    critical - shows log message in critical level
-    error    - shows log message in error level including critical
-    warning  - shows log message in warning level including error
-    info     - shows log message in info level including warning
-    debug    - shows log message in debug level including info
+    Options:
+        --cloud=CLOUD    the name of the cloud
 
-NOTE:
-  NOT YET IMPLEMENTED
+Description:
+    loglevel command sets the default logging level
+    for a cloud.
+
+Examples:
+    loglevel set DEBUG --cloud=kilo
+        sets the default log level to DEBUG for kilo.
+
+    loglevel get --cloud=kilo
+        retreives the default log level for kilo cloud.
+
+    loglevel save --cloud=kilo
+        saves the log level preference to the db &amp; yaml file.
 </pre></div>
 </div>
 </div>
@@ -1697,8 +1701,8 @@ Examples:
 <h2>select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h2>
 <p>Command - select:</p>
 <div class="highlight-python"><div class="highlight"><pre>Usage:
-    select image [CLOUD]
-    select flavor [CLOUD]
+    select image [CLOUD] [--refresh]
+    select flavor [CLOUD] [--refresh]
     select cloud [CLOUD]
     select key [CLOUD]
 
@@ -1709,6 +1713,9 @@ Arguments:
   CLOUD    the name of the cloud
 
 Options:
+
+  --refresh   refreshes the data before displaying it
+              from the cloud
 </pre></div>
 </div>
 </div>

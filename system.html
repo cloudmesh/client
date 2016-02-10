@@ -87,10 +87,14 @@
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Manuals</span></p>
-<ul class="current">
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="">Preparation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a><ul>
@@ -122,7 +126,6 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 </ul>
@@ -133,7 +136,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -270,7 +272,7 @@ a virtual ENV with</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
 </pre><p>You will need to activate the virtualenv with</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">source</span> ~/ENV/bin/activate</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:<span class="nv">$PYTHONPATH</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:$PYTHONPATH</span>
 </pre><p>If successful, your terminal will have (ENV) as prefix to the prompt:</p>
 <div class="highlight-python"><div class="highlight"><pre>(ENV)machinename:dirname user$
 </pre></div>
@@ -314,7 +316,7 @@ instructions above</p>
 <span class="prompt1">sudo pip install virtualenv</span>
 <span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
 <span class="prompt1"><span class="nb">source</span> ~/ENV/bin/activate</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:<span class="nv">$PYTHONPATH</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:$PYTHONPATH</span>
 <span class="prompt1">pip install pip -U</span>
 <span class="prompt1">easy_install readline</span>
 <span class="prompt1">easy_install pycrypto</span>
@@ -359,19 +361,19 @@ pycrypto</p>
 <p>We recommend that you use python 2.7.10, which you can install it
 alternatively in your system with without overwriting the existing
 python version</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz</span>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar xzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span>$<span class="s2">PATH&quot;</span></span>
 </pre><p>Verify if you now have the correct alternative python installed</p>
 <pre class="highlight"><span class="prompt1">/usr/local/bin/python2.7 --version</span>
 </pre><p>which will return Python 2.7.10. Next, Install setuptools and pip</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 ez_setup.py</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 get-pip.py</span>
 </pre><p>Create soft symbolic links</p>
@@ -388,8 +390,8 @@ versions. Inside your terminal run</p>
 <pre class="highlight"><span class="prompt1">sudo apt-get install virtualenv</span>
 </pre><p>Next we will create a python virtualenv in the directory $HOME/ENV. To
 activate virtualenv, execute the following steps</p>
-<pre class="highlight"><span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
-<span class="prompt1"><span class="nb">source</span> <span class="nv">$HOME</span>/ENV/bin/activate</span>
+<pre class="highlight"><span class="prompt1">virtualenv -p /usr/local/bin/python $HOME/ENV</span>
+<span class="prompt1"><span class="nb">source</span> $HOME/ENV/bin/activate</span>
 </pre><p>This will add a &#8216;(ENV)&#8217; to your prompt in the terminal like following:</p>
 <div class="highlight-python"><div class="highlight"><pre>(ENV)[user@hostname ~]$
 </pre></div>
@@ -421,22 +423,22 @@ script if you wish.</p>
 <span class="prompt1">sudo apt-get install libgdbm-dev</span>
 <span class="prompt1">sudo apt-get install libc6-dev</span>
 <span class="prompt1">sudo apt-get install libbz2-dev</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz</span>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar xzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span>$<span class="s2">PATH&quot;</span></span>
+<span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 ez_setup.py</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 get-pip.py</span>
 <span class="prompt1">sudo ln -sf /usr/local/bin/python2.7 /usr/local/bin/python</span>
 <span class="prompt1">sudo ln -sf /usr/local/bin/pip /usr/bin/pip</span>
 <span class="prompt1">pip install -U pip</span>
-<span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
+<span class="prompt1">virtualenv -p /usr/local/bin/python $HOME/ENV</span>
 </pre><p>Add the following to your .bashrc file:</p>
 <div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
 </pre></div>
@@ -471,20 +473,20 @@ python installation. This is achieved by following the next steps
 executing them as normal user. They will install python 2.7.10
 under`$HOME/ENV`</p>
 <pre class="highlight"><span class="prompt1">sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz</span>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar -xvzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span>$<span class="s2">PATH&quot;</span></span>
 </pre><p>Verify if you now have the correct alternative python installed</p>
 <pre class="highlight"><span class="prompt1">/usr/local/bin/python2.7 --version</span>
 </pre><p>which should return Python 2.7.10. Next, install setuptools and pip and
 create symbolic links to them</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<pre class="highlight"><span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 ez_setup.py</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 get-pip.py</span>
 <span class="prompt1">sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python</span>
@@ -502,8 +504,8 @@ versions. Inside your terminal run</p>
 <pre class="highlight"><span class="prompt1">sudo pip install virtualenv</span>
 </pre><p>Next we will create a python virtualenv in the directory $HOME/ENV. To
 activate virtualenv, execute the following steps</p>
-<pre class="highlight"><span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
-<span class="prompt1"><span class="nb">source</span> <span class="nv">$HOME</span>/ENV/bin/activate</span>
+<pre class="highlight"><span class="prompt1">virtualenv -p /usr/local/bin/python $HOME/ENV</span>
+<span class="prompt1"><span class="nb">source</span> $HOME/ENV/bin/activate</span>
 </pre><p>This will add a &#8216;(ENV)&#8217; to your prompt in the terminal like following:</p>
 <div class="highlight-python"><div class="highlight"><pre>(ENV)[user@hostname ~]$
 </pre></div>
@@ -527,23 +529,23 @@ added to the prompt.</p>
 <p>Use at your own risk, we recommend that you follow the more detailed
 instructions above</p>
 <pre class="highlight"><span class="prompt1">sudo yum install -y gcc wget zlib-devel openssl-devel sqlite-devel bzip2-devel</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">wget --no-check-certificate https://www.python.org/ftp/python/2.7.10/Python-2.7.10.tgz</span>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar -xvzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span>$<span class="s2">PATH&quot;</span></span>
+<span class="prompt1"><span class="nb">cd</span> $HOME</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 ez_setup.py</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 get-pip.py</span>
 <span class="prompt1">sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python</span>
 <span class="prompt1">sudo ln -s /usr/local/bin/pip /usr/bin/pip</span>
 <span class="prompt1">pip install -U pip</span>
 <span class="prompt1">sudo pip install virtualenv</span>
-<span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
+<span class="prompt1">virtualenv -p /usr/local/bin/python $HOME/ENV</span>
 </pre><p>Add the following to your .bashrc script:</p>
 <div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
 </pre></div>

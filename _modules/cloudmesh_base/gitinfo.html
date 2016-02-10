@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -176,7 +175,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_base.util</span> <span class="kn">import</span> <span class="n">banner</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<div class="viewcode-block" id="GitInfo"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo">[docs]</a><span class="k">class</span> <span class="nc">GitInfo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></div>
+<div class="viewcode-block" id="GitInfo"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo">[docs]</a><span class="k">class</span> <span class="nc">GitInfo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="sd">&quot;&quot;&quot;This class can be used to return some elementary information</span>
 <span class="sd">    about the git hub directory.  This includes the:</span>
@@ -206,11 +205,11 @@
 
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">print_authors</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">GitInfo</span><span class="o">.</span><span class="n">get_authors_by_date</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+<div class="viewcode-block" id="GitInfo.print_authors"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.print_authors">[docs]</a>    <span class="k">def</span> <span class="nf">print_authors</span><span class="p">():</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">GitInfo</span><span class="o">.</span><span class="n">get_authors_by_date</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span></div>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_authors_by_date</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.get_authors_by_date"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.get_authors_by_date">[docs]</a>    <span class="k">def</span> <span class="nf">get_authors_by_date</span><span class="p">(</span><span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;lists the authors of a git repository sorted by date.</span>
 
 <span class="sd">        Example:</span>
@@ -222,35 +221,35 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
 
-        <span class="c"># modified from https://github.com/jgehrcke/git-authors</span>
+        <span class="c1"># modified from https://github.com/jgehrcke/git-authors</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-        <span class="c"># if header:</span>
-        <span class="c">#    result = result + &quot;Authors\n&quot;</span>
-        <span class="c">#    result = result + &quot;=======\n\n&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1"># if header:</span>
+        <span class="c1">#    result = result + &quot;Authors\n&quot;</span>
+        <span class="c1">#    result = result + &quot;=======\n\n&quot;</span>
 
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&quot;log&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;--encoding=utf-8&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;--full-history&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;--reverse&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;--format=format:%at;%an;%ae&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;--encoding=utf-8&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;--full-history&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;--reverse&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;--format=format:%at;%an;%ae&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-            <span class="n">timestamp</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;;&quot;</span><span class="p">)</span>
+            <span class="n">timestamp</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
                 <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                <span class="n">day</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)))</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="s">&quot;* {:04d} ({:}): {:} ({:})</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seen</span><span class="p">),</span> <span class="n">day</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">result</span>
+                <span class="n">day</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)))</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="s2">&quot;* {:04d} ({:}): {:} ({:})</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seen</span><span class="p">),</span> <span class="n">day</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
-    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.version"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.version">[docs]</a>    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the verison of the code from github</span>
 <span class="sd">        :rtype: the git tags</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&quot;describe&quot;</span><span class="p">,</span> <span class="s">&quot;--tags&quot;</span><span class="p">))[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;describe&quot;</span><span class="p">,</span> <span class="s2">&quot;--tags&quot;</span><span class="p">))[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">emails</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.emails"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.emails">[docs]</a>    <span class="k">def</span> <span class="nf">emails</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the emails of the authors either as a text or as a dict. The</span>
 <span class="sd">        format is specified as an argument.</span>
@@ -258,151 +257,151 @@
 <span class="sd">        :param output: if &quot;dict&quot; is specified a dict will be returned</span>
 <span class="sd">        :rtype: dict or array of e-mails dependent on output</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">format_string</span> <span class="o">=</span> <span class="s">&quot;&#39;%aN&#39; &lt;</span><span class="si">%c</span><span class="s">E&gt;&quot;</span>
-        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;dict&#39;</span><span class="p">:</span>
-            <span class="n">format_string</span> <span class="o">=</span> <span class="s">&quot;%aN</span><span class="se">\t</span><span class="si">%c</span><span class="s">E&quot;</span>
+        <span class="n">format_string</span> <span class="o">=</span> <span class="s2">&quot;&#39;%aN&#39; &lt;</span><span class="si">%c</span><span class="s2">E&gt;&quot;</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
+            <span class="n">format_string</span> <span class="o">=</span> <span class="s2">&quot;%aN</span><span class="se">\t</span><span class="si">%c</span><span class="s2">E&quot;</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&quot;log&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;--all&quot;</span><span class="p">,</span>
-                      <span class="s">&quot;--format=&quot;</span> <span class="o">+</span> <span class="n">format_string</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;--all&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;--format=&quot;</span> <span class="o">+</span> <span class="n">format_string</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)))</span>
 
         <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">result</span>
-        <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;dict&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;dict&quot;</span><span class="p">:</span>
             <span class="n">emails</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-                <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">)</span>
+                <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
                 <span class="n">emails</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">email</span>
-            <span class="k">return</span> <span class="n">emails</span>
+            <span class="k">return</span> <span class="n">emails</span></div>
 
-    <span class="k">def</span> <span class="nf">authors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.authors"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.authors">[docs]</a>    <span class="k">def</span> <span class="nf">authors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the authors of the authors either as a text or as a dict. The</span>
 <span class="sd">        format is specified as an argument.</span>
 
 <span class="sd">        :param output: if &quot;dict&quot; is specified a dict will be returned</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&quot;shortlog&quot;</span><span class="p">,</span> <span class="s">&quot;-s&quot;</span><span class="p">,</span> <span class="s">&quot;-n&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;shortlog&quot;</span><span class="p">,</span> <span class="s2">&quot;-s&quot;</span><span class="p">,</span> <span class="s2">&quot;-n&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">output</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">result</span>
-        <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;dict&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;dict&quot;</span><span class="p">:</span>
             <span class="n">authors</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">):</span>
-                <span class="n">l</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+                <span class="n">l</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="p">(</span><span class="n">number</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
                 <span class="n">authors</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">authors</span>
+            <span class="k">return</span> <span class="n">authors</span></div>
 
-    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.info"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the information about authors, emails, and commits in a dict.</span>
 <span class="sd">        :rtype: a dict with the information</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">authors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">authors</span><span class="p">(</span><span class="s">&quot;dict&quot;</span><span class="p">)</span>
-        <span class="n">email</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s">&quot;dict&quot;</span><span class="p">)</span>
+        <span class="n">authors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">authors</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+        <span class="n">email</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
 
         <span class="n">info</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">authors</span><span class="p">:</span>
             <span class="n">info</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                <span class="s">&quot;commits&quot;</span><span class="p">:</span> <span class="n">authors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
-                <span class="s">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">[</span><span class="n">name</span><span class="p">]}</span>
-        <span class="k">return</span> <span class="n">info</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+                <span class="s2">&quot;commits&quot;</span><span class="p">:</span> <span class="n">authors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span>
+                <span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">[</span><span class="n">name</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="n">info</span></div>
 
-    <span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.stat"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.stat">[docs]</a>    <span class="k">def</span> <span class="nf">stat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns a statistic of a git author with the given e_mail.</span>
 
 <span class="sd">        :param email: name of the author</span>
 <span class="sd">        :rtype: a dict with the statistics</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&quot;log&quot;</span><span class="p">,</span> <span class="s">&quot;--all&quot;</span><span class="p">,</span> <span class="s">&quot;--stat&quot;</span><span class="p">,</span> <span class="s">&#39;--author={0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">,</span> <span class="s2">&quot;--all&quot;</span><span class="p">,</span> <span class="s2">&quot;--stat&quot;</span><span class="p">,</span> <span class="s1">&#39;--author={0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">sums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s">&quot; files changed&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot; files changed&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
                 <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; insertions(+)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; insertion(+)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; deletion(-)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; deletions(-)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; files changed&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; insertions(+)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; insertion(+)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; deletion(-)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; deletions(-)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; files changed&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span>
                 <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)):</span>
                     <span class="n">sums</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
-        <span class="k">return</span> <span class="p">{</span><span class="s">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span>
-                <span class="s">&quot;fileschanged&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
-                <span class="s">&quot;inserted&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-                <span class="s">&quot;deleted&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-                <span class="s">&quot;lineschanged&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">sums</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;email&quot;</span><span class="p">:</span> <span class="n">email</span><span class="p">,</span>
+                <span class="s2">&quot;fileschanged&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                <span class="s2">&quot;inserted&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="s2">&quot;deleted&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+                <span class="s2">&quot;lineschanged&quot;</span><span class="p">:</span> <span class="n">sums</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">sums</span><span class="p">[</span><span class="mi">2</span><span class="p">]}</span></div>
 
-    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="GitInfo.compute"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.gitinfo.GitInfo.compute">[docs]</a>    <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        computes the statistic of all authors in a git repository and</span>
 <span class="sd">        returns the result as a dict.</span>
 <span class="sd">        :rtype: a dict with the values</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">emails</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s">&quot;dict&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">emails</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
 
         <span class="n">stats</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">sums</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;fileschanged&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;inserted&quot;</span><span class="p">:</span>
-                <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;deleted&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&quot;lineschanged&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+        <span class="n">sums</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;inserted&quot;</span><span class="p">:</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;deleted&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;lineschanged&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
         <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">emails</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Calculating stats for&quot;</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Calculating stats for&quot;</span><span class="p">,</span> <span class="n">email</span><span class="p">)</span>
             <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">]</span> <span class="o">=</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
 
-            <span class="n">sums</span><span class="p">[</span><span class="s">&quot;fileschanged&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;fileschanged&quot;</span><span class="p">]</span>
-            <span class="n">sums</span><span class="p">[</span><span class="s">&quot;inserted&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;inserted&quot;</span><span class="p">]</span>
-            <span class="n">sums</span><span class="p">[</span><span class="s">&quot;deleted&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;deleted&quot;</span><span class="p">]</span>
-            <span class="n">sums</span><span class="p">[</span><span class="s">&quot;lineschanged&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;lineschanged&quot;</span><span class="p">]</span>
+            <span class="n">sums</span><span class="p">[</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">]</span>
+            <span class="n">sums</span><span class="p">[</span><span class="s2">&quot;inserted&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;inserted&quot;</span><span class="p">]</span>
+            <span class="n">sums</span><span class="p">[</span><span class="s2">&quot;deleted&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;deleted&quot;</span><span class="p">]</span>
+            <span class="n">sums</span><span class="p">[</span><span class="s2">&quot;lineschanged&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;lineschanged&quot;</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">emails</span><span class="p">:</span>
-            <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;percentage&#39;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;fileschanged&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s">&quot;fileschanged&quot;</span><span class="p">]),</span>
-                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;inserted&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s">&quot;inserted&quot;</span><span class="p">]),</span>
-                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;deleted&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s">&quot;deleted&quot;</span><span class="p">]),</span>
-                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;lineschanged&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s">&quot;lineschanged&quot;</span><span class="p">])</span>
+            <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;percentage&#39;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s2">&quot;fileschanged&quot;</span><span class="p">]),</span>
+                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;inserted&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s2">&quot;inserted&quot;</span><span class="p">]),</span>
+                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;deleted&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s2">&quot;deleted&quot;</span><span class="p">]),</span>
+                <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;lineschanged&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">sums</span><span class="p">[</span><span class="s2">&quot;lineschanged&quot;</span><span class="p">])</span>
             <span class="p">]}</span>
 
-        <span class="k">return</span> <span class="n">stats</span>
+        <span class="k">return</span> <span class="n">stats</span></div></div>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 
-    <span class="k">print</span> <span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&quot;shortlog&quot;</span><span class="p">,</span> <span class="s">&quot;-n&quot;</span><span class="p">,</span> <span class="s">&quot;-s&quot;</span><span class="p">))</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s2">&quot;shortlog&quot;</span><span class="p">,</span> <span class="s2">&quot;-n&quot;</span><span class="p">,</span> <span class="s2">&quot;-s&quot;</span><span class="p">))</span>
 
 
     <span class="n">gitinfo</span> <span class="o">=</span> <span class="n">GitInfo</span><span class="p">()</span>
 
-    <span class="c"># print gitinfo.version()</span>
+    <span class="c1"># print gitinfo.version()</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">())</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;b&quot;</span><span class="p">)</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">(</span><span class="s">&quot;dict&quot;</span><span class="p">))</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">authors</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">))</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;c&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">())</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;d&quot;</span><span class="p">)</span>
-    <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s">&quot;dict&quot;</span><span class="p">))</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;d&quot;</span><span class="p">)</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">emails</span><span class="p">(</span><span class="s2">&quot;dict&quot;</span><span class="p">))</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;e&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">info</span><span class="p">())</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;f&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="s">&quot;laszewski@gmail.com&quot;</span><span class="p">))</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">gitinfo</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="s2">&quot;laszewski@gmail.com&quot;</span><span class="p">))</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;g&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
     <span class="n">stats</span> <span class="o">=</span> <span class="n">gitinfo</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
 
     <span class="k">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;h&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;h&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">email</span> <span class="ow">in</span> <span class="n">stats</span><span class="p">:</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s">&quot;percentage&quot;</span><span class="p">]</span>
-        <span class="k">print</span><span class="p">((</span><span class="s">&quot;{0} {1:.3f}% {2:.3f}%  {3:.3f}% {4:.3f}%&quot;</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="p">[</span><span class="n">email</span><span class="p">][</span><span class="s2">&quot;percentage&quot;</span><span class="p">]</span>
+        <span class="k">print</span><span class="p">((</span><span class="s2">&quot;{0} {1:.3f}% {2:.3f}%  {3:.3f}% {4:.3f}%&quot;</span>
                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">email</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
 </pre></div>
 

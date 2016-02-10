@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -183,15 +182,15 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="c"># noinspection PyUnusedLocal,PyBroadException</span>
+<span class="c1"># noinspection PyUnusedLocal,PyBroadException</span>
 <div class="viewcode-block" id="CometCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.CometCommand.CometCommand">[docs]</a><span class="k">class</span> <span class="nc">CometCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;comet&quot;</span><span class="p">:</span> <span class="s">&quot;comet&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;comet&quot;</span><span class="p">:</span> <span class="s2">&quot;comet&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">comet_token</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;init comet command&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;init comet command&quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_comet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
@@ -273,147 +272,147 @@
 <span class="sd">            Opens the given URL in a browser window.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Comet</span><span class="o">.</span><span class="n">is_tunnel</span><span class="p">():</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Please establish a tunnel first with:&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">Comet</span><span class="o">.</span><span class="n">is_tunnel</span><span class="p">():</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Please establish a tunnel first with:&quot;</span><span class="p">)</span>
             <span class="k">print</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s">&quot;    comet tunnel start&quot;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;    comet tunnel start&quot;</span><span class="p">)</span>
             <span class="k">print</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">try</span><span class="p">:</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;tunnel&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;tunnel&quot;</span><span class="p">]:</span>
                 <span class="n">logon</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">logon</span><span class="p">()</span>
                 <span class="k">if</span> <span class="n">logon</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not logon&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not logon&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not logon&quot;</span><span class="p">)</span>
-        <span class="c"># pprint (arguments)</span>
-        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;table&quot;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not logon&quot;</span><span class="p">)</span>
+        <span class="c1"># pprint (arguments)</span>
+        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]:</span>
 
             <span class="n">Comet</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
 
             <span class="n">Comet</span><span class="o">.</span><span class="n">tunnel</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;stop&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]:</span>
 
             <span class="n">Comet</span><span class="o">.</span><span class="n">tunnel</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;tunnel&quot;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]:</span>
 
             <span class="n">Comet</span><span class="o">.</span><span class="n">state</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;logon&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;logon&quot;</span><span class="p">]:</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">comet_token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">Comet</span><span class="o">.</span><span class="n">logon</span><span class="p">():</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;logging on&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;logging on&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">comet_token</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">token</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;could not logon&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;could not logon&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;already logged on&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;already logged on&quot;</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;logoff&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;logoff&quot;</span><span class="p">]:</span>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">comet_token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;not logged in&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;not logged in&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">Comet</span><span class="o">.</span><span class="n">logoff</span><span class="p">():</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;Logging off&quot;</span><span class="p">)</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Logging off&quot;</span><span class="p">)</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">comet_token</span> <span class="o">=</span> <span class="bp">None</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s">&quot;some issue while logging off. Maybe comet not reachable&quot;</span><span class="p">)</span>
+                        <span class="s2">&quot;some issue while logging off. Maybe comet not reachable&quot;</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ll&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ll&quot;</span><span class="p">]:</span>
 
-            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
 
             <span class="k">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">simple_list</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;docs&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;docs&quot;</span><span class="p">]:</span>
 
             <span class="n">Comet</span><span class="o">.</span><span class="n">docs</span><span class="p">()</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;cluster&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]:</span>
 
-            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
             <span class="k">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;computeset&quot;</span><span class="p">]:</span>
-            <span class="n">computeset_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTESETID&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;computeset&quot;</span><span class="p">]:</span>
+            <span class="n">computeset_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTESETID&quot;</span><span class="p">]</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">computeset</span><span class="p">(</span><span class="n">computeset_id</span><span class="p">))</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;info&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;info&quot;</span><span class="p">]:</span>
 
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;add&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">]:</span>
 
-            <span class="k">print</span> <span class="p">(</span><span class="s">&quot;add the cluster&quot;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;add the cluster&quot;</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
 
-            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ID&quot;</span><span class="p">]</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;start&quot;</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">)</span>
+            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">)</span>
             <span class="n">Cluster</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;stop&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]:</span>
 
-            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ID&quot;</span><span class="p">]</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;stop&quot;</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">)</span>
+            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ID&quot;</span><span class="p">]</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">)</span>
             <span class="n">Cluster</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;power&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]:</span>
 
-            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
             <span class="n">fuzzyparam</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">if</span> <span class="s">&#39;NODESPARAM&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
-                <span class="n">fuzzyparam</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NODESPARAM&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;NODESPARAM&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
+                <span class="n">fuzzyparam</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NODESPARAM&quot;</span><span class="p">]</span>
             <span class="n">param</span> <span class="o">=</span> <span class="n">fuzzyparam</span>
 
-            <span class="c"># no nodes param provided, action on front end</span>
+            <span class="c1"># no nodes param provided, action on front end</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">fuzzyparam</span><span class="p">:</span>
-                <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;FE&quot;</span>
+                <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;FE&quot;</span>
                 <span class="n">param</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="c"># parse the nodes param</span>
+            <span class="c1"># parse the nodes param</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">param</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fuzzyparam</span><span class="p">)</span>
-                    <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;COMPUTESET&quot;</span>
+                    <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;COMPUTESET&quot;</span>
                     <span class="n">param</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s">&#39;[&#39;</span> <span class="ow">in</span> <span class="n">fuzzyparam</span> <span class="ow">and</span> <span class="s">&#39;]&#39;</span> <span class="ow">in</span> <span class="n">fuzzyparam</span><span class="p">:</span>
-                        <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;HOSTS&quot;</span>
+                    <span class="k">if</span> <span class="s1">&#39;[&#39;</span> <span class="ow">in</span> <span class="n">fuzzyparam</span> <span class="ow">and</span> <span class="s1">&#39;]&#39;</span> <span class="ow">in</span> <span class="n">fuzzyparam</span><span class="p">:</span>
+                        <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;HOSTS&quot;</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;HOST&quot;</span>
+                        <span class="n">subject</span> <span class="o">=</span> <span class="s2">&quot;HOST&quot;</span>
 
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;on&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;on&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;off&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;off&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;reboot&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;reboot&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;reset&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;reset&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;shutdown&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;shutdown&quot;</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;on&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;reboot&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;reboot&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;reset&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;reset&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;shutdown&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;shutdown&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">action</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">action</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;console&quot;</span><span class="p">]:</span>
-            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">]:</span>
+            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
             <span class="n">nodeid</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">if</span> <span class="s">&#39;COMPUTENODEID&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
-                <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;COMPUTENODEID&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
+                <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
             <span class="n">Comet</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
            </div>

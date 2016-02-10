@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -172,17 +171,17 @@
     <span class="n">ShellPluginCommand</span>
 
 
-<span class="c"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="cm_shell_status"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm_shell_status.cm_shell_status">[docs]</a><span class="k">class</span> <span class="nc">cm_shell_status</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">):</span></div>
+<span class="c1"># noinspection PyPep8Naming</span>
+<div class="viewcode-block" id="cm_shell_status"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm_shell_status.cm_shell_status">[docs]</a><span class="k">class</span> <span class="nc">cm_shell_status</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">):</span>
 
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;status&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init status default&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init status default&quot;</span><span class="p">)</span>
 
-    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -205,14 +204,14 @@
 
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># pprint(arguments)</span>
+        <span class="c1"># pprint(arguments)</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;db&#39;</span><span class="p">]:</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s">&#39;status db&#39;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;CLOUDS&#39;</span><span class="p">]:</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s">&#39;status CLOUDS...&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;status db&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;CLOUDS&#39;</span><span class="p">]:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;status CLOUDS...&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s">&#39;status&#39;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -182,15 +181,15 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="c"># noinspection PyUnusedLocal,PyBroadException</span>
+<span class="c1"># noinspection PyUnusedLocal,PyBroadException</span>
 <div class="viewcode-block" id="WhoCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.WhoCommand.WhoCommand">[docs]</a><span class="k">class</span> <span class="nc">WhoCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;Who &quot;</span><span class="p">:</span> <span class="s">&quot;system&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Who &quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">who_token</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;init Who command&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;init Who command&quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_who</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
@@ -205,19 +204,19 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logon</span> <span class="o">=</span> <span class="n">who</span><span class="o">.</span><span class="n">logon</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">logon</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not logon&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not logon&quot;</span><span class="p">)</span>
                 <span class="k">return</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not logon&quot;</span><span class="p">)</span>
-        <span class="c"># pprint (arguments)</span>
-        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;table&quot;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not logon&quot;</span><span class="p">)</span>
+        <span class="c1"># pprint (arguments)</span>
+        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;status&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]:</span>
             <span class="k">pass</span>
 
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;NOT yet implemented&quot;</span><span class="p">)</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;NOT yet implemented&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
            </div>

@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -176,14 +175,14 @@
 
 
 <div class="viewcode-block" id="SecgroupCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.SecgroupCommand.SecgroupCommand">[docs]</a><span class="k">class</span> <span class="nc">SecgroupCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;secgroup&quot;</span><span class="p">:</span> <span class="s">&quot;security&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;secgroup&quot;</span><span class="p">:</span> <span class="s2">&quot;security&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command secgroup&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command secgroup&quot;</span><span class="p">)</span>
 
-    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_secgroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -226,30 +225,30 @@
 <span class="sd">                secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP &quot;129.79.0.0/16&quot;</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># pprint(arguments)</span>
+        <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;refresh&quot;</span><span class="p">]</span> <span class="ow">or</span> \
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]</span> <span class="ow">or</span> \
                 <span class="n">Default</span><span class="o">.</span><span class="n">refresh</span><span class="p">():</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Refresh secgroup for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refresh secgroup for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">):</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;{:} ok&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;{:} ok&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
-            <span class="c"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
+            <span class="c1"># if no arguments read default</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">)</span>
 
-            <span class="c"># If default not set, terminate</span>
+            <span class="c1"># If default not set, terminate</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
                 <span class="k">return</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tenant</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">tenant</span><span class="p">,</span>
                                    <span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
@@ -257,79 +256,79 @@
                 <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s">&quot;No Security Groups found in the cloudmesh database!&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                    <span class="s2">&quot;No Security Groups found in the cloudmesh database!&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;create&quot;</span><span class="p">]:</span>
-            <span class="c"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;LABEL&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;create&quot;</span><span class="p">]:</span>
+            <span class="c1"># if no arguments read default</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
-            <span class="c"># If default not set, terminate</span>
+            <span class="c1"># If default not set, terminate</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
                 <span class="k">return</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tenant</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-            <span class="c"># Create returns uuid of created sec-group</span>
+            <span class="c1"># Create returns uuid of created sec-group</span>
             <span class="n">uuid</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">uuid</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;Created a new security group [{}] with UUID [{}]&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created a new security group [{}] with UUID [{}]&quot;</span>
                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">uuid</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Exiting!&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Exiting!&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
-            <span class="c"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;LABEL&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
+            <span class="c1"># if no arguments read default</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
-            <span class="c"># If default not set, terminate</span>
+            <span class="c1"># If default not set, terminate</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tenant</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_secgroup</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Security Group [{}, {}, {}] could not be &quot;</span>
-                              <span class="s">&quot;deleted&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Security Group [{}, {}, {}] could not be &quot;</span>
+                              <span class="s2">&quot;deleted&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">))</span>
 
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;rules-delete&quot;</span><span class="p">]:</span>
-            <span class="c"># if no arguments read default</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> \
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-delete&quot;</span><span class="p">]:</span>
+            <span class="c1"># if no arguments read default</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> \
                     <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> \
-                     <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> \
+                     <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
 
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;LABEL&quot;</span><span class="p">]</span>
-            <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;FROMPORT&quot;</span><span class="p">]</span>
-            <span class="n">to_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;TOPORT&quot;</span><span class="p">]</span>
-            <span class="n">protocol</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;PROTOCOL&quot;</span><span class="p">]</span>
-            <span class="n">cidr</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CIDR&quot;</span><span class="p">]</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
+            <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROMPORT&quot;</span><span class="p">]</span>
+            <span class="n">to_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;TOPORT&quot;</span><span class="p">]</span>
+            <span class="n">protocol</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PROTOCOL&quot;</span><span class="p">]</span>
+            <span class="n">cidr</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CIDR&quot;</span><span class="p">]</span>
 
-            <span class="c"># If default not set, terminate</span>
+            <span class="c1"># If default not set, terminate</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tenant</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-            <span class="c"># Get the security group</span>
+            <span class="c1"># Get the security group</span>
             <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
-                <span class="c"># Get the rules</span>
+                <span class="c1"># Get the rules</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_rule</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
                                               <span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">,</span>
                                               <span class="n">from_port</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
@@ -340,59 +339,59 @@
                     <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s">&quot;Rule [{} | {} | {} | {}] could not be deleted&quot;</span>
+                        <span class="s2">&quot;Rule [{} | {} | {} | {}] could not be deleted&quot;</span>
                         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">from_port</span><span class="p">,</span> <span class="n">to_port</span><span class="p">,</span> <span class="n">protocol</span><span class="p">,</span> <span class="n">cidr</span><span class="p">))</span>
 
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;rules-list&quot;</span><span class="p">]:</span>
-            <span class="c"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;LABEL&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-list&quot;</span><span class="p">]:</span>
+            <span class="c1"># if no arguments read default</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
-            <span class="c"># If default not set, terminate</span>
+            <span class="c1"># If default not set, terminate</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tenant</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-            <span class="c"># Get the security group</span>
+            <span class="c1"># Get the security group</span>
             <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
-                <span class="c"># Get the rules</span>
+                <span class="c1"># Get the rules</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get_rules</span><span class="p">(</span><span class="n">sec_group</span><span class="o">.</span><span class="n">uuid</span><span class="p">)</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s">&quot;Security Group with label [{}], cloud [{}], and &quot;</span>
-                    <span class="s">&quot;tenant [{}] not found!&quot;</span>
+                    <span class="s2">&quot;Security Group with label [{}], cloud [{}], and &quot;</span>
+                    <span class="s2">&quot;tenant [{}] not found!&quot;</span>
                     <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">))</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;rules-add&quot;</span><span class="p">]:</span>
-            <span class="c"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-add&quot;</span><span class="p">]:</span>
+            <span class="c1"># if no arguments read default</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
 
-            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;LABEL&quot;</span><span class="p">]</span>
-            <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;FROMPORT&quot;</span><span class="p">]</span>
-            <span class="n">to_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;TOPORT&quot;</span><span class="p">]</span>
-            <span class="n">protocol</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;PROTOCOL&quot;</span><span class="p">]</span>
-            <span class="n">cidr</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CIDR&quot;</span><span class="p">]</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
+            <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROMPORT&quot;</span><span class="p">]</span>
+            <span class="n">to_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;TOPORT&quot;</span><span class="p">]</span>
+            <span class="n">protocol</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PROTOCOL&quot;</span><span class="p">]</span>
+            <span class="n">cidr</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CIDR&quot;</span><span class="p">]</span>
 
-            <span class="c"># If default not set, terminate</span>
+            <span class="c1"># If default not set, terminate</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">tenant</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default tenant not set!&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-            <span class="c"># Get the security group</span>
+            <span class="c1"># Get the security group</span>
             <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
-                <span class="c"># Add rules to the security group</span>
+                <span class="c1"># Add rules to the security group</span>
                 <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
                                   <span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">,</span>
                                   <span class="n">from_port</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
@@ -401,15 +400,15 @@
                                   <span class="n">cidr</span><span class="o">=</span><span class="n">cidr</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s">&quot;Security Group with label [{}], cloud [{}], and tenant [{&quot;</span>
-                    <span class="s">&quot;}] not found!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">))</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                    <span class="s2">&quot;Security Group with label [{}], cloud [{}], and tenant [{&quot;</span>
+                    <span class="s2">&quot;}] not found!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">tenant</span><span class="p">))</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="c"># TODO: Add Implementation</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--version&quot;</span><span class="p">]:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&#39;Version: &#39;</span><span class="p">)</span>
+        <span class="c1"># TODO: Add Implementation</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--version&quot;</span><span class="p">]:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Version: &#39;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
 </pre></div>
 

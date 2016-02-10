@@ -87,10 +87,14 @@
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Manuals</span></p>
-<ul class="current">
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="setup.html">Setup</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="system.html">Preparation</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="">Installation</a><ul>
@@ -105,7 +109,6 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 </ul>
@@ -116,7 +119,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -192,6 +194,11 @@ that has been proven to work for developers and users and is very easy
 to replicate.</p>
 <div class="section" id="install-cloudmesh-client-via-pip">
 <h2>Install Cloudmesh Client via pip<a class="headerlink" href="#install-cloudmesh-client-via-pip" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The instalation with pip is not yet working at this
+time. Please use the instalation from source</p>
+</div>
 <p>Users can install the cloudmesh client via pip</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
@@ -211,10 +218,10 @@ the instructions we provide here assumes are targeted towards this
 base directory.</p>
 <p>Please use the following commands</p>
 <pre class="highlight"><span class="prompt1">mkdir -p github/cloudmesh</span>
-<span class="prompt1"><span class="nb">cd </span>github/cloudmesh</span>
+<span class="prompt1"><span class="nb">cd</span> github/cloudmesh</span>
 <span class="prompt1">git clone https://github.com/cloudmesh/base.git</span>
 <span class="prompt1">git clone https://github.com/cloudmesh/client.git</span>
-<span class="prompt1"><span class="nb">cd </span>base</span>
+<span class="prompt1"><span class="nb">cd</span> base</span>
 <span class="prompt1">python setup.py install</span>
 <span class="prompt1"><span class="nb">cd</span> ../client</span>
 <span class="prompt1">python setup.py install</span>
@@ -223,11 +230,11 @@ base directory.</p>
 <p>During the development phase of cloudmesh you may need to update the
 code from source, as cloudmesh client uses three different
 repositories please do not forget to update them accordingly</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">CLOUDMESH_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/github/cloudmesh</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/base</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">CLOUDMESH_HOME</span><span class="o">=</span>$HOME/github/cloudmesh</span>
+<span class="prompt1"><span class="nb">cd</span> <span class="nv">$C</span>LOUDMESH_HOME/base</span>
 <span class="prompt1">git pull</span>
 <span class="prompt1">python setup.py install</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/client</span>
+<span class="prompt1"><span class="nb">cd</span> <span class="nv">$C</span>LOUDMESH_HOME/client</span>
 <span class="prompt1">python setup.py install</span>
 </pre></div>
 <div class="section" id="testing">

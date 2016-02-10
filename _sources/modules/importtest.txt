@@ -1,7 +1,0 @@
-importtest module
-=================
-
-.. automodule:: importtest
-    :members:
-    :undoc-members:
-    :show-inheritance:

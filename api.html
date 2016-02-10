@@ -31,7 +31,7 @@
 
   
     <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="index.html"/>
-        <link rel="next" title="Modules and Classes" href="modules/modules.html"/>
+        <link rel="next" title="Hacking" href="hacking.html"/>
         <link rel="prev" title="Exercises" href="exercises.html"/> 
 
   
@@ -86,12 +86,15 @@
 <li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
-<p class="caption"><span class="caption-text">User Manuals</span></p>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
-<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
 </ul>
@@ -106,7 +109,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#updating-an-element-in-the-database">Updating an element in the database</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -178,12 +180,12 @@ with objects that are found in clouds. This includes images, flavors,
 and virtual machines.</p>
 <p>The clouds are defined in ~/.cloudmesh/cloudmesh.yaml</p>
 <p>All you need to do is to create a cm object:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To update a specific set of cloud object such as the flavors on the
 cloud india you simply can say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="s">&quot;india&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;india&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Other examples include</p>
@@ -191,7 +193,7 @@ cloud india you simply can say:</p>
 <div>cm.update(&#8220;image&#8221;, &#8220;india&#8221;)
 cm.update(&#8220;vm&#8221;, &#8220;india&#8221;)</div></blockquote>
 <p>Multiple updates and clouds can be introduced with a parametrized call:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&quot;vm,flavor,image&quot;</span><span class="p">,</span> <span class="s">&quot;india,aws,azure&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;vm,flavor,image&quot;</span><span class="p">,</span> <span class="s2">&quot;india,aws,azure&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In our example all clouds specified update the virtual machines,
@@ -224,7 +226,7 @@ to identify them.  The most important one is &#8216;cm_id` which presents in
 human readable format a unique id for the object in the database.</p>
 <p>The id is generated fir the <cite>getID</cite> method.</p>
 <p>Let us assume the following setup for our example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>this will create a cm database object in which the user <cite>gregor</cite>
@@ -232,11 +234,11 @@ stores its values.  First we need to get a dictionary that we may want
 to store and modify in the database.  We can obtain such an object
 changeme from a live cloud with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">cloud</span> <span class="o">=</span> <span class="n">OpenStack_libcloud</span><span class="p">(</span>
-    <span class="s">&quot;acloudnamedefinedin_cludmesh.yaml&quot;</span><span class="p">,</span>
-    <span class="n">cm_user</span><span class="o">=</span><span class="s">&quot;yourusernameonthecloud&quot;</span><span class="p">)</span>
-<span class="n">flavors</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;flat&quot;</span><span class="p">)</span>
+    <span class="s2">&quot;acloudnamedefinedin_cludmesh.yaml&quot;</span><span class="p">,</span>
+    <span class="n">cm_user</span><span class="o">=</span><span class="s2">&quot;yourusernameonthecloud&quot;</span><span class="p">)</span>
+<span class="n">flavors</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">)</span>
 
-<span class="n">internal_id</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span>
+<span class="n">internal_id</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
 
 <span class="n">changeme</span> <span class="o">=</span> <span class="n">flavors</span><span class="p">[</span><span class="n">internal_id</span><span class="p">]</span>
 </pre></div>
@@ -246,15 +248,15 @@ element in the database we first need to generate a unique cm_id. In
 our case we use the cloud object type (here flavor), the unique
 internal id that we obtain for each flavor, and the name of the cloud
 on which the object belongs to.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s">&quot;cm_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">internal_id</span><span class="p">,</span> <span class="s">&quot;india&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s2">&quot;cm_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">internal_id</span><span class="p">,</span> <span class="s2">&quot;india&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Just to be sure lest set the type to flavor:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;flavor&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;flavor&quot;</span>
 </pre></div>
 </div>
 <p>Now let us change the label of the object to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;newlabel&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;newlabel&quot;</span>
 </pre></div>
 </div>
 <p>To update the new object to the database use:</p>
@@ -272,7 +274,7 @@ on which the object belongs to.:</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="modules/modules.html" class="btn btn-neutral float-right" title="Modules and Classes" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="hacking.html" class="btn btn-neutral float-right" title="Hacking" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="exercises.html" class="btn btn-neutral" title="Exercises" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

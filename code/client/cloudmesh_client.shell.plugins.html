@@ -103,7 +103,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -1257,6 +1256,52 @@ Examples:
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.LogLevelCommand">
+<span id="cloudmesh-client-shell-plugins-loglevelcommand-module"></span><h2>cloudmesh_client.shell.plugins.LogLevelCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.LogLevelCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.LogLevelCommand.</code><code class="descname">LogLevelCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/shell/plugins/LogLevelCommand.html#LogLevelCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.ShellPluginCommand" title="cloudmesh_client.shell.command.ShellPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.ShellPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand.do_loglevel">
+<code class="descname">do_loglevel</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand.do_loglevel" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    loglevel set MODE [--cloud=CLOUD]
+    loglevel get [--cloud=CLOUD]
+    loglevel save [--cloud=CLOUD]
+
+Arguments:
+    MODE    log level mode [DEBUG/INFO/WARNING/CRITICAL/ERROR]
+
+Options:
+    --cloud=CLOUD    the name of the cloud
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Description:</dt>
+<dd>loglevel command sets the default logging level
+for a cloud.</dd>
+<dt>Examples:</dt>
+<dd><dl class="first last docutils">
+<dt>loglevel set DEBUG &#8211;cloud=kilo</dt>
+<dd>sets the default log level to DEBUG for kilo.</dd>
+<dt>loglevel get &#8211;cloud=kilo</dt>
+<dd>retreives the default log level for kilo cloud.</dd>
+<dt>loglevel save &#8211;cloud=kilo</dt>
+<dd>saves the log level preference to the db &amp; yaml file.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'loglevel': 'shell'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.shell.plugins.ManCommand">
 <span id="cloudmesh-client-shell-plugins-mancommand-module"></span><h2>cloudmesh_client.shell.plugins.ManCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.ManCommand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1493,7 +1538,7 @@ Examples:
 <dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.ShellPluginCommand" title="cloudmesh_client.shell.command.ShellPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.ShellPluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CometPluginCommand" title="cloudmesh_client.shell.command.CometPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CometPluginCommand</span></code></a></p>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.PyCommand.PyCommand.do_py">
-<code class="descname">do_py</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.PyCommand.do_py" title="Permalink to this definition">¶</a></dt>
+<code class="descname">do_py</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/shell/plugins/PyCommand.html#PyCommand.do_py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.PyCommand.do_py" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre>Usage:
     py
     py COMMAND
@@ -1541,12 +1586,12 @@ Description:
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.PyCommand.Statekeeper.restore">
-<code class="descname">restore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.Statekeeper.restore" title="Permalink to this definition">¶</a></dt>
+<code class="descname">restore</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/shell/plugins/PyCommand.html#Statekeeper.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.Statekeeper.restore" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.PyCommand.Statekeeper.save">
-<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.Statekeeper.save" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/shell/plugins/PyCommand.html#Statekeeper.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.Statekeeper.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2016,8 +2061,8 @@ Description:
 <dt id="cloudmesh_client.shell.plugins.SelectCommand.SelectCommand.do_select">
 <code class="descname">do_select</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SelectCommand.SelectCommand.do_select" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre>Usage:
-    select image [CLOUD]
-    select flavor [CLOUD]
+    select image [CLOUD] [--refresh]
+    select flavor [CLOUD] [--refresh]
     select cloud [CLOUD]
     select key [CLOUD]
 
@@ -2028,6 +2073,9 @@ Arguments:
   CLOUD    the name of the cloud
 
 Options:
+
+  --refresh   refreshes the data before displaying it
+              from the cloud
 </pre></div>
 </div>
 </dd></dl>
@@ -2208,32 +2256,6 @@ Options:
     -r COLOR  The color of the text. [default: BLACK]
 
 Prints a text in the given color
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_loglevel">
-<code class="descname">do_loglevel</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_loglevel" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
-    loglevel
-    loglevel critical
-    loglevel error
-    loglevel warning
-    loglevel info
-    loglevel debug
-
-    Shows current log level or changes it.
-
-    loglevel - shows current log level
-    critical - shows log message in critical level
-    error    - shows log message in error level including critical
-    warning  - shows log message in warning level including error
-    info     - shows log message in info level including warning
-    debug    - shows log message in debug level including info
-
-NOTE:
-  NOT YET IMPLEMENTED
 </pre></div>
 </div>
 </dd></dl>

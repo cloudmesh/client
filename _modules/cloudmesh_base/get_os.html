@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -182,15 +181,15 @@
     <span class="n">terminal</span> <span class="o">=</span> <span class="n">p</span>
     
     <span class="n">operating_system</span> <span class="o">=</span> <span class="n">p</span>
-    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s">&#39;windows&#39;</span><span class="p">:</span>
-        <span class="n">terminal</span> <span class="o">=</span> <span class="s">&quot;powershell&quot;</span>
-        <span class="k">if</span> <span class="s">&#39;TERM&#39;</span> <span class="ow">in</span> <span class="n">env</span><span class="p">:</span>
-            <span class="n">terminal</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s">&#39;TERM&#39;</span><span class="p">]</span> 
-    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s">&#39;darwin&#39;</span><span class="p">:</span>
-        <span class="n">terminal</span> <span class="o">=</span> <span class="s">&#39;osx&#39;</span>
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;windows&#39;</span><span class="p">:</span>
+        <span class="n">terminal</span> <span class="o">=</span> <span class="s2">&quot;powershell&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;TERM&#39;</span> <span class="ow">in</span> <span class="n">env</span><span class="p">:</span>
+            <span class="n">terminal</span> <span class="o">=</span> <span class="n">env</span><span class="p">[</span><span class="s1">&#39;TERM&#39;</span><span class="p">]</span> 
+    <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">&#39;darwin&#39;</span><span class="p">:</span>
+        <span class="n">terminal</span> <span class="o">=</span> <span class="s1">&#39;osx&#39;</span>
     <span class="k">return</span> <span class="n">terminal</span></div>
     
-<span class="c"># print get_os()</span>
+<span class="c1"># print get_os()</span>
 </pre></div>
 
            </div>

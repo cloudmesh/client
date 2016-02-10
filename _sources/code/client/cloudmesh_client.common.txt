@@ -36,6 +36,14 @@ cloudmesh_client.common.FlatDict module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.LogUtil module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.common.LogUtil
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.Printer module
 --------------------------------------
 

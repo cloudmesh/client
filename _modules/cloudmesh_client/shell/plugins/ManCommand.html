@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -174,14 +173,14 @@
     <span class="n">CometPluginCommand</span>
 
 
-<span class="c"># noinspection PyBroadException</span>
+<span class="c1"># noinspection PyBroadException</span>
 <div class="viewcode-block" id="ManCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ManCommand.ManCommand">[docs]</a><span class="k">class</span> <span class="nc">ManCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;man&quot;</span><span class="p">:</span> <span class="s">&quot;shell&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;man&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command man&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command man&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_print_rst</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -193,15 +192,15 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">print</span>
-        <span class="k">print</span> <span class="s">&quot;Command - </span><span class="si">%s</span><span class="s">::&quot;</span> <span class="o">%</span> <span class="n">what</span>
+        <span class="k">print</span> <span class="s2">&quot;Command - </span><span class="si">%s</span><span class="s2">::&quot;</span> <span class="o">%</span> <span class="n">what</span>
         <span class="n">h</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="k">exec</span> <span class="p">(</span><span class="s">&quot;h = self.do_</span><span class="si">%s</span><span class="s">.__doc__&quot;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
-        <span class="c"># noinspection PyUnboundLocalVariable</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;::</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">    &quot;</span><span class="p">)</span>
+        <span class="k">exec</span> <span class="p">(</span><span class="s2">&quot;h = self.do_</span><span class="si">%s</span><span class="s2">.__doc__&quot;</span> <span class="o">%</span> <span class="n">what</span><span class="p">)</span>
+        <span class="c1"># noinspection PyUnboundLocalVariable</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;::</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">h</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    &quot;</span><span class="p">)</span>
         <span class="k">print</span> <span class="n">h</span>
 
-    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_man</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -224,30 +223,30 @@
 <span class="sd">                man COMMAND</span>
 <span class="sd">                    Prints out the help page for a specific command</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;COMMAND&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
 
             <span class="k">print</span>
-            <span class="k">print</span> <span class="s">&quot;Commands&quot;</span>
-            <span class="k">print</span> <span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span>
+            <span class="k">print</span> <span class="s2">&quot;Commands&quot;</span>
+            <span class="k">print</span> <span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span>
 
-            <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;do_&quot;</span><span class="p">)]</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;do_&quot;</span><span class="p">)]</span>
             <span class="n">commands</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">commands</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">print</span> <span class="n">arguments</span>
-            <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">arguments</span><span class="p">[</span><span class="s">&#39;COMMAND&#39;</span><span class="p">]]</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="p">[</span><span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">]]</span>
 
         <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="p">:</span>
-            <span class="n">what</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;do_&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="n">what</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;do_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--noheader&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--noheader&quot;</span><span class="p">]:</span>
                     <span class="k">print</span> <span class="n">what</span>
-                    <span class="k">print</span> <span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;-&quot;</span>
+                    <span class="k">print</span> <span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;-&quot;</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_print_rst</span><span class="p">(</span><span class="n">what</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">    Command documentation </span><span class="si">%s</span><span class="s"> missing, help_</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">    Command documentation </span><span class="si">%s</span><span class="s2"> missing, help_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">what</span><span class="p">,</span> <span class="n">what</span><span class="p">)</span>
             <span class="k">print</span>
-        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
            </div>

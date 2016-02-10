@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Select Command &mdash; cloudmesh_client 1.1.5 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../index.html"/>
+        <link rel="up" title="User Manual" href="index.html"/>
+        <link rel="next" title="Register Command" href="command_register.html"/>
+        <link rel="prev" title="Color Command" href="command_ssh.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.1.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#shell-commands">Shell Commands</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="command_templates.html">Basic Commands and Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_colors.html">Color Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_group.html">Group Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="command_ssh.html">Color Command</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Select Command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setting-default-image">Setting default image</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-default-flavor">Setting default flavor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-default-cloud">Setting default cloud</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-default-key">Setting default key</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#proposed-commands">Proposed Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../old.html">Existing original cloudmesh commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="simple">
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="index.html">User Manual</a> &raquo;</li>
+      
+    <li>Select Command</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/commands/command_select.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="select-command">
+<h1>Select Command<a class="headerlink" href="#select-command" title="Permalink to this headline">¶</a></h1>
+<p>Select Command is used to interactively set a default image/ flavor/ cloud/ key.</p>
+<p>The manual page of the key command can be found at: <a class="reference external" href="../man/man.html#select">SELECT</a></p>
+<div class="section" id="setting-default-image">
+<h2>Setting default image<a class="headerlink" href="#setting-default-image" title="Permalink to this headline">¶</a></h2>
+<p>You can select the default image with the following simple command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm select image
+
+Select an Image
+===============
+
+    1 - image-1
+    2 - fedora
+    3 - CentOS7
+    4 - ubuntu-custom
+    5 - Ubuntu-15.10-64
+    6 - Ubuntu-14.04-64
+    7 - cirros
+    q - quit
+
+
+Select between 1 - 7: 5
+choice 5 selected.
+Selected image Ubuntu-15.10-64
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-default-flavor">
+<h2>Setting default flavor<a class="headerlink" href="#setting-default-flavor" title="Permalink to this headline">¶</a></h2>
+<p>You can select the default flavor with the following simple command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm select flavor
+
+Select a Flavor
+===============
+
+    1 - tiny
+    2 - small
+    3 - medium
+    4 - large
+    5 - xlarge
+    q - quit
+
+
+Select between 1 - 5: 3
+choice 3 selected.
+Selected flavor medium
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-default-cloud">
+<h2>Setting default cloud<a class="headerlink" href="#setting-default-cloud" title="Permalink to this headline">¶</a></h2>
+<p>You can select the default cloud with the following simple command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm select cloud
+
+Select a cloud
+==============
+
+    1 - kilo
+    2 - chameleon
+    3 - cybera-c
+    4 - cybera-e
+    5 - aws
+    6 - chameleon-ec2
+    7 - azure
+    q - quit
+
+
+
+Select between 1 - 7: 2
+choice 2 selected.
+Selected cloud chameleon
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-default-key">
+<h2>Setting default key<a class="headerlink" href="#setting-default-key" title="Permalink to this headline">¶</a></h2>
+<p>You can select the default key with the following simple command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm select key
+
+Select a Key
+============
+
+    1 - albert-key
+    2 - customkey
+    q - quit
+
+
+Select between 1 - 2: 1
+choice 1 selected.
+Selected key albert-key
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="command_register.html" class="btn btn-neutral float-right" title="Register Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="command_ssh.html" class="btn btn-neutral" title="Color Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'1.1.5',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

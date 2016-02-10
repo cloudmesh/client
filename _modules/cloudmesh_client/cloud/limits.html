@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -175,24 +174,24 @@
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="Limits"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.limits.Limits">[docs]</a><span class="k">class</span> <span class="nc">Limits</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span></div>
+<div class="viewcode-block" id="Limits"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.limits.Limits">[docs]</a><span class="k">class</span> <span class="nc">Limits</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span> <span class="n">tenant</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Limits.list"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.limits.Limits.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="n">tenant</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="c">#if tenant is None:</span>
-            <span class="c">#    tenant = provider.tenant</span>
+            <span class="c1">#if tenant is None:</span>
+            <span class="c1">#    tenant = provider.tenant</span>
 
-            <span class="n">result</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_limits</span><span class="p">(</span><span class="n">tenant</span><span class="p">)[</span><span class="s">&quot;absolute&quot;</span><span class="p">]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_limits</span><span class="p">(</span><span class="n">tenant</span><span class="p">)[</span><span class="s2">&quot;absolute&quot;</span><span class="p">]</span>
 
-            <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s">&quot;limits&quot;</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="s2">&quot;limits&quot;</span><span class="p">)</span>
 
             <span class="k">return</span> <span class="n">attribute_printer</span><span class="p">(</span><span class="n">result</span><span class="p">,</span>
                                      <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
                                      <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">e</span>
+            <span class="k">return</span> <span class="n">e</span></div></div>
 </pre></div>
 
            </div>

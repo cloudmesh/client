@@ -103,7 +103,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -305,6 +304,23 @@ array load_order</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="cloudmesh_client.common.ConfigDict.ConfigDict.make_a_copy">
+<code class="descname">make_a_copy</code><span class="sig-paren">(</span><em>location=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#ConfigDict.make_a_copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict.make_a_copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a backup of the file specified in the location. The backup
+filename  appends a .bak.NO where number is a number that is not yet
+used in the backup directory.</p>
+<p>TODO: This function should be moved to another file maybe XShell</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>location</strong> &#8211; the location of the file to be backed up</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.common.ConfigDict.ConfigDict.save">
 <code class="descname">save</code><span class="sig-paren">(</span><em>filename=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#ConfigDict.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict.save" title="Permalink to this definition">¶</a></dt>
 <dd><p>saves the configuration in the given filename,
@@ -316,6 +332,26 @@ if it is none the filename at load time is used.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<em>string</em>) &#8211; the file name</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.ConfigDict.ConfigDict.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>filename=None</em>, <em>output='dict'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#ConfigDict.write"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method writes the dict into various outout formats. This includes a dict,
+json, and yaml</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>filename</strong> &#8211; the file in which the dict is written</li>
+<li><strong>output</strong> &#8211; is a string that is either &#8220;dict&#8221;, &#8220;json&#8221;, &#8220;yaml&#8221;</li>
+<li><strong>attribute_indent</strong> &#8211; character indentation of nested attributes in</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -345,6 +381,11 @@ if it is none the filename at load time is used.</p>
 <dd></dd></dl>
 
 <dl class="function">
+<dt id="cloudmesh_client.common.ConfigDict.custom_print">
+<code class="descclassname">cloudmesh_client.common.ConfigDict.</code><code class="descname">custom_print</code><span class="sig-paren">(</span><em>data_structure</em>, <em>indent</em>, <em>attribute_indent=4</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#custom_print"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.custom_print" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="cloudmesh_client.common.ConfigDict.dprint">
 <code class="descclassname">cloudmesh_client.common.ConfigDict.</code><code class="descname">dprint</code><span class="sig-paren">(</span><em>OD</em>, <em>mode='dict'</em>, <em>s=''</em>, <em>indent='    '</em>, <em>level=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#dprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.dprint" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -353,6 +394,25 @@ if it is none the filename at load time is used.</p>
 <dt id="cloudmesh_client.common.ConfigDict.main">
 <code class="descclassname">cloudmesh_client.common.ConfigDict.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.common.ConfigDict.ordered_dump">
+<code class="descclassname">cloudmesh_client.common.ConfigDict.</code><code class="descname">ordered_dump</code><span class="sig-paren">(</span><em>data</em>, <em>stream=None</em>, <em>Dumper=&lt;class 'yaml.dumper.Dumper'&gt;</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/ConfigDict.html#ordered_dump"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ordered_dump" title="Permalink to this definition">¶</a></dt>
+<dd><p>writes the dict into an ordered yaml.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data</strong> &#8211; The ordered dict</li>
+<li><strong>stream</strong> &#8211; the stream</li>
+<li><strong>Dumper</strong> &#8211; the dumper such as yaml.SafeDumper</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-cloudmesh_client.common.DictDB">
@@ -529,7 +589,7 @@ operators that are allowed are = and, or</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.common.Error.Error.traceback">
-<em class="property">classmethod </em><code class="descname">traceback</code><span class="sig-paren">(</span><em>error=None</em>, <em>debug=True</em>, <em>trace=True</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.common.Error.Error.traceback" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">traceback</code><span class="sig-paren">(</span><em>error=None</em>, <em>debug=True</em>, <em>trace=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/Error.html#Error.traceback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.traceback" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -613,6 +673,91 @@ at time of initialization.</p>
 <dt id="cloudmesh_client.common.FlatDict.main">
 <code class="descclassname">cloudmesh_client.common.FlatDict.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/FlatDict.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.FlatDict.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.common.LogUtil">
+<span id="cloudmesh-client-common-logutil-module"></span><h2>cloudmesh_client.common.LogUtil module<a class="headerlink" href="#module-cloudmesh_client.common.LogUtil" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.LogUtil.</code><code class="descname">LogUtil</code><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.DEFAULT_LOG_LEVEL">
+<code class="descname">DEFAULT_LOG_LEVEL</code><em class="property"> = 'ERROR'</em><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.DEFAULT_LOG_LEVEL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.FORMAT">
+<code class="descname">FORMAT</code><em class="property"> = '%(asctime)s [%(levelname)s] %(filename)s:%(lineno)s %(funcName)s() %(message)s'</em><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.FORMAT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.LOG_LEVEL_KEY">
+<code class="descname">LOG_LEVEL_KEY</code><em class="property"> = 'log_level'</em><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.LOG_LEVEL_KEY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.category">
+<code class="descname">category</code><em class="property"> = 'general'</em><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.category" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.get_level">
+<em class="property">static </em><code class="descname">get_level</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil.get_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.get_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the log level from database
+:param cloudname: The name of the cloud
+:return: the log level</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.get_level_obj">
+<em class="property">static </em><code class="descname">get_level_obj</code><span class="sig-paren">(</span><em>log_level</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil.get_level_obj"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.get_level_obj" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the log level when passing a string
+:param log_level: case insensitive string. Valid values are debug,</p>
+<blockquote>
+<div>info, warning, critical, error</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a logging level</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.get_logger">
+<em class="property">static </em><code class="descname">get_logger</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil.get_logger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.get_logger" title="Permalink to this definition">¶</a></dt>
+<dd><p>get caller file name
+:return: file name based on the context where the logger is caller</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.initialize_logging">
+<em class="property">static </em><code class="descname">initialize_logging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil.initialize_logging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.initialize_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads the log level from the cloudmesh.yaml file from
+cloudmesh.logging.level. If the value is not set the logging will be
+set to the default which is &#8220;ERROR&#8221;
+:return: the loglevel</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.save">
+<em class="property">static </em><code class="descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>save the loglevel for a cloud to the cloudmesh.yaml file</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LogUtil.LogUtil.set_level">
+<em class="property">static </em><code class="descname">set_level</code><span class="sig-paren">(</span><em>log_level</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/LogUtil.html#LogUtil.set_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LogUtil.LogUtil.set_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets th eloglevel in teh database and the loglevel file from
+cloudmesh.yaml
+:param log_level: the loglevel
+:return:</p>
+</dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-cloudmesh_client.common.Printer">
@@ -813,7 +958,7 @@ The order is specified by the key names of the dict.</li>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.common.todo.TODO.implement">
-<em class="property">classmethod </em><code class="descname">implement</code><span class="sig-paren">(</span><em>msg='Please implement'</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.common.todo.TODO.implement" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">implement</code><span class="sig-paren">(</span><em>msg='Please implement'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/cloudmesh_client/common/todo.html#TODO.implement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.todo.TODO.implement" title="Permalink to this definition">¶</a></dt>
 <dd><p>temporary function to use to indicate that the code is not
 yet implemented</p>
 </dd></dl>

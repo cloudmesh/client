@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -167,14 +166,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_base.Shell</h1><div class="highlight"><pre>
-<span class="c">#</span>
-<span class="c"># demo to start os command</span>
-<span class="c">#</span>
-<span class="c"># from subprocess import check_output</span>
+<span class="c1">#</span>
+<span class="c1"># demo to start os command</span>
+<span class="c1">#</span>
+<span class="c1"># from subprocess import check_output</span>
 
-<span class="c"># cmd = r&#39;C:\cygwin64\bin\ps.exe&#39;</span>
-<span class="c"># output = check_output(cmd)</span>
-<span class="c"># print (output)</span>
+<span class="c1"># cmd = r&#39;C:\cygwin64\bin\ps.exe&#39;</span>
+<span class="c1"># output = check_output(cmd)</span>
+<span class="c1"># print (output)</span>
 
 
 <span class="kn">import</span> <span class="nn">subprocess</span>
@@ -184,14 +183,14 @@
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_base.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
 
-<div class="viewcode-block" id="Shell"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell">[docs]</a><span class="k">class</span> <span class="nc">Shell</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span></div>
+<div class="viewcode-block" id="Shell"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell">[docs]</a><span class="k">class</span> <span class="nc">Shell</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="n">cygwin_path</span> <span class="o">=</span> <span class="s">&#39;bin&#39;</span> <span class="c">#i copied fom C:\cygwin\bin</span>
+    <span class="n">cygwin_path</span> <span class="o">=</span> <span class="s1">&#39;bin&#39;</span> <span class="c1">#i copied fom C:\cygwin\bin</span>
 
     <span class="n">command</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">&#39;windows&#39;</span><span class="p">:</span> <span class="p">{},</span>
-        <span class="s">&#39;linux&#39;</span><span class="p">:{},</span>
-        <span class="s">&#39;darwin&#39;</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="s1">&#39;windows&#39;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="s1">&#39;linux&#39;</span><span class="p">:{},</span>
+        <span class="s1">&#39;darwin&#39;</span><span class="p">:</span> <span class="p">{}</span>
     <span class="p">}</span>
 
     <span class="sd">&#39;&#39;&#39;</span>
@@ -219,185 +218,185 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ls&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">ps</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ps&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.ps"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.ps">[docs]</a>    <span class="k">def</span> <span class="nf">ps</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ps&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">bash</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;bash&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.bash"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.bash">[docs]</a>    <span class="k">def</span> <span class="nf">bash</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;bash&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">cat</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;cat&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.cat"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.cat">[docs]</a>    <span class="k">def</span> <span class="nf">cat</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;cat&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">git</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;git&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.git"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.git">[docs]</a>    <span class="k">def</span> <span class="nf">git</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;git&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">VBoxManage</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;VBoxManage&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.VBoxManage"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.VBoxManage">[docs]</a>    <span class="k">def</span> <span class="nf">VBoxManage</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;VBoxManage&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">blockdiag</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;blockdiag&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.blockdiag"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.blockdiag">[docs]</a>    <span class="k">def</span> <span class="nf">blockdiag</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;blockdiag&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">cm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;cm&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.cm"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.cm">[docs]</a>    <span class="k">def</span> <span class="nf">cm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;cm&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fgmetric</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;fgmetric&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.fgmetric"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.fgmetric">[docs]</a>    <span class="k">def</span> <span class="nf">fgmetric</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;fgmetric&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">fgrep</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;fgrep&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.fgrep"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.fgrep">[docs]</a>    <span class="k">def</span> <span class="nf">fgrep</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;fgrep&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">gchproject</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;gchproject&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.gchproject"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.gchproject">[docs]</a>    <span class="k">def</span> <span class="nf">gchproject</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;gchproject&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">gchuser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;gchuser&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.gchuser"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.gchuser">[docs]</a>    <span class="k">def</span> <span class="nf">gchuser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;gchuser&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">glusers</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;glusers&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.glusers"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.glusers">[docs]</a>    <span class="k">def</span> <span class="nf">glusers</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;glusers&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">gmkproject</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;gmkproject&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.gmkproject"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.gmkproject">[docs]</a>    <span class="k">def</span> <span class="nf">gmkproject</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;gmkproject&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">grep</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;grep&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">grep</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;grep&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">gstatement</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;gstatement&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.gstatement"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.gstatement">[docs]</a>    <span class="k">def</span> <span class="nf">gstatement</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;gstatement&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">head</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;head&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.head"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.head">[docs]</a>    <span class="k">def</span> <span class="nf">head</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">keystone</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;keystone&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.keystone"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.keystone">[docs]</a>    <span class="k">def</span> <span class="nf">keystone</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;keystone&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;kill&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.kill"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;kill&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ls&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.ls"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.ls">[docs]</a>    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">mongoimport</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;mongoimport&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.mongoimport"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.mongoimport">[docs]</a>    <span class="k">def</span> <span class="nf">mongoimport</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;mongoimport&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">mysql</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;mysql&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.mysql"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.mysql">[docs]</a>    <span class="k">def</span> <span class="nf">mysql</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;mysql&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">nosetests</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;nosetests&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.nosetests"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.nosetests">[docs]</a>    <span class="k">def</span> <span class="nf">nosetests</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;nosetests&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">nova</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;nova&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.nova"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.nova">[docs]</a>    <span class="k">def</span> <span class="nf">nova</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;nova&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ping&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.ping"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.ping">[docs]</a>    <span class="k">def</span> <span class="nf">ping</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ping&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">pwd</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;pwd&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.pwd"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.pwd">[docs]</a>    <span class="k">def</span> <span class="nf">pwd</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;pwd&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">rackdiag</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;rackdiag&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.rackdiag"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.rackdiag">[docs]</a>    <span class="k">def</span> <span class="nf">rackdiag</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;rackdiag&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">rm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;rm&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.rm"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.rm">[docs]</a>    <span class="k">def</span> <span class="nf">rm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;rm&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">rsync</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;rsync&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.rsync"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.rsync">[docs]</a>    <span class="k">def</span> <span class="nf">rsync</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;rsync&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">scp</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;scp&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.scp"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.scp">[docs]</a>    <span class="k">def</span> <span class="nf">scp</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;scp&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;sort&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.sort"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.sort">[docs]</a>    <span class="k">def</span> <span class="nf">sort</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;sort&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">sh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;sh&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.sh"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.sh">[docs]</a>    <span class="k">def</span> <span class="nf">sh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ssh&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.ssh"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.ssh">[docs]</a>    <span class="k">def</span> <span class="nf">ssh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ssh&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">sudo</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;sudo&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.sudo"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.sudo">[docs]</a>    <span class="k">def</span> <span class="nf">sudo</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;sudo&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">tail</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;tail&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.tail"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.tail">[docs]</a>    <span class="k">def</span> <span class="nf">tail</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;tail&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">vagrant</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;vagrant&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.vagrant"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.vagrant">[docs]</a>    <span class="k">def</span> <span class="nf">vagrant</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;vagrant&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">mongod</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;mongod&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.mongod"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.mongod">[docs]</a>    <span class="k">def</span> <span class="nf">mongod</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;mongod&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">grep</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;grep&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.grep"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.grep">[docs]</a>    <span class="k">def</span> <span class="nf">grep</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;grep&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">dialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;dialog&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.dialog"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.dialog">[docs]</a>    <span class="k">def</span> <span class="nf">dialog</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;dialog&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">pip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;pip&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="Shell.pip"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.pip">[docs]</a>    <span class="k">def</span> <span class="nf">pip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;pip&#39;</span><span class="p">,</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">remove_line_with</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.remove_line_with"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.remove_line_with">[docs]</a>    <span class="k">def</span> <span class="nf">remove_line_with</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">what</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="p">[</span><span class="n">line</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">find_lines_with</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.find_lines_with"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.find_lines_with">[docs]</a>    <span class="k">def</span> <span class="nf">find_lines_with</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">lines</span><span class="p">,</span> <span class="n">what</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">what</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="p">[</span><span class="n">line</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">operating_system</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;windows&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">operating_system</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;windows&quot;</span><span class="p">:</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">find_cygwin_executables</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">pass</span>
-            <span class="c"># implement for cmd, for linux we can just pass as it includes everything</span>
+            <span class="c1"># implement for cmd, for linux we can just pass as it includes everything</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">find_cygwin_executables</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.find_cygwin_executables"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.find_cygwin_executables">[docs]</a>    <span class="k">def</span> <span class="nf">find_cygwin_executables</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find the executables </span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">exe_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">cygwin_path</span> <span class="o">+</span> <span class="s">r&#39;\*.exe&#39;</span><span class="p">)</span>
-        <span class="c"># print cls.cygwin_path</span>
-        <span class="c"># list all *.exe in  cygwin path, use glob</span>
+        <span class="n">exe_paths</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">cygwin_path</span> <span class="o">+</span> <span class="s1">r&#39;\*.exe&#39;</span><span class="p">)</span>
+        <span class="c1"># print cls.cygwin_path</span>
+        <span class="c1"># list all *.exe in  cygwin path, use glob</span>
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">exe_paths</span><span class="p">:</span>
-            <span class="n">exe</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\\</span><span class="s">&#39;</span><span class="p">)</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">exe</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="c">#command[&#39;windows&#39;][name] = &quot;{:}\{:}.exe&quot;.format(cygwin_path, c)</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s">&#39;windows&#39;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span>
+            <span class="n">exe</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">exe</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="c1">#command[&#39;windows&#39;][name] = &quot;{:}\{:}.exe&quot;.format(cygwin_path, c)</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s1">&#39;windows&#39;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">c</span></div>
 
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">terminal_type</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.terminal_type"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.terminal_type">[docs]</a>    <span class="k">def</span> <span class="nf">terminal_type</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns  darwin, cygwin, cmd, or linux</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">what</span> <span class="o">=</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-        <span class="n">kind</span> <span class="o">=</span> <span class="s">&#39;UNDEFINED_TERMINAL_TYPE&#39;</span>
-        <span class="k">if</span> <span class="s">&#39;linux&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="s">&#39;linux&#39;</span>
-        <span class="k">elif</span> <span class="s">&#39;darwin&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="s">&#39;darwin&#39;</span>
-        <span class="k">elif</span> <span class="s">&#39;cygwin&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="s">&#39;cygwin&#39;</span>
-        <span class="k">elif</span> <span class="s">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
-            <span class="n">kind</span> <span class="o">=</span> <span class="s">&#39;windows&#39;</span>
+        <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;UNDEFINED_TERMINAL_TYPE&#39;</span>
+        <span class="k">if</span> <span class="s1">&#39;linux&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;linux&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;darwin&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;darwin&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;cygwin&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;cygwin&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">what</span><span class="p">:</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="s1">&#39;windows&#39;</span>
 
-        <span class="k">return</span> <span class="n">kind</span>
+        <span class="k">return</span> <span class="n">kind</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.which"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.which">[docs]</a>    <span class="k">def</span> <span class="nf">which</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">command</span><span class="p">):</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">ttype</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">t</span> <span class="ow">and</span> <span class="n">cls</span><span class="o">.</span><span class="n">command_exists</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s">&#39;windows&#39;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s">&#39;linux&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
-            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;which&quot;</span><span class="p">,</span><span class="n">command</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">t</span> <span class="ow">and</span> <span class="n">cls</span><span class="o">.</span><span class="n">command_exists</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s1">&#39;windows&#39;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="s1">&#39;linux&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;which&quot;</span><span class="p">,</span><span class="n">command</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">result</span>
+                <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">command_exists</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.command_exists"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.command_exists">[docs]</a>    <span class="k">def</span> <span class="nf">command_exists</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">ttype</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
-            <span class="c">#only for windows</span>
+        <span class="k">if</span> <span class="s1">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+            <span class="c1">#only for windows</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">find_cygwin_executables</span><span class="p">()</span>
-            <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s">&#39;windows&#39;</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s">&#39;linux&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s1">&#39;windows&#39;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="s1">&#39;linux&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">which</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">r</span>
+            <span class="k">return</span> <span class="n">r</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">list_commands</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.list_commands"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.list_commands">[docs]</a>    <span class="k">def</span> <span class="nf">list_commands</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">t</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">ttype</span><span class="p">()</span>
-        <span class="k">if</span> <span class="s">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
-            <span class="c">#only for windows</span>
+        <span class="k">if</span> <span class="s1">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+            <span class="c1">#only for windows</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">find_cygwin_executables</span><span class="p">()</span>
-            <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s">&#39;windows&#39;</span><span class="p">])</span>
+            <span class="k">print</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="s1">&#39;windows&#39;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s">&quot;ERROR: this command is not supported for this OS&quot;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;ERROR: this command is not supported for this OS&quot;</span><span class="p">)</span></div>
 
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">operating_system</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+<div class="viewcode-block" id="Shell.operating_system"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.operating_system">[docs]</a>    <span class="k">def</span> <span class="nf">operating_system</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.execute"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.execute">[docs]</a>    <span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="n">arguments</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Run Shell command</span>
 
 <span class="sd">        :param cmd: command to run</span>
@@ -405,15 +404,15 @@
 <span class="sd">        :param capture: if true returns the output</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># print &quot;--------------&quot;</span>
+        <span class="c1"># print &quot;--------------&quot;</span>
         <span class="n">terminal</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">terminal_type</span><span class="p">()</span>
-        <span class="c"># print cls.command</span>
+        <span class="c1"># print cls.command</span>
         <span class="n">os_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmd</span><span class="p">]</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">terminal</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;linux&#39;</span><span class="p">,</span> <span class="s">&#39;windows&#39;</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">terminal</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;linux&#39;</span><span class="p">,</span> <span class="s1">&#39;windows&#39;</span><span class="p">]):</span>
             <span class="n">os_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmd</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s">&#39;cygwin&#39;</span> <span class="ow">in</span> <span class="n">terminal</span><span class="p">:</span> 
+        <span class="k">elif</span> <span class="s1">&#39;cygwin&#39;</span> <span class="ow">in</span> <span class="n">terminal</span><span class="p">:</span> 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cls</span><span class="o">.</span><span class="n">command_exists</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
-                <span class="k">print</span> <span class="s">&quot;ERROR: the command could not be found&quot;</span><span class="p">,</span> <span class="n">cmd</span>
+                <span class="k">print</span> <span class="s2">&quot;ERROR: the command could not be found&quot;</span><span class="p">,</span> <span class="n">cmd</span>
                 <span class="k">return</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">os_command</span> <span class="o">=</span> <span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">command</span><span class="p">[</span><span class="n">cls</span><span class="o">.</span><span class="n">operating_system</span><span class="p">()][</span><span class="n">cmd</span><span class="p">]]</span>
@@ -426,14 +425,14 @@
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arguments</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="n">os_command</span> <span class="o">=</span> <span class="n">os_command</span> <span class="o">+</span> <span class="n">arguments</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&quot;ERROR: Wrong parameter type&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s2">&quot;ERROR: Wrong parameter type&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">os_command</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">newdir</span><span class="p">):</span>
+<div class="viewcode-block" id="Shell.mkdir"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.Shell.mkdir">[docs]</a>    <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">newdir</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;works the way a good mkdir should :)</span>
 <span class="sd">        - already exists, silently complete</span>
 <span class="sd">        - regular file in the way, raise an exception</span>
@@ -444,14 +443,14 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">_newdir</span><span class="p">):</span>
             <span class="k">pass</span>
         <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">_newdir</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s">&quot;a file with the same name as the desired &quot;</span>
-                          <span class="s">&quot;dir, &#39;</span><span class="si">%s</span><span class="s">&#39;, already exists.&quot;</span> <span class="o">%</span> <span class="n">_newdir</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">OSError</span><span class="p">(</span><span class="s2">&quot;a file with the same name as the desired &quot;</span>
+                          <span class="s2">&quot;dir, &#39;</span><span class="si">%s</span><span class="s2">&#39;, already exists.&quot;</span> <span class="o">%</span> <span class="n">_newdir</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">head</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">_newdir</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">head</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">head</span><span class="p">):</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">head</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">tail</span><span class="p">:</span>
-                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_newdir</span><span class="p">)</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">_newdir</span><span class="p">)</span></div></div>
 
     
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../code/base/cloudmesh_base.html#cloudmesh_base.Shell.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
@@ -459,14 +458,14 @@
 
     <span class="k">print</span> <span class="n">shell</span><span class="o">.</span><span class="n">terminal_type</span><span class="p">()</span>
     
-    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;pwd&#39;</span><span class="p">)</span> <span class="c"># copy line replace</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;pwd&#39;</span><span class="p">)</span> <span class="c1"># copy line replace</span>
     <span class="k">print</span> <span class="n">r</span>
 
-    <span class="c">#shell.list()</span>
+    <span class="c1">#shell.list()</span>
 
-    <span class="c">#print json.dumps(shell.command, indent=4)</span>
+    <span class="c1">#print json.dumps(shell.command, indent=4)</span>
 
-    <span class="c"># test some commands without args</span>
+    <span class="c1"># test some commands without args</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    for cmd in [&#39;whoami&#39;, &#39;pwd&#39;]:</span>
 <span class="sd">        r = shell._execute(cmd)</span>
@@ -475,17 +474,17 @@
 <span class="sd">        print &quot;{:}&quot;.format(r)        </span>
 <span class="sd">        print &quot;---------------------&quot;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ls&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;-l&quot;</span><span class="p">,</span> <span class="s">&quot;-a&quot;</span><span class="p">])</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-l&quot;</span><span class="p">,</span> <span class="s2">&quot;-a&quot;</span><span class="p">])</span>
     <span class="k">print</span> <span class="n">r</span>
 
-    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;ls&#39;</span><span class="p">,</span> <span class="s">&quot;-l -a&quot;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="s2">&quot;-l -a&quot;</span><span class="p">)</span>
     <span class="k">print</span> <span class="n">r</span>
 
 
-    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s">&quot;-aux&quot;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;-aux&quot;</span><span class="p">)</span>
     <span class="k">print</span> <span class="n">r</span>
 
-    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s">&quot;-a&quot;</span><span class="p">,</span> <span class="s">&quot;-u&quot;</span><span class="p">,</span> <span class="s">&quot;-x&quot;</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;-a&quot;</span><span class="p">,</span> <span class="s2">&quot;-u&quot;</span><span class="p">,</span> <span class="s2">&quot;-x&quot;</span><span class="p">)</span>
     <span class="k">print</span> <span class="n">r</span>
 
     <span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">pwd</span><span class="p">()</span>
@@ -493,7 +492,7 @@
 
     
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 
 </pre></div>

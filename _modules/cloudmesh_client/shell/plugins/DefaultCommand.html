@@ -104,7 +104,6 @@
 <p class="caption"><span class="caption-text">Developer Manuals</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../modules/modules.html">Modules and Classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../hacking.html">Hacking</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Appendix</span></p>
@@ -168,21 +167,26 @@
             
   <h1>Source code for cloudmesh_client.shell.plugins.DefaultCommand</h1><div class="highlight"><pre>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> \
     <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="kn">import</span> <span class="n">LogUtil</span>
 
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">LogUtil</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
 
 <div class="viewcode-block" id="DefaultCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.DefaultCommand.DefaultCommand">[docs]</a><span class="k">class</span> <span class="nc">DefaultCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;default&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
+
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command default&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command default&quot;</span><span class="p">)</span>
 
-    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -269,13 +273,13 @@
 <span class="sd">                cloud kilo</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># pprint(arguments)</span>
+        <span class="c1"># pprint(arguments)</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        For these keys, the &#39;cloud&#39; column in db</span>
 <span class="sd">        will always be &#39;general&#39;.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">general_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;cloud&quot;</span><span class="p">,</span> <span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="s">&quot;queue&quot;</span><span class="p">]</span>
+        <span class="n">general_keys</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="s2">&quot;queue&quot;</span><span class="p">]</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        If the default cloud has been set (eg. default cloud=xxx),</span>
@@ -284,64 +288,64 @@
 <span class="sd">        (eg. image=yyy for cloud=xxx).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">arguments</span><span class="p">)</span>
 
-
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;KEY&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">general_keys</span><span class="p">:</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="s">&quot;general&quot;</span>
-        <span class="k">elif</span> <span class="n">args</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="s">&quot;general&quot;</span>
-            <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--cloud&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
-            <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
-            <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">]</span>
-            <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">general_keys</span><span class="p">:</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
+        <span class="k">elif</span> <span class="n">args</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
+            <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
+            <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span>
+            <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">)</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cloud&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s">&quot;general&quot;</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
-            <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
+            <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--all&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--all&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">cloud</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No default values found&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No default values found&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
 
-            <span class="n">key</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;KEY&quot;</span><span class="p">]</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Key {} not present&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Key {} not present&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;Deleted key {} for cloud {}. ok.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Deleted key {} for cloud {}. ok.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span>
                                                                      <span class="n">cloud</span><span class="p">))</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="s">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;KEY&quot;</span><span class="p">]:</span>
-            <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;KEY&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;=&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;=&quot;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]:</span>
+            <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">general_keys</span><span class="p">:</span>
-                <span class="n">cloud</span> <span class="o">=</span> <span class="s">&quot;general&quot;</span>
+                <span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;general&quot;</span>
             <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span>
-                <span class="s">&quot;set in defaults {}={}. ok.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="s2">&quot;set in defaults {}={}. ok.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;KEY&quot;</span><span class="p">]:</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;KEY&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;KEY&quot;</span><span class="p">]</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No default values found&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No default values found&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;Default value for {} is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
-            <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Default value for {} is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+            <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
            </div>
