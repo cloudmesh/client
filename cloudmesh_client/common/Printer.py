@@ -5,7 +5,7 @@ import json
 
 from prettytable import PrettyTable
 import yaml
-from cloudmesh_base.util import convert_from_unicode
+from cloudmesh_client.util import convert_from_unicode
 
 
 def list_printer(l,
@@ -251,3 +251,34 @@ def print_list(l, output='table'):
         return result
     elif output == 'txt':
         return "\n".join(l)
+
+
+def row_table(d, order=None, labels=None):
+    """prints a pretty table from data in the dict.
+    :param d: A dict to be printed
+    :param order: The order in which the columns are printed.
+                  The order is specified by the key names of the dict.
+    """
+    # header
+    header = d.keys()
+    x = PrettyTable(labels)
+    if order is None:
+        order = header
+    for key in order:
+        value = d[key]
+        if type(value) == list:
+            x.add_row([key, value[0]])
+            for element in value[1:]:
+                x.add_row(["", element])
+        elif type(value) == dict:
+            value_keys = value.keys()
+            first_key = value_keys[0]
+            rest_keys = value_keys[1:]
+            x.add_row([key, "{0} : {1}".format(first_key, value[first_key])])
+            for element in rest_keys:
+                x.add_row(["", "{0} : {1}".format(element, value[element])])
+        else:
+            x.add_row([key, value])
+
+    x.align = "l"
+    return x

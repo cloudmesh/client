@@ -12,7 +12,6 @@ BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
 doc: man
-	sphinx-apidoc -f -o docs/source/code/base ../base/cloudmesh_base
 	sphinx-apidoc -f -o docs/source/code/client cloudmesh_client
 	cd docs; make html
 	cp -r scripts docs/build/html

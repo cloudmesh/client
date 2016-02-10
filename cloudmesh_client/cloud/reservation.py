@@ -183,4 +183,4 @@ class Reservation(ListResource):
         if cloud is not None:
             args['cloud'] = cloud
 
-        self.db.update("RESERVATION", args)
+        self.db.update("RESERVATION", **args)

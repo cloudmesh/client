@@ -1,4 +1,4 @@
-# from cloudmesh_base.hostlist import Parameter
+# from cloudmesh_client.hostlist import Parameter
 import inspect
 # from abc import ABCMeta
 

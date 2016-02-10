@@ -45,7 +45,8 @@ This documentation and code is available on github at:
    quickstart
    reference_card
    scripts
-
+   comet
+   
 .. toctree::
    :caption: User Manuals
    :maxdepth: 2

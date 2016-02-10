@@ -4,14 +4,14 @@ import os
 import os.path
 import json
 
-from cloudmesh_base.util import yn_choice
+from cloudmesh_client.util import yn_choice
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -351,21 +351,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     print("unset ", attribute)
                     del os.environ[attribute]
             export(host, output)
-
-        # elif arguments['rc']:
-        #    host = arguments['HOST']
-        #    openrc = arguments['FILENAME']
-        #    force = arguments['--force'] or False
-        #
-        #    result = CloudRegister.read_rc_file(host, openrc, force)
-        #    credentials = dict(result)
-        #
-        #    # output password as requested by user
-        #    if not arguments["--password"]:
-        #        credentials["OS_PASSWORD"] = "********"
-        #    print(row_table(credentials, order=None,
-        #                    labels=["Variable", "Value"]))
-        #    return
 
         elif arguments['json']:
             host = arguments['HOST']

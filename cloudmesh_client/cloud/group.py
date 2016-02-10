@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.shell.console import Console

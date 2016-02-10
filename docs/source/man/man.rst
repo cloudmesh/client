@@ -798,7 +798,7 @@ Command - key::
       key add [--name=KEYNAME] FILENAME
       key get NAME
       key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [-f]
+      key delete (KEYNAME | --select | --all) [--force=VALUE]
       key upload KEYNAME
                        [--cloud=CLOUD]
                        [--name=NAME_ON_CLOUD]
@@ -823,6 +823,7 @@ Command - key::
        --username=USERNAME           the source for the keys [default: none]
        --name=KEYNAME                The name of a key
        --all                         delete all keys
+       --force=VALUE                 delete teh key form the cloud
        --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
     Description:
@@ -1275,10 +1276,10 @@ Command - register::
         register test [--yaml=FILENAME]
         register json HOST
         register remote [CLOUD] [--force]
-        register india [--force]
-        register CLOUD CERT [--force]
-        register CLOUD --dir=DIR
         register env [--provider=PROVIDER]
+        register CLOUD [--force]
+        register CLOUD [--dir=DIR]
+
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in
@@ -1294,7 +1295,6 @@ Command - register::
       USER   the user name
       FILEPATH the path of the file
       CLOUD the cloud name
-      CERT the path of the certificate
       PROVIDER the provider or type of cloud [Default: openstack]
 
     Options:
@@ -1365,16 +1365,11 @@ Command - register::
             registers a remote cloud and copies the openrc file
             specified in the credentials of the cloudmesh.yaml
 
-        register CLOUD CERT [--force]
-            Copies the CERT to the ~/.cloudmesh/clouds/host directory
-            and registers that cert in the coudmesh.yaml file.
-
-
         register CLOUD --dir
             Copies the entire directory from the cloud and puts it in
             ~/.cloudmesh/clouds/host
-            For india, The directory would be copied to
-            ~/.cloudmesh/clouds/india
+            For kilo, The directory would be copied to
+            ~/.cloudmesh/clouds/kilo
 
         register env [--provider=PROVIDER] [HOSTNAME]
             Reads env OS_* variables and registers a new cloud in yaml,
@@ -1872,7 +1867,7 @@ Command - vm::
                                     Or user may specify more options to narrow
                                     the search
         vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-        vm ip_show [options...]     show the ips of VMs
+        vm ip show [options...]     show the ips of VMs
         vm login [options...]       login to a server or execute commands on it
         vm list [options...]        same as command "list vm", please refer to it
         vm status [options...]      Retrieves status of last VM booted on cloud and displays it.

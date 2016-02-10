@@ -1,9 +1,9 @@
 from __future__ import print_function
 import os
 
-from cloudmesh_base.Shell import Shell
-from cloudmesh_base.logger import LOGGER
-from cloudmesh_base.tables import row_table
+from cloudmesh_client.Shell import Shell
+from cloudmesh_client.logger import LOGGER
+from cloudmesh_client.common.Printer import row_table
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
