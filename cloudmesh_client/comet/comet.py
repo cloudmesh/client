@@ -13,7 +13,7 @@ import string
 import requests
 from httpsig.requests_auth import HTTPSignatureAuth
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.util import banner
 

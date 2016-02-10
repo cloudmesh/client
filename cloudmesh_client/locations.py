@@ -1,5 +1,5 @@
 from cloudmesh_client.util import path_expand
-from cloudmesh_client.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 import os
 
 __config_dir_prefix__ = os.path.join("~", ".cloudmesh")

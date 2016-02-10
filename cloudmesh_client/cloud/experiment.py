@@ -1,4 +1,4 @@
-from cloudmesh_client.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 
 
 # noinspection PyBroadException

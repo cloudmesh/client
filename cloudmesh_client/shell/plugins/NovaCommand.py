@@ -1,7 +1,7 @@
 from __future__ import print_function
 import os
 
-from cloudmesh_client.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.logger import LOGGER
 from cloudmesh_client.common.Printer import row_table
 from cloudmesh_client.cloud.nova import Nova
