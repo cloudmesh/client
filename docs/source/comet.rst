@@ -44,9 +44,36 @@ Power on a set of compute nodes in cluster vc4::
   
     cm comet power on vc4 vm-vc4-[0-3]
     
+This will request the nodes for a default period of time - 2 hours.
+
+To request for a longer time period, use --walltime parameter. 
+E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week)::
+
+    cm comet power on vc4 vm-vc4-[0-3] --walltime=6h
+
+The above will put the request under the one allocation associated with the cluster.
+If your cluster have more than one allocations, use --allocation parameter::
+
+    cm comet power on vc4 vm-vc4-[0-3] --allocation=YOUR_ALLOCATION
+
+If you have more allocations, but does not specify via CLI, you will see a list of 
+allocations to choose from to use.
+
+You can power off and back on individual nodes of an active computeset. E.g.::
+
+    cm comet power off vc4 vm-vc4-[0,1]
+
+and then::
+
+    cm comet power on vc4 vm-vc4-0
+
 You can also power on one single node as a computese::
   
     cm comet power on vc4 vm-vc4-[7]
+
+or simply::
+
+    cm comet power on vc4 vm-vc4-7
 
 Power on the front end node of the specified cluster::
   
