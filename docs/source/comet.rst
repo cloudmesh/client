@@ -67,6 +67,17 @@ and then::
 
     cm comet power on vc4 vm-vc4-0
 
+Or power off the whole computeset by specifying the computeset id::
+
+    cm comet power off vc4 123
+
+or by specifying the hosts::
+
+    cm comet power off vc4 vm-vc4-[0-3]
+
+Please note if you powered off all nodes from an active computeset, the computeset 
+itself will be removed as well (changed to 'completed' status)
+
 You can also power on one single node as a computese::
   
     cm comet power on vc4 vm-vc4-[7]
