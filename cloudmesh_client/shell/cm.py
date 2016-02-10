@@ -446,8 +446,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if os.path.exists(filename):
             with open(filename, "r") as f:
                 for line in f:
-                    #if self.debug:
-                    Console.ok("> {:}".format(str(line)))
+                    if self.context.echo:
+                        Console.ok("cm> {:}".format(str(line)))
                     self.onecmd(line)
         else:
             Console.error('file "{:}" does not exist.'.format(filename))
@@ -599,7 +599,7 @@ def main():
 
     Usage:
       cm --help
-      cm [--debug] [--nosplash] [-i] [COMMAND ...]
+      cm [--echo] [--debug] [--nosplash] [-i] [COMMAND ...]
 
     Arguments:
       COMMAND                  A command to be executed
@@ -617,11 +617,13 @@ def main():
     args = sys.argv[1:]
 
     arguments = {
+        '--echo': '--echo' in args,
         '--help': '--help' in args,
         '--debug': '--debug' in args,
         '--nosplash': '--nosplash' in args,
         '-i': '-i' in args}
 
+    echo = arguments["--echo"]
     if arguments['--help']:
         manual()
         sys.exit()
@@ -656,8 +658,11 @@ def main():
 
 
 
-    context = CloudmeshContext(debug=debug,
-                               splash=splash)
+    context = CloudmeshContext(
+        interactive=interactive,
+        debug=debug,
+        echo=echo,
+        splash=splash)
     cmd = CloudmeshConsole(context)
 
 
@@ -665,8 +670,8 @@ def main():
         cmd.do_exec(script)
 
     try:
-        if debug:
-            print(">", command)
+        if echo:
+            print("cm>", command)
         if command is not None:
             cmd.onecmd(command)
     except Exception, e:
