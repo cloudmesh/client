@@ -5,6 +5,7 @@ virtualenv -p /usr/local/bin/python ~/ENV
 source ~/ENV/bin/activate
 
 pip install pip -U
+curl https://bootstrap.pypa.io/ez_setup.py -o - | python
 
 PWD=`pwd`
 
