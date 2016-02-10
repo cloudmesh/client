@@ -55,8 +55,8 @@ PluginCommandClasses = type(
     {})
 
 
-print (type(PluginCommand.__subclasses__()))
-print (PluginCommand.__subclasses__())
+# print (type(PluginCommand.__subclasses__()))
+# print (PluginCommand.__subclasses__())
 
 """
 # not yet implemented
@@ -226,10 +226,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Console.error("Problem adding keys from yaml file")
         """
 
-        print ("BBBB", CloudmeshConsole.__bases__)
-
         for c in CloudmeshConsole.__bases__[1:]:
-            print ("CCC", c)
             # noinspection PyArgumentList
             c.__init__(self, context)
 
