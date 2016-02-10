@@ -226,8 +226,6 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 m = sshm.get_from_yaml(load_order=directory)
                 d = dict(m.__keys__)
 
-                print(d)
-
                 sshdb = SSHKeyDBManager()
 
                 for keyname in m.__keys__:
