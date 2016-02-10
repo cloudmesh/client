@@ -46,9 +46,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [--force=VALUE]
-             key upload KEYNAME
-                              [--cloud=CLOUD]
-                              [--name=NAME_ON_CLOUD]
+             key upload [KEYNAME]
+                        [--cloud=CLOUD]
+                        [--name=NAME_ON_CLOUD]
              key map [--cloud=CLOUD]
 
            Manages the keys
@@ -56,7 +56,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
            Arguments:
 
              SOURCE         db, ssh, all
-             KEYNAME        The name of a key
+             KEYNAME        The name of a key. For key upload it defaults to the default key name.
              FORMAT         The format of the output (table, json, yaml)
              FILENAME       The filename with full path in which the key
                             is located
@@ -230,6 +230,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 sshm = SSHKeyManager()
                 m = sshm.get_from_yaml(load_order=directory)
                 d = dict(m.__keys__)
+
+                print(d)
 
                 sshdb = SSHKeyDBManager()
 
@@ -474,7 +476,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 conf = ConfigDict("cloudmesh.yaml")
                 username = conf["cloudmesh"]["profile"]["username"]
 
-                keyname = arguments["KEYNAME"]
+                keyname = arguments["KEYNAME"] or Default.get_key()
+                if keyname is None:
+                    Console.error("ERROR: Default key not set")
+                    return ""
+
                 cloud = arguments["--cloud"] or Default.get_cloud()
                 name_on_cloud = arguments["--name"]
 
