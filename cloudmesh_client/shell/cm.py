@@ -225,7 +225,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         for c in CloudmeshConsole.__bases__[1:]:
             # noinspection PyArgumentList
-            c.__init__(self, context)
+            c.__init__(context)
 
     def preloop(self):
         """adds the banner to the preloop"""
