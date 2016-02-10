@@ -9,6 +9,9 @@ Quickstart
 Setup
 ------
 
+.. warning:: The instalation with pip is not yet working at this
+	     time. Please use the instalation from source.
+	     
 The setup of cloudmesh client is quite simple and can be done with::
 
     pip install cloudmesh_client
