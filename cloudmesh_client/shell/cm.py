@@ -223,7 +223,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Console.error("Problem adding keys from yaml file")
         """
 
+        print ("BBBB", CloudmeshConsole.__bases__)
+
         for c in CloudmeshConsole.__bases__[1:]:
+            print ("CCC", c)
             # noinspection PyArgumentList
             c.__init__(context)
 
@@ -614,10 +617,15 @@ def main():
     args = sys.argv[1:]
 
     arguments = {
+        '--help': '--help' in args,
         '--debug': '--debug' in args,
         '--nosplash': '--nosplash' in args,
         '-i': '-i' in args}
 
+    if arguments['--help']:
+        manual()
+        sys.exit()
+        
     for a in args:
         if a in arguments:
             args.remove(a)
