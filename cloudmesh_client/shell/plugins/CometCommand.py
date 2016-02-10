@@ -54,8 +54,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet start ID
                comet stop ID
                comet power on CLUSTERID [NODESPARAM]
-                            [-a|--allocation=ALLOCATION]
-                            [-w|--walltime=WALLTIME]
+                            [--allocation=ALLOCATION]
+                            [--walltime=WALLTIME]
                comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
                comet delete [all]
@@ -101,6 +101,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                       [default: table]
                 --allocation=ALLOCATION     Allocation to charge when power on
                                             node(s)
+                --walltime=WALLTIME     Walltime requested for the node(s)
 
             Arguments:
                 FILENAME  the file to open in the cwd if . is
