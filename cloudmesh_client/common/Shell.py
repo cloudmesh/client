@@ -316,7 +316,7 @@ class Shell(object):
         terminal = cls.terminal_type()
         # print cls.command
         os_command = [cmd]
-        if (terminal in ['linux', 'windows']):
+        if terminal in ['linux', 'windows']:
             os_command = [cmd]
         elif 'cygwin' in terminal:
             if not cls.command_exists(cmd):

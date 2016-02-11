@@ -570,7 +570,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
             elif arguments["last"]:
                 h = len(self._hist)
-                if (h > 1):
+                if h > 1:
                     self.onecmd(self._hist[h - 2])
                 return ""
 

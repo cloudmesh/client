@@ -29,10 +29,7 @@ class List(object):
         try:
             # get the model object
             table = cls.cm.get_table(kind)
-            #
-            #
-            # TODO why not use a dict?
-            #
+
             filter = {}
             if cloud is not None:
                 filter["cloud"] = cloud

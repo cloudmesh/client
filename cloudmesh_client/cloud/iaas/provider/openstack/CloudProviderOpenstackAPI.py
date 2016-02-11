@@ -135,22 +135,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         Lists clouds
         :return:
         """
-        dict = {}
+        cloud_dict = {}
         d = ConfigDict("cloudmesh.yaml")
         clouds = d["cloudmesh"]["clouds"].keys()
         for i, cloud in enumerate(clouds):
             if cloud in CloudProviderOpenstackAPI.cloud_pwd:
-                dict[i] = {
+                cloud_dict[i] = {
                     "cloud": cloud,
                     "status": CloudProviderOpenstackAPI.cloud_pwd[cloud]["status"]
                 }
             else:
-                dict[i] = {
+                cloud_dict[i] = {
                     "cloud": cloud,
                     "status": "Logged Out"
                 }
 
-        return dict
+        return cloud_dict
 
     def initialize(self, cloudname, user=None):
 
