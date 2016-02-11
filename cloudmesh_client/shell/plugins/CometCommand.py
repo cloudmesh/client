@@ -31,6 +31,39 @@ class CometCommand(PluginCommand, CometPluginCommand):
         ::
 
             Usage:
+               comet ll [CLUSTERID] [--format=FORMAT]
+               comet cluster [CLUSTERID]
+                             [--format=FORMAT]
+               comet computeset [COMPUTESETID]
+               comet power on CLUSTERID [NODESPARAM]
+                            [--allocation=ALLOCATION]
+                            [--walltime=WALLTIME]
+               comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+               comet console CLUSTERID [COMPUTENODEID]
+
+            Options:
+                --format=FORMAT       Format is either table, json, yaml,
+                                      csv, rest
+                                      [default: table]
+                --allocation=ALLOCATION     Allocation to charge when power on
+                                            node(s)
+                --walltime=WALLTIME     Walltime requested for the node(s).
+                                        Walltime could be an integer value followed
+                                        by a unit (m, h, d, w, for minute, hour, day,
+                                        and week, respectively). E.g., 3h, 2d
+
+            Arguments:
+                CLUSTERID       The assigned name of a cluster, e.g. vc1
+                COMPUTESETID    An integer identifier assigned to a computeset
+                NODESPARAM      Specifying the node/nodes/computeset to act on.
+                                In case of integer, will be intepreted as a computesetid;
+                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                                of nodes; or a single host is also accepptable, 
+                                e.g., vm-vc1-0
+                COMPUTENODEID   A compute node name, e.g., vm-vc1-0
+        """
+        # back up of all the proposed commands/options
+        """
                comet status
                comet tunnel start
                comet tunnel stop

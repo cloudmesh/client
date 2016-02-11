@@ -97,8 +97,3 @@ Get console of a running node::
 Get console of the front end::
   
     cm comet console vc4
-
-Power off one node or a set of nodes (if they all belonging to one
-active computeset)::
-  
-    cm comet power off vc4 vm-vc4-[0-3]    
