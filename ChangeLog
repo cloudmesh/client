@@ -4,8 +4,160 @@ Changelog
 %%version%% (unreleased)
 ------------------------
 
+- Comet: more cleaning up of code and debug messages. [fugangwang]
+
+- Comet: cleaning up code/docs based on currently implemented features.
+  [fugangwang]
+
+- Updating comet documentation. [fugangwang]
+
+- Comet: enabling powering off/reboot/reset all nodes for an active
+  computeset. [fugangwang]
+
+- Comet: changing docopt. [fugangwang]
+
+- Comet: adding notes about powering off computeset. [fugangwang]
+
+- Comet: updating quickstart guide. [fugangwang]
+
+- Comet: Changing power management of nodes; Adding support of
+  allocation and customized walltime. [fugangwang]
+
+- Chg;dev: pip instalation is not working notice. [Gregor von Laszewski]
+
+2.0.4 (2016-02-11)
+------------------
+
+- 2.0.3. [Gregor von Laszewski]
+
+- Version 2.0.3. [Gregor von Laszewski]
+
+2.0.3 (2016-02-10)
+------------------
+
+- 2.0.2. [Gregor von Laszewski]
+
+- Version 2.0.2. [Gregor von Laszewski]
+
+2.0.2 (2016-02-10)
+------------------
+
+- 2.0.1. [Gregor von Laszewski]
+
+- Version 2.0.1. [Gregor von Laszewski]
+
+2.0.1 (2016-02-10)
+------------------
+
+- 2.0.0. [Gregor von Laszewski]
+
+- Version 2.0.0. [Gregor von Laszewski]
+
+2.0.0 (2016-02-10)
+------------------
+
+- 1.1.6. [Gregor von Laszewski]
+
+- Version 1.1.6. [Gregor von Laszewski]
+
+1.1.6 (2016-02-09)
+------------------
+
 New
 ~~~
+
+- Adding a "cm key load" command that loads the keys from the yaml file.
+  [Gregor von Laszewski]
+
+- Auto-refresh images and flavors if the database does not contain
+  values for it. [Gregor von Laszewski]
+
+- Reading default values from the db or the yaml file at cm start.
+  [Gregor von Laszewski]
+
+- Adding a homework about keys. [Gregor von Laszewski]
+
+- Pointer to the documentation on RTD. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Improved the "cm register info" command. [Gregor von Laszewski]
+
+- New location of the Cloudmesh presentation. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Version 1.1.5. [Gregor von Laszewski]
+
+1.1.5 (2016-02-02)
+------------------
+
+- Version 1.1.4. [Gregor von Laszewski]
+
+1.1.4 (2016-02-01)
+------------------
+
+New
+~~~
+
+- Change link to presentation. [Gregor von Laszewski]
+
+- Adding the ppt. [Gregor von Laszewski]
+
+- Improved script examples. [Gregor von Laszewski]
+
+- Introduce variables to make .cloudmesh dependent scripts. [Gregor von
+  Laszewski]
+
+- Commenting the cm scripts for the manual. [Gregor von Laszewski]
+
+- Added a simplw quick start guide. [Gregor von Laszewski]
+
+- Adding cybera configuration instructions. [Gregor von Laszewski]
+
+- Removing IU juno cloud from the yaml file as it will be shut of Jan
+  30, 2016. [Gregor von Laszewski]
+
+- One line curl based install for centos. [Gregor von Laszewski]
+
+- Using bash prompt in sphinx documentation. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Dev spelling and generalizing register remote. [Gregor von Laszewski]
+
+- Add chameleon auth url. [Gregor von Laszewski]
+
+- Removing juno cloud from most of the code. [Gregor von Laszewski]
+
+Fix
+~~~
+
+- Simplified install instructions. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Adding comet CLI quick start guide. [fugangwang]
+
+- Console URL could be unavailable. [fugangwang]
+
+- Computeset state changed from started to running after slurm
+  integration. [fugangwang]
+
+- Version 1.1.3. [Gregor von Laszewski]
+
+1.1.3 (2016-01-26)
+------------------
+
+New
+~~~
+
+- Start of a reference card and a quick start guide. [Gregor von
+  Laszewski]
 
 - Start of an integrated manual. [Gregor von Laszewski]
 
@@ -15,6 +167,10 @@ New
 
 Changes
 ~~~~~~~
+
+- New: homework examples. [Gregor von Laszewski]
+
+- Improving the documentation. [Gregor von Laszewski]
 
 - Add template for ec2 chameleon cloud. [Gregor von Laszewski]
 
@@ -28,6 +184,10 @@ Changes
 Fix
 ~~~
 
+- Update ubuntu and centos instructions. [Gregor von Laszewski]
+
+- Improced OSX install instructions. [Gregor von Laszewski]
+
 - Enable date printing in hpc command submission. [Gregor von Laszewski]
 
 - Removed docopt parsing from cm main command to allow parsing of
@@ -40,16 +200,12 @@ Other
 
 - Apidoc dir. [Gregor von Laszewski]
 
-- 1.1.2. [Gregor von Laszewski]
-
 - Version 1.1.2. [Gregor von Laszewski]
 
 1.1.2 (2016-01-13)
 ------------------
 
 - New state defined on comet backend. [fugangwang]
-
-- 1.1.1. [Gregor von Laszewski]
 
 - Version 1.1.1. [Gregor von Laszewski]
 
@@ -64,8 +220,6 @@ New
 
 Other
 ~~~~~
-
-- 1.1.0. [Gregor von Laszewski]
 
 - Version 1.1.0. [Gregor von Laszewski]
 
@@ -261,8 +415,6 @@ Other
 
 - Changing prefix of comet auth credentials. [fugangwang]
 
-- 1.0.2. [Gregor von Laszewski]
-
 - Version 1.0.2. [Gregor von Laszewski]
 
 1.0.2 (2015-11-25)
@@ -279,8 +431,6 @@ Other
 - Added httpsig in setup.py so pip install can install the library.
   [fugangwang]
 
-- 1.0.1. [Gregor von Laszewski]
-
 - Version 1.0.1. [Gregor von Laszewski]
 
 1.0.1 (2015-11-25)
@@ -293,8 +443,6 @@ Other
 
 - Choice of auth provider for comet as USERPASS/APIKEY in yaml config.
   [fugangwang]
-
-- 1.0.0. [Gregor von Laszewski]
 
 - Version 1.0.0. [Gregor von Laszewski]
 
@@ -327,8 +475,6 @@ Other
 - Fix for slurm table to distingush "user" from "user ". E.g. replace
   the space wit _ [Gregor von Laszewski]
 
-- 0.7.7. [Gregor von Laszewski]
-
 - Version 0.7.7. [Gregor von Laszewski]
 
 0.7.7 (2015-11-18)
@@ -359,21 +505,15 @@ Other
 
 - Fixing for mac/ip address. [fugangwang]
 
-- 0.7.6. [Gregor von Laszewski]
-
 - Version 0.7.6. [Gregor von Laszewski]
 
 0.7.6 (2015-11-15)
 ------------------
 
-- 0.7.5. [Gregor von Laszewski]
-
 - Version 0.7.5. [Gregor von Laszewski]
 
 0.7.5 (2015-11-15)
 ------------------
-
-- 0.7.4. [Gregor von Laszewski]
 
 - Version 0.7.4. [Gregor von Laszewski]
 
@@ -469,8 +609,6 @@ Other
 
 - Update index.rst. [Gregor von Laszewski]
 
-- 0.7.3. [Gregor von Laszewski]
-
 - Version 0.7.3. [Gregor von Laszewski]
 
 0.7.3 (2015-10-31)
@@ -500,8 +638,6 @@ Changes
 
 Other
 ~~~~~
-
-- 0.7.2. [Gregor von Laszewski]
 
 - Version 0.7.2. [Gregor von Laszewski]
 
@@ -629,14 +765,10 @@ Other
 
 - Chr: dev: change version to __version__ [Gregor von Laszewski]
 
-- 0.7.1. [Gregor von Laszewski]
-
 - Version 0.7.1. [Gregor von Laszewski]
 
 0.7.1 (2015-09-30)
 ------------------
-
-- 0.7.0. [Gregor von Laszewski]
 
 - Version 0.7.0. [Gregor von Laszewski]
 
@@ -740,8 +872,6 @@ Other
 
 
 
-- 0.6.9. [Gregor von Laszewski]
-
 - Use old spelling of SSHCommand. [Gregor von Laszewski]
 
 - Dev: Update ChangeLog. [Gregor von Laszewski]
@@ -768,8 +898,6 @@ Other
 
 - Update version. [Gregor von Laszewski]
 
-- 0.6.8. [Gregor von Laszewski]
-
 0.6.8 (2015-09-06)
 ------------------
 
@@ -787,8 +915,6 @@ Other
 - Move some tests to an old dir for later usage. [Gregor von Laszewski]
 
 - Version. [Gregor von Laszewski]
-
-- 0.6.7. [Gregor von Laszewski]
 
 0.6.7 (2015-09-05)
 ------------------
@@ -823,8 +949,6 @@ Other
 
 - Cleanup. [Gregor von Laszewski]
 
-- 0.6.6. [Gregor von Laszewski]
-
 0.6.6 (2015-09-04)
 ------------------
 
@@ -848,8 +972,6 @@ Other
 - Integrate the model test into travis. [Gregor von Laszewski]
 
 - Trying osx in travis. [Gregor von Laszewski]
-
-- 0.6.5. [Gregor von Laszewski]
 
 0.6.5 (2015-09-04)
 ------------------
@@ -927,8 +1049,6 @@ Other
 
 - Add banner and clear commands. [Gregor von Laszewski]
 
-- 0.6.4. [Gregor von Laszewski]
-
 0.6.4 (2015-09-02)
 ------------------
 
@@ -947,14 +1067,10 @@ Other
 
 - Added group proposal. [Gregor von Laszewski]
 
-- 0.6.3. [Gregor von Laszewski]
-
 0.6.3 (2015-09-01)
 ------------------
 
 - Improving imports. [Gregor von Laszewski]
-
-- 0.6.2. [Gregor von Laszewski]
 
 0.6.2 (2015-09-01)
 ------------------
