@@ -67,31 +67,3 @@ repositories please do not forget to update them accordingly
    python setup.py install
 
 
-Testing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. todo:: This section is incomplete and we need to make sure that tox
-	  works. We also need to explain how travis works and how we
-	  can run nosetests locally
-
-
-For now we do not assume that you need to run any tests after you
-install the source. We will address deployment tests later.
-
-.. prompt:: bash
-
-   pip install tox
-
-in the source dir say
-
-.. prompt:: bash
-
-  tox
-
-Nose tests can be started with
-
-.. prompt:: bash
-
-  nosetests
-
-  

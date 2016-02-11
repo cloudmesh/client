@@ -4,14 +4,14 @@ import os
 import os.path
 import json
 
-from cloudmesh_base.util import yn_choice
+from cloudmesh_client.util import yn_choice
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.register import CloudRegister
 from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -48,10 +48,10 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register test [--yaml=FILENAME]
               register json HOST
               register remote [CLOUD] [--force]
-              register india [--force]
-              register CLOUD CERT [--force]
-              register CLOUD --dir=DIR
               register env [--provider=PROVIDER]
+              register CLOUD [--force]
+              register CLOUD [--dir=DIR]
+
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -67,7 +67,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             USER   the user name
             FILEPATH the path of the file
             CLOUD the cloud name
-            CERT the path of the certificate
             PROVIDER the provider or type of cloud [Default: openstack]
 
           Options:
@@ -138,16 +137,11 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                   registers a remote cloud and copies the openrc file
                   specified in the credentials of the cloudmesh.yaml
 
-              register CLOUD CERT [--force]
-                  Copies the CERT to the ~/.cloudmesh/clouds/host directory
-                  and registers that cert in the coudmesh.yaml file.
-
-
               register CLOUD --dir
                   Copies the entire directory from the cloud and puts it in
                   ~/.cloudmesh/clouds/host
-                  For india, The directory would be copied to
-                  ~/.cloudmesh/clouds/india
+                  For kilo, The directory would be copied to
+                  ~/.cloudmesh/clouds/kilo
 
               register env [--provider=PROVIDER] [HOSTNAME]
                   Reads env OS_* variables and registers a new cloud in yaml,
@@ -189,8 +183,17 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
 
             if os.path.isfile(filename):
                 Console.ok("File '{}' exists. ok.".format(filename))
+
+                Console.ok("The yaml file contains the following templates:")
+
+                d = CloudRegister.list(filename,
+                                       info=False,
+                                       output="table")
+                print(d)
+
             else:
                 Console.error("File {} does not exist".format(filename))
+
             return ""
 
         elif arguments["new"]:
@@ -349,21 +352,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     del os.environ[attribute]
             export(host, output)
 
-        # elif arguments['rc']:
-        #    host = arguments['HOST']
-        #    openrc = arguments['FILENAME']
-        #    force = arguments['--force'] or False
-        #
-        #    result = CloudRegister.read_rc_file(host, openrc, force)
-        #    credentials = dict(result)
-        #
-        #    # output password as requested by user
-        #    if not arguments["--password"]:
-        #        credentials["OS_PASSWORD"] = "********"
-        #    print(row_table(credentials, order=None,
-        #                    labels=["Variable", "Value"]))
-        #    return
-
         elif arguments['json']:
             host = arguments['HOST']
             result = CloudRegister.get(host)
@@ -389,19 +377,6 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 export(cloud, "table")
             return ""
 
-        elif arguments['CLOUD']:
-            if arguments['CERT']:  # path to the cacert.pem
-                cloud = arguments['CLOUD']
-                path = arguments['CERT']
-                force = False
-                if arguments['--force']:
-                    force = True
-                CloudRegister.certificate(cloud, path, force)
-            elif arguments['--dir']:
-                cloud = arguments['CLOUD']
-                directory = arguments['--dir']
-                Console.ok(directory)
-                CloudRegister.directory(cloud, directory)
         elif arguments['env']:
             try:
                 CloudRegister.from_environ(arguments['--provider'])
@@ -409,6 +384,25 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 import traceback
                 print(traceback.format_exc())
                 print(e)
+            return ""
+
+        elif arguments['CLOUD']:
+            if arguments['--dir']:
+                cloud = arguments['CLOUD']
+                directory = arguments['--dir']
+                Console.ok(directory)
+                CloudRegister.directory(cloud, directory)
+            else:
+                cloud = arguments['CLOUD']
+
+                if cloud is None:
+                    clouds = ["kilo"]
+                else:
+                    clouds = [cloud]
+
+                for cloud in clouds:
+                    CloudRegister.remote(cloud, True)
+                    export(cloud, "table")
             return ""
 
         # if all fails do a simple list

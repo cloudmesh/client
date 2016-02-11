@@ -1,7 +1,7 @@
 import textwrap
 import json
 import subprocess
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 
 from jinja2 import Template
 

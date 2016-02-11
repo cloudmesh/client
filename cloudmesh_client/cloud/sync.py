@@ -5,7 +5,7 @@ import platform
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 
 
 class Sync(object):

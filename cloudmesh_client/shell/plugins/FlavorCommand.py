@@ -56,24 +56,27 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
             return ""
 
         if arguments["list"]:
-            cluster_id = arguments['ID']
-            refresh = arguments['--refresh']
+
+            id = arguments['ID']
+            live = arguments['--refresh']
             output_format = arguments["--format"]
 
-            if cluster_id is None:
-                result = Flavor.list(cloud, output_format)
-            else:
-                result = Flavor.details(cloud, cluster_id, refresh, output_format)
+            counter = 0
+
+            result = None
+            while counter < 2:
+                if id is None:
+                    result = Flavor.list(cloud, output_format)
+                else:
+                    result = Flavor.details(cloud, id, live, output_format)
+                if counter == 0 and result is None:
+                    if not Flavor.refresh(cloud):
+                        msg = "Refresh flavor for cloud {:}.".format(cloud)
+                        Console.error("{:} failed.".format(msg))
+                counter += 1
 
             if result is None:
-                #
-                # auto refresh
-                #
-                Console.error("No flavor(s) found. Failed")
-                # Flavor.refresh(cloud)
-                # Console.ok("Refreshing flavor(s). ok.")
-
+                Console.error("No image(s) found. Failed.")
             else:
-
                 print(result)
             return ""

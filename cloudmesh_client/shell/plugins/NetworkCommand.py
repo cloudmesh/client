@@ -3,7 +3,7 @@ from __future__ import print_function
 import json
 import getpass
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command

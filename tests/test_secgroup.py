@@ -15,8 +15,10 @@ from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
 from cloudmesh_base.util import banner
 from cloudmesh_client.cloud.secgroup import SecGroup
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 def run(command):
+    banner(command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
@@ -27,6 +29,14 @@ class Test_secgroup:
 
     def setup(self):
 
+        config = ConfigDict("cloudmesh.yaml")
+
+        self.data = {
+            "cloud": "kilo",
+        }
+
+        self.data["tenant"] = config["cloudmesh.clouds"][self.data["cloud"]][
+            "credentials"]["OS_TENANT_NAME"]
         pass
 
     def tearDown(self):
@@ -35,20 +45,16 @@ class Test_secgroup:
     def test_001(self):
         """testing cm secgroup create --cloud india --tenant fg479 test-group"""
         HEADING()
-        banner("cm secgroup create --cloud india "
-               "--tenant fg479 test-group")
-
-        result = run("cm secgroup create --cloud india "
-                     "--tenant fg479 test-group")
+        command = "cm secgroup create --cloud {cloud} --tenant {tenant} test-group"
+        result = run(command.format(**self.data))
         assert "Created a new security group [test-group]" in result
         return
 
     def test_002(self):
         """testing cm secgroup list --cloud india --tenant fg479"""
         HEADING()
-        banner("cm secgroup list --cloud india --tenant fg479")
-
-        result = run("cm secgroup list --cloud india --tenant fg479")
+        command = "cm secgroup list --cloud {cloud} --tenant {tenant}"
+        result = run(command.format(**self.data))
         assert "default" in result
 
         return
@@ -56,21 +62,18 @@ class Test_secgroup:
     def test_003(self):
         """testing cm secgroup rules-add --cloud india --tenant fg479 test-group 80 80 tcp  0.0.0.0/0"""
         HEADING()
-        banner("cm secgroup rules-add --cloud india "
-               "--tenant fg479 test-group 80 80 tcp  0.0.0.0/0")
+        command = "cm secgroup rules-add --cloud {cloud} --tenant {tenant} test-group 80 80 tcp  0.0.0.0/0"
 
-        result = run("cm secgroup rules-add --cloud india "
-                     "--tenant fg479 test-group 80 80 tcp  0.0.0.0/0")
+        result = run(command.format(**self.data))
         assert "Added rule" in result
 
     def test_004(self):
         """testing cm secgroup rules-add --cloud india --tenant fg479 test-group 443 443 udp  0.0.0.0/0"""
         HEADING()
-        banner("cm secgroup rules-add india --cloud india "
-               "--tenant test-group 443 443 udp  0.0.0.0/0")
 
-        result = run("cm secgroup rules-add --cloud india "
-                     "--tenant fg479 test-group 443 443 udp  0.0.0.0/0")
+        command = "cm secgroup rules-add --cloud {cloud} --tenant {tenant} test-group 443 443 tcp  0.0.0.0/0"
+
+        result = run(command.format(**self.data))
         assert "Added rule" in result
 
         return
@@ -78,11 +81,8 @@ class Test_secgroup:
     def test_005(self):
         """cm secgroup rules-list --cloud india --tenant fg479 test-group"""
         HEADING()
-        banner("cm secgroup rules-list --cloud india "
-               "--tenant fg479 test-group")
-
-        result = run("cm secgroup rules-list --cloud india "
-                     "--tenant fg479 test-group")
+        command = "cm secgroup rules-list --cloud {cloud} --tenant {tenant} test-group"
+        result = run(command.format(**self.data))
         assert "test-group | 80" in result
 
         return
@@ -90,11 +90,9 @@ class Test_secgroup:
     def test_006(self):
         """cm secgroup rules-delete --cloud india --tenant fg479 test-group 80 80 tcp  0.0.0.0/0"""
         HEADING()
-        banner("cm secgroup rules-delete --cloud india "
-               "--tenant fg479 test-group 80 80 tcp  0.0.0.0/0")
+        command = "cm secgroup rules-delete --cloud {cloud} --tenant {tenant} test-group 80 80 tcp  0.0.0.0/0"
 
-        result = run("cm secgroup rules-delete --cloud india "
-                     "--tenant fg479 test-group 80 80 tcp  0.0.0.0/0")
+        result = run(command.format(**self.data))
         assert "Rule [80 | 80 | tcp | 0.0.0.0/0] deleted" in result
 
         return
@@ -102,11 +100,9 @@ class Test_secgroup:
     def test_007(self):
         """cm secgroup delete --cloud india --tenant fg479 test-group"""
         HEADING()
-        banner("cm secgroup delete --cloud india "
-               "--tenant fg479 test-group")
-
-        result = run("cm secgroup delete --cloud india "
-                     "--tenant fg479 test-group")
-        assert "Security Group [test-group] for cloud [india], & tenant [fg479] deleted" in result
+        command = "cm secgroup delete --cloud {cloud} --tenant {tenant} test-group"
+        result = run(command.format(**self.data))
+        assert "Security Group [test-group] for cloud [{cloud}], " \
+               "& tenant [{tenant}] deleted".format(**self.data) in result
 
         return

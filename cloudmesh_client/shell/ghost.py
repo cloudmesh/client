@@ -8,13 +8,13 @@ import textwrap
 from docopt import docopt
 from cloudmesh_client.cloud.default import Default
 import cloudmesh_client
-from cloudmesh_base.util import get_python
-from cloudmesh_base.util import check_python
-import cloudmesh_base
+from cloudmesh_client.util import get_python
+from cloudmesh_client.util import check_python
+import cloudmesh_client
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 
 # from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.shell.command import CometPluginCommand
@@ -194,10 +194,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 "name": "cloudmesh_client",
                 "version": str(cloudmesh_client.__version__)
             },
-            "cloudmesh_base": {
-                "name": "cloudmesh_base",
-                "version": str(cloudmesh_base.__version__)
-            },
+            #"cloudmesh_base": {
+            #    "name": "cloudmesh_base",
+            #    "version": str(cloudmesh_base.__version__)
+            #},
             "python": {
                 "name": "python",
                 "version": str(python_version)

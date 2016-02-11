@@ -1,7 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 # from cloudmesh_client.shell.cm import c
 import os
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
