@@ -308,7 +308,7 @@ class Cluster(object):
                     for compute in computeset["computes"]:
                         hosts.add(compute["name"])
                     # print (hosts)
-                    if hosts_param_set < hosts:
+                    if hosts_param_set <= hosts:
                         nodes_allocated = True
                         nodes_free = False
                         nodes_checked = True
