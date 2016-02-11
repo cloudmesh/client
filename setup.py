@@ -25,6 +25,7 @@ from cloudmesh_client import __version__
 
 requirements = [#'builtins',
                 'pyreadline<=1.7.1.dev-r0',
+                #'pyreadline',
                 'colorama',
                 'cloudmesh_base',
                 'future',

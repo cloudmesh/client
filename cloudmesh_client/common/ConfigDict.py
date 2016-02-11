@@ -3,7 +3,7 @@ from __future__ import print_function
 import os.path
 import json
 
-from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
+from cloudmesh_client.common.BaseConfigDict import BaseConfigDict
 from cloudmesh_client.common.todo import TODO
 
 from cloudmesh_client.util import path_expand
@@ -25,7 +25,6 @@ def custom_print(data_structure, indent, attribute_indent=4):
 def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
     """
     writes the dict into an ordered yaml.
-
     :param data: The ordered dict
     :param stream: the stream
     :param Dumper: the dumper such as yaml.SafeDumper
@@ -81,7 +80,6 @@ class Config(object):
         """identifies if the file contains tabs and returns True if it
         does. It also prints the location of the lines and columns. If
         verbose is set to False, the location is not printed.
-
         :param filename: the filename
         :type filename: str
         :rtype: True if there are tabs in the file
@@ -107,7 +105,6 @@ class Config(object):
     def path_expand(cls, path):
         """
         expands the path while replacing environment variables, ./, and ~/
-
         :param path: the path to be expanded
         :type path: string
         :return:the new path
@@ -125,7 +122,6 @@ class Config(object):
         """
         find the specified file in the list of directories that are given in the
         array load_order
-
         :param filename: the file name
         :type filename: str
         :param load_order: an array with path names in with the filename is looked for.
@@ -158,7 +154,6 @@ class ConfigDict(object):
         while using the filename to load it in the specified load_order.
         The load order is an array of paths in which the file is searched.
         By default the load order is set to . and ~/.cloudmesh
-
         :param filename: the filename
         :type filename: string
         :param load_order: an array with path names in with the filename is looked for.
@@ -187,7 +182,6 @@ class ConfigDict(object):
     def load(self, filename):
         """
         loads the configuration from the yaml filename
-
         :param filename:
         :type filename: string
         :return:
@@ -200,7 +194,6 @@ class ConfigDict(object):
         """
         This method writes the dict into various outout formats. This includes a dict,
         json, and yaml
-
         :param filename: the file in which the dict is written
         :param output: is a string that is either "dict", "json", "yaml"
         :param attribute_indent: character indentation of nested attributes in
@@ -238,9 +231,7 @@ class ConfigDict(object):
         Creates a backup of the file specified in the location. The backup
         filename  appends a .bak.NO where number is a number that is not yet
         used in the backup directory.
-
         TODO: This function should be moved to another file maybe XShell
-
         :param location: the location of the file to be backed up
         """
         import shutil
@@ -251,7 +242,6 @@ class ConfigDict(object):
         """
         saves the configuration in the given filename,
         if it is none the filename at load time is used.
-
         :param filename: the file name
         :type filename: string
         :return:
@@ -263,9 +253,7 @@ class ConfigDict(object):
     def __setitem__(self, item, value):
         """
         sets an item with the given value while using . formatted keys
-
         set('a.b.c", value)
-
         :param item:
         :type item:
         :param value:
@@ -286,9 +274,7 @@ class ConfigDict(object):
     def __getitem__(self, item):
         """
         gets an item form the dict. The key is . separated
-
         use it as follows get("a.b.c")
-
         :param item:
         :type item:
         :return:
@@ -305,7 +291,6 @@ class ConfigDict(object):
     def __str__(self):
         """
         returns the dict in yaml format
-
         :return: returns the yaml output of the dict
         :rtype: string
         """
@@ -315,7 +300,6 @@ class ConfigDict(object):
     def yaml(self):
         """
         returns the dict in yaml format
-
         :return: returns the yaml output of the dict
         :rtype: string:
         """
@@ -332,9 +316,7 @@ class ConfigDict(object):
     def json(self, start=None):
         """
         :param start: start key in dot notation
-
         returns the dict in json format
-
         :return: json string version
         :rtype: string
         """
@@ -346,7 +328,6 @@ class ConfigDict(object):
     def check(cls, filename):
         """
         checks the filename if it is syntactically correct and does not include tabs
-
         :param filename:
         :type filename: string
         :return:
