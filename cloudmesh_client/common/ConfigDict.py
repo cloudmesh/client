@@ -186,9 +186,7 @@ class ConfigDict(object):
         :type filename: string
         :return:
         """
-
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
-
 
     def write(self, filename=None, output="dict"):
         """

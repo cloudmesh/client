@@ -9,10 +9,12 @@ from cloudmesh_client.common.Printer import dict_printer, list_printer
 
 from cloudmesh_client.common.hostlist import Parameter
 
+
 class Cluster(object):
     WALLTIME_MINS = 120
     N_ALLOCATIONS_PER_LINE = 5
     MINS_PER_UNIT = {"m": 1, "h": 60, "d": 1440, "w": 10080}
+
     @staticmethod
     def simple_list(id=None, format="table"):
         result = ""
@@ -163,10 +165,11 @@ class Cluster(object):
         allocation = None
         allocations_sorted = sorted(allocations)
         i = 1
-        while i < len(allocations_sorted)+1:
+        while i < len(allocations_sorted) + 1:
             for j in range(0, Cluster.N_ALLOCATIONS_PER_LINE):
-                if i < len(allocations_sorted)+1:
-                    print ("{}: {}".format(i, allocations_sorted[i-1]), end="\t")
+                if i < len(allocations_sorted) + 1:
+                    print ("{}: {}".format(i, allocations_sorted[i - 1]),
+                           end="\t")
                     i += 1
             print ("")
         print ("")
@@ -175,12 +178,12 @@ class Cluster(object):
             allocation_input = raw_input("Pick an allocation by specifying its index: ")
             try:
                 chosen_alloc = int(allocation_input)
-                if chosen_alloc > 0 and chosen_alloc < len(allocations_sorted) + 1:
-                    allocation = allocations_sorted[chosen_alloc-1]
+                if 0 < chosen_alloc < len(allocations_sorted) + 1:
+                    allocation = allocations_sorted[chosen_alloc - 1]
                 else:
                     chosen_alloc = -1
-                    print ("Invalid index specified. "\
-                           "Please choose between 1 and {}"\
+                    print ("Invalid index specified. "
+                           "Please choose between 1 and {}"
                            .format(len(allocations_sorted))
                            )
             except:
@@ -295,8 +298,8 @@ class Cluster(object):
             computesets = Comet.get_computeset()
             for computeset in computesets:
                 if computeset["cluster"] == clusterid \
-                        and (computeset["state"] == "started" \
-                             or computeset["state"] == "running"):
+                        and (computeset["state"] == "started" or
+                             computeset["state"] == "running"):
                     computesetid = computeset["id"]
                     # print (computesetid)
                     hosts = set()
@@ -333,9 +336,9 @@ class Cluster(object):
                         walltime = Cluster.WALLTIME_MINS
 
                     data = {"computes": "%s" % param,
-                        "cluster": "%s" % clusterid,
-                        "walltime_mins": "%s" % walltime,
-                        "allocation": "%s" % allocation}
+                            "cluster": "%s" % clusterid,
+                            "walltime_mins": "%s" % walltime,
+                            "allocation": "%s" % allocation}
 
                     if nodes_free:
                         # print("Issuing request to poweron nodes...")
@@ -366,7 +369,7 @@ class Cluster(object):
                     elif nodes_allocated:
                         ret = ""
                         for host in hosts_param:
-                            url = Comet.url("cluster/{}/compute/{}/"\
+                            url = Comet.url("cluster/{}/compute/{}/"
                                             .format(clusterid, host))
                             action = "poweron"
                             puturl = "{}{}".format(url, action)
@@ -377,8 +380,8 @@ class Cluster(object):
                                     ret += r
                                 else:
                                     ret += "Requeset Accepted. "\
-                                            "In the process of power on node {}\n"\
-                                            .format(host)
+                                           "In the process of power on node {}\n"\
+                                           .format(host)
                             else:
                                 ret += "Problem executing the request. "\
                                     "Check if the node {} belongs to the cluster"\
@@ -390,9 +393,8 @@ class Cluster(object):
                     if nodes_allocated:
                         ret = ""
                         for host in hosts_param:
-                            url = Comet.url("cluster/{}/compute/{}/" \
-                                            .format(clusterid, host)
-                                            )
+                            url = Comet.url("cluster/{}/compute/{}/"
+                                            .format(clusterid, host))
                             puturl = "{}{}".format(url, action)
                             # print (puturl)
                             r = Comet.put(puturl)
@@ -490,7 +492,7 @@ class Cluster(object):
             else:
                 ret = "Action not supported! Try these: on/off/reboot/reset/shutdown"
         '''
-        #"""
+        # """
         return ret
 
     @staticmethod

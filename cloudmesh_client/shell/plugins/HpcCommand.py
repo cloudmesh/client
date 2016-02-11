@@ -130,8 +130,7 @@ class HpcCommand(PluginCommand, HPCPluginCommand, CometPluginCommand):
             if group is None:
                 Console.error('set default group using: default group=<value> --cloud=general')
                 return
-            Console.ok(batch.delete(cluster,None,group))
-
+            Console.ok(batch.delete(cluster, None, group))
 
         elif arguments["delete"]:
             job = arguments['--job']

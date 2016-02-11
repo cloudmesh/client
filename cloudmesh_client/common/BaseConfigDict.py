@@ -207,7 +207,7 @@ class BaseConfigDict(OrderedDict):
         if os.path.isfile(self['location']):
             self.load(self['location'])
 
-        #print ("ATTRIBUTE", attribute)
+        # print ("ATTRIBUTE", attribute)
         for attribute in ['prefix']:
             if attribute in kwargs:
                 self[attribute] = kwargs[attribute]
@@ -249,7 +249,7 @@ class BaseConfigDict(OrderedDict):
             # d = OrderedDict(read_yaml_config(self['location'], check=True))
             d = read_yaml_config(self['location'], check=True)
             with open(self['location']) as myfile:
-                document=myfile.read()
+                document = myfile.read()
             x = yaml.load(document)
             try:
                 self.update(d)

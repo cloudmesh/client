@@ -194,31 +194,30 @@ class SecGroup(ListResource):
         cloud_provider = CloudProvider(cloud).provider.provider
         secgroups = cloud_provider.security_groups.list()
         for asecgroup in secgroups:
-            if asecgroup.name==secgroup_name:
+            if asecgroup.name == secgroup_name:
                 rules = asecgroup.rules
                 rule_exists = False
                 # structure of a secgroup rule:
                 # {u'from_port': 22, u'group': {}, u'ip_protocol': u'tcp', u'to_port': 22, u'parent_group_id': u'UUIDHERE', u'ip_range': {u'cidr': u'0.0.0.0/0'}, u'id': u'UUIDHERE'}
                 for arule in rules:
-                    if arule["from_port"]==22 and \
-                       arule["to_port"]==22 and \
-                       arule["ip_protocol"]=='tcp' and \
-                       arule["ip_range"]=={'cidr': '0.0.0.0/0'}:
+                    if arule["from_port"] == 22 and \
+                       arule["to_port"] == 22 and \
+                       arule["ip_protocol"] == 'tcp' and \
+                       arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
                         # print (arule["id"])
-                        rule_exists=True
+                        rule_exists = True
                         break
                 if not rule_exists:
-                    cloud_provider.security_group_rules.create(asecgroup.id,
-                                                                 ip_protocol='tcp',
-                                                                 from_port=22,
-                                                                 to_port=22,
-                                                                 cidr='0.0.0.0/0')
+                    cloud_provider.security_group_rules.create(
+                        asecgroup.id,
+                        ip_protocol='tcp',
+                        from_port=22,
+                        to_port=22,
+                        cidr='0.0.0.0/0')
                 # else:
                 #    print ("The rule allowing ssh login did exist!")
                 ret = True
                 break
-
-
 
         # print ("*" * 80)
         # d = SecGroup.convert_list_to_dict(secgroups)

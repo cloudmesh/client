@@ -14,7 +14,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
 
     # noinspection PyUnusedLocal
     @command
-    def do_cluster (self, args, arguments):
+    def do_cluster(self, args, arguments):
         """
         ::
 

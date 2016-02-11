@@ -14,9 +14,6 @@ to replicate.
 Install Cloudmesh Client via pip
 ----------------------------------
 
-.. warning:: The instalation with pip is not yet working at this
-	     time. Please use the instalation from source
-
 Users can install the cloudmesh client via pip
 
 .. prompt:: bash

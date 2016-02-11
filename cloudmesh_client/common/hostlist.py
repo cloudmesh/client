@@ -47,20 +47,22 @@ __version__ = "1.14"
 import re
 import itertools
 
+
 # Exception used for error reporting to the caller
-class BadHostlist(Exception): pass
+class BadHostlist(Exception):
+    pass
 
 # Configuration to guard against ridiculously long expanded lists
 MAX_SIZE = 100000
 
 # Hostlist expansion
 
+
 class Parameter(object):
 
     @classmethod
     def expand(cls, parameter, allow_duplicates=False, sort=False):
         return expand_hostlist(parameter, allow_duplicates=False, sort=False)
-
 
 
 def expand_hostlist(hostlist, allow_duplicates=False, sort=False):
@@ -80,7 +82,8 @@ def expand_hostlist(hostlist, allow_duplicates=False, sort=False):
     for c in hostlist + ",":
         if c == "," and bracket_level == 0:
             # Comma at top level, split!
-            if part: results.extend(expand_part(part))
+            if part:
+                results.extend(expand_part(part))
             part = ""
             bad_part = False
         else:
@@ -213,7 +216,8 @@ def collect_hostlist(hosts, silently_discard_bad=False):
     for host in hosts:
         # We remove leading and trailing whitespace first, and skip empty lines
         host = host.strip()
-        if host == "": continue
+        if host == "":
+            continue
 
         # We cannot accept a host containing any of the three special
         # characters in the hostlist syntax (comma and flat brackets)
@@ -336,9 +340,9 @@ def collect_hostlist_1(left_right):
                                 (range_list[0][2], range_list[0][0], suffix)))
             else:
                 # General case where high > low
-                results.append((prefix, "[" + \
+                results.append((prefix, "[" +
                                 ",".join([format_range(l, h, w)
-                                          for l, h, w in range_list]) + \
+                                          for l, h, w in range_list]) +
                                 "]" + suffix))
 
     # At this point, the set of remaining hosts should be empty and we
@@ -419,7 +423,8 @@ def parse_slurm_tasks_per_node(s):
 #
 
 if __name__ == '__main__':
-    import os, sys
+    import os
+    import sys
 
     sys.stderr.write("The command line utility has been moved to a separate 'hostlist' program.\n")
     sys.exit(os.EX_USAGE)

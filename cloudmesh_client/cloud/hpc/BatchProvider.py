@@ -2,6 +2,7 @@ from cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM import BatchPr
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Error import Error
 
+
 # noinspection PyPep8Naming
 def BatchProvider(name, user=None):
     """

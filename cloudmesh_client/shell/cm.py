@@ -44,6 +44,7 @@ import cloudmesh_client.etc
 
 import cloudmesh_client.shell.plugins
 
+
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
@@ -309,10 +310,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 "name": "cloudmesh_client",
                 "version": str(cloudmesh_client.__version__)
             },
-            #"cloudmesh_base": {
-            #    "name": "cloudmesh_base",
-            #    "version": str(cloudmesh_base.__version__)
-            #},
+            # "cloudmesh_base": {
+            #     "name": "cloudmesh_base",
+            #     "version": str(cloudmesh_base.__version__)
+            # },
             "python": {
                 "name": "python",
                 "version": str(python_version)
@@ -564,13 +565,13 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 h = 0
                 for line in self._hist:
                     print ("{}: {}".format(h, self._hist[h]))
-                    h = h + 1
+                    h += 1
                 return ""
 
             elif arguments["last"]:
                 h = len(self._hist)
                 if (h > 1):
-                    self.onecmd(self._hist[h-2])
+                    self.onecmd(self._hist[h - 2])
                 return ""
 
             elif arguments["ID"]:
@@ -646,7 +647,7 @@ def main():
         if arguments["COMMAND"] == '':
             arguments["COMMAND"] = None
 
-
+    # noinspection PySimplifyBooleanCheck
     if arguments['COMMAND'] == []:
         arguments['COMMAND'] = None
 
@@ -656,15 +657,12 @@ def main():
     script = arguments["SCRIPT"]
     command = arguments["COMMAND"]
 
-
-
     context = CloudmeshContext(
         interactive=interactive,
         debug=debug,
         echo=echo,
         splash=splash)
     cmd = CloudmeshConsole(context)
-
 
     if script is not None:
         cmd.do_exec(script)

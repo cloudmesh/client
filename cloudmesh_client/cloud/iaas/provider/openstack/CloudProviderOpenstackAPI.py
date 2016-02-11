@@ -300,19 +300,17 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
-
-        image_id =  self.get_image_id(image)
-        flavor_id =  self.get_flavor_id(flavor)
+        image_id = self.get_image_id(image)
+        flavor_id = self.get_flavor_id(flavor)
 
         # if no nics specified, try to find one in case it's needed
-        if nics is None or len(nics)==0 \
-            or (len(nics)==1 and nics[0]['net-id'] is None):
+        if nics is None or len(nics) == 0 or (len(nics) == 1 and nics[0]['net-id'] is None):
             # get net-id based on tenant network name, and other possible
             # default network names
             netnames = ["{0}-net".format(self.tenant), "int-net"]
             nicsmy = self.provider.networks.list()
             for netname in netnames:
-                nic = [x for x in nicsmy if x.label==netname]
+                nic = [x for x in nicsmy if x.label == netname]
                 if len(nic) > 0:
                     # found and break out of loop
                     # use the value found here
@@ -504,7 +502,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         floating_ip = self.provider.floating_ips.create(pool=float_pool)
         return floating_ip.ip
 
-
     # TODO: define this
     # noinspection PyProtectedMember,PyProtectedMember
     def get_image(self, **kwargs):
@@ -536,7 +533,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         TODO: details TBD
         """
         return self.get_flavor(id=name_or_id)["id"]
-
 
     def isUuid(self, name):
         try:

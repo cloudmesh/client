@@ -1,5 +1,6 @@
 """Ascii menu class"""
 from __future__ import print_function
+from cloudmesh_client.common.Printer import dict_printer
 
 
 def ascii_menu(title=None, menu_list=None):
@@ -96,7 +97,6 @@ def menu_return_num(title=None, menu_list=None, tries=1, with_display=True):
     return 'q'
 
 
-
 def num_choice(n, tries=1):
 
     while tries > 0:
@@ -119,6 +119,7 @@ def num_choice(n, tries=1):
 
     return 'q'
 
+
 def dict_choice(d):
     if d is None:
         return None
@@ -127,18 +128,24 @@ def dict_choice(d):
     i = 1
     for e in d:
         elements[e]["id"] = i
-        i = i+1
-    #pprint(d)
+        i += 1
+    #   pprint(d)
     if elements != {}:
+        # noinspection PyPep8
         print(dict_printer(elements,
-                        order=["id", "name", "comment", "uri", "fingerprint", "source"],
-                        output="table",
-                        sort_keys=True))
+                           order=["id",
+                                  "name",
+                                  "comment",
+                                  "uri",
+                                  "fingerprint",
+                                  "source"],
+                           output="table",
+                           sort_keys=True))
     else:
         print("ERROR: No keys in the database")
         return
 
-    n = num_choice(i-1, tries=10)+1
+    n = num_choice(i - 1, tries=10) + 1
     element = None
     for e in elements:
         if str(elements[e]["id"]) is str(n):

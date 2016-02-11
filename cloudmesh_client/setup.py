@@ -42,12 +42,17 @@ make = """
 """
 
 clean_python = '''
-        find . -name "*~" -exec rm \{\} \;
-	    find . -name "*.pyc" -exec rm \{\} \;
+    find . -name "*~" -exec rm \{\} \;
+    find . -name "*.pyc" -exec rm \{\} \;
 '''
 
+
 def parse_requirements(filename):
-    """ load requirements from a pip requirements file """
+    """
+    load the requirement form the specified file
+    :param filename: the filename
+    :return:
+    """
     lineiter = (line.strip() for line in open(filename))
     return [line for line in lineiter if line and not line.startswith("#")]
 
@@ -58,9 +63,11 @@ def os_execute(commands):
         print(command)
         os.system(command)
 
+
 def get_version_from_git():
     r = Shell.git('tag').split("\n")[-1]
     return r
+
 
 def check_pip():
     major = int(pip.__version__.split(".")[0])
@@ -72,6 +79,7 @@ def check_pip():
         print("             pip install pip -U")
         print("")
         sys.exit()
+
 
 def makefile(tag, **kwargs):
     script = "\n".join(yaml.load(make)[tag])

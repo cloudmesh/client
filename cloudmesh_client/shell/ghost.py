@@ -20,6 +20,7 @@ from cloudmesh_client.util import path_expand
 from cloudmesh_client.shell.command import CometPluginCommand
 from cloudmesh_client.common.Error import Error
 
+
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
         self.__dict__ = kwargs
@@ -194,10 +195,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 "name": "cloudmesh_client",
                 "version": str(cloudmesh_client.__version__)
             },
-            #"cloudmesh_base": {
-            #    "name": "cloudmesh_base",
-            #    "version": str(cloudmesh_base.__version__)
-            #},
+            # "cloudmesh_base": {
+            #     "name": "cloudmesh_base",
+            #     "version": str(cloudmesh_base.__version__)
+            # },
             "python": {
                 "name": "python",
                 "version": str(python_version)

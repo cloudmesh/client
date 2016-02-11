@@ -460,6 +460,7 @@ class Comet(object):
         else:
             print("Console URL not available. Please make sure the node is running and try again!")
 
+
 def main():
     comet = Comet()
 

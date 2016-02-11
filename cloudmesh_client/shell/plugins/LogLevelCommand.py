@@ -52,9 +52,7 @@ class LogLevelCommand(PluginCommand, CloudPluginCommand, ShellPluginCommand):
         """
         # pprint(arguments)
 
-
-        cloud = arguments["--cloud"] or \
-                Default.get_cloud()
+        cloud = arguments["--cloud"] or Default.get_cloud()
         LOGGER.info("Cloud: " + cloud + ", Arguments: " + str(arguments))
 
         if arguments["set"]:
