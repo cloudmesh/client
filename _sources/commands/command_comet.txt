@@ -52,10 +52,11 @@ Comet Client
 Example CLI usage to manage comet virtual cluster using cloudmesh
 client
 
-* https://portal.xsede.org/sdsc-comet
-* Comet Refernce Card :ref:`refcard_comet`
 * Comet Command: :ref:`comet_command` (this page)
+* Comet Refernce Card :ref:`refcard_comet`
 * Man page `comet <../man/man.html#comet>`_
+* http://www.sdsc.edu/support/user_guides/comet.html
+* https://portal.xsede.org/sdsc-comet
   
 Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
 auth_provider could be userpass or apikey. When specified, the
