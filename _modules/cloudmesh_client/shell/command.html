@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.command &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.shell.command &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -173,28 +173,28 @@
 <span class="kn">from</span> <span class="nn">docopt</span> <span class="kn">import</span> <span class="n">docopt</span>
 
 
-<div class="viewcode-block" id="PluginCommand"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.PluginCommand">[docs]</a><span class="k">class</span> <span class="nc">PluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="PluginCommand"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.cm.PluginCommand">[docs]</a><span class="k">class</span> <span class="nc">PluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="CloudPluginCommand"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">CloudPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudPluginCommand"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">CloudPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="ShellPluginCommand"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.ShellPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">ShellPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ShellPluginCommand"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.cm.ShellPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">ShellPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="HPCPluginCommand"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.HPCPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">HPCPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="HPCPluginCommand"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.cm.HPCPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">HPCPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="CometPluginCommand"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CometPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">CometPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CometPluginCommand"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CometPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">CometPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 <span class="c1"># noinspection PySingleQuotedDocstring</span>
-<div class="viewcode-block" id="command"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.command">[docs]</a><span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<div class="viewcode-block" id="command"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.cm.command">[docs]</a><span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A decorator to create a function with docopt arguments.</span>
 <span class="sd">    It also generates a help function</span>
@@ -266,7 +266,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

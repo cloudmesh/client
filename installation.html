@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>Installation &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Configuration" href="configuration.html"/>
         <link rel="prev" title="Preparation" href="system.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -92,6 +92,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul class="current">
@@ -101,7 +102,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#install-cloudmesh-client-via-pip">Install Cloudmesh Client via pip</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#cloudmesh-installation-from-source">Cloudmesh Installation from Source</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#updating-an-existing-source-distribution">Updating an existing source distribution</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#testing">Testing</a></li>
 </ul>
 </li>
 </ul>
@@ -128,7 +128,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -237,22 +236,6 @@ repositories please do not forget to update them accordingly</p>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$C</span>LOUDMESH_HOME/client</span>
 <span class="prompt1">python setup.py install</span>
 </pre></div>
-<div class="section" id="testing">
-<h3>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">This section is incomplete and we need to make sure that tox
-works. We also need to explain how travis works and how we
-can run nosetests locally</p>
-</div>
-<p>For now we do not assume that you need to run any tests after you
-install the source. We will address deployment tests later.</p>
-<pre class="highlight"><span class="prompt1">pip install tox</span>
-</pre><p>in the source dir say</p>
-<pre class="highlight"><span class="prompt1">tox</span>
-</pre><p>Nose tests can be started with</p>
-<pre class="highlight"><span class="prompt1">nosetests</span>
-</pre></div>
 </div>
 </div>
 
@@ -296,7 +279,7 @@ install the source. We will address deployment tests later.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

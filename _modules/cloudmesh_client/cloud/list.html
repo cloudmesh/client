@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.list &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.cloud.list &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -175,12 +175,12 @@
 
 
 <span class="c1"># noinspection PyPep8Naming,PyPep8Naming</span>
-<div class="viewcode-block" id="List"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List">[docs]</a><span class="k">class</span> <span class="nc">List</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="List"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List">[docs]</a><span class="k">class</span> <span class="nc">List</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
     <span class="c1"># Instance to communicate with the cloudmesh database</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="List.list"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="List.list"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">tenant</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method lists the data in the db for</span>
@@ -227,7 +227,7 @@
     <span class="c1"># TODO: don&#39;t we have not already a conversion method</span>
     <span class="c1">#</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="List.toDict"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.toDict">[docs]</a>    <span class="k">def</span> <span class="nf">toDict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<div class="viewcode-block" id="List.toDict"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.toDict">[docs]</a>    <span class="k">def</span> <span class="nf">toDict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method converts the item to a dict</span>
 <span class="sd">        :param item:</span>
@@ -259,7 +259,7 @@
     <span class="c1"># returned. Than you also want o move this to cloud provider</span>
     <span class="c1">#</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="List.getUser"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="List.getUser"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="c1"># TODO: adapt to AWS, EC2, and Azure</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
@@ -308,7 +308,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

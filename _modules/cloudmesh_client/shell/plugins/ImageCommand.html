@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.ImageCommand &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.shell.plugins.ImageCommand &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../../index.html"/>
         <link rel="up" title="Module code" href="../../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -174,7 +174,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
 
-<div class="viewcode-block" id="ImageCommand"><a class="viewcode-back" href="../../../../code/client/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ImageCommand.ImageCommand">[docs]</a><span class="k">class</span> <span class="nc">ImageCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="ImageCommand"><a class="viewcode-back" href="../../../../cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ImageCommand.ImageCommand">[docs]</a><span class="k">class</span> <span class="nc">ImageCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
@@ -223,16 +223,25 @@
             <span class="nb">id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span>
             <span class="n">live</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--refresh&#39;</span><span class="p">]</span>
             <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">live</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
+
+            <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="k">while</span> <span class="n">counter</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="n">cloud</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">live</span><span class="p">,</span> <span class="n">output_format</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">Image</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="p">):</span>
+                        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refresh image for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
             <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No image(s) found. Failed.&quot;</span><span class="p">)</span>
-            <span class="c1"># Todo:</span>
-            <span class="c1"># if database size = 0:</span>
-            <span class="c1">#    Console.error(&quot;No images in the database, please refresh.&quot;)</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 
 </pre></div>
@@ -267,7 +276,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

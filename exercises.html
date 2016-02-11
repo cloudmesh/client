@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Exercises &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>Exercises &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="index.html"/>
         <link rel="next" title="API" href="api.html"/>
         <link rel="prev" title="Commands" href="man/man.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -120,7 +121,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -193,8 +193,10 @@ with it till the day before the due date?</li>
 <li>B.2) Start and stop vms on the kilo cloud</li>
 <li>B.3) Why do i need to shut down my VM?</li>
 <li>B.4) Can I leave my VM simply running?</li>
-<li>B.5) What will happen to your VM when there is a power outage that shuts down the cloud?</li>
-<li>B.6) Assume you create 2 VMs. How do you log in securely from one to the other VM. What needs to be done?</li>
+<li>B.5) What will happen to your VM when there is a power outage that shuts down
+the cloud?</li>
+<li>B.6) Assume you create 2 VMs. How do you log in securely from one to the
+other VM. What needs to be done?</li>
 </ul>
 </div>
 <div class="section" id="assignment-c-ansible">
@@ -203,11 +205,14 @@ with it till the day before the due date?</li>
 <li>A.1) Is prerequisite</li>
 <li>C.1) Install cloudmesh on local machine (we recommend a virtual box)</li>
 <li>C.2) Develop automated script for the installation</li>
-<li>C.3) Generate an image on kilo cloud that uses the automated script and install s cloudmesh in the image</li>
-<li>C.4) Develop an ansible script that generates an image that has cloudmesh installed in it</li>
-<li>C.5) Bonus: use docopt to select from a command that you develop which OS is used and conduct the ansible install for the OS</li>
+<li>C.3) Generate an image on kilo cloud that uses the automated script and
+install s cloudmesh in the image</li>
+<li>C.4) Develop an ansible script that generates an image that has cloudmesh
+installed in it</li>
+<li>C.5) Bonus: use docopt to select from a command that you develop which OS is
+used and conduct the ansible install for the OS
+that you chose.</li>
 </ul>
-<p>that you chose.</p>
 </div>
 <div class="section" id="assignment-d-key-management">
 <h2>Assignment D: Key Management<a class="headerlink" href="#assignment-d-key-management" title="Permalink to this headline">¶</a></h2>
@@ -219,6 +224,14 @@ Openstack with the openstack client commands.</li>
 <li>D.4) Describe the procedures to use the default key (rsa) in cloudmesh client</li>
 <li>D.5) do B.6 How can this be generalized to n virtual machines. Can you
 write a script?</li>
+<li>D.6) What is a known_hosts file? Assume you have used a floating ip ip
+previously for one vm, than you delete the vm and reuse the ip for another
+vm, what impact has this for the known_hosts?</li>
+<li>D.7) Assume you like to log in from your current machine that started a vm
+to that vm. What needs to be done?</li>
+<li>D.8) What is a private and a public key?</li>
+<li>D.9) What is the consequence of copying your private key from your current
+machine to a virtual machine?</li>
 </ul>
 </div>
 </div>
@@ -263,7 +276,7 @@ write a script?</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

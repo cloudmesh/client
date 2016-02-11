@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.network &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.cloud.network &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -180,9 +180,9 @@
 
 
 <span class="c1"># noinspection PyBroadException,PyPep8Naming,PyPep8Naming,PyPep8Naming</span>
-<div class="viewcode-block" id="Network"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network">[docs]</a><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+<div class="viewcode-block" id="Network"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network">[docs]</a><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_fixed_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_fixed_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method retrieves fixed ip info</span>
 <span class="sd">        :param cloudname:</span>
@@ -204,7 +204,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get floating ip info</span>
 <span class="sd">        :param cloudname:</span>
@@ -276,7 +276,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.reserve_fixed_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.reserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">reserve_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.reserve_fixed_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.reserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">reserve_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reserve a fixed ip address</span>
 <span class="sd">        :param cloudname:</span>
@@ -293,7 +293,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.unreserve_fixed_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.unreserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">unreserve_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.unreserve_fixed_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.unreserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">unreserve_fixed_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unreserve a fixed ip address</span>
 <span class="sd">        :param cloudname:</span>
@@ -310,7 +310,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.associate_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.associate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">associate_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.associate_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.associate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">associate_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to associate floating ip to an instance</span>
 <span class="sd">        :param cloudname:</span>
@@ -331,7 +331,7 @@
         <span class="k">pass</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.disassociate_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.disassociate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">disassociate_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.disassociate_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.disassociate_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">disassociate_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Disassociates a floating ip from an instance</span>
 <span class="sd">        :param cloudname:</span>
@@ -352,7 +352,7 @@
         <span class="k">pass</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.create_assign_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_assign_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.create_assign_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_assign_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">instance_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to create a new floating-ip</span>
 <span class="sd">        and associate it with the instance</span>
@@ -369,7 +369,7 @@
             <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.create_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_pool</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.create_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.create_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_pool</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to create a floating ip address under a pool</span>
 <span class="sd">        :param cloudname:</span>
@@ -392,7 +392,7 @@
             <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.delete_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.delete_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">delete_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.delete_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.delete_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">delete_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">floating_ip_or_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to delete a floating ip address</span>
 <span class="sd">        :param cloudname:</span>
@@ -433,7 +433,7 @@
             <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.list_floating_ip"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.list_floating_ip"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to list floating ips</span>
 <span class="sd">        :param cloudname:</span>
@@ -470,7 +470,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.list_floating_ip_pool"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip_pool">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip_pool</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.list_floating_ip_pool"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.list_floating_ip_pool">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip_pool</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to list floating ip pool</span>
 <span class="sd">        :param cloudname:</span>
@@ -491,7 +491,7 @@
         <span class="k">pass</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.isIPAddr"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isIPAddr">[docs]</a>    <span class="k">def</span> <span class="nf">isIPAddr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.isIPAddr"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isIPAddr">[docs]</a>    <span class="k">def</span> <span class="nf">isIPAddr</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_or_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to check if argument is IP address or notS</span>
 <span class="sd">        :param ip_or_id:</span>
@@ -504,7 +504,7 @@
             <span class="k">return</span> <span class="bp">False</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_floating_ip_list"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip_list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_floating_ip_list"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_floating_ip_list">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip_list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get the floating IP list</span>
 <span class="sd">        :param cloudname:</span>
@@ -518,7 +518,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.find_instance_name"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.find_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_instance_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.find_instance_name"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.find_instance_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_instance_name</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to find instance name</span>
 <span class="sd">        :param kwargs:</span>
@@ -540,7 +540,7 @@
             <span class="k">return</span> <span class="n">instance_name</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.get_instance_dict"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_instance_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.get_instance_dict"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.get_instance_dict">[docs]</a>    <span class="k">def</span> <span class="nf">get_instance_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get instance dict</span>
 <span class="sd">        :param kwargs:</span>
@@ -578,7 +578,7 @@
             <span class="k">return</span> <span class="n">instance_dict</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.isUuid"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.isUuid"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">argument</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to check if arg is an UUID</span>
 <span class="sd">        :param argument:</span>
@@ -591,7 +591,7 @@
             <span class="k">return</span> <span class="bp">False</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Network.isDictEmpty"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isDictEmpty">[docs]</a>    <span class="k">def</span> <span class="nf">isDictEmpty</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+<div class="viewcode-block" id="Network.isDictEmpty"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.network.Network.isDictEmpty">[docs]</a>    <span class="k">def</span> <span class="nf">isDictEmpty</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to test empty Dict</span>
 <span class="sd">        :param dictionary:</span>
@@ -633,7 +633,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

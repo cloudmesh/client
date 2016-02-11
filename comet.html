@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Virtual Cluster &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,9 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="index.html"/> 
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="index.html"/>
+        <link rel="next" title="Setup" href="setup.html"/>
+        <link rel="prev" title="Example Scripts" href="scripts.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,7 +60,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -85,10 +87,11 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Short Manuals</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -112,7 +115,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -208,8 +210,43 @@ list):</p>
 <div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3]
 </pre></div>
 </div>
+<p>This will request the nodes for a default period of time - 2 hours.</p>
+<p>To request for a longer time period, use &#8211;walltime parameter.
+E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3] --walltime=6h
+</pre></div>
+</div>
+<p>The above will put the request under the one allocation associated with the cluster.
+If your cluster have more than one allocations, use &#8211;allocation parameter:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3] --allocation=YOUR_ALLOCATION
+</pre></div>
+</div>
+<p>If you have more allocations, but does not specify via CLI, you will see a list of
+allocations to choose from to use.</p>
+<p>You can power off and back on individual nodes of an active computeset. E.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 vm-vc4-[0,1]
+</pre></div>
+</div>
+<p>and then:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-0
+</pre></div>
+</div>
+<p>Or power off the whole computeset by specifying the computeset id:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 123
+</pre></div>
+</div>
+<p>or by specifying the hosts:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 vm-vc4-[0-3]
+</pre></div>
+</div>
+<p>Please note if you powered off all nodes from an active computeset, the computeset
+itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
 <p>You can also power on one single node as a computese:</p>
 <div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[7]
+</pre></div>
+</div>
+<p>or simply:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-7
 </pre></div>
 </div>
 <p>Power on the front end node of the specified cluster:</p>
@@ -224,17 +261,21 @@ list):</p>
 <div class="highlight-python"><div class="highlight"><pre>cm comet console vc4
 </pre></div>
 </div>
-<p>Power off one node or a set of nodes (if they all belonging to one
-active computeset):</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 vm-vc4-[0-3]
-</pre></div>
-</div>
 </div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="setup.html" class="btn btn-neutral float-right" title="Setup" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scripts.html" class="btn btn-neutral" title="Example Scripts" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -262,7 +303,7 @@ active computeset):</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

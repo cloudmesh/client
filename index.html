@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>Cloudmesh Client Toolkit &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="#"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="#"/>
         <link rel="next" title="Prefix" href="prefix.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -257,6 +257,7 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="scripts.html#cloud">Cloud</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound" id="user-manuals">
@@ -302,7 +303,6 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#launcher">launcher</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#list">list</a></li>
-<li class="toctree-l2"><a class="reference internal" href="man/man.html#loglevel">loglevel</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#network">network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="man/man.html#nova">nova</a></li>
@@ -374,89 +374,109 @@ process of integrating them back into the client.</p>
 <li class="toctree-l2"><a class="reference internal" href="changes.html">Changes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="changes_summary.html">Summary of Changes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="changes_gitlog.html">Changelog</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#version-unreleased">%%version%% (unreleased)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id1">2.0.4 (2016-02-11)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id2">2.0.3 (2016-02-10)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id3">2.0.2 (2016-02-10)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id4">2.0.1 (2016-02-10)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id5">2.0.0 (2016-02-10)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id6">1.1.6 (2016-02-09)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#new">New</a></li>
 <li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#changes">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#fix">Fix</a></li>
 <li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#other">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id1">1.1.2 (2016-01-13)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id2">1.1.1 (2016-01-13)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id3">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id4">Other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id7">1.1.5 (2016-02-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id8">1.1.4 (2016-02-01)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id9">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id10">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#fix">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id11">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id5">1.1.0 (2016-01-13)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id6">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id7">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id8">Fix</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id9">Other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id12">1.1.3 (2016-01-26)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id13">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id14">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id15">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id16">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id10">1.0.2 (2015-11-25)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id11">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id12">Other</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id13">1.0.1 (2015-11-25)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id14">1.0.0 (2015-11-24)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id15">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id16">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id17">Other</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id18">0.7.7 (2015-11-18)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id17">1.1.2 (2016-01-13)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id18">1.1.1 (2016-01-13)</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id19">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id20">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id21">Other</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id20">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id22">0.7.6 (2015-11-15)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id23">0.7.5 (2015-11-15)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id24">0.7.4 (2015-11-15)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id25">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id28">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id29">Fix</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id30">Other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id21">1.1.0 (2016-01-13)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id22">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id23">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id24">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id25">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id31">0.7.3 (2015-10-31)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id32">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id33">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id34">Other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id26">1.0.2 (2015-11-25)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id27">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id28">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id35">0.7.2 (2015-10-30)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id36">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id37">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id38">Fix</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id39">Other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id29">1.0.1 (2015-11-25)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id30">1.0.0 (2015-11-24)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id31">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id32">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id33">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id40">0.7.1 (2015-09-30)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id41">0.7.0 (2015-09-30)</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id42">New</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id43">Changes</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id44">Fix</a></li>
-<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id45">Other</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id34">0.7.7 (2015-11-18)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id35">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id36">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id37">Other</a></li>
 </ul>
 </li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id46">0.6.9 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id47">0.6.8 (2015-09-06)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id48">0.6.7 (2015-09-05)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id49">0.6.6 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id50">0.6.5 (2015-09-04)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id51">0.6.4 (2015-09-02)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id52">0.6.3 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id53">0.6.2 (2015-09-01)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id54">0.6.1 (2015-08-31)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id55">0.6.0 (2015-08-29)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id56">0.5.8 (2015-06-28)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id57">0.5.7 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id58">0.5.6 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id59">0.5.5 (2015-06-17)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id60">0.5.4 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id38">0.7.6 (2015-11-15)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id39">0.7.5 (2015-11-15)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id40">0.7.4 (2015-11-15)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id41">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id44">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id45">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id46">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id47">0.7.3 (2015-10-31)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id48">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id49">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id50">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id51">0.7.2 (2015-10-30)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id52">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id53">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id54">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id55">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id56">0.7.1 (2015-09-30)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id57">0.7.0 (2015-09-30)</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id58">New</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id59">Changes</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id60">Fix</a></li>
+<li class="toctree-l5"><a class="reference internal" href="changes_gitlog.html#id61">Other</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id62">0.6.9 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id63">0.6.8 (2015-09-06)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id64">0.6.7 (2015-09-05)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id65">0.6.6 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id66">0.6.5 (2015-09-04)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id67">0.6.4 (2015-09-02)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id68">0.6.3 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id69">0.6.2 (2015-09-01)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id70">0.6.1 (2015-08-31)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id71">0.6.0 (2015-08-29)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id72">0.5.8 (2015-06-28)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id73">0.5.7 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id74">0.5.6 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id75">0.5.5 (2015-06-17)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="changes_gitlog.html#id76">0.5.4 (2015-06-17)</a></li>
 </ul>
 </li>
 </ul>
@@ -470,29 +490,6 @@ process of integrating them back into the client.</p>
 <p class="caption"><span class="caption-text">Future and Old</span><a class="headerlink" href="#future-and-old" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="old.html">Existing original cloudmesh commands</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="old.html#parametrized-commands">Parametrized commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#refresh">Refresh</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#select">Select</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#list">List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#security-group">Security group</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#cloud">Cloud</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#vm">VM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#volume">Volume</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#status">Status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#stack-hyungro">Stack (Hyungro)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#notebook-not">notebook (not)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#project">Project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#loglevel">Loglevel</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#launcher">Launcher</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#key">Key</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#inventory-not-gregor">Inventory (not, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#experiment-do-gregor">Experiment (do, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#debug-not-cmd3-gregor">debug (not cmd3, Gregor)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#cluster">Cluster</a></li>
-<li class="toctree-l2"><a class="reference internal" href="old.html#admin">Admin</a></li>
-</ul>
-</li>
 </ul>
 </div>
 <div class="toctree-wrapper compound" id="code">
@@ -566,7 +563,7 @@ process of integrating them back into the client.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

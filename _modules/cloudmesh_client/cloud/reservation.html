@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.reservation &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.cloud.reservation &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -176,11 +176,11 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 
 
-<div class="viewcode-block" id="Reservation"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation">[docs]</a><span class="k">class</span> <span class="nc">Reservation</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation">[docs]</a><span class="k">class</span> <span class="nc">Reservation</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Reservation.info"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.info"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        prints if the user has access to the reservation an on which host.</span>
 
@@ -190,7 +190,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.add_from_file"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.add_from_file"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param filename:</span>
@@ -198,7 +198,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.add"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Reservation.add"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
             <span class="n">name</span><span class="p">,</span>
             <span class="n">start</span><span class="p">,</span>
             <span class="n">end</span><span class="p">,</span>
@@ -231,7 +231,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">obj_d</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.delete"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Reservation.delete"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -270,7 +270,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.delete_from_file"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">delete_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.delete_from_file"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.delete_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">delete_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param filename:</span>
@@ -278,13 +278,13 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.suspend"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.suspend"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.resume"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Reservation.resume"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="Reservation.list"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Reservation.list"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
              <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -322,7 +322,7 @@
         <span class="c1"># print(&quot;RESULT:- {}&quot;.format(result))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="Reservation.update"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="Reservation.update"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.reservation.Reservation.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                <span class="n">name</span><span class="p">,</span>
                <span class="n">start</span><span class="p">,</span>
                <span class="n">end</span><span class="p">,</span>
@@ -351,7 +351,7 @@
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">args</span><span class="p">[</span><span class="s1">&#39;cloud&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;RESERVATION&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -384,7 +384,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

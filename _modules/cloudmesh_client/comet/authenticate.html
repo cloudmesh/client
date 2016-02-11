@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.authenticate &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.comet.authenticate &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -176,12 +176,12 @@
 <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="AuthenticationException"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.AuthenticationException">[docs]</a><span class="k">class</span> <span class="nc">AuthenticationException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="AuthenticationException"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.AuthenticationException">[docs]</a><span class="k">class</span> <span class="nc">AuthenticationException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
 <span class="c1"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="Authenticator"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator">[docs]</a><span class="k">class</span> <span class="nc">Authenticator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Authenticator"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator">[docs]</a><span class="k">class</span> <span class="nc">Authenticator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">base_uri</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">token</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="n">HEADER</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
@@ -192,11 +192,11 @@
         <span class="n">Authenticator</span><span class="o">.</span><span class="n">base_uri</span> <span class="o">=</span> <span class="n">uri</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Authenticator.set_auth_base_uri"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.set_auth_base_uri">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_base_uri</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
+<div class="viewcode-block" id="Authenticator.set_auth_base_uri"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.set_auth_base_uri">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_base_uri</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">uri</span><span class="p">):</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span> <span class="o">=</span> <span class="n">uri</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Authenticator.logon"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+<div class="viewcode-block" id="Authenticator.logon"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span><span class="p">:</span>
@@ -216,7 +216,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Authenticator.logoff"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Authenticator.logoff"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">base_uri</span><span class="p">:</span>
@@ -232,7 +232,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Authenticator.status"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Authenticator.status"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.Authenticator.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
@@ -271,7 +271,7 @@
 
 
 <span class="c1"># To make GET calls for synchronous or asynchronous API</span>
-<div class="viewcode-block" id="hop_get"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.hop_get">[docs]</a><span class="k">def</span> <span class="nf">hop_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="hop_get"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.hop_get">[docs]</a><span class="k">def</span> <span class="nf">hop_get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
     <span class="n">ret</span> <span class="o">=</span> <span class="bp">None</span>
 
@@ -301,7 +301,7 @@
     <span class="k">return</span> <span class="n">ret</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://localhost:8080/rest-auth&quot;</span>
     <span class="n">auth</span> <span class="o">=</span> <span class="n">Authenticator</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
 
@@ -317,7 +317,7 @@
     <span class="k">print</span> <span class="n">auth</span><span class="o">.</span><span class="n">logoff</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
+<div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.authenticate.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
     <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="k">print</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">TEST 1: Get without logon&quot;</span>
     <span class="k">print</span> <span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">80</span>
@@ -398,7 +398,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.DictDB &mdash; cloudmesh_client 1.1.5 documentation</title>
+  <title>cloudmesh_client.common.DictDB &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 1.1.5 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                1.1.5
+                2.1.0
               </div>
             
           
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
 </ul>
 <p class="caption"><span class="caption-text">User Manuals</span></p>
 <ul>
@@ -113,7 +114,6 @@
 <p class="caption"><span class="caption-text">Future and Old</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../old.html">Existing original cloudmesh commands</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
 <ul class="simple">
@@ -166,7 +166,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.DictDB</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="DictDB"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB">[docs]</a><span class="k">class</span> <span class="nc">DictDB</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB">[docs]</a><span class="k">class</span> <span class="nc">DictDB</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Implements a persistent dictionary using sqlite</span>
@@ -213,7 +213,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span>
 
-<div class="viewcode-block" id="DictDB.attributes"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_names</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB.attributes"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_names</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        defines the attributes that each record can have. If a database has previously</span>
 <span class="sd">        defined and new attributes are added the database records are updated.</span>
@@ -222,7 +222,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="DictDB.add"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB.add"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        adds the dict to the database. The attribute &quot;name&quot; is used to define a</span>
 <span class="sd">        unique name for the object in the database</span>
@@ -231,7 +231,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="DictDB.delete"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB.delete"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        deletes all elements in that match the query formulated by kwargs and the operator</span>
 <span class="sd">        operators that are allowed are = and, or</span>
@@ -241,7 +241,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="DictDB.find"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB.find"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds all elements in that match the query formulated by kwargs and the operator</span>
 <span class="sd">        operators that are allowed are = and, or</span>
@@ -251,7 +251,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="DictDB.get"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB.get"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="s2">&quot;and&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the first elements in that match the query formulated by kwargs and the operator</span>
 <span class="sd">        operators that are allowed are = and, or</span>
@@ -275,7 +275,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">None</span>
 
-<div class="viewcode-block" id="DictDB.backup"><a class="viewcode-back" href="../../../code/client/cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.backup">[docs]</a>    <span class="k">def</span> <span class="nf">backup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="DictDB.backup"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.DictDB.DictDB.backup">[docs]</a>    <span class="k">def</span> <span class="nf">backup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        backs up the current database. If the filename is omitted, the backup will be</span>
 <span class="sd">        created in the same directory as the database with the postfix .bak.#</span>
@@ -319,7 +319,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'1.1.5',
+            VERSION:'2.1.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

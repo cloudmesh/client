@@ -20,8 +20,10 @@ Assignment B: IaaS
 * B.2) Start and stop vms on the kilo cloud
 * B.3) Why do i need to shut down my VM?
 * B.4) Can I leave my VM simply running?
-* B.5) What will happen to your VM when there is a power outage that shuts down the cloud?
-* B.6) Assume you create 2 VMs. How do you log in securely from one to the other VM. What needs to be done?
+* B.5) What will happen to your VM when there is a power outage that shuts down
+  the cloud?
+* B.6) Assume you create 2 VMs. How do you log in securely from one to the
+  other VM. What needs to be done?
 
 Assignment C: Ansible
 ----------------------
@@ -29,10 +31,13 @@ Assignment C: Ansible
 * A.1) Is prerequisite
 * C.1) Install cloudmesh on local machine (we recommend a virtual box)
 * C.2) Develop automated script for the installation
-* C.3) Generate an image on kilo cloud that uses the automated script and install s cloudmesh in the image
-* C.4) Develop an ansible script that generates an image that has cloudmesh installed in it
-* C.5) Bonus: use docopt to select from a command that you develop which OS is used and conduct the ansible install for the OS
-that you chose.
+* C.3) Generate an image on kilo cloud that uses the automated script and
+  install s cloudmesh in the image
+* C.4) Develop an ansible script that generates an image that has cloudmesh
+  installed in it
+* C.5) Bonus: use docopt to select from a command that you develop which OS is
+  used and conduct the ansible install for the OS
+  that you chose.
 
 Assignment D: Key Management
 -----------------------------
@@ -44,4 +49,12 @@ Assignment D: Key Management
 * D.4) Describe the procedures to use the default key (rsa) in cloudmesh client
 * D.5) do B.6 How can this be generalized to n virtual machines. Can you
   write a script?
+* D.6) What is a known_hosts file? Assume you have used a floating ip ip
+  previously for one vm, than you delete the vm and reuse the ip for another
+  vm, what impact has this for the known_hosts?
+* D.7) Assume you like to log in from your current machine that started a vm
+  to that vm. What needs to be done?
+* D.8) What is a private and a public key?
+* D.9) What is the consequence of copying your private key from your current
+  machine to a virtual machine?
 
