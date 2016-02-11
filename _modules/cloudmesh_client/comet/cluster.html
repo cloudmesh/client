@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -177,12 +178,12 @@
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
 
-<div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">WALLTIME_MINS</span> <span class="o">=</span> <span class="mi">120</span>
     <span class="n">N_ALLOCATIONS_PER_LINE</span> <span class="o">=</span> <span class="mi">5</span>
     <span class="n">MINS_PER_UNIT</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="mi">1440</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">:</span> <span class="mi">10080</span><span class="p">}</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.simple_list"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.simple_list">[docs]</a>    <span class="k">def</span> <span class="nf">simple_list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.simple_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.simple_list">[docs]</a>    <span class="k">def</span> <span class="nf">simple_list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/&quot;</span><span class="p">))</span>
@@ -248,7 +249,7 @@
             <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.list"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
 
         <span class="k">def</span> <span class="nf">check_for_error</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -327,7 +328,7 @@
             <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.display_get_allocation"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.display_get_allocation">[docs]</a>    <span class="k">def</span> <span class="nf">display_get_allocation</span><span class="p">(</span><span class="n">allocations</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.display_get_allocation"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.display_get_allocation">[docs]</a>    <span class="k">def</span> <span class="nf">display_get_allocation</span><span class="p">(</span><span class="n">allocations</span><span class="p">):</span>
         <span class="n">allocation</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">allocations_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">allocations</span><span class="p">)</span>
         <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
@@ -358,28 +359,28 @@
         <span class="k">return</span> <span class="n">allocation</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.info"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">():</span>
+<div class="viewcode-block" id="Cluster.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">():</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;comet cluster info: to be implemented&quot;</span><span class="p">)</span>
         <span class="k">pass</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.add"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>
+<div class="viewcode-block" id="Cluster.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>
         <span class="k">pass</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.start"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{id}/start&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)))</span>
         <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.stop"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.stop"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{id}/stop&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)))</span>
         <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.computeset"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.computeset">[docs]</a>    <span class="k">def</span> <span class="nf">computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.computeset">[docs]</a>    <span class="k">def</span> <span class="nf">computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">computesets</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">computesets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
@@ -393,7 +394,7 @@
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.output_computeset"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.output_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">output_computeset</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.output_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.output_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">output_computeset</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;completed&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Cluster: {}</span><span class="se">\t</span><span class="s2">ComputesetID: {}</span><span class="se">\t</span><span class="s2"> State: {}</span><span class="se">\n</span><span class="s2">&quot;</span> \
@@ -429,7 +430,7 @@
         <span class="k">return</span> <span class="n">result</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.convert_to_mins"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.convert_to_mins">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_mins</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.convert_to_mins"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.convert_to_mins">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_mins</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
         <span class="n">mins</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -438,7 +439,7 @@
         <span class="k">return</span> <span class="n">mins</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.power"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.power">[docs]</a>    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="Cluster.power"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.power">[docs]</a>    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
               <span class="n">allocation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">walltime</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="c1"># print(&quot;SUBJECT to perform action on: {}&quot;.format(subject))</span>
@@ -662,7 +663,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">():</span>
+<div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">():</span>
         <span class="k">pass</span></div></div>
 </pre></div>
 

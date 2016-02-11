@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -177,7 +178,7 @@
 <span class="n">requests</span><span class="o">.</span><span class="n">packages</span><span class="o">.</span><span class="n">urllib3</span><span class="o">.</span><span class="n">disable_warnings</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="CloudProvider"><a class="viewcode-back" href="../../../../cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.CloudProvider">[docs]</a><span class="k">class</span> <span class="nc">CloudProvider</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProvider"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.CloudProvider">[docs]</a><span class="k">class</span> <span class="nc">CloudProvider</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CloudProvider</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
@@ -209,12 +210,12 @@
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CloudProvider.get_attributes"><a class="viewcode-back" href="../../../../cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.CloudProvider.get_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">get_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProvider.get_attributes"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.CloudProvider.get_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">get_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">attributes</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span></div></div>
 
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
     <span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;kilo&quot;</span>

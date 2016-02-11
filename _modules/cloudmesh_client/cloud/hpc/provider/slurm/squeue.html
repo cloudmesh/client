@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -171,9 +172,9 @@
 
 
 <span class="c1"># TODO: is this outdated and superseded by hpc.py?</span>
-<div class="viewcode-block" id="Squeue"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue">[docs]</a><span class="k">class</span> <span class="nc">Squeue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Squeue"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue">[docs]</a><span class="k">class</span> <span class="nc">Squeue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Squeue.squeue_to_json"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue.squeue_to_json">[docs]</a>    <span class="k">def</span> <span class="nf">squeue_to_json</span><span class="p">(</span><span class="n">input_str</span><span class="p">):</span>
+<div class="viewcode-block" id="Squeue.squeue_to_json"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue.squeue_to_json">[docs]</a>    <span class="k">def</span> <span class="nf">squeue_to_json</span><span class="p">(</span><span class="n">input_str</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_str</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;Warning:&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">__contains__</span><span class="p">(</span>
@@ -196,7 +197,7 @@
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Squeue.get"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Squeue.get"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">squeue_json</span> <span class="o">=</span> <span class="n">Squeue</span><span class="o">.</span><span class="n">read_squeue</span><span class="p">()</span>
         <span class="c1"># assert returned value is string</span>
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">squeue_json</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
@@ -225,7 +226,7 @@
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">))</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Squeue.read_squeue"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue.read_squeue">[docs]</a>    <span class="k">def</span> <span class="nf">read_squeue</span><span class="p">():</span>
+<div class="viewcode-block" id="Squeue.read_squeue"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.squeue.Squeue.read_squeue">[docs]</a>    <span class="k">def</span> <span class="nf">read_squeue</span><span class="p">():</span>
         <span class="c1"># read squeue from comet</span>
         <span class="c1"># TODO: check this function</span>
         <span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>

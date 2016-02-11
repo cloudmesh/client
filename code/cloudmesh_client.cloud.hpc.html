@@ -1,0 +1,483 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.cloud.hpc package &mdash; cloudmesh_client 2.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/>
+        <link rel="next" title="cloudmesh_client.cloud.hpc.provider package" href="cloudmesh_client.cloud.hpc.provider.html"/>
+        <link rel="prev" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.cloud.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.default">cloudmesh_client.cloud.default module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.group">cloudmesh_client.cloud.group module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.hpc">cloudmesh_client.cloud.hpc module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.image">cloudmesh_client.cloud.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.inventory">cloudmesh_client.cloud.inventory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.launcher">cloudmesh_client.cloud.launcher module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.limits">cloudmesh_client.cloud.limits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.list">cloudmesh_client.cloud.list module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.network">cloudmesh_client.cloud.network module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.nova">cloudmesh_client.cloud.nova module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.quota">cloudmesh_client.cloud.quota module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.register">cloudmesh_client.cloud.register module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.reservation">cloudmesh_client.cloud.reservation module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.secgroup">cloudmesh_client.cloud.secgroup module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.sync">cloudmesh_client.cloud.sync module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.usage">cloudmesh_client.cloud.usage module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.vm">cloudmesh_client.cloud.vm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.shell.html">cloudmesh_client.shell package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.util">cloudmesh_client.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.cloud.hpc package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.cloud.hpc.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-cloud-hpc-package">
+<h1>cloudmesh_client.cloud.hpc package<a class="headerlink" href="#cloudmesh-client-cloud-hpc-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.html">cloudmesh_client.cloud.hpc.provider package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.slurm.html">cloudmesh_client.cloud.hpc.provider.slurm package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.slurm.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.slurm.html#module-cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM">cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.slurm.html#module-cloudmesh_client.cloud.hpc.provider.slurm.squeue">cloudmesh_client.cloud.hpc.provider.slurm.squeue module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.slurm.html#module-cloudmesh_client.cloud.hpc.provider.slurm">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.hpc.provider.html#module-cloudmesh_client.cloud.hpc.provider">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.hpc.BatchProvider">
+<span id="cloudmesh-client-cloud-hpc-batchprovider-module"></span><h2>cloudmesh_client.cloud.hpc.BatchProvider module<a class="headerlink" href="#module-cloudmesh_client.cloud.hpc.BatchProvider" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cloudmesh_client.cloud.hpc.BatchProvider.BatchProvider">
+<code class="descclassname">cloudmesh_client.cloud.hpc.BatchProvider.</code><code class="descname">BatchProvider</code><span class="sig-paren">(</span><em>name</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProvider.html#BatchProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProvider.BatchProvider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a provider for a given batch system that is defined
+in the cloudmesh.yaml file. Here you find a section such as:</p>
+<div class="highlight-python"><div class="highlight"><pre>hpc:
+    active:
+    - india
+    clusters:
+      india:
+        cm_heading: India HPC CLuster
+        cm_host: india
+        cm_label: indiahpc
+        cm_type: slurm
+        cm_type_version: 14.11.9
+        credentials:
+          username: TBD
+          project: None
+        default:
+          queue: delta
+          experiment_dir: /N/u/{username}/experiment
+          prefix:
+            username: null
+</pre></div>
+</div>
+<p>You can define a new resource by copying this section under india and
+give it a name according to your cluster. Fill out the username,
+and if appropirate define a project, which is the
+account this queue is charged under</p>
+<p>Ussage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">provider</span> <span class="o">=</span> <span class="n">BatchProvider</span><span class="p">(</span><span class="s2">&quot;india&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Additional functions are defined as it inherits from BatchProviderBase
+and the provider type which is in the above example slurm</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> &#8211; name of the cluster in the cloudmesh yaml file</li>
+<li><strong>user</strong> &#8211; cloudmesh user name associated with this queue.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the provider</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.hpc.BatchProviderBase">
+<span id="cloudmesh-client-cloud-hpc-batchproviderbase-module"></span><h2>cloudmesh_client.cloud.hpc.BatchProviderBase module<a class="headerlink" href="#module-cloudmesh_client.cloud.hpc.BatchProviderBase" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.hpc.BatchProviderBase.</code><code class="descname">BatchProviderBase</code><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.counter">
+<em class="property">classmethod </em><code class="descname">counter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.counter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.counter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.create_remote_dir">
+<em class="property">classmethod </em><code class="descname">create_remote_dir</code><span class="sig-paren">(</span><em>cluster</em>, <em>directory</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.create_remote_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.create_remote_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.delete">
+<em class="property">classmethod </em><code class="descname">delete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.incr">
+<em class="property">classmethod </em><code class="descname">incr</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.incr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.incr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.jobid">
+<code class="descname">jobid</code><em class="property"> = 0</em><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.jobid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.jobname">
+<em class="property">classmethod </em><code class="descname">jobname</code><span class="sig-paren">(</span><em>counter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.jobname"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.jobname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.prefix">
+<code class="descname">prefix</code><em class="property"> = 'job'</em><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.queue">
+<em class="property">classmethod </em><code class="descname">queue</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.queue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.queue" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.read_config">
+<em class="property">classmethod </em><code class="descname">read_config</code><span class="sig-paren">(</span><em>cluster</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.read_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.read_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>reads in the cluster config from the yaml file and returns the specific cluster information</p>
+<dl class="docutils">
+<dt>newhpc:</dt>
+<dd><dl class="first docutils">
+<dt>experiment:</dt>
+<dd>name: gregor-00000</dd>
+</dl>
+<p>active:
+- comet
+- juliet
+clusters:</p>
+<blockquote class="last">
+<div><dl class="docutils">
+<dt>india:</dt>
+<dd><p class="first">cm_heading: India HPC CLuster
+cm_host: india
+cm_label: indiahpc
+cm_type: slurm
+cm_type_version: 14.11.9
+credentials:</p>
+<blockquote>
+<div>username: gregor
+project: None</div></blockquote>
+<dl class="last docutils">
+<dt>default:</dt>
+<dd>queue: delta
+experiment_dir: ./experiment</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cls</strong> &#8211; </li>
+<li><strong>cluster</strong> &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.run">
+<em class="property">classmethod </em><code class="descname">run</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProviderBase.html#BatchProviderBase.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.cloud.hpc">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.cloud.hpc" title="Permalink to this headline">¶</a></h2>
+<p>This module is used to interface with classical HPC queuing systems.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.cloud.hpc.provider.html" class="btn btn-neutral float-right" title="cloudmesh_client.cloud.hpc.provider package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.cloud.html" class="btn btn-neutral" title="cloudmesh_client.cloud package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

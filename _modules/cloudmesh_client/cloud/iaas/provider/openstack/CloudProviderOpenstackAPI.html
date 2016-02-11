@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -184,7 +185,7 @@
 
 
 <span class="c1"># TODO: unset as not allowing to smoothly switch</span>
-<div class="viewcode-block" id="set_os_environ"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.set_os_environ">[docs]</a><span class="k">def</span> <span class="nf">set_os_environ</span><span class="p">(</span><span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="set_os_environ"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.set_os_environ">[docs]</a><span class="k">def</span> <span class="nf">set_os_environ</span><span class="p">(</span><span class="n">cloudname</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Set os environment variables on a given cloudname&quot;&quot;&quot;</span>
     <span class="c1"># TODO: this has a severe bug as it is not unsetting variables</span>
     <span class="c1"># Also this coded duplicates in part from register</span>
@@ -205,7 +206,7 @@
 <span class="c1">#</span>
 
 <span class="c1"># noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal</span>
-<div class="viewcode-block" id="CloudProviderOpenstackAPI"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderOpenstackAPI</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderOpenstackAPI</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
     <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
     <span class="n">cloud_pwd</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -250,7 +251,7 @@
 
         <span class="k">return</span> <span class="n">ksauth</span>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.logon"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.logon"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Logs onto a cloud</span>
 <span class="sd">        :param cloudname:</span>
@@ -271,7 +272,7 @@
 
         <span class="k">return</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.activate"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.activate"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Activates a cloud</span>
 <span class="sd">        :param cloudname:</span>
@@ -280,7 +281,7 @@
         <span class="n">CloudProviderOpenstackAPI</span><span class="o">.</span><span class="n">cloud_pwd</span><span class="p">[</span><span class="n">cloudname</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Active&quot;</span>
         <span class="k">return</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.deactivate"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.deactivate">[docs]</a>    <span class="k">def</span> <span class="nf">deactivate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.deactivate"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.deactivate">[docs]</a>    <span class="k">def</span> <span class="nf">deactivate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deactivates a cloud</span>
 <span class="sd">        :param cloudname:</span>
@@ -289,7 +290,7 @@
         <span class="n">CloudProviderOpenstackAPI</span><span class="o">.</span><span class="n">cloud_pwd</span><span class="p">[</span><span class="n">cloudname</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Inactive&quot;</span>
         <span class="k">return</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.logout"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.logout">[docs]</a>    <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.logout"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.logout">[docs]</a>    <span class="k">def</span> <span class="nf">logout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Logs out from a cloud</span>
 <span class="sd">        :param cloudname:</span>
@@ -298,7 +299,7 @@
         <span class="n">CloudProviderOpenstackAPI</span><span class="o">.</span><span class="n">cloud_pwd</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
         <span class="k">return</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_clouds"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_clouds">[docs]</a>    <span class="k">def</span> <span class="nf">list_clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_clouds"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_clouds">[docs]</a>    <span class="k">def</span> <span class="nf">list_clouds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Lists clouds</span>
 <span class="sd">        :return:</span>
@@ -320,7 +321,7 @@
 
         <span class="k">return</span> <span class="nb">dict</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.initialize"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
@@ -365,7 +366,7 @@
                                    <span class="n">verify</span><span class="o">=</span><span class="n">cert</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">sess</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.mode"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.mode"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the source for the information to be returned. &quot;db&quot; and &quot;cloud&quot;</span>
 <span class="sd">        :param source: the database can be queried in mode &quot;db&quot;,</span>
@@ -373,16 +374,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_flavor"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">list_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_flavor"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">list_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">flavors</span><span class="o">.</span><span class="n">list</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_image"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_image">[docs]</a>    <span class="k">def</span> <span class="nf">list_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_image"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_image">[docs]</a>    <span class="k">def</span> <span class="nf">list_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">list</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_secgroup"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">list_secgroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_secgroup"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_secgroup">[docs]</a>    <span class="k">def</span> <span class="nf">list_secgroup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">security_groups</span><span class="o">.</span><span class="n">list</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_vm"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">vm_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">list</span><span class="p">())</span>
 
         <span class="c1"># Extracting and modifying dict with IP details as per the model requirement.</span>
@@ -419,16 +420,16 @@
 
         <span class="k">return</span> <span class="n">vm_dict</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_limits"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_limits">[docs]</a>    <span class="k">def</span> <span class="nf">list_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_limits"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_limits">[docs]</a>    <span class="k">def</span> <span class="nf">list_limits</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">limits</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tenant_id</span><span class="o">=</span><span class="n">tenant</span><span class="p">)</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;_info&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_floating_ips"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_floating_ips">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_floating_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_floating_ips">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">floating_ips</span><span class="o">.</span><span class="n">list</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_floating_ip_pools"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_floating_ip_pools">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip_pools</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_floating_ip_pools"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_floating_ip_pools">[docs]</a>    <span class="k">def</span> <span class="nf">list_floating_ip_pools</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">floating_ip_pools</span><span class="o">.</span><span class="n">list</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_quota"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_quota">[docs]</a>    <span class="k">def</span> <span class="nf">list_quota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_quota"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_quota">[docs]</a>    <span class="k">def</span> <span class="nf">list_quota</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># pprint(self.provider.__dict__)</span>
         <span class="c1"># pprint(dir(self.provider.quotas))</span>
         <span class="n">tenant</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="s2">&quot;OS_TENANT_NAME&quot;</span><span class="p">]</span>
@@ -438,10 +439,10 @@
         <span class="k">del</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_usage"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_usage">[docs]</a>    <span class="k">def</span> <span class="nf">list_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.list_usage"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_usage">[docs]</a>    <span class="k">def</span> <span class="nf">list_usage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;list usage is not supported&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.boot_vm"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.boot_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                 <span class="n">name</span><span class="p">,</span>
                 <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -498,7 +499,7 @@
         <span class="c1"># return the server id</span>
         <span class="k">return</span> <span class="n">server</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_vm"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes a machine on the target cloud indicated by the id or name</span>
 <span class="sd">        :param name: Name or ID of the instance to be deleted</span>
@@ -514,7 +515,7 @@
 
         <span class="n">server</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_floating_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">delete_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_floating_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">delete_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">floating_ip</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method deletes a floating IP address</span>
 <span class="sd">        :param floating_ip:</span>
@@ -522,7 +523,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">floating_ips</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.start_vm"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.start_vm">[docs]</a>    <span class="k">def</span> <span class="nf">start_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.start_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.start_vm">[docs]</a>    <span class="k">def</span> <span class="nf">start_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Starts a suspended machine on the target cloud indicated by the id or name</span>
 <span class="sd">        :param name: Name or ID of the instance to be deleted</span>
@@ -538,7 +539,7 @@
 
         <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.stop_vm"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.stop_vm">[docs]</a>    <span class="k">def</span> <span class="nf">stop_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.stop_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.stop_vm">[docs]</a>    <span class="k">def</span> <span class="nf">stop_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stops a machine on the target cloud indicated by the id or name</span>
 <span class="sd">        :param name: Name or ID of the instance to be deleted</span>
@@ -554,7 +555,7 @@
 
         <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_ips"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_ips">[docs]</a>    <span class="k">def</span> <span class="nf">get_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_ips"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_ips">[docs]</a>    <span class="k">def</span> <span class="nf">get_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the ip of the instance indicated by name_or_id</span>
 <span class="sd">        :param name:</span>
@@ -569,7 +570,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">ips</span><span class="p">(</span><span class="n">server</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_floating_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">floating_ip_id</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_floating_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">floating_ip_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the floating ip info associated with floating_ip_id</span>
 <span class="sd">        :param floating_ip_id:</span>
@@ -578,7 +579,7 @@
         <span class="n">float_ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">floating_ips</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">floating_ip_id</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">float_ip</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;_info&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_fixed_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_fixed_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_fixed_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">get_fixed_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the fixed ip info associated with fixed ip addr</span>
 <span class="sd">        :param fixed_ip_addr:</span>
@@ -587,7 +588,7 @@
         <span class="n">fixed_ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">fixed_ips</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">fixed_ip_addr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">fixed_ip</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;_info&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.reserve_fixed_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.reserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">reserve_fixed_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.reserve_fixed_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.reserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">reserve_fixed_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reserves a fixed ip address</span>
 <span class="sd">        :param fixed_ip_addr:</span>
@@ -595,7 +596,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">fixed_ips</span><span class="o">.</span><span class="n">reserve</span><span class="p">(</span><span class="n">fixed_ip_addr</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.unreserve_fixed_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.unreserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">unreserve_fixed_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.unreserve_fixed_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.unreserve_fixed_ip">[docs]</a>    <span class="k">def</span> <span class="nf">unreserve_fixed_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fixed_ip_addr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Unreserves a fixed ip address</span>
 <span class="sd">        :param fixed_ip_addr:</span>
@@ -603,7 +604,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">fixed_ips</span><span class="o">.</span><span class="n">unreserve</span><span class="p">(</span><span class="n">fixed_ip_addr</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.create_assign_floating_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_assign_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_name</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.create_assign_floating_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_assign_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_assign_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function creates a new floating ip and associates it with the machine specified.</span>
 <span class="sd">        :param server_name: Name of the machine to which the floating ip needs to be assigned.</span>
@@ -636,7 +637,7 @@
             <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Error: failed to create floatingip&quot;</span>
         <span class="k">return</span> <span class="n">ret</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.add_key_to_cloud"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">public_key</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.add_key_to_cloud"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">public_key</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to add key to cloud, typically a keypair for openstack.</span>
 <span class="sd">        :param name: Name of the keypair.</span>
@@ -650,7 +651,7 @@
         <span class="n">keypair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">keypairs</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">public_key</span><span class="o">=</span><span class="n">public_key</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">keypair</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_key_from_cloud"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_key_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key_from_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_key_from_cloud"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_key_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key_from_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to delete key from cloud, typically a keypair for openstack.</span>
 <span class="sd">        :param name: Name of the keypair.</span>
@@ -663,7 +664,7 @@
         <span class="n">keypair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">keypairs</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">keypair</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.create_floating_ip"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">float_pool</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.create_floating_ip"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_floating_ip">[docs]</a>    <span class="k">def</span> <span class="nf">create_floating_ip</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">float_pool</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method creates a new floating ip under the specified pool</span>
 <span class="sd">        :param float_pool:</span>
@@ -675,7 +676,7 @@
 
     <span class="c1"># TODO: define this</span>
     <span class="c1"># noinspection PyProtectedMember,PyProtectedMember</span>
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_image"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_image"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the image based on a query</span>
@@ -689,7 +690,7 @@
 
     <span class="c1"># TODO: define this</span>
     <span class="c1"># noinspection PyProtectedMember,PyProtectedMember</span>
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_image_id"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_image_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_image_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_image_id"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_image_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_image_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the image based on a query</span>
@@ -697,7 +698,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_image</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name_or_id</span><span class="p">)[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_flavor_id"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_flavor_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_flavor_id"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_flavor_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">):</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the image based on a query</span>
@@ -706,7 +707,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_flavor</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">name_or_id</span><span class="p">)[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.isUuid"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.isUuid"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">UUID</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">True</span>
@@ -714,7 +715,7 @@
             <span class="k">return</span> <span class="bp">False</span></div>
 
     <span class="c1"># noinspection PyProtectedMember</span>
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_flavor"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_flavor"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the flavor based on a query</span>
 <span class="sd">        TODO: details TBD</span>
@@ -727,7 +728,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">flavors</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">_info</span></div>
 
     <span class="c1"># noinspection PyProtectedMember,PyProtectedMember</span>
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_vm"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.get_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the flavor based on a query</span>
 <span class="sd">        TODO: details TBD</span>
@@ -738,7 +739,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">servers</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">vm_name</span><span class="p">)</span><span class="o">.</span><span class="n">_info</span></div>
 
-<div class="viewcode-block" id="CloudProviderOpenstackAPI.attributes"><a class="viewcode-back" href="../../../../../../cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudProviderOpenstackAPI.attributes"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
 
         <span class="n">layout</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;flavor&#39;</span><span class="p">:</span> <span class="p">{</span>

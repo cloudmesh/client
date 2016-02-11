@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -179,7 +180,7 @@
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="database"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.database">[docs]</a><span class="k">class</span> <span class="nc">database</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="database"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.database">[docs]</a><span class="k">class</span> <span class="nc">database</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A simple class with all the details to create and</span>
 <span class="sd">    provide some elementary methods for the database.</span>
@@ -206,7 +207,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">database</span><span class="o">.</span><span class="n">__monostate</span>
 
-<div class="viewcode-block" id="database.activate"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.database.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="database.activate"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.database.activate">[docs]</a>    <span class="k">def</span> <span class="nf">activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;activates the shared variables&quot;&quot;&quot;</span>
 
         <span class="c1"># engine = create_engine(&#39;sqlite:////tmp/test.db&#39;, echo=debug)</span>
@@ -225,7 +226,7 @@
 <span class="n">db</span> <span class="o">=</span> <span class="n">database</span><span class="p">()</span>
 
 
-<div class="viewcode-block" id="CloudmeshMixin"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshMixin"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.CloudmeshMixin">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@declared_attr</span>
     <span class="k">def</span> <span class="nf">__tablename__</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
@@ -249,7 +250,7 @@
     <span class="n">project</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="IMAGE"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.IMAGE">[docs]</a><span class="k">class</span> <span class="nc">IMAGE</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="IMAGE"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.IMAGE">[docs]</a><span class="k">class</span> <span class="nc">IMAGE</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">uuid</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">status</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">updated</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -339,7 +340,7 @@
 <span class="sd">                self[key] = value&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="FLAVOR"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.FLAVOR">[docs]</a><span class="k">class</span> <span class="nc">FLAVOR</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="FLAVOR"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.FLAVOR">[docs]</a><span class="k">class</span> <span class="nc">FLAVOR</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">uuid</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">ram</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">os_flv_disabled</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -380,7 +381,7 @@
 <span class="sd">                self[key] = value&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="VM"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.VM">[docs]</a><span class="k">class</span> <span class="nc">VM</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="VM"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.VM">[docs]</a><span class="k">class</span> <span class="nc">VM</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">uuid</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">diskConfig</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">availability_zone</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -498,7 +499,7 @@
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="VMUSERMAP"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.VMUSERMAP">[docs]</a><span class="k">class</span> <span class="nc">VMUSERMAP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="VMUSERMAP"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.VMUSERMAP">[docs]</a><span class="k">class</span> <span class="nc">VMUSERMAP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Table to store mapping of VM and login username.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -512,7 +513,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
 
 
-<div class="viewcode-block" id="COUNTER"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.COUNTER">[docs]</a><span class="k">class</span> <span class="nc">COUNTER</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="COUNTER"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.COUNTER">[docs]</a><span class="k">class</span> <span class="nc">COUNTER</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Table to store Prefix Count for VM auto-naming.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -542,7 +543,7 @@
 <span class="c1">#        self.kind = self.__tablename__</span>
 
 
-<div class="viewcode-block" id="DEFAULT"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.DEFAULT">[docs]</a><span class="k">class</span> <span class="nc">DEFAULT</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="DEFAULT"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.DEFAULT">[docs]</a><span class="k">class</span> <span class="nc">DEFAULT</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;table to store default values</span>
 
 <span class="sd">    if the cloud is &quot;global&quot; it is meant to be a global variable</span>
@@ -571,7 +572,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
 
 
-<div class="viewcode-block" id="LAUNCHER"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.LAUNCHER">[docs]</a><span class="k">class</span> <span class="nc">LAUNCHER</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="LAUNCHER"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.LAUNCHER">[docs]</a><span class="k">class</span> <span class="nc">LAUNCHER</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;table to store default values</span>
 
 <span class="sd">    if the cloud is &quot;global&quot; it is meant to be a global variable</span>
@@ -602,7 +603,7 @@
 
 
 <span class="c1"># TODO: BUG the value is not properly used here</span>
-<div class="viewcode-block" id="KEY"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.KEY">[docs]</a><span class="k">class</span> <span class="nc">KEY</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="KEY"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.KEY">[docs]</a><span class="k">class</span> <span class="nc">KEY</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">fingerprint</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">source</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -636,7 +637,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">is_default</span> <span class="o">=</span> <span class="n">is_default</span></div>
 
 
-<div class="viewcode-block" id="KEYCLOUDMAP"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.KEYCLOUDMAP">[docs]</a><span class="k">class</span> <span class="nc">KEYCLOUDMAP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="KEYCLOUDMAP"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.KEYCLOUDMAP">[docs]</a><span class="k">class</span> <span class="nc">KEYCLOUDMAP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
 
     <span class="n">user</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">key_name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -654,7 +655,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">key_name_on_cloud</span> <span class="o">=</span> <span class="n">name_on_cloud</span></div>
 
 
-<div class="viewcode-block" id="GROUP"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.GROUP">[docs]</a><span class="k">class</span> <span class="nc">GROUP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="GROUP"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.GROUP">[docs]</a><span class="k">class</span> <span class="nc">GROUP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="nb">type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 
@@ -674,7 +675,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
 
 
-<div class="viewcode-block" id="RESERVATION"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.RESERVATION">[docs]</a><span class="k">class</span> <span class="nc">RESERVATION</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="RESERVATION"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.RESERVATION">[docs]</a><span class="k">class</span> <span class="nc">RESERVATION</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">hosts</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>  <span class="c1"># should be list of strings</span>
     <span class="n">description</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">start_time</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>  <span class="c1"># date, time</span>
@@ -694,7 +695,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
 
 
-<div class="viewcode-block" id="SECGROUP"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.SECGROUP">[docs]</a><span class="k">class</span> <span class="nc">SECGROUP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="SECGROUP"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.SECGROUP">[docs]</a><span class="k">class</span> <span class="nc">SECGROUP</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">uuid</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
@@ -721,7 +722,7 @@
                 <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="SECGROUPRULE"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.SECGROUPRULE">[docs]</a><span class="k">class</span> <span class="nc">SECGROUPRULE</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="SECGROUPRULE"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.SECGROUPRULE">[docs]</a><span class="k">class</span> <span class="nc">SECGROUPRULE</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="n">groupid</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">fromPort</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="n">toPort</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
@@ -764,7 +765,7 @@
                 <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
 
-<div class="viewcode-block" id="BATCHJOB"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.BATCHJOB">[docs]</a><span class="k">class</span> <span class="nc">BATCHJOB</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+<div class="viewcode-block" id="BATCHJOB"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.BATCHJOB">[docs]</a><span class="k">class</span> <span class="nc">BATCHJOB</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;table to store default values</span>
 
 <span class="sd">    if the cloud is &quot;global&quot; it is meant to be a global variable</span>
@@ -813,7 +814,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
 
 
-<div class="viewcode-block" id="tables"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.tables">[docs]</a><span class="k">def</span> <span class="nf">tables</span><span class="p">():</span>
+<div class="viewcode-block" id="tables"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.tables">[docs]</a><span class="k">def</span> <span class="nf">tables</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :return: the list of tables in model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -821,7 +822,7 @@
     <span class="k">return</span> <span class="n">classes</span></div>
 
 
-<div class="viewcode-block" id="tablenames"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.tablenames">[docs]</a><span class="k">def</span> <span class="nf">tablenames</span><span class="p">():</span>
+<div class="viewcode-block" id="tablenames"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.tablenames">[docs]</a><span class="k">def</span> <span class="nf">tablenames</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :return: the list of table names in model</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -829,7 +830,7 @@
     <span class="k">return</span> <span class="n">names</span></div>
 
 
-<div class="viewcode-block" id="table"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.db.model.table">[docs]</a><span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.table">[docs]</a><span class="k">def</span> <span class="nf">table</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :return: the table class based on a given table name.</span>
 <span class="sd">             In case the table does not exist an exception is thrown</span>

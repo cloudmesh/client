@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -178,7 +179,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 
-<div class="viewcode-block" id="TerminalCommands"><a class="viewcode-back" href="../../../../cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands">[docs]</a><span class="k">class</span> <span class="nc">TerminalCommands</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="TerminalCommands"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands">[docs]</a><span class="k">class</span> <span class="nc">TerminalCommands</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">ShellPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;clear&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
               <span class="s2">&quot;echo&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
               <span class="s2">&quot;puase&quot;</span><span class="p">:</span> <span class="s2">&quot;shell&quot;</span><span class="p">,</span>
@@ -290,11 +291,11 @@
     <span class="c1">#</span>
     <span class="c1"># Echo</span>
     <span class="c1">#</span>
-<div class="viewcode-block" id="TerminalCommands.set_verbose"><a class="viewcode-back" href="../../../../cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.set_verbose">[docs]</a>    <span class="k">def</span> <span class="nf">set_verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on</span><span class="p">):</span>
+<div class="viewcode-block" id="TerminalCommands.set_verbose"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.set_verbose">[docs]</a>    <span class="k">def</span> <span class="nf">set_verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on</span><span class="p">):</span>
         <span class="c1">#self.echo = on</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="TerminalCommands.set_banner"><a class="viewcode-back" href="../../../../cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.set_banner">[docs]</a>    <span class="k">def</span> <span class="nf">set_banner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">banner</span><span class="p">):</span>
+<div class="viewcode-block" id="TerminalCommands.set_banner"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.set_banner">[docs]</a>    <span class="k">def</span> <span class="nf">set_banner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">banner</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">banner</span> <span class="o">=</span> <span class="n">banner</span></div>
 
     <span class="c1"># @command</span>

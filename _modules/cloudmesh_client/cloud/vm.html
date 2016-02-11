@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -182,11 +183,11 @@
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
-<div class="viewcode-block" id="Vm"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm">[docs]</a><span class="k">class</span> <span class="nc">Vm</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm">[docs]</a><span class="k">class</span> <span class="nc">Vm</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.construct_ip_dict"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.construct_ip_dict">[docs]</a>    <span class="k">def</span> <span class="nf">construct_ip_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_addr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.construct_ip_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.construct_ip_dict">[docs]</a>    <span class="k">def</span> <span class="nf">construct_ip_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">ip_addr</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
             <span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
@@ -218,7 +219,7 @@
             <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.isUuid"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.isUuid"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">UUID</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">True</span>
@@ -226,7 +227,7 @@
             <span class="k">return</span> <span class="bp">False</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.boot"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.boot"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.boot">[docs]</a>    <span class="k">def</span> <span class="nf">boot</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">key_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;key_name&quot;</span><span class="p">]</span>
         <span class="n">cloud_name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span>
@@ -267,7 +268,7 @@
         <span class="k">return</span> <span class="n">vm</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.start"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
             <span class="n">cloud_provider</span><span class="o">.</span><span class="n">start_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -277,7 +278,7 @@
             <span class="c1"># cls.refresh(cloud=kwargs[&quot;cloud&quot;])</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.stop"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.stop"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
             <span class="n">cloud_provider</span><span class="o">.</span><span class="n">stop_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -287,7 +288,7 @@
             <span class="c1"># cls.refresh(cloud=kwargs[&quot;cloud&quot;])</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.delete"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
         <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;servers&quot;</span><span class="p">]:</span>
             <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_vm</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
@@ -297,11 +298,11 @@
             <span class="n">cls</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.info"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.list"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method lists all VMs of the cloud</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -332,22 +333,22 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.clear"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.refresh"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># print(&quot;Inside refresh&quot;)</span>
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.status_from_cloud"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.status_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">status_from_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.status_from_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.status_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">status_from_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">vm</span> <span class="o">=</span> <span class="n">cloud_provider</span><span class="o">.</span><span class="n">get_vm</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name_or_id&quot;</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">vm</span><span class="p">[</span><span class="s2">&quot;status&quot;</span><span class="p">]</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.set_vm_login_user"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.set_vm_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">set_vm_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.set_vm_login_user"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.set_vm_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">set_vm_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name_or_id</span><span class="p">):</span>
             <span class="n">uuid</span> <span class="o">=</span> <span class="n">name_or_id</span>
@@ -367,7 +368,7 @@
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">update_vm_username</span><span class="p">(</span><span class="n">vm_uuid</span><span class="o">=</span><span class="n">uuid</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.get_vm_login_user"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_vm_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.get_vm_login_user"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_vm_login_user">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm_login_user</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">name_or_id</span><span class="p">):</span>
             <span class="n">uuid</span> <span class="o">=</span> <span class="n">name_or_id</span>
@@ -389,7 +390,7 @@
             <span class="k">return</span> <span class="n">user_map_entry</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Vm.get_last_vm"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_last_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_last_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="Vm.get_last_vm"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.vm.Vm.get_last_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_last_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="n">vm_data</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;first&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">vm_data</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_data</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;VM data not found in database.&quot;</span><span class="p">)</span>

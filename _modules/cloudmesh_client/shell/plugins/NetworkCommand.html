@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -182,7 +183,7 @@
 
 
 <span class="c1"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="NetworkCommand"><a class="viewcode-back" href="../../../../cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand">[docs]</a><span class="k">class</span> <span class="nc">NetworkCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
+<div class="viewcode-block" id="NetworkCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand">[docs]</a><span class="k">class</span> <span class="nc">NetworkCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
     <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;network&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
@@ -709,7 +710,7 @@
         <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="NetworkCommand.refresh_vm"><a class="viewcode-back" href="../../../../cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.refresh_vm">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="NetworkCommand.refresh_vm"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.refresh_vm">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_vm</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refreshing database for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>

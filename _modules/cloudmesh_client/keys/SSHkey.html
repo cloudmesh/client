@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -176,7 +177,7 @@
 
 
 <span class="c1"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="SSHkey"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHkey.SSHkey">[docs]</a><span class="k">class</span> <span class="nc">SSHkey</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHkey"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHkey.SSHkey">[docs]</a><span class="k">class</span> <span class="nc">SSHkey</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__key__</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">keyname</span><span class="p">)</span>
@@ -187,7 +188,7 @@
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__key__</span><span class="p">[</span><span class="s1">&#39;key&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="SSHkey.read"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHkey.SSHkey.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHkey.read"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHkey.SSHkey.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__key__</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">if</span> <span class="n">file_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">orig_path</span> <span class="o">=</span> <span class="n">file_path</span>
@@ -309,7 +310,7 @@
 <span class="c1"># unit testing</span>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHkey.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHkey.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
     <span class="n">sshkey</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="p">(</span><span class="s2">&quot;~/.ssh/id_rsa.pub&quot;</span><span class="p">)</span>

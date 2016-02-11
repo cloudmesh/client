@@ -117,7 +117,8 @@
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -168,99 +169,13 @@
             
   <div class="section" id="comet-virtual-cluster">
 <h1>Comet Virtual Cluster<a class="headerlink" href="#comet-virtual-cluster" title="Permalink to this headline">¶</a></h1>
-<p>Example CLI usage to manage comet virtual cluster using cloudmesh
-client</p>
-<p>Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
-auth_provider could be userpass or apikey. When specified, the
-corresponding credential is needed. Please communicate with comet
-admins to get the username/password or api key and secret assigned.:</p>
-<div class="highlight-python"><div class="highlight"><pre>comet:
-    auth_provider: apikey
-    userpass:
-        username: TBD
-        password: TBD
-    apikey:
-        api_key: KEYSTRING
-        api_secret: SECRETSTRING
-</pre></div>
-</div>
-<p>List all clusters owned by the authenticated identity (summarized
-format):</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet ll
-</pre></div>
-</div>
-<p>List all clusters owned by the authenticated identity (detailed
-list):</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet cluster
-</pre></div>
-</div>
-<p>List a cluster by name:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet cluster vc2
-</pre></div>
-</div>
-<p>List all defined computesets:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet computeset
-</pre></div>
-</div>
-<p>List one computeset:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet computeset 63
-</pre></div>
-</div>
-<p>Power on a set of compute nodes in cluster vc4:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3]
-</pre></div>
-</div>
-<p>This will request the nodes for a default period of time - 2 hours.</p>
-<p>To request for a longer time period, use &#8211;walltime parameter.
-E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3] --walltime=6h
-</pre></div>
-</div>
-<p>The above will put the request under the one allocation associated with the cluster.
-If your cluster have more than one allocations, use &#8211;allocation parameter:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[0-3] --allocation=YOUR_ALLOCATION
-</pre></div>
-</div>
-<p>If you have more allocations, but does not specify via CLI, you will see a list of
-allocations to choose from to use.</p>
-<p>You can power off and back on individual nodes of an active computeset. E.g.:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 vm-vc4-[0,1]
-</pre></div>
-</div>
-<p>and then:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-0
-</pre></div>
-</div>
-<p>Or power off the whole computeset by specifying the computeset id:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 123
-</pre></div>
-</div>
-<p>or by specifying the hosts:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power off vc4 vm-vc4-[0-3]
-</pre></div>
-</div>
-<p>Please note if you powered off all nodes from an active computeset, the computeset
-itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
-<p>You can also power on one single node as a computese:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-[7]
-</pre></div>
-</div>
-<p>or simply:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4 vm-vc4-7
-</pre></div>
-</div>
-<p>Power on the front end node of the specified cluster:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc4
-</pre></div>
-</div>
-<p>Get console of a running node:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet console vc4 vm-vc4-0
-</pre></div>
-</div>
-<p>Get console of the front end:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet console vc4
-</pre></div>
-</div>
+<p>The following information about the comet cluster are available</p>
+<ul class="simple">
+<li>Comet Refernce Card <a class="reference internal" href="reference_card.html#refcard-comet"><span>Comet</span></a></li>
+<li>Comet Command: <a class="reference internal" href="commands/command_comet.html#comet-command"><span>Comet Virtual Cluster</span></a></li>
+<li>Man page <a class="reference external" href="man/man.html#comet">comet</a></li>
+<li><a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a></li>
+</ul>
 </div>
 
 

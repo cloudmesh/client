@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -184,17 +185,17 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">yn_choice</span>
 
 
-<div class="viewcode-block" id="SSHKeyManager"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager">[docs]</a><span class="k">class</span> <span class="nc">SSHKeyManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager">[docs]</a><span class="k">class</span> <span class="nc">SSHKeyManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delete_on_cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delete_on_cloud_question</span> <span class="o">=</span> <span class="n">delete_on_cloud</span> <span class="ow">is</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delete_on_cloud</span> <span class="o">=</span> <span class="p">(</span><span class="n">delete_on_cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="n">delete_on_cloud</span>
 
-<div class="viewcode-block" id="SSHKeyManager.add_from_file"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.add_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.add_from_file"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.add_from_file">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">sshkey</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">keyname</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">add_from_object</span><span class="p">(</span><span class="n">sshkey</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.add_from_object"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.add_from_object">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sshkey_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.add_from_object"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.add_from_object">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sshkey_obj</span><span class="p">):</span>
         <span class="n">i</span> <span class="o">=</span> <span class="n">sshkey_obj</span><span class="o">.</span><span class="n">__key__</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sshkey_obj</span><span class="o">.</span><span class="n">__key__</span></div>
 
@@ -217,7 +218,7 @@
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span><span class="p">)</span>
 
-<div class="viewcode-block" id="SSHKeyManager.keys"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.keys"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
@@ -226,7 +227,7 @@
     <span class="k">def</span> <span class="nf">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 
-<div class="viewcode-block" id="SSHKeyManager.select"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.select"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="s1">&#39;i:&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
@@ -235,7 +236,7 @@
         <span class="k">return</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="s1">&#39;KEYS&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></div>
 
     <span class="c1"># noinspection PyProtectedMember,PyUnreachableCode,PyUnusedLocal</span>
-<div class="viewcode-block" id="SSHKeyManager.get_from_yaml"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_from_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.get_from_yaml"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_from_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">load_order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param filename: name of the yaml file</span>
 <span class="sd">        :return: a SSHKeyManager (dict of keys)</span>
@@ -294,7 +295,7 @@
 <span class="sd">              github-x: github</span>
 <span class="sd">        &quot;&quot;&quot;</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.get_from_dir"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_from_dir">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.get_from_dir"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_from_dir">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">directory</span> <span class="o">=</span> <span class="n">directory</span> <span class="ow">or</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.ssh&quot;</span><span class="p">)</span>
         <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="nb">file</span> <span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">expanduser</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">directory</span><span class="p">)))</span>
                  <span class="k">if</span> <span class="nb">file</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pub&quot;</span><span class="p">)]</span>
@@ -306,7 +307,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sshkey</span><span class="o">.</span><span class="n">__key__</span></div>
 
     <span class="c1"># noinspection PyProtectedMember</span>
-<div class="viewcode-block" id="SSHKeyManager.get_from_git"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_from_git">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_git</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.get_from_git"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_from_git">[docs]</a>    <span class="k">def</span> <span class="nf">get_from_git</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param username: the github username</span>
@@ -332,11 +333,11 @@
             <span class="n">sshkey</span><span class="o">.</span><span class="n">__key__</span><span class="p">[</span><span class="s1">&#39;Id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">__keys__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">sshkey</span><span class="o">.</span><span class="n">__key__</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.get_all"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.get_all"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_all">[docs]</a>    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_from_dir</span><span class="p">(</span><span class="s2">&quot;~/.ssh&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">get_from_git</span><span class="p">(</span><span class="n">username</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.add_key_to_cloud"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name_on_cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.add_key_to_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name_on_cloud</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param user:</span>
@@ -361,16 +362,16 @@
         <span class="n">cloud_provider</span><span class="o">.</span><span class="n">add_key_to_cloud</span><span class="p">(</span><span class="n">name_on_cloud</span><span class="p">,</span> <span class="n">key_from_db</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
         <span class="k">return</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.get_key_cloud_maps"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_key_cloud_maps">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.get_key_cloud_maps"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.get_key_cloud_maps">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
 
         <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">get_key_cloud_maps</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.delete_key_on_cloud"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.delete_key_on_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key_on_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name_on_cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.delete_key_on_cloud"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.delete_key_on_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key_on_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name_on_cloud</span><span class="p">):</span>
         <span class="n">cloud_provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
         <span class="n">cloud_provider</span><span class="o">.</span><span class="n">delete_key_from_cloud</span><span class="p">(</span><span class="n">name_on_cloud</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.delete_all_keys"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.delete_all_keys">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.delete_all_keys"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.delete_all_keys">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">delete_on_cloud_question</span><span class="p">:</span>
             <span class="n">delete_on_cloud</span> <span class="o">=</span> <span class="n">yn_choice</span><span class="p">(</span>
@@ -391,7 +392,7 @@
 
         <span class="n">sshdb</span><span class="o">.</span><span class="n">delete_all</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="SSHKeyManager.delete_key"><a class="viewcode-back" href="../../../cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.delete_key">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
+<div class="viewcode-block" id="SSHKeyManager.delete_key"><a class="viewcode-back" href="../../../code/cloudmesh_client.keys.html#cloudmesh_client.keys.SSHKeyManager.SSHKeyManager.delete_key">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
 
         <span class="n">sshdb</span> <span class="o">=</span> <span class="n">SSHKeyDBManager</span><span class="p">()</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">sshdb</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">keyname</span><span class="o">=</span><span class="n">keyname</span><span class="p">)</span>

@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -169,9 +170,9 @@
 <span class="kn">import</span> <span class="nn">json</span>
 
 
-<div class="viewcode-block" id="TableParser"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser">[docs]</a><span class="k">class</span> <span class="nc">TableParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="TableParser"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser">[docs]</a><span class="k">class</span> <span class="nc">TableParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="TableParser.convert"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+<div class="viewcode-block" id="TableParser.convert"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                 <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
                 <span class="n">header</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
                 <span class="n">index</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -240,7 +241,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">comment_chars</span> <span class="o">=</span> <span class="n">comment_chars</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="bp">None</span>
 
-<div class="viewcode-block" id="TableParser.clean"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+<div class="viewcode-block" id="TableParser.clean"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.clean">[docs]</a>    <span class="k">def</span> <span class="nf">clean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param line: cleans the string</span>
 <span class="sd">        :return:</span>
@@ -258,7 +259,7 @@
             <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TableParser.extract_lines"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.extract_lines">[docs]</a>    <span class="k">def</span> <span class="nf">extract_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="TableParser.extract_lines"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.extract_lines">[docs]</a>    <span class="k">def</span> <span class="nf">extract_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="n">lines</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
@@ -283,7 +284,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span>
 
-<div class="viewcode-block" id="TableParser.to_dict"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="TableParser.to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param table: converts a stream called line to a dict</span>
@@ -311,7 +312,7 @@
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
 
-<div class="viewcode-block" id="TableParser.to_list"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.to_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="TableParser.to_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.to_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param table: converts a stream called line to a list</span>
 <span class="sd">        :type table: string</span>
@@ -339,7 +340,7 @@
             <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
 
-<div class="viewcode-block" id="TableParser.json"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TableParser.json"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.TableParser.TableParser.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
 
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>

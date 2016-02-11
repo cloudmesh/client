@@ -1,0 +1,1025 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.shell package &mdash; cloudmesh_client 2.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+        <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
+        <link rel="next" title="cloudmesh_client.shell.plugins package" href="cloudmesh_client.shell.plugins.html"/>
+        <link rel="prev" title="cloudmesh_client.keys package" href="cloudmesh_client.keys.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="cloudmesh_client.html">cloudmesh_client package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="cloudmesh_client.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.cloud.html">cloudmesh_client.cloud package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.db.html">cloudmesh_client.db package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.etc.html">cloudmesh_client.etc package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.keys.html">cloudmesh_client.keys package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">cloudmesh_client.shell package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell.cm">cloudmesh_client.shell.cm module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell.cm_shell_status">cloudmesh_client.shell.cm_shell_status module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell.command">cloudmesh_client.shell.command module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell.console">cloudmesh_client.shell.console module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell.ghost">cloudmesh_client.shell.ghost module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.shell">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.system.html">cloudmesh_client.system package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.util">cloudmesh_client.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="cloudmesh_client.html">cloudmesh_client package</a> &raquo;</li>
+      
+    <li>cloudmesh_client.shell package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/code/cloudmesh_client.shell.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="cloudmesh-client-shell-package">
+<h1>cloudmesh_client.shell package<a class="headerlink" href="#cloudmesh-client-shell-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.shell.plugins.html">cloudmesh_client.shell.plugins package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.Bar">cloudmesh_client.shell.plugins.Bar module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CheckCommand">cloudmesh_client.shell.plugins.CheckCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CloudCommand">cloudmesh_client.shell.plugins.CloudCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ClusterCommand">cloudmesh_client.shell.plugins.ClusterCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ColorCommand">cloudmesh_client.shell.plugins.ColorCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.CometCommand">cloudmesh_client.shell.plugins.CometCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DebugCommand">cloudmesh_client.shell.plugins.DebugCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.DefaultCommand">cloudmesh_client.shell.plugins.DefaultCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.FlavorCommand">cloudmesh_client.shell.plugins.FlavorCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.GroupCommand">cloudmesh_client.shell.plugins.GroupCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.HpcCommand">cloudmesh_client.shell.plugins.HpcCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ImageCommand">cloudmesh_client.shell.plugins.ImageCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.InventoryCommand">cloudmesh_client.shell.plugins.InventoryCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.KeyCommand">cloudmesh_client.shell.plugins.KeyCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LauncherCommand">cloudmesh_client.shell.plugins.LauncherCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LimitsCommand">cloudmesh_client.shell.plugins.LimitsCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ListCommand">cloudmesh_client.shell.plugins.ListCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LogLevelCommand">cloudmesh_client.shell.plugins.LogLevelCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ManCommand">cloudmesh_client.shell.plugins.ManCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NetworkCommand">cloudmesh_client.shell.plugins.NetworkCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NovaCommand">cloudmesh_client.shell.plugins.NovaCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.OpenCommand">cloudmesh_client.shell.plugins.OpenCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.PortalCommand">cloudmesh_client.shell.plugins.PortalCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.PyCommand">cloudmesh_client.shell.plugins.PyCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.QuotaCommand">cloudmesh_client.shell.plugins.QuotaCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.RefreshCommand">cloudmesh_client.shell.plugins.RefreshCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.RegisterCommand">cloudmesh_client.shell.plugins.RegisterCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ReservationCommand">cloudmesh_client.shell.plugins.ReservationCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ResetCommand">cloudmesh_client.shell.plugins.ResetCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SecgroupCommand">cloudmesh_client.shell.plugins.SecgroupCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SecureShellCommand">cloudmesh_client.shell.plugins.SecureShellCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SelectCommand">cloudmesh_client.shell.plugins.SelectCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ServerCommand">cloudmesh_client.shell.plugins.ServerCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SubmitCommands">cloudmesh_client.shell.plugins.SubmitCommands module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SyncCommand">cloudmesh_client.shell.plugins.SyncCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TerminalCommands">cloudmesh_client.shell.plugins.TerminalCommands module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.UsageCommand">cloudmesh_client.shell.plugins.UsageCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.VmCommand">cloudmesh_client.shell.plugins.VmCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.WhoCommand">cloudmesh_client.shell.plugins.WhoCommand module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.shell.cm">
+<span id="cloudmesh-client-shell-cm-module"></span><h2>cloudmesh_client.shell.cm module<a class="headerlink" href="#module-cloudmesh_client.shell.cm" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.cm.</code><code class="descname">CloudmeshConsole</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cmd.Cmd</span></code>, <code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.cm.CommandProxyClass</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_EOF">
+<code class="descname">do_EOF</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_EOF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_EOF" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    EOF
+
+Description:
+    Command to the shell to terminate reading a script.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_context">
+<code class="descname">do_context</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_context" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    context
+
+Description:
+    Lists the context variables and their values
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_exec">
+<code class="descname">do_exec</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_exec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_exec" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+   exec FILENAME
+
+executes the commands in the file. See also the script command.
+
+Arguments:
+  FILENAME   The name of the file
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_h">
+<code class="descname">do_h</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_h" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>history
+history list
+history last
+history ID</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_help">
+<code class="descname">do_help</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_help" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    help
+    help COMMAND
+
+Description:
+    List available commands with &quot;help&quot; or detailed help with
+    &quot;help COMMAND&quot;.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_history">
+<code class="descname">do_history</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_history" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>history
+history list
+history last
+history ID</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_q">
+<code class="descname">do_q</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_q" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    quit
+
+Description:
+    Action to be performed whne quit is typed
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_quit">
+<code class="descname">do_quit</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.do_quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_quit" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    quit
+
+Description:
+    Action to be performed whne quit is typed
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_shell">
+<code class="descname">do_shell</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_shell" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>shell ARGUMENTS...</dd>
+<dt>Description:</dt>
+<dd>Executes a shell command</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_var">
+<code class="descname">do_var</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>var list
+var delete NAMES
+var NAME=VALUE
+var NAME</dd>
+<dt>Arguments:</dt>
+<dd>NAME    Name of the variable
+NAMES   Names of the variable separated by spaces
+VALUE   VALUE to be assigned</dd>
+</dl>
+<p>special vars date and time are defined</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.do_version">
+<code class="descname">do_version</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.do_version" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>version [&#8211;format=FORMAT] [&#8211;check=CHECK]</dd>
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--format=<var>FORMAT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>the format to print the versions in [default: table]</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--check=<var>CHECK</var></span></kbd></td>
+<td>boolean tp conduct an additional check [default: True]</td></tr>
+</tbody>
+</table>
+</dd>
+<dt>Description:</dt>
+<dd>Prints out the version number</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.emptyline">
+<code class="descname">emptyline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.emptyline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.emptyline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.help_help">
+<code class="descname">help_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.help_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.help_help" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+   help NAME
+
+Prints out the help message for a given function
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.onecmd">
+<code class="descname">onecmd</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.onecmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.onecmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpret the argument as though it had been typed in response
+to the prompt.</p>
+<p>This may be overridden, but should not normally need to be;
+see the precmd() and postcmd() methods for useful execution hooks.
+The return value is a flag indicating whether interpretation of
+commands by the interpreter should stop.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.preloop">
+<code class="descname">preloop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.preloop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.preloop" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds the banner to the preloop</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.register_command_topic">
+<code class="descname">register_command_topic</code><span class="sig-paren">(</span><em>topic</em>, <em>command_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.register_command_topic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.register_command_topic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.register_topics">
+<code class="descname">register_topics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.register_topics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.register_topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.replace_vars">
+<code class="descname">replace_vars</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.replace_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.replace_vars" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.update_time">
+<code class="descname">update_time</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.update_time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.update_time" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.cm.CloudmeshContext">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.cm.</code><code class="descname">CloudmeshContext</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.cm.PluginCommandClasses">
+<code class="descclassname">cloudmesh_client.shell.cm.</code><code class="descname">PluginCommandClasses</code><a class="headerlink" href="#cloudmesh_client.shell.cm.PluginCommandClasses" title="Permalink to this definition">¶</a></dt>
+<dd><p># not yet implemented
+class ConsoleClasses(object):</p>
+<blockquote>
+<div><p>def __init__(self, <a href="#id1"><span class="problematic" id="id2">*</span></a>command_classes):</p>
+<blockquote>
+<div><p>classes = []
+for c in command_classes:</p>
+<blockquote>
+<div>classes.append(PluginCommand.__subclasses__())</div></blockquote>
+<p>print (classes)</p>
+<dl class="docutils">
+<dt>PluginCommandClasses = type(</dt>
+<dd>&#8216;CommandProxyClass&#8217;,
+tuple(classes),
+{})</dd>
+</dl>
+<p>return PluginCommandClasses</p>
+</div></blockquote>
+</div></blockquote>
+<p>alias of <code class="xref py py-class docutils literal"><span class="pre">CommandProxyClass</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.cm.create_cloudmesh_yaml">
+<code class="descclassname">cloudmesh_client.shell.cm.</code><code class="descname">create_cloudmesh_yaml</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#create_cloudmesh_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.create_cloudmesh_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.cm.main">
+<code class="descclassname">cloudmesh_client.shell.cm.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.main" title="Permalink to this definition">¶</a></dt>
+<dd><ol class="lowerroman simple" start="900">
+<li></li>
+</ol>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>cm &#8211;help
+cm [&#8211;echo] [&#8211;debug] [&#8211;nosplash] [-i] [COMMAND ...]</dd>
+<dt>Arguments:</dt>
+<dd>COMMAND                  A command to be executed</dd>
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--file=<var>SCRIPT</var></span></kbd></td>
+<td><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-f</span></kbd></td>
+<td>SCRIPT  Executes the script</td></tr>
+</tbody>
+</table>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>After start keep the shell interactive,
+otherwise quit [default: False]</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--nosplash</span></kbd></td>
+<td>do not show the banner [default: False]</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.cm.simple">
+<code class="descclassname">cloudmesh_client.shell.cm.</code><code class="descname">simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell.cm_shell_status">
+<span id="cloudmesh-client-shell-cm-shell-status-module"></span><h2>cloudmesh_client.shell.cm_shell_status module<a class="headerlink" href="#module-cloudmesh_client.shell.cm_shell_status" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.cm_shell_status.cm_shell_status">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.cm_shell_status.</code><code class="descname">cm_shell_status</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm_shell_status.html#cm_shell_status"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm_shell_status.cm_shell_status" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="#cloudmesh_client.shell.command.ShellPluginCommand" title="cloudmesh_client.shell.command.ShellPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.ShellPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.cm_shell_status.cm_shell_status.do_status">
+<code class="descname">do_status</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.cm_shell_status.cm_shell_status.do_status" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    status
+    status db
+    status CLOUDS...
+
+
+
+
+Arguments:
+
+
+
+Options:
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.cm_shell_status.cm_shell_status.topics">
+<code class="descname">topics</code><em class="property"> = {'status': 'cloud'}</em><a class="headerlink" href="#cloudmesh_client.shell.cm_shell_status.cm_shell_status.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell.command">
+<span id="cloudmesh-client-shell-command-module"></span><h2>cloudmesh_client.shell.command module<a class="headerlink" href="#module-cloudmesh_client.shell.command" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.command.CloudPluginCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.command.</code><code class="descname">CloudPluginCommand</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/command.html#CloudPluginCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.command.CloudPluginCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.command.CometPluginCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.command.</code><code class="descname">CometPluginCommand</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/command.html#CometPluginCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.command.CometPluginCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.command.HPCPluginCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.command.</code><code class="descname">HPCPluginCommand</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/command.html#HPCPluginCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.command.HPCPluginCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.command.PluginCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.command.</code><code class="descname">PluginCommand</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/command.html#PluginCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.command.PluginCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.command.ShellPluginCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.command.</code><code class="descname">ShellPluginCommand</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/command.html#ShellPluginCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.command.ShellPluginCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.command.command">
+<code class="descclassname">cloudmesh_client.shell.command.</code><code class="descname">command</code><span class="sig-paren">(</span><em>func</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/command.html#command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.command.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>A decorator to create a function with docopt arguments.
+It also generates a help function</p>
+<p>&#64;command
+def do_myfunc(self, args):</p>
+<blockquote>
+<div>&#8220;&#8221;&#8221; docopts text &#8220;&#8221;&#8221;
+pass</div></blockquote>
+<p>will create</p>
+<dl class="docutils">
+<dt>def do_myfunc(self, args, arguments):</dt>
+<dd>&#8220;&#8221;&#8221; docopts text &#8220;&#8221;&#8221;
+...</dd>
+<dt>def help_myfunc(self, args, arguments):</dt>
+<dd>... prints the docopt text ...</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>func</strong> &#8211; the function for the decorator</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell.console">
+<span id="cloudmesh-client-shell-console-module"></span><h2>cloudmesh_client.shell.console module<a class="headerlink" href="#module-cloudmesh_client.shell.console" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.console.Console">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.console.</code><code class="descname">Console</code><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A simple way to print in a console terminal in color. Instead of using
+simply the print statement you can use special methods to indicate
+warnings, errors, ok and regular messages.</p>
+<p>Example Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Console</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">)</span>
+<span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+<span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
+<span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;msg&quot;</span><span class="p">)</span>
+<span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Success&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>One can swith the color mode off with:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Console</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Error&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The color will be switched on by default.</p>
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.console.Console.color">
+<code class="descname">color</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.cprint">
+<em class="property">static </em><code class="descname">cprint</code><span class="sig-paren">(</span><em>color</em>, <em>prefix</em>, <em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.cprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.cprint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.error">
+<em class="property">static </em><code class="descname">error</code><span class="sig-paren">(</span><em>message</em>, <em>prefix=True</em>, <em>traceflag=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.get">
+<em class="property">static </em><code class="descname">get</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.info">
+<em class="property">static </em><code class="descname">info</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.msg">
+<em class="property">static </em><code class="descname">msg</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.msg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.ok">
+<em class="property">static </em><code class="descname">ok</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.ok"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.ok" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.set_theme">
+<em class="property">static </em><code class="descname">set_theme</code><span class="sig-paren">(</span><em>color=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.set_theme"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.set_theme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.console.Console.theme">
+<code class="descname">theme</code><em class="property"> = {'OKBLUE': '\x1b[34m', 'OKGREEN': '\x1b[32m', 'BOLD': '\x1b[1m', 'HEADER': '\x1b[35m', 'ENDC': '\x1b[0m', 'BLACK': '\x1b[30m', 'FAIL': '\x1b[31m', 'CYAN': '\x1b[36m', 'WHITE': '\x1b[37m', 'RED': '\x1b[31m', 'BLUE': '\x1b[34m', 'WARNING': '\x1b[35m', 'GREEN': '\x1b[32m'}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.console.Console.theme_bw">
+<code class="descname">theme_bw</code><em class="property"> = {'OKBLUE': '', 'OKGREEN': '', 'BOLD': '', 'HEADER': '', 'ENDC': '', 'BLACK': '', 'FAIL': '', 'CYAN': '', 'WHITE': '', 'RED': '', 'BLUE': '', 'WARNING': '', 'GREEN': ''}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme_bw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.console.Console.theme_color">
+<code class="descname">theme_color</code><em class="property"> = {'OKBLUE': '\x1b[34m', 'OKGREEN': '\x1b[32m', 'BOLD': '\x1b[1m', 'HEADER': '\x1b[35m', 'ENDC': '\x1b[0m', 'BLACK': '\x1b[30m', 'FAIL': '\x1b[31m', 'CYAN': '\x1b[36m', 'WHITE': '\x1b[37m', 'RED': '\x1b[31m', 'BLUE': '\x1b[34m', 'WARNING': '\x1b[35m', 'GREEN': '\x1b[32m'}</em><a class="headerlink" href="#cloudmesh_client.shell.console.Console.theme_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.shell.console.Console.warning">
+<em class="property">static </em><code class="descname">warning</code><span class="sig-paren">(</span><em>message</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#Console.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.Console.warning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.console.indent">
+<code class="descclassname">cloudmesh_client.shell.console.</code><code class="descname">indent</code><span class="sig-paren">(</span><em>text</em>, <em>indent=2</em>, <em>width=128</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/console.html#indent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.console.indent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell.ghost">
+<span id="cloudmesh-client-shell-ghost-module"></span><h2>cloudmesh_client.shell.ghost module<a class="headerlink" href="#module-cloudmesh_client.shell.ghost" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.ghost.</code><code class="descname">CloudmeshConsole</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">cmd.Cmd</span></code>, <code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.ghost.CommandProxyClass</span></code></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.do_EOF">
+<code class="descname">do_EOF</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.do_EOF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.do_EOF" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    EOF
+
+Description:
+    Command to the shell to terminate reading a script.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.do_context">
+<code class="descname">do_context</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.do_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.do_context" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    context
+
+Description:
+    Lists the context variables and their values
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.do_help">
+<code class="descname">do_help</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.do_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.do_help" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    help
+    help COMMAND
+
+Description:
+    List available commands with &quot;help&quot; or detailed help with
+    &quot;help COMMAND&quot;.
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.do_q">
+<code class="descname">do_q</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.do_q" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    quit
+
+Description:
+    Action to be performed whne quit is typed
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.do_quit">
+<code class="descname">do_quit</code><span class="sig-paren">(</span><em>args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.do_quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.do_quit" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+    quit
+
+Description:
+    Action to be performed whne quit is typed
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.do_version">
+<code class="descname">do_version</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.do_version" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Usage:</dt>
+<dd>version [&#8211;format=FORMAT] [&#8211;check=CHECK]</dd>
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd><span class="option">--format=<var>FORMAT</var></span></kbd></td>
+</tr>
+<tr><td>&nbsp;</td><td>the format to print the versions in [default: table]</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--check=<var>CHECK</var></span></kbd></td>
+<td>boolean tp conduct an additional check [default: True]</td></tr>
+</tbody>
+</table>
+</dd>
+<dt>Description:</dt>
+<dd>Prints out the version number</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.emptyline">
+<code class="descname">emptyline</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.emptyline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.emptyline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.help_help">
+<code class="descname">help_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.help_help"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.help_help" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+   help NAME
+
+Prints out the help message for a given function
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.preloop">
+<code class="descname">preloop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.preloop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.preloop" title="Permalink to this definition">¶</a></dt>
+<dd><p>adds the banner to the preloop</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.register_command_topic">
+<code class="descname">register_command_topic</code><span class="sig-paren">(</span><em>topic</em>, <em>command_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.register_command_topic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.register_command_topic" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshConsole.register_topics">
+<code class="descname">register_topics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshConsole.register_topics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshConsole.register_topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cloudmesh_client.shell.ghost.CloudmeshContext">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.ghost.</code><code class="descname">CloudmeshContext</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#CloudmeshContext"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.CloudmeshContext" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.ghost.PluginCommandClasses">
+<code class="descclassname">cloudmesh_client.shell.ghost.</code><code class="descname">PluginCommandClasses</code><a class="headerlink" href="#cloudmesh_client.shell.ghost.PluginCommandClasses" title="Permalink to this definition">¶</a></dt>
+<dd><p>print (type(PluginCommand.__subclasses__()))</p>
+<p># not yet implemented
+class ConsoleClasses(object):</p>
+<blockquote>
+<div><p>def __init__(self, <a href="#id3"><span class="problematic" id="id4">*</span></a>command_classes):</p>
+<blockquote>
+<div><p>classes = []
+for c in command_classes:</p>
+<blockquote>
+<div>classes.append(PluginCommand.__subclasses__())</div></blockquote>
+<p>print (classes)</p>
+<dl class="docutils">
+<dt>PluginCommandClasses = type(</dt>
+<dd>&#8216;CommandProxyClass&#8217;,
+tuple(classes),
+{})</dd>
+</dl>
+<p>return PluginCommandClasses</p>
+</div></blockquote>
+</div></blockquote>
+<p>alias of <code class="xref py py-class docutils literal"><span class="pre">CommandProxyClass</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.ghost.main">
+<code class="descclassname">cloudmesh_client.shell.ghost.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.main" title="Permalink to this definition">¶</a></dt>
+<dd><ol class="lowerroman simple" start="900">
+<li></li>
+</ol>
+<dl class="docutils">
+<dt>Usage:</dt>
+<dd>cm &#8211;help
+cm [&#8211;debug] [&#8211;nosplash] [&#8211;file=SCRIPT] [-i] [COMMAND ...]</dd>
+<dt>Arguments:</dt>
+<dd>COMMAND                  A command to be executed</dd>
+<dt>Options:</dt>
+<dd><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">--file=<var>SCRIPT</var></span></kbd></td>
+<td><table class="first last docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-f</span></kbd></td>
+<td>SCRIPT  Executes the script</td></tr>
+</tbody>
+</table>
+</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>After start keep the shell interactive,
+otherwise quit [default: False]</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">--nosplash</span></kbd></td>
+<td>do not show the banner [default: False]</td></tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.shell.ghost.simple">
+<code class="descclassname">cloudmesh_client.shell.ghost.</code><code class="descname">simple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/ghost.html#simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.ghost.simple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-cloudmesh_client.shell">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client.shell" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cloudmesh_client.shell.plugins.html" class="btn btn-neutral float-right" title="cloudmesh_client.shell.plugins package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cloudmesh_client.keys.html" class="btn btn-neutral" title="cloudmesh_client.keys package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

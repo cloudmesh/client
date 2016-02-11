@@ -1,25 +1,67 @@
 .. _comet_command:
 
-Comet Command
+Comet Virtual Cluster
 ======================================================================
 
-The manual page of the group command can be found at:
-`comet <../man/man.html#comet>`_
+Via XSEDE comet allows users to request high-performance virtual
+clusters (VCs) as part of their Comet allocation. The VC front-end
+associated with this award will be available 24/7 on the virtual
+machine hosting nodes, but VC compute nodes are transitory and
+allocated through the batch scheduler. The front end can be thought of
+as the point of entry for the VC and is used to manage VC resources
+and launch jobs. The justification for compute time is the same as for
+a standard allocations request. Projects that are awarded a VC can use
+their compute time through either the batch queue or the VC, but the
+expectation is that the latter will account for a substantial fraction
+of the usage.
 
-Cloudmesh has the ability to manage easily multiple clouds.
-ONe such cloud is comet. comet cloud is special as it allows the management
-of virtual clusters. It is intended for advanced users that can manage their
-own cluster environment.
+In comet VCs are not meant to replace the standard HPC batch queuing
+system, which is well suited for most scientific and technical
+workloads. In addition, a VC should not be simply thought of as a VM
+(virtual machine). Other XSEDE resources, such as Indiana
+University's Jetstream address this need. Comets VCs are primarily
+intended for those users who require both fine-grained control over
+their software stack and access to multiple nodes. With regards to the
+software stack, this may include access to operating systems different
+from the default version of CentOS available on Comet or to low-level
+libraries that are closely integrated with the Linux
+distribution. Science Gateways serving large research communities and
+that require a flexible software environment are encouraged to
+consider applying for a VC, as are current users of commercial clouds
+who want to make the transition for performance or cost reasons.
 
+Maintaining and configuring a virtual cluster requires a certain level
+of technical expertise. We expect that each project will have at least
+one person possessing strong systems administration experience with
+the relevant OS since the owner of the VC will be provided with "bare
+metal" root level access. SDSC staff will be available primarily to
+address performance issues that may be related to problems with the
+Comet hardware and not to help users build their system images.
 
-Configuration
---------------
+All VC requests must include a brief justification that addresses the
+following:
 
+* Why is a VC required for this project?
+* What expertise does the PI's team have for building and maintaining the VC?
+
+Please visit https://portal.xsede.org/sdsc-comet for more details on comet.
+
+Comet Client
+------------
+
+Example CLI usage to manage comet virtual cluster using cloudmesh
+client
+
+* https://portal.xsede.org/sdsc-comet
+* Comet Refernce Card :ref:`refcard_comet`
+* Comet Command: :ref:`comet_command` (this page)
+* Man page `comet <../man/man.html#comet>`_
+  
 Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
 auth_provider could be userpass or apikey. When specified, the
 corresponding credential is needed. Please communicate with comet
 admins to get the username/password or api key and secret assigned.::
-
+  
     comet:
         auth_provider: apikey
         userpass:
@@ -29,208 +71,118 @@ admins to get the username/password or api key and secret assigned.::
             api_key: KEYSTRING
             api_secret: SECRETSTRING
 
+List all clusters owned by the authenticated identity (summarized
+format):
 
-Reference Guide
-----------------
+.. prompt:: bash
+  
+  cm comet ll
 
-Next, we include a small set of useful examples to manage comet
-virtual cluster using cloudmesh client.
+List all clusters owned by the authenticated identity (detailed
+list):
 
-+-------------------------------------+-----------------------------------------------+
-| Command                             | Description                                   |
-+=====================================+===============================================+
-| cm comet ll                         | | short list                                  |
-+-------------------------------------+-----------------------------------------------+
-| cm comet cluster                    | | List all clusters owned by the              |
-|                                     | | authenticated identity (summarized format)  |
-+-------------------------------------+-----------------------------------------------+
-| cm comet cluster vc2                | | List a cluster by name                      |
-+-------------------------------------+-----------------------------------------------+
-| cm comet computeset                 | | List all defined compute sets               |
-+-------------------------------------+-----------------------------------------------+
-| cm comet computeset 63              | | List one compute set                        |
-+-------------------------------------+-----------------------------------------------+
-| cm comet power on vc4 vm-vc4-[0-3]  | | Power on a set of compute nodes in          |
-|                                     | | cluster vc4                                 |
-+-------------------------------------+-----------------------------------------------+
-| cm comet power on vc4 vm-vc4-[7]    | | You can also power on one single node as a  |
-|                                     | | compute set                                 |
-+-------------------------------------+-----------------------------------------------+
-| cm comet power on vc4               | | Power on the front end node of the          |
-|                                     | | specified cluster                           |
-+-------------------------------------+-----------------------------------------------+
-| cm comet console vc4 vm-vc4-0       | | Get console of a running node               |
-+-------------------------------------+-----------------------------------------------+
-| cm comet console vc4                | | Get console of the front end                 |
-+-------------------------------------+-----------------------------------------------+
-| cm comet power off vc4 vm-vc4-[0-3] | | Power off a node or a set of nodes (if they | 
-|                                     | | all belonging to one active compute set)    |
-+-------------------------------------+-----------------------------------------------+
+.. prompt:: bash
+  
+  cm comet cluster
+    
+List a cluster by name:
 
-comet list
-----------------------------------------------------------------------
+.. prompt:: bash
+  
+  cm comet cluster vc2
+    
+List all defined computesets:
 
-All the current default values can by listed with --all option::
+.. prompt:: bash
 
-    $ comet ll
-    +--------+-----------+-------+-------+
-    | user   | cloud     | name  | value |
-    +--------+-----------+-------+-------+
-    | albert | chameleon | image | abc   |
-    | albert | general   | cloud | azure |
-    | albert | general   | image | zyx   |
-    +--------+-----------+-------+-------+
+  cm comet computeset
+    
+List one computeset:
 
-You can also add a --cloud=CLOUD option to see the defaults set
-for a cloud::
+.. prompt:: bash
+  
+   cm comet computeset 63
+    
+Power on a set of compute nodes in cluster vc4:
 
-    $ comet list
-    +--------+-----------+-------+-------+
-    | user   | cloud     | name  | value |
-    +--------+-----------+-------+-------+
-    | albert | chameleon | image | abc   |
-    +--------+-----------+-------+-------+
+.. prompt:: bash
+  
+    cm comet power on vc4 vm-vc4-[0-3]
+    
+This will request the nodes for a default period of time - 2 hours.
 
-Options
-------------
+To request for a longer time period, use --walltime parameter. 
+E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):
 
-::
+.. prompt:: bash
 
-        --user=USER           user name
-        --name=NAMES          Names of the vcluster
-        --start=TIME_START    Start time of the vcluster, in
-                              YYYY/MM/DD HH:MM:SS format.
-                              [default: 1901-01-01]
-        --end=TIME_END        End time of the vcluster, in YYYY/MM/DD
-                              HH:MM:SS format. In addition a duratio
-                              can be specified if the + sign is the
-                              first sig The duration will than be
-                              added to the start time.
-                              [default: 2100-12-31]
-        --project=PROJECT     project id
-        --host=HOST           host name
-        --description=DESCRIPTION  description summary of the vcluster
-        --file=FILE           Adding multiple vclusters from one file
-        --format=FORMAT       Format is either table, json, yaml,
-                              csv, rest
-                              [default: table]
+    cm comet power on vc4 vm-vc4-[0-3] --walltime=6h
 
-Arguments
-----------
+The above will put the request under the one allocation associated with the cluster.
+If your cluster have more than one allocations, use --allocation
+parameter:
 
-::
+.. prompt:: bash
 
-        FILENAME  the file to open in the cwd if . is
-                  specified. If file in in cwd
-                  you must specify it with ./FILENAME
+    cm comet power on vc4 vm-vc4-[0-3] --allocation=YOUR_ALLOCATION
 
-    Opens the given URL in a browser window.
+If you have more allocations, but does not specify via CLI, you will see a list of 
+allocations to choose from to use.
 
-comet tunnel
---------------
+You can power off and back on individual nodes of an active
+computeset. E.g.:
 
-comet configuration
----------------------
+.. prompt:: bash
 
+    cm comet power off vc4 vm-vc4-[0,1]
 
-comet logon
--------------
+and then:
 
+.. prompt:: bash
 
-comet docs
-------------
+    cm comet power on vc4 vm-vc4-0
 
-comet status
---------------
+Or power off the whole computeset by specifying the computeset id:
 
-TBD
+.. prompt:: bash
 
-comet info
---------------
+    cm comet power off vc4 123
 
-TBD::
+or by specifying the hosts:
 
-       comet info [--user=USER]
-                    [--project=PROJECT]
-                    [--format=FORMAT]
+.. prompt:: bash
 
-comet_cluster
----------------
+    cm comet power off vc4 vm-vc4-[0-3]
 
-::
+Please note if you powered off all nodes from an active computeset, the computeset 
+itself will be removed as well (changed to 'completed' status)
 
-       comet cluster [ID][--name=NAMES]
-                    [--user=USER]
-                    [--project=PROJECT]
-                    [--hosts=HOSTS]
-                    [--start=TIME_START]
-                    [--end=TIME_END]
-                    [--hosts=HOSTS]
-                    [--format=FORMAT]
+You can also power on one single node as a computese:
 
-comet computeset
---------------------
+.. prompt:: bash
+  
+    cm comet power on vc4 vm-vc4-[7]
 
-::
+or simply:
 
-       comet computeset [COMPUTESETID]
+.. prompt:: bash
 
+    cm comet power on vc4 vm-vc4-7
 
-comet start and stop
-----------------------
+Power on the front end node of the specified cluster:
 
-::
+.. prompt:: bash
+  
+    cm comet power on vc4
+    
+Get console of a running node:
 
-       comet start ID
+.. prompt:: bash
+  
+    cm comet console vc4 vm-vc4-0
 
-::
+Get console of the front end:
 
-       comet stop ID
-
-
-comet power
--------------------
-
-::
-
-       comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
-
-comet delete
--------------
-
-::
-
-       comet delete [all]
-                      [--user=USER]
-                      [--project=PROJECT]
-                      [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-                      [--host=HOST]
-       comet delete --file=FILE
-
-
-comet update
--------------
-
-::
-
-       comet update [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-
-comet add
------------
-
-::
-
-       comet add [--user=USER]
-                   [--project=PROJECT]
-                   [--host=HOST]
-                   [--description=DESCRIPTION]
-                   [--start=TIME_START]
-                   [--end=TIME_END]
-                   NAME
-       comet add --file=FILENAME
+.. prompt:: bash
+  
+    cm comet console vc4

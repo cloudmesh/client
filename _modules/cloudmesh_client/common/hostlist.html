@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -216,22 +217,22 @@
 <span class="kn">import</span> <span class="nn">itertools</span>
 
 <span class="c1"># Exception used for error reporting to the caller</span>
-<div class="viewcode-block" id="BadHostlist"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.BadHostlist">[docs]</a><span class="k">class</span> <span class="nc">BadHostlist</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="BadHostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.BadHostlist">[docs]</a><span class="k">class</span> <span class="nc">BadHostlist</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span></div>
 
 <span class="c1"># Configuration to guard against ridiculously long expanded lists</span>
 <span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">100000</span>
 
 <span class="c1"># Hostlist expansion</span>
 
-<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Parameter.expand"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter.expand">[docs]</a>    <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter.expand"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter.expand">[docs]</a>    <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">expand_hostlist</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div></div>
 
 
 
-<div class="viewcode-block" id="expand_hostlist"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_hostlist">[docs]</a><span class="k">def</span> <span class="nf">expand_hostlist</span><span class="p">(</span><span class="n">hostlist</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="expand_hostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_hostlist">[docs]</a><span class="k">def</span> <span class="nf">expand_hostlist</span><span class="p">(</span><span class="n">hostlist</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Expand a hostlist expression string to a Python list.</span>
 
 <span class="sd">    Example: expand_hostlist(&quot;n[9-11],d[01-02]&quot;) ==&gt;</span>
@@ -274,7 +275,7 @@
     <span class="k">return</span> <span class="n">results</span></div>
 
 
-<div class="viewcode-block" id="expand_part"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_part">[docs]</a><span class="k">def</span> <span class="nf">expand_part</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="expand_part"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_part">[docs]</a><span class="k">def</span> <span class="nf">expand_part</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Expand a part (e.g. &quot;x[1-2]y[1-3][1-3]&quot;) (no outer level commas).&quot;&quot;&quot;</span>
 
     <span class="c1"># Base case: the empty part expand to the singleton list of &quot;&quot;</span>
@@ -310,7 +311,7 @@
             <span class="k">for</span> <span class="n">rest_part</span> <span class="ow">in</span> <span class="n">rest_expanded</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="expand_rangelist"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_rangelist">[docs]</a><span class="k">def</span> <span class="nf">expand_rangelist</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">rangelist</span><span class="p">):</span>
+<div class="viewcode-block" id="expand_rangelist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_rangelist">[docs]</a><span class="k">def</span> <span class="nf">expand_rangelist</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">rangelist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Expand a rangelist (e.g. &quot;1-10,14&quot;), putting a prefix before.&quot;&quot;&quot;</span>
 
     <span class="c1"># Split at commas and expand each range separately</span>
@@ -320,7 +321,7 @@
     <span class="k">return</span> <span class="n">results</span></div>
 
 
-<div class="viewcode-block" id="expand_range"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_range">[docs]</a><span class="k">def</span> <span class="nf">expand_range</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">range_</span><span class="p">):</span>
+<div class="viewcode-block" id="expand_range"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_range">[docs]</a><span class="k">def</span> <span class="nf">expand_range</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">range_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Expand a range (e.g. 1-10 or 14), putting a prefix before.&quot;&quot;&quot;</span>
 
     <span class="c1"># Check for a single number first</span>
@@ -349,7 +350,7 @@
     <span class="k">return</span> <span class="n">results</span></div>
 
 
-<div class="viewcode-block" id="remove_duplicates"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.remove_duplicates">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+<div class="viewcode-block" id="remove_duplicates"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.remove_duplicates">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Remove duplicates from a list (but keep the order).&quot;&quot;&quot;</span>
     <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -362,7 +363,7 @@
 
 <span class="c1"># Hostlist collection</span>
 
-<div class="viewcode-block" id="collect_hostlist"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.collect_hostlist">[docs]</a><span class="k">def</span> <span class="nf">collect_hostlist</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">silently_discard_bad</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="collect_hostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.collect_hostlist">[docs]</a><span class="k">def</span> <span class="nf">collect_hostlist</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">silently_discard_bad</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Collect a hostlist string from a Python list of hosts.</span>
 
 <span class="sd">    We start grouping from the rightmost numerical part.</span>
@@ -400,7 +401,7 @@
     <span class="k">return</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">left_right</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="collect_hostlist_1"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.collect_hostlist_1">[docs]</a><span class="k">def</span> <span class="nf">collect_hostlist_1</span><span class="p">(</span><span class="n">left_right</span><span class="p">):</span>
+<div class="viewcode-block" id="collect_hostlist_1"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.collect_hostlist_1">[docs]</a><span class="k">def</span> <span class="nf">collect_hostlist_1</span><span class="p">(</span><span class="n">left_right</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Collect a hostlist string from a list of hosts (left+right).</span>
 
 <span class="sd">    The input is a list of tuples (left, right). The left part</span>
@@ -517,7 +518,7 @@
     <span class="k">return</span> <span class="n">results</span><span class="p">,</span> <span class="n">needs_another_loop</span></div>
 
 
-<div class="viewcode-block" id="format_range"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.format_range">[docs]</a><span class="k">def</span> <span class="nf">format_range</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+<div class="viewcode-block" id="format_range"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.format_range">[docs]</a><span class="k">def</span> <span class="nf">format_range</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Format a range from low to high inclusively, with a certain width.&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">low</span> <span class="o">==</span> <span class="n">high</span><span class="p">:</span>
@@ -528,7 +529,7 @@
 
 <span class="c1"># Sort a list of hosts numerically</span>
 
-<div class="viewcode-block" id="numerically_sorted"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.numerically_sorted">[docs]</a><span class="k">def</span> <span class="nf">numerically_sorted</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+<div class="viewcode-block" id="numerically_sorted"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.numerically_sorted">[docs]</a><span class="k">def</span> <span class="nf">numerically_sorted</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Sort a list of hosts numerically.</span>
 
 <span class="sd">    E.g. sorted order should be n1, n2, n10; not n1, n10, n2.</span>
@@ -540,11 +541,11 @@
 <span class="n">nsk_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;([0-9]+)|([^0-9]+)&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="numeric_sort_key"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.numeric_sort_key">[docs]</a><span class="k">def</span> <span class="nf">numeric_sort_key</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="viewcode-block" id="numeric_sort_key"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.numeric_sort_key">[docs]</a><span class="k">def</span> <span class="nf">numeric_sort_key</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">handle_int_nonint</span><span class="p">(</span><span class="n">i_ni</span><span class="p">)</span> <span class="k">for</span> <span class="n">i_ni</span> <span class="ow">in</span> <span class="n">nsk_re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span></div>
 
 
-<div class="viewcode-block" id="handle_int_nonint"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.handle_int_nonint">[docs]</a><span class="k">def</span> <span class="nf">handle_int_nonint</span><span class="p">(</span><span class="n">int_nonint_tuple</span><span class="p">):</span>
+<div class="viewcode-block" id="handle_int_nonint"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.handle_int_nonint">[docs]</a><span class="k">def</span> <span class="nf">handle_int_nonint</span><span class="p">(</span><span class="n">int_nonint_tuple</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">int_nonint_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">int_nonint_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
@@ -563,7 +564,7 @@
 <span class="c1">#              three nodes will each execute three tasks and the</span>
 <span class="c1">#              fourth node will execute one task.</span>
 
-<div class="viewcode-block" id="parse_slurm_tasks_per_node"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.hostlist.parse_slurm_tasks_per_node">[docs]</a><span class="k">def</span> <span class="nf">parse_slurm_tasks_per_node</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<div class="viewcode-block" id="parse_slurm_tasks_per_node"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.parse_slurm_tasks_per_node">[docs]</a><span class="k">def</span> <span class="nf">parse_slurm_tasks_per_node</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
         <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^([0-9]+)(\(x([0-9]+)\))?$&#39;</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span>

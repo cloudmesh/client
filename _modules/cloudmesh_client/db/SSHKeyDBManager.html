@@ -1,0 +1,480 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.db.SSHKeyDBManager &mdash; cloudmesh_client 2.1.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
+        <link rel="up" title="Module code" href="../../index.html"/> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      
+    <li>cloudmesh_client.db.SSHKeyDBManager</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.db.SSHKeyDBManager</h1><div class="highlight"><pre>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.menu</span> <span class="kn">import</span> <span class="n">menu_return_num</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.keys.SSHKeyManager</span> <span class="kn">import</span> <span class="n">SSHkey</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db.model</span> <span class="kn">import</span> <span class="n">KEY</span><span class="p">,</span> <span class="n">KEYCLOUDMAP</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.db</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
+
+
+<span class="c1"># noinspection PyBroadException</span>
+<div class="viewcode-block" id="SSHKeyDBManager"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager">[docs]</a><span class="k">class</span> <span class="nc">SSHKeyDBManager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="o">.</span><span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SSHKeyDBManager.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key_path</span><span class="p">,</span> <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds the key to the database based on the path</span>
+
+<span class="sd">        :param keyname: name of the key or path to the key</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">sshkey</span> <span class="o">=</span> <span class="n">SSHkey</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">key_path</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_from_sshkey</span><span class="p">(</span><span class="n">sshkey</span><span class="o">.</span><span class="n">__key__</span><span class="p">,</span>
+                             <span class="n">keyname</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span>
+                             <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
+                             <span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Key already exists&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SSHKeyDBManager.add_from_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_dict">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+
+        <span class="n">key_obj</span> <span class="o">=</span> <span class="n">KEY</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;{keyname}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="n">uri</span><span class="o">=</span><span class="s1">&#39;{uri}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="n">source</span><span class="o">=</span><span class="s1">&#39;{source}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;{comment}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+                      <span class="n">user</span><span class="o">=</span><span class="s1">&#39;{user}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="n">fingerprint</span><span class="o">=</span><span class="s1">&#39;{fingerprint}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="n">value</span><span class="o">=</span><span class="s1">&#39;{string} {comment}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">d</span><span class="p">),</span>
+                      <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add</span><span class="p">([</span><span class="n">key_obj</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.add_from_sshkey"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_from_sshkey">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_sshkey</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                        <span class="n">sshkey</span><span class="p">,</span>
+                        <span class="n">keyname</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                        <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                        <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                        <span class="n">uri</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">keyname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">keyname</span> <span class="o">=</span> <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">keyname</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;ERROR: keyname is None&quot;</span><span class="p">)</span>
+
+        <span class="c1"># pprint(sshkey)</span>
+
+        <span class="c1"># find if the key with fingerprint already exists</span>
+
+        <span class="c1"># if so return warning and return command</span>
+
+        <span class="n">key_obj</span> <span class="o">=</span> <span class="n">KEY</span><span class="p">(</span>
+            <span class="n">keyname</span><span class="p">,</span>
+            <span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;string&#39;</span><span class="p">],</span>
+            <span class="n">uri</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">],</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">],</span>
+            <span class="n">fingerprint</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;fingerprint&#39;</span><span class="p">],</span>
+            <span class="n">comment</span><span class="o">=</span><span class="n">sshkey</span><span class="p">[</span><span class="s1">&#39;comment&#39;</span><span class="p">],</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;sshkey&quot;</span><span class="p">,</span>
+            <span class="c1"># group=None,</span>
+            <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">,</span>
+            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="c1"># pprint(key_obj.__dict__)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">key_obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes the key from the database based on the keyname</span>
+
+<span class="sd">        :param keyname: name of the key to be delete</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">delete_by_name</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">keyname</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.set_default"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.set_default">[docs]</a>    <span class="k">def</span> <span class="nf">set_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
+        <span class="n">default_key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_default</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">default_key</span><span class="p">:</span>
+            <span class="n">default_key</span><span class="o">.</span><span class="n">is_default</span> <span class="o">=</span> <span class="s1">&#39;False&#39;</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">keyname</span><span class="p">)</span>
+        <span class="n">key</span><span class="p">[</span><span class="s2">&quot;is_default&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;KEY&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="c1"># self.db.update(&quot;KEY&quot;, key)</span>
+        <span class="c1"># self.db.find(keyname).is_default = &#39;True&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.get_default"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_default">[docs]</a>    <span class="k">def</span> <span class="nf">get_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;True&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">is_default</span><span class="o">=</span><span class="n">value</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Finds the key on the database based on the keyname</span>
+
+<span class="sd">        :param keyname: name of the key to be found</span>
+<span class="sd">        :return: Query object of the search</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="n">KEY</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">keyname</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.find_all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.find_all">[docs]</a>    <span class="k">def</span> <span class="nf">find_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: Query object from all the entries</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEY</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.table_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.table_dict">[docs]</a>    <span class="k">def</span> <span class="nf">table_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :return: dict from all elements in the table KEY</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">KEY</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># i&#39;m not sure how this function works</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.delete_all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_all">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes all the entries from KEY table</span>
+
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">delete_all</span><span class="p">(</span><span class="n">KEY</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.select"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_dict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+            <span class="c1"># print (&#39;i:&#39;, i)</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;{}: {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;fingerprint&#39;</span><span class="p">])</span>
+            <span class="n">options</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">menu_return_num</span><span class="p">(</span><span class="s1">&#39;KEYS&#39;</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">!=</span> <span class="s1">&#39;q&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">options</span><span class="p">[</span><span class="n">num</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">num</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.object_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.object_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param obj: object to be converted to dict</span>
+<span class="sd">        :return: dict from the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">object_to_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.add_key_cloud_map_entry"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.add_key_cloud_map_entry">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_cloud_map_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name_on_cloud</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds an entry to Key-Cloud map table.</span>
+<span class="sd">        :param keyname: Name of the key in db.</span>
+<span class="sd">        :param cloud: Cloud on which the key is being uploaded.</span>
+<span class="sd">        :param name_on_cloud: Name of the key on cloud.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">keycloudmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">,</span>
+                                   <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                                   <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
+                                   <span class="n">key_name</span><span class="o">=</span><span class="n">keyname</span><span class="p">,</span>
+                                   <span class="n">cloud_name</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+        <span class="n">keycloudmapdict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">object_to_dict</span><span class="p">(</span><span class="n">keycloudmap</span><span class="p">)</span>
+        <span class="c1"># print(keycloudmap)</span>
+        <span class="k">if</span> <span class="n">keycloudmapdict</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">keycloudmapdict</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">keycloudmap</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span>
+                                <span class="s1">&#39;key_name&#39;</span><span class="p">:</span> <span class="n">keyname</span><span class="p">,</span>
+                                <span class="s1">&#39;cloud_name&#39;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
+                                <span class="s1">&#39;key_name_on_cloud&#39;</span><span class="p">:</span> <span class="n">name_on_cloud</span><span class="p">})</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">keycloudmap</span> <span class="o">=</span> <span class="n">KEYCLOUDMAP</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">keyname</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">name_on_cloud</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_add</span><span class="p">(</span><span class="n">keycloudmap</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.get_key_cloud_maps"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_maps">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_maps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns entries in Key-Cloud map table.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">keycloudmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">keycloudmap</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.get_key_cloud_map_entry"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.get_key_cloud_map_entry">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_map_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns entries in Key-Cloud map table.</span>
+<span class="sd">        :param keyname: Name of the key in db.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">keycloudmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">,</span> <span class="n">key_name</span><span class="o">=</span><span class="n">keyname</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">keycloudmap</span></div>
+
+<div class="viewcode-block" id="SSHKeyDBManager.delete_key_cloud_map_entry"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.SSHKeyDBManager.SSHKeyDBManager.delete_key_cloud_map_entry">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key_cloud_map_entry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keyname</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Deletes an entry to Key-Cloud map table.</span>
+<span class="sd">        :param keyname: Name of the key in db.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">keycloudmap</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">,</span>
+                                   <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
+                                   <span class="n">key_name</span><span class="o">=</span><span class="n">keyname</span><span class="p">)</span>
+        <span class="c1"># print(keycloudmap.values())</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keycloudmap</span><span class="p">:</span>
+            <span class="c1"># print(&quot;Deleting: {:}&quot;.format(key))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    def load(self):</span>
+
+<span class="sd">        sshm = SSHKeyManager()</span>
+<span class="sd">        m = sshm.get_from_yaml(load_order=&quot;~/.cloudmesh/cloudmesh.yaml&quot;)</span>
+<span class="sd">        d = dict(m.__keys__)</span>
+
+<span class="sd">        sshdb = SSHKeyDBManager()</span>
+
+<span class="sd">        for keyname in m.__keys__:</span>
+<span class="sd">            filename = m[keyname][&quot;path&quot;]</span>
+<span class="sd">            try:</span>
+<span class="sd">                sshdb.add(filename,</span>
+<span class="sd">                          keyname,</span>
+<span class="sd">                          source=&quot;yaml&quot;,</span>
+<span class="sd">                          uri=&quot;file://&quot; + filename)</span>
+<span class="sd">            except Exception, e:</span>
+<span class="sd">                Console.error(&quot;problem adding key {}:{}&quot;.format(</span>
+<span class="sd">                    keyname, filename))</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'2.1.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

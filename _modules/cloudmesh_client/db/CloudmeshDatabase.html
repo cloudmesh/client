@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -187,10 +188,10 @@
 
 
 <span class="c1"># noinspection PyBroadException,PyPep8Naming</span>
-<div class="viewcode-block" id="CloudmeshDatabase"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="c1"># TODO: see also common/VMname</span>
 
-<div class="viewcode-block" id="CloudmeshDatabase.counter_incr"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.counter_incr">[docs]</a>    <span class="k">def</span> <span class="nf">counter_incr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.counter_incr"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.counter_incr">[docs]</a>    <span class="k">def</span> <span class="nf">counter_incr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">Username</span><span class="p">()</span>
         <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter_get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
@@ -200,7 +201,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">counter_set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">count</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.counter_get"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.counter_get">[docs]</a>    <span class="k">def</span> <span class="nf">counter_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.counter_get"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.counter_get">[docs]</a>    <span class="k">def</span> <span class="nf">counter_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function that returns the prefix username and count for vm naming.</span>
 <span class="sd">        If it is not present in db, it creates a new entry.</span>
@@ -217,7 +218,7 @@
 
         <span class="k">return</span> <span class="n">count</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.counter_set"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.counter_set">[docs]</a>    <span class="k">def</span> <span class="nf">counter_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.counter_set"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.counter_set">[docs]</a>    <span class="k">def</span> <span class="nf">counter_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Special function to update vm prefix count.</span>
 
@@ -254,7 +255,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
 
-<div class="viewcode-block" id="CloudmeshDatabase.clear"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method deletes all &#39;kind&#39; entries</span>
 <span class="sd">        from the cloudmesh database</span>
@@ -272,7 +273,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
-<div class="viewcode-block" id="CloudmeshDatabase.refresh"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method refreshes the local database</span>
 <span class="sd">        with the live cloud details</span>
@@ -397,7 +398,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
             <span class="k">return</span> <span class="bp">False</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.connect"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.connect"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        before any method is called we need to connect to the database</span>
 
@@ -413,20 +414,20 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.save"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.close"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.close"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.db_table"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.db_table">[docs]</a>    <span class="k">def</span> <span class="nf">db_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.db_table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.db_table">[docs]</a>    <span class="k">def</span> <span class="nf">db_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="n">_type</span> <span class="o">=</span> <span class="n">kind</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
             <span class="n">_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_type</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.delete"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param item:</span>
 <span class="sd">        :return:</span>
@@ -434,7 +435,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.delete_all"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.delete_all">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.delete_all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.delete_all">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param kind:</span>
 <span class="sd">        :return:</span>
@@ -442,7 +443,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.get_table"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.get_table">[docs]</a>    <span class="k">def</span> <span class="nf">get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.get_table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.get_table">[docs]</a>    <span class="k">def</span> <span class="nf">get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">FLAVOR</span>
@@ -473,7 +474,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">kind</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.find_by_name"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.find_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.find_by_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.find_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find an object by name in the given table.</span>
 <span class="sd">         If multiple objects have the same name, the first one is returned.</span>
@@ -496,7 +497,7 @@
         <span class="n">result</span> <span class="o">=</span> <span class="n">first</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">table_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.find"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        NOT tested</span>
 <span class="sd">        :param kind:</span>
@@ -519,7 +520,7 @@
 
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.query"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.query"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        NOT tested</span>
 <span class="sd">        :param kind:</span>
@@ -535,13 +536,13 @@
         <span class="c1"># print(result.__dict__)</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.all"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="n">table_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table_type</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_objs</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.update"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        :param kind:</span>
@@ -551,7 +552,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.update_vm_username"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.update_vm_username">[docs]</a>    <span class="k">def</span> <span class="nf">update_vm_username</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.update_vm_username"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.update_vm_username">[docs]</a>    <span class="k">def</span> <span class="nf">update_vm_username</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Special function to update vm prefix count.</span>
 <span class="sd">        :param kwargs:</span>
@@ -560,7 +561,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">VMUSERMAP</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">vm_uuid</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;vm_uuid&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.delete_by_name"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.delete_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">delete_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.delete_by_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.delete_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">delete_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        NOT TESTED</span>
 <span class="sd">        :param kind:</span>
@@ -570,7 +571,7 @@
         <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;item&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.object_to_dict"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.object_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.object_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.object_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        convert the object to dict</span>
 
@@ -587,7 +588,7 @@
             <span class="n">result</span><span class="p">[</span><span class="n">_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.parse_objs"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.parse_objs">[docs]</a>    <span class="k">def</span> <span class="nf">parse_objs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.parse_objs"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.parse_objs">[docs]</a>    <span class="k">def</span> <span class="nf">parse_objs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
             <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -596,7 +597,7 @@
                     <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">d</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.dict"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns a dict from all elements in the table</span>
 
@@ -605,7 +606,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.json"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.json"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns a json representation from all elements in the table</span>
 
@@ -615,7 +616,7 @@
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.info"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        prints information about the database</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -652,7 +653,7 @@
 
         <span class="k">return</span> <span class="n">count_result</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.db_obj_dict"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.db_obj_dict">[docs]</a>    <span class="k">def</span> <span class="nf">db_obj_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">obj_dict</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.db_obj_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.db_obj_dict">[docs]</a>    <span class="k">def</span> <span class="nf">db_obj_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">obj_dict</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is a generic method to populate an object dict.</span>
 <span class="sd">        The object dict can then be passed to database layer to add/ modify</span>
@@ -673,12 +674,12 @@
         <span class="c1"># print(obj_dict)</span>
         <span class="k">return</span> <span class="n">obj_dict</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.add"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.add_obj"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.add_obj">[docs]</a>    <span class="k">def</span> <span class="nf">add_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_dict</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.add_obj"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.add_obj">[docs]</a>    <span class="k">def</span> <span class="nf">add_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_dict</span><span class="p">):</span>
         <span class="c1"># print(&quot;Inside add_obj&quot;)</span>
         <span class="c1"># print(&quot;Object Dict to add: {}&quot;.format(obj_dict))</span>
 
@@ -689,14 +690,14 @@
                 <span class="n">obj_to_persist</span> <span class="o">=</span> <span class="n">table_name</span><span class="p">(</span><span class="o">**</span><span class="n">obj</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj_to_persist</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.get"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="CloudmeshDatabase.get_key_cloud_mapping"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.get_key_cloud_mapping">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.get_key_cloud_mapping"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.CloudmeshDatabase.get_key_cloud_mapping">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="o">=</span><span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="o">=</span><span class="n">cloud_name</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../cloudmesh_client.db.html#cloudmesh_client.cloud.counter.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.cloud.counter.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
 
     <span class="c1">#    m = DEFAULT(&quot;hallo&quot;, &quot;world&quot;)</span>

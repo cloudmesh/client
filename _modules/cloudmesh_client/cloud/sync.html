@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -176,9 +177,9 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
 
 
-<div class="viewcode-block" id="Sync"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync">[docs]</a><span class="k">class</span> <span class="nc">Sync</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Sync"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync">[docs]</a><span class="k">class</span> <span class="nc">Sync</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Sync.sync"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">localdir</span><span class="p">,</span> <span class="n">remotedir</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Sync.sync"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.sync">[docs]</a>    <span class="k">def</span> <span class="nf">sync</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">localdir</span><span class="p">,</span> <span class="n">remotedir</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Syncs a local directory with a remote directory.</span>
 <span class="sd">        Either from local to remote OR vice-versa</span>
@@ -291,11 +292,11 @@
                 <span class="k">return</span> <span class="n">Shell</span><span class="o">.</span><span class="n">rsync</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Sync.operating_system"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.operating_system">[docs]</a>    <span class="k">def</span> <span class="nf">operating_system</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Sync.operating_system"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.operating_system">[docs]</a>    <span class="k">def</span> <span class="nf">operating_system</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Sync.get_host"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_host">[docs]</a>    <span class="k">def</span> <span class="nf">get_host</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Sync.get_host"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_host">[docs]</a>    <span class="k">def</span> <span class="nf">get_host</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get host for cloud</span>
 <span class="sd">        from the cloudmesh.yaml file</span>
@@ -316,7 +317,7 @@
             <span class="k">return</span> <span class="bp">None</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Sync.get_hostname"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_hostname">[docs]</a>    <span class="k">def</span> <span class="nf">get_hostname</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+<div class="viewcode-block" id="Sync.get_hostname"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_hostname">[docs]</a>    <span class="k">def</span> <span class="nf">get_hostname</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to return hostname</span>
 <span class="sd">        for a host in ssh config</span>
@@ -344,7 +345,7 @@
                 <span class="k">return</span> <span class="n">hostname</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Sync.get_hostuser"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_hostuser">[docs]</a>    <span class="k">def</span> <span class="nf">get_hostuser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+<div class="viewcode-block" id="Sync.get_hostuser"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_hostuser">[docs]</a>    <span class="k">def</span> <span class="nf">get_hostuser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to return user login</span>
 <span class="sd">        for a host in ssh config</span>

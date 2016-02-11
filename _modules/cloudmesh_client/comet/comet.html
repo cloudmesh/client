@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -189,7 +190,7 @@
 
 
 <span class="c1"># noinspection PyBroadException,PyBroadException</span>
-<div class="viewcode-block" id="Comet"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet">[docs]</a><span class="k">class</span> <span class="nc">Comet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet">[docs]</a><span class="k">class</span> <span class="nc">Comet</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">rest_version</span> <span class="o">=</span> <span class="s2">&quot;/v1&quot;</span>
     <span class="n">base_uri</span> <span class="o">=</span> <span class="s2">&quot;https://comet-nucleus.sdsc.edu/nucleus&quot;</span>
     <span class="n">local_base_uri</span> <span class="o">=</span> <span class="s2">&quot;https://localhost:8443/nucleus&quot;</span>
@@ -209,12 +210,12 @@
     <span class="n">verify</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.set_base_uri"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_base_uri">[docs]</a>    <span class="k">def</span> <span class="nf">set_base_uri</span><span class="p">(</span><span class="n">uri</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.set_base_uri"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_base_uri">[docs]</a>    <span class="k">def</span> <span class="nf">set_base_uri</span><span class="p">(</span><span class="n">uri</span><span class="p">):</span>
         <span class="n">Comet</span><span class="o">.</span><span class="n">base_uri</span> <span class="o">=</span> <span class="n">uri</span>
         <span class="n">Comet</span><span class="o">.</span><span class="n">auth_uri</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">base_uri</span> <span class="o">+</span> <span class="s2">&quot;/rest-auth&quot;</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.url"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.url">[docs]</a>    <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.url"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.url">[docs]</a>    <span class="k">def</span> <span class="nf">url</span><span class="p">(</span><span class="n">endpoint</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">local_base_uri</span> <span class="o">+</span> <span class="n">Comet</span><span class="o">.</span><span class="n">rest_version</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">endpoint</span>
         <span class="k">else</span><span class="p">:</span>
@@ -228,7 +229,7 @@
         <span class="k">pass</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.docs"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.docs">[docs]</a>    <span class="k">def</span> <span class="nf">docs</span><span class="p">():</span>
+<div class="viewcode-block" id="Comet.docs"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.docs">[docs]</a>    <span class="k">def</span> <span class="nf">docs</span><span class="p">():</span>
 
         <span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;{}/docs/#!/v1&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">base_uri</span><span class="p">))</span></div>
 
@@ -237,7 +238,7 @@
     <span class="c1"># #####################</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.tunnel"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">tunnel</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">tunnel</span><span class="p">(</span><span class="n">start</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
             <span class="n">Comet</span><span class="o">.</span><span class="n">tunnelled</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;ssh -L 8443:localhost:443 nucleus&quot;</span>
@@ -246,7 +247,7 @@
             <span class="n">Comet</span><span class="o">.</span><span class="n">kill_tunnel</span><span class="p">()</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.kill_tunnel"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.kill_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">kill_tunnel</span><span class="p">():</span>
+<div class="viewcode-block" id="Comet.kill_tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.kill_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">kill_tunnel</span><span class="p">():</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">find_tunnel</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No tunnel to comet found&quot;</span><span class="p">)</span>
@@ -255,17 +256,17 @@
             <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.state"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.state">[docs]</a>    <span class="k">def</span> <span class="nf">state</span><span class="p">():</span>
+<div class="viewcode-block" id="Comet.state"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.state">[docs]</a>    <span class="k">def</span> <span class="nf">state</span><span class="p">():</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">find_tunnel</span><span class="p">()</span>
         <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Comet tunnel: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pid</span><span class="p">))</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.is_tunnel"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.is_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">is_tunnel</span><span class="p">():</span>
+<div class="viewcode-block" id="Comet.is_tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.is_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">is_tunnel</span><span class="p">():</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">find_tunnel</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">pid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.find_tunnel"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.find_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">find_tunnel</span><span class="p">():</span>
+<div class="viewcode-block" id="Comet.find_tunnel"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.find_tunnel">[docs]</a>    <span class="k">def</span> <span class="nf">find_tunnel</span><span class="p">():</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;ps&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;-ax&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">pid</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">info</span> <span class="o">=</span> <span class="bp">None</span>
@@ -304,12 +305,12 @@
 <span class="sd">    &#39;&#39;&#39;</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get_nonce"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_nonce">[docs]</a>    <span class="k">def</span> <span class="nf">get_nonce</span><span class="p">():</span>
+<div class="viewcode-block" id="Comet.get_nonce"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_nonce">[docs]</a>    <span class="k">def</span> <span class="nf">get_nonce</span><span class="p">():</span>
         <span class="n">nonce</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">nonce</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.set_auth_provider"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_auth_provider">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_provider</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">auth_provider</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.set_auth_provider"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.set_auth_provider">[docs]</a>    <span class="k">def</span> <span class="nf">set_auth_provider</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">auth_provider</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="c1"># try to load from yaml file if not specified</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">auth_provider</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
@@ -320,7 +321,7 @@
         <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span> <span class="o">=</span> <span class="n">auth_provider</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.logon"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.logon"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logon">[docs]</a>    <span class="k">def</span> <span class="nf">logon</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">set_auth_provider</span><span class="p">()</span>
         <span class="c1"># print (cls.auth_provider)</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
@@ -373,7 +374,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.logoff"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.logoff"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.logoff">[docs]</a>    <span class="k">def</span> <span class="nf">logoff</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span><span class="p">:</span>
@@ -391,7 +392,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Comet.status"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.status"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="bp">True</span>
         <span class="k">if</span> <span class="s2">&quot;USERPASS&quot;</span> <span class="o">==</span> <span class="n">cls</span><span class="o">.</span><span class="n">auth_provider</span> <span class="ow">and</span> <span class="n">cls</span><span class="o">.</span><span class="n">token</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">ret</span> <span class="o">=</span> <span class="bp">False</span>
@@ -404,23 +405,23 @@
     <span class="c1"># To make GET calls for synchronous or asynchronous API</span>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
                           <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.post"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.post"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
                           <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.put"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.put"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Comet</span><span class="o">.</span><span class="n">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;put&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span>
                           <span class="n">allow_redirects</span><span class="o">=</span><span class="n">allow_redirects</span><span class="p">)</span></div>
 
     <span class="c1"># To make GET calls for synchronous or asynchronous API</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.http"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.http">[docs]</a>    <span class="k">def</span> <span class="nf">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span>
+<div class="viewcode-block" id="Comet.http"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.http">[docs]</a>    <span class="k">def</span> <span class="nf">http</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span>
              <span class="n">headers</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cacert</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">allow_redirects</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="c1"># print (&quot;KKK&quot;, url)</span>
         <span class="c1"># print (&quot;KKK&quot;, action)</span>
@@ -568,7 +569,7 @@
         <span class="k">return</span> <span class="n">ret</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.get_computeset"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.get_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.get_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">id</span><span class="p">:</span>
             <span class="n">geturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/{}/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
@@ -576,7 +577,7 @@
         <span class="k">return</span> <span class="n">r</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.console_url"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console_url">[docs]</a>    <span class="k">def</span> <span class="nf">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.console_url"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console_url">[docs]</a>    <span class="k">def</span> <span class="nf">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">return_url</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">nodeid</span><span class="p">:</span>
             <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/console/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">))</span>
@@ -611,7 +612,7 @@
         <span class="k">return</span> <span class="n">return_url</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Comet.console"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Comet.console"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.console">[docs]</a>    <span class="k">def</span> <span class="nf">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">console_url</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">url</span><span class="p">:</span>
             <span class="n">newurl_esc</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="s2">&quot;\&amp;&quot;</span><span class="p">)</span>
@@ -628,7 +629,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Console URL not available. Please make sure the node is running and try again!&quot;</span><span class="p">)</span></div></div>
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">comet</span> <span class="o">=</span> <span class="n">Comet</span><span class="p">()</span>
 
     <span class="c1"># change user, password to proper value as set in django</span>
@@ -642,7 +643,7 @@
     <span class="k">print</span><span class="p">(</span><span class="n">comet</span><span class="o">.</span><span class="n">logoff</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
+<div class="viewcode-block" id="test_get_cluster_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.test_get_cluster_list">[docs]</a><span class="k">def</span> <span class="nf">test_get_cluster_list</span><span class="p">():</span>
     <span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;TEST 1: Get without logon&quot;</span><span class="p">)</span>
     <span class="n">authheader</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
@@ -707,7 +708,7 @@
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">json</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="test_power_nodes"><a class="viewcode-back" href="../../../cloudmesh_client.comet.html#cloudmesh_client.comet.comet.test_power_nodes">[docs]</a><span class="k">def</span> <span class="nf">test_power_nodes</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="test_power_nodes"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.test_power_nodes">[docs]</a><span class="k">def</span> <span class="nf">test_power_nodes</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;on&#39;</span><span class="p">):</span>
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;TEST: power on/off a list of nodes&quot;</span><span class="p">)</span>
 
     <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Authenticating...&quot;</span><span class="p">)</span>

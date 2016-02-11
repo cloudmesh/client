@@ -71,6 +71,8 @@ Clouds
    * - cm select cloud
      - select interactively the default cloud (not implemented yet).
 
+.. _refcard_comet:
+
 Comet
 -------
 

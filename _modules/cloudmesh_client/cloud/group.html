@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -180,7 +181,7 @@
 
 
 <span class="c1"># noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming</span>
-<div class="viewcode-block" id="Group"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group">[docs]</a><span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
+<div class="viewcode-block" id="Group"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group">[docs]</a><span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>  <span class="c1"># Instance to communicate with the cloudmesh database</span>
 
     <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
@@ -191,7 +192,7 @@
 
     <span class="c1"># TODO: implement and extend to user</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.exists"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.exists">[docs]</a>    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.exists"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.exists">[docs]</a>    <span class="k">def</span> <span class="nf">exists</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        checks if the group with the given name exists</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -199,7 +200,7 @@
 
     <span class="c1"># TODO: implement and extend to user</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.check"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.check"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.check">[docs]</a>    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        checks if the group with the given name exists and raises exception</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -209,7 +210,7 @@
                                                                          <span class="n">cloud</span><span class="p">))</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.list"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get list of groups in</span>
 <span class="sd">            the cloudmesh database</span>
@@ -230,7 +231,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.get_info"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.get_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.get_info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.get_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get info about a group</span>
 <span class="sd">        :param cloud:</span>
@@ -262,7 +263,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.add"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add an instance to a new group</span>
 <span class="sd">            or add it to an existing one</span>
@@ -333,7 +334,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.get"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method queries the database to fetch group(s)</span>
 <span class="sd">        with given name filtered by cloud.</span>
@@ -360,7 +361,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.delete"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to delete a group from</span>
 <span class="sd">            the cloudmesh database</span>
@@ -404,7 +405,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.remove"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.remove"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to remove an ID from the group</span>
 <span class="sd">        in the cloudmesh database</span>
@@ -464,7 +465,7 @@
         <span class="k">return</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.copy"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_fromName</span><span class="p">,</span> <span class="n">_toName</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.copy"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_fromName</span><span class="p">,</span> <span class="n">_toName</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to make copy of a group</span>
 <span class="sd">        :param _fromName:</span>
@@ -544,7 +545,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.merge"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_nameA</span><span class="p">,</span> <span class="n">_nameB</span><span class="p">,</span> <span class="n">mergeName</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.merge"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_nameA</span><span class="p">,</span> <span class="n">_nameB</span><span class="p">,</span> <span class="n">mergeName</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to merge two groups into</span>
 <span class="sd">            one group</span>
@@ -605,7 +606,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.to_dict"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to convert input to a dict</span>
 <span class="sd">        :param item:</span>
@@ -619,7 +620,7 @@
 
     <span class="c1"># TODO we have a dict transformer elsewhere</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.transform_dict"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.transform_dict">[docs]</a>    <span class="k">def</span> <span class="nf">transform_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.transform_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.transform_dict">[docs]</a>    <span class="k">def</span> <span class="nf">transform_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to transform a dict,</span>
 <span class="sd">            to display multiple rows</span>
@@ -645,7 +646,7 @@
     <span class="c1"># TODO Bug. This needs to go to the CLoudProviderOpenstackAPI</span>
     <span class="c1"># TODO Bug naturally the india implementation here is buggy</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.getUser"><a class="viewcode-back" href="../../../cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.getUser"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to get the user information</span>
 <span class="sd">            from the cloudmesh database</span>

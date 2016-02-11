@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -188,7 +189,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">CometPluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
 
-<div class="viewcode-block" id="CloudmeshContext"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshContext">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshContext"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshContext">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">kwargs</span></div>
 
@@ -224,11 +225,11 @@
 
 
 <span class="c1"># noinspection PyBroadException,PyPep8Naming,PyMethodMayBeStatic</span>
-<div class="viewcode-block" id="CloudmeshConsole"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshConsole</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">,</span> <span class="n">PluginCommandClasses</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshConsole</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">,</span> <span class="n">PluginCommandClasses</span><span class="p">):</span>
     <span class="c1"># class CloudmeshConsole(cmd.Cmd,</span>
     <span class="c1">#                       ConsoleClasses(PluginCommand)):</span>
 
-<div class="viewcode-block" id="CloudmeshConsole.register_topics"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.register_topics">[docs]</a>    <span class="k">def</span> <span class="nf">register_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.register_topics"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.register_topics">[docs]</a>    <span class="k">def</span> <span class="nf">register_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">topics</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">CometPluginCommand</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">topics</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -283,7 +284,7 @@
             <span class="c1"># noinspection PyArgumentList</span>
             <span class="n">c</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 
-<div class="viewcode-block" id="CloudmeshConsole.preloop"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.preloop">[docs]</a>    <span class="k">def</span> <span class="nf">preloop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.preloop"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.preloop">[docs]</a>    <span class="k">def</span> <span class="nf">preloop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;adds the banner to the preloop&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">splash</span><span class="p">:</span>
@@ -293,7 +294,7 @@
                 <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
-<div class="viewcode-block" id="CloudmeshConsole.do_EOF"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_EOF">[docs]</a>    <span class="k">def</span> <span class="nf">do_EOF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.do_EOF"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_EOF">[docs]</a>    <span class="k">def</span> <span class="nf">do_EOF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
 
@@ -306,7 +307,7 @@
         <span class="k">return</span> <span class="bp">True</span></div>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
-<div class="viewcode-block" id="CloudmeshConsole.do_quit"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_quit">[docs]</a>    <span class="k">def</span> <span class="nf">do_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.do_quit"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_quit">[docs]</a>    <span class="k">def</span> <span class="nf">do_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
 
@@ -320,11 +321,11 @@
 
     <span class="n">do_q</span> <span class="o">=</span> <span class="n">do_quit</span>
 
-<div class="viewcode-block" id="CloudmeshConsole.emptyline"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.emptyline">[docs]</a>    <span class="k">def</span> <span class="nf">emptyline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.emptyline"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.emptyline">[docs]</a>    <span class="k">def</span> <span class="nf">emptyline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span></div>
 
     <span class="c1"># noinspection PyUnusedLocal</span>
-<div class="viewcode-block" id="CloudmeshConsole.do_context"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_context">[docs]</a>    <span class="k">def</span> <span class="nf">do_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.do_context"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_context">[docs]</a>    <span class="k">def</span> <span class="nf">do_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
 
@@ -381,14 +382,14 @@
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--check&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;True&quot;</span><span class="p">]:</span>
             <span class="n">check_python</span><span class="p">()</span>
 
-<div class="viewcode-block" id="CloudmeshConsole.register_command_topic"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.register_command_topic">[docs]</a>    <span class="k">def</span> <span class="nf">register_command_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">command_name</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.register_command_topic"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.register_command_topic">[docs]</a>    <span class="k">def</span> <span class="nf">register_command_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">command_name</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command_name</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudmeshConsole.do_help"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_help">[docs]</a>    <span class="k">def</span> <span class="nf">do_help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.do_help"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_help">[docs]</a>    <span class="k">def</span> <span class="nf">do_help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
 
@@ -449,7 +450,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">print_topics</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">capwords</span><span class="p">(</span><span class="n">topic</span> <span class="o">+</span> <span class="s2">&quot; commands&quot;</span><span class="p">),</span>
                                   <span class="n">topic_cmds</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="CloudmeshConsole.help_help"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.help_help">[docs]</a>    <span class="k">def</span> <span class="nf">help_help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshConsole.help_help"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.help_help">[docs]</a>    <span class="k">def</span> <span class="nf">help_help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
 
@@ -481,7 +482,7 @@
 <span class="sd">    &#39;&#39;&#39;</span></div>
 
 
-<div class="viewcode-block" id="simple"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.simple">[docs]</a><span class="k">def</span> <span class="nf">simple</span><span class="p">():</span>
+<div class="viewcode-block" id="simple"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.simple">[docs]</a><span class="k">def</span> <span class="nf">simple</span><span class="p">():</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">CloudmeshContext</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                <span class="n">splash</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">con</span> <span class="o">=</span> <span class="n">CloudmeshConsole</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
@@ -489,7 +490,7 @@
 
 
 <span class="c1"># noinspection PyBroadException</span>
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;cm.</span>
 
 <span class="sd">    Usage:</span>

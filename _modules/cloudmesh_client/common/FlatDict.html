@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -171,7 +172,7 @@
 <span class="kn">import</span> <span class="nn">collections</span>
 
 
-<div class="viewcode-block" id="key_prefix_replace"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.key_prefix_replace">[docs]</a><span class="k">def</span> <span class="nf">key_prefix_replace</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">new_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="key_prefix_replace"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.key_prefix_replace">[docs]</a><span class="k">def</span> <span class="nf">key_prefix_replace</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">new_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    replaces the list of prefix in keys of a flattened dict</span>
 
@@ -190,7 +191,7 @@
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">parent_key</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;__&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">parent_key</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;__&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    flattens the dict into a one dimensional dictionary</span>
 
@@ -210,7 +211,7 @@
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="FlatDict"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict">[docs]</a><span class="k">class</span> <span class="nc">FlatDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="FlatDict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict">[docs]</a><span class="k">class</span> <span class="nc">FlatDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A data structure to manage a flattened dict. It is initialized by passing the dict</span>
 <span class="sd">    at time of initialization.</span>
@@ -241,10 +242,10 @@
     <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-<div class="viewcode-block" id="FlatDict.keys"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FlatDict.keys"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FlatDict.values"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FlatDict.values"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
@@ -253,7 +254,7 @@
     <span class="k">def</span> <span class="nf">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span>
 
-<div class="viewcode-block" id="FlatDict.add"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="FlatDict.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
 
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -266,7 +267,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+<div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;cm_cloud&#39;</span><span class="p">:</span> <span class="s1">&#39;india&#39;</span><span class="p">,</span>
         <span class="s1">&#39;cm_update&#39;</span><span class="p">:</span> <span class="s1">&#39;2015-06-18 22:11:48 UTC&#39;</span><span class="p">,</span>

@@ -116,7 +116,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -170,9 +171,9 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.default</span> <span class="kn">import</span> <span class="n">Default</span>
 
 
-<div class="viewcode-block" id="VMName"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName">[docs]</a><span class="k">class</span> <span class="nc">VMName</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="VMName"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName">[docs]</a><span class="k">class</span> <span class="nc">VMName</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="VMName.format"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName.format">[docs]</a>    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="VMName.format"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName.format">[docs]</a>    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        given a name that returns the following information as a tuple.</span>
 
@@ -194,7 +195,7 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;implement me&quot;</span><span class="p">)</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="VMName.get"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="VMName.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">idx</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a vm name to use next time. prefix or index can be</span>
 <span class="sd">        given to update a vm name (optional)</span>
 
@@ -212,7 +213,7 @@
         <span class="k">return</span> <span class="s2">&quot;%{:}_%{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">()</span></div>
 
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="VMName.next"><a class="viewcode-back" href="../../../cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">():</span>
+<div class="viewcode-block" id="VMName.next"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.vmname.VMName.next">[docs]</a>    <span class="k">def</span> <span class="nf">next</span><span class="p">():</span>
         <span class="k">return</span> <span class="n">VMName</span><span class="o">.</span><span class="n">vmname</span><span class="p">(</span><span class="n">idx</span><span class="o">=</span><span class="s2">&quot;+1&quot;</span><span class="p">)</span></div></div>
 
 

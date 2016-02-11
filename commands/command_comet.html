@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Command &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 2.1.0 documentation</title>
   
 
   
@@ -102,25 +102,8 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#cloud-commands">Cloud Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="">Comet Command</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#reference-guide">Reference Guide</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-list">comet list</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#options">Options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#arguments">Arguments</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-tunnel">comet tunnel</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-configuration">comet configuration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-logon">comet logon</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-docs">comet docs</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-status">comet status</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-info">comet info</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-cluster">comet_cluster</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-computeset">comet computeset</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-start-and-stop">comet start and stop</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-power">comet power</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-delete">comet delete</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-update">comet update</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#comet-add">comet add</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="">Comet Virtual Cluster</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#comet-client">Comet Client</a></li>
 </ul>
 </li>
 </ul>
@@ -148,7 +131,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../docker.html">Docker</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Code</span></p>
-<ul class="simple">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../code/cloudmesh_client.html">cloudmesh_client package</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
@@ -185,7 +169,7 @@
       
           <li><a href="index.html">User Manual</a> &raquo;</li>
       
-    <li>Comet Command</li>
+    <li>Comet Virtual Cluster</li>
       <li class="wy-breadcrumbs-aside">
         
           
@@ -199,16 +183,57 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="comet-command">
-<span id="id1"></span><h1>Comet Command<a class="headerlink" href="#comet-command" title="Permalink to this headline">¶</a></h1>
-<p>The manual page of the group command can be found at:
-<a class="reference external" href="../man/man.html#comet">comet</a></p>
-<p>Cloudmesh has the ability to manage easily multiple clouds.
-ONe such cloud is comet. comet cloud is special as it allows the management
-of virtual clusters. It is intended for advanced users that can manage their
-own cluster environment.</p>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="comet-virtual-cluster">
+<span id="comet-command"></span><h1>Comet Virtual Cluster<a class="headerlink" href="#comet-virtual-cluster" title="Permalink to this headline">¶</a></h1>
+<p>Via XSEDE comet allows users to request high-performance virtual
+clusters (VCs) as part of their Comet allocation. The VC front-end
+associated with this award will be available 24/7 on the virtual
+machine hosting nodes, but VC compute nodes are transitory and
+allocated through the batch scheduler. The front end can be thought of
+as the point of entry for the VC and is used to manage VC resources
+and launch jobs. The justification for compute time is the same as for
+a standard allocations request. Projects that are awarded a VC can use
+their compute time through either the batch queue or the VC, but the
+expectation is that the latter will account for a substantial fraction
+of the usage.</p>
+<p>In comet VCs are not meant to replace the standard HPC batch queuing
+system, which is well suited for most scientific and technical
+workloads. In addition, a VC should not be simply thought of as a VM
+(virtual machine). Other XSEDE resources, such as Indiana
+University&#8217;s Jetstream address this need. Comets VCs are primarily
+intended for those users who require both fine-grained control over
+their software stack and access to multiple nodes. With regards to the
+software stack, this may include access to operating systems different
+from the default version of CentOS available on Comet or to low-level
+libraries that are closely integrated with the Linux
+distribution. Science Gateways serving large research communities and
+that require a flexible software environment are encouraged to
+consider applying for a VC, as are current users of commercial clouds
+who want to make the transition for performance or cost reasons.</p>
+<p>Maintaining and configuring a virtual cluster requires a certain level
+of technical expertise. We expect that each project will have at least
+one person possessing strong systems administration experience with
+the relevant OS since the owner of the VC will be provided with &#8220;bare
+metal&#8221; root level access. SDSC staff will be available primarily to
+address performance issues that may be related to problems with the
+Comet hardware and not to help users build their system images.</p>
+<p>All VC requests must include a brief justification that addresses the
+following:</p>
+<ul class="simple">
+<li>Why is a VC required for this project?</li>
+<li>What expertise does the PI&#8217;s team have for building and maintaining the VC?</li>
+</ul>
+<p>Please visit <a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a> for more details on comet.</p>
+<div class="section" id="comet-client">
+<h2>Comet Client<a class="headerlink" href="#comet-client" title="Permalink to this headline">¶</a></h2>
+<p>Example CLI usage to manage comet virtual cluster using cloudmesh
+client</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a></li>
+<li>Comet Refernce Card <a class="reference internal" href="../reference_card.html#refcard-comet"><span>Comet</span></a></li>
+<li>Comet Command: <a class="reference internal" href="#comet-command"><span>Comet Virtual Cluster</span></a> (this page)</li>
+<li>Man page <a class="reference external" href="../man/man.html#comet">comet</a></li>
+</ul>
 <p>Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
 auth_provider could be userpass or apikey. When specified, the
 corresponding credential is needed. Please communicate with comet
@@ -223,164 +248,56 @@ admins to get the username/password or api key and secret assigned.:</p>
         api_secret: SECRETSTRING
 </pre></div>
 </div>
-</div>
-<div class="section" id="reference-guide">
-<h2>Reference Guide<a class="headerlink" href="#reference-guide" title="Permalink to this headline">¶</a></h2>
-<p>Next, we include a small set of useful examples to manage comet
-virtual cluster using cloudmesh client.</p>
-</div>
-<div class="section" id="comet-list">
-<h2>comet list<a class="headerlink" href="#comet-list" title="Permalink to this headline">¶</a></h2>
-<p>All the current default values can by listed with &#8211;all option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ comet ll
-+--------+-----------+-------+-------+
-| user   | cloud     | name  | value |
-+--------+-----------+-------+-------+
-| albert | chameleon | image | abc   |
-| albert | general   | cloud | azure |
-| albert | general   | image | zyx   |
-+--------+-----------+-------+-------+
+<p>List all clusters owned by the authenticated identity (summarized
+format):</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">cm comet ll</span>
+</pre><p>List all clusters owned by the authenticated identity (detailed
+list):</p>
+<pre class="highlight"><span class="prompt1">cm comet cluster</span>
+</pre><p>List a cluster by name:</p>
+<pre class="highlight"><span class="prompt1">cm comet cluster vc2</span>
+</pre><p>List all defined computesets:</p>
+<pre class="highlight"><span class="prompt1">cm comet computeset</span>
+</pre><p>List one computeset:</p>
+<pre class="highlight"><span class="prompt1">cm comet computeset 63</span>
+</pre><p>Power on a set of compute nodes in cluster vc4:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span></span>
+</pre><p>This will request the nodes for a default period of time - 2 hours.</p>
+<p>To request for a longer time period, use &#8211;walltime parameter.
+E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span> --walltime<span class="o">=</span>6h</span>
+</pre><p>The above will put the request under the one allocation associated with the cluster.
+If your cluster have more than one allocations, use &#8211;allocation
+parameter:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
+</pre><p>If you have more allocations, but does not specify via CLI, you will see a list of
+allocations to choose from to use.</p>
+<p>You can power off and back on individual nodes of an active
+computeset. E.g.:</p>
+<pre class="highlight"><span class="prompt1">cm comet power off vc4 vm-vc4-<span class="o">[</span>0,1<span class="o">]</span></span>
+</pre><p>and then:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-0</span>
+</pre><p>Or power off the whole computeset by specifying the computeset id:</p>
+<pre class="highlight"><span class="prompt1">cm comet power off vc4 123</span>
+</pre><p>or by specifying the hosts:</p>
+<pre class="highlight"><span class="prompt1">cm comet power off vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span></span>
+</pre><p>Please note if you powered off all nodes from an active computeset, the computeset
+itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
+<p>You can also power on one single node as a computese:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>7<span class="o">]</span></span>
+</pre><p>or simply:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-7</span>
+</pre><p>Power on the front end node of the specified cluster:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4</span>
+</pre><p>Get console of a running node:</p>
+<pre class="highlight"><span class="prompt1">cm comet console vc4 vm-vc4-0</span>
+</pre><p>Get console of the front end:</p>
+<pre class="highlight"><span class="prompt1">cm comet console vc4</span>
 </pre></div>
-</div>
-<p>You can also add a &#8211;cloud=CLOUD option to see the defaults set
-for a cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ comet list
-+--------+-----------+-------+-------+
-| user   | cloud     | name  | value |
-+--------+-----------+-------+-------+
-| albert | chameleon | image | abc   |
-+--------+-----------+-------+-------+
-</pre></div>
-</div>
-</div>
-<div class="section" id="options">
-<h2>Options<a class="headerlink" href="#options" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>--user=USER           user name
---name=NAMES          Names of the vcluster
---start=TIME_START    Start time of the vcluster, in
-                      YYYY/MM/DD HH:MM:SS format.
-                      [default: 1901-01-01]
---end=TIME_END        End time of the vcluster, in YYYY/MM/DD
-                      HH:MM:SS format. In addition a duratio
-                      can be specified if the + sign is the
-                      first sig The duration will than be
-                      added to the start time.
-                      [default: 2100-12-31]
---project=PROJECT     project id
---host=HOST           host name
---description=DESCRIPTION  description summary of the vcluster
---file=FILE           Adding multiple vclusters from one file
---format=FORMAT       Format is either table, json, yaml,
-                      csv, rest
-                      [default: table]
-</pre></div>
-</div>
-</div>
-<div class="section" id="arguments">
-<h2>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>    FILENAME  the file to open in the cwd if . is
-              specified. If file in in cwd
-              you must specify it with ./FILENAME
-
-Opens the given URL in a browser window.
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-tunnel">
-<h2>comet tunnel<a class="headerlink" href="#comet-tunnel" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="comet-configuration">
-<h2>comet configuration<a class="headerlink" href="#comet-configuration" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="comet-logon">
-<h2>comet logon<a class="headerlink" href="#comet-logon" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="comet-docs">
-<h2>comet docs<a class="headerlink" href="#comet-docs" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="comet-status">
-<h2>comet status<a class="headerlink" href="#comet-status" title="Permalink to this headline">¶</a></h2>
-<p>TBD</p>
-</div>
-<div class="section" id="comet-info">
-<h2>comet info<a class="headerlink" href="#comet-info" title="Permalink to this headline">¶</a></h2>
-<p>TBD:</p>
-<div class="highlight-python"><div class="highlight"><pre>comet info [--user=USER]
-             [--project=PROJECT]
-             [--format=FORMAT]
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-cluster">
-<h2>comet_cluster<a class="headerlink" href="#comet-cluster" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet cluster [ID][--name=NAMES]
-             [--user=USER]
-             [--project=PROJECT]
-             [--hosts=HOSTS]
-             [--start=TIME_START]
-             [--end=TIME_END]
-             [--hosts=HOSTS]
-             [--format=FORMAT]
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-computeset">
-<h2>comet computeset<a class="headerlink" href="#comet-computeset" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet computeset [COMPUTESETID]
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-start-and-stop">
-<h2>comet start and stop<a class="headerlink" href="#comet-start-and-stop" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet start ID
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre>comet stop ID
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-power">
-<h2>comet power<a class="headerlink" href="#comet-power" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-delete">
-<h2>comet delete<a class="headerlink" href="#comet-delete" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet delete [all]
-               [--user=USER]
-               [--project=PROJECT]
-               [--name=NAMES]
-               [--hosts=HOSTS]
-               [--start=TIME_START]
-               [--end=TIME_END]
-               [--host=HOST]
-comet delete --file=FILE
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-update">
-<h2>comet update<a class="headerlink" href="#comet-update" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet update [--name=NAMES]
-               [--hosts=HOSTS]
-               [--start=TIME_START]
-               [--end=TIME_END]
-</pre></div>
-</div>
-</div>
-<div class="section" id="comet-add">
-<h2>comet add<a class="headerlink" href="#comet-add" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>comet add [--user=USER]
-            [--project=PROJECT]
-            [--host=HOST]
-            [--description=DESCRIPTION]
-            [--start=TIME_START]
-            [--end=TIME_END]
-            NAME
-comet add --file=FILENAME
-</pre></div>
-</div>
-</div>
 </div>
 
 
