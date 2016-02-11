@@ -4,17 +4,6 @@ from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 import hostlist
 
-"""
-
-
-
-            ARGUMENTS:
-                FILENAME  the file to open in the cwd if . is
-                          specified. If file in in cwd
-                          you must specify it with ./FILENAME
-"""
-
-
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}
@@ -144,6 +133,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             Opens the given URL in a browser window.
         """
 
+        """
         if not arguments["tunnel"] and Comet.tunnelled and not Comet.is_tunnel():
             Console.error("Please establish a tunnel first with:")
             print
@@ -202,24 +192,9 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     Console.error(
                         "some issue while logging off. Maybe comet not reachable")
 
-        elif arguments["ll"]:
-
-            cluster_id = arguments["CLUSTERID"] or None
-
-            print(Cluster.simple_list(cluster_id, format=output_format))
-
         elif arguments["docs"]:
 
             Comet.docs()
-
-        elif arguments["cluster"]:
-
-            cluster_id = arguments["CLUSTERID"]
-            print(Cluster.list(cluster_id, format=output_format))
-
-        elif arguments["computeset"]:
-            computeset_id = arguments["COMPUTESETID"]
-            print (Cluster.computeset(computeset_id))
 
         elif arguments["info"]:
 
@@ -240,6 +215,33 @@ class CometCommand(PluginCommand, CometPluginCommand):
             cluster_id = arguments["ID"]
             print("stop", cluster_id)
             Cluster.stop(cluster_id)
+
+        elif arguments["ll"]:
+
+        """
+        try:
+            logon = Comet.logon()
+            if logon is False:
+                Console.error("Could not logon")
+                return ""
+        except:
+            Console.error("Could not logon")
+
+        output_format = arguments["--format"] or "table"
+
+        if arguments["ll"]:
+            cluster_id = arguments["CLUSTERID"] or None
+
+            print(Cluster.simple_list(cluster_id, format=output_format))
+
+        elif arguments["cluster"]:
+
+            cluster_id = arguments["CLUSTERID"]
+            print(Cluster.list(cluster_id, format=output_format))
+
+        elif arguments["computeset"]:
+            computeset_id = arguments["COMPUTESETID"]
+            print (Cluster.computeset(computeset_id))
 
         elif arguments["power"]:
 
