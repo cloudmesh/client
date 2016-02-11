@@ -93,6 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#shell">Shell</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shell-commands-that-expire-after-a-session">Shell commands that expire after a session</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#clouds">Clouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comet">Comet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
 </ul>
 </li>
@@ -278,6 +279,173 @@
 </tr>
 <tr class="row-even"><td>cm select cloud</td>
 <td>select interactively the default cloud (not implemented yet).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="comet">
+<h2>Comet<a class="headerlink" href="#comet" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">Command</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Description</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet ll</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Summary list of clusters owned by the authenticated identity</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet cluster</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Detailed list of clusters owned by the authenticated identity</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet cluster vc2</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">List a cluster by name</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet computeset</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">List all defined computesets</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet computeset 63</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">List one computeset</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on a set of compute nodes in cluster vc4</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
+<div class="line-block">
+<div class="line">&#8211;walltime=6h</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on a set of compute nodes in cluster vc4 for a given</div>
+<div class="line">walltime</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
+<div class="line-block">
+<div class="line">&#8211;allocation=YOUR_ALLOCATION</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on with allocation</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet power off vc4 vm-vc4-[0,1]</div>
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">You can power off and back on individual nodes of</div>
+<div class="line">an active computeset</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-0</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on a compute set</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet power off vc4 123</div>
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Or power off the whole computeset by specifying the</div>
+<div class="line">computeset id</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-7</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">You can also power on one individual vm</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on the front end node of the specified cluster</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet console vc4 vm-vc4-0</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Get console of a running node</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet console vc4</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Get console of the front end</div>
+</div>
+</td>
 </tr>
 </tbody>
 </table>
