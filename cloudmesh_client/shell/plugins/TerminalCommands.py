@@ -10,6 +10,7 @@ from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
 from cloudmesh_client.util import path_expand
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
+
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     topics = {"clear": "shell",
               "echo": "shell",
@@ -123,7 +124,7 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     # Echo
     #
     def set_verbose(self, on):
-        #self.echo = on
+        # self.echo = on
         pass
 
     def set_banner(self, banner):
@@ -177,7 +178,6 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     #     config.write("aaa.yaml")
     #     #config.write(filename=filename, output="yaml", attribute_indent="    ")
     #     return ""
-
 
     @command
     def do_verbose(self, args, arguments):

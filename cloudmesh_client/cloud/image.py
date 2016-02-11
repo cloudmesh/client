@@ -35,7 +35,6 @@ class Image(ListResource):
 
             (order, header) = CloudProvider(cloud).get_attributes("image")
 
-
             return dict_printer(elements,
                                 order=order,
                                 header=header,

@@ -4,6 +4,7 @@ from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 import hostlist
 
+
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}

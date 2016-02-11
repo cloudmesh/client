@@ -179,7 +179,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif len(floating_ip)==0 and instance_id is not None:
+            elif len(floating_ip) == 0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Generate one from the pool, and assign to vm
@@ -292,7 +292,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif len(floating_ip)==0 and instance_id is not None:
+            elif len(floating_ip) == 0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Remove floating ip allocated to vm
@@ -445,7 +445,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 arguments["create"]:
 
             group_name = arguments["--group"] or \
-                         Default.get("group", cloud=cloudname)
+                Default.get("group", cloud=cloudname)
 
             # Get the group information
             group = Group.get_info(name=group_name,
@@ -510,18 +510,18 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     generate_keypair = login_args + keygen_args
                     result = Shell.ssh(*generate_keypair)
 
-                    #print("***** Keygen *****")
-                    #print(result)
+                    # print("***** Keygen *****")
+                    # print(result)
 
                     cat_public_key = login_args + cat_pubkey_args
                     result = Shell.ssh(*cat_public_key)
                     public_keys += "\n" + result
 
-                    #print("***** id_rsa.pub *****")
-                    #print(result)
+                    # print("***** id_rsa.pub *****")
+                    # print(result)
 
-                #print("***** public keys *****")
-                #print(public_keys)
+                # print("***** public keys *****")
+                # print(public_keys)
 
                 for user, ip in zip(login_users, login_ips):
                     arguments = [

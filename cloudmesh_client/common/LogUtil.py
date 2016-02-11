@@ -43,7 +43,6 @@ class LogUtil(object):
         # Save this into cloudmesh yaml
         config.save()
 
-
     @staticmethod
     def set_level(log_level):
         """
@@ -100,15 +99,14 @@ class LogUtil(object):
         """
         config = ConfigDict("cloudmesh.yaml")
         log_level = config["cloudmesh"]["logging"]["level"] or \
-                    LogUtil.DEFAULT_LOG_LEVEL
+            LogUtil.DEFAULT_LOG_LEVEL
 
-        print ("PPPP",log_level)
+        print ("PPPP", log_level)
 
         # Set the log level
         LogUtil.set_level(log_level)
 
         return
-
 
     @staticmethod
     def get_logger():
@@ -123,7 +121,6 @@ class LogUtil(object):
 
         # return logger object
         return logging.getLogger(the_class)
-
 
     @staticmethod
     def get_level_obj(log_level):

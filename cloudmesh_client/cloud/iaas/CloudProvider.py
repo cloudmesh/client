@@ -13,7 +13,6 @@ class CloudProvider(CloudProviderBase):
     def __init__(self, cloudname, user=None, flat=True):
         super(CloudProvider, self).__init__(cloudname, user=user)
 
-
         try:
             d = ConfigDict("cloudmesh.yaml")
             if not cloudname in d["cloudmesh"]["clouds"]:
@@ -43,7 +42,6 @@ class CloudProvider(CloudProviderBase):
 
     def get_attributes(self, kind):
         return self.provider.attributes(kind)
-
 
 
 def main():

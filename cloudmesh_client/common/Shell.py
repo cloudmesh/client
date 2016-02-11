@@ -15,13 +15,13 @@ import platform
 import os
 from cloudmesh_client.util import path_expand
 
-class Shell(object):
 
-    cygwin_path = 'bin' #i copied fom C:\cygwin\bin
+class Shell(object):
+    cygwin_path = 'bin'  # i copied fom C:\cygwin\bin
 
     command = {
         'windows': {},
-        'linux':{},
+        'linux': {},
         'darwin': {}
     }
 
@@ -50,85 +50,164 @@ class Shell(object):
     '''
 
     @classmethod
-    def ls(cls, *args): return cls.execute('ls', args)
+    def ls(cls, *args):
+        return cls.execute('ls', args)
+
     @classmethod
-    def ps(cls, *args): return cls.execute('ps',args)
+    def ps(cls, *args):
+        return cls.execute('ps', args)
+
     @classmethod
-    def bash(cls, *args): return cls.execute('bash',args)
+    def bash(cls, *args):
+        return cls.execute('bash', args)
+
     @classmethod
-    def cat(cls, *args): return cls.execute('cat',args)
+    def cat(cls, *args):
+        return cls.execute('cat', args)
+
     @classmethod
-    def git(cls, *args): return cls.execute('git',args)
+    def git(cls, *args):
+        return cls.execute('git', args)
+
     @classmethod
-    def VBoxManage(cls, *args): return cls.execute('VBoxManage',args)
+    def VBoxManage(cls, *args):
+        return cls.execute('VBoxManage', args)
+
     @classmethod
-    def blockdiag(cls, *args): return cls.execute('blockdiag',args)
+    def blockdiag(cls, *args):
+        return cls.execute('blockdiag', args)
+
     @classmethod
-    def cm(cls, *args): return cls.execute('cm',args)
+    def cm(cls, *args):
+        return cls.execute('cm', args)
+
     @classmethod
-    def fgmetric(cls, *args): return cls.execute('fgmetric',args)
+    def fgmetric(cls, *args):
+        return cls.execute('fgmetric', args)
+
     @classmethod
-    def fgrep(cls, *args): return cls.execute('fgrep',args)
+    def fgrep(cls, *args):
+        return cls.execute('fgrep', args)
+
     @classmethod
-    def gchproject(cls, *args): return cls.execute('gchproject',args)
+    def gchproject(cls, *args):
+        return cls.execute('gchproject', args)
+
     @classmethod
-    def gchuser(cls, *args): return cls.execute('gchuser',args)
+    def gchuser(cls, *args):
+        return cls.execute('gchuser', args)
+
     @classmethod
-    def glusers(cls, *args): return cls.execute('glusers',args)
+    def glusers(cls, *args):
+        return cls.execute('glusers', args)
+
     @classmethod
-    def gmkproject(cls, *args): return cls.execute('gmkproject',args)
+    def gmkproject(cls, *args):
+        return cls.execute('gmkproject', args)
+
     @classmethod
-    def grep(cls, *args): return cls.execute('grep',args)
+    def grep(cls, *args):
+        return cls.execute('grep', args)
+
     @classmethod
-    def gstatement(cls, *args): return cls.execute('gstatement',args)
+    def gstatement(cls, *args):
+        return cls.execute('gstatement', args)
+
     @classmethod
-    def head(cls, *args): return cls.execute('head',args)
+    def head(cls, *args):
+        return cls.execute('head', args)
+
     @classmethod
-    def keystone(cls, *args): return cls.execute('keystone',args)
+    def keystone(cls, *args):
+        return cls.execute('keystone', args)
+
     @classmethod
-    def kill(cls, *args): return cls.execute('kill',args)
+    def kill(cls, *args):
+        return cls.execute('kill', args)
+
     @classmethod
-    def ls(cls, *args): return cls.execute('ls',args)
+    def ls(cls, *args):
+        return cls.execute('ls', args)
+
     @classmethod
-    def mongoimport(cls, *args): return cls.execute('mongoimport',args)
+    def mongoimport(cls, *args):
+        return cls.execute('mongoimport', args)
+
     @classmethod
-    def mysql(cls, *args): return cls.execute('mysql',args)
+    def mysql(cls, *args):
+        return cls.execute('mysql', args)
+
     @classmethod
-    def nosetests(cls, *args): return cls.execute('nosetests',args)
+    def nosetests(cls, *args):
+        return cls.execute('nosetests', args)
+
     @classmethod
-    def nova(cls, *args): return cls.execute('nova',args)
+    def nova(cls, *args):
+        return cls.execute('nova', args)
+
     @classmethod
-    def ping(cls, *args): return cls.execute('ping',args)
+    def ping(cls, *args):
+        return cls.execute('ping', args)
+
     @classmethod
-    def pwd(cls, *args): return cls.execute('pwd',args)
+    def pwd(cls, *args):
+        return cls.execute('pwd', args)
+
     @classmethod
-    def rackdiag(cls, *args): return cls.execute('rackdiag',args)
+    def rackdiag(cls, *args):
+        return cls.execute('rackdiag', args)
+
     @classmethod
-    def rm(cls, *args): return cls.execute('rm',args)
+    def rm(cls, *args):
+        return cls.execute('rm', args)
+
     @classmethod
-    def rsync(cls, *args): return cls.execute('rsync',args)
+    def rsync(cls, *args):
+        return cls.execute('rsync', args)
+
     @classmethod
-    def scp(cls, *args): return cls.execute('scp',args)
+    def scp(cls, *args):
+        return cls.execute('scp', args)
+
     @classmethod
-    def sort(cls, *args): return cls.execute('sort',args)
+    def sort(cls, *args):
+        return cls.execute('sort', args)
+
     @classmethod
-    def sh(cls, *args): return cls.execute('sh',args)
+    def sh(cls, *args):
+        return cls.execute('sh', args)
+
     @classmethod
-    def ssh(cls, *args): return cls.execute('ssh',args)
+    def ssh(cls, *args):
+        return cls.execute('ssh', args)
+
     @classmethod
-    def sudo(cls, *args): return cls.execute('sudo',args)
+    def sudo(cls, *args):
+        return cls.execute('sudo', args)
+
     @classmethod
-    def tail(cls, *args): return cls.execute('tail',args)
+    def tail(cls, *args):
+        return cls.execute('tail', args)
+
     @classmethod
-    def vagrant(cls, *args): return cls.execute('vagrant',args)
+    def vagrant(cls, *args):
+        return cls.execute('vagrant', args)
+
     @classmethod
-    def mongod(cls, *args): return cls.execute('mongod',args)
+    def mongod(cls, *args):
+        return cls.execute('mongod', args)
+
     @classmethod
-    def grep(cls, *args): return cls.execute('grep',args)
+    def grep(cls, *args):
+        return cls.execute('grep', args)
+
     @classmethod
-    def dialog(cls, *args): return cls.execute('dialog',args)
+    def dialog(cls, *args):
+        return cls.execute('dialog', args)
+
     @classmethod
-    def pip(cls, *args): return cls.execute('pip',args)
+    def pip(cls, *args):
+        return cls.execute('pip', args)
 
     @classmethod
     def remove_line_with(cls, lines, what):
@@ -164,9 +243,8 @@ class Shell(object):
         for c in exe_paths:
             exe = c.split('\\')
             name = exe[1].split('.')[0]
-            #command['windows'][name] = "{:}\{:}.exe".format(cygwin_path, c)
+            # command['windows'][name] = "{:}\{:}.exe".format(cygwin_path, c)
             cls.command['windows'][name] = c
-
 
     @classmethod
     def terminal_type(cls):
@@ -193,7 +271,7 @@ class Shell(object):
         if 'windows' in t and cls.command_exists(name):
             return cls.command['windows'][name]
         elif 'linux' in t:
-            cmd = ["which",command]
+            cmd = ["which", command]
             result = subprocess.check_output(cmd).rstrip()
             if len(result) == 0:
                 return None
@@ -204,7 +282,7 @@ class Shell(object):
     def command_exists(cls, name):
         t = cls.ttype()
         if 'windows' in t:
-            #only for windows
+            # only for windows
             cls.find_cygwin_executables()
             return name in cls.command['windows']
         elif 'linux' in t:
@@ -215,17 +293,15 @@ class Shell(object):
     def list_commands(cls):
         t = cls.ttype()
         if 'windows' in t:
-            #only for windows
+            # only for windows
             cls.find_cygwin_executables()
             print '\n'.join(cls.command['windows'])
         else:
             print ("ERROR: this command is not supported for this OS")
 
-
     @classmethod
     def operating_system(cls):
         return platform.system().lower()
-
 
     @classmethod
     def execute(cls, cmd, arguments=""):
@@ -242,13 +318,12 @@ class Shell(object):
         os_command = [cmd]
         if (terminal in ['linux', 'windows']):
             os_command = [cmd]
-        elif 'cygwin' in terminal: 
+        elif 'cygwin' in terminal:
             if not cls.command_exists(cmd):
                 print "ERROR: the command could not be found", cmd
                 return
             else:
                 os_command = [cls.command[cls.operating_system()][cmd]]
-        
 
         if isinstance(arguments, list):
             os_command = os_command + arguments
@@ -259,7 +334,8 @@ class Shell(object):
         else:
             print "ERROR: Wrong parameter type", type(arguments)
 
-        result = subprocess.check_output(os_command, stderr=subprocess.STDOUT).rstrip()
+        result = subprocess.check_output(os_command,
+                                         stderr=subprocess.STDOUT).rstrip()
 
         return result
 
@@ -284,18 +360,18 @@ class Shell(object):
             if tail:
                 os.mkdir(_newdir)
 
-    
+
 def main():
     shell = Shell()
 
     print shell.terminal_type()
-    
-    r = shell.execute('pwd') # copy line replace
+
+    r = shell.execute('pwd')  # copy line replace
     print r
 
-    #shell.list()
+    # shell.list()
 
-    #print json.dumps(shell.command, indent=4)
+    # print json.dumps(shell.command, indent=4)
 
     # test some commands without args
     """
@@ -312,7 +388,6 @@ def main():
     r = shell.execute('ls', "-l -a")
     print r
 
-
     r = shell.ls("-aux")
     print r
 
@@ -322,8 +397,6 @@ def main():
     r = shell.pwd()
     print r
 
-    
 
 if __name__ == "__main__":
     main()
-

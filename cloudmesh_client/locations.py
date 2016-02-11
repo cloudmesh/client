@@ -29,6 +29,7 @@ def config_file_prefix():
     """
     return __config_dir_prefix__
 
+
 def config_dir_setup(filename):
     path = os.path.dirname(filename)
     if not os.path.isdir(path):

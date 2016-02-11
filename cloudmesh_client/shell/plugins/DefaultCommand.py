@@ -9,9 +9,9 @@ from cloudmesh_client.common.LogUtil import LogUtil
 
 logger = LogUtil.get_logger()
 
+
 class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
     topics = {"default": "cloud"}
-
 
     def __init__(self, context):
         self.context = context
@@ -128,7 +128,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             cloud = "general"
             arguments["--cloud"] = cloud
             arguments["list"] = True
-            order=['name', 'value']
+            order = ['name', 'value']
             output_format = arguments["--format"]
             result = Default.list(cloud=cloud, order=order, format=output_format)
             print (result)

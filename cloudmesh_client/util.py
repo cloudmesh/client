@@ -196,7 +196,9 @@ def copy_files(files_glob, source_dir, dest_dir):
             shutil.copy2(file, dest_dir)
 
 
-def dict_replace(content, replacements={}):
+def dict_replace(content, replacements=None):
+    if replacements is None:
+        replacements = {}
     for key in replacements:
         content = content.replace("\{key\}".format(replacements[key]))
 
