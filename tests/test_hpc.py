@@ -26,6 +26,14 @@ class Test_hpc():
     """
         This class tests the HpcCommand
     """
+    data = {
+        "cluster": "comet"
+    }
+
+    def setup(self):
+        HEADING()
+        result = run("cm default cluster={cluster}".format(**self.data))
+        assert self.data["cluster"] in result
 
     def test_001(self):
         """
@@ -33,8 +41,8 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc info --cluster=india")
-        assert "cluster" in result
+        result = run("cm hpc info --cluster={cluster}".format(**self.data))
+        assert self.data["cluster"] in result
 
     def test_002(self):
         """
@@ -42,8 +50,8 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc queue --cluster=india")
-        assert "cluster" in result
+        result = run("cm hpc queue --cluster={cluster}".format(**self.data))
+        assert self.data["cluster"] in result
 
     def test_003(self):
         """
@@ -51,5 +59,5 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc status --cluster=india")
-        assert "cluster" in result
+        result = run("cm hpc status --cluster=={cluster}".format(**self.data))
+        assert self.data["cluster"] in result

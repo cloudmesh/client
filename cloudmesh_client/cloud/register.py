@@ -4,7 +4,7 @@ import os
 import platform
 from urlparse import urlparse
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
@@ -194,7 +194,8 @@ class CloudRegister(object):
         if 'windows' not in os_type:
             directory = _to_dir
 
-        # FIX: fix for scp not working on Windows, because scp does not understand
+        # FIX: fix for scp not working on Windows, because scp does not
+        # understand
         # paths in format: "C:/Users/<>", rather expects "~/.cloudmesh/<>"
         # openrc_file = Config.path_expand(openrc)
         openrc_file = os.path.realpath(
@@ -320,10 +321,11 @@ class CloudRegister(object):
             Console.error("{} doesn't exist".format(filename))
             return
 
-        path, file = filename.rsplit("/", 1)
+        # BUG should use path separator
+        path, filename = filename.rsplit("/", 1)
         # Config file to be read from
 
-        from_config_file = ConfigDict(file, [path])
+        from_config_file = ConfigDict(filename, [path])
 
         config = ConfigDict("cloudmesh.yaml")
 

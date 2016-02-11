@@ -249,34 +249,76 @@ class VM(CloudmeshMixin, db.Base):
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
 
-        self.diskConfig = kwargs["OS-DCF:diskConfig"]
-        self.availability_zone = kwargs["OS-EXT-AZ:availability_zone"]
-        self.power_state = kwargs["OS-EXT-STS:power_state"]
-        self.task_state = kwargs["OS-EXT-STS:task_state"]
-        self.vm_state = kwargs["OS-EXT-STS:vm_state"]
-        self.launched_at = kwargs["OS-SRV-USG:launched_at"]
-        self.terminated_at = kwargs["OS-SRV-USG:terminated_at"]
-        self.accessIPv4 = kwargs["accessIPv4"]
-        self.accessIPv6 = kwargs["accessIPv6"]
-        self.static_ip = kwargs["static_ip"]
-        self.floating_ip = kwargs["floating_ip"]
-        self.config_drive = kwargs["config_drive"]
-        self.created = kwargs["created"]
-        self.flavor__id = kwargs["flavor__id"]
-        self.hostId = kwargs["hostId"]
-        self.image__id = kwargs["image__id"]
-        self.key_name = kwargs["key_name"]
-        self.name = kwargs["name"]
+        if "OS-DCF:diskConfig" in kwargs:
+            self.diskConfig = kwargs["OS-DCF:diskConfig"]
+        if "OS-EXT-AZ:availability_zone" in kwargs:
+            self.availability_zone = kwargs["OS-EXT-AZ:availability_zone"]
+        if "OS-EXT-STS:power_state" in kwargs:
+            self.power_state = kwargs["OS-EXT-STS:power_state"]
+
+        if "OS-EXT-STS:task_state" in kwargs:
+            self.task_state = kwargs["OS-EXT-STS:task_state"]
+
+        if "OS-EXT-STS:vm_state" in kwargs:
+            self.vm_state = kwargs["OS-EXT-STS:vm_state"]
+
+        if "OS-SRV-USG:launched_at" in kwargs:
+            self.launched_at = kwargs["OS-SRV-USG:launched_at"]
+
+        if "OS-SRV-USG:terminated_at" in kwargs:
+            self.terminated_at = kwargs["OS-SRV-USG:terminated_at"]
+
+        if "accessIPv4" in kwargs:
+            self.accessIPv4 = kwargs["accessIPv4"]
+
+        if "accessIPv6" in kwargs:
+            self.accessIPv6 = kwargs["accessIPv6"]
+
+        if "static_ip" in kwargs:
+            self.static_ip = kwargs["static_ip"]
+
+        if "floating_ip" in kwargs:
+            self.floating_ip = kwargs["floating_ip"]
+
+        if "config_drive" in kwargs:
+            self.config_drive = kwargs["config_drive"]
+
+        if "created" in kwargs:
+            self.created = kwargs["created"]
+
+        if "flavor__id" in kwargs:
+            self.flavor__id = kwargs["flavor__id"]
+
+        if "hostId" in kwargs:
+            self.hostId = kwargs["hostId"]
+
+        if "image__id" in kwargs:
+            self.image__id = kwargs["image__id"]
+
+        if "key_name" in kwargs:
+            self.key_name = kwargs["key_name"]
+
+        if "name" in kwargs:
+            self.name = kwargs["name"]
         # self.volumes_attached = kwargs["volumes_attached"] or None
         # self.progress = kwargs["progress"]
 
         # Expects a comma separated string list of security groups.
-        self.security_groups = kwargs["security_ groups"]
 
-        self.status = kwargs["status"]
-        self.tenant_id = kwargs["tenant_id"]
-        self.updated = kwargs["updated"]
-        self.user_id = kwargs["user_id"]
+        if "security_ groups" in kwargs:
+            self.security_groups = kwargs["security_ groups"]
+
+        if "status" in kwargs:
+            self.status = kwargs["status"]
+
+        if "tenant_id" in kwargs:
+            self.tenant_id = kwargs["tenant_id"]
+
+        if "updated" in kwargs:
+            self.updated = kwargs["updated"]
+
+        if "user_id" in kwargs:
+            self.user_id = kwargs["user_id"]
 
         self.kind = self.__tablename__
 

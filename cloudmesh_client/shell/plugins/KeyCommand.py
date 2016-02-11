@@ -1,12 +1,8 @@
 from __future__ import print_function
-# import os
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-# from cloudmesh_client.cloud.command_key import command_key
 from cloudmesh_client.common.ConfigDict import Config
-# from os import listdir
-# from os.path import expanduser, isfile, abspath
-# from cloudmesh_base.tables import dict_printer, two_column_table
+
 from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.Printer import dict_printer
@@ -14,7 +10,6 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 import yaml
 import json
 from cloudmesh_client.cloud.default import Default
-# from cloudmesh_base.menu import num_choice, dict_choice
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
@@ -38,16 +33,17 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key list [--source=db] [--format=FORMAT]
              key list --source=cloudmesh [--format=FORMAT]
              key list --source=ssh [--dir=DIR] [--format=FORMAT]
+             key load [--format=FORMAT]
              key list --source=git [--format=FORMAT] [--username=USERNAME]
              key add --git [--name=KEYNAME] FILENAME
              key add --ssh [--name=KEYNAME]
              key add [--name=KEYNAME] FILENAME
              key get NAME
              key default [KEYNAME | --select]
-             key delete (KEYNAME | --select | --all) [-f]
-             key upload KEYNAME
-                              [--cloud=CLOUD]
-                              [--name=NAME_ON_CLOUD]
+             key delete (KEYNAME | --select | --all) [--force=VALUE]
+             key upload [KEYNAME]
+                        [--cloud=CLOUD]
+                        [--name=NAME_ON_CLOUD]
              key map [--cloud=CLOUD]
 
            Manages the keys
@@ -55,7 +51,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
            Arguments:
 
              SOURCE         db, ssh, all
-             KEYNAME        The name of a key
+             KEYNAME        The name of a key. For key upload it defaults to the default key name.
              FORMAT         The format of the output (table, json, yaml)
              FILENAME       The filename with full path in which the key
                             is located
@@ -69,6 +65,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
               --username=USERNAME           the source for the keys [default: none]
               --name=KEYNAME                The name of a key
               --all                         delete all keys
+              --force=VALUE                 delete teh key form the cloud
               --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
            Description:
@@ -220,6 +217,34 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print (e)
                     Console.error("Problem listing keys from database")
 
+        elif arguments['load']:
+            _format = arguments['--format']
+            _dir = arguments['--dir']
+
+            try:
+                sshm = SSHKeyManager()
+                m = sshm.get_from_yaml(load_order=directory)
+                d = dict(m.__keys__)
+
+                sshdb = SSHKeyDBManager()
+
+                for keyname in m.__keys__:
+                    filename = m[keyname]["path"]
+                    try:
+                        sshdb.add(filename,
+                                  keyname,
+                                  source="yaml",
+                                  uri="file://" + filename)
+                    except Exception, e:
+                        Console.error("problem adding key {}:{}".format(
+                            keyname, filename))
+
+                print(_print_dict(d, format=_format))
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception, e:
+                Console.error("Problem adding keys from yaml file")
+
         elif arguments['get']:
 
             try:
@@ -320,7 +345,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
 
             except ValueError, e:
-                Console.error("The key `{}` alredy exists".format(keyname), traceflag=False)
+                Console.error("The key `{}` already exists".format(keyname), traceflag=False)
             """
             except Exception, e:
                 import traceback
@@ -342,7 +367,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     keyname = arguments['KEYNAME']
                     sshdb = SSHKeyDBManager()
                     sshdb.set_default(keyname)
-                    Default.set("key", keyname, "general")
+                    Default.set_key(keyname)
                     print("Key {:} set as default".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)
@@ -392,9 +417,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments['delete']:
             # print('delete')
+
+            delete_on_cloud = arguments["--force"]
+
             if arguments['--all']:
                 try:
-                    sshm = SSHKeyManager()
+                    sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
                     sshm.delete_all_keys()
                     print("All keys from the database deleted successfully.")
                     msg = "info. OK."
@@ -406,7 +434,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Problem deleting keys")
             elif arguments['--select']:
                 keyname = None
-                sshdb = SSHKeyDBManager()
+                sshdb = SSHKeyDBManager(delete_on_cloud=delete_on_cloud)
                 select = sshdb.select()
                 if select != 'q':
                     try:
@@ -425,7 +453,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 keyname = None
                 try:
                     keyname = arguments['KEYNAME']
-                    sshm = SSHKeyManager()
+                    sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
                     sshm.delete_key(keyname)
                     print("Key {:} deleted successfully from database.".format(keyname))
                     msg = "info. OK."
@@ -441,7 +469,11 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 conf = ConfigDict("cloudmesh.yaml")
                 username = conf["cloudmesh"]["profile"]["username"]
 
-                keyname = arguments["KEYNAME"]
+                keyname = arguments["KEYNAME"] or Default.get_key()
+                if keyname is None:
+                    Console.error("ERROR: Default key not set")
+                    return ""
+
                 cloud = arguments["--cloud"] or Default.get_cloud()
                 name_on_cloud = arguments["--name"]
 
@@ -449,11 +481,12 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     name_on_cloud = username + "-" + cloud + "-" + keyname
 
                 sshm = SSHKeyManager()
-                sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud)
+                status = sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud)
 
-                print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
-                msg = "info. OK."
-                Console.ok(msg)
+                if status != 1:
+                    print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
+                    msg = "info. OK."
+                    Console.ok(msg)
 
             except Exception, e:
                 import traceback

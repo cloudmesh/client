@@ -1,12 +1,13 @@
 from __future__ import print_function
 
 import requests
+import hostlist
+
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
-import hostlist
-#from cloudmesh_base.hostlist import Parameter
-from pprint import pprint
+
+from cloudmesh_client.common.hostlist import Parameter
 
 class Cluster(object):
     WALLTIME_MINS = 120

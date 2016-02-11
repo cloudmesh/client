@@ -9,6 +9,7 @@ or
 nosetests -v
 
 """
+from __future__ import print_function
 
 from pprint import pprint
 
@@ -18,9 +19,8 @@ from pprint import pprint
 # from cloudmesh_client.common.Printer import dict_printer
 
 from cloudmesh_base.util import HEADING
-#
 from cloudmesh_base.Shell import Shell
-
+import os
 
 def run(command):
     parameter = command.split(" ")
@@ -123,8 +123,9 @@ class Test_keys:
         cm key add --name=testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
+        os.system("make db")
         result = run("cm key add --name=testkey ~/.ssh/id_rsa.pub")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_002(self):
@@ -132,17 +133,19 @@ class Test_keys:
         cm key add --git --name=testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
+        os.system("make db")
         result = run("cm key add --git --name=testkey ~/.ssh/id_rsa.pub")
-        print result
-        assert "OK." in result
+        print (result)
+        assert "ERROR: The key already exists" in result
 
     def test_003(self):
         """
         key add --ssh --name=testkey
         """
         HEADING()
+        os.system("make db")
         result = run("cm key add --ssh --name=testkey")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_004(self):
@@ -152,7 +155,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_005(self):
@@ -162,7 +165,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=db")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_006(self):
@@ -172,7 +175,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=db --format=json")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_007(self):
@@ -182,7 +185,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=db --format=yaml")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_008(self):
@@ -192,7 +195,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=db --format=yaml")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_009(self):
@@ -202,7 +205,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=git")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_010(self):
@@ -212,7 +215,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=cloudmesh")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_011(self):
@@ -222,7 +225,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=ssh")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_012(self):
@@ -232,7 +235,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key list --source=cloudmesh")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_013(self):
@@ -242,7 +245,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key get testkey")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_014(self):
@@ -252,7 +255,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key default testkey")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_015(self):
@@ -262,7 +265,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key delete testkey")
-        print result
+        print (result)
         assert "OK." in result
 
     def test_016(self):
@@ -271,8 +274,9 @@ class Test_keys:
         """
 
         HEADING()
-        result = run("cm key delete --all")
-        print result
+        result = run("cm key add --name=testkey ~/.ssh/id_rsa.pub")
+        result = run("cm key delete --all --force=True")
+        print (result)
         assert "OK." in result
 
 

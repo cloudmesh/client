@@ -129,7 +129,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                             Or user may specify more options to narrow
                                             the search
                 vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-                vm ip_show [options...]     show the ips of VMs
+                vm ip show [options...]     show the ips of VMs
                 vm login [options...]       login to a server or execute commands on it
                 vm list [options...]        same as command "list vm", please refer to it
                 vm status [options...]      Retrieves status of last VM booted on cloud and displays it.
@@ -258,14 +258,12 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default flavor not set.")
                     return ""
 
-                # BUG THIS SHOULD EB FROM GENERAL
-                group = arguments["--group"] or \
-                    Default.get("group", cloud=cloud)
+                group = arguments["--group"] or Default.get_group()
 
                 # if default group not set, return error
                 if not group:
-                    Console.error("Default group not set.")
-                    return ""
+                    group = "default"
+                    Default.set_group(group)
 
                 secgroup = arguments["--secgroup"] or Default.get("secgroup", cloud=cloud)
                 # print("SecurityGrp : {:}".format(secgroup))
@@ -273,10 +271,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
 
-                key_name = arguments["--key"] or Default.get("key", cloud=cloud)
+                key_name = arguments["--key"] or Default.get_key()
                 # if default keypair not set, return error
                 if not key_name:
-                    Console.error("Default keypair not set.")
+                    Console.error("Default key not set.")
                     return ""
 
                 if arguments["--dryrun"]:

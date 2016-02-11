@@ -102,9 +102,11 @@ class Test_cloud_model(object):
 
         vm = VM(name=name,
                 uuid=uuid,
+                user="test",
                 type="VM",
                 cloud="mycloud",
                 **d)
+        banner("VM added")
 
         pprint (vm.__dict__)
         vm.bla = "bla"
@@ -114,9 +116,9 @@ class Test_cloud_model(object):
 
         banner("Get VM from Database")
 
-        o = cm.find(VM, name=name).first()
+        o = cm.find(VM, name=name)
         #o = cm.find_by_name(VM, name)
-        pprint (o.__dict__)
+        pprint (o)
 
 
         assert True

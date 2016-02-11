@@ -9,13 +9,14 @@ or
 nosetests -v
 
 """
+from __future__ import print_function
 
 from cloudmesh_base.util import HEADING
-#
 from cloudmesh_base.Shell import Shell
-
+from cloudmesh_base.util import banner
 
 def run(command):
+    banner(command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
@@ -25,21 +26,43 @@ def run(command):
 
 class Test_vm:
     def setup(self):
-        pass
+
+        self.data = {
+            "cloud": "kilo",
+            "group": "test",
+            "image": "Ubuntu-14.04-64",
+            "vm": "testvm",
+            "flavor": "m1.small"
+        }
 
     def tearDown(self):
         pass
+
+    def load_key(self):
+        try:
+            command = "cm key load"
+            result = run(command.format(**self.data))
+        except Exception, e:
+            print(result)
+        try:
+            command = "cm key upload id_rsa"
+            result = run(command.format(**self.data))
+        except Exception, e:
+            print(result)
+
+
 
     def test_001(self):
         """
         cm vm boot --name=testvm --cloud=kilo --image=<image_id> --flavor=2
         --group=test
         """
-        image_id = "619b8942-2355-4aa2-bae3-74b8f1751911"
-
+        self.load_key()
         HEADING()
-        result = run("cm vm boot --name=testvm --cloud=kilo --image={:} --flavor=2 --group=test".format(image_id))
-        print result
+        command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
+                  " --flavor={flavor} --group={group}"
+        result = run(command.format(**self.data))
+        print(result)
         assert "OK." in result
 
     def test_002(self):
@@ -47,8 +70,8 @@ class Test_vm:
         cm vm refresh --cloud=kilo
         """
         HEADING()
-        result = run("cm vm refresh --cloud=kilo")
-        print result
+        result = run("cm vm refresh --cloud={cloud}".format(**self.data))
+        print (result)
         assert "OK." in result
 
     def test_003(self):
@@ -56,8 +79,8 @@ class Test_vm:
         cm vm list --cloud=kilo
         """
         HEADING()
-        result = run("cm vm list --cloud=kilo")
-        print result
+        result = run("cm vm list --cloud={cloud}".format(**self.data))
+        print(result)
         assert "OK." in result
 
     def test_004(self):
@@ -65,8 +88,8 @@ class Test_vm:
         cm vm list testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm list testvm --cloud=kilo")
-        print result
+        result = run("cm vm list {vm} --cloud={cloud}".format(**self.data))
+        print(result)
         assert "OK." in result
 
     def test_005(self):
@@ -74,8 +97,8 @@ class Test_vm:
         cm vm status --cloud=kilo
         """
         HEADING()
-        result = run("cm vm status --cloud=kilo")
-        print result
+        result = run("cm vm status --cloud={cloud}".format(**self.data))
+        print(result)
         assert "OK." in result
 
     def test_006(self):
@@ -83,8 +106,8 @@ class Test_vm:
         cm vm ip_show testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm ip_show testvm --cloud=kilo")
-        print result
+        result = run("cm vm ip show {vm} --cloud={cloud}".format(**self.data))
+        print(result)
         assert "OK." in result
 
     def test_007(self):
@@ -92,6 +115,6 @@ class Test_vm:
         cm vm delete testvm --cloud=kilo
         """
         HEADING()
-        result = run("cm vm delete testvm --cloud=kilo")
-        print result
+        result = run("cm vm delete {vm} --cloud={cloud}".format(**self.data))
+        print(result)
         assert "OK." in result

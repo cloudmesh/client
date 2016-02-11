@@ -1,4 +1,4 @@
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 
 if __name__ == "__main__":
     Shell.cm()

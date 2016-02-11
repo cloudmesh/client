@@ -30,6 +30,48 @@ View the documentation
 
    make view
 
+Testing
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Tox
+~~~~~
+
+We assume that you checked out the newest version from cloudmesh client
+and base from source and that they are located in::
+
+  ~/github/cloudmesh/base
+  ~/github/cloudmesh/client
+
+We assume you have tox installed
+
+.. prompt:: bash
+
+   pip install tox
+
+in the client directory you call tox
+
+.. prompt:: bash
+
+  cd ~/github/cloudmesh/client
+  tox
+
+Nosetests
+~~~~~~~~~~
+
+Nose tests can be started with
+
+.. prompt:: bash
+
+  nosetests
+
+Individual nosetests can be started with (here an example frm test_list.py
+is used):
+
+.. prompt:: bash
+
+    python setup.py install; nosetests -v --nocapture  tests/test_list.py:Test_list.test_001
+
+
 Git
 ----
 

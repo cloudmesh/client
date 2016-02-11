@@ -74,8 +74,8 @@ cloudmesh:
                 OS_IMAGE_API_VERSION: 2
                 OS_VOLUME_API_VERSION: 2
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-14.04-64
         chameleon:
             cm_heading: Chameleon
             cm_host: chameleoncloud.org
@@ -179,9 +179,9 @@ cloudmesh:
                 image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
                 location: East US
     keys:
-        default:
+        default: id_rsa
         keylist:
-          keyname: ~/.ssh/id_rsa.pub
+          id_rsa: ~/.ssh/id_rsa.pub
     system:
         data: ~/.cloudmesh/cloudmesh_inventory.yaml
         console_color: true

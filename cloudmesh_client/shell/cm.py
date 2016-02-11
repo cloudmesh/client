@@ -6,17 +6,14 @@ import sys
 import string
 import textwrap
 import os
-from docopt import docopt
 import shutil
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.Error import Error
-from cloudmesh_client.common.LogUtil import LogUtil
 
-import cloudmesh_client
 
 def create_cloudmesh_yaml(filename):
     if not os.path.exists(filename):
@@ -35,17 +32,17 @@ create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
 # noinspection PyPep8
-from .plugins import *
 from cloudmesh_client.cloud.default import Default
-from cloudmesh_base.util import get_python
-from cloudmesh_base.util import check_python
-import cloudmesh_base
+from cloudmesh_client.util import get_python
+from cloudmesh_client.util import check_python
+import cloudmesh_client
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.command import PluginCommand
-from cloudmesh_base.ssh_config import ssh_config
+from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
 
+import cloudmesh_client.shell.plugins
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):
@@ -57,9 +54,11 @@ PluginCommandClasses = type(
     tuple(PluginCommand.__subclasses__()),
     {})
 
-"""
-print (type(PluginCommand.__subclasses__()))
 
+# print (type(PluginCommand.__subclasses__()))
+# print (PluginCommand.__subclasses__())
+
+"""
 # not yet implemented
 class ConsoleClasses(object):
 
@@ -198,38 +197,34 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             cluster = value
         Default.set('cluster', cluster, cloud='general')
 
-        #
-        # Read cloud details from yaml file
-        #
-        filename = 'cloudmesh.yaml'
-        config = ConfigDict(filename=filename)["cloudmesh"]
-        clouds = config["clouds"]
+        group = Default.get_group()
+        if group is None:
+            Default.set_group("default")
 
-        defaults = {
-            'clouds': {},
-            'key': {}
-        }
+        Default.load("cloudmesh.yaml")
 
-        for cloud in clouds:
-            if "default" in config['clouds'][cloud]:
-                defaults['clouds'][cloud] = config["clouds"][cloud]['default']
+        """
+        try:
+            sshm = SSHKeyManager()
+            m = sshm.get_from_yaml(
+                load_order="~/.cloudmesh/cloudmesh.yaml")
+            d = dict(m.__keys__)
 
-        if "default" in config["keys"]:
-            defaults["keys"] = config["keys"]["default"]
-            if config["keys"] in ["None", "TBD"]:
-                defaults['key'] = None
-        else:
-            defaults['key'] = None
 
-        for cloud in defaults["clouds"]:
-            for default, value in defaults["clouds"][cloud].iteritems():
+            sshdb = SSHKeyDBManager()
 
+            for keyname in m.__keys__:
+                filename = m[keyname]["path"]
                 try:
-                    value = Default.get(default, cloud=cloud)
-                except:
+                    sshdb.add(filename,
+                              keyname,
+                              source="yaml",
+                              uri="file://" + filename)
+                except Exception, e:
                     pass
-
-                Default.set(default, value, cloud=cloud)
+        except Exception, e:
+            Console.error("Problem adding keys from yaml file")
+        """
 
         for c in CloudmeshConsole.__bases__[1:]:
             # noinspection PyArgumentList
@@ -314,10 +309,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 "name": "cloudmesh_client",
                 "version": str(cloudmesh_client.__version__)
             },
-            "cloudmesh_base": {
-                "name": "cloudmesh_base",
-                "version": str(cloudmesh_base.__version__)
-            },
+            #"cloudmesh_base": {
+            #    "name": "cloudmesh_base",
+            #    "version": str(cloudmesh_base.__version__)
+            #},
             "python": {
                 "name": "python",
                 "version": str(python_version)
@@ -451,8 +446,8 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if os.path.exists(filename):
             with open(filename, "r") as f:
                 for line in f:
-                    #if self.debug:
-                    Console.ok("> {:}".format(str(line)))
+                    if self.context.echo:
+                        Console.ok("cm> {:}".format(str(line)))
                     self.onecmd(line)
         else:
             Console.error('file "{:}" does not exist.'.format(filename))
@@ -604,7 +599,7 @@ def main():
 
     Usage:
       cm --help
-      cm [--debug] [--nosplash] [-i] [COMMAND ...]
+      cm [--echo] [--debug] [--nosplash] [-i] [COMMAND ...]
 
     Arguments:
       COMMAND                  A command to be executed
@@ -622,9 +617,16 @@ def main():
     args = sys.argv[1:]
 
     arguments = {
+        '--echo': '--echo' in args,
+        '--help': '--help' in args,
         '--debug': '--debug' in args,
         '--nosplash': '--nosplash' in args,
         '-i': '-i' in args}
+
+    echo = arguments["--echo"]
+    if arguments['--help']:
+        manual()
+        sys.exit()
 
     for a in args:
         if a in arguments:
@@ -656,8 +658,11 @@ def main():
 
 
 
-    context = CloudmeshContext(debug=debug,
-                               splash=splash)
+    context = CloudmeshContext(
+        interactive=interactive,
+        debug=debug,
+        echo=echo,
+        splash=splash)
     cmd = CloudmeshConsole(context)
 
 
@@ -665,8 +670,8 @@ def main():
         cmd.do_exec(script)
 
     try:
-        if debug:
-            print(">", command)
+        if echo:
+            print("cm>", command)
         if command is not None:
             cmd.onecmd(command)
     except Exception, e:

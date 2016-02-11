@@ -16,29 +16,16 @@
 # limitations under the License.                                          #
 # ------------------------------------------------------------------------#
 from __future__ import print_function
-import platform
+
+import setuptools
+from setuptools import setup, find_packages
 import os
 
-from setuptools.command.install import install
-from setuptools.command.test import test as TestCommand
-from setuptools import setup, find_packages
-
-
-try:
-    import cloudmesh_base
-    print ("Using cloudmesh_base version:", cloudmesh_base.__version__)
-except:
-    # os.system("pip install cloudmesh_base")
-    os.system("pip install git+https://github.com/cloudmesh/base.git")
-
-from cloudmesh_base.setup import *
-from cloudmesh_base.util import banner
-from cloudmesh_base.setup import os_execute
 from cloudmesh_client import __version__
 
-banner("Installing Cloudmesh_client {:}".format(__version__))
-
-requirements = ['pyreadline<=1.7.1.dev-r0',
+requirements = [#'builtins',
+                'pyreadline<=1.7.1.dev-r0',
+                #'pyreadline',
                 'colorama',
                 'cloudmesh_base',
                 'future',
@@ -57,63 +44,13 @@ requirements = ['pyreadline<=1.7.1.dev-r0',
                 'six',
                 'python-novaclient',
                 'python-keystoneclient',
-                'cloudmesh_timestring']
-
-
-class UploadToPypitest(install):
-    """Upload the package to pypi. -- only for Maintainers."""
-
-    description = __doc__
-
-    def run(self):
-        os.system("make clean")
-        commands = """
-            python setup.py install
-            python setup.py bdist_wheel            
-            python setup.py sdist --format=bztar,zip upload -r pypitest
-            python setup.py bdist_wheel upload -r pypitest
-            """
-        os_execute(commands)    
-
-    
-class UploadToPypi(install):
-    """Upload the package to pypi. -- only for Maintainers."""
-
-    description = __doc__
-
-    def run(self):
-        os.system("make clean")
-        commands = """
-            python setup.py install
-            python setup.py bdist_wheel            
-            python setup.py sdist --format=bztar,zip upload
-            python setup.py bdist_wheel upload
-            """
-        os_execute(commands)    
-
-class InstallBase(install):
-    """Install the cloudmesh_client package."""
-
-    description = __doc__
-
-    def run(self):
-        banner("Install readline")
-        commands = None
-        this_platform = platform.system().lower()
-        if  this_platform in ['darwin']:
-            commands = """
-                easy_install readline
-                """
-        elif this_platform in ['windows']:
-            commands = """
-                pip install pyreadline
-                """
-        if commands:
-            os_execute(commands)
-        banner("Install Cloudmesh_client {:}".format(__version__))
-        install.run(self)
-        os_execute("cm help")
-
+                'cloudmesh_timestring',
+                'wheel',
+                'tox',
+                'nose',
+                'pytest',
+                'pytimeparse',
+                'pyyaml']
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -129,86 +66,6 @@ package_data={
    'cloudmesh_client.etc': ['*.yaml', '*.py'],
 },
 
-
-# Hack because for some reason requirements does not work
-#
-# os.system("pip install -r requirements.txt")
-
-
-    
-class CreateAPI(install):
-    """Create the API documentation. -- only for Maintainers."""
-
-    description = __doc__
-
-    def run(self):
-        commands = "sphinx-apidoc -f -o docs/source/api/cloudmesh_client cloudmesh_client\n"
-        os_execute(commands)
-        commands = "sphinx-apidoc -f -o docs/source/api/cloudmesh_base ../base/cloudmesh_base\n"
-        os_execute(commands)
-
-
-
-class CheckForPasswords(install):
-    """Check if a password is somewhere set in cleartext"""
-
-    description = __doc__
-
-    from cloudmesh_base.Shell import Shell
-    
-    def check(self, search=""):
-      check_list = [("openstack", "'OS_PASSWORD': '[a-zA-Z0-9]+'"),
-                    ("aws", "'EC2_SECRET_KEY': '[a-zA-Z0-9]+'")]
-      for pair in check_list:
-          platform = pair[0]
-          _search = pair[1]
-          self._grep(_search, platform)
-      if search:
-          self._grep(search, 'CUSTOMIZED_SEARCH')
-
-
-    def _grep(self, search, platform):
-      if not search:
-          search = "'OS_PASSWORD': '[a-zA-Z0-9]+'"
-      cmd = "egrep -ri \"{0}\" * | cut -d\":\" -f1 > a.tmp".format(search)
-      print("[{0}]:{1}".format(platform, cmd))
-      os.system(cmd)
-      res = Shell.cat("a.tmp")
-      if res:
-          print ('[{0}]: [ERROR] PASSWORD(OR SECRET KEY) DETECTED, SEE FILES '
-                 'BELOW'.format(platform))
-          print ("")
-          print (res)
-      else:
-          print ("[{0}]: NO PASSWORD DETECTED".format(platform))
-      Shell.rm("a.tmp")
-      print ("")
-
-
-    def run(self):
-        self.check()
-    
-
-        
-
-class Tox(TestCommand):
-    user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.tox_args = None
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-    def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
-        import tox
-        import shlex
-        args = self.tox_args
-        if args:
-            args = shlex.split(self.tox_args)
-        errno = tox.cmdline(args=args)
-        sys.exit(errno)
 
 setup(
     version=__version__,
@@ -247,27 +104,10 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
-            'ghost = cloudmesh_client.shell.ghost:main',
-
+            # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },
     tests_require=['tox'],
-    cmdclass={
-        'install': InstallBase,
-        'docapi': CreateAPI,
-        'check': CheckForPasswords,       
-        'pypi': Make("pypi", repo='pypi'),
-        'pypifinal': Make("pypi", repo='final'),
-        'registerpypi': Make("pypi", repo='pypi'),
-        'registerfinal': Make("pypi", repo='final'),
-        'rmtag': Make('rmtag'),
-        'tag': Make("tag"),
-        'doc': Make("doc"),
-        'view': Make("view"),
-        'clean': Make("clean"),
-        'test': Tox,
-        },
-
     dependency_links = []
 )
 

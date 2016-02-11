@@ -2,7 +2,7 @@ import json
 from datetime import datetime
 import textwrap
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict

@@ -215,78 +215,36 @@ comet
 Command - comet::
 
     Usage:
-       comet status
-       comet tunnel start
-       comet tunnel stop
-       comet tunnel status
-       comet logon
-       comet logoff
        comet ll [CLUSTERID] [--format=FORMAT]
-       comet docs
-       comet info [--user=USER]
-                    [--project=PROJECT]
-                    [--format=FORMAT]
-       comet cluster [CLUSTERID][--name=NAMES]
-                    [--user=USER]
-                    [--project=PROJECT]
-                    [--hosts=HOSTS]
-                    [--start=TIME_START]
-                    [--end=TIME_END]
-                    [--hosts=HOSTS]
-                    [--format=FORMAT]
+       comet cluster [CLUSTERID]
+                     [--format=FORMAT]
        comet computeset [COMPUTESETID]
-       comet start ID
-       comet stop ID
-       comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+       comet power on CLUSTERID [NODESPARAM]
+                    [--allocation=ALLOCATION]
+                    [--walltime=WALLTIME]
+       comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
        comet console CLUSTERID [COMPUTENODEID]
-       comet delete [all]
-                      [--user=USER]
-                      [--project=PROJECT]
-                      [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-                      [--host=HOST]
-       comet delete --file=FILE
-       comet update [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-       comet add [--user=USER]
-                   [--project=PROJECT]
-                   [--host=HOST]
-                   [--description=DESCRIPTION]
-                   [--start=TIME_START]
-                   [--end=TIME_END]
-                   NAME
-       comet add --file=FILENAME
 
     Options:
-        --user=USER           user name
-        --name=NAMES          Names of the vcluster
-        --start=TIME_START    Start time of the vcluster, in
-                              YYYY/MM/DD HH:MM:SS format.
-                              [default: 1901-01-01]
-        --end=TIME_END        End time of the vcluster, in YYYY/MM/DD
-                              HH:MM:SS format. In addition a duratio
-                              can be specified if the + sign is the
-                              first sig The duration will than be
-                              added to the start time.
-                              [default: 2100-12-31]
-        --project=PROJECT     project id
-        --host=HOST           host name
-        --description=DESCRIPTION  description summary of the vcluster
-        --file=FILE           Adding multiple vclusters from one file
         --format=FORMAT       Format is either table, json, yaml,
                               csv, rest
                               [default: table]
+        --allocation=ALLOCATION     Allocation to charge when power on
+                                    node(s)
+        --walltime=WALLTIME     Walltime requested for the node(s).
+                                Walltime could be an integer value followed
+                                by a unit (m, h, d, w, for minute, hour, day,
+                                and week, respectively). E.g., 3h, 2d
 
     Arguments:
-        FILENAME  the file to open in the cwd if . is
-                  specified. If file in in cwd
-                  you must specify it with ./FILENAME
-
-    Opens the given URL in a browser window.
+        CLUSTERID       The assigned name of a cluster, e.g. vc1
+        COMPUTESETID    An integer identifier assigned to a computeset
+        NODESPARAM      Specifying the node/nodes/computeset to act on.
+                        In case of integer, will be intepreted as a computesetid;
+                        in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                        of nodes; or a single host is also accepptable,
+                        e.g., vm-vc1-0
+        COMPUTENODEID   A compute node name, e.g., vm-vc1-0
 
 
 context
@@ -791,16 +749,17 @@ Command - key::
       key list [--source=db] [--format=FORMAT]
       key list --source=cloudmesh [--format=FORMAT]
       key list --source=ssh [--dir=DIR] [--format=FORMAT]
+      key load [--format=FORMAT]
       key list --source=git [--format=FORMAT] [--username=USERNAME]
       key add --git [--name=KEYNAME] FILENAME
       key add --ssh [--name=KEYNAME]
       key add [--name=KEYNAME] FILENAME
       key get NAME
       key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [-f]
-      key upload KEYNAME
-                       [--cloud=CLOUD]
-                       [--name=NAME_ON_CLOUD]
+      key delete (KEYNAME | --select | --all) [--force=VALUE]
+      key upload [KEYNAME]
+                 [--cloud=CLOUD]
+                 [--name=NAME_ON_CLOUD]
       key map [--cloud=CLOUD]
 
     Manages the keys
@@ -808,7 +767,7 @@ Command - key::
     Arguments:
 
       SOURCE         db, ssh, all
-      KEYNAME        The name of a key
+      KEYNAME        The name of a key. For key upload it defaults to the default key name.
       FORMAT         The format of the output (table, json, yaml)
       FILENAME       The filename with full path in which the key
                      is located
@@ -822,6 +781,7 @@ Command - key::
        --username=USERNAME           the source for the keys [default: none]
        --name=KEYNAME                The name of a key
        --all                         delete all keys
+       --force=VALUE                 delete teh key form the cloud
        --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
     Description:
@@ -974,38 +934,6 @@ Command - list::
         $ list --cloud india default
         $ list --cloud india --format table flavor
         $ list --cloud india --user albert --tenant fg82 flavor
-
-
-loglevel
-----------------------------------------------------------------------
-
-Command - loglevel::
-
-        Usage:
-            loglevel set MODE [--cloud=CLOUD]
-            loglevel get [--cloud=CLOUD]
-            loglevel save [--cloud=CLOUD]
-
-        Arguments:
-            MODE    log level mode [DEBUG/INFO/WARNING/CRITICAL/ERROR]
-
-        Options:
-            --cloud=CLOUD    the name of the cloud
-
-    Description:
-        loglevel command sets the default logging level
-        for a cloud.
-
-    Examples:
-        loglevel set DEBUG --cloud=kilo
-            sets the default log level to DEBUG for kilo.
-
-        loglevel get --cloud=kilo
-            retreives the default log level for kilo cloud.
-
-        loglevel save --cloud=kilo
-            saves the log level preference to the db & yaml file.
-
 
 
 man
@@ -1274,10 +1202,10 @@ Command - register::
         register test [--yaml=FILENAME]
         register json HOST
         register remote [CLOUD] [--force]
-        register india [--force]
-        register CLOUD CERT [--force]
-        register CLOUD --dir=DIR
         register env [--provider=PROVIDER]
+        register CLOUD [--force]
+        register CLOUD [--dir=DIR]
+
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in
@@ -1293,7 +1221,6 @@ Command - register::
       USER   the user name
       FILEPATH the path of the file
       CLOUD the cloud name
-      CERT the path of the certificate
       PROVIDER the provider or type of cloud [Default: openstack]
 
     Options:
@@ -1364,16 +1291,11 @@ Command - register::
             registers a remote cloud and copies the openrc file
             specified in the credentials of the cloudmesh.yaml
 
-        register CLOUD CERT [--force]
-            Copies the CERT to the ~/.cloudmesh/clouds/host directory
-            and registers that cert in the coudmesh.yaml file.
-
-
         register CLOUD --dir
             Copies the entire directory from the cloud and puts it in
             ~/.cloudmesh/clouds/host
-            For india, The directory would be copied to
-            ~/.cloudmesh/clouds/india
+            For kilo, The directory would be copied to
+            ~/.cloudmesh/clouds/kilo
 
         register env [--provider=PROVIDER] [HOSTNAME]
             Reads env OS_* variables and registers a new cloud in yaml,
@@ -1871,7 +1793,7 @@ Command - vm::
                                     Or user may specify more options to narrow
                                     the search
         vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-        vm ip_show [options...]     show the ips of VMs
+        vm ip show [options...]     show the ips of VMs
         vm login [options...]       login to a server or execute commands on it
         vm list [options...]        same as command "list vm", please refer to it
         vm status [options...]      Retrieves status of last VM booted on cloud and displays it.
