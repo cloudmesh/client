@@ -272,23 +272,17 @@ class Cluster(object):
     def power(clusterid, subject, param=None, action=None,
               allocation=None, walltime=None):
 
-        print("SUBJECT to perform action on: {}".format(subject))
-        print("\ton cluster: {}".format(clusterid))
-        print("\tAction: {}".format(action))
-        print("\tParameter: {}".format(param))
-        print("\tAllocation: {}".format(allocation))
-        print("\tWalltime: {}".format(walltime))
+        # print("SUBJECT to perform action on: {}".format(subject))
+        # print("\ton cluster: {}".format(clusterid))
+        # print("\tAction: {}".format(action))
+        # print("\tParameter: {}".format(param))
+        # print("\tAllocation: {}".format(allocation))
+        # print("\tWalltime: {}".format(walltime))
 
         # the API is now accepting hostlist format directly
         # computeIdsHostlist = hostlist.collect_hostlist(computeids)
         # print (computeIdsHostlist)
         ret = ''
-        if not allocation:
-            cluster = Cluster.list(clusterid, format='rest')
-            # use the first one if no provided
-            allocation = cluster[0]['allocations'][0]
-        if not walltime:
-            walltime = Cluster.WALLTIME_MINS
 
         if subject in ['HOSTS', 'HOST']:
             hosts_param = hostlist.expand_hostlist(param)
@@ -323,24 +317,25 @@ class Cluster(object):
                 # a cluster could have multiple 'started' set
                 if nodes_checked:
                     break
-            print ("nodes_checked: %s" % nodes_checked)
-            print ("nodes_allocated: %s" % nodes_allocated)
-            print ("nodes_free: %s" % nodes_free)
+            # print ("nodes_checked: %s" % nodes_checked)
+            # print ("nodes_allocated: %s" % nodes_allocated)
+            # print ("nodes_free: %s" % nodes_free)
             if not (nodes_free or nodes_allocated):
                 ret = "Error: Some nodes are already in active computesets"
             else:
-                #"""
-                # data = {
-                #    "computes": [{"name": vm, "host": "comet-{:}".format(vm)} for vm in
-                #                 computeids], "cluster": "%s" % id}
-                data = {"computes": "%s" % param,
+                if "on" == action:
+                    if not allocation:
+                        cluster = Cluster.list(clusterid, format='rest')
+                        # use the first one if no provided
+                        allocation = cluster[0]['allocations'][0]
+                    if not walltime:
+                        walltime = Cluster.WALLTIME_MINS
+
+                    data = {"computes": "%s" % param,
                         "cluster": "%s" % clusterid,
                         "walltime_mins": "%s" % walltime,
                         "allocation": "%s" % allocation}
 
-                # print (data)
-
-                if "on" == action:
                     if nodes_free:
                         # print("Issuing request to poweron nodes...")
                         url = Comet.url("computeset/")

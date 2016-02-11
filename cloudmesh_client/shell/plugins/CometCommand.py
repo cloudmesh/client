@@ -268,20 +268,6 @@ class CometCommand(PluginCommand, CometPluginCommand):
                            'tst010',
                            'tst001']
             '''
-            walltime = None
-            if "--walltime" in arguments:
-                walltime = arguments["--walltime"]
-                walltime = Cluster.convert_to_mins(walltime)
-                if not walltime:
-                    print ("No valid walltime specified. Using system default")
-            allocation = None
-            if "--allocation" in arguments:
-                allocation = arguments["--allocation"]
-            else:
-                if len(allocations) == 1:
-                    allocation = allocations[0]
-                else:
-                    allocation = Cluster.display_get_allocation(allocations)
             # no nodes param provided, action on front end
             if not fuzzyparam:
                 subject = "FE"
@@ -303,8 +289,18 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     else:
                         subject = "HOST"
 
+            walltime = arguments["--walltime"] or None
+            allocation = arguments["--allocation"] or None
             if arguments["on"]:
                 action = "on"
+                walltime = Cluster.convert_to_mins(walltime)
+                if not walltime:
+                    print ("No valid walltime specified. Using system default")
+                if not allocation:
+                    if len(allocations) == 1:
+                        allocation = allocations[0]
+                    else:
+                        allocation = Cluster.display_get_allocation(allocations)
             elif arguments["off"]:
                 action = "off"
             elif arguments["reboot"]:
