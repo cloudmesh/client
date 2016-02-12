@@ -32,7 +32,7 @@ create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
 # noinspection PyPep8
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.util import get_python
 from cloudmesh_client.util import check_python
 import cloudmesh_client
@@ -178,18 +178,18 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         # sys,exit(1)
 
-        value = Default.get('cloud', cloud='general')
+        value = Default.get('cloud', category='general')
         if value is None:
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
             cloud = clouds.keys()[0]
-            Default.set('cloud', cloud, cloud='general')
+            Default.set('cloud', cloud, category='general')
 
-        value = Default.get('default', cloud='general')
+        value = Default.get('default', category='general')
         if value is None:
-            Default.set('default', 'default', cloud='general')
+            Default.set('default', 'default', category='general')
 
         cluster = 'kilo'  # hardcode a value if not defined
-        value = Default.get('cluster', cloud='general')
+        value = Default.get('cluster', category='general')
         if value is None:
             try:
                 hosts = ssh_config().names()
@@ -200,7 +200,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         else:
             cluster = value
-        Default.set('cluster', cluster, cloud='general')
+        Default.set('cluster', cluster, category='general')
 
         group = Default.get_group()
         if group is None:

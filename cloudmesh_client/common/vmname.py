@@ -1,5 +1,6 @@
 import getpass
-from cloudmesh_client.cloud.default import Default
+
+from cloudmesh_client.default import Default
 
 
 class VMName(object):

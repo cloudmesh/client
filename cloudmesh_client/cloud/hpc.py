@@ -31,7 +31,7 @@ class Hpc(ListResource):
             if live:
                 cls.refresh(cloud)
 
-            elements = cls.cm.find("hpc", cloud=cloud)
+            elements = cls.cm.find("hpc", category=cloud)
 
             # pprint(elements)
 

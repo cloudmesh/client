@@ -86,15 +86,15 @@ class CloudmeshDatabase(object):
         else:
             self.user = user
 
-    def clear(self, kind, cloud):
+    def clear(self, kind, category):
         """
         This method deletes all 'kind' entries
         from the cloudmesh database
-        :param cloud: the cloud name
+        :param category: the category name
         """
         try:
             elements = self.find(kind, output='object',
-                                 scope="all", cloud=cloud)
+                                 scope="all", category=category)
             # pprint(elements)
             for element in elements:
                 # pprint(element)
@@ -132,7 +132,7 @@ class CloudmeshDatabase(object):
                     for flavor in flavors.values():
                         flavor["uuid"] = flavor['id']
                         flavor['type'] = 'string'
-                        flavor["cloud"] = name
+                        flavor["category"] = name
                         flavor["user"] = user
 
                         db_obj = {0: {kind: flavor}}
@@ -146,7 +146,7 @@ class CloudmeshDatabase(object):
                     for image in images.values():
                         image['uuid'] = image['id']
                         image['type'] = 'string'
-                        image['cloud'] = name
+                        image['category'] = name
                         image['user'] = user
                         db_obj = {0: {kind: image}}
 
@@ -159,7 +159,7 @@ class CloudmeshDatabase(object):
                     for vm in vms.values():
                         vm['uuid'] = vm['id']
                         vm['type'] = 'string'
-                        vm['cloud'] = name
+                        vm['category'] = name
                         vm['user'] = user
                         db_obj = {0: {kind: vm}}
 
@@ -174,7 +174,7 @@ class CloudmeshDatabase(object):
                         secgroup_db_obj = self.db_obj_dict("secgroup",
                                                            name=secgroup['name'],
                                                            uuid=secgroup['id'],
-                                                           cloud=name,
+                                                           category=name,
                                                            project=secgroup['tenant_id'],
                                                            user=user
                                                            )
@@ -184,7 +184,7 @@ class CloudmeshDatabase(object):
                                                            uuid=rule['id'],
                                                            name=secgroup['name'],
                                                            groupid=rule['parent_group_id'],
-                                                           cloud=name,
+                                                           category=name,
                                                            user=user,
                                                            project=secgroup['tenant_id'],
                                                            fromPort=rule['from_port'],
@@ -214,7 +214,7 @@ class CloudmeshDatabase(object):
                 for vm in vms.values():
                     vm['uuid'] = vm['id']
                     vm['type'] = 'string'
-                    vm['cloud'] = name
+                    vm['category'] = name
                     vm['user'] = user
                     db_obj = {0: {kind: vm}}
 

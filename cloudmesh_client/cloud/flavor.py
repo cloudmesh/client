@@ -31,7 +31,7 @@ class Flavor(ListResource):
             if live:
                 cls.refresh(cloud)
 
-            elements = cls.cm.find("flavor", cloud=cloud)
+            elements = cls.cm.find("flavor", category=cloud)
 
             # pprint(elements)
 

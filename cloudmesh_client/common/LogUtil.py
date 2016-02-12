@@ -1,8 +1,10 @@
 import inspect
 import logging
+
 from cloudmesh_client.util import path_expand
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
+
 
 
 # define the logger
@@ -34,7 +36,7 @@ class LogUtil(object):
         # get the log level from database
         log_level = Default.get(
             key=LogUtil.LOG_LEVEL_KEY,
-            cloud=LogUtil.category) or LogUtil.DEFAULT_LOG_LEVEL
+            category=LogUtil.category) or LogUtil.DEFAULT_LOG_LEVEL
 
         # Update the cloudmesh config
         config = ConfigDict("cloudmesh.yaml")
@@ -57,7 +59,7 @@ class LogUtil(object):
 
         Default.set(key=LogUtil.LOG_LEVEL_KEY,
                     value=log_level,
-                    cloud=LogUtil.category)
+                    category=LogUtil.category)
 
         # get log level obj
         log_level_obj = LogUtil.get_level_obj(log_level)
@@ -82,7 +84,7 @@ class LogUtil(object):
         :return: the log level
         """
         log_level = Default.get(key=LogUtil.LOG_LEVEL_KEY,
-                                cloud=LogUtil.category)
+                                category=LogUtil.category)
 
         LOGGER.info("Returning Log Level: " + log_level)
 
