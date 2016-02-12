@@ -3,6 +3,9 @@ var username=cloudmesh.profile.username
 var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
 var keyname="$username-key"
 
+key load
+key upload
+
 secgroup create --tenant=$tenant test-secgroup-01
 
 
