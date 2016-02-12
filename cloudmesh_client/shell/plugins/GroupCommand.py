@@ -21,7 +21,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
+                group add NAME [--type=TYPE] [--cloud=CLOUD] --id=IDs
                 group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
                 group delete NAME [--cloud=CLOUD]
                 group remove [--cloud=CLOUD] --name=NAME --id=ID
@@ -40,10 +40,11 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 MERGEDGROUP  name of a group
 
             Options:
-                --cloud=CLOUD    the name of the cloud
-                --format=FORMAT  the output format
-                --type=TYPE     the resource type
-                --name=NAME      the name of the group
+                --cloud=CLOUD       the name of the cloud
+                --format=FORMAT     the output format
+                --type=TYPE         the resource type
+                --name=NAME         the name of the group
+                --id=IDS            the ID(s) to add to the group
 
 
             Description:
@@ -129,7 +130,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["add"]:
             type = arguments["--type"] or Default.get("type", cloud)
 
-            cloud_id = arguments["--id"] or Default.get("id", cloud) or "vm"
+            cloud_id = arguments["--id"] or Default.get("id", cloud)
 
             data = {
                 "name": arguments["NAME"],
