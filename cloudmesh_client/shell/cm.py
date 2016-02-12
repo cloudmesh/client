@@ -99,7 +99,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         line = self.replace_vars(line)
         if line != "hist" and line:
             self._hist += [line.strip()]
-        if line.startswith("!") or line.statswith("shell"):
+        if line.startswith("!") or line.startswith("shell"):
             self.do_shell_exec(line[1:])
             return ""
         cmd, arg, line = self.parseline(line)
