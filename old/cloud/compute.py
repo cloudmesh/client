@@ -1,5 +1,3 @@
-__author__ = 'Gregor von Laszewski'
-
 from cloudmesh_base.hostlist import Parameter
 
 

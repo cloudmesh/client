@@ -96,12 +96,17 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         commands by the interpreter should stop.
 
         """
+        print ("YYY", line)
         line = self.replace_vars(line)
         if line != "hist" and line:
             self._hist += [line.strip()]
         cmd, arg, line = self.parseline(line)
         if not line:
             return self.emptyline()
+        if line.startswith("!"):
+            print("!!!!")
+            self.do_shell(line[1:])
+            return ""
         if os.path.isfile(line):
             self.do_exec(line)
             return ""
@@ -408,25 +413,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         print(textwrap.dedent(self.help_help.__doc__))
 
-    '''
-    @command
-    def do_bar(self, arg, arguments):
-        """Usage:
-                bar -f FILE
-                bar FILE
-                bar list
-
-        This command does some useful things.
-
-        Arguments:
-              FILE   a file name
-
-        Options:
-              -f      specify the file
-
-        """
-        print(arguments)
-    '''
 
     def do_exec(self, filename):
         """
@@ -465,6 +451,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Executes a shell command
         """
         # just ignore arguments and pass on args
+        print ("AAA", args)
         os.system(args)
 
     #
@@ -487,6 +474,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             newline = newline.replace("$" + v, self.variables[v])
         for v in os.environ:
             newline = newline.replace("$" + v, os.environ[v])
+        newline = path_expand(newline)
         return newline
 
     def _add_variable(self, name, value):

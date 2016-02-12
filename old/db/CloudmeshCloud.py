@@ -1,6 +1,3 @@
-__author__ = 'Gregor von Laszewski'
-
-
 class CloudmeshCloud(object):
     def __init__(self, filename=None):
         if filename is None:
