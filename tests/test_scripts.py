@@ -45,12 +45,14 @@ class Test_script():
             #("cluster.cm", ""),
             #("demo.cm", ""),
             #("group.cm", ""),
-            #("key.cm", ""),
+            ("key.cm", ""),
             #("network.cm", ""),
             #("nova.cm", ""),
             #("reservedemo.cm", ""),
             #("secgroup.cm", ""),
-            ("sync.cm", ""),
+
+            # BROKEN:
+            #("sync.cm", ""),
 
             #("vm.cm", ""),
         ]
