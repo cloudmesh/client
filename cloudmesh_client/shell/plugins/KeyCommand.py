@@ -416,10 +416,9 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Problem retrieving default key.")
 
         elif arguments['delete']:
-            # print('delete')
 
-            delete_on_cloud = arguments["--force"]
-
+            delete_on_cloud = arguments["--force"] or False
+            print ("DDD", delete_on_cloud)
             if arguments['--all']:
                 try:
                     sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
@@ -434,13 +433,13 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Problem deleting keys")
             elif arguments['--select']:
                 keyname = None
-                sshdb = SSHKeyDBManager(delete_on_cloud=delete_on_cloud)
+                sshdb = SSHKeyDBManager()
                 select = sshdb.select()
                 if select != 'q':
                     try:
                         keyname = select.split(':')[0]
                         print("Deleting key: {:}...".format(keyname))
-                        sshm = SSHKeyManager()
+                        sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
                         sshm.delete_key(keyname)
                         msg = "info. OK."
                         Console.ok(msg)
