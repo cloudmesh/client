@@ -39,6 +39,7 @@ RUN nosetests -v --nocapture tests/test_tables.py
 RUN nosetests -v --nocapture tests/test_default.py
 RUN nosetests -v --nocapture tests/test_flatdict.py
 
+RUN apt-get install -y libz-dev
 RUN pip install -r requirements-doc.txt
 RUN make doc
 RUN cm help
