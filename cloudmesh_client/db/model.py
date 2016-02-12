@@ -75,7 +75,7 @@ class CloudmeshMixin(object):
                         onupdate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     label = Column(String, default="undefined")
     name = Column(String, default="undefined")
-    cloud = Column(String, default="undefined")
+    category = Column(String, default="undefined")
     user = Column(String, default="undefined")
     kind = Column(String, default="undefined")
     project = Column(String, default="undefined")
@@ -116,12 +116,12 @@ class IMAGE(CloudmeshMixin, db.Base):
                  name,
                  uuid,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None,
                  **kwargs):
         # self.kind = __tablename__
         self.label = name
-        self.cloud = cloud or "general"
+        self.categrory = category or "general"
         self.type = type
         self.name = name
         self.user = user
@@ -186,12 +186,12 @@ class FLAVOR(CloudmeshMixin, db.Base):
                  name,
                  uuid,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None,
                  **kwargs):
         # self.kind = __tablename__
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.user = user
@@ -243,7 +243,7 @@ class VM(CloudmeshMixin, db.Base):
     def __init__(self, **kwargs):
         # self.kind = __tablename__
         self.label = kwargs["name"]
-        self.cloud = kwargs["cloud"] or "general"
+        self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
         self.name = kwargs["name"]
         self.user = kwargs["user"]
@@ -377,7 +377,7 @@ class COUNTER(CloudmeshMixin, db.Base):
 class DEFAULT(CloudmeshMixin, db.Base):
     """table to store default values
 
-    if the cloud is "global" it is meant to be a global variable
+    if the category is "global" it is meant to be a global variable
 
     todo: check if its global or general
     """
@@ -385,17 +385,17 @@ class DEFAULT(CloudmeshMixin, db.Base):
     value = Column(String)
     type = Column(String, default="string")
 
-    # cloud = Column(String)
+    # category = Column(String)
 
     def __init__(self,
                  name,
                  value,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.user = user
@@ -406,7 +406,7 @@ class DEFAULT(CloudmeshMixin, db.Base):
 class LAUNCHER(CloudmeshMixin, db.Base):
     """table to store default values
 
-    if the cloud is "global" it is meant to be a global variable
+    if the category is "global" it is meant to be a global variable
 
     todo: check if its global or general
     """
@@ -415,17 +415,17 @@ class LAUNCHER(CloudmeshMixin, db.Base):
     type = Column(String, default="string")
     parameters = Column(String)  # This is the parameter represented as yaml object
 
-    # cloud = Column(String)
+    # category = Column(String)
 
     def __init__(self,
                  name,
                  value,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.user = user
@@ -450,13 +450,13 @@ class KEY(CloudmeshMixin, db.Base):
                  fingerprint=None,
                  comment=None,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None,
                  is_default="False"):
         # self.kind = __tablename__
         self.value = value
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.uri = uri
         self.comment = comment
         self.fingerprint = fingerprint
@@ -478,11 +478,12 @@ class KEYCLOUDMAP(CloudmeshMixin, db.Base):
     def __init__(self,
                  user,
                  name,
-                 cloud,
+                 category,
                  name_on_cloud):
         self.user = user
         self.key_name = name
-        self.cloud_name = cloud
+        self.category = category or "general"
+        self.cloud_name = category
         self.key_name_on_cloud = name_on_cloud
 
 
@@ -494,11 +495,11 @@ class GROUP(CloudmeshMixin, db.Base):
                  name,
                  value,
                  type="vm",
-                 cloud=None,
+                 category=None,
                  user=None):
         # self.kind = __tablename__
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.value = value
@@ -516,7 +517,7 @@ class RESERVATION(CloudmeshMixin, db.Base):
         # self.kind = __tablename__
         self.label = kwargs['name']
         self.hosts = kwargs['hosts']
-        self.cloud = kwargs['cloud'] or "comet"
+        self.category = kwargs['category'] or "general"
         self.start_time = kwargs['start']
         self.end_time = kwargs['end']
         self.description = kwargs['description']
@@ -533,13 +534,13 @@ class SECGROUP(CloudmeshMixin, db.Base):
                  name,
                  uuid,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None,
                  project=None,
                  **kwargs):
         # self.kind = __tablename__
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.user = user
@@ -567,7 +568,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
                  name,
                  groupid,
                  type="string",
-                 cloud=None,
+                 category=None,
                  user=None,
                  project=None,
                  fromPort=None,
@@ -578,7 +579,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
         # self.kind = __tablename__
         self.uuid = uuid
         self.label = name
-        self.cloud = cloud or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.user = user
@@ -599,7 +600,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
 class BATCHJOB(CloudmeshMixin, db.Base):
     """table to store default values
 
-    if the cloud is "global" it is meant to be a global variable
+    if the category is "global" it is meant to be a global variable
 
     todo: check if its global or general
     """
@@ -617,13 +618,13 @@ class BATCHJOB(CloudmeshMixin, db.Base):
     time = Column(String, default="string")
     group = Column(String, default="string")
     job_id = Column(String, default="string")
-
-    # cloud = Column(String)
+    category = Column(String, default="string")
 
     def __init__(self,
                  name,
                  type="string",
                  user=None,
+                 category=None,
                  **kwargs
                  ):
         self.label = name
@@ -643,6 +644,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.group = kwargs.get('group')
         self.job_id = kwargs.get('job_id')
         self.kind = self.__tablename__
+        self.category = category or "general"
 
 
 def tables():

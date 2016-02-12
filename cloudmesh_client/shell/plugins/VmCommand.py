@@ -4,18 +4,19 @@ import os
 import getpass
 import socket
 
+import pyaml
+
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.cloud.counter import Counter
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-import pyaml
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
@@ -246,13 +247,15 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Default cloud not set.")
                     return ""
 
-                image = arguments["--image"] or Default.get("image", cloud=cloud)
+                image = arguments["--image"] or Default.get("image",
+                                                            category=cloud)
                 # if default image not set, return error
                 if not image:
                     Console.error("Default image not set.")
                     return ""
 
-                flavor = arguments["--flavor"] or Default.get("flavor", cloud=cloud)
+                flavor = arguments["--flavor"] or Default.get("flavor",
+                                                              category=cloud)
                 # if default flavor not set, return error
                 if not flavor:
                     Console.error("Default flavor not set.")
@@ -265,7 +268,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     group = "default"
                     Default.set_group(group)
 
-                secgroup = arguments["--secgroup"] or Default.get("secgroup", cloud=cloud)
+                secgroup = arguments["--secgroup"] or Default.get(
+                    "secgroup", category=cloud)
                 # print("SecurityGrp : {:}".format(secgroup))
                 secgroup_list = ["default"]
                 if secgroup is not None:
@@ -308,7 +312,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     # Add to group
                     if vm_id is not None:
-                        Group.add(name=group, type="vm", id=name, cloud=cloud)
+                        Group.add(name=group, type="vm", id=name,
+                                  category=cloud)
 
                     msg = "info. OK."
                     Console.ok(msg)
@@ -332,7 +337,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.get_cloud()}
                 for attribute in ["image", "flavor", "key", "login_key", "group", "secgroup"]:
-                    data[attribute] = Default.get(attribute, cloud=cloud)
+                    data[attribute] = Default.get(attribute, category=cloud)
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
                 msg = "info. OK."
@@ -582,7 +587,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default cloud not set.")
                 return ""
 
-            key = arguments["--key"] or Default.get("login_key", cloud=cloud)
+            key = arguments["--key"] or Default.get("login_key",
+                                                    category=cloud)
             if not key:
                 Console.error("Default login_key not set.")
                 return ""

@@ -31,7 +31,7 @@ class Image(ListResource):
         # cm = CloudmeshDatabase()
 
         try:
-            elements = cls.cm.find("image", cloud=cloud)
+            elements = cls.cm.find("image", category=cloud)
 
             (order, header) = CloudProvider(cloud).get_attributes("image")
 

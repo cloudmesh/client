@@ -23,7 +23,7 @@ class Default(ListResource):
 
     @classmethod
     def list(cls,
-             cloud=None,
+             category=None,
              format="table",
              order=None,
              output=format):
@@ -32,7 +32,7 @@ class Default(ListResource):
         TODO: This method has a bug as it uses format and output,
         only one should be used.
 
-        :param cloud: the category of the default value. If general is used
+        :param category: the category of the default value. If general is used
                       it is a special category that is used for global values.
         :param format: json, table, yaml, dict, csv
         :param order: The order in which the attributes are returned
@@ -40,12 +40,12 @@ class Default(ListResource):
         :return:
         """
         if order is None:
-            order = ['user', 'cloud', 'name', 'value']
+            order = ['user', 'category', 'name', 'value']
         try:
-            if cloud is None:
+            if category is None:
                 d = cls.cm.all("default")
             else:
-                d = cls.cm.find('default', cloud=cloud)
+                d = cls.cm.find('default', category=category)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
@@ -57,24 +57,24 @@ class Default(ListResource):
     #
 
     @classmethod
-    def set(cls, key, value, cloud=None, user=None):
+    def set(cls, key, value, category=None, user=None):
         """
         sets the default value for a given category
         :param key: the dictionary key of the value to store it at.
         :param value: the value
-        :param cloud: the name of the category
+        :param category: the name of the category
         :param user: the username to store this default value at.
         :return:
         """
         try:
-            o = Default.get_object(key, cloud)
+            o = Default.get_object(key, category)
 
             me = cls.cm.user or user
             if o is None:
                 o = cls.cm.db_obj_dict('default',
                                        name=key,
                                        value=value,
-                                       cloud=cloud,
+                                       category=category,
                                        user=me)
                 cls.cm.add_obj(o)
             else:
@@ -86,18 +86,18 @@ class Default(ListResource):
             return None
 
     @classmethod
-    def get_object(cls, key, cloud="general"):
+    def get_object(cls, key, category="general"):
         """
         returns the first object that matches the key in teh Default
         database.
 
         :param key: The dictionary key
-        :param cloud: The category
+        :param category: The category
         :return:
         """
         try:
             arguments = {'name': key,
-                         'cloud': cloud}
+                         'category': category}
             o = cls.cm.find('default',
                             output='object',
                             **arguments).first()
@@ -106,17 +106,17 @@ class Default(ListResource):
             return None
 
     @classmethod
-    def get(cls, key, cloud="general"):
+    def get(cls, key, category="general"):
         """
         returns the value of the first objects matching the key
         with the given category.
 
         :param key: The dictionary key
-        :param cloud: The category
+        :param category: The category
         :return:
         """
         arguments = {'name': key,
-                     'cloud': cloud}
+                     'category': category}
         o = cls.cm.find('default',
                         output='dict',
                         scope='first',
@@ -127,12 +127,12 @@ class Default(ListResource):
             return None
 
     @classmethod
-    def delete(cls, key, cloud):
+    def delete(cls, key, category):
         #
         # TODO: this is wrong implemented,
         #
         try:
-            o = Default.get_object(key, cloud)
+            o = Default.get_object(key, category)
             if o is not None:
                 cls.cm.delete(o)
                 return "Deletion. ok."
@@ -157,7 +157,7 @@ class Default(ListResource):
             return None
 
     #
-    # Set the default cloud
+    # Set the default category
     #
     @classmethod
     def get_cloud(cls):
@@ -165,7 +165,7 @@ class Default(ListResource):
         returns the cloud in teh category general
         :return:
         """
-        o = cls.get("cloud", cloud="general")
+        o = cls.get("cloud", category="general")
         return o
 
     @classmethod
@@ -175,53 +175,53 @@ class Default(ListResource):
         :param value: the cloud as defined in cloudmesh.yaml
         :return:
         """
-        cls.set("cloud", value, cloud="general")
+        cls.set("cloud", value, category="general")
 
     #
     # Set the default image
     #
 
     @classmethod
-    def set_image(cls, value, cloud):
+    def set_image(cls, value, category):
         """
-        sets the default image for a specific cloud.
+        sets the default image for a specific category.
         :param value: the image uuid or name
-        :param cloud: the cloud
+        :param category: the category
         :return:
         """
-        cls.set("image", value, cloud)
+        cls.set("image", value, category=category)
 
     @classmethod
-    def get_image(cls, cloud):
+    def get_image(cls, category):
         """
-        returns the image for a particular cloud
-        :param cloud: the cloud
+        returns the image for a particular category
+        :param category: the category
         :return:
         """
-        return cls.get("image", cloud)
+        return cls.get("image", category)
 
     #
     # Set the default flavor
     #
 
     @classmethod
-    def set_flavor(cls, value, cloud):
+    def set_flavor(cls, value, category):
         """
-        sets the default flavor for a particular cloud
+        sets the default flavor for a particular category
         :param value: teh flavor name or uuid
-        :param cloud: the cloud
+        :param category: the category
         :return:
         """
-        cls.set("flavor", value, cloud)
+        cls.set("flavor", value, category=category)
 
     @classmethod
-    def get_flavor(cls, cloud):
+    def get_flavor(cls, category):
         """
-        gets ths flavor default for a cloud
-        :param cloud: the cloud
+        gets ths flavor default for a category
+        :param category: the category
         :return:
         """
-        return cls.get("flavor", cloud)
+        return cls.get("flavor", category)
 
     #
     # Set the default group
@@ -234,7 +234,7 @@ class Default(ListResource):
         :param value: the group name
         :return:
         """
-        cls.set("group", value, "general")
+        cls.set("group", value, category="general")
 
     @classmethod
     def get_group(cls):
@@ -254,7 +254,7 @@ class Default(ListResource):
         :param name: the key name
         :return:
         """
-        cls.set("key", name, "general")
+        cls.set("key", name, category="general")
 
     @classmethod
     def get_key(cls):
@@ -275,7 +275,7 @@ class Default(ListResource):
         :param value: the cluster name as defined in the cloudmesh yaml file.
         :return:
         """
-        cls.set("cluster", value, "general")
+        cls.set("cluster", value, category="general")
 
     @classmethod
     def get_cluster(cls):
@@ -297,7 +297,7 @@ class Default(ListResource):
         :param value: True/False
         :return:
         """
-        cls.set("debug", value, "general")
+        cls.set("debug", value, category="general")
 
     @classmethod
     def get_debug(cls):
@@ -366,7 +366,7 @@ class Default(ListResource):
                 value = db[attribute]
                 if attribute in defaults:
                     value = db[attribute] or defaults[attribute]
-                Default.set(attribute, value, cloud=cloud)
+                Default.set(attribute, value, category=cloud)
 
         # FINDING DEFAUlTS FOR KEYS
         # keys:

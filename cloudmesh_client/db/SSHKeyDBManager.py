@@ -42,7 +42,7 @@ class SSHKeyDBManager(object):
                       uri='{uri}'.format(**d),
                       source='{source}'.format(**d),
                       comment='{comment}'.format(**d),
-                      cloud="general",
+                      category="general",
                       user='{user}'.format(**d),
                       fingerprint='{fingerprint}'.format(**d),
                       value='{string} {comment}'.format(**d),
@@ -80,7 +80,7 @@ class SSHKeyDBManager(object):
             comment=sshkey['comment'],
             type="sshkey",
             # group=None,
-            cloud="general",
+            category="general",
             user=user)
 
         # pprint(key_obj.__dict__)

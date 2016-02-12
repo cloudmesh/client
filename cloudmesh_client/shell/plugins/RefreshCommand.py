@@ -1,7 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 
 
 class RefreshCommand(PluginCommand, CloudPluginCommand):
@@ -32,10 +32,10 @@ class RefreshCommand(PluginCommand, CloudPluginCommand):
         """
         if arguments["on"]:
             Default.set_refresh("on")
-            Console.ok("Switch debug on")
+            Console.ok("Switch refresh on")
         elif arguments["off"]:
             Default.set_refresh("off")
-            Console.ok("Switch debug off")
+            Console.ok("Switch refresh off")
         elif arguments["list"]:
             refresh = Default.get_refresh()
             Console.ok("Automatic cloud refresh is switched {}".format(refresh))

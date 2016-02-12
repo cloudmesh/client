@@ -4,7 +4,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.common.menu import menu_return_num
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -68,7 +68,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 else:
                     image = image_names[number]
                     print("Selected image " + image)
-                    Default.set("image", image, cloud=cloud)
+                    Default.set("image", image, category=cloud)
             except:
                 print("ERROR: could not set image.")
 
@@ -94,7 +94,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 else:
                     flavor = flavor_names[number]
                     print("Selected flavor " + flavor)
-                    Default.set("flavor", flavor, cloud=cloud)
+                    Default.set("flavor", flavor, category=cloud)
             except:
                 print("ERROR: could not set flavor.")
 
@@ -143,7 +143,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                     # TODO Fix default key setting in key DB
                     # db.set_default(key)
 
-                    Default.set("key", key, cloud=cloud)
+                    Default.set("key", key, category=cloud)
             except:
                 print("ERROR: could not set key")
 

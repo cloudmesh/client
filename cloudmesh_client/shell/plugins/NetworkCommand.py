@@ -8,7 +8,7 @@ from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -146,7 +146,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 # Get the group information
                 group = Group.get_info(name=group_name,
-                                       cloud=cloudname,
+                                       category=cloudname,
                                        output="json")
                 if group is not None:
                     # Convert from str to json
@@ -252,7 +252,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 # Get the group information
                 group = Group.get_info(name=group_name,
-                                       cloud=cloudname,
+                                       category=cloudname,
                                        output="json")
                 if group is not None:
                     # Convert from str to json
@@ -445,11 +445,11 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 arguments["create"]:
 
             group_name = arguments["--group"] or \
-                Default.get("group", cloud=cloudname)
+                Default.get("group", category=cloudname)
 
             # Get the group information
             group = Group.get_info(name=group_name,
-                                   cloud=cloudname,
+                                   category=cloudname,
                                    output="json")
             if group is not None:
                 # Convert from str to json
@@ -545,7 +545,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         try:
             msg = "Refreshing database for cloud {:}.".format(cloudname)
             Console.msg(msg)
-            if Vm.refresh(cloud=cloudname) is not None:
+            if Vm.refresh(category=cloudname) is not None:
                 Console.ok("Complete.")
             else:
                 Console.error("{:} failed".format(msg))

@@ -99,7 +99,7 @@ Group Merge
 Groups can be merged as follows::
 
   $ cm group merge group01 groupB groupC
-  Merge of group [group01] & [groupB] to group [groupC] successful!
+  Merge of group [group01] & [groupB] to group [groupC] ok.
 
   $ cm group info groupC
     +-----------+---------+--------+------------+------+
@@ -119,7 +119,7 @@ A named group can be easily deleted.::
   Request to delete server albert-001 has been accepted.
   Request to delete server albert-002 has been accepted.
   Request to delete server test-001 has been accepted.
-  Deletion Successful!
+  Deletion ok.
 
   $ cm group list groupC
   ERROR: No group with name groupC found in the cloudmesh database!

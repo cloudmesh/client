@@ -9,10 +9,10 @@ or
 nosetests -v tests/test_vm.py
 
 """
-from cloudmesh_client.cloud.default import Default
-
 from cloudmesh_base.Shell import Shell
 from cloudmesh_base.util import HEADING
+
+from cloudmesh_client.default import Default
 
 
 def run(command):
