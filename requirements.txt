@@ -12,7 +12,7 @@ urllib3
 requests >=2.8.1,<2.9.0
 sandman
 gitchangelog
-six
+six >=1.9.0
 python-novaclient
 python-keystoneclient
 cloudmesh_timestring
