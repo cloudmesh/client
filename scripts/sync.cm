@@ -1,9 +1,7 @@
 default cloud=kilo
 
 ! rm -rf ~/cm_sync
-
 ! mkdir -p ~/cm_sync/put
-
 ! cp README.rst ~/cm_sync/put/file.txt
 
 banner SYNC_FROM_LOCAL_TO_REMOTE
