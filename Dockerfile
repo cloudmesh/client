@@ -15,7 +15,7 @@ RUN mkdir -p $HOME/github/cloudmesh
 WORKDIR $HOME/github/cloudmesh
 
 RUN git clone https://github.com/cloudmesh/base.git
-RUN git clone https://github.com/cloudmesh/client.git
+ADD . client
 
 WORKDIR $HOME/github/cloudmesh/base
 
