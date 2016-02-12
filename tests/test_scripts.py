@@ -40,21 +40,21 @@ class Test_script():
             #("py.cm", "2"),
             #("terminal.cm", ""),
             #("hpc.cm", "bravo"),
+            #("key.cm", ""),
+            #("reservedemo.cm", "cloudnauts"),
+            #("cloud.cm", "Active"),
+            #("nova.cm", "Status"),
+            #("demo.cm", "ephemeral_disk"),
 
-            #("cloud.cm", ""),
-            #("cluster.cm", ""),
-            #("demo.cm", ""),
-            #("group.cm", ""),
-            ("key.cm", ""),
-            #("network.cm", ""),
-            #("nova.cm", ""),
-            #("reservedemo.cm", ""),
-            #("secgroup.cm", ""),
 
             # BROKEN:
+            #("group.cm", ""),
             #("sync.cm", ""),
-
+            #("secgroup.cm", ""),
+            #("cluster.cm", ""),
             #("vm.cm", ""),
+            #("network.cm", ""),
+
         ]
         pass
 
