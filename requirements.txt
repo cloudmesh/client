@@ -9,7 +9,7 @@ python-hostlist
 prettytable
 sqlalchemy
 urllib3
-requests
+requests >=2.8.1,<2.9.0
 sandman
 gitchangelog
 six
