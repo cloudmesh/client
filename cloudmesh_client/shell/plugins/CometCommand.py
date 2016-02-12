@@ -3,7 +3,8 @@ from cloudmesh_client.shell.command import command, PluginCommand, CometPluginCo
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 import hostlist
-
+import os
+import sys
 
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
@@ -30,6 +31,9 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--walltime=WALLTIME]
                comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
+               comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
+               comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
+               comet image detach CLUSTERID [COMPUTENODEID]
 
             Options:
                 --format=FORMAT       Format is either table, json, yaml,
@@ -41,6 +45,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         Walltime could be an integer value followed
                                         by a unit (m, h, d, w, for minute, hour, day,
                                         and week, respectively). E.g., 3h, 2d
+                --imagename=IMAGENAME   Name of the image after being stored remotely.
+                                        If not specified, use the original filename
 
             Arguments:
                 CLUSTERID       The assigned name of a cluster, e.g. vc1
@@ -51,6 +57,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 of nodes; or a single host is also accepptable, 
                                 e.g., vm-vc1-0
                 COMPUTENODEID   A compute node name, e.g., vm-vc1-0
+                IMAGENAME       Name of an image at remote server
+                PATHIMAGEFILE   The full path to the image file to be uploaded
         """
         # back up of all the proposed commands/options
         """
@@ -319,4 +327,27 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if 'COMPUTENODEID' in arguments:
                 nodeid = arguments["COMPUTENODEID"]
             Comet.console(clusterid, nodeid)
+        elif arguments["image"]:
+            if arguments["upload"]:
+                imagefile = arguments["PATHIMAGEFILE"]
+                imagefile = os.path.abspath(imagefile)
+                if os.path.isfile(imagefile):
+                    if arguments["--imagename"]:
+                        filename = arguments["--imagename"]
+                    else:
+                        filename = os.path.basename(imagefile)
+                else:
+                    print ("File does not exist - {}"\
+                                  .format(arguments["PATHIMAGEFILE"]))
+                    return ""
+                print (Comet.upload_image(filename, imagefile))
+            elif arguments["attach"]:
+                imagename = arguments["IMAGENAME"]
+                clusterid = arguments["CLUSTERID"]
+                computenodeid = arguments["COMPUTENODEID"] or None
+                print (Cluster.attach_iso(imagename, clusterid, computenodeid))
+            elif arguments["detach"]:
+                clusterid = arguments["CLUSTERID"]
+                computenodeid = arguments["COMPUTENODEID"] or None
+                print (Cluster.detach_iso(clusterid, computenodeid))
         return ""
