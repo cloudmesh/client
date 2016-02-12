@@ -4,7 +4,7 @@ FROM    ubuntu:14.04
 MAINTAINER laszewski@gmail.com
 
 RUN apt-get update && apt-get install -y git
-RUN apt-get install -y python python-dev python-distribute python-pip
+RUN apt-get install -y python python-dev python-distribute python-pip libjpeg-dev
 
 RUN pip install --upgrade pip
 RUN pip --version
