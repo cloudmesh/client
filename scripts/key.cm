@@ -1,6 +1,6 @@
 banner KEYS
 
-key delete --all
+key delete --all --force=True
 
 # TODO: does ~ expansion works?
 key add --name=test-key ~/.ssh/id_rsa.pub
@@ -16,9 +16,9 @@ key list --source=git
 key get test-key
 
 default cloud
-key add_to_cloud test-key
+key upload test-key
 
-key list_cloud_mappings
+key map
 
-key delete --select
+# key delete --select
 
