@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, LIBCLOUD_VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
+    FLAVOR, DEFAULT, KEY, IMAGE, LIBCLOUD_IMAGE, VM, LIBCLOUD_VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
     SECGROUPRULE
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -224,7 +224,7 @@ class CloudmeshDatabase(object):
                     self.add_obj(db_obj)
                     self.save()
                 return True
-            elif kind in ["libcloud_vm"]:
+            elif kind in ["libcloud_vm", "libcloud_image"]:
 
                  # get provider for specific cloud
                 provider = CloudProvider(name).provider
@@ -240,6 +240,19 @@ class CloudmeshDatabase(object):
                         vm['cloud'] = name
                         vm['user'] = user
                         db_obj = {0: {kind: vm}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                if kind == "libcloud_image":
+                    images = provider.list_image(name)
+                    for images in images.values():
+                        images['uuid'] = "12333"
+                        images['type'] = 'string'
+                        images['cloud'] = name
+                        images['user'] = user
+                        db_obj = {0: {kind: images}}
 
                         self.add_obj(db_obj)
                         self.save()
@@ -305,6 +318,8 @@ class CloudmeshDatabase(object):
                 return DEFAULT
             elif kind.lower() in ["image"]:
                 return IMAGE
+            elif kind.lower() in ["libcloud_image"]:
+                return LIBCLOUD_IMAGE
             elif kind.lower() in ["vm"]:
                 return VM
             elif kind.lower() in ["libcloud_vm"]:

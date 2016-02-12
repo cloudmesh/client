@@ -75,5 +75,44 @@ class LibcloudDict(object):
             node_image_dict["image_name"] = node_image_obj.name
         else:
             node_image_dict["image_name"] = ""
+        if node_image_obj and node_image_obj.extra:
+            vm_image_extra_args = LibcloudDict.handle_vm_image_extra_args(node_image_obj.extra)
+            node_image_dict.update(vm_image_extra_args)
+            pprint("NodeImage extras")
+            pprint(node_image_obj.extra)
+        else:
+            pprint("NodeImage extras not found")
         ## Node Image Extra Args to be added here
         return node_image_dict
+
+    @staticmethod
+    def handle_vm_image_extra_args(extra_args):
+        image_extra_args_dict = {}
+        for key, value in extra_args.items():
+            if key == "architecture":
+                image_extra_args_dict[key] = value
+            if key == "description":
+                image_extra_args_dict[key] = value
+            if key == "hypervisor":
+                image_extra_args_dict[key] = value
+            if key == "image_location":
+                image_extra_args_dict[key] = value
+            if key == "image_type":
+                image_extra_args_dict[key] = value
+            if key == "is_public":
+                image_extra_args_dict[key] = value
+            if key == "kernel_id":
+                image_extra_args_dict[key] = value
+            if key == "owner_alias":
+                image_extra_args_dict[key] = value
+            if key == "owner_id":
+                image_extra_args_dict[key] = value
+            if key == "platform":
+                image_extra_args_dict[key] = value
+            if key == "ramdisk_id":
+                image_extra_args_dict[key] = value
+            if key == "state":
+                image_extra_args_dict[key] = value
+            if key == "virtualization_type":
+                image_extra_args_dict[key] = value
+        return image_extra_args_dict

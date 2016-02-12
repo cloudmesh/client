@@ -31,18 +31,39 @@ class CloudProviderLibcloud(CloudProviderBase):
         vm_dict = self._to_dict(nodes)
 
         for key, vm in enumerate(vm_dict):
-            pprint("VM !!!!")
+            # pprint("VM !!!!")
             pprint(vm)
         return vm_dict
+
+    def list_image(self, cloudname, **kwargs):
+        pprint("In list_images of libcloud")
+        images = self.provider.list_images()
+        image_dict = self._to_dict(images)
+
+        for key, vm in enumerate(image_dict):
+            # pprint("Images !!!!")
+            pprint(vm)
+        return image_dict
 
     def _to_dict(self, libcloud_result):
         d = {}
         pprint("Before To Dict")
+        result_type = ""
+        if libcloud_result[0]:
+            if libcloud_result[0].__class__.__name__ == "Node":
+                result_type = "Node"
+                pprint("Node type object received")
+            elif libcloud_result[0].__class__.__name__ == "NodeImage":
+                result_type = "NodeImage"
+                pprint("NodeImage type object received")
         pprint(libcloud_result[0])
 
-        for index, nodeObj in enumerate(libcloud_result):
+        for index, obj in enumerate(libcloud_result):
             d = {}
-            d[index] = LibcloudDict.convert_libcloud_vm_to_dict(nodeObj)
+            if result_type == "Node":
+                d[index] = LibcloudDict.convert_libcloud_vm_to_dict(obj)
+            elif result_type == "NodeImage":
+                d[index] = LibcloudDict.handle_vm_image_details(obj)
             # pprint("Id:"+result.id)
             # d['uuid'] = result.id
             # pprint("name:"+result.name)

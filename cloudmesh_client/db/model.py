@@ -170,6 +170,53 @@ class IMAGE(CloudmeshMixin, db.Base):
                 print ("{} = {}".format(key, value))
                 self[key] = value"""
 
+class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+    status = Column(String)
+    updated = Column(String)
+    created = Column(String)
+    architecture = Column(String)
+    description = Column(String)
+    hypervisor = Column(String)
+    image_location = Column(String)
+    image_type = Column(String)
+    is_public = Column(String)
+    kernel_id = Column(String)
+    owner_alias = Column(String)
+    owner_id = Column(String)
+    platform = Column(String)
+    ramdisk_id = Column(String)
+    state = Column(String)
+    virtualization_type = Column(String)
+
+    def __init__(self,
+                 name,
+                 uuid,
+                 type="string",
+                 cloud=None,
+                 user=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.cloud = cloud or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.uuid = uuid
+        self.kind = self.__tablename__
+        self.status = kwargs.get('status')
+        self.architecture = kwargs.get('architecture')
+        self.description = kwargs.get('description')
+        self.hypervisor = kwargs.get('hypervisor')
+        self.image_location = kwargs.get('image_location')
+        self.image_type = kwargs.get('image_type')
+        self.is_public = kwargs.get('is_public')
+        self.kernel_id = kwargs.get('kernel_id')
+        self.owner_alias = kwargs.get('owner_alias')
+        self.owner_id = kwargs.get('owner_id')
+        self.platform = kwargs.get('platform')
+        self.ramdisk_id = kwargs.get('ramdisk_id')
+        self.state = kwargs.get('state')
 
 class FLAVOR(CloudmeshMixin, db.Base):
     uuid = Column(String)
