@@ -293,20 +293,41 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     state = Column(String)
     public_ips = Column(String)
     private_ips = Column(String)
-    size = Column(String)
-    image = Column(String)
+    image_name = Column(String)
+    availability = Column(String)
+    image_id = Column(String)
+    instance_id = Column(String)
+    instance_type = Column(String)
+    key_name = Column(String)
+    private_dns = Column(String)
+    root_device_name = Column(String)
+    root_device_type = Column(String)
+    status = Column(String)
 
     def __init__(self, **kwargs):
         # self.kind = __tablename__
         self.label = kwargs["name"]
         self.cloud = kwargs["cloud"] or "general"
         self.type = kwargs["type"]
-        self.name = kwargs["name"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
-
+        self.name = kwargs["name"]
         self.state = kwargs["state"]
+        self.public_ips = kwargs["public_ips"]
         self.private_ips = kwargs["private_ips"]
+        self.image_name = kwargs["image_name"]
+        self.availability = kwargs["availability"]
+        self.image_id = kwargs["image_id"]
+        self.instance_id = kwargs["instance_id"]
+        self.instance_type = kwargs["instance_type"]
+        self.key_name = kwargs["key_name"]
+        self.private_dns = kwargs["private_dns"]
+        self.root_device_name = kwargs["root_device_name"]
+        self.root_device_type = kwargs["root_device_type"]
+        self.status = kwargs["status"]
+
+
+
 
         self.kind = self.__tablename__
 
