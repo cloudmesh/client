@@ -96,17 +96,16 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         commands by the interpreter should stop.
 
         """
-        print ("YYY", line)
         line = self.replace_vars(line)
         if line != "hist" and line:
             self._hist += [line.strip()]
+        if line.startswith("!"):
+            self.do_shell_exec(line[1:])
+            return ""
         cmd, arg, line = self.parseline(line)
+
         if not line:
             return self.emptyline()
-        if line.startswith("!"):
-            print("!!!!")
-            self.do_shell(line[1:])
-            return ""
         if os.path.isfile(line):
             self.do_exec(line)
             return ""
@@ -440,7 +439,18 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Console.error('file "{:}" does not exist.'.format(filename))
             sys.exit()
 
+
     # noinspection PyUnusedLocal
+    def do_shell_exec(self, args):
+        # just ignore arguments and pass on args
+        command = path_expand(args)
+        try:
+            os.system(command)
+        except Exception, e:
+            print (e)
+
+    # noinspection PyUnusedLocal
+    # BUG: this does not for some reason execute the arguments
     @command
     def do_shell(self, args, arguments):
         """
@@ -451,9 +461,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Executes a shell command
         """
         # just ignore arguments and pass on args
-        print ("AAA", args)
-        os.system(args)
-
+        command = path_expand(args)
+        try:
+            os.system(command)
+        except Exception, e:
+            print (e)
     #
     # VAR
     #
