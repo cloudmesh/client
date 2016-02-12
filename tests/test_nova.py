@@ -1,13 +1,11 @@
 from __future__ import print_function
 
 from cloudmesh_base.util import HEADING
-from cloudmesh_base.util import HEADING
 from cloudmesh_base.Shell import Shell
-__author__ = 'daniel'
 
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_nova.py
+python setup.py install; nosetests -v --nocapture tests/test_limits.py:Test_nova.test_001
 
 nosetests -v --nocapture tests/test_nova.py
 

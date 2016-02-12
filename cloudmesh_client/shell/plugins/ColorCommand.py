@@ -30,14 +30,14 @@ class ColorCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
 
                 Global switch for the console color mode.
                 One can switch the color mode on/off with
-                    cm color mode ON
-                    cm color mode OFF
+                    cm color ON
+                    cm color OFF
 
                 By default, the color mode is ON
 
             Examples:
-                color mode ON
-                color mode OFF
+                color ON
+                color OFF
         """
 
         # default mode is ON
