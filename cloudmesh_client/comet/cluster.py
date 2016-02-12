@@ -496,5 +496,34 @@ class Cluster(object):
         return ret
 
     @staticmethod
+    def detach_iso(clusterid, nodeid=None):
+        return Cluster.attach_iso('', clusterid, nodeid)
+
+    @staticmethod
+    def attach_iso(isoname, clusterid, nodeid=None):
+        ret = ''
+        print ("Attaching ISO image")
+        print ("isoname: %s" % isoname)
+        print ("cluster: %s" % clusterid)
+        print ("node: %s" % nodeid)
+
+        # attaching to front end
+        if nodeid:
+            url = Comet.url("cluster/{}/compute{}/attach_iso").format(clusterid, nodeid)
+        else:
+            # attaching to node
+            url = Comet.url("cluster/{}/frontend/attach_iso").format(clusterid)
+        data = {"iso_name": "%s" % isoname}
+        print ("url: %s" % url)
+        print ("data: %s" % data)
+        r = Comet.put(url, data)
+        if r is not None:
+            if '' != r.strip():
+                ret = r
+            else:
+                ret = "Requeset Accepted."
+        return ret
+
+    @staticmethod
     def delete():
         pass
