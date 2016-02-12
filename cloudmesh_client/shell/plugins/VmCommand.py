@@ -308,7 +308,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     # Add to group
                     if vm_id is not None:
-                        Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+                        Group.add(name=group, type="vm", id=name, cloud=cloud)
 
                     msg = "info. OK."
                     Console.ok(msg)
