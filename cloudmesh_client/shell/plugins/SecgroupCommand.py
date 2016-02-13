@@ -93,7 +93,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["create"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -116,7 +117,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["delete"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -139,7 +141,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["rules-delete"]:
             # if no arguments read default
             cloud = arguments["--cloud"] or Default.get_cloud()
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -176,7 +179,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["rules-list"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate

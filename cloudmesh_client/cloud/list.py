@@ -32,7 +32,7 @@ class List(object):
 
             filter = {}
             if cloud is not None:
-                filter["cloud"] = cloud
+                filter["category"] = cloud
             if user is not None:
                 filter["user"] = user
             if tenant is not None:

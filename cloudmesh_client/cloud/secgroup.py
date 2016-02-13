@@ -131,14 +131,14 @@ class SecGroup(ListResource):
             secgroup_obj = cls.cm_db.db_obj_dict("secgroup",
                                                  name=label,
                                                  uuid=uuid,
-                                                 cloud=cloudname,
+                                                 category=cloudname,
                                                  user=user,
                                                  project=tenant)
             """
             secgroup_obj = model.SECGROUP(
                 label,
                 uuid=uuid,
-                cloud=cloudname,
+                category=cloudname,
                 user=user,
                 project=tenant
             )
@@ -237,7 +237,7 @@ class SecGroup(ListResource):
         try:
             args = {
                 "name": name,
-                "cloud": cloud,
+                "category": cloud,
                 "project": project
             }
 
@@ -248,7 +248,8 @@ class SecGroup(ListResource):
                 model.SECGROUP.project == project
             ).first()
             """
-            secgroup = cls.cm_db.find("secgroup", output="object",
+            secgroup = cls.cm_db.find("secgroup",
+                                      output="object",
                                       **args).first()
             return secgroup
 
@@ -272,7 +273,7 @@ class SecGroup(ListResource):
                 uuid=str(rule_id),
                 name=secgroup.name,
                 groupid=secgroup.uuid,
-                cloud=secgroup.cloud,
+                category=secgroup.cloud,
                 user=secgroup.user,
                 project=secgroup.project,
                 fromPort=from_port,
@@ -287,7 +288,7 @@ class SecGroup(ListResource):
                                             uuid=str(rule_id),
                                             name=secgroup.name,
                                             groupid=secgroup.uuid,
-                                            cloud=secgroup.cloud,
+                                            category=secgroup.cloud,
                                             user=secgroup.user,
                                             project=secgroup.project,
                                             fromPort=from_port,
