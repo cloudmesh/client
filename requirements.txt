@@ -4,6 +4,7 @@ cloudmesh_base
 future
 docopt
 pyaml
+pyyaml
 simplejson
 python-hostlist
 prettytable
