@@ -332,6 +332,26 @@ class ConfigDict(object):
         """
         TODO.implement()
 
+    @classmethod
+    def getUser(cls, cloud):
+        try:
+
+            config = d = ConfigDict("cloudmesh.yaml")
+
+            d = ConfigDict("cloudmesh.yaml")
+            config = d["cloudmesh"]["clouds"][cloud]
+            credentials = config["credentials"]
+            cloud_type = config["cm_type"]
+
+            if cloud_type == "openstack":
+                return credentials["OS_USERNAME"]
+            else:
+                raise ValueError("getUser for this cloud type not yet "
+                                 "supported: {}".format(cloud))
+
+        except Exception as ex:
+            print(ex.message, ex)
+
 
 # noinspection PyPep8Naming
 def Username():
@@ -342,6 +362,8 @@ def Username():
 
     user = d["cloudmesh"]["profile"]["username"]
     return user
+
+
 
 
 def main():
