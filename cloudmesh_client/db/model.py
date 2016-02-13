@@ -517,7 +517,10 @@ class RESERVATION(CloudmeshMixin, db.Base):
         # self.kind = __tablename__
         self.label = kwargs['name']
         self.hosts = kwargs['hosts']
-        self.category = kwargs['category'] or "general"
+        if 'category' in kwargs:
+            self.category = kwargs['category'] or "general"
+        else:
+            self.category = 'general'
         self.start_time = kwargs['start']
         self.end_time = kwargs['end']
         self.description = kwargs['description']
