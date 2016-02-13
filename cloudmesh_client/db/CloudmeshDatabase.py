@@ -10,7 +10,8 @@ from sqlalchemy import inspect
 from cloudmesh_client.util import banner
 from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
+    FLAVOR, VAR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, \
+    VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
     SECGROUPRULE
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -280,6 +281,8 @@ class CloudmeshDatabase(object):
                 return FLAVOR
             elif kind.lower() in ["default"]:
                 return DEFAULT
+            elif kind.lower() in ["var"]:
+                return VAR
             elif kind.lower() in ["image"]:
                 return IMAGE
             elif kind.lower() in ["vm"]:

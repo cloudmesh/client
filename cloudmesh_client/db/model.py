@@ -403,6 +403,28 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.kind = self.__tablename__
 
 
+class VAR(CloudmeshMixin, db.Base):
+    """table to store peristant variable values
+    """
+    # name defined in mixin
+    value = Column(String)
+    type = Column(String, default="string")
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 category="var",
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.category = category or "var"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
 class LAUNCHER(CloudmeshMixin, db.Base):
     """table to store default values
 
