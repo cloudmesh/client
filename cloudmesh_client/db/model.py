@@ -121,7 +121,7 @@ class IMAGE(CloudmeshMixin, db.Base):
                  **kwargs):
         # self.kind = __tablename__
         self.label = name
-        self.categrory = category or "general"
+        self.category = category or "general"
         self.type = type
         self.name = name
         self.user = user
