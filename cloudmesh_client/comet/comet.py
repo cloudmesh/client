@@ -490,9 +490,19 @@ class Comet(object):
         return hash.hexdigest()
 
     @staticmethod
+    def list_image():
+        ret = ''
+        url = Comet.url("image")
+        r = Comet.get(url)
+        if r is not None:
+            ret = r
+        return ret
+
+    @staticmethod
     def upload_image(filename, filepath):
-        print ("filename to use: %s" % filename)
-        print ("full file path: %s" % filepath)
+        ret = ''
+        # print ("filename to use: %s" % filename)
+        # print ("full file path: %s" % filepath)
         posturl = Comet.url("image")
         r = None
         md5 = Comet.md5(filepath)
@@ -500,7 +510,9 @@ class Comet(object):
             files={'file':(filename, fh)}
             print (files)
             r = Comet.post(posturl, files=files, md5=md5)
-        return r
+            if r is not None:
+                ret = r
+        return ret
 
 def main():
     comet = Comet()

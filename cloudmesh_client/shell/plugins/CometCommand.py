@@ -31,6 +31,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--walltime=WALLTIME]
                comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
+               comet image list
                comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
                comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
                comet image detach CLUSTERID [COMPUTENODEID]
@@ -302,14 +303,15 @@ class CometCommand(PluginCommand, CometPluginCommand):
             allocation = arguments["--allocation"] or None
             if arguments["on"]:
                 action = "on"
-                walltime = Cluster.convert_to_mins(walltime)
-                if not walltime:
-                    print ("No valid walltime specified. Using system default")
-                if not allocation:
-                    if len(allocations) == 1:
-                        allocation = allocations[0]
-                    else:
-                        allocation = Cluster.display_get_allocation(allocations)
+                if subject in ["HOSTS", "HOST"]:
+                    walltime = Cluster.convert_to_mins(walltime)
+                    if not walltime:
+                        print ("No valid walltime specified. Using system default")
+                    if not allocation:
+                        if len(allocations) == 1:
+                            allocation = allocations[0]
+                        else:
+                            allocation = Cluster.display_get_allocation(allocations)
             elif arguments["off"]:
                 action = "off"
             elif arguments["reboot"]:
@@ -328,6 +330,14 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 nodeid = arguments["COMPUTENODEID"]
             Comet.console(clusterid, nodeid)
         elif arguments["image"]:
+            if arguments["list"]:
+                images = (Comet.list_image())
+                idx = 0
+                for image in images:
+                    if image.startswith("public/"):
+                        image = image.split("/")[1]
+                    idx += 1
+                    print ("{}: {}".format(idx, image))
             if arguments["upload"]:
                 imagefile = arguments["PATHIMAGEFILE"]
                 imagefile = os.path.abspath(imagefile)
