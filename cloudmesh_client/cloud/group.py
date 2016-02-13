@@ -103,7 +103,7 @@ class Group(ListResource):
         :return:
         """
         # user logged into cloudmesh
-        user = cls.getUser(category) or cls.cm.user
+        user = ConfigDict.getUser(category) or cls.cm.user
 
         try:
             # See if group already exists. If yes, add id to the group
@@ -472,28 +472,3 @@ class Group(ListResource):
                 i += 1
         return d
 
-    # TODO Bug. This needs to go to the CLoudProviderOpenstackAPI
-    # TODO Bug naturally the india implementation here is buggy
-    @classmethod
-    def getUser(cls, cloudname):
-        """
-        Method to get the user information
-            from the cloudmesh database
-            for a given cloud
-        :param cloudname:
-        :return:
-        """
-        try:
-            # currently support India cloud
-            if cloudname in ["kilo"]:
-                d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname][
-                    "credentials"]
-                for key, value in credentials.iteritems():
-                    if key == "OS_USERNAME":
-                        return value
-            else:
-                return None
-
-        except Exception as ex:
-            Console.error(ex.message, ex)
