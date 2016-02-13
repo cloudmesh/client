@@ -77,43 +77,18 @@ class Test_default():
         self._check("None")
 
 
-    '''
-    def test_003(self):
-        """cm default test=testValue --cloud=mycloud"""
+    def test_004(self):
         HEADING()
-        result = run("cm default test=testValue --cloud=mycloud")
-        print ("HHHH", result)
+        command = "cm var myvar=myvalue"
+        result = run(command)
+        result = run("cm var list")
+        assert "myvalue" in result
 
-        assert "ok." in result
-
-    def test_009(self):
-        """cm default test --cloud=mycloud"""
+    def test_005(self):
         HEADING()
-        run("cm default test=testValue --cloud=mycloud")
-        result = run("cm default test --cloud=mycloud")
-        assert "testValue" in result
-
-    def test_010(self):
-        """cm default doesnotexist --cloud=mycloud"""
-        HEADING()
-        result = run("cm default doesnotexist --cloud=mycloud")
-        assert "No default values found" in result
-
-    def test_011(self):
-        """cm default delete test"""
-        HEADING()
-        run("cm default test=testValue --cloud=mycloud")
-        result = run("cm default delete test --cloud=mycloud")
-        print result
-        assert "Deleted key" in result
-
-    def test_012(self):
-        """cm default delete doesnotexist --cloud=mycloud"""
-        HEADING()
-        result = run("cm default delete doesnotexist --cloud=mycloud")
-        assert "Key doesnotexist not present" in result
-
-    '''
+        command = "cm banner $myvar"
+        result = run(command)
+        assert "myvalue" in result
 
     def test_999(self):
         """

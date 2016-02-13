@@ -13,6 +13,7 @@ from cloudmesh_client.util import path_expand
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.var import Var
 
 
 def create_cloudmesh_yaml(filename):
@@ -482,13 +483,20 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.update_time()
 
         newline = line
-        for v in self.variables:
-            newline = newline.replace("$" + v, self.variables[v])
-        for v in os.environ:
-            newline = newline.replace("$" + v, os.environ[v])
+
+        variables =     Var.list(format="dict")
+
+        if len(variables) is not None:
+            for v in variables:
+                name = variables[v]["name"]
+                value =  variables[v]["value"]
+                newline = newline.replace("$" + name, value)
+        #for v in os.environ:
+        #    newline = newline.replace("$" + v.name, os.environ[v])
         newline = path_expand(newline)
         return newline
 
+    '''
     def _add_variable(self, name, value):
         self.variables[name] = value
         # self._list_variables()
@@ -504,6 +512,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         Console.ok(10 * "-")
         for v in self.variables:
             Console.ok("{:} = {:}".format(v, self.variables[v]))
+    '''
 
     @command
     def do_var(self, arg, arguments):
@@ -513,14 +522,17 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             var delete NAMES
             var NAME=VALUE
             var NAME
+
         Arguments:
             NAME    Name of the variable
             NAMES   Names of the variable separated by spaces
             VALUE   VALUE to be assigned
+
         special vars date and time are defined
         """
         if arguments['list'] or arg == '' or arg is None:
-            self._list_variables()
+            # self._list_variables()
+            print (Var.list())
             return ""
 
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
@@ -536,18 +548,21 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 except Exception, e:
                     Console.error("can not find variable {} in cloudmesh.yaml".format(value))
                     value = None
-            self._add_variable(variable, value)
+            #self._add_variable(variable, value)
+            Var.set(variable, value)
             return ""
-        elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
+        elif arguments['NAME=VALUE'] and "=" not in arguments["NAME=VALUE"]:
             try:
                 v = arguments['NAME=VALUE']
-                Console.ok(str(self.variables[v]))
+                #Console.ok(str(self.variables[v]))
+                Console.ok(str(Var.get(v)))
             except:
                 Console.error('variable {:} not defined'.format(arguments['NAME=VALUE']))
 
         elif arg.startswith('delete'):
             variable = arg.split(' ')[1]
-            self._delete_variable(variable)
+            Var.delete(variable)
+            #self._delete_variable(variable)
             return ""
 
     @command
