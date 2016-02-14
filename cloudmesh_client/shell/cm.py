@@ -479,12 +479,30 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.variables['date'] = date
 
     def var_finder(self, line, c='$'):
-        """
-        finds three types of variables.
-
-        :param line: $a $b.c.e $os.HOME
-        :return: three arrays with the different vars
-        """
+        line = line[line.index('$'):]
+        # print a
+        # print str[a:]
+        # print str
+        list = line.split('$')
+        print list
+        reg_list = []
+        os_list = []
+        dotvar_list = []
+        for i in list:
+            if i.strip().find('.') == -1:
+                reg_list.append(i.strip())
+            elif i.strip().find('.') > -1 and i.strip().find('os') >-1:
+                os_list.append(i.strip()[3:])
+            elif i.strip().find('.')>-1 and i.strip().find('os') ==-1:
+                dotvar_list.append(i.strip())
+        reg_list.remove(list[0].strip())
+        # print "regular variables :"
+        # print reg_list
+        # print "Os Variables : "
+        # print os_list
+        # print "Dot Variables : "
+        # print dotvar_list
+        return reg_list, os_lsit, dotvar_list 
 
     def var_replacer(self, line, c='$'):
 
