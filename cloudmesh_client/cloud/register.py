@@ -409,7 +409,8 @@ class CloudRegister(object):
         cm_heading = raw_input(
             "Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}".format(cloudname_suggest)
+        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+            .format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
@@ -459,3 +460,14 @@ class CloudRegister(object):
         # Save data in yaml
         yaml_data.save()
         print("New cloud config exported to {:}".format(yaml_data.filename))
+
+    @classmethod
+    def set_username(cls, username):
+        """
+        Method that sets the username in yaml.
+        :param username:
+        :return:
+        """
+        config = ConfigDict("cloudmesh.yaml")
+        config['cloudmesh']['profile']['username'] = username
+        config.save()
