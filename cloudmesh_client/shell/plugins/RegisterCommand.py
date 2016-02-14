@@ -3,6 +3,7 @@ from __future__ import print_function
 import os
 import os.path
 import json
+import getpass
 
 from cloudmesh_client.util import yn_choice
 from cloudmesh_client.shell.console import Console
@@ -49,6 +50,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register json HOST
               register remote [CLOUD] [--force]
               register env [--provider=PROVIDER]
+              register username [USERNAME]
               register CLOUD [--force]
               register CLOUD [--dir=DIR]
 
@@ -68,6 +70,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             FILEPATH the path of the file
             CLOUD the cloud name
             PROVIDER the provider or type of cloud [Default: openstack]
+            USERNAME  Username that would be registered in yaml. Defaults to OS username.
 
           Options:
 
@@ -147,6 +150,9 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                   Reads env OS_* variables and registers a new cloud in yaml,
                   interactively. Default PROVIDER is openstack and HOSTNAME
                   is localhost.
+
+              register username [USERNAME]
+                  Sets the username in yaml with the value provided.
          """
         # from pprint import pprint
         # pprint(arguments)
@@ -403,6 +409,12 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 for cloud in clouds:
                     CloudRegister.remote(cloud, True)
                     export(cloud, "table")
+            return ""
+
+        elif arguments['username']:
+            username = arguments["USERNAME"] or getpass.getuser()
+            CloudRegister.set_username(username)
+            Console.ok("Username {} set successfully in the yaml settings.".format(username))
             return ""
 
         # if all fails do a simple list
