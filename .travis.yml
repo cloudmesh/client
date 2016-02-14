@@ -18,16 +18,18 @@ virtualenv:
 language: python
 
 python:
-  - "2.7"
+  - "2.7.10"
 
 # libraries:
 # - name: pycrypto
 #   version: "2.6.1"
   
 install:
+  - apt-get install python-dev
   - pip install --upgrade pip
   - pip --version
   - pip install pyyaml --upgrade --force
+  - pip install lockfile
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
   - python setup.py install
