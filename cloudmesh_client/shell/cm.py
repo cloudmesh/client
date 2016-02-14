@@ -505,7 +505,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             # get value from yaml file
             # replace in string
         '''
-        
+
     def replace_vars(self, line):
 
         self.update_time()
