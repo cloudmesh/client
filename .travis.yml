@@ -25,7 +25,6 @@ python:
 #   version: "2.6.1"
   
 install:
-  - apt-get install python-dev
   - pip install --upgrade pip
   - pip --version
   - pip install pyyaml --upgrade --force
