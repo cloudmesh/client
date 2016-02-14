@@ -139,11 +139,13 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.default">cloudmesh_client.default module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.locations">cloudmesh_client.locations module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.logger">cloudmesh_client.logger module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.setup">cloudmesh_client.setup module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.shell_commad">cloudmesh_client.shell_commad module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.util">cloudmesh_client.util module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.var">cloudmesh_client.var module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client.version">cloudmesh_client.version module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.html#module-cloudmesh_client">Module contents</a></li>
 </ul>
@@ -300,6 +302,11 @@
 <dd></dd></dl>
 
 <dl class="staticmethod">
+<dt id="cloudmesh_client.comet.cluster.Cluster.attach_iso">
+<em class="property">static </em><code class="descname">attach_iso</code><span class="sig-paren">(</span><em>isoname</em>, <em>clusterid</em>, <em>nodeid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/cluster.html#Cluster.attach_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.cluster.Cluster.attach_iso" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
 <dt id="cloudmesh_client.comet.cluster.Cluster.computeset">
 <em class="property">static </em><code class="descname">computeset</code><span class="sig-paren">(</span><em>id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/cluster.html#Cluster.computeset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.cluster.Cluster.computeset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -312,6 +319,11 @@
 <dl class="staticmethod">
 <dt id="cloudmesh_client.comet.cluster.Cluster.delete">
 <em class="property">static </em><code class="descname">delete</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/cluster.html#Cluster.delete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.cluster.Cluster.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.comet.cluster.Cluster.detach_iso">
+<em class="property">static </em><code class="descname">detach_iso</code><span class="sig-paren">(</span><em>clusterid</em>, <em>nodeid=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/cluster.html#Cluster.detach_iso"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.cluster.Cluster.detach_iso" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -440,7 +452,7 @@
 
 <dl class="staticmethod">
 <dt id="cloudmesh_client.comet.comet.Comet.http">
-<em class="property">static </em><code class="descname">http</code><span class="sig-paren">(</span><em>url</em>, <em>action='get'</em>, <em>headers=None</em>, <em>data=None</em>, <em>cacert=True</em>, <em>allow_redirects=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/comet.html#Comet.http"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.http" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">http</code><span class="sig-paren">(</span><em>url</em>, <em>action='get'</em>, <em>headers=None</em>, <em>data=None</em>, <em>files=None</em>, <em>md5=None</em>, <em>cacert=True</em>, <em>allow_redirects=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/comet.html#Comet.http"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.http" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -474,8 +486,13 @@
 <dd></dd></dl>
 
 <dl class="staticmethod">
+<dt id="cloudmesh_client.comet.comet.Comet.md5">
+<em class="property">static </em><code class="descname">md5</code><span class="sig-paren">(</span><em>fname</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/comet.html#Comet.md5"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.md5" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
 <dt id="cloudmesh_client.comet.comet.Comet.post">
-<em class="property">static </em><code class="descname">post</code><span class="sig-paren">(</span><em>url</em>, <em>headers=None</em>, <em>data=None</em>, <em>allow_redirects=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/comet.html#Comet.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.post" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="descname">post</code><span class="sig-paren">(</span><em>url</em>, <em>headers=None</em>, <em>data=None</em>, <em>md5=None</em>, <em>files=None</em>, <em>allow_redirects=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/comet.html#Comet.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.post" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -521,6 +538,11 @@
 <dl class="attribute">
 <dt id="cloudmesh_client.comet.comet.Comet.tunnelled">
 <code class="descname">tunnelled</code><em class="property"> = False</em><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.tunnelled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.comet.comet.Comet.upload_image">
+<em class="property">static </em><code class="descname">upload_image</code><span class="sig-paren">(</span><em>filename</em>, <em>filepath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/comet/comet.html#Comet.upload_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.comet.comet.Comet.upload_image" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">

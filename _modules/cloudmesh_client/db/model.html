@@ -244,7 +244,7 @@
                         <span class="n">onupdate</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">))</span>
     <span class="n">label</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
-    <span class="n">cloud</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
     <span class="n">user</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
     <span class="n">kind</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span>
     <span class="n">project</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;undefined&quot;</span><span class="p">)</span></div>
@@ -285,12 +285,12 @@
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">uuid</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
@@ -355,12 +355,12 @@
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">uuid</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
@@ -412,7 +412,7 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span>
@@ -546,7 +546,7 @@
 <div class="viewcode-block" id="DEFAULT"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.DEFAULT">[docs]</a><span class="k">class</span> <span class="nc">DEFAULT</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;table to store default values</span>
 
-<span class="sd">    if the cloud is &quot;global&quot; it is meant to be a global variable</span>
+<span class="sd">    if the category is &quot;global&quot; it is meant to be a global variable</span>
 
 <span class="sd">    todo: check if its global or general</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -554,17 +554,17 @@
     <span class="n">value</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
     <span class="nb">type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
 
-    <span class="c1"># cloud = Column(String)</span>
+    <span class="c1"># category = Column(String)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">value</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
@@ -572,10 +572,32 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
 
 
+<div class="viewcode-block" id="VAR"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.VAR">[docs]</a><span class="k">class</span> <span class="nc">VAR</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;table to store peristant variable values</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># name defined in mixin</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">name</span><span class="p">,</span>
+                 <span class="n">value</span><span class="p">,</span>
+                 <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="s2">&quot;var&quot;</span><span class="p">,</span>
+                 <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c1"># self.kind = __tablename__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;var&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
+
 <div class="viewcode-block" id="LAUNCHER"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.LAUNCHER">[docs]</a><span class="k">class</span> <span class="nc">LAUNCHER</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;table to store default values</span>
 
-<span class="sd">    if the cloud is &quot;global&quot; it is meant to be a global variable</span>
+<span class="sd">    if the category is &quot;global&quot; it is meant to be a global variable</span>
 
 <span class="sd">    todo: check if its global or general</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -584,17 +606,17 @@
     <span class="nb">type</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>  <span class="c1"># This is the parameter represented as yaml object</span>
 
-    <span class="c1"># cloud = Column(String)</span>
+    <span class="c1"># category = Column(String)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">value</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
@@ -619,13 +641,13 @@
                  <span class="n">fingerprint</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">comment</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">is_default</span><span class="o">=</span><span class="s2">&quot;False&quot;</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uri</span> <span class="o">=</span> <span class="n">uri</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">comment</span> <span class="o">=</span> <span class="n">comment</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fingerprint</span> <span class="o">=</span> <span class="n">fingerprint</span>
@@ -647,11 +669,12 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">user</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="p">,</span>
+                 <span class="n">category</span><span class="p">,</span>
                  <span class="n">name_on_cloud</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key_name</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_name</span> <span class="o">=</span> <span class="n">cloud</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_name</span> <span class="o">=</span> <span class="n">category</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">key_name_on_cloud</span> <span class="o">=</span> <span class="n">name_on_cloud</span></div>
 
 
@@ -663,11 +686,11 @@
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">value</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
@@ -685,7 +708,10 @@
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;hosts&#39;</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;cloud&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;comet&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;category&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s1">&#39;general&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">start_time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">end_time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
@@ -702,13 +728,13 @@
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">uuid</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
@@ -736,7 +762,7 @@
                  <span class="n">name</span><span class="p">,</span>
                  <span class="n">groupid</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-                 <span class="n">cloud</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">project</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">fromPort</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -747,7 +773,7 @@
         <span class="c1"># self.kind = __tablename__</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">uuid</span> <span class="o">=</span> <span class="n">uuid</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="n">cloud</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">user</span>
@@ -768,7 +794,7 @@
 <div class="viewcode-block" id="BATCHJOB"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.BATCHJOB">[docs]</a><span class="k">class</span> <span class="nc">BATCHJOB</span><span class="p">(</span><span class="n">CloudmeshMixin</span><span class="p">,</span> <span class="n">db</span><span class="o">.</span><span class="n">Base</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;table to store default values</span>
 
-<span class="sd">    if the cloud is &quot;global&quot; it is meant to be a global variable</span>
+<span class="sd">    if the category is &quot;global&quot; it is meant to be a global variable</span>
 
 <span class="sd">    todo: check if its global or general</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -786,13 +812,13 @@
     <span class="n">time</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
     <span class="n">group</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
     <span class="n">job_id</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
-
-    <span class="c1"># cloud = Column(String)</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">,</span>
                  <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
                  <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                 <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span>
                  <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
@@ -811,7 +837,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">time</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">job_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;job_id&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__tablename__</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="s2">&quot;general&quot;</span></div>
 
 
 <div class="viewcode-block" id="tables"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.db.model.tables">[docs]</a><span class="k">def</span> <span class="nf">tables</span><span class="p">():</span>

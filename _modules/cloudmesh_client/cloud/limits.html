@@ -181,8 +181,8 @@
 <div class="viewcode-block" id="Limits.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.limits.Limits.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="n">tenant</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
-            <span class="c1">#if tenant is None:</span>
-            <span class="c1">#    tenant = provider.tenant</span>
+            <span class="c1"># if tenant is None:</span>
+            <span class="c1">#     tenant = provider.tenant</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_limits</span><span class="p">(</span><span class="n">tenant</span><span class="p">)[</span><span class="s2">&quot;absolute&quot;</span><span class="p">]</span>
 

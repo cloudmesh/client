@@ -28,14 +28,6 @@ cloudmesh_client.cloud.counter module
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.cloud.default module
--------------------------------------
-
-.. automodule:: cloudmesh_client.cloud.default
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 cloudmesh_client.cloud.experiment module
 ----------------------------------------
 

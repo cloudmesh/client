@@ -182,7 +182,6 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">CloudProvider</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
-
         <span class="k">try</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">cloudname</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
@@ -212,7 +211,6 @@
 
 <div class="viewcode-block" id="CloudProvider.get_attributes"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.CloudProvider.get_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">get_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">attributes</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span></div></div>
-
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>

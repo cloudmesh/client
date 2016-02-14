@@ -355,9 +355,7 @@
 <span class="sd">        :type filename: string</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">BaseConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></div>
-
 
 <div class="viewcode-block" id="ConfigDict.write"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -501,7 +499,27 @@
 <span class="sd">        :type filename: string</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div></div>
+        <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ConfigDict.getUser"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.ConfigDict.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="n">config</span> <span class="o">=</span> <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloud</span><span class="p">]</span>
+            <span class="n">credentials</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span>
+            <span class="n">cloud_type</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">cloud_type</span> <span class="o">==</span> <span class="s2">&quot;openstack&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;OS_USERNAME&quot;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;getUser for this cloud type not yet &quot;</span>
+                                 <span class="s2">&quot;supported: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloud</span><span class="p">))</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div></div>
 
 
 <span class="c1"># noinspection PyPep8Naming</span>
@@ -513,6 +531,8 @@
 
     <span class="n">user</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;profile&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">user</span></div>
+
+
 
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.ConfigDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>

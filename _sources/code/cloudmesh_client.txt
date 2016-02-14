@@ -18,6 +18,14 @@ Subpackages
 Submodules
 ----------
 
+cloudmesh_client.default module
+-------------------------------
+
+.. automodule:: cloudmesh_client.default
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.locations module
 ---------------------------------
 
@@ -54,6 +62,14 @@ cloudmesh_client.util module
 ----------------------------
 
 .. automodule:: cloudmesh_client.util
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.var module
+---------------------------
+
+.. automodule:: cloudmesh_client.var
     :members:
     :undoc-members:
     :show-inheritance:

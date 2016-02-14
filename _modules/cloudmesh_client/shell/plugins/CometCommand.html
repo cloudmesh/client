@@ -172,6 +172,8 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.comet.comet</span> <span class="kn">import</span> <span class="n">Comet</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.comet.cluster</span> <span class="kn">import</span> <span class="n">Cluster</span>
 <span class="kn">import</span> <span class="nn">hostlist</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="c1"># noinspection PyUnusedLocal,PyBroadException</span>
 <div class="viewcode-block" id="CometCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.CometCommand.CometCommand">[docs]</a><span class="k">class</span> <span class="nc">CometCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
@@ -198,6 +200,9 @@
 <span class="sd">                            [--walltime=WALLTIME]</span>
 <span class="sd">               comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]</span>
 <span class="sd">               comet console CLUSTERID [COMPUTENODEID]</span>
+<span class="sd">               comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE</span>
+<span class="sd">               comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]</span>
+<span class="sd">               comet image detach CLUSTERID [COMPUTENODEID]</span>
 
 <span class="sd">            Options:</span>
 <span class="sd">                --format=FORMAT       Format is either table, json, yaml,</span>
@@ -209,6 +214,8 @@
 <span class="sd">                                        Walltime could be an integer value followed</span>
 <span class="sd">                                        by a unit (m, h, d, w, for minute, hour, day,</span>
 <span class="sd">                                        and week, respectively). E.g., 3h, 2d</span>
+<span class="sd">                --imagename=IMAGENAME   Name of the image after being stored remotely.</span>
+<span class="sd">                                        If not specified, use the original filename</span>
 
 <span class="sd">            Arguments:</span>
 <span class="sd">                CLUSTERID       The assigned name of a cluster, e.g. vc1</span>
@@ -219,6 +226,8 @@
 <span class="sd">                                of nodes; or a single host is also accepptable, </span>
 <span class="sd">                                e.g., vm-vc1-0</span>
 <span class="sd">                COMPUTENODEID   A compute node name, e.g., vm-vc1-0</span>
+<span class="sd">                IMAGENAME       Name of an image at remote server</span>
+<span class="sd">                PATHIMAGEFILE   The full path to the image file to be uploaded</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># back up of all the proposed commands/options</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -487,6 +496,29 @@
             <span class="k">if</span> <span class="s1">&#39;COMPUTENODEID&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
                 <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
             <span class="n">Comet</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;upload&quot;</span><span class="p">]:</span>
+                <span class="n">imagefile</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PATHIMAGEFILE&quot;</span><span class="p">]</span>
+                <span class="n">imagefile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">imagefile</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">imagefile</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--imagename&quot;</span><span class="p">]:</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--imagename&quot;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">imagefile</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;File does not exist - {}&quot;</span>\
+                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PATHIMAGEFILE&quot;</span><span class="p">]))</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">upload_image</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">imagefile</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;attach&quot;</span><span class="p">]:</span>
+                <span class="n">imagename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;IMAGENAME&quot;</span><span class="p">]</span>
+                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+                <span class="n">computenodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeid</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;detach&quot;</span><span class="p">]:</span>
+                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+                <span class="n">computenodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeid</span><span class="p">))</span>
         <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 

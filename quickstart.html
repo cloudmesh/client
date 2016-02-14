@@ -91,9 +91,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Quickstart</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#setup">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#help">Help</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#understanding-the-cloudmesh-shell">Understanding the cloudmesh shell</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-started-with-the-cloud-s">Getting started with the Cloud(s)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#starting-up-a-new-vm-in-the-cloud">Starting up a new VM in the cloud</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#cloudmesh-shell">Cloudmesh shell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-clouds">Accessing Clouds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#virtual-machines">Virtual Machines</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#hpc">HPC</a></li>
 </ul>
 </li>
@@ -185,11 +185,6 @@ system according to the steps documented in the Section
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">The instalation with pip is not yet working at this
-time. Please use the instalation from source.</p>
-</div>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
 <div class="highlight-python"><div class="highlight"><pre>pip install cloudmesh_client
 </pre></div>
@@ -210,8 +205,8 @@ span.prompt1:before {
 </pre><p>When locationg a specific command you want to know more about, lets assume you want to know more about the command <cite>color</cite>, say</p>
 <pre class="highlight"><span class="prompt1">help color</span>
 </pre></div>
-<div class="section" id="understanding-the-cloudmesh-shell">
-<h2>Understanding the cloudmesh shell<a class="headerlink" href="#understanding-the-cloudmesh-shell" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cloudmesh-shell">
+<h2>Cloudmesh shell<a class="headerlink" href="#cloudmesh-shell" title="Permalink to this headline">¶</a></h2>
 <p>The cloudmesh shell contains a number of simple abstractions. This
 includes defaults, variables and configuration flags.</p>
 <p>To set a default value, for example to set the default cloud to kilo use:</p>
@@ -221,8 +216,8 @@ includes defaults, variables and configuration flags.</p>
 </pre><p>To conduct a live refresh in a cloud please use</p>
 <pre class="highlight"><span class="prompt1">refresh on</span>
 </pre></div>
-<div class="section" id="getting-started-with-the-cloud-s">
-<h2>Getting started with the Cloud(s)<a class="headerlink" href="#getting-started-with-the-cloud-s" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="accessing-clouds">
+<h2>Accessing Clouds<a class="headerlink" href="#accessing-clouds" title="Permalink to this headline">¶</a></h2>
 <p>Naturally you want to get started with clouds. In case you have a
 username and project in futuresystems using cloudmesh is easy. Only
 thing you need is an entry in the .ssh/config file with the machine
@@ -272,8 +267,8 @@ to the key database. To do so, use:</p>
 <p>Then, to upload this key to the cloud (your default cloud) use:</p>
 <pre class="highlight"><span class="prompt1">key upload albert_ssh_key</span>
 </pre></div>
-<div class="section" id="starting-up-a-new-vm-in-the-cloud">
-<h2>Starting up a new VM in the cloud<a class="headerlink" href="#starting-up-a-new-vm-in-the-cloud" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="virtual-machines">
+<h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h2>
 <p>If you have followed this document till this point, you are all set
 to start a new VM in the cloud. This section explains how to do that.</p>
 <p>First, make sure all defaults are correctly set.</p>

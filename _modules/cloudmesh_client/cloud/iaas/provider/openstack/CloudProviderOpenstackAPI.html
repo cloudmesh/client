@@ -304,22 +304,22 @@
 <span class="sd">        Lists clouds</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cloud_dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
         <span class="n">clouds</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">clouds</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">CloudProviderOpenstackAPI</span><span class="o">.</span><span class="n">cloud_pwd</span><span class="p">:</span>
-                <span class="nb">dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">cloud_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
                     <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="n">CloudProviderOpenstackAPI</span><span class="o">.</span><span class="n">cloud_pwd</span><span class="p">[</span><span class="n">cloud</span><span class="p">][</span><span class="s2">&quot;status&quot;</span><span class="p">]</span>
                 <span class="p">}</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="nb">dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">cloud_dict</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
                     <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
                     <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Logged Out&quot;</span>
                 <span class="p">}</span>
 
-        <span class="k">return</span> <span class="nb">dict</span></div>
+        <span class="k">return</span> <span class="n">cloud_dict</span></div>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.initialize"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.initialize">[docs]</a>    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
@@ -469,19 +469,17 @@
         <span class="k">if</span> <span class="n">flavor</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">flavor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span>
 
-
-        <span class="n">image_id</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">get_image_id</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="n">flavor_id</span> <span class="o">=</span>  <span class="bp">self</span><span class="o">.</span><span class="n">get_flavor_id</span><span class="p">(</span><span class="n">flavor</span><span class="p">)</span>
+        <span class="n">image_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_image_id</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">flavor_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_flavor_id</span><span class="p">(</span><span class="n">flavor</span><span class="p">)</span>
 
         <span class="c1"># if no nics specified, try to find one in case it&#39;s needed</span>
-        <span class="k">if</span> <span class="n">nics</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">nics</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> \
-            <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nics</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">nics</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;net-id&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">nics</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">nics</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nics</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">nics</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;net-id&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
             <span class="c1"># get net-id based on tenant network name, and other possible</span>
             <span class="c1"># default network names</span>
             <span class="n">netnames</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;{0}-net&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tenant</span><span class="p">),</span> <span class="s2">&quot;int-net&quot;</span><span class="p">]</span>
             <span class="n">nicsmy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">netname</span> <span class="ow">in</span> <span class="n">netnames</span><span class="p">:</span>
-                <span class="n">nic</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nicsmy</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">label</span><span class="o">==</span><span class="n">netname</span><span class="p">]</span>
+                <span class="n">nic</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nicsmy</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="n">netname</span><span class="p">]</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nic</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="c1"># found and break out of loop</span>
                     <span class="c1"># use the value found here</span>
@@ -673,7 +671,6 @@
         <span class="n">floating_ip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">floating_ips</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">pool</span><span class="o">=</span><span class="n">float_pool</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">floating_ip</span><span class="o">.</span><span class="n">ip</span></div>
 
-
     <span class="c1"># TODO: define this</span>
     <span class="c1"># noinspection PyProtectedMember,PyProtectedMember</span>
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.get_image"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -705,7 +702,6 @@
 <span class="sd">        TODO: details TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_flavor</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">name_or_id</span><span class="p">)[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
-
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.isUuid"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.isUuid">[docs]</a>    <span class="k">def</span> <span class="nf">isUuid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>

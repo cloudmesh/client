@@ -212,7 +212,8 @@ in a line. A comment line starts either with <cite>#</cite>, <cite>//</cite> or 
 <p><a class="reference external" href="scripts/terminal.cm">terminal.cm</a>:</p>
 <div class="highlight-python"><div class="highlight"><pre>banner &quot;prints a banner with this text&quot;
 echo &quot;prints this text&quot;
-echo -r BLACK &quot;prints in balck &quot;
+color ON
+echo -r BLACK &quot;prints in black &quot;
 echo -r BLUE &quot;prints in blue&quot;
 echo -r GREEN &quot;prints in green&quot;
 </pre></div>
@@ -312,7 +313,7 @@ vm delete group_c
 <p><a class="reference external" href="scripts/key.cm">key.cm</a>:</p>
 <div class="highlight-python"><div class="highlight"><pre>banner KEYS
 
-key delete --all
+key delete --all --force=True
 
 # TODO: does ~ expansion works?
 key add --name=test-key ~/.ssh/id_rsa.pub
@@ -328,11 +329,11 @@ key list --source=git
 key get test-key
 
 default cloud
-key add_to_cloud test-key
+key upload test-key
 
-key list_cloud_mappings
+key map
 
-key delete --select
+# key delete --select
 
 </pre></div>
 </div>
@@ -417,11 +418,15 @@ default login_key=~/.ssh/id_rsa
 <p><a class="reference external" href="scripts/sync.cm">sync.cm</a>:</p>
 <div class="highlight-python"><div class="highlight"><pre>default cloud=kilo
 
+! rm -rf ~/cm_sync
+! mkdir -p ~/cm_sync/put
+! cp README.rst ~/cm_sync/put/file.txt
+
 banner SYNC_FROM_LOCAL_TO_REMOTE
-sync put ~/cm_sync/send sync_dir
+sync put ~/cm_sync/put sync_dir
 
 banner SYNC_FROM_REMOTE_TO_LOCAL
-sync get sync_dir/* ~/cm_sync/receive
+sync get sync_dir/* ~/cm_sync/get
 </pre></div>
 </div>
 </div>
@@ -432,6 +437,9 @@ sync get sync_dir/* ~/cm_sync/receive
 var username=cloudmesh.profile.username
 var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
 var keyname=&quot;$username-key&quot;
+
+key load
+key upload
 
 secgroup create --tenant=$tenant test-secgroup-01
 

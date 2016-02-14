@@ -376,7 +376,7 @@
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">])</span>
 
-        <span class="c1">#print (&quot;ATTRIBUTE&quot;, attribute)</span>
+        <span class="c1"># print (&quot;ATTRIBUTE&quot;, attribute)</span>
         <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;prefix&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="bp">self</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
@@ -418,7 +418,7 @@
             <span class="c1"># d = OrderedDict(read_yaml_config(self[&#39;location&#39;], check=True))</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">read_yaml_config</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">])</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
-                <span class="n">document</span><span class="o">=</span><span class="n">myfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">document</span> <span class="o">=</span> <span class="n">myfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>

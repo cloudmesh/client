@@ -216,20 +216,22 @@
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 
+
 <span class="c1"># Exception used for error reporting to the caller</span>
-<div class="viewcode-block" id="BadHostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.BadHostlist">[docs]</a><span class="k">class</span> <span class="nc">BadHostlist</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> <span class="k">pass</span></div>
+<div class="viewcode-block" id="BadHostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.BadHostlist">[docs]</a><span class="k">class</span> <span class="nc">BadHostlist</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span></div>
 
 <span class="c1"># Configuration to guard against ridiculously long expanded lists</span>
 <span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">100000</span>
 
 <span class="c1"># Hostlist expansion</span>
 
+
 <div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Parameter.expand"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter.expand">[docs]</a>    <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">expand_hostlist</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div></div>
-
 
 
 <div class="viewcode-block" id="expand_hostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_hostlist">[docs]</a><span class="k">def</span> <span class="nf">expand_hostlist</span><span class="p">(</span><span class="n">hostlist</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
@@ -249,7 +251,8 @@
     <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">hostlist</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span> <span class="ow">and</span> <span class="n">bracket_level</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="c1"># Comma at top level, split!</span>
-            <span class="k">if</span> <span class="n">part</span><span class="p">:</span> <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">expand_part</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">part</span><span class="p">:</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">expand_part</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
             <span class="n">part</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="n">bad_part</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">else</span><span class="p">:</span>
@@ -382,7 +385,8 @@
     <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">:</span>
         <span class="c1"># We remove leading and trailing whitespace first, and skip empty lines</span>
         <span class="n">host</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">host</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span> <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">host</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
 
         <span class="c1"># We cannot accept a host containing any of the three special</span>
         <span class="c1"># characters in the hostlist syntax (comma and flat brackets)</span>
@@ -505,9 +509,9 @@
                                 <span class="p">(</span><span class="n">range_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">range_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">suffix</span><span class="p">)))</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="c1"># General case where high &gt; low</span>
-                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prefix</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span> \
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prefix</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span>
                                 <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">format_range</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
-                                          <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">range_list</span><span class="p">])</span> <span class="o">+</span> \
+                                          <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">range_list</span><span class="p">])</span> <span class="o">+</span>
                                 <span class="s2">&quot;]&quot;</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">))</span>
 
     <span class="c1"># At this point, the set of remaining hosts should be empty and we</span>
@@ -588,7 +592,8 @@
 <span class="c1">#</span>
 
 <span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+    <span class="kn">import</span> <span class="nn">os</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
 
     <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;The command line utility has been moved to a separate &#39;hostlist&#39; program.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">EX_USAGE</span><span class="p">)</span>

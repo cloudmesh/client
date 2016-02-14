@@ -6,10 +6,10 @@ banner
 Command - banner::
 
     Usage:
-        banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT
+        banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
     Arguments:
-        TEXT   The text message from which to create the banner
+        TEXT...   The text message from which to create the banner
         CHAR   The character for the frame.
         WIDTH  Width of the banner
         INDENT indentation of the banner
@@ -199,14 +199,14 @@ Command - color::
 
         Global switch for the console color mode.
         One can switch the color mode on/off with
-            cm color mode ON
-            cm color mode OFF
+            cm color ON
+            cm color OFF
 
         By default, the color mode is ON
 
     Examples:
-        color mode ON
-        color mode OFF
+        color ON
+        color OFF
 
 
 comet
@@ -224,6 +224,9 @@ Command - comet::
                     [--walltime=WALLTIME]
        comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
        comet console CLUSTERID [COMPUTENODEID]
+       comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
+       comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
+       comet image detach CLUSTERID [COMPUTENODEID]
 
     Options:
         --format=FORMAT       Format is either table, json, yaml,
@@ -235,6 +238,8 @@ Command - comet::
                                 Walltime could be an integer value followed
                                 by a unit (m, h, d, w, for minute, hour, day,
                                 and week, respectively). E.g., 3h, 2d
+        --imagename=IMAGENAME   Name of the image after being stored remotely.
+                                If not specified, use the original filename
 
     Arguments:
         CLUSTERID       The assigned name of a cluster, e.g. vc1
@@ -245,6 +250,8 @@ Command - comet::
                         of nodes; or a single host is also accepptable,
                         e.g., vm-vc1-0
         COMPUTENODEID   A compute node name, e.g., vm-vc1-0
+        IMAGENAME       Name of an image at remote server
+        PATHIMAGEFILE   The full path to the image file to be uploaded
 
 
 context
@@ -435,10 +442,10 @@ group
 Command - group::
 
     Usage:
-        group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
-        group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
-        group delete NAME [--cloud=CLOUD]
-        group remove [--cloud=CLOUD] --name=NAME --id=ID
+        group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
+        group list [--category=CLOUD] [--format=FORMAT] [NAME]
+        group delete NAME [--category=CLOUD]
+        group remove [--category=CLOUD] --name=NAME --id=ID
         group copy FROM TO
         group merge GROUPA GROUPB MERGEDGROUP
 
@@ -454,10 +461,11 @@ Command - group::
         MERGEDGROUP  name of a group
 
     Options:
-        --cloud=CLOUD    the name of the cloud
-        --format=FORMAT  the output format
-        --type=TYPE     the resource type
-        --name=NAME      the name of the group
+        --category=CLOUD       the name of the category
+        --format=FORMAT     the output format
+        --type=TYPE         the resource type
+        --name=NAME         the name of the group
+        --id=IDS            the ID(s) to add to the group
 
 
     Description:
@@ -466,7 +474,7 @@ Command - group::
         description
         Todo: discuss and propose command
 
-        cloudmesh can manage groups of resources and cloud related
+        cloudmesh can manage groups of resources and category related
         objects. As it would be cumbersome to for example delete
         many virtual machines or delete VMs that are in the same
         group, but are running in different clouds.
@@ -479,7 +487,7 @@ Command - group::
         use the last used virtual machine. If a vm is started it
         will be automatically added to the default group if it is set.
 
-        The delete command has an optional cloud parameter so that
+        The delete command has an optional category parameter so that
         deletion of vms of a partial group by cloud can be
         achieved.
 
@@ -1203,6 +1211,7 @@ Command - register::
         register json HOST
         register remote [CLOUD] [--force]
         register env [--provider=PROVIDER]
+        register username [USERNAME]
         register CLOUD [--force]
         register CLOUD [--dir=DIR]
 
@@ -1222,6 +1231,7 @@ Command - register::
       FILEPATH the path of the file
       CLOUD the cloud name
       PROVIDER the provider or type of cloud [Default: openstack]
+      USERNAME  Username that would be registered in yaml. Defaults to OS username.
 
     Options:
 
@@ -1301,6 +1311,9 @@ Command - register::
             Reads env OS_* variables and registers a new cloud in yaml,
             interactively. Default PROVIDER is openstack and HOSTNAME
             is localhost.
+
+        register username [USERNAME]
+            Sets the username in yaml with the value provided.
 
 
 reservation
@@ -1512,6 +1525,13 @@ Command - shell::
         Executes a shell command
 
 
+shell_exec
+----------------------------------------------------------------------
+
+Command - shell_exec::
+
+    Command documentation shell_exec missing, help_shell_exec
+
 ssh
 ----------------------------------------------------------------------
 
@@ -1648,10 +1668,12 @@ Command - var::
         var delete NAMES
         var NAME=VALUE
         var NAME
+
     Arguments:
         NAME    Name of the variable
         NAMES   Names of the variable separated by spaces
         VALUE   VALUE to be assigned
+
     special vars date and time are defined
 
 

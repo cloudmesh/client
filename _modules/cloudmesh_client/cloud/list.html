@@ -198,13 +198,10 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># get the model object</span>
             <span class="n">table</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
-            <span class="c1">#</span>
-            <span class="c1">#</span>
-            <span class="c1"># TODO why not use a dict?</span>
-            <span class="c1">#</span>
+
             <span class="nb">filter</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="nb">filter</span><span class="p">[</span><span class="s2">&quot;cloud&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
+                <span class="nb">filter</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cloud</span>
             <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="nb">filter</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
             <span class="k">if</span> <span class="n">tenant</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -251,32 +248,8 @@
                     <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
 
         <span class="c1"># return the dict</span>
-        <span class="k">return</span> <span class="n">d</span></div>
+        <span class="k">return</span> <span class="n">d</span></div></div>
 
-    <span class="c1">#</span>
-    <span class="c1"># TODO: i do not see why this method is here its also hardcoded and</span>
-    <span class="c1"># wrong as india does not exist. if a name is based on openstack,</span>
-    <span class="c1"># the cloud need to be checked if its openstack and than the user is</span>
-    <span class="c1"># returned. Than you also want o move this to cloud provider</span>
-    <span class="c1">#</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="List.getUser"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.list.List.getUser">[docs]</a>    <span class="k">def</span> <span class="nf">getUser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
-        <span class="c1"># TODO: adapt to AWS, EC2, and Azure</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">cloudname</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
-                <span class="n">config</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
-                <span class="n">credentials</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span>
-                <span class="n">cloud_type</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cloud {} not in yaml file&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;openstack&quot;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">credentials</span><span class="p">[</span><span class="s2">&quot;OS_USERNAME&quot;</span><span class="p">]</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
-
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

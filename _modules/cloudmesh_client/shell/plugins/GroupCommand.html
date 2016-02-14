@@ -170,7 +170,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.group</span> <span class="kn">import</span> <span class="n">Group</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
@@ -190,10 +190,10 @@
 <span class="sd">        ::</span>
 
 <span class="sd">            Usage:</span>
-<span class="sd">                group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]</span>
-<span class="sd">                group list [--cloud=CLOUD] [--format=FORMAT] [NAME]</span>
-<span class="sd">                group delete NAME [--cloud=CLOUD]</span>
-<span class="sd">                group remove [--cloud=CLOUD] --name=NAME --id=ID</span>
+<span class="sd">                group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs</span>
+<span class="sd">                group list [--category=CLOUD] [--format=FORMAT] [NAME]</span>
+<span class="sd">                group delete NAME [--category=CLOUD]</span>
+<span class="sd">                group remove [--category=CLOUD] --name=NAME --id=ID</span>
 <span class="sd">                group copy FROM TO</span>
 <span class="sd">                group merge GROUPA GROUPB MERGEDGROUP</span>
 
@@ -209,10 +209,11 @@
 <span class="sd">                MERGEDGROUP  name of a group</span>
 
 <span class="sd">            Options:</span>
-<span class="sd">                --cloud=CLOUD    the name of the cloud</span>
-<span class="sd">                --format=FORMAT  the output format</span>
-<span class="sd">                --type=TYPE     the resource type</span>
-<span class="sd">                --name=NAME      the name of the group</span>
+<span class="sd">                --category=CLOUD       the name of the category</span>
+<span class="sd">                --format=FORMAT     the output format</span>
+<span class="sd">                --type=TYPE         the resource type</span>
+<span class="sd">                --name=NAME         the name of the group</span>
+<span class="sd">                --id=IDS            the ID(s) to add to the group</span>
 
 
 <span class="sd">            Description:</span>
@@ -221,7 +222,7 @@
 <span class="sd">                description</span>
 <span class="sd">                Todo: discuss and propose command</span>
 
-<span class="sd">                cloudmesh can manage groups of resources and cloud related</span>
+<span class="sd">                cloudmesh can manage groups of resources and category related</span>
 <span class="sd">                objects. As it would be cumbersome to for example delete</span>
 <span class="sd">                many virtual machines or delete VMs that are in the same</span>
 <span class="sd">                group, but are running in different clouds.</span>
@@ -234,7 +235,7 @@
 <span class="sd">                use the last used virtual machine. If a vm is started it</span>
 <span class="sd">                will be automatically added to the default group if it is set.</span>
 
-<span class="sd">                The delete command has an optional cloud parameter so that</span>
+<span class="sd">                The delete command has an optional category parameter so that</span>
 <span class="sd">                deletion of vms of a partial group by cloud can be</span>
 <span class="sd">                achieved.</span>
 
@@ -259,16 +260,16 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">category</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--category&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
 
-            <span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
 
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">output</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                     <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
@@ -276,35 +277,36 @@
 
             <span class="k">else</span><span class="p">:</span>
 
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
+                                        <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
 
                 <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                     <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">msg_a</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;No group found with name `{name}` found in the &quot;</span>
-                             <span class="s2">&quot;cloud `{cloud}`.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+                             <span class="s2">&quot;category `{category}`.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
 
                     <span class="c1"># find alternate</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
                     <span class="n">msg_b</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                         <span class="n">msg_b</span> <span class="o">=</span> <span class="s2">&quot; However we found such a variable in &quot;</span> \
-                                <span class="s2">&quot;cloud `{cloud}`. Please consider &quot;</span> \
-                                <span class="s2">&quot;using --cloud={cloud}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
+                                <span class="s2">&quot;category `{category}`. Please consider &quot;</span> \
+                                <span class="s2">&quot;using --category={category}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg_a</span> <span class="o">+</span> <span class="n">msg_b</span><span class="p">)</span>
 
                 <span class="k">return</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">]:</span>
-            <span class="nb">type</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--type&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="nb">type</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--type&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
 
-            <span class="n">cloud_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--id&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;vm&quot;</span>
+            <span class="n">category_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--id&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">],</span>
                 <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
-                <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
-                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">cloud_id</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">category_id</span>
             <span class="p">}</span>
 
             <span class="n">Group</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
@@ -313,7 +315,7 @@
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">],</span>
-                <span class="s2">&quot;cloud&quot;</span><span class="p">:</span> <span class="n">cloud</span><span class="p">,</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
             <span class="p">}</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
@@ -326,19 +328,19 @@
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;remove&quot;</span><span class="p">]:</span>
             <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">]</span>
-            <span class="n">cloud_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--id&quot;</span><span class="p">]</span>
+            <span class="n">category_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--id&quot;</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloud</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set!&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">category</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default category not set!&quot;</span><span class="p">)</span>
                 <span class="k">return</span>
 
-            <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cloud_id</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">category_id</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                     <span class="s2">&quot;Failed to delete ID [{}] from group [{}] in the database!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-                        <span class="n">cloud_id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+                        <span class="n">category_id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
             <span class="k">return</span>
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;copy&quot;</span><span class="p">]:</span>

@@ -177,7 +177,7 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.group</span> <span class="kn">import</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.network</span> <span class="kn">import</span> <span class="n">Network</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
@@ -315,7 +315,7 @@
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="c1"># Get the group information</span>
                 <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span>
-                                       <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                                       <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                        <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="c1"># Convert from str to json</span>
@@ -348,7 +348,7 @@
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="c1"># floating-ip not supplied, instance-id supplied</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Floating IP has not been provided, instance-id provided.</span>
 <span class="sd">                Generate one from the pool, and assign to vm</span>
@@ -421,7 +421,7 @@
 <span class="sd">                &quot;&quot;&quot;</span>
                 <span class="c1"># Get the group information</span>
                 <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span>
-                                       <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                                       <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                        <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="c1"># Convert from str to json</span>
@@ -461,7 +461,7 @@
                     <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="c1"># floating-ip not supplied, instance-id supplied</span>
-            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">floating_ip</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">instance_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                Floating IP has not been provided, instance-id provided.</span>
 <span class="sd">                Remove floating ip allocated to vm</span>
@@ -614,11 +614,11 @@
                 <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;create&quot;</span><span class="p">]:</span>
 
             <span class="n">group_name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--group&quot;</span><span class="p">]</span> <span class="ow">or</span> \
-                         <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
+                <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
 
             <span class="c1"># Get the group information</span>
             <span class="n">group</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get_info</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">group_name</span><span class="p">,</span>
-                                   <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                                   <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
                                    <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="c1"># Convert from str to json</span>
@@ -679,18 +679,18 @@
                     <span class="n">generate_keypair</span> <span class="o">=</span> <span class="n">login_args</span> <span class="o">+</span> <span class="n">keygen_args</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="o">*</span><span class="n">generate_keypair</span><span class="p">)</span>
 
-                    <span class="c1">#print(&quot;***** Keygen *****&quot;)</span>
-                    <span class="c1">#print(result)</span>
+                    <span class="c1"># print(&quot;***** Keygen *****&quot;)</span>
+                    <span class="c1"># print(result)</span>
 
                     <span class="n">cat_public_key</span> <span class="o">=</span> <span class="n">login_args</span> <span class="o">+</span> <span class="n">cat_pubkey_args</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="o">*</span><span class="n">cat_public_key</span><span class="p">)</span>
                     <span class="n">public_keys</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">result</span>
 
-                    <span class="c1">#print(&quot;***** id_rsa.pub *****&quot;)</span>
-                    <span class="c1">#print(result)</span>
+                    <span class="c1"># print(&quot;***** id_rsa.pub *****&quot;)</span>
+                    <span class="c1"># print(result)</span>
 
-                <span class="c1">#print(&quot;***** public keys *****&quot;)</span>
-                <span class="c1">#print(public_keys)</span>
+                <span class="c1"># print(&quot;***** public keys *****&quot;)</span>
+                <span class="c1"># print(public_keys)</span>
 
                 <span class="k">for</span> <span class="n">user</span><span class="p">,</span> <span class="n">ip</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">login_users</span><span class="p">,</span> <span class="n">login_ips</span><span class="p">):</span>
                     <span class="n">arguments</span> <span class="o">=</span> <span class="p">[</span>
@@ -714,7 +714,7 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Refreshing database for cloud {:}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Vm</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Complete.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;{:} failed&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">msg</span><span class="p">))</span>

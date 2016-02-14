@@ -578,7 +578,8 @@
         <span class="n">cm_heading</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span>
             <span class="s2">&quot;Heading for the cloud (Default: {:} Cloud): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_label</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;{:} Cloud&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cm_label</span><span class="p">)</span>
 
-        <span class="n">cm_host</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s2">&quot;Cloud host name (Default: {:}): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;{:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">)</span>
+        <span class="n">cm_host</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s2">&quot;Cloud host name (Default: {:}): &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">))</span> <span class="ow">or</span> <span class="s2">&quot;{:}&quot;</span>\
+            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname_suggest</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">provider</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="c1"># TODO: Check if the suggestion can be determined dynamically</span>
@@ -627,7 +628,18 @@
 
         <span class="c1"># Save data in yaml</span>
         <span class="n">yaml_data</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;New cloud config exported to {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span></div></div>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;New cloud config exported to {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yaml_data</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="CloudRegister.set_username"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.register.CloudRegister.set_username">[docs]</a>    <span class="k">def</span> <span class="nf">set_username</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method that sets the username in yaml.</span>
+<span class="sd">        :param username:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cloudmesh&#39;</span><span class="p">][</span><span class="s1">&#39;profile&#39;</span><span class="p">][</span><span class="s1">&#39;username&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>

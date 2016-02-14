@@ -221,17 +221,17 @@ the command in various formats. These formats include:</p>
 <p>Not yet done: It is also possible to set the default format for all
 commands that accept the format option. THis is done with the
 command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default format FORMAT
-</pre></div>
-</div>
-<p>Once you have set it, the default format will be used for all commands
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">default format FORMAT</span>
+</pre><p>Once you have set it, the default format will be used for all commands
 the do not explicitly set the format option on the commandline.</p>
 <p>To switch off this behavior and use the build in behavior for each
 command, we specify:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default format False
+<pre class="highlight"><span class="prompt1">default format False</span>
 </pre></div>
-</div>
-</div>
 <div class="section" id="cloud">
 <h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <p>Many commands are specific to a particular cloud. this cloud can be
@@ -243,10 +243,8 @@ set with the:</p>
 clouds it may be inconvenient to specify the name of the cloud every
 time, thus we have introduced the concept of a default cloud. The
 default cloud can be set with the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default cloud CLOUDNAME
-</pre></div>
-</div>
-<p>where cloudname is the name of the cloud that we have registered with
+<pre class="highlight"><span class="prompt1">default cloud CLOUDNAME</span>
+</pre><p>where cloudname is the name of the cloud that we have registered with
 cloudmesh (see registration).</p>
 <div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
@@ -261,44 +259,33 @@ cloudmesh (see registration).</p>
 provide a history that can be invoked from cloudmesh to show which
 cloudmesh commands have been issued in the past. This allows a more
 easy review of past activities:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm history
-</pre></div>
-</div>
-<p>Commands in history are preceeded by a number. A past command can be
+<pre class="highlight"><span class="prompt1">cm <span class="nb">history</span></span>
+</pre><p>Commands in history are preceeded by a number. A past command can be
 reissued by appending the number to the history. Thus the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$cm history 3
-</pre></div>
-</div>
-<p>would execute the 3rd command in the command history. Instead of
+<pre class="highlight"><span class="prompt1">cm <span class="nb">history</span> 3</span>
+</pre><p>would execute the 3rd command in the command history. Instead of
 using the command history, you can also use the abbreviation <cite>h</cite>.</p>
 </div>
 <div class="section" id="help">
 <h2>Help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
 <p>To see the list of all available commands use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm help
-</pre></div>
-</div>
-<p>The commands are sorted by topic, while the first list gives all
+<pre class="highlight"><span class="prompt1">cm <span class="nb">help</span></span>
+</pre><p>The commands are sorted by topic, while the first list gives all
 commands in alphabetical order. To opbtain an individual man page
 simply say:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm help COMMAND
-</pre></div>
-</div>
-<p>where command is the command you which to get the help message for. To
+<pre class="highlight"><span class="prompt1">cm <span class="nb">help</span> COMMAND</span>
+</pre><p>where command is the command you which to get the help message for. To
 optain the manual pages of all commands yo can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$cm man
-</pre></div>
-</div>
-<p>which will print all man pages out.</p>
+<pre class="highlight"><span class="prompt1">cm man</span>
+</pre><p>which will print all man pages out.</p>
 </div>
 <div class="section" id="shell-commandline">
 <h2>Shell &amp; Commandline<a class="headerlink" href="#shell-commandline" title="Permalink to this headline">¶</a></h2>
 <p>Cloudmesh client is a shell as well as a commandline tool. Thus all
 commands that you can type in as a single command could also be
 executed as a command shell. To enter the command shell, please type:</p>
-<div class="highlight-python"><div class="highlight"><pre>$cm
-
-+=======================================================+
+<pre class="highlight"><span class="prompt1">cm</span>
+</pre><div class="highlight-python"><div class="highlight"><pre>+=======================================================+
 .   ____ _                 _                     _      .
 .  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   .
 . | |   | |/ _ \| | | |/ _` | &#39;_ ` _ \ / _ \/ __| &#39;_ \  .
@@ -316,9 +303,8 @@ see the commands type help. To get help for an individual command type
 help COMMANDNAME.  You can quit the comamnd shell with the command
 quit.</p>
 <p>The current list of commands contains:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm help
-
-Documented commands (type help &lt;topic&gt;):
+<pre class="highlight"><span class="prompt1">cm <span class="nb">help</span></span>
+</pre><div class="highlight-python"><div class="highlight"><pre>Documented commands (type help &lt;topic&gt;):
 ========================================
 EOF     cloud    group      key     man   pause  quota        secgroup  ssh
 banner  context  help       limits  nova  q      register     select    version
@@ -363,58 +349,23 @@ strings:</p>
 <h3>Cloudmesh File Execution<a class="headerlink" href="#cloudmesh-file-execution" title="Permalink to this headline">¶</a></h3>
 <p>Multiple cloudmesh commands can be placed in a single file. We recommend that you use the ending <cite>.cm</cite>. You can satrt the
 execution of such a file with:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm filename.cm
+<pre class="highlight"><span class="prompt1">cm filename.cm</span>
+</pre><p>A cloudmesh file could itself include references to other cloudmesh files. They can be started in one of two ways. You can
+use the <cite>exec</cite> command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm
+cm&gt; exec filename.cm
 </pre></div>
 </div>
-<p>A cloudmesh file could itself include references to other cloudmesh files. They can be started in one of two ways. You can
-use the <cite>exec</cite> command</p>
-<blockquote>
-<div>$ cm
-cm&gt; exec filename.cm</div></blockquote>
 <p>or you can use simply the filename. Cloudmesh will check if the filename exists and than execute it:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ cm
 cm&gt; filename.cm
 </pre></div>
 </div>
 </div>
-<div class="section" id="variables">
-<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
-<p>CMD3 contains the ability to use variables within the shell. To see a
-list of all variables, use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>var list
-</pre></div>
-</div>
-<p>or simply:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">var</span>
-</pre></div>
-</div>
-<p>To use the content of the variable, simple use it on the shell with a
-dollar sign such as:</p>
-<div class="highlight-python"><div class="highlight"><pre>$date
-</pre></div>
-</div>
-<p>Note that the variables $dat and $time are predefined and give the
-current date and time.</p>
-<p>To set variable values you can use:</p>
-<blockquote>
-<div>var name=value</div></blockquote>
-<p>Which will set the variable with the given name to the specified value.
-In case the value specifies an entry in the cloudmesh.yaml file it will
-be read from it and put into the named variable. For example the command</p>
-<blockquote>
-<div>var username=cloudmesh.profile.username</div></blockquote>
-<p>Will create a variable username and get the value form the yaml file
-specified by its object hierarchy.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Variables are not stored in the persistent database and have to be
-recreated every time a script is run.</p>
-</div>
-</div>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>You can execute a python command as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>py COMMAND
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; py COMMAND
 </pre></div>
 </div>
 <p>where command is the command you like to execute</p>
@@ -422,9 +373,9 @@ recreated every time a script is run.</p>
 <div class="section" id="quitting-the-shell">
 <h3>Quitting the shell<a class="headerlink" href="#quitting-the-shell" title="Permalink to this headline">¶</a></h3>
 <p>To quit the shell you can use either the commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">q</span>
-<span class="n">quit</span>
-<span class="n">EOF</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">&gt;</span> <span class="n">q</span>
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">quit</span>
+<span class="n">cm</span><span class="o">&gt;</span> <span class="n">EOF</span>
 </pre></div>
 </div>
 </div>
@@ -434,7 +385,7 @@ recreated every time a script is run.</p>
 list of manual pages for your commands for your users. To simplify
 that we have not provided this in Unix Man format, but simply in RST
 format. You can type in the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">man</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">&gt;</span> <span class="n">man</span>
 </pre></div>
 </div>
 <p>and it will print you in RST format a list of all commands available
@@ -447,12 +398,81 @@ documentation to create a nice user manual for your users.</p>
 cloudmesh script files. TO do so we recommend to place them in a file ending
 with <cite>.cm</cite>. Let us assume we call the file test.cm.</p>
 <p>Now we can simply execute the script with:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm test.cm
+<pre class="highlight"><span class="prompt1">cm test.cm</span>
+</pre><p>you can also cat the file with:</p>
+<pre class="highlight"><span class="prompt1">cat test.cm <span class="p">|</span> cm</span>
+</pre></div>
+<div class="section" id="variables">
+<h3>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h3>
+<p>cloudmesh contains the ability to use variables within the shell. Variables are
+preserved between calls to cm. To see a list of all variables, use the
+command:</p>
+<div class="highlight-python"><div class="highlight"><pre>var list
 </pre></div>
 </div>
-<p>you can also cat the file with</p>
-<blockquote>
-<div>cat test.cm | cm</div></blockquote>
+<p>To set variable values you can use:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; var name=value
+</pre></div>
+</div>
+<p>which will set the variable with the given name to the specified value.
+In case the value specifies an entry in the cloudmesh.yaml file it will
+be read from it and put into the named variable. For example the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; var username=cloudmesh.profile.username
+</pre></div>
+</div>
+<p>Will create a variable username and get the value form the yaml file
+specified by its object hierarchy.</p>
+<p>To use the content of the variable, simple use it on the shell with a
+dollar sign such as:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; banner $name
+</pre></div>
+</div>
+<p>In this example a banner will be created that contains the value of the
+variable name. Note that the variables <cite>$date</cite> and <cite>$time</cite> are predefined
+and give the current date and time and are updated at the time they are called.</p>
+<p>As <cite>cm</cite> can also be used in a terminal, many terminal use a $ to indicate
+variables for this terminal/shell. In order to mask this you will need to
+use the &#8216; &#8216; or the sign. Thus,</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm banner &#39;$name&#39;
+$ cm banner \$name
+</pre></div>
+</div>
+<p>will result in the ability to ue the cloudmesh shell variables. If you
+However want to use the terminal shell variables such as <cite>$HOME</cite> you can
+access them directly:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cm banner $HOME
+</pre></div>
+</div>
+<p>Special syntax detection of variables allow also easy use of operating
+system/terminal variables while prepending them with os. Thus:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; banner $HOME
+cm&gt; banner $os.HOME
+</pre></div>
+</div>
+<p>Will be the same the advantage is that with os. we clearly mark an os
+systems variable that we like to access and no confusion between internal
+cloudmesh shell and OS variables occur. Furthermore variables defined in the
+cloudmesh yaml file can be directly accessed while using the . notation. Thus:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; banner $cloudmesh.profile.username
+</pre></div>
+</div>
+<p>Will print a banner with the username being <cite>myusername</cite> as defined in the
+yaml hierarchy under given this example:</p>
+<div class="highlight-python"><div class="highlight"><pre>cloudmesh:
+  profile:
+    username: myusername
+</pre></div>
+</div>
+<p>To show the usage of the different variables in one line, please review the
+following example:</p>
+<pre class="highlight"><span class="prompt1">cm var <span class="nv">a</span><span class="o">=</span>hello</span>
+<span class="prompt1">cm banner <span class="s1">&#39;$a-[0-100] $os.HOME $cloudmesh.profile.username&#39;</span></span>
+</pre><p>This will print, where albert is your username:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1">######################################################################</span>
+<span class="c1"># hallo-[0-100] /Users/albert albert</span>
+<span class="c1">######################################################################</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

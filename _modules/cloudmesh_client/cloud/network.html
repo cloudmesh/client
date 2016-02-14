@@ -532,7 +532,8 @@
         <span class="n">db</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
         <span class="c1"># Lookup instance details from db</span>
-        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
+        <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                                <span class="n">uuid</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
 
         <span class="c1"># Get instance_name for vm</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
@@ -555,14 +556,16 @@
 
         <span class="c1"># Lookup instance details from db</span>
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isUuid</span><span class="p">(</span><span class="n">instance_id</span><span class="p">):</span>
-            <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">uuid</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
+            <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                                    <span class="n">uuid</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
+            <span class="n">instance_dict</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">,</span>
+                                    <span class="n">name</span><span class="o">=</span><span class="n">instance_id</span><span class="p">)</span>
 
         <span class="c1"># Instance not found in DB</span>
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">isDictEmpty</span><span class="p">(</span><span class="n">instance_dict</span><span class="p">):</span>
             <span class="c1"># auto detect instance_id feature</span>
-            <span class="n">vms</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
+            <span class="n">vms</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="c1"># check for each instance in db</span>
             <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
                 <span class="c1"># if match found in either name/id</span>

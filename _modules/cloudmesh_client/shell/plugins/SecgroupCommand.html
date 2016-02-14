@@ -170,7 +170,7 @@
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.default</span> <span class="kn">import</span> <span class="n">Default</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.secgroup</span> <span class="kn">import</span> <span class="n">SecGroup</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
@@ -252,7 +252,7 @@
                 <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">project</span><span class="o">=</span><span class="n">tenant</span><span class="p">,</span>
-                                   <span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
+                                   <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
@@ -262,7 +262,8 @@
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;create&quot;</span><span class="p">]:</span>
             <span class="c1"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+                                                          <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
             <span class="c1"># If default not set, terminate</span>
@@ -285,7 +286,8 @@
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
             <span class="c1"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+                                                          <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
             <span class="c1"># If default not set, terminate</span>
@@ -307,10 +309,9 @@
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-delete&quot;</span><span class="p">]:</span>
             <span class="c1"># if no arguments read default</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> \
-                    <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> \
-                     <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+                                                          <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
 
             <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
             <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROMPORT&quot;</span><span class="p">]</span>
@@ -330,7 +331,7 @@
             <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
                 <span class="c1"># Get the rules</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_rule</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">delete_rule</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
                                               <span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">,</span>
                                               <span class="n">from_port</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
                                               <span class="n">to_port</span><span class="o">=</span><span class="n">to_port</span><span class="p">,</span>
@@ -347,7 +348,8 @@
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-list&quot;</span><span class="p">]:</span>
             <span class="c1"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+                                                          <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
 
             <span class="c1"># If default not set, terminate</span>
@@ -373,7 +375,8 @@
 
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rules-add&quot;</span><span class="p">]:</span>
             <span class="c1"># if no arguments read default</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--tenant&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">,</span>
+                                                          <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
 
             <span class="n">label</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;LABEL&quot;</span><span class="p">]</span>
             <span class="n">from_port</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROMPORT&quot;</span><span class="p">]</span>
@@ -393,7 +396,7 @@
             <span class="n">sec_group</span> <span class="o">=</span> <span class="n">SecGroup</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">tenant</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">sec_group</span><span class="p">:</span>
                 <span class="c1"># Add rules to the security group</span>
-                <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">cloudname</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
+                <span class="n">SecGroup</span><span class="o">.</span><span class="n">add_rule</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span>
                                   <span class="n">secgroup</span><span class="o">=</span><span class="n">sec_group</span><span class="p">,</span>
                                   <span class="n">from_port</span><span class="o">=</span><span class="n">from_port</span><span class="p">,</span>
                                   <span class="n">to_port</span><span class="o">=</span><span class="n">to_port</span><span class="p">,</span>

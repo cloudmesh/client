@@ -499,7 +499,7 @@
             <span class="k">for</span> <span class="n">idkey</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">]:</span>
                 <span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="n">idkey</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">elements</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span>
+                    <span class="n">elements</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span>
                 <span class="k">except</span><span class="p">:</span>
                     <span class="k">pass</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
