@@ -7,6 +7,7 @@ import string
 import textwrap
 import os
 import shutil
+import re
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.util import path_expand
@@ -97,7 +98,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         commands by the interpreter should stop.
 
         """
-        line = self.replace_vars(line)
+        # line = self.replace_vars(line)
+
+        line = self.var_replacer(line)
         if line != "hist" and line:
             self._hist += [line.strip()]
         if line.startswith("!") or line.startswith("shell"):
@@ -477,50 +480,61 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.variables['date'] = date
 
     def var_finder(self, line, c='$'):
-        line = line[line.index('$'):]
-        # print a
-        # print str[a:]
-        # print str
-        list = line.split('$')
-        print(list)
-        reg_list = []
-        os_list = []
-        dotvar_list = []
-        for i in list:
-            if i.strip().find('.') == -1:
-                reg_list.append(i.strip())
-            elif i.strip().find('.') > -1 and i.strip().find('os') > -1:
-                os_list.append(i.strip()[3:])
-            elif i.strip().find('.') > -1 and i.strip().find('os') == -1:
-                dotvar_list.append(i.strip())
-        reg_list.remove(list[0].strip())
-        # print "regular variables :"
-        # print reg_list
-        # print "Os Variables : "
-        # print os_list
-        # print "Dot Variables : "
-        # print dotvar_list
-        return reg_list, os_list, dotvar_list
+
+        words = line.replace('-',' ').replace('_',' ').split(" ")
+
+        variables = []
+        for word in words:
+            if word.startswith('$'):
+                variables.append(word)
+
+        vars = {
+            "normal": [],
+            "os": [],
+            "dot": []
+        }
+        for word in variables:
+            word = word.replace('$', "")
+            if word.startswith('os.'):
+                vars["os"].append(word)
+            elif '.' in word:
+                vars["dot"].append(word)
+            else:
+                vars["normal"].append(word)
+
+        return vars
 
     def var_replacer(self, line, c='$'):
 
-        pass
-        '''
-        (normal_vars, os_vars, yaml_vars) = self.var_finder(line, c=c)
+        vars = self.var_finder(line, c=c)
 
-        for v in normal_vars:
+        for v in vars["normal"]:
             value = Var.get(v)
+            line = line.replace (c+v, value)
             # replace in line the variable $v with value
+        for v in vars["os"]:
+            name = v.replace('os.', '')
+            if name in os.environ:
+                value = os.environ[name]
+                line = line.replace (c+v, value)
+            else:
+                Console.error("can not find environment variable {}".format(
+                    v))
+                if c + v in line:
+                    value = os.environ(v)
+                    # replace in line the variable $v with value
 
-        for v in os.environ():
-            if c + v in line:
-                value = os.environ(v)
-                # replace in line the variable $v with value
+        for v in vars["dot"]:
+            try:
+                config = ConfigDict("cloudmesh.yaml")
+                print (config["cloudmesh.profile"])
+                value = config[v]
+                line = line.replace (c+v, value)
+            except Exception, e:
+                Console.error("can not find variable {} in cloudmesh.yaml".format(value))
 
-        for v in yaml_vars:
-            # get value from yaml file
-            # replace in string
-        '''
+        print ("LLL", line)
+        return line
 
     def replace_vars(self, line):
 
@@ -535,6 +549,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 name = variables[v]["name"]
                 value = variables[v]["value"]
                 newline = newline.replace("$" + name, value)
+
         # for v in os.environ:
         #    newline = newline.replace("$" + v.name, os.environ[v])
         newline = path_expand(newline)
