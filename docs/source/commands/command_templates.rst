@@ -195,35 +195,94 @@ or you can use simply the filename. Cloudmesh will check if the filename exists 
 Variables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-CMD3 contains the ability to use variables within the shell. To see a
-list of all variables, use the command::
+cloudmesh contains the ability to use variables within the shell. Variables are
+preserved between calls to cm. To see a list of all variables, use the
+command
+
+.. prompt: cm>
 
   var list
 
-or simply::
+To set variable values you can use
 
-  var
-
-To use the content of the variable, simple use it on the shell with a
-dollar sign such as::
-
-  $date
-
-Note that the variables $dat and $time are predefined and give the
-current date and time.
-
-To set variable values you can use:
+.. prompt: cm>
 
     var name=value
 
-Which will set the variable with the given name to the specified value.
+which will set the variable with the given name to the specified value.
 In case the value specifies an entry in the cloudmesh.yaml file it will
 be read from it and put into the named variable. For example the command
+
+.. prompt: cm>
 
     var username=cloudmesh.profile.username
 
 Will create a variable username and get the value form the yaml file
 specified by its object hierarchy.
+
+To use the content of the variable, simple use it on the shell with a
+dollar sign such as::
+
+.. prompt: cm>
+
+  banner $name
+
+In this example a banner will be created that contains the value of the
+variable name. Note that the variables `$date` and `$time` are predefined
+and give the current date and time and are updated at the time they are called.
+
+As `cm` can also be used in a terminal, many terminal use a $ to indicate
+variables for this terminal/shell. In order to mask this you will need to
+use the ' ' or the \ sign. Thus,
+
+..prompt:: bash
+
+    cm banner '$name'
+    cm banner \$name
+
+Will result in the ability to ue the cloudmesh shell variables. If you
+However want to use the terminal shell variables such as `$HOME` you can
+access them directly.
+
+..prompt:: bash
+
+    cm banner $HOME
+
+Special syntax detection of variables allow also easy use of operating
+system/terminal variables while prepending them with os. Thus
+
+..prompt:: bash
+
+    cm banner $HOME
+    cm banner $os.HOME
+
+Will be the same the advantage is that with os. we clearly mark an os
+systems variable that we like to access and no confusion between internal
+cloudmesh shell and OS variables occur. Furthermore variables defined in the
+cloudmesh yaml file can be directly accessed while using the . notation. Thus
+
+.. prompt: cm>
+
+  banner $cloudmesh.profile.username
+
+Will print a banner with the username being `myusername` as defined in the
+yaml hierarchy under given this example::
+
+  cloudmesh:
+    profile:
+      username: myusername
+
+
+
+
+
+
+
+
+
+
+
+
 
 .. note:: Variables are not stored in the persistent database and have to be
           recreated every time a script is run.
