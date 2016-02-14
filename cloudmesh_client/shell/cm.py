@@ -481,6 +481,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def var_finder(self, line, c='$'):
 
+        line = line.replace('$', ' $')
         words = line.replace('-',' ').replace('_',' ').split(" ")
 
         variables = []
