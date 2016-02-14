@@ -15,6 +15,19 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.var import Var
 
+# noinspection PyPep8
+from cloudmesh_client.default import Default
+from cloudmesh_client.util import get_python
+from cloudmesh_client.util import check_python
+import cloudmesh_client
+from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.command import PluginCommand
+from cloudmesh_client.common.ssh_config import ssh_config
+import cloudmesh_client.etc
+
+import cloudmesh_client.shell.plugins
+
 
 def create_cloudmesh_yaml(filename):
     if not os.path.exists(filename):
@@ -31,19 +44,6 @@ def create_cloudmesh_yaml(filename):
 filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
 create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
-
-# noinspection PyPep8
-from cloudmesh_client.default import Default
-from cloudmesh_client.util import get_python
-from cloudmesh_client.util import check_python
-import cloudmesh_client
-from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.command import PluginCommand
-from cloudmesh_client.common.ssh_config import ssh_config
-import cloudmesh_client.etc
-
-import cloudmesh_client.shell.plugins
 
 
 class CloudmeshContext(object):
@@ -413,7 +413,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         print(textwrap.dedent(self.help_help.__doc__))
 
-
     def do_exec(self, filename):
         """
         ::
@@ -439,7 +438,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         else:
             Console.error('file "{:}" does not exist.'.format(filename))
             sys.exit()
-
 
     # noinspection PyUnusedLocal
     def do_shell_exec(self, args):
@@ -484,16 +482,16 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # print str[a:]
         # print str
         list = line.split('$')
-        print list
+        print(list)
         reg_list = []
         os_list = []
         dotvar_list = []
         for i in list:
             if i.strip().find('.') == -1:
                 reg_list.append(i.strip())
-            elif i.strip().find('.') > -1 and i.strip().find('os') >-1:
+            elif i.strip().find('.') > -1 and i.strip().find('os') > -1:
                 os_list.append(i.strip()[3:])
-            elif i.strip().find('.')>-1 and i.strip().find('os') ==-1:
+            elif i.strip().find('.') > -1 and i.strip().find('os') == -1:
                 dotvar_list.append(i.strip())
         reg_list.remove(list[0].strip())
         # print "regular variables :"
@@ -502,7 +500,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         # print os_list
         # print "Dot Variables : "
         # print dotvar_list
-        return reg_list, os_lsit, dotvar_list 
+        return reg_list, os_list, dotvar_list
 
     def var_replacer(self, line, c='$'):
 
@@ -530,14 +528,14 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         newline = line
 
-        variables =     Var.list(format="dict")
+        variables = Var.list(format="dict")
 
         if len(variables) is not None:
             for v in variables:
                 name = variables[v]["name"]
-                value =  variables[v]["value"]
+                value = variables[v]["value"]
                 newline = newline.replace("$" + name, value)
-        #for v in os.environ:
+        # for v in os.environ:
         #    newline = newline.replace("$" + v.name, os.environ[v])
         newline = path_expand(newline)
         return newline
@@ -594,13 +592,13 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 except Exception, e:
                     Console.error("can not find variable {} in cloudmesh.yaml".format(value))
                     value = None
-            #self._add_variable(variable, value)
+            # self._add_variable(variable, value)
             Var.set(variable, value)
             return ""
         elif arguments['NAME=VALUE'] and "=" not in arguments["NAME=VALUE"]:
             try:
                 v = arguments['NAME=VALUE']
-                #Console.ok(str(self.variables[v]))
+                # Console.ok(str(self.variables[v]))
                 Console.ok(str(Var.get(v)))
             except:
                 Console.error('variable {:} not defined'.format(arguments['NAME=VALUE']))
@@ -608,7 +606,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         elif arg.startswith('delete'):
             variable = arg.split(' ')[1]
             Var.delete(variable)
-            #self._delete_variable(variable)
+            # self._delete_variable(variable)
             return ""
 
     @command
