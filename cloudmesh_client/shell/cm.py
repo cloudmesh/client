@@ -532,8 +532,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 line = line.replace (c+v, value)
             except Exception, e:
                 Console.error("can not find variable {} in cloudmesh.yaml".format(value))
-
-        print ("LLL", line)
         return line
 
     def replace_vars(self, line):
