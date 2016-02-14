@@ -55,5 +55,5 @@ script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_shell.py
   - nosetests -v --nocapture tests/test_tables.py
-  - make doc
-  - cm help
+#  - make doc
+#  - cm help
