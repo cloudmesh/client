@@ -486,7 +486,26 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         :return: three arrays with the different vars
         """
 
+    def var_replacer(self, line, c='$'):
 
+        pass
+        '''
+        (normal_vars, os_vars, yaml_vars) = self.var_finder(line, c=c)
+
+        for v in normal_vars:
+            value = Var.get(v)
+            # replace in line the variable $v with value
+
+        for v in os.environ():
+            if c + v in line:
+                value = os.environ(v)
+                # replace in line the variable $v with value
+
+        for v in yaml_vars:
+            # get value from yaml file
+            # replace in string
+        '''
+        
     def replace_vars(self, line):
 
         self.update_time()
