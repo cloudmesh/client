@@ -273,6 +273,20 @@ yaml hierarchy under given this example::
       username: myusername
 
 
+To show the usage of the different variablesin one line, please review the
+following example:
+
+.. prompt:: bash:
+
+  cm var a=hello
+  cm 'banner $a-[0-100] $os.HOME $cloudmesh.profile.username'
+
+This will print, where albert is your username::
+
+  ######################################################################
+  # hallo-[0-100] /Users/albert albert
+  ######################################################################
+
 
 
 

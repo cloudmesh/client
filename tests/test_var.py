@@ -108,6 +108,7 @@ class Test_default():
         :return:
         """
         HEADING()
+
         result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/linux>windows")
 
         assert "not found" in result
