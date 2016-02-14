@@ -478,6 +478,15 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.variables['time'] = time
         self.variables['date'] = date
 
+    def var_finder(self, line, c='$'):
+        """
+        finds three types of variables.
+
+        :param line: $a $b.c.e $os.HOME
+        :return: three arrays with the different vars
+        """
+
+
     def replace_vars(self, line):
 
         self.update_time()
