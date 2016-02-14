@@ -35,7 +35,7 @@ When locationg a specific command you want to know more about, lets assume you w
 
 	     
 
-Understanding the cloudmesh shell
+Cloudmesh shell
 ----------------------------------
 
 The cloudmesh shell contains a number of simple abstractions. This
@@ -59,7 +59,7 @@ To conduct a live refresh in a cloud please use
 
 	     refresh on
 
-Getting started with the Cloud(s)
+Accessing Clouds
 ----------------------------------
 
 Naturally you want to get started with clouds. In case you have a
@@ -145,7 +145,7 @@ Then, to upload this key to the cloud (your default cloud) use:
 
 	     key upload albert_ssh_key
 
-Starting up a new VM in the cloud
+Virtual Machines
 ----------------------------------
 
 If you have followed this document till this point, you are all set

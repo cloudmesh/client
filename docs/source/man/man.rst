@@ -6,10 +6,10 @@ banner
 Command - banner::
 
     Usage:
-        banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT
+        banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
     Arguments:
-        TEXT   The text message from which to create the banner
+        TEXT...   The text message from which to create the banner
         CHAR   The character for the frame.
         WIDTH  Width of the banner
         INDENT indentation of the banner
@@ -1211,6 +1211,7 @@ Command - register::
         register json HOST
         register remote [CLOUD] [--force]
         register env [--provider=PROVIDER]
+        register username [USERNAME]
         register CLOUD [--force]
         register CLOUD [--dir=DIR]
 
@@ -1230,6 +1231,7 @@ Command - register::
       FILEPATH the path of the file
       CLOUD the cloud name
       PROVIDER the provider or type of cloud [Default: openstack]
+      USERNAME  Username that would be registered in yaml. Defaults to OS username.
 
     Options:
 
@@ -1309,6 +1311,9 @@ Command - register::
             Reads env OS_* variables and registers a new cloud in yaml,
             interactively. Default PROVIDER is openstack and HOSTNAME
             is localhost.
+
+        register username [USERNAME]
+            Sets the username in yaml with the value provided.
 
 
 reservation
@@ -1663,10 +1668,12 @@ Command - var::
         var delete NAMES
         var NAME=VALUE
         var NAME
+
     Arguments:
         NAME    Name of the variable
         NAMES   Names of the variable separated by spaces
         VALUE   VALUE to be assigned
+
     special vars date and time are defined
 
 
