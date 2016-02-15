@@ -71,10 +71,10 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         ::
 
             Usage:
-                banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT
+                banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
             Arguments:
-                TEXT   The text message from which to create the banner
+                TEXT...   The text message from which to create the banner
                 CHAR   The character for the frame.
                 WIDTH  Width of the banner
                 INDENT indentation of the banner
@@ -94,8 +94,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
+        line = ' '.join(arguments['TEXT'])
         Console.cprint(color, "", i * " " + str((n - i) * c))
-        Console.cprint(color, "", i * " " + c + " " + arguments['TEXT'])
+        Console.cprint(color, "", i * " " + c + " " + line)
         Console.cprint(color, "", i * " " + str((n - i) * c))
 
         return ""

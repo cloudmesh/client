@@ -1,5 +1,5 @@
 from __future__ import print_function
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.usage import Usage

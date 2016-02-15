@@ -100,7 +100,7 @@ class FlatDict(dict):
 
 def main():
     d = {
-        'cm_cloud': 'india',
+        'cm_cloud': 'kilo',
         'cm_update': '2015-06-18 22:11:48 UTC',
         'cm_user': 'gregor',
         'extra': {'created': '2015-05-21T20:37:10Z',

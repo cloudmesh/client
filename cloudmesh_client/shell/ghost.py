@@ -6,8 +6,8 @@ import string
 import textwrap
 
 from docopt import docopt
-from cloudmesh_client.cloud.default import Default
-import cloudmesh_client
+
+from cloudmesh_client.default import Default
 from cloudmesh_client.util import get_python
 from cloudmesh_client.util import check_python
 import cloudmesh_client
@@ -15,6 +15,7 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.util import path_expand
+
 
 # from cloudmesh_client.shell.command import PluginCommand
 from cloudmesh_client.shell.command import CometPluginCommand

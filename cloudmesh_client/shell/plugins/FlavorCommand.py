@@ -2,7 +2,7 @@ from __future__ import print_function
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 
 
 class FlavorCommand(PluginCommand, CloudPluginCommand):

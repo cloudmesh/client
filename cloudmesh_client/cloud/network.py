@@ -363,7 +363,8 @@ class Network(ListResource):
         db = CloudmeshDatabase()
 
         # Lookup instance details from db
-        instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
+        instance_dict = db.find(kind="vm", category=cloudname,
+                                uuid=instance_id)
 
         # Get instance_name for vm
         if len(instance_dict) > 0:
@@ -386,14 +387,16 @@ class Network(ListResource):
 
         # Lookup instance details from db
         if cls.isUuid(instance_id):
-            instance_dict = db.find(kind="vm", cloud=cloudname, uuid=instance_id)
+            instance_dict = db.find(kind="vm", category=cloudname,
+                                    uuid=instance_id)
         else:
-            instance_dict = db.find(kind="vm", cloud=cloudname, name=instance_id)
+            instance_dict = db.find(kind="vm", category=cloudname,
+                                    name=instance_id)
 
         # Instance not found in DB
         if cls.isDictEmpty(instance_dict):
             # auto detect instance_id feature
-            vms = db.find("vm", cloud=cloudname)
+            vms = db.find("vm", category=cloudname)
             # check for each instance in db
             for vm in vms.values():
                 # if match found in either name/id

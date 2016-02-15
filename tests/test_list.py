@@ -16,64 +16,74 @@ from cloudmesh_base.util import HEADING
 from cloudmesh_base.util import banner
 from cloudmesh_client.cloud.list import List
 
-def run(command):
-    parameter = command.split(" ")
-    shell_command = parameter[0]
-    args = parameter[1:]
-    result = Shell.execute(shell_command, args)
-    return result
 
 class Test_list:
 
+    def D(self, line):
+        return (line.format(**self.data))
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c='-')
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return result
+
     def setup(self):
 
-        pass
+            self.data = {
+                "cloud": "kilo",
+                "default": "mydefault",
+                "value": "hallo"
+        }
 
     def tearDown(self):
         pass
 
     def test_001(self):
-        """testing cm list --cloud india default"""
+        """testing cm list --cloud kilo default"""
         HEADING()
-        banner("cm list --cloud india default")
 
-        # set default name=gourav
-        run("cm default --cloud india name=gourav")
-        assert "Successfully added name"
+        result = self.run('cm default {default}=hallo')
+        # set default
+        result = self.run("cm default list --cloud={cloud}")
+        assert self.D("{default}") in result
 
-        result = run("cm list --cloud india default")
-        assert "gourav" in result
+        result = self.run("cm list --cloud={cloud} default")
+        assert self.D("{value}") in result
 
         # delete the default name
-        run("cm default delete name --cloud india")
-        assert "Deleted key name"
+        result = self.run("cm default delete {default} --cloud={cloud}")
+
+        assert "ok." in result
 
         return
 
     def test_002(self):
-        """testing cm list --cloud india --format json default"""
+        """testing cm list --cloud kilo --format json default"""
         HEADING()
-        banner("cm list --cloud india --format json default")
 
-        # set default name=gourav
-        run("cm default --cloud india name=gourav")
-        assert "Successfully added name"
+        result = self.run("cm default --cloud={cloud} {default}={value}")
+        assert "ok." in result
 
-        result = run("cm list --cloud india --format json default")
-        assert "gourav" in result
+        result = self.run("cm list --cloud={cloud} --format=json default")
+        assert "hallo" in result
 
         # delete the default name
-        run("cm default delete name --cloud india")
-        assert "Deleted key name"
+        result = self.run("cm default delete {default} --cloud={cloud}")
+        assert "ok." in result
 
         return
 
     def test_003(self):
         """testing cm list --cloud trial --user fake default"""
         HEADING()
-        banner("cm list --cloud trial --user fake default")
+        banner("cm list --cloud=trial --user=fake default")
 
-        result = run("cm list --cloud trial --user fake default")
+        result = self.run("cm list --cloud=trial --user=fake default")
         assert "No" in result
 
         return

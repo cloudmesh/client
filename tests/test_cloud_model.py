@@ -104,7 +104,7 @@ class Test_cloud_model(object):
                 uuid=uuid,
                 user="test",
                 type="VM",
-                cloud="mycloud",
+                category="mycloud",
                 **d)
         banner("VM added")
 

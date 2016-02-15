@@ -39,7 +39,7 @@ class Test_nova():
 
     def test_001(self):
         """
-        cm nova set india
+        cm nova set <cloud>
         """
 
         HEADING()
@@ -50,7 +50,7 @@ class Test_nova():
 
     def test_002(self):
         """
-        cm nova info india
+        cm nova info <cloud>
         """
 
         HEADING()
