@@ -31,7 +31,7 @@ class Test_CloudmeshDatabase:
         pass
 
     def test_001_query(self):
-        """testing cm list --cloud india default"""
+        """testing cm list --cloud ... default"""
         HEADING()
         cm = CloudmeshDatabase(user="gregor")
         m = DEFAULT("hallo", "world")
@@ -47,7 +47,7 @@ class Test_CloudmeshDatabase:
         pprint(n.__dict__)
 
     def test_002_find_first(self):
-        """testing cm list --cloud india default"""
+        """testing cm list --cloud ... default"""
         HEADING()
         cm = CloudmeshDatabase(user="gregor")
         m = DEFAULT("hallo", "world")
@@ -60,7 +60,7 @@ class Test_CloudmeshDatabase:
         assert n["value"] == 'world'
 
     def test_002_find_all(self):
-        """testing cm list --cloud india default"""
+        """testing cm list --cloud ... default"""
         HEADING()
         cm = CloudmeshDatabase(user="gregor")
         m = DEFAULT("hallo", "world")
@@ -70,7 +70,7 @@ class Test_CloudmeshDatabase:
         assert (len(n.keys()) > 0)
 
     def test_003_find_filter(self):
-        """testing cm list --cloud india default"""
+        """testing cm list --cloud ... default"""
         HEADING()
         cm = CloudmeshDatabase(user="gregor")
         m = DEFAULT("hallo", "world")
