@@ -141,11 +141,16 @@ class Vm(ListResource):
         try:
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
                 if cls.isUuid(kwargs["name_or_id"]):
-                    elements = cls.cm.find("vm", cloud=kwargs["cloud"], uuid=kwargs["name_or_id"])
+                    elements = cls.cm.find("vm",
+                                           category=kwargs["cloud"],
+                                           uuid=kwargs["name_or_id"])
                 else:
-                    elements = cls.cm.find("vm", cloud=kwargs["cloud"], label=kwargs["name_or_id"])
+                    elements = cls.cm.find("vm",
+                                           category=kwargs["cloud"],
+                                           label=kwargs["name_or_id"])
             else:
-                elements = cls.cm.find("vm", cloud=kwargs["cloud"])
+                elements = cls.cm.find("vm",
+                                       category=kwargs["cloud"])
 
             # print(elements)
 
@@ -184,7 +189,7 @@ class Vm(ListResource):
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
-            vm_data = cls.cm.find("vm", cloud=cloud, label=name_or_id)
+            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
             uuid = vm_data.values()[0]["uuid"]
@@ -204,7 +209,7 @@ class Vm(ListResource):
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
-            vm_data = cls.cm.find("vm", cloud=cloud, label=name_or_id)
+            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
             uuid = vm_data.values()[0]["uuid"]
@@ -222,7 +227,7 @@ class Vm(ListResource):
 
     @classmethod
     def get_last_vm(cls, cloud):
-        vm_data = cls.cm.find("vm", scope="first", cloud=cloud)
+        vm_data = cls.cm.find("vm", scope="first", category=cloud)
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")
         return vm_data
