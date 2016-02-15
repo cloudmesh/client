@@ -501,7 +501,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def var_finder(self, line, c='$'):
 
-        line = line.replace('$', ' $')
+        line = line.replace('$', ' $').strip()
         words = line.replace('-',' ').replace('_',' ').split(" ")
 
         variables = []
@@ -530,7 +530,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         vars = self.var_finder(line, c=c)
 
         for v in vars["normal"]:
-            value = Var.get(v)
+            value = str(Var.get(v))
             line = line.replace (c+v, value)
             # replace in line the variable $v with value
         for v in vars["os"]:

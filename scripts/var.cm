@@ -7,8 +7,16 @@ var list
 
 # Get the time and print a banner with the time
 var a=now
+var b=date
+var username=cloudmesh.profile.username
+
+var list
+
 banner $a
 
-# get a variable from the cloudmesh yaml file and print it
-var username=cloudmesh.profile.username
+# replace $a in comment
+
 echo $username
+
+echo $a
+echo $b
