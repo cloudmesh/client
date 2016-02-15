@@ -52,24 +52,32 @@ class Var(ListResource):
     # GENERAL SETTER AND GETTER METHOD
     #
 
+
+
     @classmethod
     def set(cls, key, value, user=None):
         """
         sets the default value for a given category
         :param key: the dictionary key of the value to store it at.
         :param value: the value
-        :param category: the name of the category
         :param user: the username to store this default value at.
         :return:
         """
         try:
+            o = cls.get_object(key)
 
             me = cls.cm.user or user
-            o = cls.cm.db_obj_dict('var',
-                                   name=key,
-                                   value=value,
-                                   user=me)
-            cls.cm.add_obj(o)
+            if o is None:
+                o = cls.cm.db_obj_dict('var',
+                                       name=key,
+                                       value=value,
+                                       category="var",
+                                       user=me)
+                cls.cm.add_obj(o)
+            else:
+                o.value = value
+                cls.cm.add(o)
+                # cls.cm.update(o)
             cls.cm.save()
         except:
             return None
