@@ -190,19 +190,14 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
     virtualization_type = Column(String)
 
     def __init__(self,
-                 name,
-                 uuid,
-                 type="string",
-                 cloud=None,
-                 user=None,
                  **kwargs):
         # self.kind = __tablename__
-        self.label = name
-        self.cloud = cloud or "general"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.uuid = uuid
+        self.label = kwargs["image_name"]
+        self.cloud = kwargs["cloud"]
+        self.type = kwargs["type"]
+        self.user = kwargs["user"]
+        self.uuid = kwargs["uuid"]
+        self.name = kwargs["image_name"]
         self.kind = self.__tablename__
         self.status = kwargs.get('status')
         self.architecture = kwargs.get('architecture')
@@ -258,6 +253,29 @@ class FLAVOR(CloudmeshMixin, db.Base):
                 print ("{} = {}".format(key, value))
                 self[key] = value"""
 
+class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+    ram = Column(String)
+    disk = Column(String)
+    bandwidth = Column(String)
+    price = Column(String)
+    cpu = Column(String)
+
+    def __init__(self,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = kwargs["name"]
+        self.cloud = kwargs["cloud"] or "general"
+        self.type = kwargs["type"]
+        self.name = kwargs["name"]
+        self.user = kwargs["user"]
+        self.uuid = kwargs["uuid"]
+        self.ram = kwargs["ram"]
+        self.disk = kwargs["disk"]
+        self.bandwidth = kwargs["bandwidth"]
+        self.price = kwargs["price"]
+        if "cpu" in kwargs:
+            self.cpu = kwargs["cpu"]
 
 class VM(CloudmeshMixin, db.Base):
     uuid = Column(String)

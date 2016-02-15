@@ -30,9 +30,9 @@ class CloudProviderLibcloud(CloudProviderBase):
         nodes = self.provider.list_nodes()
         vm_dict = self._to_dict(nodes)
 
-        for key, vm in enumerate(vm_dict):
+        # for key, vm in enumerate(vm_dict):
             # pprint("VM !!!!")
-            pprint(vm)
+            # pprint(vm)
         return vm_dict
 
     def list_image(self, cloudname, **kwargs):
@@ -40,10 +40,20 @@ class CloudProviderLibcloud(CloudProviderBase):
         images = self.provider.list_images()
         image_dict = self._to_dict(images)
 
-        for key, vm in enumerate(image_dict):
-            # pprint("Images !!!!")
-            pprint(vm)
+        # for key, image in enumerate(image_dict):
+        #     # pprint("Images !!!!")
+        #     pprint(vm)
         return image_dict
+
+    def list_size(self, cloudname, **kwargs):
+        pprint("In list_sizes of libcloud")
+        sizes = self.provider.list_sizes()
+        sizes_dict = self._to_dict(sizes)
+
+        # for key, vm in enumerate(sizes_dict):
+            # pprint("Images !!!!")
+            # pprint(vm)
+        return sizes_dict
 
     def _to_dict(self, libcloud_result):
         d = {}
@@ -56,14 +66,20 @@ class CloudProviderLibcloud(CloudProviderBase):
             elif libcloud_result[0].__class__.__name__ == "NodeImage":
                 result_type = "NodeImage"
                 pprint("NodeImage type object received")
-        pprint(libcloud_result[0])
+            elif libcloud_result[0].__class__.__name__ == "NodeSize":
+                result_type = "NodeSize"
+                pprint("NodeSize type object received")
+        # pprint(libcloud_result[0])
 
         for index, obj in enumerate(libcloud_result):
             d = {}
             if result_type == "Node":
-                d[index] = LibcloudDict.convert_libcloud_vm_to_dict(obj)
+                d[index] = dict(LibcloudDict.convert_libcloud_vm_to_dict(obj))
             elif result_type == "NodeImage":
-                d[index] = LibcloudDict.handle_vm_image_details(obj)
+                d[index] = dict(LibcloudDict.handle_vm_image_details(obj))
+            elif result_type == "NodeSize":
+                d[index] = dict(LibcloudDict.handle_vm_size_details(obj))
+            pprint("Index:"+str(index))
             # pprint("Id:"+result.id)
             # d['uuid'] = result.id
             # pprint("name:"+result.name)

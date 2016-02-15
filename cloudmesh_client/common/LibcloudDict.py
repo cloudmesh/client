@@ -6,6 +6,7 @@ class LibcloudDict(object):
     @staticmethod
     def convert_libcloud_vm_to_dict(nodeObj):
         vm_dict = {}
+        vm_dict['id'] = nodeObj.id
         vm_dict['name'] = nodeObj.name
         vm_dict['state'] = str(nodeObj.state)
         if len(nodeObj.public_ips) > 0:
@@ -52,8 +53,10 @@ class LibcloudDict(object):
     @staticmethod
     def handle_vm_size_details(node_size_obj):
         vm_size_dict = {}
+        if node_size_obj.id:
+            vm_size_dict['id'] = node_size_obj.id
         if node_size_obj.name:
-            vm_size_dict['node_name'] = node_size_obj.name
+            vm_size_dict['name'] = node_size_obj.name
         if node_size_obj.ram:
             vm_size_dict['ram'] = node_size_obj.ram
         if node_size_obj.name:
@@ -62,15 +65,23 @@ class LibcloudDict(object):
             vm_size_dict['bandwidth'] = node_size_obj.bandwidth
         if node_size_obj.name:
             vm_size_dict['price'] = node_size_obj.price
+        if node_size_obj.extra:
+            pprint("Node Image size extra attrs")
+            LibcloudDict.handle_vm_size_extra_args(node_size_obj.extra)
         return vm_size_dict
+
+    @staticmethod
+    def handle_vm_size_extra_args(node_size_extra_args):
+        for key, val in node_size_extra_args.items():
+            pprint(key+" : "+str(val))
 
     @staticmethod
     def handle_vm_image_details(node_image_obj):
         node_image_dict = {}
         if node_image_obj and node_image_obj.id:
-            node_image_dict["image_id"] = node_image_obj.id
+            node_image_dict['id'] = node_image_obj.id
         else:
-            node_image_dict["image_id"] = ""
+            node_image_dict['id'] = ""
         if node_image_obj and node_image_obj.name:
             node_image_dict["image_name"] = node_image_obj.name
         else:

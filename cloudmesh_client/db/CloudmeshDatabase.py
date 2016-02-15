@@ -9,7 +9,7 @@ from cloudmesh_base.util import banner
 from sqlalchemy import inspect
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, LIBCLOUD_IMAGE, VM, LIBCLOUD_VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
+    FLAVOR, LIBCLOUD_FLAVOR, DEFAULT, KEY, IMAGE, LIBCLOUD_IMAGE, VM, LIBCLOUD_VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
     SECGROUPRULE
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -224,7 +224,7 @@ class CloudmeshDatabase(object):
                     self.add_obj(db_obj)
                     self.save()
                 return True
-            elif kind in ["libcloud_vm", "libcloud_image"]:
+            elif kind in ["libcloud_vm", "libcloud_image", "libcloud_flavor"]:
 
                  # get provider for specific cloud
                 provider = CloudProvider(name).provider
@@ -235,7 +235,7 @@ class CloudmeshDatabase(object):
                 if kind == "libcloud_vm":
                     vms = provider.list_vm(name)
                     for vm in vms.values():
-                        vm['uuid'] = "12333"
+                        vm['uuid'] = vm['id']
                         vm['type'] = 'string'
                         vm['cloud'] = name
                         vm['user'] = user
@@ -246,13 +246,28 @@ class CloudmeshDatabase(object):
                     return True
 
                 if kind == "libcloud_image":
+                    pprint("In libcloud_image entry 1:" + kind)
                     images = provider.list_image(name)
                     for images in images.values():
-                        images['uuid'] = "12333"
+                        images['uuid'] = images['id']
                         images['type'] = 'string'
                         images['cloud'] = name
                         images['user'] = user
                         db_obj = {0: {kind: images}}
+                        pprint("LIBCLOUD_IMAGE entry:::::"+images['id'])
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                if kind == "libcloud_flavor":
+                    pprint("In libcloud_flavor entry 1:" + kind)
+                    flavors = provider.list_size(name)
+                    for flavor in flavors.values():
+                        flavor['uuid'] = flavor['id']
+                        flavor['type'] = 'string'
+                        flavor['cloud'] = name
+                        flavor['user'] = user
+                        db_obj = {0: {kind: flavor}}
 
                         self.add_obj(db_obj)
                         self.save()
@@ -314,6 +329,8 @@ class CloudmeshDatabase(object):
         if type(kind) == str:
             if kind.lower() in ["flavor"]:
                 return FLAVOR
+            elif kind.lower() in ["libcloud_flavor"]:
+                return LIBCLOUD_FLAVOR
             elif kind.lower() in ["default"]:
                 return DEFAULT
             elif kind.lower() in ["image"]:
@@ -556,8 +573,11 @@ class CloudmeshDatabase(object):
 
         for obj in obj_dict.values():
             # print(obj)
+            pprint("In add_objs")
             for key in obj.keys():
                 table_name = self.get_table(key)
+                pprint("key="+key)
+                pprint("table name="+table_name.__class__.__name__)
                 obj_to_persist = table_name(**obj[key])
                 self.add(obj_to_persist)
 
