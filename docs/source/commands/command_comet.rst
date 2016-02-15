@@ -187,3 +187,42 @@ Get console of the front end:
 .. prompt:: bash
   
     cm comet console vc4
+
+Get the list of images that are available to you:
+
+.. prompt:: bash
+
+    cm comet image list
+
+Upload an image to the public shared folder:
+
+.. prompt:: bash
+
+    cm comet image upload /path/to/your/image.iso
+
+Or with a specified new image name:
+
+.. prompt:: bash
+
+    cm comet image upload /path/to/your/image.iso --imagename=newimagename.iso
+
+Attach an image to a compute node:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc4 vm-vc4-0
+
+Or to the front end:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc4
+
+To detach an iso:
+
+.. prompt:: bash
+
+    cm comet image detach vc4 vm-vc4-0
+
+Please note image attaching/detaching will only take effect after you hard reboot 
+the node (power off and then power on).

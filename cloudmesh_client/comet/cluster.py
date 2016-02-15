@@ -426,7 +426,7 @@ class Cluster(object):
                         ret = r
                     else:
                         ret = "Requeset Accepted. "\
-                              "In the process of {} the nodes".format(action)
+                              "In the process of {} the front-end node".format(action)
                 else:
                     ret = "Problem executing the request. "\
                           "Check if the cluster exists"
@@ -502,21 +502,27 @@ class Cluster(object):
     @staticmethod
     def attach_iso(isoname, clusterid, nodeid=None):
         ret = ''
-        print ("Attaching ISO image")
-        print ("isoname: %s" % isoname)
-        print ("cluster: %s" % clusterid)
-        print ("node: %s" % nodeid)
+        # print ("Attaching ISO image")
+        # print ("isoname: %s" % isoname)
+        #print ("cluster: %s" % clusterid)
+        # print ("node: %s" % nodeid)
+
+        if isoname != '':
+            isoname = "public/{}".format(isoname)
 
         # attaching to front end
         if nodeid:
-            url = Comet.url("cluster/{}/compute{}/attach_iso").format(clusterid, nodeid)
+            url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}")\
+                            .format(clusterid, nodeid, isoname)
         else:
             # attaching to node
-            url = Comet.url("cluster/{}/frontend/attach_iso").format(clusterid)
-        data = {"iso_name": "%s" % isoname}
-        print ("url: %s" % url)
-        print ("data: %s" % data)
-        r = Comet.put(url, data)
+            url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}")\
+                            .format(clusterid, isoname)
+        #data = {"iso_name": "%s" % isoname}
+        # print ("url: %s" % url)
+        #print ("data: %s" % data)
+        r = Comet.put(url)
+        # print (r)
         if r is not None:
             if '' != r.strip():
                 ret = r
