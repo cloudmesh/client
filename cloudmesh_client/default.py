@@ -343,8 +343,8 @@ class Default(ListResource):
         try:
             value = cls.get_refresh()
         except:
-            cls.set_refresh("off")
-            value = "off"
+            cls.set_refresh("on")
+            value = "on"
         return value == "on"
 
     # set default for timer
