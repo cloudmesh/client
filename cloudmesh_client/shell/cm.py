@@ -228,7 +228,18 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Default.set_group("default")
 
         Default.load("cloudmesh.yaml")
+
         on = Default.timer()
+
+        group = Default.get_group()
+        if group is None:
+            Default.set_group("default")
+
+        r = Default.get_refresh()
+        if r is None:
+            Default.set_refresh("on")
+
+
 
         """
         try:
