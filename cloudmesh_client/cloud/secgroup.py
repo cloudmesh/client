@@ -48,37 +48,13 @@ class SecGroup(ListResource):
         return d
 
     @classmethod
-    def set_os_environ(cls, cloudname):
-        """Set os environment variables on a given cloudname"""
-        try:
-            d = ConfigDict("cloudmesh.yaml")
-            credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
-            for key, value in credentials.iteritems():
-                if key == "OS_CACERT":
-                    os.environ[key] = Config.path_expand(value)
-                else:
-                    os.environ[key] = value
-
-                print("Key: " + key + ", Value: " + os.environ[key])
-
-            nova = client.Client("2",
-                                 credentials["OS_USERNAME"],
-                                 credentials["OS_PASSWORD"],
-                                 credentials["OS_TENANT_NAME"],
-                                 credentials["OS_AUTH_URL"],
-                                 Config.path_expand(credentials["OS_CACERT"]))
-            return nova
-        except Exception, e:
-            print(e)
-
-    @classmethod
-    def refresh(cls, cloudname):
+    def refresh(cls, cloud):
         """
         This method would refresh the secgroup list by first clearing
         the database, then inserting new data
         :param cloud: the cloud name
         """
-        return cls.cm_db.refresh('secgroup', cloudname)
+        return cls.cm_db.refresh('secgroup', cloud)
 
     # noinspection PyPep8Naming
     @classmethod
@@ -94,25 +70,25 @@ class SecGroup(ListResource):
         return "\n".join(result)
 
     @classmethod
-    def create(cls, label, cloudname=None, tenant=None):
+    def create(cls, label, cloud=None, tenant=None):
         """
         Method creates a new security group in database
         & returns the uuid of the created group
         :param label:
-        :param cloudname:
+        :param cloud:
         :param tenant:
         :return:
         """
         # Get user from cloudmesh.yaml
-        user = cls.getUser(cloudname)
+        user = ConfigDict.getUser(cloud)
         uuid = None
 
-        if not cls.get(label, tenant, cloudname):
+        if not cls.get(label, tenant, cloud):
 
             # Create the security group in OS cloud
             try:
                 # nova_client = CloudProvider.set(cloudname)
-                cloud_provider = CloudProvider(cloudname).provider.provider
+                cloud_provider = CloudProvider(cloud).provider.provider
                 secgroup = cloud_provider.security_groups \
                     .create(name=label,
                             description="Security group {}".format(label))
@@ -131,14 +107,14 @@ class SecGroup(ListResource):
             secgroup_obj = cls.cm_db.db_obj_dict("secgroup",
                                                  name=label,
                                                  uuid=uuid,
-                                                 cloud=cloudname,
+                                                 category=cloud,
                                                  user=user,
                                                  project=tenant)
             """
             secgroup_obj = model.SECGROUP(
                 label,
                 uuid=uuid,
-                cloud=cloudname,
+                category=cloudname,
                 user=user,
                 project=tenant
             )
@@ -151,11 +127,11 @@ class SecGroup(ListResource):
 
         else:
             print("Security group [{}], for cloud [{}], and tenant [{}] "
-                  "already exists!".format(label, cloudname, tenant))
+                  "already exists!".format(label, cloud, tenant))
             return None
 
     @classmethod
-    def list(cls, project, cloudname="general"):
+    def list(cls, project, cloud="general"):
         """
         This method queries the database to fetch list of secgroups
         filtered by cloud, tenant.
@@ -167,7 +143,7 @@ class SecGroup(ListResource):
         try:
             """
             elements = cls.cm_db.query(model.SECGROUP).filter(
-                model.SECGROUP.cloud == cloud,
+                model.SECGROUP.category == cloudname,
                 model.SECGROUP.project == project
             ).all()
 
@@ -175,7 +151,7 @@ class SecGroup(ListResource):
             """
 
             # nova_client = CloudProvider.set(cloud)
-            cloud_provider = CloudProvider(cloudname).provider.provider
+            cloud_provider = CloudProvider(cloud).provider.provider
             os_result = cloud_provider.security_groups.list()
             d = SecGroup.convert_list_to_dict(os_result)
 
@@ -237,18 +213,19 @@ class SecGroup(ListResource):
         try:
             args = {
                 "name": name,
-                "cloud": cloud,
+                "category": cloud,
                 "project": project
             }
 
             """
             secgroup = cls.cm_db.query(model.SECGROUP).filter(
                 model.SECGROUP.name == name,
-                model.SECGROUP.cloud == cloud,
+                model.SECGROUP.category == cloud,
                 model.SECGROUP.project == project
             ).first()
             """
-            secgroup = cls.cm_db.find("secgroup", output="object",
+            secgroup = cls.cm_db.find("secgroup",
+                                      output="object",
                                       **args).first()
             return secgroup
 
@@ -256,11 +233,11 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add_rule(cls, cloudname, secgroup, from_port, to_port, protocol, cidr):
+    def add_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
             # Get the nova client object
-            # nova_client = CloudProvider.set(secgroup.cloud)
-            cloud_provider = CloudProvider(cloudname).provider.provider
+            # nova_client = CloudProvider.set(secgroup.category)
+            cloud_provider = CloudProvider(cloud).provider.provider
             # Create add secgroup rules to the cloud
             rule_id = cloud_provider.security_group_rules.create(secgroup.uuid,
                                                                  ip_protocol=protocol,
@@ -272,7 +249,7 @@ class SecGroup(ListResource):
                 uuid=str(rule_id),
                 name=secgroup.name,
                 groupid=secgroup.uuid,
-                cloud=secgroup.cloud,
+                category=secgroup.category,
                 user=secgroup.user,
                 project=secgroup.project,
                 fromPort=from_port,
@@ -287,7 +264,7 @@ class SecGroup(ListResource):
                                             uuid=str(rule_id),
                                             name=secgroup.name,
                                             groupid=secgroup.uuid,
-                                            cloud=secgroup.cloud,
+                                            category=secgroup.category,
                                             user=secgroup.user,
                                             project=secgroup.project,
                                             fromPort=from_port,
@@ -343,11 +320,11 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete_secgroup(cls, label, cloudname, tenant):
+    def delete_secgroup(cls, label, cloud, tenant):
         try:
             # Find the secgroup from the cloud
             # nova_client = CloudProvider.set(cloud)
-            cloud_provider = CloudProvider(cloudname).provider.provider
+            cloud_provider = CloudProvider(cloud).provider.provider
             sec_group = cloud_provider.security_groups.find(name=label)
             if not sec_group:
                 return None
@@ -356,13 +333,13 @@ class SecGroup(ListResource):
             cloud_provider.security_groups.delete(sec_group)
 
             # perform local db deletion
-            sec_group = cls.get(label, tenant, cloudname)
+            sec_group = cls.get(label, tenant, cloud)
             if sec_group:
                 # Delete all rules for group
                 cls.delete_all_rules(sec_group)
                 cls.cm_db.delete(sec_group)
                 return "Security Group [{}] for cloud [{}], & tenant [{}] deleted" \
-                    .format(label, cloudname, tenant)
+                    .format(label, cloud, tenant)
             else:
                 return None
 
@@ -372,7 +349,7 @@ class SecGroup(ListResource):
         return
 
     @classmethod
-    def delete_rule(cls, cloudname, secgroup, from_port, to_port, protocol, cidr):
+    def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
             args = {
                 "groupid": secgroup.uuid,
@@ -397,8 +374,8 @@ class SecGroup(ListResource):
 
             if rule is not None:
                 # get the nova client for cloud
-                # nova_client = CloudProvider.set(secgroup.cloud)
-                cloud_provider = CloudProvider(cloudname).provider.provider
+                # nova_client = CloudProvider.set(secgroup.category)
+                cloud_provider = CloudProvider(cloud).provider.provider
                 # delete the rule from the cloud
                 cloud_provider.security_group_rules.delete(rule.uuid)
                 # delete the local db record
@@ -439,27 +416,6 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
         return
-
-    @classmethod
-    def getUser(cls, cloudname):
-        #
-        # TODO: this method is duplicated from the cloudprovider and must be removed.
-        # Also see the new code in cloudprovider
-        #
-        try:
-            # currently support India cloud
-            if cloudname == "india":
-                d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname][
-                    "credentials"]
-                for key, value in credentials.iteritems():
-                    if key == "OS_USERNAME":
-                        return value
-            else:
-                return None
-
-        except Exception as ex:
-            Console.error(ex.message, ex)
 
     @classmethod
     def toDict(cls, item):

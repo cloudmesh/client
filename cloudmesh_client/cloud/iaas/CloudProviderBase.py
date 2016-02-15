@@ -330,7 +330,7 @@ class CloudProviderBase(object):
             for idkey in ["name", "uuid", "id"]:
                 s = {idkey: id}
                 try:
-                    elements = cm.find(kind, cloud=cloud, **s)
+                    elements = cm.find(kind, category=cloud, **s)
                 except:
                     pass
                 if len(elements) > 0:

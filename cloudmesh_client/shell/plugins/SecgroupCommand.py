@@ -1,7 +1,7 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -83,7 +83,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 return ""
 
             result = SecGroup.list(project=tenant,
-                                   cloudname=cloud)
+                                   cloud=cloud)
             if result:
                 print(result)
             else:
@@ -93,7 +93,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["create"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -116,7 +117,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["delete"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -139,7 +141,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["rules-delete"]:
             # if no arguments read default
             cloud = arguments["--cloud"] or Default.get_cloud()
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -159,7 +162,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Get the rules
-                result = SecGroup.delete_rule(cloudname=cloud,
+                result = SecGroup.delete_rule(cloud=cloud,
                                               secgroup=sec_group,
                                               from_port=from_port,
                                               to_port=to_port,
@@ -176,7 +179,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["rules-list"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
@@ -202,7 +206,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["rules-add"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant", cloud)
+            tenant = arguments["--tenant"] or Default.get("tenant",
+                                                          category=cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -222,7 +227,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             sec_group = SecGroup.get(label, tenant, cloud)
             if sec_group:
                 # Add rules to the security group
-                SecGroup.add_rule(cloudname=cloud,
+                SecGroup.add_rule(cloud=cloud,
                                   secgroup=sec_group,
                                   from_port=from_port,
                                   to_port=to_port,

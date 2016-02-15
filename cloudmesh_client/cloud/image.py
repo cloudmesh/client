@@ -19,7 +19,8 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # Newly implemented refresh
-        return cls.cm.refresh("image", cloud)
+        result = cls.cm.refresh("image", cloud)
+        return result
 
     @classmethod
     def list(cls, cloud, format="table"):
@@ -31,7 +32,7 @@ class Image(ListResource):
         # cm = CloudmeshDatabase()
 
         try:
-            elements = cls.cm.find("image", cloud=cloud)
+            elements = cls.cm.find("image", category=cloud)
 
             (order, header) = CloudProvider(cloud).get_attributes("image")
 

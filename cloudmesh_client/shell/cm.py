@@ -7,12 +7,28 @@ import string
 import textwrap
 import os
 import shutil
+import re
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.util import path_expand
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.var import Var
+
+# noinspection PyPep8
+from cloudmesh_client.default import Default
+from cloudmesh_client.util import get_python
+from cloudmesh_client.util import check_python
+import cloudmesh_client
+from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.shell.command import command
+from cloudmesh_client.shell.command import PluginCommand
+from cloudmesh_client.common.ssh_config import ssh_config
+import cloudmesh_client.etc
+
+import cloudmesh_client.shell.plugins
+from cloudmesh_client.common.StopWatch import StopWatch
 
 
 def create_cloudmesh_yaml(filename):
@@ -30,19 +46,6 @@ def create_cloudmesh_yaml(filename):
 filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
 create_cloudmesh_yaml(filename)
 os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
-
-# noinspection PyPep8
-from cloudmesh_client.cloud.default import Default
-from cloudmesh_client.util import get_python
-from cloudmesh_client.util import check_python
-import cloudmesh_client
-from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.shell.command import command
-from cloudmesh_client.shell.command import PluginCommand
-from cloudmesh_client.common.ssh_config import ssh_config
-import cloudmesh_client.etc
-
-import cloudmesh_client.shell.plugins
 
 
 class CloudmeshContext(object):
@@ -86,6 +89,18 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):
 
+
+    def precmd(self, line):
+        StopWatch.start("command")
+        return line
+
+    def postcmd(self, stop, line):
+        StopWatch.stop("command")
+        if Default.timer():
+            print ("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
+                                                line))
+        return stop
+
     def onecmd(self, line):
         """Interpret the argument as though it had been typed in response
         to the prompt.
@@ -96,7 +111,13 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         commands by the interpreter should stop.
 
         """
-        line = self.replace_vars(line)
+        # line = self.replace_vars(line)
+
+        if line is None:
+            return ""
+        if line.startswith("!"):
+            line.replace("!", "! ")
+        line = self.var_replacer(line)
         if line != "hist" and line:
             self._hist += [line.strip()]
         if line.startswith("!") or line.startswith("shell"):
@@ -178,18 +199,18 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         # sys,exit(1)
 
-        value = Default.get('cloud', cloud='general')
+        value = Default.get('cloud', category='general')
         if value is None:
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
             cloud = clouds.keys()[0]
-            Default.set('cloud', cloud, cloud='general')
+            Default.set('cloud', cloud, category='general')
 
-        value = Default.get('default', cloud='general')
+        value = Default.get('default', category='general')
         if value is None:
-            Default.set('default', 'default', cloud='general')
+            Default.set('default', 'default', category='general')
 
         cluster = 'kilo'  # hardcode a value if not defined
-        value = Default.get('cluster', cloud='general')
+        value = Default.get('cluster', category='general')
         if value is None:
             try:
                 hosts = ssh_config().names()
@@ -200,13 +221,14 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         else:
             cluster = value
-        Default.set('cluster', cluster, cloud='general')
+        Default.set('cluster', cluster, category='general')
 
         group = Default.get_group()
         if group is None:
             Default.set_group("default")
 
         Default.load("cloudmesh.yaml")
+        on = Default.timer()
 
         """
         try:
@@ -412,7 +434,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         print(textwrap.dedent(self.help_help.__doc__))
 
-
     def do_exec(self, filename):
         """
         ::
@@ -434,11 +455,12 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 for line in f:
                     if self.context.echo:
                         Console.ok("cm> {:}".format(str(line)))
-                    self.onecmd(line)
+                    self.precmd(line)
+                    stop = self.onecmd(line)
+                    self.postcmd(stop,line)
         else:
             Console.error('file "{:}" does not exist.'.format(filename))
             sys.exit()
-
 
     # noinspection PyUnusedLocal
     def do_shell_exec(self, args):
@@ -477,18 +499,82 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         self.variables['time'] = time
         self.variables['date'] = date
 
+    def var_finder(self, line, c='$'):
+
+        line = line.replace('$', ' $').strip()
+        words = line.replace('-',' ').replace('_',' ').split(" ")
+
+        variables = []
+        for word in words:
+            if word.startswith('$'):
+                variables.append(word)
+
+        vars = {
+            "normal": [],
+            "os": [],
+            "dot": []
+        }
+        for word in variables:
+            word = word.replace('$', "")
+            if word.startswith('os.'):
+                vars["os"].append(word)
+            elif '.' in word:
+                vars["dot"].append(word)
+            else:
+                vars["normal"].append(word)
+
+        return vars
+
+    def var_replacer(self, line, c='$'):
+
+        vars = self.var_finder(line, c=c)
+
+        for v in vars["normal"]:
+            value = str(Var.get(v))
+            line = line.replace (c+v, value)
+            # replace in line the variable $v with value
+        for v in vars["os"]:
+            name = v.replace('os.', '')
+            if name in os.environ:
+                value = os.environ[name]
+                line = line.replace (c+v, value)
+            else:
+                Console.error("can not find environment variable {}".format(
+                    v))
+                if c + v in line:
+                    value = os.environ(v)
+                    # replace in line the variable $v with value
+
+        for v in vars["dot"]:
+            try:
+                config = ConfigDict("cloudmesh.yaml")
+                print (config["cloudmesh.profile"])
+                value = config[v]
+                line = line.replace (c+v, value)
+            except Exception, e:
+                Console.error("can not find variable {} in cloudmesh.yaml".format(value))
+        return line
+
     def replace_vars(self, line):
 
         self.update_time()
 
         newline = line
-        for v in self.variables:
-            newline = newline.replace("$" + v, self.variables[v])
-        for v in os.environ:
-            newline = newline.replace("$" + v, os.environ[v])
+
+        variables = Var.list(format="dict")
+
+        if len(variables) is not None:
+            for v in variables:
+                name = variables[v]["name"]
+                value = variables[v]["value"]
+                newline = newline.replace("$" + name, value)
+
+        # for v in os.environ:
+        #    newline = newline.replace("$" + v.name, os.environ[v])
         newline = path_expand(newline)
         return newline
 
+    '''
     def _add_variable(self, name, value):
         self.variables[name] = value
         # self._list_variables()
@@ -504,6 +590,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         Console.ok(10 * "-")
         for v in self.variables:
             Console.ok("{:} = {:}".format(v, self.variables[v]))
+    '''
 
     @command
     def do_var(self, arg, arguments):
@@ -513,14 +600,17 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             var delete NAMES
             var NAME=VALUE
             var NAME
+
         Arguments:
             NAME    Name of the variable
             NAMES   Names of the variable separated by spaces
             VALUE   VALUE to be assigned
+
         special vars date and time are defined
         """
         if arguments['list'] or arg == '' or arg is None:
-            self._list_variables()
+            # self._list_variables()
+            print (Var.list())
             return ""
 
         elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
@@ -536,18 +626,21 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 except Exception, e:
                     Console.error("can not find variable {} in cloudmesh.yaml".format(value))
                     value = None
-            self._add_variable(variable, value)
+            # self._add_variable(variable, value)
+            Var.set(variable, value)
             return ""
-        elif arguments['NAME=VALUE'] and "=" in arguments["NAME=VALUE"]:
+        elif arguments['NAME=VALUE'] and "=" not in arguments["NAME=VALUE"]:
             try:
                 v = arguments['NAME=VALUE']
-                Console.ok(str(self.variables[v]))
+                # Console.ok(str(self.variables[v]))
+                Console.ok(str(Var.get(v)))
             except:
                 Console.error('variable {:} not defined'.format(arguments['NAME=VALUE']))
 
         elif arg.startswith('delete'):
             variable = arg.split(' ')[1]
-            self._delete_variable(variable)
+            Var.delete(variable)
+            # self._delete_variable(variable)
             return ""
 
     @command
@@ -571,7 +664,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             elif arguments["last"]:
                 h = len(self._hist)
                 if h > 1:
-                    self.onecmd(self._hist[h - 2])
+                    command = self._hist[h - 2]
+                    self.precmd(command)
+                    stop = self.onecmd(command)
+                    self.postcmd(stop, command)
                 return ""
 
             elif arguments["ID"]:
@@ -579,7 +675,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 if h in range(0, len(self._hist)):
                     print ("{}".format(self._hist[h]))
                     if not args.startswith("history"):
-                        self.onecmd(self._hist[h])
+                        command = self._hist[h]
+                        self.precmd(command)
+                        stop = self.onecmd(command)
+                        self.postcmd(stop, command)
+
                 return ""
         except:
             Console.error("could not execute the last command")
@@ -671,7 +771,9 @@ def main():
         if echo:
             print("cm>", command)
         if command is not None:
-            cmd.onecmd(command)
+            cmd.precmd(command)
+            stop = cmd.onecmd(command)
+            cmd.postcmd(stop, command)
     except Exception, e:
         print("ERROR: executing command '{0}'".format(command))
         print(70 * "=")

@@ -1,5 +1,7 @@
 """ run with
 
+
+python setup.py install; nosetests -v --nocapture tests/test_reservation.py:Test_reservation.test_001
 python setup.py install; nosetests -v --nocapture  tests/test_reservation.py
 
 nosetests -v --nocapture
@@ -25,6 +27,7 @@ def run(command):
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
+    print (result)
     return result
 
 
