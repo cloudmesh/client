@@ -362,7 +362,7 @@ Sometimes it is a good idea to measure the time it takes to execute a
 particular command. For this reason we have a timer command that can switch
 on and off this behaviour.
 
-.. prompt:: cm>
+::
 
    timer on
    timer off
@@ -371,17 +371,17 @@ switches the timer on or off. If the timer is switched on every command will
 be followed with the time it takes toe execute that command. Special named
 timers can be defined and used.
 
-.. prompt:: cm>
+::
 
    timer start mytimer
-   ...
+
    timer stop mytimer
    timer print mytimer
 
 Intuitive start, stop, and print options can be used. A timer will be reset
 with
 
-.. prompt:: cm>
+::
 
    timer reset mytimer
 
