@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common package &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>cloudmesh_client.common package &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
         <link rel="prev" title="cloudmesh_client.comet package" href="cloudmesh_client.comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -133,6 +133,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Shell">cloudmesh_client.common.Shell module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.StopWatch">cloudmesh_client.common.StopWatch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.TableParser">cloudmesh_client.common.TableParser module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.hostlist">cloudmesh_client.common.hostlist module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.menu">cloudmesh_client.common.menu module</a></li>
@@ -1410,6 +1411,84 @@ for c in commands:</p>
 <dd></dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.common.StopWatch">
+<span id="cloudmesh-client-common-stopwatch-module"></span><h2>cloudmesh_client.common.StopWatch module<a class="headerlink" href="#module-cloudmesh_client.common.StopWatch" title="Permalink to this headline">¶</a></h2>
+<p>Class for starting and stopping named timers.</p>
+<p>This class is based on a similar java class in cyberaide, and java cog kit.</p>
+<dl class="class">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.StopWatch.</code><code class="descname">StopWatch</code><a class="reference internal" href="../_modules/cloudmesh_client/common/StopWatch.html#StopWatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class to measure times between events.</p>
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.clear">
+<em class="property">classmethod </em><code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/StopWatch.html#StopWatch.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>clear start and end timer_start</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.get">
+<em class="property">classmethod </em><code class="descname">get</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/StopWatch.html#StopWatch.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the time of the timer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) &#8211; the name of the timer</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">the elapsed time</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.keys">
+<em class="property">classmethod </em><code class="descname">keys</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/StopWatch.html#StopWatch.keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the names of the timers</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.start">
+<em class="property">classmethod </em><code class="descname">start</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/StopWatch.html#StopWatch.start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>starts a timer with the given name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) &#8211; the name of the timer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.stop">
+<em class="property">classmethod </em><code class="descname">stop</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/StopWatch.html#StopWatch.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>stops the timer with a given name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>string</em>) &#8211; the name of the timer</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.timer_end">
+<code class="descname">timer_end</code><em class="property"> = {}</em><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.timer_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.common.StopWatch.StopWatch.timer_start">
+<code class="descname">timer_start</code><em class="property"> = {}</em><a class="headerlink" href="#cloudmesh_client.common.StopWatch.StopWatch.timer_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.common.TableParser">
 <span id="cloudmesh-client-common-tableparser-module"></span><h2>cloudmesh_client.common.TableParser module<a class="headerlink" href="#module-cloudmesh_client.common.TableParser" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1818,7 +1897,7 @@ digit or arithmetic e.g. +5 or -3 can be used</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

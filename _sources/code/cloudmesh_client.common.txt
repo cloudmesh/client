@@ -68,6 +68,14 @@ cloudmesh_client.common.Shell module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.StopWatch module
+----------------------------------------
+
+.. automodule:: cloudmesh_client.common.StopWatch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.TableParser module
 ------------------------------------------
 

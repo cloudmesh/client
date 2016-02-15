@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Default Command &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>Default Command &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Group Command" href="command_group.html"/>
         <link rel="prev" title="Color Command" href="command_colors.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -207,7 +207,7 @@ cloud that is found in the yaml file and the default group is set to
 <div class="section" id="default-list">
 <h2>default list<a class="headerlink" href="#default-list" title="Permalink to this headline">¶</a></h2>
 <p>All the current default values can by listed with &#8211;all option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default list --all
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default list --all
 +--------+-----------+-------+-------+
 | user   | cloud     | name  | value |
 +--------+-----------+-------+-------+
@@ -219,7 +219,7 @@ cloud that is found in the yaml file and the default group is set to
 </div>
 <p>You can also add a &#8211;cloud=CLOUD option to see the defaults set
 for a cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default list --cloud=chameleon
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default list --cloud=chameleon
 +--------+-----------+-------+-------+
 | user   | cloud     | name  | value |
 +--------+-----------+-------+-------+
@@ -232,13 +232,13 @@ for a cloud:</p>
 <h2>set default values<a class="headerlink" href="#set-default-values" title="Permalink to this headline">¶</a></h2>
 <p>To add a default value, type in a key=value pair. If no &#8211;cloud is specified,
 it adds the value to the general/global cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default image=xyz
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default image=xyz
 Successfully added value: xyz for key: image
 </pre></div>
 </div>
 <p>With the &#8211;cloud=CLOUD option, defaults can be set for a particular
 cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default image=xyz --cloud=chameleon
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default image=xyz --cloud=chameleon
 Successfully added value: xyz for key: image
 </pre></div>
 </div>
@@ -247,13 +247,13 @@ Successfully added value: xyz for key: image
 <h2>looking up default values<a class="headerlink" href="#looking-up-default-values" title="Permalink to this headline">¶</a></h2>
 <p>To loop up a default value set, type in the key. If no &#8211;cloud option is
 specified, it returns the value of the general/global cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm default image
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm default image
 Default value for image is xyz
 </pre></div>
 </div>
 <p>With the &#8211;cloud=CLOUD option, defaults can be looked up for a particular
 cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default image --cloud=chameleon
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default image --cloud=chameleon
 Default value for image is xyz
 </pre></div>
 </div>
@@ -262,13 +262,13 @@ Default value for image is xyz
 <h2>deleting default values<a class="headerlink" href="#deleting-default-values" title="Permalink to this headline">¶</a></h2>
 <p>To delete a default value, type in delete followed by the key. If no &#8211;cloud
 option is specified, it deletes the value of the general/global cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default delete image
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default delete image
 Deleted key image for cloud general
 </pre></div>
 </div>
 <p>With the &#8211;cloud=CLOUD option, defaults can be deleted for a particular
 cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ default delete image --cloud=chameleon
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ default delete image --cloud=chameleon
 Deleted key image for cloud chameleon
 </pre></div>
 </div>
@@ -315,7 +315,7 @@ Deleted key image for cloud chameleon
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

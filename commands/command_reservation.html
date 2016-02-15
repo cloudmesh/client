@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reservation Command &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>Reservation Command &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Inventory Command" href="command_inventory.html"/>
         <link rel="prev" title="Comet Virtual Cluster" href="command_comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -208,7 +208,7 @@ timeless reservation is like a group.</p>
 <div class="section" id="adding-a-reservation">
 <h2>Adding a reservation<a class="headerlink" href="#adding-a-reservation" title="Permalink to this headline">¶</a></h2>
 <p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for commmand line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm reservation add --name=test3 --start=&#39;10/31/1988\ at\ 8:09\ pm&#39; --end=&#39;10/21/2015\ at\ 9:00\ pm&#39; --user=albert --project=cloudmesh --hosts=host001 --description=desc
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm reservation add --name=test3 --start=&#39;10/31/1988\ at\ 8:09\ pm&#39; --end=&#39;10/21/2015\ at\ 9:00\ pm&#39; --user=albert --project=cloudmesh --hosts=host001 --description=desc
 Reservation test3 added successfully
 info. OK.
 </pre></div>
@@ -216,7 +216,7 @@ info. OK.
 </div>
 <div class="section" id="list-reservation">
 <h2>List Reservation<a class="headerlink" href="#list-reservation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>$ cm reservation list
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm reservation list
 +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
 | id | name  | start_time      | end_time        | user   | project   | hosts   | description | cloud |
 +----+-------+-----------------+-----------------+--------+-----------+---------+-------------+-------+
@@ -228,13 +228,13 @@ info. OK.
 <div class="section" id="update-reservation">
 <h2>Update Reservation<a class="headerlink" href="#update-reservation" title="Permalink to this headline">¶</a></h2>
 <p>Please note that you have to escape the whitespaces with &#8216;\&#8217; for command line arguments such as &#8216;&#8211;start&#8217;, &#8216;&#8211;end&#8217;.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm reservation update --name=test3 --project=cloudnauts
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm reservation update --name=test3 --project=cloudnauts
 Reservation test3 updated successfully
 info. OK.
 </pre></div>
 </div>
 <p>Verify by listing:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm reservation list
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm reservation list
 +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
 | id | name  | start_time     | end_time       | user   | project    | hosts   | description | cloud |
 +----+-------+----------------+----------------+--------+------------+---------+-------------+-------+
@@ -245,12 +245,12 @@ info. OK.
 </div>
 <div class="section" id="delete-reservation">
 <h2>Delete Reservation<a class="headerlink" href="#delete-reservation" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python"><div class="highlight"><pre>$ cm reservation delete --name=test3
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm reservation delete --name=test3
 info. OK.
 </pre></div>
 </div>
 <p>Verify by listing:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm reservation list
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm reservation list
 None
 info. OK.
 </pre></div>
@@ -298,7 +298,7 @@ info. OK.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

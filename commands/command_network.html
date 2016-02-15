@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Network Command &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>Network Command &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Sync Command" href="command_sync.html"/>
         <link rel="prev" title="Image Command" href="command_image.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -212,7 +212,7 @@ including networks, fixed &amp; floating ips.</p>
 <dl class="docutils">
 <dt>..note:: We assume you have your default cloud set,</dt>
 <dd><p class="first">via the default command:</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ cm default cloud=kilo
+<div class="last highlight-python"><div class="highlight"><pre><span></span>$ cm default cloud=kilo
 </pre></div>
 </div>
 </dd>
@@ -220,7 +220,7 @@ including networks, fixed &amp; floating ips.</p>
 <div class="section" id="list-floating-ip-pools">
 <h2>List Floating IP Pools<a class="headerlink" href="#list-floating-ip-pools" title="Permalink to this headline">¶</a></h2>
 <p>To list the floating ip pools in your cloud network use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network list floating pool
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network list floating pool
   +------------------+
   | floating_ip_pool |
   +------------------+
@@ -232,7 +232,7 @@ including networks, fixed &amp; floating ips.</p>
 <div class="section" id="list-floating-ip-addresses">
 <h2>List Floating IP Addresses<a class="headerlink" href="#list-floating-ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>To list the floating ip addresses in you cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network list floating ip
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network list floating ip
   +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
   | instance_name | floating_ip     | floating_ip_pool | fixed_ip  | floating_ip_id                       | instance_id                          |
   +---------------+-----------------+------------------+-----------+--------------------------------------+--------------------------------------+
@@ -242,7 +242,7 @@ including networks, fixed &amp; floating ips.</p>
 </pre></div>
 </div>
 <p>To view the floating ip details for a particular instance, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network list floating ip --instance=albert-004
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network list floating ip --instance=albert-004
   +---------------+--------------------------------------+
   | name          | value                                |
   +---------------+--------------------------------------+
@@ -259,7 +259,7 @@ including networks, fixed &amp; floating ips.</p>
 </pre></div>
 </div>
 <p>To view details of a particular floating ip address, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network list floating ip 100.165.123.111
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network list floating ip 100.165.123.111
   +---------------+--------------------------------------+
   | name          | value                                |
   +---------------+--------------------------------------+
@@ -279,7 +279,7 @@ including networks, fixed &amp; floating ips.</p>
 <div class="section" id="create-floating-ip-addresses">
 <h2>Create Floating IP Addresses<a class="headerlink" href="#create-floating-ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>To create a floating ip address under a floating pool, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network create floating ip --pool=ext-net
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network create floating ip --pool=ext-net
   Created new floating IP [100.165.123.112]
 
 $ cm network list floating ip
@@ -296,7 +296,7 @@ $ cm network list floating ip
 <div class="section" id="delete-floating-ip-addresses">
 <h2>Delete Floating IP Addresses<a class="headerlink" href="#delete-floating-ip-addresses" title="Permalink to this headline">¶</a></h2>
 <p>To delete a floating ip address, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network delete floating ip 100.165.123.112
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network delete floating ip 100.165.123.112
   Floating IP [100.165.123.112] deleted successfully!
 
 $ cm network list floating ip
@@ -313,7 +313,7 @@ $ cm network list floating ip
 <h2>Associate Floating IP Address with an Instance<a class="headerlink" href="#associate-floating-ip-address-with-an-instance" title="Permalink to this headline">¶</a></h2>
 <p>To automatically generate a floating ip address
 and associate it with an instance, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network associate floating ip --instance=albert-009
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network associate floating ip --instance=albert-009
   Created and assigned Floating IP [100.165.123.113] to instance [albert-009].
 
 $ cm network list floating ip
@@ -328,7 +328,7 @@ $ cm network list floating ip
 </div>
 <p>Alternatively, you can also specify the floating ip address
 that you want to associate with an instance:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network associate floating ip --instance=albert-008 100.165.123.112
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network associate floating ip --instance=albert-008 100.165.123.112
   Associated Floating IP [100.165.123.112] to instance [albert-008].
 
 $ cm network list floating ip
@@ -347,7 +347,7 @@ $ cm network list floating ip
 <h2>Disassociate Floating IP Address from an Instance<a class="headerlink" href="#disassociate-floating-ip-address-from-an-instance" title="Permalink to this headline">¶</a></h2>
 <p>To automatically detect the floating ip address associated with an instance
 &amp; disassociate it from that instance, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network disassociate floating ip --instance=albert-009
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network disassociate floating ip --instance=albert-009
   Disassociated Floating IP [100.165.123.113] from instance [albert-009].
 
 $ cm network list floating ip
@@ -362,7 +362,7 @@ $ cm network list floating ip
 </pre></div>
 </div>
 <p>Alternatively, you could also specify the floating ip address to dissociate:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network disassociate floating ip 100.165.123.113
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network disassociate floating ip 100.165.123.113
   Disassociated Floating IP [100.165.123.113] from instance [albert-009].
 
 $ cm network list floating ip
@@ -382,15 +382,15 @@ $ cm network list floating ip
 but you need to have admin privilidges in your account.</p>
 <p>Some of the commands include:</p>
 <p>Reserving a fixed ip address:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network reserve fixed ip 10.1.1.3
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network reserve fixed ip 10.1.1.3
 </pre></div>
 </div>
 <p>Unreserve a fixed ip address:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm network unreserve fixed ip 10.1.1.3
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm network unreserve fixed ip 10.1.1.3
 </pre></div>
 </div>
 <p>Getting fixed ip address details:</p>
-<div class="last highlight-python"><div class="highlight"><pre>$ cm network get fixed ip 10.1.1.3
+<div class="last highlight-python"><div class="highlight"><pre><span></span>$ cm network get fixed ip 10.1.1.3
 </pre></div>
 </div>
 </div>
@@ -437,7 +437,7 @@ but you need to have admin privilidges in your account.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

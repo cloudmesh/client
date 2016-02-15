@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.default &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>cloudmesh_client.default &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.default</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="kn">import</span> <span class="n">Printer</span>
 <span class="c1"># from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager</span>
@@ -484,7 +484,7 @@
         <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
 
     <span class="c1">#</span>
-    <span class="c1"># Set the default key</span>
+    <span class="c1"># Set the default for refresh</span>
     <span class="c1">#</span>
 
     <span class="nd">@classmethod</span>
@@ -515,6 +515,40 @@
             <span class="n">cls</span><span class="o">.</span><span class="n">set_refresh</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
             <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
         <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span></div>
+
+    <span class="c1"># set default for timer</span>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.set_timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_timer">[docs]</a>    <span class="k">def</span> <span class="nf">set_timer</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        sets the default for all clouds to timer</span>
+<span class="sd">        :param value:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;timer&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.get_timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_timer">[docs]</a>    <span class="k">def</span> <span class="nf">get_timer</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        gets the timer</span>
+<span class="sd">        :return: &quot;on&quot; if timer is True, &quot;off&quot; otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;timer&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">set_timer</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
+        <span class="k">return</span> <span class="n">value</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Default.timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.timer">[docs]</a>    <span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: &quot;on&quot; if timer is True, &quot;off&quot; otherwise</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_timer</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span></div>
+
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.load"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -588,7 +622,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.cluster &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>cloudmesh_client.comet.cluster &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.comet.cluster</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">hostlist</span>
@@ -595,7 +595,7 @@
                         <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Requeset Accepted. &quot;</span>\
-                              <span class="s2">&quot;In the process of {} the nodes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                              <span class="s2">&quot;In the process of {} the front-end node&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Problem executing the request. &quot;</span>\
                           <span class="s2">&quot;Check if the cluster exists&quot;</span>
@@ -671,21 +671,27 @@
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.attach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.attach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">attach_iso</span><span class="p">(</span><span class="n">isoname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Attaching ISO image&quot;</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;isoname: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">isoname</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;cluster: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">clusterid</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;node: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">nodeid</span><span class="p">)</span>
+        <span class="c1"># print (&quot;Attaching ISO image&quot;)</span>
+        <span class="c1"># print (&quot;isoname: %s&quot; % isoname)</span>
+        <span class="c1">#print (&quot;cluster: %s&quot; % clusterid)</span>
+        <span class="c1"># print (&quot;node: %s&quot; % nodeid)</span>
+
+        <span class="k">if</span> <span class="n">isoname</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">isoname</span> <span class="o">=</span> <span class="s2">&quot;public/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">isoname</span><span class="p">)</span>
 
         <span class="c1"># attaching to front end</span>
         <span class="k">if</span> <span class="n">nodeid</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute{}/attach_iso&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute/{}/attach_iso?iso_name={}&quot;</span><span class="p">)</span>\
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">,</span> <span class="n">isoname</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># attaching to node</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/attach_iso&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;iso_name&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">isoname</span><span class="p">}</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;url: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;data: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/attach_iso?iso_name={}&quot;</span><span class="p">)</span>\
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">isoname</span><span class="p">)</span>
+        <span class="c1">#data = {&quot;iso_name&quot;: &quot;%s&quot; % isoname}</span>
+        <span class="c1"># print (&quot;url: %s&quot; % url)</span>
+        <span class="c1">#print (&quot;data: %s&quot; % data)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="c1"># print (r)</span>
         <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
@@ -728,7 +734,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

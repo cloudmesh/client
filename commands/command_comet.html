@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Virtual Cluster &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Reservation Command" href="command_reservation.html"/>
         <link rel="prev" title="Hpc Command" href="command_hpc.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -239,7 +239,7 @@ client</p>
 auth_provider could be userpass or apikey. When specified, the
 corresponding credential is needed. Please communicate with comet
 admins to get the username/password or api key and secret assigned.:</p>
-<div class="highlight-python"><div class="highlight"><pre>comet:
+<div class="highlight-python"><div class="highlight"><pre><span></span>comet:
     auth_provider: apikey
     userpass:
         username: TBD
@@ -298,7 +298,21 @@ itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc4 vm-vc4-0</span>
 </pre><p>Get console of the front end:</p>
 <pre class="highlight"><span class="prompt1">cm comet console vc4</span>
-</pre></div>
+</pre><p>Get the list of images that are available to you:</p>
+<pre class="highlight"><span class="prompt1">cm comet image list</span>
+</pre><p>Upload an image to the public shared folder:</p>
+<pre class="highlight"><span class="prompt1">cm comet image upload /path/to/your/image.iso</span>
+</pre><p>Or with a specified new image name:</p>
+<pre class="highlight"><span class="prompt1">cm comet image upload /path/to/your/image.iso --imagename<span class="o">=</span>newimagename.iso</span>
+</pre><p>Attach an image to a compute node:</p>
+<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc4 vm-vc4-0</span>
+</pre><p>Or to the front end:</p>
+<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc4</span>
+</pre><p>To detach an iso:</p>
+<pre class="highlight"><span class="prompt1">cm comet image detach vc4 vm-vc4-0</span>
+</pre><p>Please note image attaching/detaching will only take effect after you hard reboot
+the node (power off and then power on).</p>
+</div>
 </div>
 
 
@@ -341,7 +355,7 @@ itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

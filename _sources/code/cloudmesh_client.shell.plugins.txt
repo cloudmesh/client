@@ -292,6 +292,14 @@ cloudmesh_client.shell.plugins.TerminalCommands module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.TimerCommand module
+--------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.TimerCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.UsageCommand module
 --------------------------------------------------
 

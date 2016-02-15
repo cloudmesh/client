@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>VM Command &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>VM Command &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Nova Command" href="command_nova.html"/>
         <link rel="prev" title="SecGroup Command" href="command_secgroup.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -206,7 +206,7 @@ operations on various clouds available to Cloudmesh.</p>
 <div class="section" id="listing-defaults">
 <h2>Listing Defaults<a class="headerlink" href="#listing-defaults" title="Permalink to this headline">¶</a></h2>
 <p>You can have a list of relevant default attributes required for VM operations:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-----------+--------------------------------------+
+<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------+--------------------------------------+
 | Attribute | Value                                |
 +-----------+--------------------------------------+
 | secgroup  |                                      |
@@ -234,14 +234,14 @@ operations on various clouds available to Cloudmesh.</p>
 <h3>Booting a VM instance<a class="headerlink" href="#booting-a-vm-instance" title="Permalink to this headline">¶</a></h3>
 <p>If you have all the required attributes (secgroup not mandatory) setup and listed in the vm defaults,
 then you can simply run the following to boot a vm.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm boot
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm boot
 Machine albert-015 is being booted on kilo Cloud...
 Added ID [4a37b49a-9768-88cc-b988-01013701a8fb] to Group [test]
 info. OK.
 </pre></div>
 </div>
 <p>Else you may explicitly specify the attribute values in the arguments to the vm boot command.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm boot --name=testvm --cloud=kilo --image=619b8942-2355-4aa2-jaa5-74b8f1751911 --flavor=2
 Machine testvm is being booted on kilo Cloud...
 </pre></div>
 </div>
@@ -250,7 +250,7 @@ Machine testvm is being booted on kilo Cloud...
 <h3>Listing a VM instances<a class="headerlink" href="#listing-a-vm-instances" title="Permalink to this headline">¶</a></h3>
 <p>You can list all the VM instances running on the cloud by &#8216;vm list&#8217; command
 like the one below:</p>
-<div class="highlight-python"><div class="highlight"><pre>+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
+<div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
 | id | uuid                                 | label                        | status    | static_ip   | floating_ip     | key_name                | project   | user      | cloud |
 +----+--------------------------------------+------------------------------+-----------+-------------+-----------------+-------------------------+-----------+-----------+-------+
 | 10 | 21305503-2649-3664-8876-d825758c83f3 | albert-001                   | ACTIVE    | 10.20.99.xx | 140.123.44.xxx  | albert-key              | undefined | albert    | kilo  |
@@ -265,7 +265,7 @@ like the one below:</p>
 <div class="section" id="stop-a-vm">
 <h3>Stop a VM<a class="headerlink" href="#stop-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can stop a VM by supplying it&#8217;s label or UUID:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm stop testvm --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm stop testvm --cloud=kilo
 Machine testvm is being stopped on kilo Cloud...
 info. OK.
 </pre></div>
@@ -274,7 +274,7 @@ info. OK.
 <div class="section" id="start-a-vm">
 <h3>Start a VM<a class="headerlink" href="#start-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can start a VM by supplying it&#8217;s label or UUID:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm start testvm --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm start testvm --cloud=kilo
 Machine testvm is being started on kilo Cloud...
 info. OK.
 </pre></div>
@@ -284,7 +284,7 @@ info. OK.
 <h3>Assign Floating IP to VM<a class="headerlink" href="#assign-floating-ip-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>In order to access the vm from outside of the cloud private network, we need to assign a floating IP which can be
 accessed publicly:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm floating_ip_assign testvm --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm floating_ip_assign testvm --cloud=kilo
 Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 </pre></div>
 </div>
@@ -292,7 +292,7 @@ Floating IP assigned to testvm successfully and it is: 149.165.158.XX
 <div class="section" id="retrieving-ip-address-details">
 <h3>Retrieving IP Address details<a class="headerlink" href="#retrieving-ip-address-details" title="Permalink to this headline">¶</a></h3>
 <p>You can get the IP address details of a VM by the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm ip_show testvm --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm ip_show testvm --cloud=kilo
 IP Addresses of instance testvm are as follows:-
 +---------+---------+----------------+
 | network | version | addr           |
@@ -306,7 +306,7 @@ IP Addresses of instance testvm are as follows:-
 <div class="section" id="login-to-vm">
 <h3>Login to VM<a class="headerlink" href="#login-to-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can login to a VM in your target cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm login testvm --user=albert --key=/location/id_rsa --cloud=kilo
 Logging in into testvm machine...
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
@@ -349,7 +349,7 @@ albert@testvm:~$
 <div class="section" id="running-command-on-vm">
 <h3>Running command on VM<a class="headerlink" href="#running-command-on-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can use the vm login to simply run a command on the target VM:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm login testvm --user=albert --key=/location/id_rsa --command=&quot;uname\ -a&quot; --cloud=kilo
 Logging in into testvm machine...
 Determining IP Address to use with a ping test...
 Checking 10.23.2.XX...
@@ -364,7 +364,7 @@ OS testvm &lt;VERSION&gt; #103-OS SMP Fri Aug 14 21:42:59 UTC 2015 &lt;BIT_SPEC&
 <div class="section" id="deleting-a-vm">
 <h3>Deleting a VM<a class="headerlink" href="#deleting-a-vm" title="Permalink to this headline">¶</a></h3>
 <p>You can delete a VM on the target cloud by using &#8216;vm delete&#8217; command as below:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm vm delete testvm --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm vm delete testvm --cloud=kilo
 Machine testvm is being deleted on kilo Cloud...
 </pre></div>
 </div>
@@ -412,7 +412,7 @@ Machine testvm is being deleted on kilo Cloud...
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

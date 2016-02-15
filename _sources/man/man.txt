@@ -224,6 +224,7 @@ Command - comet::
                     [--walltime=WALLTIME]
        comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
        comet console CLUSTERID [COMPUTENODEID]
+       comet image list
        comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
        comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
        comet image detach CLUSTERID [COMPUTENODEID]
@@ -1632,6 +1633,46 @@ Command - sync::
 
     Options:
         --cloud=CLOUD   Sync with cloud
+
+
+
+timer
+----------------------------------------------------------------------
+
+Command - timer::
+
+    Usage:
+        timer on
+        timer off
+        timer list [NAME]
+        timer start NAME
+        timer stop NAME
+        timer resume NAME
+        timer reset [NAME]
+
+    Description:
+
+         timer on | off
+             switches timers on and off not yet implemented.
+             If the timer is on each command will be timed and its
+             time is printed after the command. Please note that
+             background command times are not added.
+
+        timer list
+            list all timers
+
+        timer start NAME
+            starts the timer with the name. A start resets the timer to 0.
+
+        timer stop NAME
+            stops the timer
+
+        timer resume NAME
+            resumes the timer
+
+        timer reset NAME
+            resets the named timer to 0. If no name is specified all
+            timers are reset
 
 
 

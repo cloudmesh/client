@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Key Command &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>Key Command &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="List Command" href="command_list.html"/>
         <link rel="prev" title="Cloud Command" href="command_cloud.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -208,7 +208,7 @@ when we start up virtual machines or log into remote machines.</p>
 <div class="section" id="adding-a-key-to-the-database">
 <h2>Adding a key to the database<a class="headerlink" href="#adding-a-key-to-the-database" title="Permalink to this headline">¶</a></h2>
 <p>To add a key to the key registry from a file we use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key add --name=demokey /home/albert/key_expt/id_rsa.pub
 Key demokey successfully added to the database
 info. OK.
 </pre></div>
@@ -216,7 +216,7 @@ info. OK.
 <div class="section" id="list-keys">
 <h3>List Keys<a class="headerlink" href="#list-keys" title="Permalink to this headline">¶</a></h3>
 <p>To list the keys in the registry you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key list
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key list
   +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
   | name    | comment            | uri                                        | fingerprint                                     | source |
   +---------+--------------------+--------------------------------------------+-------------------------------------------------+--------+
@@ -227,7 +227,7 @@ info. OK.
 </div>
 <p>The key command takes a number of additional options. Instead of using
 the cloudmesh registry, keys can also be read from git hub with the option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key list --source=git
 +------+----------+-----------------------------+-------------------------------------------------+--------+
 | name | comment  | uri                         | fingerprint                                     | source |
 +------+----------+-----------------------------+-------------------------------------------------+--------+
@@ -239,7 +239,7 @@ info. OK.
 </div>
 <p>To change the output format you can specify it with the &#8211;format
 option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key list --source=git --format=json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key list --source=git --format=json
 {
     &quot;github-0&quot;: {
         &quot;comment&quot;: &quot;github-0&quot;,
@@ -267,7 +267,7 @@ info. OK.
 <div class="section" id="get-keys">
 <h3>Get Keys<a class="headerlink" href="#get-keys" title="Permalink to this headline">¶</a></h3>
 <p>To get the fingerprint of a key you can obtain it with:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key get demokey
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key get demokey
    demokey: 4e:fc:e8:03:4e:c7:8e:ca:30:1a:54:43:8d:24:90:39
    info. OK.
 </pre></div>
@@ -277,14 +277,14 @@ info. OK.
 <h3>Default Keys<a class="headerlink" href="#default-keys" title="Permalink to this headline">¶</a></h3>
 <p>In many cases it is convenient to just use a default key that is
 set. To mark key as default by name you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key default demokey
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key default demokey
 Key demokey set as default
 info. OK.
 </pre></div>
 </div>
 <p>You can verify that a key is set as default while looking at the
 &#8216;is_default&#8217; attribute:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key list --format=json
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key list --format=json
 
        &quot;1&quot;: {
            &quot;comment&quot;: &quot;albert@Zweistein&quot;,
@@ -309,7 +309,7 @@ info. OK.
 </div>
 <p>To make it easy for the user, we can set the default key also
 interactively with the select option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key default --select
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key default --select
 
 KEYS
 ====
@@ -330,13 +330,13 @@ info. OK.
 <h3>Delete Keys<a class="headerlink" href="#delete-keys" title="Permalink to this headline">¶</a></h3>
 <p>A named key can be deleted from the registry with the command, where
 &#8216;demokey&#8217; is the name of the key:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key delete demokey
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key delete demokey
 Key demokey deleted successfully from database.
 info. OK.
 </pre></div>
 </div>
 <p>Alternatively you can also interactively select it:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key delete --select
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key delete --select
 
 KEYS
 ====
@@ -353,7 +353,7 @@ info. OK.
 </pre></div>
 </div>
 <p>To delete all keys from database use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key delete --all
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key delete --all
 All keys from the database deleted successfully.
 info. OK.
 </pre></div>
@@ -362,7 +362,7 @@ info. OK.
 <div class="section" id="adding-key-to-cloud">
 <h3>Adding Key to Cloud<a class="headerlink" href="#adding-key-to-cloud" title="Permalink to this headline">¶</a></h3>
 <p>This functionality is required for key management with VMs. We can add the key from database to the target cloud.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key add_to_cloud albertkey
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key add_to_cloud albertkey
 Adding key albertkey to cloud kilo as albert-kilo-albertkey
 Key albertkey added successfully to cloud kilo as albert-kilo-albertkey.
 info. OK.
@@ -370,7 +370,7 @@ info. OK.
 </div>
 <p>By default the target cloud key name format is &lt;username&gt;-&lt;cloud&gt;-&lt;key-name&gt;.
 However, you may choose to override it with &#8216;&#8211;name_on_cloud&#8217; argument.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key add_to_cloud albertkey --name_on_cloud=someothername
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key add_to_cloud albertkey --name_on_cloud=someothername
 key add_to_cloud albertkey --name_on_cloud=someothername
 Adding key albertkey to cloud kilo as someothername
 Key albertkey added successfully to cloud kilo as someothername.
@@ -381,7 +381,7 @@ info. OK.
 <div class="section" id="list-key-cloud-mapings">
 <h3>List Key Cloud Mapings<a class="headerlink" href="#list-key-cloud-mapings" title="Permalink to this headline">¶</a></h3>
 <p>You may check out the mappings of database key names with the cloud key names.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm key list_cloud_mappings
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm key list_cloud_mappings
 +-----------+-----------+------------+-------------------------+
 | user      | key_name  | cloud_name | key_name_on_cloud       |
 +-----------+-----------+------------+-------------------------+
@@ -433,7 +433,7 @@ info. OK.
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.var &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>cloudmesh_client.var &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.var</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="kn">import</span> <span class="n">Printer</span>
 <span class="c1"># from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager</span>
@@ -221,24 +221,32 @@
     <span class="c1"># GENERAL SETTER AND GETTER METHOD</span>
     <span class="c1">#</span>
 
+
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Var.set"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.var.Var.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        sets the default value for a given category</span>
 <span class="sd">        :param key: the dictionary key of the value to store it at.</span>
 <span class="sd">        :param value: the value</span>
-<span class="sd">        :param category: the name of the category</span>
 <span class="sd">        :param user: the username to store this default value at.</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
 
             <span class="n">me</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">user</span> <span class="ow">or</span> <span class="n">user</span>
-            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s1">&#39;var&#39;</span><span class="p">,</span>
-                                   <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
-                                   <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
-                                   <span class="n">user</span><span class="o">=</span><span class="n">me</span><span class="p">)</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s1">&#39;var&#39;</span><span class="p">,</span>
+                                       <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
+                                       <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                                       <span class="n">category</span><span class="o">=</span><span class="s2">&quot;var&quot;</span><span class="p">,</span>
+                                       <span class="n">user</span><span class="o">=</span><span class="n">me</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+                <span class="c1"># cls.cm.update(o)</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">None</span></div>
@@ -341,7 +349,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

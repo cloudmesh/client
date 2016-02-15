@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client package &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>cloudmesh_client package &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="next" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/>
         <link rel="prev" title="Docker" href="../docker.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -297,6 +297,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Shell">cloudmesh_client.common.Shell module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.StopWatch">cloudmesh_client.common.StopWatch module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.TableParser">cloudmesh_client.common.TableParser module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.hostlist">cloudmesh_client.common.hostlist module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.menu">cloudmesh_client.common.menu module</a></li>
@@ -375,6 +376,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SubmitCommands">cloudmesh_client.shell.plugins.SubmitCommands module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.SyncCommand">cloudmesh_client.shell.plugins.SyncCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TerminalCommands">cloudmesh_client.shell.plugins.TerminalCommands module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.TimerCommand">cloudmesh_client.shell.plugins.TimerCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.UsageCommand">cloudmesh_client.shell.plugins.UsageCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.VmCommand">cloudmesh_client.shell.plugins.VmCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.WhoCommand">cloudmesh_client.shell.plugins.WhoCommand module</a></li>
@@ -557,6 +559,13 @@ database.</p>
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.default.Default.get_timer">
+<em class="property">classmethod </em><code class="descname">get_timer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.get_timer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.get_timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>gets the timer
+:return: &#8220;on&#8221; if timer is True, &#8220;off&#8221; otherwise</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.default.Default.list">
 <em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>category=None</em>, <em>format='table'</em>, <em>order=None</em>, <em>output=&lt;built-in function format&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.list" title="Permalink to this definition">¶</a></dt>
 <dd><p>lists the default values in the specified format.
@@ -684,6 +693,27 @@ it is a special category that is used for global values.</li>
 :return:</p>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="cloudmesh_client.default.Default.set_timer">
+<em class="property">classmethod </em><code class="descname">set_timer</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.set_timer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.set_timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the default for all clouds to timer
+:param value:
+:return:</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.default.Default.timer">
+<em class="property">classmethod </em><code class="descname">timer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/default.html#Default.timer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.default.Default.timer" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">&#8220;on&#8221; if timer is True, &#8220;off&#8221; otherwise</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -722,7 +752,7 @@ it is a special category that is used for global values.</li>
 <code class="descclassname">cloudmesh_client.logger.</code><code class="descname">LOGGER</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/logger.html#LOGGER"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.logger.LOGGER" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates a logger with the given name.</p>
 <p>You can use it as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">log</span> <span class="o">=</span> <span class="n">cloudmesh</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LOGGER</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">log</span> <span class="o">=</span> <span class="n">cloudmesh</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LOGGER</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;this is an error&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;this is an info&quot;</span><span class="p">)</span>
 <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;this is a warning&quot;</span><span class="p">)</span>
@@ -845,7 +875,7 @@ with ~ and environment variables.</td>
 <dt id="cloudmesh_client.util.banner">
 <code class="descclassname">cloudmesh_client.util.</code><code class="descname">banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/util.html#banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.util.banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1">############################</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">############################</span>
 <span class="c1"># txt</span>
 <span class="c1">############################</span>
 </pre></div>
@@ -940,7 +970,7 @@ String matching only, does not do REs as currently implemented.</p>
 <dt id="cloudmesh_client.util.str_banner">
 <code class="descclassname">cloudmesh_client.util.</code><code class="descname">str_banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/util.html#str_banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.util.str_banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1">############################</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">############################</span>
 <span class="c1"># txt</span>
 <span class="c1">############################</span>
 </pre></div>
@@ -1079,7 +1109,6 @@ it is a special category that is used for global values.</li>
 <dd><p>sets the default value for a given category
 :param key: the dictionary key of the value to store it at.
 :param value: the value
-:param category: the name of the category
 :param user: the username to store this default value at.
 :return:</p>
 </dd></dl>
@@ -1135,7 +1164,7 @@ it is a special category that is used for global values.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

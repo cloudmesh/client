@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.comet &mdash; cloudmesh_client 2.1.0 documentation</title>
+  <title>cloudmesh_client.comet.comet &mdash; cloudmesh_client 2.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.0 documentation" href="../../../index.html"/>
+    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
         <link rel="up" title="Module code" href="../../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.0
+                2.1.2
               </div>
             
           
@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.comet.comet</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">signal</span>
@@ -659,9 +659,19 @@
         <span class="k">return</span> <span class="nb">hash</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
 
     <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Comet.list_image"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.list_image">[docs]</a>    <span class="k">def</span> <span class="nf">list_image</span><span class="p">():</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+    <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Comet.upload_image"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.Comet.upload_image">[docs]</a>    <span class="k">def</span> <span class="nf">upload_image</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;filename to use: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filename</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;full file path: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">filepath</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># print (&quot;filename to use: %s&quot; % filename)</span>
+        <span class="c1"># print (&quot;full file path: %s&quot; % filepath)</span>
         <span class="n">posturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
         <span class="n">r</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">md5</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
@@ -669,7 +679,9 @@
             <span class="n">files</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;file&#39;</span><span class="p">:(</span><span class="n">filename</span><span class="p">,</span> <span class="n">fh</span><span class="p">)}</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">files</span><span class="p">)</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">,</span> <span class="n">md5</span><span class="o">=</span><span class="n">md5</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">r</span></div></div>
+            <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
+        <span class="k">return</span> <span class="n">ret</span></div></div>
 
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.comet.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">comet</span> <span class="o">=</span> <span class="n">Comet</span><span class="p">()</span>
@@ -828,7 +840,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.0',
+            VERSION:'2.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
