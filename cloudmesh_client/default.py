@@ -315,7 +315,7 @@ class Default(ListResource):
         return cls.get("debug", "general")
 
     #
-    # Set the default key
+    # Set the default for refresh
     #
 
     @classmethod
@@ -346,6 +346,40 @@ class Default(ListResource):
             cls.set_refresh("off")
             value = "off"
         return value == "on"
+
+    # set default for timer
+
+
+    @classmethod
+    def set_timer(cls, value):
+        """
+        sets the default for all clouds to timer
+        :param value:
+        :return:
+        """
+        cls.set("timer", value, "general")
+
+    @classmethod
+    def get_timer(cls):
+        """
+        gets the timer
+        :return: "on" if timer is True, "off" otherwise
+        """
+        try:
+            value = cls.get("timer", "general")
+        except:
+            cls.set_timer("off")
+            value = "off"
+        return value
+
+    @classmethod
+    def timer(cls):
+        """
+        :return: "on" if timer is True, "off" otherwise
+        """
+        value = cls.get_timer()
+        return value == "on"
+
 
     @classmethod
     def load(cls, filename):

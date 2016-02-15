@@ -28,6 +28,7 @@ from cloudmesh_client.common.ssh_config import ssh_config
 import cloudmesh_client.etc
 
 import cloudmesh_client.shell.plugins
+from cloudmesh_client.common.StopWatch import StopWatch
 
 
 def create_cloudmesh_yaml(filename):
@@ -88,6 +89,17 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):
 
+
+    def precmd(self, line):
+        self.watch.start("command")
+        return line
+
+    def postcmd(self, stop, line):
+        self.watch.stop("command")
+        if Default.timer():
+            print ("Timer: {} ({})".format(self.watch.get("command"), line))
+        return stop
+
     def onecmd(self, line):
         """Interpret the argument as though it had been typed in response
         to the prompt.
@@ -100,6 +112,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         """
         # line = self.replace_vars(line)
 
+        if line is None:
+            return ""
+        if line.startswith("!"):
+            line.replace("!", "! ")
         line = self.var_replacer(line)
         if line != "hist" and line:
             self._hist += [line.strip()]
@@ -145,6 +161,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def __init__(self, context):
         cmd.Cmd.__init__(self)
+        self.watch = StopWatch()
         self.variables = {}
         self.command_topics = {}
         self.register_topics()
@@ -211,6 +228,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             Default.set_group("default")
 
         Default.load("cloudmesh.yaml")
+        on = Default.timer()
 
         """
         try:
