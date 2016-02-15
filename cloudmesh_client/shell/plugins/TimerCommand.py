@@ -26,7 +26,7 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
             Usage:
                 timer on
                 timer off
-                timer list
+                timer list [NAME]
                 timer start NAME
                 timer stop NAME
                 timer resume NAME
@@ -68,20 +68,25 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
             Default.set_timer("off")
             Console.ok("Switch timer off")
         elif arguments["list"]:
-            # timer = Default.timer()
-            Console.ok("Timer is switched {}".format(timer))
+
+            name = arguments("NAME")
+            if name is None:
+                print (self.watch)
+            else:
+                value = self.watch.get(name)
+                Console.ok("Timer ({}): {}".format(name, value))
         elif arguments["start"]:
-            # Default.set_timer("off")
             name = arguments("NAME")
-            Console.ok("Start timer")
+            self.watch.start(name)
+            Console.ok("Start timer", name)
         elif arguments["stop"]:
-            # Default.set_timer("off")
             name = arguments("NAME")
-            Console.ok("Stop timer")
+            self.watch.stop(name)
+            Console.ok("Stop timer", name)
         elif arguments["reset"]:
-            # Default.set_timer("off")
             name = arguments("NAME")
-            Console.ok("Stop timer")
+            self.watch.reset(name)
+            Console.ok("Reset timer", name)
 
 
 

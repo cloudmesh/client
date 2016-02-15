@@ -91,13 +91,14 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
 
     def precmd(self, line):
-        self.watch.start("command")
+        StopWatch.start("command")
         return line
 
     def postcmd(self, stop, line):
-        self.watch.stop("command")
+        StopWatch.stop("command")
         if Default.timer():
-            print ("Timer: {} ({})".format(self.watch.get("command"), line))
+            print ("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
+                                                line))
         return stop
 
     def onecmd(self, line):
@@ -161,7 +162,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
     def __init__(self, context):
         cmd.Cmd.__init__(self)
-        self.watch = StopWatch()
         self.variables = {}
         self.command_topics = {}
         self.register_topics()
@@ -455,7 +455,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 for line in f:
                     if self.context.echo:
                         Console.ok("cm> {:}".format(str(line)))
-                    self.onecmd(line)
+                    self.precmd(line)
+                    stop = self.onecmd(line)
+                    self.postcmd(stop,line)
         else:
             Console.error('file "{:}" does not exist.'.format(filename))
             sys.exit()
@@ -662,7 +664,10 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             elif arguments["last"]:
                 h = len(self._hist)
                 if h > 1:
-                    self.onecmd(self._hist[h - 2])
+                    command = self._hist[h - 2]
+                    self.precmd(command)
+                    stop = self.onecmd(command)
+                    self.postcmd(stop, command)
                 return ""
 
             elif arguments["ID"]:
@@ -670,7 +675,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 if h in range(0, len(self._hist)):
                     print ("{}".format(self._hist[h]))
                     if not args.startswith("history"):
-                        self.onecmd(self._hist[h])
+                        command = self._hist[h]
+                        self.precmd(command)
+                        stop = self.onecmd(command)
+                        self.postcmd(stop, command)
+
                 return ""
         except:
             Console.error("could not execute the last command")
@@ -762,7 +771,9 @@ def main():
         if echo:
             print("cm>", command)
         if command is not None:
-            cmd.onecmd(command)
+            cmd.precmd(command)
+            stop = cmd.onecmd(command)
+            cmd.postcmd(stop, command)
     except Exception, e:
         print("ERROR: executing command '{0}'".format(command))
         print(70 * "=")

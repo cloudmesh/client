@@ -19,35 +19,33 @@ class StopWatch(object):
     # Timer end dict
     timer_end = {}
 
-    def __init__(self):
-        """
-        Set up the stopwatch.
-        """
-        self.clear()
-
-    def keys(self):
+    @classmethod
+    def keys(cls):
         """returns the names of the timers"""
-        return self.timer_end.keys()
+        return cls.timer_end.keys()
 
-    def start(self, name):
+    @classmethod
+    def start(cls, name):
         """
         starts a timer with the given name.
 
         :param name: the name of the timer
         :type name: string
         """
-        self.timer_start[name] = time.time()
+        cls.timer_start[name] = time.time()
 
-    def stop(self, name):
+    @classmethod
+    def stop(cls, name):
         """
         stops the timer with a given name.
 
         :param name: the name of the timer
         :type name: string
         """
-        self.timer_end[name] = time.time()
+        cls.timer_end[name] = time.time()
 
-    def get(self, name):
+    @classmethod
+    def get(cls, name):
         """
         returns the time of the timer.
 
@@ -55,13 +53,14 @@ class StopWatch(object):
         :type name: string
         :rtype: the elapsed time
         """
-        time_elapsed = self.timer_end[name] - \
-            self.timer_start[name]
+        time_elapsed = cls.timer_end[name] - \
+            cls.timer_start[name]
         return time_elapsed
 
-    def clear(self):
+    @classmethod
+    def clear(cls):
         """
         clear start and end timer_start
         """
-        self.timer_start.clear()
-        self.timer_end.clear()
+        cls.timer_start.clear()
+        cls.timer_end.clear()
