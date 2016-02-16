@@ -235,7 +235,7 @@ class CloudmeshDatabase(object):
                 if kind == "libcloud_vm":
                     vms = provider.list_vm(name)
                     for vm in vms.values():
-                        vm['uuid'] = vm['id']
+                        vm['uuid'] = vm['node_id']
                         vm['type'] = 'string'
                         vm['cloud'] = name
                         vm['user'] = user
@@ -246,21 +246,19 @@ class CloudmeshDatabase(object):
                     return True
 
                 if kind == "libcloud_image":
-                    pprint("In libcloud_image entry 1:" + kind)
                     images = provider.list_image(name)
                     for images in images.values():
-                        images['uuid'] = images['id']
+                        images['uuid'] = images['image_id']
                         images['type'] = 'string'
                         images['cloud'] = name
                         images['user'] = user
                         db_obj = {0: {kind: images}}
-                        pprint("LIBCLOUD_IMAGE entry:::::"+images['id'])
+
                         self.add_obj(db_obj)
                         self.save()
                     return True
 
                 if kind == "libcloud_flavor":
-                    pprint("In libcloud_flavor entry 1:" + kind)
                     flavors = provider.list_size(name)
                     for flavor in flavors.values():
                         flavor['uuid'] = flavor['id']
@@ -570,14 +568,10 @@ class CloudmeshDatabase(object):
     def add_obj(self, obj_dict):
         # print("Inside add_obj")
         # print("Object Dict to add: {}".format(obj_dict))
-
         for obj in obj_dict.values():
             # print(obj)
-            pprint("In add_objs")
             for key in obj.keys():
                 table_name = self.get_table(key)
-                pprint("key="+key)
-                pprint("table name="+table_name.__class__.__name__)
                 obj_to_persist = table_name(**obj[key])
                 self.add(obj_to_persist)
 

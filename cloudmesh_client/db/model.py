@@ -178,6 +178,7 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
     architecture = Column(String)
     description = Column(String)
     hypervisor = Column(String)
+    image_id = Column(String)
     image_location = Column(String)
     image_type = Column(String)
     is_public = Column(String)
@@ -203,6 +204,7 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
         self.architecture = kwargs.get('architecture')
         self.description = kwargs.get('description')
         self.hypervisor = kwargs.get('hypervisor')
+        self.image_id = kwargs.get('image_id')
         self.image_location = kwargs.get('image_location')
         self.image_type = kwargs.get('image_type')
         self.is_public = kwargs.get('is_public')
@@ -356,6 +358,7 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     uuid = Column(String)
     name = Column(String)
     state = Column(String)
+    node_id = Column(String)
     public_ips = Column(String)
     private_ips = Column(String)
     image_name = Column(String)
@@ -376,6 +379,7 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
         self.type = kwargs["type"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
+        self.node_id = kwargs["node_id"]
         self.name = kwargs["name"]
         self.state = kwargs["state"]
         self.public_ips = kwargs["public_ips"]

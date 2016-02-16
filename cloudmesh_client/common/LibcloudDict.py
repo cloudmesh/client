@@ -6,7 +6,7 @@ class LibcloudDict(object):
     @staticmethod
     def convert_libcloud_vm_to_dict(nodeObj):
         vm_dict = {}
-        vm_dict['id'] = nodeObj.id
+        vm_dict['node_id'] = nodeObj.id
         vm_dict['name'] = nodeObj.name
         vm_dict['state'] = str(nodeObj.state)
         if len(nodeObj.public_ips) > 0:
@@ -22,8 +22,8 @@ class LibcloudDict(object):
         if nodeObj.extra:
             extra_args_dict = LibcloudDict.handle_vm_extra_args(nodeObj.extra)
             vm_dict.update(extra_args_dict)
-            pprint("Node details dict")
-            pprint(nodeObj.extra)
+            # pprint("Node details dict")
+            # pprint(nodeObj.extra)
         pprint("IN convert_libcloud_vm_to_dict")
         pprint(vm_dict)
         return vm_dict
@@ -79,9 +79,9 @@ class LibcloudDict(object):
     def handle_vm_image_details(node_image_obj):
         node_image_dict = {}
         if node_image_obj and node_image_obj.id:
-            node_image_dict['id'] = node_image_obj.id
+            node_image_dict['image_id'] = node_image_obj.id
         else:
-            node_image_dict['id'] = ""
+            node_image_dict['image_id'] = ""
         if node_image_obj and node_image_obj.name:
             node_image_dict["image_name"] = node_image_obj.name
         else:
@@ -89,8 +89,8 @@ class LibcloudDict(object):
         if node_image_obj and node_image_obj.extra:
             vm_image_extra_args = LibcloudDict.handle_vm_image_extra_args(node_image_obj.extra)
             node_image_dict.update(vm_image_extra_args)
-            pprint("NodeImage extras")
-            pprint(node_image_obj.extra)
+            # pprint("NodeImage extras")
+            # pprint(node_image_obj.extra)
         else:
             pprint("NodeImage extras not found")
         ## Node Image Extra Args to be added here
