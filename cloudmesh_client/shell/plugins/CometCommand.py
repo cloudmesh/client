@@ -26,7 +26,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
                comet computeset [COMPUTESETID]
-               comet power on CLUSTERID [NODESPARAM]
+               comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
                             [--allocation=ALLOCATION]
                             [--walltime=WALLTIME]
                comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
@@ -35,11 +35,16 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
                comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
                comet image detach CLUSTERID [COMPUTENODEID]
+               comet node rename CLUSTERID OLDNAME NEWNAME
 
             Options:
-                --format=FORMAT       Format is either table, json, yaml,
-                                      csv, rest
-                                      [default: table]
+                --format=FORMAT         Format is either table, json, yaml,
+                                        csv, rest
+                                        [default: table]
+                --count=NUMNODES        Number of nodes to be powered on.
+                                        When this option is used, the comet system
+                                        will find a NUMNODES number of arbitrary nodes
+                                        that are available to boot as a computeset
                 --allocation=ALLOCATION     Allocation to charge when power on
                                             node(s)
                 --walltime=WALLTIME     Walltime requested for the node(s).
@@ -256,11 +261,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
         elif arguments["power"]:
 
             clusterid = arguments["CLUSTERID"]
-            fuzzyparam = None
-            if 'NODESPARAM' in arguments:
-                fuzzyparam = arguments["NODESPARAM"]
-            param = fuzzyparam
-
+            numnodes = arguments["--count"] or None
             cluster = Cluster.list(clusterid, format='rest')
             try:
                 allocations = cluster[0]['allocations']
@@ -278,27 +279,45 @@ class CometCommand(PluginCommand, CometPluginCommand):
                            'tst010',
                            'tst001']
             '''
-            # no nodes param provided, action on front end
-            if not fuzzyparam:
-                subject = "FE"
-                param = None
-            # parse the nodes param
+
+            if not numnodes:
+                fuzzyparam = None
+                if 'NODESPARAM' in arguments:
+                    fuzzyparam = arguments["NODESPARAM"]
+                param = fuzzyparam
+
+                # no nodes param provided, action on front end
+                if not fuzzyparam:
+                    subject = "FE"
+                    param = None
+                # parse the nodes param
+                else:
+                    try:
+                        param = int(fuzzyparam)
+                        subject = "COMPUTESET"
+                        param = str(param)
+                    except ValueError:
+                        if '[' in fuzzyparam and ']' in fuzzyparam:
+                            try:
+                                hosts_param = hostlist.expand_hostlist(fuzzyparam)
+                            except hostlist.BadHostlist:
+                                Console.error("Invalid hosts list specified!", traceflag=False)
+                                return ""
+                            subject = "HOSTS"
+                        else:
+                            subject = "HOST"
             else:
                 try:
-                    param = int(fuzzyparam)
-                    subject = "COMPUTESET"
-                    param = str(param)
+                    param = int(numnodes)
                 except ValueError:
-                    if '[' in fuzzyparam and ']' in fuzzyparam:
-                        try:
-                            hosts_param = hostlist.expand_hostlist(fuzzyparam)
-                        except hostlist.BadHostlist:
-                            Console.error("Invalid hosts list specified!", traceflag=False)
-                            return ""
-                        subject = "HOSTS"
-                    else:
-                        subject = "HOST"
-
+                    Console.error("Invalid count value specified!", traceflag=False)
+                    return ""
+                if param > 0:
+                    subject = "HOSTS"
+                    param = None
+                else:
+                    Console.error("count value has to be greather than zero")
+                    return ""
             walltime = arguments["--walltime"] or None
             allocation = arguments["--allocation"] or None
             if arguments["on"]:
@@ -322,7 +341,14 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 action = "shutdown"
             else:
                 action = None
-            print (Cluster.power(clusterid, subject, param, action, allocation, walltime))
+            print (Cluster.power(clusterid,
+                                 subject,
+                                 param,
+                                 action,
+                                 allocation,
+                                 walltime,
+                                 numnodes)
+                  )
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
             nodeid = None
@@ -360,4 +386,13 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 clusterid = arguments["CLUSTERID"]
                 computenodeid = arguments["COMPUTENODEID"] or None
                 print (Cluster.detach_iso(clusterid, computenodeid))
+        elif arguments["node"]:
+            if arguments["rename"]:
+                clusterid = arguments["CLUSTERID"]
+                oldname = arguments["OLDNAME"]
+                newname = arguments["NEWNAME"]
+                if newname is None or newname == '':
+                    print ("New node name cannot be empty")
+                else:
+                    print (Cluster.rename_node(clusterid, oldname, newname))
         return ""

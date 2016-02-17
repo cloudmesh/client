@@ -242,9 +242,11 @@ class Comet(object):
                           allow_redirects=allow_redirects)
 
     @staticmethod
-    def post(url, headers=None, data=None, md5=None, files=None, allow_redirects=True):
+    def post(url, headers=None, data=None, md5=None, files=None,
+             cacert=True, allow_redirects=True):
         return Comet.http(url, action="post", headers=headers, data=data,
-                          files=files, md5=md5, allow_redirects=allow_redirects)
+                          files=files, md5=md5, cacert=cacert,
+                          allow_redirects=allow_redirects)
 
     @staticmethod
     def put(url, headers=None, data=None, allow_redirects=True):
@@ -506,9 +508,9 @@ class Comet(object):
         posturl = Comet.url("image")
         r = None
         md5 = Comet.md5(filepath)
-        with open(filepath) as fh:
+        with open(filepath, 'rb') as fh:
             files={'file':(filename, fh)}
-            print (files)
+            print ("File to be uploaded: %s" % filename)
             r = Comet.post(posturl, files=files, md5=md5)
             if r is not None:
                 ret = r
