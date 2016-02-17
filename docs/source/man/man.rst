@@ -765,7 +765,7 @@ Command - key::
       key add [--name=KEYNAME] FILENAME
       key get NAME
       key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [--force=VALUE]
+      key delete (KEYNAME | --select | --all) [--force]
       key upload [KEYNAME]
                  [--cloud=CLOUD]
                  [--name=NAME_ON_CLOUD]
@@ -790,7 +790,7 @@ Command - key::
        --username=USERNAME           the source for the keys [default: none]
        --name=KEYNAME                The name of a key
        --all                         delete all keys
-       --force=VALUE                 delete teh key form the cloud
+       --force                       delete the key form the cloud
        --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
     Description:
@@ -1212,7 +1212,7 @@ Command - register::
         register json HOST
         register remote [CLOUD] [--force]
         register env [--provider=PROVIDER]
-        register username [USERNAME]
+        register profile --username=[USERNAME]
         register CLOUD [--force]
         register CLOUD [--dir=DIR]
 
