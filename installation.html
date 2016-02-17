@@ -194,13 +194,21 @@ that has been proven to work for developers and users and is very easy
 to replicate.</p>
 <div class="section" id="install-cloudmesh-client-via-pip">
 <h2>Install Cloudmesh Client via pip<a class="headerlink" href="#install-cloudmesh-client-via-pip" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">at this time we recommend you use the source install and not</p>
+</div>
+<p>the pip install</p>
 <p>Users can install the cloudmesh client via pip</p>
 <pre class="highlight"><style type="text/css">
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1">pip install cloudmesh_client</span>
-</pre></div>
+</style><span class="prompt1"><span class="nb">cd</span> ~</span>
+<span class="prompt1">pip install cloudmesh_client</span>
+</pre><p>Please note that the directory in which you call pip install does not have a
+directory called cloudmesh_client THis may prevent pip from working properly.</p>
+</div>
 <div class="section" id="cloudmesh-installation-from-source">
 <h2>Cloudmesh Installation from Source<a class="headerlink" href="#cloudmesh-installation-from-source" title="Permalink to this headline">¶</a></h2>
 <p>Developers that wish to contribute to the source can obtain the code from
@@ -214,11 +222,8 @@ base directory.</p>
 <p>Please use the following commands</p>
 <pre class="highlight"><span class="prompt1">mkdir -p github/cloudmesh</span>
 <span class="prompt1"><span class="nb">cd</span> github/cloudmesh</span>
-<span class="prompt1">git clone https://github.com/cloudmesh/base.git</span>
 <span class="prompt1">git clone https://github.com/cloudmesh/client.git</span>
-<span class="prompt1"><span class="nb">cd</span> base</span>
-<span class="prompt1">python setup.py install</span>
-<span class="prompt1"><span class="nb">cd</span> ../client</span>
+<span class="prompt1"><span class="nb">cd</span> client</span>
 <span class="prompt1">python setup.py install</span>
 </pre><div class="section" id="updating-an-existing-source-distribution">
 <h3>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h3>
@@ -226,10 +231,8 @@ base directory.</p>
 code from source, as cloudmesh client uses three different
 repositories please do not forget to update them accordingly</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">CLOUDMESH_HOME</span><span class="o">=</span>$HOME/github/cloudmesh</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$C</span>LOUDMESH_HOME/base</span>
-<span class="prompt1">git pull</span>
-<span class="prompt1">python setup.py install</span>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$C</span>LOUDMESH_HOME/client</span>
+<span class="prompt1">git pull</span>
 <span class="prompt1">python setup.py install</span>
 </pre></div>
 </div>
