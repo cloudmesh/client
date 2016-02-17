@@ -15,10 +15,12 @@ from cloudmesh_base.util import HEADING
 import json
 
 def run(command):
+    print(command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
+    print(result)
     return result
 
 
@@ -61,7 +63,7 @@ class Test_image():
         """
         HEADING()
         result = run("cm image list --cloud=kilo11")
-        assert "Failed." in result
+        assert "failed" in result
 
     def test_005(self):
         """
@@ -87,5 +89,5 @@ class Test_image():
         """
         HEADING()
         result = run("cm image list i --cloud=kilo11")
-        assert "Failed." in result
+        assert "failed" in result
 
