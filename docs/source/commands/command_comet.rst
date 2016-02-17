@@ -57,12 +57,54 @@ client
 * Man page `comet <../man/man.html#comet>`_
 * http://www.sdsc.edu/support/user_guides/comet.html
 * https://portal.xsede.org/sdsc-comet
-  
-Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
-auth_provider could be userpass or apikey. When specified, the
-corresponding credential is needed. Please communicate with comet
-admins to get the username/password or api key and secret assigned.::
-  
+
+Teminology
+^^^^^^^^^^^
+
+We use in this section the following terminology:
+
+computeset:
+    TBD
+
+frontend:
+    TBD
+
+image:
+    TBD
+
+console:
+    TBD
+
+virtual cluster:
+    TBD
+
+individual nodes:
+    TBD
+
+image attach:
+    TBD
+
+image detach:
+    TBD
+
+Configuration
+^^^^^^^^^^^^^^^
+
+The configuration of the cloudmesh client is done semi automatically for you.
+All you have to do after the installation is to call cloudmesh client once.
+
+This is done best with the command::
+
+    cm help
+
+This will automatically generate a configuration file at::
+
+    ~/.cloudmesh/cloudmesh.yaml.
+
+This file you can now modify with your favourite editor. It will contain a
+default section similar to::
+
+
     comet:
         auth_provider: apikey
         userpass:
@@ -71,6 +113,12 @@ admins to get the username/password or api key and secret assigned.::
         apikey:
             api_key: KEYSTRING
             api_secret: SECRETSTRING
+
+
+Two authentication mechanisms are supported. You will only need one. Please
+get in contact with the comet administrators to let you know which one is best
+suited for you. If you have username and password you can get started with
+that. Otherwise the comet admins will assign you an api_key and secret.
 
 List all clusters owned by the authenticated identity (summarized
 format):
@@ -167,7 +215,7 @@ or by specifying the hosts:
 Please note if you powered off all nodes from an active computeset, the computeset 
 itself will be removed as well (changed to 'completed' status)
 
-You can also power on one single node as a computese:
+You can also power on one single node as a computeset:
 
 .. prompt:: bash
   

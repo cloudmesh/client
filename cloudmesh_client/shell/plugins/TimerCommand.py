@@ -4,7 +4,6 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.default import Default
 
 
-
 class TimerCommand(PluginCommand, CloudPluginCommand):
 
     topics = {"timer": "shell"}
@@ -59,7 +58,6 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
         """
         # print arguments
         # print "args", args
-
 
         if arguments["on"]:
             Default.set_timer("on")

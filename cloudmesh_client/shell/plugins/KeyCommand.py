@@ -41,7 +41,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [--name=KEYNAME] FILENAME
              key get NAME
              key default [KEYNAME | --select]
-             key delete (KEYNAME | --select | --all) [--force=VALUE]
+             key delete (KEYNAME | --select | --all) [--force]
              key upload [KEYNAME]
                         [--cloud=CLOUD]
                         [--name=NAME_ON_CLOUD]
@@ -66,7 +66,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
               --username=USERNAME           the source for the keys [default: none]
               --name=KEYNAME                The name of a key
               --all                         delete all keys
-              --force=VALUE                 delete teh key form the cloud
+              --force                       delete the key form the cloud
               --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
            Description:
@@ -419,7 +419,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
         elif arguments['delete']:
 
             delete_on_cloud = arguments["--force"] or False
-            print ("DDD", delete_on_cloud)
+            # print ("DDD", delete_on_cloud)
             if arguments['--all']:
                 try:
                     sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
@@ -474,19 +474,34 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("ERROR: Default key not set")
                     return ""
 
-                cloud = arguments["--cloud"] or Default.get_cloud()
+                cloud_name = arguments["--cloud"] or Default.get_cloud()
+
+                cloud_list = []
+
+                # Handling --cloud=all
+                if cloud_name == "all":
+                    config = ConfigDict("cloudmesh.yaml")
+                    cloud_list = config["cloudmesh"]["clouds"]
+                else:
+                    cloud_list.append(cloud_name)
+
                 name_on_cloud = arguments["--name"]
 
-                if name_on_cloud is None:
-                    name_on_cloud = username + "-" + cloud + "-" + keyname
+                for cloud in cloud_list:
+                    if name_on_cloud is None:
+                        name_on_cloud_to_use = username + "-" + cloud + "-" + keyname
+                    else:
+                        name_on_cloud_to_use = name_on_cloud
 
-                sshm = SSHKeyManager()
-                status = sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud)
+                    sshm = SSHKeyManager()
+                    status = sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud_to_use)
+                    # status = 0
 
-                if status != 1:
-                    print("Key {:} added successfully to cloud {:} as {:}.".format(keyname, cloud, name_on_cloud))
-                    msg = "info. OK."
-                    Console.ok(msg)
+                    if status != 1:
+                        print("Key {:} added successfully to cloud {} as {}.".format(keyname, cloud,
+                                                                                     name_on_cloud_to_use))
+                msg = "info. OK."
+                Console.ok(msg)
 
             except Exception, e:
                 import traceback

@@ -50,7 +50,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register json HOST
               register remote [CLOUD] [--force]
               register env [--provider=PROVIDER]
-              register username [USERNAME]
+              register profile --username=[USERNAME]
               register CLOUD [--force]
               register CLOUD [--dir=DIR]
 
@@ -411,8 +411,8 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     export(cloud, "table")
             return ""
 
-        elif arguments['username']:
-            username = arguments["USERNAME"] or getpass.getuser()
+        elif arguments['profile']:
+            username = arguments["--username"] or getpass.getuser()
             CloudRegister.set_username(username)
             Console.ok("Username {} set successfully in the yaml settings.".format(username))
             return ""
