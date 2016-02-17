@@ -15,10 +15,12 @@ from cloudmesh_base.util import HEADING
 
 
 def run(command):
+    print(command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
+    print (result)
     return result
 
 
@@ -61,7 +63,7 @@ class Test_flavor():
         """
         HEADING()
         result = run("cm flavor list --cloud=kilo11")
-        assert "Failed" in result
+        assert "failed" in result
 
     def test_005(self):
         """
@@ -79,5 +81,5 @@ class Test_flavor():
         """
         HEADING()
         result = run("cm flavor list i --cloud=kilo11")
-        assert "Failed" in result
+        assert "failed" in result
 

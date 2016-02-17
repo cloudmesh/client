@@ -53,7 +53,7 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
                 Console.ok("{:} ok".format(msg))
             else:
                 Console.error("{:} failed".format(msg))
-            return ""
+                return ""
 
         if arguments["list"]:
 
