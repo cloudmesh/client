@@ -6,7 +6,6 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-
 # define the logger
 LOGGER = logging.getLogger('LogUtil')
 

@@ -364,8 +364,6 @@ def Username():
     return user
 
 
-
-
 def main():
     d = ConfigDict("cloudmesh.yaml")
     print(d, end='')
