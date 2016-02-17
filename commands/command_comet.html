@@ -235,10 +235,20 @@ client</p>
 <li><a class="reference external" href="http://www.sdsc.edu/support/user_guides/comet.html">http://www.sdsc.edu/support/user_guides/comet.html</a></li>
 <li><a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a></li>
 </ul>
-<p>Configure the comet section in ~/.cloudmesh/cloudmesh.yaml file first.
-auth_provider could be userpass or apikey. When specified, the
-corresponding credential is needed. Please communicate with comet
-admins to get the username/password or api key and secret assigned.:</p>
+<div class="section" id="configuration">
+<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<p>The configuration of the cloudmesh client is done semi automatically for you.
+All you have to do after the installation is to call cloudmesh client once.</p>
+<p>THis is done best with the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm help
+</pre></div>
+</div>
+<p>This will automatically generate a configuration file at:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml.
+</pre></div>
+</div>
+<p>This file you can now modify with your favourite editor. It will contain a
+default section similar to:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>comet:
     auth_provider: apikey
     userpass:
@@ -249,6 +259,10 @@ admins to get the username/password or api key and secret assigned.:</p>
         api_secret: SECRETSTRING
 </pre></div>
 </div>
+<p>Two authentication mechanisms are supported. YOu will only need one. Please
+get in contact with tthe comet admis to let you know which one is best
+suited for you. If you have username and password you can get satrted with
+that. Otherwise the comet admins will assign you an api_key and secret.</p>
 <p>List all clusters owned by the authenticated identity (summarized
 format):</p>
 <pre class="highlight"><style type="text/css">
@@ -312,6 +326,7 @@ itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
 <pre class="highlight"><span class="prompt1">cm comet image detach vc4 vm-vc4-0</span>
 </pre><p>Please note image attaching/detaching will only take effect after you hard reboot
 the node (power off and then power on).</p>
+</div>
 </div>
 </div>
 

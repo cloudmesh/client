@@ -316,3 +316,11 @@ It will return output in json format::
         "cm_type_version": null
     }
 
+register profile --username
+----------------------------------------------------------------------
+
+Instead of modifying the profile username in the cloudmesh yaml file manually, this command provides a convenient way
+of setting the username through cm shell::
+
+	$ cm register profile --username=albert
+	Username albert set successfully in the yaml settings.

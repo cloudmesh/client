@@ -441,41 +441,6 @@ Prints out the help message for a given function
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="cloudmesh_client.shell.cm.CloudmeshConsole.on">
-<code class="descname">on</code><em class="property"> = None</em><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.on" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>try:</dt>
-<dd><p class="first">sshm = SSHKeyManager()
-m = sshm.get_from_yaml(</p>
-<blockquote>
-<div>load_order=&#8221;~/.cloudmesh/cloudmesh.yaml&#8221;)</div></blockquote>
-<p>d = dict(m.__keys__)</p>
-<p>sshdb = SSHKeyDBManager()</p>
-<dl class="last docutils">
-<dt>for keyname in m.__keys__:</dt>
-<dd><p class="first">filename = m[keyname][&#8220;path&#8221;]
-try:</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>sshdb.add(filename,</dt>
-<dd>keyname,
-source=&#8221;yaml&#8221;,
-uri=&#8221;<a class="reference external" href="file://">file://</a>&#8221; + filename)</dd>
-</dl>
-</div></blockquote>
-<dl class="last docutils">
-<dt>except Exception, e:</dt>
-<dd>pass</dd>
-</dl>
-</dd>
-</dl>
-</dd>
-<dt>except Exception, e:</dt>
-<dd>Console.error(&#8220;Problem adding keys from yaml file&#8221;)</dd>
-</dl>
-</dd></dl>
-
 <dl class="method">
 <dt id="cloudmesh_client.shell.cm.CloudmeshConsole.onecmd">
 <code class="descname">onecmd</code><span class="sig-paren">(</span><em>line</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/cm.html#CloudmeshConsole.onecmd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.cm.CloudmeshConsole.onecmd" title="Permalink to this definition">¶</a></dt>
