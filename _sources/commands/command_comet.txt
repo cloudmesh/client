@@ -87,9 +87,9 @@ default section similar to::
             api_secret: SECRETSTRING
 
 
-Two authentication mechanisms are supported. YOu will only need one. Please
-get in contact with tthe comet admis to let you know which one is best
-suited for you. If you have username and password you can get satrted with
+Two authentication mechanisms are supported. You will only need one. Please
+get in contact with the comet administrators to let you know which one is best
+suited for you. If you have username and password you can get started with
 that. Otherwise the comet admins will assign you an api_key and secret.
 
 List all clusters owned by the authenticated identity (summarized
