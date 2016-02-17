@@ -130,6 +130,15 @@ parameter:
 If you have more allocations, but does not specify via CLI, you will see a list of 
 allocations to choose from to use.
 
+You can also power on N arbitrary nodes, if there is enough resource:
+
+.. prompt:: bash
+
+    cm comet power on vc4 --count=4
+
+The comet system will find 4 available nodes from the specified cluster and start them 
+as one computeset.
+
 You can power off and back on individual nodes of an active
 computeset. E.g.:
 
@@ -226,3 +235,9 @@ To detach an iso:
 
 Please note image attaching/detaching will only take effect after you hard reboot 
 the node (power off and then power on).
+
+You can also rename a compute node:
+
+.. prompt:: bash
+
+    cm comet node rename vc4 vm-vc4-0 mynode0
