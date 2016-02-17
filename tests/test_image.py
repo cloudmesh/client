@@ -72,15 +72,7 @@ class Test_image():
         """
         HEADING()
         result = run("cm image list --cloud=kilo --format=json")
-        d = json.loads(result)
-
-        for image in d:
-            name = d[image]['name']
-            if "Ubuntu" in name and "14" in name:
-                break
-
-        assert "Ubuntu" in name
-        assert "14" in name
+        assert "Ubuntu" in result
 
     def test_006(self):
         """
