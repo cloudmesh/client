@@ -6,6 +6,7 @@ import hostlist
 import os
 import sys
 
+
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
     topics = {"comet": "comet"}
@@ -347,8 +348,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     else:
                         filename = os.path.basename(imagefile)
                 else:
-                    print ("File does not exist - {}"\
-                                  .format(arguments["PATHIMAGEFILE"]))
+                    print ("File does not exist - {}"
+                           .format(arguments["PATHIMAGEFILE"]))
                     return ""
                 print (Comet.upload_image(filename, imagefile))
             elif arguments["attach"]:
