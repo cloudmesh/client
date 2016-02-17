@@ -14,11 +14,18 @@ to replicate.
 Install Cloudmesh Client via pip
 ----------------------------------
 
+.. warning:: at this time we recommend you use the source install and not
+the pip install
+
 Users can install the cloudmesh client via pip
 
 .. prompt:: bash
 
-    pip install cloudmesh_client
+   cd ~
+   pip install cloudmesh_client
+
+Please note that the directory in which you call pip install does not have a
+directory called cloudmesh_client THis may prevent pip from working properly.
 
 
 Cloudmesh Installation from Source
@@ -39,11 +46,8 @@ Please use the following commands
 
    mkdir -p github/cloudmesh
    cd github/cloudmesh
-   git clone https://github.com/cloudmesh/base.git 
    git clone https://github.com/cloudmesh/client.git
-   cd base
-   python setup.py install
-   cd ../client
+   cd client
    python setup.py install
 
 
@@ -57,10 +61,8 @@ repositories please do not forget to update them accordingly
 .. prompt:: bash
   
    export CLOUDMESH_HOME=$HOME/github/cloudmesh
-   cd $CLOUDMESH_HOME/base
-   git pull
-   python setup.py install
    cd $CLOUDMESH_HOME/client
+   git pull
    python setup.py install
 
 
