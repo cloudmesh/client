@@ -167,16 +167,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.default</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common</span> <span class="kn">import</span> <span class="n">Printer</span>
-<span class="c1"># from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager</span>
+<span class="c"># from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 
 
-<span class="c1"># noinspection PyBroadException</span>
+<span class="c"># noinspection PyBroadException</span>
 <div class="viewcode-block" id="Default"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default">[docs]</a><span class="k">class</span> <span class="nc">Default</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Cloudmesh contains the concept of defaults. Defaults can have</span>
@@ -193,7 +193,7 @@
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.list"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span>
              <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-             <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
+             <span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span>
              <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
              <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -209,22 +209,22 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">]</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">,</span> <span class="s">&#39;category&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;value&#39;</span><span class="p">]</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">)</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s">&quot;default&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">Printer</span><span class="o">.</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                                          <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                                          <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># GENERAL SETTER AND GETTER METHOD</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># GENERAL SETTER AND GETTER METHOD</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -240,7 +240,7 @@
 
             <span class="n">me</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">user</span> <span class="ow">or</span> <span class="n">user</span>
             <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
+                <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
                                        <span class="n">name</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>
                                        <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
                                        <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
@@ -249,13 +249,13 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-                <span class="c1"># cls.cm.update(o)</span>
+                <span class="c"># cls.cm.update(o)</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.get_object"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.get_object"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_object">[docs]</a>    <span class="k">def</span> <span class="nf">get_object</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the first object that matches the key in teh Default</span>
 <span class="sd">        database.</span>
@@ -265,17 +265,17 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
-                         <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">}</span>
-            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
-                            <span class="n">output</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">,</span>
+            <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+                         <span class="s">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">}</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
+                            <span class="n">output</span><span class="o">=</span><span class="s">&#39;object&#39;</span><span class="p">,</span>
                             <span class="o">**</span><span class="n">arguments</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
             <span class="k">return</span> <span class="n">o</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Default.get"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Default.get"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the value of the first objects matching the key</span>
 <span class="sd">        with the given category.</span>
@@ -284,32 +284,32 @@
 <span class="sd">        :param category: The category</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
-                     <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">}</span>
-        <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span>
-                        <span class="n">output</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span>
-                        <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span>
+        <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+                     <span class="s">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">}</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span>
+                        <span class="n">output</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">,</span>
+                        <span class="n">scope</span><span class="o">=</span><span class="s">&#39;first&#39;</span><span class="p">,</span>
                         <span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">o</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">o</span><span class="p">[</span><span class="s">&#39;value&#39;</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.delete"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
-        <span class="c1">#</span>
-        <span class="c1"># TODO: this is wrong implemented,</span>
-        <span class="c1">#</span>
+        <span class="c">#</span>
+        <span class="c"># TODO: this is wrong implemented,</span>
+        <span class="c">#</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">o</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_object</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;Deletion. ok.&quot;</span>
+                <span class="k">return</span> <span class="s">&quot;Deletion. ok.&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">None</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="k">return</span> <span class="bp">None</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.clear"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -317,26 +317,26 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_by_name</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete_by_name</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span></div>
+            <span class="k">return</span> <span class="bp">None</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default category</span>
-    <span class="c1">#</span>
+    <span class="c">#</span>
+    <span class="c"># Set the default category</span>
+    <span class="c">#</span></div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_cloud"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">get_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the cloud in teh category general</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">o</span></div>
-
+        <span class="n">o</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_cloud"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">set_cloud</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -344,12 +344,12 @@
 <span class="sd">        :param value: the cloud as defined in cloudmesh.yaml</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;cloud&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default image</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default image</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_image"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_image">[docs]</a>    <span class="k">def</span> <span class="nf">set_image</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -358,8 +358,8 @@
 <span class="sd">        :param category: the category</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_image"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -367,12 +367,12 @@
 <span class="sd">        :param category: the category</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default flavor</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default flavor</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_flavor"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">set_flavor</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -381,8 +381,8 @@
 <span class="sd">        :param category: the category</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_flavor"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -390,12 +390,12 @@
 <span class="sd">        :param category: the category</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default group</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default group</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_group"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_group">[docs]</a>    <span class="k">def</span> <span class="nf">set_group</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -403,40 +403,40 @@
 <span class="sd">        :param value: the group name</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;group&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_group"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_group">[docs]</a>    <span class="k">def</span> <span class="nf">get_group</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the default group</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;group&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default key</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default key</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_key"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_key">[docs]</a>    <span class="k">def</span> <span class="nf">set_key</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param name: the key name</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_key"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_key</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        get the default key name</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default cluster</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default cluster</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_cluster"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">set_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -444,8 +444,8 @@
 <span class="sd">        :param value: the cluster name as defined in the cloudmesh yaml file.</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_cluster"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_cluster">[docs]</a>    <span class="k">def</span> <span class="nf">get_cluster</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -453,12 +453,12 @@
 
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cluster&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cluster&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default key</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default key</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_debug"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_debug">[docs]</a>    <span class="k">def</span> <span class="nf">set_debug</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -466,27 +466,27 @@
 <span class="sd">        :param value: True/False</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_debug"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_debug">[docs]</a>    <span class="k">def</span> <span class="nf">get_debug</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        is debugging switched on?</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.debug"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.debug">[docs]</a>    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :return: returns True if debugging is on</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;debug&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
 
-    <span class="c1">#</span>
-    <span class="c1"># Set the default for refresh</span>
-    <span class="c1">#</span>
-
+    <span class="c">#</span>
+    <span class="c"># Set the default for refresh</span>
+    <span class="c">#</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_refresh">[docs]</a>    <span class="k">def</span> <span class="nf">set_refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -494,16 +494,16 @@
 <span class="sd">        :param value:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;refresh&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;refresh&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_refresh">[docs]</a>    <span class="k">def</span> <span class="nf">get_refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        is refresh switched on?</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;refresh&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;refresh&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.refresh"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -512,12 +512,12 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_refresh</span><span class="p">()</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">set_refresh</span><span class="p">(</span><span class="s2">&quot;on&quot;</span><span class="p">)</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;on&quot;</span>
-        <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span></div>
+            <span class="n">cls</span><span class="o">.</span><span class="n">set_refresh</span><span class="p">(</span><span class="s">&quot;on&quot;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;on&quot;</span>
+        <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&quot;on&quot;</span>
 
-    <span class="c1"># set default for timer</span>
-
+    <span class="c"># set default for timer</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.set_timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.set_timer">[docs]</a>    <span class="k">def</span> <span class="nf">set_timer</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -525,8 +525,8 @@
 <span class="sd">        :param value:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;timer&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span></div>
-
+        <span class="n">cls</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;timer&quot;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.get_timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.get_timer">[docs]</a>    <span class="k">def</span> <span class="nf">get_timer</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -534,61 +534,59 @@
 <span class="sd">        :return: &quot;on&quot; if timer is True, &quot;off&quot; otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;timer&quot;</span><span class="p">,</span> <span class="s2">&quot;general&quot;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;timer&quot;</span><span class="p">,</span> <span class="s">&quot;general&quot;</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">set_timer</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
-        <span class="k">return</span> <span class="n">value</span></div>
-
+            <span class="n">cls</span><span class="o">.</span><span class="n">set_timer</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="s">&quot;off&quot;</span>
+        <span class="k">return</span> <span class="n">value</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.timer"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.timer">[docs]</a>    <span class="k">def</span> <span class="nf">timer</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :return: &quot;on&quot; if timer is True, &quot;off&quot; otherwise</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">value</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_timer</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;on&quot;</span></div>
-
+        <span class="k">return</span> <span class="n">value</span> <span class="o">==</span> <span class="s">&quot;on&quot;</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Default.load"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.default.Default.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
 
-        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">]</span>
-        <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">]</span>
+        <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;clouds&quot;</span><span class="p">]</span>
 
-        <span class="c1"># FINDING DEFAULTS FOR CLOUDS</span>
+        <span class="c"># FINDING DEFAULTS FOR CLOUDS</span>
 
         <span class="k">for</span> <span class="n">cloud</span> <span class="ow">in</span> <span class="n">clouds</span><span class="p">:</span>
 
             <span class="n">db</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">),</span>
-                <span class="s2">&quot;flavor&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">),</span>
+                <span class="s">&quot;image&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">),</span>
+                <span class="s">&quot;flavor&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">),</span>
             <span class="p">}</span>
-            <span class="n">defaults</span> <span class="o">=</span> <span class="n">clouds</span><span class="p">[</span><span class="n">cloud</span><span class="p">][</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
+            <span class="n">defaults</span> <span class="o">=</span> <span class="n">clouds</span><span class="p">[</span><span class="n">cloud</span><span class="p">][</span><span class="s">&quot;default&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="s">&quot;flavor&quot;</span><span class="p">]:</span>
                 <span class="n">value</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
                 <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">defaults</span><span class="p">:</span>
                     <span class="n">value</span> <span class="o">=</span> <span class="n">db</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="ow">or</span> <span class="n">defaults</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
                 <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">)</span>
 
-        <span class="c1"># FINDING DEFAUlTS FOR KEYS</span>
-        <span class="c1"># keys:</span>
-        <span class="c1">#     default: id_rsa</span>
-        <span class="c1">#     keylist:</span>
-        <span class="c1">#       id_rsa: ~/.ssh/id_rsa.pub</span>
+        <span class="c"># FINDING DEFAUlTS FOR KEYS</span>
+        <span class="c"># keys:</span>
+        <span class="c">#     default: id_rsa</span>
+        <span class="c">#     keylist:</span>
+        <span class="c">#       id_rsa: ~/.ssh/id_rsa.pub</span>
 
-        <span class="c1"># key_db = SSHKeyDBManager()</span>
+        <span class="c"># key_db = SSHKeyDBManager()</span>
 
-        <span class="n">name_key</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;key&quot;</span><span class="p">)</span>
+        <span class="n">name_key</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;key&quot;</span><span class="p">)</span>
 
-        <span class="n">keys</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;keys&quot;</span><span class="p">]</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="s2">&quot;keylist&quot;</span><span class="p">]:</span>
-            <span class="n">value</span> <span class="o">=</span> <span class="n">name_key</span> <span class="ow">or</span> <span class="n">keys</span><span class="p">[</span><span class="s2">&quot;keylist&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
-            <span class="c1"># key_db.add(value, keyname=name)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;keys&quot;</span><span class="p">]</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="s">&quot;default&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="s">&quot;keylist&quot;</span><span class="p">]:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">name_key</span> <span class="ow">or</span> <span class="n">keys</span><span class="p">[</span><span class="s">&quot;keylist&quot;</span><span class="p">][</span><span class="n">name</span><span class="p">]</span>
+            <span class="c"># key_db.add(value, keyname=name)</span>
 
-        <span class="n">Default</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div></div>
-
-
-</pre></div>
+        <span class="n">Default</span><span class="o">.</span><span class="n">set_key</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div></div></div>
 
            </div>
           </div>

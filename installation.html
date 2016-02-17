@@ -213,7 +213,7 @@ directory called cloudmesh_client THis may prevent pip from working properly.</p
 <h2>Cloudmesh Installation from Source<a class="headerlink" href="#cloudmesh-installation-from-source" title="Permalink to this headline">¶</a></h2>
 <p>Developers that wish to contribute to the source can obtain the code from
 github. We assume that we conduct a source code install into the directory:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/github/cloudmesh
+<div class="highlight-python"><div class="highlight"><pre>~/github/cloudmesh
 </pre></div>
 </div>
 <p>If you like to use a different directory, that is also possible, but
@@ -221,17 +221,17 @@ the instructions we provide here assumes are targeted towards this
 base directory.</p>
 <p>Please use the following commands</p>
 <pre class="highlight"><span class="prompt1">mkdir -p github/cloudmesh</span>
-<span class="prompt1"><span class="nb">cd</span> github/cloudmesh</span>
+<span class="prompt1"><span class="nb">cd </span>github/cloudmesh</span>
 <span class="prompt1">git clone https://github.com/cloudmesh/client.git</span>
-<span class="prompt1"><span class="nb">cd</span> client</span>
+<span class="prompt1"><span class="nb">cd </span>client</span>
 <span class="prompt1">python setup.py install</span>
 </pre><div class="section" id="updating-an-existing-source-distribution">
 <h3>Updating an existing source distribution<a class="headerlink" href="#updating-an-existing-source-distribution" title="Permalink to this headline">¶</a></h3>
 <p>During the development phase of cloudmesh you may need to update the
 code from source, as cloudmesh client uses three different
 repositories please do not forget to update them accordingly</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">CLOUDMESH_HOME</span><span class="o">=</span>$HOME/github/cloudmesh</span>
-<span class="prompt1"><span class="nb">cd</span> <span class="nv">$C</span>LOUDMESH_HOME/client</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">CLOUDMESH_HOME</span><span class="o">=</span><span class="nv">$HOME</span>/github/cloudmesh</span>
+<span class="prompt1"><span class="nb">cd</span> <span class="nv">$CLOUDMESH_HOME</span>/client</span>
 <span class="prompt1">git pull</span>
 <span class="prompt1">python setup.py install</span>
 </pre></div>

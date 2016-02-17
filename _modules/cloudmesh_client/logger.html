@@ -167,14 +167,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.logger</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.locations</span> <span class="kn">import</span> <span class="n">config_file</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">grep</span>
 
 
-<span class="c1"># noinspection PyUnusedLocal</span>
+<span class="c"># noinspection PyUnusedLocal</span>
 <div class="viewcode-block" id="LOGGER"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.logger.LOGGER">[docs]</a><span class="k">def</span> <span class="nf">LOGGER</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;creates a logger with the given name.</span>
 
@@ -187,46 +187,46 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">pwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">pwd</span><span class="p">,</span> <span class="s2">&quot;$PWD&quot;</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">pwd</span><span class="p">,</span> <span class="s">&quot;$PWD&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;site-packages&quot;</span><span class="p">)</span>
-        <span class="n">name</span> <span class="o">+=</span> <span class="s2">&quot;... site&quot;</span>
+        <span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;site-packages&quot;</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">+=</span> <span class="s">&quot;... site&quot;</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">pass</span>
 
     <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">level</span> <span class="o">=</span> <span class="n">grep</span><span class="p">(</span><span class="s2">&quot;loglevel:&quot;</span><span class="p">,</span> <span class="n">config_file</span><span class="p">(</span>
-            <span class="s2">&quot;/cloudmesh_debug.yaml&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">level</span> <span class="o">=</span> <span class="n">grep</span><span class="p">(</span><span class="s">&quot;loglevel:&quot;</span><span class="p">,</span> <span class="n">config_file</span><span class="p">(</span>
+            <span class="s">&quot;/cloudmesh_debug.yaml&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;DEBUG&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;DEBUG&quot;</span><span class="p">:</span>
             <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
-        <span class="k">elif</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;INFO&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;INFO&quot;</span><span class="p">:</span>
             <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
-        <span class="k">elif</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;WARNING&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;WARNING&quot;</span><span class="p">:</span>
             <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
-        <span class="k">elif</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;ERROR&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;ERROR&quot;</span><span class="p">:</span>
             <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="c1"># print &quot;LOGLEVEL NOT FOUND&quot;</span>
+        <span class="c"># print &quot;LOGLEVEL NOT FOUND&quot;</span>
         <span class="n">loglevel</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
 
     <span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">loglevel</span><span class="p">)</span>
 
     <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
-        <span class="s1">&#39;CM {0:&gt;50}:</span><span class="si">%(lineno)s</span><span class="s1">: </span><span class="si">%(levelname)6s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="s">&#39;CM {0:&gt;50}:</span><span class="si">%(lineno)s</span><span class="s">: </span><span class="si">%(levelname)6s</span><span class="s"> - </span><span class="si">%(message)s</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
 
-    <span class="c1"># formatter = logging.Formatter(</span>
-    <span class="c1">#    &#39;CM {0:&gt;50}: %(levelname)6s - %(module)s:%(lineno)s %funcName)s: %(message)s&#39;.format(name))</span>
+    <span class="c"># formatter = logging.Formatter(</span>
+    <span class="c">#    &#39;CM {0:&gt;50}: %(levelname)6s - %(module)s:%(lineno)s %funcName)s: %(message)s&#39;.format(name))</span>
     <span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">()</span>
     <span class="n">handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
     <span class="n">log</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">log</span></div>
+    <span class="k">return</span> <span class="n">log</span>
 
-
+</div>
 <div class="viewcode-block" id="LOGGING_ON"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.logger.LOGGING_ON">[docs]</a><span class="k">def</span> <span class="nf">LOGGING_ON</span><span class="p">(</span><span class="n">log</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Switches logging on</span>
@@ -236,9 +236,9 @@
         <span class="n">log</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">True</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">False</span></div>
+        <span class="k">return</span> <span class="bp">False</span>
 
-
+</div>
 <div class="viewcode-block" id="LOGGING_OFF"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.logger.LOGGING_OFF">[docs]</a><span class="k">def</span> <span class="nf">LOGGING_OFF</span><span class="p">(</span><span class="n">log</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Switches logging off</span>

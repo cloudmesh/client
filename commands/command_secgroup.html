@@ -217,7 +217,7 @@ and you can modify rules for the default and any other security group.</p>
 <div class="section" id="security-group-create">
 <h2>Security Group Create<a class="headerlink" href="#security-group-create" title="Permalink to this headline">¶</a></h2>
 <p>To create a security group in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm secgroup create --cloud india --tenant fg478 test-group02
+<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup create --cloud india --tenant fg478 test-group02
 Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d8eb97bdb464]
 </pre></div>
 </div>
@@ -225,7 +225,7 @@ Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d
 <div class="section" id="security-group-list">
 <h2>Security Group List<a class="headerlink" href="#security-group-list" title="Permalink to this headline">¶</a></h2>
 <p>To list Security Groups in cloudmesh for a cloud and tenant use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm secgroup list --cloud india --tenant fg478
+<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup list --cloud india --tenant fg478
   +--------------------------------------+--------------------------------------+----------------------------------------------------+
   | Id                                   | Name                                 | Description                                        |
   +--------------------------------------+--------------------------------------+----------------------------------------------------+
@@ -239,7 +239,7 @@ Created a new security group [test-group02] with UUID [bd9cb15e-5fcf-11e5-85fd-d
 <div class="section" id="security-group-rule-add">
 <h2>Security Group Rule Add<a class="headerlink" href="#security-group-rule-add" title="Permalink to this headline">¶</a></h2>
 <p>To add a new rule to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
+<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-add --cloud india --tenant fg478 test-group 80 80 tcp  0.0.0.0/0
   Added rule [80 | 80 | tcp | 0.0.0.0/0] to secgroup [test-group]
 
 $ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0.0.0/0
@@ -250,7 +250,7 @@ $ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0
 <div class="section" id="security-group-rules-list">
 <h2>Security Group Rules List<a class="headerlink" href="#security-group-rules-list" title="Permalink to this headline">¶</a></h2>
 <p>To list all the rules assigned to the security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm secgroup rules-list --cloud india --tenant fg478 test-group
+<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-list --cloud india --tenant fg478 test-group
   +----------+-------+------------+----------+--------+----------+-----------+
   | user     | cloud | name       | fromPort | toPort | protocol | cidr      |
   +----------+-------+------------+----------+--------+----------+-----------+
@@ -263,7 +263,7 @@ $ cm secgroup rules-add --cloud india --tenant fg478 test-group 443 443 udp  0.0
 <div class="section" id="security-group-rule-delete">
 <h2>Security Group Rule Delete<a class="headerlink" href="#security-group-rule-delete" title="Permalink to this headline">¶</a></h2>
 <p>To delete a specific rule within a security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
+<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup rules-delete --cloud india --tenant fg478 test-group 80 80 tcp 0.0.0.0/0
   Rule [80 | 80 | tcp | 0.0.0.0/0] deleted
 
 $ cm secgroup rules-list india fg478 test-group
@@ -278,7 +278,7 @@ $ cm secgroup rules-list india fg478 test-group
 <div class="section" id="security-group-delete">
 <h2>Security Group Delete<a class="headerlink" href="#security-group-delete" title="Permalink to this headline">¶</a></h2>
 <p>To delete an entire security group use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm secgroup delete --cloud india --tenant fg478 test-group
+<div class="highlight-python"><div class="highlight"><pre>$ cm secgroup delete --cloud india --tenant fg478 test-group
   Rule [443 | 443 | udp | 0.0.0.0/0] deleted
   Security Group [test-group] for cloud [india], &amp; tenant [fg478] deleted
 

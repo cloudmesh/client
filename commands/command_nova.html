@@ -32,8 +32,8 @@
   
     <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
-        <link rel="next" title="Flavor Command" href="command_flavor.html"/>
-        <link rel="prev" title="VM Command" href="command_vm.html"/> 
+        <link rel="next" title="Sync Command" href="command_sync.html"/>
+        <link rel="prev" title="Network Command" href="command_network.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -215,7 +215,7 @@ information caching</p>
 <div class="section" id="setting-the-target-cloud">
 <h2>Setting the Target Cloud<a class="headerlink" href="#setting-the-target-cloud" title="Permalink to this headline">¶</a></h2>
 <p>You may set the target cloud on which the nova command should run as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm nova set india
+<div class="highlight-python"><div class="highlight"><pre>$ cm nova set india
 india is set
 </pre></div>
 </div>
@@ -224,7 +224,7 @@ india is set
 <div class="section" id="getting-the-cloud-info">
 <h2>Getting the Cloud Info<a class="headerlink" href="#getting-the-cloud-info" title="Permalink to this headline">¶</a></h2>
 <p>You may get the cloud info in the following manner:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm nova info
+<div class="highlight-python"><div class="highlight"><pre>$ cm nova info
 WARNING: OS environment variable OS_REGION not found
 +----------------+--------------------------------------------------------+
 | Variable       | Value                                                  |
@@ -239,7 +239,7 @@ WARNING: OS environment variable OS_REGION not found
 </pre></div>
 </div>
 <p>By default it gives the &#8216;india&#8217; cloud info. To check for specific cloud, here is an example for kilo cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm nova info kilo
+<div class="highlight-python"><div class="highlight"><pre>$ cm nova info kilo
 +----------------+------------------------------------------------+
 | Variable       | Value                                          |
 +----------------+------------------------------------------------+
@@ -258,7 +258,7 @@ WARNING: OS environment variable OS_REGION not found
 <p>The syntax is  the same as what is used for openstack nova.
 Following are couple of examples:</p>
 <p>Listing images:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm nova image-list
+<div class="highlight-python"><div class="highlight"><pre>$ cm nova image-list
 Cloud = india
 +--------------------------------------+-----------------------------------------+--------+--------------------------------------+
 | ID                                   | Name                                    | Status | Server                               |
@@ -286,7 +286,7 @@ Cloud = india
 </pre></div>
 </div>
 <p>Listing flavors:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm nova flavor-list
+<div class="highlight-python"><div class="highlight"><pre>$ cm nova flavor-list
 Cloud = india
 +----+----------------+-----------+------+-----------+------+-------+-------------+-----------+
 | ID | Name           | Memory_MB | Disk | Ephemeral | Swap | VCPUs | RXTX_Factor | Is_Public |
@@ -315,10 +315,10 @@ Cloud = india
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="command_flavor.html" class="btn btn-neutral float-right" title="Flavor Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="command_sync.html" class="btn btn-neutral float-right" title="Sync Command" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="command_vm.html" class="btn btn-neutral" title="VM Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="command_network.html" class="btn btn-neutral" title="Network Command" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

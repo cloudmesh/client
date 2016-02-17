@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.ListCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.list</span> <span class="kn">import</span> <span class="n">List</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
@@ -178,14 +178,14 @@
 
 
 <div class="viewcode-block" id="ListCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ListCommand.ListCommand">[docs]</a><span class="k">class</span> <span class="nc">ListCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;list&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;list&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command list&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command list&quot;</span><span class="p">)</span>
 
-    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="c"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -215,110 +215,110 @@
 <span class="sd">                $ list --cloud india --format table flavor</span>
 <span class="sd">                $ list --cloud india --user albert --tenant fg82 flavor</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># pprint(arguments)</span>
+        <span class="c"># pprint(arguments)</span>
 
-        <span class="c1"># Method to get the kind from args</span>
-        <span class="c1">#</span>
-        <span class="c1"># TODO: the kind are defined in the provider,</span>
-        <span class="c1"># TODO: keep the kind lower case</span>
-        <span class="c1"># why is there a reason to make the gind upper case</span>
+        <span class="c"># Method to get the kind from args</span>
+        <span class="c">#</span>
+        <span class="c"># TODO: the kind are defined in the provider,</span>
+        <span class="c"># TODO: keep the kind lower case</span>
+        <span class="c"># why is there a reason to make the gind upper case</span>
         <span class="k">def</span> <span class="nf">get_kind</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;vm&quot;</span><span class="p">,</span> <span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="s">&quot;default&quot;</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
-                    <span class="c1"># kinds are all uppercase in model.py</span>
+                    <span class="c"># kinds are all uppercase in model.py</span>
                     <span class="k">return</span> <span class="n">k</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-            <span class="k">return</span> <span class="s2">&quot;help&quot;</span>
+            <span class="k">return</span> <span class="s">&quot;help&quot;</span>
 
-        <span class="c1"># Read commandline arguments</span>
-        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--format&#39;</span><span class="p">]</span>
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--cloud&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
-        <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--user&#39;</span><span class="p">]</span>
-        <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s1">&#39;--tenant&#39;</span><span class="p">]</span>
+        <span class="c"># Read commandline arguments</span>
+        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--format&#39;</span><span class="p">]</span>
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--cloud&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--user&#39;</span><span class="p">]</span>
+        <span class="n">tenant</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&#39;--tenant&#39;</span><span class="p">]</span>
 
-        <span class="c1"># If format is not specified, read default</span>
+        <span class="c"># If format is not specified, read default</span>
         <span class="k">if</span> <span class="n">output_format</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">output_format</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
+            <span class="n">output_format</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;format&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s">&quot;table&quot;</span>
 
-        <span class="c1"># If cloud is not specified, get default</span>
+        <span class="c"># If cloud is not specified, get default</span>
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">cloud</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;kilo&quot;</span>
+            <span class="n">cloud</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cloud&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="s">&quot;kilo&quot;</span>
 
-        <span class="c1"># If user is not specified, get default</span>
+        <span class="c"># If user is not specified, get default</span>
         <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">user</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;user&quot;</span><span class="p">)</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">)</span>
 
-        <span class="c1"># If tenant is not specified, get default</span>
+        <span class="c"># If tenant is not specified, get default</span>
         <span class="k">if</span> <span class="n">tenant</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">tenant</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tenant&quot;</span><span class="p">)</span>
+            <span class="n">tenant</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;tenant&quot;</span><span class="p">)</span>
 
-        <span class="c1"># Get the kind</span>
+        <span class="c"># Get the kind</span>
         <span class="n">kind</span> <span class="o">=</span> <span class="n">get_kind</span><span class="p">()</span>
         <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
 
-        <span class="c1"># print help message</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;help&#39;</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Print help!&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+        <span class="c"># print help message</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&#39;help&#39;</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;Print help!&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="s">&quot;&quot;</span>
 
-        <span class="c1"># Prepare the order &amp; header based on kind</span>
-        <span class="c1"># TODO: use lower case so we have a convention thats easy to follow</span>
-        <span class="c1"># TODO: add quota</span>
-        <span class="c1"># TODO: add limits</span>
-        <span class="c1"># TODO: add usage</span>
-        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;FLAVOR&#39;</span><span class="p">:</span>
+        <span class="c"># Prepare the order &amp; header based on kind</span>
+        <span class="c"># TODO: use lower case so we have a convention thats easy to follow</span>
+        <span class="c"># TODO: add quota</span>
+        <span class="c"># TODO: add limits</span>
+        <span class="c"># TODO: add usage</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&#39;FLAVOR&#39;</span><span class="p">:</span>
             <span class="n">order</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;cm_cloud&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;disk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;ephemeral_disk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;id&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;ram&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;vcpus&#39;</span>
+                <span class="s">&#39;cm_cloud&#39;</span><span class="p">,</span>
+                <span class="s">&#39;disk&#39;</span><span class="p">,</span>
+                <span class="s">&#39;ephemeral_disk&#39;</span><span class="p">,</span>
+                <span class="s">&#39;id&#39;</span><span class="p">,</span>
+                <span class="s">&#39;name&#39;</span><span class="p">,</span>
+                <span class="s">&#39;ram&#39;</span><span class="p">,</span>
+                <span class="s">&#39;vcpus&#39;</span>
             <span class="p">]</span>
-        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;DEFAULT&#39;</span><span class="p">:</span>
-            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;value&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;created_at&#39;</span><span class="p">,</span>
-                     <span class="s1">&#39;updated_at&#39;</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&#39;DEFAULT&#39;</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;cloud&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;name&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;value&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;created_at&#39;</span><span class="p">,</span>
+                     <span class="s">&#39;updated_at&#39;</span>
                      <span class="p">]</span>
-        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">&#39;IMAGE&#39;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&#39;IMAGE&#39;</span><span class="p">:</span>
             <span class="n">order</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;cm_cloud&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;cm_user&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_ephemeral_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_flavorid&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_id&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_memory_mb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_name&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_root_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_rxtx_factor&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_swap&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;instance_type_vcpus&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minDisk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minRam&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                <span class="s">&#39;cm_cloud&#39;</span><span class="p">,</span>
+                <span class="s">&#39;cm_user&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_ephemeral_gb&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_flavorid&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_id&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_memory_mb&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_name&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_root_gb&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_rxtx_factor&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_swap&#39;</span><span class="p">,</span>
+                <span class="s">&#39;instance_type_vcpus&#39;</span><span class="p">,</span>
+                <span class="s">&#39;minDisk&#39;</span><span class="p">,</span>
+                <span class="s">&#39;minRam&#39;</span><span class="p">,</span>
+                <span class="s">&#39;name&#39;</span><span class="p">,</span>
             <span class="p">]</span>
             <span class="n">header</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;user&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;ephemeral_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;flavorid&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;id&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;memory_mb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;flavor&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;root_gb&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;rxtx_factor&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;swap&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;vcpus&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minDisk&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;minRam&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                <span class="s">&#39;cloud&#39;</span><span class="p">,</span>
+                <span class="s">&#39;user&#39;</span><span class="p">,</span>
+                <span class="s">&#39;ephemeral_gb&#39;</span><span class="p">,</span>
+                <span class="s">&#39;flavorid&#39;</span><span class="p">,</span>
+                <span class="s">&#39;id&#39;</span><span class="p">,</span>
+                <span class="s">&#39;memory_mb&#39;</span><span class="p">,</span>
+                <span class="s">&#39;flavor&#39;</span><span class="p">,</span>
+                <span class="s">&#39;root_gb&#39;</span><span class="p">,</span>
+                <span class="s">&#39;rxtx_factor&#39;</span><span class="p">,</span>
+                <span class="s">&#39;swap&#39;</span><span class="p">,</span>
+                <span class="s">&#39;vcpus&#39;</span><span class="p">,</span>
+                <span class="s">&#39;minDisk&#39;</span><span class="p">,</span>
+                <span class="s">&#39;minRam&#39;</span><span class="p">,</span>
+                <span class="s">&#39;name&#39;</span><span class="p">,</span>
             <span class="p">]</span>
 
-        <span class="c1"># Get the result &amp; print it</span>
+        <span class="c"># Get the result &amp; print it</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">List</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span>
                            <span class="n">cloud</span><span class="p">,</span>
                            <span class="n">user</span><span class="p">,</span>
@@ -329,9 +329,9 @@
         <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No {}s found in the database.&quot;</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;No {}s found in the database.&quot;</span>
                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
 </pre></div>
 
            </div>

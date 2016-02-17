@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.db.CloudmeshDatabase</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">getpass</span>
@@ -188,11 +188,11 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Username</span>
 
 
-<span class="c1"># noinspection PyBroadException,PyPep8Naming</span>
+<span class="c"># noinspection PyBroadException,PyPep8Naming</span>
 <div class="viewcode-block" id="CloudmeshDatabase"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshDatabase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1"># TODO: see also common/VMname</span>
+    <span class="c"># TODO: see also common/VMname</span>
 
-<div class="viewcode-block" id="CloudmeshDatabase.counter_incr"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.counter_incr">[docs]</a>    <span class="k">def</span> <span class="nf">counter_incr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="CloudmeshDatabase.counter_incr"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.counter_incr">[docs]</a>    <span class="k">def</span> <span class="nf">counter_incr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
 
         <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">Username</span><span class="p">()</span>
         <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter_get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
@@ -200,9 +200,9 @@
         <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">counter_set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">count</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="CloudmeshDatabase.counter_get"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.counter_get">[docs]</a>    <span class="k">def</span> <span class="nf">counter_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="CloudmeshDatabase.counter_get"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.counter_get">[docs]</a>    <span class="k">def</span> <span class="nf">counter_get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Function that returns the prefix username and count for vm naming.</span>
 <span class="sd">        If it is not present in db, it creates a new entry.</span>
@@ -211,14 +211,14 @@
         <span class="n">user</span> <span class="o">=</span> <span class="n">user</span> <span class="ow">or</span> <span class="n">Username</span><span class="p">()</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;COUNTER&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s">&quot;COUNTER&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">value</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="n">count</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="n">c</span> <span class="o">=</span> <span class="n">COUNTER</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">count</span></div>
-
+        <span class="k">return</span> <span class="n">count</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.counter_set"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.counter_set">[docs]</a>    <span class="k">def</span> <span class="nf">counter_set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Special function to update vm prefix count.</span>
@@ -229,14 +229,14 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">int</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;counter must be integer&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;counter must be integer&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
 
-        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">COUNTER</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">COUNTER</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;object&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
         <span class="n">element</span><span class="o">.</span><span class="n">first</span><span class="p">()</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</div>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        initializes the CloudmeshDatabase for a specific user.</span>
@@ -263,17 +263,17 @@
 <span class="sd">        :param category: the category name</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">,</span>
-                                 <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
-            <span class="c1"># pprint(elements)</span>
+            <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&#39;object&#39;</span><span class="p">,</span>
+                                 <span class="n">scope</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+            <span class="c"># pprint(elements)</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
-                <span class="c1"># pprint(element)</span>
+                <span class="c"># pprint(element)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
 
-    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="c"># noinspection PyUnusedLocal</span></div>
 <div class="viewcode-block" id="CloudmeshDatabase.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method refreshes the local database</span>
@@ -284,108 +284,108 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># print(cloudname)</span>
-            <span class="c1"># get the user</span>
-            <span class="c1"># TODO: Confirm user</span>
+            <span class="c"># print(cloudname)</span>
+            <span class="c"># get the user</span>
+            <span class="c"># TODO: Confirm user</span>
             <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span>
 
-            <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;secgroup&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="s">&quot;vm&quot;</span><span class="p">,</span> <span class="s">&quot;secgroup&quot;</span><span class="p">]:</span>
 
-                <span class="c1"># get provider for specific cloud</span>
+                <span class="c"># get provider for specific cloud</span>
                 <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
 
-                <span class="c1"># clear local db records for kind</span>
+                <span class="c"># clear local db records for kind</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">clear</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
 
-                <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;flavor&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;flavor&quot;</span><span class="p">:</span>
                     <span class="n">flavors</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_flavor</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">flavor</span> <span class="ow">in</span> <span class="n">flavors</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                        <span class="n">flavor</span><span class="p">[</span><span class="s2">&quot;uuid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flavor</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-                        <span class="n">flavor</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
-                        <span class="n">flavor</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-                        <span class="n">flavor</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+                        <span class="n">flavor</span><span class="p">[</span><span class="s">&quot;uuid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">flavor</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+                        <span class="n">flavor</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;string&#39;</span>
+                        <span class="n">flavor</span><span class="p">[</span><span class="s">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+                        <span class="n">flavor</span><span class="p">[</span><span class="s">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
 
                         <span class="n">db_obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="n">kind</span><span class="p">:</span> <span class="n">flavor</span><span class="p">}}</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">db_obj</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
                     <span class="k">return</span> <span class="bp">True</span>
 
-                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;image&quot;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;image&quot;</span><span class="p">:</span>
                     <span class="n">images</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_image</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
                     <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                        <span class="n">image</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-                        <span class="n">image</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
-                        <span class="n">image</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-                        <span class="n">image</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+                        <span class="n">image</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+                        <span class="n">image</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;string&#39;</span>
+                        <span class="n">image</span><span class="p">[</span><span class="s">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+                        <span class="n">image</span><span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
                         <span class="n">db_obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="n">kind</span><span class="p">:</span> <span class="n">image</span><span class="p">}}</span>
 
                         <span class="bp">self</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">db_obj</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
                     <span class="k">return</span> <span class="bp">True</span>
 
-                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;vm&quot;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;vm&quot;</span><span class="p">:</span>
                     <span class="n">vms</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_vm</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                        <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-                        <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
-                        <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-                        <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+                        <span class="n">vm</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+                        <span class="n">vm</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;string&#39;</span>
+                        <span class="n">vm</span><span class="p">[</span><span class="s">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+                        <span class="n">vm</span><span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
                         <span class="n">db_obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="n">kind</span><span class="p">:</span> <span class="n">vm</span><span class="p">}}</span>
 
                         <span class="bp">self</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">db_obj</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
                     <span class="k">return</span> <span class="bp">True</span>
 
-                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;secgroup&quot;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s">&quot;secgroup&quot;</span><span class="p">:</span>
                     <span class="n">secgroups</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_secgroup</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-                    <span class="c1"># pprint(secgroups)</span>
+                    <span class="c"># pprint(secgroups)</span>
                     <span class="k">for</span> <span class="n">secgroup</span> <span class="ow">in</span> <span class="n">secgroups</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                        <span class="n">secgroup_db_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;secgroup&quot;</span><span class="p">,</span>
-                                                           <span class="n">name</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
-                                                           <span class="n">uuid</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                        <span class="n">secgroup_db_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s">&quot;secgroup&quot;</span><span class="p">,</span>
+                                                           <span class="n">name</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">],</span>
+                                                           <span class="n">uuid</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span>
                                                            <span class="n">category</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                                                           <span class="n">project</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s1">&#39;tenant_id&#39;</span><span class="p">],</span>
+                                                           <span class="n">project</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s">&#39;tenant_id&#39;</span><span class="p">],</span>
                                                            <span class="n">user</span><span class="o">=</span><span class="n">user</span>
                                                            <span class="p">)</span>
 
-                        <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">secgroup</span><span class="p">[</span><span class="s1">&#39;rules&#39;</span><span class="p">]:</span>
-                            <span class="n">rule_db_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">,</span>
-                                                           <span class="n">uuid</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
-                                                           <span class="n">name</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
-                                                           <span class="n">groupid</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s1">&#39;parent_group_id&#39;</span><span class="p">],</span>
+                        <span class="k">for</span> <span class="n">rule</span> <span class="ow">in</span> <span class="n">secgroup</span><span class="p">[</span><span class="s">&#39;rules&#39;</span><span class="p">]:</span>
+                            <span class="n">rule_db_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s">&quot;secgrouprule&quot;</span><span class="p">,</span>
+                                                           <span class="n">uuid</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span>
+                                                           <span class="n">name</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">],</span>
+                                                           <span class="n">groupid</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s">&#39;parent_group_id&#39;</span><span class="p">],</span>
                                                            <span class="n">category</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                                                            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
-                                                           <span class="n">project</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s1">&#39;tenant_id&#39;</span><span class="p">],</span>
-                                                           <span class="n">fromPort</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s1">&#39;from_port&#39;</span><span class="p">],</span>
-                                                           <span class="n">toPort</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s1">&#39;to_port&#39;</span><span class="p">],</span>
-                                                           <span class="n">protocol</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s1">&#39;ip_protocol&#39;</span><span class="p">])</span>
+                                                           <span class="n">project</span><span class="o">=</span><span class="n">secgroup</span><span class="p">[</span><span class="s">&#39;tenant_id&#39;</span><span class="p">],</span>
+                                                           <span class="n">fromPort</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s">&#39;from_port&#39;</span><span class="p">],</span>
+                                                           <span class="n">toPort</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s">&#39;to_port&#39;</span><span class="p">],</span>
+                                                           <span class="n">protocol</span><span class="o">=</span><span class="n">rule</span><span class="p">[</span><span class="s">&#39;ip_protocol&#39;</span><span class="p">])</span>
 
-                            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">rule</span><span class="p">[</span><span class="s1">&#39;ip_range&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">False</span><span class="p">:</span>
-                                <span class="n">rule_db_obj</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;secgrouprule&#39;</span><span class="p">][</span><span class="s1">&#39;cidr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rule</span><span class="p">[</span><span class="s1">&#39;ip_range&#39;</span><span class="p">][</span><span class="s1">&#39;cidr&#39;</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">rule</span><span class="p">[</span><span class="s">&#39;ip_range&#39;</span><span class="p">])</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">False</span><span class="p">:</span>
+                                <span class="n">rule_db_obj</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;secgrouprule&#39;</span><span class="p">][</span><span class="s">&#39;cidr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rule</span><span class="p">[</span><span class="s">&#39;ip_range&#39;</span><span class="p">][</span><span class="s">&#39;cidr&#39;</span><span class="p">]</span>
 
                             <span class="bp">self</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">rule_db_obj</span><span class="p">)</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-                        <span class="c1"># rule-for-loop ends</span>
+                        <span class="c"># rule-for-loop ends</span>
 
                         <span class="bp">self</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">secgroup_db_obj</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
                     <span class="k">return</span> <span class="bp">True</span>
 
-            <span class="k">elif</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;batchjob&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;batchjob&quot;</span><span class="p">]:</span>
 
-                <span class="c1"># provider = BatchProvider(name).provider</span>
-                <span class="c1"># provider = BatchProvider(name)</span>
+                <span class="c"># provider = BatchProvider(name).provider</span>
+                <span class="c"># provider = BatchProvider(name)</span>
 
                 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.hpc.BatchProvider</span> <span class="kn">import</span> <span class="n">BatchProvider</span>
                 <span class="n">provider</span> <span class="o">=</span> <span class="n">BatchProvider</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 
                 <span class="n">vms</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_job</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
                 <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">vms</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-                    <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-                    <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;string&#39;</span>
-                    <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-                    <span class="n">vm</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
+                    <span class="n">vm</span><span class="p">[</span><span class="s">&#39;uuid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">vm</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
+                    <span class="n">vm</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;string&#39;</span>
+                    <span class="n">vm</span><span class="p">[</span><span class="s">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="n">vm</span><span class="p">[</span><span class="s">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">user</span>
                     <span class="n">db_obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="n">kind</span><span class="p">:</span> <span class="n">vm</span><span class="p">}}</span>
 
                     <span class="bp">self</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">db_obj</span><span class="p">)</span>
@@ -393,12 +393,12 @@
                 <span class="k">return</span> <span class="bp">True</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;refresh not supported for this kind: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;refresh not supported for this kind: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
-            <span class="k">return</span> <span class="bp">False</span></div>
-
+            <span class="k">return</span> <span class="bp">False</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.connect"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.connect">[docs]</a>    <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        before any method is called we need to connect to the database</span>
@@ -413,70 +413,70 @@
             <span class="n">Session</span> <span class="o">=</span> <span class="n">sessionmaker</span><span class="p">(</span><span class="n">bind</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">connected</span> <span class="o">=</span> <span class="bp">True</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.close"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.close">[docs]</a>    <span class="k">def</span> <span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.db_table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.db_table">[docs]</a>    <span class="k">def</span> <span class="nf">db_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="n">_type</span> <span class="o">=</span> <span class="n">kind</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
             <span class="n">_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">_type</span></div>
-
+        <span class="k">return</span> <span class="n">_type</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param item:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.delete_all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete_all">[docs]</a>    <span class="k">def</span> <span class="nf">delete_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :param kind:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.get_table"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.get_table">[docs]</a>    <span class="k">def</span> <span class="nf">get_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;flavor&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">FLAVOR</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;default&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">DEFAULT</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;var&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;var&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">VAR</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;image&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">IMAGE</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;vm&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;vm&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">VM</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;key&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">KEY</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;group&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">GROUP</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;reservation&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;reservation&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">RESERVATION</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;counter&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;counter&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">COUNTER</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;vmusermap&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;vmusermap&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">VMUSERMAP</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;batchjob&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;batchjob&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">BATCHJOB</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;secgroup&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;secgroup&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">SECGROUP</span>
-            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;secgrouprule&quot;</span><span class="p">]:</span>
+            <span class="k">elif</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;secgrouprule&quot;</span><span class="p">]:</span>
                 <span class="k">return</span> <span class="n">SECGROUPRULE</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">(</span><span class="s2">&quot;wrong table type: `{}`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
+                <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">(</span><span class="s">&quot;wrong table type: `{}`&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">kind</span></div>
-
+            <span class="k">return</span> <span class="n">kind</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.find_by_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.find_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">find_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        find an object by name in the given table.</span>
@@ -492,37 +492,37 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">result</span><span class="p">[</span><span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
 
-        <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;name not specified in find_by_name&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">&#39;name&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;name not specified in find_by_name&quot;</span><span class="p">)</span>
 
         <span class="n">table_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">first</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">table_type</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">result</span></div>
-
-<div class="viewcode-block" id="CloudmeshDatabase.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
+<div class="viewcode-block" id="CloudmeshDatabase.find"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s">&quot;all&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        NOT tested</span>
 <span class="sd">        :param kind:</span>
 <span class="sd">        :param kwargs:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># print(&quot;KW&quot;, kwargs)</span>
+        <span class="c"># print(&quot;KW&quot;, kwargs)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="c1"># print(&quot;LLL&quot;, result)</span>
-        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="c"># print(&quot;LLL&quot;, result)</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;dict&#39;</span> <span class="ow">and</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_to_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">scope</span> <span class="o">==</span> <span class="s2">&quot;first&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">scope</span> <span class="o">==</span> <span class="s">&quot;first&quot;</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="o">.</span><span class="n">__len__</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
                     <span class="n">first</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">first</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="c1"># if result == {}:</span>
-        <span class="c1">#    return None</span>
+        <span class="c"># if result == {}:</span>
+        <span class="c">#    return None</span>
 
-        <span class="k">return</span> <span class="n">result</span></div>
-
+        <span class="k">return</span> <span class="n">result</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.query"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.query">[docs]</a>    <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        NOT tested</span>
@@ -530,21 +530,21 @@
 <span class="sd">        :param kwargs:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># print(&quot;AAA&quot;)</span>
+        <span class="c"># print(&quot;AAA&quot;)</span>
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
-        <span class="c1"># print(table)</span>
+        <span class="c"># print(table)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="c1"># print(&quot;OK&quot;)</span>
-        <span class="c1"># print(result.__dict__)</span>
-        <span class="k">return</span> <span class="n">result</span></div>
-
+        <span class="c"># print(&quot;OK&quot;)</span>
+        <span class="c"># print(result.__dict__)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.all"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.all">[docs]</a>    <span class="k">def</span> <span class="nf">all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="n">table_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
         <span class="n">elements</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table_type</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse_objs</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">d</span></div>
-
+        <span class="k">return</span> <span class="n">d</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.update"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 
@@ -552,18 +552,18 @@
 <span class="sd">        :param kwargs:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;object&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.update_vm_username"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.update_vm_username">[docs]</a>    <span class="k">def</span> <span class="nf">update_vm_username</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Special function to update vm prefix count.</span>
 <span class="sd">        :param kwargs:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">VMUSERMAP</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">vm_uuid</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;vm_uuid&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">VMUSERMAP</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;object&quot;</span><span class="p">,</span> <span class="n">vm_uuid</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s">&quot;vm_uuid&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.delete_by_name"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.delete_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">delete_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        NOT TESTED</span>
@@ -571,9 +571,9 @@
 <span class="sd">        :param name:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;item&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
-
+        <span class="n">item</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;item&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.object_to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.object_to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        convert the object to dict</span>
@@ -586,20 +586,20 @@
             <span class="n">_id</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">id</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">u</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_sa&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;_sa&quot;</span><span class="p">):</span>
                     <span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
             <span class="n">result</span><span class="p">[</span><span class="n">_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
-        <span class="k">return</span> <span class="n">result</span></div>
-
+        <span class="k">return</span> <span class="n">result</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.parse_objs"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.parse_objs">[docs]</a>    <span class="k">def</span> <span class="nf">parse_objs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elements</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
             <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">element</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_sa&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;_sa&quot;</span><span class="p">):</span>
                     <span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">d</span></div>
-
+        <span class="k">return</span> <span class="n">d</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.dict">[docs]</a>    <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns a dict from all elements in the table</span>
@@ -607,8 +607,8 @@
 <span class="sd">        :param table:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">())</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.json"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.json">[docs]</a>    <span class="k">def</span> <span class="nf">json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns a json representation from all elements in the table</span>
@@ -617,8 +617,8 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        prints information about the database</span>
@@ -629,33 +629,33 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="n">kinds</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">what</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">infos</span> <span class="o">=</span> <span class="s2">&quot;table,count&quot;</span>
+            <span class="n">infos</span> <span class="o">=</span> <span class="s">&quot;table,count&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">infos</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">what</span><span class="p">)</span>
 
-        <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Databse table information&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="n">banner</span><span class="p">(</span><span class="s">&quot;Databse table information&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s">&quot;-&quot;</span><span class="p">)</span>
         <span class="n">inspector</span> <span class="o">=</span> <span class="n">inspect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">engine</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="s2">&quot;table&quot;</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&quot;table&quot;</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">table_name</span> <span class="ow">in</span> <span class="n">inspector</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">table_name</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="n">table_name</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="n">table_name</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span><span class="p">)</span>
                     <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">inspector</span><span class="o">.</span><span class="n">get_columns</span><span class="p">(</span><span class="n">table_name</span><span class="p">):</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="p">,</span> <span class="n">column</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">column</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">])</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s">&quot;  &quot;</span><span class="p">,</span> <span class="n">column</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">],</span> <span class="n">column</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">])</span>
 
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="s2">&quot;count&quot;</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s">&quot;count&quot;</span> <span class="ow">in</span> <span class="n">infos</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">table_name</span> <span class="ow">in</span> <span class="n">inspector</span><span class="o">.</span><span class="n">get_table_names</span><span class="p">():</span>
                 <span class="k">if</span> <span class="n">table_name</span> <span class="ow">in</span> <span class="n">kinds</span><span class="p">:</span>
                     <span class="n">t</span> <span class="o">=</span> <span class="n">table</span><span class="p">(</span><span class="n">table_name</span><span class="p">)</span>
                     <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
                     <span class="n">count_result</span><span class="p">[</span><span class="n">table_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">rows</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Count {:}: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">rows</span><span class="p">))</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Count {:}: {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">table_name</span><span class="p">,</span> <span class="n">rows</span><span class="p">))</span>
                     <span class="n">counter</span> <span class="o">=</span> <span class="n">counter</span> <span class="o">+</span> <span class="n">rows</span>
-            <span class="n">count_result</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter</span>
+            <span class="n">count_result</span><span class="p">[</span><span class="s">&#39;sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter</span>
 
-        <span class="k">return</span> <span class="n">count_result</span></div>
-
+        <span class="k">return</span> <span class="n">count_result</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.db_obj_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.db_obj_dict">[docs]</a>    <span class="k">def</span> <span class="nf">db_obj_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">obj_dict</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method is a generic method to populate an object dict.</span>
@@ -674,85 +674,85 @@
         <span class="n">obj_dict</span><span class="p">[</span><span class="n">dict_length</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="n">obj_dict</span><span class="p">[</span><span class="n">dict_length</span><span class="p">][</span><span class="n">kind</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span>
 
-        <span class="c1"># print(obj_dict)</span>
-        <span class="k">return</span> <span class="n">obj_dict</span></div>
-
+        <span class="c"># print(obj_dict)</span>
+        <span class="k">return</span> <span class="n">obj_dict</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.add_obj"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.add_obj">[docs]</a>    <span class="k">def</span> <span class="nf">add_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj_dict</span><span class="p">):</span>
-        <span class="c1"># print(&quot;Inside add_obj&quot;)</span>
-        <span class="c1"># print(&quot;Object Dict to add: {}&quot;.format(obj_dict))</span>
+        <span class="c"># print(&quot;Inside add_obj&quot;)</span>
+        <span class="c"># print(&quot;Object Dict to add: {}&quot;.format(obj_dict))</span>
 
         <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-            <span class="c1"># print(obj)</span>
+            <span class="c"># print(obj)</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
                 <span class="n">table_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_table</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
                 <span class="n">obj_to_persist</span> <span class="o">=</span> <span class="n">table_name</span><span class="p">(</span><span class="o">**</span><span class="n">obj</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj_to_persist</span><span class="p">)</span></div>
-
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">obj_to_persist</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.get"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="o">.</span><span class="n">filter_by</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="CloudmeshDatabase.get_key_cloud_mapping"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.CloudmeshDatabase.get_key_cloud_mapping">[docs]</a>    <span class="k">def</span> <span class="nf">get_key_cloud_mapping</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="o">=</span><span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="o">=</span><span class="n">cloud_name</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">KEYCLOUDMAP</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="s">&#39;first&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">key_name</span><span class="o">=</span><span class="n">key_name</span><span class="p">,</span> <span class="n">cloud_name</span><span class="o">=</span><span class="n">cloud_name</span><span class="p">)</span>
 
-
+</div></div>
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.db.html#cloudmesh_client.default.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
 
-    <span class="c1">#    m = DEFAULT(&quot;hallo&quot;, &quot;world&quot;)</span>
-    <span class="c1">#    m.newfield__hhh = 13.9</span>
-    <span class="c1">#    cm.add(m)</span>
+    <span class="c">#    m = DEFAULT(&quot;hallo&quot;, &quot;world&quot;)</span>
+    <span class="c">#    m.newfield__hhh = 13.9</span>
+    <span class="c">#    cm.add(m)</span>
 
-    <span class="c1">#    n = cm.query(DEFAULT).filter_by(name=&#39;hallo&#39;).first()</span>
+    <span class="c">#    n = cm.query(DEFAULT).filter_by(name=&#39;hallo&#39;).first()</span>
 
-    <span class="c1">#    print(&quot;\n\n&quot;)</span>
+    <span class="c">#    print(&quot;\n\n&quot;)</span>
 
-    <span class="c1">#    pprint(n.__dict__)</span>
+    <span class="c">#    pprint(n.__dict__)</span>
 
-    <span class="c1">#    o = cm.get(DEFAULT, &#39;hallo&#39;)</span>
+    <span class="c">#    o = cm.get(DEFAULT, &#39;hallo&#39;)</span>
 
-    <span class="c1">#    print(&quot;\n\n&quot;)</span>
+    <span class="c">#    print(&quot;\n\n&quot;)</span>
 
-    <span class="c1">#    pprint(o.__dict__)</span>
+    <span class="c">#    pprint(o.__dict__)</span>
 
-    <span class="c1">#    m = DEFAULT(&quot;other&quot;, &quot;world&quot;)</span>
-    <span class="c1">#    m.other = &quot;ooo&quot;</span>
-    <span class="c1">#    cm.add(m)</span>
+    <span class="c">#    m = DEFAULT(&quot;other&quot;, &quot;world&quot;)</span>
+    <span class="c">#    m.other = &quot;ooo&quot;</span>
+    <span class="c">#    cm.add(m)</span>
 
-    <span class="c1">#    print(&quot;\n\n&quot;)</span>
-    <span class="c1">#    pprint(cm.get(DEFAULT, &#39;other&#39;).__dict__)</span>
+    <span class="c">#    print(&quot;\n\n&quot;)</span>
+    <span class="c">#    pprint(cm.get(DEFAULT, &#39;other&#39;).__dict__)</span>
 
     <span class="n">cm</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 
-    <span class="n">m</span> <span class="o">=</span> <span class="n">COUNTER</span><span class="p">(</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">COUNTER</span><span class="p">(</span><span class="s">&quot;counter&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
     <span class="n">cm</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 
-    <span class="n">o</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">COUNTER</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;counter&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">COUNTER</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;counter&#39;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n\n</span><span class="s">&quot;</span><span class="p">)</span>
 
     <span class="n">pprint</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
 
-    <span class="n">cm</span><span class="o">.</span><span class="n">counter_set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">cm</span><span class="o">.</span><span class="n">counter_set</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
-        <span class="n">cm</span><span class="o">.</span><span class="n">counter_incr</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">counter_incr</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">counter_get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">cm</span><span class="o">.</span><span class="n">counter_get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;counter&quot;</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">))</span>
     <span class="sd">&quot;&quot;&quot;</span>
 
 
 
 <span class="sd">    cm.info()</span>
 <span class="sd">    # print(cm.list(VM))</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 

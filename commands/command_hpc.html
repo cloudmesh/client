@@ -196,14 +196,14 @@ command helps to easily manage hpc clusters.</p>
 <p>The manual page of the hpc command can be found at: <a class="reference external" href="../man/man.html#hpc">Hpc</a></p>
 <img src="../_images/cloudmesh-arch-3.svg" /><img src="../_images/cloudmesh-arch-4.svg" /><p>Before we get started, we can set the default hpc cluster or use the
 &#8211;cluster option. To set the default hpc cluster:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm default cluster=comet
+<div class="highlight-python"><div class="highlight"><pre>$ cm default cluster=comet
 set in defaults cluster=comet. ok.
 </pre></div>
 </div>
 <div class="section" id="hpc-info">
 <h2>hpc info<a class="headerlink" href="#hpc-info" title="Permalink to this headline">¶</a></h2>
 <p>Returns the state of partitions and nodes on the hpc cluster:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm hpc info
+<div class="highlight-python"><div class="highlight"><pre>$ cm hpc info
   +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
   | cluster | partition | avail | timelimit  | nodes | state | nodelist                   | updated             |
   +---------+-----------+-------+------------+-------+-------+----------------------------+---------------------+
@@ -217,7 +217,7 @@ set in defaults cluster=comet. ok.
 <div class="section" id="hpc-queue">
 <h2>hpc queue<a class="headerlink" href="#hpc-queue" title="Permalink to this headline">¶</a></h2>
 <p>Reports the state of jobs or job sets:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm hpc queue
+<div class="highlight-python"><div class="highlight"><pre>$ cm hpc queue
 +---------+---------+--------------+-------------------+-----------+----+------------+-------+---------------------+---------------------+
 | cluster | jobid   | partition    | name              | user      | st | time       | nodes | nodelist            | updated             |
 +---------+---------+--------------+-------------------+-----------+----+------------+-------+---------------------+---------------------+
@@ -233,7 +233,7 @@ set in defaults cluster=comet. ok.
 </div>
 <p>To view the state of a specific job, use the &#8211;job=NAME option, where NAME can be the
 job id or the job name</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm hpc queue --job=6
+<div class="highlight-python"><div class="highlight"><pre>$ cm hpc queue --job=6
 +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
 | cluster | jobid | partition | name        | user      | st | time | nodes | nodelist | updated             |
 +---------+-------+-----------+-------------+-----------+----+------+-------+----------+---------------------+
@@ -272,27 +272,27 @@ command, and put the output into this directory.</dd>
 <div>hpc run &lt;script_path&gt; &#8211;cluster=india</div></blockquote>
 <p>To list experiments that have been previously run you can use the
 command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>hpc run list
+<div class="highlight-python"><div class="highlight"><pre>hpc run list
 </pre></div>
 </div>
 <p>To list the files in a particular experiment you can use the
 experiment number:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>hpc run list 11
+<div class="highlight-python"><div class="highlight"><pre>hpc run list 11
 </pre></div>
 </div>
 <p>Now you will see what the experiment script has created and you will
 be able to fr example view the output of the script:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>hpc run output 11
+<div class="highlight-python"><div class="highlight"><pre>hpc run output 11
 </pre></div>
 </div>
 <p>To delete an experiment you can say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>hpc run rm 11
+<div class="highlight-python"><div class="highlight"><pre>hpc run rm 11
 </pre></div>
 </div>
 <p>However, be careful as deleting it will permanently delete the
 file. To delete all experiments (be extra careful) you can just omit
 the number:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>hpc run rm
+<div class="highlight-python"><div class="highlight"><pre>hpc run rm
 </pre></div>
 </div>
 <p>In future we will provide the ability to add custom scripts.</p>
@@ -301,12 +301,12 @@ the number:</p>
 <h2>hpc delete<a class="headerlink" href="#hpc-delete" title="Permalink to this headline">¶</a></h2>
 <p>If for any reason, you need to kill a job that you have submitted, use the
 delete command with the job name or the job id:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ hpc delete --job=1463
+<div class="highlight-python"><div class="highlight"><pre>$ hpc delete --job=1463
 Job 1463 killed successfully
 </pre></div>
 </div>
 <p>To delete all jobs from a group:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ hpc delete all
+<div class="highlight-python"><div class="highlight"><pre>$ hpc delete all
 All jobs for group test killed successfully
 </pre></div>
 </div>

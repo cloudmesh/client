@@ -167,53 +167,53 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.hpc.BatchProviderBase</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.counter</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.counter</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 
 
-<span class="c1"># noinspection PyUnusedLocal,PyBroadException</span>
+<span class="c"># noinspection PyUnusedLocal,PyBroadException</span>
 <div class="viewcode-block" id="BatchProviderBase"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase">[docs]</a><span class="k">class</span> <span class="nc">BatchProviderBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;job&quot;</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s">&quot;job&quot;</span>
     <span class="n">jobid</span> <span class="o">=</span> <span class="mi">0</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.queue"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span></div>
-
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span></div>
-
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.run"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span></div>
-
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.counter"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.counter">[docs]</a>    <span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">jobid</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">jobid</span></div>
-
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">jobid</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.incr"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.incr">[docs]</a>    <span class="k">def</span> <span class="nf">incr</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">Counter</span><span class="o">.</span><span class="n">incr</span><span class="p">()</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">jobid</span> <span class="o">=</span> <span class="n">Counter</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">jobid</span></div>
-
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">jobid</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.jobname"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.jobname">[docs]</a>    <span class="k">def</span> <span class="nf">jobname</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">counter</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">counter</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">counter</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">counter</span><span class="p">()</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;counter&quot;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span>
-            <span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">prefix</span>
+            <span class="s">&quot;counter&quot;</span><span class="p">:</span> <span class="n">counter</span><span class="p">,</span>
+            <span class="s">&quot;prefix&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">prefix</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="s2">&quot;{prefix}-{counter}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="s">&quot;{prefix}-{counter}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.create_remote_dir"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.create_remote_dir">[docs]</a>    <span class="k">def</span> <span class="nf">create_remote_dir</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
-        <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="s2">&quot;mkdir -p {dir}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">directory</span><span class="p">))</span></div>
-
+        <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="s">&quot;mkdir -p {dir}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dir</span><span class="o">=</span><span class="n">directory</span><span class="p">))</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderBase.read_config"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.hpc.html#cloudmesh_client.cloud.hpc.BatchProviderBase.BatchProviderBase.read_config">[docs]</a>    <span class="k">def</span> <span class="nf">read_config</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -249,9 +249,9 @@
         <span class="k">except</span><span class="p">:</span>
             <span class="n">cls</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">config</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s2">&quot;cloudmesh.hpc&quot;</span><span class="p">]</span>
-            <span class="n">cls</span><span class="o">.</span><span class="n">experiment_name_format</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;experiment&quot;</span><span class="p">][</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;clusters&quot;</span><span class="p">][</span><span class="n">cluster</span><span class="p">]</span></div></div>
+            <span class="n">cls</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)[</span><span class="s">&quot;cloudmesh.hpc&quot;</span><span class="p">]</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">experiment_name_format</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;experiment&quot;</span><span class="p">][</span><span class="s">&quot;name&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;clusters&quot;</span><span class="p">][</span><span class="n">cluster</span><span class="p">]</span></div></div>
 </pre></div>
 
            </div>

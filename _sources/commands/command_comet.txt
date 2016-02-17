@@ -3,7 +3,6 @@
 Comet Virtual Cluster
 ======================================================================
 
-
 Via XSEDE comet allows users to request high-performance virtual
 clusters (VCs) as part of their Comet allocation. The VC front-end
 associated with this award will be available 24/7 on the virtual
@@ -125,43 +124,43 @@ List all clusters owned by the authenticated identity (summarized
 format):
 
 .. prompt:: bash
-
+  
   cm comet ll
 
 List all clusters owned by the authenticated identity (detailed
 list):
 
 .. prompt:: bash
-
+  
   cm comet cluster
-
+    
 List a cluster by name:
 
 .. prompt:: bash
-
+  
   cm comet cluster vc2
-
+    
 List all defined computesets:
 
 .. prompt:: bash
 
   cm comet computeset
-
+    
 List one computeset:
 
 .. prompt:: bash
-
+  
    cm comet computeset 63
-
+    
 Power on a set of compute nodes in cluster vc4:
 
 .. prompt:: bash
-
+  
     cm comet power on vc4 vm-vc4-[0-3]
-
+    
 This will request the nodes for a default period of time - 2 hours.
 
-To request for a longer time period, use --walltime parameter.
+To request for a longer time period, use --walltime parameter. 
 E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):
 
 .. prompt:: bash
@@ -176,7 +175,7 @@ parameter:
 
     cm comet power on vc4 vm-vc4-[0-3] --allocation=YOUR_ALLOCATION
 
-If you have more allocations, but does not specify via CLI, you will see a list of
+If you have more allocations, but does not specify via CLI, you will see a list of 
 allocations to choose from to use.
 
 You can also power on N arbitrary nodes, if there is enough resource:
@@ -185,7 +184,7 @@ You can also power on N arbitrary nodes, if there is enough resource:
 
     cm comet power on vc4 --count=4
 
-The comet system will find 4 available nodes from the specified cluster and start them
+The comet system will find 4 available nodes from the specified cluster and start them 
 as one computeset.
 
 You can power off and back on individual nodes of an active
@@ -213,13 +212,13 @@ or by specifying the hosts:
 
     cm comet power off vc4 vm-vc4-[0-3]
 
-Please note if you powered off all nodes from an active computeset, the computeset
+Please note if you powered off all nodes from an active computeset, the computeset 
 itself will be removed as well (changed to 'completed' status)
 
 You can also power on one single node as a computeset:
 
 .. prompt:: bash
-
+  
     cm comet power on vc4 vm-vc4-[7]
 
 or simply:
@@ -231,19 +230,19 @@ or simply:
 Power on the front end node of the specified cluster:
 
 .. prompt:: bash
-
+  
     cm comet power on vc4
-
+    
 Get console of a running node:
 
 .. prompt:: bash
-
+  
     cm comet console vc4 vm-vc4-0
 
 Get console of the front end:
 
 .. prompt:: bash
-
+  
     cm comet console vc4
 
 Get the list of images that are available to you:
@@ -282,7 +281,7 @@ To detach an iso:
 
     cm comet image detach vc4 vm-vc4-0
 
-Please note image attaching/detaching will only take effect after you hard reboot
+Please note image attaching/detaching will only take effect after you hard reboot 
 the node (power off and then power on).
 
 You can also rename a compute node:
@@ -290,4 +289,3 @@ You can also rename a compute node:
 .. prompt:: bash
 
     cm comet node rename vc4 vm-vc4-0 mynode0
-

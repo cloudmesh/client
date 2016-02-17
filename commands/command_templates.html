@@ -211,7 +211,7 @@ the command in various formats. These formats include:</p>
 <li>csv</li>
 </ul>
 <p>The format can be changed on each command that supports it with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>--format FORMAT
+<div class="highlight-python"><div class="highlight"><pre>--format FORMAT
 </pre></div>
 </div>
 <p>where FORMAT is one of the values from the list above.</p>
@@ -237,7 +237,7 @@ command, we specify:</p>
 <h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <p>Many commands are specific to a particular cloud. this cloud can be
 set with the:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>--cloud CLOUD
+<div class="highlight-python"><div class="highlight"><pre>--cloud CLOUD
 </pre></div>
 </div>
 <p>option for individual commands that support it. As we deal with many
@@ -263,7 +263,7 @@ easy review of past activities:</p>
 <pre class="highlight"><span class="prompt1">cm <span class="nb">history</span></span>
 </pre><p>Commands in history are preceeded by a number. A past command can be
 reissued by appending the number to the history. Thus the command:</p>
-<pre class="highlight"><span class="prompt1">cm <span class="nb">history</span> 3</span>
+<pre class="highlight"><span class="prompt1">cm <span class="nb">history </span>3</span>
 </pre><p>would execute the 3rd command in the command history. Instead of
 using the command history, you can also use the abbreviation <cite>h</cite>.</p>
 </div>
@@ -274,7 +274,7 @@ using the command history, you can also use the abbreviation <cite>h</cite>.</p>
 </pre><p>The commands are sorted by topic, while the first list gives all
 commands in alphabetical order. To opbtain an individual man page
 simply say:</p>
-<pre class="highlight"><span class="prompt1">cm <span class="nb">help</span> COMMAND</span>
+<pre class="highlight"><span class="prompt1">cm <span class="nb">help </span>COMMAND</span>
 </pre><p>where command is the command you which to get the help message for. To
 optain the manual pages of all commands yo can use the command:</p>
 <pre class="highlight"><span class="prompt1">cm man</span>
@@ -286,7 +286,7 @@ optain the manual pages of all commands yo can use the command:</p>
 commands that you can type in as a single command could also be
 executed as a command shell. To enter the command shell, please type:</p>
 <pre class="highlight"><span class="prompt1">cm</span>
-</pre><div class="highlight-python"><div class="highlight"><pre><span></span>+=======================================================+
+</pre><div class="highlight-python"><div class="highlight"><pre>+=======================================================+
 .   ____ _                 _                     _      .
 .  / ___| | ___  _   _  __| |_ __ ___   ___  ___| |__   .
 . | |   | |/ _ \| | | |/ _` | &#39;_ ` _ \ / _ \/ __| &#39;_ \  .
@@ -305,7 +305,7 @@ help COMMANDNAME.  You can quit the comamnd shell with the command
 quit.</p>
 <p>The current list of commands contains:</p>
 <pre class="highlight"><span class="prompt1">cm <span class="nb">help</span></span>
-</pre><div class="highlight-python"><div class="highlight"><pre><span></span>Documented commands (type help &lt;topic&gt;):
+</pre><div class="highlight-python"><div class="highlight"><pre>Documented commands (type help &lt;topic&gt;):
 ========================================
 EOF     cloud    group      key     man   pause  quota        secgroup  ssh
 banner  context  help       limits  nova  q      register     select    version
@@ -336,7 +336,7 @@ cloud  default  group  limits  list  nova  quota  register  select  server  vm
 <h3>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h3>
 <p>Comments are identified by the first characters in a command line. We allow the following comment charater identification
 strings:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>#
+<div class="highlight-python"><div class="highlight"><pre>#
 /*
 //
 </pre></div>
@@ -353,12 +353,12 @@ execution of such a file with:</p>
 <pre class="highlight"><span class="prompt1">cm filename.cm</span>
 </pre><p>A cloudmesh file could itself include references to other cloudmesh files. They can be started in one of two ways. You can
 use the <cite>exec</cite> command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm
+<div class="highlight-python"><div class="highlight"><pre>$ cm
 cm&gt; exec filename.cm
 </pre></div>
 </div>
 <p>or you can use simply the filename. Cloudmesh will check if the filename exists and than execute it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm
+<div class="highlight-python"><div class="highlight"><pre>$ cm
 cm&gt; filename.cm
 </pre></div>
 </div>
@@ -366,7 +366,7 @@ cm&gt; filename.cm
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>You can execute a python command as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; py COMMAND
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; py COMMAND
 </pre></div>
 </div>
 <p>where command is the command you like to execute</p>
@@ -374,7 +374,7 @@ cm&gt; filename.cm
 <div class="section" id="quitting-the-shell">
 <h3>Quitting the shell<a class="headerlink" href="#quitting-the-shell" title="Permalink to this headline">¶</a></h3>
 <p>To quit the shell you can use either the commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">q</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">&gt;</span> <span class="n">q</span>
 <span class="n">cm</span><span class="o">&gt;</span> <span class="n">quit</span>
 <span class="n">cm</span><span class="o">&gt;</span> <span class="n">EOF</span>
 </pre></div>
@@ -386,7 +386,7 @@ cm&gt; filename.cm
 list of manual pages for your commands for your users. To simplify
 that we have not provided this in Unix Man format, but simply in RST
 format. You can type in the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">&gt;</span> <span class="n">man</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">&gt;</span> <span class="n">man</span>
 </pre></div>
 </div>
 <p>and it will print you in RST format a list of all commands available
@@ -408,24 +408,24 @@ with <cite>.cm</cite>. Let us assume we call the file test.cm.</p>
 <p>Cloudmesh client contains the ability to use variables within the shell.
 Variables are preserved between calls to cm. To see a list of all variables,
 use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>var list
+<div class="highlight-python"><div class="highlight"><pre>var list
 </pre></div>
 </div>
 <p>To set variable values you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; var name=value
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; var name=value
 </pre></div>
 </div>
 <p>which will set the variable with the given name to the specified value.
 In case the value specifies an entry in the cloudmesh.yaml file it will
 be read from it and put into the named variable. For example the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; var username=cloudmesh.profile.username
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; var username=cloudmesh.profile.username
 </pre></div>
 </div>
 <p>Will create a variable username and get the value form the yaml file
 specified by its object hierarchy.</p>
 <p>To use the content of the variable, simple use it on the shell with a
 dollar sign such as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; banner $name
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; banner $name
 </pre></div>
 </div>
 <p>In this example a banner will be created that contains the value of the
@@ -434,19 +434,19 @@ and give the current date and time and are updated at the time they are called.<
 <p>As <cite>cm</cite> can also be used in a terminal, many terminal use a $ to indicate
 variables for this terminal/shell. In order to mask this you will need to
 use the &#8216; &#8216; or the sign. Thus,</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm banner &#39;$name&#39;
+<div class="highlight-python"><div class="highlight"><pre>$ cm banner &#39;$name&#39;
 $ cm banner \$name
 </pre></div>
 </div>
 <p>will result in the ability to ue the cloudmesh shell variables. If you
 However want to use the terminal shell variables such as <cite>$HOME</cite> you can
 access them directly:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm banner $HOME
+<div class="highlight-python"><div class="highlight"><pre>$ cm banner $HOME
 </pre></div>
 </div>
 <p>Special syntax detection of variables allow also easy use of operating
 system/terminal variables while prepending them with os. Thus:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; banner $HOME
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; banner $HOME
 cm&gt; banner $os.HOME
 </pre></div>
 </div>
@@ -454,12 +454,12 @@ cm&gt; banner $os.HOME
 systems variable that we like to access and no confusion between internal
 cloudmesh shell and OS variables occur. Furthermore variables defined in the
 cloudmesh yaml file can be directly accessed while using the . notation. Thus:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm&gt; banner $cloudmesh.profile.username
+<div class="highlight-python"><div class="highlight"><pre>cm&gt; banner $cloudmesh.profile.username
 </pre></div>
 </div>
 <p>Will print a banner with the username being <cite>myusername</cite> as defined in the
 yaml hierarchy under given this example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cloudmesh:
+<div class="highlight-python"><div class="highlight"><pre>cloudmesh:
   profile:
     username: myusername
 </pre></div>
@@ -469,9 +469,9 @@ following example:</p>
 <pre class="highlight"><span class="prompt1">cm var <span class="nv">a</span><span class="o">=</span>hello</span>
 <span class="prompt1">cm banner <span class="s1">&#39;$a-[0-100] $os.HOME $cloudmesh.profile.username&#39;</span></span>
 </pre><p>This will print, where albert is your username:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">######################################################################</span>
-<span class="c1"># hallo-[0-100] /Users/albert albert</span>
-<span class="c1">######################################################################</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">######################################################################</span>
+<span class="c"># hallo-[0-100] /Users/albert albert</span>
+<span class="c">######################################################################</span>
 </pre></div>
 </div>
 </div>
@@ -481,14 +481,14 @@ following example:</p>
 <p>Sometimes it is a good idea to measure the time it takes to execute a
 particular command. For this reason we have a timer command that can switch
 on and off this behaviour.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>timer on
+<div class="highlight-python"><div class="highlight"><pre>timer on
 timer off
 </pre></div>
 </div>
 <p>switches the timer on or off. If the timer is switched on every command will
 be followed with the time it takes toe execute that command. Special named
 timers can be defined and used.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>timer start mytimer
+<div class="highlight-python"><div class="highlight"><pre>timer start mytimer
 
 timer stop mytimer
 timer print mytimer
@@ -496,7 +496,7 @@ timer print mytimer
 </div>
 <p>Intuitive start, stop, and print options can be used. A timer will be reset
 with</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>timer reset mytimer
+<div class="highlight-python"><div class="highlight"><pre>timer reset mytimer
 </pre></div>
 </div>
 </div>

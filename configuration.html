@@ -212,7 +212,7 @@ kilo cloud you can use the command</p>
 The file will be looking as follows.
 You will have several options to
 modify the file as explained bellow</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>meta:
+<div class="highlight-python"><div class="highlight"><pre>meta:
     yaml_version: 3.0
     kind: clouds
 cloudmesh:
@@ -423,11 +423,11 @@ information available to you as previously explained.</p>
 <p>The best way is to configure first your ssh client to conveniently log into india the machine where you can
 find the configuration information. To do so, please edit the
 following file</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/./ssh/config
+<div class="highlight-python"><div class="highlight"><pre>~/./ssh/config
 </pre></div>
 </div>
 <p>and add the following lines to it</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
+<div class="highlight-python"><div class="highlight"><pre>Host india
     User: albert
     Hostname: india.futuresystems.org
 </pre></div>
@@ -435,17 +435,17 @@ following file</p>
 <p>please replace albert with your portal name that you have used for
 registration with futuresystems.org. Once you have done this please
 verify that you have access to india with a command such as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>ssh india uname -a
+<div class="highlight-python"><div class="highlight"><pre>ssh india uname -a
 </pre></div>
 </div>
 <p>Next register the FutureSystems clouds into your cloudmesh yaml file with
 the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register remote
+<div class="highlight-python"><div class="highlight"><pre>cm register remote
 </pre></div>
 </div>
 <p>This will update your cloudmesh.yaml file with the information retrieved
 from india. While retrieving the information on india from the file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/clouds/india/kilo/openrc.sh
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/clouds/india/kilo/openrc.sh
 </pre></div>
 </div>
 <p>Make sure you add a valid tenant to the yaml file. More information
@@ -456,15 +456,15 @@ about using india can be found at <a class="reference external" href="http://por
 <p>The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as</p>
 <p>To find out more about the registration command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register help
+<div class="highlight-python"><div class="highlight"><pre>cm register help
 </pre></div>
 </div>
 <p>To edit the yaml file with the editor defined by the Shell variable <cite>$EDITOR</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register edit
+<div class="highlight-python"><div class="highlight"><pre>register edit
 </pre></div>
 </div>
 <p>To list the <cite>cloudmesh.yaml</cite> file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register list
+<div class="highlight-python"><div class="highlight"><pre>register list
 </pre></div>
 </div>
 </div>
@@ -495,7 +495,7 @@ edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>Edit the follwoing lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: TBD
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: TBD
 OS_TENANT_NAME: TBD
 OS_TENANT_ID: TBD
 OS_PROJECT_NAME: TBD
@@ -504,7 +504,7 @@ OS_USERNAME: TBD
 </div>
 <p>Let us assume you have the username <cite>albert</cite> and the project id
 <cite>FG-101</cite>, Than the lines need to be changed to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: &lt;your user password&gt;
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: &lt;your user password&gt;
 OS_TENANT_NAME: FG-101
 OS_TENANT_ID: FG-101
 OS_PROJECT_NAME: FG-101
@@ -528,7 +528,7 @@ packaged as a zip file. This file can be found at</p>
 </ul>
 <p>Let us assume you have the username albert and
 the project FG-101. Than the zip file will be called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Let us set some environment variables to make the configuration
@@ -537,37 +537,37 @@ description easier</p>
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
-<span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
+</style><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
+<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
 browser downloaded the zip file and you have uncompressed it)</p>
-<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT</span>
-<span class="prompt1">cp <span class="nv">$C_</span>PROJECT ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT</span>
-<span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT</span>
+<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
 </pre><p>The directory should include the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
 </pre></div>
 </div>
 <p>Take a look at the ec2rc.sh file</p>
-<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_</span>PROJECT/ec2rc.sh</span>
+<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
 </div>
 <p>locate the cybera-ec2 entry and change the TBD values with the
 values you see in the ec2rc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
+<div class="highlight-python"><div class="highlight"><pre>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
 </pre></div>
 </div>
 <p>For the following lines in the cloudmesh file, please replace the TBD
 values with the cybera project ID that you use for this cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
+<div class="highlight-python"><div class="highlight"><pre>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
 EC2_CERT: ~/.cloudmesh/clouds/cybera/TBD/cert.pem
 NOVA_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
 EUCALYPTUS_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
@@ -594,7 +594,7 @@ edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>Edit the follwoing lines:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: TBD
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: TBD
 OS_TENANT_NAME: TBD
 OS_TENANT_ID: TBD
 OS_PROJECT_NAME: TBD
@@ -603,7 +603,7 @@ OS_USERNAME: TBD
 </div>
 <p>Let us assume you have the username <cite>albert</cite> and the project id
 <cite>FG-101</cite>, Than the lines need to be changed to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: &lt;your user password&gt;
+<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: &lt;your user password&gt;
 OS_TENANT_NAME: FG-101
 OS_TENANT_ID: FG-101
 OS_PROJECT_NAME: FG-101
@@ -627,42 +627,42 @@ packaged as a zip file. This file can be found at</p>
 </ul>
 <p>Let us assume you have the username albert and
 the project FG-101. Than the zip file will be called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Let us set some environment variables to make the configuration
 description easier</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
-<span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
+<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
 browser downloaded the zip file and you have uncompressed it)</p>
-<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT</span>
-<span class="prompt1">cp <span class="nv">$C_</span>PROJECT ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT</span>
-<span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT</span>
+<pre class="highlight"><span class="prompt1">mkdir ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
+<span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
 </pre><p>The directory should include the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
 </pre></div>
 </div>
 <p>Take a look at the ec2rc.sh file</p>
-<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_</span>PROJECT/ec2rc.sh</span>
+<pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
 </div>
 <p>locate the chameleon-ec2 entry and change the TBD values with the
 values you see in the ec2rc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
+<div class="highlight-python"><div class="highlight"><pre>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
 </pre></div>
 </div>
 <p>For the following lines in the cloudmesh file, please replace the TBD
 values with the chameleon project ID that you use for this cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
+<div class="highlight-python"><div class="highlight"><pre>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
 EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
 NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
 EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem

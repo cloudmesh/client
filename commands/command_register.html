@@ -223,7 +223,7 @@
 <p>Please only use the quickstart if you know hat you are doing, otherwise,
 read the manual. We assume you have access to the specific clouds that you
 like to access. On a terminal say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register remote kilo
+<div class="highlight-python"><div class="highlight"><pre>cm register remote kilo
 </pre></div>
 </div>
 <p>to register the FutureSystems kilo cloud</p>
@@ -233,7 +233,7 @@ like to access. On a terminal say:</p>
 </ul>
 <p>To register an openstack cloud for which you have an existing openrc.sh file,
 you can simply say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register openrc.sh
+<div class="highlight-python"><div class="highlight"><pre>cm register openrc.sh
 </pre></div>
 </div>
 <div class="admonition-todo admonition" id="index-0">
@@ -249,7 +249,7 @@ download the credentials in teh security panel.</p>
 them first. To make it easy for you cloudmesh reads the registered
 clouds from an easy to manage yaml file. This yam file is installed by
 default into the file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
 </div>
 <p>A number of templates in that file exist that refer to commonly used
@@ -265,18 +265,18 @@ future.</p>
 </div>
 <p>As it may be inconvenient to edit this file and look at the yaml
 format, we provide several administrative commands. The command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register info
+<div class="highlight-python"><div class="highlight"><pre>$ register info
 
 File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 </pre></div>
 </div>
 <p>identifies if the <cite>cloudmesh.yaml</cite> file exists.</p>
 <p>To view the contents of that file, you can cat it or use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register cat
+<div class="highlight-python"><div class="highlight"><pre>register cat
 </pre></div>
 </div>
 <p>To edit the file, you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register edit
+<div class="highlight-python"><div class="highlight"><pre>register edit
 </pre></div>
 </div>
 </div>
@@ -284,12 +284,12 @@ File /Users/albert/.cloudmesh/cloudmesh.yaml exists. ok.
 <h2>register list<a class="headerlink" href="#register-list" title="Permalink to this headline">¶</a></h2>
 <p>To list the clouds that are defined in the cloudmesh.yaml file, you
 can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register list
+<div class="highlight-python"><div class="highlight"><pre>$ register list
 </pre></div>
 </div>
 <p>which will print a table with elementary information defined for the
 clouds.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register list
+<div class="highlight-python"><div class="highlight"><pre>$ register list
 Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
 +-------+-----------+---------+
@@ -302,7 +302,7 @@ Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 </pre></div>
 </div>
 <p>To list only the names, please use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ register list --name
+<div class="highlight-python"><div class="highlight"><pre>$ register list --name
 Clouds specified in the configuration file ~/.cloudmesh\cloudmesh.yaml
 
 +-------+
@@ -330,7 +330,7 @@ User yourusername</dd>
 </div></blockquote>
 <p>The list command followed by ssh will give  you a list of hosts defined
 in that file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register list ssh
+<div class="highlight-python"><div class="highlight"><pre>$ cm register list ssh
 
 india
 </pre></div>
@@ -343,7 +343,7 @@ openrc.sh file. We are providing some very special helper functions, like
 for example obtain the openrc files from the FutureSystems
 cloud.</p>
 <p>The command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register remote HOSTNAME
+<div class="highlight-python"><div class="highlight"><pre>register remote HOSTNAME
 </pre></div>
 </div>
 <p>will copy and register a machine on which an openrc.sh file is located into
@@ -351,7 +351,7 @@ the <cite>cloudmesh.yaml</cite> file. With cloudmesh we provide some default hos
 <blockquote>
 <div><p>they are very easy to configure. This includes <cite>kilo</cite> our
 current clouds in our lab. To register them you can use the commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register reomte kilo
+<div class="highlight-python"><div class="highlight"><pre>cm register reomte kilo
 </pre></div>
 </div>
 </div></blockquote>
@@ -363,11 +363,11 @@ previously.</p>
 <h2>register export<a class="headerlink" href="#register-export" title="Permalink to this headline">¶</a></h2>
 <p>To view the data associated with a particular cloud you can just use the
 command export:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register export kilo --format=table
+<div class="highlight-python"><div class="highlight"><pre>register export kilo --format=table
 </pre></div>
 </div>
 <p>Which will look like this:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------------------+------------------------------------------+
+<div class="highlight-python"><div class="highlight"><pre>+-----------------------+------------------------------------------+
 | Attribute             | Value                                    |
 +-----------------------+------------------------------------------+
 | OS_PASSWORD           | ********                                 |
@@ -385,11 +385,11 @@ command export:</p>
 </pre></div>
 </div>
 <p>The default view returns a openrc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm register export kilo
+<div class="highlight-python"><div class="highlight"><pre>cm register export kilo
 </pre></div>
 </div>
 <p>The output contains an rc file example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>export OS_PROJECT_DOMAIN_ID=default
+<div class="highlight-python"><div class="highlight"><pre>export OS_PROJECT_DOMAIN_ID=default
 export OS_USERNAME=albert
 export OS_OPENRC=~/.cloudmesh/clouds/india/kilo/openrc.sh
 export OS_AUTH_URL=https://kilo.futuresystems.org:5000/v3
@@ -435,11 +435,11 @@ created with an increased number.</p>
 <p>In some cases it is nice to have an interactive mechanism to fill out
 the missing yaml file information that is indicated with TBD. THis is
 useful, if you do not have an editor at hand. Thus you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register form
+<div class="highlight-python"><div class="highlight"><pre>register form
 </pre></div>
 </div>
 <p>It will interactively fills out the form wherever we find TBD:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register form
+<div class="highlight-python"><div class="highlight"><pre>$ cm register form
 Please enter email[TBD]:
 Editing the credentials for cloud india
 Please enter OS_TENANT_NAME[TBD]:
@@ -459,12 +459,12 @@ Please enter thumbprint[TBD]:
 <div class="section" id="register-check">
 <h2>register check<a class="headerlink" href="#register-check" title="Permalink to this headline">¶</a></h2>
 <p>o find any not filled out values, you can use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register check
+<div class="highlight-python"><div class="highlight"><pre>register check
 </pre></div>
 </div>
 <p>which hecks the yaml file for completness and list all fields that
 have the value TBD:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register check
+<div class="highlight-python"><div class="highlight"><pre>$ cm register check
 ERROR: The file has 11 values to be fixed
 
   email: TBD
@@ -486,11 +486,11 @@ ERROR: The file has 11 values to be fixed
 <p>Instead of using the cat command and listing the contents of a cloud
 registration in yaml format you can also explicitly obtain a jason
 representation by issueing the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>register json
+<div class="highlight-python"><div class="highlight"><pre>register json
 </pre></div>
 </div>
 <p>It will return output in json format:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register json azure
+<div class="highlight-python"><div class="highlight"><pre>$ cm register json azure
 {
     &quot;cm_heading&quot;: &quot;Microsoft Azure Virtual Machines&quot;,
     &quot;cm_label&quot;: &quot;waz&quot;,
@@ -516,7 +516,7 @@ representation by issueing the command:</p>
 <h2>register profile &#8211;username<a class="headerlink" href="#register-profile-username" title="Permalink to this headline">¶</a></h2>
 <p>Instead of modifying the profile username in the cloudmesh yaml file manually, this command provides a convenient way
 of setting the username through cm shell:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm register profile --username=albert
+<div class="highlight-python"><div class="highlight"><pre>$ cm register profile --username=albert
 Username albert set successfully in the yaml settings.
 </pre></div>
 </div>

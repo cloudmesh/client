@@ -171,31 +171,31 @@
 <h1>Docker<a class="headerlink" href="#docker" title="Permalink to this headline">¶</a></h1>
 <p>This is an experimental effort with little documentation</p>
 <p>Start a virtual machine that runs docker in it:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>make docker-machine
+<div class="highlight-python"><div class="highlight"><pre>make docker-machine
 </pre></div>
 </div>
 <p>The machine is called cloudmesh, do not confuse this with the docker image
 that is bing created and is also called cloudmesh.</p>
 <p>Login to the started vm so you can execute docker commands:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>make docker-machine-login
+<div class="highlight-python"><div class="highlight"><pre>make docker-machine-login
 </pre></div>
 </div>
 <p>Create the cloudmesh docker image with the name &#8216;cloudmesh&#8217;:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>make docker-build
+<div class="highlight-python"><div class="highlight"><pre>make docker-build
 </pre></div>
 </div>
 <p>Publish the image on docker hub (only Gregor):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>make docker-login
+<div class="highlight-python"><div class="highlight"><pre>make docker-login
 
 make docker-publish
 </pre></div>
 </div>
 <p>Get the image (does not work):</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>make docker-pull
+<div class="highlight-python"><div class="highlight"><pre>make docker-pull
 </pre></div>
 </div>
 <p>Not working or incomplete:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>make docker-run
+<div class="highlight-python"><div class="highlight"><pre>make docker-run
 make docker-clean-images
 </pre></div>
 </div>
