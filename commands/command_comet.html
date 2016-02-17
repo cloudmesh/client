@@ -235,11 +235,33 @@ client</p>
 <li><a class="reference external" href="http://www.sdsc.edu/support/user_guides/comet.html">http://www.sdsc.edu/support/user_guides/comet.html</a></li>
 <li><a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a></li>
 </ul>
+<div class="section" id="teminology">
+<h3>Teminology<a class="headerlink" href="#teminology" title="Permalink to this headline">¶</a></h3>
+<p>We use in this section the following terminology:</p>
+<dl class="docutils">
+<dt>computeset:</dt>
+<dd>TBD</dd>
+<dt>frontend:</dt>
+<dd>TBD</dd>
+<dt>image:</dt>
+<dd>TBD</dd>
+<dt>console:</dt>
+<dd>TBD</dd>
+<dt>virtual cluster:</dt>
+<dd>TBD</dd>
+<dt>individual nodes:</dt>
+<dd>TBD</dd>
+<dt>image attach:</dt>
+<dd>TBD</dd>
+<dt>image detach:</dt>
+<dd>TBD</dd>
+</dl>
+</div>
 <div class="section" id="configuration">
 <h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
 <p>The configuration of the cloudmesh client is done semi automatically for you.
 All you have to do after the installation is to call cloudmesh client once.</p>
-<p>THis is done best with the command:</p>
+<p>This is done best with the command:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>cm help
 </pre></div>
 </div>
@@ -291,6 +313,10 @@ parameter:</p>
 <pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
 </pre><p>If you have more allocations, but does not specify via CLI, you will see a list of
 allocations to choose from to use.</p>
+<p>You can also power on N arbitrary nodes, if there is enough resource:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc4 --count<span class="o">=</span>4</span>
+</pre><p>The comet system will find 4 available nodes from the specified cluster and start them
+as one computeset.</p>
 <p>You can power off and back on individual nodes of an active
 computeset. E.g.:</p>
 <pre class="highlight"><span class="prompt1">cm comet power off vc4 vm-vc4-<span class="o">[</span>0,1<span class="o">]</span></span>
@@ -302,7 +328,7 @@ computeset. E.g.:</p>
 <pre class="highlight"><span class="prompt1">cm comet power off vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span></span>
 </pre><p>Please note if you powered off all nodes from an active computeset, the computeset
 itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
-<p>You can also power on one single node as a computese:</p>
+<p>You can also power on one single node as a computeset:</p>
 <pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>7<span class="o">]</span></span>
 </pre><p>or simply:</p>
 <pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-7</span>
@@ -326,7 +352,9 @@ itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
 <pre class="highlight"><span class="prompt1">cm comet image detach vc4 vm-vc4-0</span>
 </pre><p>Please note image attaching/detaching will only take effect after you hard reboot
 the node (power off and then power on).</p>
-</div>
+<p>You can also rename a compute node:</p>
+<pre class="highlight"><span class="prompt1">cm comet node rename vc4 vm-vc4-0 mynode0</span>
+</pre></div>
 </div>
 </div>
 

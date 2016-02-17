@@ -435,7 +435,7 @@ Examples:
    comet cluster [CLUSTERID]
                  [--format=FORMAT]
    comet computeset [COMPUTESETID]
-   comet power on CLUSTERID [NODESPARAM]
+   comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
                 [--allocation=ALLOCATION]
                 [--walltime=WALLTIME]
    comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
@@ -444,11 +444,16 @@ Examples:
    comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
    comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
    comet image detach CLUSTERID [COMPUTENODEID]
+   comet node rename CLUSTERID OLDNAME NEWNAME
 
 Options:
-    --format=FORMAT       Format is either table, json, yaml,
-                          csv, rest
-                          [default: table]
+    --format=FORMAT         Format is either table, json, yaml,
+                            csv, rest
+                            [default: table]
+    --count=NUMNODES        Number of nodes to be powered on.
+                            When this option is used, the comet system
+                            will find a NUMNODES number of arbitrary nodes
+                            that are available to boot as a computeset
     --allocation=ALLOCATION     Allocation to charge when power on
                                 node(s)
     --walltime=WALLTIME     Walltime requested for the node(s).
