@@ -89,7 +89,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     # class CloudmeshConsole(cmd.Cmd,
     #                       ConsoleClasses(PluginCommand)):
 
-
     def precmd(self, line):
         StopWatch.start("command")
         return line
@@ -238,8 +237,6 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         r = Default.get_refresh()
         if r is None:
             Default.set_refresh("on")
-
-
 
         """
         try:
@@ -468,7 +465,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                         Console.ok("cm> {:}".format(str(line)))
                     self.precmd(line)
                     stop = self.onecmd(line)
-                    self.postcmd(stop,line)
+                    self.postcmd(stop, line)
         else:
             Console.error('file "{:}" does not exist.'.format(filename))
             sys.exit()
@@ -513,7 +510,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
     def var_finder(self, line, c='$'):
 
         line = line.replace('$', ' $').strip()
-        words = line.replace('-',' ').replace('_',' ').split(" ")
+        words = line.replace('-', ' ').replace('_', ' ').split(" ")
 
         variables = []
         for word in words:
@@ -542,13 +539,13 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         for v in vars["normal"]:
             value = str(Var.get(v))
-            line = line.replace (c+v, value)
+            line = line.replace(c + v, value)
             # replace in line the variable $v with value
         for v in vars["os"]:
             name = v.replace('os.', '')
             if name in os.environ:
                 value = os.environ[name]
-                line = line.replace (c+v, value)
+                line = line.replace(c + v, value)
             else:
                 Console.error("can not find environment variable {}".format(
                     v))
@@ -561,7 +558,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 config = ConfigDict("cloudmesh.yaml")
                 print (config["cloudmesh.profile"])
                 value = config[v]
-                line = line.replace (c+v, value)
+                line = line.replace(c + v, value)
             except Exception, e:
                 Console.error("can not find variable {} in cloudmesh.yaml".format(value))
         return line

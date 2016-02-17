@@ -349,7 +349,6 @@ class Default(ListResource):
 
     # set default for timer
 
-
     @classmethod
     def set_timer(cls, value):
         """
@@ -379,7 +378,6 @@ class Default(ListResource):
         """
         value = cls.get_timer()
         return value == "on"
-
 
     @classmethod
     def load(cls, filename):

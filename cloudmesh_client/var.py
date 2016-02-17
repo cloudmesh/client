@@ -52,8 +52,6 @@ class Var(ListResource):
     # GENERAL SETTER AND GETTER METHOD
     #
 
-
-
     @classmethod
     def set(cls, key, value, user=None):
         """

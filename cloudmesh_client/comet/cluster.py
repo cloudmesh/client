@@ -504,7 +504,7 @@ class Cluster(object):
         ret = ''
         # print ("Attaching ISO image")
         # print ("isoname: %s" % isoname)
-        #print ("cluster: %s" % clusterid)
+        # print ("cluster: %s" % clusterid)
         # print ("node: %s" % nodeid)
 
         if isoname != '':
@@ -513,14 +513,14 @@ class Cluster(object):
         # attaching to front end
         if nodeid:
             url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}")\
-                            .format(clusterid, nodeid, isoname)
+                .format(clusterid, nodeid, isoname)
         else:
             # attaching to node
             url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}")\
-                            .format(clusterid, isoname)
-        #data = {"iso_name": "%s" % isoname}
+                .format(clusterid, isoname)
+        # data = {"iso_name": "%s" % isoname}
         # print ("url: %s" % url)
-        #print ("data: %s" % data)
+        # print ("data: %s" % data)
         r = Comet.put(url)
         # print (r)
         if r is not None:

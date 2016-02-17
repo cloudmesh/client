@@ -269,20 +269,29 @@ class Comet(object):
                 if files:
                     del headers["content-type"]
                     headers["md5"] = md5
-                    r = requests.post(url, headers=headers, files=files,
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                    r = requests.post(url,
+                                      headers=headers,
+                                      files=files,
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
                 else:
-                    r = requests.post(url, headers=headers, data=json.dumps(data),
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                    r = requests.post(url,
+                                      headers=headers,
+                                      data=json.dumps(data),
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
 
             elif 'put' == action:
-                r = requests.put(url, headers=headers, data=json.dumps(data),
-                                 allow_redirects=allow_redirects, verify=cacert)
+                r = requests.put(url,
+                                 headers=headers,
+                                 data=json.dumps(data),
+                                 allow_redirects=allow_redirects,
+                                 verify=cacert)
             else:
-                r = requests.get(url, headers=headers,
-                                 allow_redirects=allow_redirects, verify=cacert)
+                r = requests.get(url,
+                                 headers=headers,
+                                 allow_redirects=allow_redirects,
+                                 verify=cacert)
 
             # print ("KKK --- DEBUGGING HTTP CALL")
             # pprint (r)
@@ -339,25 +348,33 @@ class Comet(object):
             if 'post' == action:
                 if files:
                     headers = {"timestamp": int(time.time()),
-                                "nonce": Comet.get_nonce(),
-                                "X-Api-Key": Comet.api_key,
-                                "md5": md5}
-                    r = requests.post(url, auth=Comet.api_auth, headers=headers,
-                                  files=files,
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                               "nonce": Comet.get_nonce(),
+                               "X-Api-Key": Comet.api_key,
+                               "md5": md5}
+                    r = requests.post(url,
+                                      auth=Comet.api_auth,
+                                      headers=headers,
+                                      files=files,
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
                 else:
-                    r = requests.post(url, auth=Comet.api_auth, headers=headers,
-                                  data=json.dumps(data),
-                                  allow_redirects=allow_redirects,
-                                  verify=cacert)
+                    r = requests.post(url,
+                                      auth=Comet.api_auth,
+                                      headers=headers,
+                                      data=json.dumps(data),
+                                      allow_redirects=allow_redirects,
+                                      verify=cacert)
             elif 'put' == action:
-                r = requests.put(url, auth=Comet.api_auth, headers=headers,
+                r = requests.put(url,
+                                 auth=Comet.api_auth,
+                                 headers=headers,
                                  data=json.dumps(data),
                                  allow_redirects=allow_redirects,
                                  verify=cacert)
             else:
-                r = requests.get(url, auth=Comet.api_auth, headers=headers,
+                r = requests.get(url,
+                                 auth=Comet.api_auth,
+                                 headers=headers,
                                  allow_redirects=allow_redirects,
                                  verify=cacert)
             ret = None
@@ -507,12 +524,13 @@ class Comet(object):
         r = None
         md5 = Comet.md5(filepath)
         with open(filepath) as fh:
-            files={'file':(filename, fh)}
+            files = {'file': (filename, fh)}
             print (files)
             r = Comet.post(posturl, files=files, md5=md5)
             if r is not None:
                 ret = r
         return ret
+
 
 def main():
     comet = Comet()
