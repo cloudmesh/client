@@ -291,7 +291,7 @@ class Cluster(object):
         #
         # Now it accepts
         # {"cluster":"vc3","computes":"compute[1-2]"},
-        # {"cluster":"vc3","computes":[“compute1","compute2"]} and
+        # {"cluster":"vc3","computes":["compute1","compute2"]} and
         # {"cluster":"vc3","count":2}
         #
         if subject in ['HOSTS', 'HOST']:
