@@ -415,7 +415,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
                # check if new names ar not already taken
                # to be implemented
-               
+
                if len(oldnames) == len(newnames):
                    for i in range(0,len(oldnames)):
                        oldname = oldnames[i]
