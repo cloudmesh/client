@@ -1,7 +1,7 @@
 from pprint import pprint
 
 import requests
-from cloudmesh_base.util import banner
+from cloudmesh_client.util import banner
 
 r = requests.get('https://api.github.com/repos/cloudmesh/client/issues')
 
