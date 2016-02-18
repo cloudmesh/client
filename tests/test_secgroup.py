@@ -11,9 +11,9 @@ nosetests -v tests/test_secgroup.py
 """
 import os
 
-from cloudmesh_base.Shell import Shell
-from cloudmesh_base.util import HEADING
-from cloudmesh_base.util import banner
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.util import HEADING
+from cloudmesh_client.util import banner
 from cloudmesh_client.cloud.secgroup import SecGroup
 from cloudmesh_client.common.ConfigDict import ConfigDict
 

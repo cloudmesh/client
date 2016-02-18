@@ -17,9 +17,9 @@ nosetests -v
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 # from cloudmesh_client.common.Printer import dict_printer
 
-from cloudmesh_base.util import HEADING
+from cloudmesh_client.util import HEADING
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 
 
 def run(command):

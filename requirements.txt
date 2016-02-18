@@ -1,6 +1,5 @@
 pyreadline<=1.7.1.dev-r0
 colorama
-cloudmesh_base
 future
 docopt
 pyaml
@@ -19,3 +18,4 @@ cloudmesh_timestring
 pycrypto
 httpsig
 pytest
+jsonschema

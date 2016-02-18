@@ -1,5 +1,4 @@
 
-
 FROM    ubuntu:14.04
 MAINTAINER laszewski@gmail.com
 
@@ -13,13 +12,6 @@ RUN apt-get install -y \
 
 ### prepare cloudmesh directories
 RUN mkdir -p $HOME/.cloudmesh
-
-RUN git clone https://github.com/cloudmesh/base.git cloudmesh_base
-
-### cloudmesh/base
-WORKDIR $HOME/cloudmesh_base
-RUN pip install -r requirements.txt \
-&&  pip install .
 
 ### cloudmesh/client
 ADD . $HOME/cloudmesh_client

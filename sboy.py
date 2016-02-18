@@ -7,7 +7,7 @@ from cloudmesh_client.db.model import DEFAULT, GROUP, KEY, RESERVATION
 
 app = Flask(__name__)
 
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 filename = "sqlite:///{}".format(path_expand("~/.cloudmesh/cloudmesh.db"))
 
 print ("FFF", filename)
