@@ -62,30 +62,47 @@ Teminology
 ^^^^^^^^^^^
 
 We use in this section the following terminology:
+Iteration #2...
+
+On Feb 17, 2016, at 1:27 PM, Mishin, Dmitry <dmishin@sdsc.edu> wrote:
+
+This is my understanding, Trevor please feel free to fix this
 
 computeset:
-    TBD
+    A group of compute nodes started together and being in some state
+    (submitted, started, finished, failed). Each compute node can only belong
+    to 1 computesets in submitted or active state.
 
 frontend:
-    TBD
+    A node with limited computational resources used to manage a virtual
+    cluster. Frontends run 24/7, have a public interface and a private
+    interface. The public interface provides outside access to the virtual
+    cluster while the private interface is used to manage/install the compute
+    nodes.
 
 image:
-    TBD
+    A file containing the contents and structure (ISO9660) of a disk volume
+    which can be attached as a cdrom to a node.
 
 console:
-    TBD
+    An interactive representation of the screen of a virtual cluster
+    node (text or graphical) provided to assist with node installation
+    and management.
 
 virtual cluster:
-    TBD
+    A virtual cluster is a loosely or tightly connected network of virtual
+    computers managed together by a virtual cluster administrator.
 
-individual nodes:
-    TBD
+node:
+    The term node is used to refer to individual computers in a virtual cluster.
 
 image attach:
-    TBD
+    Attach is an action applied to a node / image pair whereby the contents
+    of the image are made available to a node on the next power on.
 
 image detach:
-    TBD
+    Detach is an action applied to a node / image pair whereby the contents
+    of the image are made unavailable to the node on the next power on.
 
 Configuration
 ^^^^^^^^^^^^^^^
