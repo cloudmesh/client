@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 
 
 d = ConfigDict("cloudmesh.yaml", verbose=True)

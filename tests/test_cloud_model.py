@@ -10,14 +10,14 @@ nosetests -v
 
 """
 
-from cloudmesh_base.util import HEADING
+from cloudmesh_client.util import HEADING
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict, flatten
 from  cloudmesh_client.db.model import VM, FLAVOR, IMAGE
 import cloudmesh_client.db
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import cloudmesh_client.db.model
-from cloudmesh_base.util import banner
+from cloudmesh_client.util import banner
 
 class Test_cloud_model(object):
     def setup(self):

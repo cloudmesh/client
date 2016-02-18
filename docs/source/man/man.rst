@@ -219,20 +219,25 @@ Command - comet::
        comet cluster [CLUSTERID]
                      [--format=FORMAT]
        comet computeset [COMPUTESETID]
-       comet power on CLUSTERID [NODESPARAM]
+       comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
                     [--allocation=ALLOCATION]
                     [--walltime=WALLTIME]
        comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
        comet console CLUSTERID [COMPUTENODEID]
        comet image list
        comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
-       comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
-       comet image detach CLUSTERID [COMPUTENODEID]
+       comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
+       comet image detach CLUSTERID [COMPUTENODEIDS]
+       comet node rename CLUSTERID OLDNAME NEWNAME
 
     Options:
-        --format=FORMAT       Format is either table, json, yaml,
-                              csv, rest
-                              [default: table]
+        --format=FORMAT         Format is either table, json, yaml,
+                                csv, rest
+                                [default: table]
+        --count=NUMNODES        Number of nodes to be powered on.
+                                When this option is used, the comet system
+                                will find a NUMNODES number of arbitrary nodes
+                                that are available to boot as a computeset
         --allocation=ALLOCATION     Allocation to charge when power on
                                     node(s)
         --walltime=WALLTIME     Walltime requested for the node(s).
@@ -248,9 +253,18 @@ Command - comet::
         NODESPARAM      Specifying the node/nodes/computeset to act on.
                         In case of integer, will be intepreted as a computesetid;
                         in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                        of nodes; or a single host is also accepptable,
+                        of nodes; or a single host is also acceptable,
                         e.g., vm-vc1-0
+                        If not provided, the requested action will be taken
+                        on the frontend node of the specified cluster
         COMPUTENODEID   A compute node name, e.g., vm-vc1-0
+                        If not provided, the requested action will be taken
+                        on the frontend node of the specified cluster
+        COMPUTENODEIDS  A set of compute node names in hostlist format,
+                        e.g., vm-vc1-[0-3]
+                        One single node is also acceptable: vm-vc1-0
+                        If not provided, the requested action will be taken
+                        on the frontend node of the specified cluster
         IMAGENAME       Name of an image at remote server
         PATHIMAGEFILE   The full path to the image file to be uploaded
 
