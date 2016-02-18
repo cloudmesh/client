@@ -10,9 +10,9 @@ nosetests -v tests/test_group.py
 
 """
 
-from cloudmesh_base.Shell import Shell
-from cloudmesh_base.util import HEADING
-from cloudmesh_base.util import banner
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.util import HEADING
+from cloudmesh_client.util import banner
 
 from cloudmesh_client.cloud.group import Group
 

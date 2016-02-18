@@ -12,8 +12,8 @@ nosetests -v tests/test_register.py
 from __future__ import print_function
 import os
 
-from cloudmesh_base.Shell import Shell
-from cloudmesh_base.util import HEADING
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.util import HEADING
 
 
 def run(command):

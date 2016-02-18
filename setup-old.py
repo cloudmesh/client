@@ -236,7 +236,7 @@ class CheckForPasswords(install):
 
     description = __doc__
 
-    from cloudmesh_base.Shell import Shell
+    from cloudmesh_client.common.Shell import Shell
     
     def check(self, search=""):
       check_list = [("openstack", "'OS_PASSWORD': '[a-zA-Z0-9]+'"),
