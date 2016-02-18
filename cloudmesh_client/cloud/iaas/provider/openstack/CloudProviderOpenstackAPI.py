@@ -340,9 +340,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if self.isUuid(name):
             server = self.provider.servers.get(name)
         else:
-            server = self.provider.servers.find(name=name)
-
-        server.delete()
+            #server = self.provider.servers.find(name=name)
+            search_opts = {
+                'name': name,
+            }
+            vms = self.provider.servers.list(search_opts=search_opts)
+            for vm in vms:
+                print("Deleting VM ({}) : {}".format(vm.name, vm.id))
+                vm.delete()
 
     def delete_floating_ip(self, floating_ip):
         """
@@ -564,7 +569,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if self.isUuid(vm_name):
             return self.provider.servers.get(vm_name)._info
         else:
-            return self.provider.servers.find(name=vm_name)._info
+            return self.provider.servers.find(name=vm_name,
+                                              scope="first")._info
 
     def attributes(self, kind):
 
