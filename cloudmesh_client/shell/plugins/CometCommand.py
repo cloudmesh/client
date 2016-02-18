@@ -69,6 +69,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 on the frontend node of the specified cluster
                 COMPUTENODEIDS  A set of compute node names in hostlist format,
                                 e.g., vm-vc1-[0-3]
+                                One single node is also acceptable: vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
                 IMAGENAME       Name of an image at remote server
