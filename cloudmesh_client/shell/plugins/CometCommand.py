@@ -2,6 +2,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command, PluginCommand, CometPluginCommand
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
+from cloudmesh_client.common.hostlist import Parameter
 import hostlist
 import os
 import sys
@@ -395,4 +396,22 @@ class CometCommand(PluginCommand, CometPluginCommand):
                     print ("New node name cannot be empty")
                 else:
                     print (Cluster.rename_node(clusterid, oldname, newname))
+
+            '''
+            # bulk rename
+
+            if arguments["rename"]:
+               oldnames = Parameter.expand(arguments["OLDNAME"])
+               newnames = Parameter.expand(arguments["NEWNAME"])
+
+               if len(oldnames) == len(newnames):
+                   for i in range(0,len(oldnames)):
+                       oldname = oldnames[i]
+                       newname = newnames[i]
+                   if newname is None or newname == '':
+                       print ("New node name cannot be empty")
+                   else:
+                       print (Cluster.rename_node(clusterid, oldname, newname))
+            '''
+
         return ""
