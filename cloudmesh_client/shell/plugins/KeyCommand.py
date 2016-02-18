@@ -42,9 +42,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [--force]
-             key upload [KEYNAME]
-                        [--cloud=CLOUD]
-                        [--name=NAME_ON_CLOUD]
+             key upload [KEYNAME] [--cloud=CLOUD]
              key map [--cloud=CLOUD]
 
            Manages the keys
@@ -465,41 +463,56 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Console.error("Problem deleting the key `{:}`".format(keyname))
 
         elif arguments['upload']:
+
             try:
+                #
+                # get username
+                #
                 conf = ConfigDict("cloudmesh.yaml")
                 username = conf["cloudmesh"]["profile"]["username"]
+                if username in ['None', 'TBD']:
+                    username = None
 
-                keyname = arguments["KEYNAME"] or Default.get_key()
-                if keyname is None:
-                    Console.error("ERROR: Default key not set")
-                    return ""
-
-                cloud_name = arguments["--cloud"] or Default.get_cloud()
-
-                cloud_list = []
-
-                # Handling --cloud=all
-                if cloud_name == "all":
+                #
+                # get cloudnames
+                #
+                clouds = []
+                cloud = arguments["--cloud"] or Default.get_cloud()
+                if cloud == "all":
                     config = ConfigDict("cloudmesh.yaml")
-                    cloud_list = config["cloudmesh"]["clouds"]
+                    clouds = config["cloudmesh"]["clouds"]
                 else:
-                    cloud_list.append(cloud_name)
+                    clouds.append(cloud)
 
-                name_on_cloud = arguments["--name"]
+                #
+                # get keyname
+                #
 
-                for cloud in cloud_list:
-                    if name_on_cloud is None:
-                        name_on_cloud_to_use = username + "-" + cloud + "-" + keyname
-                    else:
-                        name_on_cloud_to_use = name_on_cloud
-
+                for cloud in clouds:
+                    status = 0
+                    sshdb = SSHKeyDBManager()
                     sshm = SSHKeyManager()
-                    status = sshm.add_key_to_cloud(username, keyname, cloud, name_on_cloud_to_use)
-                    # status = 0
+                    keys = sshdb.find_all()
+                    for keyid in keys:
+                        key = keys[keyid]
 
-                    if status != 1:
-                        print("Key {:} added successfully to cloud {} as {}.".format(keyname, cloud,
-                                                                                     name_on_cloud_to_use))
+                        print ("upload key {} -> {}".format(key["name"],
+                                                            cloud))
+
+                        try:
+                            status = sshm.add_key_to_cloud(
+                                username,
+                                key["name"],
+                                cloud,
+                                key["name"])
+
+                        except Exception, e:
+                            print (e)
+                            if "already exists" in str(e):
+                                print ("key already exists. Skipping "
+                                       "upload. ok.")
+                        if status == 1:
+                            print("Problem uploading key. failed.")
                 msg = "info. OK."
                 Console.ok(msg)
 
