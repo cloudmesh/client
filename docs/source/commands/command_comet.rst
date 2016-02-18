@@ -60,6 +60,7 @@ client
 * Man page `comet <../man/man.html#comet>`_
 * http://www.sdsc.edu/support/user_guides/comet.html
 * https://portal.xsede.org/sdsc-comet
+* Comet nucleus API Docs: https://comet-nucleus.sdsc.edu/nucleus/docs/
 
 Teminology
 -----------
@@ -141,6 +142,8 @@ Commands
 Next we list a number of important commands from the CLI that will help you
 managing your comet virtual clusters.
 
+Getting information of your cluster(s); nodes; computesets; etc.
+~~~~
 List all clusters owned by the authenticated identity (summarized
 format):
 
@@ -172,8 +175,32 @@ List one computeset:
 .. prompt:: bash
   
    cm comet computeset 63
-    
-Power on a set of compute nodes in cluster vc4:
+
+Power management of frontend node:
+~~~~
+Power on the front end node of the specified cluster:
+
+.. prompt:: bash
+
+    cm comet power on vc2
+
+To power if off:
+
+.. prompt:: bash
+
+    cm comet power off vc2
+
+You can also reboot/reset/shutdown the fronend using the same 
+syntax, e.g., to reboot:
+
+.. prompt:: bash
+
+    cm comet power reboot vc2
+
+Power management of compute nodes:
+~~~~
+
+Power on a set of compute nodes in cluster vc2:
 
 .. prompt:: bash
   
@@ -248,24 +275,27 @@ or simply:
 
     cm comet power on vc2 vm-vc2-7
 
-Power on the front end node of the specified cluster:
-
-.. prompt:: bash
-  
-    cm comet power on vc2
-    
-Get console of a running node:
-
-.. prompt:: bash
-  
-    cm comet console vc2 vm-vc2-0
-
-Get console of the front end:
+Getting Console access
+~~~~
+Get console of the frontend:
 
 .. prompt:: bash
   
     cm comet console vc2
 
+Get console of a running compute node:
+
+.. prompt:: bash
+  
+    cm comet console vc2 vm-vc2-0
+
+This will open a browser window using the system default browser 
+to display the console (in Mac OS X); or a firefox window (in Linux).
+If no compatible browser found, it will print out a URL so you can 
+access it via other means.
+
+System image management
+~~~~
 Get the list of images that are available to you:
 
 .. prompt:: bash
@@ -284,27 +314,45 @@ Or with a specified new image name:
 
     cm comet image upload /path/to/your/image.iso --imagename=newimagename.iso
 
-Attach an image to a compute node:
-
-.. prompt:: bash
-
-    cm comet image attach newimagename.iso vc2 vm-vc2-0
-
-Or to the front end:
+Attach an image to the frontend:
 
 .. prompt:: bash
 
     cm comet image attach newimagename.iso vc2
 
-To detach an iso:
+Or to a compute node:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc2 vm-vc2-0
+
+To detach the attached iso image from frontend node:
+
+.. prompt:: bash
+
+    cm comet image detach vc2
+
+Or from a compute node:
 
 .. prompt:: bash
 
     cm comet image detach vc2 vm-vc2-0
 
+Image attaching/detaching also works on compute nodes in bulk:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc2 vm-vc2-[0-4]
+
+.. prompt:: bash
+
+    cm comet image detach vc2 vm-vc2-[0-4]
+
 Please note image attaching/detaching will only take effect after you hard reboot 
 the node (power off and then power on).
 
+Other commands:
+~~~~
 You can also rename a compute node:
 
 .. prompt:: bash
@@ -323,8 +371,8 @@ How to get a virtual cluster?
    project and allocation size (This may already be specified in the
    allocation request).
 
-        At this time send e-mail to laszewski@gmail.com and
-        kevinwangfg@gmail.com
+        At this time send e-mail to laszewski AT gmail DOT com and
+        kevinwangfg AT gmail DOT com
 
         In future we will be using the XSEDE ticket system once it is set up
         for us
@@ -381,6 +429,5 @@ you by the comet team), but you have renamed the nodes to osg-1, osg-2, ...
 How do I get support?
 ----------------------
 
-At this time simply send mail to laszewski@gmail.com and kevinwangfg@gmail.com.
+At this time simply send mail to laszewski AT gmail DOT com and kevinwangfg AT gmail DOT com.
 We will get back to you ASAP hopefully within one business day.
-

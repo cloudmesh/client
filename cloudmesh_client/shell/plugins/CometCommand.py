@@ -34,8 +34,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet console CLUSTERID [COMPUTENODEID]
                comet image list
                comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
-               comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]
-               comet image detach CLUSTERID [COMPUTENODEID]
+               comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
+               comet image detach CLUSTERID [COMPUTENODEIDS]
                comet node rename CLUSTERID OLDNAME NEWNAME
 
             Options:
@@ -61,9 +61,18 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 NODESPARAM      Specifying the node/nodes/computeset to act on.
                                 In case of integer, will be intepreted as a computesetid;
                                 in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                                of nodes; or a single host is also accepptable, 
+                                of nodes; or a single host is also acceptable,
                                 e.g., vm-vc1-0
+                                If not provided, the requested action will be taken
+                                on the frontend node of the specified cluster
                 COMPUTENODEID   A compute node name, e.g., vm-vc1-0
+                                If not provided, the requested action will be taken
+                                on the frontend node of the specified cluster
+                COMPUTENODEIDS  A set of compute node names in hostlist format,
+                                e.g., vm-vc1-[0-3]
+                                One single node is also acceptable: vm-vc1-0
+                                If not provided, the requested action will be taken
+                                on the frontend node of the specified cluster
                 IMAGENAME       Name of an image at remote server
                 PATHIMAGEFILE   The full path to the image file to be uploaded
         """
@@ -381,12 +390,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
             elif arguments["attach"]:
                 imagename = arguments["IMAGENAME"]
                 clusterid = arguments["CLUSTERID"]
-                computenodeid = arguments["COMPUTENODEID"] or None
-                print (Cluster.attach_iso(imagename, clusterid, computenodeid))
+                computenodeids = arguments["COMPUTENODEIDS"] or None
+                print (Cluster.attach_iso(imagename, clusterid, computenodeids))
             elif arguments["detach"]:
                 clusterid = arguments["CLUSTERID"]
-                computenodeid = arguments["COMPUTENODEID"] or None
-                print (Cluster.detach_iso(clusterid, computenodeid))
+                computenodeids = arguments["COMPUTENODEIDS"] or None
+                print (Cluster.detach_iso(clusterid, computenodeids))
         elif arguments["node"]:
             if arguments["rename"]:
                 clusterid = arguments["CLUSTERID"]

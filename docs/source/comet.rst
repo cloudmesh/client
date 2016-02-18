@@ -8,4 +8,4 @@ The following information about the comet cluster are available
 * Man page `comet <man/man.html#comet>`_
 * https://portal.xsede.org/sdsc-comet
 * http://www.sdsc.edu/support/user_guides/comet.html
- 
+* Comet nucleus API Docs: https://comet-nucleus.sdsc.edu/nucleus/docs/
