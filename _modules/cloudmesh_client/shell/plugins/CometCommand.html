@@ -202,8 +202,8 @@
 <span class="sd">               comet console CLUSTERID [COMPUTENODEID]</span>
 <span class="sd">               comet image list</span>
 <span class="sd">               comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE</span>
-<span class="sd">               comet image attach IMAGENAME CLUSTERID [COMPUTENODEID]</span>
-<span class="sd">               comet image detach CLUSTERID [COMPUTENODEID]</span>
+<span class="sd">               comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]</span>
+<span class="sd">               comet image detach CLUSTERID [COMPUTENODEIDS]</span>
 <span class="sd">               comet node rename CLUSTERID OLDNAME NEWNAME</span>
 
 <span class="sd">            Options:</span>
@@ -229,9 +229,18 @@
 <span class="sd">                NODESPARAM      Specifying the node/nodes/computeset to act on.</span>
 <span class="sd">                                In case of integer, will be intepreted as a computesetid;</span>
 <span class="sd">                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group</span>
-<span class="sd">                                of nodes; or a single host is also accepptable, </span>
+<span class="sd">                                of nodes; or a single host is also acceptable,</span>
 <span class="sd">                                e.g., vm-vc1-0</span>
+<span class="sd">                                If not provided, the requested action will be taken</span>
+<span class="sd">                                on the frontend node of the specified cluster</span>
 <span class="sd">                COMPUTENODEID   A compute node name, e.g., vm-vc1-0</span>
+<span class="sd">                                If not provided, the requested action will be taken</span>
+<span class="sd">                                on the frontend node of the specified cluster</span>
+<span class="sd">                COMPUTENODEIDS  A set of compute node names in hostlist format,</span>
+<span class="sd">                                e.g., vm-vc1-[0-3]</span>
+<span class="sd">                                One single node is also acceptable: vm-vc1-0</span>
+<span class="sd">                                If not provided, the requested action will be taken</span>
+<span class="sd">                                on the frontend node of the specified cluster</span>
 <span class="sd">                IMAGENAME       Name of an image at remote server</span>
 <span class="sd">                PATHIMAGEFILE   The full path to the image file to be uploaded</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -549,12 +558,12 @@
             <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;attach&quot;</span><span class="p">]:</span>
                 <span class="n">imagename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;IMAGENAME&quot;</span><span class="p">]</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-                <span class="n">computenodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeid</span><span class="p">))</span>
+                <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
             <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;detach&quot;</span><span class="p">]:</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-                <span class="n">computenodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeid</span><span class="p">))</span>
+                <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
         <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;node&quot;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;rename&quot;</span><span class="p">]:</span>
                 <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>

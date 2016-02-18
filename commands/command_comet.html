@@ -400,10 +400,13 @@ access it via other means.</p>
 <pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2</span>
 </pre><p>Or to a compute node:</p>
 <pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2 vm-vc2-0</span>
-</pre><p>To detach the attached iso image:</p>
+</pre><p>To detach the attached iso image from frontend node:</p>
 <pre class="highlight"><span class="prompt1">cm comet image detach vc2</span>
-</pre><p>Or</p>
+</pre><p>Or from a compute node:</p>
 <pre class="highlight"><span class="prompt1">cm comet image detach vc2 vm-vc2-0</span>
+</pre><p>Image attaching/detaching also works on compute nodes in bulk:</p>
+<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2 vm-vc2-<span class="o">[</span>0-4<span class="o">]</span></span>
+</pre><pre class="highlight"><span class="prompt1">cm comet image detach vc2 vm-vc2-<span class="o">[</span>0-4<span class="o">]</span></span>
 </pre><p>Please note image attaching/detaching will only take effect after you hard reboot
 the node (power off and then power on).</p>
 </div>
