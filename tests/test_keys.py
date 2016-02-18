@@ -275,7 +275,7 @@ class Test_keys:
 
         HEADING()
         result = run("cm key add --name=testkey ~/.ssh/id_rsa.pub")
-        result = run("cm key delete --all --force=True")
+        result = run("cm key delete --all --force")
         print (result)
         assert "OK." in result
 
