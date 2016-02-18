@@ -68,9 +68,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 Console.ok("{:} ok".format(msg))
             else:
                 Console.error("{:} failed".format(msg))
-            return ""
 
-        elif arguments["list"]:
+        if arguments["list"]:
             # if no arguments read default
             tenant = arguments["--tenant"] or Default.get("tenant")
 

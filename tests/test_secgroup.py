@@ -49,7 +49,8 @@ class Test_secgroup:
         command = "cm secgroup create --cloud={cloud} --tenant={tenant} " \
                   "test-group"
         result = run(command.format(**self.data))
-        assert "Created a new security group [test-group]" in result
+        assert "ok" in result
+        assert "test-group" in result
         return
 
     def test_002(self):
@@ -57,7 +58,7 @@ class Test_secgroup:
         HEADING()
         command = "cm secgroup list --cloud={cloud} --tenant={tenant}"
         result = run(command.format(**self.data))
-        assert "default" in result
+        assert "ok" in result
 
         return
 
