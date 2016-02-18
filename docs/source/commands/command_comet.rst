@@ -310,3 +310,77 @@ You can also rename a compute node:
 .. prompt:: bash
 
     cm comet node rename vc2 vm-vc2-0 mynode0
+
+How to get a virtual cluster?
+------------------------------
+
+1. Obtain an allocation via XSEDE as documented at https://www.xsede.org/allocations
+   To get started quickly we recommend a trial allocation for comet as
+   discussed here: https://portal.xsede.org/allocations/announcements#trial
+
+2. Once you have aan allocation and added your virtuall cluster admins to
+   your allocation. Get in contact with XSEDE to identify the scope of your
+   project and allocation size (This may already be specified in the
+   allocation request).
+
+        At this time send e-mail to laszewski@gmail.com and
+        kevinwangfg@gmail.com
+
+        In future we will be using the XSEDE ticket system once it is set up
+        for us
+
+3. At this time the comet team will send you details about the name of your
+   virtual cluster, how many nodes you can use. Once you have this information
+   you can start a virtual cluster immediately.
+
+
+4. Please note that it will be up to you to provide an apropriate iso image.
+   A small number of sample images are provided and you can list tehm with ::
+
+     cm comet image list
+
+5. Next you need to attach an image to your compute nodes (we assume you
+   have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2 ::
+
+        cm image attach imagename.iso vc2 vm-vc2-[0-3]
+
+   Please note that the name of the cluster (vc2) will be different for you
+
+6. Now you can just power on and boot the node with::
+
+    cm comet power on vc2 vm-vc2-[0-3]
+
+7. To see the console of a node you can use for an individual node (here the
+ node 0)::
+
+     cm comet console vc2 vm-vc2-0
+
+Why are the names of the nodes so complicated?
+-----------------------------------------------
+
+And why do i also need to specify the name of the cluster? Can this not be
+omitted?
+
+Comet virtual cluster tools allow a user to manage multiple virtual clusters
+at the same time and a node could be reassigned between virtual clusters.
+This makes it necessary that you must specify the virtual cluster explicitly.
+The names of the nodes are a default provided by comet and we expect that
+for easier management you will at one point rename them while using the
+comet rename command to a naming scheme that you desire.
+
+For example assume my virtual cluster is called osg than you may want to
+rename your nodes such as::
+
+    cm comet node rename osg vm-osg-0 osg-0
+    cm comet node rename osg vm-osg-1 osg-1
+    ...
+
+This wil than result in a cluster where the frontend name is osg (given to
+you by the comet team), but you have renamed the nodes to osg-1, osg-2, ...
+
+How do I get support?
+----------------------
+
+At this time simply send mail to laszewski@gmail.com and kevinwangfg@gmail.com.
+We will get back to you ASAP hopefully within one business day.
+
