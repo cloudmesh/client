@@ -326,17 +326,27 @@ Or to a compute node:
 
     cm comet image attach newimagename.iso vc2 vm-vc2-0
 
-To detach the attached iso image:
+To detach the attached iso image from frontend node:
 
 .. prompt:: bash
 
     cm comet image detach vc2
 
-Or
+Or from a compute node:
 
 .. prompt:: bash
 
     cm comet image detach vc2 vm-vc2-0
+
+Image attaching/detaching also works on compute nodes in bulk:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc2 vm-vc2-[0-4]
+
+.. prompt:: bash
+
+    cm comet image detach vc2 vm-vc2-[0-4]
 
 Please note image attaching/detaching will only take effect after you hard reboot 
 the node (power off and then power on).
