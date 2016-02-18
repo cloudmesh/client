@@ -413,6 +413,9 @@ class CometCommand(PluginCommand, CometPluginCommand):
                oldnames = Parameter.expand(arguments["OLDNAME"])
                newnames = Parameter.expand(arguments["NEWNAME"])
 
+               # check if new names ar not already taken
+               # to be implemented
+               
                if len(oldnames) == len(newnames):
                    for i in range(0,len(oldnames)):
                        oldname = oldnames[i]
