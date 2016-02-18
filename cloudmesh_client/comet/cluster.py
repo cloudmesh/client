@@ -546,11 +546,11 @@ class Cluster(object):
         return ret
 
     @staticmethod
-    def detach_iso(clusterid, nodeid=None):
-        return Cluster.attach_iso('', clusterid, nodeid)
+    def detach_iso(clusterid, nodeids=None, action='Detaching'):
+        return Cluster.attach_iso('', clusterid, nodeids, action='Detaching')
 
     @staticmethod
-    def attach_iso(isoname, clusterid, nodeid=None):
+    def attach_iso(isoname, clusterid, nodeids=None, action='Attaching'):
         ret = ''
         # print ("Attaching ISO image")
         # print ("isoname: %s" % isoname)
@@ -560,27 +560,38 @@ class Cluster(object):
         if isoname != '':
             isoname = "public/{}".format(isoname)
 
-        # attaching to front end
-        if nodeid:
-            url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}")\
-                            .format(clusterid, nodeid, isoname)
+        urls = {}
+        # attaching to compute node
+        if nodeids:
+            nodeids = hostlist.expand_hostlist(nodeids)
+            for nodeid in nodeids:
+                url = Comet.url("cluster/{}/compute/{}/attach_iso?iso_name={}")\
+                                .format(clusterid, nodeid, isoname)
+                urls["Node {}".format(nodeid)] = url
         else:
-            # attaching to node
+            # attaching to fronend node
             url = Comet.url("cluster/{}/frontend/attach_iso?iso_name={}")\
                             .format(clusterid, isoname)
+            urls['Frontend'] = url
         #data = {"iso_name": "%s" % isoname}
         # print ("url: %s" % url)
         #print ("data: %s" % data)
-        r = Comet.put(url)
-        # print (r)
-        if r is not None:
-            if '' != r.strip():
-                ret = r
+        tofrom = {}
+        tofrom['Attaching'] = 'to'
+        tofrom['Detaching'] = 'from'
+        for node, url in urls.iteritems():
+            r = Comet.put(url)
+            # print (r)
+            if r is not None:
+                if '' != r.strip():
+                    ret += r
+                else:
+                    ret += "Requeset Accepted. {} the image {} {} of cluster {}\n"\
+                            .format(action, tofrom[action], node, clusterid)
             else:
-                ret = "Requeset Accepted."
-        else:
-            ret = "There seems something wrong during attaching the image!"\
-                  "Please check the command and try again"
+                ret += "Something wrong during {} the image {} {} of cluster {}!"\
+                       "Please check the command and try again\n"\
+                       .format(action, tofrom[action], node, clusterid)
         return ret
 
     @staticmethod
