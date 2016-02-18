@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 
@@ -180,158 +180,158 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<span class="c1"># noinspection PyBroadException</span>
+<span class="c"># noinspection PyBroadException</span>
 <div class="viewcode-block" id="BatchProviderSLURM"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM">[docs]</a><span class="k">class</span> <span class="nc">BatchProviderSLURM</span><span class="p">(</span><span class="n">BatchProviderBase</span><span class="p">):</span>
-    <span class="n">kind</span> <span class="o">=</span> <span class="s2">&quot;slurm&quot;</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="s">&quot;slurm&quot;</span>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.queue"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">job</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM.queue"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="n">job</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">args</span> <span class="o">=</span> <span class="s1">&#39;squeue &#39;</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;squeue &#39;</span>
             <span class="k">if</span> <span class="n">job</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
-                    <span class="n">args</span> <span class="o">+=</span> <span class="s1">&#39; -j {} &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>  <span class="c1"># search by job id</span>
+                    <span class="n">args</span> <span class="o">+=</span> <span class="s">&#39; -j {} &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">job</span><span class="p">))</span>  <span class="c"># search by job id</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">args</span> <span class="o">+=</span> <span class="s1">&#39; -n {} &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>  <span class="c1"># search by job name</span>
-            <span class="n">f</span> <span class="o">=</span> <span class="s1">&#39;--format=%all&#39;</span>
+                    <span class="n">args</span> <span class="o">+=</span> <span class="s">&#39; -n {} &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>  <span class="c"># search by job name</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="s">&#39;--format=%all&#39;</span>
             <span class="n">args</span> <span class="o">+=</span> <span class="n">f</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
 
-            <span class="c1"># TODO: process till header is found...(Need a better way)</span>
+            <span class="c"># TODO: process till header is found...(Need a better way)</span>
             <span class="n">l</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
-                <span class="k">if</span> <span class="s1">&#39;ACCOUNT|GRES|&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
+                <span class="k">if</span> <span class="s">&#39;ACCOUNT|GRES|&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
                     <span class="k">break</span>
 
             <span class="n">parser</span> <span class="o">=</span> <span class="n">TableParser</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-            <span class="c1"># add cluster and updated to each entry</span>
+            <span class="c"># add cluster and updated to each entry</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s">&#39;updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
-                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&#39;json&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;: &#39;</span><span class="p">))</span>
 
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                     <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;jobid&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;partition&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;name&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;user&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;st&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;time&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;nodes&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;nodelist&#39;</span><span class="p">,</span>
-                                            <span class="s1">&#39;updated&#39;</span><span class="p">],</span>
+                                     <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;cluster&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;jobid&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;partition&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;name&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;user&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;st&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;time&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;nodes&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;nodelist&#39;</span><span class="p">,</span>
+                                            <span class="s">&#39;updated&#39;</span><span class="p">],</span>
                                      <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ex</span></div>
-
+            <span class="k">return</span> <span class="n">ex</span>
+</div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="BatchProviderSLURM.info"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="BatchProviderSLURM.info"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;json&#39;</span><span class="p">,</span> <span class="nb">all</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="nb">all</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="s1">&#39;sinfo --format=</span><span class="se">\&quot;</span><span class="s1">%all</span><span class="se">\&quot;</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="s">&#39;sinfo --format=</span><span class="se">\&quot;</span><span class="s">%all</span><span class="se">\&quot;</span><span class="s">&#39;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span>
                 <span class="n">cluster</span><span class="p">,</span>
-                <span class="s1">&#39;sinfo --format=</span><span class="se">\&quot;</span><span class="s1">%P|%a|%l|%D|%t|%N</span><span class="se">\&quot;</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="s">&#39;sinfo --format=</span><span class="se">\&quot;</span><span class="s">%P|%a|%l|%D|%t|%N</span><span class="se">\&quot;</span><span class="s">&#39;</span><span class="p">)</span>
 
-        <span class="c1"># ignore leading lines till header is found</span>
+        <span class="c"># ignore leading lines till header is found</span>
         <span class="n">l</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
-            <span class="k">if</span> <span class="s1">&#39;PARTITION|AVAIL|&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
+            <span class="k">if</span> <span class="s">&#39;PARTITION|AVAIL|&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span>
                 <span class="k">break</span>
 
         <span class="n">parser</span> <span class="o">=</span> <span class="n">TableParser</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="c1"># add cluster and updated to each entry</span>
+        <span class="c"># add cluster and updated to each entry</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span>
-            <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s1">&#39;updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2"> %H:%M:%S&quot;</span><span class="p">)</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span>
+            <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="s">&#39;updated&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%Y-%m-</span><span class="si">%d</span><span class="s"> %H:%M:%S&quot;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;: &#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&#39;json&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s">&#39;,&#39;</span><span class="p">,</span> <span class="s">&#39;: &#39;</span><span class="p">))</span>
 
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                 <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;partition&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;avail&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;timelimit&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;nodes&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;state&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;nodelist&#39;</span><span class="p">,</span>
-                                        <span class="s1">&#39;updated&#39;</span><span class="p">],</span>
-                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span></div>
-
+                                 <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;cluster&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;partition&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;avail&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;timelimit&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;nodes&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;state&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;nodelist&#39;</span><span class="p">,</span>
+                                        <span class="s">&#39;updated&#39;</span><span class="p">],</span>
+                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderSLURM.test"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">time</span><span class="p">):</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span>
-                           <span class="s2">&quot;srun -n1 -t {} echo &#39;#CLOUDMESH: Test ok&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                           <span class="s">&quot;srun -n1 -t {} echo &#39;#CLOUDMESH: Test ok&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                                <span class="n">time</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">result</span></div>
-
+        <span class="k">return</span> <span class="n">result</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderSLURM.run"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">cmd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="c1"># determine the script name..</span>
+        <span class="c"># determine the script name..</span>
 
-        <span class="c1">#</span>
-        <span class="c1"># TODO: script count is variable in data base, we test if fil exists and if it</span>
-        <span class="c1"># does increase counter till we find one that does not, that will be new counter.</span>
-        <span class="c1"># new counter will than be placed in db.</span>
-        <span class="c1">#</span>
-        <span class="c1"># define get_script_name(directory, prefix, counter)</span>
-        <span class="c1"># there maybe s a similar thing already in the old cloudmesh</span>
-        <span class="c1">#</span>
+        <span class="c">#</span>
+        <span class="c"># TODO: script count is variable in data base, we test if fil exists and if it</span>
+        <span class="c"># does increase counter till we find one that does not, that will be new counter.</span>
+        <span class="c"># new counter will than be placed in db.</span>
+        <span class="c">#</span>
+        <span class="c"># define get_script_name(directory, prefix, counter)</span>
+        <span class="c"># there maybe s a similar thing already in the old cloudmesh</span>
+        <span class="c">#</span>
 
-        <span class="c1"># if not kwargs[&#39;-name&#39;]:</span>
-        <span class="c1">#</span>
-        <span class="c1">#    old_count = Shell.ssh(cluster,</span>
-        <span class="c1">#                          &quot;ls {}*.sh | wc -l | sed &#39;s/$/ count/&#39;&quot;.</span>
-        <span class="c1">#                          format(username))</span>
-        <span class="c1">#    c = [f for f in old_count.splitlines() if &#39;count&#39; in f]</span>
-        <span class="c1">#    script_count = c[0].split()[0]</span>
-        <span class="c1"># else:</span>
-        <span class="c1">#    script_count = kwargs[&#39;-name&#39;]</span>
+        <span class="c"># if not kwargs[&#39;-name&#39;]:</span>
+        <span class="c">#</span>
+        <span class="c">#    old_count = Shell.ssh(cluster,</span>
+        <span class="c">#                          &quot;ls {}*.sh | wc -l | sed &#39;s/$/ count/&#39;&quot;.</span>
+        <span class="c">#                          format(username))</span>
+        <span class="c">#    c = [f for f in old_count.splitlines() if &#39;count&#39; in f]</span>
+        <span class="c">#    script_count = c[0].split()[0]</span>
+        <span class="c"># else:</span>
+        <span class="c">#    script_count = kwargs[&#39;-name&#39;]</span>
 
         <span class="n">config</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">read_config</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;TBD&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;Please enter username in cloudmesh.yaml for cluster {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;credentials&quot;</span><span class="p">][</span><span class="s">&quot;username&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;TBD&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">&quot;Please enter username in cloudmesh.yaml for cluster {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
 
         <span class="n">cls</span><span class="o">.</span><span class="n">incr</span><span class="p">()</span>
         <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;cluster&quot;</span><span class="p">:</span> <span class="n">cluster</span><span class="p">,</span>
-            <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">counter</span><span class="p">(),</span>
-            <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;remote_experiment_dir&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;experiment_dir&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;queue&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;default&quot;</span><span class="p">][</span><span class="s2">&quot;queue&quot;</span><span class="p">],</span>
-            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-            <span class="s2">&quot;nodes&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="s2">&quot;tasks_per_node&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">&quot;cluster&quot;</span><span class="p">:</span> <span class="n">cluster</span><span class="p">,</span>
+            <span class="s">&quot;count&quot;</span><span class="p">:</span> <span class="n">cls</span><span class="o">.</span><span class="n">counter</span><span class="p">(),</span>
+            <span class="s">&quot;username&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;credentials&quot;</span><span class="p">][</span><span class="s">&quot;username&quot;</span><span class="p">],</span>
+            <span class="s">&quot;remote_experiment_dir&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;default&quot;</span><span class="p">][</span><span class="s">&quot;experiment_dir&quot;</span><span class="p">],</span>
+            <span class="s">&quot;queue&quot;</span><span class="p">:</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;default&quot;</span><span class="p">][</span><span class="s">&quot;queue&quot;</span><span class="p">],</span>
+            <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+            <span class="s">&quot;nodes&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="s">&quot;tasks_per_node&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="p">}</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;script_base_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{username}-{count}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;script_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{username}-{count}.sh&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;script_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{username}-{count}.out&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;script_error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;{username}-{count}.err&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;remote_experiment_dir&quot;</span><span class="p">]</span> <span class="o">=</span> \
-            <span class="s2">&quot;{remote_experiment_dir}/{count}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;script_base_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;{username}-{count}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;script_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;{username}-{count}.sh&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;script_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;{username}-{count}.out&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;script_error&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;{username}-{count}.err&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;remote_experiment_dir&quot;</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="s">&quot;{remote_experiment_dir}/{count}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;group&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">group</span>
 
-        <span class="c1"># overwrite defaults</span>
-        <span class="n">option_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;-t&#39;</span><span class="p">:</span> <span class="s1">&#39;{tasks_per_node}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                          <span class="s1">&#39;-N&#39;</span><span class="p">:</span> <span class="s1">&#39;{nodes}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                          <span class="s1">&#39;-p&#39;</span><span class="p">:</span> <span class="s1">&#39;{queue}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                          <span class="s1">&#39;-o&#39;</span><span class="p">:</span> <span class="s1">&#39;{script_output}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                          <span class="s1">&#39;-D&#39;</span><span class="p">:</span> <span class="s1">&#39;{remote_experiment_dir}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
-                          <span class="s1">&#39;-e&#39;</span><span class="p">:</span> <span class="s1">&#39;{script_error}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)}</span>
+        <span class="c"># overwrite defaults</span>
+        <span class="n">option_mapping</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;-t&#39;</span><span class="p">:</span> <span class="s">&#39;{tasks_per_node}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                          <span class="s">&#39;-N&#39;</span><span class="p">:</span> <span class="s">&#39;{nodes}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                          <span class="s">&#39;-p&#39;</span><span class="p">:</span> <span class="s">&#39;{queue}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                          <span class="s">&#39;-o&#39;</span><span class="p">:</span> <span class="s">&#39;{script_output}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                          <span class="s">&#39;-D&#39;</span><span class="p">:</span> <span class="s">&#39;{remote_experiment_dir}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">),</span>
+                          <span class="s">&#39;-e&#39;</span><span class="p">:</span> <span class="s">&#39;{script_error}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)}</span>
 
         <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
             <span class="n">option_mapping</span><span class="o">.</span><span class="n">__setitem__</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">or</span> <span class="n">v</span><span class="p">),</span>
@@ -340,35 +340,35 @@
         <span class="n">config</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">read_config</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
         <span class="n">project</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">project</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;credentials&quot;</span><span class="p">][</span><span class="s2">&quot;project&quot;</span><span class="p">]</span>
-            <span class="k">if</span> <span class="n">project</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;tbd&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">]:</span>
-                <span class="n">option_mapping</span><span class="p">[</span><span class="s2">&quot;-A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project</span>
+            <span class="n">project</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;credentials&quot;</span><span class="p">][</span><span class="s">&quot;project&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">project</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;tbd&quot;</span><span class="p">,</span> <span class="s">&quot;none&quot;</span><span class="p">]:</span>
+                <span class="n">option_mapping</span><span class="p">[</span><span class="s">&quot;-A&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
 
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">option_mapping</span><span class="p">:</span>
             <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">option_mapping</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
-        <span class="c1"># create the options for the script</span>
-        <span class="n">options</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c"># create the options for the script</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">option_mapping</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
-            <span class="n">options</span> <span class="o">+=</span> <span class="s1">&#39;#SBATCH {} {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">options</span> <span class="o">+=</span> <span class="s">&#39;#SBATCH {} {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
-        <span class="n">cls</span><span class="o">.</span><span class="n">create_remote_dir</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;remote_experiment_dir&quot;</span><span class="p">])</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">create_remote_dir</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s">&quot;remote_experiment_dir&quot;</span><span class="p">])</span>
 
-        <span class="c1"># if the command is a script, copy the script</span>
+        <span class="c"># if the command is a script, copy the script</span>
         <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">cmd</span><span class="p">)):</span>
             <span class="n">_from</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-            <span class="n">_to</span> <span class="o">=</span> <span class="s1">&#39;{cluster}:{remote_experiment_dir}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">_to</span> <span class="o">=</span> <span class="s">&#39;{cluster}:{remote_experiment_dir}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 
-            <span class="n">local_file_name</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;rsync&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">])</span>
-            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{remote_experiment_dir}/{local_file_name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_file_name</span><span class="o">=</span><span class="n">local_file_name</span><span class="p">,</span>
+            <span class="n">local_file_name</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;rsync&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">])</span>
+            <span class="n">data</span><span class="p">[</span><span class="s">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{remote_experiment_dir}/{local_file_name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">local_file_name</span><span class="o">=</span><span class="n">local_file_name</span><span class="p">,</span>
                                                                                  <span class="o">**</span><span class="n">data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">data</span><span class="p">[</span><span class="s2">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span>
+            <span class="n">data</span><span class="p">[</span><span class="s">&quot;command&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span>
 
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;options&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span>
 
         <span class="n">script</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span>
             <span class="sd">&quot;&quot;&quot;</span>
@@ -403,59 +403,59 @@
 <span class="sd">            d=$(date)</span>
 <span class="sd">            echo \&quot;#CLOUDMESH: status, finished, $d\&quot;</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\r\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 
-        <span class="n">_from</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s1">&#39;~/.cloudmesh/{script_name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
-        <span class="n">_to</span> <span class="o">=</span> <span class="s1">&#39;{cluster}:{remote_experiment_dir}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_from</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">script</span>
-        <span class="c1"># write the script to local</span>
+        <span class="n">_from</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s">&#39;~/.cloudmesh/{script_name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
+        <span class="n">_to</span> <span class="o">=</span> <span class="s">&#39;{cluster}:{remote_experiment_dir}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;from&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_from</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;to&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_to</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;script&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">script</span>
+        <span class="c"># write the script to local</span>
 
-        <span class="c1"># print(_from)</span>
-        <span class="c1"># print(_to)</span>
+        <span class="c"># print(_from)</span>
+        <span class="c"># print(_to)</span>
 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">local_file</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">local_file</span><span class="p">:</span>
             <span class="n">local_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">script</span><span class="p">)</span>
 
-        <span class="c1"># copy to remote host</span>
+        <span class="c"># copy to remote host</span>
         <span class="n">Shell</span><span class="o">.</span><span class="n">scp</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">)</span>
 
-        <span class="c1"># delete local file</span>
-        <span class="c1"># Shell.execute(&#39;rm&#39;, _from)</span>
-        <span class="c1"># import sys; sys.exit()</span>
+        <span class="c"># delete local file</span>
+        <span class="c"># Shell.execute(&#39;rm&#39;, _from)</span>
+        <span class="c"># import sys; sys.exit()</span>
 
-        <span class="c1"># run the sbatch command</span>
+        <span class="c"># run the sbatch command</span>
 
-        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;sbatch {remote_experiment_dir}/{script_name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;cmd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="s">&#39;sbatch {remote_experiment_dir}/{script_name}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;cmd&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cmd</span>
 
-        <span class="c1"># print (&quot;CMD&gt;&quot;, cmd)</span>
+        <span class="c"># print (&quot;CMD&gt;&quot;, cmd)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
 
-        <span class="n">data</span><span class="p">[</span><span class="s2">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&quot;output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
 
-        <span class="c1"># find id</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
-            <span class="c1"># print (&quot;LLL&gt;&quot;, line)</span>
-            <span class="k">if</span> <span class="s2">&quot;Submitted batch job&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">data</span><span class="p">[</span><span class="s2">&quot;job_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Submitted batch job &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+        <span class="c"># find id</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">):</span>
+            <span class="c"># print (&quot;LLL&gt;&quot;, line)</span>
+            <span class="k">if</span> <span class="s">&quot;Submitted batch job&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s">&quot;job_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;Submitted batch job &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
                 <span class="k">break</span>
 
-        <span class="c1">#</span>
-        <span class="c1"># HACK, should not depend on Model.py</span>
-        <span class="c1">#</span>
+        <span class="c">#</span>
+        <span class="c"># HACK, should not depend on Model.py</span>
+        <span class="c">#</span>
 
-        <span class="c1"># from cloudmesh_client.db.model import BATCHJOB</span>
-        <span class="c1"># name = &quot;&quot;</span>
-        <span class="c1"># BATCHJOB(name,</span>
-        <span class="c1">#         cluster=data[&quot;cluster&quot;],</span>
-        <span class="c1">#         id=data[&quot;id&quot;],</span>
-        <span class="c1">#         script=data[&quot;script&quot;]) # has user and username which seems wrong</span>
+        <span class="c"># from cloudmesh_client.db.model import BATCHJOB</span>
+        <span class="c"># name = &quot;&quot;</span>
+        <span class="c"># BATCHJOB(name,</span>
+        <span class="c">#         cluster=data[&quot;cluster&quot;],</span>
+        <span class="c">#         id=data[&quot;id&quot;],</span>
+        <span class="c">#         script=data[&quot;script&quot;]) # has user and username which seems wrong</span>
 
-        <span class="c1"># here what we have in data and want to store the - options are obviously wrong</span>
-        <span class="c1"># and need to be full names</span>
-        <span class="c1"># noinspection PyPep8,PyPep8</span>
+        <span class="c"># here what we have in data and want to store the - options are obviously wrong</span>
+        <span class="c"># and need to be full names</span>
+        <span class="c"># noinspection PyPep8,PyPep8</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">                {&#39;-D&#39;: &#39;/N/u/gvonlasz/experiment/3&#39;,</span>
 <span class="sd">                 &#39;-N&#39;: &#39;1&#39;,</span>
@@ -505,20 +505,20 @@
 <span class="sd">        so maybe we want to use some of the names here as they reflect the env vars</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c1">#</span>
-        <span class="c1"># add data to database</span>
-        <span class="c1">#</span>
-        <span class="c1"># remove the - options</span>
+        <span class="c">#</span>
+        <span class="c"># add data to database</span>
+        <span class="c">#</span>
+        <span class="c"># remove the - options</span>
 
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;-t&#39;</span><span class="p">,</span> <span class="s1">&#39;-N&#39;</span><span class="p">,</span> <span class="s1">&#39;-p&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="s1">&#39;-D&#39;</span><span class="p">,</span> <span class="s1">&#39;-e&#39;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;-t&#39;</span><span class="p">,</span> <span class="s">&#39;-N&#39;</span><span class="p">,</span> <span class="s">&#39;-p&#39;</span><span class="p">,</span> <span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="s">&#39;-D&#39;</span><span class="p">,</span> <span class="s">&#39;-e&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
                 <span class="k">print</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
                 <span class="k">del</span> <span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-        <span class="n">data</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;started&#39;</span>
+        <span class="n">data</span><span class="p">[</span><span class="s">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;started&#39;</span>
         <span class="n">cls</span><span class="o">.</span><span class="n">add_db</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">data</span></div>
-
+        <span class="k">return</span> <span class="n">data</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderSLURM.delete"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -531,55 +531,55 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="c1"># get the job ids from the db</span>
+                <span class="c"># get the job ids from the db</span>
                 <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
-                <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="n">cluster</span><span class="p">,</span>
-                             <span class="s1">&#39;group&#39;</span><span class="p">:</span> <span class="n">group</span><span class="p">}</span>
-                <span class="n">db_jobs</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;batchjob&#39;</span><span class="p">,</span>
+                <span class="n">arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;cluster&#39;</span><span class="p">:</span> <span class="n">cluster</span><span class="p">,</span>
+                             <span class="s">&#39;group&#39;</span><span class="p">:</span> <span class="n">group</span><span class="p">}</span>
+                <span class="n">db_jobs</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s">&#39;batchjob&#39;</span><span class="p">,</span>
                                   <span class="o">**</span><span class="n">arguments</span><span class="p">)</span>
 
                 <span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">db_jobs</span><span class="p">:</span>
-                    <span class="n">list1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">db_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;job_id&#39;</span><span class="p">])</span>
+                    <span class="n">list1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">db_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&#39;job_id&#39;</span><span class="p">])</span>
 
-                <span class="c1"># read active jobs</span>
+                <span class="c"># read active jobs</span>
                 <span class="n">active_jobs</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">queue</span><span class="p">(</span><span class="n">cluster</span><span class="p">))</span>
                 <span class="n">list2</span> <span class="o">=</span> <span class="p">[]</span>
                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">active_jobs</span><span class="p">:</span>
-                    <span class="n">list2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;jobid&#39;</span><span class="p">])</span>
+                    <span class="n">list2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active_jobs</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&#39;jobid&#39;</span><span class="p">])</span>
 
-                <span class="c1"># find intersection</span>
+                <span class="c"># find intersection</span>
                 <span class="n">res</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">list2</span><span class="p">))</span>
 
                 <span class="k">if</span> <span class="n">res</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
-                        <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;scancel {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+                        <span class="n">cmd</span> <span class="o">=</span> <span class="s">&#39;scancel {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
                         <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">cmd</span><span class="p">)</span>
-                        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Deleted {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
+                        <span class="k">print</span><span class="p">(</span><span class="s">&quot;Deleted {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">j</span><span class="p">))</span>
 
-                <span class="k">return</span> <span class="s2">&quot;All jobs for group {} killed successfully&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s">&quot;All jobs for group {} killed successfully&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">args</span> <span class="o">=</span> <span class="s1">&#39;scancel &#39;</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="s">&#39;scancel &#39;</span>
                 <span class="k">if</span> <span class="n">job</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
                     <span class="n">args</span> <span class="o">+=</span> <span class="n">job</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">args</span> <span class="o">+=</span> <span class="s2">&quot;-n {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+                    <span class="n">args</span> <span class="o">+=</span> <span class="s">&quot;-n {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
 
                 <span class="n">Shell</span><span class="o">.</span><span class="n">ssh</span><span class="p">(</span><span class="n">cluster</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;Job {} killed successfully&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s">&quot;Job {} killed successfully&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;in exceptio&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;in exceptio&quot;</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">ex</span></div>
-
+            <span class="k">return</span> <span class="n">ex</span>
+</div>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="BatchProviderSLURM.add_db"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.hpc.provider.slurm.html#cloudmesh_client.cloud.hpc.provider.slurm.BatchProviderSLURM.BatchProviderSLURM.add_db">[docs]</a>    <span class="k">def</span> <span class="nf">add_db</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
-        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;script_name&#39;</span><span class="p">)</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;script_name&#39;</span><span class="p">)</span>
 
-        <span class="n">db_obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;batchjob&quot;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">}}</span>
+        <span class="n">db_obj</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;batchjob&quot;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">}}</span>
         <span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">db_obj</span><span class="p">)</span>
         <span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
 </pre></div>

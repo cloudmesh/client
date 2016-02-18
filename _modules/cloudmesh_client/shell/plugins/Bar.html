@@ -167,19 +167,19 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.Bar</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 
 
 <div class="viewcode-block" id="BarCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.Bar.BarCommand">[docs]</a><span class="k">class</span> <span class="nc">BarCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;example&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;bar&quot;</span><span class="p">:</span> <span class="s">&quot;example&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init Bar&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init Bar&quot;</span><span class="p">)</span>
 
-    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="c"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

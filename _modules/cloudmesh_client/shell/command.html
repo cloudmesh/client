@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.command</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">shlex</span>
 
@@ -175,26 +175,26 @@
 
 
 <div class="viewcode-block" id="PluginCommand"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.PluginCommand">[docs]</a><span class="k">class</span> <span class="nc">PluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
-
+</div>
 <div class="viewcode-block" id="CloudPluginCommand"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CloudPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">CloudPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
-
+</div>
 <div class="viewcode-block" id="ShellPluginCommand"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.ShellPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">ShellPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
-
+</div>
 <div class="viewcode-block" id="HPCPluginCommand"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.HPCPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">HPCPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
-
+</div>
 <div class="viewcode-block" id="CometPluginCommand"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.CometPluginCommand">[docs]</a><span class="k">class</span> <span class="nc">CometPluginCommand</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">pass</span></div>
+    <span class="k">pass</span>
 
 
-<span class="c1"># noinspection PySingleQuotedDocstring</span>
+<span class="c"># noinspection PySingleQuotedDocstring</span></div>
 <div class="viewcode-block" id="command"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.cm.command">[docs]</a><span class="k">def</span> <span class="nf">command</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    A decorator to create a function with docopt arguments.</span>
@@ -218,18 +218,18 @@
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">classname</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getouterframes</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">())[</span><span class="mi">1</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">__name__</span>
-    <span class="n">help_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;do_&quot;</span><span class="p">,</span> <span class="s2">&quot;help_&quot;</span><span class="p">)</span>
+    <span class="n">help_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;do_&quot;</span><span class="p">,</span> <span class="s">&quot;help_&quot;</span><span class="p">)</span>
     <span class="n">doc</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__doc__</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
-        <span class="c1"># instance.new.__doc__ = doc</span>
+        <span class="c"># instance.new.__doc__ = doc</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">argv</span> <span class="o">=</span> <span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
             <span class="n">arguments</span> <span class="o">=</span> <span class="n">docopt</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span>
             <span class="n">func</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">SystemExit</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">args</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">):</span>
-                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Could not execute the command.&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">args</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;-h&#39;</span><span class="p">,</span> <span class="s">&#39;--help&#39;</span><span class="p">):</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">&quot;Could not execute the command.&quot;</span><span class="p">)</span>
                 <span class="k">print</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
 

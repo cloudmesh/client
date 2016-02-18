@@ -223,7 +223,7 @@ read a yaml file in order, make changes to it and write it back</p>
 </li>
 <li><p class="first">use nosetests for testing your programs</p>
 <p>An example is provided in <code class="docutils literal"><span class="pre">tests/test_sample.py</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>nosetests -v --nocapture tests/test_sample.py
+<div class="highlight-python"><div class="highlight"><pre>nosetests -v --nocapture tests/test_sample.py
 </pre></div>
 </div>
 <p>you can copy this to <code class="docutils literal"><span class="pre">tests/test_yourfile.py</span></code> and then replace in
@@ -240,7 +240,7 @@ make them not inefficient.</p>
 changelogs automatically.  Thus you need to use a prefix in any
 commit. It includes the type and the user for which the commit is
 relevant.  Examples are:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>chg: usr:    simple changes relevant for users (spelling, ...)
+<div class="highlight-python"><div class="highlight"><pre>chg: usr:    simple changes relevant for users (spelling, ...)
 fix: usr:    major changes for users
 new: usr:    new feature for users
 
@@ -275,7 +275,7 @@ span.prompt1:before {
 <h4>Tox<a class="headerlink" href="#tox" title="Permalink to this headline">¶</a></h4>
 <p>We assume that you checked out the newest version from cloudmesh client
 and base from source and that they are located in:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/github/cloudmesh/base
+<div class="highlight-python"><div class="highlight"><pre>~/github/cloudmesh/base
 ~/github/cloudmesh/client
 </pre></div>
 </div>
@@ -341,10 +341,10 @@ Laszewski.</p>
 </pre></div>
 <div class="section" id="logging">
 <h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="kn">import</span> <span class="n">LogUtil</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="kn">import</span> <span class="n">LogUtil</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">LogUtil</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
-<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cloud: &quot;</span> <span class="o">+</span> <span class="n">cloud</span> <span class="o">+</span> <span class="s2">&quot;, Arguments: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Cloud: &quot;</span> <span class="o">+</span> <span class="n">cloud</span> <span class="o">+</span> <span class="s">&quot;, Arguments: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>

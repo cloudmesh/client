@@ -207,7 +207,7 @@
 <h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
 <p>The refresh command would update the local database with the latest images.
 To refresh images of a cloud (in this example, kilo), do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$cm image refresh --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre>$cm image refresh --cloud=kilo
 Refresh image for cloud kilo. ok.
 </pre></div>
 </div>
@@ -215,7 +215,7 @@ Refresh image for cloud kilo. ok.
 <div class="section" id="list">
 <h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <p>To list the set of images of a cloud, do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$cm image list --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre>$cm image list --cloud=kilo
 +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
 | id | size          | created              | description                  | minDisk | minRam | name                                    | progress | status | updated              |
 +----+---------------+----------------------+------------------------------+---------+--------+-----------------------------------------+----------+--------+----------------------+
@@ -230,7 +230,7 @@ Refresh image for cloud kilo. ok.
 <h2>List Details<a class="headerlink" href="#list-details" title="Permalink to this headline">¶</a></h2>
 <p>To list the details of an image, give in the id, uuid or name of the image. In case latest information is needed,
 the &#8211;refresh option can be used which would update the local database:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$cm image list 12 --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre>$cm image list 12 --cloud=kilo
 +--------------------------------------+--------------------------------------+
 | Attribute                            | Value                                |
 +--------------------------------------+--------------------------------------+

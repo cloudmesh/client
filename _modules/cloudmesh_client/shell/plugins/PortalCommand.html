@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.PortalCommand</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
@@ -176,20 +176,20 @@
 
 
 <div class="viewcode-block" id="PortalCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.PortalCommand.PortalCommand">[docs]</a><span class="k">class</span> <span class="nc">PortalCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;portal&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;portal&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command portal&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command portal&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PortalCommand.get_conf"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.PortalCommand.PortalCommand.get_conf">[docs]</a>    <span class="k">def</span> <span class="nf">get_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.portal&quot;</span><span class="p">])</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;cloudmesh.portal&quot;</span><span class="p">])</span>
         <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">data</span></div>
+        <span class="k">return</span> <span class="n">data</span>
 
-    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="c"># noinspection PyUnusedLocal</span></div>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_portal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -207,33 +207,32 @@
 <span class="sd">                    stops the portal</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_conf</span><span class="p">()</span>
-            <span class="n">commands</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                cd {location}; make run &amp;</span>
-<span class="s2">                cd {location}; make view &amp;</span>
-<span class="s2">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">                cd {location}; make run &amp;</span>
+<span class="s">                cd {location}; make view &amp;</span>
+<span class="s">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="n">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_conf</span><span class="p">()</span>
-            <span class="n">commands</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">                cd {location}; make run</span>
-<span class="s2">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="s">                cd {location}; make run</span>
+<span class="s">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="n">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;stop&quot;</span><span class="p">]:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
-
-</pre></div>
+        <span class="k">return</span> <span class="s">&quot;&quot;</span>
+</pre></div></div>
 
            </div>
           </div>

@@ -167,12 +167,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.FlatDict</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">import</span> <span class="nn">collections</span>
 
 
-<div class="viewcode-block" id="key_prefix_replace"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.key_prefix_replace">[docs]</a><span class="k">def</span> <span class="nf">key_prefix_replace</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">new_prefix</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="key_prefix_replace"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.key_prefix_replace">[docs]</a><span class="k">def</span> <span class="nf">key_prefix_replace</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">new_prefix</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    replaces the list of prefix in keys of a flattened dict</span>
 
@@ -188,10 +188,10 @@
         <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prefix</span><span class="p">:</span>
             <span class="n">new_key</span> <span class="o">=</span> <span class="n">new_key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">new_prefix</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_key</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 
-
-<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">parent_key</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;__&#39;</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="flatten"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.flatten">[docs]</a><span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">parent_key</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&#39;__&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    flattens the dict into a one dimensional dictionary</span>
 
@@ -200,7 +200,7 @@
 <span class="sd">    :param sep: the separation character used when fattening. the default is __</span>
 <span class="sd">    :return: the flattened dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># http://stackoverflow.com/questions/6027558/flatten-nested-python-dictionaries-compressing-keys</span>
+    <span class="c"># http://stackoverflow.com/questions/6027558/flatten-nested-python-dictionaries-compressing-keys</span>
     <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">new_key</span> <span class="o">=</span> <span class="n">parent_key</span> <span class="o">+</span> <span class="n">sep</span> <span class="o">+</span> <span class="n">k</span> <span class="k">if</span> <span class="n">parent_key</span> <span class="k">else</span> <span class="n">k</span>
@@ -208,9 +208,9 @@
             <span class="n">items</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">flatten</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">new_key</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">new_key</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
 
-
+</div>
 <div class="viewcode-block" id="FlatDict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict">[docs]</a><span class="k">class</span> <span class="nc">FlatDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A data structure to manage a flattened dict. It is initialized by passing the dict</span>
@@ -243,11 +243,11 @@
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
 <div class="viewcode-block" id="FlatDict.keys"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</div>
 <div class="viewcode-block" id="FlatDict.values"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.values">[docs]</a>    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+</div>
     <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">cmp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">)</span>
 
@@ -255,8 +255,8 @@
         <span class="k">return</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span>
 
 <div class="viewcode-block" id="FlatDict.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.FlatDict.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</div>
     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
 
@@ -264,67 +264,67 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span>
 
     <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
 
-
+</div>
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.FlatDict.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="n">d</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;cm_cloud&#39;</span><span class="p">:</span> <span class="s1">&#39;kilo&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;cm_update&#39;</span><span class="p">:</span> <span class="s1">&#39;2015-06-18 22:11:48 UTC&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;cm_user&#39;</span><span class="p">:</span> <span class="s1">&#39;gregor&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;created&#39;</span><span class="p">:</span> <span class="s1">&#39;2015-05-21T20:37:10Z&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;base_image_ref&#39;</span><span class="p">:</span> <span class="s1">&#39;398746398798372493287&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                               <span class="s1">&#39;image_location&#39;</span><span class="p">:</span> <span class="s1">&#39;snapshot&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;image_state&#39;</span><span class="p">:</span> <span class="s1">&#39;available&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;image_type&#39;</span><span class="p">:</span> <span class="s1">&#39;snapshot&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_ephemeral_gb&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_flavorid&#39;</span><span class="p">:</span> <span class="s1">&#39;3&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_id&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_memory_mb&#39;</span><span class="p">:</span> <span class="s1">&#39;4096&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_name&#39;</span><span class="p">:</span> <span class="s1">&#39;m1.medium&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_root_gb&#39;</span><span class="p">:</span> <span class="s1">&#39;40&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_rxtx_factor&#39;</span><span class="p">:</span> <span class="s1">&#39;1.0&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_swap&#39;</span><span class="p">:</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_type_vcpus&#39;</span><span class="p">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;instance_uuid&#39;</span><span class="p">:</span> <span class="s1">&#39;386473678463876387&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;kernel_id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                               <span class="s1">&#39;network_allocated&#39;</span><span class="p">:</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;owner_id&#39;</span><span class="p">:</span> <span class="s1">&#39;36487264932876984723649&#39;</span><span class="p">,</span>
-                               <span class="s1">&#39;ramdisk_id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                               <span class="s1">&#39;user_id&#39;</span><span class="p">:</span> <span class="s1">&#39;762387463827463278649837&#39;</span><span class="p">},</span>
-                  <span class="s1">&#39;minDisk&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
-                  <span class="s1">&#39;minRam&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                  <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-                  <span class="s1">&#39;serverId&#39;</span><span class="p">:</span> <span class="s1">&#39;yiuksajhlkjahl&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;ACTIVE&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;updated&#39;</span><span class="p">:</span> <span class="s1">&#39;2015-05-27T02:11:48Z&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;39276498376478936247832687&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;VM with Cloudmesh Configured Completely&#39;</span>
+        <span class="s">&#39;cm_cloud&#39;</span><span class="p">:</span> <span class="s">&#39;kilo&#39;</span><span class="p">,</span>
+        <span class="s">&#39;cm_update&#39;</span><span class="p">:</span> <span class="s">&#39;2015-06-18 22:11:48 UTC&#39;</span><span class="p">,</span>
+        <span class="s">&#39;cm_user&#39;</span><span class="p">:</span> <span class="s">&#39;gregor&#39;</span><span class="p">,</span>
+        <span class="s">&#39;extra&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;created&#39;</span><span class="p">:</span> <span class="s">&#39;2015-05-21T20:37:10Z&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;base_image_ref&#39;</span><span class="p">:</span> <span class="s">&#39;398746398798372493287&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;description&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                               <span class="s">&#39;image_location&#39;</span><span class="p">:</span> <span class="s">&#39;snapshot&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;image_state&#39;</span><span class="p">:</span> <span class="s">&#39;available&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;image_type&#39;</span><span class="p">:</span> <span class="s">&#39;snapshot&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_ephemeral_gb&#39;</span><span class="p">:</span> <span class="s">&#39;0&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_flavorid&#39;</span><span class="p">:</span> <span class="s">&#39;3&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_id&#39;</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_memory_mb&#39;</span><span class="p">:</span> <span class="s">&#39;4096&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_name&#39;</span><span class="p">:</span> <span class="s">&#39;m1.medium&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_root_gb&#39;</span><span class="p">:</span> <span class="s">&#39;40&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_rxtx_factor&#39;</span><span class="p">:</span> <span class="s">&#39;1.0&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_swap&#39;</span><span class="p">:</span> <span class="s">&#39;0&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_type_vcpus&#39;</span><span class="p">:</span> <span class="s">&#39;2&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;instance_uuid&#39;</span><span class="p">:</span> <span class="s">&#39;386473678463876387&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;kernel_id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                               <span class="s">&#39;network_allocated&#39;</span><span class="p">:</span> <span class="s">&#39;True&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;owner_id&#39;</span><span class="p">:</span> <span class="s">&#39;36487264932876984723649&#39;</span><span class="p">,</span>
+                               <span class="s">&#39;ramdisk_id&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                               <span class="s">&#39;user_id&#39;</span><span class="p">:</span> <span class="s">&#39;762387463827463278649837&#39;</span><span class="p">},</span>
+                  <span class="s">&#39;minDisk&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+                  <span class="s">&#39;minRam&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                  <span class="s">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+                  <span class="s">&#39;serverId&#39;</span><span class="p">:</span> <span class="s">&#39;yiuksajhlkjahl&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;status&#39;</span><span class="p">:</span> <span class="s">&#39;ACTIVE&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;updated&#39;</span><span class="p">:</span> <span class="s">&#39;2015-05-27T02:11:48Z&#39;</span><span class="p">},</span>
+        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;39276498376478936247832687&#39;</span><span class="p">,</span>
+        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;VM with Cloudmesh Configured Completely&#39;</span>
     <span class="p">}</span>
 
     <span class="n">vm</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s1">&#39;extra&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;access_ip&#39;</span><span class="p">:</span> <span class="s1">u&#39;&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;availability_zone&#39;</span><span class="p">:</span> <span class="s1">&#39;nova&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;config_drive&#39;</span><span class="p">:</span> <span class="s1">u&#39;&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;created&#39;</span><span class="p">:</span> <span class="s1">&#39;2015-06-19T00:06:58Z&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;disk_config&#39;</span><span class="p">:</span> <span class="s1">&#39;MANUAL&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;flavorId&#39;</span><span class="p">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;hostId&#39;</span><span class="p">:</span> <span class="s1">u&#39;&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;imageId&#39;</span><span class="p">:</span> <span class="s1">&#39;abcd&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;key_name&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                  <span class="s1">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{},</span>
-                  <span class="s1">&#39;password&#39;</span><span class="p">:</span> <span class="s1">&#39;********&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;tenantId&#39;</span><span class="p">:</span> <span class="s1">&#39;1234&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;updated&#39;</span><span class="p">:</span> <span class="s1">&#39;2015-06-19T00:06:58Z&#39;</span><span class="p">,</span>
-                  <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;http://i5r.idp.iu.futuregrid.org/v2/1234/servers/abcd&#39;</span><span class="p">},</span>
-        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;67f6bsf67a6b&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-        <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;gregor-cm_test&#39;</span><span class="p">,</span>
-        <span class="s1">&#39;private_ips&#39;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s1">&#39;public_ips&#39;</span><span class="p">:</span> <span class="p">[],</span>
-        <span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="mi">3</span>
+        <span class="s">&#39;extra&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;access_ip&#39;</span><span class="p">:</span> <span class="s">u&#39;&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;availability_zone&#39;</span><span class="p">:</span> <span class="s">&#39;nova&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;config_drive&#39;</span><span class="p">:</span> <span class="s">u&#39;&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;created&#39;</span><span class="p">:</span> <span class="s">&#39;2015-06-19T00:06:58Z&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;disk_config&#39;</span><span class="p">:</span> <span class="s">&#39;MANUAL&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;flavorId&#39;</span><span class="p">:</span> <span class="s">&#39;1&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;hostId&#39;</span><span class="p">:</span> <span class="s">u&#39;&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;imageId&#39;</span><span class="p">:</span> <span class="s">&#39;abcd&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;key_name&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                  <span class="s">&#39;metadata&#39;</span><span class="p">:</span> <span class="p">{},</span>
+                  <span class="s">&#39;password&#39;</span><span class="p">:</span> <span class="s">&#39;********&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;tenantId&#39;</span><span class="p">:</span> <span class="s">&#39;1234&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;updated&#39;</span><span class="p">:</span> <span class="s">&#39;2015-06-19T00:06:58Z&#39;</span><span class="p">,</span>
+                  <span class="s">&#39;uri&#39;</span><span class="p">:</span> <span class="s">&#39;http://i5r.idp.iu.futuregrid.org/v2/1234/servers/abcd&#39;</span><span class="p">},</span>
+        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="s">&#39;67f6bsf67a6b&#39;</span><span class="p">,</span>
+        <span class="s">&#39;image&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;gregor-cm_test&#39;</span><span class="p">,</span>
+        <span class="s">&#39;private_ips&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s">&#39;public_ips&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s">&#39;size&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="s">&#39;state&#39;</span><span class="p">:</span> <span class="mi">3</span>
     <span class="p">}</span>
 
     <span class="n">pprint</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
@@ -333,23 +333,23 @@
     <span class="n">f</span> <span class="o">=</span> <span class="n">FlatDict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">dict</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;cm_user&#39;</span><span class="p">])</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s1">&#39;extra__created&#39;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s">&#39;cm_user&#39;</span><span class="p">])</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="s">&#39;extra__created&#39;</span><span class="p">])</span>
 
     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">cm_user</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">extra__created</span><span class="p">)</span>
 
-    <span class="n">f</span><span class="o">.</span><span class="n">cm_user</span> <span class="o">=</span> <span class="s1">&#39;GREGOR&#39;</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">cm_user</span><span class="p">)</span></div>
+    <span class="n">f</span><span class="o">.</span><span class="n">cm_user</span> <span class="o">=</span> <span class="s">&#39;GREGOR&#39;</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">cm_user</span><span class="p">)</span>
 
-    <span class="c1"># pprint(OpenStack_libcloud.flatten_image(d))</span>
+    <span class="c"># pprint(OpenStack_libcloud.flatten_image(d))</span>
 
-    <span class="c1"># pprint(flatten(vm))</span>
+    <span class="c"># pprint(flatten(vm))</span>
 
-    <span class="c1"># pprint(OpenStack_libcloud.flatten_vm(vm))</span>
+    <span class="c"># pprint(OpenStack_libcloud.flatten_vm(vm))</span>
 
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 

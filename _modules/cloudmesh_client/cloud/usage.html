@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.usage</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI</span> <span class="kn">import</span> \
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI</span> <span class="kn">import</span> \
     <span class="n">set_os_environ</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
@@ -176,66 +176,66 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.nova</span> <span class="kn">import</span> <span class="n">Nova</span>
 
 
-<span class="c1"># Note: This command is currently implemented using the nova command as we</span>
-<span class="c1"># have not yet found how to print it from the api. We may want to do a rest</span>
-<span class="c1"># call instead?</span>
+<span class="c"># Note: This command is currently implemented using the nova command as we</span>
+<span class="c"># have not yet found how to print it from the api. We may want to do a rest</span>
+<span class="c"># call instead?</span>
 
 <div class="viewcode-block" id="Usage"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.usage.Usage">[docs]</a><span class="k">class</span> <span class="nc">Usage</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Usage.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.usage.Usage.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tenant</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
-        <span class="c1"># set the environment variables</span>
+<div class="viewcode-block" id="Usage.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.usage.Usage.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tenant</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">):</span>
+        <span class="c"># set the environment variables</span>
         <span class="n">set_os_environ</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># execute the command</span>
-            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;usage&quot;</span><span class="p">]</span>
+            <span class="c"># execute the command</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;usage&quot;</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;--start&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">])</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">&quot;--start&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">end</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;--end&quot;</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">&quot;--end&quot;</span><span class="p">,</span> <span class="n">end</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">tenant</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s2">&quot;--tenant&quot;</span><span class="p">,</span> <span class="n">tenant</span><span class="p">])</span>
+                <span class="n">args</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s">&quot;--tenant&quot;</span><span class="p">,</span> <span class="n">tenant</span><span class="p">])</span>
 
-            <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;nova&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;nova&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">Nova</span><span class="o">.</span><span class="n">remove_subjectAltName_warning</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
             <span class="n">lines</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
             <span class="n">dates</span> <span class="o">=</span> <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="c1"># TODO: as stated below, nova returns additional lines,</span>
-            <span class="c1"># on my pc, SecurityWarning is returned, so filtering..</span>
+            <span class="c"># TODO: as stated below, nova returns additional lines,</span>
+            <span class="c"># on my pc, SecurityWarning is returned, so filtering..</span>
 
             <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">__contains__</span><span class="p">(</span><span class="s2">&quot;SecurityWarning&quot;</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">l</span><span class="o">.</span><span class="n">__contains__</span><span class="p">(</span><span class="s">&quot;SecurityWarning&quot;</span><span class="p">):</span>
                     <span class="n">lines</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
 
-            <span class="n">table</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
 
-            <span class="n">dates</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Usage from &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;to&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; +&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">dates</span> <span class="o">=</span> <span class="n">dates</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;Usage from &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;to&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; +&quot;</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
-            <span class="c1">#</span>
-            <span class="c1"># TODO: for some reason the nova command has returned not the</span>
-            <span class="c1"># first + char, so we could not ignore the line we may set - as</span>
-            <span class="c1"># additional comment char, but that did not work</span>
-            <span class="c1">#</span>
+            <span class="c">#</span>
+            <span class="c"># TODO: for some reason the nova command has returned not the</span>
+            <span class="c"># first + char, so we could not ignore the line we may set - as</span>
+            <span class="c"># additional comment char, but that did not work</span>
+            <span class="c">#</span>
 
-            <span class="n">d</span> <span class="o">=</span> <span class="n">TableParser</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">comment_chars</span><span class="o">=</span><span class="s2">&quot;+#&quot;</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">TableParser</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">comment_chars</span><span class="o">=</span><span class="s">&quot;+#&quot;</span><span class="p">)</span>
 
-            <span class="c1"># d[&quot;0&quot;][&quot;start&quot;] = &quot;start&quot;</span>
-            <span class="c1"># d[&quot;0&quot;][&quot;end&quot;] = &quot;end&quot;</span>
+            <span class="c"># d[&quot;0&quot;][&quot;start&quot;] = &quot;start&quot;</span>
+            <span class="c"># d[&quot;0&quot;][&quot;end&quot;] = &quot;end&quot;</span>
 
-            <span class="n">d</span><span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">][</span><span class="s2">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">d</span><span class="p">[</span><span class="s2">&quot;0&quot;</span><span class="p">][</span><span class="s2">&quot;end&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="s">&quot;0&quot;</span><span class="p">][</span><span class="s">&quot;start&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">d</span><span class="p">[</span><span class="s">&quot;0&quot;</span><span class="p">][</span><span class="s">&quot;end&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dates</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-            <span class="c1"># del d[&#39;0&#39;]</span>
+            <span class="c"># del d[&#39;0&#39;]</span>
 
             <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
-                                <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span>
-                                       <span class="s2">&quot;end&quot;</span><span class="p">,</span>
-                                       <span class="s2">&quot;servers&quot;</span><span class="p">,</span>
-                                       <span class="s2">&quot;cpu hours&quot;</span><span class="p">,</span>
-                                       <span class="s2">&quot;ram mb-hours&quot;</span><span class="p">,</span>
-                                       <span class="s2">&quot;disk gb-hours&quot;</span><span class="p">],</span>
+                                <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">,</span>
+                                       <span class="s">&quot;end&quot;</span><span class="p">,</span>
+                                       <span class="s">&quot;servers&quot;</span><span class="p">,</span>
+                                       <span class="s">&quot;cpu hours&quot;</span><span class="p">,</span>
+                                       <span class="s">&quot;ram mb-hours&quot;</span><span class="p">,</span>
+                                       <span class="s">&quot;disk gb-hours&quot;</span><span class="p">],</span>
                                 <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>

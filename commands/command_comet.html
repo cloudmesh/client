@@ -103,7 +103,14 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#hpc-commands">HPC Commands</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="index.html#comet-commands">Comet Commands</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="">Comet Virtual Cluster</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#comet-client">Comet Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#links">Links</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#teminology">Teminology</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#commands">Commands</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-to-get-a-virtual-cluster">How to get a virtual cluster?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#why-are-the-names-of-the-nodes-so-complicated">Why are the names of the nodes so complicated?</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#how-do-i-get-support">How do I get support?</a></li>
 </ul>
 </li>
 </ul>
@@ -185,6 +192,8 @@
             
   <div class="section" id="comet-virtual-cluster">
 <span id="comet-command"></span><h1>Comet Virtual Cluster<a class="headerlink" href="#comet-virtual-cluster" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>Via XSEDE comet allows users to request high-performance virtual
 clusters (VCs) as part of their Comet allocation. The VC front-end
 associated with this award will be available 24/7 on the virtual
@@ -224,8 +233,9 @@ following:</p>
 <li>What expertise does the PI&#8217;s team have for building and maintaining the VC?</li>
 </ul>
 <p>Please visit <a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a> for more details on comet.</p>
-<div class="section" id="comet-client">
-<h2>Comet Client<a class="headerlink" href="#comet-client" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
 <p>Example CLI usage to manage comet virtual cluster using cloudmesh
 client</p>
 <ul class="simple">
@@ -234,13 +244,12 @@ client</p>
 <li>Man page <a class="reference external" href="../man/man.html#comet">comet</a></li>
 <li><a class="reference external" href="http://www.sdsc.edu/support/user_guides/comet.html">http://www.sdsc.edu/support/user_guides/comet.html</a></li>
 <li><a class="reference external" href="https://portal.xsede.org/sdsc-comet">https://portal.xsede.org/sdsc-comet</a></li>
+<li>Comet nucleus API Docs: <a class="reference external" href="https://comet-nucleus.sdsc.edu/nucleus/docs/">https://comet-nucleus.sdsc.edu/nucleus/docs/</a></li>
 </ul>
+</div>
 <div class="section" id="teminology">
-<h3>Teminology<a class="headerlink" href="#teminology" title="Permalink to this headline">¶</a></h3>
-<p>We use in this section the following terminology:
-Iteration #2...</p>
-<p>On Feb 17, 2016, at 1:27 PM, Mishin, Dmitry &lt;<a class="reference external" href="mailto:dmishin&#37;&#52;&#48;sdsc&#46;edu">dmishin<span>&#64;</span>sdsc<span>&#46;</span>edu</a>&gt; wrote:</p>
-<p>This is my understanding, Trevor please feel free to fix this</p>
+<h2>Teminology<a class="headerlink" href="#teminology" title="Permalink to this headline">¶</a></h2>
+<p>We use in this section the following terminology:</p>
 <dl class="docutils">
 <dt>computeset:</dt>
 <dd>A group of compute nodes started together and being in some state
@@ -273,20 +282,20 @@ of the image are made unavailable to the node on the next power on.</dd>
 </dl>
 </div>
 <div class="section" id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <p>The configuration of the cloudmesh client is done semi automatically for you.
 All you have to do after the installation is to call cloudmesh client once.</p>
 <p>This is done best with the command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>cm help
+<div class="highlight-python"><div class="highlight"><pre>cm help
 </pre></div>
 </div>
 <p>This will automatically generate a configuration file at:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml.
+<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml.
 </pre></div>
 </div>
 <p>This file you can now modify with your favourite editor. It will contain a
 default section similar to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>comet:
+<div class="highlight-python"><div class="highlight"><pre>comet:
     auth_provider: apikey
     userpass:
         username: TBD
@@ -300,6 +309,13 @@ default section similar to:</p>
 get in contact with the comet administrators to let you know which one is best
 suited for you. If you have username and password you can get started with
 that. Otherwise the comet admins will assign you an api_key and secret.</p>
+</div>
+<div class="section" id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
+<p>Next we list a number of important commands from the CLI that will help you
+managing your comet virtual clusters.</p>
+<div class="section" id="getting-information-of-your-cluster-s-nodes-computesets-etc">
+<h3>Getting information of your cluster(s); nodes; computesets; etc.<a class="headerlink" href="#getting-information-of-your-cluster-s-nodes-computesets-etc" title="Permalink to this headline">¶</a></h3>
 <p>List all clusters owned by the authenticated identity (summarized
 format):</p>
 <pre class="highlight"><style type="text/css">
@@ -310,66 +326,167 @@ span.prompt1:before {
 </pre><p>List all clusters owned by the authenticated identity (detailed
 list):</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster</span>
-</pre><p>List a cluster by name:</p>
+</pre><p>List a cluster by name (we use here vc2 as example):</p>
 <pre class="highlight"><span class="prompt1">cm comet cluster vc2</span>
 </pre><p>List all defined computesets:</p>
 <pre class="highlight"><span class="prompt1">cm comet computeset</span>
 </pre><p>List one computeset:</p>
 <pre class="highlight"><span class="prompt1">cm comet computeset 63</span>
-</pre><p>Power on a set of compute nodes in cluster vc4:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span></span>
+</pre></div>
+<div class="section" id="power-management-of-frontend-node">
+<h3>Power management of frontend node:<a class="headerlink" href="#power-management-of-frontend-node" title="Permalink to this headline">¶</a></h3>
+<p>Power on the front end node of the specified cluster:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2</span>
+</pre><p>To power if off:</p>
+<pre class="highlight"><span class="prompt1">cm comet power off vc2</span>
+</pre><p>You can also reboot/reset/shutdown the fronend using the same
+syntax, e.g., to reboot:</p>
+<pre class="highlight"><span class="prompt1">cm comet power reboot vc2</span>
+</pre></div>
+<div class="section" id="power-management-of-compute-nodes">
+<h3>Power management of compute nodes:<a class="headerlink" href="#power-management-of-compute-nodes" title="Permalink to this headline">¶</a></h3>
+<p>Power on a set of compute nodes in cluster vc2:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span></span>
 </pre><p>This will request the nodes for a default period of time - 2 hours.</p>
 <p>To request for a longer time period, use &#8211;walltime parameter.
 E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span> --walltime<span class="o">=</span>6h</span>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span> --walltime<span class="o">=</span>6h</span>
 </pre><p>The above will put the request under the one allocation associated with the cluster.
 If your cluster have more than one allocations, use &#8211;allocation
 parameter:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span> --allocation<span class="o">=</span>YOUR_ALLOCATION</span>
 </pre><p>If you have more allocations, but does not specify via CLI, you will see a list of
 allocations to choose from to use.</p>
 <p>You can also power on N arbitrary nodes, if there is enough resource:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 --count<span class="o">=</span>4</span>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 --count<span class="o">=</span>4</span>
 </pre><p>The comet system will find 4 available nodes from the specified cluster and start them
 as one computeset.</p>
 <p>You can power off and back on individual nodes of an active
 computeset. E.g.:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc4 vm-vc4-<span class="o">[</span>0,1<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet power off vc2 vm-vc2-<span class="o">[</span>0,1<span class="o">]</span></span>
 </pre><p>and then:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-0</span>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-0</span>
 </pre><p>Or power off the whole computeset by specifying the computeset id:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc4 123</span>
+<pre class="highlight"><span class="prompt1">cm comet power off vc2 123</span>
 </pre><p>or by specifying the hosts:</p>
-<pre class="highlight"><span class="prompt1">cm comet power off vc4 vm-vc4-<span class="o">[</span>0-3<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet power off vc2 vm-vc2-<span class="o">[</span>0-3<span class="o">]</span></span>
 </pre><p>Please note if you powered off all nodes from an active computeset, the computeset
 itself will be removed as well (changed to &#8216;completed&#8217; status)</p>
 <p>You can also power on one single node as a computeset:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-<span class="o">[</span>7<span class="o">]</span></span>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-<span class="o">[</span>7<span class="o">]</span></span>
 </pre><p>or simply:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4 vm-vc4-7</span>
-</pre><p>Power on the front end node of the specified cluster:</p>
-<pre class="highlight"><span class="prompt1">cm comet power on vc4</span>
-</pre><p>Get console of a running node:</p>
-<pre class="highlight"><span class="prompt1">cm comet console vc4 vm-vc4-0</span>
-</pre><p>Get console of the front end:</p>
-<pre class="highlight"><span class="prompt1">cm comet console vc4</span>
-</pre><p>Get the list of images that are available to you:</p>
+<pre class="highlight"><span class="prompt1">cm comet power on vc2 vm-vc2-7</span>
+</pre></div>
+<div class="section" id="getting-console-access">
+<h3>Getting Console access<a class="headerlink" href="#getting-console-access" title="Permalink to this headline">¶</a></h3>
+<p>Get console of the frontend:</p>
+<pre class="highlight"><span class="prompt1">cm comet console vc2</span>
+</pre><p>Get console of a running compute node:</p>
+<pre class="highlight"><span class="prompt1">cm comet console vc2 vm-vc2-0</span>
+</pre><p>This will open a browser window using the system default browser
+to display the console (in Mac OS X); or a firefox window (in Linux).
+If no compatible browser found, it will print out a URL so you can
+access it via other means.</p>
+</div>
+<div class="section" id="system-image-management">
+<h3>System image management<a class="headerlink" href="#system-image-management" title="Permalink to this headline">¶</a></h3>
+<p>Get the list of images that are available to you:</p>
 <pre class="highlight"><span class="prompt1">cm comet image list</span>
 </pre><p>Upload an image to the public shared folder:</p>
 <pre class="highlight"><span class="prompt1">cm comet image upload /path/to/your/image.iso</span>
 </pre><p>Or with a specified new image name:</p>
 <pre class="highlight"><span class="prompt1">cm comet image upload /path/to/your/image.iso --imagename<span class="o">=</span>newimagename.iso</span>
-</pre><p>Attach an image to a compute node:</p>
-<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc4 vm-vc4-0</span>
-</pre><p>Or to the front end:</p>
-<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc4</span>
-</pre><p>To detach an iso:</p>
-<pre class="highlight"><span class="prompt1">cm comet image detach vc4 vm-vc4-0</span>
+</pre><p>Attach an image to the frontend:</p>
+<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2</span>
+</pre><p>Or to a compute node:</p>
+<pre class="highlight"><span class="prompt1">cm comet image attach newimagename.iso vc2 vm-vc2-0</span>
+</pre><p>To detach the attached iso image:</p>
+<pre class="highlight"><span class="prompt1">cm comet image detach vc2</span>
+</pre><p>Or</p>
+<pre class="highlight"><span class="prompt1">cm comet image detach vc2 vm-vc2-0</span>
 </pre><p>Please note image attaching/detaching will only take effect after you hard reboot
 the node (power off and then power on).</p>
+</div>
+<div class="section" id="other-commands">
+<h3>Other commands:<a class="headerlink" href="#other-commands" title="Permalink to this headline">¶</a></h3>
 <p>You can also rename a compute node:</p>
-<pre class="highlight"><span class="prompt1">cm comet node rename vc4 vm-vc4-0 mynode0</span>
+<pre class="highlight"><span class="prompt1">cm comet node rename vc2 vm-vc2-0 mynode0</span>
 </pre></div>
+</div>
+<div class="section" id="how-to-get-a-virtual-cluster">
+<h2>How to get a virtual cluster?<a class="headerlink" href="#how-to-get-a-virtual-cluster" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Obtain an allocation via XSEDE as documented at <a class="reference external" href="https://www.xsede.org/allocations">https://www.xsede.org/allocations</a>
+To get started quickly we recommend a trial allocation for comet as
+discussed here: <a class="reference external" href="https://portal.xsede.org/allocations/announcements#trial">https://portal.xsede.org/allocations/announcements#trial</a></p>
+</li>
+<li><p class="first">Once you have aan allocation and added your virtuall cluster admins to
+your allocation. Get in contact with XSEDE to identify the scope of your
+project and allocation size (This may already be specified in the
+allocation request).</p>
+<blockquote>
+<div><p>At this time send e-mail to laszewski AT gmail DOT com and
+kevinwangfg AT gmail DOT com</p>
+<p>In future we will be using the XSEDE ticket system once it is set up
+for us</p>
+</div></blockquote>
+</li>
+<li><p class="first">At this time the comet team will send you details about the name of your
+virtual cluster, how many nodes you can use. Once you have this information
+you can start a virtual cluster immediately.</p>
+</li>
+<li><p class="first">Please note that it will be up to you to provide an apropriate iso image.
+A small number of sample images are provided and you can list tehm with</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet image list
+</pre></div>
+</div>
+</li>
+<li><p class="first">Next you need to attach an image to your compute nodes (we assume you
+have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2</p>
+<div class="highlight-python"><div class="highlight"><pre>cm image attach imagename.iso vc2 vm-vc2-[0-3]
+</pre></div>
+</div>
+<p>Please note that the name of the cluster (vc2) will be different for you</p>
+</li>
+<li><p class="first">Now you can just power on and boot the node with:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc2 vm-vc2-[0-3]
+</pre></div>
+</div>
+</li>
+<li><p class="first">To see the console of a node you can use for an individual node (here the</p>
+</li>
+</ol>
+<blockquote>
+<div><p>node 0):</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet console vc2 vm-vc2-0
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="why-are-the-names-of-the-nodes-so-complicated">
+<h2>Why are the names of the nodes so complicated?<a class="headerlink" href="#why-are-the-names-of-the-nodes-so-complicated" title="Permalink to this headline">¶</a></h2>
+<p>And why do i also need to specify the name of the cluster? Can this not be
+omitted?</p>
+<p>Comet virtual cluster tools allow a user to manage multiple virtual clusters
+at the same time and a node could be reassigned between virtual clusters.
+This makes it necessary that you must specify the virtual cluster explicitly.
+The names of the nodes are a default provided by comet and we expect that
+for easier management you will at one point rename them while using the
+comet rename command to a naming scheme that you desire.</p>
+<p>For example assume my virtual cluster is called osg than you may want to
+rename your nodes such as:</p>
+<div class="highlight-python"><div class="highlight"><pre>cm comet node rename osg vm-osg-0 osg-0
+cm comet node rename osg vm-osg-1 osg-1
+...
+</pre></div>
+</div>
+<p>This wil than result in a cluster where the frontend name is osg (given to
+you by the comet team), but you have renamed the nodes to osg-1, osg-2, ...</p>
+</div>
+<div class="section" id="how-do-i-get-support">
+<h2>How do I get support?<a class="headerlink" href="#how-do-i-get-support" title="Permalink to this headline">¶</a></h2>
+<p>At this time simply send mail to laszewski AT gmail DOT com and kevinwangfg AT gmail DOT com.
+We will get back to you ASAP hopefully within one business day.</p>
 </div>
 </div>
 

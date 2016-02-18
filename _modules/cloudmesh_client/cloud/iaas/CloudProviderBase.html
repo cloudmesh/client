@@ -167,20 +167,20 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.iaas.CloudProviderBase</h1><div class="highlight"><pre>
-<span></span><span class="c1"># from cloudmesh_client.hostlist import Parameter</span>
+<span class="c"># from cloudmesh_client.hostlist import Parameter</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
-<span class="c1"># from abc import ABCMeta</span>
+<span class="c"># from abc import ABCMeta</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span><span class="p">,</span> <span class="n">attribute_printer</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 
 
-<span class="c1"># noinspection PyBroadException,PyUnreachableCode,PyUnusedLocal</span>
+<span class="c"># noinspection PyBroadException,PyUnreachableCode,PyUnusedLocal</span>
 <div class="viewcode-block" id="CloudProviderBase"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="c1">#    __metaclass__ = ABCMeta</span>
+    <span class="c">#    __metaclass__ = ABCMeta</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s2">&quot;db&quot;</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;quota&quot;</span><span class="p">,</span> <span class="s2">&quot;limits&quot;</span><span class="p">,</span> <span class="s2">&quot;usage&quot;</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="s">&quot;db&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="s">&quot;vm&quot;</span><span class="p">,</span> <span class="s">&quot;quota&quot;</span><span class="p">,</span> <span class="s">&quot;limits&quot;</span><span class="p">,</span> <span class="s">&quot;usage&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flavors</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
@@ -207,8 +207,8 @@
             <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Kind &quot;</span> <span class="o">+</span> <span class="n">kind</span> <span class="o">+</span> <span class="s2">&quot; not supported&quot;</span><span class="p">)</span></div>
-
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Kind &quot;</span> <span class="o">+</span> <span class="n">kind</span> <span class="o">+</span> <span class="s">&quot; not supported&quot;</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.set_source"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.set_source">[docs]</a>    <span class="k">def</span> <span class="nf">set_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the source for the information to be returned. &quot;db&quot; and</span>
@@ -217,36 +217,36 @@
 <span class="sd">        the database can be bypassed in mode &quot;cloud&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;memory&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Memory source ot implemented yet.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;memory&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Memory source ot implemented yet.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span>
 
-    <span class="c1"># #########################</span>
-    <span class="c1"># KIND MANAGEMENT</span>
-    <span class="c1"># #########################</span>
-
+    <span class="c"># #########################</span>
+    <span class="c"># KIND MANAGEMENT</span>
+    <span class="c"># #########################</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.kinds"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.kinds">[docs]</a>    <span class="k">def</span> <span class="nf">kinds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns a list of supported list and detail kinds</span>
 <span class="sd">        :return: list of kinds supported</span>
 <span class="sd">        :rtype: list</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.is_kind"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.is_kind">[docs]</a>    <span class="k">def</span> <span class="nf">is_kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns tru if the kind given by name exists</span>
 <span class="sd">        :param name:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span></div>
-
+        <span class="k">return</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.add_kind"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.add_kind">[docs]</a>    <span class="k">def</span> <span class="nf">add_kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.del_kind"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.del_kind">[docs]</a>    <span class="k">def</span> <span class="nf">del_kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.check_kind"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.check_kind">[docs]</a>    <span class="k">def</span> <span class="nf">check_kind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns tru if the kind given by name exists</span>
@@ -254,12 +254,12 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_kind</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Kind &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;not supported&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Kind &quot;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;not supported&quot;</span><span class="p">)</span>
 
-    <span class="c1"># #########################</span>
-    <span class="c1"># RESOURCE</span>
-    <span class="c1"># #########################</span>
-
+    <span class="c"># #########################</span>
+    <span class="c"># RESOURCE</span>
+    <span class="c"># #########################</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.resource"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.resource">[docs]</a>    <span class="k">def</span> <span class="nf">resource</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the objects in json format</span>
@@ -272,9 +272,9 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">check_kind</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
-        <span class="n">what</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="n">kind</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">what</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
+        <span class="n">what</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span> <span class="o">+</span> <span class="s">&quot;_&quot;</span> <span class="o">+</span> <span class="n">kind</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">what</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.list"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the objects in json format</span>
@@ -286,27 +286,27 @@
 <span class="sd">        Listing of vm instances</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># print (kwargs)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;list&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
+        <span class="c"># print (kwargs)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s">&quot;list&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.get"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listing of vm instances</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;get&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s">&quot;get&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.refresh"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listing of vm instances</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s2">&quot;refresh&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resource</span><span class="p">(</span><span class="s">&quot;refresh&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="c1"># #########################</span>
-    <span class="c1"># VMS</span>
-    <span class="c1"># #########################</span>
-
+    <span class="c"># #########################</span>
+    <span class="c"># VMS</span>
+    <span class="c"># #########################</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.boot_vm"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">flavor</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">secgroup</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="n">nics</span><span class="p">,</span>
                 <span class="o">*</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -321,9 +321,9 @@
 <span class="sd">        :param meta:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;: Not implemented yet.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;: Not implemented yet.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.list_vm"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the objects in json format</span>
@@ -335,9 +335,9 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.get_vm"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.get_vm">[docs]</a>    <span class="k">def</span> <span class="nf">get_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the objects in json format</span>
@@ -349,18 +349,18 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.refresh_vm"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.refresh_vm">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listing of vm instances</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.delete"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes the vm indicated by name_or_id on target cloud.</span>
@@ -370,9 +370,9 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.get_ips"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.get_ips">[docs]</a>    <span class="k">def</span> <span class="nf">get_ips</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name_or_id</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the ip addresses of the instance indicated by name_or_id</span>
@@ -382,13 +382,13 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span></div>
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span>
 
-    <span class="c1"># #########################</span>
-    <span class="c1"># IMAGE</span>
-    <span class="c1"># #########################</span>
-
+    <span class="c"># #########################</span>
+    <span class="c"># IMAGE</span>
+    <span class="c"># #########################</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.list_image"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_image">[docs]</a>    <span class="k">def</span> <span class="nf">list_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the objects in json format</span>
@@ -400,31 +400,31 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.get_image"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.get_image">[docs]</a>    <span class="k">def</span> <span class="nf">get_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the image based on a query</span>
 <span class="sd">        TODO: details TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.refresh_image"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.refresh_image">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listing of vm instances</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span></div>
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span>
 
-    <span class="c1"># #########################</span>
-    <span class="c1"># FLAVOR</span>
-    <span class="c1"># #########################</span>
-
+    <span class="c"># #########################</span>
+    <span class="c"># FLAVOR</span>
+    <span class="c"># #########################</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.list_flavor"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">list_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the objects in json format</span>
@@ -436,28 +436,28 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.get_flavor"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.get_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">get_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        finds the flavor based on a query</span>
 <span class="sd">        TODO: details TBD</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span></div>
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span>
 
-    <span class="c1"># noinspection PyUnusedLocal</span>
+    <span class="c"># noinspection PyUnusedLocal</span></div>
 <div class="viewcode-block" id="CloudProviderBase.refresh_flavor"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.refresh_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="n">identifier</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Listing of vm instances</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.add_key_to_cloud"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">public_key</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds key to cloud for given public key.</span>
@@ -470,9 +470,9 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
 <div class="viewcode-block" id="CloudProviderBase.delete_key_from_cloud"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.delete_key_from_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">delete_key_from_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Deletes key from cloud for given name.</span>
@@ -484,19 +484,19 @@
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-            <span class="s2">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
-        <span class="k">return</span> <span class="bp">None</span></div>
-
-<div class="viewcode-block" id="CloudProviderBase.details"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.details">[docs]</a>    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+            <span class="s">&quot;{}: Not implemented yet.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">stack</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">3</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="bp">None</span>
+</div>
+<div class="viewcode-block" id="CloudProviderBase.details"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.details">[docs]</a>    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">cloudmesh_client.db.CloudmeshDatabase</span> <span class="kn">import</span> <span class="n">CloudmeshDatabase</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>
 
             <span class="k">if</span> <span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kind</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;{} not defined&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;{} not defined&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
 
             <span class="n">elements</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">for</span> <span class="n">idkey</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;uuid&quot;</span><span class="p">,</span> <span class="s2">&quot;id&quot;</span><span class="p">]:</span>
+            <span class="k">for</span> <span class="n">idkey</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;uuid&quot;</span><span class="p">,</span> <span class="s">&quot;id&quot;</span><span class="p">]:</span>
                 <span class="n">s</span> <span class="o">=</span> <span class="p">{</span><span class="n">idkey</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">elements</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">cloud</span><span class="p">,</span> <span class="o">**</span><span class="n">s</span><span class="p">)</span>
@@ -508,7 +508,7 @@
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">elements</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">None</span>
 
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;table&quot;</span><span class="p">:</span>
                 <span class="n">element</span> <span class="o">=</span> <span class="n">elements</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">return</span> <span class="n">attribute_printer</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>

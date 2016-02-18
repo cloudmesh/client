@@ -303,19 +303,23 @@
 </tr>
 <tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet ll</div>
+<div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Summary list of clusters owned by the authenticated identity</div>
+<div class="line">Summary list of clusters owned by the authenticated</div>
+<div class="line">identity</div>
 </div>
 </td>
 </tr>
 <tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet cluster</div>
+<div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Detailed list of clusters owned by the authenticated identity</div>
+<div class="line">Detailed list of clusters owned by the authenticated</div>
+<div class="line">identity</div>
 </div>
 </td>
 </tr>
@@ -324,7 +328,7 @@
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">List a cluster by name</div>
+<div class="line">List a cluster by name (vc2)</div>
 </div>
 </td>
 </tr>
@@ -339,36 +343,71 @@
 </tr>
 <tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet computeset 63</div>
+<div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">List one computeset</div>
+<div class="line">Display one computeset by specifying the computeset</div>
+<div class="line">id (63)</div>
 </div>
 </td>
 </tr>
 <tr class="row-odd"><td><div class="first last line-block">
-<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
+<div class="line">cm comet power on vc4</div>
+<div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Power on a set of compute nodes in cluster vc4</div>
+<div class="line">Power on the frontend node of the specified cluster</div>
+<div class="line">(vc4)</div>
 </div>
 </td>
 </tr>
 <tr class="row-even"><td><div class="first last line-block">
-<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
-<div class="line-block">
-<div class="line">&#8211;walltime=6h</div>
-</div>
+<div class="line">cm comet power off vc4</div>
+<div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Power on a set of compute nodes in cluster vc4 for a given</div>
-<div class="line">walltime</div>
+<div class="line">Power off the frontend node of the specified cluster</div>
+<div class="line">(vc4)</div>
 </div>
 </td>
 </tr>
 <tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on a set of compute nodes in one cluster (vc4)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 &#8211;count=4</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on N (4) arbitrary node in one cluster (vc4)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
+<div class="line-block">
+<div class="line">&#8211;walltime=6h</div>
+<div class="line"><br /></div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on a set of compute nodes in a cluster (vc4)</div>
+<div class="line">for a givenwalltime (30m, 3h, 2d, 1w, for 30 minutes,</div>
+<div class="line">3 hours, 2 days, 1 week, respectively)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
 <div class="line-block">
 <div class="line">&#8211;allocation=YOUR_ALLOCATION</div>
@@ -381,56 +420,58 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power off vc4 vm-vc4-[0,1]</div>
+<div class="line">cm comet power on vc4 vm-vc4-0</div>
 <div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
 <div class="line">You can power off and back on individual nodes of</div>
-<div class="line">an active computeset</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><div class="first last line-block">
-<div class="line">cm comet power on vc4 vm-vc4-0</div>
-</div>
-</td>
-<td><div class="first last line-block">
-<div class="line">Power on a compute set</div>
+<div class="line">an active computeset without impacting other nodes</div>
+<div class="line">in the same computeset</div>
 </div>
 </td>
 </tr>
 <tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet power on vc4 vm-vc4-7</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Power on one node as a compute set</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power off vc4 123</div>
 <div class="line"><br /></div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Or power off the whole computeset by specifying the</div>
-<div class="line">computeset id</div>
-</div>
-</td>
-</tr>
-<tr class="row-odd"><td><div class="first last line-block">
-<div class="line">cm comet power on vc4 vm-vc4-7</div>
-</div>
-</td>
-<td><div class="first last line-block">
-<div class="line">You can also power on one individual vm</div>
+<div class="line">power off the whole computeset by specifying the</div>
+<div class="line">cluster name (vc4) and computeset id (123)</div>
 </div>
 </td>
 </tr>
 <tr class="row-even"><td><div class="first last line-block">
-<div class="line">cm comet power on vc4</div>
+<div class="line">cm comet power off vc4 vm-vc4-[0-3]</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Power on the front end node of the specified cluster</div>
+<div class="line">power off the whole computeset by specifying all nodes</div>
 </div>
 </td>
 </tr>
 <tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet console vc4</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Get console of the frontend</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet console vc4 vm-vc4-0</div>
 </div>
 </td>
@@ -439,12 +480,99 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
-<div class="line">cm comet console vc4</div>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet image list</div>
 </div>
 </td>
 <td><div class="first last line-block">
-<div class="line">Get console of the front end</div>
+<div class="line">Get list of images available to you</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet image upload</div>
+<div class="line-block">
+<div class="line">/path/to/your/image.iso</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Upload an image to the shared public directory on</div>
+<div class="line">nucleus server</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet image upload</div>
+<div class="line-block">
+<div class="line">/path/to/your/image.iso</div>
+<div class="line">&#8211;imagename=newimagename.iso</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Upload an image to the shared public directory on</div>
+<div class="line">nucleus server with a new image name</div>
+<div class="line"><br /></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet image attach</div>
+<div class="line-block">
+<div class="line">newimagename.iso vc2</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Attach an image (newimagename.iso) to frontend of</div>
+<div class="line">a cluster (vc2)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet image attach</div>
+<div class="line-block">
+<div class="line">newimagename.iso vc2 vm-vc2-0</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Attach an image to a compute node (vm-vc2-0) for a</div>
+<div class="line">cluster (vc2)</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet image detach vc2</div>
+<div class="line"><br /></div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Detach the attached iso image from frontend of a</div>
+<div class="line">cluster (vc2)</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
+<div class="line">cm comet image detach vc2 vm-vc2-0</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Detach the attached iso image from a compute node</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet node rename vc2</div>
+<div class="line-block">
+<div class="line">vm-vc2-0 mynode0</div>
+</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Rename a compute node (vm-vc2-0) from a cluster (vc2)</div>
+<div class="line">to a new name (mynode0)</div>
 </div>
 </td>
 </tr>
