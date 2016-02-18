@@ -253,7 +253,7 @@
 <code class="descclassname">cloudmesh_client.cloud.hpc.BatchProvider.</code><code class="descname">BatchProvider</code><span class="sig-paren">(</span><em>name</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/hpc/BatchProvider.html#BatchProvider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.hpc.BatchProvider.BatchProvider" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a provider for a given batch system that is defined
 in the cloudmesh.yaml file. Here you find a section such as:</p>
-<div class="highlight-python"><div class="highlight"><pre>hpc:
+<div class="highlight-python"><div class="highlight"><pre><span></span>hpc:
     active:
     - india
     clusters:
@@ -278,7 +278,7 @@ give it a name according to your cluster. Fill out the username,
 and if appropirate define a project, which is the
 account this queue is charged under</p>
 <p>Ussage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">provider</span> <span class="o">=</span> <span class="n">BatchProvider</span><span class="p">(</span><span class="s">&quot;india&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">provider</span> <span class="o">=</span> <span class="n">BatchProvider</span><span class="p">(</span><span class="s2">&quot;india&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Additional functions are defined as it inherits from BatchProviderBase

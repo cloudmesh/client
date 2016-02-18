@@ -190,12 +190,12 @@ with objects that are found in clouds. This includes images, flavors,
 and virtual machines.</p>
 <p>The clouds are defined in ~/.cloudmesh/cloudmesh.yaml</p>
 <p>All you need to do is to create a cm object:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>To update a specific set of cloud object such as the flavors on the
 cloud india you simply can say:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="s">&quot;india&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;india&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Other examples include</p>
@@ -203,7 +203,7 @@ cloud india you simply can say:</p>
 <div>cm.update(&#8220;image&#8221;, &#8220;india&#8221;)
 cm.update(&#8220;vm&#8221;, &#8220;india&#8221;)</div></blockquote>
 <p>Multiple updates and clouds can be introduced with a parametrized call:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s">&quot;vm,flavor,image&quot;</span><span class="p">,</span> <span class="s">&quot;india,aws,azure&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="s2">&quot;vm,flavor,image&quot;</span><span class="p">,</span> <span class="s2">&quot;india,aws,azure&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>In our example all clouds specified update the virtual machines,
@@ -216,12 +216,12 @@ the cm object.</p>
 <blockquote>
 <div>vm = cm.find(&#8220;vm&#8221;, name=&#8221;gregor-001&#8221;).first()</div></blockquote>
 <p>Using the method:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">d</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">o_to_d</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">d</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">o_to_d</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>returns a dict in the object d. Alternatively you could also use the
 native database format and for example get information via:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">vm</span><span class="o">.</span><span class="n">name</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">vm</span><span class="o">.</span><span class="n">name</span>
 <span class="n">vm</span><span class="o">.</span><span class="n">status</span>
 <span class="o">....</span>
 </pre></div>
@@ -236,19 +236,19 @@ to identify them.  The most important one is &#8216;cm_id` which presents in
 human readable format a unique id for the object in the database.</p>
 <p>The id is generated fir the <cite>getID</cite> method.</p>
 <p>Let us assume the following setup for our example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">(</span><span class="n">cm_user</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>this will create a cm database object in which the user <cite>gregor</cite>
 stores its values.  First we need to get a dictionary that we may want
 to store and modify in the database.  We can obtain such an object
 changeme from a live cloud with:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cloud</span> <span class="o">=</span> <span class="n">OpenStack_libcloud</span><span class="p">(</span>
-    <span class="s">&quot;acloudnamedefinedin_cludmesh.yaml&quot;</span><span class="p">,</span>
-    <span class="n">cm_user</span><span class="o">=</span><span class="s">&quot;yourusernameonthecloud&quot;</span><span class="p">)</span>
-<span class="n">flavors</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;flat&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cloud</span> <span class="o">=</span> <span class="n">OpenStack_libcloud</span><span class="p">(</span>
+    <span class="s2">&quot;acloudnamedefinedin_cludmesh.yaml&quot;</span><span class="p">,</span>
+    <span class="n">cm_user</span><span class="o">=</span><span class="s2">&quot;yourusernameonthecloud&quot;</span><span class="p">)</span>
+<span class="n">flavors</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;flat&quot;</span><span class="p">)</span>
 
-<span class="n">internal_id</span> <span class="o">=</span> <span class="s">&quot;1&quot;</span>
+<span class="n">internal_id</span> <span class="o">=</span> <span class="s2">&quot;1&quot;</span>
 
 <span class="n">changeme</span> <span class="o">=</span> <span class="n">flavors</span><span class="p">[</span><span class="n">internal_id</span><span class="p">]</span>
 </pre></div>
@@ -258,19 +258,19 @@ element in the database we first need to generate a unique cm_id. In
 our case we use the cloud object type (here flavor), the unique
 internal id that we obtain for each flavor, and the name of the cloud
 on which the object belongs to.:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s">&quot;cm_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">internal_id</span><span class="p">,</span> <span class="s">&quot;india&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">changeme</span><span class="p">[</span><span class="s2">&quot;cm_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">getID</span><span class="p">(</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="n">internal_id</span><span class="p">,</span> <span class="s2">&quot;india&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Just to be sure lest set the type to flavor:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;flavor&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">changeme</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;flavor&quot;</span>
 </pre></div>
 </div>
 <p>Now let us change the label of the object to:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">changeme</span><span class="p">[</span><span class="s">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;newlabel&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">changeme</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;newlabel&quot;</span>
 </pre></div>
 </div>
 <p>To update the new object to the database use:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cm</span><span class="o">.</span><span class="n">update_from_dict</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cm</span><span class="o">.</span><span class="n">update_from_dict</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 <span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 </div>

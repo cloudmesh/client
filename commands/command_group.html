@@ -209,7 +209,7 @@ of vms.</p>
 <div class="section" id="group-list">
 <h2>Group List<a class="headerlink" href="#group-list" title="Permalink to this headline">¶</a></h2>
 <p>The named groups can be listed with the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group list --cloud india --format table
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list --cloud india --format table
   +----------+-------+--------+----------+------+
   | user     | cloud | name   | value    | type |
   +----------+-------+--------+----------+------+
@@ -226,7 +226,7 @@ of vms.</p>
 <h2>Group Info<a class="headerlink" href="#group-info" title="Permalink to this headline">¶</a></h2>
 <p>To get details about a particular group with specific name you can use
 the info option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group list groupA
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list groupA
   +----------+-------+--------+----------+------+
   | user     | cloud | name   | value    | type |
   +----------+-------+--------+----------+------+
@@ -241,7 +241,7 @@ the info option:</p>
 <h2>Group Remove ID<a class="headerlink" href="#group-remove-id" title="Permalink to this headline">¶</a></h2>
 <p>To remove a VM from a particular group, you can use
 the remove option:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group remove --name groupA --id test-002
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group remove --name groupA --id test-002
   Successfully removed ID [test-002] from the group [groupA]
 
 $ cm group list groupA
@@ -257,7 +257,7 @@ $ cm group list groupA
 <div class="section" id="group-add">
 <h2>Group Add<a class="headerlink" href="#group-add" title="Permalink to this headline">¶</a></h2>
 <p>To add a vm resource with specified id to a group with given name:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group add groupA --id test-001 --type vm
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group add groupA --id test-001 --type vm
 Created a new group [groupA] and added ID [test-001] to it
 
 $ cm group info groupA
@@ -272,7 +272,7 @@ $ cm group info groupA
 <div class="section" id="group-copy">
 <h2>Group Copy<a class="headerlink" href="#group-copy" title="Permalink to this headline">¶</a></h2>
 <p>To copy the VM(s) from one group to another use the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group copy groupA groupB
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group copy groupA groupB
 Created a new group [groupB] and added ID [test-001] to it
 
 $ cm group info groupB
@@ -287,7 +287,7 @@ $ cm group info groupB
 <div class="section" id="group-merge">
 <h2>Group Merge<a class="headerlink" href="#group-merge" title="Permalink to this headline">¶</a></h2>
 <p>Groups can be merged as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group merge group01 groupB groupC
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group merge group01 groupB groupC
 Merge of group [group01] &amp; [groupB] to group [groupC] ok.
 
 $ cm group info groupC
@@ -304,7 +304,7 @@ $ cm group info groupC
 <div class="section" id="group-delete">
 <h2>Group Delete<a class="headerlink" href="#group-delete" title="Permalink to this headline">¶</a></h2>
 <p>A named group can be easily deleted.:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm group delete groupC
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group delete groupC
 Request to delete server albert-001 has been accepted.
 Request to delete server albert-002 has been accepted.
 Request to delete server test-001 has been accepted.

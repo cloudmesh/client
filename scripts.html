@@ -199,7 +199,7 @@ span.prompt1:before {
 <p>At this time comments are only detected based on the first characters
 in a line. A comment line starts either with <cite>#</cite>, <cite>//</cite> or <cite>/*</cite>.</p>
 <p><a class="reference external" href="scripts/comment.cm">comment.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre># test comment 1
+<div class="highlight-python"><div class="highlight"><pre><span></span># test comment 1
 
 // test comment 2
 
@@ -210,7 +210,7 @@ in a line. A comment line starts either with <cite>#</cite>, <cite>//</cite> or 
 <div class="section" id="terminal-commands">
 <h2>Terminal Commands<a class="headerlink" href="#terminal-commands" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/terminal.cm">terminal.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>banner &quot;prints a banner with this text&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>banner &quot;prints a banner with this text&quot;
 echo &quot;prints this text&quot;
 color ON
 echo -r BLACK &quot;prints in black &quot;
@@ -222,7 +222,7 @@ echo -r GREEN &quot;prints in green&quot;
 <div class="section" id="executing-shell-commands">
 <h2>Executing Shell commands<a class="headerlink" href="#executing-shell-commands" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/bash.cm">bash.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre># execute a shell command
+<div class="highlight-python"><div class="highlight"><pre><span></span># execute a shell command
 ! ls
 </pre></div>
 </div>
@@ -230,18 +230,20 @@ echo -r GREEN &quot;prints in green&quot;
 <div class="section" id="executing-python">
 <h2>Executing Python<a class="headerlink" href="#executing-python" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/py.cm">py.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>py a = &quot;hallo&quot;
+<div class="highlight-python"><div class="highlight"><pre><span></span>py a = &quot;hallo&quot;
 py print a
 
 py n = 3
 py for i in range(0,n): print i
+
+
 </pre></div>
 </div>
 </div>
 <div class="section" id="variables">
 <h2>Variables<a class="headerlink" href="#variables" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/var.cm">var.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>#
+<div class="highlight-python"><div class="highlight"><pre><span></span>#
 # TESTING VARIABLES
 #
 
@@ -269,7 +271,7 @@ echo $b
 <div class="section" id="group">
 <h2>Group<a class="headerlink" href="#group" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/group.cm">group.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>register remote kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>register remote kilo
 
 # show teh defaukts
 cm default
@@ -310,13 +312,14 @@ vm list
 # Cleanup
 vm delete group_b
 vm delete group_c
+
 </pre></div>
 </div>
 </div>
 <div class="section" id="keys">
 <h2>Keys<a class="headerlink" href="#keys" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/key.cm">key.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>banner KEYS
+<div class="highlight-python"><div class="highlight"><pre><span></span>banner KEYS
 
 key delete --all --force=True
 
@@ -339,13 +342,14 @@ key upload test-key
 key map
 
 # key delete --select
+
 </pre></div>
 </div>
 </div>
 <div class="section" id="vms">
 <h2>VMs<a class="headerlink" href="#vms" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/vm.cm">vm.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>banner -r BLUE VM
+<div class="highlight-python"><div class="highlight"><pre><span></span>banner -r BLUE VM
 
 banner -r BLUE -c &quot;-&quot; Setup
 
@@ -420,7 +424,7 @@ default login_key=~/.ssh/id_rsa
 <div class="section" id="copy">
 <h2>Copy<a class="headerlink" href="#copy" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/sync.cm">sync.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>default cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>default cloud=kilo
 
 ! rm -rf ~/cm_sync
 ! mkdir -p ~/cm_sync/put
@@ -437,7 +441,7 @@ sync get sync_dir/* ~/cm_sync/get
 <div class="section" id="security-groups">
 <h2>Security Groups<a class="headerlink" href="#security-groups" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/secgroup.cm">secgroup.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>default cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>default cloud=kilo
 var username=cloudmesh.profile.username
 var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
 var keyname=&quot;$username-key&quot;
@@ -478,7 +482,7 @@ secgroup list --tenant=$tenant
 <div class="section" id="nova">
 <h2>Nova<a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/nova.cm">nova.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>banner NOVA
+<div class="highlight-python"><div class="highlight"><pre><span></span>banner NOVA
 
 # this command should be avoided and you should use the vm command instead.
 # It is the same as ! nova ... but reads the configuration from the
@@ -490,13 +494,14 @@ nova info
 
 nova list
 nova image-list
+
 </pre></div>
 </div>
 </div>
 <div class="section" id="network">
 <h2>Network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/network.cm">network.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>## lines that do not work but should are commented out for now with ##
+<div class="highlight-python"><div class="highlight"><pre><span></span>## lines that do not work but should are commented out for now with ##
 
 
 banner SET_DEFAULT_CLOUD_AND_GROUP
@@ -577,7 +582,7 @@ group delete demo_group
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/hpc.cm">hpc.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>default cloud=general
+<div class="highlight-python"><div class="highlight"><pre><span></span>default cloud=general
 default group=test
 default cluster=india
 
@@ -594,13 +599,15 @@ hpc run ~/test.sh --group=test1
 hpc status --job=6
 
 hpc delete all --group=test1
+
+
 </pre></div>
 </div>
 </div>
 <div class="section" id="cluster">
 <h2>Cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/cluster.cm">cluster.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>banner SET_DEFAULT_CLOUD_AND_GROUP
+<div class="highlight-python"><div class="highlight"><pre><span></span>banner SET_DEFAULT_CLOUD_AND_GROUP
 
 var cloud=kilo
 var group=demo_group
@@ -629,7 +636,7 @@ network create cluster --group=$group
 <div class="section" id="cloud">
 <h2>Cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference external" href="scripts/cloud.cm">cloud.cm</a>:</p>
-<div class="highlight-python"><div class="highlight"><pre>banner DEFAULTS
+<div class="highlight-python"><div class="highlight"><pre><span></span>banner DEFAULTS
 list default
 
 

@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.sync</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">platform</span>
@@ -189,112 +189,112 @@
 <span class="sd">        :param operation: get/put</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># Get the operating system</span>
+        <span class="c1"># Get the operating system</span>
         <span class="n">os_type</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">operating_system</span><span class="p">()</span>
 
-        <span class="c"># fix the local dir path</span>
+        <span class="c1"># fix the local dir path</span>
         <span class="n">localdir</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">localdir</span><span class="p">)</span>
 
-        <span class="c"># check if local directory exists</span>
+        <span class="c1"># check if local directory exists</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">localdir</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;put&quot;</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;The local directory [{}] does not exist.&quot;</span>
+            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;put&quot;</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The local directory [{}] does not exist.&quot;</span>
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">localdir</span><span class="p">))</span>
                 <span class="k">return</span> <span class="bp">None</span>
-            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;get&quot;</span><span class="p">:</span>
-                <span class="c"># for receiving, create local dir</span>
+            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;get&quot;</span><span class="p">:</span>
+                <span class="c1"># for receiving, create local dir</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">localdir</span><span class="p">)</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s">&quot;Created local directory [{}] for sync.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Created local directory [{}] for sync.&quot;</span>
                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">localdir</span><span class="p">))</span>
 
-        <span class="c"># sync entire local directory</span>
+        <span class="c1"># sync entire local directory</span>
         <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">localdir</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;put&quot;</span><span class="p">:</span>
-                <span class="n">localdir</span> <span class="o">+=</span> <span class="s">&quot;/*&quot;</span>
-            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;get&quot;</span><span class="p">:</span>
-                <span class="n">localdir</span> <span class="o">+=</span> <span class="s">&quot;/&quot;</span>
+            <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;put&quot;</span><span class="p">:</span>
+                <span class="n">localdir</span> <span class="o">+=</span> <span class="s2">&quot;/*&quot;</span>
+            <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;get&quot;</span><span class="p">:</span>
+                <span class="n">localdir</span> <span class="o">+=</span> <span class="s2">&quot;/&quot;</span>
 
-        <span class="c"># for windows use pscp</span>
-        <span class="c"># rsync has issues with latest win10</span>
-        <span class="k">if</span> <span class="s">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">os_type</span><span class="p">:</span>
-            <span class="n">ppk_file</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-            <span class="k">while</span> <span class="n">ppk_file</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
-                <span class="n">ppk_file</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Please enter putty private key(ppk) &quot;</span>
-                                     <span class="s">&quot;file path: &quot;</span><span class="p">)</span>
-                <span class="c"># expand the path</span>
+        <span class="c1"># for windows use pscp</span>
+        <span class="c1"># rsync has issues with latest win10</span>
+        <span class="k">if</span> <span class="s1">&#39;windows&#39;</span> <span class="ow">in</span> <span class="n">os_type</span><span class="p">:</span>
+            <span class="n">ppk_file</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">while</span> <span class="n">ppk_file</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                <span class="n">ppk_file</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s2">&quot;Please enter putty private key(ppk) &quot;</span>
+                                     <span class="s2">&quot;file path: &quot;</span><span class="p">)</span>
+                <span class="c1"># expand the path</span>
                 <span class="n">ppk_file</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="n">ppk_file</span><span class="p">)</span>
                 <span class="k">pass</span>
 
             <span class="n">host</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_host</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">host</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Cloud [{}] not found in cloudmesh.yaml file.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cloud [{}] not found in cloudmesh.yaml file.&quot;</span>
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
                 <span class="k">return</span> <span class="bp">None</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c"># Get the hostname and user of remote host</span>
+                <span class="c1"># Get the hostname and user of remote host</span>
                 <span class="n">hostname</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_hostname</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
                 <span class="n">user</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_hostuser</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
 
-                <span class="c"># Console.msg(&quot;Syncing local dir [{}] with remote host [{}]&quot;</span>
-                <span class="c">#            .format(localdir, user + &quot;@&quot; + hostname))</span>
+                <span class="c1"># Console.msg(&quot;Syncing local dir [{}] with remote host [{}]&quot;</span>
+                <span class="c1">#            .format(localdir, user + &quot;@&quot; + hostname))</span>
                 <span class="n">args</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;put&quot;</span><span class="p">:</span>
-                    <span class="c"># Construct the arguments</span>
-                    <span class="c"># local dir comes first (send)</span>
+                <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;put&quot;</span><span class="p">:</span>
+                    <span class="c1"># Construct the arguments</span>
+                    <span class="c1"># local dir comes first (send)</span>
                     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-                        <span class="s">&quot;-i&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;-i&quot;</span><span class="p">,</span>
                         <span class="n">ppk_file</span><span class="p">,</span>
                         <span class="n">localdir</span><span class="p">,</span>
-                        <span class="n">user</span> <span class="o">+</span> <span class="s">&quot;@&quot;</span> <span class="o">+</span> <span class="n">hostname</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span>
+                        <span class="n">user</span> <span class="o">+</span> <span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="n">hostname</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span>
                     <span class="p">]</span>
-                <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;get&quot;</span><span class="p">:</span>
-                    <span class="c"># Construct the arguments</span>
-                    <span class="c"># remote dir comes first (receive)</span>
+                <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;get&quot;</span><span class="p">:</span>
+                    <span class="c1"># Construct the arguments</span>
+                    <span class="c1"># remote dir comes first (receive)</span>
                     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-                        <span class="s">&quot;-i&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;-i&quot;</span><span class="p">,</span>
                         <span class="n">ppk_file</span><span class="p">,</span>
-                        <span class="n">user</span> <span class="o">+</span> <span class="s">&quot;@&quot;</span> <span class="o">+</span> <span class="n">hostname</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span><span class="p">,</span>
+                        <span class="n">user</span> <span class="o">+</span> <span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="n">hostname</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span><span class="p">,</span>
                         <span class="n">localdir</span>
                     <span class="p">]</span>
 
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="c"># Convert command to string</span>
-                    <span class="n">cmd</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;pscp&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span>
+                    <span class="c1"># Convert command to string</span>
+                    <span class="n">cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;pscp&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">args</span><span class="p">)</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">result</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Something went wrong. Please try again later.&quot;</span><span class="p">)</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Something went wrong. Please try again later.&quot;</span><span class="p">)</span>
                         <span class="k">return</span> <span class="bp">None</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="k">return</span> <span class="s">&quot;Success.&quot;</span>
+                        <span class="k">return</span> <span class="s2">&quot;Success.&quot;</span>
                 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
                     <span class="k">print</span><span class="p">(</span><span class="n">ex</span><span class="p">,</span> <span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 
-        <span class="c"># for linux/mac machines use rsync</span>
+        <span class="c1"># for linux/mac machines use rsync</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">host</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">get_host</span><span class="p">(</span><span class="n">cloudname</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">host</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Cloud [{}] not found in cloudmesh.yaml file.&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cloud [{}] not found in cloudmesh.yaml file.&quot;</span>
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
                 <span class="k">return</span> <span class="bp">None</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">args</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;put&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;put&quot;</span><span class="p">:</span>
                     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
                         <span class="n">localdir</span><span class="p">,</span>
-                        <span class="n">host</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span>
+                        <span class="n">host</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span>
                     <span class="p">]</span>
-                <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s">&quot;get&quot;</span><span class="p">:</span>
+                <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s2">&quot;get&quot;</span><span class="p">:</span>
                     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span>
-                        <span class="n">host</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span><span class="p">,</span>
+                        <span class="n">host</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">remotedir</span><span class="p">,</span>
                         <span class="n">localdir</span>
                     <span class="p">]</span>
-                <span class="c"># call rsync</span>
-                <span class="k">return</span> <span class="n">Shell</span><span class="o">.</span><span class="n">rsync</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-</div>
+                <span class="c1"># call rsync</span>
+                <span class="k">return</span> <span class="n">Shell</span><span class="o">.</span><span class="n">rsync</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Sync.operating_system"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.operating_system">[docs]</a>    <span class="k">def</span> <span class="nf">operating_system</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-</div>
+        <span class="k">return</span> <span class="n">platform</span><span class="o">.</span><span class="n">system</span><span class="p">()</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span></div>
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Sync.get_host"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_host">[docs]</a>    <span class="k">def</span> <span class="nf">get_host</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -303,19 +303,19 @@
 <span class="sd">        :param cloudname:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># Get the remote host details</span>
-        <span class="c"># search based on cloudname</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;clouds&quot;</span><span class="p">]</span>
+        <span class="c1"># Get the remote host details</span>
+        <span class="c1"># search based on cloudname</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+        <span class="n">clouds</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
 
-        <span class="c"># check if cloud exists in yaml</span>
+        <span class="c1"># check if cloud exists in yaml</span>
         <span class="k">if</span> <span class="n">clouds</span><span class="p">[</span><span class="n">cloudname</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c"># get the host for cloud</span>
-            <span class="n">hostname</span> <span class="o">=</span> <span class="n">clouds</span><span class="p">[</span><span class="n">cloudname</span><span class="p">][</span><span class="s">&quot;cm_host&quot;</span><span class="p">]</span>
+            <span class="c1"># get the host for cloud</span>
+            <span class="n">hostname</span> <span class="o">=</span> <span class="n">clouds</span><span class="p">[</span><span class="n">cloudname</span><span class="p">][</span><span class="s2">&quot;cm_host&quot;</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">hostname</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">None</span>
-</div>
+            <span class="k">return</span> <span class="bp">None</span></div>
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Sync.get_hostname"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_hostname">[docs]</a>    <span class="k">def</span> <span class="nf">get_hostname</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -324,26 +324,26 @@
 <span class="sd">        :param host:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s">&quot;~/.ssh/config&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.ssh/config&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="c"># search for host</span>
-            <span class="k">if</span> <span class="s">&quot;Host &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">_host</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;Host &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="c"># if host found in ssh config</span>
+            <span class="c1"># search for host</span>
+            <span class="k">if</span> <span class="s2">&quot;Host &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">_host</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Host &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="c1"># if host found in ssh config</span>
                 <span class="k">if</span> <span class="n">_host</span> <span class="o">==</span> <span class="n">host</span><span class="p">:</span>
                     <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
                     <span class="k">pass</span>
 
-            <span class="c"># search for hostname</span>
-            <span class="k">if</span> <span class="s">&quot;Hostname &quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">found</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
-                <span class="c"># return corresponding hostname</span>
-                <span class="n">hostname</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;Hostname &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">hostname</span>
-</div>
+            <span class="c1"># search for hostname</span>
+            <span class="k">if</span> <span class="s2">&quot;Hostname &quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">found</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="c1"># return corresponding hostname</span>
+                <span class="n">hostname</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Hostname &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">hostname</span></div>
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Sync.get_hostuser"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.sync.Sync.get_hostuser">[docs]</a>    <span class="k">def</span> <span class="nf">get_hostuser</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -352,24 +352,24 @@
 <span class="sd">        :param host:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">filename</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s">&quot;~/.ssh/config&quot;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.ssh/config&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">found</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-            <span class="c"># search for host</span>
-            <span class="k">if</span> <span class="s">&quot;Host &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
-                <span class="n">_host</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;Host &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-                <span class="c"># if host found in ssh config</span>
+            <span class="c1"># search for host</span>
+            <span class="k">if</span> <span class="s2">&quot;Host &quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                <span class="n">_host</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Host &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+                <span class="c1"># if host found in ssh config</span>
                 <span class="k">if</span> <span class="n">_host</span> <span class="o">==</span> <span class="n">host</span><span class="p">:</span>
                     <span class="n">found</span> <span class="o">=</span> <span class="bp">True</span>
                     <span class="k">pass</span>
 
-            <span class="c"># search for user</span>
-            <span class="k">if</span> <span class="s">&quot;User &quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">found</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
-                <span class="c"># return corresponding user</span>
-                <span class="n">username</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;User &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="c1"># search for user</span>
+            <span class="k">if</span> <span class="s2">&quot;User &quot;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="n">found</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+                <span class="c1"># return corresponding user</span>
+                <span class="n">username</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;User &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">username</span></div></div>
 </pre></div>
 

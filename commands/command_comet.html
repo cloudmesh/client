@@ -237,24 +237,39 @@ client</p>
 </ul>
 <div class="section" id="teminology">
 <h3>Teminology<a class="headerlink" href="#teminology" title="Permalink to this headline">¶</a></h3>
-<p>We use in this section the following terminology:</p>
+<p>We use in this section the following terminology:
+Iteration #2...</p>
+<p>On Feb 17, 2016, at 1:27 PM, Mishin, Dmitry &lt;<a class="reference external" href="mailto:dmishin&#37;&#52;&#48;sdsc&#46;edu">dmishin<span>&#64;</span>sdsc<span>&#46;</span>edu</a>&gt; wrote:</p>
+<p>This is my understanding, Trevor please feel free to fix this</p>
 <dl class="docutils">
 <dt>computeset:</dt>
-<dd>TBD</dd>
+<dd>A group of compute nodes started together and being in some state
+(submitted, started, finished, failed). Each compute node can only belong
+to 1 computesets in submitted or active state.</dd>
 <dt>frontend:</dt>
-<dd>TBD</dd>
+<dd>A node with limited computational resources used to manage a virtual
+cluster. Frontends run 24/7, have a public interface and a private
+interface. The public interface provides outside access to the virtual
+cluster while the private interface is used to manage/install the compute
+nodes.</dd>
 <dt>image:</dt>
-<dd>TBD</dd>
+<dd>A file containing the contents and structure (ISO9660) of a disk volume
+which can be attached as a cdrom to a node.</dd>
 <dt>console:</dt>
-<dd>TBD</dd>
+<dd>An interactive representation of the screen of a virtual cluster
+node (text or graphical) provided to assist with node installation
+and management.</dd>
 <dt>virtual cluster:</dt>
-<dd>TBD</dd>
-<dt>individual nodes:</dt>
-<dd>TBD</dd>
+<dd>A virtual cluster is a loosely or tightly connected network of virtual
+computers managed together by a virtual cluster administrator.</dd>
+<dt>node:</dt>
+<dd>The term node is used to refer to individual computers in a virtual cluster.</dd>
 <dt>image attach:</dt>
-<dd>TBD</dd>
+<dd>Attach is an action applied to a node / image pair whereby the contents
+of the image are made available to a node on the next power on.</dd>
 <dt>image detach:</dt>
-<dd>TBD</dd>
+<dd>Detach is an action applied to a node / image pair whereby the contents
+of the image are made unavailable to the node on the next power on.</dd>
 </dl>
 </div>
 <div class="section" id="configuration">
@@ -262,16 +277,16 @@ client</p>
 <p>The configuration of the cloudmesh client is done semi automatically for you.
 All you have to do after the installation is to call cloudmesh client once.</p>
 <p>This is done best with the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm help
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm help
 </pre></div>
 </div>
 <p>This will automatically generate a configuration file at:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml.
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml.
 </pre></div>
 </div>
 <p>This file you can now modify with your favourite editor. It will contain a
 default section similar to:</p>
-<div class="highlight-python"><div class="highlight"><pre>comet:
+<div class="highlight-python"><div class="highlight"><pre><span></span>comet:
     auth_provider: apikey
     userpass:
         username: TBD

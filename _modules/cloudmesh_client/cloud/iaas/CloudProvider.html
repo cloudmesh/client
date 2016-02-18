@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.iaas.CloudProvider</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
+<span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI</span> <span class="kn">import</span> \
     <span class="n">CloudProviderOpenstackAPI</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="kn">import</span> <span class="n">CloudProviderBase</span>
@@ -183,14 +183,14 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">CloudProvider</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloudname</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloudname</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;clouds&quot;</span><span class="p">]:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;the cloud {} is not defined in the yaml file&quot;</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">cloudname</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;the cloud {} is not defined in the yaml file&quot;</span>
                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cloudname</span><span class="p">))</span>
 
-            <span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
+            <span class="n">cloud_details</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">][</span><span class="n">cloudname</span><span class="p">]</span>
 
-            <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;openstack&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;openstack&quot;</span><span class="p">:</span>
                 <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProviderOpenstackAPI</span><span class="p">(</span>
                     <span class="n">cloudname</span><span class="p">,</span>
                     <span class="n">cloud_details</span><span class="p">,</span>
@@ -198,41 +198,41 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="n">provider</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">provider_class</span> <span class="o">=</span> <span class="n">CloudProviderOpenstackAPI</span>
 
-            <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;ec2&quot;</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;ec2 cloud provider yet to be implemented&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;ec2&quot;</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ec2 cloud provider yet to be implemented&quot;</span><span class="p">)</span>
                 <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
 
-            <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;azure&quot;</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;azure cloud provider yet to be implemented&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">cloud_details</span><span class="p">[</span><span class="s2">&quot;cm_type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;azure&quot;</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;azure cloud provider yet to be implemented&quot;</span><span class="p">)</span>
                 <span class="n">TODO</span><span class="o">.</span><span class="n">implement</span><span class="p">()</span>
 
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CloudProvider.get_attributes"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.CloudProvider.get_attributes">[docs]</a>    <span class="k">def</span> <span class="nf">get_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">attributes</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">attributes</span><span class="p">(</span><span class="n">kind</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../../code/cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProvider.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
-    <span class="n">cloud</span> <span class="o">=</span> <span class="s">&quot;kilo&quot;</span>
+    <span class="n">cloud</span> <span class="o">=</span> <span class="s2">&quot;kilo&quot;</span>
     <span class="n">provider</span> <span class="o">=</span> <span class="n">CloudProvider</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span><span class="o">.</span><span class="n">provider</span>
 
     <span class="k">print</span> <span class="p">(</span><span class="n">provider</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">provider</span><span class="p">))</span>
 
-    <span class="c"># pprint (provider.__dict__)</span>
-    <span class="c"># pprint (dir(provider))</span>
+    <span class="c1"># pprint (provider.__dict__)</span>
+    <span class="c1"># pprint (dir(provider))</span>
 
     <span class="n">r</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list_flavor</span><span class="p">(</span><span class="n">cloud</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;flavor&quot;</span><span class="p">,</span> <span class="s">&quot;image&quot;</span><span class="p">,</span> <span class="s">&quot;vm&quot;</span><span class="p">,</span> <span class="s">&quot;limits&quot;</span><span class="p">,</span> <span class="s">&quot;quota&quot;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;limits&quot;</span><span class="p">,</span> <span class="s2">&quot;quota&quot;</span><span class="p">]:</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">provider</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">cloud</span><span class="p">)</span>
-        <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
 
-</div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
 </pre></div>
 

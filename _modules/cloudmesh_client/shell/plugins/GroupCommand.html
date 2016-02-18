@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.GroupCommand</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.group</span> <span class="kn">import</span> <span class="n">Group</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
@@ -177,12 +177,12 @@
 
 
 <div class="viewcode-block" id="GroupCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.GroupCommand.GroupCommand">[docs]</a><span class="k">class</span> <span class="nc">GroupCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;group&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;group&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command group&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command group&quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
@@ -258,14 +258,14 @@
 <span class="sd">                group delete --name=mygroup</span>
 <span class="sd">                    deletes all objects in the group</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># pprint(arguments)</span>
+        <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">category</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--category&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">category</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--category&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
 
-            <span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;format&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span> <span class="ow">or</span> <span class="s">&quot;table&quot;</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">]</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;format&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
 
@@ -273,7 +273,7 @@
                 <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                     <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;There are no groups in the cloudmesh database!&quot;</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;There are no groups in the cloudmesh database!&quot;</span><span class="p">)</span>
 
             <span class="k">else</span><span class="p">:</span>
 
@@ -283,55 +283,55 @@
                 <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
                     <span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">msg_a</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;No group found with name `{name}` found in the &quot;</span>
-                             <span class="s">&quot;category `{category}`.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
+                    <span class="n">msg_a</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;No group found with name `{name}` found in the &quot;</span>
+                             <span class="s2">&quot;category `{category}`.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="nb">locals</span><span class="p">()))</span>
 
-                    <span class="c"># find alternate</span>
+                    <span class="c1"># find alternate</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-                    <span class="n">msg_b</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+                    <span class="n">msg_b</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
                     <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">msg_b</span> <span class="o">=</span> <span class="s">&quot; However we found such a variable in &quot;</span> \
-                                <span class="s">&quot;category `{category}`. Please consider &quot;</span> \
-                                <span class="s">&quot;using --category={category}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
+                        <span class="n">msg_b</span> <span class="o">=</span> <span class="s2">&quot; However we found such a variable in &quot;</span> \
+                                <span class="s2">&quot;category `{category}`. Please consider &quot;</span> \
+                                <span class="s2">&quot;using --category={category}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span>
                         <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg_a</span> <span class="o">+</span> <span class="n">msg_b</span><span class="p">)</span>
 
                 <span class="k">return</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;add&quot;</span><span class="p">]:</span>
-            <span class="nb">type</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--type&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;type&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;add&quot;</span><span class="p">]:</span>
+            <span class="nb">type</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--type&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
 
-            <span class="n">category_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--id&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
+            <span class="n">category_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--id&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">],</span>
-                <span class="s">&quot;type&quot;</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
-                <span class="s">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
-                <span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="n">category_id</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+                <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">category_id</span>
             <span class="p">}</span>
 
             <span class="n">Group</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NAME&quot;</span><span class="p">],</span>
-                <span class="s">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">],</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
             <span class="p">}</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;Deletion completed. ok.&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Deletion completed. ok.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s">&quot;No group with name `{name}` found&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
+                    <span class="s2">&quot;No group with name `{name}` found&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">))</span>
             <span class="k">return</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;remove&quot;</span><span class="p">]:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--name&quot;</span><span class="p">]</span>
-            <span class="n">category_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--id&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;remove&quot;</span><span class="p">]:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--name&quot;</span><span class="p">]</span>
+            <span class="n">category_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--id&quot;</span><span class="p">]</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="n">category</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default category not set!&quot;</span><span class="p">)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default category not set!&quot;</span><span class="p">)</span>
                 <span class="k">return</span>
 
             <span class="n">result</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">category_id</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
@@ -339,25 +339,27 @@
                 <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                    <span class="s">&quot;Failed to delete ID [{}] from group [{}] in the database!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="s2">&quot;Failed to delete ID [{}] from group [{}] in the database!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                         <span class="n">category_id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
             <span class="k">return</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;copy&quot;</span><span class="p">]:</span>
-            <span class="n">_from</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;FROM&quot;</span><span class="p">]</span>
-            <span class="n">_to</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;TO&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;copy&quot;</span><span class="p">]:</span>
+            <span class="n">_from</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;FROM&quot;</span><span class="p">]</span>
+            <span class="n">_to</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;TO&quot;</span><span class="p">]</span>
 
             <span class="n">Group</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">_from</span><span class="p">,</span> <span class="n">_to</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;merge&quot;</span><span class="p">]:</span>
-            <span class="n">_groupA</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;GROUPA&quot;</span><span class="p">]</span>
-            <span class="n">_groupB</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;GROUPB&quot;</span><span class="p">]</span>
-            <span class="n">_mergedGroup</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;MERGEDGROUP&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;merge&quot;</span><span class="p">]:</span>
+            <span class="n">_groupA</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;GROUPA&quot;</span><span class="p">]</span>
+            <span class="n">_groupB</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;GROUPB&quot;</span><span class="p">]</span>
+            <span class="n">_mergedGroup</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;MERGEDGROUP&quot;</span><span class="p">]</span>
 
             <span class="n">Group</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">_groupA</span><span class="p">,</span> <span class="n">_groupB</span><span class="p">,</span> <span class="n">_mergedGroup</span><span class="p">)</span>
-            <span class="k">return</span>
-</pre></div></div>
+            <span class="k">return</span></div>
+
+
+</pre></div>
 
            </div>
           </div>

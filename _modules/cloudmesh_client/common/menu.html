@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.menu</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;Ascii menu class&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Ascii menu class&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span>
 
@@ -180,7 +180,7 @@
 <span class="sd">    :param menu_list: an array of tuples [(&#39;label&#39;, f1), ...]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Menu&quot;</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Menu&quot;</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">menu_list</span><span class="p">)</span>
 
@@ -188,36 +188,36 @@
         <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">print</span><span class="p">()</span>
         <span class="k">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">function</span> <span class="ow">in</span> <span class="n">menu_list</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;    {0} - {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    {0} - {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
             <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;    q - quit&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    q - quit&quot;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">()</span>
         <span class="k">print</span><span class="p">()</span>
 
     <span class="n">display</span><span class="p">()</span>
     <span class="n">running</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">while</span> <span class="n">running</span><span class="p">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&lt;{0}&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;q&quot;</span><span class="p">]:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s2">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&lt;{0}&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]:</span>
             <span class="n">running</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
                 <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">result</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
                     <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="o">=</span> <span class="n">menu_list</span><span class="p">[</span><span class="n">result</span><span class="p">]</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;EXECUTING:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;EXECUTING:&quot;</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
                     <span class="n">f</span><span class="p">()</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
+                    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
-        <span class="n">display</span><span class="p">()</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: &quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="menu_return_num"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.menu_return_num">[docs]</a><span class="k">def</span> <span class="nf">menu_return_num</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">menu_list</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">with_display</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    creates a simple ASCII menu from a list of labels</span>
@@ -227,7 +227,7 @@
 <span class="sd">    :return: choice num (head: 0), quit: return &#39;q&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">title</span><span class="p">:</span>
-        <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Menu&quot;</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Menu&quot;</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">menu_list</span><span class="p">)</span>
 
@@ -235,60 +235,60 @@
         <span class="n">index</span> <span class="o">=</span> <span class="mi">1</span>
         <span class="k">print</span><span class="p">()</span>
         <span class="k">print</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">menu_list</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;    {0} - {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    {0} - {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
             <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;    q - quit&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    q - quit&quot;</span><span class="p">)</span>
         <span class="k">print</span><span class="p">()</span>
         <span class="k">print</span><span class="p">()</span>
 
     <span class="n">display</span><span class="p">()</span>
     <span class="k">while</span> <span class="n">tries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c"># display()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s">&quot;q&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s">&#39;q&#39;</span>
+        <span class="c1"># display()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s2">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;q&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;invalid input...&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;invalid input...&quot;</span><span class="p">)</span>
                 <span class="n">tries</span> <span class="o">-=</span> <span class="mi">1</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">result</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;choice {0} selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;choice {0} selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">result</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="s">&#39;q&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;q&#39;</span></div>
 
-</div>
+
 <div class="viewcode-block" id="num_choice"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.num_choice">[docs]</a><span class="k">def</span> <span class="nf">num_choice</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 
     <span class="k">while</span> <span class="n">tries</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="c"># display()</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s">&quot;q&quot;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s">&#39;q&#39;</span>
+        <span class="c1"># display()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s2">&quot;Select between {0} - {1}: &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="o">==</span> <span class="s2">&quot;q&quot;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;q&#39;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;invalid input...&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;invalid input...&quot;</span><span class="p">)</span>
                 <span class="n">tries</span> <span class="o">-=</span> <span class="mi">1</span>
                 <span class="k">continue</span>
             <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">result</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;choice {0} selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;choice {0} selected.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">result</span> <span class="o">-</span> <span class="mi">1</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: wrong selection&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="s">&#39;q&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;q&#39;</span></div>
 
-</div>
+
 <div class="viewcode-block" id="dict_choice"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.menu.dict_choice">[docs]</a><span class="k">def</span> <span class="nf">dict_choice</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">None</span>
@@ -296,28 +296,28 @@
     <span class="n">elements</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
     <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
-        <span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
         <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="c">#   pprint(d)</span>
+    <span class="c1">#   pprint(d)</span>
     <span class="k">if</span> <span class="n">elements</span> <span class="o">!=</span> <span class="p">{}:</span>
-        <span class="c"># noinspection PyPep8</span>
+        <span class="c1"># noinspection PyPep8</span>
         <span class="k">print</span><span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
-                           <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">,</span>
-                                  <span class="s">&quot;name&quot;</span><span class="p">,</span>
-                                  <span class="s">&quot;comment&quot;</span><span class="p">,</span>
-                                  <span class="s">&quot;uri&quot;</span><span class="p">,</span>
-                                  <span class="s">&quot;fingerprint&quot;</span><span class="p">,</span>
-                                  <span class="s">&quot;source&quot;</span><span class="p">],</span>
-                           <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span>
+                           <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;comment&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;uri&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;fingerprint&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;source&quot;</span><span class="p">],</span>
+                           <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
                            <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: No keys in the database&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: No keys in the database&quot;</span><span class="p">)</span>
         <span class="k">return</span>
 
     <span class="n">n</span> <span class="o">=</span> <span class="n">num_choice</span><span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tries</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
     <span class="n">element</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elements</span><span class="p">:</span>
-        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s">&quot;id&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">])</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
             <span class="n">element</span> <span class="o">=</span> <span class="n">elements</span><span class="p">[</span><span class="n">e</span><span class="p">]</span>
             <span class="k">break</span>
     <span class="k">return</span> <span class="n">element</span></div>

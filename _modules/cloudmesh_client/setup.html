@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.setup</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">banner</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
@@ -178,42 +178,42 @@
 <span class="kn">from</span> <span class="nn">setuptools.command.install</span> <span class="kn">import</span> <span class="n">install</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 
-<span class="n">make</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">    test:</span>
-<span class="s">    - echo &quot;hallo world&quot;</span>
-<span class="s">    github:</span>
-<span class="s">    - git commit -a</span>
-<span class="s">    - git push</span>
-<span class="s">    clean:</span>
-<span class="s">    - rm -rf *.egg-info *.eggs</span>
-<span class="s">    - rm -rf docs/build</span>
-<span class="s">    - rm -rf build</span>
-<span class="s">    - rm -rf dist</span>
-<span class="s">    doc:</span>
-<span class="s">    - sphinx-apidoc -o docs/source cloudmesh_client</span>
-<span class="s">    - cd docs; make -f Makefile html</span>
-<span class="s">    view:</span>
-<span class="s">    - open docs/build/html/index.html</span>
-<span class="s">    pypi:</span>
-<span class="s">    - python setup.py install</span>
-<span class="s">    - python setup.py sdist bdist_wheel</span>
-<span class="s">    - python setup.py bdist_wheel upload -r {repo}</span>
-<span class="s">    - python setup.py sdist upload -r {repo}</span>
-<span class="s">    register:</span>
-<span class="s">    - python setup.py register -r {repo}</span>
-<span class="s">    tag:</span>
-<span class="s">    - bin/new_version.sh</span>
-<span class="s">    rmtag:</span>
-<span class="s">    - git tag</span>
-<span class="s">    - echo &quot;rm Tag?&quot;; read TAG; git tag -d $$TAG; git push origin :refs/tags/$$TAG</span>
-<span class="s">    install:</span>
-<span class="s">    - python setup.py install</span>
-<span class="s">&quot;&quot;&quot;</span>
+<span class="n">make</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    test:</span>
+<span class="s2">    - echo &quot;hallo world&quot;</span>
+<span class="s2">    github:</span>
+<span class="s2">    - git commit -a</span>
+<span class="s2">    - git push</span>
+<span class="s2">    clean:</span>
+<span class="s2">    - rm -rf *.egg-info *.eggs</span>
+<span class="s2">    - rm -rf docs/build</span>
+<span class="s2">    - rm -rf build</span>
+<span class="s2">    - rm -rf dist</span>
+<span class="s2">    doc:</span>
+<span class="s2">    - sphinx-apidoc -o docs/source cloudmesh_client</span>
+<span class="s2">    - cd docs; make -f Makefile html</span>
+<span class="s2">    view:</span>
+<span class="s2">    - open docs/build/html/index.html</span>
+<span class="s2">    pypi:</span>
+<span class="s2">    - python setup.py install</span>
+<span class="s2">    - python setup.py sdist bdist_wheel</span>
+<span class="s2">    - python setup.py bdist_wheel upload -r {repo}</span>
+<span class="s2">    - python setup.py sdist upload -r {repo}</span>
+<span class="s2">    register:</span>
+<span class="s2">    - python setup.py register -r {repo}</span>
+<span class="s2">    tag:</span>
+<span class="s2">    - bin/new_version.sh</span>
+<span class="s2">    rmtag:</span>
+<span class="s2">    - git tag</span>
+<span class="s2">    - echo &quot;rm Tag?&quot;; read TAG; git tag -d $$TAG; git push origin :refs/tags/$$TAG</span>
+<span class="s2">    install:</span>
+<span class="s2">    - python setup.py install</span>
+<span class="s2">&quot;&quot;&quot;</span>
 
-<span class="n">clean_python</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="s">    find . -name &quot;*~&quot; -exec rm \{\} \;</span>
-<span class="s">    find . -name &quot;*.pyc&quot; -exec rm \{\} \;</span>
-<span class="s">&#39;&#39;&#39;</span>
+<span class="n">clean_python</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    find . -name &quot;*~&quot; -exec rm \{\} \;</span>
+<span class="s1">    find . -name &quot;*.pyc&quot; -exec rm \{\} \;</span>
+<span class="s1">&#39;&#39;&#39;</span>
 
 
 <div class="viewcode-block" id="parse_requirements"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.parse_requirements">[docs]</a><span class="k">def</span> <span class="nf">parse_requirements</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
@@ -223,51 +223,53 @@
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lineiter</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lineiter</span> <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;#&quot;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lineiter</span> <span class="k">if</span> <span class="n">line</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="os_execute"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.os_execute">[docs]</a><span class="k">def</span> <span class="nf">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">command</span> <span class="ow">in</span> <span class="n">commands</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
         <span class="n">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
         <span class="k">print</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">command</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="get_version_from_git"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.get_version_from_git">[docs]</a><span class="k">def</span> <span class="nf">get_version_from_git</span><span class="p">():</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s">&#39;tag&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">return</span> <span class="n">r</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">git</span><span class="p">(</span><span class="s1">&#39;tag&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">r</span></div>
 
-</div>
+
 <div class="viewcode-block" id="check_pip"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.check_pip">[docs]</a><span class="k">def</span> <span class="nf">check_pip</span><span class="p">():</span>
-    <span class="n">major</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pip</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">major</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pip</span><span class="o">.</span><span class="n">__version__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">if</span> <span class="n">major</span> <span class="o">&lt;</span> <span class="mi">7</span><span class="p">:</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;    ERROR: Pip version&quot;</span><span class="p">,</span> <span class="n">pip</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s">&quot;is to old.&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;    Tip:   Please update pip with &quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;             pip install pip -U&quot;</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    ERROR: Pip version&quot;</span><span class="p">,</span> <span class="n">pip</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span> <span class="s2">&quot;is to old.&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;    Tip:   Please update pip with &quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;             pip install pip -U&quot;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
 
-</div>
+
 <div class="viewcode-block" id="makefile"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.makefile">[docs]</a><span class="k">def</span> <span class="nf">makefile</span><span class="p">(</span><span class="n">tag</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="n">script</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">make</span><span class="p">)[</span><span class="n">tag</span><span class="p">])</span>
-    <span class="n">commands</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">make</span><span class="p">)[</span><span class="n">tag</span><span class="p">])</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">make</span><span class="p">)[</span><span class="n">tag</span><span class="p">])</span>
+    <span class="n">commands</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">make</span><span class="p">)[</span><span class="n">tag</span><span class="p">])</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;RUNNING&quot;</span><span class="p">)</span>
-    <span class="n">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;RUNNING&quot;</span><span class="p">)</span>
+    <span class="n">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="Make"><a class="viewcode-back" href="../../code/cloudmesh_client.html#cloudmesh_client.setup.Make">[docs]</a><span class="k">def</span> <span class="nf">Make</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
     <span class="k">class</span> <span class="nc">InstallAction</span><span class="p">(</span><span class="n">install</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
             <span class="n">makefile</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s">&quot;clean&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="o">==</span> <span class="s2">&quot;clean&quot;</span><span class="p">:</span>
                 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="n">clean_python</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">InstallAction</span>
-</pre></div></div>
+    <span class="k">return</span> <span class="n">InstallAction</span></div>
+
+
+</pre></div>
 
            </div>
           </div>

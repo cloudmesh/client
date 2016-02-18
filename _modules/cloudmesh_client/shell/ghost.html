@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.ghost</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">cmd</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -186,18 +186,18 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
 
 
-<span class="c"># from cloudmesh_client.shell.command import PluginCommand</span>
+<span class="c1"># from cloudmesh_client.shell.command import PluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">CometPluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
 
 
 <div class="viewcode-block" id="CloudmeshContext"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshContext">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshContext</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span> <span class="o">=</span> <span class="n">kwargs</span></div>
 
-</div>
+
 <span class="n">PluginCommandClasses</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span>
-    <span class="s">&#39;CommandProxyClass&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;CommandProxyClass&#39;</span><span class="p">,</span>
     <span class="nb">tuple</span><span class="p">(</span><span class="n">CometPluginCommand</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">()),</span>
     <span class="p">{})</span>
 
@@ -223,13 +223,13 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<span class="c"># console = ConsoleFactory(PluginCommand)</span>
+<span class="c1"># console = ConsoleFactory(PluginCommand)</span>
 
 
-<span class="c"># noinspection PyBroadException,PyPep8Naming,PyMethodMayBeStatic</span>
+<span class="c1"># noinspection PyBroadException,PyPep8Naming,PyMethodMayBeStatic</span>
 <div class="viewcode-block" id="CloudmeshConsole"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole">[docs]</a><span class="k">class</span> <span class="nc">CloudmeshConsole</span><span class="p">(</span><span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="p">,</span> <span class="n">PluginCommandClasses</span><span class="p">):</span>
-    <span class="c"># class CloudmeshConsole(cmd.Cmd,</span>
-    <span class="c">#                       ConsoleClasses(PluginCommand)):</span>
+    <span class="c1"># class CloudmeshConsole(cmd.Cmd,</span>
+    <span class="c1">#                       ConsoleClasses(PluginCommand)):</span>
 
 <div class="viewcode-block" id="CloudmeshConsole.register_topics"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.register_topics">[docs]</a>    <span class="k">def</span> <span class="nf">register_topics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">topics</span> <span class="o">=</span> <span class="p">{}</span>
@@ -238,64 +238,64 @@
             <span class="n">topics</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">topics</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">register_command_topic</span><span class="p">(</span><span class="n">topics</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;q&quot;</span><span class="p">,</span> <span class="s">&quot;EOF&quot;</span><span class="p">,</span> <span class="s">&quot;man&quot;</span><span class="p">]:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">register_command_topic</span><span class="p">(</span><span class="s">&quot;shell&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-</div>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">,</span> <span class="s2">&quot;EOF&quot;</span><span class="p">,</span> <span class="s2">&quot;man&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">register_command_topic</span><span class="p">(</span><span class="s2">&quot;shell&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="n">cmd</span><span class="o">.</span><span class="n">Cmd</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">register_topics</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init CloudmeshConsole&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init CloudmeshConsole&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s">&#39;ghost&gt; &#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="s1">&#39;ghost&gt; &#39;</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">banner</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
-<span class="s">            +==========================================================+</span>
-<span class="s">            .                          _   .-&#39;)       (&#39;-.   .-&#39;) _    .</span>
-<span class="s">            .                         ( &#39;.( OO )_   _(  OO) (  OO) )   .</span>
-<span class="s">            .     .-----.  .-&#39;),-----. ,--.   ,--.)(,------./     &#39;._  .</span>
-<span class="s">            .    &#39;  .--./ ( OO&#39;  .-.  &#39;|   `.&#39;   |  |  .---&#39;|&#39;--...__) .</span>
-<span class="s">            .    |  |(&#39;-. /   |  | |  ||         |  |  |    &#39;--.  .--&#39; .</span>
-<span class="s">            .   /_) |OO  )\_) |  |\|  ||  |&#39;.&#39;|  | (|  &#39;--.    |  |    .</span>
-<span class="s">            .   ||  |`-&#39;|   \ |  | |  ||  |   |  |  |  .--&#39;    |  |    .</span>
-<span class="s">            .  (_&#39;  &#39;--&#39;\    `&#39;  &#39;-&#39;  &#39;|  |   |  |  |  `---.   |  |    .</span>
-<span class="s">            .     `-----&#39;      `-----&#39; `--&#39;   `--&#39;  `------&#39;   `--&#39;    .</span>
-<span class="s">            +==========================================================+</span>
-<span class="s">                                  Comet Ghost Shell</span>
-<span class="s">            &quot;&quot;&quot;</span><span class="p">)</span>
-        <span class="c"># KeyCommands.__init__(self, context)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">banner</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            +==========================================================+</span>
+<span class="s2">            .                          _   .-&#39;)       (&#39;-.   .-&#39;) _    .</span>
+<span class="s2">            .                         ( &#39;.( OO )_   _(  OO) (  OO) )   .</span>
+<span class="s2">            .     .-----.  .-&#39;),-----. ,--.   ,--.)(,------./     &#39;._  .</span>
+<span class="s2">            .    &#39;  .--./ ( OO&#39;  .-.  &#39;|   `.&#39;   |  |  .---&#39;|&#39;--...__) .</span>
+<span class="s2">            .    |  |(&#39;-. /   |  | |  ||         |  |  |    &#39;--.  .--&#39; .</span>
+<span class="s2">            .   /_) |OO  )\_) |  |\|  ||  |&#39;.&#39;|  | (|  &#39;--.    |  |    .</span>
+<span class="s2">            .   ||  |`-&#39;|   \ |  | |  ||  |   |  |  |  .--&#39;    |  |    .</span>
+<span class="s2">            .  (_&#39;  &#39;--&#39;\    `&#39;  &#39;-&#39;  &#39;|  |   |  |  |  `---.   |  |    .</span>
+<span class="s2">            .     `-----&#39;      `-----&#39; `--&#39;   `--&#39;  `------&#39;   `--&#39;    .</span>
+<span class="s2">            +==========================================================+</span>
+<span class="s2">                                  Comet Ghost Shell</span>
+<span class="s2">            &quot;&quot;&quot;</span><span class="p">)</span>
+        <span class="c1"># KeyCommands.__init__(self, context)</span>
 
-        <span class="c">#</span>
-        <span class="c"># set default cloud and default group if they do not exist</span>
-        <span class="c"># use the first cloud in cloudmesh.yaml as default</span>
-        <span class="c">#</span>
-        <span class="n">value</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;cloud&#39;</span><span class="p">,</span> <span class="s">&#39;general&#39;</span><span class="p">)</span>
+        <span class="c1">#</span>
+        <span class="c1"># set default cloud and default group if they do not exist</span>
+        <span class="c1"># use the first cloud in cloudmesh.yaml as default</span>
+        <span class="c1">#</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cloud&#39;</span><span class="p">,</span> <span class="s1">&#39;general&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">filename</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="s">&quot;~/.cloudmesh/cloudmesh.yaml&quot;</span><span class="p">)</span>
-            <span class="n">clouds</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)[</span><span class="s">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s">&quot;clouds&quot;</span><span class="p">]</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="s2">&quot;~/.cloudmesh/cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="n">clouds</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;clouds&quot;</span><span class="p">]</span>
             <span class="n">cloud</span> <span class="o">=</span> <span class="n">clouds</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;cloud&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="s">&#39;general&#39;</span><span class="p">)</span>
+            <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;cloud&#39;</span><span class="p">,</span> <span class="n">cloud</span><span class="p">,</span> <span class="s1">&#39;general&#39;</span><span class="p">)</span>
 
-        <span class="n">value</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="s">&#39;general&#39;</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;general&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="s">&#39;general&#39;</span><span class="p">)</span>
+            <span class="n">Default</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;general&#39;</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CloudmeshConsole</span><span class="o">.</span><span class="n">__bases__</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-            <span class="c"># noinspection PyArgumentList</span>
+            <span class="c1"># noinspection PyArgumentList</span>
             <span class="n">c</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 
 <div class="viewcode-block" id="CloudmeshConsole.preloop"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.preloop">[docs]</a>    <span class="k">def</span> <span class="nf">preloop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;adds the banner to the preloop&quot;&quot;&quot;</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">splash</span><span class="p">:</span>
-            <span class="n">lines</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">banner</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">banner</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-                <span class="c"># Console.cprint(&quot;BLUE&quot;, &quot;&quot;, line)</span>
-                <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="c1"># Console.cprint(&quot;BLUE&quot;, &quot;&quot;, line)</span>
+                <span class="k">print</span><span class="p">(</span><span class="n">line</span><span class="p">)</span></div>
 
-    <span class="c"># noinspection PyUnusedLocal</span></div>
+    <span class="c1"># noinspection PyUnusedLocal</span>
 <div class="viewcode-block" id="CloudmeshConsole.do_EOF"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_EOF">[docs]</a>    <span class="k">def</span> <span class="nf">do_EOF</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
@@ -306,9 +306,9 @@
 <span class="sd">            Description:</span>
 <span class="sd">                Command to the shell to terminate reading a script.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">True</span></div>
 
-    <span class="c"># noinspection PyUnusedLocal</span></div>
+    <span class="c1"># noinspection PyUnusedLocal</span>
 <div class="viewcode-block" id="CloudmeshConsole.do_quit"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_quit">[docs]</a>    <span class="k">def</span> <span class="nf">do_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
@@ -319,14 +319,14 @@
 <span class="sd">            Description:</span>
 <span class="sd">                Action to be performed whne quit is typed</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">True</span>
-</div>
+        <span class="k">return</span> <span class="bp">True</span></div>
+
     <span class="n">do_q</span> <span class="o">=</span> <span class="n">do_quit</span>
 
 <div class="viewcode-block" id="CloudmeshConsole.emptyline"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.emptyline">[docs]</a>    <span class="k">def</span> <span class="nf">emptyline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span>
+        <span class="k">return</span></div>
 
-    <span class="c"># noinspection PyUnusedLocal</span></div>
+    <span class="c1"># noinspection PyUnusedLocal</span>
 <div class="viewcode-block" id="CloudmeshConsole.do_context"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_context">[docs]</a>    <span class="k">def</span> <span class="nf">do_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
@@ -341,9 +341,9 @@
 <span class="sd">        :param args:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span></div>
 
-    <span class="c"># noinspection PyUnusedLocal</span></div>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_version</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -361,27 +361,27 @@
         <span class="n">python_version</span><span class="p">,</span> <span class="n">pip_version</span> <span class="o">=</span> <span class="n">get_python</span><span class="p">()</span>
 
         <span class="n">versions</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&quot;cloudmesh_client&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;cloudmesh_client&quot;</span><span class="p">,</span>
-                <span class="s">&quot;version&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
+            <span class="s2">&quot;cloudmesh_client&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cloudmesh_client&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">cloudmesh_client</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
             <span class="p">},</span>
-            <span class="c"># &quot;cloudmesh_base&quot;: {</span>
-            <span class="c">#     &quot;name&quot;: &quot;cloudmesh_base&quot;,</span>
-            <span class="c">#     &quot;version&quot;: str(cloudmesh_base.__version__)</span>
-            <span class="c"># },</span>
-            <span class="s">&quot;python&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;python&quot;</span><span class="p">,</span>
-                <span class="s">&quot;version&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">python_version</span><span class="p">)</span>
+            <span class="c1"># &quot;cloudmesh_base&quot;: {</span>
+            <span class="c1">#     &quot;name&quot;: &quot;cloudmesh_base&quot;,</span>
+            <span class="c1">#     &quot;version&quot;: str(cloudmesh_base.__version__)</span>
+            <span class="c1"># },</span>
+            <span class="s2">&quot;python&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">python_version</span><span class="p">)</span>
             <span class="p">},</span>
-            <span class="s">&quot;pip&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">&quot;pip&quot;</span><span class="p">,</span>
-                <span class="s">&quot;version&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">pip_version</span><span class="p">)</span>
+            <span class="s2">&quot;pip&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;pip&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">pip_version</span><span class="p">)</span>
             <span class="p">}</span>
         <span class="p">}</span>
 
-        <span class="k">print</span><span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">],</span>
-                           <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;version&quot;</span><span class="p">]))</span>
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--check&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;True&quot;</span><span class="p">]:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">versions</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">],</span>
+                           <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;version&quot;</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--check&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;True&quot;</span><span class="p">]:</span>
             <span class="n">check_python</span><span class="p">()</span>
 
 <div class="viewcode-block" id="CloudmeshConsole.register_command_topic"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.register_command_topic">[docs]</a>    <span class="k">def</span> <span class="nf">register_command_topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">command_name</span><span class="p">):</span>
@@ -389,8 +389,8 @@
             <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command_name</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">command_name</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CloudmeshConsole.do_help"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.do_help">[docs]</a>    <span class="k">def</span> <span class="nf">do_help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">arg</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
@@ -405,16 +405,16 @@
 
         <span class="k">if</span> <span class="n">arg</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;help_&#39;</span> <span class="o">+</span> <span class="n">arg</span><span class="p">)</span>
+                <span class="n">func</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;help_&#39;</span> <span class="o">+</span> <span class="n">arg</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
-                    <span class="n">doc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&#39;do_&#39;</span> <span class="o">+</span> <span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="n">__doc__</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;do_&#39;</span> <span class="o">+</span> <span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="n">__doc__</span>
                     <span class="k">if</span> <span class="n">doc</span><span class="p">:</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">doc</span><span class="p">))</span>
                         <span class="k">return</span>
                 <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
                     <span class="k">pass</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nohelp</span> <span class="o">%</span> <span class="p">(</span><span class="n">arg</span><span class="p">,)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nohelp</span> <span class="o">%</span> <span class="p">(</span><span class="n">arg</span><span class="p">,)))</span>
                 <span class="k">return</span>
             <span class="n">func</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
@@ -423,13 +423,13 @@
             <span class="n">cmds_undoc</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="n">help_page</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">name</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;help_&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;help_&#39;</span><span class="p">:</span>
                     <span class="n">help_page</span><span class="p">[</span><span class="n">name</span><span class="p">[</span><span class="mi">5</span><span class="p">:]]</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="n">names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-            <span class="c"># There can be duplicates if routines overridden</span>
-            <span class="n">prevname</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+            <span class="c1"># There can be duplicates if routines overridden</span>
+            <span class="n">prevname</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
             <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">name</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;do_&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">name</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;do_&#39;</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">prevname</span><span class="p">:</span>
                         <span class="k">continue</span>
                     <span class="n">prevname</span> <span class="o">=</span> <span class="n">name</span>
@@ -442,16 +442,16 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">cmds_undoc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_leader</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_leader</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">print_topics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doc_header</span><span class="p">,</span> <span class="n">cmds_doc</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">print_topics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">misc_header</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">help_page</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">print_topics</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">undoc_header</span><span class="p">,</span> <span class="n">cmds_undoc</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">topic</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">:</span>
                 <span class="n">topic_cmds</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">command_topics</span><span class="p">[</span><span class="n">topic</span><span class="p">],</span> <span class="n">key</span><span class="o">=</span><span class="nb">str</span><span class="o">.</span><span class="n">lower</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">print_topics</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">capwords</span><span class="p">(</span><span class="n">topic</span> <span class="o">+</span> <span class="s">&quot; commands&quot;</span><span class="p">),</span>
-                                  <span class="n">topic_cmds</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span>
-</div>
+                <span class="bp">self</span><span class="o">.</span><span class="n">print_topics</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">capwords</span><span class="p">(</span><span class="n">topic</span> <span class="o">+</span> <span class="s2">&quot; commands&quot;</span><span class="p">),</span>
+                                  <span class="n">topic_cmds</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">80</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="CloudmeshConsole.help_help"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.CloudmeshConsole.help_help">[docs]</a>    <span class="k">def</span> <span class="nf">help_help</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        ::</span>
@@ -461,8 +461,8 @@
 
 <span class="sd">            Prints out the help message for a given function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_help</span><span class="o">.</span><span class="n">__doc__</span><span class="p">))</span>
-</div>
+        <span class="k">print</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">help_help</span><span class="o">.</span><span class="n">__doc__</span><span class="p">))</span></div>
+
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    @command</span>
 <span class="sd">    def do_bar(self, arg, arguments):</span>
@@ -481,17 +481,17 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 <span class="sd">        print(arguments)</span>
-<span class="sd">    &#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span></div>
 
-</div>
+
 <div class="viewcode-block" id="simple"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.simple">[docs]</a><span class="k">def</span> <span class="nf">simple</span><span class="p">():</span>
     <span class="n">context</span> <span class="o">=</span> <span class="n">CloudmeshContext</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                <span class="n">splash</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
     <span class="n">con</span> <span class="o">=</span> <span class="n">CloudmeshConsole</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
-    <span class="n">con</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span></div>
 
 
-<span class="c"># noinspection PyBroadException</span></div>
+<span class="c1"># noinspection PyBroadException</span>
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../../code/cloudmesh_client.shell.html#cloudmesh_client.shell.ghost.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;cm.</span>
 
@@ -511,16 +511,16 @@
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">arg</span> <span class="o">=</span> <span class="n">docopt</span><span class="p">(</span><span class="n">main</span><span class="o">.</span><span class="n">__doc__</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">arg</span><span class="p">[</span><span class="s">&#39;--help&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">arg</span><span class="p">[</span><span class="s1">&#39;--help&#39;</span><span class="p">]:</span>
             <span class="k">print</span><span class="p">(</span><span class="n">main</span><span class="o">.</span><span class="n">__doc__</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
-        <span class="c"># fixing the help parameter parsing</span>
+        <span class="c1"># fixing the help parameter parsing</span>
 
-        <span class="c">#   arguments[&#39;COMMAND&#39;] = [&#39;help&#39;]</span>
-        <span class="c">#   arguments[&#39;help&#39;] = &#39;False&#39;</span>
+        <span class="c1">#   arguments[&#39;COMMAND&#39;] = [&#39;help&#39;]</span>
+        <span class="c1">#   arguments[&#39;help&#39;] = &#39;False&#39;</span>
 
-        <span class="n">script_file</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="s">&#39;--file&#39;</span><span class="p">]</span>
+        <span class="n">script_file</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="s1">&#39;--file&#39;</span><span class="p">]</span>
 
     <span class="k">except</span><span class="p">:</span>
         <span class="n">script_file</span> <span class="o">=</span> <span class="bp">None</span>
@@ -528,26 +528,26 @@
 
         <span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
         <span class="n">arg</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&#39;--debug&#39;</span><span class="p">:</span> <span class="s">&#39;--debug&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">,</span>
-            <span class="s">&#39;--nosplash&#39;</span><span class="p">:</span> <span class="s">&#39;--nosplash&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">,</span>
-            <span class="s">&#39;-i&#39;</span><span class="p">:</span> <span class="s">&#39;-i&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">}</span>
+            <span class="s1">&#39;--debug&#39;</span><span class="p">:</span> <span class="s1">&#39;--debug&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">,</span>
+            <span class="s1">&#39;--nosplash&#39;</span><span class="p">:</span> <span class="s1">&#39;--nosplash&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">,</span>
+            <span class="s1">&#39;-i&#39;</span><span class="p">:</span> <span class="s1">&#39;-i&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">}</span>
 
         <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arg</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">arg</span><span class="p">[</span><span class="n">a</span><span class="p">]:</span>
                 <span class="n">arguments</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 
-        <span class="n">arg</span><span class="p">[</span><span class="s">&#39;COMMAND&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arguments</span><span class="p">)]</span>
+        <span class="n">arg</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arguments</span><span class="p">)]</span>
 
-    <span class="n">splash</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">arg</span><span class="p">[</span><span class="s">&#39;--nosplash&#39;</span><span class="p">]</span>
-    <span class="n">debug</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="s">&#39;--debug&#39;</span><span class="p">]</span>
-    <span class="n">interactive</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="s">&#39;-i&#39;</span><span class="p">]</span>
+    <span class="n">splash</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">arg</span><span class="p">[</span><span class="s1">&#39;--nosplash&#39;</span><span class="p">]</span>
+    <span class="n">debug</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="s1">&#39;--debug&#39;</span><span class="p">]</span>
+    <span class="n">interactive</span> <span class="o">=</span> <span class="n">arg</span><span class="p">[</span><span class="s1">&#39;-i&#39;</span><span class="p">]</span>
 
     <span class="n">context</span> <span class="o">=</span> <span class="n">CloudmeshContext</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span>
                                <span class="n">splash</span><span class="o">=</span><span class="n">splash</span><span class="p">)</span>
     <span class="n">cmd</span> <span class="o">=</span> <span class="n">CloudmeshConsole</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
-    <span class="c"># TODO: check if cludmesh_yaml exists and if not create it</span>
-    <span class="c"># also creat .cloudmesh dir if it not exists</span>
+    <span class="c1"># TODO: check if cludmesh_yaml exists and if not create it</span>
+    <span class="c1"># also creat .cloudmesh dir if it not exists</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    from cloudmesh_client.common import cloudmesh_yaml</span>
 
@@ -570,33 +570,33 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c"># if script_file is not None:</span>
-    <span class="c">#     cmd.do_exec(script_file)</span>
+    <span class="c1"># if script_file is not None:</span>
+    <span class="c1">#     cmd.do_exec(script_file)</span>
 
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="s">&#39;COMMAND&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">user_cmd</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">user_cmd</span> <span class="o">=</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="s">&#39;COMMAND&#39;</span><span class="p">])</span>
+            <span class="n">user_cmd</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arg</span><span class="p">[</span><span class="s1">&#39;COMMAND&#39;</span><span class="p">])</span>
             <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">user_cmd</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&gt;&quot;</span><span class="p">,</span> <span class="n">user_cmd</span><span class="p">)</span>
             <span class="n">cmd</span><span class="o">.</span><span class="n">onecmd</span><span class="p">(</span><span class="n">user_cmd</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;ERROR: executing command &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_cmd</span><span class="p">))</span>
-            <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;ERROR: executing command &#39;{0}&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user_cmd</span><span class="p">))</span>
+            <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-            <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
             <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="n">interactive</span><span class="p">:</span>
             <span class="n">cmd</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span>
 
     <span class="k">elif</span> <span class="ow">not</span> <span class="n">script_file</span> <span class="ow">or</span> <span class="n">interactive</span><span class="p">:</span>
-        <span class="n">cmd</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span>
+        <span class="n">cmd</span><span class="o">.</span><span class="n">cmdloop</span><span class="p">()</span></div>
 
-</div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">main</span><span class="p">()</span>
-    <span class="c"># simple()</span>
+    <span class="c1"># simple()</span>
 </pre></div>
 
            </div>

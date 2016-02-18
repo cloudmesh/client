@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.ServerCommand</h1><div class="highlight"><pre>
-<span class="c">#! /usr/bin/env python</span>
+<span></span><span class="ch">#! /usr/bin/env python</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -177,14 +177,14 @@
 
 
 <div class="viewcode-block" id="ServerCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.ServerCommand.ServerCommand">[docs]</a><span class="k">class</span> <span class="nc">ServerCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;server&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;server&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command server&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command server&quot;</span><span class="p">)</span>
 
-    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -205,26 +205,27 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
-        <span class="c"># import warnings</span>
-        <span class="c"># with warnings.catch_warnings():</span>
-        <span class="c">#    warnings.filter(&quot;ignore&quot;)</span>
-        <span class="c"># ignore &quot;SQLALCHEMY_TRACK_MODIFICATIONS&quot;)</span>
+        <span class="c1"># import warnings</span>
+        <span class="c1"># with warnings.catch_warnings():</span>
+        <span class="c1">#    warnings.filter(&quot;ignore&quot;)</span>
+        <span class="c1"># ignore &quot;SQLALCHEMY_TRACK_MODIFICATIONS&quot;)</span>
 
         <span class="kn">from</span> <span class="nn">sandman</span> <span class="kn">import</span> <span class="n">app</span>
         <span class="kn">from</span> <span class="nn">sandman.model</span> <span class="kn">import</span> <span class="n">activate</span>
 
-        <span class="n">filename</span> <span class="o">=</span> <span class="s">&quot;sqlite:///{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">,</span> <span class="s">&quot;.cloudmesh&quot;</span><span class="p">,</span> <span class="s">&quot;cloudmesh.db&quot;</span><span class="p">)))</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;sqlite:///{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">Config</span><span class="o">.</span><span class="n">path_expand</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;~&quot;</span><span class="p">,</span> <span class="s2">&quot;.cloudmesh&quot;</span><span class="p">,</span> <span class="s2">&quot;cloudmesh.db&quot;</span><span class="p">)))</span>
 
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;database: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;database: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
 
-        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;SQLALCHEMY_DATABASE_URI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
-        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&#39;SQLALCHEMY_TRACK_MODIFICATIONS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_DATABASE_URI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;SQLALCHEMY_TRACK_MODIFICATIONS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
 
         <span class="n">activate</span><span class="p">()</span>
 
-        <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
-</pre></div></div>
+        <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span></div>
+
+</pre></div>
 
            </div>
           </div>

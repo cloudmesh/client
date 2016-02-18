@@ -167,7 +167,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.LauncherCommand</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> \
     <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span>
@@ -176,14 +176,14 @@
 
 
 <div class="viewcode-block" id="LauncherCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.LauncherCommand.LauncherCommand">[docs]</a><span class="k">class</span> <span class="nc">LauncherCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;launcher&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;launcher&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command launcher&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command launcher&quot;</span><span class="p">)</span>
 
-    <span class="c"># noinspection PyUnusedLocal</span>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_launcher</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -229,47 +229,48 @@
 <span class="sd">            launcher list --cloud=general</span>
 <span class="sd">            launcher delete &lt;KEY&gt;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># pprint(arguments)</span>
+        <span class="c1"># pprint(arguments)</span>
 
-        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
+        <span class="n">cloud</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cloud&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get_cloud</span><span class="p">()</span>
         <span class="n">launcher</span> <span class="o">=</span> <span class="n">Launcher</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">cloud</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Default cloud not set&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Default cloud not set&quot;</span><span class="p">)</span>
             <span class="k">return</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">list</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;delete&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;delete&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;run&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;run&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;resume&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;resume&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">resume</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;suspend&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;suspend&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">suspend</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;details&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;details&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">details</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;clear&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;clear&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;refresh&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;refresh&quot;</span><span class="p">]:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">launcher</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</pre></div></div>
+            <span class="k">print</span> <span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
+</pre></div>
 
            </div>
           </div>
