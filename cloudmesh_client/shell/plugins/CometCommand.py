@@ -60,7 +60,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 NODESPARAM      Specifying the node/nodes/computeset to act on.
                                 In case of integer, will be intepreted as a computesetid;
                                 in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                                of nodes; or a single host is also accepptable, 
+                                of nodes; or a single host is also acceptable,
                                 e.g., vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
