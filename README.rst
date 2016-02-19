@@ -14,11 +14,13 @@ also Windows. We have tested the installation on Windows 10.
 Automated Builds
 ----------------
 
-+--------+-----------------+---------------+
-| Master | |master-status| | |master-docs| |
-+--------+-----------------+---------------+
-| Dev/VM | |dev-status|    | |dev-docs|    |
-+--------+-----------------+---------------+
++----------+-----------------+---------------+
+| Master   | |master-status| | |master-docs| |
++----------+-----------------+---------------+
+| Dev/VM   | |dev-status|    | |dev-docs|    |
++----------+-----------------+---------------+
+| libcloud | |lib-status|    | |lib-docs|    |
++----------+-----------------+---------------+
 
 Features
 --------
@@ -87,3 +89,9 @@ The travis build is found at
 .. |dev-status| image:: https://travis-ci.org/cloudmesh/client.svg?branch=vm
     :target: https://travis-ci.org/cloudmesh/client
 
+.. |lib-docs| image:: http://readthedocs.org/projects/cloudmesh-client/badge/?version=libcloud
+   :target: http://cloudmesh-workflow.readthedocs.org/en/master/
+   :alt: Documentation for master branch
+
+.. |lib-status| image:: https://travis-ci.org/cloudmesh/client.svg?branch=libcloud
+    :target: https://travis-ci.org/cloudmesh/client
