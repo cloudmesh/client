@@ -36,15 +36,11 @@ install:
   - mkdir ~/.cloudmesh
   - mkdir -p github/cloudmesh
   - cd github/cloudmesh
-  - git clone https://github.com/cloudmesh/base.git
   - git clone https://github.com/cloudmesh/client.git
-  - cd base
-  - pip install -r requirements.txt
-  - pip install .
-  - cd ../client
+  - cd client
   - pip install -r requirements.txt
   - pip install -r requirements-doc.txt
-  - pip install .
+  - python setup.py install
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
