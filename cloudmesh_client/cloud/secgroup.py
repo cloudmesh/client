@@ -66,7 +66,7 @@ class SecGroup(ListResource):
         return "\n".join(result)
 
     @classmethod
-    def create(cls, label, cloud=None, tenant=None):
+    def create(cls, label, cloud=None):
         """
         Method creates a new security group in database
         & returns the uuid of the created group
@@ -75,56 +75,22 @@ class SecGroup(ListResource):
         :param tenant:
         :return:
         """
-        # Get user from cloudmesh.yaml
-        user = ConfigDict.getUser(cloud)
-        uuid = None
+        # Create the security group in given cloud
+        try:
+            cloud_provider = CloudProvider(cloud).provider.provider
+            secgroup = cloud_provider.security_groups \
+                .create(name=label,
+                        description="Security group {}".format(label))
+            if secgroup:
+                uuid = secgroup.id
+                return uuid
+            else:
+                print("Failed to create security group, {}".format(secgroup))
+        except Exception, e:
+            print(
+                "Exception creating security group in cloud, {}".format(e))
 
-        if not cls.get(label, tenant, cloud):
-
-            # Create the security group in OS cloud
-            try:
-                # nova_client = CloudProvider.set(cloudname)
-                cloud_provider = CloudProvider(cloud).provider.provider
-                secgroup = cloud_provider.security_groups \
-                    .create(name=label,
-                            description="Security group {}".format(label))
-
-                if secgroup:
-                    uuid = secgroup.id
-                else:
-                    print(
-                        "Failed to create security group, {}".format(secgroup))
-                    return None
-            except Exception, e:
-                print(
-                    "Exception creating security group in cloud, {}".format(e))
-                return None
-
-            secgroup_obj = cls.cm_db.db_obj_dict("secgroup",
-                                                 name=label,
-                                                 uuid=uuid,
-                                                 category=cloud,
-                                                 user=user,
-                                                 project=tenant)
-            """
-            secgroup_obj = model.SECGROUP(
-                label,
-                uuid=uuid,
-                category=cloudname,
-                user=user,
-                project=tenant
-            )
-            cls.cm_db.add(secgroup_obj)
-            """
-
-            cls.cm_db.add_obj(secgroup_obj)
-            cls.cm_db.save()
-            return uuid
-
-        else:
-            print("Security group [{}], for cloud [{}], and tenant [{}] "
-                  "already exists!".format(label, cloud, tenant))
-            return None
+        return None
 
     @classmethod
     def list(cls, cloud="general", format="table"):
@@ -136,8 +102,8 @@ class SecGroup(ListResource):
         """
         try:
             elements = cls.cm_db.find("secgroup",
-                                       category=cloud)
-            pprint(elements)
+                                      category=cloud)
+            #pprint(elements)
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
             return dict_printer(elements,
@@ -200,14 +166,6 @@ class SecGroup(ListResource):
                 "category": cloud,
                 "project": project
             }
-
-            """
-            secgroup = cls.cm_db.query(model.SECGROUP).filter(
-                model.SECGROUP.name == name,
-                model.SECGROUP.category == cloud,
-                model.SECGROUP.project == project
-            ).first()
-            """
             secgroup = cls.cm_db.find("secgroup",
                                       output="object",
                                       **args).first()
@@ -304,33 +262,23 @@ class SecGroup(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete_secgroup(cls, label, cloud, tenant):
+    def delete_secgroup(cls, label, cloud):
         try:
             # Find the secgroup from the cloud
-            # nova_client = CloudProvider.set(cloud)
             cloud_provider = CloudProvider(cloud).provider.provider
             sec_group = cloud_provider.security_groups.find(name=label)
-            if not sec_group:
-                return None
 
-            # delete the secgroup in the cloud
-            cloud_provider.security_groups.delete(sec_group)
-
-            # perform local db deletion
-            sec_group = cls.get(label, tenant, cloud)
-            if sec_group:
-                # Delete all rules for group
-                cls.delete_all_rules(sec_group)
-                cls.cm_db.delete(sec_group)
-                return "Security Group [{}] for cloud [{}], & tenant [{}] deleted" \
-                    .format(label, cloud, tenant)
+            if sec_group is not None:
+                # delete the secgroup in the cloud
+                cloud_provider.security_groups.delete(sec_group)
+                return "Ok."
             else:
-                return None
-
+                print("Could not find security group [{}] in cloud [{}]"
+                      .format(label, cloud))
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        return
+        return None
 
     @classmethod
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):

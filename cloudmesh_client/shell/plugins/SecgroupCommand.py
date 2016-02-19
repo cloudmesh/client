@@ -22,8 +22,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 secgroup list [--cloud=CLOUD]
-                secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
-                secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
+                secgroup create [--cloud=CLOUD] LABEL
+                secgroup delete [--cloud=CLOUD] LABEL
                 secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
                 secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
                 secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
@@ -51,9 +51,9 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
 
             Examples:
-                secgroup list --cloud india --tenant fg82
+                secgroup list --cloud india
                 secgroup rules-list --cloud india --tenant fg82 default
-                secgroup create --cloud india --tenant fg82 webservice
+                secgroup create --cloud india webservice
                 secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
 
         """
@@ -61,6 +61,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         cloud = arguments["--cloud"] or Default.get_cloud()
 
+        # if refresh ON, pull data from cloud to db
         if arguments["refresh"] or \
                 Default.refresh():
             msg = "Refresh secgroup for cloud {:}.".format(cloud)
@@ -69,6 +70,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             else:
                 Console.error("{:} failed".format(msg))
 
+        # list all security-groups in cloud
         if arguments["list"]:
             # If default not set, terminate
             if not cloud:
@@ -83,22 +85,18 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                     "No Security Groups found in the cloudmesh database!")
             return ""
 
+        # Create a security-group
         elif arguments["create"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant",
-                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
                 return
-            if not tenant:
-                Console.error("Default tenant not set!")
-                return ""
 
             # Create returns uuid of created sec-group
-            uuid = SecGroup.create(label, cloud, tenant)
+            uuid = SecGroup.create(label, cloud)
 
             if uuid:
                 Console.ok("Created a new security group [{}] with UUID [{}]"
@@ -107,26 +105,23 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Exiting!")
             return ""
 
+        # Delete a security-group
         elif arguments["delete"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant",
-                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
                 return ""
-            if not tenant:
-                Console.error("Default tenant not set!")
-                return ""
 
-            result = SecGroup.delete_secgroup(label, cloud, tenant)
-            if result:
-                print(result)
+            result = SecGroup.delete_secgroup(label, cloud)
+            if result is not None:
+                Console.ok("Security Group [{}] in cloud [{}] deleted successfully." \
+                           .format(label, cloud))
             else:
-                Console.error("Security Group [{}, {}, {}] could not be "
-                              "deleted".format(label, cloud, tenant))
+                Console.error("Failed to delete Security Group [{}] in cloud [{}]"
+                              .format(label, cloud))
 
             return ""
 
@@ -165,7 +160,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 else:
                     Console.error(
                         "Rule [{} | {} | {} | {}] could not be deleted"
-                        .format(from_port, to_port, protocol, cidr))
+                            .format(from_port, to_port, protocol, cidr))
 
             return ""
 
@@ -193,7 +188,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 Console.error(
                     "Security Group with label [{}], cloud [{}], and "
                     "tenant [{}] not found!"
-                    .format(label, cloud, tenant))
+                        .format(label, cloud, tenant))
                 return ""
 
         elif arguments["rules-add"]:
@@ -236,4 +231,3 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             Console.ok('Version: ')
 
         return ""
-

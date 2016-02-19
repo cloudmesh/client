@@ -704,7 +704,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ],
                 'header': [
                     'id',
-                    'name',
+                    'secgroup_name',
                     'category',
                     'user',
                     'tenant_id',
