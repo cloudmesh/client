@@ -1,6 +1,6 @@
-|master-status| |master-docs|
 
-|dev-status| |dev-docs|
+* Master: |master-status| |master-docs|
+* Dev: |dev-status| |dev-docs|
 
 Cloudmesh Client
 ==============================================================
