@@ -1,22 +1,18 @@
 from __future__ import print_function
 
-import os
+import requests
+from pprint import pprint
 
-# from cloudmesh_client.db import model
-from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from novaclient import client
-import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 
 requests.packages.urllib3.disable_warnings()
 
 
-# noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming
 class SecGroup(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
@@ -70,7 +66,7 @@ class SecGroup(ListResource):
         return "\n".join(result)
 
     @classmethod
-    def create(cls, label, cloud=None, tenant=None):
+    def create(cls, label, cloud=None):
         """
         Method creates a new security group in database
         & returns the uuid of the created group
@@ -79,87 +75,41 @@ class SecGroup(ListResource):
         :param tenant:
         :return:
         """
-        # Get user from cloudmesh.yaml
-        user = ConfigDict.getUser(cloud)
-        uuid = None
+        # Create the security group in given cloud
+        try:
+            cloud_provider = CloudProvider(cloud).provider.provider
+            secgroup = cloud_provider.security_groups \
+                .create(name=label,
+                        description="Security group {}".format(label))
+            if secgroup:
+                uuid = secgroup.id
+                return uuid
+            else:
+                print("Failed to create security group, {}".format(secgroup))
+        except Exception, e:
+            print(
+                "Exception creating security group in cloud, {}".format(e))
 
-        if not cls.get(label, tenant, cloud):
-
-            # Create the security group in OS cloud
-            try:
-                # nova_client = CloudProvider.set(cloudname)
-                cloud_provider = CloudProvider(cloud).provider.provider
-                secgroup = cloud_provider.security_groups \
-                    .create(name=label,
-                            description="Security group {}".format(label))
-
-                if secgroup:
-                    uuid = secgroup.id
-                else:
-                    print(
-                        "Failed to create security group, {}".format(secgroup))
-                    return None
-            except Exception, e:
-                print(
-                    "Exception creating security group in cloud, {}".format(e))
-                return None
-
-            secgroup_obj = cls.cm_db.db_obj_dict("secgroup",
-                                                 name=label,
-                                                 uuid=uuid,
-                                                 category=cloud,
-                                                 user=user,
-                                                 project=tenant)
-            """
-            secgroup_obj = model.SECGROUP(
-                label,
-                uuid=uuid,
-                category=cloudname,
-                user=user,
-                project=tenant
-            )
-            cls.cm_db.add(secgroup_obj)
-            """
-
-            cls.cm_db.add_obj(secgroup_obj)
-            cls.cm_db.save()
-            return uuid
-
-        else:
-            print("Security group [{}], for cloud [{}], and tenant [{}] "
-                  "already exists!".format(label, cloud, tenant))
-            return None
+        return None
 
     @classmethod
-    def list(cls, project, cloud="general"):
+    def list(cls, cloud="general", format="table"):
         """
         This method queries the database to fetch list of secgroups
-        filtered by cloud, tenant.
-        :param project:
+        filtered by cloud.
         :param cloud:
         :return:
         """
-        # noinspection PyUnreachableCode
         try:
-            """
-            elements = cls.cm_db.query(model.SECGROUP).filter(
-                model.SECGROUP.category == cloudname,
-                model.SECGROUP.project == project
-            ).all()
+            elements = cls.cm_db.find("secgroup",
+                                      category=cloud)
+            #pprint(elements)
+            (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
-            d = cls.toDict(elements)
-            """
-
-            # nova_client = CloudProvider.set(cloud)
-            cloud_provider = CloudProvider(cloud).provider.provider
-            os_result = cloud_provider.security_groups.list()
-            d = SecGroup.convert_list_to_dict(os_result)
-
-            return dict_printer(d,
-                                order=["Id",
-                                       "Name",
-                                       "Description"],
-                                output="table")
+            return dict_printer(elements,
+                                order=order,
+                                header=header,
+                                output=format)
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -177,9 +127,9 @@ class SecGroup(ListResource):
                 # {u'from_port': 22, u'group': {}, u'ip_protocol': u'tcp', u'to_port': 22, u'parent_group_id': u'UUIDHERE', u'ip_range': {u'cidr': u'0.0.0.0/0'}, u'id': u'UUIDHERE'}
                 for arule in rules:
                     if arule["from_port"] == 22 and \
-                       arule["to_port"] == 22 and \
-                       arule["ip_protocol"] == 'tcp' and \
-                       arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
+                                    arule["to_port"] == 22 and \
+                                    arule["ip_protocol"] == 'tcp' and \
+                                    arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
                         # print (arule["id"])
                         rule_exists = True
                         break
@@ -201,12 +151,11 @@ class SecGroup(ListResource):
         return ret
 
     @classmethod
-    def get(cls, name, project, cloud="general"):
+    def get(cls, name, cloud="general"):
         """
         This method queries the database to fetch secgroup
         with given name filtered by cloud.
         :param name:
-        :param project:
         :param cloud:
         :return:
         """
@@ -214,16 +163,7 @@ class SecGroup(ListResource):
             args = {
                 "name": name,
                 "category": cloud,
-                "project": project
             }
-
-            """
-            secgroup = cls.cm_db.query(model.SECGROUP).filter(
-                model.SECGROUP.name == name,
-                model.SECGROUP.category == cloud,
-                model.SECGROUP.project == project
-            ).first()
-            """
             secgroup = cls.cm_db.find("secgroup",
                                       output="object",
                                       **args).first()
@@ -244,21 +184,6 @@ class SecGroup(ListResource):
                                                                  from_port=from_port,
                                                                  to_port=to_port,
                                                                  cidr=cidr)
-            """
-            ruleObj = model.SECGROUPRULE(
-                uuid=str(rule_id),
-                name=secgroup.name,
-                groupid=secgroup.uuid,
-                category=secgroup.category,
-                user=secgroup.user,
-                project=secgroup.project,
-                fromPort=from_port,
-                toPort=to_port,
-                protocol=protocol,
-                cidr=cidr
-            )
-            cls.cm_db.add(ruleObj)
-            """
 
             ruleObj = cls.cm_db.db_obj_dict("secgrouprule",
                                             uuid=str(rule_id),
@@ -284,9 +209,6 @@ class SecGroup(ListResource):
 
     @classmethod
     def get_rules(cls, uuid):
-        # problem:
-        # I don't see rules were ever updated/retrieved from the cloud
-        #
         """
         This method gets the security group rule
         from the cloudmesh database
@@ -294,21 +216,20 @@ class SecGroup(ListResource):
         :return:
         """
         try:
-            """
-            rule = cls.cm_db.query(model.SECGROUPRULE).filter(
-                model.SECGROUPRULE.groupid == uuid
-            ).all()
-            """
-
             args = {
                 "groupid": uuid
             }
 
             rule = cls.cm_db.find("secgrouprule", **args)
-            # d = cls.toDict(rule)
+
+            # check if rules exist
+            if rule is None:
+                return "No rules for security group [{}] in the database. Try cm secgroup refresh."
+
+            # return table
             return (dict_printer(rule,
                                  order=["user",
-                                        "cloud",
+                                        "category",
                                         "name",
                                         "fromPort",
                                         "toPort",
@@ -319,34 +240,26 @@ class SecGroup(ListResource):
         except Exception as ex:
             Console.error(ex.message, ex)
 
+        return None
+
     @classmethod
-    def delete_secgroup(cls, label, cloud, tenant):
+    def delete_secgroup(cls, label, cloud):
         try:
             # Find the secgroup from the cloud
-            # nova_client = CloudProvider.set(cloud)
             cloud_provider = CloudProvider(cloud).provider.provider
             sec_group = cloud_provider.security_groups.find(name=label)
-            if not sec_group:
-                return None
 
-            # delete the secgroup in the cloud
-            cloud_provider.security_groups.delete(sec_group)
-
-            # perform local db deletion
-            sec_group = cls.get(label, tenant, cloud)
-            if sec_group:
-                # Delete all rules for group
-                cls.delete_all_rules(sec_group)
-                cls.cm_db.delete(sec_group)
-                return "Security Group [{}] for cloud [{}], & tenant [{}] deleted" \
-                    .format(label, cloud, tenant)
+            if sec_group is not None:
+                # delete the secgroup in the cloud
+                cloud_provider.security_groups.delete(sec_group)
+                return "Ok."
             else:
-                return None
-
+                print("Could not find security group [{}] in cloud [{}]"
+                      .format(label, cloud))
         except Exception as ex:
             Console.error(ex.message, ex)
 
-        return
+        return None
 
     @classmethod
     def delete_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
@@ -362,19 +275,8 @@ class SecGroup(ListResource):
             rule = cls.cm_db.find("secgrouprule", output="object",
                                   **args).first()
 
-            """
-            rule = cls.cm_db.query(model.SECGROUPRULE).filter(
-                model.SECGROUPRULE.groupid == secgroup.uuid,
-                model.SECGROUPRULE.fromPort == from_port,
-                model.SECGROUPRULE.toPort == to_port,
-                model.SECGROUPRULE.protocol == protocol,
-                model.SECGROUPRULE.cidr == cidr
-            ).first()
-            """
-
             if rule is not None:
                 # get the nova client for cloud
-                # nova_client = CloudProvider.set(secgroup.category)
                 cloud_provider = CloudProvider(cloud).provider.provider
                 # delete the rule from the cloud
                 cloud_provider.security_group_rules.delete(rule.uuid)
@@ -393,11 +295,6 @@ class SecGroup(ListResource):
     @classmethod
     def delete_all_rules(cls, secgroup):
         try:
-            """
-            rules = cls.cm_db.query(model.SECGROUPRULE).filter(
-                model.SECGROUPRULE.groupid == secgroup.uuid
-            ).all()
-            """
 
             args = {
                 "groupid": secgroup.uuid
