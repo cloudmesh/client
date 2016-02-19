@@ -1,6 +1,12 @@
 
-* Master: |master-status| |master-docs|
-* Dev: |dev-status| |dev-docs|
+Automated Builds
+----------------
+
++--------+-----------------+---------------+
+| Master | |master-status| | |master-docs| |
++--------+-----------------+---------------+
+| Dev    | |dev-status|    | |dev-docs|    |
++--------+-----------------+---------------+
 
 Cloudmesh Client
 ==============================================================
