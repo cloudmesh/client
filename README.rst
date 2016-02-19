@@ -1,12 +1,4 @@
 
-Automated Builds
-----------------
-
-+--------+-----------------+---------------+
-| Master | |master-status| | |master-docs| |
-+--------+-----------------+---------------+
-| Dev    | |dev-status|    | |dev-docs|    |
-+--------+-----------------+---------------+
 
 Cloudmesh Client
 ==============================================================
@@ -18,6 +10,15 @@ easily. In contrast to our earlier versions of cloudmesh it explicitly
 separates the code to only target client code. Due to this simplification
 it is also possible to install the client code not only on Linux, OSX, but
 also Windows. We have tested the installation on Windows 10.
+
+Automated Builds
+----------------
+
++--------+-----------------+---------------+
+| Master | |master-status| | |master-docs| |
++--------+-----------------+---------------+
+| Dev    | |dev-status|    | |dev-docs|    |
++--------+-----------------+---------------+
 
 Features
 --------
