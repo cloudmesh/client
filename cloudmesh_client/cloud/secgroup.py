@@ -184,21 +184,6 @@ class SecGroup(ListResource):
                                                                  from_port=from_port,
                                                                  to_port=to_port,
                                                                  cidr=cidr)
-            """
-            ruleObj = model.SECGROUPRULE(
-                uuid=str(rule_id),
-                name=secgroup.name,
-                groupid=secgroup.uuid,
-                category=secgroup.category,
-                user=secgroup.user,
-                project=secgroup.project,
-                fromPort=from_port,
-                toPort=to_port,
-                protocol=protocol,
-                cidr=cidr
-            )
-            cls.cm_db.add(ruleObj)
-            """
 
             ruleObj = cls.cm_db.db_obj_dict("secgrouprule",
                                             uuid=str(rule_id),
@@ -290,19 +275,8 @@ class SecGroup(ListResource):
             rule = cls.cm_db.find("secgrouprule", output="object",
                                   **args).first()
 
-            """
-            rule = cls.cm_db.query(model.SECGROUPRULE).filter(
-                model.SECGROUPRULE.groupid == secgroup.uuid,
-                model.SECGROUPRULE.fromPort == from_port,
-                model.SECGROUPRULE.toPort == to_port,
-                model.SECGROUPRULE.protocol == protocol,
-                model.SECGROUPRULE.cidr == cidr
-            ).first()
-            """
-
             if rule is not None:
                 # get the nova client for cloud
-                # nova_client = CloudProvider.set(secgroup.category)
                 cloud_provider = CloudProvider(cloud).provider.provider
                 # delete the rule from the cloud
                 cloud_provider.security_group_rules.delete(rule.uuid)
@@ -321,11 +295,6 @@ class SecGroup(ListResource):
     @classmethod
     def delete_all_rules(cls, secgroup):
         try:
-            """
-            rules = cls.cm_db.query(model.SECGROUPRULE).filter(
-                model.SECGROUPRULE.groupid == secgroup.uuid
-            ).all()
-            """
 
             args = {
                 "groupid": secgroup.uuid
