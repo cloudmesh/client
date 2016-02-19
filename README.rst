@@ -1,3 +1,5 @@
+|master-status| |master-doc|
+
 Cloudmesh Client
 ==============================================================
 
@@ -18,20 +20,20 @@ Features
 
 * Supported clouds
 
-    * OpenStack
-    * Azure (not yet integrated, earlier versions of cloudmesh support it)
-    * Amazon (not yet integrated, earlier versions of cloudmesh support it)
-    * SDSC comet virtual clusters
+  * OpenStack
+  * Azure (not yet integrated, earlier versions of cloudmesh support it)
+  * Amazon (not yet integrated, earlier versions of cloudmesh support it)
+  * SDSC comet virtual clusters
 
 * Supported Provider Templates
 
-    * Futuesystems.org
-    * chameleoncloud.org
-    * SDSC Comet virtual clusters
-    * Openstack (any general Openstack Cloud)
-    * HP Chameleon
-    * AWS  (not yet integrated, earlier versions of cloudmesh support it)
-    * Azure (not yet integrated, earlier versions of cloudmesh support it)
+  * Futuesystems.org
+  * chameleoncloud.org
+  * SDSC Comet virtual clusters
+  * Openstack (any general Openstack Cloud)
+  * HP Chameleon
+  * AWS  (not yet integrated, earlier versions of cloudmesh support it)
+  * Azure (not yet integrated, earlier versions of cloudmesh support it)
 
 * Heterogeneous Cloud Commandline client
 * Heterogeneous Cloud Command Shell
@@ -59,3 +61,20 @@ The source code is located at
 The travis build is found at
 
 * https://travis-ci.org/cloudmesh/client
+
+
+
+.. |dev-docs| image:: http://readthedocs.org/projects/cloudmesh-client/badge/?version=vm
+   :target: http://cloudmesh-workflow.readthedocs.org/en/vm
+   :alt: Documentation for unstable branch
+
+.. |master-docs| image:: http://readthedocs.org/projects/cloudmesh-client/badge/?version=master
+   :target: http://cloudmesh-workflow.readthedocs.org/en/master/
+   :alt: Documentation for master branch
+
+.. |master-status| image:: https://travis-ci.org/cloudmesh/client.svg?branch=master
+    :target: https://travis-ci.org/cloudmesh/client
+
+.. |dev-status| image:: https://travis-ci.org/cloudmesh/client.svg?branch=vm
+    :target: https://travis-ci.org/cloudmesh/client
+
