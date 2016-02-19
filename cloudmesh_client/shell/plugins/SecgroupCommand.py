@@ -166,29 +166,23 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["rules-list"]:
             # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant",
-                                                          category=cloud)
             label = arguments["LABEL"]
 
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
                 return ""
-            if not tenant:
-                Console.error("Default tenant not set!")
-                return ""
 
             # Get the security group
-            sec_group = SecGroup.get(label, tenant, cloud)
+            sec_group = SecGroup.get(label, cloud)
             if sec_group:
                 # Get the rules
                 result = SecGroup.get_rules(sec_group.uuid)
                 print(result)
             else:
                 Console.error(
-                    "Security Group with label [{}], cloud [{}], and "
-                    "tenant [{}] not found!"
-                        .format(label, cloud, tenant))
+                    "Security Group with label [{}] in cloud [{}] not found!"
+                        .format(label, cloud))
                 return ""
 
         elif arguments["rules-add"]:
