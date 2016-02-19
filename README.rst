@@ -76,11 +76,11 @@ The travis build is found at
 
 
 .. |dev-docs| image:: http://readthedocs.org/projects/cloudmesh-client/badge/?version=vm
-   :target: http://cloudmesh-workflow.readthedocs.org/en/vm
+   :target: http://cloudmesh-client.readthedocs.org/en/vm
    :alt: Documentation for unstable branch
 
 .. |master-docs| image:: http://readthedocs.org/projects/cloudmesh-client/badge/?version=master
-   :target: http://cloudmesh-workflow.readthedocs.org/en/master/
+   :target: http://cloudmesh-client.readthedocs.org/en/master/
    :alt: Documentation for master branch
 
 .. |master-status| image:: https://travis-ci.org/cloudmesh/client.svg?branch=master
@@ -90,7 +90,7 @@ The travis build is found at
     :target: https://travis-ci.org/cloudmesh/client
 
 .. |lib-docs| image:: http://readthedocs.org/projects/cloudmesh-client/badge/?version=libcloud
-   :target: http://cloudmesh-workflow.readthedocs.org/en/master/
+   :target: http://cloudmesh-client.readthedocs.org/en/master/
    :alt: Documentation for master branch
 
 .. |lib-status| image:: https://travis-ci.org/cloudmesh/client.svg?branch=libcloud
