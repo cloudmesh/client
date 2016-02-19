@@ -1,6 +1,6 @@
 banner KEYS
 
-key delete --all --force=True
+key delete --all --force
 
 # TODO: does ~ expansion works?
 key add --name=test-key ~/.ssh/id_rsa.pub
@@ -22,3 +22,4 @@ key map
 
 # key delete --select
 
+key delete --all --force
