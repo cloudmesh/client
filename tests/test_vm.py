@@ -45,15 +45,13 @@ class Test_vm:
         try:
             command = "cm key load"
             result = self.run(command)
-        except Exception, e:
             print(result)
-        try:
-            command = "cm key upload id_rsa"
+
+            command = "cm key upload"
             result = self.run(command)
-        except Exception, e:
             print(result)
-
-
+        except Exception, e:
+            print(e.message)
 
     def test_001(self):
         """
