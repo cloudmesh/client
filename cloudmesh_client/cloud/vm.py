@@ -69,9 +69,8 @@ class Vm(ListResource):
         keycloudmap = cls.cm.get_key_cloud_mapping(username, key_name, cloud_name)
 
         if keycloudmap is None or len(keycloudmap) == 0:
-            Console.error("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
+            raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
                           .format(username, key_name, cloud_name))
-            return
 
         # print("Keycloudmap = {:}".format(keycloudmap))
         key_name_on_cloud = keycloudmap["key_name_on_cloud"]
