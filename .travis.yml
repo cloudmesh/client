@@ -27,6 +27,8 @@ python:
 install:
   - pip install --upgrade pip
   - pip --version
+  - pip install pyyaml --upgrade --force
+  - pip install lockfile
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
   - python setup.py install
@@ -34,15 +36,11 @@ install:
   - mkdir ~/.cloudmesh
   - mkdir -p github/cloudmesh
   - cd github/cloudmesh
-  - git clone https://github.com/cloudmesh/base.git
   - git clone https://github.com/cloudmesh/client.git
-  - cd base
-  - pip install -r requirements.txt
-  - pip install .
-  - cd ../client
+  - cd client
   - pip install -r requirements.txt
   - pip install -r requirements-doc.txt
-  - pip install .
+  - python setup.py install
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
@@ -53,5 +51,5 @@ script:
   - nosetests -v --nocapture tests/test_model.py
   - nosetests -v --nocapture tests/test_shell.py
   - nosetests -v --nocapture tests/test_tables.py
-  - make doc
-  - cm help
+#  - make doc
+#  - cm help
