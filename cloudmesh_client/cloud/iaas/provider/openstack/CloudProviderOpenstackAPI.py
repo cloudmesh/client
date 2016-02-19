@@ -693,6 +693,24 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'Limit'
                 ]
             },
+            'secgroup': {
+                'order': [
+                    'id',
+                    'name',
+                    'category',
+                    'user',
+                    'project',
+                    'uuid'
+                ],
+                'header': [
+                    'id',
+                    'name',
+                    'category',
+                    'user',
+                    'tenant_id',
+                    'secgroup_uuid'
+                ]
+            },
             'default': {
                 'order': None,
                 'header': None,

@@ -21,7 +21,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                secgroup list [--cloud=CLOUD] [--tenant=TENANT]
+                secgroup list [--cloud=CLOUD]
                 secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
                 secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
                 secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
@@ -70,19 +70,12 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 Console.error("{:} failed".format(msg))
 
         if arguments["list"]:
-            # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant")
-
             # If default not set, terminate
             if not cloud:
                 Console.error("Default cloud not set!")
                 return
-            if not tenant:
-                Console.error("Default tenant not set!")
-                return ""
 
-            result = SecGroup.list(project=tenant,
-                                   cloud=cloud)
+            result = SecGroup.list(cloud=cloud)
             if result:
                 print(result)
             else:

@@ -1,22 +1,18 @@
 from __future__ import print_function
 
-import os
+import requests
+from pprint import pprint
 
-# from cloudmesh_client.db import model
-from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from novaclient import client
-import requests
 from cloudmesh_client.cloud.ListResource import ListResource
 
 requests.packages.urllib3.disable_warnings()
 
 
-# noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming
 class SecGroup(ListResource):
     cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
@@ -131,35 +127,23 @@ class SecGroup(ListResource):
             return None
 
     @classmethod
-    def list(cls, project, cloud="general"):
+    def list(cls, cloud="general", format="table"):
         """
         This method queries the database to fetch list of secgroups
-        filtered by cloud, tenant.
-        :param project:
+        filtered by cloud.
         :param cloud:
         :return:
         """
-        # noinspection PyUnreachableCode
         try:
-            """
-            elements = cls.cm_db.query(model.SECGROUP).filter(
-                model.SECGROUP.category == cloudname,
-                model.SECGROUP.project == project
-            ).all()
+            elements = cls.cm_db.find("secgroup",
+                                       category=cloud)
+            pprint(elements)
+            (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
-            d = cls.toDict(elements)
-            """
-
-            # nova_client = CloudProvider.set(cloud)
-            cloud_provider = CloudProvider(cloud).provider.provider
-            os_result = cloud_provider.security_groups.list()
-            d = SecGroup.convert_list_to_dict(os_result)
-
-            return dict_printer(d,
-                                order=["Id",
-                                       "Name",
-                                       "Description"],
-                                output="table")
+            return dict_printer(elements,
+                                order=order,
+                                header=header,
+                                output=format)
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -177,9 +161,9 @@ class SecGroup(ListResource):
                 # {u'from_port': 22, u'group': {}, u'ip_protocol': u'tcp', u'to_port': 22, u'parent_group_id': u'UUIDHERE', u'ip_range': {u'cidr': u'0.0.0.0/0'}, u'id': u'UUIDHERE'}
                 for arule in rules:
                     if arule["from_port"] == 22 and \
-                       arule["to_port"] == 22 and \
-                       arule["ip_protocol"] == 'tcp' and \
-                       arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
+                                    arule["to_port"] == 22 and \
+                                    arule["ip_protocol"] == 'tcp' and \
+                                    arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
                         # print (arule["id"])
                         rule_exists = True
                         break
