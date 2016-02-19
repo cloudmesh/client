@@ -128,6 +128,10 @@ class CloudmeshDatabase(object):
                 # clear local db records for kind
                 self.clear(kind, name)
 
+                # for secgroup, clear rules as well
+                if kind == "secgroup":
+                    self.clear("secgrouprule", name)
+
                 if kind == "flavor":
                     flavors = provider.list_flavor(name)
                     for flavor in flavors.values():

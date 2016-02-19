@@ -151,12 +151,11 @@ class SecGroup(ListResource):
         return ret
 
     @classmethod
-    def get(cls, name, project, cloud="general"):
+    def get(cls, name, cloud="general"):
         """
         This method queries the database to fetch secgroup
         with given name filtered by cloud.
         :param name:
-        :param project:
         :param cloud:
         :return:
         """
@@ -164,7 +163,6 @@ class SecGroup(ListResource):
             args = {
                 "name": name,
                 "category": cloud,
-                "project": project
             }
             secgroup = cls.cm_db.find("secgroup",
                                       output="object",
@@ -226,9 +224,6 @@ class SecGroup(ListResource):
 
     @classmethod
     def get_rules(cls, uuid):
-        # problem:
-        # I don't see rules were ever updated/retrieved from the cloud
-        #
         """
         This method gets the security group rule
         from the cloudmesh database
@@ -236,21 +231,20 @@ class SecGroup(ListResource):
         :return:
         """
         try:
-            """
-            rule = cls.cm_db.query(model.SECGROUPRULE).filter(
-                model.SECGROUPRULE.groupid == uuid
-            ).all()
-            """
-
             args = {
                 "groupid": uuid
             }
 
             rule = cls.cm_db.find("secgrouprule", **args)
-            # d = cls.toDict(rule)
+
+            # check if rules exist
+            if rule is None:
+                return "No rules for security group [{}] in the database. Try cm secgroup refresh."
+
+            # return table
             return (dict_printer(rule,
                                  order=["user",
-                                        "cloud",
+                                        "category",
                                         "name",
                                         "fromPort",
                                         "toPort",
@@ -260,6 +254,8 @@ class SecGroup(ListResource):
 
         except Exception as ex:
             Console.error(ex.message, ex)
+
+        return None
 
     @classmethod
     def delete_secgroup(cls, label, cloud):
