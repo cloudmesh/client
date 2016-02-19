@@ -24,9 +24,9 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                 secgroup list [--cloud=CLOUD]
                 secgroup create [--cloud=CLOUD] LABEL
                 secgroup delete [--cloud=CLOUD] LABEL
-                secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
-                secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
-                secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+                secgroup rules-list [--cloud=CLOUD] LABEL
+                secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
+                secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
                 secgroup refresh [--cloud=CLOUD]
                 secgroup -h | --help
                 secgroup --version
@@ -34,7 +34,6 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             Options:
                 -h                  help message
                 --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-                --tenant=TENANT     Name of the tenant, e.g. fg82.
 
             Arguments:
                 LABEL         The label/name of the security group
@@ -52,9 +51,12 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             Examples:
                 secgroup list --cloud india
-                secgroup rules-list --cloud india --tenant fg82 default
-                secgroup create --cloud india webservice
-                secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+                secgroup rules-list --cloud=kilo default
+                secgroup create --cloud=kilo webservice
+                secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+                secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+                secgroup rules-delete --all
+
 
         """
         # pprint(arguments)
@@ -125,11 +127,10 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             return ""
 
+        # Delete security group rule
         elif arguments["rules-delete"]:
             # if no arguments read default
             cloud = arguments["--cloud"] or Default.get_cloud()
-            tenant = arguments["--tenant"] or Default.get("tenant",
-                                                          category=cloud)
 
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
@@ -141,13 +142,16 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             if not cloud:
                 Console.error("Default cloud not set!")
                 return ""
-            if not tenant:
-                Console.error("Default tenant not set!")
-                return ""
 
             # Get the security group
-            sec_group = SecGroup.get(label, tenant, cloud)
+            sec_group = SecGroup.get(label, cloud)
             if sec_group:
+
+                # delete all rules for secgroup
+                if arguments["--all"]:
+                    SecGroup.delete_all_rules(secgroup=sec_group)
+                    return ""
+
                 # Get the rules
                 result = SecGroup.delete_rule(cloud=cloud,
                                               secgroup=sec_group,
@@ -156,7 +160,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                                               protocol=protocol,
                                               cidr=cidr)
                 if result:
-                    print(result)
+                    Console.ok(result)
                 else:
                     Console.error(
                         "Rule [{} | {} | {} | {}] could not be deleted"
@@ -164,6 +168,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
 
             return ""
 
+        # list security group rules
         elif arguments["rules-list"]:
             # if no arguments read default
             label = arguments["LABEL"]
@@ -185,11 +190,8 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                         .format(label, cloud))
                 return ""
 
+        # add rule to security group
         elif arguments["rules-add"]:
-            # if no arguments read default
-            tenant = arguments["--tenant"] or Default.get("tenant",
-                                                          category=cloud)
-
             label = arguments["LABEL"]
             from_port = arguments["FROMPORT"]
             to_port = arguments["TOPORT"]
@@ -200,12 +202,9 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
             if not cloud:
                 Console.error("Default cloud not set!")
                 return ""
-            if not tenant:
-                Console.error("Default tenant not set!")
-                return ""
 
             # Get the security group
-            sec_group = SecGroup.get(label, tenant, cloud)
+            sec_group = SecGroup.get(label, cloud)
             if sec_group:
                 # Add rules to the security group
                 SecGroup.add_rule(cloud=cloud,
@@ -216,8 +215,7 @@ class SecgroupCommand(PluginCommand, CloudPluginCommand):
                                   cidr=cidr)
             else:
                 Console.error(
-                    "Security Group with label [{}], cloud [{}], and tenant [{"
-                    "}] not found!".format(label, cloud, tenant))
+                    "Security Group with label [{}] in cloud [{}] not found!".format(label, cloud))
                 return ""
 
         # TODO: Add Implementation
