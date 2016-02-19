@@ -391,6 +391,7 @@ class CloudmeshDatabase(object):
         :return:
         """
         # print("KW", kwargs)
+        kind = self.cloud_to_kind_mapper(kwargs["cloud"], kind)
         result = self.query(kind, **kwargs)
         # print("LLL", result)
         if output == 'dict' and result is not None:
@@ -405,6 +406,12 @@ class CloudmeshDatabase(object):
         #    return None
 
         return result
+
+    def cloud_to_kind_mapper(self, cloud, kind):
+        if cloud in ["chameleon-ec2"]:
+            if kind in ["image", "vm", "flavor"]:
+                kind = "libcloud_"+kind
+        return kind
 
     def query(self, kind, **kwargs):
         """

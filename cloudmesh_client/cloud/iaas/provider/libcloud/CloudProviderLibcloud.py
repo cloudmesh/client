@@ -68,4 +68,11 @@ class CloudProviderLibcloud(CloudProviderBase):
             # pprint("Index:"+str(index))
         return d
 
+    def attributes(self, kind):
+
+        order = None
+        header = None
+
+        return order, header
+
 
