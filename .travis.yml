@@ -34,7 +34,7 @@ python:
 #   version: "2.7.11"
   
 install:
-  - export PATH="/opt/python/2.7.10/bin:$PATH"
+  # - export PATH="/opt/python/2.7.10/bin:$PATH"
   - echo $PATH
   - which python
   - sudo apt-get update
@@ -43,8 +43,8 @@ install:
   - sudo pip install --upgrade pip
   - pip --version
   - mkdir ~/.cloudmesh
-  - pip install pyyaml --upgrade --force
-  - pip install lockfile
+  - sudo pip install pyyaml --upgrade --force
+  - sudo pip install lockfile
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
   - python setup.py install
