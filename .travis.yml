@@ -25,6 +25,7 @@ python:
 #   version: "2.7.11"
   
 install:
+  - mkdir ~/.cloudmesh
   - pip install --upgrade pip
   - pip --version
   - pip install pyyaml --upgrade --force
@@ -32,10 +33,7 @@ install:
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
   - python setup.py install
-  - cd ~
-  - mkdir ~/.cloudmesh
-  - mkdir -p ~/github/cloudmesh
-  - cd ~/github/cloudmesh
+  - cd ..
   - git clone https://github.com/cloudmesh/client.git
   - cd client
   - pip install -r requirements.txt
