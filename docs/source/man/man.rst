@@ -780,9 +780,7 @@ Command - key::
       key get NAME
       key default [KEYNAME | --select]
       key delete (KEYNAME | --select | --all) [--force]
-      key upload [KEYNAME]
-                 [--cloud=CLOUD]
-                 [--name=NAME_ON_CLOUD]
+      key upload [KEYNAME] [--cloud=CLOUD]
       key map [--cloud=CLOUD]
 
     Manages the keys
@@ -1445,12 +1443,12 @@ secgroup
 Command - secgroup::
 
     Usage:
-        secgroup list [--cloud=CLOUD] [--tenant=TENANT]
-        secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
-        secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup list [--cloud=CLOUD]
+        secgroup create [--cloud=CLOUD] LABEL
+        secgroup delete [--cloud=CLOUD] LABEL
+        secgroup rules-list [--cloud=CLOUD] LABEL
+        secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
         secgroup refresh [--cloud=CLOUD]
         secgroup -h | --help
         secgroup --version
@@ -1458,7 +1456,6 @@ Command - secgroup::
     Options:
         -h                  help message
         --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-        --tenant=TENANT     Name of the tenant, e.g. fg82.
 
     Arguments:
         LABEL         The label/name of the security group
@@ -1475,10 +1472,13 @@ Command - secgroup::
 
 
     Examples:
-        secgroup list --cloud india --tenant fg82
-        secgroup rules-list --cloud india --tenant fg82 default
-        secgroup create --cloud india --tenant fg82 webservice
-        secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+        secgroup list --cloud india
+        secgroup rules-list --cloud=kilo default
+        secgroup create --cloud=kilo webservice
+        secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+        secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+        secgroup rules-delete --all
+
 
 
 
