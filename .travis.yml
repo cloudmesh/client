@@ -25,6 +25,7 @@ python:
 #   version: "2.7.11"
   
 install:
+  - sudo apt-get update
   - mkdir ~/.cloudmesh
   - pip install --upgrade pip
   - pip --version
@@ -39,7 +40,7 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements-doc.txt
   - pip install -r requirements-test.txt
-  - python setup.py install
+  - python setup.py install --verbose
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
