@@ -7,7 +7,13 @@ notifications:
     - shenoy.200@gmail.com
     - vaglomangirish@gmail.com
     - kevinwangfg@gmail.com
-    
+
+addons:
+  apt:
+    packages:
+      - python-dev
+      - python-simplejson
+
 git:
   submodules: false
 
@@ -21,7 +27,7 @@ virtualenv:
 language: python
 
 python:
-  - "2.7.10"
+  - "2.7"
 
 # libraries:
 # - name: pycrypto
