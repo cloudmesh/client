@@ -1,12 +1,12 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_list.py:Test_list.test_001
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_CloudmeshDatabase.py:Test_CloudmeshDatabase.test_001
 
-nosetests -v --nocapture tests/test_list.py
+nosetests -v --nocapture tests/cm_basic/test_CloudmeshDatabase.py
 
 or
 
-nosetests -v tests/test_list.py
+nosetests -v tests/cm_basic/test_CloudmeshDatabase.py
 
 """
 import os

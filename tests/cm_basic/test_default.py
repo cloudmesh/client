@@ -1,12 +1,12 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_default.py:Test_default.test_001
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_default.py:Test_default.test_001
 
-nosetests -v --nocapture tests/test_default.py
+nosetests -v --nocapture tests/cm_basic/test_default.py
 
 or
 
-nosetests -v tests/test_vm.py
+nosetests -v tests/cm_basic/test_default.py
 
 """
 from cloudmesh_client.common.Shell import Shell
@@ -16,10 +16,12 @@ from cloudmesh_client.default import Default
 
 
 def run(command):
+    print(command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
+    print(result)
     return result
 
 

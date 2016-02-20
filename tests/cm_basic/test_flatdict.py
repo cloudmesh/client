@@ -1,10 +1,12 @@
 """ run with
 
-nosetests -v --nocapture
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_flatdict.py:Test_flatdict.test_001
+
+nosetests -v --nocapture tests/cm_basic/test_flatdict.py
 
 or
 
-nosetests -v
+nosetests -v tests/cm_basic/test_flatdict.py
 
 """
 

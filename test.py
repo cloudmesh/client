@@ -8,7 +8,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 import sys
 import json
 from pprint import pprint
-from cloudmesh_base.MultiKeyDict import MultiKeyDict
+# from cloudmesh_client.MultiKeyDict import MultiKeyDict
 
 # disable security warning for old certs
 import requests.packages.urllib3
