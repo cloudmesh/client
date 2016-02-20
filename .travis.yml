@@ -46,12 +46,7 @@ install:
 
 script:
   - cm help
-  - nosetests -v --nocapture tests/test_pass.py
-  - nosetests -v --nocapture tests/test_configdict.py
-  - nosetests -v --nocapture tests/test_default.py
-  - nosetests -v --nocapture tests/test_flatdict.py
-  - nosetests -v --nocapture tests/test_model.py
-  - nosetests -v --nocapture tests/test_shell.py
-  - nosetests -v --nocapture tests/test_tables.py
+  - py.test tests/cm_basic
+#  - nosetests -v --nocapture tests/cm_basic
 #  - make doc
 #  - cm help
