@@ -63,7 +63,6 @@ requirements = ['colorama',
                 'wheel',
                 'tox',
                 'nose',
-                'pytest',
                 'pytimeparse']
 
 def read(fname):
