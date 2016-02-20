@@ -40,7 +40,7 @@ install:
   - sudo apt-get update
   - sudo apt-get remove python-six -y
   - python --version
-  - pip install --upgrade pip
+  - sudo pip install --upgrade pip
   - pip --version
   - mkdir ~/.cloudmesh
   - pip install pyyaml --upgrade --force
