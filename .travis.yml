@@ -45,8 +45,12 @@ install:
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
-  - cm help
-  - py.test tests/cm_basic
-#  - nosetests -v --nocapture tests/cm_basic
+  - cd ~
+  - pwd
+  - ls
+  - ls bin
+  - cm version
+  - nosetests -v --nocapture tests/cm_basic
+#  -  py.test tests/cm_basic
 #  - make doc
 #  - cm help
