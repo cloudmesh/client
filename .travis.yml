@@ -1,3 +1,6 @@
+sudo: required
+dist: trusty
+
 notifications:
   email:
     - laszewski@gmail.com
@@ -18,7 +21,7 @@ virtualenv:
 language: python
 
 python:
-  - "2.7"
+  - "2.7,10"
 
 # libraries:
 # - name: pycrypto
