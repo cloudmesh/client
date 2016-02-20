@@ -41,14 +41,12 @@ install:
   - pip install -r requirements.txt
   - pip install -r requirements-doc.txt
   - pip install -r requirements-test.txt
-  - python setup.py install --verbose
+  - python setup.py install
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
-  - cd ~
   - pwd
   - ls
-  - ls bin
   - cm version
   - nosetests -v --nocapture tests/cm_basic
 #  -  py.test tests/cm_basic
