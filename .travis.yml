@@ -35,10 +35,11 @@ python:
   
 install:
   - sudo apt-get update
+  - apt-get remove python-six
   - python --version
-  - mkdir ~/.cloudmesh
   - pip install --upgrade pip
   - pip --version
+  - mkdir ~/.cloudmesh
   - pip install pyyaml --upgrade --force
   - pip install lockfile
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
