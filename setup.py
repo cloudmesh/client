@@ -30,14 +30,14 @@ if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
           "are not supported. Your version is {}. failed.", sys.version_info)
     print (70 * "#")
 
-commands = None
+command = None
 this_platform = platform.system().lower()
 if  this_platform in ['darwin']:
     command = "easy_install readline"
 elif this_platform in ['windows']:
     command = "pip install pyreadline"
 
-if command:
+if command is not None
     print("Install readline")
     os.system(command)
 
