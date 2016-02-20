@@ -22,16 +22,26 @@ from setuptools import setup, find_packages
 import os
 import sys
 from cloudmesh_client import __version__
+import platform
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
-    print("WARNING: Python versions smaller than 2.7.10 or any python 3 version "
+    print (70 * "#")
+    print("WARNING: upgrade to python 2.7.10 or above but not 3"
           "are not supported. Your version is {}. failed.", sys.version_info)
+    print (70 * "#")
 
+commands = None
+this_platform = platform.system().lower()
+if  this_platform in ['darwin']:
+    command = "easy_install readline"
+elif this_platform in ['windows']:
+    command = "pip install pyreadline"
 
-requirements = [#'builtins',
-                'pyreadline<=1.7.1.dev-r0',
-                #'pyreadline',
-                'colorama',
+if command:
+    print("Install readline")
+    os.system(command)
+
+requirements = ['colorama',
                 'future',
                 'docopt',
                 'pyaml',
