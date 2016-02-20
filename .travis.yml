@@ -35,6 +35,7 @@ python:
   
 install:
   - echo $PATH
+  - which python
   - sudo apt-get update
   - sudo apt-get remove python-six -y
   - python --version
