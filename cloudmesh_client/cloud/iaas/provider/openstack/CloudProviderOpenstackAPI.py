@@ -340,7 +340,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if self.isUuid(name):
             server = self.provider.servers.get(name)
         else:
-            #server = self.provider.servers.find(name=name)
+            # server = self.provider.servers.find(name=name)
             search_opts = {
                 'name': name,
             }
@@ -571,6 +571,42 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         else:
             return self.provider.servers.find(name=vm_name,
                                               scope="first")._info
+
+    def create_secgroup(self, secgroup_name):
+        secgroup = self.provider.security_groups \
+            .create(name=secgroup_name,
+                    description="Security group {}".format(secgroup_name))
+
+        return secgroup
+
+    def add_secgroup_rule(self, **kwargs):
+        rule_id = self.provider.security_group_rules.create(kwargs["uuid"],
+                                                            ip_protocol=kwargs["protocol"],
+                                                            from_port=kwargs["from_port"],
+                                                            to_port=kwargs["to_port"],
+                                                            cidr=kwargs["cidr"])
+        return rule_id
+
+    def delete_secgroup(self, secgroup_name):
+        search_opts = {
+            'name': secgroup_name,
+        }
+
+        secgroups = self.provider.security_groups.list(search_opts=search_opts)
+        if secgroups is not None:
+            for sec_group in secgroups:
+                # delete the secgroup in the cloud
+                if sec_group.name == secgroup_name:
+                    self.provider.security_groups.delete(sec_group)
+        else:
+            print("Could not find security group [{}] in cloud [{}]"
+                  .format(secgroup_name, self.cloud))
+
+        return "Ok."
+
+    def delete_secgroup_rule(self, rule_id):
+        self.provider.security_group_rules.delete(rule_id)
+        return
 
     def attributes(self, kind):
 
