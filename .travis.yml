@@ -47,6 +47,7 @@ install:
 script:
   - pwd
   - ls
+  - cat /home/travis/virtualenv/python2.7_with_system_site_packages/bin/cm
   - cm version
   - pip install nose
   - nosetests -v --nocapture tests/cm_basic
