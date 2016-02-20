@@ -36,7 +36,7 @@ python:
 install:
   - echo $PATH
   - sudo apt-get update
-  - sudo apt-get remove python-six
+  - sudo apt-get remove python-six -y
   - python --version
   - pip install --upgrade pip
   - pip --version
