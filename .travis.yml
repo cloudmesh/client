@@ -21,7 +21,7 @@ virtualenv:
 language: python
 
 python:
-  - "2.7,10"
+  - "2.7.10"
 
 # libraries:
 # - name: pycrypto
