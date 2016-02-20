@@ -34,13 +34,12 @@ python:
 #   version: "2.7.11"
   
 install:
-  # - export PATH="/opt/python/2.7.10/bin:$PATH"
+  - export PATH="/opt/python/2.7.10/bin:$PATH"
   - echo $PATH
-  - which python
   - sudo apt-get update
   - sudo apt-get remove python-six -y
-  - python --version
   - sudo pip install --upgrade pip
+  - which python
   - pip --version
   - mkdir ~/.cloudmesh
   - sudo pip install pyyaml --upgrade --force
