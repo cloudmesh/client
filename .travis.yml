@@ -34,6 +34,7 @@ python:
 #   version: "2.7.11"
   
 install:
+  - echo $PATH
   - sudo apt-get update
   - apt-get remove python-six
   - python --version
