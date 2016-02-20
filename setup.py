@@ -62,7 +62,6 @@ requirements = ['colorama',
                 'cloudmesh_timestring',
                 'wheel',
                 'tox',
-                'nose',
                 'pytimeparse']
 
 def read(fname):
