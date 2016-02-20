@@ -26,8 +26,8 @@ import platform
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
     print (70 * "#")
-    print("WARNING: upgrade to python 2.7.10 or above but not 3"
-          "are not supported. Your version is {}. failed.", sys.version_info)
+    print("WARNING: upgrade to python 2.7.10 or above but not 3 "
+          "are not supported. Your version is {}. failed.".format(sys.version_info))
     print (70 * "#")
 
 command = None
