@@ -48,6 +48,7 @@ script:
   - pwd
   - ls
   - cm version
+  - pip install nose
   - nosetests -v --nocapture tests/cm_basic
 #  -  py.test tests/cm_basic
 #  - make doc
