@@ -37,7 +37,7 @@ if  this_platform in ['darwin']:
 elif this_platform in ['windows']:
     command = "pip install pyreadline"
 
-if command is not None
+if command is not None:
     print("Install readline")
     os.system(command)
 
