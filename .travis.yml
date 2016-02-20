@@ -22,7 +22,7 @@ python:
 
 # libraries:
 # - name: pycrypto
-#   version: "2.6.1"
+#   version: "2.7.11"
   
 install:
   - pip install --upgrade pip
@@ -34,16 +34,18 @@ install:
   - python setup.py install
   - cd ~
   - mkdir ~/.cloudmesh
-  - mkdir -p github/cloudmesh
-  - cd github/cloudmesh
+  - mkdir -p ~/github/cloudmesh
+  - cd ~/github/cloudmesh
   - git clone https://github.com/cloudmesh/client.git
   - cd client
   - pip install -r requirements.txt
   - pip install -r requirements-doc.txt
+  - pip install -r requirements-test.txt
   - python setup.py install
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
+  - cm help
   - nosetests -v --nocapture tests/test_pass.py
   - nosetests -v --nocapture tests/test_configdict.py
   - nosetests -v --nocapture tests/test_default.py

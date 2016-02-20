@@ -3,6 +3,7 @@ colorama
 future
 docopt
 pyaml
+pyyaml
 simplejson
 python-hostlist
 prettytable
