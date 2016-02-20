@@ -24,9 +24,9 @@ import sys
 from cloudmesh_client import __version__
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
-    print("ERROR: Python versions smaller than 2.7.10 or any python 3 version "
+    print("WARNING: Python versions smaller than 2.7.10 or any python 3 version "
           "are not supported. Your version is {}. failed.", sys.version_info)
-    sys.exit()
+    
 
 requirements = [#'builtins',
                 'pyreadline<=1.7.1.dev-r0',
