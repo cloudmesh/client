@@ -1,3 +1,6 @@
+# build the cm-docker with
+# docker build -t cm-docker .
+#
 
 FROM    ubuntu:14.04
 MAINTAINER laszewski@gmail.com
