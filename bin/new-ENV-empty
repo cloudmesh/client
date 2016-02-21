@@ -1,0 +1,15 @@
+#!/bin/sh
+#~/ENV/bin/deactivate
+rm -rf ~/ENV
+virtualenv -p /usr/local/bin/python ~/ENV
+source ~/ENV/bin/activate
+
+pip install pip -U
+curl https://bootstrap.pypa.io/ez_setup.py -o - | python
+
+PWD=`pwd`
+
+osascript -e "tell application \"Terminal\" to do script \"cd $PWD\" "
+
+#xterm -hold -e "\"cd $PWD; ./bin/install-code; cm version\""
+#

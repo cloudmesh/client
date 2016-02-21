@@ -32,6 +32,13 @@ As we have so far a tight integrated group, we are typically not
 forking the repository, but cloning it directly. Members are than able
 to work on the clones. We may change this in case we see need for forks.
 
+
+Automated Builds and Reports
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* Documentation: http://cloudmesh-client.readthedocs.org/
+* Code: https://travis-ci.org/cloudmesh/client
+
 Contact
 -------
 
@@ -61,4 +68,69 @@ Authors
 -------
 
 .. include:: ../../AUTHORS
+
+Conventions
+------------
+
+We will be using some simple conventions in this documentation. To
+indicate a command to be executed on the terminal we use `$` at the
+beginning of the line:
+
+.. prompt:: bash
+
+	    echo "Hello World"
+
+
+A command started in the cloudmesh client shell is preceded by `cm>`:
+
+.. prompt:: bash, cm>
+
+	    help
+
+Often we are in the need to refer to a username or project. We will be
+using the username `albert` and the project id `FG-101`. It will be up
+to you to replace them with information related to your username and
+project. Alternatively we assume that you have set the shell variables
+$CM_USERNAME and $CM_PROJECT with for example:
+
+.. prompt:: bash
+
+	    export CM_USERNAME=albert
+	    export CM_PROJECT=FG101
+
+In this case we use in the documentation the values::
+
+  $CM_PROJECT
+  $CM_USERNAME
+
+These values are typically set in the cloudmesh yaml file and if used
+they can be read from it into variables within cloudmesh scripts:
+
+.. prompt:: bash, cm>
+
+	    var cloud=kilo
+	    var username=cloudmesh.profile.username
+	    var project=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
+
+Please note that these values could be specific to a cloud as
+indicated by the example for the project in the above project is
+dependent on the specific cloud which can be easily integrated in the
+cloudmesh variables while using a `$` followed by the variable name.
+
+
+Feature Requests
+-----------------
+
+Please e-mail feature requests and bugs to laszewski@gmail.com.
+
+
+We will manage them through github as part of issues and milestones:
+
+* Issues: https://github.com/cloudmesh/client/issues
+* Milestones: https://github.com/cloudmesh/client/milestones
+
+Questions unrelated to cloudmesh but relate to futuresystems such as
+network issues and outages are best send through the form at
+
+* https://portal.futuresystems.org/help
 

@@ -5,6 +5,7 @@ virtualenv -p /usr/local/bin/python ~/ENV
 source ~/ENV/bin/activate
 
 pip install pip -U
+curl https://bootstrap.pypa.io/ez_setup.py -o - | python
 
 PWD=`pwd`
 
@@ -12,17 +13,11 @@ cd ../base
 git pull
 pip install -r requirements.txt
 python setup.py install
-#git checkout sh
-
-#cd ../cmd3
-#git pull
-#git checkout sh
 
 cd ../client
 git pull
 pip install -r requirements.txt
 python setup.py install
-# git checkout sh
 
 osascript -e "tell application \"Terminal\" to do script \"cd $PWD; cm help ; cm version\" "
 

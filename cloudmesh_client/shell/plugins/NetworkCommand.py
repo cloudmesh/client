@@ -3,12 +3,12 @@ from __future__ import print_function
 import json
 import getpass
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -56,29 +56,29 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
 
             Examples:
-                $ network get fixed ip --cloud=india 10.1.2.5
-                $ network get fixed --cloud=india 10.1.2.5
-                $ network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
-                $ network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
-                $ network reserve fixed ip --cloud=india 10.1.2.5
-                $ network reserve fixed --cloud=india 10.1.2.5
-                $ network unreserve fixed ip --cloud=india 10.1.2.5
-                $ network unreserve fixed --cloud=india 10.1.2.5
-                $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
-                $ network associate floating --cloud=india --instance=albert-001
-                $ network associate floating --cloud=india --group=albert_group
-                $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
-                $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
-                $ network create floating ip --cloud=india --pool=albert-f01
-                $ network create floating --cloud=india --pool=albert-f01
-                $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
-                $ network delete floating --cloud=india 192.1.66.8 192.1.66.9
-                $ network list floating ip --cloud=india
-                $ network list floating --cloud=india
-                $ network list floating --cloud=india 192.1.66.8
-                $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
-                $ network list floating pool --cloud=india
-                $ network create cluster --group=demo_group
+                network get fixed ip --cloud=india 10.1.2.5
+                network get fixed --cloud=india 10.1.2.5
+                network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+                network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+                network reserve fixed ip --cloud=india 10.1.2.5
+                network reserve fixed --cloud=india 10.1.2.5
+                network unreserve fixed ip --cloud=india 10.1.2.5
+                network unreserve fixed --cloud=india 10.1.2.5
+                network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
+                network associate floating --cloud=india --instance=albert-001
+                network associate floating --cloud=india --group=albert_group
+                network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
+                network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
+                network create floating ip --cloud=india --pool=albert-f01
+                network create floating --cloud=india --pool=albert-f01
+                network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
+                network delete floating --cloud=india 192.1.66.8 192.1.66.9
+                network list floating ip --cloud=india
+                network list floating --cloud=india
+                network list floating --cloud=india 192.1.66.8
+                network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
+                network list floating pool --cloud=india
+                network create cluster --group=demo_group
 
         """
         # pprint(arguments)
@@ -146,7 +146,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 # Get the group information
                 group = Group.get_info(name=group_name,
-                                       cloud=cloudname,
+                                       category=cloudname,
                                        output="json")
                 if group is not None:
                     # Convert from str to json
@@ -179,7 +179,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif len(floating_ip)==0 and instance_id is not None:
+            elif len(floating_ip) == 0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Generate one from the pool, and assign to vm
@@ -252,7 +252,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 """
                 # Get the group information
                 group = Group.get_info(name=group_name,
-                                       cloud=cloudname,
+                                       category=cloudname,
                                        output="json")
                 if group is not None:
                     # Convert from str to json
@@ -292,7 +292,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     return ""
 
             # floating-ip not supplied, instance-id supplied
-            elif len(floating_ip)==0 and instance_id is not None:
+            elif len(floating_ip) == 0 and instance_id is not None:
                 """
                 Floating IP has not been provided, instance-id provided.
                 Remove floating ip allocated to vm
@@ -445,11 +445,11 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 arguments["create"]:
 
             group_name = arguments["--group"] or \
-                         Default.get("group", cloud=cloudname)
+                Default.get("group", category=cloudname)
 
             # Get the group information
             group = Group.get_info(name=group_name,
-                                   cloud=cloudname,
+                                   category=cloudname,
                                    output="json")
             if group is not None:
                 # Convert from str to json
@@ -510,18 +510,18 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                     generate_keypair = login_args + keygen_args
                     result = Shell.ssh(*generate_keypair)
 
-                    #print("***** Keygen *****")
-                    #print(result)
+                    # print("***** Keygen *****")
+                    # print(result)
 
                     cat_public_key = login_args + cat_pubkey_args
                     result = Shell.ssh(*cat_public_key)
                     public_keys += "\n" + result
 
-                    #print("***** id_rsa.pub *****")
-                    #print(result)
+                    # print("***** id_rsa.pub *****")
+                    # print(result)
 
-                #print("***** public keys *****")
-                #print(public_keys)
+                # print("***** public keys *****")
+                # print(public_keys)
 
                 for user, ip in zip(login_users, login_ips):
                     arguments = [
@@ -545,7 +545,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
         try:
             msg = "Refreshing database for cloud {:}.".format(cloudname)
             Console.msg(msg)
-            if Vm.refresh(cloud=cloudname) is not None:
+            if Vm.refresh(category=cloudname) is not None:
                 Console.ok("Complete.")
             else:
                 Console.error("{:} failed".format(msg))

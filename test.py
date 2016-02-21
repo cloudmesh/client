@@ -3,12 +3,12 @@ from novaclient import exceptions
 from novaclient.client import Client
 from novaclient.v2.quotas import QuotaSetManager
 from novaclient.v2.limits import LimitsManager
-from cloudmesh_base.util import path_expand
-from cloudmesh_base.ConfigDict import ConfigDict
+from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.ConfigDict import ConfigDict
 import sys
 import json
 from pprint import pprint
-from cloudmesh_base.MultiKeyDict import MultiKeyDict
+# from cloudmesh_client.MultiKeyDict import MultiKeyDict
 
 # disable security warning for old certs
 import requests.packages.urllib3

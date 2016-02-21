@@ -1,5 +1,3 @@
-__author__ = 'Gregor von Laszewski'
-
 from cloudmesh_base.hostlist import Parameter
 from cloudmesh_client.db.models import VM
 from cloudmesh_client.db.models import DEFAULT

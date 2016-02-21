@@ -1,187 +1,433 @@
 .. _comet_command:
 
-Comet Command
+Comet Virtual Cluster
 ======================================================================
 
-The manual page of the group command can be found at: `default
-<../man/man.html#default>`_
+Introduction
+-------------
 
-Cloudmesh has the ability to manage easily multiple clouds.
-One of the key concepts to make the list of such clouds
-easier is the introduction of defaults for each cloud or globally.
-Hence it is possible to set default images, flavors for each cloud,
-and also create the default cloud. The default command is used to
-set and list the default values. These defaults are used in other
-commands if they are not overwritten by a command parameter.
+Via XSEDE comet allows users to request high-performance virtual
+clusters (VCs) as part of their Comet allocation. The VC front-end
+associated with this award will be available 24/7 on the virtual
+machine hosting nodes, but VC compute nodes are transitory and
+allocated through the batch scheduler. The front end can be thought of
+as the point of entry for the VC and is used to manage VC resources
+and launch jobs. The justification for compute time is the same as for
+a standard allocations request. Projects that are awarded a VC can use
+their compute time through either the batch queue or the VC, but the
+expectation is that the latter will account for a substantial fraction
+of the usage.
 
-Upon start of cloudmesh, the default for cloud will be set to the first
-cloud that is found in the yaml file and the default group is set to
-`general`.
+In comet VCs are not meant to replace the standard HPC batch queuing
+system, which is well suited for most scientific and technical
+workloads. In addition, a VC should not be simply thought of as a VM
+(virtual machine). Other XSEDE resources, such as Indiana
+University's Jetstream address this need. Comets VCs are primarily
+intended for those users who require both fine-grained control over
+their software stack and access to multiple nodes. With regards to the
+software stack, this may include access to operating systems different
+from the default version of CentOS available on Comet or to low-level
+libraries that are closely integrated with the Linux
+distribution. Science Gateways serving large research communities and
+that require a flexible software environment are encouraged to
+consider applying for a VC, as are current users of commercial clouds
+who want to make the transition for performance or cost reasons.
 
-comet list
-----------------------------------------------------------------------
+Maintaining and configuring a virtual cluster requires a certain level
+of technical expertise. We expect that each project will have at least
+one person possessing strong systems administration experience with
+the relevant OS since the owner of the VC will be provided with "bare
+metal" root level access. SDSC staff will be available primarily to
+address performance issues that may be related to problems with the
+Comet hardware and not to help users build their system images.
 
-All the current default values can by listed with --all option::
+All VC requests must include a brief justification that addresses the
+following:
 
-    $ comet ll
-    +--------+-----------+-------+-------+
-    | user   | cloud     | name  | value |
-    +--------+-----------+-------+-------+
-    | albert | chameleon | image | abc   |
-    | albert | general   | cloud | azure |
-    | albert | general   | image | zyx   |
-    +--------+-----------+-------+-------+
+* Why is a VC required for this project?
+* What expertise does the PI's team have for building and maintaining the VC?
 
-You can also add a --cloud=CLOUD option to see the defaults set
-for a cloud::
+Please visit https://portal.xsede.org/sdsc-comet for more details on comet.
 
-    $ comet list
-    +--------+-----------+-------+-------+
-    | user   | cloud     | name  | value |
-    +--------+-----------+-------+-------+
-    | albert | chameleon | image | abc   |
-    +--------+-----------+-------+-------+
-
-Options
+Links
 ------------
 
-::
+Example CLI usage to manage comet virtual cluster using cloudmesh
+client
 
-        --user=USER           user name
-        --name=NAMES          Names of the vcluster
-        --start=TIME_START    Start time of the vcluster, in
-                              YYYY/MM/DD HH:MM:SS format.
-                              [default: 1901-01-01]
-        --end=TIME_END        End time of the vcluster, in YYYY/MM/DD
-                              HH:MM:SS format. In addition a duratio
-                              can be specified if the + sign is the
-                              first sig The duration will than be
-                              added to the start time.
-                              [default: 2100-12-31]
-        --project=PROJECT     project id
-        --host=HOST           host name
-        --description=DESCRIPTION  description summary of the vcluster
-        --file=FILE           Adding multiple vclusters from one file
-        --format=FORMAT       Format is either table, json, yaml,
-                              csv, rest
-                              [default: table]
+* Comet Command: :ref:`comet_command` (this page)
+* Comet Refernce Card :ref:`refcard_comet`
+* Man page `comet <../man/man.html#comet>`_
+* http://www.sdsc.edu/support/user_guides/comet.html
+* https://portal.xsede.org/sdsc-comet
+* Comet nucleus API Docs: https://comet-nucleus.sdsc.edu/nucleus/docs/
 
-Arguments
-----------
-
-::
-
-        FILENAME  the file to open in the cwd if . is
-                  specified. If file in in cwd
-                  you must specify it with ./FILENAME
-
-    Opens the given URL in a browser window.
-
-comet tunnel
---------------
-
-comet configuration
----------------------
-
-
-comet logon
--------------
-
-
-comet docs
-------------
-
-comet status
---------------
-
-TBD
-
-comet info
---------------
-
-TBD::
-
-       comet info [--user=USER]
-                    [--project=PROJECT]
-                    [--format=FORMAT]
-
-comet_cluster
----------------
-
-::
-
-       comet cluster [ID][--name=NAMES]
-                    [--user=USER]
-                    [--project=PROJECT]
-                    [--hosts=HOSTS]
-                    [--start=TIME_START]
-                    [--end=TIME_END]
-                    [--hosts=HOSTS]
-                    [--format=FORMAT]
-
-comet computeset
---------------------
-
-::
-
-       comet computeset [COMPUTESETID]
-
-
-comet start and stop
-----------------------
-
-::
-
-       comet start ID
-
-::
-
-       comet stop ID
-
-
-comet power
--------------------
-
-::
-
-       comet power (on|off|reboot|reset|shutdown) CLUSTERID PARAM
-
-comet delete
--------------
-
-::
-
-       comet delete [all]
-                      [--user=USER]
-                      [--project=PROJECT]
-                      [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-                      [--host=HOST]
-       comet delete --file=FILE
-
-
-comet update
--------------
-
-::
-
-       comet update [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-
-comet add
+Teminology
 -----------
 
-::
+We use in this section the following terminology:
 
-       comet add [--user=USER]
-                   [--project=PROJECT]
-                   [--host=HOST]
-                   [--description=DESCRIPTION]
-                   [--start=TIME_START]
-                   [--end=TIME_END]
-                   NAME
-       comet add --file=FILENAME
+computeset:
+    A group of compute nodes started together and being in some state
+    (submitted, started, finished, failed). Each compute node can only belong
+    to 1 computesets in submitted or active state.
+
+frontend:
+    A node with limited computational resources used to manage a virtual
+    cluster. Frontends run 24/7, have a public interface and a private
+    interface. The public interface provides outside access to the virtual
+    cluster while the private interface is used to manage/install the compute
+    nodes.
+
+image:
+    A file containing the contents and structure (ISO9660) of a disk volume
+    which can be attached as a cdrom to a node.
+
+console:
+    An interactive representation of the screen of a virtual cluster
+    node (text or graphical) provided to assist with node installation
+    and management.
+
+virtual cluster:
+    A virtual cluster is a loosely or tightly connected network of virtual
+    computers managed together by a virtual cluster administrator.
+
+node:
+    The term node is used to refer to individual computers in a virtual cluster.
+
+image attach:
+    Attach is an action applied to a node / image pair whereby the contents
+    of the image are made available to a node on the next power on.
+
+image detach:
+    Detach is an action applied to a node / image pair whereby the contents
+    of the image are made unavailable to the node on the next power on.
+
+Configuration
+--------------
+
+The configuration of the cloudmesh client is done semi automatically for you.
+All you have to do after the installation is to call cloudmesh client once.
+
+This is done best with the command::
+
+    cm help
+
+This will automatically generate a configuration file at::
+
+    ~/.cloudmesh/cloudmesh.yaml.
+
+This file you can now modify with your favourite editor. It will contain a
+default section similar to::
+
+
+    comet:
+        auth_provider: apikey
+        userpass:
+            username: TBD
+            password: TBD
+        apikey:
+            api_key: KEYSTRING
+            api_secret: SECRETSTRING
+
+
+Two authentication mechanisms are supported. You will only need one. Please
+get in contact with the comet administrators to let you know which one is best
+suited for you. If you have username and password you can get started with
+that. Otherwise the comet admins will assign you an api_key and secret.
+
+Commands
+---------
+
+Next we list a number of important commands from the CLI that will help you
+managing your comet virtual clusters.
+
+Getting information of your cluster(s); nodes; computesets; etc.
+~~~~
+List all clusters owned by the authenticated identity (summarized
+format):
+
+.. prompt:: bash
+  
+  cm comet ll
+
+List all clusters owned by the authenticated identity (detailed
+list):
+
+.. prompt:: bash
+  
+  cm comet cluster
+    
+List a cluster by name (we use here vc2 as example):
+
+.. prompt:: bash
+  
+  cm comet cluster vc2
+    
+List all defined computesets:
+
+.. prompt:: bash
+
+  cm comet computeset
+    
+List one computeset:
+
+.. prompt:: bash
+  
+   cm comet computeset 63
+
+Power management of frontend node:
+~~~~
+Power on the front end node of the specified cluster:
+
+.. prompt:: bash
+
+    cm comet power on vc2
+
+To power if off:
+
+.. prompt:: bash
+
+    cm comet power off vc2
+
+You can also reboot/reset/shutdown the fronend using the same 
+syntax, e.g., to reboot:
+
+.. prompt:: bash
+
+    cm comet power reboot vc2
+
+Power management of compute nodes:
+~~~~
+
+Power on a set of compute nodes in cluster vc2:
+
+.. prompt:: bash
+  
+    cm comet power on vc2 vm-vc2-[0-3]
+    
+This will request the nodes for a default period of time - 2 hours.
+
+To request for a longer time period, use --walltime parameter. 
+E.g., 100m (100 minutes), 6h (6 hours), 2d (2 days) , 1w (1 week):
+
+.. prompt:: bash
+
+    cm comet power on vc2 vm-vc2-[0-3] --walltime=6h
+
+The above will put the request under the one allocation associated with the cluster.
+If your cluster have more than one allocations, use --allocation
+parameter:
+
+.. prompt:: bash
+
+    cm comet power on vc2 vm-vc2-[0-3] --allocation=YOUR_ALLOCATION
+
+If you have more allocations, but does not specify via CLI, you will see a list of 
+allocations to choose from to use.
+
+You can also power on N arbitrary nodes, if there is enough resource:
+
+.. prompt:: bash
+
+    cm comet power on vc2 --count=4
+
+The comet system will find 4 available nodes from the specified cluster and start them 
+as one computeset.
+
+You can power off and back on individual nodes of an active
+computeset. E.g.:
+
+.. prompt:: bash
+
+    cm comet power off vc2 vm-vc2-[0,1]
+
+and then:
+
+.. prompt:: bash
+
+    cm comet power on vc2 vm-vc2-0
+
+Or power off the whole computeset by specifying the computeset id:
+
+.. prompt:: bash
+
+    cm comet power off vc2 123
+
+or by specifying the hosts:
+
+.. prompt:: bash
+
+    cm comet power off vc2 vm-vc2-[0-3]
+
+Please note if you powered off all nodes from an active computeset, the computeset 
+itself will be removed as well (changed to 'completed' status)
+
+You can also power on one single node as a computeset:
+
+.. prompt:: bash
+  
+    cm comet power on vc2 vm-vc2-[7]
+
+or simply:
+
+.. prompt:: bash
+
+    cm comet power on vc2 vm-vc2-7
+
+Getting Console access
+~~~~
+Get console of the frontend:
+
+.. prompt:: bash
+  
+    cm comet console vc2
+
+Get console of a running compute node:
+
+.. prompt:: bash
+  
+    cm comet console vc2 vm-vc2-0
+
+This will open a browser window using the system default browser 
+to display the console (in Mac OS X); or a firefox window (in Linux).
+If no compatible browser found, it will print out a URL so you can 
+access it via other means.
+
+System image management
+~~~~
+Get the list of images that are available to you:
+
+.. prompt:: bash
+
+    cm comet image list
+
+Upload an image to the public shared folder:
+
+.. prompt:: bash
+
+    cm comet image upload /path/to/your/image.iso
+
+Or with a specified new image name:
+
+.. prompt:: bash
+
+    cm comet image upload /path/to/your/image.iso --imagename=newimagename.iso
+
+Attach an image to the frontend:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc2
+
+Or to a compute node:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc2 vm-vc2-0
+
+To detach the attached iso image from frontend node:
+
+.. prompt:: bash
+
+    cm comet image detach vc2
+
+Or from a compute node:
+
+.. prompt:: bash
+
+    cm comet image detach vc2 vm-vc2-0
+
+Image attaching/detaching also works on compute nodes in bulk:
+
+.. prompt:: bash
+
+    cm comet image attach newimagename.iso vc2 vm-vc2-[0-4]
+
+.. prompt:: bash
+
+    cm comet image detach vc2 vm-vc2-[0-4]
+
+Please note image attaching/detaching will only take effect after you hard reboot 
+the node (power off and then power on).
+
+Other commands:
+~~~~
+You can also rename a compute node:
+
+.. prompt:: bash
+
+    cm comet node rename vc2 vm-vc2-0 mynode0
+
+How to get a virtual cluster?
+------------------------------
+
+1. Obtain an allocation via XSEDE as documented at https://www.xsede.org/allocations
+   To get started quickly we recommend a trial allocation for comet as
+   discussed here: https://portal.xsede.org/allocations/announcements#trial
+
+2. Once you have aan allocation and added your virtuall cluster admins to
+   your allocation. Get in contact with XSEDE to identify the scope of your
+   project and allocation size (This may already be specified in the
+   allocation request).
+
+        At this time send e-mail to laszewski AT gmail DOT com and
+        kevinwangfg AT gmail DOT com
+
+        In future we will be using the XSEDE ticket system once it is set up
+        for us
+
+3. At this time the comet team will send you details about the name of your
+   virtual cluster, how many nodes you can use. Once you have this information
+   you can start a virtual cluster immediately.
+
+
+4. Please note that it will be up to you to provide an apropriate iso image.
+   A small number of sample images are provided and you can list tehm with ::
+
+     cm comet image list
+
+5. Next you need to attach an image to your compute nodes (we assume you
+   have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2 ::
+
+        cm image attach imagename.iso vc2 vm-vc2-[0-3]
+
+   Please note that the name of the cluster (vc2) will be different for you
+
+6. Now you can just power on and boot the node with::
+
+    cm comet power on vc2 vm-vc2-[0-3]
+
+7. To see the console of a node you can use for an individual node (here the
+ node 0)::
+
+     cm comet console vc2 vm-vc2-0
+
+Why are the names of the nodes so complicated?
+-----------------------------------------------
+
+And why do i also need to specify the name of the cluster? Can this not be
+omitted?
+
+Comet virtual cluster tools allow a user to manage multiple virtual clusters
+at the same time and a node could be reassigned between virtual clusters.
+This makes it necessary that you must specify the virtual cluster explicitly.
+The names of the nodes are a default provided by comet and we expect that
+for easier management you will at one point rename them while using the
+comet rename command to a naming scheme that you desire.
+
+For example assume my virtual cluster is called osg than you may want to
+rename your nodes such as::
+
+    cm comet node rename osg vm-osg-0 osg-0
+    cm comet node rename osg vm-osg-1 osg-1
+    ...
+
+This wil than result in a cluster where the frontend name is osg (given to
+you by the comet team), but you have renamed the nodes to osg-1, osg-2, ...
+
+How do I get support?
+----------------------
+
+At this time simply send mail to laszewski AT gmail DOT com and kevinwangfg AT gmail DOT com.
+We will get back to you ASAP hopefully within one business day.

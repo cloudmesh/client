@@ -1,10 +1,19 @@
+sudo: required
+dist: trusty
+
 notifications:
   email:
     - laszewski@gmail.com
     - shenoy.200@gmail.com
     - vaglomangirish@gmail.com
     - kevinwangfg@gmail.com
-    
+
+addons:
+  apt:
+    packages:
+      - python-dev
+      - python-simplejson
+
 git:
   submodules: false
 
@@ -20,36 +29,36 @@ language: python
 python:
   - "2.7"
 
-# libraries:
-# - name: pycrypto
-#   version: "2.6.1"
-  
 install:
-  - pip install --upgrade pip
+  # - export PATH="/opt/python/2.7.10/bin:$PATH"
+  - echo $PATH
+  - sudo apt-get update
+  - sudo apt-get remove python-six -y
+  - sudo pip install --upgrade pip
+  - which python
   - pip --version
-  - pip install pyyaml --upgrade --force
-  - pip install lockfile
+  - mkdir ~/.cloudmesh
+  - sudo pip install pyyaml --upgrade --force
+  - sudo pip install lockfile
   - curl -L http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto/pycrypto-2.6.1.tar.gz | tar xz
   - cd pycrypto-2.6.1
   - python setup.py install
-  - cd ~
-  - mkdir ~/.cloudmesh
-  - mkdir -p github/cloudmesh
-  - cd github/cloudmesh
+  - cd ..
   - git clone https://github.com/cloudmesh/client.git
   - cd client
   - pip install -r requirements.txt
   - pip install -r requirements-doc.txt
+  - pip install -r requirements-test.txt
   - python setup.py install
   - ln -s `pwd` $(dirname `which python`)/../lib/python2.7/site-packages/cloudmesh_client
 
 script:
-  - nosetests -v --nocapture tests/test_pass.py
-  - nosetests -v --nocapture tests/test_configdict.py
-  - nosetests -v --nocapture tests/test_default.py
-  - nosetests -v --nocapture tests/test_flatdict.py
-  - nosetests -v --nocapture tests/test_model.py
-  - nosetests -v --nocapture tests/test_shell.py
-  - nosetests -v --nocapture tests/test_tables.py
+  - pwd
+  - ls
+  - cat /home/travis/virtualenv/python2.7_with_system_site_packages/bin/cm
+  - cm version
+  - pip install nose
+  - nosetests -v --nocapture tests/cm_basic
+#  -  py.test tests/cm_basic
 #  - make doc
 #  - cm help

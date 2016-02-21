@@ -69,9 +69,8 @@ class Vm(ListResource):
         keycloudmap = cls.cm.get_key_cloud_mapping(username, key_name, cloud_name)
 
         if keycloudmap is None or len(keycloudmap) == 0:
-            Console.error("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
+            raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
                           .format(username, key_name, cloud_name))
-            return
 
         # print("Keycloudmap = {:}".format(keycloudmap))
         key_name_on_cloud = keycloudmap["key_name_on_cloud"]
@@ -81,19 +80,19 @@ class Vm(ListResource):
         cloud_provider = CloudProvider(cloud_name).provider
 
         if "nics" in kwargs:
-           vm = cloud_provider.boot_vm(kwargs["name"],
-                                           kwargs["image"],
-                                           kwargs["flavor"],
-                                           key=key_name_on_cloud,
-                                           secgroup=kwargs["secgroup_list"],
-                                           nics=nics)
+            vm = cloud_provider.boot_vm(kwargs["name"],
+                                        kwargs["image"],
+                                        kwargs["flavor"],
+                                        key=key_name_on_cloud,
+                                        secgroup=kwargs["secgroup_list"],
+                                        nics=kwargs["nics"])
         else:
             vm = cloud_provider.boot_vm(kwargs["name"],
-                                           kwargs["image"],
-                                           kwargs["flavor"],
-                                           key=key_name_on_cloud,
-                                           secgroup=kwargs["secgroup_list"],
-                                           nics=None)
+                                        kwargs["image"],
+                                        kwargs["flavor"],
+                                        key=key_name_on_cloud,
+                                        secgroup=kwargs["secgroup_list"],
+                                        nics=None)
 
         print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
         return vm
@@ -136,17 +135,21 @@ class Vm(ListResource):
     def list(cls, **kwargs):
         """
         This method lists all VMs of the cloud
-        :param cloud: the cloud name
         """
 
         try:
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
                 if cls.isUuid(kwargs["name_or_id"]):
-                    elements = cls.cm.find("vm", cloud=kwargs["cloud"], uuid=kwargs["name_or_id"])
+                    elements = cls.cm.find("vm",
+                                           category=kwargs["cloud"],
+                                           uuid=kwargs["name_or_id"])
                 else:
-                    elements = cls.cm.find("vm", cloud=kwargs["cloud"], label=kwargs["name_or_id"])
+                    elements = cls.cm.find("vm",
+                                           category=kwargs["cloud"],
+                                           label=kwargs["name_or_id"])
             else:
-                elements = cls.cm.find("vm", cloud=kwargs["cloud"])
+                elements = cls.cm.find("vm",
+                                       category=kwargs["cloud"])
 
             # print(elements)
 
@@ -185,7 +188,7 @@ class Vm(ListResource):
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
-            vm_data = cls.cm.find("vm", cloud=cloud, label=name_or_id)
+            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
             uuid = vm_data.values()[0]["uuid"]
@@ -205,7 +208,7 @@ class Vm(ListResource):
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
-            vm_data = cls.cm.find("vm", cloud=cloud, label=name_or_id)
+            vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
             uuid = vm_data.values()[0]["uuid"]
@@ -220,3 +223,10 @@ class Vm(ListResource):
             return None
         else:
             return user_map_entry.values()[0]["username"]
+
+    @classmethod
+    def get_last_vm(cls, cloud):
+        vm_data = cls.cm.find("vm", scope="first", category=cloud)
+        if vm_data is None or len(vm_data) == 0:
+            raise RuntimeError("VM data not found in database.")
+        return vm_data

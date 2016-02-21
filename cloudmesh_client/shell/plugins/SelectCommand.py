@@ -1,11 +1,10 @@
 from __future__ import print_function
-from pprint import pprint
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_base.menu import dict_choice, menu_return_num
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.common.menu import menu_return_num
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.image import Image
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.common.ConfigDict import ConfigDict
@@ -28,8 +27,8 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
         ::
 
           Usage:
-              select image [CLOUD]
-              select flavor [CLOUD]
+              select image [CLOUD] [--refresh]
+              select flavor [CLOUD] [--refresh]
               select cloud [CLOUD]
               select key [CLOUD]
 
@@ -41,11 +40,18 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
 
           Options:
 
+            --refresh   refreshes the data before displaying it
+                        from the cloud
+
         """
         # pprint(arguments)
         cloud = arguments["CLOUD"] or Default.get_cloud()
         if arguments["image"]:
             try:
+                refresh = arguments['--refresh'] or Default.refresh()
+                if refresh:
+                    Image.refresh(cloud)
+
                 image_dict = Image.list(cloud, format="dict")
 
                 image_names = list()
@@ -62,12 +68,16 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 else:
                     image = image_names[number]
                     print("Selected image " + image)
-                    Default.set("image", image, cloud=cloud)
+                    Default.set("image", image, category=cloud)
             except:
                 print("ERROR: could not set image.")
 
         elif arguments["flavor"]:
             try:
+                refresh = arguments['--refresh'] or Default.refresh()
+                if refresh:
+                    Flavor.refresh(cloud)
+
                 flavor_dict = Flavor.list(cloud, format="dict")
 
                 flavor_names = list()
@@ -84,7 +94,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 else:
                     flavor = flavor_names[number]
                     print("Selected flavor " + flavor)
-                    Default.set("flavor", flavor, cloud=cloud)
+                    Default.set("flavor", flavor, category=cloud)
             except:
                 print("ERROR: could not set flavor.")
 
@@ -133,7 +143,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                     # TODO Fix default key setting in key DB
                     # db.set_default(key)
 
-                    Default.set("key", key, cloud=cloud)
+                    Default.set("key", key, category=cloud)
             except:
                 print("ERROR: could not set key")
 

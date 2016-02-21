@@ -22,11 +22,7 @@ like to access. On a terminal say::
 
 to register the FutureSystems kilo cloud
 
-    cm register remote juno
-
-to register the  juno cloud (this cloud will be disabled soon,
-so please transition to kilo). More information about the
-cloud can be found at
+More information about the cloud can be found at
 
 * https://portal.futuresystems.org
 
@@ -100,8 +96,6 @@ clouds.::
     +-------+-----------+---------+
     | azure | azure     | N/A     |
     | aws   | ec2       | N/A     |
-    | india | openstack | juno    |
-    | juno  | openstack | juno    |
     | kilo  | openstack | kilo    |
     +-------+-----------+---------+
 
@@ -116,7 +110,6 @@ To list only the names, please use the command::
     | azure |
     | aws   |
     | india |
-    | juno  |
     | kilo  |
     +-------+
 
@@ -153,11 +146,10 @@ The command::
 
 will copy and register a machine on which an openrc.sh file is located into
 the `cloudmesh.yaml` file. With cloudmesh we provide some default host, thus
- they are very easy to configure. This includes `juno`, and `kilo` our
+ they are very easy to configure. This includes `kilo` our
  current clouds in our lab. To register them you can use the commands::
 
     cm register reomte kilo
-    cm register remote juno
 
 These commands will only work if you have an account on this
 machine and it is integrated into the ssh config file as discussed
@@ -324,3 +316,11 @@ It will return output in json format::
         "cm_type_version": null
     }
 
+register profile --username
+----------------------------------------------------------------------
+
+Instead of modifying the profile username in the cloudmesh yaml file manually, this command provides a convenient way
+of setting the username through cm shell::
+
+	$ cm register profile --username=albert
+	Username albert set successfully in the yaml settings.

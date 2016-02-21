@@ -273,10 +273,13 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 etime = Date(end_time)
 
                 reserve = Reservation()
-                reserve.update(name, _get_db_date_format(stime),
-                               _get_db_date_format(etime), hosts=hosts,
+                reserve.update(name,
+                               _get_db_date_format(stime),
+                               _get_db_date_format(etime),
+                               hosts=hosts,
                                user=user,
-                               project=project, description=description)
+                               project=project,
+                               description=description)
 
                 print("Reservation {:} updated successfully".format(name))
                 msg = "info. OK."

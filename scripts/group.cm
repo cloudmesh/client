@@ -1,20 +1,11 @@
-#
-# test. make sure you have done cm reset before
-#
-
-# lines that do not work but should are commented out for now with ##
-
-banner DEFAULTS
-
-cm default
-
-banner REGISTRATION
-
-register remote juno
 register remote kilo
 
+# show teh defaukts
+cm default
 vm default
 
+banner "GROUP A"
+# boot 3 vms in goup a
 default group=group_a
 
 vm boot
@@ -23,6 +14,8 @@ vm boot
 
 vm list
 
+banner "GROUP B"
+# boot 3 vms in group b
 default group=group_b
 
 vm boot
@@ -31,14 +24,19 @@ vm boot
 
 vm list
 
+# delete all vms in group_a
 vm delete group_a
 
+banner "GROUP C"
 default group=group_c
 
+# create three vms in group_c
 py n = 3
 py for i in range(0,n): cm vm boot
 
 vm list
 
-
+# Cleanup
+vm delete group_b
+vm delete group_c
 

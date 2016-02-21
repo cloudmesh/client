@@ -1,14 +1,11 @@
-banner DEFAULTS
-list default
+default cloud=kilo
 
-
-banner SET_DEFAULT_CLOUD
-default cloud=juno
-
+! rm -rf ~/cm_sync
+! mkdir -p ~/cm_sync/put
+! cp README.rst ~/cm_sync/put/file.txt
 
 banner SYNC_FROM_LOCAL_TO_REMOTE
-sync put ~/cm_sync/send sync_dir
-
+sync put ~/cm_sync/put sync_dir
 
 banner SYNC_FROM_REMOTE_TO_LOCAL
-sync get sync_dir/* ~/cm_sync/receive
+sync get sync_dir/* ~/cm_sync/get

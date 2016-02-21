@@ -12,7 +12,7 @@ The manual page of the network command can be found at: `network <../man/man.htm
 ..note:: We assume you have your default cloud set,
           via the default command::
 
-            $ cm default cloud=juno
+            $ cm default cloud=kilo
 
 
 List Floating IP Pools

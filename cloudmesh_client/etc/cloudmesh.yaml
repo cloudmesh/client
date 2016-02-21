@@ -6,7 +6,7 @@ cloudmesh:
         firstname: TBD
         lastname: TBD
         email: TBD
-        username: None
+        username: TBD
     github:
         username: TBD
     portal:
@@ -74,16 +74,16 @@ cloudmesh:
                 OS_IMAGE_API_VERSION: 2
                 OS_VOLUME_API_VERSION: 2
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-14.04-64
         chameleon:
-            cm_heading: Chameleon, Juno
+            cm_heading: Chameleon
             cm_host: chameleoncloud.org
             cm_label: chameleon
             cm_type: openstack
-            cm_type_version: juno
+            cm_type_version: kilo
             credentials:
-                OS_AUTH_URL: TBD
+                OS_AUTH_URL: https://openstack.tacc.chameleoncloud.org:5000/v2.0
                 OS_PASSWORD: TBD
                 OS_TENANT_NAME: TBD
                 OS_TENANT_ID: TBD
@@ -92,8 +92,8 @@ cloudmesh:
                 OS_VERSION: kilo
                 OS_REGION_NAME: RegionOne
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         cybera-c:
           cm_heading: Cybera Calgary OpenStack
           cm_host: cybera
@@ -109,7 +109,7 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Calgary
           default:
-            flavor: m1.tiny
+            flavor: m1.small
             image: Ubuntu 14.04
         cybera-e:
           cm_heading: Cybera Edmonton OpenStack
@@ -126,24 +126,8 @@ cloudmesh:
             OS_PASSWORD: TBD
             OS_REGION_NAME: Edmonton
           default:
-            flavor: m1.tiny
+            flavor: m1.small
             image: Ubuntu 14.04
-        juno:
-            cm_heading: India OpenStack, Juno
-            cm_host: india
-            cm_label: juno
-            cm_type: openstack
-            cm_type_version: juno
-            cm_openrc: ~/.cloudmesh/clouds/india/juno/openrc.sh
-            credentials:
-                OS_AUTH_URL: https://i5r.idp.iu.futuregrid.org:5000/v2.0
-                OS_CACERT: ~/.cloudmesh/clouds/india/juno/cacert.pem
-                OS_PASSWORD: TBD
-                OS_TENANT_NAME: TBD
-                OS_USERNAME: TBD
-            default:
-                flavor: TBD
-                image: TBD
         aws:
             cm_heading: Amazon Cloud, AWS
             cm_host: aws.amazon.com
@@ -168,17 +152,17 @@ cloudmesh:
             credentials:
                 EC2_ACCESS_KEY: TBD
                 EC2_SECRET_KEY: TBD
-                keyname: TBD
-                userid: TBD
+                keyname: TBD_not_used
+                userid: TBD_not_used
                 EC2_URL: https://openstack.tacc.chameleoncloud.org:8773/services/Cloud
                 EC2_USER_ID: TBD
-                EC2_PRIVATE_KEY: TBD//pk.pem
-                EC2_CERT: TBD/cert.pem
-                NOVA_CERT: TBD/cacert.pem
-                EUCALYPTUS_CERT: TBD
+                EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
+                EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
+                NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
+                EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
             default:
-                flavor: TBD
-                image: TBD
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com
@@ -195,9 +179,12 @@ cloudmesh:
                 image: b39f27a8b8c64d52b05eac6a62ebad85__Ubuntu-14_04_2-LTS-amd64-server-20150610-en-us-30GB
                 location: East US
     keys:
-        default:
+        default: id_rsa
         keylist:
-          keyname: ~/.ssh/id_rsa.pub
+          id_rsa: ~/.ssh/id_rsa.pub
     system:
         data: ~/.cloudmesh/cloudmesh_inventory.yaml
         console_color: true
+    logging:
+        file: ~/.cloudmesh/cloudmesh.log
+        level: DEBUG

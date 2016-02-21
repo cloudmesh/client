@@ -29,13 +29,10 @@ class List(object):
         try:
             # get the model object
             table = cls.cm.get_table(kind)
-            #
-            #
-            # TODO why not use a dict?
-            #
+
             filter = {}
             if cloud is not None:
-                filter["cloud"] = cloud
+                filter["category"] = cloud
             if user is not None:
                 filter["user"] = user
             if tenant is not None:
@@ -84,27 +81,3 @@ class List(object):
         # return the dict
         return d
 
-    #
-    # TODO: i do not see why this method is here its also hardcoded and
-    # wrong as india does not exist. if a name is based on openstack,
-    # the cloud need to be checked if its openstack and than the user is
-    # returned. Than you also want o move this to cloud provider
-    #
-    @classmethod
-    def getUser(cls, cloudname):
-        # TODO: adapt to AWS, EC2, and Azure
-        try:
-            d = ConfigDict("cloudmesh.yaml")
-            if cloudname in d["cloudmesh"]["clouds"]:
-                config = d["cloudmesh"]["clouds"][cloudname]
-                credentials = config["credentials"]
-                cloud_type = d["cloudmesh"]["clouds"][cloudname]
-            else:
-                raise ValueError("cloud {} not in yaml file".format(cloudname))
-            if config["credentials"] == "openstack":
-                return credentials["OS_USERNAME"]
-            else:
-                return None
-
-        except Exception as ex:
-            Console.error(ex.message, ex)

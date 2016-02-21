@@ -1,9 +1,0 @@
-banner NOVA
-
-nova set juno
-
-nova info
-
-nova list
-nova image-list
-

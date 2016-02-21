@@ -11,6 +11,11 @@ ifeq ($(UNAME), CYGWIN_NT-6.3)
 BROWSER=/cygdrive/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 endif
 
+doc: man
+	sphinx-apidoc -f -o docs/source/code cloudmesh_client
+	cd docs; make html
+	cp -r scripts docs/build/html
+
 d:
 	rm -rf build
 	pip uninstall -y cloudmesh_client
@@ -18,14 +23,12 @@ d:
 	python setup.py install; python cloudmesh_client/db/CloudmeshDatabase.py
 	cm hpc run uname --cluster=india
 
+db:
+	rm ~/.cloudmesh/cloudmesh.db
+	cm default list
+
 test:
 	echo $(UNAME)
-
-
-doc: man
-	sphinx-apidoc -f -o docs/source/code/base ../base/cloudmesh_base
-	sphinx-apidoc -f -o docs/source/code/client cloudmesh_client
-	cd docs; make html
 
 publish:
 	ghp-import -n -p docs/build/html
@@ -36,8 +39,25 @@ view:
 man: cloudmesh
 	cm man > docs/source/man/man.rst
 
+# cm debug off')
+# cm man | grep -A10000 \"Commands\"  | sed \$d  > docs/source/man/man.rst
+
 cloudmesh:
 	python setup.py install
+
+setup:
+	python setup.py install
+
+dist: clean setup
+	python setup.py sdist --formats=gztar,zip
+	python setup.py bdist
+	python setup.py bdist_wheel
+
+upload_test:
+	python setup.py  sdist bdist bdist_wheel upload -r https://testpypi.python.org/pypi
+
+upload:
+	python setup.py  sdist bdist bdist_wheel upload -r https://pypi.python.org/pypi
 
 log:
 	gitchangelog | fgrep -v ":dev:" | fgrep -v ":new:" > ChangeLog
@@ -49,14 +69,17 @@ log:
 ######################################################################
 
 clean:
-	python setup.py clean
+	rm -rf *.egg-info *.eggs
+	rm -rf docs/build
+	rm -rf build
+	rm -rf dist
 
 ######################################################################
 # TAGGING
 ######################################################################
 
-tag: log
-	python setup.py tag
+tag:
+	bin/new_version.sh
 
 rmtag:
 	python setup.py rmtag

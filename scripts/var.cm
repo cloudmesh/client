@@ -1,12 +1,22 @@
 #
 # TESTING VARIABLES
 #
-var list
-var a=now
-banner $a
 
+# Listing the variables
+var list
+
+# Get the time and print a banner with the time
+var a=now
+var b=date
 var username=cloudmesh.profile.username
 
-banner $username
+var list
+
+banner $a
+
+# replace $a in comment
 
 echo $username
+
+echo $a
+echo $b

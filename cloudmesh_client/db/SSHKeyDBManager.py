@@ -2,12 +2,11 @@ from __future__ import absolute_import
 from pprint import pprint
 
 from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_base.menu import menu_return_num
+from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.keys.SSHKeyManager import SSHkey
 from cloudmesh_client.db.model import KEY, KEYCLOUDMAP
 from cloudmesh_client.db import CloudmeshDatabase
 
-from sqlite3 import IntegrityError
 
 # noinspection PyBroadException
 class SSHKeyDBManager(object):
@@ -36,7 +35,6 @@ class SSHKeyDBManager(object):
         except Exception, e:
             raise ValueError("Key already exists")
 
-
     def add_from_dict(self, d):
         pprint(d)
 
@@ -44,7 +42,7 @@ class SSHKeyDBManager(object):
                       uri='{uri}'.format(**d),
                       source='{source}'.format(**d),
                       comment='{comment}'.format(**d),
-                      cloud="general",
+                      category="general",
                       user='{user}'.format(**d),
                       fingerprint='{fingerprint}'.format(**d),
                       value='{string} {comment}'.format(**d),
@@ -69,11 +67,9 @@ class SSHKeyDBManager(object):
 
         # pprint(sshkey)
 
-
         # find if the key with fingerprint already exists
 
         # if so return warning and return command
-
 
         key_obj = KEY(
             keyname,
@@ -84,7 +80,7 @@ class SSHKeyDBManager(object):
             comment=sshkey['comment'],
             type="sshkey",
             # group=None,
-            cloud="general",
+            category="general",
             user=user)
 
         # pprint(key_obj.__dict__)
@@ -103,7 +99,14 @@ class SSHKeyDBManager(object):
         default_key = self.get_default()
         if default_key:
             default_key.is_default = 'False'
-        self.find(keyname).is_default = 'True'
+
+        key = self.find(keyname)
+        key["is_default"] = True
+
+        self.db.find("KEY", output="object", name=key["name"]).update(key)
+        self.db.save()
+        # self.db.update("KEY", key)
+        # self.db.find(keyname).is_default = 'True'
         self.db.save()
 
     def get_default(self):
@@ -133,9 +136,9 @@ class SSHKeyDBManager(object):
         """
         return self.db.dict(KEY)
 
-    def update(self, clouds):
+    def update(self, **kwargs):
         # i'm not sure how this function works
-        self.db.update("key", clouds)
+        self.db.update("key", kwargs)
 
     def delete_all(self):
         """
@@ -174,7 +177,11 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        keycloudmap = self.db.find(KEYCLOUDMAP, output="object", user=user, key_name=keyname, cloud_name=cloud)
+        keycloudmap = self.db.find(KEYCLOUDMAP,
+                                   output="object",
+                                   user=user,
+                                   key_name=keyname,
+                                   cloud_name=cloud)
         keycloudmapdict = self.db.object_to_dict(keycloudmap)
         # print(keycloudmap)
         if keycloudmapdict is not None and len(keycloudmapdict) != 0:
@@ -190,7 +197,6 @@ class SSHKeyDBManager(object):
     def get_key_cloud_maps(self):
         """
         Returns entries in Key-Cloud map table.
-        :param keyname: Name of the key in db.
         :return:
         """
 
@@ -216,8 +222,30 @@ class SSHKeyDBManager(object):
         :return:
         """
 
-        keycloudmap = self.db.find(KEYCLOUDMAP, output="object", key_name=keyname)
+        keycloudmap = self.db.find(KEYCLOUDMAP,
+                                   output="object",
+                                   key_name=keyname)
         # print(keycloudmap.values())
         for key in keycloudmap:
             # print("Deleting: {:}".format(key))
             self.db.delete(key)
+    """
+    def load(self):
+
+        sshm = SSHKeyManager()
+        m = sshm.get_from_yaml(load_order="~/.cloudmesh/cloudmesh.yaml")
+        d = dict(m.__keys__)
+
+        sshdb = SSHKeyDBManager()
+
+        for keyname in m.__keys__:
+            filename = m[keyname]["path"]
+            try:
+                sshdb.add(filename,
+                          keyname,
+                          source="yaml",
+                          uri="file://" + filename)
+            except Exception, e:
+                Console.error("problem adding key {}:{}".format(
+                    keyname, filename))
+    """

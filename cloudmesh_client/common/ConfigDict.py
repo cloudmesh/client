@@ -3,11 +3,41 @@ from __future__ import print_function
 import os.path
 import json
 
-from cloudmesh_base.ConfigDict import ConfigDict as BaseConfigDict
+from cloudmesh_client.common.BaseConfigDict import BaseConfigDict
 from cloudmesh_client.common.todo import TODO
 
-from cloudmesh_base.util import path_expand
+from cloudmesh_client.util import path_expand
 from collections import OrderedDict
+import yaml
+
+
+def custom_print(data_structure, indent, attribute_indent=4):
+    for key, value in data_structure.items():
+        print("\n%s%s:" % (' ' * attribute_indent * indent, str(key)), end=' ')
+        if isinstance(value, OrderedDict):
+            custom_print(value, indent + 1)
+        elif isinstance(value, dict):
+            custom_print(value, indent + 1)
+        else:
+            print("%s" % (str(value)), end=' ')
+
+
+def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
+    """
+    writes the dict into an ordered yaml.
+    :param data: The ordered dict
+    :param stream: the stream
+    :param Dumper: the dumper such as yaml.SafeDumper
+    """
+    class OrderedDumper(Dumper):
+        pass
+
+    def _dict_representer(dumper, data):
+        return dumper.represent_mapping(
+            yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+            data.items())
+    OrderedDumper.add_representer(OrderedDict, _dict_representer)
+    return yaml.dump(data, stream, OrderedDumper, **kwds)
 
 
 # noinspection PyPep8Naming
@@ -50,7 +80,6 @@ class Config(object):
         """identifies if the file contains tabs and returns True if it
         does. It also prints the location of the lines and columns. If
         verbose is set to False, the location is not printed.
-
         :param filename: the filename
         :type filename: str
         :rtype: True if there are tabs in the file
@@ -76,7 +105,6 @@ class Config(object):
     def path_expand(cls, path):
         """
         expands the path while replacing environment variables, ./, and ~/
-
         :param path: the path to be expanded
         :type path: string
         :return:the new path
@@ -94,7 +122,6 @@ class Config(object):
         """
         find the specified file in the list of directories that are given in the
         array load_order
-
         :param filename: the file name
         :type filename: str
         :param load_order: an array with path names in with the filename is looked for.
@@ -127,7 +154,6 @@ class ConfigDict(object):
         while using the filename to load it in the specified load_order.
         The load order is an array of paths in which the file is searched.
         By default the load order is set to . and ~/.cloudmesh
-
         :param filename: the filename
         :type filename: string
         :param load_order: an array with path names in with the filename is looked for.
@@ -156,19 +182,64 @@ class ConfigDict(object):
     def load(self, filename):
         """
         loads the configuration from the yaml filename
-
         :param filename:
         :type filename: string
         :return:
         """
-
         self.data = BaseConfigDict(filename=Config.path_expand(filename))
+
+    def write(self, filename=None, output="dict"):
+        """
+        This method writes the dict into various outout formats. This includes a dict,
+        json, and yaml
+        :param filename: the file in which the dict is written
+        :param output: is a string that is either "dict", "json", "yaml"
+        :param attribute_indent: character indentation of nested attributes in
+        """
+        if filename is not None:
+            location = path_expand(filename)
+        else:
+            location = self['meta']['location']
+
+        # with open('data.yml', 'w') as outfile:
+            #    outfile.write( yaml.dump(data, default_flow_style=True) )
+
+        # Make a backup
+        self.make_a_copy(location)
+
+        f = os.open(location, os.O_CREAT | os.O_TRUNC |
+                    os.O_WRONLY, stat.S_IRUSR | stat.S_IWUSR)
+        if output == "json":
+            os.write(f, self.json())
+        elif output in ['yml', 'yaml']:
+            # d = dict(self)
+            # os.write(f, yaml.dump(d, default_flow_style=False))
+            os.write(f, ordered_dump(OrderedDict(self),
+                                     Dumper=yaml.SafeDumper,
+                                     default_flow_style=False,
+                                     indent=attribute_indent))
+        elif output == "print":
+            os.write(f, custom_print(self, attribute_indent))
+        else:
+            os.write(f, self.dump())
+        os.close(f)
+
+    def make_a_copy(self, location=None):
+        """
+        Creates a backup of the file specified in the location. The backup
+        filename  appends a .bak.NO where number is a number that is not yet
+        used in the backup directory.
+        TODO: This function should be moved to another file maybe XShell
+        :param location: the location of the file to be backed up
+        """
+        import shutil
+        dest = backup_name(location)
+        shutil.copyfile(location, dest)
 
     def save(self, filename=None):
         """
         saves the configuration in the given filename,
         if it is none the filename at load time is used.
-
         :param filename: the file name
         :type filename: string
         :return:
@@ -180,9 +251,7 @@ class ConfigDict(object):
     def __setitem__(self, item, value):
         """
         sets an item with the given value while using . formatted keys
-
         set('a.b.c", value)
-
         :param item:
         :type item:
         :param value:
@@ -203,9 +272,7 @@ class ConfigDict(object):
     def __getitem__(self, item):
         """
         gets an item form the dict. The key is . separated
-
         use it as follows get("a.b.c")
-
         :param item:
         :type item:
         :return:
@@ -222,7 +289,6 @@ class ConfigDict(object):
     def __str__(self):
         """
         returns the dict in yaml format
-
         :return: returns the yaml output of the dict
         :rtype: string
         """
@@ -232,7 +298,6 @@ class ConfigDict(object):
     def yaml(self):
         """
         returns the dict in yaml format
-
         :return: returns the yaml output of the dict
         :rtype: string:
         """
@@ -249,9 +314,7 @@ class ConfigDict(object):
     def json(self, start=None):
         """
         :param start: start key in dot notation
-
         returns the dict in json format
-
         :return: json string version
         :rtype: string
         """
@@ -263,12 +326,31 @@ class ConfigDict(object):
     def check(cls, filename):
         """
         checks the filename if it is syntactically correct and does not include tabs
-
         :param filename:
         :type filename: string
         :return:
         """
         TODO.implement()
+
+    @classmethod
+    def getUser(cls, cloud):
+        try:
+
+            config = d = ConfigDict("cloudmesh.yaml")
+
+            d = ConfigDict("cloudmesh.yaml")
+            config = d["cloudmesh"]["clouds"][cloud]
+            credentials = config["credentials"]
+            cloud_type = config["cm_type"]
+
+            if cloud_type == "openstack":
+                return credentials["OS_USERNAME"]
+            else:
+                raise ValueError("getUser for this cloud type not yet "
+                                 "supported: {}".format(cloud))
+
+        except Exception as ex:
+            print(ex.message, ex)
 
 
 # noinspection PyPep8Naming

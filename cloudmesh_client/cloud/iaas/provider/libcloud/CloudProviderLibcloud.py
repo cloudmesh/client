@@ -75,4 +75,3 @@ class CloudProviderLibcloud(CloudProviderBase):
 
         return order, header
 
-

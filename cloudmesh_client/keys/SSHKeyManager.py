@@ -3,22 +3,24 @@ from __future__ import print_function
 from os.path import expanduser
 import os
 
-from cloudmesh_client.common.ConfigDict import Config
 import requests
-from cloudmesh_base.menu import menu_return_num
+
+from cloudmesh_client.common.ConfigDict import Config
+from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.keys.SSHkey import SSHkey
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-
-from urlparse import urlparse
+from cloudmesh_client.util import yn_choice
 
 
 class SSHKeyManager(object):
-    def __init__(self):
+    def __init__(self, delete_on_cloud=None):
         self.__keys__ = {}
+        self.delete_on_cloud_question = delete_on_cloud is None
+        self.delete_on_cloud = (delete_on_cloud is not None) and delete_on_cloud
 
     def add_from_file(self, file_path, keyname=None):
         sshkey = SSHkey(file_path, keyname)
@@ -101,6 +103,7 @@ class SSHKeyManager(object):
                  sshkey.__key__['comment']) = sshkey._parse(sshkey.__key__['string'])
                 sshkey.__key__['fingerprint'] = sshkey._fingerprint(sshkey.__key__['string'])
                 sshkey.__key__['name'] = keyname
+                sshkey.__key__['filename'] = filename
                 sshmanager.add_from_object(sshkey)
         return sshmanager
         """
@@ -166,13 +169,21 @@ class SSHKeyManager(object):
         self.get_from_git(username)
 
     def add_key_to_cloud(self, user, keyname, cloud, name_on_cloud):
+        """
+
+        :param user:
+        :param keyname:
+        :param cloud:
+        :param name_on_cloud:
+        :return: 1 if the key is present in db, 0 if the key is added to db.
+        """
 
         sshdb = SSHKeyDBManager()
         key_from_db = sshdb.find(keyname)
 
         if key_from_db is None:
             Console.error("Key with the name {:} not found in database.".format(keyname))
-            return
+            return 1
 
         # Add map entry
         sshdb.add_key_cloud_map_entry(user, keyname, cloud, name_on_cloud)
@@ -180,6 +191,7 @@ class SSHKeyManager(object):
         print("Adding key {:} to cloud {:} as {:}".format(keyname, cloud, name_on_cloud))
         cloud_provider = CloudProvider(cloud).provider
         cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
+        return 0
 
     def get_key_cloud_maps(self, cloud):
 
@@ -192,11 +204,11 @@ class SSHKeyManager(object):
 
     def delete_all_keys(self):
 
-        delete_on_cloud = ""
-        while delete_on_cloud != "y" and delete_on_cloud != "n":
-            delete_on_cloud = raw_input("Do you want to delete the corresponding key on cloud if present? (y/n): ")
-            if delete_on_cloud != "y" and delete_on_cloud != "n":
-                print("Invalid Choice")
+        if self.delete_on_cloud_question:
+            delete_on_cloud = yn_choice(
+                "Do you want to delete the corresponding key on cloud if present?", default='y')
+        else:
+            delete_on_cloud = self.delete_on_cloud
 
         sshdb = SSHKeyDBManager()
         keys = sshdb.find_all()
@@ -205,7 +217,7 @@ class SSHKeyManager(object):
         for key in keys.values():
             keymap = sshdb.get_key_cloud_map_entry(key["name"])
             for map in keymap.values():
-                if delete_on_cloud == "y":
+                if delete_on_cloud:
                     self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
             sshdb.delete_key_cloud_map_entry(key["name"])
 
@@ -219,13 +231,14 @@ class SSHKeyManager(object):
         # Checking and deleting cloud mappings as well as cloud keys.
         keymap = sshdb.get_key_cloud_map_entry(key["name"])
         if keymap is not None and len(keymap) != 0:
-            delete_on_cloud = ""
-            while delete_on_cloud != "y" and delete_on_cloud != "n":
-                delete_on_cloud = raw_input("Do you want to delete the corresponding key on cloud if present? (y/n): ")
-            if delete_on_cloud != "y" and delete_on_cloud != "n":
-                print("Invalid Choice")
+            if self.delete_on_cloud_question:
+                delete_on_cloud = yn_choice(
+                    "Do you want to delete the corresponding key on cloud if present?", default='y')
+            else:
+                delete_on_cloud = self.delete_on_cloud
+
             for map in keymap.values():
-                if delete_on_cloud == "y":
+                if delete_on_cloud:
                     self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
             sshdb.delete_key_cloud_map_entry(key["name"])
 
@@ -234,7 +247,7 @@ class SSHKeyManager(object):
 
 if __name__ == "__main__":
     print ("HALLO")
-    from cloudmesh_base.util import banner
+    from cloudmesh_client.util import banner
 
     mykeys = SSHKeyManager()
     mykeys.get_all("laszewsk")

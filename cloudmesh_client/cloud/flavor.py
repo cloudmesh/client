@@ -31,7 +31,7 @@ class Flavor(ListResource):
             if live:
                 cls.refresh(cloud)
 
-            elements = cls.cm.find("flavor", cloud=cloud)
+            elements = cls.cm.find("flavor", category=cloud)
 
             # pprint(elements)
 
@@ -53,4 +53,5 @@ class Flavor(ListResource):
 
 
 if __name__ == "__main__":
-    Flavor.details("juno", "58c9552c-8d93-42c0-9dea-5f48d90a3188")
+    # TODO: add valid flavor here
+    Flavor.details("kilo", "58c9552c-8d93-42c0-9dea-5f48d90a3188")

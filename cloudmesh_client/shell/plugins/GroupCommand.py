@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 from cloudmesh_client.cloud.group import Group
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
@@ -21,10 +21,10 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
-                group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
-                group delete NAME [--cloud=CLOUD]
-                group remove [--cloud=CLOUD] --name=NAME --id=ID
+                group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
+                group list [--category=CLOUD] [--format=FORMAT] [NAME]
+                group delete NAME [--category=CLOUD]
+                group remove [--category=CLOUD] --name=NAME --id=ID
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
 
@@ -40,10 +40,11 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 MERGEDGROUP  name of a group
 
             Options:
-                --cloud=CLOUD    the name of the cloud
-                --format=FORMAT  the output format
-                --type=TYPE     the resource type
-                --name=NAME      the name of the group
+                --category=CLOUD       the name of the category
+                --format=FORMAT     the output format
+                --type=TYPE         the resource type
+                --name=NAME         the name of the group
+                --id=IDS            the ID(s) to add to the group
 
 
             Description:
@@ -52,7 +53,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 description
                 Todo: discuss and propose command
 
-                cloudmesh can manage groups of resources and cloud related
+                cloudmesh can manage groups of resources and category related
                 objects. As it would be cumbersome to for example delete
                 many virtual machines or delete VMs that are in the same
                 group, but are running in different clouds.
@@ -65,7 +66,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 use the last used virtual machine. If a vm is started it
                 will be automatically added to the default group if it is set.
 
-                The delete command has an optional cloud parameter so that
+                The delete command has an optional category parameter so that
                 deletion of vms of a partial group by cloud can be
                 achieved.
 
@@ -90,16 +91,16 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
 
-        cloud = arguments["--cloud"] or Default.get_cloud()
+        category = arguments["--category"] or Default.get_cloud()
 
         if arguments["list"]:
 
-            output = arguments["--format"] or Default.get("format", cloud) or "table"
+            output = arguments["--format"] or Default.get("format", category) or "table"
             name = arguments["NAME"]
 
             if name is None:
 
-                result = Group.list(format=output, cloud=cloud)
+                result = Group.list(format=output, category=category)
                 if result:
                     print(result)
                 else:
@@ -107,35 +108,36 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             else:
 
-                result = Group.get_info(name=name, cloud=cloud, output=output)
+                result = Group.get_info(name=name, category=category,
+                                        output=output)
 
                 if result:
                     print(result)
                 else:
                     msg_a = ("No group found with name `{name}` found in the "
-                             "cloud `{cloud}`.".format(**locals()))
+                             "category `{category}`.".format(**locals()))
 
                     # find alternate
                     result = Group.get(name=name)
                     msg_b = ""
                     if result is not None:
                         msg_b = " However we found such a variable in " \
-                                "cloud `{cloud}`. Please consider " \
-                                "using --cloud={cloud}".format(**result)
+                                "category `{category}`. Please consider " \
+                                "using --category={category}".format(**result)
                         Console.error(msg_a + msg_b)
 
                 return
 
         elif arguments["add"]:
-            type = arguments["--type"] or Default.get("type", cloud)
+            type = arguments["--type"] or Default.get("type", category)
 
-            cloud_id = arguments["--id"] or Default.get("id", cloud) or "vm"
+            category_id = arguments["--id"] or Default.get("id", category)
 
             data = {
                 "name": arguments["NAME"],
                 "type": type,
-                "cloud": cloud,
-                "id": cloud_id
+                "category": category,
+                "id": category_id
             }
 
             Group.add(**data)
@@ -144,7 +146,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["delete"]:
             data = {
                 "name": arguments["NAME"],
-                "cloud": cloud,
+                "category": category,
             }
 
             result = Group.delete(**data)
@@ -157,19 +159,19 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["remove"]:
             name = arguments["--name"]
-            cloud_id = arguments["--id"]
+            category_id = arguments["--id"]
 
-            if not cloud:
-                Console.error("Default cloud not set!")
+            if not category:
+                Console.error("Default category not set!")
                 return
 
-            result = Group.remove(name, cloud_id, cloud)
+            result = Group.remove(name, category_id, category)
             if result:
                 Console.ok(result)
             else:
                 Console.error(
                     "Failed to delete ID [{}] from group [{}] in the database!".format(
-                        cloud_id, name))
+                        category_id, name))
             return
 
         elif arguments["copy"]:

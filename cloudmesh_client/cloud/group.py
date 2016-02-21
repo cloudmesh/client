@@ -1,13 +1,11 @@
 from __future__ import absolute_import
 
-from cloudmesh_base.Shell import Shell
 from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.vm import Vm
 
 
@@ -18,7 +16,7 @@ class Group(ListResource):
     order = ["name",
              "value",
              "user",
-             "cloud",
+             "category",
              "type"]
 
     # TODO: implement and extend to user
@@ -41,7 +39,7 @@ class Group(ListResource):
                                                                          cloud))
 
     @classmethod
-    def list(cls, format="table", cloud="kilo"):
+    def list(cls, format="table", category="kilo"):
         """
         Method to get list of groups in
             the cloudmesh database
@@ -62,7 +60,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def get_info(cls, cloud="kilo", name=None, output="table"):
+    def get_info(cls, category="kilo", name=None, output="table"):
         """
         Method to get info about a group
         :param cloud:
@@ -71,13 +69,13 @@ class Group(ListResource):
         :return:
         """
         try:
-            cloud = cloud or Default.get("cloud")
+            cloud = category or Default.get("cloud")
             args = {
                 "name": name,
-                "cloud": cloud
+                "category": category
             }
 
-            # group = cls.get(name=name, cloud=cloud)
+            # group = cls.get(name=name, category=cloud)
             group = cls.cm.find("group", output="object", **args).first()
 
             if group is not None:
@@ -94,7 +92,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add(cls, name=None, type="vm", id=None, cloud="kilo"):
+    def add(cls, name=None, type="vm", id=None, category="kilo"):
         """
         Add an instance to a new group
             or add it to an existing one
@@ -105,13 +103,13 @@ class Group(ListResource):
         :return:
         """
         # user logged into cloudmesh
-        user = cls.getUser(cloud) or cls.cm.user
+        user = ConfigDict.getUser(category) or cls.cm.user
 
         try:
             # See if group already exists. If yes, add id to the group
             query = {
                 'name': name,
-                'cloud': cloud
+                'category': category
             }
 
             # Find an existing group with name
@@ -140,7 +138,7 @@ class Group(ListResource):
                                            name=name,
                                            value=id,
                                            type=type,
-                                           cloud=cloud,
+                                           category=category,
                                            user=user)
                 cls.cm.add_obj(obj_d)
                 cls.cm.save()
@@ -150,7 +148,7 @@ class Group(ListResource):
                     name,
                     id,
                     type,
-                    cloud=cloud,
+                    category=category,
                     user=user
                 )
                 cls.cm.add(group_obj)
@@ -192,7 +190,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete(cls, name=None, cloud="kilo"):
+    def delete(cls, name=None, category="kilo"):
         """
         Method to delete a group from
             the cloudmesh database
@@ -201,12 +199,12 @@ class Group(ListResource):
         :return:
         """
         try:
-            # group = cls.get(name=name, cloud=cloud)
+            # group = cls.get(name=name, category=category)
             args = {}
             if name is not None:
                 args["name"] = name
-            if cloud is not None:
-                args["cloud"] = cloud
+            if category is not None:
+                args["category"] = category
 
             group = cls.cm.find("group", output="object", **args).first()
 
@@ -220,7 +218,7 @@ class Group(ListResource):
                         # result = Shell.execute("nova", args)
 
                         # FIX: Using vm.delete instead of nova
-                        Vm.delete(cloud=cloud, servers=[vm_id])
+                        Vm.delete(cloud=category, servers=[vm_id])
                     except Exception as e:
                         Console.error("Failed to delete VM {}, error: {}"
                                       .format(vm_id, e))
@@ -236,23 +234,23 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def remove(cls, name, id, cloud):
+    def remove(cls, name, id, category):
         """
         Method to remove an ID from the group
         in the cloudmesh database
         :param name:
         :param id:
-        :param cloud:
+        :param category:
         :return:
         """
         try:
-            # group = cls.get(name=name, cloud=cloud)
+            # group = cls.get(name=name, category=category)
             args = {
                 "name": name,
-                "cloud": cloud
+                "category": category
             }
 
-            # Find an existing group with name & cloud
+            # Find an existing group with name & category
             group = cls.cm.find("group", output="object", **args).first()
 
             if group is not None:
@@ -278,7 +276,7 @@ class Group(ListResource):
 
                     # If delete flag set, then delete group
                     if del_group is not None:
-                        Group.delete(name, cloud)
+                        Group.delete(name, category)
 
                     return "Successfully removed ID [{}] from the group [{}]" \
                         .format(id, name)
@@ -338,7 +336,7 @@ class Group(ListResource):
 
                     _toGroup.value = to_id_str
                     cls.cm.save()
-                    Console.ok("Copy from Group [{}] to Group [{}] successful!"
+                    Console.ok("Copy from Group [{}] to Group [{}] ok."
                                .format(_fromName, _toName))
 
                 # Create a new group & copy details from _fromName
@@ -347,7 +345,7 @@ class Group(ListResource):
                                                    name=_toName,
                                                    value=from_id_str,
                                                    type=_fromGroup.type,
-                                                   cloud=_fromGroup.cloud,
+                                                   category=_fromGroup.category,
                                                    user=_fromGroup.user)
                     cls.cm.add_obj(group_obj)
                     cls.cm.save()
@@ -356,7 +354,7 @@ class Group(ListResource):
                         _toName,
                         from_id_str,
                         _fromGroup.type,
-                        cloud=_fromGroup.cloud,
+                        category=_fromGroup.category,
                         user=_fromGroup.user
                     )
                     cls.cm.add(group_obj)
@@ -407,14 +405,14 @@ class Group(ListResource):
 
                 # Copy default parameters
                 user = groupA.user
-                cloud = groupA.cloud
+                category = groupA.category
 
                 """
                 mergeGroup = model.GROUP(
                     mergeName,
                     merge_str,
                     user=user,
-                    cloud=cloud
+                    category=category
                 )
                 cls.cm.add(mergeGroup)
                 """
@@ -423,12 +421,12 @@ class Group(ListResource):
                                                 name=mergeName,
                                                 value=merge_str,
                                                 user=user,
-                                                cloud=cloud)
+                                                category=category)
                 cls.cm.add_obj(mergeGroup)
                 cls.cm.save()
 
                 Console.ok(
-                    "Merge of group [{}] & [{}] to group [{}] successful!"
+                    "Merge of group [{}] & [{}] to group [{}] ok."
                     .format(_nameA, _nameB, mergeName))
             else:
                 Console.error("Your groups [{}] and/or [{}] do not exist!"
@@ -467,35 +465,10 @@ class Group(ListResource):
             for value in item['value'].split(','):
                 d[i] = {}
                 d[i]['name'] = item['name']
-                d[i]['cloud'] = item['cloud']
+                d[i]['category'] = item['category']
                 d[i]['user'] = item['user']
                 d[i]['value'] = value
                 d[i]['type'] = item['type']
                 i += 1
         return d
 
-    # TODO Bug. This needs to go to the CLoudProviderOpenstackAPI
-    # TODO Bug naturally the india implementation here is buggy
-    @classmethod
-    def getUser(cls, cloudname):
-        """
-        Method to get the user information
-            from the cloudmesh database
-            for a given cloud
-        :param cloudname:
-        :return:
-        """
-        try:
-            # currently support India cloud
-            if cloudname in ["juno", "kilo"]:
-                d = ConfigDict("cloudmesh.yaml")
-                credentials = d["cloudmesh"]["clouds"][cloudname][
-                    "credentials"]
-                for key, value in credentials.iteritems():
-                    if key == "OS_USERNAME":
-                        return value
-            else:
-                return None
-
-        except Exception as ex:
-            Console.error(ex.message, ex)

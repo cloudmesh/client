@@ -1,7 +1,12 @@
 Introduction
 =============
 
-:download:`8 page slide presentation<images/cloudmesh-arch.pptx>`
+* `31 page slide presentation <https://drive.google.com/file/d/0Bx_sUfI4VkKSVG9KOE8xU05KREE/view?usp=sharing>`_
+  is available. Please press the download link. The presentation comes with audio and can
+  only be utilized once you download it. An alternative link provides
+  the presentation with audio `online <https://mix.office.com/watch/1c7rd1l9i4c8o>`_
+	  
+* :download:`8 page slide presentation<images/cloudmesh-arch.pptx>`
 
 Cloudmesh client allows to easily manage virtual machines, containers,
 HPC tasks,  through a convenient client and API. Hence cloudmesh is
@@ -9,13 +14,15 @@ not only a multi-cloud, but a multi-hpc environment that allows also
 to use container technologies (under development).
 
 
-**Client based.** The new cloudmesh is client based. That is cloudmesh
-is run on the users computers. THis also includes an add on component
-to the cloudmesh client which is a portal. Hence we distinguish the
-client that contains most of the functionality, as well as a portal
-that can access the functionality of the portal. Important to note is
-that the user manages its own credentials as he runs the cloudmesh
-client on his own machine. This increases the security as access to any
+**Client based.** Cloudmesh client as the name indicates is a client
+based toolkit that is installed and run on the users computers. This
+also includes an add on component to the cloudmesh client which is a
+portal. Hence we distinguish the client that contains most of the
+functionality, as well as a portal that can access the functionality
+through a locally maintaine Web portal. Important to note is that the
+user manages its own credentials and thus security and credential
+management is done directly on the users machine instead through a
+hosted Web portal. This increases the security as access to any
 credential is managed by the user and is not part of a credential
 management system.
 	 
@@ -94,10 +101,11 @@ Installation information
 Next we recommend that you get familiar with the concept of defaults
 in cloudmesh. After that you have several options:
 
-* If you are interestted in clouds such as Openstack read the `cloud manual`
+* If you are interestted in clouds such as Openstack read the Section 
+  :ref:`section_cloud_commands`
 
 * If you are interested in Comet read the
   :ref:`the comet command manual <comet_command>`.
 
-* If you are interested in HPC read the `HPC command manual`
+* If you are interested in HPC read the Section :ref:`section_hpc_commands`
 

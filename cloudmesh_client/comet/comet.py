@@ -9,13 +9,14 @@ import webbrowser
 import getpass
 import random
 import string
+import hashlib
 
 import requests
 from httpsig.requests_auth import HTTPSignatureAuth
 from cloudmesh_client.shell.console import Console
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_base.util import banner
+from cloudmesh_client.util import banner
 
 requests.packages.urllib3.disable_warnings()
 
@@ -241,19 +242,22 @@ class Comet(object):
                           allow_redirects=allow_redirects)
 
     @staticmethod
-    def post(url, headers=None, data=None, allow_redirects=True):
-        return Comet.http(url, action="post", headers=headers,
-                          data=data, allow_redirects=allow_redirects)
+    def post(url, headers=None, data=None, md5=None, files=None,
+             cacert=True, allow_redirects=True):
+        return Comet.http(url, action="post", headers=headers, data=data,
+                          files=files, md5=md5, cacert=cacert,
+                          allow_redirects=allow_redirects)
 
     @staticmethod
     def put(url, headers=None, data=None, allow_redirects=True):
         return Comet.http(url, action="put", headers=headers,
-                          allow_redirects=allow_redirects)
+                          data=data, allow_redirects=allow_redirects)
 
     # To make GET calls for synchronous or asynchronous API
     @staticmethod
     def http(url, action="get",
-             headers=None, data=None, cacert=True, allow_redirects=True):
+             headers=None, data=None,
+             files=None, md5=None, cacert=True, allow_redirects=True):
         # print ("KKK", url)
         # print ("KKK", action)
         # print ("KKK", Comet.auth_provider)
@@ -264,11 +268,19 @@ class Comet(object):
             if headers is None:
                 headers = Comet.AUTH_HEADER
             if 'post' == action:
-                r = requests.post(url, headers=headers, data=json.dumps(data),
+                if files:
+                    del headers["content-type"]
+                    headers["md5"] = md5
+                    r = requests.post(url, headers=headers, files=files,
                                   allow_redirects=allow_redirects,
                                   verify=cacert)
+                else:
+                    r = requests.post(url, headers=headers, data=json.dumps(data),
+                                  allow_redirects=allow_redirects,
+                                  verify=cacert)
+
             elif 'put' == action:
-                r = requests.put(url, headers=headers,
+                r = requests.put(url, headers=headers, data=json.dumps(data),
                                  allow_redirects=allow_redirects, verify=cacert)
             else:
                 r = requests.get(url, headers=headers,
@@ -327,12 +339,23 @@ class Comet(object):
             # print ("KKK", data)
             # print ("KKK", cacert)
             if 'post' == action:
-                r = requests.post(url, auth=Comet.api_auth, headers=headers,
+                if files:
+                    headers = {"timestamp": int(time.time()),
+                                "nonce": Comet.get_nonce(),
+                                "X-Api-Key": Comet.api_key,
+                                "md5": md5}
+                    r = requests.post(url, auth=Comet.api_auth, headers=headers,
+                                  files=files,
+                                  allow_redirects=allow_redirects,
+                                  verify=cacert)
+                else:
+                    r = requests.post(url, auth=Comet.api_auth, headers=headers,
                                   data=json.dumps(data),
                                   allow_redirects=allow_redirects,
                                   verify=cacert)
             elif 'put' == action:
                 r = requests.put(url, auth=Comet.api_auth, headers=headers,
+                                 data=json.dumps(data),
                                  allow_redirects=allow_redirects,
                                  verify=cacert)
             else:
@@ -459,6 +482,39 @@ class Comet(object):
                       "Use the following url manually in your brower:\n{}".format(url))
         else:
             print("Console URL not available. Please make sure the node is running and try again!")
+
+    @staticmethod
+    def md5(fname):
+        hash = hashlib.md5()
+        with open(fname, "rb") as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash.update(chunk)
+        return hash.hexdigest()
+
+    @staticmethod
+    def list_image():
+        ret = ''
+        url = Comet.url("image")
+        r = Comet.get(url)
+        if r is not None:
+            ret = r
+        return ret
+
+    @staticmethod
+    def upload_image(filename, filepath):
+        ret = ''
+        # print ("filename to use: %s" % filename)
+        # print ("full file path: %s" % filepath)
+        posturl = Comet.url("image")
+        r = None
+        md5 = Comet.md5(filepath)
+        with open(filepath, 'rb') as fh:
+            files={'file':(filename, fh)}
+            print ("File to be uploaded: %s" % filename)
+            r = Comet.post(posturl, files=files, md5=md5)
+            if r is not None:
+                ret = r
+        return ret
 
 def main():
     comet = Comet()

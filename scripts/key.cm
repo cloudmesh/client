@@ -1,0 +1,25 @@
+banner KEYS
+
+key delete --all --force
+
+# TODO: does ~ expansion works?
+key add --name=test-key ~/.ssh/id_rsa.pub
+
+key list
+key list --format=json
+key list --format=yaml
+
+key list --source=cloudmesh
+key list --source=ssh
+key list --source=git
+
+key get test-key
+
+default cloud
+key upload test-key
+
+key map
+
+# key delete --select
+
+key delete --all --force

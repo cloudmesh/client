@@ -1,8 +1,13 @@
 from __future__ import print_function
+
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command, PluginCommand, \
     CloudPluginCommand, CometPluginCommand
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
+from cloudmesh_client.common.LogUtil import LogUtil
+
+
+logger = LogUtil.get_logger()
 
 
 class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
@@ -109,13 +114,13 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         general_keys = ["cloud", "cluster", "queue"]
 
         """
-        If the default cloud has been set (eg. default cloud=xxx),
+        If the default cloud has been set (eg. default category=xxx),
         then subsequent defaults for any key (eg. default image=yyy),
         will have 'cloud' column in db as the default cloud that was set.
-        (eg. image=yyy for cloud=xxx).
+        (eg. image=yyy for category=xxx).
         """
 
-
+        logger.info(arguments)
 
         if arguments["KEY"] in general_keys:
             cloud = "general"
@@ -123,9 +128,10 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             cloud = "general"
             arguments["--cloud"] = cloud
             arguments["list"] = True
-            order=['name', 'value']
+            order = ['name', 'value']
             output_format = arguments["--format"]
-            result = Default.list(cloud=cloud, order=order, format=output_format)
+            result = Default.list(category=cloud, order=order,
+                                  format=output_format)
             print (result)
             return ""
 
@@ -137,7 +143,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
             if arguments['--all'] or arguments["--cloud"] is None:
                 cloud = None
-            result = Default.list(cloud=cloud, format=output_format)
+            result = Default.list(category=cloud, format=output_format)
 
             if result is None:
                 Console.error("No default values found")

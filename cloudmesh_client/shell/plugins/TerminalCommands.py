@@ -7,6 +7,8 @@ from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import PluginCommand, ShellPluginCommand, \
     CometPluginCommand
+from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
 class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
@@ -69,10 +71,10 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         ::
 
             Usage:
-                banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT
+                banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
             Arguments:
-                TEXT   The text message from which to create the banner
+                TEXT...   The text message from which to create the banner
                 CHAR   The character for the frame.
                 WIDTH  Width of the banner
                 INDENT indentation of the banner
@@ -92,8 +94,9 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
         i = int(arguments['-i'])
         color = arguments['-r'].upper()
 
+        line = ' '.join(arguments['TEXT'])
         Console.cprint(color, "", i * " " + str((n - i) * c))
-        Console.cprint(color, "", i * " " + c + " " + arguments['TEXT'])
+        Console.cprint(color, "", i * " " + c + " " + line)
         Console.cprint(color, "", i * " " + str((n - i) * c))
 
         return ""
@@ -122,63 +125,60 @@ class TerminalCommands(PluginCommand, ShellPluginCommand, CometPluginCommand):
     # Echo
     #
     def set_verbose(self, on):
-        #self.echo = on
+        # self.echo = on
         pass
 
     def set_banner(self, banner):
         self.banner = banner
 
-    @command
-    def do_loglevel(self, args, arguments):
-        """
-        ::
-
-          Usage:
-              loglevel
-              loglevel critical
-              loglevel error
-              loglevel warning
-              loglevel info
-              loglevel debug
-
-              Shows current log level or changes it.
-
-              loglevel - shows current log level
-              critical - shows log message in critical level
-              error    - shows log message in error level including critical
-              warning  - shows log message in warning level including error
-              info     - shows log message in info level including warning
-              debug    - shows log message in debug level including info
-
-          NOTE:
-            NOT YET IMPLEMENTED
-        """
-
-
-        """
-        if arguments['debug']:
-            self.loglevel = "DEBUG"
-        elif arguments['error']:
-            self.loglevel = "ERROR"
-        elif arguments['warning']:
-            self.loglevel = "WARNING"
-        elif arguments['info']:
-            self.loglevel = "INFO"
-        elif arguments['critical']:
-            self.loglevel = "CRITICAL"
-        else:
-            Console.ok("Log level: {0}".format(self.loglevel))
-            return
-        Console.ok ("Log level: {0} is set".format(self.loglevel))
-
-        filename = path_expand("~/.cloudmesh/cmd3.yaml")
-        config = ConfigDict(filename=filename)
-        config["cmd3"]["properties"]["loglevel"] = self.loglevel
-        config.write(filename=filename, output="yaml", attribute_indent="    ")
-        """
-        Console.error("loglevel NOT YET IMPLEMENTED")
-        return ""
-
+    # @command
+    # def do_loglevel(self, args, arguments):
+    #     """
+    #     ::
+    #
+    #       Usage:
+    #           loglevel
+    #           loglevel critical
+    #           loglevel error
+    #           loglevel warning
+    #           loglevel info
+    #           loglevel debug
+    #
+    #           Shows current log level or changes it.
+    #
+    #           loglevel - shows current log level
+    #           critical - shows log message in critical level
+    #           error    - shows log message in error level including critical
+    #           warning  - shows log message in warning level including error
+    #           info     - shows log message in info level including warning
+    #           debug    - shows log message in debug level including info
+    #
+    #       NOTE:
+    #         NOT YET IMPLEMENTED
+    #     """
+    #
+    #
+    #     if arguments['debug']:
+    #         self.loglevel = "DEBUG"
+    #     elif arguments['error']:
+    #         self.loglevel = "ERROR"
+    #     elif arguments['warning']:
+    #         self.loglevel = "WARNING"
+    #     elif arguments['info']:
+    #         self.loglevel = "INFO"
+    #     elif arguments['critical']:
+    #         self.loglevel = "CRITICAL"
+    #     else:
+    #         Console.ok("Log level: {0}".format(self.loglevel))
+    #         return ""
+    #     Console.ok ("Log level: {0} is set".format(self.loglevel))
+    #
+    #     filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
+    #     config = ConfigDict(filename)
+    #     config["cloudmesh.logging.level"] = self.loglevel
+    #     config.write("aaa.yaml")
+    #     #config.write(filename=filename, output="yaml", attribute_indent="    ")
+    #     return ""
 
     @command
     def do_verbose(self, args, arguments):

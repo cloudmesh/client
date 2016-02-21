@@ -1,9 +1,10 @@
 from __future__ import print_function
 import textwrap
 import os
+import platform
 from urlparse import urlparse
 
-from cloudmesh_base.Shell import Shell
+from cloudmesh_client.common.Shell import Shell
 from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
@@ -175,9 +176,31 @@ class CloudRegister(object):
         directory = os.path.dirname(openrc)
         base = os.path.basename(openrc)
 
-        _from_dir = "{:}:{:}".format(hostname, directory).replace("~/", "")
-        _to_dir = os.path.dirname(Config.path_expand(directory))
-        openrc_file = Config.path_expand(openrc)
+        _from_dir = "{:}:{:}".format(hostname, directory + "/*").replace("~/", "")
+        # _to_dir = os.path.dirname(Config.path_expand(directory))
+        # FIX: Issues with path expanding on Windows
+        _to_dir = os.path.realpath(
+            os.path.expanduser(directory)
+        )
+
+        """
+        In Windows, SCP fails with path such as 'C:\Users\...',
+            and passses with '~/.cloudmesh/...'
+        But on Linux machines, it fails with '~/.cloudmesh/...'
+            and passes with '/home/user/...'
+        Hence, adding OS check below for SCP copy directory
+        """
+        os_type = platform.system().lower()
+        if 'windows' not in os_type:
+            directory = _to_dir
+
+        # FIX: fix for scp not working on Windows, because scp does not
+        # understand
+        # paths in format: "C:/Users/<>", rather expects "~/.cloudmesh/<>"
+        # openrc_file = Config.path_expand(openrc)
+        openrc_file = os.path.realpath(
+            os.path.expanduser(openrc)
+        )
         print("From:  ", _from_dir)
         print("To:    ", _to_dir)
         print("Openrc:", openrc_file)
@@ -186,7 +209,7 @@ class CloudRegister(object):
         r = ""
         Console.ok("Reading rc file from {}".format(host))
         try:
-            r = Shell.scp('-r', _from_dir, _to_dir)
+            r = Shell.scp('-r', _from_dir, directory)
         except Exception, e:
             print(e)
             return
@@ -298,10 +321,11 @@ class CloudRegister(object):
             Console.error("{} doesn't exist".format(filename))
             return
 
-        path, file = filename.rsplit("/", 1)
+        # BUG should use path separator
+        path, filename = filename.rsplit("/", 1)
         # Config file to be read from
 
-        from_config_file = ConfigDict(file, [path])
+        from_config_file = ConfigDict(filename, [path])
 
         config = ConfigDict("cloudmesh.yaml")
 
@@ -385,7 +409,8 @@ class CloudRegister(object):
         cm_heading = raw_input(
             "Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}".format(cloudname_suggest)
+        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+            .format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
@@ -435,3 +460,14 @@ class CloudRegister(object):
         # Save data in yaml
         yaml_data.save()
         print("New cloud config exported to {:}".format(yaml_data.filename))
+
+    @classmethod
+    def set_username(cls, username):
+        """
+        Method that sets the username in yaml.
+        :param username:
+        :return:
+        """
+        config = ConfigDict("cloudmesh.yaml")
+        config['cloudmesh']['profile']['username'] = username
+        config.save()

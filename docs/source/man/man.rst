@@ -6,10 +6,10 @@ banner
 Command - banner::
 
     Usage:
-        banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT
+        banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
     Arguments:
-        TEXT   The text message from which to create the banner
+        TEXT...   The text message from which to create the banner
         CHAR   The character for the frame.
         WIDTH  Width of the banner
         INDENT indentation of the banner
@@ -199,14 +199,14 @@ Command - color::
 
         Global switch for the console color mode.
         One can switch the color mode on/off with
-            cm color mode ON
-            cm color mode OFF
+            cm color ON
+            cm color OFF
 
         By default, the color mode is ON
 
     Examples:
-        color mode ON
-        color mode OFF
+        color ON
+        color OFF
 
 
 comet
@@ -215,78 +215,58 @@ comet
 Command - comet::
 
     Usage:
-       comet status
-       comet tunnel start
-       comet tunnel stop
-       comet tunnel status
-       comet logon
-       comet logoff
        comet ll [CLUSTERID] [--format=FORMAT]
-       comet docs
-       comet info [--user=USER]
-                    [--project=PROJECT]
-                    [--format=FORMAT]
-       comet cluster [CLUSTERID][--name=NAMES]
-                    [--user=USER]
-                    [--project=PROJECT]
-                    [--hosts=HOSTS]
-                    [--start=TIME_START]
-                    [--end=TIME_END]
-                    [--hosts=HOSTS]
-                    [--format=FORMAT]
+       comet cluster [CLUSTERID]
+                     [--format=FORMAT]
        comet computeset [COMPUTESETID]
-       comet start ID
-       comet stop ID
-       comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+       comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
+                    [--allocation=ALLOCATION]
+                    [--walltime=WALLTIME]
+       comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
        comet console CLUSTERID [COMPUTENODEID]
-       comet delete [all]
-                      [--user=USER]
-                      [--project=PROJECT]
-                      [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-                      [--host=HOST]
-       comet delete --file=FILE
-       comet update [--name=NAMES]
-                      [--hosts=HOSTS]
-                      [--start=TIME_START]
-                      [--end=TIME_END]
-       comet add [--user=USER]
-                   [--project=PROJECT]
-                   [--host=HOST]
-                   [--description=DESCRIPTION]
-                   [--start=TIME_START]
-                   [--end=TIME_END]
-                   NAME
-       comet add --file=FILENAME
+       comet image list
+       comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
+       comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
+       comet image detach CLUSTERID [COMPUTENODEIDS]
+       comet node rename CLUSTERID OLDNAME NEWNAME
 
     Options:
-        --user=USER           user name
-        --name=NAMES          Names of the vcluster
-        --start=TIME_START    Start time of the vcluster, in
-                              YYYY/MM/DD HH:MM:SS format.
-                              [default: 1901-01-01]
-        --end=TIME_END        End time of the vcluster, in YYYY/MM/DD
-                              HH:MM:SS format. In addition a duratio
-                              can be specified if the + sign is the
-                              first sig The duration will than be
-                              added to the start time.
-                              [default: 2100-12-31]
-        --project=PROJECT     project id
-        --host=HOST           host name
-        --description=DESCRIPTION  description summary of the vcluster
-        --file=FILE           Adding multiple vclusters from one file
-        --format=FORMAT       Format is either table, json, yaml,
-                              csv, rest
-                              [default: table]
+        --format=FORMAT         Format is either table, json, yaml,
+                                csv, rest
+                                [default: table]
+        --count=NUMNODES        Number of nodes to be powered on.
+                                When this option is used, the comet system
+                                will find a NUMNODES number of arbitrary nodes
+                                that are available to boot as a computeset
+        --allocation=ALLOCATION     Allocation to charge when power on
+                                    node(s)
+        --walltime=WALLTIME     Walltime requested for the node(s).
+                                Walltime could be an integer value followed
+                                by a unit (m, h, d, w, for minute, hour, day,
+                                and week, respectively). E.g., 3h, 2d
+        --imagename=IMAGENAME   Name of the image after being stored remotely.
+                                If not specified, use the original filename
 
     Arguments:
-        FILENAME  the file to open in the cwd if . is
-                  specified. If file in in cwd
-                  you must specify it with ./FILENAME
-
-    Opens the given URL in a browser window.
+        CLUSTERID       The assigned name of a cluster, e.g. vc1
+        COMPUTESETID    An integer identifier assigned to a computeset
+        NODESPARAM      Specifying the node/nodes/computeset to act on.
+                        In case of integer, will be intepreted as a computesetid;
+                        in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                        of nodes; or a single host is also acceptable,
+                        e.g., vm-vc1-0
+                        If not provided, the requested action will be taken
+                        on the frontend node of the specified cluster
+        COMPUTENODEID   A compute node name, e.g., vm-vc1-0
+                        If not provided, the requested action will be taken
+                        on the frontend node of the specified cluster
+        COMPUTENODEIDS  A set of compute node names in hostlist format,
+                        e.g., vm-vc1-[0-3]
+                        One single node is also acceptable: vm-vc1-0
+                        If not provided, the requested action will be taken
+                        on the frontend node of the specified cluster
+        IMAGENAME       Name of an image at remote server
+        PATHIMAGEFILE   The full path to the image file to be uploaded
 
 
 context
@@ -477,10 +457,10 @@ group
 Command - group::
 
     Usage:
-        group add NAME [--type=TYPE] [--cloud=CLOUD] [--id=IDs]
-        group list [--cloud=CLOUD] [--format=FORMAT] [NAME]
-        group delete NAME [--cloud=CLOUD]
-        group remove [--cloud=CLOUD] --name=NAME --id=ID
+        group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
+        group list [--category=CLOUD] [--format=FORMAT] [NAME]
+        group delete NAME [--category=CLOUD]
+        group remove [--category=CLOUD] --name=NAME --id=ID
         group copy FROM TO
         group merge GROUPA GROUPB MERGEDGROUP
 
@@ -496,10 +476,11 @@ Command - group::
         MERGEDGROUP  name of a group
 
     Options:
-        --cloud=CLOUD    the name of the cloud
-        --format=FORMAT  the output format
-        --type=TYPE     the resource type
-        --name=NAME      the name of the group
+        --category=CLOUD       the name of the category
+        --format=FORMAT     the output format
+        --type=TYPE         the resource type
+        --name=NAME         the name of the group
+        --id=IDS            the ID(s) to add to the group
 
 
     Description:
@@ -508,7 +489,7 @@ Command - group::
         description
         Todo: discuss and propose command
 
-        cloudmesh can manage groups of resources and cloud related
+        cloudmesh can manage groups of resources and category related
         objects. As it would be cumbersome to for example delete
         many virtual machines or delete VMs that are in the same
         group, but are running in different clouds.
@@ -521,7 +502,7 @@ Command - group::
         use the last used virtual machine. If a vm is started it
         will be automatically added to the default group if it is set.
 
-        The delete command has an optional cloud parameter so that
+        The delete command has an optional category parameter so that
         deletion of vms of a partial group by cloud can be
         achieved.
 
@@ -791,16 +772,15 @@ Command - key::
       key list [--source=db] [--format=FORMAT]
       key list --source=cloudmesh [--format=FORMAT]
       key list --source=ssh [--dir=DIR] [--format=FORMAT]
+      key load [--format=FORMAT]
       key list --source=git [--format=FORMAT] [--username=USERNAME]
       key add --git [--name=KEYNAME] FILENAME
       key add --ssh [--name=KEYNAME]
       key add [--name=KEYNAME] FILENAME
       key get NAME
       key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [-f]
-      key upload KEYNAME
-                       [--cloud=CLOUD]
-                       [--name=NAME_ON_CLOUD]
+      key delete (KEYNAME | --select | --all) [--force]
+      key upload [KEYNAME] [--cloud=CLOUD]
       key map [--cloud=CLOUD]
 
     Manages the keys
@@ -808,7 +788,7 @@ Command - key::
     Arguments:
 
       SOURCE         db, ssh, all
-      KEYNAME        The name of a key
+      KEYNAME        The name of a key. For key upload it defaults to the default key name.
       FORMAT         The format of the output (table, json, yaml)
       FILENAME       The filename with full path in which the key
                      is located
@@ -822,6 +802,7 @@ Command - key::
        --username=USERNAME           the source for the keys [default: none]
        --name=KEYNAME                The name of a key
        --all                         delete all keys
+       --force                       delete the key form the cloud
        --name_on_cloud=NAME_ON_CLOUD Typically the name of the keypair on the cloud.
 
     Description:
@@ -976,32 +957,6 @@ Command - list::
         $ list --cloud india --user albert --tenant fg82 flavor
 
 
-loglevel
-----------------------------------------------------------------------
-
-Command - loglevel::
-
-    Usage:
-        loglevel
-        loglevel critical
-        loglevel error
-        loglevel warning
-        loglevel info
-        loglevel debug
-
-        Shows current log level or changes it.
-
-        loglevel - shows current log level
-        critical - shows log message in critical level
-        error    - shows log message in error level including critical
-        warning  - shows log message in warning level including error
-        info     - shows log message in info level including warning
-        debug    - shows log message in debug level including info
-
-    NOTE:
-      NOT YET IMPLEMENTED
-
-
 man
 ----------------------------------------------------------------------
 
@@ -1058,29 +1013,29 @@ Command - network::
         FLOATING_IP_ID  ID associated with Floating IP, e.g. 185c5195-e824-4e7b-8581-703abec4bc01
 
     Examples:
-        $ network get fixed ip --cloud=india 10.1.2.5
-        $ network get fixed --cloud=india 10.1.2.5
-        $ network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
-        $ network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
-        $ network reserve fixed ip --cloud=india 10.1.2.5
-        $ network reserve fixed --cloud=india 10.1.2.5
-        $ network unreserve fixed ip --cloud=india 10.1.2.5
-        $ network unreserve fixed --cloud=india 10.1.2.5
-        $ network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
-        $ network associate floating --cloud=india --instance=albert-001
-        $ network associate floating --cloud=india --group=albert_group
-        $ network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
-        $ network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
-        $ network create floating ip --cloud=india --pool=albert-f01
-        $ network create floating --cloud=india --pool=albert-f01
-        $ network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
-        $ network delete floating --cloud=india 192.1.66.8 192.1.66.9
-        $ network list floating ip --cloud=india
-        $ network list floating --cloud=india
-        $ network list floating --cloud=india 192.1.66.8
-        $ network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
-        $ network list floating pool --cloud=india
-        $ network create cluster --group=demo_group
+        network get fixed ip --cloud=india 10.1.2.5
+        network get fixed --cloud=india 10.1.2.5
+        network get floating ip --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+        network get floating --cloud=india 185c5195-e824-4e7b-8581-703abec4bc01
+        network reserve fixed ip --cloud=india 10.1.2.5
+        network reserve fixed --cloud=india 10.1.2.5
+        network unreserve fixed ip --cloud=india 10.1.2.5
+        network unreserve fixed --cloud=india 10.1.2.5
+        network associate floating ip --cloud=india --instance=albert-001 192.1.66.8
+        network associate floating --cloud=india --instance=albert-001
+        network associate floating --cloud=india --group=albert_group
+        network disassociate floating ip --cloud=india --instance=albert-001 192.1.66.8
+        network disassociate floating --cloud=india --instance=albert-001 192.1.66.8
+        network create floating ip --cloud=india --pool=albert-f01
+        network create floating --cloud=india --pool=albert-f01
+        network delete floating ip --cloud=india 192.1.66.8 192.1.66.9
+        network delete floating --cloud=india 192.1.66.8 192.1.66.9
+        network list floating ip --cloud=india
+        network list floating --cloud=india
+        network list floating --cloud=india 192.1.66.8
+        network list floating --cloud=india --instance=323c5195-7yy34-4e7b-8581-703abec4b
+        network list floating pool --cloud=india
+        network create cluster --group=demo_group
 
 
 
@@ -1268,10 +1223,11 @@ Command - register::
         register test [--yaml=FILENAME]
         register json HOST
         register remote [CLOUD] [--force]
-        register india [--force]
-        register CLOUD CERT [--force]
-        register CLOUD --dir=DIR
         register env [--provider=PROVIDER]
+        register profile --username=[USERNAME]
+        register CLOUD [--force]
+        register CLOUD [--dir=DIR]
+
 
     managing the registered clouds in the cloudmesh.yaml file.
     It looks for it in the current directory, and than in
@@ -1287,8 +1243,8 @@ Command - register::
       USER   the user name
       FILEPATH the path of the file
       CLOUD the cloud name
-      CERT the path of the certificate
       PROVIDER the provider or type of cloud [Default: openstack]
+      USERNAME  Username that would be registered in yaml. Defaults to OS username.
 
     Options:
 
@@ -1358,23 +1314,19 @@ Command - register::
             registers a remote cloud and copies the openrc file
             specified in the credentials of the cloudmesh.yaml
 
-        register CLOUD CERT [--force]
-            Copies the CERT to the ~/.cloudmesh/clouds/host directory
-            and registers that cert in the coudmesh.yaml file.
-            For india, CERT will be in
-            india:.cloudmesh/clouds/india/juno/cacert.pem
-            and would be copied to ~/.cloudmesh/clouds/india/juno
-
         register CLOUD --dir
             Copies the entire directory from the cloud and puts it in
             ~/.cloudmesh/clouds/host
-            For india, The directory would be copied to
-            ~/.cloudmesh/clouds/india
+            For kilo, The directory would be copied to
+            ~/.cloudmesh/clouds/kilo
 
         register env [--provider=PROVIDER] [HOSTNAME]
             Reads env OS_* variables and registers a new cloud in yaml,
             interactively. Default PROVIDER is openstack and HOSTNAME
             is localhost.
+
+        register username [USERNAME]
+            Sets the username in yaml with the value provided.
 
 
 reservation
@@ -1491,12 +1443,12 @@ secgroup
 Command - secgroup::
 
     Usage:
-        secgroup list [--cloud=CLOUD] [--tenant=TENANT]
-        secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
-        secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup list [--cloud=CLOUD]
+        secgroup create [--cloud=CLOUD] LABEL
+        secgroup delete [--cloud=CLOUD] LABEL
+        secgroup rules-list [--cloud=CLOUD] LABEL
+        secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
         secgroup refresh [--cloud=CLOUD]
         secgroup -h | --help
         secgroup --version
@@ -1504,7 +1456,6 @@ Command - secgroup::
     Options:
         -h                  help message
         --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-        --tenant=TENANT     Name of the tenant, e.g. fg82.
 
     Arguments:
         LABEL         The label/name of the security group
@@ -1521,10 +1472,13 @@ Command - secgroup::
 
 
     Examples:
-        $ secgroup list --cloud india --tenant fg82
-        $ secgroup rules-list --cloud india --tenant fg82 default
-        $ secgroup create --cloud india --tenant fg82 webservice
-        $ secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+        secgroup list --cloud india
+        secgroup rules-list --cloud=kilo default
+        secgroup create --cloud=kilo webservice
+        secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+        secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+        secgroup rules-delete --all
+
 
 
 
@@ -1534,8 +1488,8 @@ select
 Command - select::
 
     Usage:
-        select image [CLOUD]
-        select flavor [CLOUD]
+        select image [CLOUD] [--refresh]
+        select flavor [CLOUD] [--refresh]
         select cloud [CLOUD]
         select key [CLOUD]
 
@@ -1546,6 +1500,9 @@ Command - select::
       CLOUD    the name of the cloud
 
     Options:
+
+      --refresh   refreshes the data before displaying it
+                  from the cloud
 
 
 
@@ -1582,6 +1539,13 @@ Command - shell::
     Description:
         Executes a shell command
 
+
+shell_exec
+----------------------------------------------------------------------
+
+Command - shell_exec::
+
+    Command documentation shell_exec missing, help_shell_exec
 
 ssh
 ----------------------------------------------------------------------
@@ -1686,6 +1650,46 @@ Command - sync::
 
 
 
+timer
+----------------------------------------------------------------------
+
+Command - timer::
+
+    Usage:
+        timer on
+        timer off
+        timer list [NAME]
+        timer start NAME
+        timer stop NAME
+        timer resume NAME
+        timer reset [NAME]
+
+    Description:
+
+         timer on | off
+             switches timers on and off not yet implemented.
+             If the timer is on each command will be timed and its
+             time is printed after the command. Please note that
+             background command times are not added.
+
+        timer list
+            list all timers
+
+        timer start NAME
+            starts the timer with the name. A start resets the timer to 0.
+
+        timer stop NAME
+            stops the timer
+
+        timer resume NAME
+            resumes the timer
+
+        timer reset NAME
+            resets the named timer to 0. If no name is specified all
+            timers are reset
+
+
+
 usage
 ----------------------------------------------------------------------
 
@@ -1719,10 +1723,12 @@ Command - var::
         var delete NAMES
         var NAME=VALUE
         var NAME
+
     Arguments:
         NAME    Name of the variable
         NAMES   Names of the variable separated by spaces
         VALUE   VALUE to be assigned
+
     special vars date and time are defined
 
 
@@ -1779,26 +1785,26 @@ Command - vm::
                 [--secgroup=SECGROUP]
                 [--key=KEY]
                 [--dryrun]
-        vm start NAME...
+        vm start [NAME]...
                  [--group=GROUP]
                  [--cloud=CLOUD]
                  [--force]
-        vm stop NAME...
+        vm stop [NAME]...
                 [--group=GROUP]
                 [--cloud=CLOUD]
                 [--force]
-        vm delete NAME...
+        vm delete [NAME]...
                   [--group=GROUP]
                   [--cloud=CLOUD]
                   [--force]
-        vm ip assign NAME...
+        vm ip assign [NAME]...
                   [--cloud=CLOUD]
-        vm ip show NAME...
+        vm ip show [NAME]...
                    [--group=GROUP]
                    [--cloud=CLOUD]
                    [--format=FORMAT]
                    [--refresh]
-        vm login NAME [--user=USER]
+        vm login [NAME] [--user=USER]
                  [--ip=IP]
                  [--cloud=CLOUD]
                  [--key=KEY]
@@ -1818,7 +1824,7 @@ Command - vm::
                        you will get a return of executing result instead of login to
                        the server, note that type in -- is suggested before
                        you input the commands
-        NAME           server name
+        NAME           server name. By default it is set to the name of last vm from database.
         NAME_OR_ID     server name or ID
         KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
 
@@ -1864,7 +1870,7 @@ Command - vm::
                                     Or user may specify more options to narrow
                                     the search
         vm floating_ip_assign [options...]   assign a public ip to a VM of a cloud
-        vm ip_show [options...]     show the ips of VMs
+        vm ip show [options...]     show the ips of VMs
         vm login [options...]       login to a server or execute commands on it
         vm list [options...]        same as command "list vm", please refer to it
         vm status [options...]      Retrieves status of last VM booted on cloud and displays it.

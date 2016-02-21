@@ -1,7 +1,6 @@
 from __future__ import print_function
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
 
 
 class ClusterCommand(PluginCommand, CloudPluginCommand):
@@ -14,7 +13,7 @@ class ClusterCommand(PluginCommand, CloudPluginCommand):
 
     # noinspection PyUnusedLocal
     @command
-    def do_cluster (self, args, arguments):
+    def do_cluster(self, args, arguments):
         """
         ::
 

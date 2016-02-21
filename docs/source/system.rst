@@ -482,37 +482,43 @@ Install Python
 Python can be found at http://www.python.org. We recommend to download
 and install the newest version of python. At this time we recommend
 that you use version 2.7.10. Other versions may work to, but are not
-supported or tested. A direct link to the install can be found at
+supported or tested. A direct link to the install can be found at::
 
-* https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+    https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
-In powershell you can type::
+In powershell you need to type::
 
-  explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+    PS> explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 
-This will open the internet explorer and download the python msi
+This will open the internet browser and download the python msi
 installer. It will walk you through the install process.
 
 .. note:: If you like to install it separately, you can find the
-	  downloaded msi in the `~/Downloads` directory. To install
-	  it in powershell use::
-	    
-	    cd ~/Downloads
-	    msiexec /i python-2.7.10.msi /qb
+    downloaded msi in the `~/Downloads` directory. To install
+    it in powershell use::
 
-	  This will open a basic dialog to perform installation and
-	  close after completion.
+        PS> cd ~/Downloads
+        PS> msiexec /i python-2.7.10.msi /qb
 
-After you have installed python include it in the Path environment
-variable while you type in powershell::
+    This will open a basic dialog to perform installation and
+    close after completion.
 
-  [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
+.. note:: While installing python, you have the option to
+    automatically include python binaries in the system Path.
+    This is disabled by default, so you will need to enable it explicitly.
+    Skip below step if you have choose to enable this feature.
 
-You need to start a new powershell to access python from the
-command line.
+After you have installed python (and not explicitly enabled the feature to add python to system path)
+include it in the Path environment variable while you type in powershell::
+
+        PS> [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
+        PS> $env:Path=[Environment]::GetEnvironmentVariable("Path", "User")
 
 
-Install ssh, git, make, pscp and an editor
+This should install Python 2.7.10 successfully. You can now proceed to the
+next step.
+
+Install Chocolatey, Git, VirtualEnv, Make
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 As we need to do some editing you will need a nice editor. Please do
@@ -520,49 +526,136 @@ not use notepad and notepad++ as they have significant issues, please
 use vi, vim, or emacs. Emacs is easy to use as it has a GUI on
 windows. Install emacs::
 
-  Start-Process powershell -Verb runAs 
-  Set-ExecutionPolicy Unrestricted -force 
-  iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1')) 
-  choco install emacs -y
-  choco install make -y
-  choco install pscp -y
-  choco install vim -y
-  
-To install Git and paste the following command into the powershell::
+    PS> Start-Process powershell -Verb runAs
 
-  explorer https://github.com/git-for-windows/git/releases/latest
+This will open a new Powershell window with administrator privileges.
+Continue the below steps to install chocolatey & make::
+
+    PS> Set-ExecutionPolicy Unrestricted -force
+    PS> iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
+    PS> choco install emacs -y
+    PS> choco install make -y
+  
+Next, to install Git, type the following command into powershell::
+
+    PS> explorer https://git-scm.com/download/win
+
+This will open the internet browser and download the git
+installer. It will walk you through the install process.
 
 .. note:: When installing you will see at one point a screen that asks
-	  you if you like to add the commands to the shell. This comes
-	  with a warning that some windows commands will be
-	  overwritten. This is different from bellows instructions.
+        you if you like to add the commands to the shell. It is recommended
+        you select option (3) to add Unix shell commands to windows.
+        This will install Unix style commands to Windows and include it in path.
 
-Next we integrate git into powershell with ::
-
-  (new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
-  Set-ExecutionPolicy Unrestricted
-  install-module posh-git –force
-  Set-ExecutionPolicy Restricted -force
+Follow the on screen instructions, selecting the default values
+for all of the options (except for above note). This will install
+Git & Git Bash successfully.
 
 
-Now we are ready to use ssh and git. Let us create a key::
+Install VirtualEnv and Create a Virtual Python Environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  ssh-keygen
+At the time this guide was written, the latest version of python virtualenv
+was 14.0.2. But Windows 10 users were facing a lot of issues with this version,
+and so we recommend installing a lower version of virtualenv::
+
+    PS> pip install virtualenv==13.0.2
+
+This will install python virtualenv on your system. To setup the environment
+in powershell, run the following command::
+
+    PS> virtualenv ~/ENV
+
+This will create a new directory `~/ENV/` comprising a local python environment.
+To activate this new environment, run::
+
+    PS> ~/ENV/Scripts/activate.ps1
+
+This will activate your new python virtual environment. As a proof,
+you will now see a `(ENV)` prefixed to the powershell. It will look like::
+
+    (ENV) PS> python --version
+              Python 2.7.10
+
+Congratulations, you have now activated your python virtualenv.
+
+.. note:: To deactivate this virtualenv, you need to run
+    the following command::
+
+        (ENV) PS> deactivate
+
+    But always remember to activate the virtualenv before using cloudmesh.
+Next step is to install necessary python packages.
+
+Install Pycrypto
+^^^^^^^^^^^^^^^^^
+
+First, if not already done, activate your virtualenv::
+
+    PS> ~/ENV/Scripts/activate.ps1
+
+Next, update your python-pip::
+
+    (ENV) PS> pip install pip -U
+
+Check the python and pip version::
+
+    (ENV) PS> python --version
+          Python 2.7.10
+
+    (ENV) PS> pip --version
+          pip 8.0.2 from c:\users\test-pc\ENV\lib\site-packages (python 2.7)
+
+
+Then to install pycrypto, run the following::
+
+    (ENV) PS> easy_install http://www.voidspace.org.uk/python/pycrypto-2.6.1/pycrypto-2.6.1.win32-py2.7.exe
+
+
+Install FireFox Browser
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cloudmesh contains tools for generating and viewing the html
+documentation files. It uses FireFox to render HTML pages. To install
+FireFox, run the following command::
+
+    (ENV) PS> explorer https://www.mozilla.org/en-US/firefox/new/#download-fx
+
+This will download the latest FireFox browser installer on your machine.
+Follow the on-screen instructions to install. Once complete, add FireFox to
+your path::
+
+    (ENV) PS> [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Program Files (x86)\Mozilla Firefox\", "User")
+    (ENV) PS> $env:Path=[Environment]::GetEnvironmentVariable("Path", "User")
+
+COngratulations! You have now successfully setup your Windows 10 machine,
+and are all ready to now install Cloudmesh.
+
+
+Adding SSH Key to Futuresystems Portal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Close the current Powershell window and open a new one.
+Now we are ready to use ssh and git. But first, let's create a key::
+
+    PS> ssh-keygen -t rsa
 
 Follow the instructions and leave the path unchanged. Make sure you
-specify a passphrase. It is policy on many compute resources that your
+specify a passphrase. It is a policy on many compute resources that your
 key has a passphrase. Look at the public key as we will need to upload
 it to some resources::
 
-  cat ~/.ssh/id_rsa.pub
+    PS> cat ~/.ssh/id_rsa.pub
 
-Go to::
+Go to the futuresystems portal::
 
-  https://portal.futuresystems.org
+    https://portal.futuresystems.org
 
-Once you log in you can use the following link::
+Once you log in you can use the following link to add
+your public key to futuresystems::
 
-  https://portal.futuresystems.org/my/ssh-keys
+    https://portal.futuresystems.org/my/ssh-keys
 
 Naturally this only works if you are eligible to register and get an
 account. Once you are in a valid project you can use indias
@@ -575,95 +668,23 @@ generated into the portal and did a cat on.
 	     that the key in the text box is a single line and looks
 	     like when you did the cat on it.
 
-Throughout the manual we will be using the environment variable
-`$PORTALNAME` for your portal name on futuresytems. In order for you to
-conveniently access it you can set it as follows::
+To simplify SSH access, you will need to configure a ssh config file.
+You will need to first create a `config` file as follows::
 
-   [Environment]::SetEnvironmentVariable("PORTALNAME","putyourportalnamehere")
+    PS> vim ~/.ssh/config
 
-and replace the string `putyourportalnamehere` with your own portal name.
-	     
-Next you can ssh into the machine like this from powershell::
-
-   ssh  $PORTALNAME@india.futuregrid.org
-
-where $PORTALNAME is your futuresystems portal name. Note that a login
-without the -i seems not to work.
-
-To simplify access you will need to configure a ssh config file with
+This should open the VIM editor and next you need to enter
 the following contents::
 
    Host india
         Hostname india.futuresystems.org
-        User putyourportalnamehere
+        User <your_portal_username>
+        IdentityFile <path_to_id_rsa_file>
 
-	
-open new powershell::
+Replace `your_portal_username` with your futuresystems username and
+`path_to_id_rsa_file` with the path to your private key file.
+It generally is at ~/.ssh/id_rsa.
 
-  cat ~/.ssh/id_rsa.pub
+You can now easily perform ssh to futuresystems cloud using::
 
-past and copy this key into a new ssh key in your futuresystems
-account at::
-
-* http::portal.futuresystems.org/my/ssh-key
-
-.. warning:: we recommend that you are not modifying your /etc/hosts
-	     in order not to confuse you about the definition of the
-	     hosts you define in .ssh/config
-
-
-Install make In Windows
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To download and install "make" for windows, in powershell type::
-
-  explorer http://gnuwin32.sourceforge.net/downlinks/make.php
-
-This will open the internet explorer and download the make exe
-installer. It will walk you through the install process.
-
-.. note:: If you like to install it separately, you can find the
-	  downloaded exe in the `~/Downloads` directory. To install
-	  it in powershell use::
-
-	    cd ~/Downloads
-	    .\make-3.81.exe /install=agent /silent
-
-	  This will open a basic dialog to perform installation and
-	  close after completion.
-
-After you have installed make, include it in the Path environment
-variable while you type in powershell::
-
-  [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Program Files (x86)\GnuWin32\bin\", "User")
-
-You need to start a new powershell to access make from the
-command line.
-
-Making python usable
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-To test if you have the right version of python execute::
-
-  $ python --version
-
-which should return 2.7.10 and::
-
-  $ pip --version
-
-If you do not see version 8.02 please update ist with::
-
-  $ pip install -U pip
-
-We want also to install virtualenv::
-
-  pip install virtualenv
-
-and pyreadline::
-
-   pip install pyreadline
-
-
-
-
-
+    PS> ssh india

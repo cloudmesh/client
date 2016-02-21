@@ -2,7 +2,7 @@ from __future__ import print_function
 from cloudmesh_client.cloud.flavor import Flavor
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 
 
 class FlavorCommand(PluginCommand, CloudPluginCommand):
@@ -53,27 +53,30 @@ class FlavorCommand(PluginCommand, CloudPluginCommand):
                 Console.ok("{:} ok".format(msg))
             else:
                 Console.error("{:} failed".format(msg))
-            return ""
+                return ""
 
         if arguments["list"]:
-            cluster_id = arguments['ID']
-            refresh = arguments['--refresh']
+
+            id = arguments['ID']
+            live = arguments['--refresh']
             output_format = arguments["--format"]
 
-            if cluster_id is None:
-                result = Flavor.list(cloud, output_format)
-            else:
-                result = Flavor.details(cloud, cluster_id, refresh, output_format)
+            counter = 0
+
+            result = None
+            while counter < 2:
+                if id is None:
+                    result = Flavor.list(cloud, output_format)
+                else:
+                    result = Flavor.details(cloud, id, live, output_format)
+                if counter == 0 and result is None:
+                    if not Flavor.refresh(cloud):
+                        msg = "Refresh flavor for cloud {:}.".format(cloud)
+                        Console.error("{:} failed.".format(msg))
+                counter += 1
 
             if result is None:
-                #
-                # auto refresh
-                #
-                Console.error("No flavor(s) found. Failed")
-                # Flavor.refresh(cloud)
-                # Console.ok("Refreshing flavor(s). ok.")
-
+                Console.error("No image(s) found. Failed.")
             else:
-
                 print(result)
             return ""

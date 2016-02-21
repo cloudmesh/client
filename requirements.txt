@@ -1,20 +1,21 @@
-pyreadline<=1.7.1.dev-r0
+pyreadline
 colorama
-cloudmesh_base
 future
 docopt
 pyaml
+pyyaml
 simplejson
 python-hostlist
 prettytable
 sqlalchemy
 urllib3
-requests
+requests >=2.8.1,<2.9.0
 sandman
 gitchangelog
-six
+six >=1.9.0
 python-novaclient
 python-keystoneclient
 cloudmesh_timestring
 pycrypto
 httpsig
+jsonschema

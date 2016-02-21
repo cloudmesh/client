@@ -1,14 +1,14 @@
 from __future__ import print_function
 import os
 
-from cloudmesh_base.Shell import Shell
-from cloudmesh_base.logger import LOGGER
-from cloudmesh_base.tables import row_table
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.logger import LOGGER
+from cloudmesh_client.common.Printer import row_table
 from cloudmesh_client.cloud.nova import Nova
 from cloudmesh_client.cloud.group import Group
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.cloud.default import Default
+from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import \
     set_os_environ
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
@@ -61,7 +61,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
             Console.error("Default cloud not set!")
             return ""
 
-        group = arguments["--group"] or Default.get("group", cloud=cloud)
+        group = arguments["--group"] or Default.get("group", category=cloud)
 
         if not group:
             Console.error("Default group not set!")
@@ -134,7 +134,7 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
                     vm_id = fields[index]
 
                     # Add to group
-                    Group.add(name=group, type="vm", id=vm_id, cloud=cloud)
+                    Group.add(name=group, type="vm", id=vm_id, category=cloud)
             except Exception, ex:
                 Console.error("Error executing Nova command: {}".format(ex))
             return ""

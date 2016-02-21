@@ -135,22 +135,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         Lists clouds
         :return:
         """
-        dict = {}
+        cloud_dict = {}
         d = ConfigDict("cloudmesh.yaml")
         clouds = d["cloudmesh"]["clouds"].keys()
         for i, cloud in enumerate(clouds):
             if cloud in CloudProviderOpenstackAPI.cloud_pwd:
-                dict[i] = {
+                cloud_dict[i] = {
                     "cloud": cloud,
                     "status": CloudProviderOpenstackAPI.cloud_pwd[cloud]["status"]
                 }
             else:
-                dict[i] = {
+                cloud_dict[i] = {
                     "cloud": cloud,
                     "status": "Logged Out"
                 }
 
-        return dict
+        return cloud_dict
 
     def initialize(self, cloudname, user=None):
 
@@ -300,19 +300,17 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if flavor is None:
             flavor = self.default_flavor
 
-
-        image_id =  self.get_image_id(image)
-        flavor_id =  self.get_flavor_id(flavor)
+        image_id = self.get_image_id(image)
+        flavor_id = self.get_flavor_id(flavor)
 
         # if no nics specified, try to find one in case it's needed
-        if nics is None or len(nics)==0 \
-            or (len(nics)==1 and nics[0]['net-id'] is None):
+        if nics is None or len(nics) == 0 or (len(nics) == 1 and nics[0]['net-id'] is None):
             # get net-id based on tenant network name, and other possible
             # default network names
             netnames = ["{0}-net".format(self.tenant), "int-net"]
             nicsmy = self.provider.networks.list()
             for netname in netnames:
-                nic = [x for x in nicsmy if x.label==netname]
+                nic = [x for x in nicsmy if x.label == netname]
                 if len(nic) > 0:
                     # found and break out of loop
                     # use the value found here
@@ -342,9 +340,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if self.isUuid(name):
             server = self.provider.servers.get(name)
         else:
-            server = self.provider.servers.find(name=name)
-
-        server.delete()
+            # server = self.provider.servers.find(name=name)
+            search_opts = {
+                'name': name,
+            }
+            vms = self.provider.servers.list(search_opts=search_opts)
+            for vm in vms:
+                print("Deleting VM ({}) : {}".format(vm.name, vm.id))
+                vm.delete()
 
     def delete_floating_ip(self, floating_ip):
         """
@@ -504,7 +507,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         floating_ip = self.provider.floating_ips.create(pool=float_pool)
         return floating_ip.ip
 
-
     # TODO: define this
     # noinspection PyProtectedMember,PyProtectedMember
     def get_image(self, **kwargs):
@@ -537,7 +539,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         return self.get_flavor(id=name_or_id)["id"]
 
-
     def isUuid(self, name):
         try:
             UUID(name, version=4)
@@ -568,7 +569,44 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         if self.isUuid(vm_name):
             return self.provider.servers.get(vm_name)._info
         else:
-            return self.provider.servers.find(name=vm_name)._info
+            return self.provider.servers.find(name=vm_name,
+                                              scope="first")._info
+
+    def create_secgroup(self, secgroup_name):
+        secgroup = self.provider.security_groups \
+            .create(name=secgroup_name,
+                    description="Security group {}".format(secgroup_name))
+
+        return secgroup
+
+    def add_secgroup_rule(self, **kwargs):
+        rule_id = self.provider.security_group_rules.create(kwargs["uuid"],
+                                                            ip_protocol=kwargs["protocol"],
+                                                            from_port=kwargs["from_port"],
+                                                            to_port=kwargs["to_port"],
+                                                            cidr=kwargs["cidr"])
+        return rule_id
+
+    def delete_secgroup(self, secgroup_name):
+        search_opts = {
+            'name': secgroup_name,
+        }
+
+        secgroups = self.provider.security_groups.list(search_opts=search_opts)
+        if secgroups is not None:
+            for sec_group in secgroups:
+                # delete the secgroup in the cloud
+                if sec_group.name == secgroup_name:
+                    self.provider.security_groups.delete(sec_group)
+        else:
+            print("Could not find security group [{}] in cloud [{}]"
+                  .format(secgroup_name, self.cloud))
+
+        return "Ok."
+
+    def delete_secgroup_rule(self, rule_id):
+        self.provider.security_group_rules.delete(rule_id)
+        return
 
     def attributes(self, kind):
 
@@ -689,6 +727,24 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 'header': [
                     'Quota',
                     'Limit'
+                ]
+            },
+            'secgroup': {
+                'order': [
+                    'id',
+                    'name',
+                    'category',
+                    'user',
+                    'project',
+                    'uuid'
+                ],
+                'header': [
+                    'id',
+                    'secgroup_name',
+                    'category',
+                    'user',
+                    'tenant_id',
+                    'secgroup_uuid'
                 ]
             },
             'default': {

@@ -16,34 +16,36 @@
 # limitations under the License.                                          #
 # ------------------------------------------------------------------------#
 from __future__ import print_function
-import platform
-import os
 
-from setuptools.command.install import install
-from setuptools.command.test import test as TestCommand
+import setuptools
 from setuptools import setup, find_packages
-
-
-try:
-    import cloudmesh_base
-    print ("Using cloudmesh_base version:", cloudmesh_base.__version__)
-except:
-    # os.system("pip install cloudmesh_base")
-    os.system("pip install git+https://github.com/cloudmesh/base.git")
-
-from cloudmesh_base.setup import *
-from cloudmesh_base.util import banner
-from cloudmesh_base.setup import os_execute
+import os
+import sys
 from cloudmesh_client import __version__
+import platform
 
-banner("Installing Cloudmesh_client {:}".format(__version__))
+if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
+    print (70 * "#")
+    print("WARNING: upgrade to python 2.7.10 or above but not 3 "
+          "are not supported. Your version is {}. failed.".format(sys.version_info))
+    print (70 * "#")
 
-requirements = ['pyreadline<=1.7.1.dev-r0',
-                'colorama',
-                'cloudmesh_base',
+command = None
+this_platform = platform.system().lower()
+if  this_platform in ['darwin']:
+    command = "easy_install readline"
+elif this_platform in ['windows']:
+    command = "pip install pyreadline"
+
+if command is not None:
+    print("Install readline")
+    os.system(command)
+
+requirements = ['colorama',
                 'future',
                 'docopt',
                 'pyaml',
+                'pyyaml',
                 'simplejson',
                 'python-hostlist',
                 'prettytable',
@@ -57,63 +59,10 @@ requirements = ['pyreadline<=1.7.1.dev-r0',
                 'six',
                 'python-novaclient',
                 'python-keystoneclient',
-                'cloudmesh_timestring']
-
-
-class UploadToPypitest(install):
-    """Upload the package to pypi. -- only for Maintainers."""
-
-    description = __doc__
-
-    def run(self):
-        os.system("make clean")
-        commands = """
-            python setup.py install
-            python setup.py bdist_wheel            
-            python setup.py sdist --format=bztar,zip upload -r pypitest
-            python setup.py bdist_wheel upload -r pypitest
-            """
-        os_execute(commands)    
-
-    
-class UploadToPypi(install):
-    """Upload the package to pypi. -- only for Maintainers."""
-
-    description = __doc__
-
-    def run(self):
-        os.system("make clean")
-        commands = """
-            python setup.py install
-            python setup.py bdist_wheel            
-            python setup.py sdist --format=bztar,zip upload
-            python setup.py bdist_wheel upload
-            """
-        os_execute(commands)    
-
-class InstallBase(install):
-    """Install the cloudmesh_client package."""
-
-    description = __doc__
-
-    def run(self):
-        banner("Install readline")
-        commands = None
-        this_platform = platform.system().lower()
-        if  this_platform in ['darwin']:
-            commands = """
-                easy_install readline
-                """
-        elif this_platform in ['windows']:
-            commands = """
-                pip install pyreadline
-                """
-        if commands:
-            os_execute(commands)
-        banner("Install Cloudmesh_client {:}".format(__version__))
-        install.run(self)
-        os_execute("cm help")
-
+                'cloudmesh_timestring',
+                'wheel',
+                'tox',
+                'pytimeparse']
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -129,29 +78,6 @@ package_data={
    'cloudmesh_client.etc': ['*.yaml', '*.py'],
 },
 
-
-# Hack because for some reason requirements does not work
-#
-# os.system("pip install -r requirements.txt")
-
-class Tox(TestCommand):
-    user_options = [('tox-args=', 'a', "Arguments to pass to tox")]
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.tox_args = None
-    def finalize_options(self):
-        TestCommand.finalize_options(self)
-        self.test_args = []
-        self.test_suite = True
-    def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
-        import tox
-        import shlex
-        args = self.tox_args
-        if args:
-            args = shlex.split(self.tox_args)
-        errno = tox.cmdline(args=args)
-        sys.exit(errno)
 
 setup(
     version=__version__,
@@ -190,25 +116,10 @@ setup(
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
-            'ghost = cloudmesh_client.shell.ghost:main',
-
+            # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },
     tests_require=['tox'],
-    cmdclass={
-        'install': InstallBase,
-        'pypi': Make("pypi", repo='pypi'),
-        'pypifinal': Make("pypi", repo='final'),
-        'registerpypi': Make("pypi", repo='pypi'),
-        'registerfinal': Make("pypi", repo='final'),
-        'rmtag': Make('rmtag'),
-        'tag': Make("tag"),
-        'doc': Make("doc"),
-        'view': Make("view"),
-        'clean': Make("clean"),
-        'test': Tox,
-        },
-
     dependency_links = []
 )
 

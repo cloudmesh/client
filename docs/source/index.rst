@@ -19,8 +19,18 @@ process of integrating them back into the client.
 
 This documentation and code is available on github at:
 
-* Documentation: http://cloudmesh.github.io/client/
+* Documentation:
+
+  * on github: http://cloudmesh.github.io/client/
+  * on rtd: http://cloudmesh-client.readthedocs.org/
+
 * Code: https://github.com/cloudmesh/client
+
+* Automated build reports and documentation:
+
+   * Documentation: http://cloudmesh-client.readthedocs.org
+   * Code: https://travis-ci.org/cloudmesh/client
+
 
 .. toctree::
    :caption: Overview
@@ -29,18 +39,36 @@ This documentation and code is available on github at:
    introduction
 
 .. toctree::
-   :caption: Manuals
+   :caption: Short Manuals
    :maxdepth: 2
 
    quickstart
    reference_card
+   scripts
+   comet
+
+.. toctree::
+   :caption: User Manuals
+   :maxdepth: 2
+
    setup
    commands/index
    man/man
+
+.. toctree::
+   :caption: Teaching
+   :maxdepth: 2
+   
+   exercises
+
+.. toctree::
+   :caption: Developer Manuals
+   :maxdepth: 2
+
+   
    api
    modules/modules
    hacking
-   exercises
 
 .. toctree::
    :caption: Appendix

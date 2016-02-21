@@ -1,37 +1,35 @@
-## lines that do not work but should are commented out for now with ##
-
-banner DEFAULTS
-list default
-
-banner SET_DEFAULT_CLOUD_AND_GROUP
 default cloud=kilo
+var username=cloudmesh.profile.username
+var tenant=cloudmesh.clouds.$cloud.credentials.OS_TENANT_NAME
+var keyname="$username-key"
 
+key load
+key upload
 
-banner CREATE_SECURITY_GROUP
-secgroup create --tenant=fg478 test-secgroup-01
+secgroup create --tenant=$tenant test-secgroup-01
 
 
 banner LIST_SECURITY_GROUPS
-secgroup list --tenant=fg478
+secgroup list --tenant=$tenant
 
 
 banner SECURITY_GROUP_ADD_RULES
-secgroup rules-add --tenant=fg478 test-secgroup-01 80 80 tcp 0.0.0.0/0
-secgroup rules-add --tenant=fg478 test-secgroup-01 443 443 udp 0.0.0.0/0
+secgroup rules-add --tenant=$tenant test-secgroup-01 80 80 tcp 0.0.0.0/0
+secgroup rules-add --tenant=$tenant test-secgroup-01 443 443 udp 0.0.0.0/0
 
 
 banner LIST_SECURITY_GROUP_RULES
-secgroup rules-list --tenant=fg478 test-secgroup-01
+secgroup rules-list --tenant=$tenant test-secgroup-01
 
 
 banner SECURITY_GROUP_DELETE_RULE
-secgroup rules-delete --tenant=fg478 test-secgroup-01 80 80 tcp 0.0.0.0/0
-secgroup rules-list --tenant=fg478 test-secgroup-01
+secgroup rules-delete --tenant=$tenant test-secgroup-01 80 80 tcp 0.0.0.0/0
+secgroup rules-list --tenant=$tenant test-secgroup-01
 
 
 banner DELETE_SECURITY_GROUP
-secgroup delete --tenant=fg478 test-secgroup-01
+secgroup delete --tenant=$tenant test-secgroup-01
 
 
 banner LIST_SECURITY_GROUPS
-secgroup list --tenant=fg478
+secgroup list --tenant=$tenant
