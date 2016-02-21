@@ -5,25 +5,34 @@ MAINTAINER laszewski@gmail.com
 ### update system
 RUN apt-get update
 
-### install depencencies
+### prepare system
+RUN apt-get install libpng-dev -y
+RUN apt-get install zlib1g-dev -y
+
+### install python
 RUN apt-get install -y \
-  git python python-dev python-distribute python-pip libjpeg-dev \
-&& pip install --upgrade pip
+    git python python-dev python-distribute python-pip libjpeg-dev
+RUN pip install -U pip
+RUN apt-get remove python-six -y
+
 
 ### prepare cloudmesh directories
 RUN mkdir -p $HOME/.cloudmesh
-
-### cloudmesh/client
 ADD . $HOME/cloudmesh_client
 WORKDIR $HOME/cloudmesh_client
-RUN pip install -r requirements.txt \
-&&  pip install . \
-&&  nosetests -v --nocapture \
-      tests/test_model.py \
-      tests/test_pass.py \
-      tests/test_configdict.py \
-      tests/test_shell.py \
-      tests/test_tables.py \
-      tests/test_default.py \
-      tests/test_flatdict.py
+
+### install requirements
+RUN pip install -r requirements.txt 
+RUN pip install -r requirements-doc.txt 
+RUN pip install -r requirements-test.txt
+
+### install cloudmesh
+RUN python setup.py install
+
+### run tests
+RUN cm help
+RUN nosetests -v --nocapture tests/cm_basic
+
+### run cloudmesh
+RUN cm
 
