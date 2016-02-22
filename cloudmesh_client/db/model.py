@@ -194,7 +194,7 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
                  **kwargs):
         # self.kind = __tablename__
         self.label = kwargs["image_name"]
-        self.cloud = kwargs["cloud"]
+        self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
@@ -267,7 +267,7 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
                  **kwargs):
         # self.kind = __tablename__
         self.label = kwargs["name"]
-        self.cloud = kwargs["cloud"] or "general"
+        self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
         self.name = kwargs["name"]
         self.user = kwargs["user"]
@@ -417,7 +417,7 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     def __init__(self, **kwargs):
         # self.kind = __tablename__
         self.label = kwargs["name"]
-        self.cloud = kwargs["cloud"] or "general"
+        self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]

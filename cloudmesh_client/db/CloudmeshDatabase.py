@@ -243,7 +243,7 @@ class CloudmeshDatabase(object):
                     for vm in vms.values():
                         vm['uuid'] = vm['node_id']
                         vm['type'] = 'string'
-                        vm['cloud'] = name
+                        vm['category'] = name
                         vm['user'] = user
                         db_obj = {0: {kind: vm}}
 
@@ -256,7 +256,7 @@ class CloudmeshDatabase(object):
                     for images in images.values():
                         images['uuid'] = images['image_id']
                         images['type'] = 'string'
-                        images['cloud'] = name
+                        images['category'] = name
                         images['user'] = user
                         db_obj = {0: {kind: images}}
 
@@ -269,7 +269,7 @@ class CloudmeshDatabase(object):
                     for flavor in flavors.values():
                         flavor['uuid'] = flavor['id']
                         flavor['type'] = 'string'
-                        flavor['cloud'] = name
+                        flavor['category'] = name
                         flavor['user'] = user
                         db_obj = {0: {kind: flavor}}
 
@@ -399,8 +399,8 @@ class CloudmeshDatabase(object):
         :return:
         """
         # print("KW", kwargs)
-        if "cloud" in kwargs:
-            kind = self.cloud_to_kind_mapper(kwargs["cloud"], kind)
+        if "category" in kwargs:
+            kind = self.cloud_to_kind_mapper(kwargs["category"], kind)
         result = self.query(kind, **kwargs)
         # print("LLL", result)
         if output == 'dict' and result is not None:
@@ -432,7 +432,6 @@ class CloudmeshDatabase(object):
         # print("AAA")
         table = self.get_table(kind)
         # print(table)
-
         result = self.session.query(table).filter_by(**kwargs)
         # print("OK")
         # print(result.__dict__)
