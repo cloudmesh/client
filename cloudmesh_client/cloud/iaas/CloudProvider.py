@@ -16,13 +16,14 @@ class CloudProvider(CloudProviderBase):
         super(CloudProvider, self).__init__(cloudname, user=user)
 
         try:
+            print("Init of CloudProvider")
             d = ConfigDict("cloudmesh.yaml")
             if not cloudname in d["cloudmesh"]["clouds"]:
                 raise ValueError("the cloud {} is not defined in the yaml file"
                                  .format(cloudname))
 
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
-
+            print("cm_type is "+cloud_details["cm_type_version"])
             if cloud_details["cm_type"] == "openstack":
                 provider = CloudProviderOpenstackAPI(
                     cloudname,
@@ -31,7 +32,7 @@ class CloudProvider(CloudProviderBase):
                 self.provider = provider
                 self.provider_class = CloudProviderOpenstackAPI
 
-            if cloud_details["cm_type"] == "ec2-libcloud":
+            if cloud_details["cm_type"] in ["ec2", "ec2-libcloud"]:
                 print("Picked up ec2 libcloud provider")
                 provider = CloudProviderLibcloudEC2(
                     cloudname,
@@ -39,7 +40,6 @@ class CloudProvider(CloudProviderBase):
                     flat=flat)
                 self.provider = provider
                 self.provider_class = CloudProviderLibcloudEC2
-                print("ec2 cloud provider yet to be implemented")
 
             if cloud_details["cm_type"] == "openstack-libcloud":
                 print("openstack with libcloud cloud provider yet to be implemented")

@@ -55,6 +55,6 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         extra_args= {'path' : path}
 
         # AWS needs two values for authentication
-        self.provider = cls(credentials['EC2_ACCESS_KEY'],
-             credentials['EC2_SECRET_KEY'], host='openstack.tacc.chameleoncloud.org', port=port, **extra_args)
+        self.provider = cls(ec2_access_key,
+            ec2_secret_key, host='openstack.tacc.chameleoncloud.org', port=port, **extra_args)
 
