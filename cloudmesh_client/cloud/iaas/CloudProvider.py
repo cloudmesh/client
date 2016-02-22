@@ -16,6 +16,7 @@ class CloudProvider(CloudProviderBase):
         super(CloudProvider, self).__init__(cloudname, user=user)
 
         try:
+            print("Init of CloudProvider")
             d = ConfigDict("cloudmesh.yaml")
             if not cloudname in d["cloudmesh"]["clouds"]:
                 raise ValueError("the cloud {} is not defined in the yaml file"
