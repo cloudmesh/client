@@ -8,10 +8,12 @@ from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.common.Printer import dict_printer, list_printer
 
 from cloudmesh_client.common.hostlist import Parameter
-
+import time
+from datetime import datetime
+import pytz
 
 class Cluster(object):
-    WALLTIME_MINS = 120
+    WALLTIME_MINS = 2880
     N_ALLOCATIONS_PER_LINE = 5
     MINS_PER_UNIT = {"m": 1, "h": 60, "d": 1440, "w": 10080}
 
@@ -214,7 +216,7 @@ class Cluster(object):
         print(r)
 
     @staticmethod
-    def computeset(id=None):
+    def computeset(id=None, cluster=None, state=None, allocation=None):
         computesets = Comet.get_computeset(id)
         if computesets is not None:
             if 'cluster' in computesets:
@@ -222,20 +224,56 @@ class Cluster(object):
             else:
                 result = ''
                 for acomputeset in computesets:
-                    result += Cluster.output_computeset(acomputeset)
+                    result += Cluster.output_computeset(acomputeset,
+                                                        cluster,
+                                                        state,
+                                                        allocation)
         else:
             result = "No computeset exists with the specified ID"
         return result
 
     @staticmethod
-    def output_computeset(computesetdict):
+    def output_computeset(computesetdict, cluster=None, state=None, allocation=None):
+        #print (cluster, state, allocation)
         result = ""
-        if computesetdict["state"] not in ["completed"]:
-            result += "\nCluster: {}\tComputesetID: {}\t State: {}\n" \
-                .format(computesetdict["cluster"],
-                        computesetdict["id"],
-                        computesetdict["state"]
-                        )
+        # filter out based on query criteria
+        if cluster:
+            if computesetdict["cluster"] != cluster:
+                return result
+        if state:
+            if computesetdict["state"] != state:
+                return result
+        if allocation and 'account' in computesetdict:
+            if computesetdict["account"] != allocation:
+                return result
+
+        if (state and computesetdict["state"] == state) or \
+           (computesetdict["state"] not in ["completed"]):
+            walltime = ''
+            starttime = ''
+            runningTime = ''
+            remainingTime = ''
+            if 'walltime_mins' in computesetdict:
+                walltime = computesetdict["walltime_mins"]
+            if 'start_time' in computesetdict and \
+                computesetdict["start_time"] is not None:
+                starttime = time.strftime("%D %H:%M",
+                                    time.localtime(int(computesetdict["start_time"])))
+                if computesetdict["state"] not in ["completed"]:
+                    runningTime = (int(time.time())-int(computesetdict["start_time"]))/60
+                    remainingTime = int(walltime) - runningTime
+            result += "\nCluster: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
+                      "Requested Walltime (Minutes): {}\tStart Time: {}\n"\
+                      "Running Time: {}\t\tRemaining Time (Estimated): {}\n"\
+                        .format(computesetdict["cluster"],
+                                computesetdict["id"],
+                                computesetdict["state"],
+                                computesetdict["account"],
+                                walltime,
+                                starttime,
+                                runningTime,
+                                remainingTime
+                                )
             data = computesetdict["computes"]
             for anode in data:
                 for attribute in anode.keys():
@@ -306,14 +344,19 @@ class Cluster(object):
                         walltime = Cluster.WALLTIME_MINS
 
                     posturl = Comet.url("computeset/")
-                    data = {"cluster":"%s" % clusterid, "count": "%s" % numnodes}
+                    data = {"cluster":"%s" % clusterid,
+                            "count": "%s" % numnodes,
+                            "walltime_mins": "%s" % walltime,
+                            "allocation": "%s" % allocation}
 
                     r = Comet.post(posturl, data=data)
                     # print("RETURNED RESULTS:")
                     # print (r)
                     if 'cluster' in r:
                         if 'state' in r and \
-                           ('queued' == r['state'] or 'submitted' == r['state']):
+                           ('queued' == r['state'] or \
+                           'submitted' == r['state'] or \
+                           'created' == r['state']):
                             computesetid = r['id']
                             ret = 'Request accepted! Check status with:\n' \
                                   'comet cluster {}\n'.format(clusterid) + \
