@@ -20,12 +20,14 @@ from cloudmesh_client.util import banner
 class Test_vm:
 
     def run(self, command):
+        print(command)
         command = command.format(**self.data)
         banner(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
         result = Shell.execute(shell_command, args)
+        print (result)
         return result
 
     def setup(self):
@@ -64,7 +66,6 @@ class Test_vm:
         command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
                   " --flavor={flavor} --group={group}"
         result = self.run(command)
-        print(result)
         assert "OK." in result
 
     def test_002(self):
@@ -73,7 +74,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm refresh --cloud={cloud}")
-        print (result)
         assert "OK." in result
 
     def test_003(self):
@@ -82,7 +82,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm list --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_004(self):
@@ -91,7 +90,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm list {vm} --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_005(self):
@@ -100,7 +98,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm status --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_006(self):
@@ -109,7 +106,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_007(self):
@@ -118,5 +114,4 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm delete {vm} --cloud={cloud}")
-        print(result)
         assert "OK." in result
