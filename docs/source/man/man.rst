@@ -215,10 +215,14 @@ comet
 Command - comet::
 
     Usage:
+       comet init_apiauth
        comet ll [CLUSTERID] [--format=FORMAT]
        comet cluster [CLUSTERID]
                      [--format=FORMAT]
        comet computeset [COMPUTESETID]
+                    [--allocation=ALLOCATION]
+                    [--cluster=CLUSTERID]
+                    [--state=COMPUTESESTATE]
        comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
                     [--allocation=ALLOCATION]
                     [--walltime=WALLTIME]
@@ -246,6 +250,8 @@ Command - comet::
                                 and week, respectively). E.g., 3h, 2d
         --imagename=IMAGENAME   Name of the image after being stored remotely.
                                 If not specified, use the original filename
+        --state=COMPUTESESTATE  List only computeset with the specified state.
+                                The state could be submitted, running, completed
 
     Arguments:
         CLUSTERID       The assigned name of a cluster, e.g. vc1

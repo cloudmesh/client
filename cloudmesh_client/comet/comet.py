@@ -12,6 +12,7 @@ import string
 import hashlib
 
 import requests
+from requests.auth import HTTPBasicAuth
 from httpsig.requests_auth import HTTPSignatureAuth
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Shell import Shell
@@ -515,6 +516,27 @@ class Comet(object):
             if r is not None:
                 ret = r
         return ret
+
+    @staticmethod
+    def get_apikey():
+        user = raw_input("Comet Nucleus Usename: ")
+        password = getpass.getpass()
+        keyurl = "https://comet-nucleus.sdsc.edu/nucleus/getkey"
+        headers = {"ACCEPT": "application/json"}
+        r = requests.get(keyurl, headers=headers, auth=HTTPBasicAuth(user, password))
+        if r.status_code == 200:
+            keyobj = r.json()
+            api_key = keyobj["key_name"]
+            api_secret = keyobj["key"]
+            config = ConfigDict("cloudmesh.yaml")
+            config.data["cloudmesh"]["comet"]["auth_provider"] = 'apikey'
+            config.data["cloudmesh"]["comet"]["apikey"]["api_key"] = api_key
+            config.data["cloudmesh"]["comet"]["apikey"]["api_secret"] = api_secret
+            config.save()
+            Console.ok("api key retrieval and set was successful!")
+        else:
+            Console.error("Error getting api key. " \
+                          "Please check your username/password", traceflag=False)
 
 def main():
     comet = Comet()
