@@ -237,10 +237,10 @@ class Cluster(object):
         #print (cluster, state, allocation)
         result = ""
         # filter out based on query criteria
-        if cluster:
+        if cluster and 'cluster' in computesetdict:
             if computesetdict["cluster"] != cluster:
                 return result
-        if state:
+        if state and 'state' in computesetdict:
             if computesetdict["state"] != state:
                 return result
         if allocation and 'account' in computesetdict:
