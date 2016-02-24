@@ -139,12 +139,12 @@ class Cluster(object):
                     for attribute in anode.keys():
                         if "interface" == attribute:
                             macs = []
-                            ips = []
+                            #ips = []
                             for ipaddr in anode["interface"]:
                                 macs.append(ipaddr["mac"])
-                                ips.append(ipaddr["ip"] or "N/A")
+                                #ips.append(ipaddr["ip"] or "N/A")
                             anode["mac"] = "; ".join(macs)
-                            anode["ip"] = "; ".join(ips)
+                            #anode["ip"] = "; ".join(ips)
                     del anode["interface"]
 
                 result = list_printer(data,
@@ -154,7 +154,7 @@ class Cluster(object):
                                           "kind",
                                           "type",
                                           "mac",
-                                          "ip",
+                                          #"ip",
                                           "cpus",
                                           "cluster",
                                           "memory",
@@ -279,12 +279,12 @@ class Cluster(object):
                 for attribute in anode.keys():
                     if "interface" == attribute:
                         macs = []
-                        ips = []
+                        #ips = []
                         for ipaddr in anode["interface"]:
                             macs.append(ipaddr["mac"])
-                            ips.append(ipaddr["ip"] or "N/A")
+                            #ips.append(ipaddr["ip"] or "N/A")
                         anode["mac"] = "; ".join(macs)
-                        anode["ip"] = "; ".join(ips)
+                        #anode["ip"] = "; ".join(ips)
                 del anode["interface"]
             result += str(list_printer(data,
                                        order=[
@@ -292,7 +292,7 @@ class Cluster(object):
                                            "state",
                                            "type",
                                            "mac",
-                                           "ip",
+                                           #"ip",
                                            "cpus",
                                            "cluster",
                                            "host",
