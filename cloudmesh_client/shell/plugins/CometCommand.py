@@ -23,6 +23,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
         ::
 
             Usage:
+               comet init_apiauth
                comet ll [CLUSTERID] [--format=FORMAT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
@@ -249,10 +250,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
         elif arguments["ll"]:
 
         """
+        if arguments["init_apiauth"]:
+            Comet.get_apikey()
         try:
             logon = Comet.logon()
             if logon is False:
-                Console.error("Could not logon")
+                Console.error("Could not logon. Please try first:\ncm comet init_apiauth")
                 return ""
         except:
             Console.error("Could not logon")
