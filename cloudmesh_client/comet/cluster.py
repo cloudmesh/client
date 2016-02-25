@@ -470,7 +470,7 @@ class Cluster(object):
                                     if '' != r.strip():
                                         ret += r
                                     else:
-                                        ret += "Requeset Accepted. "\
+                                        ret += "Request Accepted. "\
                                                "In the process of power on node {}\n"\
                                                .format(host)
                                 else:
@@ -493,7 +493,7 @@ class Cluster(object):
                                     if '' != r.strip():
                                         ret = r
                                     else:
-                                        ret += "Requeset Accepted. "\
+                                        ret += "Request Accepted. "\
                                             "In the process of {} node {}\n"\
                                             .format(action, host)
                                 else:
@@ -518,7 +518,7 @@ class Cluster(object):
                     if '' != r.strip():
                         ret = r
                     else:
-                        ret = "Requeset Accepted. "\
+                        ret = "Request Accepted. "\
                               "In the process of {} the front-end node".format(action)
                 else:
                     ret = "Problem executing the request. "\
@@ -539,7 +539,7 @@ class Cluster(object):
                     if '' != r.strip():
                         ret = r
                     else:
-                        ret = "Requeset Accepted. "\
+                        ret = "Request Accepted. "\
                               "In the process of {} the nodes".format(action)
                 else:
                     ret = "Problem executing the request. "\
@@ -577,7 +577,7 @@ class Cluster(object):
                     if '' != r.strip():
                         ret = r
                     else:
-                        ret = "Requeset Accepted. "\
+                        ret = "Request Accepted. "\
                               "In the process of {} the nodes".format(action)
                 else:
                     ret = "Problem executing the request. "\
@@ -629,7 +629,7 @@ class Cluster(object):
                 if '' != r.strip():
                     ret += r
                 else:
-                    ret += "Requeset Accepted. {} the image {} {} of cluster {}\n"\
+                    ret += "Request Accepted. {} the image {} {} of cluster {}\n"\
                             .format(action, tofrom[action], node, clusterid)
             else:
                 ret += "Something wrong during {} the image {} {} of cluster {}!"\
@@ -649,7 +649,7 @@ class Cluster(object):
             if '' != r.strip():
                 ret = r
             else:
-                ret = "Requeset Accepted."
+                ret = "Request Accepted."
         return ret
 
     @staticmethod
