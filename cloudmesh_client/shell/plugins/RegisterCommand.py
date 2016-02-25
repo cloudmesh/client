@@ -386,7 +386,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         elif arguments['env']:
             try:
                 CloudRegister.from_environ(arguments['--provider'])
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)

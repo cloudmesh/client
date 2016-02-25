@@ -23,7 +23,7 @@ class Inventory(ListResource):
 
         try:
             config = ConfigDict(filename=self.config_filename)
-        except Exception, e:
+        except Exception as e:
             Console.error("Problem reading the yaml file {:}".format(
                 self.config_filename))
             Console.error("Please check if the file exists or is empty")

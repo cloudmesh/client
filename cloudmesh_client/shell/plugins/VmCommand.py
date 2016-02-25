@@ -215,7 +215,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.ok("{:} OK.".format(msg))
                 else:
                     Console.error("{:} failed".format(msg))
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -318,7 +318,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
 
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -344,7 +344,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
                 ValueError("default command not implemented properly. Upon "
                            "first install the defaults should be read from yaml.")
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -357,7 +357,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print("Status of VM {} is {}".format(vm_list[0]["name"], vm_list[0]["status"]))
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -372,7 +372,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 print (attribute_printer(vm, output=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -404,7 +404,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -437,7 +437,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -473,7 +473,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -507,7 +507,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                 sname, floating_ip))
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -548,7 +548,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print(_print_dict_ip(ipaddr_dict, format=output_format))
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -659,7 +659,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                             print("Sorry. No data found with requested parameters in DB.")
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print(e)
@@ -690,7 +690,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
 
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print(e)
