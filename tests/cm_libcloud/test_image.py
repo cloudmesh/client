@@ -22,7 +22,7 @@ class Test_image():
     """
 
     data = {
-        'cloud': 'TBD'
+        'cloud': 'chameleon-ec2'
     }
 
 

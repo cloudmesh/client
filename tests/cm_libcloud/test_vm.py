@@ -34,7 +34,7 @@ class Test_vm:
 
         # TODO: adapt
         self.data = {
-            "cloud": "kilo",
+            "cloud": "chameleon-ec2",
             "group": "test",
             "image": "Ubuntu-14.04-64",
             "vm": "testvm",

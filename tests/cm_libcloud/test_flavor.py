@@ -22,7 +22,7 @@ class Test_flavor():
     """
 
     data = {
-        'cloud': 'TBD'
+        'cloud': 'chameleon-ec2'
     }
 
     def run(command):
