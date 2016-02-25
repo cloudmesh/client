@@ -69,5 +69,5 @@ class Usage(ListResource):
                                        "disk gb-hours"],
                                 output=format)
 
-        except Exception, e:
+        except Exception as e:
             return e

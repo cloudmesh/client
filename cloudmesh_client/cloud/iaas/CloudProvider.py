@@ -48,7 +48,7 @@ class CloudProvider(CloudProviderBase):
                 print("azure cloud provider yet  be implemented")
                 TODO.implement()
 
-        except Exception, e:
+        except Exception as e:
             Error.traceback(e)
 
     def get_attributes(self, kind):
