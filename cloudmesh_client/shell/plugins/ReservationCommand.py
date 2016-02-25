@@ -159,7 +159,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
 
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -174,7 +174,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
 
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print(e)
@@ -197,7 +197,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
 
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print(e)
@@ -230,7 +230,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
 
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print(e)
@@ -285,7 +285,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
 
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
