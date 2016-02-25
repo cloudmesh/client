@@ -17,6 +17,7 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Username
+from cloudmesh_client.common.LibcloudDict import LibcloudDict
 
 
 # noinspection PyBroadException,PyPep8Naming
@@ -121,7 +122,7 @@ class CloudmeshDatabase(object):
             user = self.user
 
             #TODO AWS: Implement for all other clouds that libcloud supports
-            if name == "chameleon-ec2":
+            if name in LibcloudDict.Libcloud_category_list:
                 kind = "libcloud_"+kind
 
             if kind in ["flavor", "image", "vm", "secgroup"]:
@@ -267,7 +268,7 @@ class CloudmeshDatabase(object):
                 if kind == "libcloud_flavor":
                     flavors = provider.list_size(name)
                     for flavor in flavors.values():
-                        flavor['uuid'] = flavor['id']
+                        flavor['uuid'] = flavor['flavor_id']
                         flavor['type'] = 'string'
                         flavor['category'] = name
                         flavor['user'] = user
@@ -417,7 +418,7 @@ class CloudmeshDatabase(object):
         return result
 
     def cloud_to_kind_mapper(self, cloud, kind):
-        if cloud in ["chameleon-ec2"]:
+        if cloud in LibcloudDict.Libcloud_category_list:
             if kind in ["image", "vm", "flavor"]:
                 kind = "libcloud_"+kind
         return kind

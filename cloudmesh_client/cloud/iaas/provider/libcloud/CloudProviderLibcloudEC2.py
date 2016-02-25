@@ -36,11 +36,11 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         if searchobj:
             print "searchObj.group() : ", searchobj.group()
             print "host : ", searchobj.group(1)
-            host=searchobj.group(1)
+            host = searchobj.group(1)
             print "port : ", searchobj.group(2)
-            port=searchobj.group(2)
+            port = searchobj.group(2)
             print "path : ", searchobj.group(3)
-            path=searchobj.group(3)
+            path = searchobj.group(3)
         else:
             # TODO: use print ( ) style, better error description. full stop instead of ! ;-)
             print "Nothing found!!"
@@ -56,5 +56,5 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
 
         # AWS needs two values for authentication
         self.provider = cls(ec2_access_key,
-            ec2_secret_key, host='openstack.tacc.chameleoncloud.org', port=port, **extra_args)
+            ec2_secret_key, host=host, port=port, **extra_args)
 

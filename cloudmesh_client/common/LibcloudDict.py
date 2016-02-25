@@ -3,6 +3,8 @@ from pprint import pprint
 
 class LibcloudDict(object):
 
+    Libcloud_category_list = ['chameleon-ec2', 'cybera-ec2', 'aws']
+
     @staticmethod
     def convert_libcloud_vm_to_dict(nodeObj):
         vm_dict = {}
@@ -24,8 +26,8 @@ class LibcloudDict(object):
             vm_dict.update(extra_args_dict)
             # pprint("Node details dict")
             # pprint(nodeObj.extra)
-        pprint("IN convert_libcloud_vm_to_dict")
-        pprint(vm_dict)
+        # pprint("IN convert_libcloud_vm_to_dict")
+        # pprint(vm_dict)
         return vm_dict
 
     @staticmethod
@@ -54,7 +56,7 @@ class LibcloudDict(object):
     def handle_vm_size_details(node_size_obj):
         vm_size_dict = {}
         if node_size_obj.id:
-            vm_size_dict['id'] = node_size_obj.id
+            vm_size_dict['flavor_id'] = node_size_obj.id
         if node_size_obj.name:
             vm_size_dict['name'] = node_size_obj.name
         if node_size_obj.ram:

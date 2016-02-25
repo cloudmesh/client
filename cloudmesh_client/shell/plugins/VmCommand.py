@@ -18,6 +18,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
+from cloudmesh_client.common.LibcloudDict import LibcloudDict
 
 
 class VmCommand(PluginCommand, CloudPluginCommand):
@@ -277,7 +278,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 key_name = arguments["--key"] or Default.get_key()
                 # if default keypair not set, return error
-                if not key_name:
+                if not cloud in LibcloudDict.Libcloud_category_list and not key_name:
                     Console.error("Default key not set.")
                     return ""
 
