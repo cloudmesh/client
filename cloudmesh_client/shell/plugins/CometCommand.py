@@ -36,10 +36,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--walltime=WALLTIME]
                comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
-               comet image list
-               comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
-               comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
-               comet image detach CLUSTERID [COMPUTENODEIDS]
+               comet iso list
+               comet iso upload [--isoname=ISONAME] PATHISOFILE
+               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
+               comet iso detach CLUSTERID [COMPUTENODEIDS]
                comet node rename CLUSTERID OLDNAME NEWNAME
 
             Options:
@@ -56,7 +56,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         Walltime could be an integer value followed
                                         by a unit (m, h, d, w, for minute, hour, day,
                                         and week, respectively). E.g., 3h, 2d
-                --imagename=IMAGENAME   Name of the image after being stored remotely.
+                --isoname=ISONAME       Name of the iso image after being stored remotely.
                                         If not specified, use the original filename
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
@@ -79,8 +79,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 One single node is also acceptable: vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
-                IMAGENAME       Name of an image at remote server
-                PATHIMAGEFILE   The full path to the image file to be uploaded
+                ISONAME         Name of an iso image at remote server
+                PATHISOFILE     The full path to the iso image file to be uploaded
         """
         # back up of all the proposed commands/options
         """
@@ -378,33 +378,33 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if 'COMPUTENODEID' in arguments:
                 nodeid = arguments["COMPUTENODEID"]
             Comet.console(clusterid, nodeid)
-        elif arguments["image"]:
+        elif arguments["iso"]:
             if arguments["list"]:
-                images = (Comet.list_image())
+                isos = (Comet.list_iso())
                 idx = 0
-                for image in images:
-                    if image.startswith("public/"):
-                        image = image.split("/")[1]
+                for iso in isos:
+                    if iso.startswith("public/"):
+                        iso = iso.split("/")[1]
                     idx += 1
-                    print ("{}: {}".format(idx, image))
+                    print ("{}: {}".format(idx, iso))
             if arguments["upload"]:
-                imagefile = arguments["PATHIMAGEFILE"]
-                imagefile = os.path.abspath(imagefile)
-                if os.path.isfile(imagefile):
-                    if arguments["--imagename"]:
-                        filename = arguments["--imagename"]
+                isofile = arguments["PATHISOFILE"]
+                isofile = os.path.abspath(isofile)
+                if os.path.isfile(isofile):
+                    if arguments["--isoname"]:
+                        filename = arguments["--isoname"]
                     else:
-                        filename = os.path.basename(imagefile)
+                        filename = os.path.basename(isofile)
                 else:
                     print ("File does not exist - {}"\
-                                  .format(arguments["PATHIMAGEFILE"]))
+                                  .format(arguments["PATHISOFILE"]))
                     return ""
-                print (Comet.upload_image(filename, imagefile))
+                print (Comet.upload_iso(filename, isofile))
             elif arguments["attach"]:
-                imagename = arguments["IMAGENAME"]
+                isoname = arguments["ISONAME"]
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
-                print (Cluster.attach_iso(imagename, clusterid, computenodeids))
+                print (Cluster.attach_iso(isoname, clusterid, computenodeids))
             elif arguments["detach"]:
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
