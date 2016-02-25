@@ -493,7 +493,7 @@ class Comet(object):
         return hash.hexdigest()
 
     @staticmethod
-    def list_image():
+    def list_iso():
         ret = ''
         url = Comet.url("image")
         r = Comet.get(url)
@@ -502,7 +502,7 @@ class Comet(object):
         return ret
 
     @staticmethod
-    def upload_image(filename, filepath):
+    def upload_iso(filename, filepath):
         ret = ''
         # print ("filename to use: %s" % filename)
         # print ("full file path: %s" % filepath)

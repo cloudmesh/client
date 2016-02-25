@@ -629,10 +629,10 @@ class Cluster(object):
                 if '' != r.strip():
                     ret += r
                 else:
-                    ret += "Request Accepted. {} the image {} {} of cluster {}\n"\
+                    ret += "Request Accepted. {} the iso image {} {} of cluster {}\n"\
                             .format(action, tofrom[action], node, clusterid)
             else:
-                ret += "Something wrong during {} the image {} {} of cluster {}!"\
+                ret += "Something wrong during {} the iso image {} {} of cluster {}!"\
                        "Please check the command and try again\n"\
                        .format(action, tofrom[action], node, clusterid)
         return ret
