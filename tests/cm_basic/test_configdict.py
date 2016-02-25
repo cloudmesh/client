@@ -44,7 +44,7 @@ class Test_configdict:
                            verbose=True)
             print("the file cloudmesh.yam should not exists")
             assert False
-        except Exception, e:
+        except Exception as e:
             assert str(e).startswith("could not find")
 
     def test_002_set(self):
@@ -75,7 +75,7 @@ class Test_configdict:
             assert  not isinstance(d.json, str)
             print ("json should be string")
             assert False
-        except Exception, e:
+        except Exception as e:
             assert isinstance(d.json, str)
 
     def test_004_yaml(self):
@@ -87,7 +87,7 @@ class Test_configdict:
 
         try:
             assert result.startswith("meta")
-        except Exception, e:
+        except Exception as e:
             print ("not valid yaml file.")
             assert False
 
