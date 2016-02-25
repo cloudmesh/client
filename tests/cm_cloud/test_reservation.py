@@ -17,12 +17,14 @@ nosetests -v
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 # from cloudmesh_client.common.Printer import dict_printer
 
+from __future__ import print_function
 from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
 
 
 def run(command):
+    print (command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
@@ -46,7 +48,6 @@ class Test_reservation:
         HEADING()
         result = run("cm reservation add --name=test_name --start='10/31/1988\ at\ 8:09\ pm' \
                       --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh")
-        print result
         assert "OK." in result
 
     def test_002(self):
@@ -55,7 +56,6 @@ class Test_reservation:
         """
         HEADING()
         result = run("cm reservation list")
-        print result
         assert "OK." in result
 
     def test_003(self):
@@ -64,7 +64,6 @@ class Test_reservation:
         """
         HEADING()
         result = run("cm reservation list --user=albert")
-        print result
         assert "OK." in result
 
     def test_004(self):
@@ -74,7 +73,6 @@ class Test_reservation:
 
         HEADING()
         result = run("cm reservation list --user=albert --format=json")
-        print result
         assert "OK." in result
 
     def test_005(self):
@@ -84,7 +82,6 @@ class Test_reservation:
 
         HEADING()
         result = run("cm reservation list --user=albert --format=yaml")
-        print result
         assert "OK." in result
 
     def test_006(self):
@@ -94,7 +91,6 @@ class Test_reservation:
 
         HEADING()
         result = run("cm reservation update --name=test_name --project=another_proj")
-        print result
         assert "OK." in result
 
     def test_007(self):
@@ -104,7 +100,6 @@ class Test_reservation:
 
         HEADING()
         result = run("cm reservation delete --name=test_name")
-        print result
         assert "OK." in result
 
     def test_008(self):
@@ -114,5 +109,4 @@ class Test_reservation:
 
         HEADING()
         result = run("cm reservation delete all")
-        print result
         assert "OK." in result

@@ -343,7 +343,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
 
-            except ValueError, e:
+            except ValueError as e:
                 Console.error("The key `{}` already exists".format(keyname), traceflag=False)
             """
             except Exception as e:

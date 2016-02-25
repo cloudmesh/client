@@ -1,3 +1,4 @@
+from __future__ import print_function
 from string import Template
 import inspect
 import glob
@@ -63,7 +64,7 @@ def yn_choice(message, default='y', tries=None):
             elif choice in ['n', 'no', 'q']:
                 return False
             else:
-                print "Invalid input..."
+                print ("Invalid input...")
                 tries -= 1
 
 
@@ -83,10 +84,10 @@ def banner(txt=None, c="#", debug=True):
     """
     if debug:
         print
-        print "#", 70 * c
+        print ("#", 70 * c)
         if txt is not None:
-            print "#", txt
-            print "#", 70 * c
+            print ("#", txt)
+            print ("#", 70 * c)
 
 
 def str_banner(txt=None, c="#", debug=True):

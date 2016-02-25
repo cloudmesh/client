@@ -1,3 +1,4 @@
+from __future__ import print_function
 import os
 from cloudmesh_client.common.Shell import Shell
 import json
@@ -87,16 +88,16 @@ class ssh_config(object):
 
 if __name__ == "__main__":
     hosts = ssh_config()
-    print hosts.list()
-    print hosts
+    print (hosts.list())
+    print (hosts)
 
     # hosts.login("india")
 
     r = hosts.execute("india", "hostname")
-    print r
+    print (r)
 
     r = hosts.execute("localhost", "hostname")
-    print r
+    print (r)
 
     r = hosts.local("hostname")
-    print r
+    print (r)

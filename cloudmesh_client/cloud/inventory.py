@@ -1,3 +1,4 @@
+from __future__ import print_function
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from cloudmesh_client.common.Shell import Shell
@@ -74,7 +75,7 @@ class Inventory(ListResource):
     def add(self, **kwargs):
 
         if "host" not in kwargs:
-            print "ERROR no id specified"
+            print ("ERROR no id specified")
             sys.exit(1)
 
         hosts = hostlist.expand_hostlist(kwargs['host'])
