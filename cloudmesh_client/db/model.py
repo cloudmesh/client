@@ -257,6 +257,7 @@ class FLAVOR(CloudmeshMixin, db.Base):
 
 class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
     uuid = Column(String)
+    flavor_id = Column(String)
     ram = Column(String)
     disk = Column(String)
     bandwidth = Column(String)
@@ -272,6 +273,7 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
         self.name = kwargs["name"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
+        self.flavor_id = kwargs["flavor_id"]
         self.ram = kwargs["ram"]
         self.disk = kwargs["disk"]
         self.bandwidth = kwargs["bandwidth"]

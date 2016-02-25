@@ -9,6 +9,7 @@ from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.common.LibcloudDict import LibcloudDict
 
 from uuid import UUID
 
@@ -68,13 +69,17 @@ class Vm(ListResource):
 
         keycloudmap = cls.cm.get_key_cloud_mapping(username, key_name, cloud_name)
 
-        if keycloudmap is None or len(keycloudmap) == 0:
-            raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
-                          .format(username, key_name, cloud_name))
+        #TODO: Key needs to be implemented for Libcloud
+        if not cloud_name in LibcloudDict.Libcloud_category_list:
+            if keycloudmap is None or len(keycloudmap) == 0:
+                raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
+                              .format(username, key_name, cloud_name))
 
         # print("Keycloudmap = {:}".format(keycloudmap))
-        key_name_on_cloud = keycloudmap["key_name_on_cloud"]
-
+        if keycloudmap:
+            key_name_on_cloud = keycloudmap["key_name_on_cloud"]
+        else:
+            key_name_on_cloud = None
         # print("Booting with key_name_on_cloud as " + key_name_on_cloud)
 
         cloud_provider = CloudProvider(cloud_name).provider

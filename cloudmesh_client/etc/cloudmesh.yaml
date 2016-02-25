@@ -163,6 +163,26 @@ cloudmesh:
             default:
                 flavor: m1.small
                 image: Ubuntu-Server-14.04-LTS
+        cybera-ec2:
+            cm_heading: Cybera, EC2
+            cm_host: cloud.cybera.ca
+            cm_label: cybera_ec2
+            cm_type: ec2-libcloud
+            cm_type_version: ec2
+            credentials:
+                EC2_ACCESS_KEY: TBD
+                EC2_SECRET_KEY: TBD
+                keyname: TBD_not_used
+                userid: TBD_not_used
+                EC2_URL: https://nova-yyc.cloud.cybera.ca:8773/services/Cloud
+                EC2_USER_ID: TBD
+                EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
+                EC2_CERT: ~/.cloudmesh/clouds/cybera/TBD/cert.pem
+                NOVA_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
+                EUCALYPTUS_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
+            default:
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         azure:
             cm_heading: Microsoft Azure Virtual Machines
             cm_host: windowsazure.com
