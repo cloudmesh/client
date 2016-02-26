@@ -115,6 +115,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 --command=COMMAND
                                  specify the commands to be executed
                 --new=NEWNAME    Specify the new name for a VM while renaming.
+                                 By default, this will be set to <username>-<count> format.
 
 
 
