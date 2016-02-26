@@ -70,7 +70,7 @@ class Vm(ListResource):
 
         if keycloudmap is None or len(keycloudmap) == 0:
             raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
-                          .format(username, key_name, cloud_name))
+                               .format(username, key_name, cloud_name))
 
         # print("Keycloudmap = {:}".format(keycloudmap))
         key_name_on_cloud = keycloudmap["key_name_on_cloud"]
@@ -123,6 +123,17 @@ class Vm(ListResource):
         for server in kwargs["servers"]:
             cloud_provider.delete_vm(server)
             print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+
+            # Explicit refresh called after VM delete, to update db.
+            cls.refresh(cloud=kwargs["cloud"])
+
+    @classmethod
+    def rename(cls, **kwargs):
+        cloud_provider = CloudProvider(kwargs["cloud"]).provider
+        new_name = kwargs["new_name"]
+        for server in kwargs["servers"]:
+            cloud_provider.rename_vm(server, new_name)
+            print("Machine {:} renamed to {:} on {:} Cloud...".format(server, new_name, cloud_provider.cloud))
 
             # Explicit refresh called after VM delete, to update db.
             cls.refresh(cloud=kwargs["cloud"])

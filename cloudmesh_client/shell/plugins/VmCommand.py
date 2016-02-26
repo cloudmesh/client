@@ -69,6 +69,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                          [--cloud=CLOUD]
                          [--key=KEY]
                          [--command=COMMAND]
+                vm rename [NAME]...
+                          [--new=NEWNAME]
+                          [--cloud=CLOUD]
                 vm list [NAME_OR_ID]
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
@@ -87,6 +90,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 NAME           server name. By default it is set to the name of last vm from database.
                 NAME_OR_ID     server name or ID
                 KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
+                NEWNAME        New name of the VM while renaming.
 
             Options:
                 --ip=IP          give the public ip of the server
@@ -110,6 +114,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 --force          delete vms without user's confirmation
                 --command=COMMAND
                                  specify the commands to be executed
+                --new=NEWNAME    Specify the new name for a VM while renaming.
 
 
 
@@ -696,5 +701,57 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     print(e)
                     Console.error(
                         "Problem listing instances on cloud {:}".format(cloud))
+
+        elif arguments["rename"]:
+            try:
+                servers = arguments["NAME"]
+
+                # If names not provided, take the last vm from DB.
+                if servers is None or len(servers) == 0:
+                    last_vm = Vm.get_last_vm(cloud=cloud)
+                    if last_vm is None:
+                        Console.error("No VM records in database. Please run vm refresh.")
+                        return ""
+                    name = last_vm["name"]
+                    servers = list()
+                    servers.append(name)
+
+                # if default cloud not set, return error
+                if not cloud:
+                    Console.error("Default cloud not set.")
+                    return ""
+
+                new_name = arguments["--new"]
+                is_name_provided = True
+
+                # If the new name is not provided, make the new new name in format username-count.
+                if new_name is None or len(new_name) == 0:
+
+                    is_name_provided = False
+
+                    count = Counter.get()
+                    prefix = Username()
+
+                    if prefix is None or count is None:
+                        Console.error("Prefix and Count could not be retrieved correctly.")
+                        return
+
+                    # BUG THE Z FILL SHOULD BE detected from yaml file
+                    new_name = prefix + "-" + str(count).zfill(3)
+
+                Vm.rename(cloud=cloud, servers=servers, new_name=new_name)
+
+                if is_name_provided is False:
+                    # Incrementing count
+                    Counter.incr()
+
+                msg = "info. OK."
+                Console.ok(msg)
+            except Exception, e:
+                import traceback
+                print(traceback.format_exc())
+                print(e)
+                Console.error("Problem deleting instances")
+
         return ""
 
