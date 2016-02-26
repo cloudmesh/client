@@ -192,6 +192,17 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
+    def rename_vm(self, current_name, new_name):
+        """
+        Renames a vm.
+        :param current_name:
+        :param new_name:
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return
+
     def delete(self, name_or_id, group=None, force=None):
         """
         Deletes the vm indicated by name_or_id on target cloud.
