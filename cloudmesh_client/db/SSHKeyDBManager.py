@@ -32,7 +32,7 @@ class SSHKeyDBManager(object):
         try:
             self.db.add(obj)
             self.db.save()
-        except Exception, e:
+        except Exception as e:
             raise ValueError("Key already exists")
 
     def add_from_dict(self, d):
@@ -245,7 +245,7 @@ class SSHKeyDBManager(object):
                           keyname,
                           source="yaml",
                           uri="file://" + filename)
-            except Exception, e:
+            except Exception as e:
                 Console.error("problem adding key {}:{}".format(
                     keyname, filename))
     """

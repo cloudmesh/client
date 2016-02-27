@@ -1,3 +1,4 @@
+from __future__ import print_function
 import traceback
 import textwrap
 
@@ -107,13 +108,13 @@ class Console(object):
         if Console.color:
             Console.cprint('FAIL', text, message)
         else:
-            print Console.msg(text + message)
+            print (Console.msg(text + message))
 
         trace = traceback.format_exc().strip()
 
         if traceflag and trace != "None":
             print
-            print "\n".join(str(trace).splitlines())
+            print ("\n".join(str(trace).splitlines()))
             print
 
     @staticmethod
@@ -122,7 +123,7 @@ class Console(object):
         if Console.color:
             Console.cprint('OKBLUE', "INFO: ", message)
         else:
-            print Console.msg("INFO: " + message)
+            print (Console.msg("INFO: " + message))
 
     @staticmethod
     def warning(message):
@@ -130,7 +131,7 @@ class Console(object):
         if Console.color:
             Console.cprint('WARNING', "WARNING: ", message)
         else:
-            print Console.msg("WARNING: " + message)
+            print (Console.msg("WARNING: " + message))
 
     @staticmethod
     def ok(message):
@@ -138,16 +139,16 @@ class Console(object):
         if Console.color:
             Console.cprint('OKGREEN', "", message)
         else:
-            print Console.msg(message)
+            print (Console.msg(message))
 
     @staticmethod
     def cprint(color, prefix, message):
         message = message or ""
         prefix = prefix or ""
-        print (Console.theme[color] +
+        print ((Console.theme[color] +
                prefix +
                message +
-               Console.theme['ENDC'])
+               Console.theme['ENDC']))
 
 
 #
@@ -156,9 +157,9 @@ class Console(object):
 
 
 if __name__ == "__main__":
-    print Console.color
+    print (Console.color)
 
-    print Console.theme
+    print (Console.theme)
 
     Console.warning("Warning")
     Console.error("Error")
@@ -167,7 +168,7 @@ if __name__ == "__main__":
     Console.ok("Ok")
 
     Console.color = False
-    print Console.color
+    print (Console.color)
     Console.error("Error")
 
     print(Fore.RED + 'some red text')

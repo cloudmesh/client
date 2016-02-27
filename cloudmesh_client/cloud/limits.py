@@ -22,5 +22,5 @@ class Limits(ListResource):
             return attribute_printer(result,
                                      header=header,
                                      output=output)
-        except Exception, e:
+        except Exception as e:
             return e

@@ -87,7 +87,7 @@ class PyCommand(PluginCommand, ShellPluginCommand, CometPluginCommand):
                     f = open(arg)
                     interp.runcode(f.read())
                     f.close()
-                except IOError, e:
+                except IOError as e:
                     self.perror(e)
             self.pystate['quit'] = quit
             self.pystate['exit'] = quit

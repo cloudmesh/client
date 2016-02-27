@@ -1,3 +1,4 @@
+from __future__ import print_function
 import requests
 import json
 import time
@@ -141,26 +142,26 @@ def main():
     # in shell, we may ask user input
     user = USERNAME
     password = PASSWORD
-    print auth.status()
-    print auth.logon(user, password)
-    print auth.status()
-    print auth.logoff()
-    print auth.status()
-    print auth.logoff()
+    print (auth.status())
+    print (auth.logon(user, password))
+    print (auth.status())
+    print (auth.logoff())
+    print (auth.status())
+    print (auth.logoff())
 
 
 def test_get_cluster_list():
     token = ''
-    print "\nTEST 1: Get without logon"
-    print "-" * 80
+    print ("\nTEST 1: Get without logon")
+    print ("-" * 80)
     authheader = {'content-type': 'application/json',
                   "Authorization": 'Token %s' % token}
     geturl = "http://localhost:8080/v1/cluster/"
     r = requests.get(geturl, headers=authheader)
     pprint(r.json())
 
-    print "\nTEST 2: Auth and then get cluster list"
-    print "-" * 80
+    print ("\nTEST 2: Auth and then get cluster list")
+    print ("-" * 80)
     authurl = "http://localhost:8080/rest-auth"
     auth = Authenticator(authurl)
     # change user, password to proper value as set in django
@@ -179,14 +180,14 @@ def test_get_cluster_list():
 
     # as of 2:40pm ET Oct 15, this is changed to 'not implemented'
     # as of 5:30pm ET this is now fixed and working
-    print "\nTEST 3: Get cluster 'OSG'"
-    print "-" * 80
+    print ("\nTEST 3: Get cluster 'OSG'")
+    print ("-" * 80)
     geturl1 = "%s%s" % (geturl, "osg/")
     r1 = hop_get(geturl1, headers=authheader)
     pprint(r1)
 
-    print "\nTEST 4: logoff and get cluster list again"
-    print "-" * 80
+    print ("\nTEST 4: logoff and get cluster list again")
+    print ("-" * 80)
     auth.logoff()
     authheader = {'content-type': 'application/json',
                   "Authorization": 'Token %s' % token}

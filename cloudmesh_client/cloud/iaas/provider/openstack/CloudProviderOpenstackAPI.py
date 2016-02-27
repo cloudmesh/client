@@ -28,7 +28,7 @@ def set_os_environ(cloudname):
                 os.environ[key] = Config.path_expand(value)
             else:
                 os.environ[key] = value
-    except Exception, e:
+    except Exception as e:
         print(e)
 
 
@@ -462,7 +462,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             server = self.provider.servers.find(name=server_name)
             try:
                 server.add_floating_ip(fip)
-            except Exception, e:
+            except Exception as e:
                 print (e)
                 self.provider.floating_ips.delete(floating_ip)
 
