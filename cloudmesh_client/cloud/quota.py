@@ -21,7 +21,7 @@ class Quota(ListResource):
             return attribute_printer(result,
                                      header=header,
                                      output=output)
-        except Exception, e:
+        except Exception as e:
             import sys
             print(sys.exc_info()[0])
             return e

@@ -46,7 +46,7 @@ class Vm(ListResource):
                 print("azure ip dict yet to be implemented")
                 TODO.implement()
 
-        except Exception, e:
+        except Exception as e:
             Error.traceback(e)
 
     @classmethod

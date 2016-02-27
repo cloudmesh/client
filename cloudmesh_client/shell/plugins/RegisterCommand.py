@@ -9,7 +9,7 @@ from cloudmesh_client.util import yn_choice
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
-from cloudmesh_client.cloud.register import CloudRegister
+from cloudmesh_client.cloud.register import CloudRegister, Register
 from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
 from cloudmesh_client.util import path_expand
@@ -51,6 +51,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register remote [CLOUD] [--force]
               register env [--provider=PROVIDER]
               register profile --username=[USERNAME]
+              register yaml ENTRY
               register CLOUD [--force]
               register CLOUD [--dir=DIR]
 
@@ -386,7 +387,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
         elif arguments['env']:
             try:
                 CloudRegister.from_environ(arguments['--provider'])
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
@@ -417,6 +418,10 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             Console.ok("Username {} set successfully in the yaml settings.".format(username))
             return ""
 
+        elif arguments['yaml']:
+            name = arguments['ENTRY']
+            Register.entry(name)
+            return ""
         # if all fails do a simple list
 
         filename = _get_config_yaml_file(arguments)

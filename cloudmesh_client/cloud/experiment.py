@@ -13,12 +13,12 @@ class Experiment(object):
         if id is not None:
             try:
                 result = Shell.ssh(cluster, "rm -rf experiment/{ID}".format(**data))
-            except Exception, e:
+            except Exception as e:
                 pass
         else:
             try:
                 result = Shell.ssh(cluster, "rm -rf experiment/*").split("\n")
-            except Exception, e:
+            except Exception as e:
                 pass
 
         return result
@@ -34,7 +34,7 @@ class Experiment(object):
             try:
                 result = Shell.ssh(cluster, "ls experiment/{ID}".format(**data))
                 result = result.split("\n")
-            except Exception, e:
+            except Exception as e:
                 result = None
         else:
             try:
@@ -42,7 +42,7 @@ class Experiment(object):
                 ids = sorted([int(i) for i in result])
                 if format not in [None, 'txt']:
                     result = ids
-            except Exception, e:
+            except Exception as e:
                 result = None
 
         return result

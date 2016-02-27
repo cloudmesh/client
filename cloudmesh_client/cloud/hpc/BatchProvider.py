@@ -53,5 +53,5 @@ def BatchProvider(name, user=None):
         else:
             ValueError("batch  provider not supported.")
 
-    except Exception, e:
+    except Exception as e:
         Error.traceback(e)

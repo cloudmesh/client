@@ -1,12 +1,12 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests/test_var.py:Test_var.test_001
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_var.py:Test_var.test_001
 
-nosetests -v --nocapture tests/test_default.py
+nosetests -v --nocapture tests/cm_basic/test_var.py
 
 or
 
-nosetests -v tests/test_vm.py
+nosetests -v tests/cm_basic/test_var.py
 
 """
 from cloudmesh_client.common.Shell import Shell

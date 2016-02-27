@@ -9,7 +9,7 @@ or
 nosetests -v tests/test_group.py
 
 """
-
+from __future__ import print_function
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import HEADING
 from cloudmesh_client.util import banner
@@ -46,7 +46,7 @@ class Test_group:
 
 
         id = str(Group.get(name="groupA", category="kilo"))
-        print id
+        print (id)
         assert "test-001" in id
         return
 

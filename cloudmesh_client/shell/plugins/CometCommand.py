@@ -23,10 +23,14 @@ class CometCommand(PluginCommand, CometPluginCommand):
         ::
 
             Usage:
+               comet init_apiauth
                comet ll [CLUSTERID] [--format=FORMAT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
                comet computeset [COMPUTESETID]
+                            [--allocation=ALLOCATION]
+                            [--cluster=CLUSTERID]
+                            [--state=COMPUTESESTATE]
                comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
                             [--allocation=ALLOCATION]
                             [--walltime=WALLTIME]
@@ -54,6 +58,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         and week, respectively). E.g., 3h, 2d
                 --imagename=IMAGENAME   Name of the image after being stored remotely.
                                         If not specified, use the original filename
+                --state=COMPUTESESTATE  List only computeset with the specified state.
+                                        The state could be submitted, running, completed
 
             Arguments:
                 CLUSTERID       The assigned name of a cluster, e.g. vc1
@@ -244,10 +250,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
         elif arguments["ll"]:
 
         """
+        if arguments["init_apiauth"]:
+            Comet.get_apikey()
         try:
             logon = Comet.logon()
             if logon is False:
-                Console.error("Could not logon")
+                Console.error("Could not logon. Please try first:\ncm comet init_apiauth")
                 return ""
         except:
             Console.error("Could not logon")
@@ -265,8 +273,12 @@ class CometCommand(PluginCommand, CometPluginCommand):
             print(Cluster.list(cluster_id, format=output_format))
 
         elif arguments["computeset"]:
-            computeset_id = arguments["COMPUTESETID"]
-            print (Cluster.computeset(computeset_id))
+            computeset_id = arguments["COMPUTESETID"] or None
+            cluster = arguments["--cluster"] or None
+            state = arguments["--state"] or None
+            allocation = arguments["--allocation"] or None
+            cluster = arguments["--cluster"] or None
+            print (Cluster.computeset(computeset_id, cluster, state, allocation))
 
         elif arguments["power"]:
 
@@ -335,7 +347,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 if subject in ["HOSTS", "HOST"]:
                     walltime = Cluster.convert_to_mins(walltime)
                     if not walltime:
-                        print ("No valid walltime specified. Using system default")
+                        print ("No valid walltime specified. "\
+                               "Using system default (2 days)")
                     if not allocation:
                         if len(allocations) == 1:
                             allocation = allocations[0]

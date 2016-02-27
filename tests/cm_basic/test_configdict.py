@@ -1,10 +1,12 @@
 """ run with
 
-nosetests -v --nocapture tests/test_configdict.py
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_configdict.py:Test_configdict.test_001
+
+nosetests -v --nocapture tests/cm_basic/test_configdict.py
 
 or
 
-nosetests -v tests/test_configdict.py
+nosetests -v tests/cm_basic/test_configdict.py
 
 """
 from __future__ import print_function
@@ -42,7 +44,7 @@ class Test_configdict:
                            verbose=True)
             print("the file cloudmesh.yam should not exists")
             assert False
-        except Exception, e:
+        except Exception as e:
             assert str(e).startswith("could not find")
 
     def test_002_set(self):
@@ -73,7 +75,7 @@ class Test_configdict:
             assert  not isinstance(d.json, str)
             print ("json should be string")
             assert False
-        except Exception, e:
+        except Exception as e:
             assert isinstance(d.json, str)
 
     def test_004_yaml(self):
@@ -85,7 +87,7 @@ class Test_configdict:
 
         try:
             assert result.startswith("meta")
-        except Exception, e:
+        except Exception as e:
             print ("not valid yaml file.")
             assert False
 

@@ -2,7 +2,6 @@ Commands
 ======================================================================
 banner
 ----------------------------------------------------------------------
-
 Command - banner::
 
     Usage:
@@ -23,10 +22,8 @@ Command - banner::
 
     Prints a banner form a one line text message.
 
-
 check
 ----------------------------------------------------------------------
-
 Command - check::
 
     Usage:
@@ -44,20 +41,16 @@ Command - check::
         cm check --cloud=kilo
 
 
-
 clear
 ----------------------------------------------------------------------
-
 Command - clear::
 
     Usage:
         clear
 
     Clears the screen.
-
 cloud
 ----------------------------------------------------------------------
-
 Command - cloud::
 
     Usage:
@@ -111,10 +104,8 @@ Command - cloud::
     See also:
        register
 
-
 cluster
 ----------------------------------------------------------------------
-
 Command - cluster::
 
     Usage:
@@ -182,10 +173,8 @@ Command - cluster::
                           detailed table
 
 
-
 color
 ----------------------------------------------------------------------
-
 Command - color::
 
     Usage:
@@ -208,17 +197,19 @@ Command - color::
         color ON
         color OFF
 
-
 comet
 ----------------------------------------------------------------------
-
 Command - comet::
 
     Usage:
+       comet init_apiauth
        comet ll [CLUSTERID] [--format=FORMAT]
        comet cluster [CLUSTERID]
                      [--format=FORMAT]
        comet computeset [COMPUTESETID]
+                    [--allocation=ALLOCATION]
+                    [--cluster=CLUSTERID]
+                    [--state=COMPUTESESTATE]
        comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
                     [--allocation=ALLOCATION]
                     [--walltime=WALLTIME]
@@ -246,6 +237,8 @@ Command - comet::
                                 and week, respectively). E.g., 3h, 2d
         --imagename=IMAGENAME   Name of the image after being stored remotely.
                                 If not specified, use the original filename
+        --state=COMPUTESESTATE  List only computeset with the specified state.
+                                The state could be submitted, running, completed
 
     Arguments:
         CLUSTERID       The assigned name of a cluster, e.g. vc1
@@ -268,10 +261,8 @@ Command - comet::
         IMAGENAME       Name of an image at remote server
         PATHIMAGEFILE   The full path to the image file to be uploaded
 
-
 context
 ----------------------------------------------------------------------
-
 Command - context::
 
     Usage:
@@ -280,10 +271,8 @@ Command - context::
     Description:
         Lists the context variables and their values
 
-
 debug
 ----------------------------------------------------------------------
-
 Command - debug::
 
     Usage:
@@ -294,10 +283,8 @@ Command - debug::
         switches on and off the debug messages
 
 
-
 default
 ----------------------------------------------------------------------
-
 Command - default::
 
       Usage:
@@ -381,10 +368,8 @@ Command - default::
             cloud kilo
 
 
-
 echo
 ----------------------------------------------------------------------
-
 Command - echo::
 
     Usage:
@@ -399,10 +384,8 @@ Command - echo::
 
     Prints a text in the given color
 
-
 EOF
 ----------------------------------------------------------------------
-
 Command - EOF::
 
     Usage:
@@ -411,10 +394,8 @@ Command - EOF::
     Description:
         Command to the shell to terminate reading a script.
 
-
 exec
 ----------------------------------------------------------------------
-
 Command - exec::
 
     Usage:
@@ -425,10 +406,8 @@ Command - exec::
     Arguments:
       FILENAME   The name of the file
 
-
 flavor
 ----------------------------------------------------------------------
-
 Command - flavor::
 
     Usage:
@@ -450,10 +429,8 @@ Command - flavor::
         cm flavor show 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
 
-
 group
 ----------------------------------------------------------------------
-
 Command - group::
 
     Usage:
@@ -525,10 +502,8 @@ Command - group::
         group delete --name=mygroup
             deletes all objects in the group
 
-
 h
 ----------------------------------------------------------------------
-
 Command - h::
 
     Usage:
@@ -537,10 +512,8 @@ Command - h::
         history last
         history ID
 
-
 help
 ----------------------------------------------------------------------
-
 Command - help::
 
     Usage:
@@ -550,10 +523,8 @@ Command - help::
     Description:
         List available commands with "help" or detailed help with
         "help COMMAND".
-
 history
 ----------------------------------------------------------------------
-
 Command - history::
 
     Usage:
@@ -562,10 +533,8 @@ Command - history::
         history last
         history ID
 
-
 hpc
 ----------------------------------------------------------------------
-
 Command - hpc::
 
     Usage:
@@ -649,10 +618,8 @@ Command - hpc::
         cm hpc run uname
         cm hpc run ~/test.sh --cluster=india
 
-
 image
 ----------------------------------------------------------------------
-
 Command - image::
 
     Usage:
@@ -673,10 +640,8 @@ Command - image::
         cm image list 58c9552c-8d93-42c0-9dea-5f48d90a3188 --refresh
 
 
-
 inventory
 ----------------------------------------------------------------------
-
 Command - inventory::
 
     Usage:
@@ -761,10 +726,8 @@ Command - inventory::
           clones the values for x5, x6 from x3
 
 
-
 key
 ----------------------------------------------------------------------
-
 Command - key::
 
     Usage:
@@ -780,9 +743,7 @@ Command - key::
       key get NAME
       key default [KEYNAME | --select]
       key delete (KEYNAME | --select | --all) [--force]
-      key upload [KEYNAME]
-                 [--cloud=CLOUD]
-                 [--name=NAME_ON_CLOUD]
+      key upload [KEYNAME] [--cloud=CLOUD]
       key map [--cloud=CLOUD]
 
     Manages the keys
@@ -860,10 +821,8 @@ Command - key::
          renames the key from NAME to NEW.
 
 
-
 launcher
 ----------------------------------------------------------------------
-
 Command - launcher::
 
       Usage:
@@ -906,10 +865,8 @@ Command - launcher::
         launcher list --cloud=general
         launcher delete <KEY>
 
-
 limits
 ----------------------------------------------------------------------
-
 Command - limits::
 
     Usage:
@@ -928,10 +885,8 @@ Command - limits::
         cm limits list --cloud=kilo --format=csv
 
 
-
 list
 ----------------------------------------------------------------------
-
 Command - list::
 
     Usage:
@@ -958,10 +913,8 @@ Command - list::
         $ list --cloud india --format table flavor
         $ list --cloud india --user albert --tenant fg82 flavor
 
-
 man
 ----------------------------------------------------------------------
-
 Command - man::
 
     Usage:
@@ -981,10 +934,8 @@ Command - man::
         man COMMAND
             Prints out the help page for a specific command
 
-
 network
 ----------------------------------------------------------------------
-
 Command - network::
 
     Usage:
@@ -1040,10 +991,8 @@ Command - network::
         network create cluster --group=demo_group
 
 
-
 nova
 ----------------------------------------------------------------------
-
 Command - nova::
 
     Usage:
@@ -1069,10 +1018,8 @@ Command - nova::
         -v              verbose mode
 
 
-
 open
 ----------------------------------------------------------------------
-
 Command - open::
 
     Usage:
@@ -1085,10 +1032,8 @@ Command - open::
 
     Opens the given URL in a browser window.
 
-
 pause
 ----------------------------------------------------------------------
-
 Command - pause::
 
     Usage:
@@ -1099,10 +1044,8 @@ Command - pause::
     Arguments:
        MESSAGE  message to be displayed
 
-
 portal
 ----------------------------------------------------------------------
-
 Command - portal::
 
     Usage:
@@ -1117,10 +1060,8 @@ Command - portal::
             stops the portal
 
 
-
 py
 ----------------------------------------------------------------------
-
 Command - py::
 
     Usage:
@@ -1144,10 +1085,8 @@ Command - py::
 
         This code is copied from Cmd2.
 
-
 q
 ----------------------------------------------------------------------
-
 Command - q::
 
     Usage:
@@ -1156,10 +1095,8 @@ Command - q::
     Description:
         Action to be performed whne quit is typed
 
-
 quit
 ----------------------------------------------------------------------
-
 Command - quit::
 
     Usage:
@@ -1168,10 +1105,8 @@ Command - quit::
     Description:
         Action to be performed whne quit is typed
 
-
 quota
 ----------------------------------------------------------------------
-
 Command - quota::
 
     Usage:
@@ -1189,10 +1124,8 @@ Command - quota::
         cm quota list --cloud=india --format=csv
 
 
-
 refresh
 ----------------------------------------------------------------------
-
 Command - refresh::
 
     Usage:
@@ -1203,10 +1136,8 @@ Command - refresh::
         switches on and off the refresh for clouds
 
 
-
 register
 ----------------------------------------------------------------------
-
 Command - register::
 
     Usage:
@@ -1330,10 +1261,8 @@ Command - register::
         register username [USERNAME]
             Sets the username in yaml with the value provided.
 
-
 reservation
 ----------------------------------------------------------------------
-
 Command - reservation::
 
     Usage:
@@ -1402,10 +1331,8 @@ Command - reservation::
             lists the resources that support reservation for
             a given user or project.
 
-
 reset
 ----------------------------------------------------------------------
-
 Command - reset::
 
       Usage:
@@ -1420,10 +1347,8 @@ Command - reset::
         clean
 
 
-
 rsync
 ----------------------------------------------------------------------
-
 Command - rsync::
 
     Usage:
@@ -1438,19 +1363,17 @@ Command - rsync::
         -v              verbose mode
 
 
-
 secgroup
 ----------------------------------------------------------------------
-
 Command - secgroup::
 
     Usage:
-        secgroup list [--cloud=CLOUD] [--tenant=TENANT]
-        secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
-        secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
-        secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup list [--cloud=CLOUD]
+        secgroup create [--cloud=CLOUD] LABEL
+        secgroup delete [--cloud=CLOUD] LABEL
+        secgroup rules-list [--cloud=CLOUD] LABEL
+        secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
+        secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
         secgroup refresh [--cloud=CLOUD]
         secgroup -h | --help
         secgroup --version
@@ -1458,7 +1381,6 @@ Command - secgroup::
     Options:
         -h                  help message
         --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-        --tenant=TENANT     Name of the tenant, e.g. fg82.
 
     Arguments:
         LABEL         The label/name of the security group
@@ -1475,16 +1397,17 @@ Command - secgroup::
 
 
     Examples:
-        secgroup list --cloud india --tenant fg82
-        secgroup rules-list --cloud india --tenant fg82 default
-        secgroup create --cloud india --tenant fg82 webservice
-        secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP "129.79.0.0/16"
+        secgroup list --cloud india
+        secgroup rules-list --cloud=kilo default
+        secgroup create --cloud=kilo webservice
+        secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+        secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+        secgroup rules-delete --all
 
 
 
 select
 ----------------------------------------------------------------------
-
 Command - select::
 
     Usage:
@@ -1505,10 +1428,8 @@ Command - select::
                   from the cloud
 
 
-
 server
 ----------------------------------------------------------------------
-
 Command - server::
 
     Usage:
@@ -1527,10 +1448,8 @@ Command - server::
         ~/.cloud,esh/cloudmesh.db
 
 
-
 shell
 ----------------------------------------------------------------------
-
 Command - shell::
 
     Usage:
@@ -1539,17 +1458,13 @@ Command - shell::
     Description:
         Executes a shell command
 
-
 shell_exec
 ----------------------------------------------------------------------
-
 Command - shell_exec::
 
     Command documentation shell_exec missing, help_shell_exec
-
 ssh
 ----------------------------------------------------------------------
-
 Command - ssh::
 
     Usage:
@@ -1611,10 +1526,8 @@ Command - ssh::
                     conducts an ssh login to myhost if it is defined in
                     ~/.ssh/config file
 
-
 submit
 ----------------------------------------------------------------------
-
 Command - submit::
 
     Usage:
@@ -1629,10 +1542,8 @@ Command - submit::
         -v              verbose mode
 
 
-
 sync
 ----------------------------------------------------------------------
-
 Command - sync::
 
     Usage:
@@ -1649,10 +1560,8 @@ Command - sync::
         --cloud=CLOUD   Sync with cloud
 
 
-
 timer
 ----------------------------------------------------------------------
-
 Command - timer::
 
     Usage:
@@ -1689,10 +1598,8 @@ Command - timer::
             timers are reset
 
 
-
 usage
 ----------------------------------------------------------------------
-
 Command - usage::
 
     Usage:
@@ -1712,10 +1619,8 @@ Command - usage::
         cm usage list
 
 
-
 var
 ----------------------------------------------------------------------
-
 Command - var::
 
     Usage:
@@ -1731,10 +1636,8 @@ Command - var::
 
     special vars date and time are defined
 
-
 verbose
 ----------------------------------------------------------------------
-
 Command - verbose::
 
     Usage:
@@ -1752,10 +1655,8 @@ Command - verbose::
     toggled.
 
 
-
 version
 ----------------------------------------------------------------------
-
 Command - version::
 
     Usage:
@@ -1768,10 +1669,8 @@ Command - version::
     Description:
         Prints out the version number
 
-
 vm
 ----------------------------------------------------------------------
-
 Command - vm::
 
     Usage:
@@ -1880,5 +1779,4 @@ Command - vm::
         convenient when you need a range of VMs e.g. sample[1-3]
         => ['sample1', 'sample2', 'sample3']
         sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
-
 
