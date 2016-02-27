@@ -148,7 +148,8 @@ class ConfigDict(object):
     def __init__(self,
                  filename,
                  load_order=None,
-                 verbose=False):
+                 verbose=False,
+                 etc=False):
         """
         Creates a dictionary from a yaml configuration file
         while using the filename to load it in the specified load_order.
@@ -162,7 +163,10 @@ class ConfigDict(object):
         :rtype: ConfigDict
         """
         self.data = None
-        if load_order is None:
+
+        if etc:
+            load_order=[cloudmesh_client.etc.__file_]
+        elif load_order is None:
             self.load_order = [".", os.path.join("~", ".cloudmesh")]
         else:
             self.load_order = load_order

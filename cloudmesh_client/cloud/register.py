@@ -17,6 +17,32 @@ from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
 
 
+class Register(object):
+
+    @classmethod
+    def entry(cls, name):
+        return ValueError("not implemented yet")
+
+        '''
+        etc_yaml = ConfigDict("cloudmesh.yaml", etc=True)
+
+        config = ConfigDict("cloudmesh.yaml")
+
+        etc_data = etc_yaml[name]
+        yaml_data = config[name]
+
+        # recursive walk yaml fields
+        chanaged = False
+        for entry in etc_data:
+            old_value = value
+            if value of entry == "TBD"
+                print "ENTER": entryname, yaml_Data of entry
+                new_value = input
+                if old_value != new_value
+                    changed = True or changed
+        if changed wirte data to yaml file
+        '''
+
 class CloudRegister(object):
     @classmethod
     def get(cls, cloud):
