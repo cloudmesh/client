@@ -2,7 +2,13 @@ from __future__ import print_function
 import textwrap
 import os
 import platform
-from urlparse import urlparse
+
+try: #python3
+    from urllib.request import urlopen
+    from urllib.parse import urlparse
+except ImportError: #python2
+    from urlparse import urlparse
+    from urllib import urlopen
 
 from cloudmesh_client.common.Shell import Shell
 from builtins import input
@@ -10,6 +16,32 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
 
+
+class Register(object):
+
+    @classmethod
+    def entry(cls, name):
+        return ValueError("not implemented yet")
+
+        '''
+        etc_yaml = ConfigDict("cloudmesh.yaml", etc=True)
+
+        config = ConfigDict("cloudmesh.yaml")
+
+        etc_data = etc_yaml[name]
+        yaml_data = config[name]
+
+        # recursive walk yaml fields
+        chanaged = False
+        for entry in etc_data:
+            old_value = value
+            if value of entry == "TBD"
+                print "ENTER": entryname, yaml_Data of entry
+                new_value = input
+                if old_value != new_value
+                    changed = True or changed
+        if changed wirte data to yaml file
+        '''
 
 class CloudRegister(object):
     @classmethod
@@ -183,13 +215,13 @@ class CloudRegister(object):
             os.path.expanduser(directory)
         )
 
-        """
-        In Windows, SCP fails with path such as 'C:\Users\...',
-            and passses with '~/.cloudmesh/...'
-        But on Linux machines, it fails with '~/.cloudmesh/...'
-            and passes with '/home/user/...'
+        '''
+        In Windows, SCP fails with path such as C:\\Users\\...,
+            and passes with '~/.cloudmesh/...'
+        But on Linux machines, it fails with ~/.cloudmesh/...
+            and passes with /home/user/...
         Hence, adding OS check below for SCP copy directory
-        """
+        '''
         os_type = platform.system().lower()
         if 'windows' not in os_type:
             directory = _to_dir
@@ -210,7 +242,7 @@ class CloudRegister(object):
         Console.ok("Reading rc file from {}".format(host))
         try:
             r = Shell.scp('-r', _from_dir, directory)
-        except Exception, e:
+        except Exception as e:
             print(e)
             return
 

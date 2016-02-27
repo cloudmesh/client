@@ -113,28 +113,18 @@ This is done best with the command::
 
     cm help
 
-This will automatically generate a configuration file at::
+This will automatically generate a template configuration file at::
 
     ~/.cloudmesh/cloudmesh.yaml.
 
-This file you can now modify with your favourite editor. It will contain a
-default section similar to::
+Next you can initiate the configuration file::
 
+    cm comet init_apiauth
 
-    comet:
-        auth_provider: apikey
-        userpass:
-            username: TBD
-            password: TBD
-        apikey:
-            api_key: KEYSTRING
-            api_secret: SECRETSTRING
-
-
-Two authentication mechanisms are supported. You will only need one. Please
-get in contact with the comet administrators to let you know which one is best
-suited for you. If you have username and password you can get started with
-that. Otherwise the comet admins will assign you an api_key and secret.
+Follow the prompt and provide your username and password. Once you are
+successfully authenticated it will retrieve the api key and secret and
+configure the cloudmesh.yaml with proper api auth information. Then you
+will be able to use the commands to manage your comet virtual cluster.
 
 Commands
 ---------

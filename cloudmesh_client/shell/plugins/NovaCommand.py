@@ -135,6 +135,6 @@ class NovaCommand (PluginCommand, CloudPluginCommand):
 
                     # Add to group
                     Group.add(name=group, type="vm", id=vm_id, category=cloud)
-            except Exception, ex:
+            except Exception as ex:
                 Console.error("Error executing Nova command: {}".format(ex))
             return ""

@@ -50,7 +50,7 @@ class Test_vm:
             command = "cm key upload"
             result = self.run(command)
             print(result)
-        except Exception, e:
+        except Exception as e:
             print(e.message)
 
     def test_001(self):

@@ -411,7 +411,7 @@ def main():
             if debug:
                 print(">", user_cmd)
             cmd.onecmd(user_cmd)
-        except Exception, e:
+        except Exception as e:
             print("ERROR: executing command '{0}'".format(user_cmd))
             print(70 * "=")
             print(e)

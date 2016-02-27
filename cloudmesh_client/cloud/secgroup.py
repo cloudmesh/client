@@ -83,7 +83,7 @@ class SecGroup(ListResource):
                 return uuid
             else:
                 print("Failed to create security group, {}".format(secgroup))
-        except Exception, e:
+        except Exception as e:
             print(
                 "Exception creating security group in cloud, {}".format(e))
 

@@ -9,6 +9,7 @@ or
 nosetests -v tests/cm_basic/test_default.py
 
 """
+from __future__ import print_function
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import HEADING
 
@@ -151,7 +152,6 @@ class Test_default():
         HEADING()
         run("cm default test=testValue --cloud=mycloud")
         result = run("cm default delete test --cloud=mycloud")
-        print result
         assert "Deleted key" in result
 
     def test_012(self):

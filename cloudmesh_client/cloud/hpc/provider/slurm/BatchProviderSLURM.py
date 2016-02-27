@@ -164,7 +164,7 @@ class BatchProviderSLURM(BatchProviderBase):
                           '-D': '{remote_experiment_dir}'.format(**data),
                           '-e': '{script_error}'.format(**data)}
 
-        map(lambda (k, v):
+        map(lambda k, v:
             option_mapping.__setitem__(k, kwargs.get(k) or v),
             option_mapping.iteritems())
 
