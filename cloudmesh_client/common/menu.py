@@ -44,7 +44,7 @@ def ascii_menu(title=None, menu_list=None):
                     f()
                 else:
                     print("ERROR: wrong selection")
-            except Exception, e:
+            except Exception as e:
                 print("ERROR: ", e)
         display()
 

@@ -1,11 +1,12 @@
 """ run with
 
-nosetests -v --nocapture tests/test_model.py
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_model.py:Test_model.test_001
+
+nosetests -v --nocapture tests/cm_basic/test_model.py
 
 or
 
-
-nosetests -v tests/test_model.py
+nosetests -v tests/cm_basic/test_model.py
 
 """
 from __future__ import print_function

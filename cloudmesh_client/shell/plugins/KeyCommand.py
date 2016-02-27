@@ -156,7 +156,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -171,7 +171,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -192,7 +192,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print(_print_dict(d, format=_format))
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -210,7 +210,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         Console.ok(msg)
                     else:
                         Console.error("No keys in the database")
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -234,14 +234,14 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                   keyname,
                                   source="yaml",
                                   uri="file://" + filename)
-                    except Exception, e:
+                    except Exception as e:
                         Console.error("problem adding key {}:{}".format(
                             keyname, filename))
 
                 print(_print_dict(d, format=_format))
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 Console.error("Problem adding keys from yaml file")
 
         elif arguments['get']:
@@ -261,7 +261,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     else:
                         pass
                 Console.error("The key is not in the database")
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)
@@ -294,7 +294,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 sshm.get_from_git(username)
                 d = dict(sshm.__keys__)
                 print(d)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)
@@ -307,7 +307,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 d[gitkeyname]['user'] = None
                 d[gitkeyname]['source'] = 'git'
                 # sshdb.add_from_dict(d[gitkeyname])
-            except Exception, e:
+            except Exception as e:
                 Console.error("The key already exists")
 
         elif arguments['add'] and arguments["--ssh"]:
@@ -321,7 +321,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print("Key {:} successfully added to the database".format(keyname or ""))
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 """
                 import traceback
                 print(traceback.format_exc())
@@ -343,10 +343,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
 
-            except ValueError, e:
+            except ValueError as e:
                 Console.error("The key `{}` already exists".format(keyname), traceflag=False)
             """
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)
@@ -370,7 +370,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print("Key {:} set as default".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -387,7 +387,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         sshdb.set_default(keyname)
                         msg = "info. OK."
                         Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -408,7 +408,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         else:
                             pass
                     Console.error("The key is not in the database")
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -425,7 +425,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print("All keys from the database deleted successfully.")
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -442,7 +442,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         sshm.delete_key(keyname)
                         msg = "info. OK."
                         Console.ok(msg)
-                    except Exception, e:
+                    except Exception as e:
                         import traceback
                         print(traceback.format_exc())
                         print (e)
@@ -456,7 +456,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     print("Key {:} deleted successfully from database.".format(keyname))
                     msg = "info. OK."
                     Console.ok(msg)
-                except Exception, e:
+                except Exception as e:
                     import traceback
                     print(traceback.format_exc())
                     print (e)
@@ -506,7 +506,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                 cloud,
                                 key["name"])
 
-                        except Exception, e:
+                        except Exception as e:
                             print (e)
                             if "already exists" in str(e):
                                 print ("key already exists. Skipping "
@@ -516,7 +516,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
 
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)
@@ -530,7 +530,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 print(dict_printer(map_dict,
                                    order=["user", "key_name", "cloud_name", "key_name_on_cloud"]))
 
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print (e)

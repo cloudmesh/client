@@ -1,12 +1,12 @@
 """ run with
-python setup.py install; nosetests -v --nocapture  tests/test_cloud_model.py:Test_cloud_model.test_001
 
-nosetests -v --nocapture
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_model.py:Test_model.test_001
+
+nosetests -v --nocapture tests/cm_basic/test_model.py
 
 or
 
-nosetests -v
-
+nosetests -v tests/cm_basic/test_model.py
 
 """
 

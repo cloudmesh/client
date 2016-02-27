@@ -22,19 +22,30 @@ from setuptools import setup, find_packages
 import os
 import sys
 from cloudmesh_client import __version__
+import platform
 
 if sys.version_info < (2, 7, 10) or sys.version_info > (3, 0):
-    print("ERROR: Python versions smaller than 2.7.10 or any python 3 version "
-          "are not supported. Your version is {}. failed.", sys.version_info)
-    sys.exit()
+    print (70 * "#")
+    print("WARNING: upgrade to python 2.7.10 or above but not 3 "
+          "are not supported. Your version is {}. failed.".format(sys.version_info))
+    print (70 * "#")
 
-requirements = [#'builtins',
-                'pyreadline<=1.7.1.dev-r0',
-                #'pyreadline',
-                'colorama',
+command = None
+this_platform = platform.system().lower()
+if  this_platform in ['darwin']:
+    command = "easy_install readline"
+elif this_platform in ['windows']:
+    command = "pip install pyreadline"
+
+if command is not None:
+    print("Install readline")
+    os.system(command)
+
+requirements = ['colorama',
                 'future',
                 'docopt',
                 'pyaml',
+                'pyyaml',
                 'simplejson',
                 'python-hostlist',
                 'prettytable',
@@ -51,8 +62,6 @@ requirements = [#'builtins',
                 'cloudmesh_timestring',
                 'wheel',
                 'tox',
-                'nose',
-                'pytest',
                 'pytimeparse']
 
 def read(fname):

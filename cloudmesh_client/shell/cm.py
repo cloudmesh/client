@@ -255,9 +255,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                               keyname,
                               source="yaml",
                               uri="file://" + filename)
-                except Exception, e:
+                except Exception as e:
                     pass
-        except Exception, e:
+        except Exception as e:
             Console.error("Problem adding keys from yaml file")
         """
 
@@ -476,7 +476,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         command = path_expand(args)
         try:
             os.system(command)
-        except Exception, e:
+        except Exception as e:
             print (e)
 
     # noinspection PyUnusedLocal
@@ -494,7 +494,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         command = path_expand(args)
         try:
             os.system(command)
-        except Exception, e:
+        except Exception as e:
             print (e)
     #
     # VAR
@@ -559,7 +559,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 print (config["cloudmesh.profile"])
                 value = config[v]
                 line = line.replace(c + v, value)
-            except Exception, e:
+            except Exception as e:
                 Console.error("can not find variable {} in cloudmesh.yaml".format(value))
         return line
 
@@ -631,7 +631,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
                 try:
                     config = ConfigDict("cloudmesh.yaml")
                     value = config[value]
-                except Exception, e:
+                except Exception as e:
                     Console.error("can not find variable {} in cloudmesh.yaml".format(value))
                     value = None
             # self._add_variable(variable, value)
@@ -782,7 +782,7 @@ def main():
             cmd.precmd(command)
             stop = cmd.onecmd(command)
             cmd.postcmd(stop, command)
-    except Exception, e:
+    except Exception as e:
         print("ERROR: executing command '{0}'".format(command))
         print(70 * "=")
         print(e)
