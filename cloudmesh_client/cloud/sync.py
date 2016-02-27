@@ -24,103 +24,47 @@ class Sync(object):
         os_type = cls.operating_system()
 
         # fix the local dir path
-        localdir = Config.path_expand(localdir)
+        localdirpath = Config.path_expand(localdir)
 
         # check if local directory exists
-        if not os.path.exists(localdir):
+        if not os.path.exists(localdirpath):
             if operation == "put":
                 Console.error("The local directory [{}] does not exist."
-                              .format(localdir))
+                              .format(localdirpath))
                 return None
             elif operation == "get":
                 # for receiving, create local dir
-                os.mkdir(localdir)
+                os.mkdir(localdirpath)
                 Console.msg("Created local directory [{}] for sync."
-                            .format(localdir))
+                            .format(localdirpath))
 
-        # sync entire local directory
-        elif os.path.isdir(localdir):
-            if operation == "put":
-                localdir += "/*"
-            elif operation == "get":
-                localdir += "/"
+        """
+            rsync now works on windows machines as well.
+            we install rsync (v5.4.1.20150827) on windows via chocolatey
+            $ choco install rsync
+        """
 
-        # for windows use pscp
-        # rsync has issues with latest win10
-        if 'windows' in os_type:
-            ppk_file = ''
-            while ppk_file == '':
-                ppk_file = raw_input("Please enter putty private key(ppk) "
-                                     "file path: ")
-                # expand the path
-                ppk_file = Config.path_expand(ppk_file)
-                pass
-
-            host = cls.get_host(cloudname)
-            if host is None:
-                Console.error("Cloud [{}] not found in cloudmesh.yaml file."
-                              .format(cloudname))
-                return None
-            else:
-                # Get the hostname and user of remote host
-                hostname = cls.get_hostname(host)
-                user = cls.get_hostuser(host)
-
-                # Console.msg("Syncing local dir [{}] with remote host [{}]"
-                #            .format(localdir, user + "@" + hostname))
-                args = None
-                if operation == "put":
-                    # Construct the arguments
-                    # local dir comes first (send)
-                    args = [
-                        "-i",
-                        ppk_file,
-                        localdir,
-                        user + "@" + hostname + ":" + remotedir
-                    ]
-                elif operation == "get":
-                    # Construct the arguments
-                    # remote dir comes first (receive)
-                    args = [
-                        "-i",
-                        ppk_file,
-                        user + "@" + hostname + ":" + remotedir,
-                        localdir
-                    ]
-
-                try:
-                    # Convert command to string
-                    cmd = " ".join(["pscp"] + args)
-                    result = os.system(cmd)
-                    if result != 0:
-                        Console.error("Something went wrong. Please try again later.")
-                        return None
-                    else:
-                        return "Success."
-                except Exception as ex:
-                    print(ex, ex.message)
-
-        # for linux/mac machines use rsync
+        host = cls.get_host(cloudname)
+        if host is None:
+            Console.error("Cloud [{}] not found in cloudmesh.yaml file."
+                          .format(cloudname))
+            return None
         else:
-            host = cls.get_host(cloudname)
-            if host is None:
-                Console.error("Cloud [{}] not found in cloudmesh.yaml file."
-                              .format(cloudname))
-                return None
-            else:
-                args = None
-                if operation == "put":
-                    args = [
-                        localdir,
-                        host + ":" + remotedir
-                    ]
-                elif operation == "get":
-                    args = [
-                        host + ":" + remotedir,
-                        localdir
-                    ]
-                # call rsync
-                return Shell.rsync(*args)
+            args = None
+            if operation == "put":
+                args = [
+                    "-r",
+                    localdir,
+                    host + ":" + remotedir
+                ]
+            elif operation == "get":
+                args = [
+                    "-r",
+                    host + ":" + remotedir,
+                    localdir
+                ]
+            # call rsync
+            return Shell.rsync(*args)
 
     @classmethod
     def operating_system(cls):
