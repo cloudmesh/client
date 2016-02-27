@@ -55,3 +55,11 @@ The project is open source and if you like you can help. Here are some contribut
      fix: dev:    major changes for developers
      new: dev:    new feature for developers
 
+* iteritems::
+
+    import six
+
+    d = dict( foo=1, bar=2 )
+
+    for k, v in six.iteritems(d):
+        print(k, v)
