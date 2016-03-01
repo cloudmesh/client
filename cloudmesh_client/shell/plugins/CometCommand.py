@@ -3,6 +3,7 @@ from cloudmesh_client.shell.command import command, PluginCommand, CometPluginCo
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_client.common.hostlist import Parameter
+from cloudmesh_client.common.ConfigDict import ConfigDict
 import hostlist
 import os
 import sys
@@ -23,7 +24,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
         ::
 
             Usage:
-               comet init_apiauth
+               comet init
                comet ll [CLUSTERID] [--format=FORMAT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
@@ -250,12 +251,90 @@ class CometCommand(PluginCommand, CometPluginCommand):
         elif arguments["ll"]:
 
         """
-        if arguments["init_apiauth"]:
-            Comet.get_apikey()
+        if arguments["init"]:
+            print ("Initializing the comet configuration file...")
+            config = ConfigDict("cloudmesh.yaml")
+            # for unit testing only.
+            cometConf = config["cloudmesh.comet"]
+            endpoints = []
+            # print (cometConf.keys())
+            if "endpoints" in cometConf.keys():
+                endpoints = cometConf["endpoints"].keys()
+                if len(endpoints) < 1:
+                    Console.error("No service endpoints available."\
+                                  " Please check the config template")
+                    return ""
+            if "username" in cometConf.keys():
+                default_username = cometConf['username']
+                # print (default_username)
+                if 'TBD' == default_username:
+                    set_default_user = \
+                        raw_input("Set a default username (RETURN to skip): ")
+                    if set_default_user:
+                        config.data["cloudmesh"]["comet"]["username"] = \
+                            set_default_user
+                        config.save()
+                        Console.ok("Comet default username set!")
+            if "active" in cometConf.keys():
+                active_endpoint = cometConf['active']
+                set_active_endpoint = \
+                        raw_input("Set the active service endpoint to use. "\
+                                  "The availalbe endpoints are - %s [%s]: "\
+                                   % ("/".join(endpoints),
+                                     active_endpoint)
+                                 )
+                if set_active_endpoint:
+                    if set_active_endpoint in endpoints:
+                        config.data["cloudmesh"]["comet"]["active"] = \
+                                        set_active_endpoint
+                        config.save()
+                        Console.ok("Comet active service endpoint set!")
+                    else:
+                        Console.error("The provided endpoint does not match any "\
+                                      "available service endpoints. Try %s" \
+                                      % "/".join(endpoints) )
+
+            if cometConf['active'] in endpoints:
+                endpoint_url = cometConf["endpoints"]\
+                               [cometConf['active']]["nucleus_base_url"]
+                api_version = cometConf["endpoints"]\
+                               [cometConf['active']]["api_version"]
+                set_endpoint_url = \
+                        raw_input("Set the base url for the nucleus %s service [%s]: "\
+                                   % (cometConf['active'],
+                                      endpoint_url)
+                                 )
+                if set_endpoint_url:
+                    if set_endpoint_url != endpoint_url:
+                        config.data["cloudmesh"]["comet"]["endpoints"]\
+                                    [cometConf['active']]["nucleus_base_url"]\
+                                    = set_endpoint_url
+                        config.save()
+                        Console.ok("Service base url set!")
+
+                set_api_version = \
+                        raw_input("Set the api version for the nucleus %s service [%s]: "\
+                                   % (cometConf['active'],
+                                   api_version)
+                                 )
+                if set_api_version:
+                    if set_api_version != api_version:
+                        config.data["cloudmesh"]["comet"]["endpoints"]\
+                                    [cometConf['active']]["api_version"]\
+                                    = set_api_version
+                        config.save()
+                        Console.ok("Service api version set!")
+                print ("Authenticating to the nucleus %s "\
+                       "service and obtaining the apikey..." \
+                       % cometConf['active'])
+                Comet.get_apikey(cometConf['active'])
+
+            return ''
+            #Comet.get_apikey()
         try:
             logon = Comet.logon()
             if logon is False:
-                Console.error("Could not logon. Please try first:\ncm comet init_apiauth")
+                Console.error("Could not logon. Please try first:\ncm comet init")
                 return ""
         except:
             Console.error("Could not logon")
