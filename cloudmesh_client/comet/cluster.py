@@ -249,7 +249,7 @@ class Cluster(object):
                 return result
 
         if (state and computesetdict["state"] == state) or \
-           (computesetdict["state"] not in ["completed"]):
+           (computesetdict["state"] not in ["completed", "failed"]):
             starttime = ''
             endtime = ''
             walltime = ''
@@ -263,7 +263,7 @@ class Cluster(object):
                 computesetdict["start_time"] is not None:
                 start_seconds = int(computesetdict["start_time"])
                 end_seconds = start_seconds + walltime_seconds
-                if computesetdict["state"] == 'completed':
+                if computesetdict["state"] in ['completed', 'failed']:
                     runningSecs = walltime_seconds
                 else:
                     runningSecs = int(time.time())-start_seconds
@@ -274,9 +274,6 @@ class Cluster(object):
                                     time.localtime(end_seconds))
                 runningTime = Cluster.format_ddd_hh_mm(runningSecs)
                 remainingTime = Cluster.format_ddd_hh_mm(remainingSecs)
-                if computesetdict["state"] not in ["completed"]:
-                    runningSecs = int(time.time())-start_seconds
-                    remainingSecs = walltime_seconds - runningSecs
 
             result += "\nClusterID: {}\tComputesetID: {}\t State: {}\t\tAllocation: {}\n" \
                       "Start (est): {}\t\tEnd (est): {}\n"\
