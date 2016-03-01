@@ -13,7 +13,7 @@ from datetime import datetime
 import pytz
 
 class Cluster(object):
-    WALLTIME_MINS = 2880
+    WALLTIME_MINS = 60*24*2
     N_ALLOCATIONS_PER_LINE = 5
     MINS_PER_UNIT = {"m": 1, "h": 60, "d": 1440, "w": 10080}
     SECS_PER_DAY = 60*60*24
