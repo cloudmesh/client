@@ -120,9 +120,11 @@ class Cluster(object):
                     "mac": None,
                     'ip': None,
                     'memory': None,
+                    'disksize': None,
                     'name': None,
                     'state': None,
                     'type': None,
+                    'computeset': None,
                     'kind': 'frontend'
                 }
 
@@ -144,7 +146,10 @@ class Cluster(object):
                             for ipaddr in anode["interface"]:
                                 macs.append(ipaddr["mac"])
                                 #ips.append(ipaddr["ip"] or "N/A")
-                            anode["mac"] = "; ".join(macs)
+                            if format=='table':
+                                anode["mac"] = "\n".join(macs)
+                            else:
+                                anode["mac"] = ";".join(macs)
                             #anode["ip"] = "; ".join(ips)
                     del anode["interface"]
 
@@ -159,8 +164,23 @@ class Cluster(object):
                                           "cpus",
                                           "cluster",
                                           "memory",
+                                          "disksize",
+                                          "active_computeset"
                                       ],
-                                      output=format)
+                                      header=[
+                                          "name",
+                                          "state",
+                                          "kind",
+                                          "type",
+                                          "mac",
+                                          "cpus",
+                                          "cluster",
+                                          "RAM(M)",
+                                          "disk(G)",
+                                          "computeset"
+                                      ],
+                                      output=format,
+                                      sort_keys=('cluster','name'))
             return result
 
     @staticmethod
@@ -297,7 +317,10 @@ class Cluster(object):
                         for ipaddr in anode["interface"]:
                             macs.append(ipaddr["mac"])
                             #ips.append(ipaddr["ip"] or "N/A")
-                        anode["mac"] = "; ".join(macs)
+                        if format=='table':
+                            anode["mac"] = "\n".join(macs)
+                        else:
+                            anode["mac"] = ";".join(macs)
                         #anode["ip"] = "; ".join(ips)
                 del anode["interface"]
             result += str(list_printer(data,
@@ -312,7 +335,8 @@ class Cluster(object):
                                            "host",
                                            "memory",
                                        ],
-                                       output="table"))
+                                       output="table",
+                                       sort_keys='cluster'))
         return result
 
     @staticmethod
