@@ -188,7 +188,12 @@ def dict_table_printer(d,
     x.max_width = max_width
 
     if sort_keys:
-        sorted_list = sorted(d, key=d.get)
+        if type(sort_keys) is str:
+            sorted_list = sorted(d, key = lambda x: d[x][sort_keys])
+        elif type(sort_keys) == tuple:
+            sorted_list = sorted(d, key = lambda x: tuple([d[x][sort_key] for sort_key in sort_keys]))
+        else:
+            sorted_list = sorted(d, key=d.get)
     else:
         sorted_list = d
 
