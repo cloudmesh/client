@@ -6,6 +6,7 @@ import json
 from prettytable import PrettyTable
 import yaml
 from cloudmesh_client.util import convert_from_unicode
+from pprint import pprint
 
 def list_printer(l,
                  order=None,

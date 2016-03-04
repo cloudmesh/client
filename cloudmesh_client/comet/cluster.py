@@ -136,8 +136,11 @@ class Cluster(object):
                     for client in clients:
                         client["kind"] = "compute"
                     frontend = dict(empty)
-                    frontend['cluster'] = clients[0]['cluster']
                     frontend.update(cluster["frontend"])
+                    if len(clients) > 0:
+                        frontend['cluster'] = clients[0]['cluster']
+                    else:
+                        frontend['cluster'] = frontend['name']
                     data += [frontend]
                     data += clients
 
