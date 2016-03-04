@@ -65,7 +65,10 @@ create a directory with ENV3 and work on it.
 
   virtualenv3 ~/ENV3
   source ~/ENV3/bin/activate
-  cd ENV3/
+  which python
+
+
+This should display /Users/<username>/ENV3/bin/python
 
 
 Windows
