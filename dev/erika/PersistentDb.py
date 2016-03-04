@@ -2,6 +2,7 @@ import sqlite3 as sqlite
 import json
 import os
 import os.path
+from __future__ import print_function
 from faker import Faker
 
 # TODO: change + string to remove + but use a .format( ) which is more like python3 -------- DONE
@@ -109,7 +110,7 @@ class PersistentDb:
         }
         result = self.cur.execute("SELECT * FROM {table} WHERE {key_values}".format(**data))
         recs_list = result.fetchall()
-        print recs_list
+        print (recs_list)
 
     def get(self, operator, **kwargs):
         """
@@ -123,7 +124,7 @@ class PersistentDb:
         }
         result = self.cur.execute("SELECT * FROM {table} WHERE {key_values}".format(**data))
         rec = result.fetchone()
-        print rec
+        print (rec)
 
     @property
     def json(self):
@@ -193,10 +194,10 @@ for _ in range(0, 5):
 
 
 # Prints ths json
-print pd.json
+print (pd.json)
 
 # pd.backup("new_backup")
 
 pd.add_attributes(GENDER='VARCHAR')
 
-print pd.get_attribute_type('NAME')
+print (pd.get_attribute_type('NAME'))

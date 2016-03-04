@@ -6,7 +6,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 #from cloudmesh_client.common import Config
 from time import sleep
 from pprint import pprint
-
+from __future__ import print_function
 cls = get_driver(Provider.AZURE)
 
 # get cloud credential from yaml file
@@ -48,11 +48,11 @@ node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
 nodes = driver.list_nodes(cloudname)
-print nodes
+print (nodes)
 
 for node in nodes:
     for public_ip in node.public_ips:
-        print node.name +  ": " + public_ip
+        print (node.name +  ": " + public_ip)
 
 # Return type:  bool
 # Terminate VM
