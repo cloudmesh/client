@@ -14,11 +14,10 @@ def grep(pattern, filename):
     String matching only, does not do REs as currently implemented.
     """
     try:
-        # TODO: HACAKTHON GOURAV
         # for line in file
         # if line matches pattern:
         #    return line
-        return (L for L in open(filename) if L.find(pattern) >= 0).next()
+        return next((L for L in open(filename) if L.find(pattern) >= 0))
     except StopIteration:
         return ''
 
