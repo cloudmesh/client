@@ -39,7 +39,7 @@ class BatchProviderSLURM(BatchProviderBase):
             d = parser.to_dict(result)
 
             # add cluster and updated to each entry
-            for key in d.keys():
+            for key in list(d.keys()):
                 d[key]['cluster'] = cluster
                 d[key]['updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -83,7 +83,7 @@ class BatchProviderSLURM(BatchProviderBase):
         d = parser.to_dict(result)
 
         # add cluster and updated to each entry
-        for key in d.keys():
+        for key in list(d.keys()):
             d[key]['cluster'] = cluster
             d[key]['updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
