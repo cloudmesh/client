@@ -16,7 +16,10 @@ def grep(pattern, filename):
     String matching only, does not do REs as currently implemented.
     """
     try:
-        return (L for L in open(filename) if L.find(pattern) >= 0).next()
+        # for line in file
+        # if line matches pattern:
+        #    return line
+        return next((L for L in open(filename) if L.find(pattern) >= 0))
     except StopIteration:
         return ''
 
@@ -38,7 +41,7 @@ def convert_from_unicode(data):
     if isinstance(data, basestring):
         return str(data)
     elif isinstance(data, collections.Mapping):
-        return dict(map(convert_from_unicode, data.iteritems()))
+        return dict(map(convert_from_unicode, data.items()))
     elif isinstance(data, collections.Iterable):
         return type(data)(map(convert_from_unicode, data))
     else:
@@ -160,7 +163,7 @@ def auto_create_version(class_name, version, filename="__init__.py"):
     if content != '__version__ = "{0}"'.format(version):
         banner("Updating version to {0}".format(version))
         with open(version_filename, "w") as text_file:
-            text_file.write(u'__version__ = "{0:s}"'.format(version))
+            text_file.write('__version__ = "{0:s}"'.format(version))
 
 
 def auto_create_requirements(requirements):
