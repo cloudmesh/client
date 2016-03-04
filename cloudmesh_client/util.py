@@ -163,7 +163,7 @@ def auto_create_version(class_name, version, filename="__init__.py"):
     if content != '__version__ = "{0}"'.format(version):
         banner("Updating version to {0}".format(version))
         with open(version_filename, "w") as text_file:
-            text_file.write(u'__version__ = "{0:s}"'.format(version))
+            text_file.write('__version__ = "{0:s}"'.format(version))
 
 
 def auto_create_requirements(requirements):
