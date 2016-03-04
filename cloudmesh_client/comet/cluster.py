@@ -279,6 +279,7 @@ class Cluster(object):
                                 )
             data = computesetdict["computes"]
             for anode in data:
+                bnode = dict(anode)
                 for attribute in anode:
                     if "interface" == attribute:
                         macs = []
@@ -286,9 +287,10 @@ class Cluster(object):
                         for ipaddr in anode["interface"]:
                             macs.append(ipaddr["mac"])
                             #ips.append(ipaddr["ip"] or "N/A")
-                        anode["mac"] = "; ".join(macs)
+                        bnode["mac"] = "; ".join(macs)
                         #anode["ip"] = "; ".join(ips)
-                del anode["interface"]
+                        del bnode["interface"]
+                anode = bnode
             result += str(list_printer(data,
                                        order=[
                                            "name",
