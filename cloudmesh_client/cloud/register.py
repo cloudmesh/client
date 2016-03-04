@@ -3,10 +3,10 @@ import textwrap
 import os
 import platform
 
-try: #python3
+try:  # python3
     from urllib.request import urlopen
     from urllib.parse import urlparse
-except ImportError: #python2
+except ImportError:  # python2
     from urlparse import urlparse
     from urllib import urlopen
 
@@ -15,6 +15,8 @@ from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
+
+from builtins import input
 
 
 class Register(object):
@@ -42,6 +44,7 @@ class Register(object):
                     changed = True or changed
         if changed wirte data to yaml file
         '''
+
 
 class CloudRegister(object):
     @classmethod
@@ -317,7 +320,7 @@ class CloudRegister(object):
         #   from builtins import input
         # input = None
         # try:
-        #    input = raw_input
+        #    input = input
         # except NameError:
         #    pass
 
@@ -337,7 +340,7 @@ class CloudRegister(object):
 
             for key in credentials:
                 if key not in ["OS_VERSION", "OS_AUTH_URL"] and credentials[key] == "TBD":
-                    result = raw_input("Please enter {:}[{:}]:".format(key, credentials[key])) or credentials[key]
+                    result = input("Please enter {:}[{:}]:".format(key, credentials[key])) or credentials[key]
                     credentials[key] = result
             config["cloudmesh"]["clouds"][cloud]["credentials"] = credentials
         config.save()
@@ -431,23 +434,23 @@ class CloudRegister(object):
         cloudname_suggest = urlparse(env_config_data["OS_AUTH_URL"]).hostname
 
         # Command line inputs
-        cloudname_to_use = raw_input(
+        cloudname_to_use = input(
             "Name of the cloud (Default: {:}): ".format(
                 cloudname_suggest)) or cloudname_suggest
 
-        cm_label = raw_input(
+        cm_label = input(
             "Label for the cloud (Default: {:}): ".format(cloudname_to_use)) or "{:}".format(cloudname_to_use)
 
-        cm_heading = raw_input(
+        cm_heading = input(
             "Heading for the cloud (Default: {:} Cloud): ".format(cm_label)) or "{:} Cloud".format(cm_label)
 
-        cm_host = raw_input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+        cm_host = input("Cloud host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
             .format(cloudname_suggest)
 
         if provider is None:
             # TODO: Check if the suggestion can be determined dynamically
-            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 "
-                                "(Default: openstack): ") or "openstack"
+            cm_type = input("Type of the cloud- openstack/azure/ec2 "
+                            "(Default: openstack): ") or "openstack"
         else:
             cm_type = provider
 
@@ -455,10 +458,10 @@ class CloudRegister(object):
             print("\nSorry! Type of cloud '{:}' is invalid and should be one "
                   "of openstack/ azure/ ec2.\n"
                   .format(cm_type))
-            cm_type = raw_input("Type of the cloud- openstack/azure/ec2 "
-                                "(Default: openstack): ") or "openstack"
+            cm_type = input("Type of the cloud- openstack/azure/ec2 "
+                            "(Default: openstack): ") or "openstack"
 
-        cm_type_version = raw_input(
+        cm_type_version = input(
             "Version of type {:} (Default: null): ".format(cm_type)) or None
 
         #  Populate the dict with the data fetched from env
@@ -473,13 +476,13 @@ class CloudRegister(object):
 
         # Get defaults from user
 
-        default_flavor = raw_input("Default flavor for the cloud instances"
-                                   "(Default: null): ") or None
+        default_flavor = input("Default flavor for the cloud instances"
+                               "(Default: null): ") or None
 
-        default_image = raw_input("Default image for the cloud instances"
-                                  " (Default: null): ") or None
+        default_image = input("Default image for the cloud instances"
+                              " (Default: null): ") or None
 
-        default_location = raw_input(
+        default_location = input(
             "Default location for the cloud instances "
             "(Default: null): ") or None
 
