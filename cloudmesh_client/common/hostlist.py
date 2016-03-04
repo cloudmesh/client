@@ -179,7 +179,7 @@ def expand_range(prefix, range_):
         raise BadHostlist("range too large")
 
     results = []
-    for i in xrange(low, high + 1):
+    for i in list(range(low, high + 1)):
         results.append("%s%0*d" % (prefix, width, i))
     return results
 
