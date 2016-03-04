@@ -25,8 +25,11 @@ requests.packages.urllib3.disable_warnings()
 
 # noinspection PyBroadException,PyBroadException
 class Comet(object):
-    rest_version = "/v1"
-    base_uri = "https://comet-nucleus.sdsc.edu/nucleus"
+    # api_version = "/v1"
+    endpoint = ''
+    base_uri = ''
+    api_version = ''
+    # base_uri = "https://comet-nucleus.sdsc.edu/nucleus"
     local_base_uri = "https://localhost:8443/nucleus"
     auth_uri = "{}/rest-auth".format(base_uri)
     local_auth_uri = "{}/rest-auth".format(local_base_uri)
@@ -44,16 +47,24 @@ class Comet(object):
     verify = False
 
     @staticmethod
+    def set_endpoint(endpoint):
+        Comet.endpoint = endpoint
+
+    @staticmethod
     def set_base_uri(uri):
         Comet.base_uri = uri
         Comet.auth_uri = Comet.base_uri + "/rest-auth"
 
     @staticmethod
-    def url(endpoint):
+    def set_api_version(api_version):
+        Comet.api_version = "/%s" % api_version
+
+    @staticmethod
+    def url(path):
         if Comet.tunnelled:
-            url = Comet.local_base_uri + Comet.rest_version + "/" + endpoint
+            url = Comet.local_base_uri + Comet.api_version + "/" + path
         else:
-            url = Comet.base_uri + Comet.rest_version + "/" + endpoint
+            url = Comet.base_uri + Comet.api_version + "/" + path
         return url
 
     def __init__(self):
@@ -148,7 +159,8 @@ class Comet(object):
         # try to load from yaml file if not specified
         if not auth_provider:
             config = ConfigDict("cloudmesh.yaml")
-            auth_provider = config["cloudmesh.comet.auth_provider"].upper()
+            cometConf = config["cloudmesh.comet"]
+            auth_provider = cometConf["endpoints"][cls.endpoint]["auth_provider"].upper()
             # value not set in yaml file, use USERPASS as default
             if not auth_provider:
                 auth_provider = "USERPASS"
@@ -156,16 +168,25 @@ class Comet(object):
 
     @classmethod
     def logon(cls, username=None, password=None):
+        config = ConfigDict("cloudmesh.yaml")
+        cometConf = config["cloudmesh.comet"]
+        cls.set_endpoint(cometConf["active"])
+        cls.set_base_uri(cometConf["endpoints"][cls.endpoint]["nucleus_base_url"])
+        cls.set_api_version(cometConf["endpoints"][cls.endpoint]["api_version"])
         cls.set_auth_provider()
+        # print (cls.endpoint)
+        # print (cls.base_uri)
+        # print (cls.api_version)
         # print (cls.auth_provider)
         ret = False
         if "USERPASS" == cls.auth_provider:
-            config = ConfigDict("cloudmesh.yaml")
             # for unit testing only.
             if username is None:
-                username = config["cloudmesh.comet.userpass.username"]
+                username = cometConf["endpoints"][cls.endpoint]["userpass"]["username"]
+                if username == '' or username == 'TBD':
+                    username = cometConf["username"]
             if password is None:
-                password = config["cloudmesh.comet.userpass.password"]
+                password = cometConf["endpoints"][cls.endpoint]["userpass"]["password"]
                 if password.lower() == "readline":
                     password = getpass.getpass()
                 elif password.lower() == "env":
@@ -193,9 +214,8 @@ class Comet(object):
                 ret = cls.token
         elif "APIKEY" == cls.auth_provider:
             # print ("API KEY based auth goes here")
-            config = ConfigDict("cloudmesh.yaml")
-            cls.api_key = config["cloudmesh.comet.apikey.api_key"]
-            cls.api_secret = config["cloudmesh.comet.apikey.api_secret"]
+            cls.api_key = cometConf["endpoints"][cls.endpoint]["apikey"]["api_key"]
+            cls.api_secret = cometConf["endpoints"][cls.endpoint]["apikey"]["api_secret"]
             cls.api_auth = HTTPSignatureAuth(secret=cls.api_secret, headers=["nonce", "timestamp"])
             #
             # api key based auth does not maintain a session
@@ -494,7 +514,7 @@ class Comet(object):
         return hash.hexdigest()
 
     @staticmethod
-    def list_image():
+    def list_iso():
         ret = ''
         url = Comet.url("image")
         r = Comet.get(url)
@@ -503,7 +523,7 @@ class Comet(object):
         return ret
 
     @staticmethod
-    def upload_image(filename, filepath):
+    def upload_iso(filename, filepath):
         ret = ''
         # print ("filename to use: %s" % filename)
         # print ("full file path: %s" % filepath)
@@ -519,10 +539,16 @@ class Comet(object):
         return ret
 
     @staticmethod
-    def get_apikey():
-        user = input("Comet Nucleus Usename: ")
+    def get_apikey(endpoint):
+        config = ConfigDict("cloudmesh.yaml")
+        cometConf = config["cloudmesh.comet"]
+        defaultUser = cometConf["username"]
+        user = input("Comet Nucleus Usename [%s]: " \
+                         % defaultUser)
+        if not user:
+            user = defaultUser
         password = getpass.getpass()
-        keyurl = "https://comet-nucleus.sdsc.edu/nucleus/getkey"
+        keyurl = "%s/getkey" % cometConf["endpoints"][endpoint]["nucleus_base_url"]
         headers = {"ACCEPT": "application/json"}
         r = requests.get(keyurl, headers=headers, auth=HTTPBasicAuth(user, password))
         if r.status_code == 200:
@@ -530,9 +556,13 @@ class Comet(object):
             api_key = keyobj["key_name"]
             api_secret = keyobj["key"]
             config = ConfigDict("cloudmesh.yaml")
-            config.data["cloudmesh"]["comet"]["auth_provider"] = 'apikey'
-            config.data["cloudmesh"]["comet"]["apikey"]["api_key"] = api_key
-            config.data["cloudmesh"]["comet"]["apikey"]["api_secret"] = api_secret
+            config.data["cloudmesh"]["comet"]["endpoints"]\
+                        [endpoint]["auth_provider"] = 'apikey'
+            config.data["cloudmesh"]["comet"]["endpoints"]\
+                        [endpoint]["apikey"]["api_key"] = api_key
+            config.data["cloudmesh"]["comet"]["endpoints"]\
+                        [endpoint]["apikey"]["api_secret"] = api_secret
+
             config.save()
             Console.ok("api key retrieval and set was successful!")
         else:
