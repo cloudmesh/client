@@ -78,6 +78,11 @@ Windows
 Conversion
 ----------
 
+Python 2 and 3 compatibility cheat sheet:
+
+http://python-future.org/compatible_idioms.html
+
+
 print::
 
     from __future__ import print_function
@@ -128,15 +133,7 @@ import::
 
     from __future__ import absolute_import
     from __future__ import print_function
-=======
 
-
-Conversion
-----------
-
-Python 2 and 3 compatibility cheat sheet:
-
-http://python-future.org/compatible_idioms.html
 
 Dict
 ^^^^
