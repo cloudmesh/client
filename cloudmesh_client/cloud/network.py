@@ -54,7 +54,7 @@ class Network(ListResource):
             if cls.isIPAddr(ip_or_id=floating_ip_or_id):
                 # get floating ip list
                 floating_ips = cls.get_floating_ip_list(cloudname)
-                for floating_ip in floating_ips.values():
+                for floating_ip in list(floating_ips.values()):
                     ip_addr = floating_ip["ip"]
 
                     # if argument ip matches floating ip addr
@@ -94,7 +94,7 @@ class Network(ListResource):
             # auto detect floating-ip-id
             floating_ips = cls.get_floating_ip_list(cloudname)
             # for each floating-ip from list
-            for floating_ip in floating_ips.values():
+            for floating_ip in list(floating_ips.values()):
                 if floating_ip["id"].startswith(floating_ip_or_id) or \
                         floating_ip["ip"].startswith(floating_ip_or_id):
                     # confirm choice with user
@@ -242,7 +242,7 @@ class Network(ListResource):
             if cls.isIPAddr(ip_or_id=floating_ip_or_id):
                 # get floating ip list
                 floating_ips = cls.get_floating_ip_list(cloudname)
-                for floating_ip in floating_ips.values():
+                for floating_ip in list(floating_ips.values()):
                     ip_addr = floating_ip["ip"]
 
                     # if argument ip matches floating ip addr
@@ -277,7 +277,7 @@ class Network(ListResource):
         try:
             floating_ips = cls.get_floating_ip_list(cloudname)
 
-            for floating_ip in floating_ips.values():
+            for floating_ip in list(floating_ips.values()):
                 # Get instance_id associated with instance
                 instance_id = floating_ip["instance_id"]
 
@@ -371,7 +371,7 @@ class Network(ListResource):
 
         # Get instance_name for vm
         if len(instance_dict) > 0:
-            instance_name = instance_dict.values()[0]["name"]
+            instance_name = list(instance_dict.values())[0]["name"]
 
             return instance_name
 
@@ -401,7 +401,7 @@ class Network(ListResource):
             # auto detect instance_id feature
             vms = db.find("vm", category=cloudname)
             # check for each instance in db
-            for vm in vms.values():
+            for vm in list(vms.values()):
                 # if match found in either name/id
                 if vm["uuid"].startswith(instance_id) or \
                         vm["name"].startswith(instance_id):
@@ -413,7 +413,7 @@ class Network(ListResource):
                         return vm
             return None
         else:
-            return instance_dict.values()[0]
+            return list(instance_dict.values())[0]
 
     @classmethod
     def isUuid(cls, argument):
