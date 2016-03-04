@@ -13,6 +13,7 @@ import time
 from datetime import datetime
 import pytz
 
+
 class Cluster(object):
     WALLTIME_MINS = 60*24*2
     N_ALLOCATIONS_PER_LINE = 5
@@ -135,11 +136,12 @@ class Cluster(object):
                     for client in clients:
                         client["kind"] = "compute"
                     frontend = dict(empty)
+                    frontend['cluster'] = clients[0]['cluster']
                     frontend.update(cluster["frontend"])
                     data += [frontend]
                     data += clients
 
-                for anode in data:
+                for index, anode in enumerate(data):
                     bnode = dict(anode)
                     for attribute in anode:
                         if "interface" == attribute:
@@ -154,7 +156,7 @@ class Cluster(object):
                                 bnode["mac"] = ";".join(macs)
                             #anode["ip"] = "; ".join(ips)
                             del bnode["interface"]
-                    anode = bnode
+                    data[index] = bnode
 
                 result = list_printer(data,
                                       order=[
@@ -312,7 +314,7 @@ class Cluster(object):
                                 remainingTime
                                 )
             data = computesetdict["computes"]
-            for anode in data:
+            for index, anode in enumerate(data):
                 bnode = dict(anode)
                 for attribute in anode:
                     if "interface" == attribute:
@@ -327,7 +329,7 @@ class Cluster(object):
                             bnode["mac"] = ";".join(macs)
                         #anode["ip"] = "; ".join(ips)
                         del bnode["interface"]
-                anode = bnode
+                data[index] = bnode
             result += str(list_printer(data,
                                        order=[
                                            "name",
