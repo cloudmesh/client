@@ -351,7 +351,7 @@ class CloudProviderBase(object):
                 return None
 
             if format == "table":
-                element = elements.values()[0]
+                element = list(elements.values())[0]
                 return attribute_printer(element)
             else:
                 return dict_printer(elements,
