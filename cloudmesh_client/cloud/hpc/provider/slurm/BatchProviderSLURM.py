@@ -166,7 +166,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
         map(lambda k, v:
             option_mapping.__setitem__(k, kwargs.get(k) or v),
-            option_mapping.iteritems())
+            option_mapping.items())
 
         config = cls.read_config(cluster)
         project = None
@@ -182,7 +182,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
         # create the options for the script
         options = ""
-        for key, value in option_mapping.iteritems():
+        for key, value in option_mapping.items():
             options += '#SBATCH {} {}\n'.format(key, value)
 
         cls.create_remote_dir(cluster, data["remote_experiment_dir"])
