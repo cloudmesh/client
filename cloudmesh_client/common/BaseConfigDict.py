@@ -34,7 +34,7 @@ def check_file_for_tabs(filename, verbose=True):
     :rtype: True if there are tabs in the file
     """
     file_contains_tabs = False
-    with file(filename) as f:
+    with open(filename) as f:
         lines = f.read().split("\n")
 
     line_no = 1

@@ -199,3 +199,12 @@ dict items as a list:
 
     from future.utils import iteritems
     itemlist = list(iteritems(heights))
+
+File
+^^^^
+Open file to read:
+
+.. code-block:: python
+
+    f = file(pathname) NO!
+    f = open(pathname) YES!
