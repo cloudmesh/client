@@ -83,18 +83,24 @@ Python 2 and 3 compatibility cheat sheet:
 http://python-future.org/compatible_idioms.html
 
 
-print::
+print:
+
+.. code-block:: python
 
     from __future__ import print_function
 
     print('Hello')
 
-raise::
+raise:
+
+.. code-block:: python
 
     raise ValueError("dodgy value")
 
 
-traceback::
+traceback:
+
+.. code-block:: python
 
     from future.utils import raise_
 
@@ -104,30 +110,40 @@ traceback::
     # we will need to create function for that as we want to control
     # with flag in db
 
-exception::
+exception:
+
+.. code-block:: python
 
      except Exception as e:
 
-integre division::
+integre division:
+
+.. code-block:: python
 
     from __future__ import division
 
     assert 2 / 3 == 0
 
-metaclass::
+metaclass:
+
+.. code-block:: python
 
     from future.utils import with_metaclass
 
     class Form(with_metaclass(FormType, BaseForm)):
         pass
 
-strings::
+strings:
+
+.. code-block:: python
 
     from __future__ import unicode_literals
 
     s1 = 'The Zen of Python'
 
-import::
+import:
+
+.. code-block:: python
 
     all files will need
 
@@ -140,46 +156,46 @@ Dict
 Using dict heights = {'Fred': 175, 'Anne': 166, 'Joe': 192}
 as an example
 
-Iterable dict keys::
+Iterable dict keys:
 
 .. code-block:: python
 
-for key in heights:
-    ...
+    for key in heights:
+        ...
 
-Iterable dict values::
-
-.. code-block:: python
-
-from builtins import itervalues
-for key in itervalues(heights):
-    ...
-
-Iterable dict items::
+Iterable dict values:
 
 .. code-block:: python
 
-from future.utils import iteritems
-for (key, value) in iteritems(heights):
-    ...
+    from builtins import itervalues
+    for key in itervalues(heights):
+        ...
 
-dict keys as a list::
-
-.. code-block:: python
-
-keylist = heights.keys() NO!
-keylist = list(heights) YES!
-
-dict values as a list::
+Iterable dict items:
 
 .. code-block:: python
 
-from future.utils import itervalues
-valuelist = list(itervalues(heights))
+    from future.utils import iteritems
+    for (key, value) in iteritems(heights):
+        ...
 
-dict items as a list::
+dict keys as a list:
 
 .. code-block:: python
 
-from future.utils import iteritems
-itemlist = list(iteritems(heights))
+    keylist = heights.keys() NO!
+    keylist = list(heights) YES!
+
+dict values as a list:
+
+.. code-block:: python
+
+    from future.utils import itervalues
+    valuelist = list(itervalues(heights))
+
+dict items as a list:
+
+.. code-block:: python
+
+    from future.utils import iteritems
+    itemlist = list(iteritems(heights))
