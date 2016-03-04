@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import requests
 import hostlist
+from builtins import input
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.comet.comet import Comet
@@ -177,7 +178,7 @@ class Cluster(object):
         print ("")
         chosen_alloc = -1
         while chosen_alloc < 0:
-            allocation_input = raw_input("Pick an allocation by specifying its index: ")
+            allocation_input = input("Pick an allocation by specifying its index: ")
             try:
                 chosen_alloc = int(allocation_input)
                 if 0 < chosen_alloc < len(allocations_sorted) + 1:

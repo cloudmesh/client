@@ -208,3 +208,16 @@ Open file to read:
 
     f = file(pathname) NO!
     f = open(pathname) YES!
+
+raw_input
+^^^^
+
+Getting raw input from keyboard:
+
+.. code-block:: python
+
+    name = raw_input('What is your name? ') NO!
+    
+    from builtins import input
+    name = input('What is your name? ')
+    YES!

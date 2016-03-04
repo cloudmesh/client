@@ -10,6 +10,7 @@ import getpass
 import random
 import string
 import hashlib
+from builtins import input
 
 import requests
 from requests.auth import HTTPBasicAuth
@@ -519,7 +520,7 @@ class Comet(object):
 
     @staticmethod
     def get_apikey():
-        user = raw_input("Comet Nucleus Usename: ")
+        user = input("Comet Nucleus Usename: ")
         password = getpass.getpass()
         keyurl = "https://comet-nucleus.sdsc.edu/nucleus/getkey"
         headers = {"ACCEPT": "application/json"}
