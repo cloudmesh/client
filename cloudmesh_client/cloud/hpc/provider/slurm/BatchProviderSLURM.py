@@ -31,8 +31,8 @@ class BatchProviderSLURM(BatchProviderBase):
             # TODO: process till header is found...(Need a better way)
             l = result.splitlines()
             for i, res in enumerate(l):
-                if 'ACCOUNT|GRES|' in res:
-                    result = "\n".join(l[i:])
+                if bytes(b'ACCOUNT|GRES|') in res:
+                    result = "\n".join(str(x) for x in l[i:])
                     break
 
             parser = TableParser(strip=True)

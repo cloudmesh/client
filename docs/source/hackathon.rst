@@ -230,3 +230,20 @@ Getting raw input from keyboard:
     from builtins import input
     name = input('What is your name? ')
     YES!
+
+byte and string
+^^^^
+
+# Python 2 only:
+
+.. code-block:: python
+
+    for bytechar in 'byte-string with high-bit chars like':
+
+# Python 2 and 3:
+
+.. code-block:: python
+
+from builtins import bytes
+    for myint in bytes(b'byte-string with high-bit chars like'):
+        bytechar = bytes([myint])
