@@ -351,10 +351,10 @@ class Cluster(object):
 
     @staticmethod
     def format_ddd_hh_mm(time_duration_secs):
-        ddd = time_duration_secs/Cluster.SECS_PER_DAY
+        ddd = time_duration_secs//Cluster.SECS_PER_DAY
         secs = time_duration_secs%Cluster.SECS_PER_DAY
-        hh = secs/3600
-        mm = (secs%3600)/60
+        hh = secs//3600
+        mm = (secs%3600)//60
         if ddd != 0:
             ret = "%s-%02d:%02d" % (ddd, hh, mm)
         else:
