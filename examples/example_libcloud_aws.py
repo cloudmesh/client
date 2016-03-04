@@ -1,7 +1,7 @@
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
-
+from __future__ import print_function
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from time import sleep
 from pprint import pprint
@@ -47,7 +47,7 @@ node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
-print nodes
+print (nodes)
 
 # wait the node to be ready before assigning public IP
 sleep(10)
@@ -62,7 +62,7 @@ driver.ex_associate_address_with_node(node, elastic_ip)
 
 # check updated VMs list to see if public ip is assigned
 nodes = driver.list_nodes()
-print nodes
+print (nodes)
 
 # remove it from the node
 

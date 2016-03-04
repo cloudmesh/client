@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, Unicode, UnicodeText, String
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-
+from __future__ import print_function
 from random import choice
 from string import letters
 import sys
@@ -51,4 +51,4 @@ s.commit()
 # When you query the data back it returns instances of your class:
 
 for user in s.query(User):
-    print user.name, user.password, user.uuid, user.id
+    print (user.name, user.password, user.uuid, user.id)

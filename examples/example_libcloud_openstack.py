@@ -6,7 +6,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from pprint import pprint
-
+from __future__ import print_function
 OpenStack = get_driver(Provider.OPENSTACK)
 
 # get cloud credential from yaml file
@@ -30,7 +30,7 @@ driver = OpenStack(cloudcred['OS_USERNAME'],
 
 # list VMs
 nodes = driver.list_nodes()
-print nodes
+print (nodes)
 
 # obtain available images
 images = driver.list()
@@ -53,7 +53,7 @@ node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
-print nodes
+print (nodes)
 
 # wait the node to be ready before assigning public IP
 sleep(10)
@@ -76,7 +76,7 @@ driver.ex_attach_floating_ip_to_node(node, floating_ip)
 
 # check updated VMs list to see if public ip is assigned
 nodes = driver.list_nodes()
-print nodes
+print (nodes)
 
 # remove it from the node
 # driver.ex_detach_floating_ip_from_node(node, floating_ip)

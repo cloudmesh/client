@@ -3,6 +3,7 @@ from keystoneclient import session
 from novaclient import client
 import os
 import requests
+from __future__ import print_function
 requests.packages.urllib3.disable_warnings()
 
 # credentials from sys env or configuration
@@ -26,7 +27,7 @@ ksauth = v3.Password(auth_url=AUTH_URL,
 sess = session.Session(auth=ksauth, verify=CERT)
 nova = client.Client(2, session=sess)
 
-print nova.servers.list()
-print nova.flavors.list()
-print nova.images.list()
+print (nova.servers.list())
+print (nova.flavors.list())
+print (nova.images.list())
 
