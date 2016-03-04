@@ -158,7 +158,7 @@ def dict_table_printer(d,
     :param header: The Header of each of the columns
     
     """
-    first_element = d.keys()[0]
+    first_element = list(d)[0]
 
     def _keys():
         return d[first_element].keys()
@@ -188,7 +188,8 @@ def dict_table_printer(d,
     x.max_width = max_width
 
     if sort_keys:
-        sorted_list = sorted(d, key=d.get)
+        sorted_list = d
+        # sorted_list = sorted(d, key=d.get)
     else:
         sorted_list = d
 
