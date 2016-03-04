@@ -174,7 +174,7 @@ class Group(ListResource):
         query = dict(kwargs)
 
         if 'output' in kwargs:
-            for key, value in kwargs.iteritems():
+            for key, value in kwargs.items():
                 if value is None:
                     query[key] = "None"
             del query['output']

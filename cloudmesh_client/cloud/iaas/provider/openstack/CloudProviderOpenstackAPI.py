@@ -23,7 +23,7 @@ def set_os_environ(cloudname):
     try:
         d = ConfigDict("cloudmesh.yaml")
         credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
-        for key, value in credentials.iteritems():
+        for key, value in credentials.items():
             if key == "OS_CACERT":
                 os.environ[key] = Config.path_expand(value)
             else:
@@ -467,7 +467,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         ret = None
         allocated_ips = self.list_floating_ips()
         fip = None
-        for idx, ipobj in allocated_ips.iteritems():
+        for idx, ipobj in allocated_ips.items():
             if ipobj['instance_id'] is None:
                 fip = ipobj['ip']
                 break

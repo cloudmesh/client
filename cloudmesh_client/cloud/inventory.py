@@ -86,7 +86,7 @@ class Inventory(ListResource):
             else:
                 entry = dict(self.entry)
                 self.data[host] = entry
-            for key, value in kwargs.iteritems():
+            for key, value in kwargs.items():
                 entry[key] = value
             entry['host'] = host
             for attribute in entry:
