@@ -8,6 +8,8 @@ import collections
 import pip
 import sys
 
+from builtins import input
+
 
 def grep(pattern, filename):
     """Very simple grep that returns the first matching line in a file.
@@ -51,13 +53,12 @@ def yn_choice(message, default='y', tries=None):
     # http://stackoverflow.com/questions/3041986/python-command-line-yes-no-input"""
     choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
     if tries is None:
-        choice = raw_input("%s (%s) " % (message, choices))
+        choice = input("%s (%s) " % (message, choices))
         values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
         return True if choice.strip().lower() in values else False
     else:
         while tries > 0:
-            choice = raw_input("%s (%s) (%s)" %
-                               (message, choices, "'q' to discard"))
+            choice = input("%s (%s) (%s)" % (message, choices, "'q' to discard"))
             choice = choice.strip().lower()
             if choice in ['y', 'yes']:
                 return True
