@@ -200,7 +200,7 @@ class CloudmeshDatabase(object):
         for key in d:
             try:
                 setattr(element, key, d[key])
-            except Exception, e:
+            except Exception as e:
                 print("WARNING:", key, "in table", element.__table__.name, "does not exist")
                 print(e)
         self.save()
