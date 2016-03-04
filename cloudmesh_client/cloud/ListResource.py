@@ -1,10 +1,9 @@
+from future.utils import with_metaclass
 from abc import ABCMeta, abstractmethod
-
 
 # class ListResource(metaclass=ABCMeta):
 
-class ListResource(object):
-    __metaclass__ = ABCMeta
+class ListResource(with_metaclass(ABCMeta, object)):
 
     @classmethod
     @abstractmethod
