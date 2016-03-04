@@ -200,6 +200,15 @@ dict items as a list:
     from future.utils import iteritems
     itemlist = list(iteritems(heights))
 
+dict comparison not supported any more!:
+
+.. code-block:: python
+
+    a = {"key":"value1"}
+    b = {"key":"value2"}
+    if a > b:     # NOT WORKING!!!
+        DO SOMETHING!
+
 File
 ^^^^
 Open file to read:
