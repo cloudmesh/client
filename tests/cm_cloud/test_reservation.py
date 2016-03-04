@@ -30,7 +30,7 @@ def run(command):
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
     print (result)
-    return result
+    return str(result)
 
 
 class Test_reservation:

@@ -21,7 +21,7 @@ def run(command):
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
-    return result
+    return str(result)
 
 
 class Test_nova():
