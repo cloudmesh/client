@@ -35,7 +35,8 @@ class Test_vm:
             "group": "test",
             "image": "Ubuntu-14.04-64",
             "vm": "testvm",
-            "flavor": "m1.small"
+            "flavor": "m1.small",
+            "vm_rename": "test_renamed_vm"
         }
 
     def tearDown(self):
@@ -113,9 +114,18 @@ class Test_vm:
 
     def test_007(self):
         """
-        cm vm delete testvm --cloud=kilo
+        cm vm rename testvm --new=test_renamed_vm --cloud=kilo
         """
         HEADING()
-        result = self.run("cm vm delete {vm} --cloud={cloud}")
+        result = self.run("cm vm rename {vm} --new={vm_rename} --cloud={cloud}")
+        print(result)
+        assert "OK." in result
+
+    def test_008(self):
+        """
+        cm vm delete test_renamed_vm --cloud=kilo
+        """
+        HEADING()
+        result = self.run("cm vm delete {vm_rename} --cloud={cloud}")
         print(result)
         assert "OK." in result
