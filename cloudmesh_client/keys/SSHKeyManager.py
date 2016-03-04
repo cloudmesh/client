@@ -50,13 +50,13 @@ class SSHKeyManager(object):
         return str(self.__keys__)
 
     def keys(self):
-        return self.__keys__.keys()
+        return list(self.__keys__.keys())
 
     def __getitem__(self, item):
         return self.__keys__[item]
 
     def __len__(self):
-        return len(self.keys())
+        return len(list(self.keys()))
 
     def select(self):
         options = []
@@ -87,7 +87,7 @@ class SSHKeyManager(object):
         default = config_keys["default"]
         keylist = config_keys["keylist"]
         sshmanager = SSHKeyManager()
-        for key in keylist.keys():
+        for key in list(keylist.keys()):
             keyname = key
             value = keylist[key]
             if os.path.isfile(Config.path_expand(value)):

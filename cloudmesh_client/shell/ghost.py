@@ -106,7 +106,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         if value is None:
             filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
-            cloud = clouds.keys()[0]
+            cloud = list(clouds.keys())[0]
             Default.set('cloud', cloud, 'general')
 
         value = Default.get('default', 'general')
