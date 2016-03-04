@@ -47,7 +47,7 @@ Go to bash_profile and append the new path:
   vim ~/.bash_profile
 
 
-Append String: `alias virtualenv3='~/Library/Python/3.4/bin/virtualenv'`
+Append String: `alias virtualenv3='~/Library/Python/3.5/bin/virtualenv'`
 
 Change the alias of ENV to ENV2 in your bash_profile and update the current
 terminal window
