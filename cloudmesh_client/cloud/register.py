@@ -311,7 +311,7 @@ class CloudRegister(object):
         #
 
         profile = config["cloudmesh"]["profile"]
-        keys = profile.keys()
+        keys = list(profile.keys())
 
         # TODO: test this and delete this comment
         # get input that works in python 2 and 3
@@ -334,7 +334,7 @@ class CloudRegister(object):
 
         # edit clouds
         clouds = config["cloudmesh"]["clouds"]
-        for cloud in clouds.keys():
+        for cloud in list(clouds.keys()):
             print("Editing the credentials for cloud", cloud)
             credentials = clouds[cloud]["credentials"]
 
@@ -366,7 +366,7 @@ class CloudRegister(object):
 
         # Merging profile
         profile = config["cloudmesh"]["profile"]
-        for profile_key in profile.keys():
+        for profile_key in list(profile.keys()):
             if profile[profile_key] == "TBD":
                 profile[profile_key] = \
                     from_config_file["cloudmesh"]["profile"][profile_key]
@@ -374,9 +374,9 @@ class CloudRegister(object):
 
         # Merging clouds
         clouds = config["cloudmesh"]["clouds"]
-        for cloud in clouds.keys():
+        for cloud in list(clouds.keys()):
             cloud_element = clouds[cloud]
-            for key in cloud_element.keys():
+            for key in list(cloud_element.keys()):
                 if cloud_element[key] == "TBD":
                     cloud_element[key] = \
                         from_config_file["cloudmesh"]["clouds"][cloud][key]

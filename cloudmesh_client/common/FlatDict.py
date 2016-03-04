@@ -74,10 +74,10 @@ class FlatDict(dict):
         del self.__dict__[key]
 
     def keys(self):
-        return self.__dict__.keys()
+        return list(self.__dict__.keys())
 
     def values(self):
-        return self.__dict__.values()
+        return list(self.__dict__.values())
 
     def __cmp__(self, dictionary):
         return cmp(self.__dict__, dictionary)

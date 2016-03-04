@@ -137,7 +137,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         cloud_dict = {}
         d = ConfigDict("cloudmesh.yaml")
-        clouds = d["cloudmesh"]["clouds"].keys()
+        clouds = list(d["cloudmesh"]["clouds"].keys())
         for i, cloud in enumerate(clouds):
             if cloud in CloudProviderOpenstackAPI.cloud_pwd:
                 cloud_dict[i] = {
