@@ -155,10 +155,13 @@ def dict_table_printer(d,
                   Each key will be a column
     :param order: The order in which the columns are printed.
                   The order is specified by the key names of the dict.
-    :param header: The Header of each of the columns
-    
+    :param header:  The Header of each of the columns
+    :type header:   A list of string
+    :param sort_keys:   Key(s) of the dict to be used for sorting.
+                        This specify the column(s) in the table for sorting.
+    :type sort_keys:    string or a tuple of string (for sorting with multiple columns)
     """
-    first_element = d.keys()[0]
+    first_element = list(d)[0]
 
     def _keys():
         return d[first_element].keys()
@@ -188,7 +191,12 @@ def dict_table_printer(d,
     x.max_width = max_width
 
     if sort_keys:
-        sorted_list = sorted(d, key=d.get)
+        if type(sort_keys) is str:
+            sorted_list = sorted(d, key = lambda x: d[x][sort_keys])
+        elif type(sort_keys) == tuple:
+            sorted_list = sorted(d, key = lambda x: tuple([d[x][sort_key] for sort_key in sort_keys]))
+        else:
+            sorted_list = d
     else:
         sorted_list = d
 

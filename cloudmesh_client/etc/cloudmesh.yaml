@@ -13,13 +13,29 @@ cloudmesh:
         location: TBD
         browser: firefox
     comet:
-        auth_provider: userpass
-        userpass:
-            username: TBD
-            password: TBD
-        apikey:
-            api_key: TBD
-            api_secret: TBD
+        username: TBD
+        active: dev
+        endpoints:
+            dev:
+                nucleus_base_url: https://comet-nucleus.sdsc.edu/nucleus
+                api_version: v1
+                auth_provider: apikey
+                userpass:
+                  username: TBD
+                  password: TBD
+                apikey:
+                  api_key: TBD
+                  api_secret: TBD
+            production:
+                nucleus_base_url: TBD
+                api_version: v1
+                auth_provider: apikey
+                userpass:
+                  username: TBD
+                  password: TBD
+                apikey:
+                  api_key: TBD
+                  api_secret: TBD
     hpc:
         experiment:
            name: gregor-00000
