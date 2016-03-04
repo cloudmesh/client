@@ -748,7 +748,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception, e:
+            except Exception as e:
                 import traceback
                 print(traceback.format_exc())
                 print(e)
