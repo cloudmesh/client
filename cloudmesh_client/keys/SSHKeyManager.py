@@ -214,9 +214,9 @@ class SSHKeyManager(object):
         keys = sshdb.find_all()
 
         # Checking and deleting cloud mappings as well as cloud keys.
-        for key in keys.values():
+        for key in list(keys.values()):
             keymap = sshdb.get_key_cloud_map_entry(key["name"])
-            for map in keymap.values():
+            for map in list(keymap.values()):
                 if delete_on_cloud:
                     self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
             sshdb.delete_key_cloud_map_entry(key["name"])
@@ -237,7 +237,7 @@ class SSHKeyManager(object):
             else:
                 delete_on_cloud = self.delete_on_cloud
 
-            for map in keymap.values():
+            for map in list(keymap.values()):
                 if delete_on_cloud:
                     self.delete_key_on_cloud(map["cloud_name"], map["key_name_on_cloud"])
             sshdb.delete_key_cloud_map_entry(key["name"])
