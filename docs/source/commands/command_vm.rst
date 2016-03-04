@@ -175,4 +175,13 @@ You can delete a VM on the target cloud by using 'vm delete' command as below::
     $ cm vm delete testvm --cloud=kilo
     Machine testvm is being deleted on kilo Cloud...
 
+Renaming a VM
+--------------
+
+You can rename a VM on the target cloud by using 'vm rename' command as below::
+
+    $ cm vm rename testvm --new=testvm_renamed --cloud=kilo
+    Renaming VM (testvm) : 5bd7911e2b-xxxx-xxxx-xxxx-xxxxxxx
+    Machine testvm renamed to testvm_renamed on kilo Cloud...
+
 
