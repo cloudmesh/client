@@ -7,6 +7,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 import hostlist
 import os
 import sys
+from builtins import input
 
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
@@ -269,7 +270,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 # print (default_username)
                 if 'TBD' == default_username:
                     set_default_user = \
-                        raw_input("Set a default username (RETURN to skip): ")
+                        input("Set a default username (RETURN to skip): ")
                     if set_default_user:
                         config.data["cloudmesh"]["comet"]["username"] = \
                             set_default_user
@@ -278,7 +279,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if "active" in cometConf.keys():
                 active_endpoint = cometConf['active']
                 set_active_endpoint = \
-                        raw_input("Set the active service endpoint to use. "\
+                        input("Set the active service endpoint to use. "\
                                   "The availalbe endpoints are - %s [%s]: "\
                                    % ("/".join(endpoints),
                                      active_endpoint)
@@ -300,7 +301,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 api_version = cometConf["endpoints"]\
                                [cometConf['active']]["api_version"]
                 set_endpoint_url = \
-                        raw_input("Set the base url for the nucleus %s service [%s]: "\
+                        input("Set the base url for the nucleus %s service [%s]: "\
                                    % (cometConf['active'],
                                       endpoint_url)
                                  )
@@ -313,7 +314,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                         Console.ok("Service base url set!")
 
                 set_api_version = \
-                        raw_input("Set the api version for the nucleus %s service [%s]: "\
+                        input("Set the api version for the nucleus %s service [%s]: "\
                                    % (cometConf['active'],
                                    api_version)
                                  )
