@@ -200,6 +200,15 @@ dict items as a list:
     from future.utils import iteritems
     itemlist = list(iteritems(heights))
 
+dict comparison not supported any more!:
+
+.. code-block:: python
+
+    a = {"key":"value1"}
+    b = {"key":"value2"}
+    if a > b:     # NOT WORKING!!!
+        DO SOMETHING!
+
 File
 ^^^^
 Open file to read:
@@ -208,3 +217,16 @@ Open file to read:
 
     f = file(pathname) NO!
     f = open(pathname) YES!
+
+raw_input
+^^^^
+
+Getting raw input from keyboard:
+
+.. code-block:: python
+
+    name = raw_input('What is your name? ') NO!
+    
+    from builtins import input
+    name = input('What is your name? ')
+    YES!

@@ -7,7 +7,6 @@ from prettytable import PrettyTable
 import yaml
 from cloudmesh_client.util import convert_from_unicode
 
-
 def list_printer(l,
                  order=None,
                  header=None,
@@ -103,10 +102,10 @@ def dict_csv_printer(d,
     :type sort_keys: bool
     :return: a string representing the table in csv format
     """
-    first_element = d.keys()[0]
+    first_element = list(d)[0]
 
     def _keys():
-        return d[first_element].keys()
+        return list(d[first_element])
 
     # noinspection PyBroadException
     def _get(element, key):
@@ -155,13 +154,16 @@ def dict_table_printer(d,
                   Each key will be a column
     :param order: The order in which the columns are printed.
                   The order is specified by the key names of the dict.
-    :param header: The Header of each of the columns
-    
+    :param header:  The Header of each of the columns
+    :type header:   A list of string
+    :param sort_keys:   Key(s) of the dict to be used for sorting.
+                        This specify the column(s) in the table for sorting.
+    :type sort_keys:    string or a tuple of string (for sorting with multiple columns)
     """
-    first_element = d.keys()[0]
+    first_element = list(d)[0]
 
     def _keys():
-        return d[first_element].keys()
+        return list(d[first_element])
 
     # noinspection PyBroadException
     def _get(item, key):
@@ -188,7 +190,12 @@ def dict_table_printer(d,
     x.max_width = max_width
 
     if sort_keys:
-        sorted_list = sorted(d, key=d.get)
+        if type(sort_keys) is str:
+            sorted_list = sorted(d, key = lambda x: d[x][sort_keys])
+        elif type(sort_keys) == tuple:
+            sorted_list = sorted(d, key = lambda x: tuple([d[x][sort_key] for sort_key in sort_keys]))
+        else:
+            sorted_list = d
     else:
         sorted_list = d
 
@@ -260,7 +267,7 @@ def row_table(d, order=None, labels=None):
                   The order is specified by the key names of the dict.
     """
     # header
-    header = d.keys()
+    header = list(d)
     x = PrettyTable(labels)
     if order is None:
         order = header
@@ -271,7 +278,7 @@ def row_table(d, order=None, labels=None):
             for element in value[1:]:
                 x.add_row(["", element])
         elif type(value) == dict:
-            value_keys = value.keys()
+            value_keys = list(value)
             first_key = value_keys[0]
             rest_keys = value_keys[1:]
             x.add_row([key, "{0} : {1}".format(first_key, value[first_key])])
