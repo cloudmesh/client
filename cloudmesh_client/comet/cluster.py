@@ -48,7 +48,7 @@ class Cluster(object):
                     for attribute in ["project", "name", "description"]:
                         element[attribute] = cluster[attribute]
                         element["nodes"] = len(cluster["computes"])
-                    for attribute in cluster["frontend"].keys():
+                    for attribute in cluster["frontend"]:
                         element["frontend " + attribute] = cluster["frontend"][
                             attribute]
                     names = []
@@ -137,16 +137,18 @@ class Cluster(object):
                     data += clients
 
                 for anode in data:
-                    for attribute in anode.keys():
+                    bnode = dict(anode)
+                    for attribute in anode:
                         if "interface" == attribute:
                             macs = []
                             #ips = []
                             for ipaddr in anode["interface"]:
                                 macs.append(ipaddr["mac"])
                                 #ips.append(ipaddr["ip"] or "N/A")
-                            anode["mac"] = "; ".join(macs)
+                            bnode["mac"] = "; ".join(macs)
                             #anode["ip"] = "; ".join(ips)
-                    del anode["interface"]
+                            del bnode["interface"]
+                    anode = bnode
 
                 result = list_printer(data,
                                       order=[
@@ -277,7 +279,7 @@ class Cluster(object):
                                 )
             data = computesetdict["computes"]
             for anode in data:
-                for attribute in anode.keys():
+                for attribute in anode:
                     if "interface" == attribute:
                         macs = []
                         #ips = []
@@ -307,7 +309,7 @@ class Cluster(object):
         mins = None
         if s is not None:
             s = s.lower()
-            if s[-1] in Cluster.MINS_PER_UNIT.keys():
+            if s[-1] in Cluster.MINS_PER_UNIT:
                 mins = int(s[:-1]) * Cluster.MINS_PER_UNIT[s[-1]]
         return mins
 
