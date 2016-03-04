@@ -113,7 +113,7 @@ class ec2(ComputeBaseType):
                           path=self.path,
                           port=self.port)
 
-        except Exception, e:
+        except Exception as e:
             print(e)
             sys.exit()
 
