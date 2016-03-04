@@ -12,6 +12,8 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.network import Network
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
+from builtins import input
+
 
 # noinspection PyBroadException
 class NetworkCommand(PluginCommand, CloudPluginCommand):
@@ -33,8 +35,10 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                 network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
                 network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
                 network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
-                network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
-                network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+                network associate floating [ip] [--cloud=CLOUD] [--group=GROUP]
+                                           [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+                network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP]
+                                              [--instance=INS_ID_OR_NAME] [FLOATING_IP]
                 network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
                 network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
                 network list floating pool [--cloud=CLOUD]
@@ -488,7 +492,7 @@ class NetworkCommand(PluginCommand, CloudPluginCommand):
                             self.refresh_vm(cloudname)
 
                     # Get the login user for this machine
-                    user = raw_input("Enter the login user for VM {} : ".format(instance_name))
+                    user = input("Enter the login user for VM {} : ".format(instance_name))
                     passphrase = getpass.getpass("Enter the passphrase key on VM {} : ".format(instance_name))
 
                     # create list for second iteration

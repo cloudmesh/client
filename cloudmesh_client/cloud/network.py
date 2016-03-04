@@ -10,8 +10,11 @@ from cloudmesh_client.common.Printer import attribute_printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
+from builtins import input
 
 # noinspection PyBroadException,PyPep8Naming,PyPep8Naming,PyPep8Naming
+
+
 class Network(ListResource):
     @classmethod
     def get_fixed_ip(cls, cloudname, fixed_ip_addr):
@@ -96,7 +99,7 @@ class Network(ListResource):
                         floating_ip["ip"].startswith(floating_ip_or_id):
                     # confirm choice with user
                     print("Did you mean floating-ip [{}] ? (y/n)".format(floating_ip["ip"]))
-                    choice = raw_input().lower()
+                    choice = input().lower()
                     # if yes, return dict
                     if choice == 'y':
                         return attribute_printer(floating_ip,
@@ -404,7 +407,7 @@ class Network(ListResource):
                         vm["name"].startswith(instance_id):
                     # confirm choice with user
                     print("Did you mean instance [{}] ? (y/n)".format(vm["name"]))
-                    choice = raw_input().lower()
+                    choice = input().lower()
                     # if yes, return dict
                     if choice == 'y':
                         return vm
