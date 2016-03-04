@@ -29,3 +29,7 @@ Windows
 Conversion
 ----------
 
+Python 2 and 3 compatibility cheat sheet:
+
+http://python-future.org/compatible_idioms.html
+
