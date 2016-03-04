@@ -13,6 +13,8 @@ from urlparse import urlparse
 import pyaml
 import json
 
+from builtins import input
+
 
 class ConfigEnv (object):
 
@@ -72,20 +74,20 @@ class ConfigEnv (object):
 
         cloudname_suggest = urlparse(ConfigEnv.env_config_data["OS_AUTH_URL"]).hostname
 
-        cloudname_to_use = raw_input("Cloud name (Default: {:}): ".format(cloudname_suggest)) or cloudname_suggest
-        cm_heading = raw_input("cm_heading (Default: {:} Cloud): ".format(cloudname_suggest)) \
+        cloudname_to_use = input("Cloud name (Default: {:}): ".format(cloudname_suggest)) or cloudname_suggest
+        cm_heading = input("cm_heading (Default: {:} Cloud): ".format(cloudname_suggest)) \
             or "{:} Cloud".format(cloudname_suggest)
 
-        cm_host = raw_input("cm_host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+        cm_host = input("cm_host name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
             .format(cloudname_suggest)
 
-        cm_label = raw_input("cm_label name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
+        cm_label = input("cm_label name (Default: {:}): ".format(cloudname_suggest)) or "{:}"\
             .format(cloudname_suggest)
 
         # TODO: Check if the suggestion can be determined dynamically
-        cm_type = raw_input("cm_type name (Default: openstack): ") or "openstack"
+        cm_type = input("cm_type name (Default: openstack): ") or "openstack"
 
-        cm_type_version = raw_input("cm_type_version name (Default: null): ") or None
+        cm_type_version = input("cm_type_version name (Default: null): ") or None
 
         ConfigEnv.yaml_data["cloudmesh"]["clouds"][cloudname_to_use] = {"cm_heading": cm_heading,
                                                                         "cm_host": cm_host,

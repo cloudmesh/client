@@ -19,6 +19,8 @@ from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
+from builtins import input
+
 
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
@@ -582,7 +584,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             if user is None:
                 user_from_db = Vm.get_vm_login_user(name, cloud)
                 user_suggest = user_from_db or getpass.getuser()
-                user = raw_input("Enter the user to login (Default: {}):".format(user_suggest)) or user_suggest
+                user = input("Enter the user to login (Default: {}):".format(user_suggest)) or user_suggest
                 Vm.set_vm_login_user(name, cloud, user)
 
             ip = arguments["--ip"]
