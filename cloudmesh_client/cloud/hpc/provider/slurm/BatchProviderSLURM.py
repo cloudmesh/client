@@ -9,7 +9,7 @@ from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import os
-
+from future.utils import iteritems
 
 # noinspection PyBroadException
 class BatchProviderSLURM(BatchProviderBase):
@@ -164,9 +164,13 @@ class BatchProviderSLURM(BatchProviderBase):
                           '-D': '{remote_experiment_dir}'.format(**data),
                           '-e': '{script_error}'.format(**data)}
 
-        map(lambda k, v:
-            option_mapping.__setitem__(k, kwargs.get(k) or v),
-            option_mapping.items())
+        #map(lambda k, v:
+        #    option_mapping.__setitem__(k, kwargs.get(k) or v),
+        #    option_mapping.items())
+        #
+        # rewrite for better readability
+        for (k, v) in iteritems(option_mapping):
+            option_mapping[k] = kwargs.get(k) or v
 
         config = cls.read_config(cluster)
         project = None

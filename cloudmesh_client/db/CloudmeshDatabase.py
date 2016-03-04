@@ -134,7 +134,7 @@ class CloudmeshDatabase(object):
 
                 if kind == "flavor":
                     flavors = provider.list_flavor(name)
-                    for flavor in flavors.values():
+                    for flavor in list(flavors.values()):
                         flavor["uuid"] = flavor['id']
                         flavor['type'] = 'string'
                         flavor["category"] = name
@@ -148,7 +148,7 @@ class CloudmeshDatabase(object):
                 elif kind == "image":
                     images = provider.list_image(name)
 
-                    for image in images.values():
+                    for image in list(images.values()):
                         image['uuid'] = image['id']
                         image['type'] = 'string'
                         image['category'] = name
@@ -161,7 +161,7 @@ class CloudmeshDatabase(object):
 
                 elif kind == "vm":
                     vms = provider.list_vm(name)
-                    for vm in vms.values():
+                    for vm in list(vms.values()):
                         vm['uuid'] = vm['id']
                         vm['type'] = 'string'
                         vm['category'] = name
@@ -175,7 +175,7 @@ class CloudmeshDatabase(object):
                 elif kind == "secgroup":
                     secgroups = provider.list_secgroup(name)
                     # pprint(secgroups)
-                    for secgroup in secgroups.values():
+                    for secgroup in list(secgroups.values()):
                         secgroup_db_obj = self.db_obj_dict("secgroup",
                                                            name=secgroup['name'],
                                                            uuid=secgroup['id'],
@@ -216,7 +216,7 @@ class CloudmeshDatabase(object):
                 provider = BatchProvider(name)
 
                 vms = provider.list_job(name)
-                for vm in vms.values():
+                for vm in list(vms.values()):
                     vm['uuid'] = vm['id']
                     vm['type'] = 'string'
                     vm['category'] = name
@@ -325,7 +325,7 @@ class CloudmeshDatabase(object):
             if len(result) == 0:
                 return None
             else:
-                return result[result.keys()[0]]
+                return result[list(result.keys())[0]]
 
         if 'name' not in kwargs:
             raise ValueError("name not specified in find_by_name")
@@ -420,7 +420,7 @@ class CloudmeshDatabase(object):
         for u in obj:
             _id = u.id
             values = {}
-            for key in u.__dict__.keys():
+            for key in list(u.__dict__.keys()):
                 if not key.startswith("_sa"):
                     values[key] = u.__dict__[key]
             result[_id] = values
@@ -430,7 +430,7 @@ class CloudmeshDatabase(object):
         d = {}
         for element in elements:
             d[element.id] = {}
-            for key in element.__dict__.keys():
+            for key in list(element.__dict__.keys()):
                 if not key.startswith("_sa"):
                     d[element.id][key] = str(element.__dict__[key])
         return d
@@ -521,9 +521,9 @@ class CloudmeshDatabase(object):
         # print("Inside add_obj")
         # print("Object Dict to add: {}".format(obj_dict))
 
-        for obj in obj_dict.values():
+        for obj in list(obj_dict.values()):
             # print(obj)
-            for key in obj.keys():
+            for key in list(obj.keys()):
                 table_name = self.get_table(key)
                 obj_to_persist = table_name(**obj[key])
                 self.add(obj_to_persist)
