@@ -1139,7 +1139,7 @@ class compute(ComputeBaseType):
                 # vm_id, body, "metadata")
                 print result
                 is_set = 1
-            except Exception, e:
+            except Exception as e:
                 print "ERROR", e
                 time.sleep(2)
 
@@ -1496,7 +1496,7 @@ class compute(ComputeBaseType):
 
         try:
             self.cloud.keypairs.create(name, publickey)
-        except Exception, e:
+        except Exception as e:
             return 1, e
 
         return (0, 'Key added successfully')
@@ -1509,7 +1509,7 @@ class compute(ComputeBaseType):
 
         try:
             self.cloud.keypairs.delete(name)
-        except Exception, e:
+        except Exception as e:
             return (1, e)
 
         return (0, 'Key deleted successfully')
@@ -1521,7 +1521,7 @@ class compute(ComputeBaseType):
         """ lists all security groups """
         try:
             return self.cloud.security_groups.list()
-        except Exception, e:
+        except Exception as e:
             print e
 
     states = [
