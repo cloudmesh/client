@@ -325,7 +325,7 @@ class CloudmeshDatabase(object):
             if len(result) == 0:
                 return None
             else:
-                return result[result.keys()[0]]
+                return result[list(result.keys())[0]]
 
         if 'name' not in kwargs:
             raise ValueError("name not specified in find_by_name")
@@ -420,7 +420,7 @@ class CloudmeshDatabase(object):
         for u in obj:
             _id = u.id
             values = {}
-            for key in u.__dict__.keys():
+            for key in list(u.__dict__.keys()):
                 if not key.startswith("_sa"):
                     values[key] = u.__dict__[key]
             result[_id] = values
@@ -430,7 +430,7 @@ class CloudmeshDatabase(object):
         d = {}
         for element in elements:
             d[element.id] = {}
-            for key in element.__dict__.keys():
+            for key in list(element.__dict__.keys()):
                 if not key.startswith("_sa"):
                     d[element.id][key] = str(element.__dict__[key])
         return d
@@ -523,7 +523,7 @@ class CloudmeshDatabase(object):
 
         for obj in obj_dict.values():
             # print(obj)
-            for key in obj.keys():
+            for key in list(obj.keys()):
                 table_name = self.get_table(key)
                 obj_to_persist = table_name(**obj[key])
                 self.add(obj_to_persist)
