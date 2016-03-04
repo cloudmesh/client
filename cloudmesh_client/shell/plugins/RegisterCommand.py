@@ -175,7 +175,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 credentials["OS_PASSWORD"] = "********"
 
             if output is None:
-                for attribute, value in credentials.iteritems():
+                for attribute, value in credentials.items():
                     print("export {}={}".format(attribute, value))
             elif output == "table":
                 print(attribute_printer(credentials))
@@ -340,7 +340,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     del os.environ[attribute]
 
             # set
-            for attribute, value in credentials.iteritems():
+            for attribute, value in credentials.items():
                 os.putenv(attribute, value)
                 print("+ ", attribute)
             export(host, "table")
