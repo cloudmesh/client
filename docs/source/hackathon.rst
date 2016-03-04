@@ -9,7 +9,7 @@ Install python 3.5 and 2.7.11
 Install 2.7.11
 --------------
 
-We ahve this documented elsewher
+We ahve this documented elsewhere
 
 
 Install 3.5
@@ -24,3 +24,8 @@ OSX
 
 Windows
 ^^^^^^^^
+
+
+Conversion
+----------
+
