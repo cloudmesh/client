@@ -201,7 +201,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         value = Default.get('cloud', category='general')
         if value is None:
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
-            cloud = clouds.keys()[0]
+            cloud = list(clouds.keys())[0]
             Default.set('cloud', cloud, category='general')
 
         value = Default.get('default', category='general')
