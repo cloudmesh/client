@@ -22,7 +22,7 @@ class StopWatch(object):
     @classmethod
     def keys(cls):
         """returns the names of the timers"""
-        return cls.timer_end.keys()
+        return list(cls.timer_end.keys())
 
     @classmethod
     def start(cls, name):
