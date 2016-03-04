@@ -169,7 +169,7 @@ class Vm(ListResource):
 
             # order = None
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
-                return attribute_printer(elements.values()[0],
+                return attribute_printer(list(elements.values())[0],
                                          output=kwargs["output_format"])
             else:
                 return dict_printer(elements,
@@ -202,7 +202,7 @@ class Vm(ListResource):
             vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
-            uuid = vm_data.values()[0]["uuid"]
+            uuid = list(vm_data.values())[0]["uuid"]
 
         user_map_entry = cls.cm.find("VMUSERMAP", vm_uuid=uuid)
 
@@ -222,7 +222,7 @@ class Vm(ListResource):
             vm_data = cls.cm.find("vm", category=cloud, label=name_or_id)
             if vm_data is None or len(vm_data) == 0:
                 raise RuntimeError("VM with label {} not found in database.".format(name_or_id))
-            uuid = vm_data.values()[0]["uuid"]
+            uuid = list(vm_data.values())[0]["uuid"]
 
         # print(uuid)
 
@@ -233,7 +233,7 @@ class Vm(ListResource):
         if user_map_entry is None or len(user_map_entry) == 0:
             return None
         else:
-            return user_map_entry.values()[0]["username"]
+            return list(user_map_entry.values())[0]["username"]
 
     @classmethod
     def get_last_vm(cls, cloud):
