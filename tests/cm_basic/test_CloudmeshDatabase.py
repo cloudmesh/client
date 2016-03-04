@@ -53,7 +53,7 @@ class Test_CloudmeshDatabase:
         m = DEFAULT("hallo", "world")
 
         n = cm.find("default", scope="first", name='hallo')
-        first = n.keys()[0]
+        first = list(n)[0]
         pprint (n)
 
         assert n["name"] == 'hallo'
@@ -66,8 +66,8 @@ class Test_CloudmeshDatabase:
         m = DEFAULT("hallo", "world")
 
         n = cm.find("default", scope="all", name='hallo')
-        print(n.keys())
-        assert (len(n.keys()) > 0)
+        print(list(n))
+        assert (len(list(n)) > 0)
 
     def test_003_find_filter(self):
         """testing cm list --cloud ... default"""
@@ -78,5 +78,5 @@ class Test_CloudmeshDatabase:
         n = cm.find("default",
                     scope="all",
                     name='hallo')
-        print(n.keys())
-        assert (len(n.keys()) > 0)
+        print(list(n))
+        assert (len(list(n)) > 0)
