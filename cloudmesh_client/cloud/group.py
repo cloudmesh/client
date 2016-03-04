@@ -442,7 +442,7 @@ class Group(ListResource):
         :return:
         """
         d = {item.id: {}}
-        for key in item.__dict__.keys():
+        for key in list(item.__dict__.keys()):
             if not key.startswith("_sa"):
                 d[item.id][key] = str(item.__dict__[key])
         return d
@@ -460,7 +460,7 @@ class Group(ListResource):
         d = {}
         i = 0
 
-        for key in dictionary.keys():
+        for key in list(dictionary.keys()):
             item = dictionary[key]
             for value in item['value'].split(','):
                 d[i] = {}
