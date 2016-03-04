@@ -36,7 +36,7 @@ Steps to follow after making sure of the prerequisites:
 
 .. prompt:: bash
 
-  pip3 install --user virtualenv
+  pip3.5 install --user virtualenv
 
 
 Go to bash_profile and append the new path:
