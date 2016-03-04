@@ -337,7 +337,7 @@ class Shell(object):
         result = subprocess.check_output(os_command,
                                          stderr=subprocess.STDOUT).rstrip()
 
-        return result
+        return str(result)
 
     @classmethod
     def mkdir(cls, newdir):
