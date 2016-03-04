@@ -81,7 +81,7 @@ print::
 
     print('Hello')
 
-rasie::
+raise::
 
     raise ValueError("dodgy value")
 
