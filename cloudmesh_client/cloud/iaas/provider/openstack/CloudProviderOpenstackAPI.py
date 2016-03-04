@@ -251,6 +251,26 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         return vm_dict
 
+    def rename_vm(self, current_name, new_name):
+        """
+        Renames a vm.
+        :param current_name:
+        :param new_name:
+        :return:
+        """
+        if self.isUuid(current_name):
+            server = self.provider.servers.get(current_name)
+            server.update(name=new_name)
+        else:
+            # server = self.provider.servers.find(name=name)
+            search_opts = {
+                'name': current_name,
+            }
+            vms = self.provider.servers.list(search_opts=search_opts)
+            for vm in vms:
+                print("Renaming VM ({}) : {}".format(vm.name, vm.id))
+                vm.update(name=new_name)
+
     def list_limits(self, tenant, **kwargs):
         return self.provider.limits.get(tenant_id=tenant).__dict__["_info"]
 
