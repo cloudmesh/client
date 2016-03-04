@@ -348,8 +348,8 @@ class CloudmeshDatabase(object):
         if output == 'dict' and result is not None:
             result = self.object_to_dict(result)
             if scope == "first":
-                if result.keys().__len__() > 0:
-                    first = result.keys()[0]
+                if len(list(result)) > 0:
+                    first = list(result)[0]
                     result = result[first]
                 else:
                     result = None
