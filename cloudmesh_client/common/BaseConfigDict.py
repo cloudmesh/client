@@ -162,7 +162,7 @@ class OrderedJsonEncoder(simplejson.JSONEncoder):
         if isinstance(o, OrderedDict):
             return "{" + ",\n ".join([self.encode(k) + ":" +
                                      self.encode(v, depth + 1)
-                                     for (k, v) in o.iteritems()]) + "}\n"
+                                     for (k, v) in o.items()]) + "}\n"
         else:
             return simplejson.JSONEncoder.encode(self, o)
 
