@@ -220,9 +220,9 @@ def attribute_printer(d,
     if output == "table":
         x = PrettyTable(header)
         if sort_keys:
-            sorted_list = sorted(d, key=d.get)
+            sorted_list = sorted(list(d))
         else:
-            sorted_list = d
+            sorted_list = list(d)
 
         for key in sorted_list:
             x.add_row([key, d[key] or ""])
