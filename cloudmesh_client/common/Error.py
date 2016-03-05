@@ -11,6 +11,10 @@ class Error(object):
             print(traceback.format_exc())
 
     @classmethod
+    def traceback(cls, error=None, debug=True, trace=True):
+        Error.msg(error=error, debug=debug, trace=trace)
+
+    @classmethod
     def info(cls, msg):
         # TODO: if info:
         print(msg)

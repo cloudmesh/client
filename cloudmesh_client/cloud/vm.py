@@ -47,7 +47,7 @@ class Vm(ListResource):
                 TODO.implement()
 
         except Exception as e:
-            Error.traceback(e)
+            Error.error("error in vm construct dict", traceback=True)
 
     @classmethod
     def isUuid(cls, name):
