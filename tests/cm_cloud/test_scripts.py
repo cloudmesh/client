@@ -33,7 +33,7 @@ class Test_script():
         args = parameter[1:]
         result = Shell.execute(shell_command, args)
         print (result)
-        return str(result)
+        return result
 
     def setup(self):
         self.scripts = [

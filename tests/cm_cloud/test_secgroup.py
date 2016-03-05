@@ -25,7 +25,7 @@ def run(command):
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
     print(result)
-    return str(result)
+    return result
 
 
 class Test_secgroup:

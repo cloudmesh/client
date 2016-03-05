@@ -18,12 +18,13 @@ from cloudmesh_client.cloud.group import Group
 
 
 def run(command):
+    print (command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
     print(result)
-    return str(result)
+    return result
 
 class Test_group:
 
