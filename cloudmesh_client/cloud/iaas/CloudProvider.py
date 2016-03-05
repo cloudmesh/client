@@ -16,7 +16,7 @@ class CloudProvider(CloudProviderBase):
         try:
             d = ConfigDict("cloudmesh.yaml")
             if not cloudname in d["cloudmesh"]["clouds"]:
-                raise ValueError("the cloud {} is not defined in the yaml file"
+                raise ValueError("the cloud {} is not defined in the yaml file. failed."
                                  .format(cloudname))
 
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
@@ -30,11 +30,11 @@ class CloudProvider(CloudProviderBase):
                 self.provider_class = CloudProviderOpenstackAPI
 
             if cloud_details["cm_type"] == "ec2":
-                print("ec2 cloud provider yet to be implemented")
+                raise ValueError("ec2 cloud provider yet to be implemented. failed.")
                 TODO.implement()
 
             if cloud_details["cm_type"] == "azure":
-                print("azure cloud provider yet to be implemented")
+                raise ValueError("azure cloud provider yet to be implemented. failed")
                 TODO.implement()
 
         except Exception as e:
