@@ -1,3 +1,4 @@
+from future.utils import iteritems
 import json
 from datetime import datetime
 import textwrap
@@ -9,7 +10,8 @@ from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import os
-from future.utils import iteritems
+from cloudmesh_client.common.Error import Error
+
 
 # noinspection PyBroadException
 class BatchProviderSLURM(BatchProviderBase):
@@ -17,6 +19,9 @@ class BatchProviderSLURM(BatchProviderBase):
 
     @classmethod
     def queue(cls, cluster, format='json', job=None):
+        print (cluster)
+        print(format)
+        print(job)
         try:
             args = 'squeue '
             if job is not None:
@@ -31,7 +36,7 @@ class BatchProviderSLURM(BatchProviderBase):
             # TODO: process till header is found...(Need a better way)
             l = result.splitlines()
             for i, res in enumerate(l):
-                if bytes(b'ACCOUNT|GRES|') in res:
+                if 'ACCOUNT|GRES|' in res:
                     result = "\n".join(str(x) for x in l[i:])
                     break
 
@@ -59,8 +64,9 @@ class BatchProviderSLURM(BatchProviderBase):
                                             'nodelist',
                                             'updated'],
                                      output=format))
-        except Exception as ex:
-            return ex
+        except Exception as e:
+            Error.traceback(e)
+            return e
 
     @classmethod
     def info(cls, cluster, format='json', all=False):
