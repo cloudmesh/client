@@ -2,7 +2,7 @@
 
 python setup.py install; nosetests -v --nocapture  tests/cm_hpc/test_hpc.py:Test_hpc.test_001
 
-nosetests -v --nocapture tests/test_hpc.py
+python setup.py install; nosetests -v --nocapture tests/cm_hpc/test_hpc.py
 
 or
 
@@ -35,6 +35,8 @@ class Test_hpc():
     def setup(self):
         HEADING()
         result = run("cm default cluster={cluster}".format(**self.data))
+        print (type(self.data["cluster"]))
+        print (type(result))
         assert self.data["cluster"] in result
 
     def test_001(self):
@@ -61,5 +63,5 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc status --cluster=={cluster}".format(**self.data))
+        result = run("cm hpc status --cluster={cluster}".format(**self.data))
         assert self.data["cluster"] in result
