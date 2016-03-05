@@ -14,7 +14,7 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.var import Var
-
+import sys
 
 def run(command):
     print(command)
@@ -26,7 +26,7 @@ def run(command):
     return result
 
 
-class Test_default():
+class Test_var():
     """
 
     """
