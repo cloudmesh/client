@@ -12,6 +12,7 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
+from cloudmesh_client.common.Error import Error
 
 
 class KeyCommand(PluginCommand, CloudPluginCommand):
@@ -157,9 +158,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem listing keys from ssh")
 
             elif arguments['--source'] in ['cm', 'cloudmesh']:
@@ -172,9 +171,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem listing keys from `{:}`".format(arguments['--source']))
 
             elif arguments['--source'] in ['git']:
@@ -193,9 +190,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem listing git keys from database")
                     return ""
 
@@ -211,9 +206,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     else:
                         Console.error("No keys in the database")
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem listing keys from database")
 
         elif arguments['load']:
@@ -262,9 +255,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         pass
                 Console.error("The key is not in the database")
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print (e)
+                Error.traceback(e)
                 Console.error("The key is not in the database")
 
         # key add --git KEYNAME
@@ -295,9 +286,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 d = dict(sshm.__keys__)
                 print(d)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print (e)
+                Error.traceback(e)
                 Console.error("Problem adding keys to git for user: " + username)
                 return ""
 
@@ -323,9 +312,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
             except Exception as e:
                 """
-                import traceback
-                print(traceback.format_exc())
-                print (e)
+                Error.traceback(e)
                 print (keyname)
                 print (filename)
                 """
@@ -347,9 +334,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.error("The key `{}` already exists".format(keyname), traceflag=False)
             """
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print (e)
+                Error.traceback(e)
                 print (keyname)
                 print (filename)
                 Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
@@ -371,9 +356,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Setting default for key {:} failed.".format(keyname))
 
             elif arguments['--select']:
@@ -388,9 +371,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         msg = "info. OK."
                         Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Setting default for selected key {:} failed.".format(keyname))
 
             else:
@@ -409,9 +390,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                             pass
                     Console.error("The key is not in the database")
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem retrieving default key.")
 
         elif arguments['delete']:
@@ -426,9 +405,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem deleting keys")
             elif arguments['--select']:
                 keyname = None
@@ -443,9 +420,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                         msg = "info. OK."
                         Console.ok(msg)
                     except Exception as e:
-                        import traceback
-                        print(traceback.format_exc())
-                        print (e)
+                        Error.traceback(e)
                         Console.error("Problem deleting the key `{:}`".format(keyname))
             else:
                 keyname = None
@@ -457,9 +432,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print (e)
+                    Error.traceback(e)
                     Console.error("Problem deleting the key `{:}`".format(keyname))
 
         elif arguments['upload']:
@@ -517,9 +490,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
 
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print (e)
+                Error.traceback(e)
                 Console.error("Problem adding key to cloud")
 
         elif arguments['map']:
@@ -531,7 +502,5 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                    order=["user", "key_name", "cloud_name", "key_name_on_cloud"]))
 
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print (e)
+                Error.traceback(e)
                 Console.error("Problem adding key to cloud")
