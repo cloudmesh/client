@@ -383,6 +383,14 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             for cloud in clouds:
                 CloudRegister.remote(cloud, force)
                 export(cloud, "table")
+
+            config = ConfigDict("cloudmesh.yaml")
+            if config["cloudmesh.profile.username"] == "TBD":
+                name = config["cloudmesh.clouds.kilo.credentials.OS_USERNAME"]
+                config["cloudmesh"]["profile"]["username"] = name
+                config.save()
+            else:
+                print("KKK")
             return ""
 
         elif arguments['env']:
