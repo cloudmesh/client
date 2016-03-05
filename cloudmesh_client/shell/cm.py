@@ -339,6 +339,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         python_version, pip_version = get_python()
 
+        try:
+            git_hash_version = Shell.execute('git', 'log -1 --format=%h')
+        except:
+            git_hash_version = 'N/A'
+
         versions = {
             "cloudmesh_client": {
                 "name": "cloudmesh_client",
@@ -355,8 +360,14 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             "pip": {
                 "name": "pip",
                 "version": str(pip_version)
+            },
+            "git": {
+                "name": "git hash",
+                "version": str(git_hash_version)
             }
+
         }
+
 
         print(dict_printer(versions, output=arguments["--format"],
                            order=["name", "version"]))
