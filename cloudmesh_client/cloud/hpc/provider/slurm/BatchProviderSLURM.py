@@ -19,9 +19,6 @@ class BatchProviderSLURM(BatchProviderBase):
 
     @classmethod
     def queue(cls, cluster, format='json', job=None):
-        print (cluster)
-        print(format)
-        print(job)
         try:
             args = 'squeue '
             if job is not None:
