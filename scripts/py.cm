@@ -1,7 +1,7 @@
 py a = "hallo"
-py print a
+py print (a)
 
 py n = 3
-py for i in range(0,n): print i
+py for i in range(0,n): print (i)
 
 

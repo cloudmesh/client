@@ -73,6 +73,7 @@ clean:
 	rm -rf docs/build
 	rm -rf build
 	rm -rf dist
+	rm -rf __pycache__
 
 ######################################################################
 # TAGGING
