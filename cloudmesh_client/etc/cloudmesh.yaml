@@ -110,6 +110,25 @@ cloudmesh:
             default:
                 flavor: m1.small
                 image: Ubuntu-Server-14.04-LTS
+        jetstream:
+            cm_heading: Jetstream
+            cm_host: http://jetstream-cloud.org/
+            cm_label: jetstream
+            cm_type: openstack
+            cm_type_version: kilo
+            credentials:
+              OS_PROJECT_DOMAIN_NAME: tacc
+              OS_USER_DOMAIN_NAME: tacc
+              OS_PROJECT_NAME: TBD
+              OS_TENANT_NAME: TBD
+              OS_USERNAME: TBD
+              OS_PASSWORD: TBD
+              OS_AUTH_URL: https://jblb.jetstream-cloud.org:35357/v3
+              OS_IDENTITY_API_VERSION: 3
+              OS_VERSION: kilo
+            default:
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
         cybera-c:
           cm_heading: Cybera Calgary OpenStack
           cm_host: cybera
