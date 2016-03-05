@@ -2,7 +2,7 @@
 
 python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_usage.py:Test_usage.test_001
 
-nosetests -v --nocapture tests/test_usage.py
+nosetests -v --nocapture tests/cm_cloud/test_usage.py
 
 or
 
