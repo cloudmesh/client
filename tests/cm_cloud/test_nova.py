@@ -5,7 +5,7 @@ from cloudmesh_client.common.Shell import Shell
 
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests/test_limits.py:Test_nova.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_cloud/test_limits.py:Test_nova.test_001
 
 nosetests -v --nocapture tests/test_nova.py
 

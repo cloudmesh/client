@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests//cm_basic/test_CloudmeshDatabase.py:Test_CloudmeshDatabase.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_basic/test_CloudmeshDatabase.py:Test_CloudmeshDatabase.test_001
 
 nosetests -v --nocapture tests/cm_basic/test_CloudmeshDatabase.py
 

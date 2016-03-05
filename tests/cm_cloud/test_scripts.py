@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_scripts.py
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_scripts.py
 
 nosetests -v --nocapture tests/test_scripts.py
 

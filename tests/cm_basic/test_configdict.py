@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests//cm_basic/test_configdict.py:Test_configdict.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_basic/test_configdict.py:Test_configdict.test_001
 
 nosetests -v --nocapture tests/cm_basic/test_configdict.py
 

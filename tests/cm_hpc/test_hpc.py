@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_hpc.py:Test_hpc.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_hpc/test_hpc.py:Test_hpc.test_001
 
 nosetests -v --nocapture tests/test_hpc.py
 
