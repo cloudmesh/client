@@ -1,3 +1,24 @@
+Exceptions
+==========
+
+::
+   
+   from cloudmesh_client.common.Error import Error
+   Error.msg(“msg")
+   Error.info(“msg”)
+   Error.debug(“msg”)
+   Error.warning(“msg”)
+   Error.exit(“msg)
+
+
+   try:
+      ...
+   except:
+      Error.debug(“my debug msg”)
+
+
+
+
 Hackathon
 ==========
 

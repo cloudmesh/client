@@ -69,12 +69,14 @@ log:
 ######################################################################
 
 clean:
+	rm -rf *.zip
 	rm -rf *.egg-info
 	rm -rf *.eggs
 	rm -rf docs/build
 	rm -rf build
 	rm -rf dist
 	rm -rf __pycache__
+	find . -name '*.pyc' -delete
 
 ######################################################################
 # TAGGING
