@@ -68,11 +68,17 @@ log:
 # TESTING
 ######################################################################
 
-test:
+pytest:
 	make -f Makefile clean
 	pip install -r requirements.txt
 	python setup.py install
-	py.test
+	py.test tests
+
+nosetest:
+	make -f Makefile clean
+	pip install -r requirements.txt
+	python setup.py install
+	nosetests tests
 
 ######################################################################
 # CLEANING
@@ -85,8 +91,7 @@ clean:
 	rm -rf docs/build
 	rm -rf build
 	rm -rf dist
-	rm -rf __pycache__
-	rm -rf tests/__pycache__
+	find . -name '__pycache__' -delete
 	find . -name '*.pyc' -delete
 	-pip uninstall cloudmesh_client -y
 
