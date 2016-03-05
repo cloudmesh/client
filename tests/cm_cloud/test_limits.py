@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_limits.py:Test_limits.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_limits.py:Test_limits.test_001
 
 nosetests -v --nocapture tests/test_limits.py
 

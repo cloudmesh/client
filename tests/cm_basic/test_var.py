@@ -1,7 +1,7 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests//cm_basic/test_var.py
-python setup.py install; nosetests -v --nocapture tests//cm_basic/test_var.py:Test_var.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_basic/test_var.py
+python setup.py install; nosetests -v --nocapture tests/cm_basic/test_var.py:Test_var.test_001
 
 nosetests -v --nocapture tests/cm_basic/test_var.py
 
