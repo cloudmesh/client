@@ -1,3 +1,6 @@
+nose
+pytest
+ansible
 pyreadline
 colorama
 future

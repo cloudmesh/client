@@ -65,6 +65,16 @@ log:
 	git push
 
 ######################################################################
+# TESTING
+######################################################################
+
+test:
+	make -f Makefile clean
+	pip install -r requirements.txt
+	python setup.py install
+	py.test
+
+######################################################################
 # CLEANING
 ######################################################################
 
@@ -76,7 +86,9 @@ clean:
 	rm -rf build
 	rm -rf dist
 	rm -rf __pycache__
+	rm -rf tests/__pycache__
 	find . -name '*.pyc' -delete
+	-pip uninstall cloudmesh_client -y
 
 ######################################################################
 # TAGGING

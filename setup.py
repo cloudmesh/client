@@ -41,7 +41,9 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
-requirements = ['colorama',
+requirements = ['nose',
+                'pytest',
+                'colorama',
                 'future',
                 'docopt',
                 'pyaml',
