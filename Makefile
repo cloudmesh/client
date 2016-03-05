@@ -78,7 +78,7 @@ nosetest:
 	make -f Makefile clean
 	pip install -r requirements.txt
 	python setup.py install
-	nosetests tests
+	nosetests -v --nocapture tests
 
 ######################################################################
 # CLEANING
