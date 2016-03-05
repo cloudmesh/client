@@ -82,9 +82,13 @@ class SSHkey(object):
         :param key_string: the key
         :type key_string: string
         """
-        key = base64.decodestring(key_string)
+        # key = base64.decodestring(key_string)
+        # fp_plain = hashlib.md5(key).hexdigest()
+        key = base64.b64decode(key_string.strip().encode('ascii'))
         fp_plain = hashlib.md5(key).hexdigest()
+
         return ':'.join(a + b for a, b in zip(fp_plain[::2], fp_plain[1::2]))
+
 
     def _parse(self, keystring):
         """
