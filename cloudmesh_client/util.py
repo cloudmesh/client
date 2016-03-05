@@ -9,7 +9,7 @@ import pip
 import sys
 
 from builtins import input
-
+from past.builtins import basestring
 
 def grep(pattern, filename):
     """Very simple grep that returns the first matching line in a file.
