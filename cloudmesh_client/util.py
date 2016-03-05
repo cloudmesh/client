@@ -129,7 +129,7 @@ def HEADING(txt=None):
     """
     if txt is None:
         txt = inspect.getouterframes(inspect.currentframe())[1][3]
-
+    print()
     banner(txt)
 
 
