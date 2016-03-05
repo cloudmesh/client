@@ -69,7 +69,8 @@ log:
 ######################################################################
 
 clean:
-	rm -rf *.egg-info *.eggs
+	rm -rf *.egg-info
+	rm -rf *.eggs
 	rm -rf docs/build
 	rm -rf build
 	rm -rf dist
