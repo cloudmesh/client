@@ -21,12 +21,13 @@ class Test_vm:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command)
+        banner(command, c='-')
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
         result = Shell.execute(shell_command, args)
-        return str(result)
+        print(result)
+        return result
 
     def setup(self):
 

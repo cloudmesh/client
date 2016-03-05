@@ -15,11 +15,13 @@ from cloudmesh_client.util import HEADING
 
 
 def run(command):
+    print(command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
-    return str(result)
+    print (result)
+    return result
 
 
 class Test_limits():
