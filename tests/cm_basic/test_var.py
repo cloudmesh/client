@@ -1,5 +1,6 @@
 """ run with
 
+python setup.py install; nosetests -v --nocapture tests//cm_basic/test_var.py
 python setup.py install; nosetests -v --nocapture tests//cm_basic/test_var.py:Test_var.test_001
 
 nosetests -v --nocapture tests/cm_basic/test_var.py
@@ -22,7 +23,7 @@ def run(command):
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
     print(result)
-    return str(result)
+    return result
 
 
 class Test_default():

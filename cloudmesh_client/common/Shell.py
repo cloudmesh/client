@@ -334,10 +334,11 @@ class Shell(object):
         else:
             print ("ERROR: Wrong parameter type", type(arguments))
 
-        result = subprocess.check_output(os_command,
-                                         stderr=subprocess.STDOUT).rstrip()
+        result = subprocess.check_output(
+            os_command,
+            stderr=subprocess.STDOUT).rstrip()
 
-        return str(result)
+        return result.decode()
 
     @classmethod
     def mkdir(cls, newdir):
