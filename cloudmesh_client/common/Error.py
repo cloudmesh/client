@@ -1,4 +1,5 @@
 import sys
+import traceback
 
 class Error(object):
 
@@ -7,7 +8,6 @@ class Error(object):
         if debug and error is not None:
             print (error)
         if trace:
-            import traceback
             print(traceback.format_exc())
 
     @classmethod

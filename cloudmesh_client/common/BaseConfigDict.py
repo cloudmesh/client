@@ -10,7 +10,7 @@ from pprint import pprint
 import stat
 from string import Template
 import sys
-import traceback
+from cloudmesh_client.common.Error import Error
 
 from cloudmesh_client.locations import config_file
 from cloudmesh_client.logger import LOGGER
@@ -142,8 +142,7 @@ def read_yaml_config(filename, check=True, osreplace=True, exit=True):
         except Exception as e:
             log.error(
                 "The file {0} fails with a yaml read error".format(filename))
-            log.error(str(e))
-            print(traceback.format_exc())
+            Error.traceback(e)
             sys.exit()
 
     else:

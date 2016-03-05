@@ -18,6 +18,7 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
+from cloudmesh_client.common.Error import Error
 
 from builtins import input
 
@@ -224,9 +225,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     Console.error("{:} failed".format(msg))
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem running VM refresh")
 
         cloud = arguments["--cloud"] or Default.get_cloud()
@@ -327,9 +326,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
 
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem booting instance {:}".format(name))
 
         elif arguments["default"]:
@@ -353,9 +350,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 ValueError("default command not implemented properly. Upon "
                            "first install the defaults should be read from yaml.")
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem listing defaults")
 
         elif arguments["status"]:
@@ -366,9 +361,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem retrieving status of the VM")
 
         elif arguments["info"]:
@@ -381,9 +374,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem retrieving status of the VM")
 
         elif arguments["start"]:
@@ -413,9 +404,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem starting instances")
 
         elif arguments["stop"]:
@@ -446,9 +435,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem stopping instances")
 
         elif arguments["refresh"]:
@@ -482,9 +469,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem deleting instances")
 
         elif arguments["ip"] and arguments["assign"]:
@@ -516,9 +501,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem assigning floating ips.")
 
         elif arguments["ip"] and arguments["show"]:
@@ -557,9 +540,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error(
                     "Problem getting ip addresses for instance {:}".format(id))
 
@@ -668,9 +649,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print(e)
+                    Error.traceback(e)
                     Console.error("Problem listing all instances")
             else:
 
@@ -699,9 +678,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
 
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print(e)
+                    Error.traceback(e)
                     Console.error(
                         "Problem listing instances on cloud {:}".format(cloud))
 
@@ -751,9 +728,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem deleting instances")
 
         return ""

@@ -13,6 +13,7 @@ from cloudmesh_client.cloud.register import CloudRegister, Register
 from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
 from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.Error import Error
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -388,9 +389,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             try:
                 CloudRegister.from_environ(arguments['--provider'])
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
             return ""
 
         elif arguments['CLOUD']:
