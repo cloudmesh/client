@@ -36,7 +36,7 @@ class LibcloudDict(object):
     @staticmethod
     def handle_vm_extra_args(extra_args):
         extra_vm_dict = {}
-        for key, value in extra_args.items():
+        for key, value in list(extra_args.items()):
             if key == "availability":
                 extra_vm_dict[key] = value
             if key == "instance_id":
@@ -77,7 +77,7 @@ class LibcloudDict(object):
 
     @staticmethod
     def handle_vm_size_extra_args(node_size_extra_args):
-        for key, val in node_size_extra_args.items():
+        for key, val in list(node_size_extra_args.items()):
             pprint(key + " : " + str(val))
 
     @staticmethod
@@ -104,7 +104,7 @@ class LibcloudDict(object):
     @staticmethod
     def handle_vm_image_extra_args(extra_args):
         image_extra_args_dict = {}
-        for key, value in extra_args.items():
+        for key, value in list(extra_args.items()):
             if key == "architecture":
                 image_extra_args_dict[key] = value
             if key == "description":
