@@ -41,7 +41,8 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
-requirements = ['nose',
+requirements = ['apache-libcloud',
+                'nose',
                 'pytest',
                 'colorama',
                 'future',
