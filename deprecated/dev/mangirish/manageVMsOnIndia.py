@@ -24,7 +24,7 @@ print("Following are the running servers")
 servers = nova.servers.list()
 print(servers)
 
-# TODO: make this a class and use teh Bar as example so we can integrate into the shell
+# TODO: make this a class and use the Bar as example so we can integrate into the shell
 # TODO: move that to plugins in the cloudmesh_client
 
 if COMMANDARG != "create":

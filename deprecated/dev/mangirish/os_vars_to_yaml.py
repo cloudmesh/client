@@ -109,7 +109,7 @@ class ConfigEnv (object):
                 ConfigEnv.env_config_data[x] = os.environ[x]
                 # print(env_config_data)
 
-# Main execution begins here
-ConfigEnv.read()
-ConfigEnv.add()
-ConfigEnv.export()
+if __name__ == "__main__":
+    ConfigEnv.read()
+    ConfigEnv.add()
+    ConfigEnv.export()
