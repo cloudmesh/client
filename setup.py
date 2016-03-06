@@ -73,13 +73,16 @@ def read(fname):
 
 home = os.path.expanduser("~")
 
-data_files= [ (os.path.join(home, '.cloudmesh'),
-               [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
-                    os.path.join('cloudmesh_client', 'etc'))]
+# data_files= [
+#    (os.path.join(home, '.cloudmesh'),
+#    [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
+#                os.path.join('cloudmesh_client', 'etc'))]
+#
+# print ("DDDD", data_files)
 
-package_data={
-   'cloudmesh_client.etc': ['*.yaml', '*.py'],
-},
+# package_data={
+#   'cloudmesh_client.etc': ['*.yaml', '*.py'],
+# },
 
 
 setup(
@@ -112,10 +115,10 @@ setup(
     packages=find_packages(),
     install_requires=requirements,
     include_package_data=True,
-    data_files= data_files,
-    package_data={
-        'cloudmesh_client.etc': ['*.yaml', '*.py'],
-    },
+    # data_files= data_files,
+    # package_data={
+    #     'cloudmesh_client.etc': ['*.yaml', '*.py'],
+    # },
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
