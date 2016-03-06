@@ -72,12 +72,14 @@ pytest:
 	make -f Makefile clean
 	pip install -r requirements.txt
 	python setup.py install
+	cm register remote
 	py.test tests
 
 nosetest:
 	make -f Makefile clean
 	pip install -r requirements.txt
 	python setup.py install
+	cm register remote
 	nosetests -v --nocapture tests
 
 ######################################################################
