@@ -95,6 +95,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         :param cloud: Cloud on which to spawn the machine. Defaults to 'India'.
         :param key: Key to be used for the instance
         :param secgroup: Security group for the instance
+        :param nics: TODO: fixme
         :param meta: A dict of arbitrary key/value metadata to store for this server
         """
         pprint("BOOTING UP THE VM")
@@ -137,4 +138,4 @@ class CloudProviderLibcloud(CloudProviderBase):
             if size.id == size_id:
                 return size
         raise ValueError("flavor id not found")
-        return None
+        # return None
