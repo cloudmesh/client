@@ -96,6 +96,7 @@ clean:
 	find . -name '__pycache__' -delete
 	find . -name '*.pyc' -delete
 	-pip uninstall cloudmesh_client -y
+	rm -rf .tox
 
 ######################################################################
 # TAGGING
