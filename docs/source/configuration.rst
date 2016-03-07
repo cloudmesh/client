@@ -331,6 +331,40 @@ values with the chameleon project ID that you use for this cloud::
 Registration of CloudLab Openstack Cloud
 --------------------------------------
 
+.. warning:: At this time the instructions for integrating the Openstack cloud from jetstream do not yet work and
+             should not be followed. They are included here as notes to remind us which steps we took.
+
+
+1. We send Mail to jetstream to enable an account via iplant
+2. We asked for the credentials for jetstream. It was pointed out that the TACC credentials will work
+3. After trying to reset the TACC credentials and reading the XSEDE user manual we are confused as there seems to be
+   not a consistant documentation how to do step 2.
+
+Here is what we found out and did
+
+1. We reset the password from TACC via
+
+   * https://portal.tacc.utexas.edu/password-reset/-/password/request-reset
+
+2. We tried to use the bassword and username via while using the domains 'tacc' and 'default'
+
+   * https://jblb.jetstream-cloud.org/dashboard/
+
+3. We found the following doument which is not obvious to find
+
+   * http://jetstream-cloud.org/files/Jetstream_User_Guide-3-3-16-11am-Reduced.pdf
+
+4. In it you find the link to the iplant portal:
+
+   * https://use.jetstream-cloud.org
+
+   We can login to iplant and start vms through it. But it used the globus credentials which are yet under a
+   different name
+
+
+Registration of CloudLab Openstack Cloud
+--------------------------------------
+
 .. todo:: not yet tested but should work. add cloud registration here
 
 Registration of AWS Cloud
