@@ -19,7 +19,7 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         super(CloudProviderLibcloudEC2, self).__init__(cloud_name, cloud_details, user=user)
         self.flat = flat
         self.cloud_type = "libcloud"
-        self.kind = ["image", "vm"]
+        self.kind = ["image", "vm", "flavor"]
         self.cloudname = cloud_name
         self.initialize(cloud_name)
 

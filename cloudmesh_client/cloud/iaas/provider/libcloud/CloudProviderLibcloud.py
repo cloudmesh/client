@@ -35,6 +35,13 @@ class CloudProviderLibcloud(CloudProviderBase):
         self.cloud_details = None
         self.provider = None
 
+    def list_key(self, cloudname, **kwargs):
+        pprint("In list_key")
+        keys = self.provider.list_key_pairs()
+        self._print(keys)
+        keys_dict = self._to_dict(keys)
+        return keys_dict
+
     def list_vm(self, cloudname, **kwargs):
         pprint("In list_vm")
         nodes = self.provider.list_nodes()
@@ -49,6 +56,13 @@ class CloudProviderLibcloud(CloudProviderBase):
         image_dict = self._to_dict(images)
         return image_dict
 
+    def list_flavor(self, cloudname, **kwargs):
+        pprint("In list_flavor of libcloud")
+        sizes = self.provider.list_sizes()
+        self._print(sizes)
+        sizes_dict = self._to_dict(sizes)
+        return sizes_dict
+
     def list_size(self, cloudname, **kwargs):
         pprint("In list_sizes of libcloud")
         sizes = self.provider.list_sizes()
@@ -60,13 +74,15 @@ class CloudProviderLibcloud(CloudProviderBase):
         d = {}
         result_type = ""
         if len(libcloud_result) > 0:
-            if libcloud_result[0].__class__.__name__ == "Node":
+            name = libcloud_result[0].__class__.__name__
+            print ("RRRR", name)
+            if  name == "Node":
                 result_type = "Node"
                 pprint("Node type object received")
-            elif libcloud_result[0].__class__.__name__ == "NodeImage":
+            elif name == "NodeImage":
                 result_type = "NodeImage"
                 pprint("NodeImage type object received")
-            elif libcloud_result[0].__class__.__name__ == "NodeSize":
+            elif name == "NodeSize":
                 result_type = "NodeSize"
                 pprint("NodeSize type object received")
         # pprint(libcloud_result[0])
