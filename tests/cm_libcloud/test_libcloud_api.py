@@ -43,7 +43,7 @@ class Test_libcloud_api():
         #r = provider.list_flavor(cloud)
         #pprint(r)
 
-        for kind in ["image"]: # , "flavor", "vm", "limits", "quota"]:
+        for kind in ["image", "vm"]: # , "flavor", "vm", "limits", "quota"]:
             r = provider.list(kind, cloud)
             pprint(r)
 
