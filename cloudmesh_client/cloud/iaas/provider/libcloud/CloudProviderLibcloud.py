@@ -19,9 +19,10 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def _print(self, o):
         if self.debug:
-        pprint (o)
-        for element in o:
-            pprint (element.__dict__)
+
+            pprint (o)
+            for element in o:
+                pprint (element.__dict__)
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloud, self).__init__(cloud_name, user=user)
