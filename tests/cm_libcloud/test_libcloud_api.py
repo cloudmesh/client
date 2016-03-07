@@ -40,10 +40,10 @@ class Test_libcloud_api():
         # pprint (provider.__dict__)
         # pprint (dir(provider))
 
-        r = provider.list_flavor(cloud)
-        pprint(r)
+        #r = provider.list_flavor(cloud)
+        #pprint(r)
 
-        for kind in ["flavor", "image"]: # , "vm", "limits", "quota"]:
+        for kind in ["image"]: # , "flavor", "vm", "limits", "quota"]:
             r = provider.list(kind, cloud)
             pprint(r)
 

@@ -5,6 +5,7 @@ from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import requests
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 import CloudProviderLibcloudEC2
 
 requests.packages.urllib3.disable_warnings()
 
@@ -30,11 +31,15 @@ class CloudProvider(CloudProviderBase):
                 self.provider_class = CloudProviderOpenstackAPI
 
             if cloud_details["cm_type"] == "ec2":
-                raise ValueError("ec2 cloud provider yet to be implemented. failed.")
-                TODO.implement()
+                provider = CloudProviderLibcloudEC2(
+                    cloudname,
+                    cloud_details,
+                    flat=flat)
+                self.provider = provider
+                self.provider_class = CloudProviderLibcloudEC2
 
             if cloud_details["cm_type"] == "azure":
-                raise ValueError("azure cloud provider yet to be implemented. failed")
+                raise ValueError("azure cloud provider yet implemented. failed.")
                 TODO.implement()
 
         except Exception as e:
