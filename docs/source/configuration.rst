@@ -328,7 +328,7 @@ values with the chameleon project ID that you use for this cloud::
 
 
 
-Registration of CloudLab Openstack Cloud
+Registration of Jetstream Openstack Cloud
 --------------------------------------
 
 .. warning:: At this time the instructions for integrating the Openstack cloud from jetstream do not yet work and
