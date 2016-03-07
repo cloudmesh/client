@@ -188,7 +188,7 @@ class Cluster(object):
                                           "computeset"
                                       ],
                                       output=format,
-                                      sort_keys=('cluster','name'))
+                                      sort_keys=('cluster','mac'))
             return result
 
     @staticmethod
