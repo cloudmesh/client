@@ -6,7 +6,7 @@ from cloudmesh_client.cloud.limits import Limits
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
 
-class LimitsCommand(PluginCommand, CloudPluginCommand):
+class LoadCommand(PluginCommand, CloudPluginCommand):
     topics = {"load": "shell"}
 
     def __init__(self, context):
@@ -16,7 +16,7 @@ class LimitsCommand(PluginCommand, CloudPluginCommand):
 
     # noinspection PyUnusedLocal
     @command
-    def do_limits(self, args, arguments):
+    def do_load(self, args, arguments):
         """
         ::
 
