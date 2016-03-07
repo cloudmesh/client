@@ -18,7 +18,8 @@ class CloudProviderLibcloud(CloudProviderBase):
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloud, self).__init__(cloud_name, user=user)
         self.flat = flat
-        self.kind = "libcloud"
+        self.cloud_type = "libcloud"
+        self.kind = ["image"]
         self.default_image = None
         self.default_flavor = None
         self.cloud = None

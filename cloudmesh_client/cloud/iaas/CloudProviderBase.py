@@ -80,12 +80,12 @@ class CloudProviderBase(object):
 
     def check_kind(self, name):
         """
-        returns tru if the kind given by name exists
+        returns true if the kind given by name exists
         :param name:
         :return:
         """
         if not self.is_kind(name):
-            raise ValueError("Kind " + name + "not supported")
+            raise ValueError("Kind " + name + " not supported")
 
     # #########################
     # RESOURCE
