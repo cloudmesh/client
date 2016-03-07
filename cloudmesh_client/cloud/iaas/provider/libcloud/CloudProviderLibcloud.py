@@ -15,6 +15,14 @@ import libcloud.security
 
 class CloudProviderLibcloud(CloudProviderBase):
 
+    debug = True
+
+    def _print(self, o):
+        if self.debug:
+        pprint (o)
+        for element in o:
+            pprint (element.__dict__)
+
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderLibcloud, self).__init__(cloud_name, user=user)
         self.flat = flat
@@ -29,18 +37,21 @@ class CloudProviderLibcloud(CloudProviderBase):
     def list_vm(self, cloudname, **kwargs):
         pprint("In list_vm")
         nodes = self.provider.list_nodes()
+        self._print(nodes)
         vm_dict = self._to_dict(nodes)
         return vm_dict
 
     def list_image(self, cloudname, **kwargs):
         pprint("In list_images of libcloud")
         images = self.provider.list_images()
+        self._print(images)
         image_dict = self._to_dict(images)
         return image_dict
 
     def list_size(self, cloudname, **kwargs):
         pprint("In list_sizes of libcloud")
         sizes = self.provider.list_sizes()
+        self._print(sizes)
         sizes_dict = self._to_dict(sizes)
         return sizes_dict
 
