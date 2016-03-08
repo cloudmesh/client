@@ -33,10 +33,11 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--allocation=ALLOCATION]
                             [--cluster=CLUSTERID]
                             [--state=COMPUTESESTATE]
-               comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
+               comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                             [--allocation=ALLOCATION]
                             [--walltime=WALLTIME]
-               comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+               comet terminate COMPUTESETID
+               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
                comet iso list
                comet iso upload [--isoname=ISONAME] PATHISOFILE
@@ -66,13 +67,6 @@ class CometCommand(PluginCommand, CometPluginCommand):
             Arguments:
                 CLUSTERID       The assigned name of a cluster, e.g. vc1
                 COMPUTESETID    An integer identifier assigned to a computeset
-                NODESPARAM      Specifying the node/nodes/computeset to act on.
-                                In case of integer, will be intepreted as a computesetid;
-                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                                of nodes; or a single host is also acceptable,
-                                e.g., vm-vc1-0
-                                If not provided, the requested action will be taken
-                                on the frontend node of the specified cluster
                 COMPUTENODEID   A compute node name, e.g., vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
@@ -81,6 +75,11 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 One single node is also acceptable: vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
+                NODESPARAM      Specifying the node/nodes/computeset to act on.
+                                In case of integer, will be intepreted as a computesetid;
+                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                                of nodes; or a single host is also acceptable,
+                                e.g., vm-vc1-0
                 ISONAME         Name of an iso image at remote server
                 PATHISOFILE     The full path to the iso image file to be uploaded
         """
@@ -359,81 +358,92 @@ class CometCommand(PluginCommand, CometPluginCommand):
             allocation = arguments["--allocation"] or None
             cluster = arguments["--cluster"] or None
             print (Cluster.computeset(computeset_id, cluster, state, allocation))
-
-        elif arguments["power"]:
-
+        elif arguments["start"]:
             clusterid = arguments["CLUSTERID"]
             numnodes = arguments["--count"] or None
+            computenodeids = arguments["COMPUTENODEIDS"] or None
+
+            # check allocation information for the cluster
             cluster = Cluster.list(clusterid, format='rest')
             try:
                 allocations = cluster[0]['allocations']
             except:
-                print (cluster)
+                # print (cluster)
+                Console.error("No allocation available for the specified cluster." \
+                              "Please check with the comet help team")
                 return ""
-            # for testing only
-            '''
-            allocations = ['sys200',
-                           'sys100',
-                           'sys300',
-                           'sys400',
-                           'sys500',
-                           'sys050',
-                           'tst010',
-                           'tst001']
-            '''
 
-            if not numnodes:
-                fuzzyparam = None
-                if 'NODESPARAM' in arguments:
-                    fuzzyparam = arguments["NODESPARAM"]
-                param = fuzzyparam
-
-                # no nodes param provided, action on front end
-                if not fuzzyparam:
-                    subject = "FE"
-                    param = None
-                # parse the nodes param
-                else:
-                    try:
-                        param = int(fuzzyparam)
-                        subject = "COMPUTESET"
-                        param = str(param)
-                    except ValueError:
-                        if '[' in fuzzyparam and ']' in fuzzyparam:
-                            try:
-                                hosts_param = hostlist.expand_hostlist(fuzzyparam)
-                            except hostlist.BadHostlist:
-                                Console.error("Invalid hosts list specified!", traceflag=False)
-                                return ""
-                            subject = "HOSTS"
-                        else:
-                            subject = "HOST"
-            else:
+            # checking whether the computesetids is in valid hostlist format
+            if computenodeids:
+                try:
+                    hosts_param = hostlist.expand_hostlist(computenodeids)
+                except hostlist.BadHostlist:
+                    Console.error("Invalid hosts list specified!",
+                                  traceflag=False)
+                    return ""
+            elif numnodes:
                 try:
                     param = int(numnodes)
                 except ValueError:
                     Console.error("Invalid count value specified!", traceflag=False)
                     return ""
-                if param > 0:
-                    subject = "HOSTS"
-                    param = None
-                else:
+                if param <= 0:
                     Console.error("count value has to be greather than zero")
                     return ""
+                numnodes = param
+            else:
+                Console.error("You have to specify either the count of nodes, " \
+                              "or the names of nodes in hostlist format")
+                return ""
+
             walltime = arguments["--walltime"] or None
             allocation = arguments["--allocation"] or None
+
+            # validating walltime and allocation parameters
+            walltime = Cluster.convert_to_mins(walltime)
+            if not walltime:
+                print ("No valid walltime specified. "\
+                       "Using system default (2 days)")
+            if not allocation:
+                if len(allocations) == 1:
+                    allocation = allocations[0]
+                else:
+                    allocation = Cluster.display_get_allocation(allocations)
+
+            # issuing call to start a computeset with specified parameters
+            print (Cluster.computeset_start(clusterid,
+                                            computenodeids,
+                                            numnodes,
+                                            allocation,
+                                            walltime)
+                  )
+        elif arguments["terminate"]:
+            computesetid = arguments["COMPUTESETID"]
+            print (Cluster.computeset_terminate(computesetid))
+        elif arguments["power"]:
+            clusterid = arguments["CLUSTERID"] or None
+            fuzzyparam = arguments["NODESPARAM"] or None
+
+            # parsing nodesparam for proper action
+            if fuzzyparam:
+                try:
+                    param = int(fuzzyparam)
+                    subject = 'COMPUTESET'
+                except ValueError:
+                    param = fuzzyparam
+                    try:
+                        hosts_param = hostlist.expand_hostlist(fuzzyparam)
+                        subject = 'HOSTS'
+                    except hostlist.BadHostlist:
+                        Console.error("Invalid hosts list specified!",
+                                      traceflag=False)
+                        return ""
+            else:
+                subject = 'FE'
+                param = None
+
             if arguments["on"]:
                 action = "on"
-                if subject in ["HOSTS", "HOST"]:
-                    walltime = Cluster.convert_to_mins(walltime)
-                    if not walltime:
-                        print ("No valid walltime specified. "\
-                               "Using system default (2 days)")
-                    if not allocation:
-                        if len(allocations) == 1:
-                            allocation = allocations[0]
-                        else:
-                            allocation = Cluster.display_get_allocation(allocations)
             elif arguments["off"]:
                 action = "off"
             elif arguments["reboot"]:
@@ -447,10 +457,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             print (Cluster.power(clusterid,
                                  subject,
                                  param,
-                                 action,
-                                 allocation,
-                                 walltime,
-                                 numnodes)
+                                 action)
                   )
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
