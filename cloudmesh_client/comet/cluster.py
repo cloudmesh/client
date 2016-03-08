@@ -269,7 +269,7 @@ class Cluster(object):
         computesets = Comet.get_computeset(id)
         if computesets is not None:
             if 'cluster' in computesets:
-                result = Cluster.output_computeset(computesets)
+                result = Cluster.output_computeset(computesets, state='ALL')
             else:
                 result = ''
                 for acomputeset in computesets:
@@ -283,20 +283,20 @@ class Cluster(object):
 
     @staticmethod
     def output_computeset(computesetdict, cluster=None, state=None, allocation=None):
-        #print (cluster, state, allocation)
+        # print (cluster, state, allocation)
         result = ""
         # filter out based on query criteria
         if cluster and 'cluster' in computesetdict:
             if computesetdict["cluster"] != cluster:
                 return result
         if state and 'state' in computesetdict:
-            if computesetdict["state"] != state:
+            if "ALL" != state and computesetdict["state"] != state:
                 return result
         if allocation and 'account' in computesetdict:
             if computesetdict["account"] != allocation:
                 return result
 
-        if (state and computesetdict["state"] == state) or \
+        if (state and ("ALL" == state or computesetdict["state"] == state)) or \
            (computesetdict["state"] not in Cluster.FINISHED_COMPUTESETS):
             starttime = ''
             endtime = ''
