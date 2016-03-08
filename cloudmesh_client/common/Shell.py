@@ -14,6 +14,7 @@ import json
 import platform
 import os
 from cloudmesh_client.util import path_expand
+import zipfile,os.path
 
 
 class Shell(object):
@@ -360,6 +361,27 @@ class Shell(object):
                 os.mkdir(head)
             if tail:
                 os.mkdir(_newdir)
+
+    def unzip(source_filename, dest_dir):
+        """
+        unzips a file into the destination directory
+        :param dest_dir: the destination directory
+        :return:
+        """
+
+        with zipfile.ZipFile(source_filename) as zf:
+            for member in zf.infolist():
+                # Path traversal defense copied from
+                # http://hg.python.org/cpython/file/tip/Lib/http/server.py#l789
+                words = member.filename.split('/')
+                path = path_expand(dest_dir)
+                for word in words[:-1]:
+                    drive, word = os.path.splitdrive(word)
+                    head, word = os.path.split(word)
+                    if word in (os.curdir, os.pardir, ''):
+                        continue
+                    path = os.path.join(path, word)
+                zf.extract(member, path)
 
 
 def main():
