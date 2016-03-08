@@ -287,7 +287,19 @@ class CloudRegister(object):
         def sanitize(name):
             return name.replace(".zip", "").replace("@", "_")
 
-        print (cloud)
+        def find_exports(filename):
+            with open(filename, "r") as f:
+                content = f.read()
+            data = {}
+            for line in content.split("\n"):
+                if line.startswith("export "):
+                    line = line.replace("export ", "")
+                    attribute, value = line.split("=", 1)
+                    value = value.replace("${NOVA_KEY_DIR}/", "")
+                    # remove comments
+                    data[attribute] = value.split("#")[0].strip()
+            return data
+
         base = sanitize(os.path.basename(zipfile))
         dest = sanitize(os.path.join(
             path_expand("~"),
@@ -297,8 +309,38 @@ class CloudRegister(object):
             os.path.basename(zipfile)))
         Console.msg("Unzip file {} -> {}".format(zipfile, dest))
         r = Shell.unzip(zipfile, dest)
-        print (r)
-        Console.error("THIS METHOD IS NOT IMPLEMENTED YET")
+        rcfile = os.path.join(dest, "ec2rc.sh")
+        data = find_exports(rcfile)
+        data["DEST"] = dest
+        data["CLOUD"] = cloud
+        d = {
+            "cm_heading": "{CLOUD}, EC2".format(**data),
+            "cm_host": None,
+            "cm_label": "{CLOUD}_ec2".format(**data),
+            "cm_type": "ec2",
+            "cm_type_version": "ec2",
+            "credentials": {
+                "EC2_ACCESS_KEY": "{EC2_ACCESS_KEY}".format(**data),
+                "EC2_SECRET_KEY": "{EC2_SECRET_KEY}".format(**data),
+                "keyname": "TBD_not_used",
+                "userid": "TBD_not_used",
+                "EC2_URL": "{EC2_URL}".format(**data),
+                "EC2_USER_ID": "{EC2_USER_ID}",
+                "EC2_PRIVATE_KEY": "{DEST}/pk.pem".format(**data),
+                "EC2_CERT": "{DEST}/cert.pem".format(**data),
+                "NOVA_CERT": "{DEST}/cacert.pem".format(**data),
+                "EUCALYPTUS_CERT": "{DEST}/cacert.pem".format(**data),
+                },
+                "default": {
+                    "flavor": "m1.small",
+                    "image": "None",
+                }
+            }
+        from pprint import pprint
+        config = ConfigDict("cloudmesh.yaml")
+        config["cloudmesh"]["clouds"][cloud] = d
+        config.save()
+        # Console.error("THIS METHOD IS NOT IMPLEMENTED YET")
 
     @classmethod
     def test(cls, filename):
