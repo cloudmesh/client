@@ -15,7 +15,7 @@ from builtins import input
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common import Printer
-
+from cloudmesh_client.util import path_expand
 from builtins import input
 
 
@@ -280,6 +280,25 @@ class CloudRegister(object):
         config.save()
         config = ConfigDict("cloudmesh.yaml")
         return config["cloudmesh"]["clouds"][host]["credentials"]
+
+    @classmethod
+    def ec2(cls, cloud, zipfile):
+
+        def sanitize(name):
+            return name.replace(".zip", "").replace("@", "_")
+
+        print (cloud)
+        base = sanitize(os.path.basename(zipfile))
+        dest = sanitize(os.path.join(
+            path_expand("~"),
+            ".cloudmesh",
+            "clouds",
+            cloud,
+            os.path.basename(zipfile)))
+        Console.msg("Unzip file {} -> {}".format(zipfile, dest))
+        r = Shell.unzip(zipfile, dest)
+        print (r)
+        Console.error("THIS METHOD IS NOT IMPLEMENTED YET")
 
     @classmethod
     def test(cls, filename):
