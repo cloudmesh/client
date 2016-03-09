@@ -107,9 +107,9 @@ class Console(object):
         else:
             text = ""
         if Console.color:
-            Console.cprint('FAIL', text, message)
+            Console.cprint('FAIL', text, str(message))
         else:
-            print (Console.msg(text + message))
+            print (Console.msg(text + str(message)))
 
         trace = traceback.format_exc().strip()
 
