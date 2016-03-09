@@ -10,7 +10,7 @@ from pprint import pprint
 import stat
 from string import Template
 import sys
-import traceback
+from cloudmesh_client.common.Error import Error
 
 from cloudmesh_client.locations import config_file
 from cloudmesh_client.logger import LOGGER
@@ -34,7 +34,7 @@ def check_file_for_tabs(filename, verbose=True):
     :rtype: True if there are tabs in the file
     """
     file_contains_tabs = False
-    with file(filename) as f:
+    with open(filename) as f:
         lines = f.read().split("\n")
 
     line_no = 1
@@ -142,8 +142,7 @@ def read_yaml_config(filename, check=True, osreplace=True, exit=True):
         except Exception as e:
             log.error(
                 "The file {0} fails with a yaml read error".format(filename))
-            log.error(str(e))
-            print(traceback.format_exc())
+            Error.traceback(e)
             sys.exit()
 
     else:
@@ -162,7 +161,7 @@ class OrderedJsonEncoder(simplejson.JSONEncoder):
         if isinstance(o, OrderedDict):
             return "{" + ",\n ".join([self.encode(k) + ":" +
                                      self.encode(v, depth + 1)
-                                     for (k, v) in o.iteritems()]) + "}\n"
+                                     for (k, v) in o.items()]) + "}\n"
         else:
             return simplejson.JSONEncoder.encode(self, o)
 

@@ -14,6 +14,7 @@ from timestring import Date
 from cloudmesh_client.common.todo import TODO
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
+from cloudmesh_client.common.Error import Error
 
 
 class ReservationCommand(PluginCommand, CloudPluginCommand):
@@ -160,9 +161,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
 
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem listing reservations")
 
         elif arguments["delete"]:
@@ -175,9 +174,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
 
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print(e)
+                    Error.traceback(e)
                     Console.error("Problem deleting all reservations")
 
             else:
@@ -198,9 +195,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
 
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print(e)
+                    Error.traceback(e)
                     Console.error("Problem deleting reservations")
 
         elif arguments["add"]:
@@ -231,9 +226,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
 
                 except Exception as e:
-                    import traceback
-                    print(traceback.format_exc())
-                    print(e)
+                    Error.traceback(e)
                     Console.error(
                         "Problem adding reservation {:}".format(name))
 
@@ -286,9 +279,7 @@ class ReservationCommand(PluginCommand, CloudPluginCommand):
                 Console.ok(msg)
 
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
                 Console.error("Problem updating reservation {:}".format(name))
 
         return ""

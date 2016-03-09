@@ -1,3 +1,4 @@
+from future.utils import iteritems
 import json
 from datetime import datetime
 import textwrap
@@ -9,6 +10,7 @@ from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 import os
+from cloudmesh_client.common.Error import Error
 
 
 # noinspection PyBroadException
@@ -32,14 +34,14 @@ class BatchProviderSLURM(BatchProviderBase):
             l = result.splitlines()
             for i, res in enumerate(l):
                 if 'ACCOUNT|GRES|' in res:
-                    result = "\n".join(l[i:])
+                    result = "\n".join(str(x) for x in l[i:])
                     break
 
             parser = TableParser(strip=True)
             d = parser.to_dict(result)
 
             # add cluster and updated to each entry
-            for key in d.keys():
+            for key in list(d.keys()):
                 d[key]['cluster'] = cluster
                 d[key]['updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -59,8 +61,9 @@ class BatchProviderSLURM(BatchProviderBase):
                                             'nodelist',
                                             'updated'],
                                      output=format))
-        except Exception as ex:
-            return ex
+        except Exception as e:
+            Error.traceback(e)
+            return e
 
     @classmethod
     def info(cls, cluster, format='json', all=False):
@@ -83,7 +86,7 @@ class BatchProviderSLURM(BatchProviderBase):
         d = parser.to_dict(result)
 
         # add cluster and updated to each entry
-        for key in d.keys():
+        for key in list(d.keys()):
             d[key]['cluster'] = cluster
             d[key]['updated'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -164,9 +167,13 @@ class BatchProviderSLURM(BatchProviderBase):
                           '-D': '{remote_experiment_dir}'.format(**data),
                           '-e': '{script_error}'.format(**data)}
 
-        map(lambda k, v:
-            option_mapping.__setitem__(k, kwargs.get(k) or v),
-            option_mapping.iteritems())
+        #map(lambda k, v:
+        #    option_mapping.__setitem__(k, kwargs.get(k) or v),
+        #    option_mapping.items())
+        #
+        # rewrite for better readability
+        for (k, v) in iteritems(option_mapping):
+            option_mapping[k] = kwargs.get(k) or v
 
         config = cls.read_config(cluster)
         project = None
@@ -182,7 +189,7 @@ class BatchProviderSLURM(BatchProviderBase):
 
         # create the options for the script
         options = ""
-        for key, value in option_mapping.iteritems():
+        for key, value in option_mapping.items():
             options += '#SBATCH {} {}\n'.format(key, value)
 
         cls.create_remote_dir(cluster, data["remote_experiment_dir"])

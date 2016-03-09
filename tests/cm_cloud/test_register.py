@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_register.py:Test_register.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_register.py:Test_register.test_001
 
 nosetests -v --nocapture tests/test_register.py
 
@@ -17,11 +17,12 @@ from cloudmesh_client.util import HEADING
 
 
 def run(command):
-    print ("EXECUTING:", command)
+    print (command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
+    print(result)
     return result
 
 class Test_register():

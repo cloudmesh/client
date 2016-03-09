@@ -13,13 +13,29 @@ cloudmesh:
         location: TBD
         browser: firefox
     comet:
-        auth_provider: userpass
-        userpass:
-            username: TBD
-            password: TBD
-        apikey:
-            api_key: TBD
-            api_secret: TBD
+        username: TBD
+        active: dev
+        endpoints:
+            dev:
+                nucleus_base_url: https://comet-nucleus.sdsc.edu/nucleus
+                api_version: v1
+                auth_provider: apikey
+                userpass:
+                  username: TBD
+                  password: TBD
+                apikey:
+                  api_key: TBD
+                  api_secret: TBD
+            production:
+                nucleus_base_url: TBD
+                api_version: v1
+                auth_provider: apikey
+                userpass:
+                  username: TBD
+                  password: TBD
+                apikey:
+                  api_key: TBD
+                  api_secret: TBD
     hpc:
         experiment:
            name: gregor-00000
@@ -91,6 +107,25 @@ cloudmesh:
                 OS_USERNAME: TBD
                 OS_VERSION: kilo
                 OS_REGION_NAME: RegionOne
+            default:
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
+        jetstream:
+            cm_heading: Jetstream
+            cm_host: http://jetstream-cloud.org/
+            cm_label: jetstream
+            cm_type: openstack
+            cm_type_version: kilo
+            credentials:
+              OS_PROJECT_DOMAIN_NAME: tacc
+              OS_USER_DOMAIN_NAME: tacc
+              OS_PROJECT_NAME: TBD
+              OS_TENANT_NAME: TBD
+              OS_USERNAME: TBD
+              OS_PASSWORD: TBD
+              OS_AUTH_URL: https://jblb.jetstream-cloud.org:35357/v3
+              OS_IDENTITY_API_VERSION: 3
+              OS_VERSION: kilo
             default:
                 flavor: m1.small
                 image: Ubuntu-Server-14.04-LTS

@@ -8,13 +8,18 @@ import collections
 import pip
 import sys
 
+from builtins import input
+from past.builtins import basestring
 
 def grep(pattern, filename):
     """Very simple grep that returns the first matching line in a file.
     String matching only, does not do REs as currently implemented.
     """
     try:
-        return (L for L in open(filename) if L.find(pattern) >= 0).next()
+        # for line in file
+        # if line matches pattern:
+        #    return line
+        return next((L for L in open(filename) if L.find(pattern) >= 0))
     except StopIteration:
         return ''
 
@@ -36,7 +41,7 @@ def convert_from_unicode(data):
     if isinstance(data, basestring):
         return str(data)
     elif isinstance(data, collections.Mapping):
-        return dict(map(convert_from_unicode, data.iteritems()))
+        return dict(map(convert_from_unicode, data.items()))
     elif isinstance(data, collections.Iterable):
         return type(data)(map(convert_from_unicode, data))
     else:
@@ -51,13 +56,12 @@ def yn_choice(message, default='y', tries=None):
     # http://stackoverflow.com/questions/3041986/python-command-line-yes-no-input"""
     choices = 'Y/n' if default.lower() in ('y', 'yes') else 'y/N'
     if tries is None:
-        choice = raw_input("%s (%s) " % (message, choices))
+        choice = input("%s (%s) " % (message, choices))
         values = ('y', 'yes', '') if default == 'y' else ('y', 'yes')
         return True if choice.strip().lower() in values else False
     else:
         while tries > 0:
-            choice = raw_input("%s (%s) (%s)" %
-                               (message, choices, "'q' to discard"))
+            choice = input("%s (%s) (%s)" % (message, choices, "'q' to discard"))
             choice = choice.strip().lower()
             if choice in ['y', 'yes']:
                 return True
@@ -125,7 +129,7 @@ def HEADING(txt=None):
     """
     if txt is None:
         txt = inspect.getouterframes(inspect.currentframe())[1][3]
-
+    print()
     banner(txt)
 
 
@@ -159,7 +163,7 @@ def auto_create_version(class_name, version, filename="__init__.py"):
     if content != '__version__ = "{0}"'.format(version):
         banner("Updating version to {0}".format(version))
         with open(version_filename, "w") as text_file:
-            text_file.write(u'__version__ = "{0:s}"'.format(version))
+            text_file.write('__version__ = "{0:s}"'.format(version))
 
 
 def auto_create_requirements(requirements):

@@ -68,13 +68,13 @@ class List(object):
         if isinstance(item, list):
             for element in item:
                 d[element.id] = {}
-                for key in element.__dict__.keys():
+                for key in list(element.__dict__.keys()):
                     if not key.startswith("_sa"):
                         d[element.id][key] = str(element.__dict__[key])
         # Form dict without iterating
         else:
             d[item.id] = {}
-            for key in item.__dict__.keys():
+            for key in list(item.__dict__.keys()):
                 if not key.startswith("_sa"):
                     d[item.id][key] = str(item.__dict__[key])
 

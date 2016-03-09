@@ -41,28 +41,33 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
-requirements = ['colorama',
-                'future',
-                'docopt',
-                'pyaml',
-                'pyyaml',
-                'simplejson',
-                'python-hostlist',
-                'prettytable',
-                'sqlalchemy',
-                'urllib3',
-                'requests',
-                'pycrypto',
-                'httpsig',
-                'sandman',
-                'gitchangelog',
-                'six',
-                'python-novaclient',
-                'python-keystoneclient',
-                'cloudmesh_timestring',
-                'wheel',
-                'tox',
-                'pytimeparse']
+requirements = [
+    'pbr>=1.6',
+    'apache-libcloud',
+    'nose',
+    'pytest',
+    'colorama',
+    'future',
+    'docopt',
+    'pyaml',
+    'pyyaml',
+    'simplejson',
+    'python-hostlist',
+    'prettytable',
+    'sqlalchemy',
+    'urllib3',
+    'requests',
+    'pycrypto',
+    'httpsig',
+    'sandman',
+    'gitchangelog',
+    'six',
+    'python-novaclient',
+    'python-keystoneclient',
+    'cloudmesh_timestring',
+    'wheel',
+    'tox',
+    'pytimeparse']
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -70,13 +75,16 @@ def read(fname):
 
 home = os.path.expanduser("~")
 
-data_files= [ (os.path.join(home, '.cloudmesh'),
-               [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
-                    os.path.join('cloudmesh_client', 'etc'))]
+# data_files= [
+#    (os.path.join(home, '.cloudmesh'),
+#    [os.path.join(d, f) for f in files]) for d, folders, files in os.walk(
+#                os.path.join('cloudmesh_client', 'etc'))]
+#
+# print ("DDDD", data_files)
 
-package_data={
-   'cloudmesh_client.etc': ['*.yaml', '*.py'],
-},
+# package_data={
+#   'cloudmesh_client.etc': ['*.yaml', '*.py'],
+# },
 
 
 setup(
@@ -109,18 +117,18 @@ setup(
     packages=find_packages(),
     install_requires=requirements,
     include_package_data=True,
-    data_files= data_files,
-    package_data={
-        'cloudmesh_client.etc': ['*.yaml', '*.py'],
-    },
+    # data_files= data_files,
+    # package_data={
+    #     'cloudmesh_client.etc': ['*.yaml', '*.py'],
+    # },
     entry_points={
         'console_scripts': [
             'cm = cloudmesh_client.shell.cm:main',
             # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },
-    tests_require=['tox'],
-    dependency_links = []
+    # tests_require=['tox'],
+    # dependency_links = []
 )
 
 

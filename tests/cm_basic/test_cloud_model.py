@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests//cm_basic/test_model.py:Test_model.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_basic/test_model.py:Test_model.test_001
 
 nosetests -v --nocapture tests/cm_basic/test_model.py
 
@@ -57,13 +57,13 @@ class Test_cloud_model(object):
         }
 
         self.vm = {
-            'extra': {'access_ip': u'',
+            'extra': {'access_ip': '',
                       'availability_zone': 'nova',
-                      'config_drive': u'',
+                      'config_drive': '',
                       'created': '2015-06-19T00:06:58Z',
                       'disk_config': 'MANUAL',
                       'flavorId': '1',
-                      'hostId': u'',
+                      'hostId': '',
                       'imageId': 'abcd',
                       'key_name': None,
                       'metadata': {},

@@ -5,7 +5,7 @@ from cloudmesh_client.common.Shell import Shell
 
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests/test_limits.py:Test_nova.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_cloud/test_limits.py:Test_nova.test_001
 
 nosetests -v --nocapture tests/test_nova.py
 
@@ -17,10 +17,12 @@ nosetests -v tests/test_nova.py
 
 
 def run(command):
+    print (command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
+    print(result)
     return result
 
 

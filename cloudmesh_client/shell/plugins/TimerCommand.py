@@ -10,8 +10,11 @@ class TimerCommand(PluginCommand, CloudPluginCommand):
 
     def __init__(self, context):
         self.context = context
-        if self.context.timer:
-            print("init command timer")
+        try:
+            if self.context.timer:
+                print("init command timer")
+        except:
+            self.context.timer = False
         # try:
         #    value = Default.get_timer()
         # except:

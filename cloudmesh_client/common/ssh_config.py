@@ -57,7 +57,7 @@ class ssh_config(object):
         self.hosts = hosts
 
     def list(self):
-        return self.hosts.keys()
+        return list(self.hosts.keys())
 
     def __str__(self):
         return json.dumps(self.hosts, indent=4)

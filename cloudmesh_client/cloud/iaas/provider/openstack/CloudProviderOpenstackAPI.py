@@ -23,7 +23,7 @@ def set_os_environ(cloudname):
     try:
         d = ConfigDict("cloudmesh.yaml")
         credentials = d["cloudmesh"]["clouds"][cloudname]["credentials"]
-        for key, value in credentials.iteritems():
+        for key, value in list(credentials.items()):
             if key == "OS_CACERT":
                 os.environ[key] = Config.path_expand(value)
             else:
@@ -38,13 +38,13 @@ def set_os_environ(cloudname):
 
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    kind = "openstack"
+    kind = "openstack" # BUG this should be cloud_type
     cloud_pwd = {}
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.flat = flat
-        self.kind = "openstack"
+        self.kind = "openstack" # BUG this should be cloud_type
         self.provider = None
         self.default_image = None
         self.default_flavor = None
@@ -72,13 +72,59 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def _ksv3_auth(self, credentials):
         # auth to identity v3
-        ksauth = v3.Password(
-            auth_url=credentials["OS_AUTH_URL"],
-            username=credentials["OS_USERNAME"],
-            password=credentials["OS_PASSWORD"],
-            project_name=credentials["OS_PROJECT_NAME"],
-            user_domain_name=credentials["OS_USER_DOMAIN_ID"],
-            project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
+
+        # ref: http://docs.openstack.org/developer/python-keystoneclient/api/keystoneclient.auth.identity.v3.html#keystoneclient.auth.identity.v3.Password
+        allowed_params = ["auth_url",
+                          "password",
+                          "username",
+                          "user_id",
+                          "user_domain_id",
+                          "user_domain_name",
+                          "trust_id",
+                          "domain_id",
+                          "domain_name",
+                          "project_id",
+                          "project_name",
+                          "project_domain_id",
+                          "project_domain_name"]
+        authdict = {}
+        # always required
+        authdict["auth_url"]=credentials["OS_AUTH_URL"]
+        authdict["password"]=credentials["OS_PASSWORD"]
+
+        # setting automatically all available ones
+        # CAUTION: MAY be causing conflict/error.
+        # e.g., for jetstream, the OS_USER_DOMAIN_ID=tacc
+        # was causing error (domain not found)
+        for key in credentials:
+            if key.startswith("OS_"):
+                newkey = key[3:].lower()
+                if newkey in allowed_params:
+                    authdict[newkey] = credentials[key]
+
+        '''
+        # different cloud provider may be using different set of other info
+        # e.g. id or name for project, domain, etc.
+        if "OS_USERNAME" in credentials:
+            authdict["username"] = credentials["OS_USERNAME"]
+        if "OS_USER_ID" in credentials:
+            authdict["user_id"] = credentials["OS_USER_ID"]
+        if "OS_PROJECT_NAME" in credentials:
+            authdict["project_name"] = credentials["OS_PROJECT_NAME"]
+        if "OS_PROJECT_ID" in credentials:
+            authdict["project_id"] = credentials["OS_PROJECT_ID"]
+        if "OS_USER_DOMAIN_NAME" in credentials:
+            authdict["user_domain_name"] = credentials["OS_USER_DOMAIN_NAME"]
+        elif "OS_USER_DOMAIN_ID" in credentials:
+            authdict["user_domain_name"] = credentials["OS_USER_DOMAIN_ID"]
+        if "OS_PROJECT_DOMAIN_NAME" in credentials:
+            authdict["project_domain_name"] = credentials["OS_PROJECT_DOMAIN_NAME"]
+        elif "OS_PROJECT_DOMAIN_ID" in credentials:
+            authdict["project_domain_name"] = credentials["OS_PROJECT_DOMAIN_ID"]
+        '''
+        #pprint(authdict)
+
+        ksauth = v3.Password(**authdict)
 
         return ksauth
 
@@ -137,7 +183,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         cloud_dict = {}
         d = ConfigDict("cloudmesh.yaml")
-        clouds = d["cloudmesh"]["clouds"].keys()
+        clouds = list(d["cloudmesh"]["clouds"].keys())
         for i, cloud in enumerate(clouds):
             if cloud in CloudProviderOpenstackAPI.cloud_pwd:
                 cloud_dict[i] = {
@@ -467,7 +513,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         ret = None
         allocated_ips = self.list_floating_ips()
         fip = None
-        for idx, ipobj in allocated_ips.iteritems():
+        for idx, ipobj in list(allocated_ips.items()):
             if ipobj['instance_id'] is None:
                 fip = ipobj['ip']
                 break

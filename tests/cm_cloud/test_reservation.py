@@ -1,8 +1,8 @@
 """ run with
 
 
-python setup.py install; nosetests -v --nocapture tests/test_reservation.py:Test_reservation.test_001
-python setup.py install; nosetests -v --nocapture  tests/test_reservation.py
+python setup.py install; nosetests -v --nocapture tests/cm_cloud/test_reservation.py:Test_reservation.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_reservation.py
 
 nosetests -v --nocapture
 

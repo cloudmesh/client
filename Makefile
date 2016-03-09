@@ -65,14 +65,38 @@ log:
 	git push
 
 ######################################################################
+# TESTING
+######################################################################
+
+pytest:
+	make -f Makefile clean
+	pip install -r requirements.txt
+	python setup.py install
+	cm register remote
+	py.test tests
+
+nosetest:
+	make -f Makefile clean
+	pip install -r requirements.txt
+	python setup.py install
+	cm register remote
+	nosetests -v --nocapture tests
+
+######################################################################
 # CLEANING
 ######################################################################
 
 clean:
-	rm -rf *.egg-info *.eggs
+	rm -rf *.zip
+	rm -rf *.egg-info
+	rm -rf *.eggs
 	rm -rf docs/build
 	rm -rf build
 	rm -rf dist
+	find . -name '__pycache__' -delete
+	find . -name '*.pyc' -delete
+	-pip uninstall cloudmesh_client -y
+	rm -rf .tox
 
 ######################################################################
 # TAGGING

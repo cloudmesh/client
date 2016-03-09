@@ -48,7 +48,7 @@ class Command_vm(object):
             OpenStack = get_driver(provider)
             try:
                 cloud_credentials = config['credentials']
-            except Exception, e:
+            except Exception as e:
                 Console.error(e.message)
                 return
 
@@ -124,7 +124,7 @@ class Command_vm(object):
                 name = c.get_name()
                 try:
                     node = driver.create_node(name=name, image=image, size=size)
-                except Exception, e:
+                except Exception as e:
                     Console.error("{:} virtual machines have not been created. {:}".format(count - i, e.message))
                     return
                 c.name(c.next_name())
@@ -163,7 +163,7 @@ class Command_vm(object):
                 # get cloud credential from yaml file
                 confd = ConfigDict("cloudmesh.yaml")
                 cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
-            except Exception, e:
+            except Exception as e:
                 Console.error(e.message)
                 return
 
@@ -207,7 +207,7 @@ class Command_vm(object):
                     driver.destroy_node(node)
                     Console.ok("Virtual Machine {:} deleted".format(node.name))
 
-                except Exception, e:
+                except Exception as e:
                     Console.error("Could not delete Virtual Machine {:}. {:}".format(node.name, e.message))
 
             def __deleteNode(*args):

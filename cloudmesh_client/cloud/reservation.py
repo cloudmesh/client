@@ -113,6 +113,12 @@ class Reservation(ListResource):
     def suspend(self, names=None):
         TODO.implement()
 
+    def clear(self, names=None):
+        TODO.implement()
+
+    def refresh(self, names=None):
+        TODO.implement()
+
     def resume(self, names=None):
         TODO.implement()
 

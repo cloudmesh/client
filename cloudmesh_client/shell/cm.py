@@ -9,10 +9,12 @@ import os
 import shutil
 import re
 
-from cloudmesh_client.common.ConfigDict import ConfigDict
+import cloudmesh_client
+
 from cloudmesh_client.util import path_expand
-from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.shell.console import Console
+from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.var import Var
 
@@ -31,21 +33,6 @@ import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
 
 
-def create_cloudmesh_yaml(filename):
-    if not os.path.exists(filename):
-        path = os.path.dirname(filename)
-        if not os.path.isdir(path):
-            Shell.mkdir(path)
-        etc_path = os.path.dirname(cloudmesh_client.__file__)
-        etc_file = os.path.join(etc_path, "etc", "cloudmesh.yaml")
-        to_dir = path_expand("~/.cloudmesh")
-        shutil.copy(etc_file, to_dir)
-        Console.ok("~/.cloudmesh/cloudmesh.yaml created")
-
-
-filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
-create_cloudmesh_yaml(filename)
-os.system("chmod -R go-rwx " + path_expand("~/.cloudmesh"))
 
 
 class CloudmeshContext(object):
@@ -191,7 +178,9 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         #
 
         filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
-        create_cloudmesh_yaml(filename)
+        # moved to import cloudmesh_client
+
+        # create_cloudmesh_yaml(filename)
 
         # Initialize Logging
         # LogUtil.initialize_logging()
@@ -201,7 +190,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         value = Default.get('cloud', category='general')
         if value is None:
             clouds = ConfigDict(filename=filename)["cloudmesh"]["clouds"]
-            cloud = clouds.keys()[0]
+            cloud = list(clouds.keys())[0]
             Default.set('cloud', cloud, category='general')
 
         value = Default.get('default', category='general')
@@ -339,6 +328,11 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
 
         python_version, pip_version = get_python()
 
+        try:
+            git_hash_version = Shell.execute('git', 'log -1 --format=%h')
+        except:
+            git_hash_version = 'N/A'
+
         versions = {
             "cloudmesh_client": {
                 "name": "cloudmesh_client",
@@ -355,8 +349,14 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
             "pip": {
                 "name": "pip",
                 "version": str(pip_version)
+            },
+            "git": {
+                "name": "git hash",
+                "version": str(git_hash_version)
             }
+
         }
+
 
         print(dict_printer(versions, output=arguments["--format"],
                            order=["name", "version"]))
