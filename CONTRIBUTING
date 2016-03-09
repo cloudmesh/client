@@ -6,12 +6,12 @@ The project is open source and if you like you can help. Here are some contribut
   Code` feature regularly on the files you modify and fix the sensible
   pep8 warnings.  Look at other warnings and errors
 
+* we disallow editing with notepad
+
 * use ``.format`` instead of ``%`` in print statements
 
 * use ``from __future__ import print_function`` at the beginning of the file and use
   ``print("msg")`` instead of ``print msg``
-
-* use as much python 3 like code but use python 2
 
 * use ``class name(object):`` and not just ``class name:``
 
@@ -25,22 +25,22 @@ The project is open source and if you like you can help. Here are some contribut
 * use ``ConfigDict`` when reading yaml files. It even allows you to
   read a yaml file in order, make changes to it and write it back
 
-* use nosetests for testing your programs
+* use nosetests and pytest for testing your programs
 
   An example is provided in ``tests/test_sample.py``::
 
     nosetests -v --nocapture tests/test_sample.py
+    py.test  tests/test_sample.py
 
   you can copy this to ``tests/test_yourfile.py`` and then replace in
   that file the occurrence of ``_sample`` with ``_yourfile``
 
   make sure to create meaningful tests.
 
-* the documentation is write in RST http://sphinx-doc.org/rest.html
+* use RST to write documentation http://sphinx-doc.org/rest.html
 
-* look at http://python-future.org/compatible_idioms.html for tips to
-  make python 2 look more like python 3.  Be careful with dicts to
-  make them not inefficient.
+* do not include fancy self tests in the documentation, instead write
+  nosetests
 
 * we are using https://pypi.python.org/pypi/gitchangelog for creating
   changelogs automatically.  Thus you need to use a prefix in any
@@ -54,6 +54,13 @@ The project is open source and if you like you can help. Here are some contribut
      chg: dev:    simple changes relevant for developers (spelling, ...)
      fix: dev:    major changes for developers
      new: dev:    new feature for developers
+
+* use as much python 3 like code but use python 2 for development to also make the
+  code portable on python 2
+
+* look at http://python-future.org/compatible_idioms.html for tips to
+  make python 2 look more like python 3.  Be careful with dicts to
+  make them not inefficient.
 
 * iteritems::
 
