@@ -1,27 +1,5 @@
-Exceptions
-==========
-
-::
-   
-   from cloudmesh_client.common.Error import Error
-   Error.msg(“msg")
-   Error.info(“msg”)
-   Error.debug(“msg”)
-   Error.warning(“msg”)
-   Error.exit(“msg)
-
-
-   try:
-      ...
-   except:
-      Error.debug(“my debug msg”)
-
-
-
-
-Hackathon
-==========
-
+Using python 2 and 3 for development
+====================================
 
 Install python 3.5 and 2.7.11
 -----------------------------
@@ -33,8 +11,6 @@ Then use virtualenv -p to do
 OSX
 ^^^^
 
-Prerequisites:
-^^^^^^^^^^^^^
 We assume that you have downloaded and installed both python packages for 2.7.11 and 3.5
 while getting them from
 
@@ -105,21 +81,38 @@ The python versions should be 2.7.11 or 3.5.1 or greater. To do a check on pip, 
 The pip version should be 8.0.2 or greater
 
 
+Python Guidelines
+=================
 
-
-Windows
-^^^^^^^^
-
-
-Conversion
+Exceptions
 ----------
 
-Python 2 and 3 compatibility cheat sheet:
+::
+   
+   from cloudmesh_client.common.Error import Error
+   Error.msg(“msg")
+   Error.info(“msg”)
+   Error.debug(“msg”)
+   Error.warning(“msg”)
+   Error.exit(“msg)
+
+
+   try:
+      ...
+   except:
+      Error.debug(“my debug msg”)
+
+Developing Compatible Code
+----------------------------
+
+A good resource is the Python 2 and 3 compatibility cheat sheet:
 
 http://python-future.org/compatible_idioms.html
 
+We have adopted the following
 
-print:
+print
+^^^^^^
 
 .. code-block:: python
 
@@ -127,14 +120,16 @@ print:
 
     print('Hello')
 
-raise:
+raise
+^^^^^^
 
 .. code-block:: python
 
     raise ValueError("dodgy value")
 
 
-traceback:
+traceback
+^^^^^^^^^^
 
 .. code-block:: python
 
@@ -146,13 +141,16 @@ traceback:
     # we will need to create function for that as we want to control
     # with flag in db
 
-exception:
+exception
+^^^^^^^^^
 
 .. code-block:: python
 
      except Exception as e:
 
-integre division:
+
+integer division
+^^^^^^^^^^^^^^^^
 
 .. code-block:: python
 
@@ -160,7 +158,8 @@ integre division:
 
     assert 2 / 3 == 0
 
-metaclass:
+metaclass
+^^^^^^^^^
 
 .. code-block:: python
 
@@ -169,7 +168,8 @@ metaclass:
     class Form(with_metaclass(FormType, BaseForm)):
         pass
 
-strings:
+strings
+^^^^^^^^
 
 .. code-block:: python
 
@@ -177,7 +177,8 @@ strings:
 
     s1 = 'The Zen of Python'
 
-import:
+import
+^^^^^^
 
 .. code-block:: python
 
@@ -185,10 +186,11 @@ import:
 
     from __future__ import absolute_import
     from __future__ import print_function
-
+    from __future__ import unicode_literals
 
 Dict
 ^^^^
+
 Using dict heights = {'Fred': 175, 'Anne': 166, 'Joe': 192}
 as an example
 
@@ -254,8 +256,16 @@ Open file to read:
     f = file(pathname) NO!
     f = open(pathname) YES!
 
-raw_input
-^^^^
+Reading the file into an array
+
+.. code-block:: python
+
+   with open(filename, "r") as f:
+      content = f.read()
+   content = content.split("\n")
+
+input
+^^^^^
 
 Getting raw input from keyboard:
 
@@ -267,19 +277,12 @@ Getting raw input from keyboard:
     name = input('What is your name? ')
     YES!
 
-byte and string
-^^^^
-
-# Python 2 only:
+bytechar
+^^^^^^^^
 
 .. code-block:: python
 
-    for bytechar in 'byte-string with high-bit chars like':
+    from builtins import bytes
 
-# Python 2 and 3:
-
-.. code-block:: python
-
-from builtins import bytes
     for myint in bytes(b'byte-string with high-bit chars like'):
         bytechar = bytes([myint])
