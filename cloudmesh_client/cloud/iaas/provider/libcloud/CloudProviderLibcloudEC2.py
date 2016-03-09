@@ -13,6 +13,7 @@ from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 
 from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud import CloudProviderLibcloud
 
+from cloudmesh_client.shell.console import Console
 
 class CloudProviderLibcloudEC2(CloudProviderLibcloud):
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
@@ -25,14 +26,13 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
 
     def initialize(self, cloudname, user=None):
 
-        pprint("Initializing libcloud-ec2 for " + cloudname)
+        Console.info("Initializing libcloud-ec2 for " + cloudname)
         cls = get_driver(Provider.EC2_US_EAST)
 
         d = ConfigDict("cloudmesh.yaml")
         self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
         credentials = self.cloud_details["credentials"]
         auth_url = credentials["EC2_URL"]
-        pprint("Auth url is " + auth_url)
         searchobj = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                              auth_url,
                              re.M | re.I)
@@ -41,16 +41,17 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         host = None
         port = None
         if searchobj:
-            print ("searchObj.group() : ", searchobj.group())
-            print ("host : ", searchobj.group(1))
             host = searchobj.group(1)
-            print ("port : ", searchobj.group(2))
             port = searchobj.group(2)
-            print ("path : ", searchobj.group(3))
             path = searchobj.group(3)
+
+            Console.info("url : " + searchobj.group())
+            Console.info("host: " + host)
+            Console.info("port: " + port)
+            Console.info("path: " + path)
         else:
             # TODO: better error description.
-            print ("Nothing found. failed.")
+            Console.error("Authentication url incorrect: {}".format(auth_url))
 
         # if libcloudname == "ec2" :
         # url_split=auth_url.split("/:")
