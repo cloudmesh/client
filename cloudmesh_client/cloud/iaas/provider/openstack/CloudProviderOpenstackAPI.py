@@ -72,14 +72,58 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def _ksv3_auth(self, credentials):
         # auth to identity v3
-        ksauth = v3.Password(
-            auth_url=credentials["OS_AUTH_URL"],
-            username=credentials["OS_USERNAME"],
-            password=credentials["OS_PASSWORD"],
-            project_name=credentials["OS_PROJECT_NAME"],
-            user_domain_name=credentials["OS_USER_DOMAIN_ID"],
-            project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
+        # ref: http://docs.openstack.org/developer/python-keystoneclient/api/keystoneclient.auth.identity.v3.html#keystoneclient.auth.identity.v3.Password
+        allowed_params = ["auth_url",
+                          "password",
+                          "username",
+                          "user_id",
+                          "user_domain_id",
+                          "user_domain_name",
+                          "trust_id",
+                          "domain_id",
+                          "domain_name",
+                          "project_id",
+                          "project_name",
+                          "project_domain_id",
+                          "project_domain_name"]
+        authdict = {}
+        # always required
+        authdict["auth_url"]=credentials["OS_AUTH_URL"]
+        authdict["password"]=credentials["OS_PASSWORD"]
 
+        # setting automatically all available ones
+        # CAUTION: MAY be causing conflict/error.
+        # e.g., for jetstream, the OS_USER_DOMAIN_ID=tacc
+        # was causing error (domain not found)
+        for key in credentials:
+            if key.startswith("OS_"):
+                newkey = key[3:].lower()
+                if newkey in allowed_params:
+                    authdict[newkey] = credentials[key]
+
+        '''
+        # different cloud provider may be using different set of other info
+        # e.g. id or name for project, domain, etc.
+        if "OS_USERNAME" in credentials:
+            authdict["username"] = credentials["OS_USERNAME"]
+        if "OS_USER_ID" in credentials:
+            authdict["user_id"] = credentials["OS_USER_ID"]
+        if "OS_PROJECT_NAME" in credentials:
+            authdict["project_name"] = credentials["OS_PROJECT_NAME"]
+        if "OS_PROJECT_ID" in credentials:
+            authdict["project_id"] = credentials["OS_PROJECT_ID"]
+        if "OS_USER_DOMAIN_NAME" in credentials:
+            authdict["user_domain_name"] = credentials["OS_USER_DOMAIN_NAME"]
+        elif "OS_USER_DOMAIN_ID" in credentials:
+            authdict["user_domain_name"] = credentials["OS_USER_DOMAIN_ID"]
+        if "OS_PROJECT_DOMAIN_NAME" in credentials:
+            authdict["project_domain_name"] = credentials["OS_PROJECT_DOMAIN_NAME"]
+        elif "OS_PROJECT_DOMAIN_ID" in credentials:
+            authdict["project_domain_name"] = credentials["OS_PROJECT_DOMAIN_ID"]
+        '''
+        #pprint(authdict)
+
+        ksauth = v3.Password(**authdict)
         return ksauth
 
     def logon(self, cloudname):
