@@ -55,7 +55,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register yaml ENTRY
               register CLOUD [--force]
               register CLOUD [--dir=DIR]
-
+              register ec2 CLOUD EC2ZIP
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -392,6 +392,20 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             else:
                 print("KKK")
             return ""
+
+        elif arguments['ec2']:
+
+            cloud = arguments['CLOUD']
+            zipfile = arguments['EC2ZIP']
+
+            if cloud is None:
+                clouds = ["kilo"]
+            else:
+                clouds = [cloud]
+
+            for cloud in clouds:
+                CloudRegister.ec2(cloud, zipfile)
+                export(cloud, "table")
 
         elif arguments['env']:
             try:
