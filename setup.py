@@ -41,31 +41,33 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
-requirements = ['apache-libcloud',
-                'nose',
-                'pytest',
-                'colorama',
-                'future',
-                'docopt',
-                'pyaml',
-                'pyyaml',
-                'simplejson',
-                'python-hostlist',
-                'prettytable',
-                'sqlalchemy',
-                'urllib3',
-                'requests',
-                'pycrypto',
-                'httpsig',
-                'sandman',
-                'gitchangelog',
-                'six',
-                'python-novaclient',
-                'python-keystoneclient',
-                'cloudmesh_timestring',
-                'wheel',
-                'tox',
-                'pytimeparse']
+requirements = [
+    'pbr>=1.6',
+    'apache-libcloud',
+    'nose',
+    'pytest',
+    'colorama',
+    'future',
+    'docopt',
+    'pyaml',
+    'pyyaml',
+    'simplejson',
+    'python-hostlist',
+    'prettytable',
+    'sqlalchemy',
+    'urllib3',
+    'requests',
+    'pycrypto',
+    'httpsig',
+    'sandman',
+    'gitchangelog',
+    'six',
+    'python-novaclient',
+    'python-keystoneclient',
+    'cloudmesh_timestring',
+    'wheel',
+    'tox',
+    'pytimeparse']
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -125,8 +127,8 @@ setup(
             # 'ghost = cloudmesh_client.shell.ghost:main',
         ],
     },
-    tests_require=['tox'],
-    dependency_links = []
+    # tests_require=['tox'],
+    # dependency_links = []
 )
 
 
