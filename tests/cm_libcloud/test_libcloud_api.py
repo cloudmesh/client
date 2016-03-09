@@ -15,13 +15,14 @@ from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 
-
+from pprint import pprint
 
 class Test_libcloud_api():
     """
         This class tests the ImageCommand
     """
 
+    '''
     def test_001(self):
 
 
@@ -29,22 +30,105 @@ class Test_libcloud_api():
         from libcloud.compute.providers import get_driver
 
         config = ConfigDict('cloudmesh.yaml')
-        print (config)
+        # print (config)
         credential = dict(config["cloudmesh"]["clouds"]["chameleon-ec2"]["credentials"])
-        print (credential)
+        pprint (dict(credential))
         EC2_ACCESS_KEY = credential['EC2_ACCESS_KEY']
         EC2_SECRET_KEY = credential['EC2_SECRET_KEY']
 
         Driver = get_driver(Provider.EC2)
         conn = Driver(EC2_ACCESS_KEY, EC2_SECRET_KEY)
 
-        keys = conn.list_key_pairs()
+        keys = conn.list_images()
 
         print (keys)
 
 
     '''
+
+    def test_001(self):
+        """
+        test image list
+        :return:
+        """
+        HEADING()
+
+
+        from pprint import pprint
+
+        cloud = "chameleon-ec2"
+        provider = CloudProvider(cloud).provider
+
+        print (provider, type(provider))
+
+        # pprint (provider.__dict__)
+        # pprint (dir(provider))
+
+        #r = provider.list_flavor(cloud)
+        #pprint(r)
+
+        for kind in ["image"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+            r = provider.list(kind, cloud)
+            pprint(r)
+
+        assert True
+
+
     def test_002(self):
+        """
+        test flavor list
+        :return:
+        """
+        HEADING()
+
+
+        from pprint import pprint
+
+        cloud = "chameleon-ec2"
+        provider = CloudProvider(cloud).provider
+
+        # print (provider, type(provider))
+
+        # r = provider.list_flavor(cloud)
+        # pprint(r)
+
+        for kind in ["flavor"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+            r = provider.list(kind, cloud)
+            pprint(r)
+
+        assert True
+
+
+
+    def test_003(self):
+        """
+        test vm list
+        :return:
+        """
+        HEADING()
+
+
+        from pprint import pprint
+
+        cloud = "chameleon-ec2"
+        provider = CloudProvider(cloud).provider
+
+        print (provider, type(provider))
+
+        # pprint (provider.__dict__)
+        # pprint (dir(provider))
+
+        #r = provider.list_flavor(cloud)
+        #pprint(r)
+
+        for kind in ["image"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+            r = provider.list(kind, cloud)
+            pprint(r)
+
+        assert True
+
+
+    def test_004(self):
         """
         test key list
         :return:
@@ -70,4 +154,3 @@ class Test_libcloud_api():
             pprint(r)
 
         assert True
-    '''
