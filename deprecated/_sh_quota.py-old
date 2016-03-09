@@ -32,7 +32,7 @@ class Quota(object):
                     os.environ[key] = Config.path_expand(credentials[key])
                 else:
                     os.environ[key] = credentials[key]
-        except Exception, e:
+        except Exception as e:
             print(e)
 
     @classmethod

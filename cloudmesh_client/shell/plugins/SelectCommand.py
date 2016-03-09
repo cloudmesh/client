@@ -55,7 +55,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 image_dict = Image.list(cloud, format="dict")
 
                 image_names = list()
-                for image in image_dict.values():
+                for image in list(image_dict.values()):
                     image_names.append(image["name"])
 
                 number = menu_return_num(title="Select an Image",
@@ -81,7 +81,7 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 flavor_dict = Flavor.list(cloud, format="dict")
 
                 flavor_names = list()
-                for flavor in flavor_dict.values():
+                for flavor in list(flavor_dict.values()):
                     flavor_names.append(flavor["name"])
 
                 number = menu_return_num(title="Select a Flavor",
@@ -103,17 +103,17 @@ class SelectCommand(PluginCommand, CloudPluginCommand):
                 config = ConfigDict("cloudmesh.yaml")
                 clouds = config["cloudmesh"]["clouds"]
 
-                for key in clouds.keys():
+                for key in clouds:
                     Console.ok("  " + key)
 
                 number = menu_return_num(title="Select a cloud",
-                                         menu_list=clouds.keys(),
+                                         menu_list=list(clouds),
                                          tries=10,
                                          with_display=True)
                 if number == "q":
                     pass
                 else:
-                    cloud = clouds.keys()[number]
+                    cloud = list(clouds)[number]
                     print("Selected cloud " + cloud)
                     Default.set("cloud", cloud, "general")
             except:

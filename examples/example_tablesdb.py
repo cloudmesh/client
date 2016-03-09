@@ -8,7 +8,7 @@ import cloudmesh_client.common.tables as tables
 from cloudmesh_client.db.models import VM,FLAVOR,DEFAULT,IMAGE
 import cloudmesh_client.db.models
 import cloudmesh_client.db.models as models
-
+from __future__ import print_function
 
 filename = Config.path_expand("~/test/db.db")
 endpoint = 'sqlite:///{:}'.format(filename)
@@ -20,7 +20,7 @@ session = Session()
 
 r = session.query(VM).all()
 for obj in r:
-    print obj.name
+    print (obj.name)
 
 result = dict()
 for u in r:

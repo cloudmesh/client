@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture tests//cm_basic/test_shell.py:Test_shell.test_001
+python setup.py install; nosetests -v --nocapture tests/cm_basic/test_shell.py:Test_shell.test_001
 
 nosetests -v --nocapture tests/cm_basic/test_shell.py
 
@@ -18,7 +18,7 @@ def run(command):
     shell_command = parameter[0]
     args = parameter[1:]
     result = Shell.execute(shell_command, args)
-    return result
+    return str(result)
 
 class Test_shell():
     """

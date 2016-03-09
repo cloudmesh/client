@@ -3,9 +3,11 @@ from cloudmesh_client.shell.command import command, PluginCommand, CometPluginCo
 from cloudmesh_client.comet.comet import Comet
 from cloudmesh_client.comet.cluster import Cluster
 from cloudmesh_client.common.hostlist import Parameter
+from cloudmesh_client.common.ConfigDict import ConfigDict
 import hostlist
 import os
 import sys
+from builtins import input
 
 # noinspection PyUnusedLocal,PyBroadException
 class CometCommand(PluginCommand, CometPluginCommand):
@@ -23,7 +25,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
         ::
 
             Usage:
-               comet init_apiauth
+               comet init
                comet ll [CLUSTERID] [--format=FORMAT]
                comet cluster [CLUSTERID]
                              [--format=FORMAT]
@@ -31,15 +33,16 @@ class CometCommand(PluginCommand, CometPluginCommand):
                             [--allocation=ALLOCATION]
                             [--cluster=CLUSTERID]
                             [--state=COMPUTESESTATE]
-               comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
+               comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                             [--allocation=ALLOCATION]
                             [--walltime=WALLTIME]
-               comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+               comet terminate COMPUTESETID
+               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
                comet console CLUSTERID [COMPUTENODEID]
-               comet image list
-               comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
-               comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
-               comet image detach CLUSTERID [COMPUTENODEIDS]
+               comet iso list
+               comet iso upload [--isoname=ISONAME] PATHISOFILE
+               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
+               comet iso detach CLUSTERID [COMPUTENODEIDS]
                comet node rename CLUSTERID OLDNAME NEWNAME
 
             Options:
@@ -56,7 +59,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                         Walltime could be an integer value followed
                                         by a unit (m, h, d, w, for minute, hour, day,
                                         and week, respectively). E.g., 3h, 2d
-                --imagename=IMAGENAME   Name of the image after being stored remotely.
+                --isoname=ISONAME       Name of the iso image after being stored remotely.
                                         If not specified, use the original filename
                 --state=COMPUTESESTATE  List only computeset with the specified state.
                                         The state could be submitted, running, completed
@@ -64,13 +67,6 @@ class CometCommand(PluginCommand, CometPluginCommand):
             Arguments:
                 CLUSTERID       The assigned name of a cluster, e.g. vc1
                 COMPUTESETID    An integer identifier assigned to a computeset
-                NODESPARAM      Specifying the node/nodes/computeset to act on.
-                                In case of integer, will be intepreted as a computesetid;
-                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                                of nodes; or a single host is also acceptable,
-                                e.g., vm-vc1-0
-                                If not provided, the requested action will be taken
-                                on the frontend node of the specified cluster
                 COMPUTENODEID   A compute node name, e.g., vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
@@ -79,8 +75,13 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 One single node is also acceptable: vm-vc1-0
                                 If not provided, the requested action will be taken
                                 on the frontend node of the specified cluster
-                IMAGENAME       Name of an image at remote server
-                PATHIMAGEFILE   The full path to the image file to be uploaded
+                NODESPARAM      Specifying the node/nodes/computeset to act on.
+                                In case of integer, will be intepreted as a computesetid;
+                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                                of nodes; or a single host is also acceptable,
+                                e.g., vm-vc1-0
+                ISONAME         Name of an iso image at remote server
+                PATHISOFILE     The full path to the iso image file to be uploaded
         """
         # back up of all the proposed commands/options
         """
@@ -250,12 +251,90 @@ class CometCommand(PluginCommand, CometPluginCommand):
         elif arguments["ll"]:
 
         """
-        if arguments["init_apiauth"]:
-            Comet.get_apikey()
+        if arguments["init"]:
+            print ("Initializing the comet configuration file...")
+            config = ConfigDict("cloudmesh.yaml")
+            # for unit testing only.
+            cometConf = config["cloudmesh.comet"]
+            endpoints = []
+            # print (cometConf.keys())
+            if "endpoints" in cometConf.keys():
+                endpoints = cometConf["endpoints"].keys()
+                if len(endpoints) < 1:
+                    Console.error("No service endpoints available."\
+                                  " Please check the config template")
+                    return ""
+            if "username" in cometConf.keys():
+                default_username = cometConf['username']
+                # print (default_username)
+                if 'TBD' == default_username:
+                    set_default_user = \
+                        input("Set a default username (RETURN to skip): ")
+                    if set_default_user:
+                        config.data["cloudmesh"]["comet"]["username"] = \
+                            set_default_user
+                        config.save()
+                        Console.ok("Comet default username set!")
+            if "active" in cometConf.keys():
+                active_endpoint = cometConf['active']
+                set_active_endpoint = \
+                        input("Set the active service endpoint to use. "\
+                                  "The availalbe endpoints are - %s [%s]: "\
+                                   % ("/".join(endpoints),
+                                     active_endpoint)
+                                 )
+                if set_active_endpoint:
+                    if set_active_endpoint in endpoints:
+                        config.data["cloudmesh"]["comet"]["active"] = \
+                                        set_active_endpoint
+                        config.save()
+                        Console.ok("Comet active service endpoint set!")
+                    else:
+                        Console.error("The provided endpoint does not match any "\
+                                      "available service endpoints. Try %s" \
+                                      % "/".join(endpoints) )
+
+            if cometConf['active'] in endpoints:
+                endpoint_url = cometConf["endpoints"]\
+                               [cometConf['active']]["nucleus_base_url"]
+                api_version = cometConf["endpoints"]\
+                               [cometConf['active']]["api_version"]
+                set_endpoint_url = \
+                        input("Set the base url for the nucleus %s service [%s]: "\
+                                   % (cometConf['active'],
+                                      endpoint_url)
+                                 )
+                if set_endpoint_url:
+                    if set_endpoint_url != endpoint_url:
+                        config.data["cloudmesh"]["comet"]["endpoints"]\
+                                    [cometConf['active']]["nucleus_base_url"]\
+                                    = set_endpoint_url
+                        config.save()
+                        Console.ok("Service base url set!")
+
+                set_api_version = \
+                        input("Set the api version for the nucleus %s service [%s]: "\
+                                   % (cometConf['active'],
+                                   api_version)
+                                 )
+                if set_api_version:
+                    if set_api_version != api_version:
+                        config.data["cloudmesh"]["comet"]["endpoints"]\
+                                    [cometConf['active']]["api_version"]\
+                                    = set_api_version
+                        config.save()
+                        Console.ok("Service api version set!")
+                print ("Authenticating to the nucleus %s "\
+                       "service and obtaining the apikey..." \
+                       % cometConf['active'])
+                Comet.get_apikey(cometConf['active'])
+
+            return ''
+            #Comet.get_apikey()
         try:
             logon = Comet.logon()
             if logon is False:
-                Console.error("Could not logon. Please try first:\ncm comet init_apiauth")
+                Console.error("Could not logon. Please try first:\ncm comet init")
                 return ""
         except:
             Console.error("Could not logon")
@@ -279,81 +358,92 @@ class CometCommand(PluginCommand, CometPluginCommand):
             allocation = arguments["--allocation"] or None
             cluster = arguments["--cluster"] or None
             print (Cluster.computeset(computeset_id, cluster, state, allocation))
-
-        elif arguments["power"]:
-
+        elif arguments["start"]:
             clusterid = arguments["CLUSTERID"]
             numnodes = arguments["--count"] or None
+            computenodeids = arguments["COMPUTENODEIDS"] or None
+
+            # check allocation information for the cluster
             cluster = Cluster.list(clusterid, format='rest')
             try:
                 allocations = cluster[0]['allocations']
             except:
-                print (cluster)
+                # print (cluster)
+                Console.error("No allocation available for the specified cluster." \
+                              "Please check with the comet help team")
                 return ""
-            # for testing only
-            '''
-            allocations = ['sys200',
-                           'sys100',
-                           'sys300',
-                           'sys400',
-                           'sys500',
-                           'sys050',
-                           'tst010',
-                           'tst001']
-            '''
 
-            if not numnodes:
-                fuzzyparam = None
-                if 'NODESPARAM' in arguments:
-                    fuzzyparam = arguments["NODESPARAM"]
-                param = fuzzyparam
-
-                # no nodes param provided, action on front end
-                if not fuzzyparam:
-                    subject = "FE"
-                    param = None
-                # parse the nodes param
-                else:
-                    try:
-                        param = int(fuzzyparam)
-                        subject = "COMPUTESET"
-                        param = str(param)
-                    except ValueError:
-                        if '[' in fuzzyparam and ']' in fuzzyparam:
-                            try:
-                                hosts_param = hostlist.expand_hostlist(fuzzyparam)
-                            except hostlist.BadHostlist:
-                                Console.error("Invalid hosts list specified!", traceflag=False)
-                                return ""
-                            subject = "HOSTS"
-                        else:
-                            subject = "HOST"
-            else:
+            # checking whether the computesetids is in valid hostlist format
+            if computenodeids:
+                try:
+                    hosts_param = hostlist.expand_hostlist(computenodeids)
+                except hostlist.BadHostlist:
+                    Console.error("Invalid hosts list specified!",
+                                  traceflag=False)
+                    return ""
+            elif numnodes:
                 try:
                     param = int(numnodes)
                 except ValueError:
                     Console.error("Invalid count value specified!", traceflag=False)
                     return ""
-                if param > 0:
-                    subject = "HOSTS"
-                    param = None
-                else:
+                if param <= 0:
                     Console.error("count value has to be greather than zero")
                     return ""
+                numnodes = param
+            else:
+                Console.error("You have to specify either the count of nodes, " \
+                              "or the names of nodes in hostlist format")
+                return ""
+
             walltime = arguments["--walltime"] or None
             allocation = arguments["--allocation"] or None
+
+            # validating walltime and allocation parameters
+            walltime = Cluster.convert_to_mins(walltime)
+            if not walltime:
+                print ("No valid walltime specified. "\
+                       "Using system default (2 days)")
+            if not allocation:
+                if len(allocations) == 1:
+                    allocation = allocations[0]
+                else:
+                    allocation = Cluster.display_get_allocation(allocations)
+
+            # issuing call to start a computeset with specified parameters
+            print (Cluster.computeset_start(clusterid,
+                                            computenodeids,
+                                            numnodes,
+                                            allocation,
+                                            walltime)
+                  )
+        elif arguments["terminate"]:
+            computesetid = arguments["COMPUTESETID"]
+            print (Cluster.computeset_terminate(computesetid))
+        elif arguments["power"]:
+            clusterid = arguments["CLUSTERID"] or None
+            fuzzyparam = arguments["NODESPARAM"] or None
+
+            # parsing nodesparam for proper action
+            if fuzzyparam:
+                try:
+                    param = int(fuzzyparam)
+                    subject = 'COMPUTESET'
+                except ValueError:
+                    param = fuzzyparam
+                    try:
+                        hosts_param = hostlist.expand_hostlist(fuzzyparam)
+                        subject = 'HOSTS'
+                    except hostlist.BadHostlist:
+                        Console.error("Invalid hosts list specified!",
+                                      traceflag=False)
+                        return ""
+            else:
+                subject = 'FE'
+                param = None
+
             if arguments["on"]:
                 action = "on"
-                if subject in ["HOSTS", "HOST"]:
-                    walltime = Cluster.convert_to_mins(walltime)
-                    if not walltime:
-                        print ("No valid walltime specified. "\
-                               "Using system default (2 days)")
-                    if not allocation:
-                        if len(allocations) == 1:
-                            allocation = allocations[0]
-                        else:
-                            allocation = Cluster.display_get_allocation(allocations)
             elif arguments["off"]:
                 action = "off"
             elif arguments["reboot"]:
@@ -367,10 +457,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
             print (Cluster.power(clusterid,
                                  subject,
                                  param,
-                                 action,
-                                 allocation,
-                                 walltime,
-                                 numnodes)
+                                 action)
                   )
         elif arguments["console"]:
             clusterid = arguments["CLUSTERID"]
@@ -378,33 +465,33 @@ class CometCommand(PluginCommand, CometPluginCommand):
             if 'COMPUTENODEID' in arguments:
                 nodeid = arguments["COMPUTENODEID"]
             Comet.console(clusterid, nodeid)
-        elif arguments["image"]:
+        elif arguments["iso"]:
             if arguments["list"]:
-                images = (Comet.list_image())
+                isos = (Comet.list_iso())
                 idx = 0
-                for image in images:
-                    if image.startswith("public/"):
-                        image = image.split("/")[1]
+                for iso in isos:
+                    if iso.startswith("public/"):
+                        iso = iso.split("/")[1]
                     idx += 1
-                    print ("{}: {}".format(idx, image))
+                    print ("{}: {}".format(idx, iso))
             if arguments["upload"]:
-                imagefile = arguments["PATHIMAGEFILE"]
-                imagefile = os.path.abspath(imagefile)
-                if os.path.isfile(imagefile):
-                    if arguments["--imagename"]:
-                        filename = arguments["--imagename"]
+                isofile = arguments["PATHISOFILE"]
+                isofile = os.path.abspath(isofile)
+                if os.path.isfile(isofile):
+                    if arguments["--isoname"]:
+                        filename = arguments["--isoname"]
                     else:
-                        filename = os.path.basename(imagefile)
+                        filename = os.path.basename(isofile)
                 else:
                     print ("File does not exist - {}"\
-                                  .format(arguments["PATHIMAGEFILE"]))
+                                  .format(arguments["PATHISOFILE"]))
                     return ""
-                print (Comet.upload_image(filename, imagefile))
+                print (Comet.upload_iso(filename, isofile))
             elif arguments["attach"]:
-                imagename = arguments["IMAGENAME"]
+                isoname = arguments["ISONAME"]
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None
-                print (Cluster.attach_iso(imagename, clusterid, computenodeids))
+                print (Cluster.attach_iso(isoname, clusterid, computenodeids))
             elif arguments["detach"]:
                 clusterid = arguments["CLUSTERID"]
                 computenodeids = arguments["COMPUTENODEIDS"] or None

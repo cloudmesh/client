@@ -11,7 +11,7 @@ class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
 
     def __init__(self, cloudname, user=None, flat=False, source="db"):
-        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage"]
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key"]
         self.nodes = None
         self.flavors = None
         self.data = None
@@ -80,12 +80,12 @@ class CloudProviderBase(object):
 
     def check_kind(self, name):
         """
-        returns tru if the kind given by name exists
+        returns true if the kind given by name exists
         :param name:
         :return:
         """
         if not self.is_kind(name):
-            raise ValueError("Kind " + name + "not supported")
+            raise ValueError("Kind " + name + " not supported")
 
     # #########################
     # RESOURCE
@@ -351,10 +351,28 @@ class CloudProviderBase(object):
                 return None
 
             if format == "table":
-                element = elements.values()[0]
+                element = list(elements.values())[0]
                 return attribute_printer(element)
             else:
                 return dict_printer(elements,
                                     output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
+
+    # ##################
+    # KEY
+    # ##################
+
+    def list_key(self, cloudname, **kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of iamge
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None

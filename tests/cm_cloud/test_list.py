@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_list.py:Test_list.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_list.py:Test_list.test_001
 
 nosetests -v --nocapture tests/test_list.py
 
@@ -30,7 +30,7 @@ class Test_list:
         args = parameter[1:]
         result = Shell.execute(shell_command, args)
         print(result)
-        return result
+        return str(result)
 
     def setup(self):
 

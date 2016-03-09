@@ -55,7 +55,6 @@ default login_key=~/.ssh/id_rsa
 # vm ssh uname -a
 
 #--key=~/.ssh/id_rsa
-=======
 # according to scripts/secgroup.cm
 # setting secgrup rule to allow ssh login
 # secgroup rules-add --tenant=$tenant default 22 22 tcp 0.0.0.0/0

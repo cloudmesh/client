@@ -13,6 +13,7 @@ from cloudmesh_client.cloud.register import CloudRegister, Register
 from cloudmesh_client.common.Printer import attribute_printer, dict_printer, \
     print_list
 from cloudmesh_client.util import path_expand
+from cloudmesh_client.common.Error import Error
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
@@ -54,7 +55,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register yaml ENTRY
               register CLOUD [--force]
               register CLOUD [--dir=DIR]
-
+              register ec2 CLOUD EC2ZIP
 
           managing the registered clouds in the cloudmesh.yaml file.
           It looks for it in the current directory, and than in
@@ -175,7 +176,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 credentials["OS_PASSWORD"] = "********"
 
             if output is None:
-                for attribute, value in credentials.iteritems():
+                for attribute, value in credentials.items():
                     print("export {}={}".format(attribute, value))
             elif output == "table":
                 print(attribute_printer(credentials))
@@ -340,7 +341,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                     del os.environ[attribute]
 
             # set
-            for attribute, value in credentials.iteritems():
+            for attribute, value in credentials.items():
                 os.putenv(attribute, value)
                 print("+ ", attribute)
             export(host, "table")
@@ -382,15 +383,35 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
             for cloud in clouds:
                 CloudRegister.remote(cloud, force)
                 export(cloud, "table")
+
+            config = ConfigDict("cloudmesh.yaml")
+            if config["cloudmesh.profile.username"] == "TBD":
+                name = config["cloudmesh.clouds.kilo.credentials.OS_USERNAME"]
+                config["cloudmesh"]["profile"]["username"] = name
+                config.save()
+            else:
+                print("KKK")
             return ""
+
+        elif arguments['ec2']:
+
+            cloud = arguments['CLOUD']
+            zipfile = arguments['EC2ZIP']
+
+            if cloud is None:
+                clouds = ["kilo"]
+            else:
+                clouds = [cloud]
+
+            for cloud in clouds:
+                CloudRegister.ec2(cloud, zipfile)
+                export(cloud, "table")
 
         elif arguments['env']:
             try:
                 CloudRegister.from_environ(arguments['--provider'])
             except Exception as e:
-                import traceback
-                print(traceback.format_exc())
-                print(e)
+                Error.traceback(e)
             return ""
 
         elif arguments['CLOUD']:

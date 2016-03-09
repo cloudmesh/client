@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/test_group.py:Test_group.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_cloud/test_group.py:Test_group.test_001
 
 nosetests -v --nocapture tests/test_group.py
 
@@ -18,6 +18,7 @@ from cloudmesh_client.cloud.group import Group
 
 
 def run(command):
+    print (command)
     parameter = command.split(" ")
     shell_command = parameter[0]
     args = parameter[1:]

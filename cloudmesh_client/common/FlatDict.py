@@ -74,10 +74,10 @@ class FlatDict(dict):
         del self.__dict__[key]
 
     def keys(self):
-        return self.__dict__.keys()
+        return list(self.__dict__.keys())
 
     def values(self):
-        return self.__dict__.values()
+        return list(self.__dict__.values())
 
     def __cmp__(self, dictionary):
         return cmp(self.__dict__, dictionary)
@@ -135,13 +135,13 @@ def main():
     }
 
     vm = {
-        'extra': {'access_ip': u'',
+        'extra': {'access_ip': '',
                   'availability_zone': 'nova',
-                  'config_drive': u'',
+                  'config_drive': '',
                   'created': '2015-06-19T00:06:58Z',
                   'disk_config': 'MANUAL',
                   'flavorId': '1',
-                  'hostId': u'',
+                  'hostId': '',
                   'imageId': 'abcd',
                   'key_name': None,
                   'metadata': {},

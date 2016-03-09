@@ -5,6 +5,7 @@ from cloudmesh_client.cloud.iaas.CloudProviderBase import CloudProviderBase
 import requests
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.todo import TODO
+from cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 import CloudProviderLibcloudEC2
 
 requests.packages.urllib3.disable_warnings()
 
@@ -16,7 +17,7 @@ class CloudProvider(CloudProviderBase):
         try:
             d = ConfigDict("cloudmesh.yaml")
             if not cloudname in d["cloudmesh"]["clouds"]:
-                raise ValueError("the cloud {} is not defined in the yaml file"
+                raise ValueError("the cloud {} is not defined in the yaml file. failed."
                                  .format(cloudname))
 
             cloud_details = d["cloudmesh"]["clouds"][cloudname]
@@ -30,11 +31,15 @@ class CloudProvider(CloudProviderBase):
                 self.provider_class = CloudProviderOpenstackAPI
 
             if cloud_details["cm_type"] == "ec2":
-                print("ec2 cloud provider yet to be implemented")
-                TODO.implement()
+                provider = CloudProviderLibcloudEC2(
+                    cloudname,
+                    cloud_details,
+                    flat=flat)
+                self.provider = provider
+                self.provider_class = CloudProviderLibcloudEC2
 
             if cloud_details["cm_type"] == "azure":
-                print("azure cloud provider yet to be implemented")
+                raise ValueError("azure cloud provider yet implemented. failed.")
                 TODO.implement()
 
         except Exception as e:

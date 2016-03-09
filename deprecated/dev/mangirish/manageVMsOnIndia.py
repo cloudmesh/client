@@ -24,7 +24,7 @@ print("Following are the running servers")
 servers = nova.servers.list()
 print(servers)
 
-# TODO: make this a class and use teh Bar as example so we can integrate into the shell
+# TODO: make this a class and use the Bar as example so we can integrate into the shell
 # TODO: move that to plugins in the cloudmesh_client
 
 if COMMANDARG != "create":
@@ -37,16 +37,16 @@ if COMMANDARG == "create":
     INST_FLAVOR = sys.argv[4]
     flavor = nova.flavors.find(id=INST_FLAVOR)
     nova.servers.create(INST_NAME, INST_IMAGE, INST_FLAVOR)
-    print "Machine creation issued"
+    print ("Machine creation issued")
 
 elif COMMANDARG == "start":
     server.start()
-    print "{0} start issued".format(server)
+    print ("{0} start issued".format(server))
 
 elif COMMANDARG == "stop":
     server.stop()
-    print "{0} stop issued".format(server)
+    print ("{0} stop issued".format(server))
 
 elif COMMANDARG == "delete":
     server.delete()
-    print "{0} delete issued".format(server)
+    print ("{0} delete issued".format(server))
