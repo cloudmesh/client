@@ -72,13 +72,20 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
     def _ksv3_auth(self, credentials):
         # auth to identity v3
-        ksauth = v3.Password(
-            auth_url=credentials["OS_AUTH_URL"],
-            username=credentials["OS_USERNAME"],
-            password=credentials["OS_PASSWORD"],
-            project_name=credentials["OS_PROJECT_NAME"],
-            user_domain_name=credentials["OS_USER_DOMAIN_ID"],
-            project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
+        print ("OOOOOOOOOO")
+        pprint (dict(credentials))
+        print ("OOOOOOOOOO")
+        ksauth = v3.Password(**credentials)
+
+        #ksauth = v3.Password(
+        #    auth_url=credentials["OS_AUTH_URL"],
+        #   username=credentials["OS_USERNAME"],
+        #    password=credentials["OS_PASSWORD"],
+        #    project_name=credentials["OS_PROJECT_NAME"],
+        #   user_domain_name=credentials["OS_USER_DOMAIN_ID"],
+        #    project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
+
+        #   #project_domain_name=credentials["OS_PROJECT_DOMAIN_ID"])
 
         return ksauth
 
