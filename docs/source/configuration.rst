@@ -95,6 +95,22 @@ To list the `cloudmesh.yaml` file::
 
    register list
 
+Registartion of EC2 clouds with the zip file
+---------------------------------------------
+
+In case you have an openstack cloud that exports an ec2 zip file you can register
+such a cloud by first downloading the zip file to your computer and than issuing
+the command::
+
+    cm register ec2 mycloud filename.zip
+
+where `filename.zip` is the location of the zip file and `mycloud` is the name
+of the cloud that you would like to have cloudmesh use for this cloud.
+
+You can than edit the ~/.cloudmesh/cloudmesh.yaml file to make further improvements
+such as setting the defaults.
+
+
 Registration of Cybera Cloud
 -------------------------------
 

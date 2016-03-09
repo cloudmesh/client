@@ -37,7 +37,9 @@ class CloudProviderLibcloud(CloudProviderBase):
 
     def list_key(self, cloudname, **kwargs):
         pprint("In list_key")
+        print (self.provider)
         keys = self.provider.list_key_pairs()
+        print (keys)
         self._print(keys)
         keys_dict = self._to_dict(keys)
         return keys_dict
