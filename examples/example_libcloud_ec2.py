@@ -67,11 +67,24 @@ image = [i for i in images if i.name == myimage][0]
 
 # launch a new VM
 name = "{:}-libcloud".format(credential['userid'])
-node = driver.create_node(name=name, image=image, size=size)
+node = driver.create_node(name=name,
+                          image=image,
+                          size=size,
+                          ex_assign_public_ip=True)
+
+print("---------")
+pprint(node)
+print("---------")
+# get the first pool - public by default
+# pool = driver.ex_list_networks()
+# pprint(pool)
+
+# sys.exit()
+
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
-print (nodes)
+pprint (nodes)
 
 # wait the node to be ready before assigning public IP
 sleep(10)
@@ -79,14 +92,18 @@ sleep(10)
 # public IPs
 # get the first pool - public by default
 # create an ip in the pool
-elastic_ip = driver.ex_allocate_address()
+
+
+
+#elastic_ip = driver.ex_allocate_address()
 
 # attach the ip to the node
-driver.ex_associate_address_with_node(node, elastic_ip)
+#driver.ex_associate_address_with_node(node, elastic_ip)
 
 # check updated VMs list to see if public ip is assigned
+
 nodes = driver.list_nodes()
-print (nodes)
+pprint (nodes)
 
 # remove it from the node
 
