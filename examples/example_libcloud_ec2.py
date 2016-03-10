@@ -11,7 +11,7 @@ from pprint import pprint
 cloud = "chameleon-ec2"
 config = ConfigDict("cloudmesh.yaml")
 credential = config['cloudmesh']['clouds'][cloud]['credentials']
-default = config['cloudmesh']['clouds'][cloud]['default']
+clouddefault = config['cloudmesh']['clouds'][cloud]['default']
 # pprint(dict(credential))
 
 auth_url = credential["EC2_URL"]
@@ -20,9 +20,9 @@ data = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                 auth_url,
                 re.M | re.I)
 host, port, path = data.group(1),data.group(2),data.group(3)
-#print("host: " + host)
-#print("port: " + port)
-#print("path: " + path)
+print("host: " + host)
+print("port: " + port)
+print("path: " + path)
 
 extra_args = {'path': path}
 cls = get_driver(Provider.EC2_US_EAST)
@@ -35,11 +35,7 @@ driver = cls(
 
 print ("DRIVER", driver)
 
-pprint(credential)
-
-# AWS needs two values for authentication
-driver = cls(credential['EC2_ACCESS_KEY'],
-             credential['EC2_SECRET_KEY'])
+pprint(dict(credential))
 
 # list VMs
 nodes = driver.list_nodes()
