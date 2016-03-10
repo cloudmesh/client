@@ -1,11 +1,13 @@
+from __future__ import print_function
+
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
-from __future__ import print_function
+
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from time import sleep
 from pprint import pprint
-
+import re
 
 """ run with
 
@@ -26,21 +28,36 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 
 from pprint import pprint
 
-class Test_libcloud_api():
+class Test_libcloud_native():
     """
     Tests the libcloud native connection to chameleon
     """
 
     def test_001(self):
+        self.cloud = "chameleon-ec2"
         self.config = ConfigDict("cloudmesh.yaml")
-        self.credentials = self.config['cloudmesh']['clouds']['aws']['credentials']
-        self.default = self.conf['cloudmesh']['clouds']['aws']['default']
-        pprint(self.credentials)
+        self.credential = self.config['cloudmesh']['clouds'][self.cloud]['credentials']
+        self.default = self.conf['cloudmesh']['clouds'][self.cloud]['default']
+        pprint(self.credential)
 
-        self.cls = cls = get_driver(Provider.EC2_US_EAST)
-        self.driver = cls(
-            self.credentials['EC2_ACCESS_KEY'],
-            self.credentials['EC2_SECRET_KEY'])
+        auth_url = self.credential["EC2_URL"]
+
+        (host, port, path) = \
+            re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
+                     auth_url,
+                     re.M | re.I)
+        print("host: " + host)
+        print("port: " + port)
+        print("path: " + path)
+
+        extra_args = {'path': path}
+        self.cls = get_driver(Provider.EC2_US_EAST)
+        self.driver = self.cls(self.credential['EC2_ACCESS_KEY'],
+                            self.credential['EC2_SECRET_KEY'],
+                            host=host,
+                            port=port,
+                            **extra_args)
+
 
     def test_002(self):
         """list VMs"""
