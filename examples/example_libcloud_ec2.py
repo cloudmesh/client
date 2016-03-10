@@ -55,7 +55,7 @@ pprint (sizes)
 
 # specify flavor and image
 myflavor = 'm1.small'
-myimage = 'Ubuntu-14.04-64'
+myimage = 'Ubuntu-Server-14.04-LTS'
 
 
 #myflavor = clouddefault['flavor']
@@ -66,7 +66,7 @@ size = [s for s in sizes if s.id == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
 # launch a new VM
-name = "{:}-libcloud".format(cloudcred['userid'])
+name = "{:}-libcloud".format(credential['userid'])
 node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
