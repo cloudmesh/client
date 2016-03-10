@@ -12,7 +12,7 @@ from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, LIBCLOUD_FLAVOR, DEFAULT, KEY, IMAGE, LIBCLOUD_IMAGE, VM, \
     LIBCLOUD_VM, GROUP, RESERVATION, COUNTER, VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
-    SECGROUPRULE
+    SECGROUPRULE, VAR
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
