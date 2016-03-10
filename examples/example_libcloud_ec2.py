@@ -6,13 +6,33 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from time import sleep
 from pprint import pprint
 
-# AWS to load EC2 from US_EAST
-cls = get_driver(Provider.EC2_US_EAST)
 
-# get cloud credential from yaml file
-confd = ConfigDict("cloudmesh.yaml")
-cloudcred = confd['cloudmesh']['clouds']['aws']['credentials']
-clouddefault = confd['cloudmesh']['clouds']['aws']['default']
+cloud = "chameleon-ec2"
+config = ConfigDict("cloudmesh.yaml")
+credential = config['cloudmesh']['clouds'][cloud]['credentials']
+default = config['cloudmesh']['clouds'][cloud]['default']
+# pprint(dict(credential))
+
+auth_url = credential["EC2_URL"]
+
+data = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
+                auth_url,
+                re.M | re.I)
+host, port, path = data.group(1),data.group(2),data.group(3)
+#print("host: " + host)
+#print("port: " + port)
+#print("path: " + path)
+
+extra_args = {'path': path}
+cls = get_driver(Provider.EC2_US_EAST)
+self.driver = cls(
+    credential['EC2_ACCESS_KEY'],
+    credential['EC2_SECRET_KEY'],
+    host=host,
+    port=port,
+    **extra_args)
+
+print ("DRIVER", driver)
 
 pprint(cloudcred)
 
@@ -26,7 +46,7 @@ nodes = driver.list_nodes()
 
 # THIS FUNCTION TAKES TIME TO LOAD 40K+ IMAGES
 # obtain available images
-images = driver.list()
+images = driver.list_images()
 #print images[0]
 
 # sizes/flavors
