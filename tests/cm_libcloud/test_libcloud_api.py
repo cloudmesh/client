@@ -1,6 +1,6 @@
 """ run with
 
-python setup.py install; nosetests -v --nocapture  tests/cm_libcloud/test_libcloud_api.py:Test_image.test_001
+python setup.py install; nosetests -v --nocapture  tests/cm_libcloud/test_libcloud_api.py:Test_libcloud_api.test_001
 
 nosetests -v --nocapture tests/libcloud/test_libcloud_api.py
 
@@ -92,11 +92,26 @@ class Test_libcloud_api():
         # r = provider.list_flavor(cloud)
         # pprint(r)
 
-        for kind in ["flavor"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
-            r = provider.list(kind, cloud)
-            pprint(r)
+        kind = 'flavor'
 
-        assert True
+        r = provider.list(kind, cloud)
+        pprint(r)
+
+        assert 't2.small' in str(r)
+
+        r = provider.list_flavor(cloud)
+        pprint(r)
+
+
+        assert 't2.small' in str(r)
+
+
+        r = provider.provider.list_sizes(cloud)
+        pprint(r)
+
+
+        assert 't2.small' in str(r)
+
 
 
 
@@ -121,7 +136,7 @@ class Test_libcloud_api():
         #r = provider.list_flavor(cloud)
         #pprint(r)
 
-        for kind in ["image"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+        for kind in ["vm"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
             r = provider.list(kind, cloud)
             pprint(r)
 
