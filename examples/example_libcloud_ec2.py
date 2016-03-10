@@ -67,6 +67,7 @@ image = [i for i in images if i.name == myimage][0]
 
 # launch a new VM
 name = "{:}-libcloud".format(credential['userid'])
+'''
 node = driver.create_node(name=name,
                           image=image,
                           size=size,
@@ -75,20 +76,19 @@ node = driver.create_node(name=name,
 print("---------")
 pprint(node)
 print("---------")
+'''
 # get the first pool - public by default
 # pool = driver.ex_list_networks()
 # pprint(pool)
-
-# sys.exit()
-
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
 pprint (nodes)
 
 # wait the node to be ready before assigning public IP
+'''
 sleep(10)
-
+'''
 # public IPs
 # get the first pool - public by default
 # create an ip in the pool
@@ -110,4 +110,4 @@ pprint (nodes)
 # delete the ip
 
 # delete vm
-node.destroy()
+#node.destroy()

@@ -27,54 +27,49 @@ nosetests -v tests/test_image.py
 
 """
 
-cloud = None
-driver = None
-credential = None
-default = None
-cls = None
-config = None
-
 class Test_libcloud_native():
     """
     Tests the libcloud native connection to chameleon
     """
 
     driver = None
+    credential=None
+    clouddefault = None
 
     def setup(self):
         cloud = "chameleon-ec2"
         config = ConfigDict("cloudmesh.yaml")
-        credential = config['cloudmesh']['clouds'][cloud]['credentials']
-        default = config['cloudmesh']['clouds'][cloud]['default']
-        # pprint(dict(credential))
+        self.credential = config['cloudmesh']['clouds'][cloud]['credentials']
+        self.clouddefault = config['cloudmesh']['clouds'][cloud]['default']
+        # pprint(dict(self.credential))
 
-        auth_url = credential["EC2_URL"]
+        auth_url = self.credential["EC2_URL"]
 
         data = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                         auth_url,
                         re.M | re.I)
         host, port, path = data.group(1),data.group(2),data.group(3)
-        #print("host: " + host)
-        #print("port: " + port)
-        #print("path: " + path)
+        print("host: " + host)
+        print("port: " + port)
+        print("path: " + path)
 
         extra_args = {'path': path}
         cls = get_driver(Provider.EC2_US_EAST)
         self.driver = cls(
-            credential['EC2_ACCESS_KEY'],
-            credential['EC2_SECRET_KEY'],
+            self.credential['EC2_ACCESS_KEY'],
+            self.credential['EC2_SECRET_KEY'],
             host=host,
             port=port,
             **extra_args)
-        print ("DRIVER", driver)
+        print ("DRIVER", self.driver)
         assert "libcloud.compute.drivers.ec2.EC2NodeDriver object at" in str(self.driver)
 
     def test_002(self):
         """list VMs"""
         HEADING()
-        print (self.driver)
+        pprint (self.driver)
         nodes = self.driver.list_nodes()
-        print ("Nodes", nodes)
+        pprint ("Nodes", nodes)
         assert True
 
 
@@ -82,7 +77,7 @@ class Test_libcloud_native():
         """list images"""
         HEADING()
         print (self.driver)
-        images = self.driver.list()
+        images = self.driver.list_images()
         print ("Images", images)
         assert len(images) > 0
 
@@ -93,34 +88,44 @@ class Test_libcloud_native():
         sizes = self.driver.list_sizes()
         print ("Flavor", sizes[0])
         assert len(sizes) > 0
-        assert True
-
 
     def test_005(self):
         # specify flavor and image
         HEADING()
         print (self.driver)
-        myflavor = default['flavor']
+        myflavor = self.clouddefault['flavor']
         sizes = self.driver.list_sizes()
         size = [s for s in sizes if s.id == myflavor][0]
-
+        print (size)
         assert True
 
     def test_006(self):
         # Changed "name" -> "id" (diff from openstack)
         HEADING()
         print (self.driver)
-        myimage = default['image']
-        images = self.driver.list()
-        image = [i for i in images if i.id == myimage][0]
+        myimage = self.clouddefault['image']
+        images = self.driver.list_images()
+        image = [i for i in images if i.name == myimage][0]
+        print(image)
         assert True
 
     def test_007(self):
         """launch a new VM"""
         HEADING()
         print (self.driver)
-        name = "{:}-libcloud".format(credential['userid'])
+
+        myimage = self.clouddefault['image']
+        images = self.driver.list_images()
+        image = [i for i in images if i.name == myimage][0]
+
+        myflavor = self.clouddefault['flavor']
+        sizes = self.driver.list_sizes()
+        size = [s for s in sizes if s.id == myflavor][0]
+
+
+        name = "{:}-libcloud".format(self.credential['userid'])
         node = self.driver.create_node(name=name, image=image, size=size)
+        print (node)
         assert True
 
     def test_008(self):
