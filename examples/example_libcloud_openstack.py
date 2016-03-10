@@ -50,10 +50,10 @@ pprint (sizes)
 
 # specify flavor and image
 myflavor = 'm1.small'
-myimage = 'Ubuntu-Server-14.04-LTS'
+myimage = 'Ubuntu-14.04-64'
 
 
-size = [s for s in sizes if s.id == myflavor][0]
+size = [s for s in sizes if s.name == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
 
