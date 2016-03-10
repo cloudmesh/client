@@ -8,7 +8,7 @@ from time import sleep
 from pprint import pprint
 
 
-cloud = "chameleon-ec2"
+cloud = "cybera-ec2"
 config = ConfigDict("cloudmesh.yaml")
 credential = config['cloudmesh']['clouds'][cloud]['credentials']
 clouddefault = config['cloudmesh']['clouds'][cloud]['default']
@@ -53,33 +53,40 @@ pprint (sizes)
 # specify flavor and image
 
 
-# specify flavor and image
-myflavor = 'm1.small'
-myimage = 'Ubuntu-Server-14.04-LTS'
-
-
-#myflavor = clouddefault['flavor']
-#myimage = clouddefault['image']
+myflavor = clouddefault['flavor']
+myimage = clouddefault['image']
 
 # Changed "name" -> "id" (diff from openstack)
 size = [s for s in sizes if s.id == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
+
+# get the first pool - public by default
+#pool = driver.ex_list_subnets()
+#pprint(pool)
+
+
+# get the first pool - public by default
+#pool = driver.ex_list_networks()
+#pprint(pool)
+
+
 # launch a new VM
 name = "{:}-libcloud".format(credential['userid'])
 
+
+
+
 node = driver.create_node(name=name,
                           image=image,
-                          size=size,
-                          ex_assign_public_ip=True)
+                          size=size)
+
+#                          ex_assign_public_ip=True)
 
 print("---------")
 pprint(node)
 print("---------")
 
-# get the first pool - public by default
-# pool = driver.ex_list_networks()
-# pprint(pool)
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
@@ -110,4 +117,4 @@ pprint (nodes)
 # delete the ip
 
 # delete vm
-node.destroy()
+# node.destroy()
