@@ -38,30 +38,45 @@ driver = OpenStack(
 
 # list VMs
 nodes = driver.list_nodes()
-print (nodes)
+pprint (nodes)
 
 # obtain available images
-images = driver.list()
-# print images
+images = driver.list_images()
+pprint (images)
 
 # sizes/flavors
 sizes = driver.list_sizes()
-# print sizes
+pprint (sizes)
 
 # specify flavor and image
 myflavor = 'm1.small'
-myimage = 'futuresystems/ubuntu-14.04'
+myimage = 'Ubuntu-14.04-64'
+
 
 size = [s for s in sizes if s.name == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
+
+
+pprint (driver.ex_list_floating_ip_pools())
+print("NNNN")
+
+
+networks= driver.ex_list_networks()
+pprint (networks)
+
+
+
+mynetworkname = "%s-net" % credential['OS_TENANT_NAME']
+mynetwork = [i for i in networks if i.name == mynetworkname][0]
+
 # launch a new VM
 name = "{:}-libcloud".format(credential['OS_USERNAME'])
-node = driver.create_node(name=name, image=image, size=size)
+node = driver.create_node(name=name, image=image, size=size, networks=[mynetwork])
 
 # check if the new VM is in the list
 nodes = driver.list_nodes()
-print (nodes)
+pprint (nodes)
 
 # wait the node to be ready before assigning public IP
 sleep(10)
@@ -84,10 +99,10 @@ driver.ex_attach_floating_ip_to_node(node, floating_ip)
 
 # check updated VMs list to see if public ip is assigned
 nodes = driver.list_nodes()
-print (nodes)
+pprint (nodes)
 
 # remove it from the node
-# driver.ex_detach_floating_ip_from_node(node, floating_ip)
+driver.ex_detach_floating_ip_from_node(node, floating_ip)
 
 # delete the ip
-# floating_ip.delete()
+floating_ip.delete()
