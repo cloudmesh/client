@@ -1,3 +1,4 @@
+from __future__ import print_function
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
@@ -6,26 +7,26 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from pprint import pprint
-from __future__ import print_function
+
 OpenStack = get_driver(Provider.OPENSTACK)
 
 # get cloud credential from yaml file
-confd = ConfigDict("cloudmesh.yaml")
-cloudcred = confd['cloudmesh']['clouds']['india']['credentials']
+config = ConfigDict("cloudmesh.yaml")
+credential = config['cloudmesh']['clouds']['kilo']['credentials']
 
-pprint(cloudcred)
+pprint(dict(credential))
 
 # set path to cacert and enable ssl connection
-libcloud.security.CA_CERTS_PATH = [Config.path_expand(cloudcred['OS_CACERT'])]
-libcloud.security.VERIFY_SSL_CERT = True
+# libcloud.security.CA_CERTS_PATH = [Config.path_expand(credential['OS_CACERT'])]
+# libcloud.security.VERIFY_SSL_CERT = True
 
-auth_url = "%s/tokens/" % cloudcred['OS_AUTH_URL']
+auth_url = "%s/tokens/" % credential['OS_AUTH_URL']
 
-driver = OpenStack(cloudcred['OS_USERNAME'],
-                   cloudcred['OS_PASSWORD'],
+driver = OpenStack(credential['OS_USERNAME'],
+                   credential['OS_PASSWORD'],
                    ex_force_auth_url=auth_url,
-                   ex_tenant_name=cloudcred['OS_TENANT_NAME'],
-                   ex_force_auth_version='2.0_password',
+                   ex_tenant_name=credential['OS_TENANT_NAME'],
+                   # ex_force_auth_version='2.0_password',
                    ex_force_service_region='regionOne')
 
 # list VMs
@@ -48,7 +49,7 @@ size = [s for s in sizes if s.name == myflavor][0]
 image = [i for i in images if i.name == myimage][0]
 
 # launch a new VM
-name = "{:}-libcloud".format(cloudcred['OS_USERNAME'])
+name = "{:}-libcloud".format(credential['OS_USERNAME'])
 node = driver.create_node(name=name, image=image, size=size)
 
 # check if the new VM is in the list
