@@ -21,6 +21,7 @@ pprint(dict(credential))
 # libcloud.security.VERIFY_SSL_CERT = True
 
 auth_url = "%s/tokens/" % credential['OS_AUTH_URL']
+auth_url = auth_url.split("/v3")[0]
 
 print (auth_url)
 
@@ -30,7 +31,7 @@ driver = OpenStack(
     credential['OS_PASSWORD'],
     ex_force_auth_version='3.x_password',
     ex_force_auth_url=auth_url,
-    ex_force_service_type='compute',
+    # ex_force_service_type='compute',
     ex_force_service_region='RegionOne',
     ex_tenant_name=credential['OS_TENANT_NAME'])
 
