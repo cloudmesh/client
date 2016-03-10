@@ -1,7 +1,8 @@
+from __future__ import print_function
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
-from __future__ import print_function
+import re
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from time import sleep
 from pprint import pprint
@@ -25,7 +26,7 @@ host, port, path = data.group(1),data.group(2),data.group(3)
 
 extra_args = {'path': path}
 cls = get_driver(Provider.EC2_US_EAST)
-self.driver = cls(
+driver = cls(
     credential['EC2_ACCESS_KEY'],
     credential['EC2_SECRET_KEY'],
     host=host,
@@ -34,11 +35,11 @@ self.driver = cls(
 
 print ("DRIVER", driver)
 
-pprint(cloudcred)
+pprint(credential)
 
 # AWS needs two values for authentication
-driver = cls(cloudcred['EC2_ACCESS_KEY'],
-             cloudcred['EC2_SECRET_KEY'])
+driver = cls(credential['EC2_ACCESS_KEY'],
+             credential['EC2_SECRET_KEY'])
 
 # list VMs
 nodes = driver.list_nodes()
