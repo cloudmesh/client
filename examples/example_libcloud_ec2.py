@@ -39,24 +39,31 @@ pprint(dict(credential))
 
 # list VMs
 nodes = driver.list_nodes()
-#print nodes
+pprint (nodes)
 
 # THIS FUNCTION TAKES TIME TO LOAD 40K+ IMAGES
 # obtain available images
 images = driver.list_images()
-#print images[0]
+pprint (images)
 
 # sizes/flavors
 sizes = driver.list_sizes()
-#print sizes
+pprint (sizes)
 
 # specify flavor and image
-myflavor = clouddefault['flavor']
-myimage = clouddefault['image']
+
+
+# specify flavor and image
+myflavor = 'm1.small'
+myimage = 'Ubuntu-14.04-64'
+
+
+#myflavor = clouddefault['flavor']
+#myimage = clouddefault['image']
 
 # Changed "name" -> "id" (diff from openstack)
 size = [s for s in sizes if s.id == myflavor][0]
-image = [i for i in images if i.id == myimage][0]
+image = [i for i in images if i.name == myimage][0]
 
 # launch a new VM
 name = "{:}-libcloud".format(cloudcred['userid'])
