@@ -416,6 +416,11 @@ class Default(ListResource):
             value = name_key or keys["keylist"][name]
             # key_db.add(value, keyname=name)
 
-        Default.set_key(name)
+        # Check if the key is already set
+        exist_key = cls.get_key()
+
+        # Set the key only if there is no existing value in the DB.
+        if exist_key is None:
+            Default.set_key(name)
 
 
