@@ -341,8 +341,12 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm_name = prefix + "-" + str(count).zfill(3)
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.get_cloud()}
-                for attribute in ["image", "flavor", "key", "login_key", "group", "secgroup"]:
+                for attribute in ["image", "flavor", "login_key", "group", "secgroup"]:
                     data[attribute] = Default.get(attribute, category=cloud)
+
+                # Retrieving key separately as its in general category.
+                data["key"] = Default.get_key()
+
                 output_format = arguments["--format"] or "table"
                 print (attribute_printer(data, output=output_format))
                 msg = "info. OK."
