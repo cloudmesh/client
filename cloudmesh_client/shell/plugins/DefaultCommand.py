@@ -111,7 +111,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
         For these keys, the 'cloud' column in db
         will always be 'general'.
         """
-        general_keys = ["cloud", "cluster", "queue"]
+        general_keys = ["cloud", "cluster", "queue", "key"]
 
         """
         If the default cloud has been set (eg. default category=xxx),
