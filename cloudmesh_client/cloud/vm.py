@@ -12,6 +12,8 @@ from cloudmesh_client.common.Error import Error
 
 from uuid import UUID
 
+from builtins import input
+
 
 # noinspection PyPep8Naming
 class Vm(ListResource):
@@ -104,8 +106,8 @@ class Vm(ListResource):
             cloud_provider.start_vm(server)
             print("Machine {:} is being started on {:} Cloud...".format(server, cloud_provider.cloud))
 
-            # Explicit refresh called after VM start, to update db.
-            # cls.refresh(cloud=kwargs["cloud"])
+        # Explicit refresh called after VM start, to update db.
+        # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def stop(cls, **kwargs):
@@ -114,8 +116,8 @@ class Vm(ListResource):
             cloud_provider.stop_vm(server)
             print("Machine {:} is being stopped on {:} Cloud...".format(server, cloud_provider.cloud))
 
-            # Explicit refresh called after VM stop, to update db.
-            # cls.refresh(cloud=kwargs["cloud"])
+        # Explicit refresh called after VM stop, to update db.
+        # cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def delete(cls, **kwargs):
@@ -124,19 +126,56 @@ class Vm(ListResource):
             cloud_provider.delete_vm(server)
             print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
 
-            # Explicit refresh called after VM delete, to update db.
-            cls.refresh(cloud=kwargs["cloud"])
+        # Explicit refresh called after VM delete, to update db.
+        cls.refresh(cloud=kwargs["cloud"])
+
+    @classmethod
+    def get_vms_by_name(cls, name, cloud):
+        vm_data = cls.cm.find("vm", name=name, category=cloud)
+        if vm_data is None or len(vm_data) == 0:
+            raise RuntimeError("VM data not found in database.")
+        return vm_data
 
     @classmethod
     def rename(cls, **kwargs):
         cloud_provider = CloudProvider(kwargs["cloud"]).provider
         new_name = kwargs["new_name"]
         for server in kwargs["servers"]:
-            cloud_provider.rename_vm(server, new_name)
-            print("Machine {:} renamed to {:} on {:} Cloud...".format(server, new_name, cloud_provider.cloud))
 
-            # Explicit refresh called after VM delete, to update db.
-            cls.refresh(cloud=kwargs["cloud"])
+            # Check for vms with duplicate names in DB.
+            vms = cls.get_vms_by_name(name=server, cloud=kwargs["cloud"])
+
+            if len(vms) > 1:
+                users_choice = "y"
+
+                if not kwargs["force"]:
+                    print("More than 1 vms found with the same name as {}.".format(server))
+                    users_choice = input("Would you like to auto-order the new names? (y/n): ")
+
+                if users_choice.strip() == "y":
+                    count = 1
+                    for index in vms:
+                        count_new_name = "{0}{1}".format(new_name, count)
+                        # print(vms[index])
+                        cloud_provider.rename_vm(vms[index]["uuid"], count_new_name)
+
+                        print("Machine {0} with UUID {1} renamed to {2} on {3} cloud".format(vms[index]["name"],
+                                                                                             vms[index]["uuid"],
+                                                                                             count_new_name,
+                                                                                             cloud_provider.cloud))
+                        count += 1
+                elif users_choice.strip() == "n":
+                    cloud_provider.rename_vm(server, new_name)
+                    print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
+                else:
+                    Console.error("Invalid Choice.")
+                    return
+            else:
+                cloud_provider.rename_vm(server, new_name)
+                print("Machine {0} renamed to {1} on {2} Cloud...".format(server, new_name, cloud_provider.cloud))
+
+        # Explicit refresh called after VM rename, to update db.
+        cls.refresh(cloud=kwargs["cloud"])
 
     @classmethod
     def info(cls, **kwargs):

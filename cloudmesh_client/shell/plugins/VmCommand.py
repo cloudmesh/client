@@ -75,6 +75,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm rename [NAME]...
                           [--new=NEWNAME]
                           [--cloud=CLOUD]
+                          [--force]
                 vm list [NAME_OR_ID]
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
@@ -114,7 +115,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 --user=USER      give the user name of the server that you want
                                  to use to login
                 --name=NAME      give the name of the virtual machine
-                --force          delete vms without user's confirmation
+                --force          rename/ delete vms without user's confirmation
                 --command=COMMAND
                                  specify the commands to be executed
                 --new=NEWNAME    Specify the new name for a VM while renaming.
@@ -723,7 +724,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     # BUG THE Z FILL SHOULD BE detected from yaml file
                     new_name = prefix + "-" + str(count).zfill(3)
 
-                Vm.rename(cloud=cloud, servers=servers, new_name=new_name)
+                Vm.rename(cloud=cloud, servers=servers, new_name=new_name, force=arguments["--force"])
 
                 if is_name_provided is False:
                     # Incrementing count

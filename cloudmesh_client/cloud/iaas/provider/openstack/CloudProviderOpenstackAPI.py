@@ -36,15 +36,17 @@ def set_os_environ(cloudname):
 # we already have a much better convert to dict function
 #
 
+
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
-    kind = "openstack" # BUG this should be cloud_type
+
+    kind = "openstack"  # BUG this should be cloud_type
     cloud_pwd = {}
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.flat = flat
-        self.kind = "openstack" # BUG this should be cloud_type
+        self.kind = "openstack"  # BUG this should be cloud_type
         self.provider = None
         self.default_image = None
         self.default_flavor = None
@@ -89,8 +91,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                           "project_domain_name"]
         authdict = {}
         # always required
-        authdict["auth_url"]=credentials["OS_AUTH_URL"]
-        authdict["password"]=credentials["OS_PASSWORD"]
+        authdict["auth_url"] = credentials["OS_AUTH_URL"]
+        authdict["password"] = credentials["OS_PASSWORD"]
 
         # setting automatically all available ones
         # CAUTION: MAY be causing conflict/error.
@@ -122,7 +124,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         elif "OS_PROJECT_DOMAIN_ID" in credentials:
             authdict["project_domain_name"] = credentials["OS_PROJECT_DOMAIN_ID"]
         '''
-        #pprint(authdict)
+        # pprint(authdict)
 
         ksauth = v3.Password(**authdict)
 
@@ -306,6 +308,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         """
         if self.isUuid(current_name):
             server = self.provider.servers.get(current_name)
+            print("Renaming VM ({})".format(current_name))
             server.update(name=new_name)
         else:
             # server = self.provider.servers.find(name=name)
