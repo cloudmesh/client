@@ -694,7 +694,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'rxtx_factor',
                     'os_flv_ext_data',
                     'disk',
-                    'cloud',
+                    'category',
                     'uuid'
                 ],
                 'header': [
@@ -725,7 +725,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'status',
                     'updated',
                     'uuid',
-                    'cloud'
+                    'category'
                 ],
                 'header': [
                     'id',
@@ -752,7 +752,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'key_name',
                     'project',
                     'user',
-                    'cloud'],
+                    'category'],
                 'header': [
                     'id',
                     'uuid',
