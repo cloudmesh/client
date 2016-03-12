@@ -132,42 +132,18 @@ class CloudmeshDatabase(object):
                 if kind == "secgroup":
                     self.clear("secgrouprule", name)
 
-                if kind == "flavor":
-                    flavors = provider.list_flavor(name)
-                    for flavor in list(flavors.values()):
-                        flavor["uuid"] = flavor['id']
-                        flavor['type'] = 'string'
-                        flavor["category"] = name
-                        flavor["user"] = user
+                if kind in ["flavor", "image", "vm"]:
 
-                        db_obj = {0: {kind: flavor}}
-                        self.add_obj(db_obj)
-                        self.save()
-                    return True
+                    # flavors = provider.list_flavor(name)
+                    elements = provider.list(kind, name)
+                    for element in list(elements.values()):
+                        element["uuid"] = element['id']
+                        element['type'] = 'string'
+                        element["category"] = name
+                        element["cloud"] = name
+                        element["user"] = user
 
-                elif kind == "image":
-                    images = provider.list_image(name)
-
-                    for image in list(images.values()):
-                        image['uuid'] = image['id']
-                        image['type'] = 'string'
-                        image['category'] = name
-                        image['user'] = user
-                        db_obj = {0: {kind: image}}
-
-                        self.add_obj(db_obj)
-                        self.save()
-                    return True
-
-                elif kind == "vm":
-                    vms = provider.list_vm(name)
-                    for vm in list(vms.values()):
-                        vm['uuid'] = vm['id']
-                        vm['type'] = 'string'
-                        vm['category'] = name
-                        vm['user'] = user
-                        db_obj = {0: {kind: vm}}
-
+                        db_obj = {0: {kind: element}}
                         self.add_obj(db_obj)
                         self.save()
                     return True

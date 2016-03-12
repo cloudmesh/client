@@ -40,13 +40,14 @@ def set_os_environ(cloudname):
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
 
-    kind = "openstack"  # BUG this should be cloud_type
+    cloud_type = "openstack"
     cloud_pwd = {}
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.flat = flat
-        self.kind = "openstack"  # BUG this should be cloud_type
+        self.cloud_type = "openstack"
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key"]
         self.provider = None
         self.default_image = None
         self.default_flavor = None
@@ -693,7 +694,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'rxtx_factor',
                     'os_flv_ext_data',
                     'disk',
-                    'cloud',
+                    'category',
                     'uuid'
                 ],
                 'header': [
@@ -723,7 +724,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'progress',
                     'status',
                     'updated',
-                    'uuid'
+                    'uuid',
+                    'category'
                 ],
                 'header': [
                     'id',
@@ -735,12 +737,34 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'progress',
                     'status',
                     'updated',
-                    'uuid'
+                    'uuid',
+                    'cloud'
                 ]
             },
             'vm': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'static_ip',
+                    'floating_ip',
+                    'key_name',
+                    'project',
+                    'user',
+                    'category'],
+                'header': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'static_ip',
+                    'floating_ip',
+                    'key_name',
+                    'project',
+                    'user',
+                    'cloud'
+                ]
             },
             'floating_ip': {
                 'order': [
@@ -749,7 +773,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "pool",
                     "fixed_ip",
                     "id",
-                    "instance_id"
+                    "instance_id",
+                    'cloud'
                 ],
                 'header': [
                     "instance_name",
@@ -757,7 +782,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "floating_ip_pool",
                     "fixed_ip",
                     "floating_ip_id",
-                    "instance_id"
+                    "instance_id",
+                    'cloud'
                 ],
             },
             'floating_ip_pool': {
@@ -774,7 +800,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "status"
                 ],
                 'header': [
-                    "cloud name",
+                    "cloud",
                     "status"
                 ],
             },
@@ -817,8 +843,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ]
             },
             'default': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                     ],
+                'header': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                     ],
             }
         }
 
@@ -829,39 +869,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             order = None
             header = None
 
-        if kind == 'default':
-            order = ['user',
-                     'cloud',
-                     'name',
-                     'value',
-                     'created_at',
-                     'updated_at'
-                     ]
-        elif kind == 'vm':
-            order = [
-                'id',
-                'uuid',
-                'label',
-                'status',
-                'static_ip',
-                'floating_ip',
-                'key_name',
-                'project',
-                'user',
-                'cloud'
-            ]
-            header = [
-                'id',
-                'uuid',
-                'label',
-                'status',
-                'static_ip',
-                'floating_ip',
-                'key_name',
-                'project',
-                'user',
-                'cloud'
-            ]
         return order, header
 
 
