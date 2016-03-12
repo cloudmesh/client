@@ -9,7 +9,6 @@ from sqlalchemy import Column, Integer, String, MetaData, \
     create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 
-
 # noinspection PyPep8Naming
 class database(object):
     """
@@ -79,7 +78,7 @@ class CloudmeshMixin(object):
     user = Column(String, default="undefined")
     kind = Column(String, default="undefined")
     project = Column(String, default="undefined")
-
+    cloud = Column(String, default="undefined")
 
 class IMAGE(CloudmeshMixin, db.Base):
     uuid = Column(String)
