@@ -723,7 +723,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'progress',
                     'status',
                     'updated',
-                    'uuid'
+                    'uuid',
+                    'cloud'
                 ],
                 'header': [
                     'id',
@@ -735,12 +736,34 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'progress',
                     'status',
                     'updated',
-                    'uuid'
+                    'uuid',
+                    'cloud'
                 ]
             },
             'vm': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'static_ip',
+                    'floating_ip',
+                    'key_name',
+                    'project',
+                    'user',
+                    'cloud'],
+                'header': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'static_ip',
+                    'floating_ip',
+                    'key_name',
+                    'project',
+                    'user',
+                    'cloud'
+                ]
             },
             'floating_ip': {
                 'order': [
@@ -749,7 +772,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "pool",
                     "fixed_ip",
                     "id",
-                    "instance_id"
+                    "instance_id",
+                    'cloud'
                 ],
                 'header': [
                     "instance_name",
@@ -757,7 +781,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "floating_ip_pool",
                     "fixed_ip",
                     "floating_ip_id",
-                    "instance_id"
+                    "instance_id",
+                    'cloud'
                 ],
             },
             'floating_ip_pool': {
@@ -774,7 +799,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "status"
                 ],
                 'header': [
-                    "cloud name",
+                    "cloud",
                     "status"
                 ],
             },
@@ -817,8 +842,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ]
             },
             'default': {
-                'order': None,
-                'header': None,
+                'order': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                     ],
+                'header': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                     ],
             }
         }
 
@@ -829,39 +868,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             order = None
             header = None
 
-        if kind == 'default':
-            order = ['user',
-                     'cloud',
-                     'name',
-                     'value',
-                     'created_at',
-                     'updated_at'
-                     ]
-        elif kind == 'vm':
-            order = [
-                'id',
-                'uuid',
-                'label',
-                'status',
-                'static_ip',
-                'floating_ip',
-                'key_name',
-                'project',
-                'user',
-                'cloud'
-            ]
-            header = [
-                'id',
-                'uuid',
-                'label',
-                'status',
-                'static_ip',
-                'floating_ip',
-                'key_name',
-                'project',
-                'user',
-                'cloud'
-            ]
         return order, header
 
 
