@@ -168,7 +168,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
                 cloud = "general"
             Default.set(key, value, cloud)
             Console.ok(
-                "set in defaults {}={}. ok.".format(key, value))
+                "set default {}={}. ok.".format(key, value))
             return ""
 
         elif arguments["KEY"]:
