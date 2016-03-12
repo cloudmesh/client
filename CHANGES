@@ -1,4 +1,2198 @@
 Summary of Changes
 ===================
 
-TBD
+Changelog
+=========
+
+- Dev image name and size name. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+
+3.1.0 (2016-03-09)
+------------------
+
+- python 2 an 3 support
+
+- Generalizing credential parameters passing for keystone v3 api. Tested
+  on india kilo and jetstream. [fugangwang]
+
+- Comet:
+
+  - nodes/computesets power on/off restructured. 
+  - Support 'ALL' for computeset state filter 
+  - computeset info for nodes stuck in inactive state.
+
+- Update dual python version for developers. [Gregor von Laszewski]
+
+3.0.0 (2016-03-04)
+------------------
+
+- python 2 to 3
+
+  - exceptions, iteritems, division
+  - strings, None comparision
+  - input
+  - improved sorting
+
+  - Comet:
+
+    - Improving cluster and computeset display 
+    - Supporting multiple service endpoints.
+    - Use iso 
+
+- Update .travis.yml. 
+
+2.1.3 (2016-02-18)
+------------------
+
+Other
+~~~~~
+
+- Comet: updating documentation. [fugangwang]
+
+- Comet: clarifying in the usage that one single compute node is
+  acceptable too when computenodes is expected. [fugangwang]
+
+- Comet: supporting bulk image attaching/detaching via hostlist.
+  [fugangwang]
+
+- Comet: updating documentation. [fugangwang]
+
+- Comet: removing one special char. [fugangwang]
+
+- Comet: updating documents to show examples of starting N nodes and
+  renaming a compute node. [fugangwang]
+
+- Comet: adding support of ranaming a compute node; and booting N nodes.
+  [fugangwang]
+
+2.1.2 (2016-02-15)
+------------------
+
+Changes
+~~~~~~~
+
+- New: authors. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Restructures dockerfile (closes #150) [Badi' Abdul-Wahid]
+
+- Addes libz-dev for documentation (closes #151) [Badi' Abdul-Wahid]
+
+- Fixes six version (closes #149) [Badi' Abdul-Wahid]
+
+- Fixes requests version (closes #148) [Badi' Abdul-Wahid]
+
+- Add the local directory instead of cloning again. [Badi' Abdul-Wahid]
+
+- Adds missing dependency: libjpeg-dev (closes #146) [Badi' Abdul-Wahid]
+
+- Comet: updating quick guide. [fugangwang]
+
+- Comet: image operations fixed and tested. [fugangwang]
+
+2.1.1 (2016-02-15)
+------------------
+
+Changes
+~~~~~~~
+
+  error in travis. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Update cm.py. [arpiagariu]
+
+  added code to method def var_finder(self, line, c='$'):
+
+- Uploading image and attach/detach to node. [fugangwang]
+
+- 2.1.0. [Gregor von Laszewski]
+
+- Version 2.1.0. [Gregor von Laszewski]
+
+2.1.0 (2016-02-11)
+------------------
+
+- 2.0.4. [Gregor von Laszewski]
+
+- Version 2.0.4. [Gregor von Laszewski]
+
+- 2.0.5. [Gregor von Laszewski]
+
+- Version 2.0.5. [Gregor von Laszewski]
+
+2.0.5 (2016-02-11)
+------------------
+
+- Comet: more cleaning up of code and debug messages. [fugangwang]
+
+- Comet: cleaning up code/docs based on currently implemented features.
+  [fugangwang]
+
+- Updating comet documentation. [fugangwang]
+
+- Comet: enabling powering off/reboot/reset all nodes for an active
+  computeset. [fugangwang]
+
+- Comet: changing docopt. [fugangwang]
+
+- Comet: adding notes about powering off computeset. [fugangwang]
+
+- Comet: updating quickstart guide. [fugangwang]
+
+- Comet: Changing power management of nodes; Adding support of
+  allocation and customized walltime. [fugangwang]
+
+- Chg;dev: pip instalation is not working notice. [Gregor von Laszewski]
+
+2.0.4 (2016-02-11)
+------------------
+
+- 2.0.3. [Gregor von Laszewski]
+
+- Version 2.0.3. [Gregor von Laszewski]
+
+2.0.3 (2016-02-10)
+------------------
+
+- 2.0.2. [Gregor von Laszewski]
+
+- Version 2.0.2. [Gregor von Laszewski]
+
+2.0.2 (2016-02-10)
+------------------
+
+- 2.0.1. [Gregor von Laszewski]
+
+- Version 2.0.1. [Gregor von Laszewski]
+
+2.0.1 (2016-02-10)
+------------------
+
+- 2.0.0. [Gregor von Laszewski]
+
+- Version 2.0.0. [Gregor von Laszewski]
+
+2.0.0 (2016-02-10)
+------------------
+
+- 1.1.6. [Gregor von Laszewski]
+
+- Version 1.1.6. [Gregor von Laszewski]
+
+1.1.6 (2016-02-09)
+------------------
+
+New
+~~~
+
+- Adding a "cm key load" command that loads the keys from the yaml file.
+  [Gregor von Laszewski]
+
+- Auto-refresh images and flavors if the database does not contain
+  values for it. [Gregor von Laszewski]
+
+- Reading default values from the db or the yaml file at cm start.
+  [Gregor von Laszewski]
+
+- Adding a homework about keys. [Gregor von Laszewski]
+
+- Pointer to the documentation on RTD. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Improved the "cm register info" command. [Gregor von Laszewski]
+
+- New location of the Cloudmesh presentation. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Version 1.1.5. [Gregor von Laszewski]
+
+1.1.5 (2016-02-02)
+------------------
+
+- Version 1.1.4. [Gregor von Laszewski]
+
+1.1.4 (2016-02-01)
+------------------
+
+New
+~~~
+
+- Change link to presentation. [Gregor von Laszewski]
+
+- Adding the ppt. [Gregor von Laszewski]
+
+- Improved script examples. [Gregor von Laszewski]
+
+- Introduce variables to make .cloudmesh dependent scripts. [Gregor von
+  Laszewski]
+
+- Commenting the cm scripts for the manual. [Gregor von Laszewski]
+
+- Added a simplw quick start guide. [Gregor von Laszewski]
+
+- Adding cybera configuration instructions. [Gregor von Laszewski]
+
+- Removing IU juno cloud from the yaml file as it will be shut of Jan
+  30, 2016. [Gregor von Laszewski]
+
+- One line curl based install for centos. [Gregor von Laszewski]
+
+- Using bash prompt in sphinx documentation. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Dev spelling and generalizing register remote. [Gregor von Laszewski]
+
+- Add chameleon auth url. [Gregor von Laszewski]
+
+- Removing juno cloud from most of the code. [Gregor von Laszewski]
+
+Fix
+~~~
+
+- Simplified install instructions. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Adding comet CLI quick start guide. [fugangwang]
+
+- Console URL could be unavailable. [fugangwang]
+
+- Computeset state changed from started to running after slurm
+  integration. [fugangwang]
+
+- Version 1.1.3. [Gregor von Laszewski]
+
+1.1.3 (2016-01-26)
+------------------
+
+New
+~~~
+
+- Start of a reference card and a quick start guide. [Gregor von
+  Laszewski]
+
+- Start of an integrated manual. [Gregor von Laszewski]
+
+- Makeing the api documentation work. [Gregor von Laszewski]
+
+- Added more user manual pages. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- New: homework examples. [Gregor von Laszewski]
+
+- Improving the documentation. [Gregor von Laszewski]
+
+- Add template for ec2 chameleon cloud. [Gregor von Laszewski]
+
+- New chameleon cloud EC2 setup instructions. [Gregor von Laszewski]
+
+- Improve the configuration documentation. [Gregor von Laszewski]
+
+- Added --cloud=general note when no general default group is set.
+  [Gregor von Laszewski]
+
+Fix
+~~~
+
+- Update ubuntu and centos instructions. [Gregor von Laszewski]
+
+- Improced OSX install instructions. [Gregor von Laszewski]
+
+- Enable date printing in hpc command submission. [Gregor von Laszewski]
+
+- Removed docopt parsing from cm main command to allow parsing of
+  parameters in cm command. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Usr: new: improve API documentation. [Gregor von Laszewski]
+
+- Apidoc dir. [Gregor von Laszewski]
+
+- Version 1.1.2. [Gregor von Laszewski]
+
+1.1.2 (2016-01-13)
+------------------
+
+- New state defined on comet backend. [fugangwang]
+
+- Version 1.1.1. [Gregor von Laszewski]
+
+1.1.1 (2016-01-13)
+------------------
+
+New
+~~~
+
+- Force cm help at install time to create the yaml files. [Gregor von
+  Laszewski]
+
+Other
+~~~~~
+
+- Version 1.1.0. [Gregor von Laszewski]
+
+1.1.0 (2016-01-13)
+------------------
+
+New
+~~~
+
+- Making a dickefile that creates a cloudmesh image. [Gregor von
+  Laszewski]
+
+- Adding an automatic refresh command for clouds. [Gregor von Laszewski]
+
+- Add id or name management to booting images. [Gregor von Laszewski]
+
+- Add uuid to image list. [Gregor von Laszewski]
+
+- Add template for cybera cloud. [Gregor von Laszewski]
+
+- Improve key command options. [Gregor von Laszewski]
+
+- Simplified the table when just saying "default" [Gregor von Laszewski]
+
+- Change the way cm is started. [Gregor von Laszewski]
+
+- Added cluster command prototype. [Gregor von Laszewski]
+
+- Template for a cluster command to be implemented similar to the old
+  cloudmesh. [Gregor von Laszewski]
+
+- Added yaml file variables to the manual. [Gregor von Laszewski]
+
+- Allow "history" without the list option to behave just like history
+  list. [Gregor von Laszewski]
+
+- Add variable support read from cloudmesh.yaml file; fix echo command.
+  [Gregor von Laszewski]
+
+- Adding a bebug toggle command. [Gregor von Laszewski]
+
+- Added docker makefile. [Gregor von Laszewski]
+
+- Added a check command template. [Gregor von Laszewski]
+
+- Adding more commands to the shell topic. [Gregor von Laszewski]
+
+- Add simple history command. [Gregor von Laszewski]
+
+- Adding var command and reorganizing documentation. [Gregor von
+  Laszewski]
+
+- Add comment example. [Gregor von Laszewski]
+
+- Detect if the line is a existing file than execute it. [Gregor von
+  Laszewski]
+
+- Add a shell command so we can execute them from cm. [Gregor von
+  Laszewski]
+
+- Added user manual for hpc kill. [Erika Dsouza]
+
+- Documentation for hpc experiment runs. [Gregor von Laszewski]
+
+- Moved the hpc experiment commands to hpc run commands. [Gregor von
+  Laszewski]
+
+- Easy way to list remote experiments. [Gregor von Laszewski]
+
+- List of experiments on remote clusters. [Gregor von Laszewski]
+
+- Batch provider template. [Gregor von Laszewski]
+
+- Database model for scripts. [Gregor von Laszewski]
+
+- Transformed the hpc.run to a proper dict return. [Gregor von
+  Laszewski]
+
+- Add credentials for project id to yaml file. [Gregor von Laszewski]
+
+- Start of comet command definition. [Gregor von Laszewski]
+
+- Added hpc info and queue user manual. [Erika Dsouza]
+
+Changes
+~~~~~~~
+
+- Def: merge. [Gregor von Laszewski]
+
+- Testing key management. [Gregor von Laszewski]
+
+- Do not overwrite existing default values from cloudmesh.yaml in the
+  database. [Gregor von Laszewski]
+
+- Fix default table printer, add -v to flavor. [Gregor von Laszewski]
+
+- Moving towards kilo as default cloud. [Gregor von Laszewski]
+
+- Addding demo script. [Erika Dsouza]
+
+- Adding user manual for hpc run when transfering script. [Erika Dsouza]
+
+- Introducing a better separation of the provider fro clouds. [Gregor
+  von Laszewski]
+
+- Restructure the HPC provider in a separate subdir and introducing a
+  factory. [Gregor von Laszewski]
+
+- Fix the sync command and also the topic assignment, start of an
+  echocommand. [Gregor von Laszewski]
+
+- Sr: improved indentation. [Gregor von Laszewski]
+
+- Improved heading. [Gregor von Laszewski]
+
+Fix
+~~~
+
+- Fix the image nose test. [Gregor von Laszewski]
+
+- Update the coloms in the image command. [Gregor von Laszewski]
+
+- Added commands in cm shell. [Erika Dsouza]
+
+Other
+~~~~~
+
+- Check and enabling secgroup rule to allow ssh login. [fugangwang]
+
+- Set secgroup rule or default to allow ssh login. [fugangwang]
+
+- Specifying default sshkey to login VM. [fugangwang]
+
+- Always check if there is any allocated IPs already before acquiring
+  new ones. [fugangwang]
+
+- Walltime_mins now required when booting a group of nodes due to the
+  integration with slurm. [fugangwang]
+
+- Removing debugging message of nics management. [fugangwang]
+
+- More robust handling of netid parameter. [fugangwang]
+
+- Nics parameter for boot vm in india kilo. [fugangwang]
+
+- Controlling if traceback is printed out when exception occured.
+  [fugangwang]
+
+- Adding missing keystone client requirement. [Gregor von Laszewski]
+
+- Usr: chg: adding hpc demo script for group. [Erika Dsouza]
+
+- Separating action and display so the power functions could be properly
+  called by the portal. [fugangwang]
+
+- Usr: chg: adding virtualenv to osx. [Erika Dsouza]
+
+- Displaying the unescaped url in case of non compatible os.
+  [fugangwang]
+
+- Making computeset_id semantically correct. [fugangwang]
+
+- Console_url for portal embedding. [fugangwang]
+
+- Username missing in config for comet. [fugangwang]
+
+- Minor. [Hyungro Lee]
+
+- Minor. [Hyungro Lee]
+
+- Minor. [Hyungro Lee]
+
+- Update README.rst. [Hyungro Lee]
+
+- Minor. [Hyungro Lee]
+
+- Hello world heat example. [Hyungro Lee]
+
+- Excluding 'completed' computeset as they have no use at all.
+  [fugangwang]
+
+- Handling redirection of the console url internally and open the final
+  url in browser. [fugangwang]
+
+- Fixing platform check. [fugangwang]
+
+- Better error handling when failed to authenticate. [fugangwang]
+
+- Added console command; better/consistent parameter handling.
+  [fugangwang]
+
+- Introduce portal command. [Gregor von Laszewski]
+
+- Changing prefix of comet auth credentials. [fugangwang]
+
+- Version 1.0.2. [Gregor von Laszewski]
+
+1.0.2 (2015-11-25)
+------------------
+
+New
+~~~
+
+- Starting to import the heat templates. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Added httpsig in setup.py so pip install can install the library.
+  [fugangwang]
+
+- Version 1.0.1. [Gregor von Laszewski]
+
+1.0.1 (2015-11-25)
+------------------
+
+- Pep8 fixes. [Mangirish Wagle]
+
+- Supporting both USERPASS and APIKEY auth method for comet.
+  [fugangwang]
+
+- Choice of auth provider for comet as USERPASS/APIKEY in yaml config.
+  [fugangwang]
+
+- Version 1.0.0. [Gregor von Laszewski]
+
+1.0.0 (2015-11-24)
+------------------
+
+New
+~~~
+
+- Chg: add max_width for columns to dict printer. [Gregor von Laszewski]
+
+- Fix to the regiter command upon first registration of a remote cloud.
+  [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Updated yaml file format. [Gregor von Laszewski]
+
+- Fix the userid vs user fields caused by double nameing in header of
+  slurm. [Gregor von Laszewski]
+
+- Add image for openmpi. [Gregor von Laszewski]
+
+- Dev removing general. [Erika Dsouza]
+
+Other
+~~~~~
+
+- Fix for slurm table to distingush "user" from "user ". E.g. replace
+  the space wit _ [Gregor von Laszewski]
+
+- Version 0.7.7. [Gregor von Laszewski]
+
+0.7.7 (2015-11-18)
+------------------
+
+New
+~~~
+
+- Creating cloudmesh yaml file on first call if it does not exist.
+  [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Adding error msg where we need to get the cloudmesh yaml file from
+  when it does not exist. [Gregor von Laszewski]
+
+- Fix the install in setup.py. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Fixing data_files format as tuple. [fugangwang]
+
+- More error handling for nucleus service error. [fugangwang]
+
+- Displaying mac/ip addresses for computeset. [fugangwang]
+
+- Fixing for mac/ip address. [fugangwang]
+
+- Version 0.7.6. [Gregor von Laszewski]
+
+
+0.7.4 (2015-11-15)
+------------------
+
+New
+~~~
+
+- Template profiles for additional scripts. [Gregor von Laszewski]
+
+- Implement a prototype (non working) for cm default. It does not yet
+  read from yaml files. THis may have not to be done here, but at
+  startup of cm if defaults are defined and the values in the database
+  are not set. [Gregor von Laszewski]
+
+- Demo on how touse py. [Gregor von Laszewski]
+
+- Adding a scripts directory with sample scripts. [Gregor von Laszewski]
+
+- When a single argument is given to cm that ends in .cm it is
+  interpreted as script. cm demo.cm. [Gregor von Laszewski]
+
+- Add a exec script command so it also works with cm --script=filename.
+  [Gregor von Laszewski]
+
+- A simple demo script. [Gregor von Laszewski]
+
+- Allowing commenst in cmd with #, // and /*, they must be on one line
+  and at the beginning. [Gregor von Laszewski]
+
+- Added manual for flavor command. [ehdsouza]
+
+- Added manual for image. [ehdsouza]
+
+- Adding the rack diagram. [Gregor von Laszewski]
+
+- Adapting the list command to the new comet rest interface. [Gregor von
+  Laszewski]
+
+- Creating a simple comet command. [Gregor von Laszewski]
+
+- Introducing dynamic class loading. [Gregor von Laszewski]
+
+- Whois data structure. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Placehoder for demo script. [Gregor von Laszewski]
+
+- Updating the user documentation. [Gregor von Laszewski]
+
+- Fix the default database class. [Gregor von Laszewski]
+
+- Set default cloud and group at startup of cm if they do not exists.
+  [Gregor von Laszewski]
+
+- Change CloudProvider.os_environ to CloudProvider.set. [Gregor von
+  Laszewski]
+
+Fix
+~~~
+
+- Removed debug message. [ehdsouza]
+
+- Added uniform user message for flavor refresh. [ehdsouza]
+
+- Modifications to image list. [ehdsouza]
+
+- Refactored default list to use cm database. [ehdsouza]
+
+Other
+~~~~~
+
+- Changes to support more power actions. [fugangwang]
+
+- Remove debug messages. [Gregor von Laszewski]
+
+- Set a cluster default. [Gregor von Laszewski]
+
+- Dev: usr: improved manual and pep8 formating. [Gregor von Laszewski]
+
+- Removing the user name. [Gregor von Laszewski]
+
+- More friendly output for power off. [fugangwang]
+
+- Comet client and cluster updated due to changes on API. [fugangwang]
+
+- Updating comet based on API and configuration changes. [fugangwang]
+
+- Chk: dev: improving group command. [Gregor von Laszewski]
+
+- Update index.rst. [Gregor von Laszewski]
+
+- Version 0.7.3. [Gregor von Laszewski]
+
+0.7.3 (2015-10-31)
+------------------
+
+New
+~~~
+
+- Fix the usage command and refactor the TableParser, chnage tables to
+  Printer. [Gregor von Laszewski]
+
+- Switching to classmethods. [Gregor von Laszewski]
+
+- Add a function cm register new that copies the etc/yaml file into
+  .cloudmesh. It does not ask .... [Gregor von Laszewski]
+
+- Changing the credentials so that they can be used directly in
+  openstack api calls, removing OS_VERSION, as already defined as
+  cm_type_version. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Improve the base class. [Gregor von Laszewski]
+
+- Replace the authentication class. [Gregor von Laszewski]
+
+Other
+~~~~~
+
+- Version 0.7.2. [Gregor von Laszewski]
+
+0.7.2 (2015-10-30)
+------------------
+
+New
+~~~
+
+- Makong the `cm limits` command working. [Gregor von Laszewski]
+
+- Refactorization of Authenticator to CloudProvider, introduction of
+  ListResources. [Gregor von Laszewski]
+
+- Adding a command `cm register source CLOUD` that adds the environment
+  variables to your shell. [Gregor von Laszewski]
+
+- Adding elementary support for chameleon cloud. [Gregor von Laszewski]
+
+- Fix the cm register list command. [Gregor von Laszewski]
+
+- Fixing cm register (list, ssh), adding some format options. [Gregor
+  von Laszewski]
+
+- Replace the "register rc" and and a "register export" [Gregor von
+  Laszewski]
+
+- Introducing inteligent serach on id, name, and uuid in image list.
+  [Gregor von Laszewski]
+
+- Add flavor command. [Gregor von Laszewski]
+
+- Changing some of the cloud api methods to use list and get more
+  uniformly. [Gregor von Laszewski]
+
+- Working on an alternative remote registration. [Gregor von Laszewski]
+
+- Working on an alternative remote registration. [Gregor von Laszewski]
+
+- Introducing a simple table parser. [Gregor von Laszewski]
+
+- Test and documentation for usage. [ehdsouza]
+
+- Makeing the color on off cpommand much more convenient and working.
+  [Gregor von Laszewski]
+
+- Adding format to comet list an ll commands. [Gregor von Laszewski]
+
+- Comet docs command. [Gregor von Laszewski]
+
+- Comet cluster list command. [Gregor von Laszewski]
+
+- Introducing a simple comet command. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- First fixes to the cm nova command. [Gregor von Laszewski]
+
+- Readding changing of permissions. [Gregor von Laszewski]
+
+- Updating the documentation for `cm register` [Gregor von Laszewski]
+
+- Adapting the authentication of kilo and modifying the register command
+  to do proper scp. [Gregor von Laszewski]
+
+- Remove insecure option. [Gregor von Laszewski]
+
+- Surpress cert warning. [Gregor von Laszewski]
+
+- Remove the register.host method as it is replaced by register.remote.
+  [Gregor von Laszewski]
+
+- Fixing the yaml file. [Gregor von Laszewski]
+
+- Implementing a working remote register command taht uses the etc file
+  to locate the remote openrc file. [Gregor von Laszewski]
+
+- Change format of cloudmesh yaml ant introduce openrc location. [Gregor
+  von Laszewski]
+
+- Removing india from etc and replacing with kilo and juno. Fixing the
+  etc cloudmesh.yaml for juno and kilo. [Gregor von Laszewski]
+
+- Returning an object in ll instead of printing it. [Gregor von
+  Laszewski]
+
+- Add the manpage for the future comet command. [Gregor von Laszewski]
+
+- Starting a prototype of the comet cluster command. [Gregor von
+  Laszewski]
+
+- Adding a future hpc test cluster comand. [Gregor von Laszewski]
+
+- Adding group attributes for future hpc commands. [Gregor von
+  Laszewski]
+
+- Update of hpc manual page for future commands. [Gregor von Laszewski]
+
+- Adding comet logon, logoff. [Gregor von Laszewski]
+
+- Simple docopts changes. [ehdsouza]
+
+- Modified register list user manual. [ehdsouza]
+
+- Modified a sentence in quota user manual. [ehdsouza]
+
+Fix
+~~~
+
+- Modified user manual for cm register rc. [ehdsouza]
+
+Other
+~~~~~
+
+- Dealing with both v2 and v3 of keystone. [fugangwang]
+
+- Example of working with keystone v3. [fugangwang]
+
+- :chg: usr: moving the import statements of sandman into the command so
+  we do not see the sqlalchemy warning at startup. [Gregor von
+  Laszewski]
+
+- Dev: new: Hpc command for squeue. [ehdsouza]
+
+- Chr: dev: change version to __version__ [Gregor von Laszewski]
+
+- Version 0.7.1. [Gregor von Laszewski]
+
+0.7.1 (2015-09-30)
+------------------
+
+- Version 0.7.0. [Gregor von Laszewski]
+
+0.7.0 (2015-09-30)
+------------------
+
+New
+~~~
+
+- Added rst and nosetests along with minor modifications for quota.
+  [ehdsouza]
+
+- Inventory command. [Gregor von Laszewski]
+
+- Simple docker makefile commands and elementary notes. [Gregor von
+  Laszewski]
+
+- Dockerfile added. [Gregor von Laszewski]
+
+- Add a vm name prototype function. [Gregor von Laszewski]
+
+- Proposal of system preparation instructions for windows. [Gregor von
+  Laszewski]
+
+- Adding models for VM, FLAVOR, IMAGE. [Gregor von Laszewski]
+
+- Adding automatic changelog generation. [Gregor von Laszewski]
+
+Changes
+~~~~~~~
+
+- Changed register command to specify albert and removed two commands
+  from user manual. [ehdsouza]
+
+- Documentation of basic cm command and options. [Gregor von Laszewski]
+
+- Improve the instalation instructions of the source code. [Gregor von
+  Laszewski]
+
+- Adding ubuntu 15.04 instructions. [Gregor von Laszewski]
+
+- Improving CentOS documentation. [Gregor von Laszewski]
+
+- Reorganize the system preparation documentation and adding OSX
+  instructions. [Gregor von Laszewski]
+
+- Remove documentation dependency for cmd3 in the instalation. [Gregor
+  von Laszewski]
+
+- Provide a working install instruction for ssh and git on windows.
+  [Gregor von Laszewski]
+
+- Improving documentation of group command. [Gregor von Laszewski]
+
+- Update system.rst with installation steps for windows. [Gourav Shenoy]
+
+Fix
+~~~
+
+- Enabled NovaCommand, added nosetests, fixing pyreadline version, fixed
+  pep08 warnings. [Mangirish Wagle]
+
+Other
+~~~~~
+
+- :chg: dev: significant comments to the register command. [Gregor von
+  Laszewski]
+
+- Add examples for group command in command_group.rst. [Gourav Shenoy]
+
+- Add notifications for travis. [Gregor von Laszewski]
+
+- Auto index in the commands doc dir. [Gregor von Laszewski]
+
+- Added placeholder foe command documentation. [Gregor von Laszewski]
+
+- Merge. [Gregor von Laszewski]
+
+- Add simple git issue printer. [Gregor von Laszewski]
+
+- Changing the filename to unix style. [Gregor von Laszewski]
+
+- Improved the system windows install instructions. [Gregor von
+  Laszewski]
+
+- :chg: dev: using --format=FORMAT instead of --output. [Gregor von
+  Laszewski]
+
+
+  commands. [Gregor von Laszewski]
+
+- :fix: usr: improving cloud command documentation. [Gregor von
+  Laszewski]
+
+
+
+- Made changes to setup.py so that cloudmesh.yaml is installed at
+  "~/.cloudmesh/cloudmesh.yaml" [Erika Dsouza]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+
+
+- Use old spelling of SSHCommand. [Gregor von Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+- Dev: Update ChangeLog. [Gregor von Laszewski]
+
+- Using Config.path_expand from common.ConfigDict. [Gregor von
+  Laszewski]
+
+- Ad travis test for flaten dict. [Gregor von Laszewski]
+
+- Update version. [Gregor von Laszewski]
+
+0.6.9 (2015-09-06)
+------------------
+
+
+- Using Config.path_expand from common.ConfigDict. [Gregor von
+  Laszewski]
+
+- Ad travis test for flaten dict. [Gregor von Laszewski]
+
+- Update version. [Gregor von Laszewski]
+
+0.6.8 (2015-09-06)
+------------------
+
+- Add default test to travis. [Gregor von Laszewski]
+
+- Add user key. [Gregor von Laszewski]
+
+- Making Default set and get work. [Gregor von Laszewski]
+
+- Adding more passing tests to travis. [Gregor von Laszewski]
+
+- Make the config dictests more portable on windows. [Gregor von
+  Laszewski]
+
+- Move some tests to an old dir for later usage. [Gregor von Laszewski]
+
+- Version. [Gregor von Laszewski]
+
+0.6.7 (2015-09-05)
+------------------
+
+- Travis cleanup. [Gregor von Laszewski]
+
+- Testing doc and cm. [Gregor von Laszewski]
+
+- Force renaming to SecureShellCommand. [Gregor von Laszewski]
+
+- Explicit call of cm via python and not sh. [Gregor von Laszewski]
+
+- Travis experiment. [Gregor von Laszewski]
+
+- Pip install . [Gregor von Laszewski]
+
+- Pip install . [Gregor von Laszewski]
+
+- More travis esxperiments. [Gregor von Laszewski]
+
+- A travis pythonpath set. [Gregor von Laszewski]
+
+- Ignore pep8 warning. [Gregor von Laszewski]
+
+- Modified travis script. [Gregor von Laszewski]
+
+- Use SSHCommand. [Gregor von Laszewski]
+
+- Use old spaleeing of SSHCommand. [Gregor von Laszewski]
+
+- Add doc to travis. [Gregor von Laszewski]
+
+- Cleanup. [Gregor von Laszewski]
+
+0.6.6 (2015-09-04)
+------------------
+
+- Switchong the version command to use dict printer. [Gregor von
+  Laszewski]
+
+- Adding a version command. [Gregor von Laszewski]
+
+- Adding a build based on pip install -e . [Gregor von Laszewski]
+
+- Remove the osx install in travis. [Gregor von Laszewski]
+
+- Adding the pyreadline install. [Gregor von Laszewski]
+
+- Adding path management for windows. [Gregor von Laszewski]
+
+- Adding more os.pth.join. [Gregor von Laszewski]
+
+- Start to use os.path.join. [Gregor von Laszewski]
+
+- Integrate the model test into travis. [Gregor von Laszewski]
+
+- Trying osx in travis. [Gregor von Laszewski]
+
+0.6.5 (2015-09-04)
+------------------
+
+- Documentation for table commands in model. [Gregor von Laszewski]
+
+- Automatically finding the tables din model.py. [Gregor von Laszewski]
+
+- Improving table list commands and introducing a nosetest for it.
+  [Gregor von Laszewski]
+
+- Print pip version. [Gregor von Laszewski]
+
+- Remove help call. [Gregor von Laszewski]
+
+- Remove documentation generation from travis. [Gregor von Laszewski]
+
+- Remove ssh command temproarily. [Gregor von Laszewski]
+
+- Rename the sssh command. [Gregor von Laszewski]
+
+- Add .cloudmesh dir. [Gregor von Laszewski]
+
+- Update to the new env script. [Gregor von Laszewski]
+
+- Fixing the https. [Gregor von Laszewski]
+
+- Add .txt ending. [Gregor von Laszewski]
+
+- Update .travis.yml. [Gregor von Laszewski]
+
+  using https in git clone for travis
+
+- Update travis with requirements. [Gregor von Laszewski]
+
+- Travis from source. [Gregor von Laszewski]
+
+- Improved README. [Gregor von Laszewski]
+
+- Improve README. [Gregor von Laszewski]
+
+- Adding the travis file. [Gregor von Laszewski]
+
+- Sandman integration. [Gregor von Laszewski]
+
+- Sandman integration. [Gregor von Laszewski]
+
+- Adding rest via sandman. [Gregor von Laszewski]
+
+- Adding the reservation object to the table list commands. [Gregor von
+  Laszewski]
+
+- Reorganize absolute imports and @command decorator. [Gregor von
+  Laszewski]
+
+- Optimize imports. [Gregor von Laszewski]
+
+- Worked on the TODO list. [Erika Dsouza]
+
+- RESERVATION db object. [Gregor von Laszewski]
+
+- Reservation prototype placeholder class. [Gregor von Laszewski]
+
+- Adding reservation prototype. [Gregor von Laszewski]
+
+- Help help command added. [Gregor von Laszewski]
+
+- Verbatim man pages. [Gregor von Laszewski]
+
+- Case insensitive sorting in the man command. [Gregor von Laszewski]
+
+- Add a browser open command just like in osx. [Gregor von Laszewski]
+
+- Add command topics and new topica help command. [Gregor von Laszewski]
+
+- Add banner and clear commands. [Gregor von Laszewski]
+
+0.6.4 (2015-09-02)
+------------------
+
+- Adding a simple man command. [Gregor von Laszewski]
+
+- Added default command prototype. [Gregor von Laszewski]
+
+- Added the GROUP type to the table() so that cm info works. [Gregor von
+  Laszewski]
+
+- Add group. [Gregor von Laszewski]
+
+- Adedd select command. [Gregor von Laszewski]
+
+- Trying from Windows 10. [Erika Dsouza]
+
+- Added group proposal. [Gregor von Laszewski]
+
+0.6.3 (2015-09-01)
+------------------
+
+- Improving imports. [Gregor von Laszewski]
+
+0.6.2 (2015-09-01)
+------------------
+
+- Pep8 cleanup. [Gregor von Laszewski]
+
+- Add the key prototype command. [Gregor von Laszewski]
+
+- Add key table. [Gregor von Laszewski]
+
+- Cleanup of the table info method. [Gregor von Laszewski]
+
+- Added a reworked model and a simple DEFAULT object as example. [Gregor
+  von Laszewski]
+
+- Simple ssh pass through. [Gregor von Laszewski]
+
+- Adds ssh command template. [Gregor von Laszewski]
+
+- 0.6.1. [Gregor von Laszewski]
+
+0.6.1 (2015-08-31)
+------------------
+
+- Rename command filenames. [Gregor von Laszewski]
+
+- Added some comments what to do next. [Gregor von Laszewski]
+
+- Changing the syntax at 2 other places. [Mangirish Wagle]
+
+- Changed py files to use format and print() syntax. [Mangirish Wagle]
+
+- Moving first commands to the new shell. [Gregor von Laszewski]
+
+- Start draft of configuration instructions. [Gregor von Laszewski]
+
+- Add some more windows instructions. [Gregor von Laszewski]
+
+- Some documentation improvements for console and windows. [Gregor von
+  Laszewski]
+
+- Add mysql example. [Gregor von Laszewski]
+
+- Add simple nosetest examples. [Gregor von Laszewski]
+
+- Code rules. [Gregor von Laszewski]
+
+- Moving towards format instead of % [Gregor von Laszewski]
+
+- Introducing portable colors between linux and windows. [Gregor von
+  Laszewski]
+
+- Better splash handeling. [Gregor von Laszewski]
+
+- Remove parameter from csv table. [Gregor von Laszewski]
+
+- Delete cmd3.yaml file. [Gregor von Laszewski]
+
+- Tag new version. [Gregor von Laszewski]
+
+- 0.6.0. [Gregor von Laszewski]
+
+0.6.0 (2015-08-29)
+------------------
+
+- Remove junk file again. [Gregor von Laszewski]
+
+- Cleanup dev dirs. [Gregor von Laszewski]
+
+- Moving dirs. [Gregor von Laszewski]
+
+- Commit python script to start/stop/reboot vm in any cloud env. [Gourav
+  Shenoy]
+
+- Adding scripts to spawn VMs across clouds, including India. [Mangirish
+  Wagle]
+
+- Fixing interactive and non interactive mode. [Gregor von Laszewski]
+
+- Adding the @command decorator to generate functions with docopt
+  parameters. [Gregor von Laszewski]
+
+- Basic cm command. [Gregor von Laszewski]
+
+- Simplify cmd. [Gregor von Laszewski]
+
+- Real simple cmd. [Gregor von Laszewski]
+
+- Fix the formatting. [Gregor von Laszewski]
+
+- Todo faker for larger example. [Gregor von Laszewski]
+
+- Use configdict. [Gregor von Laszewski]
+
+- Introduce classes. [Gregor von Laszewski]
+
+- Tip on using format. [Gregor von Laszewski]
+
+- Pep8. [Gregor von Laszewski]
+
+- Comments to include a new class. [Gregor von Laszewski]
+
+- Remove junk file. [Gregor von Laszewski]
+
+- Moved developer code to dev. [Gregor von Laszewski]
+
+- Ignore emacs backup files. [Gregor von Laszewski]
+
+- Add missing file. [Gregor von Laszewski]
+
+- Remove sh dependency. [Gregor von Laszewski]
+
+- Removing fabric as it does not work in windows. [Gregor von Laszewski]
+
+- Remove the idea file. [Gregor von Laszewski]
+
+- Commit python script to start/stop/reboot VMs. [Gourav Shenoy]
+
+- Adding the persistent dict. [Erika Dsouza]
+
+- Gourav commit with passphrase. [Gourav Shenoy]
+
+- Adding again. [Erika Dsouza]
+
+- Erika added. [Erika Dsouza]
+
+- Commiting README.rst with SSH. [Mangirish Wagle]
+
+- Gourav commit. [Gourav Shenoy]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Gregor test checkin. [Gregor von Laszewski]
+
+- Changing gitignore. [mangirish]
+
+- Remove fabric as fabric does not work on windows. [Gregor von
+  Laszewski]
+
+- Remove the sh tag dependency. [Gregor von Laszewski]
+
+- Adding comments to the non working windows documentation. [Gregor von
+  Laszewski]
+
+- Update source documentation. [Gregor von Laszewski]
+
+- Add dev docs. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Documentation framework. [Gregor von Laszewski]
+
+- Remove autogenerated code. [Gregor von Laszewski]
+
+- Position of kwrags. [Gregor von Laszewski]
+
+- Remove pycharm files. [Gregor von Laszewski]
+
+- Update .gitignore. [Gregor von Laszewski]
+
+- Remove debug msg. [Gregor von Laszewski]
+
+- Added group. [Gregor von Laszewski]
+
+- Added priorities. [Gregor von Laszewski]
+
+- Update map. [Gregor von Laszewski]
+
+- Update map. [Gregor von Laszewski]
+
+- Rename. [Gregor von Laszewski]
+
+- Add mindmap and dictdb template. [Gregor von Laszewski]
+
+- Base functions for flavor, image, etc. [Hyungro Lee]
+
+- Merge. [Hyungro Lee]
+
+- Sample yaml file. [Gregor von Laszewski]
+
+- Working on servers. [Hyungro Lee]
+
+- Add and delete keys api. [Gregor von Laszewski]
+
+- Format update. [Hyungro Lee]
+
+- Test exceptions. [Hyungro Lee]
+
+- Typo. [Hyungro Lee]
+
+- Key create. [Gregor von Laszewski]
+
+- Remove debug msg. [Gregor von Laszewski]
+
+- Use quota defaults instead of get by user as permission denied.
+  [Gregor von Laszewski]
+
+- Limits. [Gregor von Laszewski]
+
+- Simplified openstack interface. [Gregor von Laszewski]
+
+- Towards python openstack api. [Gregor von Laszewski]
+
+- Clear the defaults after tests. [Gregor von Laszewski]
+
+- Adding tests for default and Default.clear images flavor group.
+  [Gregor von Laszewski]
+
+- Ad an interactive cloud selector. [Gregor von Laszewski]
+
+- Fixing the default selector for keys. [Gregor von Laszewski]
+
+- Get function for registered cloud. [Gregor von Laszewski]
+
+- Allow force in cloudmesh base yn_choice. [Gregor von Laszewski]
+
+- Replace yn query with existing yn_choice. [Gregor von Laszewski]
+
+- Fixing syntax and various bugs. [Gregor von Laszewski]
+
+- Implement the missing get function. [Gregor von Laszewski]
+
+- Fix the key add function. [Gregor von Laszewski]
+
+- Git add keys. [Gregor von Laszewski]
+
+- Debug. [Gregor von Laszewski]
+
+- Add function was not doing the right thing. [Gregor von Laszewski]
+
+- Start fisrt fix of the db key manager. [Gregor von Laszewski]
+
+- Fixing the list functions in cm key. [Gregor von Laszewski]
+
+- Creating command-register doc. [Daniel Silva]
+
+- Updating test_vm. [Daniel Silva]
+
+- Deleting a set of vm by name - vm delete sample-[1-10] [Daniel Silva]
+
+- Deleting vm by name - vm command. [Daniel Silva]
+
+- Fixing some functions. [Paulo Chagas]
+
+- Implementing vm delete. [Daniel Silva]
+
+- Updating some functions on mesh and sshkeydbmanager. [Paulo Chagas]
+
+- Improving test_vm. [Daniel Silva]
+
+- Fixing circular import. [Paulo Chagas]
+
+- Fixing a bug. [Paulo Chagas]
+
+- Removing a useless function in vm command. [Daniel Silva]
+
+- Command vm start created. [Daniel Silva]
+
+- Updating clear and dump. [Paulo Chagas]
+
+- Removed unresolved reference to cloud/Cloud.py. [Daniel Silva]
+
+- Mesh.clouds implemented. [Paulo Chagas]
+
+- Created vm start command. [Daniel Silva]
+
+- Updating cm key list. [Paulo Chagas]
+
+- Updating get_from_yaml and other needed functions. [Paulo Chagas]
+
+- Adding cloudmesh native provider. [Gregor von Laszewski]
+
+- Introducing mesh. [Gregor von Laszewski]
+
+- Updating key default and key delete. [Paulo Chagas]
+
+- Updating key delete using --select. [Paulo Chagas]
+
+- Fixing key command. [Paulo Chagas]
+
+- Created doc for command_vm functions. [Daniel Silva]
+
+- Created command_vm functions. [Daniel Silva]
+
+- Some updates to key command (almost done) [Paulo Chagas]
+
+- Adding some function to SSHKeyDBManager. [Paulo Chagas]
+
+- Update function included. function usage documentation included.
+  [Paulo Chagas]
+
+- Created tests for nova command. [Daniel Silva]
+
+- --select option implemented. SSKeyDBManager created with some methods.
+  Some tests made. [Paulo Chagas]
+
+- Fixed register tests. [Daniel Silva]
+
+- Updating filename to uri. [Paulo Chagas]
+
+- Adding requirements. [Gregor von Laszewski]
+
+- Added test documentation. [Gregor von Laszewski]
+
+- Adding tests for vm, flavor, image information from an openstack
+  cloud. [Gregor von Laszewski]
+
+- Remove the : from the debug message string. [Gregor von Laszewski]
+
+- Replace log.debug with sanitized self.DEBUG. [Gregor von Laszewski]
+
+- Avoid printing the password in debug mode. [Gregor von Laszewski]
+
+- Adding native openstack interface without libcloud. [Gregor von
+  Laszewski]
+
+- Fixing the key management functions and tests. [Gregor von Laszewski]
+
+- Completing cm admin command. [Gregor von Laszewski]
+
+- Fixed path in host function in CloudRegister.py. [Daniel Silva]
+
+- Split up cm_shell_cloud into cloud, list, register. [Gregor von
+  Laszewski]
+
+- Rmove loglevel command that is already in cmd3. [Gregor von Laszewski]
+
+- Removing try exceptions. [Paulo Chagas]
+
+- Testing run method. [Gregor von Laszewski]
+
+- Doing an improved usint test on register. [Gregor von Laszewski]
+
+- Improved directory function in CloudRegister.py. [Daniel Silva]
+
+- Refactor CloudRegister. [Gregor von Laszewski]
+
+- Pep8. [Gregor von Laszewski]
+
+- Fixing indentation. [Gregor von Laszewski]
+
+- Start refactoring. [Gregor von Laszewski]
+
+- Refactor the SSHkey classes and filenames. [Gregor von Laszewski]
+
+- Editing keys, util and test_keys. [Paulo Chagas]
+
+- Merge. [Gregor von Laszewski]
+
+- Adding key for test. [Paulo Chagas]
+
+- Fixing test_keys.py. [Paulo Chagas]
+
+- Adding __init__.py. [Paulo Chagas]
+
+- Updating test_keys. [Paulo Chagas]
+
+- Updating test_keys. [Paulo Chagas]
+
+- Updating test_keys. [Paulo Chagas]
+
+- Updating documentation. [Paulo Chagas]
+
+- Improve Key Management. [Gregor von Laszewski]
+
+- Rename clas sto SSHkey. [Gregor von Laszewski]
+
+- Adding SSHkey type derived from old ssh key cloudmesh key.util.py.
+  [Gregor von Laszewski]
+
+- Editing "if"s on limits command. [Paulo Chagas]
+
+- Editing "if"s on quota command. [Paulo Chagas]
+
+- Editing "if"s on ssh command. [Paulo Chagas]
+
+- Getting geys from .ssh and github. [Gregor von Laszewski]
+
+- Improve the new-ENV script. [Gregor von Laszewski]
+
+- Documentation management changes for changes and authors. [Gregor von
+  Laszewski]
+
+- Changes in command cloud - register-dir function. [Daniel Silva]
+
+0.5.8 (2015-06-28)
+------------------
+
+- Add bin commands to create a new environment from the commandline.
+  [Gregor von Laszewski]
+
+- Move md to rst. [Gregor von Laszewski]
+
+- Adding autoinstall. [Gregor von Laszewski]
+
+- Rename README.rst to README.md. [Gregor von Laszewski]
+
+- Update README.rst. [Gregor von Laszewski]
+
+- Created register_CERT command in command_cloud.py. [Daniel Silva]
+
+- Editing "if"s on volume command. [Paulo Chagas]
+
+- Created command line arguments in cm_shell_[admin, key, loglevel and
+  status] [Daniel Silva]
+
+- Editing "if"s on vm command. The --command has some issue: docopt
+  separate commands by space. [Paulo Chagas]
+
+- Adding the home of hacking and CONTRIBUTING. [Gregor von Laszewski]
+
+- Updare vm command. [Gregor von Laszewski]
+
+- Cluster command. [Hyungro Lee]
+
+- Indentation. [Hyungro Lee]
+
+- Indentation. [Hyungro Lee]
+
+- Launcher commands with examples and description. [Hyungro Lee]
+
+- Stack update. [Hyungro Lee]
+
+- Editing "if"s on secgroup command. [Paulo Chagas]
+
+- Created register india command. [Daniel Silva]
+
+- Editing "if"s on refresh command. [Paulo Chagas]
+
+- Adding selector. [Gregor von Laszewski]
+
+- Adding a select command. [Gregor von Laszewski]
+
+- Finalizing the refersh command. [Gregor von Laszewski]
+
+- Assignments. [Gregor von Laszewski]
+
+- Editing volume. [Paulo Chagas]
+
+- Editing volume. [Paulo Chagas]
+
+- Editing volume. [Paulo Chagas]
+
+- Updated register india command. [Daniel Silva]
+
+- Updated cluster section in old.rst. [Daniel Silva]
+
+- Editing volume. [Paulo Chagas]
+
+- Editing volume documentation. [Paulo Chagas]
+
+- Merge. [Gregor von Laszewski]
+
+- Use full name of india to avoid dependency of ssh config. [fugangwang]
+
+- 79 character. [Gregor von Laszewski]
+
+- Remove use of < > [Gregor von Laszewski]
+
+- Merge. [Gregor von Laszewski]
+
+- Merge. [Gregor von Laszewski]
+
+- Security group docopt; urllib3 in requirements. [fugangwang]
+
+- Improve vm command. [Gregor von Laszewski]
+
+- Fix list commnd. [Gregor von Laszewski]
+
+- Updating cm_shell_cloud. [Paulo Chagas]
+
+- Removing file. [Paulo Chagas]
+
+- Fixing key. [Paulo Chagas]
+
+- Adding commands. [Paulo Chagas]
+
+- Improve documentation. [Gregor von Laszewski]
+
+- Add refresh command. [Gregor von Laszewski]
+
+- Adding the missing rst docments. [Gregor von Laszewski]
+
+- Adding a template. [Gregor von Laszewski]
+
+- Fix verbatim vormatting of commands. [Gregor von Laszewski]
+
+- Just adding import os. [Paulo Chagas]
+
+- Finishing cm search. It is possible to filter with =,!=,<,<=,>,>=.
+  Test for cm search was added. [Paulo Chagas]
+
+- Improving default and adding old manual pages. [Gregor von Laszewski]
+
+- Summary change file. [Gregor von Laszewski]
+
+- Adding a delete function. [Gregor von Laszewski]
+
+- Fixing the use of Shell.scp. [Gregor von Laszewski]
+
+- Removing debug messages. [Gregor von Laszewski]
+
+- Just adding import getpass. [Paulo Chagas]
+
+- Fixing the default command. [Gregor von Laszewski]
+
+- Fixed search command. [Paulo Chagas]
+
+- Improving documentation. [Gregor von Laszewski]
+
+- Adding the set and get default methods. [Gregor von Laszewski]
+
+- Adding a default get command. [Gregor von Laszewski]
+
+- Add sample search. [Gregor von Laszewski]
+
+- Test register_CERT. [Daniel Silva]
+
+- Simple correction on how to use the os.system command. [Gregor von
+  Laszewski]
+
+- Add todos for instalation instructions. [Gregor von Laszewski]
+
+- Changes in command register_CERT. [Daniel Silva]
+
+- Adding documentation. [Gregor von Laszewski]
+
+- Updating some of the command ideas. [Gregor von Laszewski]
+
+- Use code. [Gregor von Laszewski]
+
+- Improving simple api documentation. [Gregor von Laszewski]
+
+- First api documentation to use dicts for change. [Gregor von
+  Laszewski]
+
+- Update from dict. [Gregor von Laszewski]
+
+- Simplify tests. [Gregor von Laszewski]
+
+- Adding a uniqe cm_id and cm_type. [Gregor von Laszewski]
+
+- Created cm register CLOUD CERT command. [Daniel Silva]
+
+- Updating search and default command. [Paulo Chagas]
+
+- Filter for entries like [001-002] [Paulo Chagas]
+
+- Created cm register india command. [Daniel Silva]
+
+- Fix the module path. [Gregor von Laszewski]
+
+- Remove unneeded files. [Gregor von Laszewski]
+
+- Moving files into final position. [Gregor von Laszewski]
+
+- Editing filter to get more than one option (AND) [Paulo Chagas]
+
+- Adding a try-except for invalid search. [Paulo Chagas]
+
+- Adding test if result query is empty. [Paulo Chagas]
+
+- Test add command register test. [Daniel Silva]
+
+- Updated on the examples for aws and azure. [Hyungro Lee]
+
+- Outstanding checkins. [Gregor von Laszewski]
+
+- Removing None from table print. [Gregor von Laszewski]
+
+- Implementing a first cm list command. [Gregor von Laszewski]
+
+- Removed plural of flavor, vm, image in kind strings. [Gregor von
+  Laszewski]
+
+- Start reorganizing methods. [Gregor von Laszewski]
+
+- Splitting classes. [Gregor von Laszewski]
+
+- Start baseclass. [Gregor von Laszewski]
+
+- Simple code cleanip. [Gregor von Laszewski]
+
+- Assert Parameter.expand test. [Gregor von Laszewski]
+
+- Pep8, switching hosstlist to Parameter.expand. [Gregor von Laszewski]
+
+- Adding more comments. [Gregor von Laszewski]
+
+- Improving the hostlist comment. [Gregor von Laszewski]
+
+- Adding more command suggestions. [Gregor von Laszewski]
+
+- Reformatting, reordering, and sellchecking the proposed commands.
+  [Gregor von Laszewski]
+
+- Adding cloudmesh_search. [Paulo Chagas]
+
+- Remove debug messages. [Gregor von Laszewski]
+
+- Adding a test file to queries. [Paulo Chagas]
+
+- Adding a test file for queries. [Paulo Chagas]
+
+- Renaming the id to cm_id so it does not conflict with the SQL id.
+  [Gregor von Laszewski]
+
+- Fixed commands_nova.rst format. [Daniel Silva]
+
+- Change table data types. [Gregor von Laszewski]
+
+- Updated suggestion commands_nova.rst. [Daniel Silva]
+
+- Adding the export line match. [Gregor von Laszewski]
+
+- Fix the plugin location. [Gregor von Laszewski]
+
+- Libcloud install restored. [Hyungro Lee]
+
+- Debug messages. [Gregor von Laszewski]
+
+- Added __init__ [Gregor von Laszewski]
+
+- Updated suggestion command nova doc. [Daniel Silva]
+
+- Passing git+ strings to pbr does not work. [Gregor von Laszewski]
+
+- Azure tested to create and delete a vm. [Hyungro Lee]
+
+- Default image for azure. [Hyungro Lee]
+
+- Created file suggestion commands nova in doc. [Daniel Silva]
+
+- Fixing the module import. [Gregor von Laszewski]
+
+- Changing more imports. [Gregor von Laszewski]
+
+- Cahnge import statements. [Gregor von Laszewski]
+
+- Reorganize the module. [Gregor von Laszewski]
+
+- Dev version of libcloud from github 'trunk' [Hyungro Lee]
+
+- Reorganize the modules. [Gregor von Laszewski]
+
+- Preparing for update on vm and image. [Gregor von Laszewski]
+
+- Abstracting the lister and inserter. [Gregor von Laszewski]
+
+- Removing one test. [Gregor von Laszewski]
+
+- Reduce code duplication. [Gregor von Laszewski]
+
+- Update search functions to convert to dicts. [Gregor von Laszewski]
+
+- Working on filtered get. [Gregor von Laszewski]
+
+- Readding the deleted methods during a merge. [Gregor von Laszewski]
+
+- Redoing the merge. [Gregor von Laszewski]
+
+- Doc: updated to cloudmesh_cloud. [Paulo Chagas]
+
+- Updated on azure. [Hyungro Lee]
+
+- Azure example started. [Hyungro Lee]
+
+- Doc: Changing cloudmesh_client for cloudmesh_cloud. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Added cmd3.yaml example to etc directory. [Paulo Chagas]
+
+- Rename. [Hyungro Lee]
+
+- Aws example. [Hyungro Lee]
+
+- Adding a simplified boot command. [Gregor von Laszewski]
+
+- Adding  cm_user         cm_cloud        cm_update attributes to the
+  dicts. [Gregor von Laszewski]
+
+- Adding provider list queris for openstack. [Gregor von Laszewski]
+
+- Adding IMAGE and FLAVOR to get_kind_from_string. [Gregor von
+  Laszewski]
+
+- Adding the username to the vm name for better debugging. [Gregor von
+  Laszewski]
+
+- Adding proper argument pass through to the nova command. [Gregor von
+  Laszewski]
+
+- Assing more objects to the database. [Gregor von Laszewski]
+
+- Adding database replace, add, and merge. [Gregor von Laszewski]
+
+- Adding additional database methods. [Gregor von Laszewski]
+
+- Next_name() [Gregor von Laszewski]
+
+- Renaming the examples to avoid name conflict with existing package.
+  [Gregor von Laszewski]
+
+- Doc: updated to cloudmesh_cloud. [Paulo Chagas]
+
+- Updated on azure. [Hyungro Lee]
+
+- Azure example started. [Hyungro Lee]
+
+- Doc: Changing cloudmesh_client for cloudmesh_cloud. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Testing git commit on windows. [Paulo Chagas]
+
+- Added cmd3.yaml example to etc directory. [Paulo Chagas]
+
+- Rename. [Hyungro Lee]
+
+- Aws example. [Hyungro Lee]
+
+- Pushing first data to the database. [Gregor von Laszewski]
+
+- Adding documentation to the flatten methods. [Gregor von Laszewski]
+
+- Flatten methods for libcloud image and vm. [Gregor von Laszewski]
+
+- F = flatten(d) # function to flatten a dict. [Gregor von Laszewski]
+
+- Adding a simplified boot command. [Gregor von Laszewski]
+
+- Adding  cm_user         cm_cloud        cm_update attributes to the
+  dicts. [Gregor von Laszewski]
+
+- Adding provider list queris for openstack. [Gregor von Laszewski]
+
+- Adding IMAGE and FLAVOR to get_kind_from_string. [Gregor von
+  Laszewski]
+
+- Adding the username to the vm name for better debugging. [Gregor von
+  Laszewski]
+
+- Adding proper argument pass through to the nova command. [Gregor von
+  Laszewski]
+
+- Assing more objects to the database. [Gregor von Laszewski]
+
+- Adding database replace, add, and merge. [Gregor von Laszewski]
+
+- Adding additional database methods. [Gregor von Laszewski]
+
+- Next_name() [Gregor von Laszewski]
+
+- Renaming the examples to avoid name conflict with existing package.
+  [Gregor von Laszewski]
+
+- Fixed the nosetests for table printers. [Gregor von Laszewski]
+
+- Update the Changelog. [Gregor von Laszewski]
+
+- Renaming the files for better readability. [Gregor von Laszewski]
+
+- Moving examples to the examples dir. [Gregor von Laszewski]
+
+- Moving examples to the example dir. [Gregor von Laszewski]
+
+- Fixed test_005 in test_configdict. [Daniel Silva]
+
+- Reorganizing the database code. [Gregor von Laszewski]
+
+- Register default command. [Gregor von Laszewski]
+
+- Reorganizing the cloudmesh_default directory. [Gregor von Laszewski]
+
+- Improving the test dict. [Gregor von Laszewski]
+
+- Add a sample dict for test printing. [Gregor von Laszewski]
+
+- Created Configdict test. [Daniel Silva]
+
+- Adding parameter parsing. [Gregor von Laszewski]
+
+- Format the input to tt to make it more visible in the text. [Gregor
+  von Laszewski]
+
+- Adding cygwin documentation. [Gregor von Laszewski]
+
+- Documentation for next_name. [Gregor von Laszewski]
+
+- Added automatic vm name generator. [Gregor von Laszewski]
+
+- Adding the test method templates for tables. [Gregor von Laszewski]
+
+- Table test template. [Gregor von Laszewski]
+
+- Added testing methods to be implemented. [Gregor von Laszewski]
+
+- Spellchecking. [Gregor von Laszewski]
+
+- Pep8 cleanup; Cloud object template. [Gregor von Laszewski]
+
+- Adding a mailmap. [Gregor von Laszewski]
+
+- Add make view. [Gregor von Laszewski]
+
+- Pep8 cleanup. [Gregor von Laszewski]
+
+- Add developer notes. [Gregor von Laszewski]
+
+- Tag management via makefile. [Gregor von Laszewski]
+
+- Makefile for make doc. [Gregor von Laszewski]
+
+- Adding sphinx documentation framework. [Gregor von Laszewski]
+
+- Simplify CHangelog. [Gregor von Laszewski]
+
+- Clean requirements. [Gregor von Laszewski]
+
+- Add nosetests to tox. [Gregor von Laszewski]
+
+- Imporved documentation. [Gregor von Laszewski]
+
+- Fixing the nova command fixing libcoud example be using path_expand
+  removing timeparse from requirements. [Gregor von Laszewski]
+
+- Changed table.py doc. [Daniel Silva]
+
+- Created command_cloud.py doc. [Daniel Silva]
+
+- Updated ConfigDict.py doc. [Daniel Silva]
+
+0.5.7 (2015-06-17)
+------------------
+
+- Fixed the nosetests for table printers. [Gregor von Laszewski]
+
+- Update the Changelog. [Gregor von Laszewski]
+
+0.5.6 (2015-06-17)
+------------------
+
+- Renaming the files for better readability. [Gregor von Laszewski]
+
+- Moving examples to the examples dir. [Gregor von Laszewski]
+
+- Moving examples to the example dir. [Gregor von Laszewski]
+
+- Fixed test_005 in test_configdict. [Daniel Silva]
+
+- Reorganizing the database code. [Gregor von Laszewski]
+
+0.5.5 (2015-06-17)
+------------------
+
+- Register default command. [Gregor von Laszewski]
+
+- Reorganizing the cloudmesh_default directory. [Gregor von Laszewski]
+
+- Improving the test dict. [Gregor von Laszewski]
+
+- Add a sample dict for test printing. [Gregor von Laszewski]
+
+- Created Configdict test. [Daniel Silva]
+
+- Adding parameter parsing. [Gregor von Laszewski]
+
+- Format the input to tt to make it more visible in the text. [Gregor
+  von Laszewski]
+
+- Adding cygwin documentation. [Gregor von Laszewski]
+
+- Documentation for next_name. [Gregor von Laszewski]
+
+- Added automatic vm name generator. [Gregor von Laszewski]
+
+- Adding the test method templates for tables. [Gregor von Laszewski]
+
+- Table test template. [Gregor von Laszewski]
+
+- Added testing methods to be implemented. [Gregor von Laszewski]
+
+- Spellchecking. [Gregor von Laszewski]
+
+- Pep8 cleanup; Cloud object template. [Gregor von Laszewski]
+
+- Adding a mailmap. [Gregor von Laszewski]
+
+- Add make view. [Gregor von Laszewski]
+
+0.5.4 (2015-06-17)
+------------------
+
+- Pep8 cleanup. [Gregor von Laszewski]
+
+- Add developer notes. [Gregor von Laszewski]
+
+- Tag management via makefile. [Gregor von Laszewski]
+
+- Makefile for make doc. [Gregor von Laszewski]
+
+- Adding sphinx documentation framework. [Gregor von Laszewski]
+
+- Simplify CHangelog. [Gregor von Laszewski]
+
+- Clean requirements. [Gregor von Laszewski]
+
+- Add nosetests to tox. [Gregor von Laszewski]
+
+- Imporved documentation. [Gregor von Laszewski]
+
+- Fixing the nova command fixing libcoud example be using path_expand
+  removing timeparse from requirements. [Gregor von Laszewski]
+
+- Changed table.py doc. [Daniel Silva]
+
+- Created command_cloud.py doc. [Daniel Silva]
+
+- Updated ConfigDict.py doc. [Daniel Silva]
+
+- Simple tests for configdict. [Gregor von Laszewski]
+
+- Tests created. [Daniel Silva]
+
+- Add tests template. [Gregor von Laszewski]
+
+- Rtd theme. [Gregor von Laszewski]
+
+- Adding sphinx placeholder. [Gregor von Laszewski]
+
+- Add comment placeholder. [Gregor von Laszewski]
+
+- Method needed cls. [Gregor von Laszewski]
+
+- Remove ruamel as it doe snot work well on cygwin. [Gregor von
+  Laszewski]
+
+- Remove ruamel. [Gregor von Laszewski]
+
+- Introduce a Config class. [Gregor von Laszewski]
+
+- Adding not implemented errors. [Gregor von Laszewski]
+
+- Simple tox.ini. [Gregor von Laszewski]
+
+- Adding cm register list ssh command to list the hosts defined in
+  .ssh/config. [Gregor von Laszewski]
+
+- Added registration documentation. [Gregor von Laszewski]
+
+- Added cm register rc host openrc. [Gregor von Laszewski]
+
+- Checks in registration command. [Gregor von Laszewski]
+
+- Uncomment the profile editor. [Gregor von Laszewski]
+
+- Adding a simple form for openstack credentials. [Gregor von Laszewski]
+
+- Fix the register command. [Gregor von Laszewski]
+
+- Dealing with public ip. [fugangwang]
+
+- Cm register commands. [Daniel Silva]
+
+- Added libcloud example; added more requirements. [fugangwang]
+
+- Reorganizing. [Gregor von Laszewski]
+
+- Reorganization. [Gregor von Laszewski]
+
+- Adding first commands. [Gregor von Laszewski]
+
+- Remove version so we use git tags. [Gregor von Laszewski]
+
+- Testing pbr. [Gregor von Laszewski]
+
+- Testing new version of pbr. [Gregor von Laszewski]
+
+- Simple default command. [Gregor von Laszewski]
+
+- Setup. [Gregor von Laszewski]
+
+- Print() [Gregor von Laszewski]
+
+- Move confidict. [Gregor von Laszewski]
+
+- Simple dict printer with corrections. [Gregor von Laszewski]
+
+- Added defaults. [Gregor von Laszewski]
+
+- Introducing os.path.sep instead of / [Gregor von Laszewski]
+
+- Set test. [Gregor von Laszewski]
+
+- Simple configdict based on ruaml.yaml. [Gregor von Laszewski]
+
+- New config dict. [Gregor von Laszewski]
+
+- Initial commit. [Gregor von Laszewski]
+
+

@@ -40,13 +40,14 @@ def set_os_environ(cloudname):
 # noinspection PyPep8Naming,PyUnusedLocal,PyUnusedLocal
 class CloudProviderOpenstackAPI(CloudProviderBase):
 
-    kind = "openstack"  # BUG this should be cloud_type
+    cloud_type = "openstack"
     cloud_pwd = {}
 
     def __init__(self, cloud_name, cloud_details, user=None, flat=True):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.flat = flat
-        self.kind = "openstack"  # BUG this should be cloud_type
+        self.cloud_type = "openstack"
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key"]
         self.provider = None
         self.default_image = None
         self.default_flavor = None
