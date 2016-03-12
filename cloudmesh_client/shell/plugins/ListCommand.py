@@ -97,6 +97,13 @@ class ListCommand(PluginCommand, CloudPluginCommand):
         # TODO: add quota
         # TODO: add limits
         # TODO: add usage
+
+        #
+        # TODO: BUG: use the get attribute from the provider.
+        # TODO:: call the cm xyz list functions and do not
+        # reimplement this here
+        # possibly introduce List.py
+
         if kind == 'FLAVOR':
             order = [
                 'cm_cloud',
