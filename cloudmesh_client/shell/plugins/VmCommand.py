@@ -76,6 +76,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                           [--new=NEWNAME]
                           [--cloud=CLOUD]
                           [--force]
+                          [--dryrun]
                 vm list [NAME_OR_ID]
                         [--cloud=CLOUD|--all]
                         [--group=GROUP]
@@ -724,7 +725,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     # BUG THE Z FILL SHOULD BE detected from yaml file
                     new_name = prefix + "-" + str(count).zfill(3)
 
-                Vm.rename(cloud=cloud, servers=servers, new_name=new_name, force=arguments["--force"])
+                Vm.rename(cloud=cloud, servers=servers, new_name=new_name, force=arguments["--force"],
+                          is_dry_run=arguments["--dryrun"])
 
                 if is_name_provided is False:
                     # Incrementing count
