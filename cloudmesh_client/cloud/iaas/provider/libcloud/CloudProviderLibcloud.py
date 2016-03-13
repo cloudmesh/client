@@ -100,9 +100,194 @@ class CloudProviderLibcloud(CloudProviderBase):
         return d
 
     def attributes(self, kind):
+        layout = {
+            'flavor': {
+                'order': [
+                    'id',
+                    'name',
+                    'user',
+                    'ram',
+                    'os_flv_disabled',
+                    'vcpus',
+                    'swap',
+                    'os_flavor_acces',
+                    'rxtx_factor',
+                    'os_flv_ext_data',
+                    'disk',
+                    'category',
+                    'uuid'
+                ],
+                'header': [
+                    'Id',
+                    'Name',
+                    'User',
+                    'RAM',
+                    'Disabled',
+                    'vCPUs',
+                    'Swap',
+                    'Access',
+                    'rxtx_factor',
+                    'os_flv_ext_data',
+                    'Disk',
+                    'Cloud',
+                    'UUID'
+                ]
+            },
+            'image': {
+                'order': [
+                    'id',
+                    'name',
+                    'os_image_size',
+                    'metadata__description',
+                    'minDisk',
+                    'minRam',
+                    'progress',
+                    'status',
+                    'updated',
+                    'uuid',
+                    'category'
+                ],
+                'header': [
+                    'id',
+                    'name',
+                    'size',
+                    'description',
+                    'minDisk',
+                    'minRam',
+                    'progress',
+                    'status',
+                    'updated',
+                    'uuid',
+                    'cloud'
+                ]
+            },
+            'vm': {
+                'order': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'state',
+                    'public_ips',
+                    'private_ips',
+                    'image_name',
+                    'key_name',
+                    'user',
+                    'category'],
+                'header': [
+                    'id',
+                    'uuid',
+                    'label',
+                    'status',
+                    'public_ips',
+                    'private_ips',
+                    'image_name',
+                    'key_name',
+                    'user',
+                    'cloud'
+                ]
+            },
+            'floating_ip': {
+                'order': [
+                    "instance_name",
+                    "ip",
+                    "pool",
+                    "fixed_ip",
+                    "id",
+                    "instance_id",
+                    'cloud'
+                ],
+                'header': [
+                    "instance_name",
+                    "floating_ip",
+                    "floating_ip_pool",
+                    "fixed_ip",
+                    "floating_ip_id",
+                    "instance_id",
+                    'cloud'
+                ],
+            },
+            'floating_ip_pool': {
+                'order': [
+                    "name"
+                ],
+                'header': [
+                    "floating_ip_pool"
+                ],
+            },
+            'clouds': {
+                'order': [
+                    "cloud",
+                    "status"
+                ],
+                'header': [
+                    "cloud",
+                    "status"
+                ],
+            },
+            'limits': {
+                'order': [
+                    'Name',
+                    'Value'
+                ],
+                'header': [
+                    'Name',
+                    'Value'
+                ]
+            },
+            'quota': {
+                'order': [
+                    'Quota',
+                    'Limit'
+                ],
+                'header': [
+                    'Quota',
+                    'Limit'
+                ]
+            },
+            'secgroup': {
+                'order': [
+                    'id',
+                    'name',
+                    'category',
+                    'user',
+                    'project',
+                    'uuid'
+                ],
+                'header': [
+                    'id',
+                    'secgroup_name',
+                    'category',
+                    'user',
+                    'tenant_id',
+                    'secgroup_uuid'
+                ]
+            },
+            'default': {
+                'order': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                     ],
+                'header': [
+                    'user',
+                    'cloud',
+                    'name',
+                    'value',
+                    'created_at',
+                    'updated_at'
+                     ],
+            }
+        }
 
-        order = None
-        header = None
+        if kind == "vm":
+            order = layout[kind]['order']
+            header = layout[kind]['header']
+        else :
+            order = None
+            header = None
 
         return order, header
 

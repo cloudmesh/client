@@ -11,7 +11,7 @@ class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
 
     def __init__(self, cloudname, user=None, flat=False, source="db"):
-        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key"]
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key", "libcloud_image", "libcloud_flavor", "libcloud_vm"]
         self.nodes = None
         self.flavors = None
         self.data = None

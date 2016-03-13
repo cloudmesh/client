@@ -85,12 +85,12 @@ class LibcloudDict(object):
         node_image_dict = {}
         if node_image_obj and node_image_obj.id:
             node_image_dict['image_id'] = node_image_obj.id
-        else:
-            node_image_dict['image_id'] = ""
+        # else:
+        #     node_image_dict['image_id'] = ""
         if node_image_obj and node_image_obj.name:
             node_image_dict["image_name"] = node_image_obj.name
-        else:
-            node_image_dict["image_name"] = ""
+        # else:
+        #     node_image_dict["image_name"] = ""
         if node_image_obj and node_image_obj.extra:
             vm_image_extra_args = LibcloudDict.handle_vm_image_extra_args(node_image_obj.extra)
             node_image_dict.update(vm_image_extra_args)
