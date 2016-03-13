@@ -84,7 +84,7 @@ class CloudmeshConsole(cmd.Cmd, PluginCommandClasses):
         StopWatch.stop("command")
         if Default.timer():
             print ("Timer: {:.4f}s ({})".format(StopWatch.get("command"),
-                                                line))
+                                                line.strip()))
         return stop
 
     def onecmd(self, line):
