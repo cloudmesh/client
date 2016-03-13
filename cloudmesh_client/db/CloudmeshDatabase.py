@@ -12,11 +12,12 @@ from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, VAR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, \
     VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
-    SECGROUPRULE
+    SECGROUPRULE, LIBCLOUD_FLAVOR, LIBCLOUD_IMAGE, LIBCLOUD_VM
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Username
+from cloudmesh_client.common.LibcloudDict import LibcloudDict
 
 
 # noinspection PyBroadException,PyPep8Naming
@@ -120,6 +121,8 @@ class CloudmeshDatabase(object):
             # TODO: Confirm user
             user = self.user
 
+            kind = self.cloud_to_kind_mapper(name, kind)
+
             if kind in ["flavor", "image", "vm", "secgroup"]:
 
                 # get provider for specific cloud
@@ -203,6 +206,53 @@ class CloudmeshDatabase(object):
                     self.save()
                 return True
 
+            elif kind in ["libcloud_vm", "libcloud_image", "libcloud_flavor"]:
+
+                 # get provider for specific cloud
+                provider = CloudProvider(name).provider
+                pprint("In CloudmeshDatabase found provider "+str(provider.__dict__))
+                # clear local db records for kind
+                self.clear(kind, name)
+
+                if kind == "libcloud_vm":
+                    vms = provider.list_vm(name)
+                    for vm in vms.values():
+                        vm['uuid'] = vm['node_id']
+                        vm['type'] = 'string'
+                        vm['category'] = name
+                        vm['user'] = user
+                        db_obj = {0: {kind: vm}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                if kind == "libcloud_image":
+                    images = provider.list_image(name)
+                    for images in images.values():
+                        images['uuid'] = images['image_id']
+                        images['type'] = 'string'
+                        images['category'] = name
+                        images['user'] = user
+                        db_obj = {0: {kind: images}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
+                if kind == "libcloud_flavor":
+                    flavors = provider.list_size(name)
+                    for flavor in flavors.values():
+                        flavor['uuid'] = flavor['flavor_id']
+                        flavor['type'] = 'string'
+                        flavor['category'] = name
+                        flavor['user'] = user
+                        db_obj = {0: {kind: flavor}}
+
+                        self.add_obj(db_obj)
+                        self.save()
+                    return True
+
             else:
                 Console.error("refresh not supported for this kind: {}".format(kind))
 
@@ -259,14 +309,20 @@ class CloudmeshDatabase(object):
         if type(kind) == str:
             if kind.lower() in ["flavor"]:
                 return FLAVOR
+            elif kind.lower() in ["libcloud_flavor"]:
+                return LIBCLOUD_FLAVOR
             elif kind.lower() in ["default"]:
                 return DEFAULT
             elif kind.lower() in ["var"]:
                 return VAR
             elif kind.lower() in ["image"]:
                 return IMAGE
+            elif kind.lower() in ["libcloud_image"]:
+                return LIBCLOUD_IMAGE
             elif kind.lower() in ["vm"]:
                 return VM
+            elif kind.lower() in ["libcloud_vm"]:
+                return LIBCLOUD_VM
             elif kind.lower() in ["key"]:
                 return KEY
             elif kind.lower() in ["group"]:
@@ -319,6 +375,8 @@ class CloudmeshDatabase(object):
         :return:
         """
         # print("KW", kwargs)
+        if "category" in kwargs:
+            kind = self.cloud_to_kind_mapper(kwargs["category"], kind)
         result = self.query(kind, **kwargs)
         # print("LLL", result)
         if output == 'dict' and result is not None:
@@ -333,6 +391,12 @@ class CloudmeshDatabase(object):
         #    return None
 
         return result
+
+    def cloud_to_kind_mapper(self, cloud, kind):
+        if cloud in LibcloudDict.Libcloud_category_list:
+            if kind in ["image", "vm", "flavor"]:
+                kind = "libcloud_"+kind
+        return kind
 
     def query(self, kind, **kwargs):
         """
