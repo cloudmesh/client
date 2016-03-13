@@ -1,0 +1,16 @@
+PY3        PY2        Task
+0.0024 0.0024 timer on
+0.0008 0.0007 banner refresh off
+0.0039 0.0036 refresh off
+0.0044 0.0033 default cloud=kilo
+0.0007 0.0008 image --refresh
+0.0009 0.0007 flavor --refresh
+0.0076 0.0069 vm --refresh
+0.2801 0.2476 image list
+1.3495 1.3430 flavor list
+0.1720 0.1686 vm list
+0.9458 0.9209 image list
+1.7665 1.7575 flavor list
+4.3453 3.8590 vm list
+
+
