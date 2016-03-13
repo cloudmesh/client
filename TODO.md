@@ -1,6 +1,6 @@
 | Assignee  | Status     | Issues | highest priority first                                                                                     |
 | --------- | -------    | ------ | ---------------------------------------------------------------------------------------------------------- |
-| Mangirish | - [ ] done | #155   | fix nosetest for tests_vm.py (related also to next task)                                                   |
+| Mangirish | done       | #155   | fix nosetest for tests_vm.py (related also to next task)                                                   |
 | Mangirish | done       | #155   | vm delete                                                                                                  |
 | Mangirish | working    | #156   | vm rename                                                                                                  |
 | Mangirish | pending    | #169   | cm register yaml topic                                                                                     |
