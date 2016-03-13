@@ -6,6 +6,8 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
+from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+
 
 # noinspection PyBroadException
 class Default(ListResource):
@@ -39,8 +41,11 @@ class Default(ListResource):
         :param output: The output format.
         :return:
         """
+
         if order is None:
-            order = ['user', 'category', 'name', 'value']
+            # (order, header) = CloudProvider(category).get_attributes("default")
+            order = ['user', 'category', 'name', 'value',
+                     'updated_at']
         try:
             if category is None:
                 d = cls.cm.all("default")

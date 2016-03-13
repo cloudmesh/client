@@ -695,7 +695,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'os_flv_ext_data',
                     'disk',
                     'category',
-                    'uuid'
+                    'uuid',
+                    'updated_at'
                 ],
                 'header': [
                     'Id',
@@ -710,7 +711,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'os_flv_ext_data',
                     'Disk',
                     'Cloud',
-                    'UUID'
+                    'UUID',
+                    'updated'
                 ]
             },
             'image': {
@@ -725,7 +727,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'status',
                     'updated',
                     'uuid',
-                    'category'
+                    'category',
+                    'updated_at'
                 ],
                 'header': [
                     'id',
@@ -738,7 +741,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'status',
                     'updated',
                     'uuid',
-                    'cloud'
+                    'cloud',
+                    'updated_at'
                 ]
             },
             'vm': {
@@ -752,7 +756,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'key_name',
                     'project',
                     'user',
-                    'category'],
+                    'category',
+                    'updated_at'
+                ],
                 'header': [
                     'id',
                     'uuid',
@@ -763,7 +769,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'key_name',
                     'project',
                     'user',
-                    'cloud'
+                    'cloud',
+                    'updated_at'
                 ]
             },
             'floating_ip': {
@@ -845,7 +852,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             'default': {
                 'order': [
                     'user',
-                    'cloud',
+                    'category',
                     'name',
                     'value',
                     'created_at',
@@ -853,7 +860,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                      ],
                 'header': [
                     'user',
-                    'cloud',
+                    'category',
                     'name',
                     'value',
                     'created_at',
