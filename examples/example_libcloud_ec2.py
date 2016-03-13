@@ -51,8 +51,6 @@ sizes = driver.list_sizes()
 pprint (sizes)
 
 # specify flavor and image
-
-
 myflavor = clouddefault['flavor']
 myimage = clouddefault['image']
 

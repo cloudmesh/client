@@ -670,6 +670,131 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.kind = self.__tablename__
         self.category = category or "general"
 
+class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+    status = Column(String)
+    updated = Column(String)
+    created = Column(String)
+    architecture = Column(String)
+    description = Column(String)
+    hypervisor = Column(String)
+    image_id = Column(String)
+    image_location = Column(String)
+    image_type = Column(String)
+    is_public = Column(String)
+    kernel_id = Column(String)
+    owner_alias = Column(String)
+    owner_id = Column(String)
+    platform = Column(String)
+    ramdisk_id = Column(String)
+    state = Column(String)
+    virtualization_type = Column(String)
+
+    def __init__(self,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = kwargs["image_name"]
+        self.category = kwargs["category"] or "general"
+        self.type = kwargs["type"]
+        self.user = kwargs["user"]
+        self.uuid = kwargs["uuid"]
+        self.name = kwargs["image_name"]
+        self.kind = self.__tablename__
+        self.status = kwargs.get('status')
+        self.architecture = kwargs.get('architecture')
+        self.description = kwargs.get('description')
+        self.hypervisor = kwargs.get('hypervisor')
+        self.image_id = kwargs.get('image_id')
+        self.image_location = kwargs.get('image_location')
+        self.image_type = kwargs.get('image_type')
+        self.is_public = kwargs.get('is_public')
+        self.kernel_id = kwargs.get('kernel_id')
+        self.owner_alias = kwargs.get('owner_alias')
+        self.owner_id = kwargs.get('owner_id')
+        self.platform = kwargs.get('platform')
+        self.ramdisk_id = kwargs.get('ramdisk_id')
+        self.state = kwargs.get('state')
+
+class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+    flavor_id = Column(String)
+    ram = Column(String)
+    disk = Column(String)
+    bandwidth = Column(String)
+    price = Column(String)
+    cpu = Column(String)
+
+    def __init__(self,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = kwargs["name"]
+        self.category = kwargs["category"] or "general"
+        self.type = kwargs["type"]
+        self.name = kwargs["name"]
+        self.user = kwargs["user"]
+        self.uuid = kwargs["uuid"]
+        self.flavor_id = kwargs["flavor_id"]
+        self.ram = kwargs["ram"]
+        self.disk = kwargs["disk"]
+        self.bandwidth = kwargs["bandwidth"]
+        self.price = kwargs["price"]
+        if "cpu" in kwargs:
+            self.cpu = kwargs["cpu"]
+
+class LIBCLOUD_VM(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+    name = Column(String)
+    state = Column(String)
+    public_ips = Column(String)
+    private_ips = Column(String)
+    image_name = Column(String)
+    availability = Column(String)
+    image_id = Column(String)
+    instance_id = Column(String)
+    instance_type = Column(String)
+    key_name = Column(String)
+    private_dns = Column(String)
+    root_device_name = Column(String)
+    root_device_type = Column(String)
+    status = Column(String)
+
+    def __init__(self, **kwargs):
+        # self.kind = __tablename__
+        self.label = kwargs["name"]
+        self.category = kwargs["category"] or "general"
+        self.type = kwargs["type"]
+        self.user = kwargs["user"]
+        if "node_id" in kwargs:
+            self.uuid = kwargs["node_id"]
+        if "name" in kwargs:
+            self.name = kwargs["name"]
+        if "state" in kwargs:
+            self.state = kwargs["state"]
+        if "public_ips" in kwargs:
+            self.public_ips = kwargs["public_ips"]
+        if "private_ips" in kwargs:
+            self.private_ips = kwargs["private_ips"]
+        if "image_name" in kwargs:
+            self.image_name = kwargs["image_name"]
+        if "availability" in kwargs:
+            self.availability = kwargs["availability"]
+        if "image_id" in kwargs:
+            self.image_id = kwargs["image_id"]
+        if "instance_id" in kwargs:
+            self.instance_id = kwargs["instance_id"]
+        if "instance_type" in kwargs:
+            self.instance_type = kwargs["instance_type"]
+        if "key_name" in kwargs:
+            self.key_name = kwargs["key_name"]
+        if "private_dns" in kwargs:
+            self.private_dns = kwargs["private_dns"]
+        if "root_device_name" in kwargs:
+            self.root_device_name = kwargs["root_device_name"]
+        if "root_device_type" in kwargs:
+            self.root_device_type = kwargs["root_device_type"]
+        if "status" in kwargs:
+            self.status = kwargs["status"]
+        self.kind = self.__tablename__
 
 def tables():
     """
