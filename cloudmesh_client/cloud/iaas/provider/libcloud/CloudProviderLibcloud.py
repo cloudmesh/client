@@ -115,7 +115,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'os_flv_ext_data',
                     'disk',
                     'category',
-                    'uuid'
+                    'uuid',
+                    'updated_at'
                 ],
                 'header': [
                     'Id',
@@ -130,7 +131,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'os_flv_ext_data',
                     'Disk',
                     'Cloud',
-                    'UUID'
+                    'UUID',
+                    'Updated'
                 ]
             },
             'image': {
@@ -145,7 +147,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'status',
                     'updated',
                     'uuid',
-                    'category'
+                    'category',
+                    'updated_at'
                 ],
                 'header': [
                     'id',
@@ -158,7 +161,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'status',
                     'updated',
                     'uuid',
-                    'cloud'
+                    'cloud',
+                    'updated'
                 ]
             },
             'vm': {
@@ -172,7 +176,9 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'image_name',
                     'key_name',
                     'user',
-                    'category'],
+                    'category',
+                    'updated_at'
+                ],
                 'header': [
                     'id',
                     'uuid',
@@ -183,7 +189,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'image_name',
                     'key_name',
                     'user',
-                    'cloud'
+                    'cloud',
+                    'updated'
                 ]
             },
             'floating_ip': {
@@ -194,7 +201,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     "fixed_ip",
                     "id",
                     "instance_id",
-                    'cloud'
+                    'cloud',
+                    'updated'
                 ],
                 'header': [
                     "instance_name",
@@ -203,7 +211,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     "fixed_ip",
                     "floating_ip_id",
                     "instance_id",
-                    'cloud'
+                    'cloud',
+                    'updated'
                 ],
             },
             'floating_ip_pool': {
@@ -276,8 +285,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'cloud',
                     'name',
                     'value',
-                    'created_at',
-                    'updated_at'
+                    'created',
+                    'updated'
                      ],
             }
         }
