@@ -2,7 +2,7 @@
 | --------- | -------    | ------ | ---------------------------------------------------------------------------------------------------------- |
 | Mangirish | done       | #155   | fix nosetest for tests_vm.py (related also to next task)                                                   |
 | Mangirish | done       | #155   | vm delete                                                                                                  |
-| Mangirish | working    | #156   | vm rename                                                                                                  |
+| Mangirish | done       | #156   | vm rename                                                                                                  |
 | Mangirish | pending    | #169   | cm register yaml topic                                                                                     |
 | Mangirish | pending    | #144   | Fix Test Scripts for VM commands                                                                           |
 | Mangirish | pending    | #144   | Fix Test Scripts for Cluster commands                                                                      |
