@@ -67,7 +67,8 @@ requirements = [
     'cloudmesh_timestring',
     'wheel',
     'tox',
-    'pytimeparse']
+    'pytimeparse',
+    'humanize']
 
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()

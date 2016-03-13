@@ -24,3 +24,4 @@ cloudmesh_timestring
 pycrypto
 httpsig
 jsonschema
+humanize

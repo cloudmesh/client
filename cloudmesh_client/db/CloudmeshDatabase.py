@@ -104,6 +104,10 @@ class CloudmeshDatabase(object):
         except Exception as ex:
             Console.error(ex.message, ex)
 
+    def attributes(self, kind, name):
+        provider = CloudProvider(name).provider
+        return provider.attributes(kind)
+
     # noinspection PyUnusedLocal
     def refresh(self, kind, name, **kwargs):
         """

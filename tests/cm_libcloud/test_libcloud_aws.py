@@ -1,7 +1,9 @@
+from __future__ import print_function
+
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
-from __future__ import print_function
+
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from time import sleep
 from pprint import pprint
