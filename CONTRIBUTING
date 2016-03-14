@@ -70,3 +70,34 @@ The project is open source and if you like you can help. Here are some contribut
 
     for k, v in six.iteritems(d):
         print(k, v)
+
+
+PRIORITIZATON
+-------------
+
+Prioritizations of tasks can be established while using the first
+line of an issue body. Here you can use a tag such as::
+
+  P:1
+
+Where the number behind p identifies the priority. As normal github
+does not support priority tasks, They can be printed from cloudmesh
+dev branch, if you use the command:
+
+  bin/git-priority,py
+
+We will enhance the tools to print priority lists gradually as needed.
+
+an output will look like:
+
+  | P    | N    | title                | assignee   | milestone  | labels               |
+  | ---- | ---- | -------------------- | ---------- | ---------- | -------------------- |
+  |    1 |  202 | cm refresh on/off    | gouravs... | 2016/03/31 | bug, Gourav          |
+  |  999 |  201 | cm cluster           | None       | priority   | Fugang, Gourav, G... |
+
+which easily renders in MD. If you are only interested in a particular milestone, you
+can fgrep for it:
+
+  bin/git-priority,py | fgrep priority
+
+
