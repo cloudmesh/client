@@ -8,25 +8,25 @@ for (attribute, length) in \
                 [
                 ("P",4),
                 ("N",4),
-                ("title",20),
+                ("title",40),
                 ("assignee",10),
                 ("milestone",10),
                 ("labels",20)
                 ]:
     issue[attribute] = attribute
-print("| {P:4} | {N:4} | {title:20} | {assignee:10} | {milestone:10} | {labels:20} |".format(**issue))
+print("| {P:4} | {N:4} | {title:40} | {assignee:10} | {milestone:10} | {labels:20} |".format(**issue))
 
 for (attribute, length) in \
                 [
                 ("P",4),
                 ("N",4),
-                ("title",20),
+                ("title",40),
                 ("assignee",10),
                 ("milestone",10),
                 ("labels",20)
                 ]:
     issue[attribute] = "-" * (length)
-print("| {P:4} | {N:4} | {title:20} | {assignee:10} | {milestone:10} | {labels:20} |".format(**issue))
+print("| {P:4} | {N:4} | {title:40} | {assignee:10} | {milestone:10} | {labels:20} |".format(**issue))
 
 
 for page in range(1,2):
@@ -72,7 +72,7 @@ for page in range(1,2):
                 [
                 ("priority",4),
                 ("number",4),
-                ("title",20),
+                ("title",40),
                 ("assignee",10),
                 ("milestone",10),
                 ("labels",20)
@@ -80,5 +80,5 @@ for page in range(1,2):
             data =  str(issue[attribute])
             if len(data) > length:
                 issue[attribute] = data[:length-3] + "..."
-        print("| {priority:4} | {number:4} | {title:20} | {assignee:10} | {milestone:10} | {labels:20} |".format(**issue))
+        print("| {priority:4} | {number:4} | {title:40} | {assignee:10} | {milestone:10} | {labels:20} |".format(**issue))
 
