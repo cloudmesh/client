@@ -1,9 +1,16 @@
+Currently Worked on Issues
+==========================
+
 | Assignee  | S   | Issues                | highest priority first                                                                                     |
 | --------- | --- | ------                | ---------------------------------------------------------------------------------------------------------- |
-| Mangirish | x   | [#155](../issues/155) | vm delete                                                                                                  |
-| Mangirish | x   | [#156](../issues/156) | vm rename                                                                                                  |
-| Gourav    | x   |                       | scripts: sync script example does not work                                                                 |
 | Mangirish | -   | [#169](../issues/169) | cm register yaml topic                                                                                     |
+
+
+Open Issues
+===========
+
+| Assignee  | S   | Issues                | highest priority first                                                                                     |
+| --------- | --- | ------                | ---------------------------------------------------------------------------------------------------------- |
 | Mangirish | -   | [#144](../issues/144) | Fix Test Scripts for VM commands                                                                           |
 | Mangirish | -   | [#144](../issues/144) | Fix Test Scripts for Cluster commands                                                                      |
 | Mangirish | -   |                       | Fix Keys TODO    - gregor forgot exactly what this was about, can you remind me, key already uploaded, ... |
@@ -16,6 +23,12 @@
 | Mangirish | -   | [#161](../issues/161) | Restructure CentOS setup script to add error msg function and remove redundant error checking code.        |
 | Mangirish | -   | [#182](../issues/182) | Provider: self.kind vs self.cloud_type                                                                     |
 
+Closed issues
+=============
 
-
+| Assignee  | S   | Issues                | highest priority first                                                                                     |
+| --------- | --- | ------                | ---------------------------------------------------------------------------------------------------------- |
+| Mangirish | x   | [#155](../issues/155) | vm delete                                                                                                  |
+| Mangirish | x   | [#156](../issues/156) | vm rename                                                                                                  |
+| Gourav    | x   |                       | scripts: sync script example does not work                                                                 |
 
