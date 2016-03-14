@@ -96,8 +96,10 @@ an output will look like:
   |  999 |  201 | cm cluster           | None       | priority   | Fugang, Gourav, G... |
 
 which easily renders in MD. If you are only interested in a particular milestone, you
-can fgrep for it:
+can fgrep for it::
 
   bin/git-priority,py | fgrep priority
 
+An example for sorting and selection is::
 
+   bin/git-priority.py | sort -t "|" -k 1 | fgrep priority
