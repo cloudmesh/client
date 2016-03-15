@@ -30,10 +30,12 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         cls = get_driver(Provider.EC2_US_EAST)
 
         d = ConfigDict("cloudmesh.yaml")
-        self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
-        credentials = self.cloud_details["credentials"]
+        self.config = d["cloudmesh"]["clouds"][cloudname]
+        credentials = self.config["credentials"]
+        cm_type = self.config["cm_type"]
 
-        if not cloudname == "aws":
+
+        if cm_type in ["ec2", "ec2-libcloud", "libcloud"]:
             auth_url = credentials["EC2_URL"]
             searchobj = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                                  auth_url,
@@ -54,23 +56,14 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
 
                 extra_args = {'path': path}
             else:
-                # TODO: better error description.
                 Console.error("Authentication url incorrect: {}".format(auth_url))
-
-        # if libcloudname == "ec2" :
-        # url_split=auth_url.split("/:")
 
         ec2_access_key = credentials['EC2_ACCESS_KEY']
         ec2_secret_key = credentials['EC2_SECRET_KEY']
-        # ec2_auth_url
 
-        # TODO: do something if the host is None
-
-        # AWS needs two values for authentication
-        if cloudname == "aws":
+        if cm_type == "aws":
             Console.info("AWS INIT")
-            self.provider = cls(ec2_access_key,
-                            ec2_secret_key)
+            self.provider = cls(ec2_access_key, ec2_secret_key)
         else:
             self.provider = cls(ec2_access_key,
                                 ec2_secret_key,
