@@ -40,7 +40,6 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
             searchobj = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                                  auth_url,
                                  re.M | re.I)
-
             path = None
             host = None
             port = None
