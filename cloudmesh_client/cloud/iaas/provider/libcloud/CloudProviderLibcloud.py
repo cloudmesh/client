@@ -11,6 +11,7 @@ from libcloud.compute.base import NodeAuthPassword, NodeAuthSSHKey
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
+from cloudmesh_client.shell.console import Console
 
 
 class CloudProviderLibcloud(CloudProviderBase):
@@ -335,7 +336,24 @@ class CloudProviderLibcloud(CloudProviderBase):
         # create_args = dict()
         # create_args['image'] = image
 
-        self.provider.create_node(name=name, ex_iamprofile=name, image=image, size=flavor)
+        # Console.info("Demo start a VM:")
+        # Console.info("Image selected :"+image.name)
+        # Console.info("Flavor selected :"+flavor.name)
+        # Console.info("Key :")
+        # pprint(key)
+        self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
+
+    def add_key_to_cloud(self, name, public_key):
+        """
+        Method to add key to libcloud based clouds, typically a keypair for AWS EC2.
+        :param name: Name of the keypair.
+        :param public_key: public key string.
+        :return:
+        """
+
+        keypair = self.provider.import_key_pair_from_string(name, key_material=public_key)
+        Console.info("Done uploading the key to libcloud")
+        return keypair
 
     def get_image_by_id(self, image_id):
         image_list = self.provider.list_images()
