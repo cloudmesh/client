@@ -228,7 +228,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # or read os.environ if set as "env".
         """
         os_password = credentials["OS_PASSWORD"]
-        if os_password.lower() == "readline":
+        if os_password.lower() in  ["readline", "read", "tbd"]:
             os_password = getpass.getpass()
         elif os_password.lower() == "env":
             os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
