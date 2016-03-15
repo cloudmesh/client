@@ -32,41 +32,48 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         d = ConfigDict("cloudmesh.yaml")
         self.cloud_details = d["cloudmesh"]["clouds"][cloudname]
         credentials = self.cloud_details["credentials"]
-        auth_url = credentials["EC2_URL"]
-        searchobj = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
-                             auth_url,
-                             re.M | re.I)
 
-        path = None
-        host = None
-        port = None
-        if searchobj:
-            host = searchobj.group(1)
-            port = searchobj.group(2)
-            path = searchobj.group(3)
+        if not cloudname == "aws":
+            auth_url = credentials["EC2_URL"]
+            searchobj = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
+                                 auth_url,
+                                 re.M | re.I)
 
-            Console.info("url : " + searchobj.group())
-            Console.info("host: " + host)
-            Console.info("port: " + port)
-            Console.info("path: " + path)
-        else:
-            # TODO: better error description.
-            Console.error("Authentication url incorrect: {}".format(auth_url))
+            path = None
+            host = None
+            port = None
+            if searchobj:
+                host = searchobj.group(1)
+                port = searchobj.group(2)
+                path = searchobj.group(3)
+
+                Console.info("url : " + searchobj.group())
+                Console.info("host: " + host)
+                Console.info("port: " + port)
+                Console.info("path: " + path)
+
+                extra_args = {'path': path}
+            else:
+                # TODO: better error description.
+                Console.error("Authentication url incorrect: {}".format(auth_url))
 
         # if libcloudname == "ec2" :
         # url_split=auth_url.split("/:")
 
         ec2_access_key = credentials['EC2_ACCESS_KEY']
         ec2_secret_key = credentials['EC2_SECRET_KEY']
-        # ec2_auth_url=
-
-        extra_args = {'path': path}
+        # ec2_auth_url
 
         # TODO: do something if the host is None
 
         # AWS needs two values for authentication
-        self.provider = cls(ec2_access_key,
-                            ec2_secret_key,
-                            host=host,
-                            port=port,
-                            **extra_args)
+        if cloudname == "aws":
+            Console.info("AWS INIT")
+            self.provider = cls(ec2_access_key,
+                            ec2_secret_key)
+        else:
+            self.provider = cls(ec2_access_key,
+                                ec2_secret_key,
+                                host=host,
+                                port=port,
+                                **extra_args)

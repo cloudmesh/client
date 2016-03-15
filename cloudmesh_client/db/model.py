@@ -698,22 +698,37 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
         self.type = kwargs["type"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
-        self.name = kwargs["image_name"]
+        if 'image_name' in kwargs:
+            self.name = kwargs['image_name']
+        if 'status' in kwargs:
+            self.status = kwargs.get('status')
+        if 'architecture' in kwargs:
+            self.architecture = kwargs.get('architecture')
+        if 'description' in kwargs:
+            self.description = kwargs.get('description')
+        if 'hypervisor' in kwargs:
+            self.hypervisor = kwargs.get('hypervisor')
+        if 'image_id' in kwargs:
+            self.image_id = kwargs.get('image_id')
+        if 'image_location' in kwargs:
+            self.image_location = kwargs.get('image_location')
+        if 'image_type' in kwargs:
+            self.image_type = kwargs.get('image_type')
+        if 'is_public' in kwargs:
+            self.is_public = kwargs.get('is_public')
+        if 'kernel_id' in kwargs:
+            self.kernel_id = kwargs.get('kernel_id')
+        if 'owner_alias' in kwargs:
+            self.owner_alias = kwargs.get('owner_alias')
+        if 'owner_id' in kwargs:
+            self.owner_id = kwargs.get('owner_id')
+        if 'platform' in kwargs:
+            self.platform = kwargs.get('platform')
+        if 'ramdisk_id' in kwargs:
+            self.ramdisk_id = kwargs.get('ramdisk_id')
+        if 'state' in kwargs:
+            self.state = kwargs.get('state')
         self.kind = self.__tablename__
-        self.status = kwargs.get('status')
-        self.architecture = kwargs.get('architecture')
-        self.description = kwargs.get('description')
-        self.hypervisor = kwargs.get('hypervisor')
-        self.image_id = kwargs.get('image_id')
-        self.image_location = kwargs.get('image_location')
-        self.image_type = kwargs.get('image_type')
-        self.is_public = kwargs.get('is_public')
-        self.kernel_id = kwargs.get('kernel_id')
-        self.owner_alias = kwargs.get('owner_alias')
-        self.owner_id = kwargs.get('owner_id')
-        self.platform = kwargs.get('platform')
-        self.ramdisk_id = kwargs.get('ramdisk_id')
-        self.state = kwargs.get('state')
 
 class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
     uuid = Column(String)
@@ -733,13 +748,19 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
         self.name = kwargs["name"]
         self.user = kwargs["user"]
         self.uuid = kwargs["uuid"]
-        self.flavor_id = kwargs["flavor_id"]
-        self.ram = kwargs["ram"]
-        self.disk = kwargs["disk"]
-        self.bandwidth = kwargs["bandwidth"]
-        self.price = kwargs["price"]
+        if "flavor_id" in kwargs:
+            self.flavor_id = kwargs["flavor_id"]
+        if "ram" in kwargs:
+            self.ram = kwargs["ram"]
+        if "disk" in kwargs:
+            self.disk = kwargs["disk"]
+        if "bandwidth" in kwargs:
+            self.bandwidth = kwargs["bandwidth"]
+        if "price" in kwargs:
+            self.price = kwargs["price"]
         if "cpu" in kwargs:
             self.cpu = kwargs["cpu"]
+        self.kind = self.__tablename__
 
 class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     uuid = Column(String)
