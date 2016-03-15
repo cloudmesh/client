@@ -11,6 +11,7 @@ from libcloud.compute.base import NodeAuthPassword, NodeAuthSSHKey
 from libcloud.compute.types import Provider
 from libcloud.compute.providers import get_driver
 import libcloud.security
+from cloudmesh_client.shell.console import Console
 
 
 class CloudProviderLibcloud(CloudProviderBase):
@@ -106,14 +107,10 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'id',
                     'name',
                     'user',
+                    'cpu',
                     'ram',
-                    'os_flv_disabled',
-                    'vcpus',
-                    'swap',
-                    'os_flavor_acces',
-                    'rxtx_factor',
-                    'os_flv_ext_data',
-                    'disk',
+                    'bandwidth',
+                    'price',
                     'category',
                     'uuid',
                     'updated_at'
@@ -122,14 +119,10 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'Id',
                     'Name',
                     'User',
+                    'cpu',
                     'RAM',
-                    'Disabled',
-                    'vCPUs',
-                    'Swap',
-                    'Access',
-                    'rxtx_factor',
-                    'os_flv_ext_data',
-                    'Disk',
+                    'bandwidth',
+                    'price',
                     'Cloud',
                     'UUID',
                     'Updated'
@@ -139,30 +132,22 @@ class CloudProviderLibcloud(CloudProviderBase):
                 'order': [
                     'id',
                     'name',
-                    'os_image_size',
-                    'metadata__description',
-                    'minDisk',
-                    'minRam',
-                    'progress',
-                    'status',
-                    'updated',
-                    'uuid',
                     'category',
-                    'updated_at'
+                    'image_type',
+                    'state',
+                    'uuid',
+                    'updated_at',
+                    'owner_id'
                 ],
                 'header': [
                     'id',
                     'name',
-                    'size',
-                    'description',
-                    'minDisk',
-                    'minRam',
-                    'progress',
-                    'status',
-                    'updated',
-                    'uuid',
                     'cloud',
-                    'updated'
+                    'image_type',
+                    'state',
+                    'uuid',
+                    'updated_at',
+                    'owner_id'
                 ]
             },
             'vm': {
@@ -170,11 +155,13 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'id',
                     'uuid',
                     'label',
-                    'state',
+                    'status',
                     'public_ips',
                     'private_ips',
                     'image_name',
                     'key_name',
+                    'availability',
+                    'instance_type',
                     'user',
                     'category',
                     'updated_at'
@@ -188,6 +175,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'private_ips',
                     'image_name',
                     'key_name',
+                    'availability',
+                    'instance_type',
                     'user',
                     'cloud',
                     'updated'
@@ -291,10 +280,10 @@ class CloudProviderLibcloud(CloudProviderBase):
             }
         }
 
-        if kind == "vm":
+        if kind in ["vm", "image", "flavor"]:
             order = layout[kind]['order']
             header = layout[kind]['header']
-        else :
+        else:
             order = None
             header = None
 
@@ -347,7 +336,24 @@ class CloudProviderLibcloud(CloudProviderBase):
         # create_args = dict()
         # create_args['image'] = image
 
-        self.provider.create_node(name=name, ex_iamprofile=name, image=image, size=flavor)
+        # Console.info("Demo start a VM:")
+        # Console.info("Image selected :"+image.name)
+        # Console.info("Flavor selected :"+flavor.name)
+        # Console.info("Key :")
+        # pprint(key)
+        self.provider.create_node(name=name, image=image, size=flavor, ex_keyname=key)
+
+    def add_key_to_cloud(self, name, public_key):
+        """
+        Method to add key to libcloud based clouds, typically a keypair for AWS EC2.
+        :param name: Name of the keypair.
+        :param public_key: public key string.
+        :return:
+        """
+
+        keypair = self.provider.import_key_pair_from_string(name, key_material=public_key)
+        Console.info("Done uploading the key to libcloud")
+        return keypair
 
     def get_image_by_id(self, image_id):
         image_list = self.provider.list_images()
