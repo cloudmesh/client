@@ -154,11 +154,13 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'id',
                     'uuid',
                     'label',
-                    'state',
+                    'status',
                     'public_ips',
                     'private_ips',
                     'image_name',
                     'key_name',
+                    'availability',
+                    'instance_type',
                     'user',
                     'category',
                     'updated_at'
@@ -172,6 +174,8 @@ class CloudProviderLibcloud(CloudProviderBase):
                     'private_ips',
                     'image_name',
                     'key_name',
+                    'availability',
+                    'instance_type',
                     'user',
                     'cloud',
                     'updated'
@@ -278,7 +282,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         if kind in ["vm", "image", "flavor"]:
             order = layout[kind]['order']
             header = layout[kind]['header']
-        else :
+        else:
             order = None
             header = None
 
