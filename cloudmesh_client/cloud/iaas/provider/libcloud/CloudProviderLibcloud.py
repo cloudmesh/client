@@ -36,8 +36,15 @@ class CloudProviderLibcloud(CloudProviderBase):
         self.cloud_details = None
         self.provider = None
 
+    def _list(self, f, cloudname, **kwargs):
+        nodes = self.provider.f()
+        self._print(nodes)
+        d = self._to_dict(nodes)
+        return d
+
+
     def list_key(self, cloudname, **kwargs):
-        pprint("In list_key")
+        print("In list_key")
         print (self.provider)
         keys = self.provider.list_key_pairs()
         print (keys)
@@ -46,6 +53,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         return keys_dict
 
     def list_vm(self, cloudname, **kwargs):
+        # return self.list(self.provider.list_nodes, cloudnames, kwargs)
         pprint("In list_vm")
         nodes = self.provider.list_nodes()
         self._print(nodes)
@@ -53,19 +61,22 @@ class CloudProviderLibcloud(CloudProviderBase):
         return vm_dict
 
     def list_image(self, cloudname, **kwargs):
-        pprint("In list_images of libcloud")
+        # return self.list(self.provider.list_images, cloudnames, kwargs)
+        print("In list_images of libcloud")
         images = self.provider.list_images()
         self._print(images)
         image_dict = self._to_dict(images)
         return image_dict
 
     def list_flavor(self, cloudname, **kwargs):
-        pprint("In list_flavor of libcloud")
+        # return self.list(self.provider.list_sizes, cloudnames, kwargs)
+        print("In list_flavor of libcloud")
         sizes = self.provider.list_sizes()
         self._print(sizes)
         sizes_dict = self._to_dict(sizes)
         return sizes_dict
 
+    # TODO: deprecated
     def list_size(self, cloudname, **kwargs):
         pprint("In list_sizes of libcloud")
         sizes = self.provider.list_sizes()
@@ -79,15 +90,10 @@ class CloudProviderLibcloud(CloudProviderBase):
         if len(libcloud_result) > 0:
             name = libcloud_result[0].__class__.__name__
             print ("RRRR", name)
-            if  name == "Node":
-                result_type = "Node"
-                pprint("Node type object received")
-            elif name == "NodeImage":
-                result_type = "NodeImage"
-                pprint("NodeImage type object received")
-            elif name == "NodeSize":
-                result_type = "NodeSize"
-                pprint("NodeSize type object received")
+
+            if  name in ["Node", "NodeImage", "NodeSize"]:
+                result_type = name
+                Console.info("{} type object received".format(name))
         # pprint(libcloud_result[0])
 
         for index, obj in enumerate(libcloud_result):
@@ -279,7 +285,7 @@ class CloudProviderLibcloud(CloudProviderBase):
                      ],
             }
         }
-
+        # TODO: bug, this only returns some og the attributes, but not all
         if kind in ["vm", "image", "flavor"]:
             order = layout[kind]['order']
             header = layout[kind]['header']
@@ -315,21 +321,19 @@ class CloudProviderLibcloud(CloudProviderBase):
         pprint("BOOTING UP THE VM")
         auth = NodeAuthPassword('mysecretpassword')
         # self.provider.create_node("test_node", auth=auth)
-        if image:
+        if image is not None:
+            image = self.get_image_by_id(image)
             pprint("Image Id")
             pprint(image)
-            image = self.get_image_by_id(image)
         else:
-            pprint("valid Image Id not found")
+            Console.error("Image Id not found")
 
-        if flavor:
+        if flavor is not None:
             flavor = self.get_size_by_id(flavor)
-
-            if flavor:
-                pprint("FLAVOR::")
-                pprint(flavor)
+            pprint("FLAVOR::")
+            pprint(flavor)
         else:
-            pprint("valid Flavor Id not found")
+            Console.error("valid Flavor Id not found")
         # flavor = self.provider.list_sizes()[2]
         # location = self.provider.list_locations()[0]
         # pprint(self.provider.features['create_node'])
@@ -352,7 +356,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         """
 
         keypair = self.provider.import_key_pair_from_string(name, key_material=public_key)
-        Console.info("Done uploading the key to libcloud")
+        Console.info("Uploading the key to libcloud. ok.")
         return keypair
 
     def get_image_by_id(self, image_id):
