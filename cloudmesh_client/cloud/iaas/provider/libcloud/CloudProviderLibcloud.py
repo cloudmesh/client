@@ -33,7 +33,7 @@ class CloudProviderLibcloud(CloudProviderBase):
         self.default_image = None
         self.default_flavor = None
         self.cloud = None
-        self.cloud_details = None
+        self.config = None
         self.provider = None
 
     def _list(self, f, cloudname, **kwargs):
