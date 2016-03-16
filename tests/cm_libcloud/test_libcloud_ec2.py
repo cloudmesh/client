@@ -37,7 +37,7 @@ class Test_libcloud_native():
     clouddefault = None
 
     def setup(self):
-        cloud = "chameleon-ec2"
+        cloud = "cybera-ec2"
         config = ConfigDict("cloudmesh.yaml")
         self.credential = config['cloudmesh']['clouds'][cloud]['credentials']
         self.clouddefault = config['cloudmesh']['clouds'][cloud]['default']
