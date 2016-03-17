@@ -34,8 +34,9 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
         credentials = self.config["credentials"]
         cm_type = self.config["cm_type"]
 
-
-        if cm_type in ["ec2", "ec2-libcloud", "libcloud"]:
+        ec2_access_key = credentials['EC2_ACCESS_KEY']
+        ec2_secret_key = credentials['EC2_SECRET_KEY']
+        if not cloudname == "aws":
             auth_url = credentials["EC2_URL"]
             searchobj = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                                  auth_url,
@@ -57,15 +58,12 @@ class CloudProviderLibcloudEC2(CloudProviderLibcloud):
             else:
                 Console.error("Authentication url incorrect: {}".format(auth_url))
 
-        ec2_access_key = credentials['EC2_ACCESS_KEY']
-        ec2_secret_key = credentials['EC2_SECRET_KEY']
-
-        if cm_type == "aws":
-            Console.info("AWS INIT")
-            self.provider = cls(ec2_access_key, ec2_secret_key)
-        else:
             self.provider = cls(ec2_access_key,
                                 ec2_secret_key,
                                 host=host,
                                 port=port,
                                 **extra_args)
+        else:
+            Console.info("AWS INIT")
+            self.provider = cls(ec2_access_key, ec2_secret_key)
+
