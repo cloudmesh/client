@@ -187,6 +187,11 @@ system according to the steps documented in the Section
 </div>
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">At this time do not use the pip install as we have not yet uploaded the newest
+version to pypi. Instead, plase use the source install discussed in our manual</p>
+</div>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>pip install cloudmesh_client
 </pre></div>
@@ -238,11 +243,14 @@ create an entry for a cloud named kilo.</p>
 <pre class="highlight"><span class="prompt1">image refresh</span>
 <span class="prompt1">flavor refresh</span>
 </pre><p>To list the images/flavors use the following:</p>
-<pre class="highlight"><span class="prompt1">list image</span>
-<span class="prompt1">list flavor</span>
-</pre><p>To set default flavor and image use:</p>
-<pre class="highlight"><span class="prompt1">default image=Ubuntu 14.04</span>
-<span class="prompt1">default flavor=m1.tiny</span>
+<pre class="highlight"><span class="prompt1">image list</span>
+<span class="prompt1">flavor list</span>
+</pre><p>To set default flavor and image use from the image list that you obtained through
+image list and image flavor commands. Also asure that the flavor of the image is not to
+small. Some imageges may not work in m1.tiny.
+Please asure proper spelling of the image name:</p>
+<pre class="highlight"><span class="prompt1">default image=Ubuntu-14.04-64</span>
+<span class="prompt1">default flavor=m1.small</span>
 </pre><p>You also need to set your default group. If you already have a group
 created you can use that or else you can specify a new group name.</p>
 <pre class="highlight"><span class="prompt1">default group=test-group</span>
@@ -332,7 +340,7 @@ Congratulations! You have now learnt how to start a new VM and log into a VM.</p
 </pre></div>
 <div class="section" id="hpc">
 <h2>HPC<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
-<p>IN order to use the HPC experiment management functionality, you must
+<p>In order to use the HPC experiment management functionality, you must
 register the queuing system in the yaml file and register the login
 node in the .ssh/config file. If you are using india and have used the
 clouds before, you may have already done this.</p>
