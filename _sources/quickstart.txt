@@ -132,6 +132,13 @@ to the key database. To do so, use:
 
 	     key add --ssh --name=id_rsa
 
+This command is also available as simple abbreviation with:
+
+.. prompt:: cm, cm>
+
+	     key load
+
+
 You can list the keys in the key database by using:
 
 .. prompt:: cm, cm>
@@ -150,7 +157,7 @@ Then, to upload this key to the cloud (your default cloud) use:
 
 .. prompt:: cm, cm>
 
-	     key upload albert_ssh_key
+	     key upload
 
 Virtual Machines
 ----------------------------------
@@ -228,24 +235,17 @@ Listing VMs will now show you this floating ip:
 	| 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
 	+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 
-Next, you need to set your login key to be able to ssh to the VM.
-This will be the path to the private key (id_rsa) corresponding to
-the public key we uploaded to the cloud:
-
-.. prompt:: cm, cm>
-
-	     default login_key=~/.ssh/id_rsa
-
 Logging into the cloud is now as simple as:
 
 .. prompt:: cm, cm>
 
 	     vm login albert-001
 
-This should get you through to the ssh session to the VM.
-Congratulations! You have now learnt how to start a new VM and log into a VM.
+This should get you through to the ssh session to the VM. It will ask you for the username to login. If you used an
+ubuntu umage the username will typically be 'ubuntu', for others it may be 'root'.
 
-To delete a VM, you use:
+
+To delete a VM, you use the vm name:
 
 .. prompt:: cm, cm>
 

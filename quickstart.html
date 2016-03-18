@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 3.1.1 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 3.1.2 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                3.1.1
+                3.1.2
               </div>
             
           
@@ -265,6 +265,8 @@ in the ~/.ssh/ directory.</p>
 <p>First step (in the process of uploading key to cloud), is to add this key
 to the key database. To do so, use:</p>
 <pre class="highlight"><span class="prompt1">key add --ssh --name=id_rsa</span>
+</pre><p>This command is also available as simple abbreviation with:</p>
+<pre class="highlight"><span class="prompt1">key load</span>
 </pre><p>You can list the keys in the key database by using:</p>
 <pre class="highlight"><span class="prompt1">key list</span>
 </pre><p>The output would look something like:</p>
@@ -276,7 +278,7 @@ to the key database. To do so, use:</p>
 </pre></div>
 </div>
 <p>Then, to upload this key to the cloud (your default cloud) use:</p>
-<pre class="highlight"><span class="prompt1">key upload albert_ssh_key</span>
+<pre class="highlight"><span class="prompt1">key upload</span>
 </pre></div>
 <div class="section" id="virtual-machines">
 <h2>Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permalink to this headline">¶</a></h2>
@@ -328,15 +330,11 @@ a public IP (also called floating IP).</p>
 +----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 </pre></div>
 </div>
-<p>Next, you need to set your login key to be able to ssh to the VM.
-This will be the path to the private key (id_rsa) corresponding to
-the public key we uploaded to the cloud:</p>
-<pre class="highlight"><span class="prompt1">default login_key=~/.ssh/id_rsa</span>
-</pre><p>Logging into the cloud is now as simple as:</p>
+<p>Logging into the cloud is now as simple as:</p>
 <pre class="highlight"><span class="prompt1">vm login albert-001</span>
-</pre><p>This should get you through to the ssh session to the VM.
-Congratulations! You have now learnt how to start a new VM and log into a VM.</p>
-<p>To delete a VM, you use:</p>
+</pre><p>This should get you through to the ssh session to the VM. It will ask you for the username to login. If you used an
+ubuntu umage the username will typically be &#8216;ubuntu&#8217;, for others it may be &#8216;root&#8217;.</p>
+<p>To delete a VM, you use the vm name:</p>
 <pre class="highlight"><span class="prompt1">vm delete albert-001</span>
 </pre></div>
 <div class="section" id="hpc">
@@ -397,7 +395,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'3.1.1',
+            VERSION:'3.1.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
