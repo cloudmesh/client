@@ -85,6 +85,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm status [--cloud=CLOUD]
                 vm info [--cloud=CLOUD]
                         [--format=FORMAT]
+                vm check NAME...
 
             Arguments:
                 COMMAND        positional arguments, the commands you want to
@@ -94,7 +95,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                you input the commands
                 NAME           server name. By default it is set to the name of last vm from database.
                 NAME_OR_ID     server name or ID
-                KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
+                KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is
+                               not a path to key.
                 NEWNAME        New name of the VM while renaming.
 
             Options:
@@ -227,7 +229,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 else:
                     Console.error("{:} failed".format(msg))
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem running VM refresh")
 
         cloud = arguments["--cloud"] or Default.get_cloud()
@@ -321,14 +323,16 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     # Add to group
                     if vm_id is not None:
-                        Group.add(name=group, type="vm", id=name,
+                        Group.add(name=group,
+                                  type="vm",
+                                  id=name,
                                   category=cloud)
 
                     msg = "info. OK."
                     Console.ok(msg)
 
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem booting instance {:}".format(name))
 
         elif arguments["default"]:
@@ -343,7 +347,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm_name = prefix + "-" + str(count).zfill(3)
                 data = {"name": vm_name,
                         "cloud": arguments["--cloud"] or Default.get_cloud()}
-                for attribute in ["image", "flavor", "login_key", "group", "secgroup"]:
+                for attribute in ["image", "flavor", "key", "group", "secgroup"]:
                     data[attribute] = Default.get(attribute, category=cloud)
 
                 # Retrieving key separately as its in general category.
@@ -356,7 +360,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 ValueError("default command not implemented properly. Upon "
                            "first install the defaults should be read from yaml.")
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem listing defaults")
 
         elif arguments["status"]:
@@ -367,7 +371,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem retrieving status of the VM")
 
         elif arguments["info"]:
@@ -380,7 +384,24 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
+                Console.error("Problem retrieving status of the VM")
+
+        elif arguments["check"]:
+            try:
+
+                names = []
+
+                names = arguments["NAME"]
+
+
+
+                for name in names:
+                    print ("Not implemented: {}".format(name))
+                msg = "not yet implemented. failed."
+                Console.error(msg)
+            except Exception as e:
+                # Error.traceback(e)
                 Console.error("Problem retrieving status of the VM")
 
         elif arguments["start"]:
@@ -410,7 +431,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem starting instances")
 
         elif arguments["stop"]:
@@ -441,7 +462,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem stopping instances")
 
         elif arguments["refresh"]:
@@ -475,7 +496,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem deleting instances")
 
         elif arguments["ip"] and arguments["assign"]:
@@ -507,7 +528,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem assigning floating ips.")
 
         elif arguments["ip"] and arguments["show"]:
@@ -546,7 +567,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error(
                     "Problem getting ip addresses for instance {:}".format(id))
 
@@ -582,10 +603,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default cloud not set.")
                 return ""
 
-            key = arguments["--key"] or Default.get("login_key",
+            key = arguments["--key"] or Default.get("key",
                                                     category=cloud)
             if not key:
-                Console.error("Default login_key not set.")
+                Console.error("Default key not set.")
                 return ""
 
             ip_addresses = []
@@ -659,7 +680,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
-                    Error.traceback(e)
+                    # Error.traceback(e)
                     Console.error("Problem listing all instances")
             else:
 
@@ -688,7 +709,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
 
                 except Exception as e:
-                    Error.traceback(e)
+                    # Error.traceback(e)
                     Console.error(
                         "Problem listing instances on cloud {:}".format(cloud))
 
@@ -739,7 +760,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
-                Error.traceback(e)
+                # Error.traceback(e)
                 Console.error("Problem deleting instances")
 
         return ""
