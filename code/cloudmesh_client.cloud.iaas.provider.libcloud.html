@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.libcloud package &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.libcloud package &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.cloud.iaas.provider package" href="cloudmesh_client.cloud.iaas.provider.html"/>
         <link rel="next" title="cloudmesh_client.cloud.iaas.provider.openstack package" href="cloudmesh_client.cloud.iaas.provider.openstack.html"/>
         <link rel="prev" title="cloudmesh_client.cloud.iaas.provider package" href="cloudmesh_client.cloud.iaas.provider.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -125,6 +125,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.cloud.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.attributes">cloudmesh_client.cloud.attributes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
@@ -172,6 +173,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -194,7 +197,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -231,9 +234,105 @@
 </div>
 <div class="section" id="module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud">
 <span id="cloudmesh-client-cloud-iaas-provider-libcloud-cloudproviderlibcloud-module"></span><h2>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud module<a class="headerlink" href="#module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.</code><code class="descname">CloudProviderLibcloud</code><span class="sig-paren">(</span><em>cloud_name</em>, <em>cloud_details</em>, <em>user=None</em>, <em>flat=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.cloud.iaas.html#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase" title="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.add_key_to_cloud">
+<code class="descname">add_key_to_cloud</code><span class="sig-paren">(</span><em>name</em>, <em>public_key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.add_key_to_cloud"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.add_key_to_cloud" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to add key to libcloud based clouds, typically a keypair for AWS EC2.
+:param name: Name of the keypair.
+:param public_key: public key string.
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.attributes">
+<code class="descname">attributes</code><span class="sig-paren">(</span><em>kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.attributes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.boot_vm">
+<code class="descname">boot_vm</code><span class="sig-paren">(</span><em>name</em>, <em>image=None</em>, <em>flavor=None</em>, <em>cloud='kilo'</em>, <em>key=None</em>, <em>secgroup=None</em>, <em>meta=None</em>, <em>nics=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.boot_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.boot_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Spawns a VM instance on the cloud.
+If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; Name of the instance to be started</li>
+<li><strong>image</strong> &#8211; Image id to be used for the instance</li>
+<li><strong>flavor</strong> &#8211; Flavor to be used for the instance</li>
+<li><strong>cloud</strong> &#8211; Cloud on which to spawn the machine. Defaults to &#8216;India&#8217;.</li>
+<li><strong>key</strong> &#8211; Key to be used for the instance</li>
+<li><strong>secgroup</strong> &#8211; Security group for the instance</li>
+<li><strong>nics</strong> &#8211; TODO: fixme</li>
+<li><strong>meta</strong> &#8211; A dict of arbitrary key/value metadata to store for this server</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.debug">
+<code class="descname">debug</code><em class="property"> = True</em><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.get_image_by_id">
+<code class="descname">get_image_by_id</code><span class="sig-paren">(</span><em>image_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.get_image_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.get_image_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.get_size_by_id">
+<code class="descname">get_size_by_id</code><span class="sig-paren">(</span><em>size_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.get_size_by_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.get_size_by_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_flavor">
+<code class="descname">list_flavor</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.list_flavor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_flavor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_image">
+<code class="descname">list_image</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.list_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_key">
+<code class="descname">list_key</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.list_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_size">
+<code class="descname">list_size</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.list_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_size" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_vm">
+<code class="descname">list_vm</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloud.html#CloudProviderLibcloud.list_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_vm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2">
 <span id="cloudmesh-client-cloud-iaas-provider-libcloud-cloudproviderlibcloudec2-module"></span><h2>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2 module<a class="headerlink" href="#module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.</code><code class="descname">CloudProviderLibcloudEC2</code><span class="sig-paren">(</span><em>cloud_name</em>, <em>cloud_details</em>, <em>user=None</em>, <em>flat=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloudEC2.html#CloudProviderLibcloudEC2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud" title="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.initialize">
+<code class="descname">initialize</code><span class="sig-paren">(</span><em>cloudname</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/libcloud/CloudProviderLibcloudEC2.html#CloudProviderLibcloudEC2.initialize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudEC2.CloudProviderLibcloudEC2.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudOpenStack">
 <span id="cloudmesh-client-cloud-iaas-provider-libcloud-cloudproviderlibcloudopenstack-module"></span><h2>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudOpenStack module<a class="headerlink" href="#module-cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloudOpenStack" title="Permalink to this headline">¶</a></h2>
@@ -283,7 +382,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

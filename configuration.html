@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Configuration &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Configuration &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="User Manual" href="commands/index.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -102,6 +102,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#get-registration-from-indiana-university">Get Registration from Indiana University</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-other-clouds">Registration of other clouds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#registartion-of-ec2-clouds-with-the-zip-file">Registartion of EC2 clouds with the zip file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-cybera-cloud">Registration of Cybera Cloud</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#registration-of-cybera-openstack-cloud">Registration of Cybera Openstack Cloud</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#registration-of-cybera-ec2-cloud">Registration of Cybera EC2 Cloud</a></li>
@@ -112,6 +113,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#registration-of-chameleon-ec2-cloud">Registration of Chameleon EC2 Cloud</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#registration-of-jetstream-openstack-cloud">Registration of Jetstream Openstack Cloud</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-cloudlab-openstack-cloud">Registration of CloudLab Openstack Cloud</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-aws-cloud">Registration of AWS Cloud</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#registration-of-azure-cloud">Registration of Azure Cloud</a></li>
@@ -148,6 +150,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -170,7 +174,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -202,17 +206,22 @@ a configuration file in the directory:</p>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>If this file is missing, you can run the command:</p>
 <blockquote>
-<div>cm help to automatically generate it from defaults.</div></blockquote>
+<div>cm help</div></blockquote>
+<p>to automatically generate it from defaults.</p>
 <p>The file will be a template and it can either be modified with your
 favorite editor, or if you are at Indiana University and want to use the
 kilo cloud you can use the command</p>
 <blockquote>
 <div>cm remote register</div></blockquote>
-<p>This will add the appropriate information into the yaml file.
-The file will be looking as follows.
-You will have several options to
+<p>This will add the appropriate information into the yaml file.</p>
+<p>However, you must make sure that the the project you have at Indiana
+University is activated. A simple project request via the futuresystems.org
+portal is not sufficient. THe request muct be send via e-mail to <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>
+by the project lead or project manager. Please note that restrictions may apply as we
+will serve first the IU community.</p>
+<p>The file will be looking as follows. You will have several options to
 modify the file as explained bellow</p>
-<div class="highlight-python"><div class="highlight"><pre>meta:
+<div class="highlight-python"><div class="highlight"><pre><span></span>meta:
     yaml_version: 3.0
     kind: clouds
 cloudmesh:
@@ -220,20 +229,36 @@ cloudmesh:
         firstname: TBD
         lastname: TBD
         email: TBD
-        username: None
+        username: TBD
     github:
         username: TBD
     portal:
         location: TBD
         browser: firefox
     comet:
-        auth_provider: userpass
-        userpass:
-            username: TBD
-            password: TBD
-        apikey:
-            api_key: TBD
-            api_secret: TBD
+        username: TBD
+        active: dev
+        endpoints:
+            dev:
+                nucleus_base_url: https://comet-nucleus.sdsc.edu/nucleus
+                api_version: v1
+                auth_provider: apikey
+                userpass:
+                  username: TBD
+                  password: TBD
+                apikey:
+                  api_key: TBD
+                  api_secret: TBD
+            production:
+                nucleus_base_url: TBD
+                api_version: v1
+                auth_provider: apikey
+                userpass:
+                  username: TBD
+                  password: TBD
+                apikey:
+                  api_key: TBD
+                  api_secret: TBD
     hpc:
         experiment:
            name: gregor-00000
@@ -305,6 +330,25 @@ cloudmesh:
                 OS_USERNAME: TBD
                 OS_VERSION: kilo
                 OS_REGION_NAME: RegionOne
+            default:
+                flavor: m1.small
+                image: Ubuntu-Server-14.04-LTS
+        jetstream:
+            cm_heading: Jetstream
+            cm_host: http://jetstream-cloud.org/
+            cm_label: jetstream
+            cm_type: openstack
+            cm_type_version: kilo
+            credentials:
+              OS_PROJECT_DOMAIN_NAME: tacc
+              OS_USER_DOMAIN_NAME: tacc
+              OS_PROJECT_NAME: TBD
+              OS_TENANT_NAME: TBD
+              OS_USERNAME: TBD
+              OS_PASSWORD: TBD
+              OS_AUTH_URL: https://jblb.jetstream-cloud.org:35357/v3
+              OS_IDENTITY_API_VERSION: 3
+              OS_VERSION: kilo
             default:
                 flavor: m1.small
                 image: Ubuntu-Server-14.04-LTS
@@ -407,27 +451,28 @@ cloudmesh:
 <p>You can modify the file by hand and replace the <code class="docutils literal"><span class="pre">TBD</span></code> values
 according to your information about your cloud. You can add new clouds
 or delete the once that you do not want.</p>
+<p>Please make sure to <strong>not</strong> modify the original file in the code ore the
+lib at <cite>cloudmesh_client/etc/cloudmesh.yaml</cite>/ THe file you want to modify is located in
+<cite>$HOME/.cloudmesh/cloudmesh.yaml</cite></p>
 <div class="admonition warning">
 <p class="first admonition-title">Warning</p>
-<p>Just as private keys should be kept private so does
-the cloudmesh.yaml
-file. Please, make sure the file is protected as it contains</p>
-<blockquote class="last">
-<div>sensitive information.</div></blockquote>
+<p class="last">Just as private keys should be kept private so does
+the cloudmesh.yaml file. Please, make sure the file
+is properly protected as it contains sensitive information.</p>
 </div>
 <div class="section" id="get-registration-from-indiana-university">
 <h2>Get Registration from Indiana University<a class="headerlink" href="#get-registration-from-indiana-university" title="Permalink to this headline">¶</a></h2>
 <p>In case you have an account on <a class="reference external" href="http::/portal.futuresystems.org">http::/portal.futuresystems.org</a> the
 integration can be done automatically for you with the account
 information available to you as previously explained.</p>
-<p>The best way is to configure first your ssh client to conveniently log into india the machine where you can
-find the configuration information. To do so, please edit the
-following file</p>
-<div class="highlight-python"><div class="highlight"><pre>~/./ssh/config
+<p>The best way is to configure first your ssh client to conveniently
+log into india the machine where you can find the configuration information.
+To do so, please edit the following file</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/./ssh/config
 </pre></div>
 </div>
 <p>and add the following lines to it</p>
-<div class="highlight-python"><div class="highlight"><pre>Host india
+<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
     User: albert
     Hostname: india.futuresystems.org
 </pre></div>
@@ -435,17 +480,23 @@ following file</p>
 <p>please replace albert with your portal name that you have used for
 registration with futuresystems.org. Once you have done this please
 verify that you have access to india with a command such as:</p>
-<div class="highlight-python"><div class="highlight"><pre>ssh india uname -a
+<div class="highlight-python"><div class="highlight"><pre><span></span>ssh india uname -a
 </pre></div>
 </div>
+<p>Next test if you have cloud access. This is easily done by doing:</p>
+<blockquote>
+<div>ssh india cat .cloudmesh/clouds/india/kilo/openrc.sh</div></blockquote>
+<p>IF this file does not exist you do not have access to the kilo cloud yet
+and you need to get in contact with <a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>. Once you have
+access you can proceed.</p>
 <p>Next register the FutureSystems clouds into your cloudmesh yaml file with
 the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm register remote
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm register remote
 </pre></div>
 </div>
 <p>This will update your cloudmesh.yaml file with the information retrieved
 from india. While retrieving the information on india from the file:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/clouds/india/kilo/openrc.sh
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/clouds/india/kilo/openrc.sh
 </pre></div>
 </div>
 <p>Make sure you add a valid tenant to the yaml file. More information
@@ -456,17 +507,34 @@ about using india can be found at <a class="reference external" href="http://por
 <p>The register command is quite powerful and useful and we encourage you to
 take a closer look at the manual pages. This includes command such as</p>
 <p>To find out more about the registration command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm register help
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm register help
 </pre></div>
 </div>
 <p>To edit the yaml file with the editor defined by the Shell variable <cite>$EDITOR</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre>register edit
+<div class="highlight-python"><div class="highlight"><pre><span></span>register edit
 </pre></div>
 </div>
 <p>To list the <cite>cloudmesh.yaml</cite> file:</p>
-<div class="highlight-python"><div class="highlight"><pre>register list
+<div class="highlight-python"><div class="highlight"><pre><span></span>register list
 </pre></div>
 </div>
+</div>
+<div class="section" id="registartion-of-ec2-clouds-with-the-zip-file">
+<h2>Registartion of EC2 clouds with the zip file<a class="headerlink" href="#registartion-of-ec2-clouds-with-the-zip-file" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">the ec2 provider is not yet operational</p>
+</div>
+<p>In case you have an openstack cloud that exports an ec2 zip file you can register
+such a cloud by first downloading the zip file to your computer and than issuing
+the command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm register ec2 mycloud filename.zip
+</pre></div>
+</div>
+<p>where <cite>filename.zip</cite> is the location of the zip file and <cite>mycloud</cite> is the name
+of the cloud that you would like to have cloudmesh use for this cloud.</p>
+<p>You can than edit the ~/.cloudmesh/cloudmesh.yaml file to make further improvements
+such as setting the defaults.</p>
 </div>
 <div class="section" id="registration-of-cybera-cloud">
 <h2>Registration of Cybera Cloud<a class="headerlink" href="#registration-of-cybera-cloud" title="Permalink to this headline">¶</a></h2>
@@ -495,7 +563,7 @@ edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>Edit the follwoing lines:</p>
-<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: TBD
+<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: TBD
 OS_TENANT_NAME: TBD
 OS_TENANT_ID: TBD
 OS_PROJECT_NAME: TBD
@@ -504,7 +572,7 @@ OS_USERNAME: TBD
 </div>
 <p>Let us assume you have the username <cite>albert</cite> and the project id
 <cite>FG-101</cite>, Than the lines need to be changed to:</p>
-<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: &lt;your user password&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: &lt;your user password&gt;
 OS_TENANT_NAME: FG-101
 OS_TENANT_ID: FG-101
 OS_PROJECT_NAME: FG-101
@@ -528,7 +596,7 @@ packaged as a zip file. This file can be found at</p>
 </ul>
 <p>Let us assume you have the username albert and
 the project FG-101. Than the zip file will be called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Let us set some environment variables to make the configuration
@@ -537,8 +605,8 @@ description easier</p>
 span.prompt1:before {
   content: "$ ";
 }
-</style><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
+</style><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your cybera username&gt;</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your cybera project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
 browser downloaded the zip file and you have uncompressed it)</p>
@@ -546,7 +614,7 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
 <span class="prompt1">ls ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span></span>
 </pre><p>The directory should include the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
@@ -555,19 +623,19 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <p>Take a look at the ec2rc.sh file</p>
 <pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/cybera/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
 </div>
 <p>locate the cybera-ec2 entry and change the TBD values with the
 values you see in the ec2rc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
 </pre></div>
 </div>
 <p>For the following lines in the cloudmesh file, please replace the TBD
 values with the cybera project ID that you use for this cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
+<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/cybera/TBD/pk.pem
 EC2_CERT: ~/.cloudmesh/clouds/cybera/TBD/cert.pem
 NOVA_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
 EUCALYPTUS_CERT: ~/.cloudmesh/clouds/cybera/TBD/cacert.pem
@@ -594,7 +662,7 @@ edit the file:</p>
 <blockquote>
 <div>~/.cloudmesh/cloudmesh.yaml</div></blockquote>
 <p>Edit the follwoing lines:</p>
-<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: TBD
+<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: TBD
 OS_TENANT_NAME: TBD
 OS_TENANT_ID: TBD
 OS_PROJECT_NAME: TBD
@@ -603,7 +671,7 @@ OS_USERNAME: TBD
 </div>
 <p>Let us assume you have the username <cite>albert</cite> and the project id
 <cite>FG-101</cite>, Than the lines need to be changed to:</p>
-<div class="highlight-python"><div class="highlight"><pre>OS_PASSWORD: &lt;your user password&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>OS_PASSWORD: &lt;your user password&gt;
 OS_TENANT_NAME: FG-101
 OS_TENANT_ID: FG-101
 OS_PROJECT_NAME: FG-101
@@ -627,13 +695,13 @@ packaged as a zip file. This file can be found at</p>
 </ul>
 <p>Let us assume you have the username albert and
 the project FG-101. Than the zip file will be called:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FG</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">x509</span><span class="o">.</span><span class="n">zip</span>
 </pre></div>
 </div>
 <p>Let us set some environment variables to make the configuration
 description easier</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">C_USERNAME</span><span class="o">=</span>&lt;your chameleon username&gt;</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">C_PROJECT</span><span class="o">=</span>&lt;your chameleon project name&gt;</span>
 </pre><p>Unpack the zip file and place the entire directory in the .cloudmesh
 directory with. (We assume that you are in the directory where your
 browser downloaded the zip file and you have uncompressed it)</p>
@@ -641,7 +709,7 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <span class="prompt1">cp <span class="nv">$C_PROJECT</span> ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
 <span class="prompt1">ls ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span></span>
 </pre><p>The directory should include the files:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">cacert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">cert</span><span class="o">.</span><span class="n">pem</span>
 <span class="n">ec2rc</span><span class="o">.</span><span class="n">sh</span>
 <span class="n">pk</span><span class="o">.</span><span class="n">pem</span>
@@ -650,19 +718,19 @@ browser downloaded the zip file and you have uncompressed it)</p>
 <p>Take a look at the ec2rc.sh file</p>
 <pre class="highlight"><span class="prompt1">cat ~/.cloudmesh/clouds/chameleon/<span class="nv">$C_PROJECT</span>/ec2rc.sh</span>
 </pre><p>Now you can edit the cloudmesh yaml file at:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml
 </pre></div>
 </div>
 <p>locate the chameleon-ec2 entry and change the TBD values with the
 values you see in the ec2rc.sh file:</p>
-<div class="highlight-python"><div class="highlight"><pre>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_ACCESS_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_SECRET_KEY: &lt;find the value in the ec2rc.sh file&gt;
 EC2_USER_ID: &lt;find the value in the ec2rc.sh file&gt;
 </pre></div>
 </div>
 <p>For the following lines in the cloudmesh file, please replace the TBD
 values with the chameleon project ID that you use for this cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
+<div class="highlight-python"><div class="highlight"><pre><span></span>EC2_PRIVATE_KEY: ~/.cloudmesh/clouds/chameleon/TBD/pk.pem
 EC2_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cert.pem
 NOVA_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
 EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
@@ -670,39 +738,79 @@ EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
 </div>
 </div>
 </div>
+<div class="section" id="registration-of-jetstream-openstack-cloud">
+<h2>Registration of Jetstream Openstack Cloud<a class="headerlink" href="#registration-of-jetstream-openstack-cloud" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">At this time the instructions for integrating the Openstack cloud from jetstream do not yet work and
+should not be followed. They are included here as notes to remind us which steps we took.</p>
+</div>
+<ol class="arabic simple">
+<li>We send Mail to jetstream to enable an account via iplant</li>
+<li>We asked for the credentials for jetstream. It was pointed out that the TACC credentials will work</li>
+<li>After trying to reset the TACC credentials and reading the XSEDE user manual we are confused as there seems to be
+not a consistant documentation how to do step 2.</li>
+</ol>
+<p>Here is what we found out and did</p>
+<ol class="arabic">
+<li><p class="first">We reset the password from TACC via</p>
+<ul class="simple">
+<li><a class="reference external" href="https://portal.tacc.utexas.edu/password-reset/-/password/request-reset">https://portal.tacc.utexas.edu/password-reset/-/password/request-reset</a></li>
+</ul>
+</li>
+<li><p class="first">We tried to use the bassword and username via while using the domains &#8216;tacc&#8217; and &#8216;default&#8217;</p>
+<ul class="simple">
+<li><a class="reference external" href="https://jblb.jetstream-cloud.org/dashboard/">https://jblb.jetstream-cloud.org/dashboard/</a></li>
+</ul>
+</li>
+<li><p class="first">We found the following doument which is not obvious to find</p>
+<ul class="simple">
+<li><a class="reference external" href="http://jetstream-cloud.org/files/Jetstream_User_Guide-3-3-16-11am-Reduced.pdf">http://jetstream-cloud.org/files/Jetstream_User_Guide-3-3-16-11am-Reduced.pdf</a></li>
+</ul>
+</li>
+<li><p class="first">In it you find the link to the iplant portal:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://use.jetstream-cloud.org">https://use.jetstream-cloud.org</a></li>
+</ul>
+<p>We can login to iplant and start vms through it. But it used the globus credentials which are yet under a
+different name</p>
+</li>
+</ol>
+</div>
 <div class="section" id="registration-of-cloudlab-openstack-cloud">
 <h2>Registration of CloudLab Openstack Cloud<a class="headerlink" href="#registration-of-cloudlab-openstack-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet tested but should work. add cloud registration here</p>
+<p class="last">not yet tested but should work.</p>
 </div>
 </div>
 <div class="section" id="registration-of-aws-cloud">
 <h2>Registration of AWS Cloud<a class="headerlink" href="#registration-of-aws-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-1">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
+<p class="last">not yet supported but used to be so we work on it ASAP. We have a prototype through the
+EC2 provider that we have not yet tested.</p>
 </div>
 </div>
 <div class="section" id="registration-of-azure-cloud">
 <h2>Registration of Azure Cloud<a class="headerlink" href="#registration-of-azure-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-2">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported but used to be so we work on it ASAP. add cloud registration here</p>
+<p class="last">not yet supported but used to be so we work on it ASAP.</p>
 </div>
 </div>
 <div class="section" id="registration-of-devcloud">
 <h2>Registration of devcloud<a class="headerlink" href="#registration-of-devcloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-3">
 <p class="first admonition-title">Todo</p>
-<p class="last">not tested, but should work as is regular openstack. add cloud registration here</p>
+<p class="last">not tested, but should work as is regular openstack.</p>
 </div>
 </div>
 <div class="section" id="registration-of-a-libcloud-available-cloud">
 <h2>Registration of a libcloud available cloud<a class="headerlink" href="#registration-of-a-libcloud-available-cloud" title="Permalink to this headline">¶</a></h2>
 <div class="admonition-todo admonition" id="index-4">
 <p class="first admonition-title">Todo</p>
-<p class="last">not yet supported. add cloud registration here</p>
+<p class="last">not yet supported.</p>
 </div>
 </div>
 </div>
@@ -747,7 +855,7 @@ EUCALYPTUS_CERT: ~/.cloudmesh/clouds/chameleon/TBD/cacert.pem
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Commands &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Commands &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="next" title="Exercises" href="../exercises.html"/>
         <link rel="prev" title="Inventory Command" href="../commands/command_inventory.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -123,6 +123,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#launcher">launcher</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#limits">limits</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#list">list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#load">load</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#man">man</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#network">network</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#nova">nova</a></li>
@@ -179,6 +180,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -201,7 +204,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -228,7 +231,7 @@
 <div class="section" id="banner">
 <h2>banner<a class="headerlink" href="#banner" title="Permalink to this headline">¶</a></h2>
 <p>Command - banner:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
 Arguments:
@@ -251,7 +254,7 @@ Prints a banner form a one line text message.
 <div class="section" id="check">
 <h2>check<a class="headerlink" href="#check" title="Permalink to this headline">¶</a></h2>
 <p>Command - check:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     check --cloud=CLOUD
     check
 
@@ -270,7 +273,7 @@ Examples:
 <div class="section" id="clear">
 <h2>clear<a class="headerlink" href="#clear" title="Permalink to this headline">¶</a></h2>
 <p>Command - clear:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     clear
 
 Clears the screen.
@@ -280,7 +283,7 @@ Clears the screen.
 <div class="section" id="cloud">
 <h2>cloud<a class="headerlink" href="#cloud" title="Permalink to this headline">¶</a></h2>
 <p>Command - cloud:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     cloud list [--cloud=CLOUD] [--format=FORMAT]
     cloud logon CLOUD
     cloud logout CLOUD
@@ -336,7 +339,7 @@ See also:
 <div class="section" id="cluster">
 <h2>cluster<a class="headerlink" href="#cluster" title="Permalink to this headline">¶</a></h2>
 <p>Command - cluster:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     cluster list [--format=FORMAT]
     cluster list NAME
                  [--format=FORMAT]
@@ -405,7 +408,7 @@ Options:
 <div class="section" id="color">
 <h2>color<a class="headerlink" href="#color" title="Permalink to this headline">¶</a></h2>
 <p>Command - color:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     color FLAG
 
 Arguments:
@@ -430,20 +433,25 @@ Examples:
 <div class="section" id="comet">
 <h2>comet<a class="headerlink" href="#comet" title="Permalink to this headline">¶</a></h2>
 <p>Command - comet:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
+   comet init
    comet ll [CLUSTERID] [--format=FORMAT]
    comet cluster [CLUSTERID]
                  [--format=FORMAT]
    comet computeset [COMPUTESETID]
-   comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
+                [--allocation=ALLOCATION]
+                [--cluster=CLUSTERID]
+                [--state=COMPUTESESTATE]
+   comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                 [--allocation=ALLOCATION]
                 [--walltime=WALLTIME]
-   comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+   comet terminate COMPUTESETID
+   comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
    comet console CLUSTERID [COMPUTENODEID]
-   comet image list
-   comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
-   comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
-   comet image detach CLUSTERID [COMPUTENODEIDS]
+   comet iso list
+   comet iso upload [--isoname=ISONAME] PATHISOFILE
+   comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
+   comet iso detach CLUSTERID [COMPUTENODEIDS]
    comet node rename CLUSTERID OLDNAME NEWNAME
 
 Options:
@@ -460,19 +468,14 @@ Options:
                             Walltime could be an integer value followed
                             by a unit (m, h, d, w, for minute, hour, day,
                             and week, respectively). E.g., 3h, 2d
-    --imagename=IMAGENAME   Name of the image after being stored remotely.
+    --isoname=ISONAME       Name of the iso image after being stored remotely.
                             If not specified, use the original filename
+    --state=COMPUTESESTATE  List only computeset with the specified state.
+                            The state could be submitted, running, completed
 
 Arguments:
     CLUSTERID       The assigned name of a cluster, e.g. vc1
     COMPUTESETID    An integer identifier assigned to a computeset
-    NODESPARAM      Specifying the node/nodes/computeset to act on.
-                    In case of integer, will be intepreted as a computesetid;
-                    in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                    of nodes; or a single host is also acceptable,
-                    e.g., vm-vc1-0
-                    If not provided, the requested action will be taken
-                    on the frontend node of the specified cluster
     COMPUTENODEID   A compute node name, e.g., vm-vc1-0
                     If not provided, the requested action will be taken
                     on the frontend node of the specified cluster
@@ -481,15 +484,20 @@ Arguments:
                     One single node is also acceptable: vm-vc1-0
                     If not provided, the requested action will be taken
                     on the frontend node of the specified cluster
-    IMAGENAME       Name of an image at remote server
-    PATHIMAGEFILE   The full path to the image file to be uploaded
+    NODESPARAM      Specifying the node/nodes/computeset to act on.
+                    In case of integer, will be intepreted as a computesetid;
+                    in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                    of nodes; or a single host is also acceptable,
+                    e.g., vm-vc1-0
+    ISONAME         Name of an iso image at remote server
+    PATHISOFILE     The full path to the iso image file to be uploaded
 </pre></div>
 </div>
 </div>
 <div class="section" id="context">
 <h2>context<a class="headerlink" href="#context" title="Permalink to this headline">¶</a></h2>
 <p>Command - context:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     context
 
 Description:
@@ -500,7 +508,7 @@ Description:
 <div class="section" id="debug">
 <h2>debug<a class="headerlink" href="#debug" title="Permalink to this headline">¶</a></h2>
 <p>Command - debug:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     debug on
     debug off
     debug list
@@ -512,7 +520,7 @@ Description:
 <div class="section" id="default">
 <h2>default<a class="headerlink" href="#default" title="Permalink to this headline">¶</a></h2>
 <p>Command - default:</p>
-<div class="highlight-python"><div class="highlight"><pre>  Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>  Usage:
       default
       default list [--cloud=CLOUD] [--format=FORMAT] [--all]
       default delete KEY [--cloud=CLOUD]
@@ -597,7 +605,7 @@ Examples:
 <div class="section" id="echo">
 <h2>echo<a class="headerlink" href="#echo" title="Permalink to this headline">¶</a></h2>
 <p>Command - echo:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     echo  [-r COLOR] TEXT
 
 Arguments:
@@ -614,7 +622,7 @@ Prints a text in the given color
 <div class="section" id="eof">
 <h2>EOF<a class="headerlink" href="#eof" title="Permalink to this headline">¶</a></h2>
 <p>Command - EOF:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     EOF
 
 Description:
@@ -625,7 +633,7 @@ Description:
 <div class="section" id="exec">
 <h2>exec<a class="headerlink" href="#exec" title="Permalink to this headline">¶</a></h2>
 <p>Command - exec:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
    exec FILENAME
 
 executes the commands in the file. See also the script command.
@@ -638,7 +646,7 @@ Arguments:
 <div class="section" id="flavor">
 <h2>flavor<a class="headerlink" href="#flavor" title="Permalink to this headline">¶</a></h2>
 <p>Command - flavor:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     flavor refresh [--cloud=CLOUD] [-v]
     flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
 
@@ -661,7 +669,7 @@ Examples:
 <div class="section" id="group">
 <h2>group<a class="headerlink" href="#group" title="Permalink to this headline">¶</a></h2>
 <p>Command - group:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
     group list [--category=CLOUD] [--format=FORMAT] [NAME]
     group delete NAME [--category=CLOUD]
@@ -735,7 +743,7 @@ Example:
 <div class="section" id="h">
 <h2>h<a class="headerlink" href="#h" title="Permalink to this headline">¶</a></h2>
 <p>Command - h:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     history
     history list
     history last
@@ -746,7 +754,7 @@ Example:
 <div class="section" id="help">
 <h2>help<a class="headerlink" href="#help" title="Permalink to this headline">¶</a></h2>
 <p>Command - help:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     help
     help COMMAND
 
@@ -759,7 +767,7 @@ Description:
 <div class="section" id="history">
 <h2>history<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
 <p>Command - history:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     history
     history list
     history last
@@ -770,7 +778,7 @@ Description:
 <div class="section" id="hpc">
 <h2>hpc<a class="headerlink" href="#hpc" title="Permalink to this headline">¶</a></h2>
 <p>Command - hpc:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
     hpc info [--cluster=CLUSTER][--format=FORMAT]
     hpc run list [ID] [--cluster=CLUSTER]
@@ -856,7 +864,7 @@ Examples:
 <div class="section" id="image">
 <h2>image<a class="headerlink" href="#image" title="Permalink to this headline">¶</a></h2>
 <p>Command - image:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     image refresh [--cloud=CLOUD]
     image list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
 
@@ -878,7 +886,7 @@ Examples:
 <div class="section" id="inventory">
 <h2>inventory<a class="headerlink" href="#inventory" title="Permalink to this headline">¶</a></h2>
 <p>Command - inventory:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     inventory add NAMES [--label=LABEL]
                         [--service=SERVICES]
                         [--project=PROJECT]
@@ -964,7 +972,7 @@ Examples:
 <div class="section" id="key">
 <h2>key<a class="headerlink" href="#key" title="Permalink to this headline">¶</a></h2>
 <p>Command - key:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
   key  -h | --help
   key list [--source=db] [--format=FORMAT]
   key list --source=cloudmesh [--format=FORMAT]
@@ -977,9 +985,7 @@ Examples:
   key get NAME
   key default [KEYNAME | --select]
   key delete (KEYNAME | --select | --all) [--force]
-  key upload [KEYNAME]
-             [--cloud=CLOUD]
-             [--name=NAME_ON_CLOUD]
+  key upload [KEYNAME] [--cloud=CLOUD]
   key map [--cloud=CLOUD]
 
 Manages the keys
@@ -1061,7 +1067,7 @@ key rename NAME NEW
 <div class="section" id="launcher">
 <h2>launcher<a class="headerlink" href="#launcher" title="Permalink to this headline">¶</a></h2>
 <p>Command - launcher:</p>
-<div class="highlight-python"><div class="highlight"><pre>  Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>  Usage:
       launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
       launcher delete KEY [--cloud=CLOUD]
       launcher run
@@ -1106,7 +1112,7 @@ Examples:
 <div class="section" id="limits">
 <h2>limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h2>
 <p>Command - limits:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
     Current list data with limits on a selected project/tenant.
@@ -1126,7 +1132,7 @@ Examples:
 <div class="section" id="list">
 <h2>list<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <p>Command - list:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] default
     list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] vm
     list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] flavor
@@ -1152,10 +1158,55 @@ Examples:
 </pre></div>
 </div>
 </div>
+<div class="section" id="load">
+<h2>load<a class="headerlink" href="#load" title="Permalink to this headline">¶</a></h2>
+<p>Command - load:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
+    load list [--format=FORMAT]
+    load reset
+    load --base=MODULE PLUGINS...
+    load --delete --base=MODULE PLUGINS...
+
+    loads a plugins into the cloudmesh command shell
+
+
+OPTIONS:
+    --base=MODULE  the prefix of the modules [default: cloudmesh_client.shell.plugins]
+    --format=FORMAT  the output format
+
+ARGUMENTS:
+   PLUGINS        the list of plugins to be loaded
+
+Examples:
+    cm load list
+        lists the plugins currently loaded
+
+    cm load reset
+        unloads all plugins that are not part of the standard plugin
+        load list
+
+    cm load load workflow graphviz
+        loads the modules workflow and graphviz
+        the plugins are classes defined with
+
+            class CheckCommand(PluginCommand, CloudPluginCommand)
+
+        If they are located in a different moduel, the module name can either be
+        specified as part of the PLUGIN anem, or if
+         multiple modules are loaded as part of the MODULE parameter
+
+    cm load list --format=csv
+        list sthe loaded plugins in csv format
+
+    cm load --delete load workflow graphviz
+        the oposite of load
+</pre></div>
+</div>
+</div>
 <div class="section" id="man">
 <h2>man<a class="headerlink" href="#man" title="Permalink to this headline">¶</a></h2>
 <p>Command - man:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
        man COMMAND
        man [--noheader]
 
@@ -1177,13 +1228,15 @@ Description:
 <div class="section" id="network">
 <h2>network<a class="headerlink" href="#network" title="Permalink to this headline">¶</a></h2>
 <p>Command - network:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     network get fixed [ip] [--cloud=CLOUD] FIXED_IP
     network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
     network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
     network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
-    network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
-    network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+    network associate floating [ip] [--cloud=CLOUD] [--group=GROUP]
+                               [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+    network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP]
+                                  [--instance=INS_ID_OR_NAME] [FLOATING_IP]
     network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
     network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
     network list floating pool [--cloud=CLOUD]
@@ -1234,7 +1287,7 @@ Examples:
 <div class="section" id="nova">
 <h2>nova<a class="headerlink" href="#nova" title="Permalink to this headline">¶</a></h2>
 <p>Command - nova:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     nova set CLOUD
     nova info [CLOUD] [--password]
     nova help
@@ -1261,7 +1314,7 @@ Options:
 <div class="section" id="open">
 <h2>open<a class="headerlink" href="#open" title="Permalink to this headline">¶</a></h2>
 <p>Command - open:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
         open FILENAME
 
 ARGUMENTS:
@@ -1276,7 +1329,7 @@ Opens the given URL in a browser window.
 <div class="section" id="pause">
 <h2>pause<a class="headerlink" href="#pause" title="Permalink to this headline">¶</a></h2>
 <p>Command - pause:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     pause [MESSAGE]
 
 Displays the specified text then waits for the user to press RETURN.
@@ -1289,7 +1342,7 @@ Arguments:
 <div class="section" id="portal">
 <h2>portal<a class="headerlink" href="#portal" title="Permalink to this headline">¶</a></h2>
 <p>Command - portal:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     portal start
     portal stop
 
@@ -1305,7 +1358,7 @@ Examples:
 <div class="section" id="py">
 <h2>py<a class="headerlink" href="#py" title="Permalink to this headline">¶</a></h2>
 <p>Command - py:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     py
     py COMMAND
 
@@ -1331,7 +1384,7 @@ Description:
 <div class="section" id="q">
 <h2>q<a class="headerlink" href="#q" title="Permalink to this headline">¶</a></h2>
 <p>Command - q:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     quit
 
 Description:
@@ -1342,7 +1395,7 @@ Description:
 <div class="section" id="quit">
 <h2>quit<a class="headerlink" href="#quit" title="Permalink to this headline">¶</a></h2>
 <p>Command - quit:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     quit
 
 Description:
@@ -1353,7 +1406,7 @@ Description:
 <div class="section" id="quota">
 <h2>quota<a class="headerlink" href="#quota" title="Permalink to this headline">¶</a></h2>
 <p>Command - quota:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     quota list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
     Prints quota limit on a current project/tenant
@@ -1372,7 +1425,7 @@ Examples:
 <div class="section" id="refresh">
 <h2>refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
 <p>Command - refresh:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     refresh on
     refresh off
     refresh list
@@ -1384,7 +1437,7 @@ Examples:
 <div class="section" id="register">
 <h2>register<a class="headerlink" href="#register" title="Permalink to this headline">¶</a></h2>
 <p>Command - register:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     register info
     register new
     register clean [--force]
@@ -1402,9 +1455,10 @@ Examples:
     register remote [CLOUD] [--force]
     register env [--provider=PROVIDER]
     register profile --username=[USERNAME]
+    register yaml ENTRY
     register CLOUD [--force]
     register CLOUD [--dir=DIR]
-
+    register ec2 CLOUD EC2ZIP
 
 managing the registered clouds in the cloudmesh.yaml file.
 It looks for it in the current directory, and than in
@@ -1510,7 +1564,7 @@ Description:
 <div class="section" id="reservation">
 <h2>reservation<a class="headerlink" href="#reservation" title="Permalink to this headline">¶</a></h2>
 <p>Command - reservation:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     reservation info --user=USER --project=PROJECT
     reservation list [--name=NAME]
                      [--user=USER]
@@ -1581,7 +1635,7 @@ Description:
 <div class="section" id="reset">
 <h2>reset<a class="headerlink" href="#reset" title="Permalink to this headline">¶</a></h2>
 <p>Command - reset:</p>
-<div class="highlight-python"><div class="highlight"><pre>  Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>  Usage:
       reset
 
 Description:
@@ -1597,7 +1651,7 @@ Examples:
 <div class="section" id="rsync">
 <h2>rsync<a class="headerlink" href="#rsync" title="Permalink to this headline">¶</a></h2>
 <p>Command - rsync:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     rsync ARGUMENTS...
 
 A simple wrapper for rsync command
@@ -1613,13 +1667,13 @@ Options:
 <div class="section" id="secgroup">
 <h2>secgroup<a class="headerlink" href="#secgroup" title="Permalink to this headline">¶</a></h2>
 <p>Command - secgroup:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
-    secgroup list [--cloud=CLOUD] [--tenant=TENANT]
-    secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
-    secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
-    secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
-    secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
-    secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
+    secgroup list [--cloud=CLOUD]
+    secgroup create [--cloud=CLOUD] LABEL
+    secgroup delete [--cloud=CLOUD] LABEL
+    secgroup rules-list [--cloud=CLOUD] LABEL
+    secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
+    secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
     secgroup refresh [--cloud=CLOUD]
     secgroup -h | --help
     secgroup --version
@@ -1627,7 +1681,6 @@ Options:
 Options:
     -h                  help message
     --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-    --tenant=TENANT     Name of the tenant, e.g. fg82.
 
 Arguments:
     LABEL         The label/name of the security group
@@ -1644,17 +1697,19 @@ Description:
 
 
 Examples:
-    secgroup list --cloud india --tenant fg82
-    secgroup rules-list --cloud india --tenant fg82 default
-    secgroup create --cloud india --tenant fg82 webservice
-    secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP &quot;129.79.0.0/16&quot;
+    secgroup list --cloud india
+    secgroup rules-list --cloud=kilo default
+    secgroup create --cloud=kilo webservice
+    secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+    secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+    secgroup rules-delete --all
 </pre></div>
 </div>
 </div>
 <div class="section" id="select">
 <h2>select<a class="headerlink" href="#select" title="Permalink to this headline">¶</a></h2>
 <p>Command - select:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     select image [CLOUD] [--refresh]
     select flavor [CLOUD] [--refresh]
     select cloud [CLOUD]
@@ -1676,7 +1731,7 @@ Options:
 <div class="section" id="server">
 <h2>server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
 <p>Command - server:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     server
 
 Options:
@@ -1696,7 +1751,7 @@ Description:
 <div class="section" id="shell">
 <h2>shell<a class="headerlink" href="#shell" title="Permalink to this headline">¶</a></h2>
 <p>Command - shell:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
    shell ARGUMENTS...
 
 Description:
@@ -1707,14 +1762,14 @@ Description:
 <div class="section" id="shell-exec">
 <h2>shell_exec<a class="headerlink" href="#shell-exec" title="Permalink to this headline">¶</a></h2>
 <p>Command - shell_exec:</p>
-<div class="highlight-python"><div class="highlight"><pre>Command documentation shell_exec missing, help_shell_exec
+<div class="highlight-python"><div class="highlight"><pre><span></span>Command documentation shell_exec missing, help_shell_exec
 </pre></div>
 </div>
 </div>
 <div class="section" id="ssh">
 <h2>ssh<a class="headerlink" href="#ssh" title="Permalink to this headline">¶</a></h2>
 <p>Command - ssh:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     ssh table
     ssh list [--format=FORMAT]
     ssh cat
@@ -1778,7 +1833,7 @@ Description:
 <div class="section" id="submit">
 <h2>submit<a class="headerlink" href="#submit" title="Permalink to this headline">¶</a></h2>
 <p>Command - submit:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     submit ARGUMENTS...
 
 We do not yet know what this command will do ;-)
@@ -1794,7 +1849,7 @@ Options:
 <div class="section" id="sync">
 <h2>sync<a class="headerlink" href="#sync" title="Permalink to this headline">¶</a></h2>
 <p>Command - sync:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     sync put [--cloud=CLOUD] LOCALDIR [REMOTEDIR]
     sync get [--cloud=CLOUD] REMOTEDIR LOCALDIR
 
@@ -1812,7 +1867,7 @@ Options:
 <div class="section" id="timer">
 <h2>timer<a class="headerlink" href="#timer" title="Permalink to this headline">¶</a></h2>
 <p>Command - timer:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     timer on
     timer off
     timer list [NAME]
@@ -1850,7 +1905,7 @@ Description:
 <div class="section" id="usage">
 <h2>usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <p>Command - usage:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     usage list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
     Show usage data.
@@ -1871,7 +1926,7 @@ Examples:
 <div class="section" id="var">
 <h2>var<a class="headerlink" href="#var" title="Permalink to this headline">¶</a></h2>
 <p>Command - var:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     var list
     var delete NAMES
     var NAME=VALUE
@@ -1889,7 +1944,7 @@ special vars date and time are defined
 <div class="section" id="verbose">
 <h2>verbose<a class="headerlink" href="#verbose" title="Permalink to this headline">¶</a></h2>
 <p>Command - verbose:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     verbose (True | False)
     verbose
 
@@ -1908,7 +1963,7 @@ toggled.
 <div class="section" id="version">
 <h2>version<a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h2>
 <p>Command - version:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
    version [--format=FORMAT] [--check=CHECK]
 
 Options:
@@ -1923,7 +1978,7 @@ Description:
 <div class="section" id="vm">
 <h2>vm<a class="headerlink" href="#vm" title="Permalink to this headline">¶</a></h2>
 <p>Command - vm:</p>
-<div class="highlight-python"><div class="highlight"><pre>Usage:
+<div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     vm default [--cloud=CLOUD][--format=FORMAT]
     vm refresh [--cloud=CLOUD]
     vm boot [--name=NAME]
@@ -1958,6 +2013,11 @@ Description:
              [--cloud=CLOUD]
              [--key=KEY]
              [--command=COMMAND]
+    vm rename [NAME]...
+              [--new=NEWNAME]
+              [--cloud=CLOUD]
+              [--force]
+              [--dryrun]
     vm list [NAME_OR_ID]
             [--cloud=CLOUD|--all]
             [--group=GROUP]
@@ -1976,6 +2036,7 @@ Arguments:
     NAME           server name. By default it is set to the name of last vm from database.
     NAME_OR_ID     server name or ID
     KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
+    NEWNAME        New name of the VM while renaming.
 
 Options:
     --ip=IP          give the public ip of the server
@@ -1996,9 +2057,11 @@ Options:
     --user=USER      give the user name of the server that you want
                      to use to login
     --name=NAME      give the name of the virtual machine
-    --force          delete vms without user&#39;s confirmation
+    --force          rename/ delete vms without user&#39;s confirmation
     --command=COMMAND
                      specify the commands to be executed
+    --new=NEWNAME    Specify the new name for a VM while renaming.
+                     By default, this will be set to &lt;username&gt;-&lt;count&gt; format.
 
 
 
@@ -2074,7 +2137,7 @@ Tip:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

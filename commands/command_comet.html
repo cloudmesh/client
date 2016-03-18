@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Comet Virtual Cluster &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Comet Virtual Cluster &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Reservation Command" href="command_reservation.html"/>
         <link rel="prev" title="Hpc Command" href="command_hpc.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -144,6 +144,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -166,7 +168,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -286,29 +288,21 @@ of the image are made unavailable to the node on the next power on.</dd>
 <p>The configuration of the cloudmesh client is done semi automatically for you.
 All you have to do after the installation is to call cloudmesh client once.</p>
 <p>This is done best with the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm help
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm help
 </pre></div>
 </div>
-<p>This will automatically generate a configuration file at:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/.cloudmesh/cloudmesh.yaml.
+<p>This will automatically generate a template configuration file at:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/.cloudmesh/cloudmesh.yaml.
 </pre></div>
 </div>
-<p>This file you can now modify with your favourite editor. It will contain a
-default section similar to:</p>
-<div class="highlight-python"><div class="highlight"><pre>comet:
-    auth_provider: apikey
-    userpass:
-        username: TBD
-        password: TBD
-    apikey:
-        api_key: KEYSTRING
-        api_secret: SECRETSTRING
+<p>Next you can initiate the configuration file:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet init_apiauth
 </pre></div>
 </div>
-<p>Two authentication mechanisms are supported. You will only need one. Please
-get in contact with the comet administrators to let you know which one is best
-suited for you. If you have username and password you can get started with
-that. Otherwise the comet admins will assign you an api_key and secret.</p>
+<p>Follow the prompt and provide your username and password. Once you are
+successfully authenticated it will retrieve the api key and secret and
+configure the cloudmesh.yaml with proper api auth information. Then you
+will be able to use the commands to manage your comet virtual cluster.</p>
 </div>
 <div class="section" id="commands">
 <h2>Commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
@@ -440,19 +434,19 @@ you can start a virtual cluster immediately.</p>
 </li>
 <li><p class="first">Please note that it will be up to you to provide an apropriate iso image.
 A small number of sample images are provided and you can list tehm with</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet image list
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet image list
 </pre></div>
 </div>
 </li>
 <li><p class="first">Next you need to attach an image to your compute nodes (we assume you
 have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2</p>
-<div class="highlight-python"><div class="highlight"><pre>cm image attach imagename.iso vc2 vm-vc2-[0-3]
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm image attach imagename.iso vc2 vm-vc2-[0-3]
 </pre></div>
 </div>
 <p>Please note that the name of the cluster (vc2) will be different for you</p>
 </li>
 <li><p class="first">Now you can just power on and boot the node with:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet power on vc2 vm-vc2-[0-3]
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet power on vc2 vm-vc2-[0-3]
 </pre></div>
 </div>
 </li>
@@ -461,7 +455,7 @@ have 3 nodes called vm-vc2-0, vm-vc2-1, vm-vc2-2</p>
 </ol>
 <blockquote>
 <div><p>node 0):</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet console vc2 vm-vc2-0
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet console vc2 vm-vc2-0
 </pre></div>
 </div>
 </div></blockquote>
@@ -478,7 +472,7 @@ for easier management you will at one point rename them while using the
 comet rename command to a naming scheme that you desire.</p>
 <p>For example assume my virtual cluster is called osg than you may want to
 rename your nodes such as:</p>
-<div class="highlight-python"><div class="highlight"><pre>cm comet node rename osg vm-osg-0 osg-0
+<div class="highlight-python"><div class="highlight"><pre><span></span>cm comet node rename osg vm-osg-0 osg-0
 cm comet node rename osg vm-osg-1 osg-1
 ...
 </pre></div>
@@ -533,7 +527,7 @@ We will get back to you ASAP hopefully within one business day.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

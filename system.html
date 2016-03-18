@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Preparation &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Preparation &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
         <link rel="up" title="Setup" href="setup.html"/>
         <link rel="next" title="Installation" href="installation.html"/>
         <link rel="prev" title="Setup" href="setup.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -154,6 +154,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -176,7 +178,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -273,14 +275,14 @@ a virtual ENV with</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
 </pre><p>You will need to activate the virtualenv with</p>
 <pre class="highlight"><span class="prompt1"><span class="nb">source</span> ~/ENV/bin/activate</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:<span class="nv">$PYTHONPATH</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:<span class="nv">$PYTHONPATH</span></span>
 </pre><p>If successful, your terminal will have (ENV) as prefix to the prompt:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV)machinename:dirname user$
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV)machinename:dirname user$
 </pre></div>
 </div>
 <p>If you like to use this version of python consistently, you may elect
 to add it to your .bashrc file and add the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
+<div class="highlight-python"><div class="highlight"><pre><span></span>source $HOME/ENV/bin/activate
 export PYTHONPATH=~/ENV/lib/python2.7/site-packages:$PYTHONPATH
 </pre></div>
 </div>
@@ -317,7 +319,7 @@ instructions above</p>
 <span class="prompt1">sudo pip install virtualenv</span>
 <span class="prompt1">virtualenv -p /user/local/bin/python ~/ENV</span>
 <span class="prompt1"><span class="nb">source</span> ~/ENV/bin/activate</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:<span class="nv">$PYTHONPATH</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PYTHONPATH</span><span class="o">=</span>~/ENV/lib/python2.7/site-packages:<span class="nv">$PYTHONPATH</span></span>
 <span class="prompt1">pip install pip -U</span>
 <span class="prompt1">easy_install readline</span>
 <span class="prompt1">easy_install pycrypto</span>
@@ -367,10 +369,10 @@ python version</p>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar xzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
 </pre><p>Verify if you now have the correct alternative python installed</p>
 <pre class="highlight"><span class="prompt1">/usr/local/bin/python2.7 --version</span>
 </pre><p>which will return Python 2.7.10. Next, Install setuptools and pip</p>
@@ -394,7 +396,7 @@ activate virtualenv, execute the following steps</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
 <span class="prompt1"><span class="nb">source</span> <span class="nv">$HOME</span>/ENV/bin/activate</span>
 </pre><p>This will add a &#8216;(ENV)&#8217; to your prompt in the terminal like following:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV)[user@hostname ~]$
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV)[user@hostname ~]$
 </pre></div>
 </div>
 <div class="section" id="ubuntu-quick-install-scripts-untested">
@@ -429,10 +431,10 @@ script if you wish.</p>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar xzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 ez_setup.py</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 get-pip.py</span>
@@ -441,7 +443,7 @@ script if you wish.</p>
 <span class="prompt1">pip install -U pip</span>
 <span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
 </pre><p>Add the following to your .bashrc file:</p>
-<div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
+<div class="highlight-python"><div class="highlight"><pre><span></span>source $HOME/ENV/bin/activate
 </pre></div>
 </div>
 </div>
@@ -479,10 +481,10 @@ under`$HOME/ENV`</p>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar -xvzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
 </pre><p>Verify if you now have the correct alternative python installed</p>
 <pre class="highlight"><span class="prompt1">/usr/local/bin/python2.7 --version</span>
 </pre><p>which should return Python 2.7.10. Next, install setuptools and pip and
@@ -508,17 +510,17 @@ activate virtualenv, execute the following steps</p>
 <pre class="highlight"><span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
 <span class="prompt1"><span class="nb">source</span> <span class="nv">$HOME</span>/ENV/bin/activate</span>
 </pre><p>This will add a &#8216;(ENV)&#8217; to your prompt in the terminal like following:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV)[user@hostname ~]$
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV)[user@hostname ~]$
 </pre></div>
 </div>
 <p>On more permanent basis, if you want to avoid activating virtualenv
 every time you log in, You can add the activation of the virtualenv to
 the ~/.bashrc file with your favourate editor:</p>
-<div class="highlight-python"><div class="highlight"><pre>emacs ~/.bashrc
+<div class="highlight-python"><div class="highlight"><pre><span></span>emacs ~/.bashrc
 </pre></div>
 </div>
 <p>Add the command:</p>
-<div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
+<div class="highlight-python"><div class="highlight"><pre><span></span>source $HOME/ENV/bin/activate
 </pre></div>
 </div>
 <p>to the file and save the file. You may test if this works, by
@@ -535,10 +537,10 @@ instructions above</p>
 <span class="prompt1">wget --no-check-certificate https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py</span>
 <span class="prompt1">wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py</span>
 <span class="prompt1">tar -xvzf Python-2.7.10.tgz</span>
-<span class="prompt1"><span class="nb">cd </span>Python-2.7.10</span>
+<span class="prompt1"><span class="nb">cd</span> Python-2.7.10</span>
 <span class="prompt1">./configure --prefix<span class="o">=</span>/usr/local</span>
 <span class="prompt1">sudo make <span class="o">&amp;&amp;</span> sudo make altinstall</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/usr/local/bin:</span><span class="nv">$PATH</span><span class="s2">&quot;</span></span>
 <span class="prompt1"><span class="nb">cd</span> <span class="nv">$HOME</span></span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 ez_setup.py</span>
 <span class="prompt1">sudo /usr/local/bin/python2.7 get-pip.py</span>
@@ -548,7 +550,7 @@ instructions above</p>
 <span class="prompt1">sudo pip install virtualenv</span>
 <span class="prompt1">virtualenv -p /usr/local/bin/python <span class="nv">$HOME</span>/ENV</span>
 </pre><p>Add the following to your .bashrc script:</p>
-<div class="highlight-python"><div class="highlight"><pre>source $HOME/ENV/bin/activate
+<div class="highlight-python"><div class="highlight"><pre><span></span>source $HOME/ENV/bin/activate
 </pre></div>
 </div>
 </div>
@@ -561,11 +563,11 @@ instructions above</p>
 and install the newest version of python. At this time we recommend
 that you use version 2.7.10. Other versions may work to, but are not
 supported or tested. A direct link to the install can be found at:</p>
-<div class="highlight-python"><div class="highlight"><pre>https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+<div class="highlight-python"><div class="highlight"><pre><span></span>https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 </pre></div>
 </div>
 <p>In powershell you need to type:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; explorer https://www.python.org/ftp/python/2.7.10/python-2.7.10.msi
 </pre></div>
 </div>
 <p>This will open the internet browser and download the python msi
@@ -575,7 +577,7 @@ installer. It will walk you through the install process.</p>
 <p>If you like to install it separately, you can find the
 downloaded msi in the <cite>~/Downloads</cite> directory. To install
 it in powershell use:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; cd ~/Downloads
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; cd ~/Downloads
 PS&gt; msiexec /i python-2.7.10.msi /qb
 </pre></div>
 </div>
@@ -591,7 +593,7 @@ Skip below step if you have choose to enable this feature.</p>
 </div>
 <p>After you have installed python (and not explicitly enabled the feature to add python to system path)
 include it in the Path environment variable while you type in powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; [Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Python27\;C:\Python27\Scripts\&quot;, &quot;User&quot;)
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; [Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Python27\;C:\Python27\Scripts\&quot;, &quot;User&quot;)
 PS&gt; $env:Path=[Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;User&quot;)
 </pre></div>
 </div>
@@ -604,19 +606,19 @@ next step.</p>
 not use notepad and notepad++ as they have significant issues, please
 use vi, vim, or emacs. Emacs is easy to use as it has a GUI on
 windows. Install emacs:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; Start-Process powershell -Verb runAs
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; Start-Process powershell -Verb runAs
 </pre></div>
 </div>
 <p>This will open a new Powershell window with administrator privileges.
 Continue the below steps to install chocolatey &amp; make:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; Set-ExecutionPolicy Unrestricted -force
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; Set-ExecutionPolicy Unrestricted -force
 PS&gt; iex ((new-object net.webclient).DownloadString(&#39;https://chocolatey.org/install.ps1&#39;))
 PS&gt; choco install emacs -y
 PS&gt; choco install make -y
 </pre></div>
 </div>
 <p>Next, to install Git, type the following command into powershell:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; explorer https://git-scm.com/download/win
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; explorer https://git-scm.com/download/win
 </pre></div>
 </div>
 <p>This will open the internet browser and download the git
@@ -637,22 +639,22 @@ Git &amp; Git Bash successfully.</p>
 <p>At the time this guide was written, the latest version of python virtualenv
 was 14.0.2. But Windows 10 users were facing a lot of issues with this version,
 and so we recommend installing a lower version of virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; pip install virtualenv==13.0.2
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; pip install virtualenv==13.0.2
 </pre></div>
 </div>
 <p>This will install python virtualenv on your system. To setup the environment
 in powershell, run the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; virtualenv ~/ENV
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; virtualenv ~/ENV
 </pre></div>
 </div>
 <p>This will create a new directory <cite>~/ENV/</cite> comprising a local python environment.
 To activate this new environment, run:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; ~/ENV/Scripts/activate.ps1
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; ~/ENV/Scripts/activate.ps1
 </pre></div>
 </div>
 <p>This will activate your new python virtual environment. As a proof,
 you will now see a <cite>(ENV)</cite> prefixed to the powershell. It will look like:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; python --version
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; python --version
           Python 2.7.10
 </pre></div>
 </div>
@@ -661,7 +663,7 @@ you will now see a <cite>(ENV)</cite> prefixed to the powershell. It will look l
 <p class="first admonition-title">Note</p>
 <p>To deactivate this virtualenv, you need to run
 the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; deactivate
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; deactivate
 </pre></div>
 </div>
 <p class="last">But always remember to activate the virtualenv before using cloudmesh.</p>
@@ -671,15 +673,15 @@ the following command:</p>
 <div class="section" id="install-pycrypto">
 <h3>Install Pycrypto<a class="headerlink" href="#install-pycrypto" title="Permalink to this headline">¶</a></h3>
 <p>First, if not already done, activate your virtualenv:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; ~/ENV/Scripts/activate.ps1
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; ~/ENV/Scripts/activate.ps1
 </pre></div>
 </div>
 <p>Next, update your python-pip:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; pip install pip -U
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; pip install pip -U
 </pre></div>
 </div>
 <p>Check the python and pip version:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; python --version
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; python --version
       Python 2.7.10
 
 (ENV) PS&gt; pip --version
@@ -687,7 +689,7 @@ the following command:</p>
 </pre></div>
 </div>
 <p>Then to install pycrypto, run the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; easy_install http://www.voidspace.org.uk/python/pycrypto-2.6.1/pycrypto-2.6.1.win32-py2.7.exe
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; easy_install http://www.voidspace.org.uk/python/pycrypto-2.6.1/pycrypto-2.6.1.win32-py2.7.exe
 </pre></div>
 </div>
 </div>
@@ -696,13 +698,13 @@ the following command:</p>
 <p>Cloudmesh contains tools for generating and viewing the html
 documentation files. It uses FireFox to render HTML pages. To install
 FireFox, run the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; explorer https://www.mozilla.org/en-US/firefox/new/#download-fx
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; explorer https://www.mozilla.org/en-US/firefox/new/#download-fx
 </pre></div>
 </div>
 <p>This will download the latest FireFox browser installer on your machine.
 Follow the on-screen instructions to install. Once complete, add FireFox to
 your path:</p>
-<div class="highlight-python"><div class="highlight"><pre>(ENV) PS&gt; [Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Program Files (x86)\Mozilla Firefox\&quot;, &quot;User&quot;)
+<div class="highlight-python"><div class="highlight"><pre><span></span>(ENV) PS&gt; [Environment]::SetEnvironmentVariable(&quot;Path&quot;, &quot;$env:Path;C:\Program Files (x86)\Mozilla Firefox\&quot;, &quot;User&quot;)
 (ENV) PS&gt; $env:Path=[Environment]::GetEnvironmentVariable(&quot;Path&quot;, &quot;User&quot;)
 </pre></div>
 </div>
@@ -713,23 +715,23 @@ and are all ready to now install Cloudmesh.</p>
 <h3>Adding SSH Key to Futuresystems Portal<a class="headerlink" href="#adding-ssh-key-to-futuresystems-portal" title="Permalink to this headline">¶</a></h3>
 <p>Close the current Powershell window and open a new one.
 Now we are ready to use ssh and git. But first, let&#8217;s create a key:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; ssh-keygen -t rsa
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; ssh-keygen -t rsa
 </pre></div>
 </div>
 <p>Follow the instructions and leave the path unchanged. Make sure you
 specify a passphrase. It is a policy on many compute resources that your
 key has a passphrase. Look at the public key as we will need to upload
 it to some resources:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; cat ~/.ssh/id_rsa.pub
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; cat ~/.ssh/id_rsa.pub
 </pre></div>
 </div>
 <p>Go to the futuresystems portal:</p>
-<div class="highlight-python"><div class="highlight"><pre>https://portal.futuresystems.org
+<div class="highlight-python"><div class="highlight"><pre><span></span>https://portal.futuresystems.org
 </pre></div>
 </div>
 <p>Once you log in you can use the following link to add
 your public key to futuresystems:</p>
-<div class="highlight-python"><div class="highlight"><pre>https://portal.futuresystems.org/my/ssh-keys
+<div class="highlight-python"><div class="highlight"><pre><span></span>https://portal.futuresystems.org/my/ssh-keys
 </pre></div>
 </div>
 <p>Naturally this only works if you are eligible to register and get an
@@ -746,12 +748,12 @@ like when you did the cat on it.</p>
 </div>
 <p>To simplify SSH access, you will need to configure a ssh config file.
 You will need to first create a <cite>config</cite> file as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; vim ~/.ssh/config
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; vim ~/.ssh/config
 </pre></div>
 </div>
 <p>This should open the VIM editor and next you need to enter
 the following contents:</p>
-<div class="highlight-python"><div class="highlight"><pre>Host india
+<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
      Hostname india.futuresystems.org
      User &lt;your_portal_username&gt;
      IdentityFile &lt;path_to_id_rsa_file&gt;
@@ -761,7 +763,7 @@ the following contents:</p>
 <cite>path_to_id_rsa_file</cite> with the path to your private key file.
 It generally is at ~/.ssh/id_rsa.</p>
 <p>You can now easily perform ssh to futuresystems cloud using:</p>
-<div class="highlight-python"><div class="highlight"><pre>PS&gt; ssh india
+<div class="highlight-python"><div class="highlight"><pre><span></span>PS&gt; ssh india
 </pre></div>
 </div>
 </div>
@@ -808,7 +810,7 @@ It generally is at ~/.ssh/id_rsa.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

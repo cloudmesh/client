@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.PortalCommand &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins.PortalCommand &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../../index.html"/>
-        <link rel="up" title="Module code" href="../../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
   <script src="../../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.shell.plugins.PortalCommand</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,7 +171,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.PortalCommand</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span>
 
@@ -176,20 +180,20 @@
 
 
 <div class="viewcode-block" id="PortalCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.PortalCommand.PortalCommand">[docs]</a><span class="k">class</span> <span class="nc">PortalCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CloudPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;portal&quot;</span><span class="p">:</span> <span class="s">&quot;cloud&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;portal&quot;</span><span class="p">:</span> <span class="s2">&quot;cloud&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;init command portal&quot;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;init command portal&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PortalCommand.get_conf"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.PortalCommand.PortalCommand.get_conf">[docs]</a>    <span class="k">def</span> <span class="nf">get_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;cloudmesh.portal&quot;</span><span class="p">])</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.portal&quot;</span><span class="p">])</span>
         <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="n">data</span></div>
 
-    <span class="c"># noinspection PyUnusedLocal</span></div>
+    <span class="c1"># noinspection PyUnusedLocal</span>
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_portal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -207,32 +211,33 @@
 <span class="sd">                    stops the portal</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_conf</span><span class="p">()</span>
-            <span class="n">commands</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">                cd {location}; make run &amp;</span>
-<span class="s">                cd {location}; make view &amp;</span>
-<span class="s">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                cd {location}; make run &amp;</span>
+<span class="s2">                cd {location}; make view &amp;</span>
+<span class="s2">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="n">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;start&quot;</span><span class="p">]:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span>
 
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_conf</span><span class="p">()</span>
-            <span class="n">commands</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
-<span class="s">                cd {location}; make run</span>
-<span class="s">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
+            <span class="n">commands</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">                cd {location}; make run</span>
+<span class="s2">                &quot;&quot;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span>
             <span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
             <span class="n">os_execute</span><span class="p">(</span><span class="n">commands</span><span class="p">)</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;stop&quot;</span><span class="p">]:</span>
-            <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;stop&quot;</span><span class="p">]:</span>
+            <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not yet implemented&quot;</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="s">&quot;&quot;</span>
-</pre></div></div>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
+
+</pre></div>
 
            </div>
           </div>
@@ -264,7 +269,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

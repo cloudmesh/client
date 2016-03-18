@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.comet.cluster &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.comet.cluster &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.comet.cluster</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,168 +171,221 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.comet.cluster</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">hostlist</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.comet.comet</span> <span class="kn">import</span> <span class="n">Comet</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Printer</span> <span class="kn">import</span> <span class="n">dict_printer</span><span class="p">,</span> <span class="n">list_printer</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
-
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <div class="viewcode-block" id="Cluster"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster">[docs]</a><span class="k">class</span> <span class="nc">Cluster</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="n">WALLTIME_MINS</span> <span class="o">=</span> <span class="mi">120</span>
+    <span class="n">WALLTIME_MINS</span> <span class="o">=</span> <span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">2</span>
     <span class="n">N_ALLOCATIONS_PER_LINE</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="n">MINS_PER_UNIT</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;m&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&quot;h&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s">&quot;d&quot;</span><span class="p">:</span> <span class="mi">1440</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">:</span> <span class="mi">10080</span><span class="p">}</span>
-
+    <span class="n">MINS_PER_UNIT</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;m&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span> <span class="mi">1440</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">:</span> <span class="mi">10080</span><span class="p">}</span>
+    <span class="n">SECS_PER_DAY</span> <span class="o">=</span> <span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span>
+    <span class="n">STUCK_COMPUTESETS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;submitted&quot;</span><span class="p">,</span> <span class="s2">&quot;ending&quot;</span><span class="p">]</span>
+    <span class="n">FINISHED_COMPUTESETS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;completed&quot;</span><span class="p">,</span> <span class="s2">&quot;failed&quot;</span><span class="p">]</span>
+    <span class="n">ACTIVE_COMPUTESETS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="s2">&quot;running&quot;</span><span class="p">,</span> <span class="s2">&quot;submitted&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">]</span>
+    <span class="n">PENDING_COMPUTESETS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;queued&quot;</span><span class="p">,</span> <span class="s2">&quot;submitted&quot;</span><span class="p">,</span> <span class="s2">&quot;created&quot;</span><span class="p">]</span>
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.simple_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.simple_list">[docs]</a>    <span class="k">def</span> <span class="nf">simple_list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<div class="viewcode-block" id="Cluster.simple_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.simple_list">[docs]</a>    <span class="k">def</span> <span class="nf">simple_list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/&quot;</span><span class="p">))</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/&quot;</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/&quot;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span><span class="p">))</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/&quot;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span>
             <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not find cluster `{}`&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not find cluster `{}`&quot;</span>
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">result</span>
             <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;An error occurred: {error}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;COMET Error&quot;</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="s">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;An error occurred: {error}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;COMET Error&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;An error occurred: {error}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;COMET Error&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;An error occurred: {error}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;COMET Error&quot;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;rest&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;rest&quot;</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">r</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">elements</span> <span class="o">=</span> <span class="p">{}</span>
                 <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
                     <span class="n">element</span> <span class="o">=</span> <span class="p">{}</span>
-                    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;project&quot;</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;description&quot;</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;project&quot;</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;description&quot;</span><span class="p">]:</span>
                         <span class="n">element</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
-                        <span class="n">element</span><span class="p">[</span><span class="s">&quot;nodes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s">&quot;computes&quot;</span><span class="p">])</span>
-                    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">[</span><span class="s">&quot;frontend&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="n">element</span><span class="p">[</span><span class="s">&quot;frontend &quot;</span> <span class="o">+</span> <span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="s">&quot;frontend&quot;</span><span class="p">][</span>
+                        <span class="n">element</span><span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;frontend&quot;</span><span class="p">]:</span>
+                        <span class="n">element</span><span class="p">[</span><span class="s2">&quot;frontend &quot;</span> <span class="o">+</span> <span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;frontend&quot;</span><span class="p">][</span>
                             <span class="n">attribute</span><span class="p">]</span>
                     <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
-                    <span class="k">for</span> <span class="n">compute</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">[</span><span class="s">&quot;computes&quot;</span><span class="p">]:</span>
-                        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compute</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">])</span>
+                    <span class="k">for</span> <span class="n">compute</span> <span class="ow">in</span> <span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">]:</span>
+                        <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">compute</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
 
-                    <span class="n">element</span><span class="p">[</span><span class="s">&quot;computes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">collect_hostlist</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+                    <span class="n">element</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">collect_hostlist</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
 
-                    <span class="n">elements</span><span class="p">[</span><span class="n">cluster</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">element</span>
+                    <span class="n">elements</span><span class="p">[</span><span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">element</span>
 
                 <span class="n">result</span> <span class="o">=</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">elements</span><span class="p">,</span>
                                       <span class="n">order</span><span class="o">=</span><span class="p">[</span>
-                                          <span class="s">&quot;name&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;project&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;nodes&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;computes&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;frontend name&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;frontend state&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;frontend type&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;description&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;project&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;nodes&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;computes&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;frontend name&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;frontend state&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;frontend type&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;description&quot;</span><span class="p">,</span>
                                       <span class="p">],</span>
                                       <span class="n">header</span><span class="o">=</span><span class="p">[</span>
-                                          <span class="s">&quot;Name&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;Project&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;Count&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;Nodes&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;Frontend (Fe)&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;State (Fe)&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;Type (Fe)&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;Description&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Name&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Project&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Count&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Nodes&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Frontend (Fe)&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;State (Fe)&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Type (Fe)&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;Description&quot;</span><span class="p">,</span>
                                       <span class="p">],</span>
 
                                       <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">result</span>
-</div>
+            <span class="k">return</span> <span class="n">result</span></div>
+
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
 
         <span class="k">def</span> <span class="nf">check_for_error</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;An error occurred: {error}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
-                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;COMET Error&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;An error occurred: {error}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">r</span><span class="p">))</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;COMET Error&quot;</span><span class="p">)</span>
 
-        <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/&quot;</span><span class="p">))</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/&quot;</span><span class="p">))</span>
             <span class="n">check_for_error</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/&quot;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="s">&quot;/&quot;</span><span class="p">))</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/&quot;</span> <span class="o">+</span> <span class="nb">id</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span><span class="p">))</span>
             <span class="n">check_for_error</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not find cluster `{}`&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not find cluster `{}`&quot;</span>
                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span>
                 <span class="k">return</span> <span class="n">result</span>
             <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="p">]</span>
 
+        <span class="n">stuck_computesets</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">computesets</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_computeset</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">computesets</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">computeset</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">STUCK_COMPUTESETS</span><span class="p">:</span>
+                    <span class="n">cluster</span> <span class="o">=</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span>
+                    <span class="nb">id</span> <span class="o">=</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                    <span class="n">nodes</span> <span class="o">=</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">]</span>
+
+                    <span class="k">if</span> <span class="n">cluster</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stuck_computesets</span><span class="p">:</span>
+                        <span class="n">stuck_computesets</span><span class="p">[</span><span class="n">cluster</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+                        <span class="n">stuck_computesets</span><span class="p">[</span><span class="n">cluster</span><span class="p">][</span><span class="n">node</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span> <span class="o">=</span> \
+                            <span class="s2">&quot;{}({})&quot;</span><span class="o">.</span><span class="n">format</span> <span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">])</span>
+
         <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s">&quot;rest&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">format</span> <span class="o">==</span> <span class="s2">&quot;rest&quot;</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">r</span>
             <span class="k">else</span><span class="p">:</span>
 
                 <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
 
                 <span class="n">empty</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="s">&#39;cluster&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;cpus&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;host&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&quot;mac&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;ip&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;memory&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;state&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
-                    <span class="s">&#39;kind&#39;</span><span class="p">:</span> <span class="s">&#39;frontend&#39;</span>
+                    <span class="s1">&#39;cluster&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;cpus&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;host&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s2">&quot;mac&quot;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;ip&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;memory&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;disksize&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;computeset&#39;</span><span class="p">:</span> <span class="bp">None</span><span class="p">,</span>
+                    <span class="s1">&#39;kind&#39;</span><span class="p">:</span> <span class="s1">&#39;frontend&#39;</span>
                 <span class="p">}</span>
 
                 <span class="k">for</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
 
-                    <span class="n">clients</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="s">&quot;computes&quot;</span><span class="p">]</span>
+                    <span class="n">clients</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">]</span>
                     <span class="k">for</span> <span class="n">client</span> <span class="ow">in</span> <span class="n">clients</span><span class="p">:</span>
-                        <span class="n">client</span><span class="p">[</span><span class="s">&quot;kind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;compute&quot;</span>
+                        <span class="n">client</span><span class="p">[</span><span class="s2">&quot;kind&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;compute&quot;</span>
                     <span class="n">frontend</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">empty</span><span class="p">)</span>
-                    <span class="n">frontend</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s">&quot;frontend&quot;</span><span class="p">])</span>
+                    <span class="n">frontend</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">cluster</span><span class="p">[</span><span class="s2">&quot;frontend&quot;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">clients</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">frontend</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clients</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">frontend</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">frontend</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
                     <span class="n">data</span> <span class="o">+=</span> <span class="p">[</span><span class="n">frontend</span><span class="p">]</span>
                     <span class="n">data</span> <span class="o">+=</span> <span class="n">clients</span>
 
-                <span class="k">for</span> <span class="n">anode</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">anode</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                        <span class="k">if</span> <span class="s">&quot;interface&quot;</span> <span class="o">==</span> <span class="n">attribute</span><span class="p">:</span>
-                            <span class="n">macs</span> <span class="o">=</span> <span class="p">[]</span>
-                            <span class="n">ips</span> <span class="o">=</span> <span class="p">[]</span>
-                            <span class="k">for</span> <span class="n">ipaddr</span> <span class="ow">in</span> <span class="n">anode</span><span class="p">[</span><span class="s">&quot;interface&quot;</span><span class="p">]:</span>
-                                <span class="n">macs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">[</span><span class="s">&quot;mac&quot;</span><span class="p">])</span>
-                                <span class="n">ips</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">[</span><span class="s">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;N/A&quot;</span><span class="p">)</span>
-                            <span class="n">anode</span><span class="p">[</span><span class="s">&quot;mac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">macs</span><span class="p">)</span>
-                            <span class="n">anode</span><span class="p">[</span><span class="s">&quot;ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ips</span><span class="p">)</span>
-                    <span class="k">del</span> <span class="n">anode</span><span class="p">[</span><span class="s">&quot;interface&quot;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">anode</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                    <span class="n">bnode</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">anode</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="s2">&quot;interface&quot;</span> <span class="ow">in</span> <span class="n">bnode</span><span class="p">:</span>
+                        <span class="n">macs</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="c1">#ips = []</span>
+                        <span class="k">for</span> <span class="n">ipaddr</span> <span class="ow">in</span> <span class="n">anode</span><span class="p">[</span><span class="s2">&quot;interface&quot;</span><span class="p">]:</span>
+                            <span class="n">macs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">[</span><span class="s2">&quot;mac&quot;</span><span class="p">])</span>
+                            <span class="c1">#ips.append(ipaddr[&quot;ip&quot;] or &quot;N/A&quot;)</span>
+                        <span class="k">if</span> <span class="n">format</span><span class="o">==</span><span class="s1">&#39;table&#39;</span><span class="p">:</span>
+                            <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;mac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">macs</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;mac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">macs</span><span class="p">)</span>
+                        <span class="c1">#anode[&quot;ip&quot;] = &quot;; &quot;.join(ips)</span>
+                    <span class="k">del</span> <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;interface&quot;</span><span class="p">]</span>
+
+                    <span class="k">if</span> <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">stuck_computesets</span> <span class="ow">and</span> \
+                            <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">stuck_computesets</span><span class="p">[</span><span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]]:</span>
+                        <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;active_computeset&quot;</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="n">stuck_computesets</span><span class="p">[</span><span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]][</span><span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]]</span>
+                    <span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">bnode</span>
 
                 <span class="n">result</span> <span class="o">=</span> <span class="n">list_printer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
                                       <span class="n">order</span><span class="o">=</span><span class="p">[</span>
-                                          <span class="s">&quot;name&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;state&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;kind&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;type&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;mac&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;ip&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;cpus&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;cluster&quot;</span><span class="p">,</span>
-                                          <span class="s">&quot;memory&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;state&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;kind&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;type&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;mac&quot;</span><span class="p">,</span>
+                                          <span class="c1">#&quot;ip&quot;,</span>
+                                          <span class="s2">&quot;cpus&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;cluster&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;memory&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;disksize&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;active_computeset&quot;</span>
                                       <span class="p">],</span>
-                                      <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">result</span>
-</div>
+                                      <span class="n">header</span><span class="o">=</span><span class="p">[</span>
+                                          <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;state&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;kind&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;type&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;mac&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;cpus&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;cluster&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;RAM(M)&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;disk(G)&quot;</span><span class="p">,</span>
+                                          <span class="s2">&quot;computeset&quot;</span>
+                                      <span class="p">],</span>
+                                      <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">,</span>
+                                      <span class="n">sort_keys</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span><span class="s1">&#39;mac&#39;</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">result</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.display_get_allocation"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.display_get_allocation">[docs]</a>    <span class="k">def</span> <span class="nf">display_get_allocation</span><span class="p">(</span><span class="n">allocations</span><span class="p">):</span>
         <span class="n">allocation</span> <span class="o">=</span> <span class="bp">None</span>
@@ -337,447 +394,449 @@
         <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">allocations_sorted</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">N_ALLOCATIONS_PER_LINE</span><span class="p">):</span>
                 <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">allocations_sorted</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">allocations_sorted</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
-                           <span class="n">end</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span><span class="p">)</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">allocations_sorted</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]),</span>
+                           <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">)</span>
                     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-            <span class="k">print</span> <span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
         <span class="n">chosen_alloc</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">while</span> <span class="n">chosen_alloc</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">allocation_input</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&quot;Pick an allocation by specifying its index: &quot;</span><span class="p">)</span>
+            <span class="n">allocation_input</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Pick an allocation by specifying its index: &quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">chosen_alloc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">allocation_input</span><span class="p">)</span>
                 <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">chosen_alloc</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">allocations_sorted</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
                     <span class="n">allocation</span> <span class="o">=</span> <span class="n">allocations_sorted</span><span class="p">[</span><span class="n">chosen_alloc</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">chosen_alloc</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;Invalid index specified. &quot;</span>
-                           <span class="s">&quot;Please choose between 1 and {}&quot;</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Invalid index specified. &quot;</span>
+                           <span class="s2">&quot;Please choose between 1 and {}&quot;</span>
                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">allocations_sorted</span><span class="p">))</span>
                            <span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">allocation_input</span> <span class="ow">in</span> <span class="n">allocations_sorted</span><span class="p">:</span>
                     <span class="n">chosen_alloc</span> <span class="o">=</span> <span class="mi">0</span>
                     <span class="n">allocation</span> <span class="o">=</span> <span class="n">allocation_input</span>
-        <span class="k">return</span> <span class="n">allocation</span>
-</div>
+        <span class="k">return</span> <span class="n">allocation</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">():</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;comet cluster info: to be implemented&quot;</span><span class="p">)</span>
-        <span class="k">pass</span>
-</div>
+        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;comet cluster info: to be implemented&quot;</span><span class="p">)</span>
+        <span class="k">pass</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">():</span>
-        <span class="k">pass</span>
-</div>
+        <span class="k">pass</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.start"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.start">[docs]</a>    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{id}/start&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)))</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-</div>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{id}/start&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)))</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.stop"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.stop">[docs]</a>    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{id}/stop&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)))</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-</div>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="nb">id</span><span class="p">}</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{id}/stop&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)))</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span></div>
+
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.computeset">[docs]</a>    <span class="k">def</span> <span class="nf">computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.computeset">[docs]</a>    <span class="k">def</span> <span class="nf">computeset</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allocation</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">computesets</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_computeset</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">computesets</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">output_computeset</span><span class="p">(</span><span class="n">computesets</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">output_computeset</span><span class="p">(</span><span class="n">computesets</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="s1">&#39;ALL&#39;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
                 <span class="k">for</span> <span class="n">acomputeset</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">+=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">output_computeset</span><span class="p">(</span><span class="n">acomputeset</span><span class="p">)</span>
+                    <span class="n">result</span> <span class="o">+=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">output_computeset</span><span class="p">(</span><span class="n">acomputeset</span><span class="p">,</span>
+                                                        <span class="n">cluster</span><span class="p">,</span>
+                                                        <span class="n">state</span><span class="p">,</span>
+                                                        <span class="n">allocation</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;No computeset exists with the specified ID&quot;</span>
-        <span class="k">return</span> <span class="n">result</span>
-</div>
+            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;No computeset exists with the specified ID&quot;</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.output_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.output_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">output_computeset</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">):</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s">&quot;state&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;completed&quot;</span><span class="p">]:</span>
-            <span class="n">result</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Cluster: {}</span><span class="se">\t</span><span class="s">ComputesetID: {}</span><span class="se">\t</span><span class="s"> State: {}</span><span class="se">\n</span><span class="s">&quot;</span> \
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">[</span><span class="s">&quot;cluster&quot;</span><span class="p">],</span>
-                        <span class="n">computesetdict</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">],</span>
-                        <span class="n">computesetdict</span><span class="p">[</span><span class="s">&quot;state&quot;</span><span class="p">]</span>
-                        <span class="p">)</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s">&quot;computes&quot;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">anode</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">anode</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="s">&quot;interface&quot;</span> <span class="o">==</span> <span class="n">attribute</span><span class="p">:</span>
-                        <span class="n">macs</span> <span class="o">=</span> <span class="p">[]</span>
-                        <span class="n">ips</span> <span class="o">=</span> <span class="p">[]</span>
-                        <span class="k">for</span> <span class="n">ipaddr</span> <span class="ow">in</span> <span class="n">anode</span><span class="p">[</span><span class="s">&quot;interface&quot;</span><span class="p">]:</span>
-                            <span class="n">macs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">[</span><span class="s">&quot;mac&quot;</span><span class="p">])</span>
-                            <span class="n">ips</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">[</span><span class="s">&quot;ip&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;N/A&quot;</span><span class="p">)</span>
-                        <span class="n">anode</span><span class="p">[</span><span class="s">&quot;mac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">macs</span><span class="p">)</span>
-                        <span class="n">anode</span><span class="p">[</span><span class="s">&quot;ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ips</span><span class="p">)</span>
-                <span class="k">del</span> <span class="n">anode</span><span class="p">[</span><span class="s">&quot;interface&quot;</span><span class="p">]</span>
+<div class="viewcode-block" id="Cluster.output_computeset"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.output_computeset">[docs]</a>    <span class="k">def</span> <span class="nf">output_computeset</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">allocation</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c1"># print (cluster, state, allocation)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="c1"># filter out based on query criteria</span>
+        <span class="k">if</span> <span class="n">cluster</span> <span class="ow">and</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">computesetdict</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">cluster</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="k">if</span> <span class="n">state</span> <span class="ow">and</span> <span class="s1">&#39;state&#39;</span> <span class="ow">in</span> <span class="n">computesetdict</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;ALL&quot;</span> <span class="o">!=</span> <span class="n">state</span> <span class="ow">and</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">state</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+        <span class="k">if</span> <span class="n">allocation</span> <span class="ow">and</span> <span class="s1">&#39;account&#39;</span> <span class="ow">in</span> <span class="n">computesetdict</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;account&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">allocation</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">result</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">state</span> <span class="ow">and</span> <span class="p">(</span><span class="s2">&quot;ALL&quot;</span> <span class="o">==</span> <span class="n">state</span> <span class="ow">or</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">state</span><span class="p">))</span> <span class="ow">or</span> \
+           <span class="p">(</span><span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">FINISHED_COMPUTESETS</span><span class="p">):</span>
+            <span class="n">starttime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">endtime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">walltime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">runningTime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="n">remainingTime</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">if</span> <span class="s1">&#39;walltime_mins&#39;</span> <span class="ow">in</span> <span class="n">computesetdict</span><span class="p">:</span>
+                <span class="n">walltime</span> <span class="o">=</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;walltime_mins&quot;</span><span class="p">]</span>
+                <span class="n">walltime_seconds</span> <span class="o">=</span> <span class="n">walltime</span> <span class="o">*</span> <span class="mi">60</span>
+                <span class="n">walltime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">format_ddd_hh_mm</span><span class="p">(</span><span class="n">walltime_seconds</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;start_time&#39;</span> <span class="ow">in</span> <span class="n">computesetdict</span> <span class="ow">and</span> \
+                <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">start_seconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;start_time&quot;</span><span class="p">])</span>
+                <span class="n">end_seconds</span> <span class="o">=</span> <span class="n">start_seconds</span> <span class="o">+</span> <span class="n">walltime_seconds</span>
+                <span class="k">if</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">FINISHED_COMPUTESETS</span> \
+                    <span class="ow">or</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;ending&#39;</span><span class="p">:</span>
+                    <span class="n">runningSecs</span> <span class="o">=</span> <span class="n">walltime_seconds</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">runningSecs</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span><span class="o">-</span><span class="n">start_seconds</span>
+                <span class="n">remainingSecs</span> <span class="o">=</span> <span class="n">walltime_seconds</span> <span class="o">-</span> <span class="n">runningSecs</span>
+                <span class="n">starttime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%D %H:%M %Z&quot;</span><span class="p">,</span>
+                                    <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">start_seconds</span><span class="p">))</span>
+                <span class="n">endtime</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%D %H:%M %Z&quot;</span><span class="p">,</span>
+                                    <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">end_seconds</span><span class="p">))</span>
+                <span class="n">runningTime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">format_ddd_hh_mm</span><span class="p">(</span><span class="n">runningSecs</span><span class="p">)</span>
+                <span class="n">remainingTime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">format_ddd_hh_mm</span><span class="p">(</span><span class="n">remainingSecs</span><span class="p">)</span>
+
+            <span class="n">result</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">ClusterID: {}</span><span class="se">\t</span><span class="s2">ComputesetID: {}</span><span class="se">\t</span><span class="s2"> State: {}</span><span class="se">\t\t</span><span class="s2">Allocation: {}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+                      <span class="s2">&quot;Start (est): {}</span><span class="se">\t\t</span><span class="s2">End (est): {}</span><span class="se">\n</span><span class="s2">&quot;</span>\
+                      <span class="s2">&quot;Requested Time (ddd-hh:mm): {}</span><span class="se">\t</span><span class="s2">Running Time (est): {}</span><span class="se">\t\t</span><span class="s2">Remaining Time (est): {}</span><span class="se">\n</span><span class="s2">&quot;</span>\
+                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">],</span>
+                                <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],</span>
+                                <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">],</span>
+                                <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;account&quot;</span><span class="p">],</span>
+                                <span class="n">starttime</span><span class="p">,</span>
+                                <span class="n">endtime</span><span class="p">,</span>
+                                <span class="n">walltime</span><span class="p">,</span>
+                                <span class="n">runningTime</span><span class="p">,</span>
+                                <span class="n">remainingTime</span>
+                                <span class="p">)</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">computesetdict</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">anode</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                <span class="n">bnode</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">anode</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s2">&quot;interface&quot;</span> <span class="ow">in</span> <span class="n">bnode</span><span class="p">:</span>
+                    <span class="n">macs</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="c1">#ips = []</span>
+                    <span class="k">for</span> <span class="n">ipaddr</span> <span class="ow">in</span> <span class="n">anode</span><span class="p">[</span><span class="s2">&quot;interface&quot;</span><span class="p">]:</span>
+                        <span class="n">macs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ipaddr</span><span class="p">[</span><span class="s2">&quot;mac&quot;</span><span class="p">])</span>
+                        <span class="c1">#ips.append(ipaddr[&quot;ip&quot;] or &quot;N/A&quot;)</span>
+                    <span class="k">if</span> <span class="n">format</span><span class="o">==</span><span class="s1">&#39;table&#39;</span><span class="p">:</span>
+                        <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;mac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">macs</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;mac&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">macs</span><span class="p">)</span>
+                    <span class="c1">#anode[&quot;ip&quot;] = &quot;; &quot;.join(ips)</span>
+                <span class="k">del</span> <span class="n">bnode</span><span class="p">[</span><span class="s2">&quot;interface&quot;</span><span class="p">]</span>
+                <span class="n">data</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">bnode</span>
             <span class="n">result</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">list_printer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span>
                                        <span class="n">order</span><span class="o">=</span><span class="p">[</span>
-                                           <span class="s">&quot;name&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;state&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;type&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;mac&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;ip&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;cpus&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;cluster&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;host&quot;</span><span class="p">,</span>
-                                           <span class="s">&quot;memory&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;state&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;type&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;mac&quot;</span><span class="p">,</span>
+                                           <span class="c1">#&quot;ip&quot;,</span>
+                                           <span class="s2">&quot;cpus&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;cluster&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+                                           <span class="s2">&quot;memory&quot;</span><span class="p">,</span>
                                        <span class="p">],</span>
-                                       <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">result</span>
-</div>
+                                       <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
+                                       <span class="n">sort_keys</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.format_ddd_hh_mm"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.format_ddd_hh_mm">[docs]</a>    <span class="k">def</span> <span class="nf">format_ddd_hh_mm</span><span class="p">(</span><span class="n">time_duration_secs</span><span class="p">):</span>
+        <span class="n">ddd</span> <span class="o">=</span> <span class="n">time_duration_secs</span><span class="o">//</span><span class="n">Cluster</span><span class="o">.</span><span class="n">SECS_PER_DAY</span>
+        <span class="n">secs</span> <span class="o">=</span> <span class="n">time_duration_secs</span><span class="o">%</span><span class="n">Cluster</span><span class="o">.</span><span class="n">SECS_PER_DAY</span>
+        <span class="n">hh</span> <span class="o">=</span> <span class="n">secs</span><span class="o">//</span><span class="mi">3600</span>
+        <span class="n">mm</span> <span class="o">=</span> <span class="p">(</span><span class="n">secs</span><span class="o">%</span><span class="mi">3600</span><span class="p">)</span><span class="o">//</span><span class="mi">60</span>
+        <span class="k">if</span> <span class="n">ddd</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">-</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">ddd</span><span class="p">,</span> <span class="n">hh</span><span class="p">,</span> <span class="n">mm</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%02d</span><span class="s2">:</span><span class="si">%02d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">hh</span><span class="p">,</span> <span class="n">mm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.convert_to_mins"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.convert_to_mins">[docs]</a>    <span class="k">def</span> <span class="nf">convert_to_mins</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
         <span class="n">mins</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="n">s</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
-            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">MINS_PER_UNIT</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">MINS_PER_UNIT</span><span class="p">:</span>
                 <span class="n">mins</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">MINS_PER_UNIT</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="k">return</span> <span class="n">mins</span>
-</div>
+        <span class="k">return</span> <span class="n">mins</span></div>
+
     <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.power"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.power">[docs]</a>    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-              <span class="n">allocation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">walltime</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">numnodes</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Cluster.check_nodes_computesets"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.check_nodes_computesets">[docs]</a>    <span class="k">def</span> <span class="nf">check_nodes_computesets</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">):</span>
+        <span class="n">hosts_param</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">computenodeids</span><span class="p">)</span>
+        <span class="n">hosts_param_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">hosts_param</span><span class="p">)</span>
+        <span class="n">nodes_free</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">nodes_allocated</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="n">nodes_checked</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="c1"># computesetid = -1</span>
+        <span class="n">computesets</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_computeset</span><span class="p">()</span>
+        <span class="c1"># get all active computeset and put nodes into a set</span>
+        <span class="n">allhosts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">computeset</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">clusterid</span> \
+                    <span class="ow">and</span> <span class="p">(</span><span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;state&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">ACTIVE_COMPUTESETS</span><span class="p">):</span>
+                <span class="n">computesetid</span> <span class="o">=</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                <span class="c1"># print (computesetid)</span>
+                <span class="k">for</span> <span class="n">compute</span> <span class="ow">in</span> <span class="n">computeset</span><span class="p">[</span><span class="s2">&quot;computes&quot;</span><span class="p">]:</span>
+                    <span class="n">allhosts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">compute</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">])</span>
 
-        <span class="c"># print(&quot;SUBJECT to perform action on: {}&quot;.format(subject))</span>
-        <span class="c"># print(&quot;\ton cluster: {}&quot;.format(clusterid))</span>
-        <span class="c"># print(&quot;\tAction: {}&quot;.format(action))</span>
-        <span class="c"># print(&quot;\tParameter: {}&quot;.format(param))</span>
-        <span class="c"># print(&quot;\tAllocation: {}&quot;.format(allocation))</span>
-        <span class="c"># print(&quot;\tWalltime: {}&quot;.format(walltime))</span>
+        <span class="c1"># all nodes allocated</span>
+        <span class="k">if</span> <span class="n">hosts_param_set</span> <span class="o">&lt;=</span> <span class="n">allhosts</span><span class="p">:</span>
+            <span class="n">nodes_allocated</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="n">nodes_free</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">nodes_checked</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="c1"># at least one specified host not in any Active computeset</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts_param</span><span class="p">:</span>
+                <span class="c1"># some specified nodes are in Active computeset</span>
+                <span class="k">if</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">allhosts</span><span class="p">:</span>
+                    <span class="n">nodes_free</span> <span class="o">=</span> <span class="bp">False</span>
+                    <span class="n">nodes_checked</span> <span class="o">=</span> <span class="bp">True</span>
+                    <span class="k">break</span>
 
-        <span class="c"># the API is now accepting hostlist format directly</span>
-        <span class="c"># computeIdsHostlist = hostlist.collect_hostlist(computeids)</span>
-        <span class="c"># print (computeIdsHostlist)</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="c1"># print (&quot;nodes_checked: %s&quot; % nodes_checked)</span>
+        <span class="c1"># print (&quot;nodes_free: %s&quot; % nodes_free)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">nodes_free</span><span class="p">,</span> <span class="n">nodes_allocated</span><span class="p">]</span></div>
 
-        <span class="c">#</span>
-        <span class="c"># Now it accepts</span>
-        <span class="c"># {&quot;cluster&quot;:&quot;vc3&quot;,&quot;computes&quot;:&quot;compute[1-2]&quot;},</span>
-        <span class="c"># {&quot;cluster&quot;:&quot;vc3&quot;,&quot;computes&quot;:[&quot;compute1&quot;,&quot;compute2&quot;]} and</span>
-        <span class="c"># {&quot;cluster&quot;:&quot;vc3&quot;,&quot;count&quot;:2}</span>
-        <span class="c">#</span>
-        <span class="k">if</span> <span class="n">subject</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;HOSTS&#39;</span><span class="p">,</span> <span class="s">&#39;HOST&#39;</span><span class="p">]:</span>
-            <span class="c"># power on N arbitrary nodes</span>
-            <span class="k">if</span> <span class="n">numnodes</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s">&quot;on&quot;</span> <span class="o">==</span> <span class="n">action</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">allocation</span><span class="p">:</span>
-                        <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;rest&#39;</span><span class="p">)</span>
-                        <span class="c"># use the first one if no provided</span>
-                        <span class="n">allocation</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;allocations&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">walltime</span><span class="p">:</span>
-                        <span class="n">walltime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">WALLTIME_MINS</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.computeset_start"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.computeset_start">[docs]</a>    <span class="k">def</span> <span class="nf">computeset_start</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span>
+                         <span class="n">computenodeids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                         <span class="n">numnodes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                         <span class="n">allocation</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                         <span class="n">walltime</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># print (&quot;clusterid: %s&quot; % clusterid)</span>
+        <span class="c1"># print (&quot;computenodeids: %s&quot; % computenodeids)</span>
+        <span class="c1"># print (&quot;numnodes: %s&quot; % numnodes)</span>
+        <span class="c1"># print (&quot;allocation: %s&quot; % allocation)</span>
+        <span class="c1"># print (&quot;walltime: %s&quot; % walltime)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="c1"># validating and initiating allocation and walltime values</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">allocation</span><span class="p">:</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;rest&#39;</span><span class="p">)</span>
+            <span class="c1"># use the first one if no provided</span>
+            <span class="n">allocation</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;allocations&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">walltime</span><span class="p">:</span>
+            <span class="n">walltime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">WALLTIME_MINS</span>
 
-                    <span class="n">posturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;computeset/&quot;</span><span class="p">)</span>
-                    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;cluster&quot;</span><span class="p">:</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">clusterid</span><span class="p">,</span> <span class="s">&quot;count&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">numnodes</span><span class="p">}</span>
-
-                    <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-                    <span class="c"># print(&quot;RETURNED RESULTS:&quot;)</span>
-                    <span class="c"># print (r)</span>
-                    <span class="k">if</span> <span class="s">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="s">&#39;state&#39;</span> <span class="ow">in</span> <span class="n">r</span> <span class="ow">and</span> \
-                           <span class="p">(</span><span class="s">&#39;queued&#39;</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;state&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&#39;submitted&#39;</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;state&#39;</span><span class="p">]):</span>
-                            <span class="n">computesetid</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
-                            <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;Request accepted! Check status with:</span><span class="se">\n</span><span class="s">&#39;</span> \
-                                  <span class="s">&#39;comet cluster {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">)</span> <span class="o">+</span> \
-                                  <span class="s">&#39;or:</span><span class="se">\n</span><span class="s">&#39;</span> \
-                                  <span class="s">&#39;comet computeset {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetid</span><span class="p">)</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="c"># in case of some internal problem</span>
-                            <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-                    <span class="k">elif</span> <span class="s">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-                        <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;An error occurred: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">])</span>
-                    <span class="k">else</span><span class="p">:</span>
-                        <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;An internal error occured. &quot;</span>\
-                              <span class="s">&quot;Please submit a ticket with the &quot;</span>\
-                              <span class="s">&quot;following info:</span><span class="se">\n</span><span class="s"> {}</span><span class="se">\n</span><span class="s">&quot;</span>\
-                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-                <span class="c"># cannot power off or reboot N arbitrary nodes</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Action NOT SUPPORTED! Try with explicit &quot;</span>\
-                          <span class="s">&quot;node name(s) or computeset id&quot;</span>
-            <span class="c"># parse based on NODEPARAM parameter</span>
-            <span class="c"># could be computeset id; front end; or hostlist named compute nodes</span>
+        <span class="c1"># preparing parameters for the post call</span>
+        <span class="c1"># num of nodes to start</span>
+        <span class="c1">#</span>
+        <span class="c1"># Now it accepts</span>
+        <span class="c1"># {&quot;cluster&quot;:&quot;vc3&quot;,&quot;computes&quot;:&quot;compute[1-2]&quot;},</span>
+        <span class="c1"># {&quot;cluster&quot;:&quot;vc3&quot;,&quot;computes&quot;:[&quot;compute1&quot;,&quot;compute2&quot;]} and</span>
+        <span class="c1"># {&quot;cluster&quot;:&quot;vc3&quot;,&quot;count&quot;:2}</span>
+        <span class="c1">#</span>
+        <span class="k">if</span> <span class="n">numnodes</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cluster&quot;</span><span class="p">:</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">clusterid</span><span class="p">,</span>
+                    <span class="s2">&quot;count&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">numnodes</span><span class="p">,</span>
+                    <span class="s2">&quot;walltime_mins&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">walltime</span><span class="p">,</span>
+                    <span class="s2">&quot;allocation&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">allocation</span><span class="p">}</span>
+        <span class="c1"># computenodeids in hostlist format</span>
+        <span class="k">elif</span> <span class="n">computenodeids</span><span class="p">:</span>
+            <span class="n">nodes_free</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">check_nodes_computesets</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">nodes_free</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Some nodes are already in active computesets&quot;</span><span class="p">,</span>
+                              <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">ret</span>
             <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;computes&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">computenodeids</span><span class="p">,</span>
+                        <span class="s2">&quot;cluster&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">clusterid</span><span class="p">,</span>
+                        <span class="s2">&quot;walltime_mins&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">walltime</span><span class="p">,</span>
+                        <span class="s2">&quot;allocation&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">allocation</span><span class="p">}</span>
+
+        <span class="c1"># print(&quot;Issuing request to poweron nodes...&quot;)</span>
+        <span class="n">posturl</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/&quot;</span><span class="p">)</span>
+        <span class="c1"># print (&quot;POST data: %s&quot; % data)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># print(&quot;RETURNED RESULTS:&quot;)</span>
+        <span class="c1"># print (r)</span>
+        <span class="k">if</span> <span class="s1">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;state&#39;</span> <span class="ow">in</span> <span class="n">r</span> <span class="ow">and</span> \
+                <span class="n">r</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">PENDING_COMPUTESETS</span><span class="p">:</span>
+                <span class="n">computesetid</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;Request accepted! Check status with:</span><span class="se">\n</span><span class="s1">&#39;</span> \
+                      <span class="s1">&#39;comet cluster {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">)</span> <span class="o">+</span> \
+                      <span class="s1">&#39;or:</span><span class="se">\n</span><span class="s1">&#39;</span> \
+                      <span class="s1">&#39;comet computeset {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetid</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># in case of some internal problem</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">elif</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An error occurred: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;An internal error occured. &quot;</span>\
+                  <span class="s2">&quot;Please submit a ticket with the &quot;</span>\
+                  <span class="s2">&quot;following info:</span><span class="se">\n</span><span class="s2"> {}</span><span class="se">\n</span><span class="s2">&quot;</span>\
+                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.computeset_terminate"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.computeset_terminate">[docs]</a>    <span class="k">def</span> <span class="nf">computeset_terminate</span><span class="p">(</span><span class="n">computesetid</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/&quot;</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;poweroff&quot;</span>
+        <span class="n">puturl</span> <span class="o">=</span> <span class="s2">&quot;{:}{:}/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">computesetid</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="c1"># print (puturl)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">puturl</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Request Accepted. &quot;</span>\
+                      <span class="s2">&quot;In the process of terminating the computeset&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Problem executing the request. &quot;</span>\
+                  <span class="s2">&quot;Check if the computeset exists&quot;</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.power"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.power">[docs]</a>    <span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">subject</span><span class="p">,</span> <span class="n">param</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># print (&quot;clusterid: %s&quot; % clusterid)</span>
+        <span class="c1"># print (&quot;subject: %s&quot; % subject)</span>
+        <span class="c1"># print (&quot;param: %s&quot; % param)</span>
+        <span class="c1"># print (&quot;action: %s&quot; % action)</span>
+        <span class="k">if</span> <span class="n">subject</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;HOSTS&#39;</span><span class="p">]:</span>
+            <span class="n">nodes_allocated</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">check_nodes_computesets</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">param</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">nodes_allocated</span><span class="p">:</span>
                 <span class="n">hosts_param</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
-                <span class="n">hosts_param_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">hosts_param</span><span class="p">)</span>
-                <span class="n">nodes_free</span> <span class="o">=</span> <span class="bp">True</span>
-                <span class="n">nodes_allocated</span> <span class="o">=</span> <span class="bp">False</span>
-                <span class="n">nodes_checked</span> <span class="o">=</span> <span class="bp">False</span>
-                <span class="c"># computesetid = -1</span>
-                <span class="n">computesets</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">get_computeset</span><span class="p">()</span>
-                <span class="k">for</span> <span class="n">computeset</span> <span class="ow">in</span> <span class="n">computesets</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">computeset</span><span class="p">[</span><span class="s">&quot;cluster&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">clusterid</span> \
-                            <span class="ow">and</span> <span class="p">(</span><span class="n">computeset</span><span class="p">[</span><span class="s">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;started&quot;</span> <span class="ow">or</span>
-                                 <span class="n">computeset</span><span class="p">[</span><span class="s">&quot;state&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;running&quot;</span><span class="p">):</span>
-                        <span class="n">computesetid</span> <span class="o">=</span> <span class="n">computeset</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span>
-                        <span class="c"># print (computesetid)</span>
-                        <span class="n">hosts</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
-                        <span class="k">for</span> <span class="n">compute</span> <span class="ow">in</span> <span class="n">computeset</span><span class="p">[</span><span class="s">&quot;computes&quot;</span><span class="p">]:</span>
-                            <span class="n">hosts</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">compute</span><span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">])</span>
-                        <span class="c"># print (hosts)</span>
-                        <span class="k">if</span> <span class="n">hosts_param_set</span> <span class="o">&lt;=</span> <span class="n">hosts</span><span class="p">:</span>
-                            <span class="n">nodes_allocated</span> <span class="o">=</span> <span class="bp">True</span>
-                            <span class="n">nodes_free</span> <span class="o">=</span> <span class="bp">False</span>
-                            <span class="n">nodes_checked</span> <span class="o">=</span> <span class="bp">True</span>
-                        <span class="c"># at least one specified host not in any Active computeset</span>
+                <span class="c1"># print (hosts_param)</span>
+                <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts_param</span><span class="p">:</span>
+                    <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute/{}&quot;</span>
+                                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">host</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+                        <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;power{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                    <span class="n">puturl</span> <span class="o">=</span> <span class="s2">&quot;{}/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+                    <span class="c1"># print (puturl)</span>
+                    <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">puturl</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                            <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
                         <span class="k">else</span><span class="p">:</span>
-                            <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts_param</span><span class="p">:</span>
-                                <span class="c"># some specified nodes are in Active computeset</span>
-                                <span class="k">if</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">:</span>
-                                    <span class="n">nodes_free</span> <span class="o">=</span> <span class="bp">False</span>
-                                    <span class="n">nodes_checked</span> <span class="o">=</span> <span class="bp">True</span>
-                                    <span class="k">break</span>
-                    <span class="c"># a cluster could have multiple &#39;started&#39; set</span>
-                    <span class="k">if</span> <span class="n">nodes_checked</span><span class="p">:</span>
-                        <span class="k">break</span>
-                <span class="c"># print (&quot;nodes_checked: %s&quot; % nodes_checked)</span>
-                <span class="c"># print (&quot;nodes_allocated: %s&quot; % nodes_allocated)</span>
-                <span class="c"># print (&quot;nodes_free: %s&quot; % nodes_free)</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">nodes_free</span> <span class="ow">or</span> <span class="n">nodes_allocated</span><span class="p">):</span>
-                    <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Error: Some nodes are already in active computesets&quot;</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s">&quot;on&quot;</span> <span class="o">==</span> <span class="n">action</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="ow">not</span> <span class="n">allocation</span><span class="p">:</span>
-                            <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;rest&#39;</span><span class="p">)</span>
-                            <span class="c"># use the first one if no provided</span>
-                            <span class="n">allocation</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;allocations&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="k">if</span> <span class="ow">not</span> <span class="n">walltime</span><span class="p">:</span>
-                            <span class="n">walltime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">WALLTIME_MINS</span>
-
-                        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;computes&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">param</span><span class="p">,</span>
-                                <span class="s">&quot;cluster&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">clusterid</span><span class="p">,</span>
-                                <span class="s">&quot;walltime_mins&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">walltime</span><span class="p">,</span>
-                                <span class="s">&quot;allocation&quot;</span><span class="p">:</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">allocation</span><span class="p">}</span>
-
-                        <span class="k">if</span> <span class="n">nodes_free</span><span class="p">:</span>
-                            <span class="c"># print(&quot;Issuing request to poweron nodes...&quot;)</span>
-                            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;computeset/&quot;</span><span class="p">)</span>
-                            <span class="n">posturl</span> <span class="o">=</span> <span class="n">url</span>
-                            <span class="c"># print (data)</span>
-
-                            <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">posturl</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-                            <span class="c"># print(&quot;RETURNED RESULTS:&quot;)</span>
-                            <span class="c"># print (r)</span>
-                            <span class="k">if</span> <span class="s">&#39;cluster&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-                                <span class="k">if</span> <span class="s">&#39;state&#39;</span> <span class="ow">in</span> <span class="n">r</span> <span class="ow">and</span> \
-                                   <span class="p">(</span><span class="s">&#39;queued&#39;</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;state&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&#39;submitted&#39;</span> <span class="o">==</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;state&#39;</span><span class="p">]):</span>
-                                    <span class="n">computesetid</span> <span class="o">=</span> <span class="n">r</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">]</span>
-                                    <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;Request accepted! Check status with:</span><span class="se">\n</span><span class="s">&#39;</span> \
-                                          <span class="s">&#39;comet cluster {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">)</span> <span class="o">+</span> \
-                                          <span class="s">&#39;or:</span><span class="se">\n</span><span class="s">&#39;</span> \
-                                          <span class="s">&#39;comet computeset {}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">computesetid</span><span class="p">)</span>
-                                <span class="k">else</span><span class="p">:</span>
-                                    <span class="c"># in case of some internal problem</span>
-                                    <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-                            <span class="k">elif</span> <span class="s">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
-                                <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;An error occurred: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s">&#39;error&#39;</span><span class="p">])</span>
-                            <span class="k">else</span><span class="p">:</span>
-                                <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;An internal error occured. &quot;</span>\
-                                      <span class="s">&quot;Please submit a ticket with the &quot;</span>\
-                                      <span class="s">&quot;following info:</span><span class="se">\n</span><span class="s"> {}</span><span class="se">\n</span><span class="s">&quot;</span>\
-                                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-                        <span class="k">elif</span> <span class="n">nodes_allocated</span><span class="p">:</span>
-                            <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-                            <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts_param</span><span class="p">:</span>
-                                <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{}/compute/{}/&quot;</span>
-                                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">host</span><span class="p">))</span>
-                                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;poweron&quot;</span>
-                                <span class="n">puturl</span> <span class="o">=</span> <span class="s">&quot;{}{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
-                                <span class="c"># print (puturl)</span>
-                                <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">puturl</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                                    <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-                                        <span class="n">ret</span> <span class="o">+=</span> <span class="n">r</span>
-                                    <span class="k">else</span><span class="p">:</span>
-                                        <span class="n">ret</span> <span class="o">+=</span> <span class="s">&quot;Requeset Accepted. &quot;</span>\
-                                               <span class="s">&quot;In the process of power on node {}</span><span class="se">\n</span><span class="s">&quot;</span>\
-                                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
-                                <span class="k">else</span><span class="p">:</span>
-                                    <span class="n">ret</span> <span class="o">+=</span> <span class="s">&quot;Problem executing the request. &quot;</span>\
-                                        <span class="s">&quot;Check if the node {} belongs to the cluster&quot;</span>\
-                                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
-                        <span class="c"># print(ret)</span>
-                    <span class="k">elif</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;off&quot;</span><span class="p">,</span> <span class="s">&quot;reboot&quot;</span><span class="p">,</span> <span class="s">&quot;reset&quot;</span><span class="p">,</span> <span class="s">&quot;shutdown&quot;</span><span class="p">]:</span>
-                        <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;off&quot;</span><span class="p">]:</span>
-                            <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;power{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">nodes_allocated</span><span class="p">:</span>
-                            <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
-                            <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts_param</span><span class="p">:</span>
-                                <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{}/compute/{}/&quot;</span>
-                                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">host</span><span class="p">))</span>
-                                <span class="n">puturl</span> <span class="o">=</span> <span class="s">&quot;{}{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
-                                <span class="c"># print (puturl)</span>
-                                <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">puturl</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                                    <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-                                        <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
-                                    <span class="k">else</span><span class="p">:</span>
-                                        <span class="n">ret</span> <span class="o">+=</span> <span class="s">&quot;Requeset Accepted. &quot;</span>\
-                                            <span class="s">&quot;In the process of {} node {}</span><span class="se">\n</span><span class="s">&quot;</span>\
-                                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
-                                <span class="k">else</span><span class="p">:</span>
-                                    <span class="n">ret</span> <span class="o">+=</span> <span class="s">&quot;Problem executing the request. &quot;</span>\
-                                        <span class="s">&quot;Check if the node {} belongs to the cluster&quot;</span>\
-                                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
-                        <span class="k">elif</span> <span class="n">nodes_free</span><span class="p">:</span>
-                            <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Error: The specified nodes are &quot;</span>\
-                                  <span class="s">&quot;not in active computesets&quot;</span>
+                            <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Request Accepted. &quot;</span>\
+                                <span class="s2">&quot;In the process of {} node {}</span><span class="se">\n</span><span class="s2">&quot;</span>\
+                                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Action not supported! Try these: &quot;</span>\
-                              <span class="s">&quot;on/off/reboot/reset/shutdown&quot;</span>
-        <span class="k">elif</span> <span class="s">&#39;FE&#39;</span> <span class="o">==</span> <span class="n">subject</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{}/frontend/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;off&quot;</span><span class="p">,</span> <span class="s">&quot;reboot&quot;</span><span class="p">,</span> <span class="s">&quot;reset&quot;</span><span class="p">,</span> <span class="s">&quot;shutdown&quot;</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;off&quot;</span><span class="p">]:</span>
-                    <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;power{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-                <span class="n">puturl</span> <span class="o">=</span> <span class="s">&quot;{}{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
-                <span class="c"># print (puturl)</span>
+                        <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Problem executing the request. &quot;</span>\
+                            <span class="s2">&quot;Check if the node {} belongs to the cluster&quot;</span>\
+                            <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
+                        <span class="c1"># print(ret)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;At least one specified node is not in any &quot;</span>\
+                              <span class="s2">&quot;active computesets thus cannot be powered on.</span><span class="se">\n</span><span class="s2">&quot;</span>\
+                              <span class="s2">&quot;Please start the node(s) with &#39;comet start&#39; first&quot;</span><span class="p">,</span>
+                              <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">&#39;FE&#39;</span> <span class="o">==</span> <span class="n">subject</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="s2">&quot;reboot&quot;</span><span class="p">,</span> <span class="s2">&quot;reset&quot;</span><span class="p">,</span> <span class="s2">&quot;shutdown&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;power{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                <span class="n">puturl</span> <span class="o">=</span> <span class="s2">&quot;{}{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+                <span class="c1"># print (puturl)</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">puturl</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
                         <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Requeset Accepted. &quot;</span>\
-                              <span class="s">&quot;In the process of {} the front-end node&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                        <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Request Accepted. &quot;</span>\
+                              <span class="s2">&quot;In the process of {} the front-end node&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Problem executing the request. &quot;</span>\
-                          <span class="s">&quot;Check if the cluster exists&quot;</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Problem executing the request. &quot;</span>\
+                          <span class="s2">&quot;Check if the cluster exists&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Action not supported! Try these: on/off/reboot/reset/shutdown&quot;</span>
-        <span class="k">elif</span> <span class="s">&#39;COMPUTESET&#39;</span> <span class="o">==</span> <span class="n">subject</span><span class="p">:</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;computeset/&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="s">&#39;on&#39;</span> <span class="o">==</span> <span class="n">action</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;NOT SUPPORTED! Use hostslist to specify the hosts to power on!&quot;</span>
-            <span class="k">elif</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;off&quot;</span><span class="p">,</span> <span class="s">&quot;reboot&quot;</span><span class="p">,</span> <span class="s">&quot;reset&quot;</span><span class="p">,</span> <span class="s">&quot;shutdown&quot;</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;off&quot;</span><span class="p">]:</span>
-                    <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;power{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
-                <span class="n">puturl</span> <span class="o">=</span> <span class="s">&quot;{:}{:}/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
-                <span class="c"># print (puturl)</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Action not supported! Try these: on/off/reboot/reset/shutdown&quot;</span>
+        <span class="k">elif</span> <span class="s1">&#39;COMPUTESET&#39;</span> <span class="o">==</span> <span class="n">subject</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;computeset/&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Action NOT SUPPORTED! Use &#39;comet start/terminate&#39;!&quot;</span>
+            <span class="k">elif</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;reboot&quot;</span><span class="p">,</span> <span class="s2">&quot;reset&quot;</span><span class="p">,</span> <span class="s2">&quot;shutdown&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">action</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+                    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;power{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                <span class="n">puturl</span> <span class="o">=</span> <span class="s2">&quot;{:}{:}/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+                <span class="c1"># print (puturl)</span>
                 <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">puturl</span><span class="p">)</span>
                 <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                    <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
                         <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Requeset Accepted. &quot;</span>\
-                              <span class="s">&quot;In the process of {} the nodes&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+                        <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Request Accepted. &quot;</span>\
+                              <span class="s2">&quot;In the process of {} the computeset&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Problem executing the request. &quot;</span>\
-                          <span class="s">&quot;Check if the computeset exists&quot;</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Problem executing the request. &quot;</span>\
+                          <span class="s2">&quot;Check if the computeset exists&quot;</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Action not supported! Try these: on/off/reboot/reset/shutdown&quot;</span>
-        <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">        elif &#39;HOST&#39; == subject:</span>
-<span class="sd">            computesets = Comet.get_computeset()</span>
-<span class="sd">            pprint (computesets)</span>
-<span class="sd">            for computeset in computesets:</span>
-<span class="sd">                if computeset[&quot;cluster&quot;] == clusterid \</span>
-<span class="sd">                        and (computeset[&quot;state&quot;] == &quot;started&quot; \</span>
-<span class="sd">                             or computeset[&quot;state&quot;] == &quot;running&quot;):</span>
-<span class="sd">                    computesetid = computeset[&quot;id&quot;]</span>
-<span class="sd">                    # print (computesetid)</span>
-<span class="sd">                    hosts = set()</span>
-<span class="sd">                    for compute in computeset[&quot;computes&quot;]:</span>
-<span class="sd">                        hosts.add(compute[&quot;name&quot;])</span>
-<span class="sd">                    # print (hosts)</span>
-<span class="sd">                    is_valid_set = True</span>
-<span class="sd">                    hostsparam = Parameter.expand(param)</span>
-<span class="sd">                    for host in hostsparam:</span>
-<span class="sd">                        if host not in hosts:</span>
-<span class="sd">                            is_valid_set = False</span>
-<span class="sd">                            break </span>
-<span class="sd">            url = Comet.url(&quot;cluster/{}/compute/{}/&quot;.format(clusterid, param))</span>
-<span class="sd">            if action in [&quot;on&quot;, &quot;off&quot;, &quot;reboot&quot;, &quot;reset&quot;, &quot;shutdown&quot;]:</span>
-<span class="sd">                if action in [&quot;on&quot;, &quot;off&quot;]:</span>
-<span class="sd">                    action = &quot;power{}&quot;.format(action)</span>
-<span class="sd">                puturl = &quot;{}{}&quot;.format(url, action)</span>
-<span class="sd">                # print (puturl)</span>
-<span class="sd">                r = Comet.put(puturl)</span>
-<span class="sd">                if r is not None:</span>
-<span class="sd">                    if &#39;&#39; != r.strip():</span>
-<span class="sd">                        ret = r</span>
-<span class="sd">                    else:</span>
-<span class="sd">                        ret = &quot;Requeset Accepted. &quot;\</span>
-<span class="sd">                              &quot;In the process of {} the nodes&quot;.format(action)</span>
-<span class="sd">                else:</span>
-<span class="sd">                    ret = &quot;Problem executing the request. &quot;\</span>
-<span class="sd">                          &quot;Check if the node belongs to the cluster&quot;</span>
-<span class="sd">            else:</span>
-<span class="sd">                ret = &quot;Action not supported! Try these: on/off/reboot/reset/shutdown&quot;</span>
-<span class="sd">        &#39;&#39;&#39;</span>
-        <span class="c"># &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">ret</span>
-</div>
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.detach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.detach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;Detaching&#39;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;Detaching&#39;</span><span class="p">)</span>
-</div>
-    <span class="nd">@staticmethod</span>
-<div class="viewcode-block" id="Cluster.attach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.attach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">attach_iso</span><span class="p">(</span><span class="n">isoname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">&#39;Attaching&#39;</span><span class="p">):</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
-        <span class="c"># print (&quot;Attaching ISO image&quot;)</span>
-        <span class="c"># print (&quot;isoname: %s&quot; % isoname)</span>
-        <span class="c">#print (&quot;cluster: %s&quot; % clusterid)</span>
-        <span class="c"># print (&quot;node: %s&quot; % nodeid)</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Action not supported! Try these: reboot/reset/shutdown&quot;</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
 
-        <span class="k">if</span> <span class="n">isoname</span> <span class="o">!=</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
-            <span class="n">isoname</span> <span class="o">=</span> <span class="s">&quot;public/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">isoname</span><span class="p">)</span>
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.detach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.detach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;Detaching&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;Detaching&#39;</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Cluster.attach_iso"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.attach_iso">[docs]</a>    <span class="k">def</span> <span class="nf">attach_iso</span><span class="p">(</span><span class="n">isoname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeids</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;Attaching&#39;</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1"># print (&quot;Attaching ISO image&quot;)</span>
+        <span class="c1"># print (&quot;isoname: %s&quot; % isoname)</span>
+        <span class="c1"># print (&quot;cluster: %s&quot; % clusterid)</span>
+        <span class="c1"># print (&quot;node: %s&quot; % nodeid)</span>
+
+        <span class="k">if</span> <span class="n">isoname</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="n">isoname</span> <span class="o">=</span> <span class="s2">&quot;public/{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">isoname</span><span class="p">)</span>
 
         <span class="n">urls</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="c"># attaching to compute node</span>
+        <span class="c1"># attaching to compute node</span>
         <span class="k">if</span> <span class="n">nodeids</span><span class="p">:</span>
             <span class="n">nodeids</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">nodeids</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">nodeid</span> <span class="ow">in</span> <span class="n">nodeids</span><span class="p">:</span>
-                <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{}/compute/{}/attach_iso?iso_name={}&quot;</span><span class="p">)</span>\
+                <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute/{}/attach_iso?iso_name={}&quot;</span><span class="p">)</span>\
                                 <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">,</span> <span class="n">isoname</span><span class="p">)</span>
-                <span class="n">urls</span><span class="p">[</span><span class="s">&quot;Node {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nodeid</span><span class="p">)]</span> <span class="o">=</span> <span class="n">url</span>
+                <span class="n">urls</span><span class="p">[</span><span class="s2">&quot;Node {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nodeid</span><span class="p">)]</span> <span class="o">=</span> <span class="n">url</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># attaching to fronend node</span>
-            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{}/frontend/attach_iso?iso_name={}&quot;</span><span class="p">)</span>\
+            <span class="c1"># attaching to fronend node</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/frontend/attach_iso?iso_name={}&quot;</span><span class="p">)</span>\
                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">isoname</span><span class="p">)</span>
-            <span class="n">urls</span><span class="p">[</span><span class="s">&#39;Frontend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url</span>
-        <span class="c">#data = {&quot;iso_name&quot;: &quot;%s&quot; % isoname}</span>
-        <span class="c"># print (&quot;url: %s&quot; % url)</span>
-        <span class="c">#print (&quot;data: %s&quot; % data)</span>
+            <span class="n">urls</span><span class="p">[</span><span class="s1">&#39;Frontend&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="c1"># data = {&quot;iso_name&quot;: &quot;%s&quot; % isoname}</span>
+        <span class="c1"># print (&quot;url: %s&quot; % url)</span>
+        <span class="c1"># print (&quot;data: %s&quot; % data)</span>
         <span class="n">tofrom</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">tofrom</span><span class="p">[</span><span class="s">&#39;Attaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;to&#39;</span>
-        <span class="n">tofrom</span><span class="p">[</span><span class="s">&#39;Detaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;from&#39;</span>
-        <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="n">tofrom</span><span class="p">[</span><span class="s1">&#39;Attaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;to&#39;</span>
+        <span class="n">tofrom</span><span class="p">[</span><span class="s1">&#39;Detaching&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;from&#39;</span>
+        <span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-            <span class="c"># print (r)</span>
+            <span class="c1"># print (r)</span>
             <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+                <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
                     <span class="n">ret</span> <span class="o">+=</span> <span class="n">r</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">ret</span> <span class="o">+=</span> <span class="s">&quot;Requeset Accepted. {} the image {} {} of cluster {}</span><span class="se">\n</span><span class="s">&quot;</span>\
+                    <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Request Accepted. {} the iso image {} {} of cluster {}</span><span class="se">\n</span><span class="s2">&quot;</span>\
                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">tofrom</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">+=</span> <span class="s">&quot;Something wrong during {} the image {} {} of cluster {}!&quot;</span>\
-                       <span class="s">&quot;Please check the command and try again</span><span class="se">\n</span><span class="s">&quot;</span>\
+                <span class="n">ret</span> <span class="o">+=</span> <span class="s2">&quot;Something wrong during {} the iso image {} {} of cluster {}!&quot;</span>\
+                       <span class="s2">&quot;Please check the command and try again</span><span class="se">\n</span><span class="s2">&quot;</span>\
                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">tofrom</span><span class="p">[</span><span class="n">action</span><span class="p">],</span> <span class="n">node</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">ret</span>
-</div>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.rename_node"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.rename_node">[docs]</a>    <span class="k">def</span> <span class="nf">rename_node</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">old_compute_name</span><span class="p">,</span> <span class="n">new_compute_name</span><span class="p">):</span>
-        <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s">&quot;cluster/{}/compute/{}/rename&quot;</span>\
+        <span class="n">url</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">url</span><span class="p">(</span><span class="s2">&quot;cluster/{}/compute/{}/rename&quot;</span>\
                         <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">old_compute_name</span><span class="p">))</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">new_compute_name</span><span class="p">}</span>
-        <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">new_compute_name</span><span class="p">}</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">print</span> <span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="c1"># print (r)</span>
         <span class="k">if</span> <span class="n">r</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="s">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+            <span class="k">if</span> <span class="s1">&#39;&#39;</span> <span class="o">!=</span> <span class="n">r</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
                 <span class="n">ret</span> <span class="o">=</span> <span class="n">r</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">ret</span> <span class="o">=</span> <span class="s">&quot;Requeset Accepted.&quot;</span>
-        <span class="k">return</span> <span class="n">ret</span>
-</div>
+                <span class="n">ret</span> <span class="o">=</span> <span class="s2">&quot;Request Accepted.&quot;</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
     <span class="nd">@staticmethod</span>
 <div class="viewcode-block" id="Cluster.delete"><a class="viewcode-back" href="../../../code/cloudmesh_client.comet.html#cloudmesh_client.comet.cluster.Cluster.delete">[docs]</a>    <span class="k">def</span> <span class="nf">delete</span><span class="p">():</span>
         <span class="k">pass</span></div></div>
@@ -813,7 +872,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common package &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.common package &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
         <link rel="next" title="cloudmesh_client.db package" href="cloudmesh_client.db.html"/>
         <link rel="prev" title="cloudmesh_client.comet package" href="cloudmesh_client.comet.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -130,6 +130,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.common.Shell">cloudmesh_client.common.Shell module</a></li>
@@ -167,6 +169,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -189,7 +193,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -515,7 +519,7 @@ array load_order
 
 <dl class="class">
 <dt id="cloudmesh_client.common.ConfigDict.ConfigDict">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.common.ConfigDict.</code><code class="descname">ConfigDict</code><span class="sig-paren">(</span><em>filename</em>, <em>load_order=None</em>, <em>verbose=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/ConfigDict.html#ConfigDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.ConfigDict.</code><code class="descname">ConfigDict</code><span class="sig-paren">(</span><em>filename</em>, <em>load_order=None</em>, <em>verbose=False</em>, <em>etc=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/ConfigDict.html#ConfigDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.ConfigDict.ConfigDict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.common.ConfigDict.ConfigDict.check">
@@ -805,8 +809,33 @@ operators that are allowed are = and, or</p>
 <em class="property">class </em><code class="descclassname">cloudmesh_client.common.Error.</code><code class="descname">Error</code><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <dl class="classmethod">
+<dt id="cloudmesh_client.common.Error.Error.debug">
+<em class="property">classmethod </em><code class="descname">debug</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error.debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.Error.Error.exit">
+<em class="property">classmethod </em><code class="descname">exit</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error.exit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.exit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.Error.Error.info">
+<em class="property">classmethod </em><code class="descname">info</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error.info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.Error.Error.msg">
+<em class="property">classmethod </em><code class="descname">msg</code><span class="sig-paren">(</span><em>error=None</em>, <em>debug=True</em>, <em>trace=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error.msg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.common.Error.Error.traceback">
 <em class="property">classmethod </em><code class="descname">traceback</code><span class="sig-paren">(</span><em>error=None</em>, <em>debug=True</em>, <em>trace=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error.traceback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.traceback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="cloudmesh_client.common.Error.Error.warning">
+<em class="property">classmethod </em><code class="descname">warning</code><span class="sig-paren">(</span><em>msg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Error.html#Error.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Error.Error.warning" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -890,6 +919,53 @@ at time of initialization.</p>
 <dt id="cloudmesh_client.common.FlatDict.main">
 <code class="descclassname">cloudmesh_client.common.FlatDict.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/FlatDict.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.FlatDict.main" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</div>
+<div class="section" id="cloudmesh-client-common-gitinfo-module">
+<h2>cloudmesh_client.common.GitInfo module<a class="headerlink" href="#cloudmesh-client-common-gitinfo-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-cloudmesh_client.common.LibcloudDict">
+<span id="cloudmesh-client-common-libclouddict-module"></span><h2>cloudmesh_client.common.LibcloudDict module<a class="headerlink" href="#module-cloudmesh_client.common.LibcloudDict" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.common.LibcloudDict.</code><code class="descname">LibcloudDict</code><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="attribute">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.Libcloud_category_list">
+<code class="descname">Libcloud_category_list</code><em class="property"> = ['chameleon-ec2', 'cybera-ec2', 'aws']</em><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.Libcloud_category_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.convert_libcloud_vm_to_dict">
+<em class="property">static </em><code class="descname">convert_libcloud_vm_to_dict</code><span class="sig-paren">(</span><em>node_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict.convert_libcloud_vm_to_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.convert_libcloud_vm_to_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_extra_args">
+<em class="property">static </em><code class="descname">handle_vm_extra_args</code><span class="sig-paren">(</span><em>extra_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict.handle_vm_extra_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_extra_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_details">
+<em class="property">static </em><code class="descname">handle_vm_image_details</code><span class="sig-paren">(</span><em>node_image_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict.handle_vm_image_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_extra_args">
+<em class="property">static </em><code class="descname">handle_vm_image_extra_args</code><span class="sig-paren">(</span><em>extra_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict.handle_vm_image_extra_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_image_extra_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_details">
+<em class="property">static </em><code class="descname">handle_vm_size_details</code><span class="sig-paren">(</span><em>node_size_obj</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict.handle_vm_size_details"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_details" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_extra_args">
+<em class="property">static </em><code class="descname">handle_vm_size_extra_args</code><span class="sig-paren">(</span><em>node_size_extra_args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/LibcloudDict.html#LibcloudDict.handle_vm_size_extra_args"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.LibcloudDict.LibcloudDict.handle_vm_size_extra_args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-cloudmesh_client.common.LogUtil">
@@ -1059,7 +1135,9 @@ cloudmesh.yaml
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>order</strong> &#8211; The order in which the columns are printed.
 The order is specified by the key names of the dict.</li>
-<li><strong>header</strong> &#8211; The Header of each of the columns</li>
+<li><strong>header</strong> (<em>A list of string</em>) &#8211; The Header of each of the columns</li>
+<li><strong>sort_keys</strong> (<em>string or a tuple of string (for sorting with multiple columns)</em>) &#8211; Key(s) of the dict to be used for sorting.
+This specify the column(s) in the table for sorting.</li>
 </ul>
 </td>
 </tr>
@@ -1391,6 +1469,14 @@ for c in commands:</p>
 <dt id="cloudmesh_client.common.Shell.Shell.terminal_type">
 <em class="property">classmethod </em><code class="descname">terminal_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Shell.html#Shell.terminal_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.terminal_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns  darwin, cygwin, cmd, or linux</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.common.Shell.Shell.unzip">
+<code class="descname">unzip</code><span class="sig-paren">(</span><em>source_filename</em>, <em>dest_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/common/Shell.html#Shell.unzip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.common.Shell.Shell.unzip" title="Permalink to this definition">¶</a></dt>
+<dd><p>unzips a file into the destination directory
+:param dest_dir: the destination directory
+:return:</p>
 </dd></dl>
 
 <dl class="classmethod">
@@ -1897,7 +1983,7 @@ digit or arithmetic e.g. +5 or -3 can be used</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Quickstart &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
         <link rel="next" title="Reference Card" href="reference_card.html"/>
         <link rel="prev" title="Introduction" href="introduction.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -131,6 +131,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -153,7 +155,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -186,7 +188,7 @@ system according to the steps documented in the Section
 <div class="section" id="setup">
 <h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
 <p>The setup of cloudmesh client is quite simple and can be done with:</p>
-<div class="highlight-python"><div class="highlight"><pre>pip install cloudmesh_client
+<div class="highlight-python"><div class="highlight"><pre><span></span>pip install cloudmesh_client
 </pre></div>
 </div>
 <p>However, you may want to read carefully our setup guide and prepare
@@ -222,7 +224,7 @@ includes defaults, variables and configuration flags.</p>
 username and project in futuresystems using cloudmesh is easy. Only
 thing you need is an entry in the .ssh/config file with the machine
 name india, like follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>Host india
+<div class="highlight-python"><div class="highlight"><pre><span></span>Host india
 Hostname india.futuresystems.org
 User albert
 </pre></div>
@@ -246,7 +248,7 @@ created you can use that or else you can specify a new group name.</p>
 <pre class="highlight"><span class="prompt1">default group=test-group</span>
 </pre><p>Next, you need to upload your ssh keys to the cloud. If you already
 have a key-pair you can use it, or else you can generate ssh keys using:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ssh-keygen -t rsa -C albert@albert-pc
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ ssh-keygen -t rsa -C albert@albert-pc
 </pre></div>
 </div>
 <p>This will generate id_rsa.pub (public key) and id_rsa (private key)
@@ -257,7 +259,7 @@ to the key database. To do so, use:</p>
 </pre><p>You can list the keys in the key database by using:</p>
 <pre class="highlight"><span class="prompt1">key list</span>
 </pre><p>The output would look something like:</p>
-<div class="highlight-python"><div class="highlight"><pre>+--------+----------------+-------------------------------------+--------------+--------+
+<div class="highlight-python"><div class="highlight"><pre><span></span>+--------+----------------+-------------------------------------+--------------+--------+
 | name   | comment        | uri                                 | fingerprint  | source |
 +--------+----------------+-------------------------------------+--------------+--------+
 | id_rsa | albert@mycompi | file:///home/albert/.ssh/id_rsa.pub | 64:aa: ....  | ssh    |
@@ -274,7 +276,7 @@ to start a new VM in the cloud. This section explains how to do that.</p>
 <p>First, make sure all defaults are correctly set.</p>
 <pre class="highlight"><span class="prompt1">vm default</span>
 </pre><p>The output will look somewhat similar to the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>+-----------+---------------+
+<div class="highlight-python"><div class="highlight"><pre><span></span>+-----------+---------------+
 | Attribute | Value         |
 +-----------+---------------+
 | secgroup  |               |
@@ -296,7 +298,7 @@ You need to refresh the database before listing VMs.</p>
 <pre class="highlight"><span class="prompt1">vm refresh</span>
 <span class="prompt1">vm list</span>
 </pre><p>The output will look something like follows:</p>
-<div class="highlight-python"><div class="highlight"><pre>+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
+<div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
 | id | uuid         | label      | status | static_ip | floating_ip | key_name | project | user   | cloud |
 +----+--------------+------------+--------+-----------+-------------+----------+---------+--------+-------+
 | 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 |             | id_rsa   | fg478   | albert | kilo  |
@@ -310,7 +312,7 @@ a public IP (also called floating IP).</p>
 <pre class="highlight"><span class="prompt1">network associate floating ip --instance=albert-001</span>
 </pre><p>Listing VMs will now show you this floating ip:</p>
 <pre class="highlight"><span class="prompt1">vm list</span>
-</pre><div class="highlight-python"><div class="highlight"><pre>+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
+</pre><div class="highlight-python"><div class="highlight"><pre><span></span>+----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 | id | uuid         | label      | status | static_ip | floating_ip  | key_name | project | user   | cloud |
 +----+--------------+------------+--------+-----------+--------------+----------+---------+--------+-------+
 | 47 | 8af4177f-... | albert-001 | ACTIVE | 10.0.2.37 | 152.25.6.101 | id_rsa   | fg478   | albert | kilo  |
@@ -386,7 +388,7 @@ system further to for example list the output</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas package &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.cloud.iaas package &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/>
         <link rel="next" title="cloudmesh_client.cloud.iaas.provider package" href="cloudmesh_client.cloud.iaas.provider.html"/>
         <link rel="prev" title="cloudmesh_client.cloud.hpc.provider.slurm package" href="cloudmesh_client.cloud.hpc.provider.slurm.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -125,6 +125,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.cloud.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.attributes">cloudmesh_client.cloud.attributes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
@@ -172,6 +173,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -194,7 +197,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -325,7 +328,7 @@
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.check_kind">
 <code class="descname">check_kind</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/CloudProviderBase.html#CloudProviderBase.check_kind"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.check_kind" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns tru if the kind given by name exists
+<dd><p>returns true if the kind given by name exists
 :param name:
 :return:</p>
 </dd></dl>
@@ -439,6 +442,14 @@ TODO: details TBD</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_key">
+<code class="descname">list_key</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/CloudProviderBase.html#CloudProviderBase.list_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the objects in json format
+:param cloudname:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_vm">
 <code class="descname">list_vm</code><span class="sig-paren">(</span><em>cloudname</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/CloudProviderBase.html#CloudProviderBase.list_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.list_vm" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the objects in json format
@@ -471,6 +482,15 @@ TODO: details TBD</p>
 <dt id="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.refresh_vm">
 <code class="descname">refresh_vm</code><span class="sig-paren">(</span><em>cloudname</em>, <em>identifier</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/CloudProviderBase.html#CloudProviderBase.refresh_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.refresh_vm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Listing of vm instances
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.rename_vm">
+<code class="descname">rename_vm</code><span class="sig-paren">(</span><em>current_name</em>, <em>new_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/CloudProviderBase.html#CloudProviderBase.rename_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.CloudProviderBase.CloudProviderBase.rename_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames a vm.
+:param current_name:
+:param new_name:
 :return:</p>
 </dd></dl>
 
@@ -540,7 +560,7 @@ the database can be bypassed in mode &#8220;cloud&#8221;</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

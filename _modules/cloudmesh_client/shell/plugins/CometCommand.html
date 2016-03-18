@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins.CometCommand &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins.CometCommand &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../../index.html"/>
-        <link rel="up" title="Module code" href="../../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../../cloudmesh_client.html"/> 
 
   
   <script src="../../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.shell.plugins.CometCommand</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,23 +171,26 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.shell.plugins.CometCommand</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+<span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.shell.command</span> <span class="kn">import</span> <span class="n">command</span><span class="p">,</span> <span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.comet.comet</span> <span class="kn">import</span> <span class="n">Comet</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.comet.cluster</span> <span class="kn">import</span> <span class="n">Cluster</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.hostlist</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 <span class="kn">import</span> <span class="nn">hostlist</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">input</span>
 
-<span class="c"># noinspection PyUnusedLocal,PyBroadException</span>
+<span class="c1"># noinspection PyUnusedLocal,PyBroadException</span>
 <div class="viewcode-block" id="CometCommand"><a class="viewcode-back" href="../../../../code/cloudmesh_client.shell.plugins.html#cloudmesh_client.shell.plugins.CometCommand.CometCommand">[docs]</a><span class="k">class</span> <span class="nc">CometCommand</span><span class="p">(</span><span class="n">PluginCommand</span><span class="p">,</span> <span class="n">CometPluginCommand</span><span class="p">):</span>
-    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;comet&quot;</span><span class="p">:</span> <span class="s">&quot;comet&quot;</span><span class="p">}</span>
+    <span class="n">topics</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;comet&quot;</span><span class="p">:</span> <span class="s2">&quot;comet&quot;</span><span class="p">}</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span> <span class="o">=</span> <span class="n">context</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">comet_token</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&quot;init comet command&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;init comet command&quot;</span><span class="p">)</span>
 
     <span class="nd">@command</span>
     <span class="k">def</span> <span class="nf">do_comet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">arguments</span><span class="p">):</span>
@@ -191,19 +198,24 @@
 <span class="sd">        ::</span>
 
 <span class="sd">            Usage:</span>
+<span class="sd">               comet init</span>
 <span class="sd">               comet ll [CLUSTERID] [--format=FORMAT]</span>
 <span class="sd">               comet cluster [CLUSTERID]</span>
 <span class="sd">                             [--format=FORMAT]</span>
 <span class="sd">               comet computeset [COMPUTESETID]</span>
-<span class="sd">               comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]</span>
+<span class="sd">                            [--allocation=ALLOCATION]</span>
+<span class="sd">                            [--cluster=CLUSTERID]</span>
+<span class="sd">                            [--state=COMPUTESESTATE]</span>
+<span class="sd">               comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]</span>
 <span class="sd">                            [--allocation=ALLOCATION]</span>
 <span class="sd">                            [--walltime=WALLTIME]</span>
-<span class="sd">               comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]</span>
+<span class="sd">               comet terminate COMPUTESETID</span>
+<span class="sd">               comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]</span>
 <span class="sd">               comet console CLUSTERID [COMPUTENODEID]</span>
-<span class="sd">               comet image list</span>
-<span class="sd">               comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE</span>
-<span class="sd">               comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]</span>
-<span class="sd">               comet image detach CLUSTERID [COMPUTENODEIDS]</span>
+<span class="sd">               comet iso list</span>
+<span class="sd">               comet iso upload [--isoname=ISONAME] PATHISOFILE</span>
+<span class="sd">               comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]</span>
+<span class="sd">               comet iso detach CLUSTERID [COMPUTENODEIDS]</span>
 <span class="sd">               comet node rename CLUSTERID OLDNAME NEWNAME</span>
 
 <span class="sd">            Options:</span>
@@ -220,19 +232,14 @@
 <span class="sd">                                        Walltime could be an integer value followed</span>
 <span class="sd">                                        by a unit (m, h, d, w, for minute, hour, day,</span>
 <span class="sd">                                        and week, respectively). E.g., 3h, 2d</span>
-<span class="sd">                --imagename=IMAGENAME   Name of the image after being stored remotely.</span>
+<span class="sd">                --isoname=ISONAME       Name of the iso image after being stored remotely.</span>
 <span class="sd">                                        If not specified, use the original filename</span>
+<span class="sd">                --state=COMPUTESESTATE  List only computeset with the specified state.</span>
+<span class="sd">                                        The state could be submitted, running, completed</span>
 
 <span class="sd">            Arguments:</span>
 <span class="sd">                CLUSTERID       The assigned name of a cluster, e.g. vc1</span>
 <span class="sd">                COMPUTESETID    An integer identifier assigned to a computeset</span>
-<span class="sd">                NODESPARAM      Specifying the node/nodes/computeset to act on.</span>
-<span class="sd">                                In case of integer, will be intepreted as a computesetid;</span>
-<span class="sd">                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group</span>
-<span class="sd">                                of nodes; or a single host is also acceptable,</span>
-<span class="sd">                                e.g., vm-vc1-0</span>
-<span class="sd">                                If not provided, the requested action will be taken</span>
-<span class="sd">                                on the frontend node of the specified cluster</span>
 <span class="sd">                COMPUTENODEID   A compute node name, e.g., vm-vc1-0</span>
 <span class="sd">                                If not provided, the requested action will be taken</span>
 <span class="sd">                                on the frontend node of the specified cluster</span>
@@ -241,10 +248,15 @@
 <span class="sd">                                One single node is also acceptable: vm-vc1-0</span>
 <span class="sd">                                If not provided, the requested action will be taken</span>
 <span class="sd">                                on the frontend node of the specified cluster</span>
-<span class="sd">                IMAGENAME       Name of an image at remote server</span>
-<span class="sd">                PATHIMAGEFILE   The full path to the image file to be uploaded</span>
+<span class="sd">                NODESPARAM      Specifying the node/nodes/computeset to act on.</span>
+<span class="sd">                                In case of integer, will be intepreted as a computesetid;</span>
+<span class="sd">                                in case of a hostlist format, e.g., vm-vc1-[0-3], a group</span>
+<span class="sd">                                of nodes; or a single host is also acceptable,</span>
+<span class="sd">                                e.g., vm-vc1-0</span>
+<span class="sd">                ISONAME         Name of an iso image at remote server</span>
+<span class="sd">                PATHISOFILE     The full path to the iso image file to be uploaded</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c"># back up of all the proposed commands/options</span>
+        <span class="c1"># back up of all the proposed commands/options</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">               comet status</span>
 <span class="sd">               comet tunnel start</span>
@@ -412,168 +424,282 @@
 <span class="sd">        elif arguments[&quot;ll&quot;]:</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;init&quot;</span><span class="p">]:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Initializing the comet configuration file...&quot;</span><span class="p">)</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="s2">&quot;cloudmesh.yaml&quot;</span><span class="p">)</span>
+            <span class="c1"># for unit testing only.</span>
+            <span class="n">cometConf</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.comet&quot;</span><span class="p">]</span>
+            <span class="n">endpoints</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="c1"># print (cometConf.keys())</span>
+            <span class="k">if</span> <span class="s2">&quot;endpoints&quot;</span> <span class="ow">in</span> <span class="n">cometConf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">endpoints</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">endpoints</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No service endpoints available.&quot;</span>\
+                                  <span class="s2">&quot; Please check the config template&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">if</span> <span class="s2">&quot;username&quot;</span> <span class="ow">in</span> <span class="n">cometConf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">default_username</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;username&#39;</span><span class="p">]</span>
+                <span class="c1"># print (default_username)</span>
+                <span class="k">if</span> <span class="s1">&#39;TBD&#39;</span> <span class="o">==</span> <span class="n">default_username</span><span class="p">:</span>
+                    <span class="n">set_default_user</span> <span class="o">=</span> \
+                        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Set a default username (RETURN to skip): &quot;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">set_default_user</span><span class="p">:</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;comet&quot;</span><span class="p">][</span><span class="s2">&quot;username&quot;</span><span class="p">]</span> <span class="o">=</span> \
+                            <span class="n">set_default_user</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Comet default username set!&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;active&quot;</span> <span class="ow">in</span> <span class="n">cometConf</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">active_endpoint</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span>
+                <span class="n">set_active_endpoint</span> <span class="o">=</span> \
+                        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Set the active service endpoint to use. &quot;</span>\
+                                  <span class="s2">&quot;The availalbe endpoints are - </span><span class="si">%s</span><span class="s2"> [</span><span class="si">%s</span><span class="s2">]: &quot;</span>\
+                                   <span class="o">%</span> <span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">endpoints</span><span class="p">),</span>
+                                     <span class="n">active_endpoint</span><span class="p">)</span>
+                                 <span class="p">)</span>
+                <span class="k">if</span> <span class="n">set_active_endpoint</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">set_active_endpoint</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">:</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;comet&quot;</span><span class="p">][</span><span class="s2">&quot;active&quot;</span><span class="p">]</span> <span class="o">=</span> \
+                                        <span class="n">set_active_endpoint</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Comet active service endpoint set!&quot;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The provided endpoint does not match any &quot;</span>\
+                                      <span class="s2">&quot;available service endpoints. Try </span><span class="si">%s</span><span class="s2">&quot;</span> \
+                                      <span class="o">%</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">endpoints</span><span class="p">)</span> <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">endpoints</span><span class="p">:</span>
+                <span class="n">endpoint_url</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span>\
+                               <span class="p">[</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]][</span><span class="s2">&quot;nucleus_base_url&quot;</span><span class="p">]</span>
+                <span class="n">api_version</span> <span class="o">=</span> <span class="n">cometConf</span><span class="p">[</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span>\
+                               <span class="p">[</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]][</span><span class="s2">&quot;api_version&quot;</span><span class="p">]</span>
+                <span class="n">set_endpoint_url</span> <span class="o">=</span> \
+                        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Set the base url for the nucleus </span><span class="si">%s</span><span class="s2"> service [</span><span class="si">%s</span><span class="s2">]: &quot;</span>\
+                                   <span class="o">%</span> <span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">],</span>
+                                      <span class="n">endpoint_url</span><span class="p">)</span>
+                                 <span class="p">)</span>
+                <span class="k">if</span> <span class="n">set_endpoint_url</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">set_endpoint_url</span> <span class="o">!=</span> <span class="n">endpoint_url</span><span class="p">:</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;comet&quot;</span><span class="p">][</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span>\
+                                    <span class="p">[</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]][</span><span class="s2">&quot;nucleus_base_url&quot;</span><span class="p">]</span>\
+                                    <span class="o">=</span> <span class="n">set_endpoint_url</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Service base url set!&quot;</span><span class="p">)</span>
+
+                <span class="n">set_api_version</span> <span class="o">=</span> \
+                        <span class="nb">input</span><span class="p">(</span><span class="s2">&quot;Set the api version for the nucleus </span><span class="si">%s</span><span class="s2"> service [</span><span class="si">%s</span><span class="s2">]: &quot;</span>\
+                                   <span class="o">%</span> <span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">],</span>
+                                   <span class="n">api_version</span><span class="p">)</span>
+                                 <span class="p">)</span>
+                <span class="k">if</span> <span class="n">set_api_version</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">set_api_version</span> <span class="o">!=</span> <span class="n">api_version</span><span class="p">:</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;cloudmesh&quot;</span><span class="p">][</span><span class="s2">&quot;comet&quot;</span><span class="p">][</span><span class="s2">&quot;endpoints&quot;</span><span class="p">]</span>\
+                                    <span class="p">[</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">]][</span><span class="s2">&quot;api_version&quot;</span><span class="p">]</span>\
+                                    <span class="o">=</span> <span class="n">set_api_version</span>
+                        <span class="n">config</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Service api version set!&quot;</span><span class="p">)</span>
+                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;Authenticating to the nucleus </span><span class="si">%s</span><span class="s2"> &quot;</span>\
+                       <span class="s2">&quot;service and obtaining the apikey...&quot;</span> \
+                       <span class="o">%</span> <span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">])</span>
+                <span class="n">Comet</span><span class="o">.</span><span class="n">get_apikey</span><span class="p">(</span><span class="n">cometConf</span><span class="p">[</span><span class="s1">&#39;active&#39;</span><span class="p">])</span>
+
+            <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+            <span class="c1">#Comet.get_apikey()</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">logon</span> <span class="o">=</span> <span class="n">Comet</span><span class="o">.</span><span class="n">logon</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">logon</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not logon&quot;</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not logon. Please try first:</span><span class="se">\n</span><span class="s2">cm comet init&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Could not logon&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not logon&quot;</span><span class="p">)</span>
 
-        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;table&quot;</span>
+        <span class="n">output_format</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--format&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;table&quot;</span>
 
-        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;ll&quot;</span><span class="p">]:</span>
-            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ll&quot;</span><span class="p">]:</span>
+            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
 
             <span class="k">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">simple_list</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;cluster&quot;</span><span class="p">]:</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;cluster&quot;</span><span class="p">]:</span>
 
-            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+            <span class="n">cluster_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
             <span class="k">print</span><span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">cluster_id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">output_format</span><span class="p">))</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;computeset&quot;</span><span class="p">]:</span>
-            <span class="n">computeset_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTESETID&quot;</span><span class="p">]</span>
-            <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">computeset</span><span class="p">(</span><span class="n">computeset_id</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;computeset&quot;</span><span class="p">]:</span>
+            <span class="n">computeset_id</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTESETID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cluster&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--state&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">allocation</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--allocation&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--cluster&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">computeset</span><span class="p">(</span><span class="n">computeset_id</span><span class="p">,</span> <span class="n">cluster</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">allocation</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">]:</span>
+            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+            <span class="n">numnodes</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--count&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
 
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;power&quot;</span><span class="p">]:</span>
-
-            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-            <span class="n">numnodes</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--count&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
-            <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;rest&#39;</span><span class="p">)</span>
+            <span class="c1"># check allocation information for the cluster</span>
+            <span class="n">cluster</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;rest&#39;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">allocations</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;allocations&#39;</span><span class="p">]</span>
+                <span class="n">allocations</span> <span class="o">=</span> <span class="n">cluster</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;allocations&#39;</span><span class="p">]</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s">&quot;&quot;</span>
-            <span class="c"># for testing only</span>
-            <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">            allocations = [&#39;sys200&#39;,</span>
-<span class="sd">                           &#39;sys100&#39;,</span>
-<span class="sd">                           &#39;sys300&#39;,</span>
-<span class="sd">                           &#39;sys400&#39;,</span>
-<span class="sd">                           &#39;sys500&#39;,</span>
-<span class="sd">                           &#39;sys050&#39;,</span>
-<span class="sd">                           &#39;tst010&#39;,</span>
-<span class="sd">                           &#39;tst001&#39;]</span>
-<span class="sd">            &#39;&#39;&#39;</span>
+                <span class="c1"># print (cluster)</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;No allocation available for the specified cluster.&quot;</span> \
+                              <span class="s2">&quot;Please check with the comet help team&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
 
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">numnodes</span><span class="p">:</span>
-                <span class="n">fuzzyparam</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="k">if</span> <span class="s">&#39;NODESPARAM&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
-                    <span class="n">fuzzyparam</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NODESPARAM&quot;</span><span class="p">]</span>
-                <span class="n">param</span> <span class="o">=</span> <span class="n">fuzzyparam</span>
-
-                <span class="c"># no nodes param provided, action on front end</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">fuzzyparam</span><span class="p">:</span>
-                    <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;FE&quot;</span>
-                    <span class="n">param</span> <span class="o">=</span> <span class="bp">None</span>
-                <span class="c"># parse the nodes param</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">param</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fuzzyparam</span><span class="p">)</span>
-                        <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;COMPUTESET&quot;</span>
-                        <span class="n">param</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
-                    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="s">&#39;[&#39;</span> <span class="ow">in</span> <span class="n">fuzzyparam</span> <span class="ow">and</span> <span class="s">&#39;]&#39;</span> <span class="ow">in</span> <span class="n">fuzzyparam</span><span class="p">:</span>
-                            <span class="k">try</span><span class="p">:</span>
-                                <span class="n">hosts_param</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">fuzzyparam</span><span class="p">)</span>
-                            <span class="k">except</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">BadHostlist</span><span class="p">:</span>
-                                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Invalid hosts list specified!&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-                                <span class="k">return</span> <span class="s">&quot;&quot;</span>
-                            <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;HOSTS&quot;</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;HOST&quot;</span>
-            <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># checking whether the computesetids is in valid hostlist format</span>
+            <span class="k">if</span> <span class="n">computenodeids</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">hosts_param</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">computenodeids</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">BadHostlist</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid hosts list specified!&quot;</span><span class="p">,</span>
+                                  <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">elif</span> <span class="n">numnodes</span><span class="p">:</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">param</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">numnodes</span><span class="p">)</span>
                 <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Invalid count value specified!&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
-                <span class="k">if</span> <span class="n">param</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">subject</span> <span class="o">=</span> <span class="s">&quot;HOSTS&quot;</span>
-                    <span class="n">param</span> <span class="o">=</span> <span class="bp">None</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid count value specified!&quot;</span><span class="p">,</span> <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">if</span> <span class="n">param</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;count value has to be greather than zero&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">numnodes</span> <span class="o">=</span> <span class="n">param</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;You have to specify either the count of nodes, &quot;</span> \
+                              <span class="s2">&quot;or the names of nodes in hostlist format&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+
+            <span class="n">walltime</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--walltime&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">allocation</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--allocation&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+
+            <span class="c1"># validating walltime and allocation parameters</span>
+            <span class="n">walltime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">convert_to_mins</span><span class="p">(</span><span class="n">walltime</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">walltime</span><span class="p">:</span>
+                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;No valid walltime specified. &quot;</span>\
+                       <span class="s2">&quot;Using system default (2 days)&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">allocation</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">allocations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">allocation</span> <span class="o">=</span> <span class="n">allocations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;count value has to be greather than zero&quot;</span><span class="p">)</span>
-                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
-            <span class="n">walltime</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--walltime&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
-            <span class="n">allocation</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--allocation&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;on&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;on&quot;</span>
-                <span class="k">if</span> <span class="n">subject</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;HOSTS&quot;</span><span class="p">,</span> <span class="s">&quot;HOST&quot;</span><span class="p">]:</span>
-                    <span class="n">walltime</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">convert_to_mins</span><span class="p">(</span><span class="n">walltime</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">walltime</span><span class="p">:</span>
-                        <span class="k">print</span> <span class="p">(</span><span class="s">&quot;No valid walltime specified. Using system default&quot;</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="ow">not</span> <span class="n">allocation</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">allocations</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                            <span class="n">allocation</span> <span class="o">=</span> <span class="n">allocations</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">allocation</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">display_get_allocation</span><span class="p">(</span><span class="n">allocations</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;off&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;off&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;reboot&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;reboot&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;reset&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;reset&quot;</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;shutdown&quot;</span><span class="p">]:</span>
-                <span class="n">action</span> <span class="o">=</span> <span class="s">&quot;shutdown&quot;</span>
+                    <span class="n">allocation</span> <span class="o">=</span> <span class="n">Cluster</span><span class="o">.</span><span class="n">display_get_allocation</span><span class="p">(</span><span class="n">allocations</span><span class="p">)</span>
+
+            <span class="c1"># issuing call to start a computeset with specified parameters</span>
+            <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">computeset_start</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span>
+                                            <span class="n">computenodeids</span><span class="p">,</span>
+                                            <span class="n">numnodes</span><span class="p">,</span>
+                                            <span class="n">allocation</span><span class="p">,</span>
+                                            <span class="n">walltime</span><span class="p">)</span>
+                  <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;terminate&quot;</span><span class="p">]:</span>
+            <span class="n">computesetid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTESETID&quot;</span><span class="p">]</span>
+            <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">computeset_terminate</span><span class="p">(</span><span class="n">computesetid</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;power&quot;</span><span class="p">]:</span>
+            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+            <span class="n">fuzzyparam</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NODESPARAM&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+
+            <span class="c1"># parsing nodesparam for proper action</span>
+            <span class="k">if</span> <span class="n">fuzzyparam</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">param</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fuzzyparam</span><span class="p">)</span>
+                    <span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;COMPUTESET&#39;</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">param</span> <span class="o">=</span> <span class="n">fuzzyparam</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">hosts_param</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">fuzzyparam</span><span class="p">)</span>
+                        <span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;HOSTS&#39;</span>
+                    <span class="k">except</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">BadHostlist</span><span class="p">:</span>
+                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid hosts list specified!&quot;</span><span class="p">,</span>
+                                      <span class="n">traceflag</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">subject</span> <span class="o">=</span> <span class="s1">&#39;FE&#39;</span>
+                <span class="n">param</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;on&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;on&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;off&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;off&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;reboot&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;reboot&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;reset&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;reset&quot;</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;shutdown&quot;</span><span class="p">]:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;shutdown&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">action</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span>
                                  <span class="n">subject</span><span class="p">,</span>
                                  <span class="n">param</span><span class="p">,</span>
-                                 <span class="n">action</span><span class="p">,</span>
-                                 <span class="n">allocation</span><span class="p">,</span>
-                                 <span class="n">walltime</span><span class="p">,</span>
-                                 <span class="n">numnodes</span><span class="p">)</span>
+                                 <span class="n">action</span><span class="p">)</span>
                   <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;console&quot;</span><span class="p">]:</span>
-            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;console&quot;</span><span class="p">]:</span>
+            <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
             <span class="n">nodeid</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">if</span> <span class="s">&#39;COMPUTENODEID&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
-                <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;COMPUTENODEID&#39;</span> <span class="ow">in</span> <span class="n">arguments</span><span class="p">:</span>
+                <span class="n">nodeid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEID&quot;</span><span class="p">]</span>
             <span class="n">Comet</span><span class="o">.</span><span class="n">console</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">nodeid</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;image&quot;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;list&quot;</span><span class="p">]:</span>
-                <span class="n">images</span> <span class="o">=</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">list_image</span><span class="p">())</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;iso&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;list&quot;</span><span class="p">]:</span>
+                <span class="n">isos</span> <span class="o">=</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">list_iso</span><span class="p">())</span>
                 <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
-                <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;public/&quot;</span><span class="p">):</span>
-                        <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">iso</span> <span class="ow">in</span> <span class="n">isos</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">iso</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;public/&quot;</span><span class="p">):</span>
+                        <span class="n">iso</span> <span class="o">=</span> <span class="n">iso</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="n">idx</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">image</span><span class="p">))</span>
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;upload&quot;</span><span class="p">]:</span>
-                <span class="n">imagefile</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;PATHIMAGEFILE&quot;</span><span class="p">]</span>
-                <span class="n">imagefile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">imagefile</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">imagefile</span><span class="p">):</span>
-                    <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--imagename&quot;</span><span class="p">]:</span>
-                        <span class="n">filename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;--imagename&quot;</span><span class="p">]</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;{}: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">iso</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;upload&quot;</span><span class="p">]:</span>
+                <span class="n">isofile</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PATHISOFILE&quot;</span><span class="p">]</span>
+                <span class="n">isofile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">isofile</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">isofile</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--isoname&quot;</span><span class="p">]:</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;--isoname&quot;</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">imagefile</span><span class="p">)</span>
+                        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">isofile</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;File does not exist - {}&quot;</span>\
-                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s">&quot;PATHIMAGEFILE&quot;</span><span class="p">]))</span>
-                    <span class="k">return</span> <span class="s">&quot;&quot;</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">upload_image</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">imagefile</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;attach&quot;</span><span class="p">]:</span>
-                <span class="n">imagename</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;IMAGENAME&quot;</span><span class="p">]</span>
-                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-                <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
-                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">imagename</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
-            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;detach&quot;</span><span class="p">]:</span>
-                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-                <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;File does not exist - {}&quot;</span>\
+                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;PATHISOFILE&quot;</span><span class="p">]))</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Comet</span><span class="o">.</span><span class="n">upload_iso</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">isofile</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;attach&quot;</span><span class="p">]:</span>
+                <span class="n">isoname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;ISONAME&quot;</span><span class="p">]</span>
+                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+                <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+                <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">attach_iso</span><span class="p">(</span><span class="n">isoname</span><span class="p">,</span> <span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;detach&quot;</span><span class="p">]:</span>
+                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+                <span class="n">computenodeids</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;COMPUTENODEIDS&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
                 <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">detach_iso</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">computenodeids</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;node&quot;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;rename&quot;</span><span class="p">]:</span>
-                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;CLUSTERID&quot;</span><span class="p">]</span>
-                <span class="n">oldname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;OLDNAME&quot;</span><span class="p">]</span>
-                <span class="n">newname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s">&quot;NEWNAME&quot;</span><span class="p">]</span>
-                <span class="k">if</span> <span class="n">newname</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">newname</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
-                    <span class="k">print</span> <span class="p">(</span><span class="s">&quot;New node name cannot be empty&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;node&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;rename&quot;</span><span class="p">]:</span>
+                <span class="n">clusterid</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;CLUSTERID&quot;</span><span class="p">]</span>
+                <span class="n">oldname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;OLDNAME&quot;</span><span class="p">]</span>
+                <span class="n">newname</span> <span class="o">=</span> <span class="n">arguments</span><span class="p">[</span><span class="s2">&quot;NEWNAME&quot;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">newname</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">newname</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;New node name cannot be empty&quot;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="k">print</span> <span class="p">(</span><span class="n">Cluster</span><span class="o">.</span><span class="n">rename_node</span><span class="p">(</span><span class="n">clusterid</span><span class="p">,</span> <span class="n">oldname</span><span class="p">,</span> <span class="n">newname</span><span class="p">))</span>
-        <span class="k">return</span> <span class="s">&quot;&quot;</span></div>
+
+            <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            # bulk rename</span>
+
+<span class="sd">            if arguments[&quot;rename&quot;]:</span>
+<span class="sd">               oldnames = Parameter.expand(arguments[&quot;OLDNAME&quot;])</span>
+<span class="sd">               newnames = Parameter.expand(arguments[&quot;NEWNAME&quot;])</span>
+
+<span class="sd">               # check if new names ar not already taken</span>
+<span class="sd">               # to be implemented</span>
+
+<span class="sd">               if len(oldnames) == len(newnames):</span>
+<span class="sd">                   for i in range(0,len(oldnames)):</span>
+<span class="sd">                       oldname = oldnames[i]</span>
+<span class="sd">                       newname = newnames[i]</span>
+<span class="sd">                   if newname is None or newname == &#39;&#39;:</span>
+<span class="sd">                       print (&quot;New node name cannot be empty&quot;)</span>
+<span class="sd">                   else:</span>
+<span class="sd">                       print (Cluster.rename_node(clusterid, oldname, newname))</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span></div>
 </pre></div>
 
            </div>
@@ -606,7 +732,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

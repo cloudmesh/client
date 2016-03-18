@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Prefix &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Prefix &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
         <link rel="next" title="Introduction" href="introduction.html"/>
         <link rel="prev" title="Cloudmesh Client Toolkit" href="index.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -133,6 +133,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -155,7 +157,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -234,19 +236,6 @@ Bloomington, IN 47408 <br /></p>
 </div>
 <div class="section" id="authors">
 <h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>0001 (2015-06-13): Gregor von Laszewski (<a class="reference external" href="mailto:laszewski&#37;&#52;&#48;gmail&#46;com">laszewski<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0002 (2015-06-15): fugangwang (<a class="reference external" href="mailto:kevinwangfg&#37;&#52;&#48;gmail&#46;com">kevinwangfg<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0003 (2015-06-15): Daniel Silva (<a class="reference external" href="mailto:silva10&#46;daniel&#37;&#52;&#48;gmail&#46;com">silva10<span>&#46;</span>daniel<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0004 (2015-06-18): Hyungro Lee (<a class="reference external" href="mailto:hroe&#46;lee&#37;&#52;&#48;gmail&#46;com">hroe<span>&#46;</span>lee<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0005 (2015-06-18): Paulo Chagas (<a class="reference external" href="mailto:paulo&#46;robertojr100&#37;&#52;&#48;gmail&#46;com">paulo<span>&#46;</span>robertojr100<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0006 (2015-08-28): mangirish (<a class="reference external" href="mailto:vaglomangirish&#37;&#52;&#48;gmail&#46;com">vaglomangirish<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0007 (2015-08-28): Gourav Shenoy (<a class="reference external" href="mailto:shenoy&#46;200&#37;&#52;&#48;gmail&#46;com">shenoy<span>&#46;</span>200<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0008 (2015-08-28): Mangirish Wagle (<a class="reference external" href="mailto:vaglomangirish&#37;&#52;&#48;gmail&#46;com">vaglomangirish<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0009 (2015-08-28): Erika Dsouza (<a class="reference external" href="mailto:erika27desouza&#37;&#52;&#48;gmail&#46;com">erika27desouza<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-<li>0010 (2015-09-13): ehdsouza (Erika Dsouza)</li>
-<li>0011 (2016-02-12): Badi&#8217; Abdul-Wahid (<a class="reference external" href="mailto:abdulwahidc&#37;&#52;&#48;gmail&#46;com">abdulwahidc<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
-</ul>
 </div>
 <div class="section" id="conventions">
 <h2>Conventions<a class="headerlink" href="#conventions" title="Permalink to this headline">¶</a></h2>
@@ -269,10 +258,10 @@ using the username <cite>albert</cite> and the project id <cite>FG-101</cite>. I
 to you to replace them with information related to your username and
 project. Alternatively we assume that you have set the shell variables
 $CM_USERNAME and $CM_PROJECT with for example:</p>
-<pre class="highlight"><span class="prompt1"><span class="nb">export </span><span class="nv">CM_USERNAME</span><span class="o">=</span>albert</span>
-<span class="prompt1"><span class="nb">export </span><span class="nv">CM_PROJECT</span><span class="o">=</span>FG101</span>
+<pre class="highlight"><span class="prompt1"><span class="nb">export</span> <span class="nv">CM_USERNAME</span><span class="o">=</span>albert</span>
+<span class="prompt1"><span class="nb">export</span> <span class="nv">CM_PROJECT</span><span class="o">=</span>FG101</span>
 </pre><p>In this case we use in the documentation the values:</p>
-<div class="highlight-python"><div class="highlight"><pre>$CM_PROJECT
+<div class="highlight-python"><div class="highlight"><pre><span></span>$CM_PROJECT
 $CM_USERNAME
 </pre></div>
 </div>
@@ -342,7 +331,7 @@ network issues and outages are best send through the form at</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

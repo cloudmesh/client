@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.Printer &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.common.Printer &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.common.Printer</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,7 +171,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.Printer</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;Convenient methods and classes to print tables&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Convenient methods and classes to print tables&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
@@ -175,15 +179,15 @@
 <span class="kn">from</span> <span class="nn">prettytable</span> <span class="kn">import</span> <span class="n">PrettyTable</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">convert_from_unicode</span>
-
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <div class="viewcode-block" id="list_printer"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.list_printer">[docs]</a><span class="k">def</span> <span class="nf">list_printer</span><span class="p">(</span><span class="n">l</span><span class="p">,</span>
                  <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span>
+                 <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
                  <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">show_none</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
-                 <span class="n">key</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">):</span>
+                 <span class="n">show_none</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+                 <span class="n">key</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    :param l: l is a lsit not a dict</span>
 <span class="sd">    :param order:</span>
@@ -206,15 +210,15 @@
                         <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
                         <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">,</span>
                         <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">,</span>
-                        <span class="n">show_none</span><span class="o">=</span><span class="n">show_none</span><span class="p">)</span>
+                        <span class="n">show_none</span><span class="o">=</span><span class="n">show_none</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="dict_printer"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.dict_printer">[docs]</a><span class="k">def</span> <span class="nf">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                  <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                  <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
-                 <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">,</span>
+                 <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span>
                  <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                 <span class="n">show_none</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+                 <span class="n">show_none</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    TODO</span>
 <span class="sd">    :param d: A a dict with dicts of the same type.</span>
@@ -230,7 +234,7 @@
 <span class="sd">    :type sort_keys: bool</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;table&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">d</span> <span class="o">==</span> <span class="p">{}:</span>
             <span class="k">return</span> <span class="bp">None</span>
         <span class="k">else</span><span class="p">:</span>
@@ -238,22 +242,22 @@
                                       <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                                       <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
                                       <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;csv&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;csv&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">dict_csv_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                                 <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                                 <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
                                 <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;json&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;yaml&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;yaml&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">convert_from_unicode</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;dict&quot;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;dict&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">d</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">&quot;UNKOWN FORMAT. Please use table, csv, json, yaml, dict.&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;UNKOWN FORMAT. Please use table, csv, json, yaml, dict.&quot;</span></div>
 
 
-<span class="c"># noinspection PyBroadException</span></div>
+<span class="c1"># noinspection PyBroadException</span>
 <div class="viewcode-block" id="dict_csv_printer"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.dict_csv_printer">[docs]</a><span class="k">def</span> <span class="nf">dict_csv_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                      <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                      <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
@@ -272,17 +276,17 @@
 <span class="sd">    :type sort_keys: bool</span>
 <span class="sd">    :return: a string representing the table in csv format</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">first_element</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_element</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_keys</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">first_element</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">first_element</span><span class="p">])</span>
 
-    <span class="c"># noinspection PyBroadException</span>
+    <span class="c1"># noinspection PyBroadException</span>
     <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">element</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="s">&#39; &#39;</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
         <span class="k">return</span> <span class="n">tmp</span>
 
     <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">d</span> <span class="o">==</span> <span class="p">{}:</span>
@@ -296,11 +300,11 @@
     <span class="k">elif</span> <span class="n">header</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">header</span> <span class="o">=</span> <span class="n">_keys</span><span class="p">()</span>
 
-    <span class="n">table</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
         <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
-    <span class="n">table</span> <span class="o">=</span> <span class="n">table</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">content</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">table</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">content</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 
     <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
         <span class="n">content</span> <span class="o">=</span> <span class="p">[]</span>
@@ -308,38 +312,41 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">job</span><span class="p">][</span><span class="n">attribute</span><span class="p">])</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;None&quot;</span><span class="p">)</span>
-        <span class="n">table</span> <span class="o">=</span> <span class="n">table</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">content</span><span class="p">])</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span>
-    <span class="k">return</span> <span class="n">table</span>
+                <span class="n">content</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;None&quot;</span><span class="p">)</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">table</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">content</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">return</span> <span class="n">table</span></div>
 
-</div>
+
 <div class="viewcode-block" id="dict_table_printer"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.dict_table_printer">[docs]</a><span class="k">def</span> <span class="nf">dict_table_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                        <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                        <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                        <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                       <span class="n">show_none</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span>
+                       <span class="n">show_none</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
                        <span class="n">max_width</span><span class="o">=</span><span class="mi">40</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;prints a pretty table from an dict of dicts</span>
 <span class="sd">    :param d: A a dict with dicts of the same type.</span>
 <span class="sd">                  Each key will be a column</span>
 <span class="sd">    :param order: The order in which the columns are printed.</span>
 <span class="sd">                  The order is specified by the key names of the dict.</span>
-<span class="sd">    :param header: The Header of each of the columns</span>
-<span class="sd">    </span>
+<span class="sd">    :param header:  The Header of each of the columns</span>
+<span class="sd">    :type header:   A list of string</span>
+<span class="sd">    :param sort_keys:   Key(s) of the dict to be used for sorting.</span>
+<span class="sd">                        This specify the column(s) in the table for sorting.</span>
+<span class="sd">    :type sort_keys:    string or a tuple of string (for sorting with multiple columns)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">first_element</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_element</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_keys</span><span class="p">():</span>
-        <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="n">first_element</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">first_element</span><span class="p">])</span>
 
-    <span class="c"># noinspection PyBroadException</span>
+    <span class="c1"># noinspection PyBroadException</span>
     <span class="k">def</span> <span class="nf">_get</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">tmp</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="p">][</span><span class="n">key</span><span class="p">])</span>
-            <span class="k">if</span> <span class="n">tmp</span> <span class="o">==</span> <span class="s">&quot;None&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tmp</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>
                 <span class="n">tmp</span> <span class="o">=</span> <span class="n">show_none</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="s">&#39; &#39;</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
         <span class="k">return</span> <span class="n">tmp</span>
 
     <span class="k">if</span> <span class="n">d</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">d</span> <span class="o">==</span> <span class="p">{}:</span>
@@ -357,7 +364,12 @@
     <span class="n">x</span><span class="o">.</span><span class="n">max_width</span> <span class="o">=</span> <span class="n">max_width</span>
 
     <span class="k">if</span> <span class="n">sort_keys</span><span class="p">:</span>
-        <span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">sort_keys</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">sort_keys</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">sort_keys</span><span class="p">)</span> <span class="o">==</span> <span class="nb">tuple</span><span class="p">:</span>
+            <span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">d</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">sort_key</span><span class="p">]</span> <span class="k">for</span> <span class="n">sort_key</span> <span class="ow">in</span> <span class="n">sort_keys</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sorted_list</span> <span class="o">=</span> <span class="n">d</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">sorted_list</span> <span class="o">=</span> <span class="n">d</span>
 
@@ -366,70 +378,70 @@
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">order</span><span class="p">:</span>
             <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_get</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
         <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-    <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s">&quot;l&quot;</span>
-    <span class="c">#    if &quot;node;ist&quot; in header:</span>
-    <span class="c">#    x.max_width[&quot;nodelist&quot;] = 25</span>
-    <span class="k">return</span> <span class="n">x</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s2">&quot;l&quot;</span>
+    <span class="c1">#    if &quot;node;ist&quot; in header:</span>
+    <span class="c1">#    x.max_width[&quot;nodelist&quot;] = 25</span>
+    <span class="k">return</span> <span class="n">x</span></div>
 
-</div>
+
 <div class="viewcode-block" id="attribute_printer"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.attribute_printer">[docs]</a><span class="k">def</span> <span class="nf">attribute_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                       <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
                       <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
-                      <span class="n">output</span><span class="o">=</span><span class="s">&quot;table&quot;</span><span class="p">):</span>
+                      <span class="n">output</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s">&quot;Value&quot;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;table&quot;</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Attribute&quot;</span><span class="p">,</span> <span class="s2">&quot;Value&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;table&quot;</span><span class="p">:</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">PrettyTable</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">sort_keys</span><span class="p">:</span>
-            <span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+            <span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">sorted_list</span> <span class="o">=</span> <span class="n">d</span>
+            <span class="n">sorted_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">sorted_list</span><span class="p">:</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">key</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">or</span> <span class="s">&quot;&quot;</span><span class="p">])</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s">&quot;l&quot;</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">key</span><span class="p">,</span> <span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">])</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s2">&quot;l&quot;</span>
         <span class="k">return</span> <span class="n">x</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">dict_printer</span><span class="p">({</span><span class="n">output</span><span class="p">:</span> <span class="n">d</span><span class="p">},</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dict_printer</span><span class="p">({</span><span class="n">output</span><span class="p">:</span> <span class="n">d</span><span class="p">},</span> <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span></div>
 
-</div>
-<div class="viewcode-block" id="print_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.print_list">[docs]</a><span class="k">def</span> <span class="nf">print_list</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&#39;table&#39;</span><span class="p">):</span>
+
+<div class="viewcode-block" id="print_list"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.print_list">[docs]</a><span class="k">def</span> <span class="nf">print_list</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;table&#39;</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">dict_from_list</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
         <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="n">idx</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">)])</span>
         <span class="k">return</span> <span class="n">d</span>
 
-    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;table&#39;</span><span class="p">:</span>
-        <span class="n">x</span> <span class="o">=</span> <span class="n">PrettyTable</span><span class="p">([</span><span class="s">&quot;Index&quot;</span><span class="p">,</span> <span class="s">&quot;Host&quot;</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;table&#39;</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">PrettyTable</span><span class="p">([</span><span class="s2">&quot;Index&quot;</span><span class="p">,</span> <span class="s2">&quot;Host&quot;</span><span class="p">])</span>
         <span class="k">for</span> <span class="p">(</span><span class="n">idx</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
             <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">idx</span><span class="p">,</span> <span class="n">item</span><span class="p">])</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s">&quot;l&quot;</span>
-        <span class="n">x</span><span class="o">.</span><span class="n">align</span><span class="p">[</span><span class="s">&quot;Index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;r&quot;</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s2">&quot;l&quot;</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">align</span><span class="p">[</span><span class="s2">&quot;Index&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span>
         <span class="k">return</span> <span class="n">x</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;csv&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;dict&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;csv&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;dict&#39;</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">dict_from_list</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">d</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;json&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">dict_from_list</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;yaml&#39;</span><span class="p">:</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;yaml&#39;</span><span class="p">:</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">dict_from_list</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result</span>
-    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&#39;txt&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s1">&#39;txt&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="row_table"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.Printer.row_table">[docs]</a><span class="k">def</span> <span class="nf">row_table</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;prints a pretty table from data in the dict.</span>
 <span class="sd">    :param d: A dict to be printed</span>
 <span class="sd">    :param order: The order in which the columns are printed.</span>
 <span class="sd">                  The order is specified by the key names of the dict.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># header</span>
-    <span class="n">header</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="c1"># header</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">PrettyTable</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
         <span class="n">order</span> <span class="o">=</span> <span class="n">header</span>
@@ -438,18 +450,18 @@
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">list</span><span class="p">:</span>
             <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">value</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
-                <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">element</span><span class="p">])</span>
+                <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">element</span><span class="p">])</span>
         <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
-            <span class="n">value_keys</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+            <span class="n">value_keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
             <span class="n">first_key</span> <span class="o">=</span> <span class="n">value_keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">rest_keys</span> <span class="o">=</span> <span class="n">value_keys</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-            <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">key</span><span class="p">,</span> <span class="s">&quot;{0} : {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">first_key</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">first_key</span><span class="p">])])</span>
+            <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">key</span><span class="p">,</span> <span class="s2">&quot;{0} : {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">first_key</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">first_key</span><span class="p">])])</span>
             <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">rest_keys</span><span class="p">:</span>
-                <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;{0} : {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">element</span><span class="p">])])</span>
+                <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;{0} : {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">value</span><span class="p">[</span><span class="n">element</span><span class="p">])])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">x</span><span class="o">.</span><span class="n">add_row</span><span class="p">([</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">])</span>
 
-    <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s">&quot;l&quot;</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">align</span> <span class="o">=</span> <span class="s2">&quot;l&quot;</span>
     <span class="k">return</span> <span class="n">x</span></div>
 </pre></div>
 
@@ -483,7 +495,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

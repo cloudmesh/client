@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Reference Card &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Reference Card &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
         <link rel="next" title="Example Scripts" href="scripts.html"/>
         <link rel="prev" title="Quickstart" href="quickstart.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -130,6 +130,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -152,7 +154,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -302,6 +304,15 @@
 </td>
 </tr>
 <tr class="row-even"><td><div class="first last line-block">
+<div class="line">cm comet init_apiauth</div>
+</div>
+</td>
+<td><div class="first last line-block">
+<div class="line">Retrieve api key/secret and setup the configuration file</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet ll</div>
 <div class="line"><br /></div>
 </div>
@@ -312,7 +323,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet cluster</div>
 <div class="line"><br /></div>
 </div>
@@ -323,7 +334,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet cluster vc2</div>
 </div>
 </td>
@@ -332,7 +343,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet computeset</div>
 </div>
 </td>
@@ -341,7 +352,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet computeset 63</div>
 <div class="line"><br /></div>
 </div>
@@ -352,7 +363,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4</div>
 <div class="line"><br /></div>
 </div>
@@ -363,7 +374,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power off vc4</div>
 <div class="line"><br /></div>
 </div>
@@ -374,7 +385,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
 </div>
 </td>
@@ -383,7 +394,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4 &#8211;count=4</div>
 </div>
 </td>
@@ -392,7 +403,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
 <div class="line-block">
 <div class="line">&#8211;walltime=6h</div>
@@ -407,7 +418,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4 vm-vc4-[0-3]</div>
 <div class="line-block">
 <div class="line">&#8211;allocation=YOUR_ALLOCATION</div>
@@ -420,7 +431,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet power off vc4 vm-vc4-[0,1]</div>
 <div class="line">cm comet power on vc4 vm-vc4-0</div>
 <div class="line"><br /></div>
@@ -433,7 +444,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power on vc4 vm-vc4-7</div>
 </div>
 </td>
@@ -442,7 +453,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet power off vc4 123</div>
 <div class="line"><br /></div>
 </div>
@@ -453,7 +464,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet power off vc4 vm-vc4-[0-3]</div>
 </div>
 </td>
@@ -462,7 +473,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet console vc4</div>
 </div>
 </td>
@@ -471,7 +482,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet console vc4 vm-vc4-0</div>
 </div>
 </td>
@@ -480,7 +491,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet image list</div>
 </div>
 </td>
@@ -489,7 +500,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet image upload</div>
 <div class="line-block">
 <div class="line">/path/to/your/image.iso</div>
@@ -502,7 +513,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet image upload</div>
 <div class="line-block">
 <div class="line">/path/to/your/image.iso</div>
@@ -517,7 +528,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet image attach</div>
 <div class="line-block">
 <div class="line">newimagename.iso vc2</div>
@@ -530,7 +541,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet image attach</div>
 <div class="line-block">
 <div class="line">newimagename.iso vc2 vm-vc2-0</div>
@@ -543,7 +554,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet image detach vc2</div>
 <div class="line"><br /></div>
 </div>
@@ -554,7 +565,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet image detach vc2 vm-vc2-0</div>
 </div>
 </td>
@@ -563,7 +574,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet image attach</div>
 <div class="line-block">
 <div class="line">imagename.iso vc2 vm-vc2-[0-3]</div>
@@ -576,7 +587,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-odd"><td><div class="first last line-block">
+<tr class="row-even"><td><div class="first last line-block">
 <div class="line">cm comet image detach</div>
 <div class="line-block">
 <div class="line">vc2 vm-vc2-[0-3]</div>
@@ -589,7 +600,7 @@
 </div>
 </td>
 </tr>
-<tr class="row-even"><td><div class="first last line-block">
+<tr class="row-odd"><td><div class="first last line-block">
 <div class="line">cm comet node rename vc2</div>
 <div class="line-block">
 <div class="line">vm-vc2-0 mynode0</div>
@@ -685,7 +696,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

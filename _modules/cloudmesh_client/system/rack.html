@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.system.rack &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.system.rack &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.system.rack</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,7 +171,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.system.rack</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">textwrap</span>
+<span></span><span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.util</span> <span class="kn">import</span> <span class="n">path_expand</span>
@@ -185,45 +189,45 @@
 <div class="viewcode-block" id="Rack.set_template"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_template">[docs]</a>    <span class="k">def</span> <span class="nf">set_template</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">template</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">template_string</span> <span class="o">=</span> <span class="s">&quot;rackdiag {&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="s">              // Change order of rack-number as ascending</span>
-<span class="s">              ascending;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">template_string</span> <span class="o">=</span> <span class="s2">&quot;rackdiag {&quot;</span> <span class="o">+</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">              // Change order of rack-number as ascending</span>
+<span class="s1">              ascending;</span>
 
-<span class="s">              // define height of rack</span>
-<span class="s">              20U;</span>
+<span class="s1">              // define height of rack</span>
+<span class="s1">              20U;</span>
 
-<span class="s">              // define description of rack</span>
-<span class="s">              description = &quot;Comet Cluster Virtualization Rack&quot;;</span>
+<span class="s1">              // define description of rack</span>
+<span class="s1">              description = &quot;Comet Cluster Virtualization Rack&quot;;</span>
 
-<span class="s">              // define rack units</span>
-<span class="s">              1: UPS [2U];   // define height of unit</span>
-<span class="s">              3: Network [color=green]</span>
-<span class="s">              {</span><span class="si">% f</span><span class="s">or x in range (0, 10) %}</span>
-<span class="s">              {{x+4}}: Server [&#39;&#39;&#39;</span> <span class="o">+</span> <span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
-                <span class="s">&#39;{{server[x][&quot;label&quot;]}}&#39;</span><span class="p">,</span>
-                <span class="s">&#39;{{server[x][&quot;numbered&quot;]}}&#39;</span><span class="p">,</span>
-                <span class="s">&#39;{{server[x][&quot;fontsize&quot;]}}&#39;</span><span class="p">,</span>
-                <span class="s">&#39;{{server[x][&quot;shape&quot;]}}&#39;</span><span class="p">,</span>
-                <span class="s">&#39;{{server[x][&quot;textcolor&quot;]}}&#39;</span><span class="p">,</span>
-                <span class="s">&#39;{{server[x][&quot;color&quot;]}}&#39;</span>
-            <span class="p">])</span> <span class="o">+</span> <span class="s">&quot;]&quot;</span> <span class="o">+</span> <span class="s">&#39;&#39;&#39;{</span><span class="si">% e</span><span class="s">ndfor %}&#39;&#39;&#39;</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">}&quot;</span>
+<span class="s1">              // define rack units</span>
+<span class="s1">              1: UPS [2U];   // define height of unit</span>
+<span class="s1">              3: Network [color=green]</span>
+<span class="s1">              {</span><span class="si">% f</span><span class="s1">or x in range (0, 10) %}</span>
+<span class="s1">              {{x+4}}: Server [&#39;&#39;&#39;</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+                <span class="s1">&#39;{{server[x][&quot;label&quot;]}}&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;{{server[x][&quot;numbered&quot;]}}&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;{{server[x][&quot;fontsize&quot;]}}&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;{{server[x][&quot;shape&quot;]}}&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;{{server[x][&quot;textcolor&quot;]}}&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;{{server[x][&quot;color&quot;]}}&#39;</span>
+            <span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;]&quot;</span> <span class="o">+</span> <span class="s1">&#39;&#39;&#39;{</span><span class="si">% e</span><span class="s1">ndfor %}&#39;&#39;&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">}&quot;</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">template_string</span> <span class="o">=</span> <span class="n">template</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">generate_rack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">servers</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generate_rack</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">servers</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.generate_rack"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.generate_rack">[docs]</a>    <span class="k">def</span> <span class="nf">generate_rack</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">servers</span><span class="p">):</span>
         <span class="n">empty</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s">&quot;color&quot;</span><span class="p">:</span> <span class="s">&#39;color=&quot;white&quot; &#39;</span><span class="p">,</span>
-            <span class="s">&quot;label&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-            <span class="s">&quot;numbered&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-            <span class="s">&quot;fontsize&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-            <span class="s">&quot;shape&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
-            <span class="s">&quot;textcolor&quot;</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="s1">&#39;color=&quot;white&quot; &#39;</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;numbered&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;shape&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;textcolor&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">servers</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">empty</span><span class="p">))</span>
-</div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">empty</span><span class="p">))</span></div>
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
@@ -231,70 +235,70 @@
         <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">diag</span>
         <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">):</span>
-            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;{0:&gt;5}: {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;{0:&gt;5}: {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">line</span><span class="p">))</span>
             <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">return</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="n">comma</span> <span class="o">=</span> <span class="s">&#39; &#39;</span>
-            <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s">&#39;color&#39;</span><span class="p">:</span>
-                <span class="n">comma</span> <span class="o">=</span> <span class="s">&#39;, &#39;</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">server</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;{}=&quot;{}&quot;{}&#39;</span> \
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attribute</span><span class="p">],</span> <span class="n">comma</span><span class="p">)</span>
-</div>
+            <span class="n">comma</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span>
+            <span class="k">if</span> <span class="n">attribute</span> <span class="ow">is</span> <span class="ow">not</span> <span class="s1">&#39;color&#39;</span><span class="p">:</span>
+                <span class="n">comma</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">server</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;{}=&quot;{}&quot;{}&#39;</span> \
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">attribute</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attribute</span><span class="p">],</span> <span class="n">comma</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set_color"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_color">[docs]</a>    <span class="k">def</span> <span class="nf">set_color</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">color</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set_label"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_label">[docs]</a>    <span class="k">def</span> <span class="nf">set_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set_numbering"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_numbering">[docs]</a>    <span class="k">def</span> <span class="nf">set_numbering</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">numbering</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">numbering</span><span class="o">=</span><span class="n">numbering</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">numbering</span><span class="o">=</span><span class="n">numbering</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set_fontsize"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_fontsize">[docs]</a>    <span class="k">def</span> <span class="nf">set_fontsize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">fontsize</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set_textcolorl"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_textcolorl">[docs]</a>    <span class="k">def</span> <span class="nf">set_textcolorl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">textcolorl</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">textcolorl</span><span class="o">=</span><span class="n">textcolorl</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">textcolorl</span><span class="o">=</span><span class="n">textcolorl</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.set_shape"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.set_shape">[docs]</a>    <span class="k">def</span> <span class="nf">set_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.render"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">template</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_string</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">diag</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">server</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">diag</span>
-</div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">diag</span></div>
+
 <div class="viewcode-block" id="Rack.diagram"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.diagram">[docs]</a>    <span class="k">def</span> <span class="nf">diagram</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;{}.diag&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_expand</span><span class="p">(</span><span class="n">name</span><span class="p">)),</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diag</span><span class="p">)</span>
-</div>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;{}.diag&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_expand</span><span class="p">(</span><span class="n">name</span><span class="p">)),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">diag</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Rack.svg"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.svg">[docs]</a>    <span class="k">def</span> <span class="nf">svg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">diagram</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;rackdiag&#39;</span><span class="p">,</span> <span class="s">&quot;-T&quot;</span><span class="p">,</span> <span class="s">&quot;svg&quot;</span><span class="p">,</span> <span class="s">&quot;{}.diag&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_expand</span><span class="p">(</span><span class="n">name</span><span class="p">))]</span>
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="Rack.view"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.view">[docs]</a>    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;open&#39;</span><span class="p">,</span> <span class="s">&quot;{}.svg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_expand</span><span class="p">(</span><span class="n">name</span><span class="p">))]</span>
-        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rackdiag&#39;</span><span class="p">,</span> <span class="s2">&quot;-T&quot;</span><span class="p">,</span> <span class="s2">&quot;svg&quot;</span><span class="p">,</span> <span class="s2">&quot;{}.diag&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_expand</span><span class="p">(</span><span class="n">name</span><span class="p">))]</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span></div>
 
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+<div class="viewcode-block" id="Rack.view"><a class="viewcode-back" href="../../../code/cloudmesh_client.system.html#cloudmesh_client.system.rack.Rack.view">[docs]</a>    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="s2">&quot;{}.svg&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_expand</span><span class="p">(</span><span class="n">name</span><span class="p">))]</span>
+        <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span></div></div>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">rack</span> <span class="o">=</span> <span class="n">Rack</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
     <span class="n">rack</span><span class="o">.</span><span class="n">set_template</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;blue&quot;</span><span class="p">)</span>
-    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s">&quot;green&quot;</span><span class="p">)</span>
-    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">textcolor</span><span class="o">=</span><span class="s">&quot;red&quot;</span><span class="p">)</span>
-    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="s">&quot;24&quot;</span><span class="p">)</span>
-    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s">&quot;cloud&quot;</span><span class="p">)</span>
-    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">numbered</span><span class="o">=</span><span class="s">&quot;1&quot;</span><span class="p">)</span>
+    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">)</span>
+    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">textcolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">textsize</span><span class="o">=</span><span class="s2">&quot;24&quot;</span><span class="p">)</span>
+    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;cloud&quot;</span><span class="p">)</span>
+    <span class="n">rack</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="n">numbered</span><span class="o">=</span><span class="s2">&quot;1&quot;</span><span class="p">)</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">rack</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
-    <span class="c"># print rack.dump()</span>
+    <span class="c1"># print rack.dump()</span>
 
-    <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;~/.cloudmesh/c&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;~/.cloudmesh/c&quot;</span>
     <span class="n">rack</span><span class="o">.</span><span class="n">svg</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="n">rack</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
 </pre></div>
@@ -329,7 +333,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

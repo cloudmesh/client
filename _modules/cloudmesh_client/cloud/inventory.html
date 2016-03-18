@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.inventory &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.cloud.inventory &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.cloud.inventory</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,6 +171,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.inventory</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">ConfigDict</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.common.Shell</span> <span class="kn">import</span> <span class="n">Shell</span>
@@ -182,71 +187,71 @@
 
 <div class="viewcode-block" id="Inventory"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory">[docs]</a><span class="k">class</span> <span class="nc">Inventory</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 <div class="viewcode-block" id="Inventory.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">banner</span><span class="p">(</span><span class="s">&quot;Configuration&quot;</span><span class="p">)</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&#39;Object Attibutes: {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)))</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&#39;Objects: {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&#39;Configuration File: {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">))</span>
-        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s">&#39;Configuration:&#39;</span><span class="p">)</span>
+        <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Configuration&quot;</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Object Attibutes: {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Objects: {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Configuration File: {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">))</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s1">&#39;Configuration:&#39;</span><span class="p">)</span>
 
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Problem reading the yaml file {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Problem reading the yaml file {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">))</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Please check if the file exists or is empty&quot;</span><span class="p">)</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Please check if the file exists or is empty&quot;</span><span class="p">)</span>
             <span class="k">print</span> <span class="p">(</span><span class="n">e</span><span class="p">)</span>
 
-        <span class="n">banner</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
-</div>
+        <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">order</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s">&quot;host&quot;</span><span class="p">,</span>
-            <span class="s">&quot;cluster&quot;</span><span class="p">,</span>
-            <span class="s">&quot;label&quot;</span><span class="p">,</span>
-            <span class="s">&quot;service&quot;</span><span class="p">,</span>
-            <span class="s">&quot;ip&quot;</span><span class="p">,</span>
-            <span class="s">&quot;project&quot;</span><span class="p">,</span>
-            <span class="s">&quot;owners&quot;</span><span class="p">,</span>
-            <span class="s">&quot;comment&quot;</span><span class="p">]</span>
+            <span class="s2">&quot;host&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;cluster&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;label&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;service&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;project&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;owners&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;comment&quot;</span><span class="p">]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">entry</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span> <span class="o">=</span> <span class="s">&quot;cloudmesh.yaml&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span> <span class="o">=</span> <span class="s2">&quot;cloudmesh.yaml&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config_filename</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">datafile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s">&quot;cloudmesh.system.data&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">datafile</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;cloudmesh.system.data&quot;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">datafile</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Inventory.read"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;yaml&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Inventory.read"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datafile</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-        <span class="n">stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+        <span class="n">stream</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-        <span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="Inventory.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&quot;yaml&quot;</span><span class="p">):</span>
+        <span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Inventory.save"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">datafile</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
-            <span class="n">yaml_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
-</div>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
+            <span class="n">yaml_file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">format</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="Inventory.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="s">&quot;host&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&quot;ERROR no id specified&quot;</span>
+        <span class="k">if</span> <span class="s2">&quot;host&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;ERROR no id specified&quot;</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">hosts</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">])</span>
+        <span class="n">hosts</span> <span class="o">=</span> <span class="n">hostlist</span><span class="o">.</span><span class="n">expand_hostlist</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">])</span>
 
         <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">host</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
@@ -254,68 +259,68 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">entry</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entry</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">host</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span>
-            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">entry</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-            <span class="n">entry</span><span class="p">[</span><span class="s">&#39;host&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">host</span>
+            <span class="n">entry</span><span class="p">[</span><span class="s1">&#39;host&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">host</span>
             <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">host</span><span class="p">][</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-</div>
-<div class="viewcode-block" id="Inventory.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;dict&#39;</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Inventory.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.Inventory.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">order</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span>
         <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
                             <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
                             <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">,</span>
-                            <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span>
-</div>
+                            <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">)</span></div>
+
     <span class="k">def</span> <span class="nf">_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">with_empty</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="k">print</span>
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="s">&#39;&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">print</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+                <span class="k">print</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">])</span></div>
 
 
-<span class="c"># noinspection PyBroadException,PyPep8Naming</span></div>
+<span class="c1"># noinspection PyBroadException,PyPep8Naming</span>
 <div class="viewcode-block" id="command_system"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.command_system">[docs]</a><span class="k">class</span> <span class="nc">command_system</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="command_system.status"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.inventory.command_system.status">[docs]</a>    <span class="k">def</span> <span class="nf">status</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
-        <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Unknown host&quot;</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Unknown host&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="s">&quot;-c&quot;</span><span class="p">,</span> <span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">ping</span><span class="p">(</span><span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span>
         <span class="k">except</span><span class="p">:</span>
             <span class="k">pass</span>
-        <span class="k">if</span> <span class="s">&quot;1 packets transmitted, 1 packets received&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;1 packets transmitted, 1 packets received&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">True</span>
-        <span class="k">elif</span> <span class="s">&quot;Unknown host&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="s2">&quot;Unknown host&quot;</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">False</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">return</span> <span class="bp">False</span></div></div>
 
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;Info&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
     <span class="n">i</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;changing values&quot;</span><span class="p">)</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;i1&quot;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;india&quot;</span><span class="p">)</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;i2&quot;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;gregor&quot;</span><span class="p">)</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s">&quot;d[1-4]&quot;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&quot;delta&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;changing values&quot;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;i1&quot;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;india&quot;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;i2&quot;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;gregor&quot;</span><span class="p">)</span>
+    <span class="n">i</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&quot;d[1-4]&quot;</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;delta&quot;</span><span class="p">)</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;saving&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;saving&quot;</span><span class="p">)</span>
     <span class="n">i</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;dict&#39;</span><span class="p">,</span> <span class="s">&#39;yaml&#39;</span><span class="p">,</span> <span class="s">&#39;csv&#39;</span><span class="p">,</span> <span class="s">&#39;table&#39;</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="s1">&#39;yaml&#39;</span><span class="p">,</span> <span class="s1">&#39;csv&#39;</span><span class="p">,</span> <span class="s1">&#39;table&#39;</span><span class="p">]:</span>
         <span class="n">banner</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">output</span><span class="p">))</span>
 
-    <span class="n">banner</span><span class="p">(</span><span class="s">&quot;reading&quot;</span><span class="p">)</span>
+    <span class="n">banner</span><span class="p">(</span><span class="s2">&quot;reading&quot;</span><span class="p">)</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">Inventory</span><span class="p">()</span>
     <span class="n">n</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s">&#39;table&#39;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">list</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">))</span>
     <span class="n">n</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
 </pre></div>
 
@@ -349,7 +354,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

@@ -140,6 +140,14 @@ cloudmesh_client.shell.plugins.ListCommand module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.shell.plugins.LoadCommand module
+-------------------------------------------------
+
+.. automodule:: cloudmesh_client.shell.plugins.LoadCommand
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.shell.plugins.LogLevelCommand module
 -----------------------------------------------------
 

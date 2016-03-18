@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Hacking &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Hacking &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
         <link rel="next" title="Appendix" href="appendix.html"/>
         <link rel="prev" title="API" href="api.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -108,6 +108,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="">Hacking</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prioritizaton">PRIORITIZATON</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#editor">Editor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#testing">Testing</a><ul>
@@ -146,6 +147,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -168,7 +171,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -202,12 +205,12 @@
 Code</cite> feature regularly on the files you modify and fix the sensible
 pep8 warnings.  Look at other warnings and errors</p>
 </li>
+<li><p class="first">we disallow editing with notepad</p>
+</li>
 <li><p class="first">use <code class="docutils literal"><span class="pre">.format</span></code> instead of <code class="docutils literal"><span class="pre">%</span></code> in print statements</p>
 </li>
 <li><p class="first">use <code class="docutils literal"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">print_function</span></code> at the beginning of the file and use
 <code class="docutils literal"><span class="pre">print(&quot;msg&quot;)</span></code> instead of <code class="docutils literal"><span class="pre">print</span> <span class="pre">msg</span></code></p>
-</li>
-<li><p class="first">use as much python 3 like code but use python 2</p>
 </li>
 <li><p class="first">use <code class="docutils literal"><span class="pre">class</span> <span class="pre">name(object):</span></code> and not just <code class="docutils literal"><span class="pre">class</span> <span class="pre">name:</span></code></p>
 </li>
@@ -221,26 +224,26 @@ Console.ok. Please note that Console.ok, takesa string argument.</p>
 <li><p class="first">use <code class="docutils literal"><span class="pre">ConfigDict</span></code> when reading yaml files. It even allows you to
 read a yaml file in order, make changes to it and write it back</p>
 </li>
-<li><p class="first">use nosetests for testing your programs</p>
+<li><p class="first">use nosetests and pytest for testing your programs</p>
 <p>An example is provided in <code class="docutils literal"><span class="pre">tests/test_sample.py</span></code>:</p>
-<div class="highlight-python"><div class="highlight"><pre>nosetests -v --nocapture tests/test_sample.py
+<div class="highlight-python"><div class="highlight"><pre><span></span>nosetests -v --nocapture tests/test_sample.py
+py.test  tests/test_sample.py
 </pre></div>
 </div>
 <p>you can copy this to <code class="docutils literal"><span class="pre">tests/test_yourfile.py</span></code> and then replace in
 that file the occurrence of <code class="docutils literal"><span class="pre">_sample</span></code> with <code class="docutils literal"><span class="pre">_yourfile</span></code></p>
 <p>make sure to create meaningful tests.</p>
 </li>
-<li><p class="first">the documentation is write in RST <a class="reference external" href="http://sphinx-doc.org/rest.html">http://sphinx-doc.org/rest.html</a></p>
+<li><p class="first">use RST to write documentation <a class="reference external" href="http://sphinx-doc.org/rest.html">http://sphinx-doc.org/rest.html</a></p>
 </li>
-<li><p class="first">look at <a class="reference external" href="http://python-future.org/compatible_idioms.html">http://python-future.org/compatible_idioms.html</a> for tips to
-make python 2 look more like python 3.  Be careful with dicts to
-make them not inefficient.</p>
+<li><p class="first">do not include fancy self tests in the documentation, instead write
+nosetests</p>
 </li>
 <li><p class="first">we are using <a class="reference external" href="https://pypi.python.org/pypi/gitchangelog">https://pypi.python.org/pypi/gitchangelog</a> for creating
 changelogs automatically.  Thus you need to use a prefix in any
 commit. It includes the type and the user for which the commit is
 relevant.  Examples are:</p>
-<div class="highlight-python"><div class="highlight"><pre>chg: usr:    simple changes relevant for users (spelling, ...)
+<div class="highlight-python"><div class="highlight"><pre><span></span>chg: usr:    simple changes relevant for users (spelling, ...)
 fix: usr:    major changes for users
 new: usr:    new feature for users
 
@@ -250,7 +253,60 @@ new: dev:    new feature for developers
 </pre></div>
 </div>
 </li>
+<li><p class="first">use as much python 3 like code but use python 2 for development to also make the
+code portable on python 2</p>
+</li>
+<li><p class="first">look at <a class="reference external" href="http://python-future.org/compatible_idioms.html">http://python-future.org/compatible_idioms.html</a> for tips to
+make python 2 look more like python 3.  Be careful with dicts to
+make them not inefficient.</p>
+</li>
+<li><p class="first">iteritems:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">six</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="n">foo</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bar</span><span class="o">=</span><span class="mi">2</span> <span class="p">)</span>
+
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
 </ul>
+</div>
+<div class="section" id="prioritizaton">
+<h2>PRIORITIZATON<a class="headerlink" href="#prioritizaton" title="Permalink to this headline">¶</a></h2>
+<p>Prioritizations of tasks can be established while using the first
+line of an issue body. Here you can use a tag such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>P:1
+</pre></div>
+</div>
+<p>Where the number behind p identifies the priority. As normal github
+does not support priority tasks, They can be printed from cloudmesh
+dev branch, if you use the command:</p>
+<blockquote>
+<div>bin/git-priority,py</div></blockquote>
+<p>We will enhance the tools to print priority lists gradually as needed.</p>
+<p>an output will look like:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">P    | N    | title                | assignee   | milestone  | labels               |</div>
+<div class="line">&#8212;- | &#8212;- | &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211; | &#8212;&#8212;&#8212;- | &#8212;&#8212;&#8212;- | &#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211; |</div>
+<div class="line-block">
+<div class="line-block">
+<div class="line">1 |  202 | cm refresh on/off    | gouravs... | 2016/03/31 | bug, Gourav          |</div>
+</div>
+<div class="line">999 |  201 | cm cluster           | None       | priority   | Fugang, Gourav, G... |</div>
+</div>
+</div>
+</div></blockquote>
+<p>which easily renders in MD. If you are only interested in a particular milestone, you
+can fgrep for it:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>bin/git-priority,py | fgrep priority
+</pre></div>
+</div>
+<p>An example for sorting and selection is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>bin/git-priority.py | sort -t &quot;|&quot; -k 1 | fgrep priority
+</pre></div>
+</div>
 </div>
 <div class="section" id="editor">
 <h2>Editor<a class="headerlink" href="#editor" title="Permalink to this headline">¶</a></h2>
@@ -275,7 +331,7 @@ span.prompt1:before {
 <h4>Tox<a class="headerlink" href="#tox" title="Permalink to this headline">¶</a></h4>
 <p>We assume that you checked out the newest version from cloudmesh client
 and base from source and that they are located in:</p>
-<div class="highlight-python"><div class="highlight"><pre>~/github/cloudmesh/base
+<div class="highlight-python"><div class="highlight"><pre><span></span>~/github/cloudmesh/base
 ~/github/cloudmesh/client
 </pre></div>
 </div>
@@ -341,10 +397,10 @@ Laszewski.</p>
 </pre></div>
 <div class="section" id="logging">
 <h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="kn">import</span> <span class="n">LogUtil</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cloudmesh_client.common.LogUtil</span> <span class="kn">import</span> <span class="n">LogUtil</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">LogUtil</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
-<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Cloud: &quot;</span> <span class="o">+</span> <span class="n">cloud</span> <span class="o">+</span> <span class="s">&quot;, Arguments: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Cloud: &quot;</span> <span class="o">+</span> <span class="n">cloud</span> <span class="o">+</span> <span class="s2">&quot;, Arguments: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -391,7 +447,7 @@ Laszewski.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

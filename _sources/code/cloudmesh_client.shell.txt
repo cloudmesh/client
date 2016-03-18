@@ -43,14 +43,6 @@ cloudmesh_client.shell.console module
     :undoc-members:
     :show-inheritance:
 
-cloudmesh_client.shell.ghost module
------------------------------------
-
-.. automodule:: cloudmesh_client.shell.ghost
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

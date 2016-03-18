@@ -44,6 +44,22 @@ cloudmesh_client.common.FlatDict module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.GitInfo module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.common.GitInfo
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cloudmesh_client.common.LibcloudDict module
+-------------------------------------------
+
+.. automodule:: cloudmesh_client.common.LibcloudDict
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.LogUtil module
 --------------------------------------
 

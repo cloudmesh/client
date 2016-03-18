@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Flavor Command &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Flavor Command &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Image Command" href="command_image.html"/>
         <link rel="prev" title="Nova Command" href="command_nova.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -153,6 +153,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -175,7 +177,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -209,7 +211,7 @@ defines the �size� of a virtual server that can be launched</p>
 <h2>Refresh<a class="headerlink" href="#refresh" title="Permalink to this headline">¶</a></h2>
 <p>The refresh command would update the local database with the latest flavors.
 To refresh flavors of a cloud, do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>$cm flavor refresh --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$cm flavor refresh --cloud=kilo
 Refresh flavor for cloud kilo. ok
 </pre></div>
 </div>
@@ -217,7 +219,7 @@ Refresh flavor for cloud kilo. ok
 <div class="section" id="list">
 <h2>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h2>
 <p>To list the set of flavors of a cloud, do the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>$cm flavor list --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$cm flavor list --cloud=kilo
 +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
 | Id | Name           | User   | RAM   | Disabled | vCPUs | Swap | Access | rxtx_factor | os_flv_ext_data | Disk | Cloud | UUID |
 +----+----------------+--------+-------+----------+-------+------+--------+-------------+-----------------+------+-------+------+
@@ -238,7 +240,7 @@ Refresh flavor for cloud kilo. ok
 <h2>List Details<a class="headerlink" href="#list-details" title="Permalink to this headline">¶</a></h2>
 <p>To list the details of a flavor, give in the id, uuid or name of the flavor. In case latest information is needed,
 the &#8211;refresh option can be used which would update the local database:</p>
-<div class="highlight-python"><div class="highlight"><pre>$cm flavor list 1 --cloud=kilo
+<div class="highlight-python"><div class="highlight"><pre><span></span>$cm flavor list 1 --cloud=kilo
 +-----------------+---------------------+
 | Attribute       | Value               |
 +-----------------+---------------------+
@@ -306,7 +308,7 @@ the &#8211;refresh option can be used which would update the local database:</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

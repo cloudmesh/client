@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>List Command &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>List Command &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="SecGroup Command" href="command_secgroup.html"/>
         <link rel="prev" title="Key Command" href="command_key.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -152,6 +152,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -174,7 +176,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -207,11 +209,11 @@ defaults, and available clouds.</p>
 <div class="section" id="list-default">
 <h2>List Default<a class="headerlink" href="#list-default" title="Permalink to this headline">¶</a></h2>
 <p>To list all default values you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm list --cloud general default
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm list --cloud general default
 </pre></div>
 </div>
 <p>To list the default values set in a particular cloud use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm list --cloud general default
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm list --cloud general default
   +-----------+---------+--------+----------+----------------------------+----------------------------+
   | user      | cloud   | name   | value    | created_at                 | updated_at                 |
   +-----------+---------+--------+----------+----------------------------+----------------------------+
@@ -223,7 +225,7 @@ defaults, and available clouds.</p>
 </pre></div>
 </div>
 <p>To specify a different format, such as json, use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm list --cloud general --format json default
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm list --cloud general --format json default
 {
       &quot;1&quot;: {
           &quot;cloud&quot;: &quot;general&quot;,
@@ -284,7 +286,7 @@ defaults, and available clouds.</p>
 <div class="section" id="list-cloud-objects">
 <h2>list Cloud objects<a class="headerlink" href="#list-cloud-objects" title="Permalink to this headline">¶</a></h2>
 <p>The list command can also be used to list cloud objects, thus you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre>list image
+<div class="highlight-python"><div class="highlight"><pre><span></span>list image
 list flavor
 list quota
 list limits
@@ -335,7 +337,7 @@ list vm
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

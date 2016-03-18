@@ -20,6 +20,14 @@ cloudmesh_client.cloud.ListResource module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.cloud.attributes module
+----------------------------------------
+
+.. automodule:: cloudmesh_client.cloud.attributes
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.cloud.counter module
 -------------------------------------
 

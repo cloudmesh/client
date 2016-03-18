@@ -1,0 +1,609 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud &mdash; cloudmesh_client 3.1.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../../../../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../../../../cloudmesh_client.html"/> 
+
+  
+  <script src="../../../../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../../../../index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../../../../../index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../../../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../../../../../index.html">Module code</a> &raquo;</li>
+      
+          <li><a href="../../../../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
+    <li>cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">uuid</span> <span class="kn">import</span> <span class="n">UUID</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.iaas.CloudProviderBase</span> <span class="kn">import</span> <span class="n">CloudProviderBase</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.todo</span> <span class="kn">import</span> <span class="n">TODO</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.ConfigDict</span> <span class="kn">import</span> <span class="n">Config</span><span class="p">,</span> <span class="n">ConfigDict</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.LibcloudDict</span> <span class="kn">import</span> <span class="n">LibcloudDict</span>
+<span class="kn">from</span> <span class="nn">libcloud.compute.base</span> <span class="kn">import</span> <span class="n">NodeAuthPassword</span><span class="p">,</span> <span class="n">NodeAuthSSHKey</span>
+<span class="kn">from</span> <span class="nn">libcloud.compute.types</span> <span class="kn">import</span> <span class="n">Provider</span>
+<span class="kn">from</span> <span class="nn">libcloud.compute.providers</span> <span class="kn">import</span> <span class="n">get_driver</span>
+<span class="kn">import</span> <span class="nn">libcloud.security</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.shell.console</span> <span class="kn">import</span> <span class="n">Console</span>
+
+
+<div class="viewcode-block" id="CloudProviderLibcloud"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud">[docs]</a><span class="k">class</span> <span class="nc">CloudProviderLibcloud</span><span class="p">(</span><span class="n">CloudProviderBase</span><span class="p">):</span>
+
+    <span class="n">debug</span> <span class="o">=</span> <span class="bp">True</span>
+
+    <span class="k">def</span> <span class="nf">_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+
+            <span class="n">pprint</span> <span class="p">(</span><span class="n">o</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">o</span><span class="p">:</span>
+                <span class="n">pprint</span> <span class="p">(</span><span class="n">element</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloud_name</span><span class="p">,</span> <span class="n">cloud_details</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CloudProviderLibcloud</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flat</span> <span class="o">=</span> <span class="n">flat</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;libcloud&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cloud</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">f</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+
+<div class="viewcode-block" id="CloudProviderLibcloud.list_key"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_key">[docs]</a>    <span class="k">def</span> <span class="nf">list_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;In list_key&quot;</span><span class="p">)</span>
+        <span class="k">print</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="p">)</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_key_pairs</span><span class="p">()</span>
+        <span class="k">print</span> <span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="n">keys_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">keys_dict</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.list_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_vm">[docs]</a>    <span class="k">def</span> <span class="nf">list_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># return self.list(self.provider.list_nodes, cloudnames, kwargs)</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;In list_vm&quot;</span><span class="p">)</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_nodes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="n">vm_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">vm_dict</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.list_image"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_image">[docs]</a>    <span class="k">def</span> <span class="nf">list_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># return self.list(self.provider.list_images, cloudnames, kwargs)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;In list_images of libcloud&quot;</span><span class="p">)</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_images</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="n">image_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">image_dict</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.list_flavor"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_flavor">[docs]</a>    <span class="k">def</span> <span class="nf">list_flavor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># return self.list(self.provider.list_sizes, cloudnames, kwargs)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;In list_flavor of libcloud&quot;</span><span class="p">)</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_sizes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+        <span class="n">sizes_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sizes_dict</span></div>
+
+    <span class="c1"># TODO: deprecated</span>
+<div class="viewcode-block" id="CloudProviderLibcloud.list_size"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.list_size">[docs]</a>    <span class="k">def</span> <span class="nf">list_size</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cloudname</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;In list_sizes of libcloud&quot;</span><span class="p">)</span>
+        <span class="n">sizes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_sizes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_print</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+        <span class="n">sizes_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_dict</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">sizes_dict</span></div>
+
+    <span class="k">def</span> <span class="nf">_to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">libcloud_result</span><span class="p">):</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">result_type</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">libcloud_result</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">libcloud_result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;RRRR&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span>  <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;Node&quot;</span><span class="p">,</span> <span class="s2">&quot;NodeImage&quot;</span><span class="p">,</span> <span class="s2">&quot;NodeSize&quot;</span><span class="p">]:</span>
+                <span class="n">result_type</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;{} type object received&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="c1"># pprint(libcloud_result[0])</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">libcloud_result</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">result_type</span> <span class="o">==</span> <span class="s2">&quot;Node&quot;</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">LibcloudDict</span><span class="o">.</span><span class="n">convert_libcloud_vm_to_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">result_type</span> <span class="o">==</span> <span class="s2">&quot;NodeImage&quot;</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_image_details</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">result_type</span> <span class="o">==</span> <span class="s2">&quot;NodeSize&quot;</span><span class="p">:</span>
+                <span class="n">d</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">LibcloudDict</span><span class="o">.</span><span class="n">handle_vm_size_details</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+            <span class="c1"># pprint(&quot;Index:&quot;+str(index))</span>
+        <span class="k">return</span> <span class="n">d</span>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.attributes"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.attributes">[docs]</a>    <span class="k">def</span> <span class="nf">attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;flavor&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;cpu&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;ram&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;bandwidth&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;price&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated_at&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;Id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;User&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;cpu&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;RAM&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;bandwidth&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;price&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;UUID&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Updated&#39;</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;image_type&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;state&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated_at&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;owner_id&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;image_type&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;state&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated_at&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;owner_id&#39;</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;vm&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;label&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;status&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;public_ips&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;private_ips&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;image_name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;key_name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;availability&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;instance_type&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated_at&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;label&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;status&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;public_ips&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;private_ips&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;image_name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;key_name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;availability&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;instance_type&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated&#39;</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;floating_ip&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;instance_name&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;pool&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;fixed_ip&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;id&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;instance_id&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;instance_name&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;floating_ip&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;floating_ip_pool&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;fixed_ip&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;floating_ip_id&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;instance_id&quot;</span><span class="p">,</span>
+                    <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated&#39;</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;floating_ip_pool&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;name&quot;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;floating_ip_pool&quot;</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;clouds&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;cloud&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;cloud&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;status&quot;</span>
+                <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;limits&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Value&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;Name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Value&#39;</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;quota&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;Quota&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Limit&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;Quota&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;Limit&#39;</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;secgroup&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;project&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;uuid&#39;</span>
+                <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;secgroup_name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;category&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;tenant_id&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;secgroup_uuid&#39;</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;value&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;created_at&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated_at&#39;</span>
+                     <span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;cloud&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;value&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;created&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;updated&#39;</span>
+                     <span class="p">],</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1"># TODO: bug, this only returns some og the attributes, but not all</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">]:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s1">&#39;order&#39;</span><span class="p">]</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="n">kind</span><span class="p">][</span><span class="s1">&#39;header&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">order</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
+
+        <span class="k">return</span> <span class="n">order</span><span class="p">,</span> <span class="n">header</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.boot_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.boot_vm">[docs]</a>    <span class="k">def</span> <span class="nf">boot_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">name</span><span class="p">,</span>
+                <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">flavor</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">cloud</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">,</span>
+                <span class="n">key</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">secgroup</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">meta</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">nics</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Spawns a VM instance on the cloud.</span>
+<span class="sd">        If image and flavor passed as none, it would consider the defaults specified in cloudmesh.yaml.</span>
+
+<span class="sd">        :param name: Name of the instance to be started</span>
+<span class="sd">        :param image: Image id to be used for the instance</span>
+<span class="sd">        :param flavor: Flavor to be used for the instance</span>
+<span class="sd">        :param cloud: Cloud on which to spawn the machine. Defaults to &#39;India&#39;.</span>
+<span class="sd">        :param key: Key to be used for the instance</span>
+<span class="sd">        :param secgroup: Security group for the instance</span>
+<span class="sd">        :param nics: TODO: fixme</span>
+<span class="sd">        :param meta: A dict of arbitrary key/value metadata to store for this server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;BOOTING UP THE VM&quot;</span><span class="p">)</span>
+        <span class="n">auth</span> <span class="o">=</span> <span class="n">NodeAuthPassword</span><span class="p">(</span><span class="s1">&#39;mysecretpassword&#39;</span><span class="p">)</span>
+        <span class="c1"># self.provider.create_node(&quot;test_node&quot;, auth=auth)</span>
+        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_image_by_id</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;Image Id&quot;</span><span class="p">)</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Image Id not found&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">flavor</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">flavor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_size_by_id</span><span class="p">(</span><span class="n">flavor</span><span class="p">)</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="s2">&quot;FLAVOR::&quot;</span><span class="p">)</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="n">flavor</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;valid Flavor Id not found&quot;</span><span class="p">)</span>
+        <span class="c1"># flavor = self.provider.list_sizes()[2]</span>
+        <span class="c1"># location = self.provider.list_locations()[0]</span>
+        <span class="c1"># pprint(self.provider.features[&#39;create_node&#39;])</span>
+        <span class="c1"># create_args = dict()</span>
+        <span class="c1"># create_args[&#39;image&#39;] = image</span>
+
+        <span class="c1"># Console.info(&quot;Demo start a VM:&quot;)</span>
+        <span class="c1"># Console.info(&quot;Image selected :&quot;+image.name)</span>
+        <span class="c1"># Console.info(&quot;Flavor selected :&quot;+flavor.name)</span>
+        <span class="c1"># Console.info(&quot;Key :&quot;)</span>
+        <span class="c1"># pprint(key)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">create_node</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span> <span class="n">ex_keyname</span><span class="o">=</span><span class="n">key</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.add_key_to_cloud"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.add_key_to_cloud">[docs]</a>    <span class="k">def</span> <span class="nf">add_key_to_cloud</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">public_key</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Method to add key to libcloud based clouds, typically a keypair for AWS EC2.</span>
+<span class="sd">        :param name: Name of the keypair.</span>
+<span class="sd">        :param public_key: public key string.</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">keypair</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">import_key_pair_from_string</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">key_material</span><span class="o">=</span><span class="n">public_key</span><span class="p">)</span>
+        <span class="n">Console</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Uploading the key to libcloud. ok.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">keypair</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.get_image_by_id"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.get_image_by_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_image_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image_id</span><span class="p">):</span>
+        <span class="n">image_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_images</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">image_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">image_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">image</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;image id not found&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span></div>
+
+<div class="viewcode-block" id="CloudProviderLibcloud.get_size_by_id"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.libcloud.html#cloudmesh_client.cloud.iaas.provider.libcloud.CloudProviderLibcloud.CloudProviderLibcloud.get_size_by_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_size_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size_id</span><span class="p">):</span>
+        <span class="n">size_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">provider</span><span class="o">.</span><span class="n">list_sizes</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="n">size_list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">size</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">size_id</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">size</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;flavor id not found&quot;</span><span class="p">)</span></div></div>
+        <span class="c1"># return None</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../../../../',
+            VERSION:'3.1.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../../../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../../../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

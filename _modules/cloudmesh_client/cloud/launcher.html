@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.launcher &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.cloud.launcher &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.cloud.launcher</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,73 +171,73 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.cloud.launcher</h1><div class="highlight"><pre>
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">subprocess</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.ListResource</span> <span class="kn">import</span> <span class="n">ListResource</span>
 
 
-<span class="c"># noinspection PyUnusedLocal</span>
+<span class="c1"># noinspection PyUnusedLocal</span>
 <div class="viewcode-block" id="LauncherProvider"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider">[docs]</a><span class="k">class</span> <span class="nc">LauncherProvider</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
 <div class="viewcode-block" id="LauncherProvider.info"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.info">[docs]</a>    <span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.run"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.resume"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.suspend"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.kill"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.details"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.details">[docs]</a>    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
-</div>
-<div class="viewcode-block" id="LauncherProvider.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
 
-</div></div>
+<div class="viewcode-block" id="LauncherProvider.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.run"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.resume"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.resume">[docs]</a>    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.suspend"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.suspend">[docs]</a>    <span class="k">def</span> <span class="nf">suspend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.kill"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.kill">[docs]</a>    <span class="k">def</span> <span class="nf">kill</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.details"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.details">[docs]</a>    <span class="k">def</span> <span class="nf">details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.clear"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
+
+<div class="viewcode-block" id="LauncherProvider.refresh"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherProvider.refresh">[docs]</a>    <span class="k">def</span> <span class="nf">refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div></div>
+
+
 <div class="viewcode-block" id="LauncherShell"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherShell">[docs]</a><span class="k">class</span> <span class="nc">LauncherShell</span><span class="p">(</span><span class="n">LauncherProvider</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span>
 
 <div class="viewcode-block" id="LauncherShell.run"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.LauncherShell.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">script</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&quot;script&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="n">script</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;script&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&gt;&gt;&gt;&gt;&quot;</span><span class="p">,</span> <span class="n">script</span><span class="p">)</span>
-        <span class="c"># output = Shell.sh(script)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&gt;&gt;&gt;&gt;&quot;</span><span class="p">,</span> <span class="n">script</span><span class="p">)</span>
+        <span class="c1"># output = Shell.sh(script)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">script</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;OOOOOO&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;OOOOOO&quot;</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">output</span>
+        <span class="k">return</span> <span class="n">output</span></div></div>
 
 
-<span class="c"># noinspection PyPep8Naming</span></div></div>
+<span class="c1"># noinspection PyPep8Naming</span>
 <div class="viewcode-block" id="Launcher"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.launcher.Launcher">[docs]</a><span class="k">def</span> <span class="nf">Launcher</span><span class="p">(</span><span class="n">kind</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;sh&quot;</span><span class="p">,</span> <span class="s">&quot;shell&quot;</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">kind</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;sh&quot;</span><span class="p">,</span> <span class="s2">&quot;shell&quot;</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">LauncherShell</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;not yet implemented&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="s">&quot;not yet implemented&quot;</span></div>
+        <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;not yet implemented&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;not yet implemented&quot;</span></div>
 </pre></div>
 
            </div>
@@ -266,7 +270,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

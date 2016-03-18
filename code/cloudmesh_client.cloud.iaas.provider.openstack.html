@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.cloud.iaas.provider.openstack package &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.cloud.iaas.provider.openstack package &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.cloud.iaas.provider package" href="cloudmesh_client.cloud.iaas.provider.html"/>
         <link rel="next" title="cloudmesh_client.comet package" href="cloudmesh_client.comet.html"/>
         <link rel="prev" title="cloudmesh_client.cloud.iaas.provider.libcloud package" href="cloudmesh_client.cloud.iaas.provider.libcloud.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -125,6 +125,7 @@
 <li class="toctree-l4 current"><a class="reference internal" href="cloudmesh_client.cloud.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.attributes">cloudmesh_client.cloud.attributes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
@@ -172,6 +173,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -194,7 +197,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -253,6 +256,11 @@
 </dd></dl>
 
 <dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.add_secgroup_rule">
+<code class="descname">add_secgroup_rule</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.add_secgroup_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.add_secgroup_rule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.attributes">
 <code class="descname">attributes</code><span class="sig-paren">(</span><em>kind</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.attributes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -286,6 +294,11 @@ If image and flavor passed as none, it would consider the defaults specified in 
 <code class="descname">cloud_pwd</code><em class="property"> = {}</em><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.cloud_pwd" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="attribute">
+<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.cloud_type">
+<code class="descname">cloud_type</code><em class="property"> = 'openstack'</em><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.cloud_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_assign_floating_ip">
 <code class="descname">create_assign_floating_ip</code><span class="sig-paren">(</span><em>server_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.create_assign_floating_ip"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_assign_floating_ip" title="Permalink to this definition">¶</a></dt>
@@ -301,6 +314,11 @@ If image and flavor passed as none, it would consider the defaults specified in 
 :param float_pool:
 :return: Floating IP</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_secgroup">
+<code class="descname">create_secgroup</code><span class="sig-paren">(</span><em>secgroup_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.create_secgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.create_secgroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.deactivate">
@@ -325,6 +343,16 @@ If image and flavor passed as none, it would consider the defaults specified in 
 :param name: Name of the keypair.
 :return:</p>
 </dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_secgroup">
+<code class="descname">delete_secgroup</code><span class="sig-paren">(</span><em>secgroup_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.delete_secgroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_secgroup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_secgroup_rule">
+<code class="descname">delete_secgroup_rule</code><span class="sig-paren">(</span><em>rule_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.delete_secgroup_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_secgroup_rule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_vm">
@@ -407,11 +435,6 @@ TODO: details TBD</p>
 <code class="descname">isUuid</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.isUuid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.isUuid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="attribute">
-<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.kind">
-<code class="descname">kind</code><em class="property"> = 'openstack'</em><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.kind" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="method">
 <dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_clouds">
 <code class="descname">list_clouds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.list_clouds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.list_clouds" title="Permalink to this definition">¶</a></dt>
@@ -486,6 +509,15 @@ TODO: details TBD</p>
 <dd><p>Sets the source for the information to be returned. &#8220;db&#8221; and &#8220;cloud&#8221;
 :param source: the database can be queried in mode &#8220;db&#8221;,
 the database can be bypassed in mode &#8220;cloud&#8221;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.rename_vm">
+<code class="descname">rename_vm</code><span class="sig-paren">(</span><em>current_name</em>, <em>new_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/iaas/provider/openstack/CloudProviderOpenstackAPI.html#CloudProviderOpenstackAPI.rename_vm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.rename_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames a vm.
+:param current_name:
+:param new_name:
+:return:</p>
 </dd></dl>
 
 <dl class="method">
@@ -578,7 +610,7 @@ the database can be bypassed in mode &#8220;cloud&#8221;</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

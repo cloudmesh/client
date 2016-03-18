@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.shell.plugins package &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/>
         <link rel="next" title="cloudmesh_client.system package" href="cloudmesh_client.system.html"/>
         <link rel="prev" title="cloudmesh_client.shell package" href="cloudmesh_client.shell.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -134,7 +134,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.cm_shell_status">cloudmesh_client.shell.cm_shell_status module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.command">cloudmesh_client.shell.command module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.console">cloudmesh_client.shell.console module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.ghost">cloudmesh_client.shell.ghost module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell">Module contents</a></li>
 </ul>
 </li>
@@ -157,6 +156,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -179,7 +180,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -219,7 +220,7 @@
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.Bar.BarCommand.do_bar">
 <code class="descname">do_bar</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.Bar.BarCommand.do_bar" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
       bar -f FILE
       bar FILE
       bar list
@@ -252,7 +253,7 @@ Options:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.CheckCommand.CheckCommand.do_check">
 <code class="descname">do_check</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.CheckCommand.CheckCommand.do_check" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     check --cloud=CLOUD
     check
 
@@ -286,7 +287,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.CloudCommand.CloudCommand.do_cloud">
 <code class="descname">do_cloud</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.CloudCommand.CloudCommand.do_cloud" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     cloud list [--cloud=CLOUD] [--format=FORMAT]
     cloud logon CLOUD
     cloud logout CLOUD
@@ -359,7 +360,7 @@ See also:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ClusterCommand.ClusterCommand.do_cluster">
 <code class="descname">do_cluster</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ClusterCommand.ClusterCommand.do_cluster" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     cluster list [--format=FORMAT]
     cluster list NAME
                  [--format=FORMAT]
@@ -443,7 +444,7 @@ Options:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ColorCommand.ColorCommand.do_color">
 <code class="descname">do_color</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ColorCommand.ColorCommand.do_color" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     color FLAG
 
 Arguments:
@@ -483,20 +484,25 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.CometCommand.CometCommand.do_comet">
 <code class="descname">do_comet</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.CometCommand.CometCommand.do_comet" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
+   comet init
    comet ll [CLUSTERID] [--format=FORMAT]
    comet cluster [CLUSTERID]
                  [--format=FORMAT]
    comet computeset [COMPUTESETID]
-   comet power on CLUSTERID [--count=NUMNODES] [NODESPARAM]
+                [--allocation=ALLOCATION]
+                [--cluster=CLUSTERID]
+                [--state=COMPUTESESTATE]
+   comet start CLUSTERID [--count=NUMNODES] [COMPUTENODEIDS]
                 [--allocation=ALLOCATION]
                 [--walltime=WALLTIME]
-   comet power (off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
+   comet terminate COMPUTESETID
+   comet power (on|off|reboot|reset|shutdown) CLUSTERID [NODESPARAM]
    comet console CLUSTERID [COMPUTENODEID]
-   comet image list
-   comet image upload [--imagename=IMAGENAME] PATHIMAGEFILE
-   comet image attach IMAGENAME CLUSTERID [COMPUTENODEIDS]
-   comet image detach CLUSTERID [COMPUTENODEIDS]
+   comet iso list
+   comet iso upload [--isoname=ISONAME] PATHISOFILE
+   comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
+   comet iso detach CLUSTERID [COMPUTENODEIDS]
    comet node rename CLUSTERID OLDNAME NEWNAME
 
 Options:
@@ -513,19 +519,14 @@ Options:
                             Walltime could be an integer value followed
                             by a unit (m, h, d, w, for minute, hour, day,
                             and week, respectively). E.g., 3h, 2d
-    --imagename=IMAGENAME   Name of the image after being stored remotely.
+    --isoname=ISONAME       Name of the iso image after being stored remotely.
                             If not specified, use the original filename
+    --state=COMPUTESESTATE  List only computeset with the specified state.
+                            The state could be submitted, running, completed
 
 Arguments:
     CLUSTERID       The assigned name of a cluster, e.g. vc1
     COMPUTESETID    An integer identifier assigned to a computeset
-    NODESPARAM      Specifying the node/nodes/computeset to act on.
-                    In case of integer, will be intepreted as a computesetid;
-                    in case of a hostlist format, e.g., vm-vc1-[0-3], a group
-                    of nodes; or a single host is also acceptable,
-                    e.g., vm-vc1-0
-                    If not provided, the requested action will be taken
-                    on the frontend node of the specified cluster
     COMPUTENODEID   A compute node name, e.g., vm-vc1-0
                     If not provided, the requested action will be taken
                     on the frontend node of the specified cluster
@@ -534,8 +535,13 @@ Arguments:
                     One single node is also acceptable: vm-vc1-0
                     If not provided, the requested action will be taken
                     on the frontend node of the specified cluster
-    IMAGENAME       Name of an image at remote server
-    PATHIMAGEFILE   The full path to the image file to be uploaded
+    NODESPARAM      Specifying the node/nodes/computeset to act on.
+                    In case of integer, will be intepreted as a computesetid;
+                    in case of a hostlist format, e.g., vm-vc1-[0-3], a group
+                    of nodes; or a single host is also acceptable,
+                    e.g., vm-vc1-0
+    ISONAME         Name of an iso image at remote server
+    PATHISOFILE     The full path to the iso image file to be uploaded
 </pre></div>
 </div>
 </dd></dl>
@@ -557,7 +563,7 @@ Arguments:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.DebugCommand.DebugCommand.do_debug">
 <code class="descname">do_debug</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.DebugCommand.DebugCommand.do_debug" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     debug on
     debug off
     debug list
@@ -584,7 +590,7 @@ Arguments:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.DefaultCommand.DefaultCommand.do_default">
 <code class="descname">do_default</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.DefaultCommand.DefaultCommand.do_default" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     default
     default list [--cloud=CLOUD] [--format=FORMAT] [--all]
     default delete KEY [--cloud=CLOUD]
@@ -674,7 +680,7 @@ cloud kilo</dd>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.FlavorCommand.FlavorCommand.do_flavor">
 <code class="descname">do_flavor</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.FlavorCommand.FlavorCommand.do_flavor" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     flavor refresh [--cloud=CLOUD] [-v]
     flavor list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh] [-v]
 
@@ -712,7 +718,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.do_group">
 <code class="descname">do_group</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.do_group" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
     group list [--category=CLOUD] [--format=FORMAT] [NAME]
     group delete NAME [--category=CLOUD]
@@ -801,7 +807,7 @@ Example:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.HpcCommand.HpcCommand.do_hpc">
 <code class="descname">do_hpc</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.HpcCommand.HpcCommand.do_hpc" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     hpc queue [--job=NAME][--cluster=CLUSTER][--format=FORMAT]
     hpc info [--cluster=CLUSTER][--format=FORMAT]
     hpc run list [ID] [--cluster=CLUSTER]
@@ -902,7 +908,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ImageCommand.ImageCommand.do_image">
 <code class="descname">do_image</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ImageCommand.ImageCommand.do_image" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     image refresh [--cloud=CLOUD]
     image list [ID] [--cloud=CLOUD] [--format=FORMAT] [--refresh]
 
@@ -939,7 +945,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.InventoryCommand.InventoryCommand.do_inventory">
 <code class="descname">do_inventory</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.InventoryCommand.InventoryCommand.do_inventory" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     inventory add NAMES [--label=LABEL]
                         [--service=SERVICES]
                         [--project=PROJECT]
@@ -1040,7 +1046,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.KeyCommand.KeyCommand.do_key">
 <code class="descname">do_key</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.KeyCommand.KeyCommand.do_key" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
   key  -h | --help
   key list [--source=db] [--format=FORMAT]
   key list --source=cloudmesh [--format=FORMAT]
@@ -1053,9 +1059,7 @@ Examples:
   key get NAME
   key default [KEYNAME | --select]
   key delete (KEYNAME | --select | --all) [--force]
-  key upload [KEYNAME]
-             [--cloud=CLOUD]
-             [--name=NAME_ON_CLOUD]
+  key upload [KEYNAME] [--cloud=CLOUD]
   key map [--cloud=CLOUD]
 
 Manages the keys
@@ -1152,7 +1156,7 @@ key rename NAME NEW
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.LauncherCommand.LauncherCommand.do_launcher">
 <code class="descname">do_launcher</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.LauncherCommand.LauncherCommand.do_launcher" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     launcher list [--cloud=CLOUD] [--format=FORMAT] [--all]
     launcher delete KEY [--cloud=CLOUD]
     launcher run
@@ -1210,7 +1214,7 @@ launcher delete &lt;KEY&gt;</dd>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.LimitsCommand.LimitsCommand.do_limits">
 <code class="descname">do_limits</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.LimitsCommand.LimitsCommand.do_limits" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     limits list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
     Current list data with limits on a selected project/tenant.
@@ -1245,7 +1249,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ListCommand.ListCommand.do_list">
 <code class="descname">do_list</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ListCommand.ListCommand.do_list" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] default
     list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] vm
     list [--cloud=CLOUD] [--format=FORMAT] [--user=USER] [--tenant=TENANT] flavor
@@ -1280,6 +1284,66 @@ Examples:
 </dd></dl>
 
 </div>
+<div class="section" id="module-cloudmesh_client.shell.plugins.LoadCommand">
+<span id="cloudmesh-client-shell-plugins-loadcommand-module"></span><h2>cloudmesh_client.shell.plugins.LoadCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.LoadCommand" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="cloudmesh_client.shell.plugins.LoadCommand.LoadCommand">
+<em class="property">class </em><code class="descclassname">cloudmesh_client.shell.plugins.LoadCommand.</code><code class="descname">LoadCommand</code><span class="sig-paren">(</span><em>context</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/LoadCommand.html#LoadCommand"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.LoadCommand.LoadCommand" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.PluginCommand" title="cloudmesh_client.shell.command.PluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.PluginCommand</span></code></a>, <a class="reference internal" href="cloudmesh_client.shell.html#cloudmesh_client.shell.command.CloudPluginCommand" title="cloudmesh_client.shell.command.CloudPluginCommand"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.shell.command.CloudPluginCommand</span></code></a></p>
+<dl class="method">
+<dt id="cloudmesh_client.shell.plugins.LoadCommand.LoadCommand.do_load">
+<code class="descname">do_load</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.LoadCommand.LoadCommand.do_load" title="Permalink to this definition">¶</a></dt>
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
+    load list [--format=FORMAT]
+    load reset
+    load --base=MODULE PLUGINS...
+    load --delete --base=MODULE PLUGINS...
+
+    loads a plugins into the cloudmesh command shell
+
+
+OPTIONS:
+    --base=MODULE  the prefix of the modules [default: cloudmesh_client.shell.plugins]
+    --format=FORMAT  the output format
+
+ARGUMENTS:
+   PLUGINS        the list of plugins to be loaded
+
+Examples:
+    cm load list
+        lists the plugins currently loaded
+
+    cm load reset
+        unloads all plugins that are not part of the standard plugin
+        load list
+
+    cm load load workflow graphviz
+        loads the modules workflow and graphviz
+        the plugins are classes defined with
+
+            class CheckCommand(PluginCommand, CloudPluginCommand)
+
+        If they are located in a different moduel, the module name can either be
+        specified as part of the PLUGIN anem, or if
+         multiple modules are loaded as part of the MODULE parameter
+
+    cm load list --format=csv
+        list sthe loaded plugins in csv format
+
+    cm load --delete load workflow graphviz
+        the oposite of load
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="cloudmesh_client.shell.plugins.LoadCommand.LoadCommand.topics">
+<code class="descname">topics</code><em class="property"> = {'load': 'shell'}</em><a class="headerlink" href="#cloudmesh_client.shell.plugins.LoadCommand.LoadCommand.topics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-cloudmesh_client.shell.plugins.LogLevelCommand">
 <span id="cloudmesh-client-shell-plugins-loglevelcommand-module"></span><h2>cloudmesh_client.shell.plugins.LogLevelCommand module<a class="headerlink" href="#module-cloudmesh_client.shell.plugins.LogLevelCommand" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
@@ -1289,7 +1353,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand.do_loglevel">
 <code class="descname">do_loglevel</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.LogLevelCommand.LogLevelCommand.do_loglevel" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     loglevel set MODE [--cloud=CLOUD]
     loglevel get [--cloud=CLOUD]
     loglevel save [--cloud=CLOUD]
@@ -1335,7 +1399,7 @@ for a cloud.</dd>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ManCommand.ManCommand.do_man">
 <code class="descname">do_man</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ManCommand.ManCommand.do_man" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
        man COMMAND
        man [--noheader]
 
@@ -1372,13 +1436,15 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.do_network">
 <code class="descname">do_network</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.NetworkCommand.NetworkCommand.do_network" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     network get fixed [ip] [--cloud=CLOUD] FIXED_IP
     network get floating [ip] [--cloud=CLOUD] FLOATING_IP_ID
     network reserve fixed [ip] [--cloud=CLOUD] FIXED_IP
     network unreserve fixed [ip] [--cloud=CLOUD] FIXED_IP
-    network associate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
-    network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP] [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+    network associate floating [ip] [--cloud=CLOUD] [--group=GROUP]
+                               [--instance=INS_ID_OR_NAME] [FLOATING_IP]
+    network disassociate floating [ip] [--cloud=CLOUD] [--group=GROUP]
+                                  [--instance=INS_ID_OR_NAME] [FLOATING_IP]
     network create floating [ip] [--cloud=CLOUD] [--pool=FLOATING_IP_POOL]
     network delete floating [ip] [--cloud=CLOUD] FLOATING_IP...
     network list floating pool [--cloud=CLOUD]
@@ -1449,7 +1515,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.NovaCommand.NovaCommand.do_nova">
 <code class="descname">do_nova</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.NovaCommand.NovaCommand.do_nova" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     nova set CLOUD
     nova info [CLOUD] [--password]
     nova help
@@ -1491,7 +1557,7 @@ Options:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.OpenCommand.OpenCommand.do_open">
 <code class="descname">do_open</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.OpenCommand.OpenCommand.do_open" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
         open FILENAME
 
 ARGUMENTS:
@@ -1521,7 +1587,7 @@ Opens the given URL in a browser window.
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.PortalCommand.PortalCommand.do_portal">
 <code class="descname">do_portal</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.PortalCommand.PortalCommand.do_portal" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     portal start
     portal stop
 
@@ -1563,7 +1629,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.PyCommand.PyCommand.do_py">
 <code class="descname">do_py</code><span class="sig-paren">(</span><em>arg</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/shell/plugins/PyCommand.html#PyCommand.do_py"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.shell.plugins.PyCommand.PyCommand.do_py" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     py
     py COMMAND
 
@@ -1630,7 +1696,7 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.QuotaCommand.QuotaCommand.do_quota">
 <code class="descname">do_quota</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.QuotaCommand.QuotaCommand.do_quota" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     quota list [--cloud=CLOUD] [--tenant=TENANT] [--format=FORMAT]
 
     Prints quota limit on a current project/tenant
@@ -1664,7 +1730,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.RefreshCommand.RefreshCommand.do_refresh">
 <code class="descname">do_refresh</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.RefreshCommand.RefreshCommand.do_refresh" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     refresh on
     refresh off
     refresh list
@@ -1691,7 +1757,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.RegisterCommand.RegisterCommand.do_register">
 <code class="descname">do_register</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.RegisterCommand.RegisterCommand.do_register" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     register info
     register new
     register clean [--force]
@@ -1709,9 +1775,10 @@ Examples:
     register remote [CLOUD] [--force]
     register env [--provider=PROVIDER]
     register profile --username=[USERNAME]
+    register yaml ENTRY
     register CLOUD [--force]
     register CLOUD [--dir=DIR]
-
+    register ec2 CLOUD EC2ZIP
 
 managing the registered clouds in the cloudmesh.yaml file.
 It looks for it in the current directory, and than in
@@ -1832,7 +1899,7 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ReservationCommand.ReservationCommand.do_reservation">
 <code class="descname">do_reservation</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ReservationCommand.ReservationCommand.do_reservation" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     reservation info --user=USER --project=PROJECT
     reservation list [--name=NAME]
                      [--user=USER]
@@ -1918,7 +1985,7 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.ResetCommand.ResetCommand.do_reset">
 <code class="descname">do_reset</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.ResetCommand.ResetCommand.do_reset" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     reset
 </pre></div>
 </div>
@@ -1948,13 +2015,13 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.SecgroupCommand.SecgroupCommand.do_secgroup">
 <code class="descname">do_secgroup</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SecgroupCommand.SecgroupCommand.do_secgroup" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
-    secgroup list [--cloud=CLOUD] [--tenant=TENANT]
-    secgroup create [--cloud=CLOUD] [--tenant=TENANT] LABEL
-    secgroup delete [--cloud=CLOUD] [--tenant=TENANT] LABEL
-    secgroup rules-list [--cloud=CLOUD] [--tenant=TENANT] LABEL
-    secgroup rules-add [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
-    secgroup rules-delete [--cloud=CLOUD] [--tenant=TENANT] LABEL FROMPORT TOPORT PROTOCOL CIDR
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
+    secgroup list [--cloud=CLOUD]
+    secgroup create [--cloud=CLOUD] LABEL
+    secgroup delete [--cloud=CLOUD] LABEL
+    secgroup rules-list [--cloud=CLOUD] LABEL
+    secgroup rules-add [--cloud=CLOUD] LABEL FROMPORT TOPORT PROTOCOL CIDR
+    secgroup rules-delete [--cloud=CLOUD] [--all] LABEL [FROMPORT] [TOPORT] [PROTOCOL] [CIDR]
     secgroup refresh [--cloud=CLOUD]
     secgroup -h | --help
     secgroup --version
@@ -1962,7 +2029,6 @@ Description:
 Options:
     -h                  help message
     --cloud=CLOUD       Name of the IaaS cloud e.g. india_openstack_grizzly.
-    --tenant=TENANT     Name of the tenant, e.g. fg82.
 
 Arguments:
     LABEL         The label/name of the security group
@@ -1979,10 +2045,12 @@ Description:
 
 
 Examples:
-    secgroup list --cloud india --tenant fg82
-    secgroup rules-list --cloud india --tenant fg82 default
-    secgroup create --cloud india --tenant fg82 webservice
-    secgroup rules-add --cloud india --tenant fg82 webservice 8080 8088 TCP &quot;129.79.0.0/16&quot;
+    secgroup list --cloud india
+    secgroup rules-list --cloud=kilo default
+    secgroup create --cloud=kilo webservice
+    secgroup rules-add --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+    secgroup rules-delete --cloud=kilo webservice 8080 8088 TCP 129.79.0.0/16
+    secgroup rules-delete --all
 </pre></div>
 </div>
 </dd></dl>
@@ -2004,7 +2072,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.SecureShellCommand.SecureShellCommand.do_ssh">
 <code class="descname">do_ssh</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SecureShellCommand.SecureShellCommand.do_ssh" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     ssh table
     ssh list [--format=FORMAT]
     ssh cat
@@ -2083,7 +2151,7 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.SelectCommand.SelectCommand.do_select">
 <code class="descname">do_select</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SelectCommand.SelectCommand.do_select" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     select image [CLOUD] [--refresh]
     select flavor [CLOUD] [--refresh]
     select cloud [CLOUD]
@@ -2153,7 +2221,7 @@ existing cloudmesh database.</p>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.SubmitCommands.SubmitCommands.do_submit">
 <code class="descname">do_submit</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SubmitCommands.SubmitCommands.do_submit" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     submit ARGUMENTS...
 
 We do not yet know what this command will do ;-)
@@ -2184,7 +2252,7 @@ Options:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.do_rsync">
 <code class="descname">do_rsync</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.do_rsync" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     rsync ARGUMENTS...
 
 A simple wrapper for rsync command
@@ -2201,7 +2269,7 @@ Options:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.do_sync">
 <code class="descname">do_sync</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.SyncCommand.SyncCommand.do_sync" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     sync put [--cloud=CLOUD] LOCALDIR [REMOTEDIR]
     sync get [--cloud=CLOUD] REMOTEDIR LOCALDIR
 
@@ -2234,7 +2302,7 @@ Options:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_banner">
 <code class="descname">do_banner</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_banner" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     banner [-c CHAR] [-n WIDTH] [-i INDENT] [-r COLOR] TEXT...
 
 Arguments:
@@ -2268,7 +2336,7 @@ Prints a banner form a one line text message.
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_echo">
 <code class="descname">do_echo</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_echo" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     echo  [-r COLOR] TEXT
 
 Arguments:
@@ -2286,7 +2354,7 @@ Prints a text in the given color
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_pause">
 <code class="descname">do_pause</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TerminalCommands.TerminalCommands.do_pause" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     pause [MESSAGE]
 
 Displays the specified text then waits for the user to press RETURN.
@@ -2341,7 +2409,7 @@ toggled.</p>
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.TimerCommand.TimerCommand.do_timer">
 <code class="descname">do_timer</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.TimerCommand.TimerCommand.do_timer" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     timer on
     timer off
     timer list [NAME]
@@ -2394,7 +2462,7 @@ Description:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.UsageCommand.UsageCommand.do_usage">
 <code class="descname">do_usage</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.UsageCommand.UsageCommand.do_usage" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     usage list [--cloud=CLOUD] [--start=START] [--end=END] [--tenant=TENANT] [--format=FORMAT]
 
     Show usage data.
@@ -2430,7 +2498,7 @@ Examples:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.VmCommand.VmCommand.do_vm">
 <code class="descname">do_vm</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.VmCommand.VmCommand.do_vm" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     vm default [--cloud=CLOUD][--format=FORMAT]
     vm refresh [--cloud=CLOUD]
     vm boot [--name=NAME]
@@ -2465,6 +2533,11 @@ Examples:
              [--cloud=CLOUD]
              [--key=KEY]
              [--command=COMMAND]
+    vm rename [NAME]...
+              [--new=NEWNAME]
+              [--cloud=CLOUD]
+              [--force]
+              [--dryrun]
     vm list [NAME_OR_ID]
             [--cloud=CLOUD|--all]
             [--group=GROUP]
@@ -2483,6 +2556,7 @@ Arguments:
     NAME           server name. By default it is set to the name of last vm from database.
     NAME_OR_ID     server name or ID
     KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
+    NEWNAME        New name of the VM while renaming.
 
 Options:
     --ip=IP          give the public ip of the server
@@ -2503,9 +2577,11 @@ Options:
     --user=USER      give the user name of the server that you want
                      to use to login
     --name=NAME      give the name of the virtual machine
-    --force          delete vms without user&#39;s confirmation
+    --force          rename/ delete vms without user&#39;s confirmation
     --command=COMMAND
                      specify the commands to be executed
+    --new=NEWNAME    Specify the new name for a VM while renaming.
+                     By default, this will be set to &lt;username&gt;-&lt;count&gt; format.
 
 
 
@@ -2557,7 +2633,7 @@ Tip:
 <dl class="method">
 <dt id="cloudmesh_client.shell.plugins.WhoCommand.WhoCommand.do_who">
 <code class="descname">do_who</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.WhoCommand.WhoCommand.do_who" title="Permalink to this definition">¶</a></dt>
-<dd><div class="highlight-python"><div class="highlight"><pre>Usage:
+<dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
    who  hostname
 </pre></div>
 </div>
@@ -2616,7 +2692,7 @@ Tip:
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

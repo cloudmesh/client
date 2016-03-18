@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client package &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client package &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="next" title="cloudmesh_client.cloud package" href="cloudmesh_client.cloud.html"/>
         <link rel="prev" title="Docker" href="../docker.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -146,6 +146,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -168,7 +170,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -257,6 +259,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.attributes">cloudmesh_client.cloud.attributes module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
@@ -294,6 +297,8 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Shell">cloudmesh_client.common.Shell module</a></li>
@@ -357,6 +362,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LauncherCommand">cloudmesh_client.shell.plugins.LauncherCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LimitsCommand">cloudmesh_client.shell.plugins.LimitsCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ListCommand">cloudmesh_client.shell.plugins.ListCommand module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LoadCommand">cloudmesh_client.shell.plugins.LoadCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.LogLevelCommand">cloudmesh_client.shell.plugins.LogLevelCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.ManCommand">cloudmesh_client.shell.plugins.ManCommand module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.plugins.html#module-cloudmesh_client.shell.plugins.NetworkCommand">cloudmesh_client.shell.plugins.NetworkCommand module</a></li>
@@ -390,7 +396,6 @@
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.cm_shell_status">cloudmesh_client.shell.cm_shell_status module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.command">cloudmesh_client.shell.command module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.console">cloudmesh_client.shell.console module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.ghost">cloudmesh_client.shell.ghost module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell">Module contents</a></li>
 </ul>
 </li>
@@ -752,10 +757,10 @@ it is a special category that is used for global values.</li>
 <code class="descclassname">cloudmesh_client.logger.</code><code class="descname">LOGGER</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/logger.html#LOGGER"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.logger.LOGGER" title="Permalink to this definition">¶</a></dt>
 <dd><p>creates a logger with the given name.</p>
 <p>You can use it as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">log</span> <span class="o">=</span> <span class="n">cloudmesh</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LOGGER</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
-<span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;this is an error&quot;</span><span class="p">)</span>
-<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;this is an info&quot;</span><span class="p">)</span>
-<span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;this is a warning&quot;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">log</span> <span class="o">=</span> <span class="n">cloudmesh</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">LOGGER</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;this is an error&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;this is an info&quot;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;this is a warning&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -875,9 +880,9 @@ with ~ and environment variables.</td>
 <dt id="cloudmesh_client.util.banner">
 <code class="descclassname">cloudmesh_client.util.</code><code class="descname">banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/util.html#banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.util.banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">############################</span>
-<span class="c"># txt</span>
-<span class="c">############################</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">############################</span>
+<span class="c1"># txt</span>
+<span class="c1">############################</span>
 </pre></div>
 </div>
 <p>.</p>
@@ -970,9 +975,9 @@ String matching only, does not do REs as currently implemented.</p>
 <dt id="cloudmesh_client.util.str_banner">
 <code class="descclassname">cloudmesh_client.util.</code><code class="descname">str_banner</code><span class="sig-paren">(</span><em>txt=None</em>, <em>c='#'</em>, <em>debug=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/util.html#str_banner"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.util.str_banner" title="Permalink to this definition">¶</a></dt>
 <dd><p>prints a banner of the form with a frame of # arround the txt:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c">############################</span>
-<span class="c"># txt</span>
-<span class="c">############################</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">############################</span>
+<span class="c1"># txt</span>
+<span class="c1">############################</span>
 </pre></div>
 </div>
 <p>.</p>
@@ -1121,6 +1126,16 @@ it is a special category that is used for global values.</li>
 </div>
 <div class="section" id="module-cloudmesh_client">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cloudmesh_client" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="cloudmesh_client.create_cloudmesh_yaml">
+<code class="descclassname">cloudmesh_client.</code><code class="descname">create_cloudmesh_yaml</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client.html#create_cloudmesh_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.create_cloudmesh_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="cloudmesh_client.setup_yaml">
+<code class="descclassname">cloudmesh_client.</code><code class="descname">setup_yaml</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client.html#setup_yaml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.setup_yaml" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 </div>
 
@@ -1164,7 +1179,7 @@ it is a special category that is used for global values.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

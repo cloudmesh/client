@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.BaseConfigDict &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.common.BaseConfigDict &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.common.BaseConfigDict</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,7 +171,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.BaseConfigDict</h1><div class="highlight"><pre>
-<span class="sd">&quot;&quot;&quot;Some simple yaml file reader&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Some simple yaml file reader&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
@@ -179,7 +183,7 @@
 <span class="kn">import</span> <span class="nn">stat</span>
 <span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">Template</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.Error</span> <span class="kn">import</span> <span class="n">Error</span>
 
 <span class="kn">from</span> <span class="nn">cloudmesh_client.locations</span> <span class="kn">import</span> <span class="n">config_file</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.logger</span> <span class="kn">import</span> <span class="n">LOGGER</span>
@@ -203,23 +207,23 @@
 <span class="sd">    :rtype: True if there are tabs in the file</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_contains_tabs</span> <span class="o">=</span> <span class="bp">False</span>
-    <span class="k">with</span> <span class="nb">file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">line_no</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
-        <span class="k">if</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
             <span class="n">file_contains_tabs</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="n">location</span> <span class="o">=</span> <span class="p">[</span>
-                <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">))</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)]</span>
+                <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">))</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">)]</span>
             <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-                <span class="k">print</span><span class="p">(</span><span class="s">&quot;Tab found in line&quot;</span><span class="p">,</span> <span class="n">line_no</span><span class="p">,</span> <span class="s">&quot;and column(s)&quot;</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Tab found in line&quot;</span><span class="p">,</span> <span class="n">line_no</span><span class="p">,</span> <span class="s2">&quot;and column(s)&quot;</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
         <span class="n">line_no</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">file_contains_tabs</span>
+    <span class="k">return</span> <span class="n">file_contains_tabs</span></div>
 
 
-<span class="c"># http://stackoverflow.com/questions/5121931/in-python-how-can-you-load-yaml-mappings-as-ordereddicts</span>
-</div>
+<span class="c1"># http://stackoverflow.com/questions/5121931/in-python-how-can-you-load-yaml-mappings-as-ordereddicts</span>
+
 <div class="viewcode-block" id="ordered_load"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.ordered_load">[docs]</a><span class="k">def</span> <span class="nf">ordered_load</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Loader</span><span class="p">,</span> <span class="n">object_pairs_hook</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads an ordered dict into a yaml while preserving the order</span>
@@ -237,12 +241,12 @@
     <span class="n">OrderedLoader</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span>
         <span class="n">yaml</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">BaseResolver</span><span class="o">.</span><span class="n">DEFAULT_MAPPING_TAG</span><span class="p">,</span>
         <span class="n">construct_mapping</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">OrderedLoader</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">OrderedLoader</span><span class="p">)</span></div>
 
-<span class="c"># usage example:</span>
-<span class="c"># ordered_load(stream, yaml.SafeLoader)</span>
+<span class="c1"># usage example:</span>
+<span class="c1"># ordered_load(stream, yaml.SafeLoader)</span>
 
-</div>
+
 <div class="viewcode-block" id="ordered_dump"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.ordered_dump">[docs]</a><span class="k">def</span> <span class="nf">ordered_dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">Dumper</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">Dumper</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    writes the dict into an ordered yaml.</span>
@@ -259,12 +263,12 @@
             <span class="n">yaml</span><span class="o">.</span><span class="n">resolver</span><span class="o">.</span><span class="n">BaseResolver</span><span class="o">.</span><span class="n">DEFAULT_MAPPING_TAG</span><span class="p">,</span>
             <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
     <span class="n">OrderedDumper</span><span class="o">.</span><span class="n">add_representer</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">,</span> <span class="n">_dict_representer</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">OrderedDumper</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">OrderedDumper</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
-<span class="c"># usage:</span>
-<span class="c"># ordered_dump(data, Dumper=yaml.SafeDumper)</span>
+<span class="c1"># usage:</span>
+<span class="c1"># ordered_dump(data, Dumper=yaml.SafeDumper)</span>
 
-</div>
+
 <div class="viewcode-block" id="read_yaml_config"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.read_yaml_config">[docs]</a><span class="k">def</span> <span class="nf">read_yaml_config</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">osreplace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="nb">exit</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    reads in a yaml file from the specified filename. If check is set to true</span>
@@ -284,69 +288,68 @@
 
     <span class="k">if</span> <span class="n">check</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">location</span><span class="p">):</span>
 
-        <span class="c"># test for tab in yaml file</span>
+        <span class="c1"># test for tab in yaml file</span>
         <span class="k">if</span> <span class="n">check_file_for_tabs</span><span class="p">(</span><span class="n">location</span><span class="p">):</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;The file {0} contains tabs. yaml &quot;</span>
-                      <span class="s">&quot;Files are not allowed to contain tabs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The file {0} contains tabs. yaml &quot;</span>
+                      <span class="s2">&quot;Files are not allowed to contain tabs&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">location</span><span class="p">))</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">try</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="n">osreplace</span><span class="p">:</span>
-                <span class="n">result</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
                 <span class="n">t</span> <span class="o">=</span> <span class="n">Template</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">)</span>
 
-                <span class="c"># data = yaml.safe_load(result)</span>
+                <span class="c1"># data = yaml.safe_load(result)</span>
                 <span class="n">data</span> <span class="o">=</span> <span class="n">ordered_load</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+                <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span>
 
-                <span class="c"># data = yaml.safe_load(f)</span>
+                <span class="c1"># data = yaml.safe_load(f)</span>
 
                 <span class="n">data</span> <span class="o">=</span> <span class="n">ordered_load</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">)</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
             <span class="k">return</span> <span class="n">data</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="s">&quot;The file {0} fails with a yaml read error&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+                <span class="s2">&quot;The file {0} fails with a yaml read error&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+            <span class="n">Error</span><span class="o">.</span><span class="n">traceback</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;The file {0} does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The file {0} does not exist.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
         <span class="k">if</span> <span class="nb">exit</span><span class="p">:</span>
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
-    <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="bp">None</span></div>
 
-</div>
+
 <div class="viewcode-block" id="OrderedJsonEncoder"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.OrderedJsonEncoder">[docs]</a><span class="k">class</span> <span class="nc">OrderedJsonEncoder</span><span class="p">(</span><span class="n">simplejson</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
 
     <span class="n">indent</span> <span class="o">=</span> <span class="n">attribute_indent</span>
 
 <div class="viewcode-block" id="OrderedJsonEncoder.encode"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.OrderedJsonEncoder.encode">[docs]</a>    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">):</span>
-            <span class="k">return</span> <span class="s">&quot;{&quot;</span> <span class="o">+</span> <span class="s">&quot;,</span><span class="se">\n</span><span class="s"> &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span> <span class="o">+</span>
+            <span class="k">return</span> <span class="s2">&quot;{&quot;</span> <span class="o">+</span> <span class="s2">&quot;,</span><span class="se">\n</span><span class="s2"> &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span>
                                      <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-                                     <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">o</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()])</span> <span class="o">+</span> <span class="s">&quot;}</span><span class="se">\n</span><span class="s">&quot;</span>
+                                     <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">o</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span> <span class="o">+</span> <span class="s2">&quot;}</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">simplejson</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">simplejson</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="custom_print"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.custom_print">[docs]</a><span class="k">def</span> <span class="nf">custom_print</span><span class="p">(</span><span class="n">data_structure</span><span class="p">,</span> <span class="n">indent</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data_structure</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="si">%s%s</span><span class="s">:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s">&#39; &#39;</span> <span class="o">*</span> <span class="n">attribute_indent</span> <span class="o">*</span> <span class="n">indent</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">%s%s</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39; &#39;</span> <span class="o">*</span> <span class="n">attribute_indent</span> <span class="o">*</span> <span class="n">indent</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">):</span>
             <span class="n">custom_print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="n">custom_print</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s">&#39; &#39;</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span></div>
 
-</div>
+
 <div class="viewcode-block" id="BaseConfigDict"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict">[docs]</a><span class="k">class</span> <span class="nc">BaseConfigDict</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to obtain an OrderedDict from a yaml file.</span>
@@ -358,8 +361,8 @@
 
 <span class="sd">        :param filename: the filename</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
-        <span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&quot;filename&quot;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">filename</span>
+        <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">])</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -367,17 +370,17 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">OrderedDict</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="s">&#39;filename&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_set_filename</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;filename&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="s1">&#39;filename&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_filename</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;filename not specified&quot;</span><span class="p">)</span>
-            <span class="c"># sys.exit()</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;filename not specified&quot;</span><span class="p">)</span>
+            <span class="c1"># sys.exit()</span>
 
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">])</span>
 
-        <span class="c"># print (&quot;ATTRIBUTE&quot;, attribute)</span>
-        <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;prefix&#39;</span><span class="p">]:</span>
+        <span class="c1"># print (&quot;ATTRIBUTE&quot;, attribute)</span>
+        <span class="k">for</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;prefix&#39;</span><span class="p">]:</span>
             <span class="k">if</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="bp">self</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">attribute</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
@@ -390,10 +393,10 @@
 <span class="sd">        internal function to define the metadata regarding filename, location,</span>
 <span class="sd">        and prefix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;filename&quot;</span><span class="p">,</span> <span class="s">&quot;location&quot;</span><span class="p">,</span> <span class="s">&quot;prefix&quot;</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="s">&quot;meta&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
-                <span class="bp">self</span><span class="p">[</span><span class="s">&quot;meta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="bp">self</span><span class="p">[</span><span class="s">&quot;meta&quot;</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">,</span> <span class="s2">&quot;location&quot;</span><span class="p">,</span> <span class="s2">&quot;prefix&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="s2">&quot;meta&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;meta&quot;</span><span class="p">][</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
             <span class="k">del</span> <span class="bp">self</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
 
 <div class="viewcode-block" id="BaseConfigDict.read"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.read">[docs]</a>    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -403,8 +406,8 @@
 
 <span class="sd">        :param filename: the name of the yaml file</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
-</div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.load"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Loads the yaml file with the given filename.</span>
@@ -414,20 +417,20 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]):</span>
-            <span class="c"># d = OrderedDict(read_yaml_config(self[&#39;location&#39;], check=True))</span>
-            <span class="n">d</span> <span class="o">=</span> <span class="n">read_yaml_config</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">])</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]):</span>
+            <span class="c1"># d = OrderedDict(read_yaml_config(self[&#39;location&#39;], check=True))</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">read_yaml_config</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">],</span> <span class="n">check</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">])</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
                 <span class="n">document</span> <span class="o">=</span> <span class="n">myfile</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
             <span class="n">x</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
             <span class="k">except</span><span class="p">:</span>
-                <span class="k">print</span> <span class="p">(</span><span class="s">&quot;ERROR: can not find&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s">&quot;location&quot;</span><span class="p">])</span>
+                <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;ERROR: can not find&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">])</span>
                 <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s">&quot;Error while reading and updating the configuration file {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
-</div>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Error while reading and updating the configuration file {:}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.make_a_copy"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.make_a_copy">[docs]</a>    <span class="k">def</span> <span class="nf">make_a_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Creates a backup of the file specified in the location. The backup</span>
@@ -440,9 +443,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="kn">import</span> <span class="nn">shutil</span>
         <span class="n">dest</span> <span class="o">=</span> <span class="n">backup_name</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
-        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="BaseConfigDict.write"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;dict&quot;</span><span class="p">,</span> <span class="n">attribute_indent</span><span class="o">=</span><span class="n">attribute_indent</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseConfigDict.write"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.write">[docs]</a>    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="n">attribute_indent</span><span class="o">=</span><span class="n">attribute_indent</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method writes the dict into various outout formats. This includes a dict,</span>
 <span class="sd">        json, and yaml</span>
@@ -454,31 +457,31 @@
         <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">location</span> <span class="o">=</span> <span class="n">path_expand</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;meta&#39;</span><span class="p">][</span><span class="s">&#39;location&#39;</span><span class="p">]</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">]</span>
 
-        <span class="c"># with open(&#39;data.yml&#39;, &#39;w&#39;) as outfile:</span>
-            <span class="c">#    outfile.write( yaml.dump(data, default_flow_style=True) )</span>
+        <span class="c1"># with open(&#39;data.yml&#39;, &#39;w&#39;) as outfile:</span>
+            <span class="c1">#    outfile.write( yaml.dump(data, default_flow_style=True) )</span>
 
-        <span class="c"># Make a backup</span>
+        <span class="c1"># Make a backup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">make_a_copy</span><span class="p">(</span><span class="n">location</span><span class="p">)</span>
 
         <span class="n">f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">O_CREAT</span> <span class="o">|</span> <span class="n">os</span><span class="o">.</span><span class="n">O_TRUNC</span> <span class="o">|</span>
                     <span class="n">os</span><span class="o">.</span><span class="n">O_WRONLY</span><span class="p">,</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IRUSR</span> <span class="o">|</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IWUSR</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;json&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;json&quot;</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-        <span class="k">elif</span> <span class="n">output</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;yml&#39;</span><span class="p">,</span> <span class="s">&#39;yaml&#39;</span><span class="p">]:</span>
-            <span class="c"># d = dict(self)</span>
-            <span class="c"># os.write(f, yaml.dump(d, default_flow_style=False))</span>
+        <span class="k">elif</span> <span class="n">output</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;yml&#39;</span><span class="p">,</span> <span class="s1">&#39;yaml&#39;</span><span class="p">]:</span>
+            <span class="c1"># d = dict(self)</span>
+            <span class="c1"># os.write(f, yaml.dump(d, default_flow_style=False))</span>
             <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">ordered_dump</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
                                      <span class="n">Dumper</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeDumper</span><span class="p">,</span>
                                      <span class="n">default_flow_style</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                                      <span class="n">indent</span><span class="o">=</span><span class="n">attribute_indent</span><span class="p">))</span>
-        <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s">&quot;print&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">output</span> <span class="o">==</span> <span class="s2">&quot;print&quot;</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">custom_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_indent</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-</div>
+        <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">f</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.error_keys_not_found"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.error_keys_not_found">[docs]</a>    <span class="k">def</span> <span class="nf">error_keys_not_found</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check if the requested keys are found in the dict.</span>
@@ -486,19 +489,19 @@
 <span class="sd">        :param keys: keys to be looked for</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Filename: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;meta&#39;</span><span class="p">][</span><span class="s">&#39;location&#39;</span><span class="p">]))</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Filename: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;location&#39;</span><span class="p">]))</span>
         <span class="k">except</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Filename: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]))</span>
-        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&quot;Key &#39;{0}&#39; does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keys</span><span class="p">)))</span>
-        <span class="n">indent</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Filename: {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="p">[</span><span class="s1">&#39;location&#39;</span><span class="p">]))</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Key &#39;{0}&#39; does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keys</span><span class="p">)))</span>
+        <span class="n">indent</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
         <span class="n">last_index</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">keys</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">last_index</span><span class="p">:</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s">&quot;: &lt;- this value is missing&quot;</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;: &lt;- this value is missing&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span><span class="p">)</span>
-            <span class="n">indent</span> <span class="o">+=</span> <span class="s">&quot;    &quot;</span>
-</div>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">indent</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="n">indent</span> <span class="o">+=</span> <span class="s2">&quot;    &quot;</span></div>
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the json output of the dict.</span>
@@ -509,29 +512,29 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the json output of the dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">attribute_indent</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="n">attribute_indent</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.yaml"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.yaml">[docs]</a>    <span class="k">def</span> <span class="nf">yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the yaml output of the dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">ordered_dump</span><span class="p">(</span><span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span>
                             <span class="n">Dumper</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeDumper</span><span class="p">,</span>
-                            <span class="n">default_flow_style</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-</div>
+                            <span class="n">default_flow_style</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.dump"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.dump">[docs]</a>    <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        returns the json output of the dict.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">orderedPrinter</span> <span class="o">=</span> <span class="n">OrderedJsonEncoder</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">orderedPrinter</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-</div>
+        <span class="k">return</span> <span class="n">orderedPrinter</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.pprint"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.pprint">[docs]</a>    <span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        uses pprint to print the dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">custom_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_indent</span><span class="p">))</span>
-</div>
+        <span class="k">print</span><span class="p">(</span><span class="n">custom_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute_indent</span><span class="p">))</span></div>
+
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    def __getitem__(self, *mykeys):</span>
 <span class="sd">        try:</span>
@@ -555,17 +558,17 @@
         <span class="k">if</span> <span class="n">keys</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
 
-        <span class="k">if</span> <span class="s">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
         <span class="n">element</span> <span class="o">=</span> <span class="bp">self</span>
         <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">element</span> <span class="o">=</span> <span class="n">element</span><span class="p">[</span><span class="n">v</span><span class="p">]</span>
             <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">error_keys_not_found</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
-                <span class="c"># sys.exit()</span>
-        <span class="k">return</span> <span class="n">element</span>
-</div>
+                <span class="c1"># sys.exit()</span>
+        <span class="k">return</span> <span class="n">element</span></div>
+
 <div class="viewcode-block" id="BaseConfigDict.set"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.BaseConfigDict.BaseConfigDict.set">[docs]</a>    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="n">keys</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the dict of the information as read from the yaml file. To access</span>
@@ -581,21 +584,21 @@
         <span class="k">if</span> <span class="n">keys</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span>
 
-        <span class="k">if</span> <span class="s">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-            <span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;.&#39;</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="n">keys</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
 
-        <span class="n">nested_str</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;[&#39;{0}&#39;]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">])</span>
-        <span class="c"># Safely evaluate an expression to see if it is one of the Python</span>
-        <span class="c"># literal structures: strings, numbers, tuples, lists, dicts, booleans,</span>
-        <span class="c"># and None. Quoted string will be used if it is none of these types.</span>
+        <span class="n">nested_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;[&#39;{0}&#39;]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">])</span>
+        <span class="c1"># Safely evaluate an expression to see if it is one of the Python</span>
+        <span class="c1"># literal structures: strings, numbers, tuples, lists, dicts, booleans,</span>
+        <span class="c1"># and None. Quoted string will be used if it is none of these types.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
             <span class="n">converted</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
-            <span class="n">converted</span> <span class="o">=</span> <span class="s">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span>
-        <span class="k">exec</span><span class="p">(</span><span class="s">&quot;self&quot;</span> <span class="o">+</span> <span class="n">nested_str</span> <span class="o">+</span> <span class="s">&quot;=&quot;</span> <span class="o">+</span> <span class="n">converted</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">element</span>
-</div>
+            <span class="n">converted</span> <span class="o">=</span> <span class="s2">&quot;&#39;&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
+        <span class="k">exec</span><span class="p">(</span><span class="s2">&quot;self&quot;</span> <span class="o">+</span> <span class="n">nested_str</span> <span class="o">+</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="n">converted</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">element</span></div>
+
     <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">keys</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Updates the selected key with the value</span>
 
@@ -611,48 +614,48 @@
 
 <span class="sd">        :param keys:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;meta&#39;</span><span class="p">][</span><span class="s">&#39;prefix&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;prefix&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">k</span> <span class="o">=</span> <span class="n">keys</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s">&#39;meta&#39;</span><span class="p">][</span><span class="s">&#39;prefix&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span> <span class="o">+</span> <span class="n">keys</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-</div></div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">({</span><span class="s">&quot;a&quot;</span><span class="p">:</span> <span class="s">&quot;1&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s">&quot;c&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}},</span>
-                        <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;cloudmesh.debug&quot;</span><span class="p">,</span>
-                        <span class="n">filename</span><span class="o">=</span><span class="s">&quot;./etc/cloudmesh_debug.yaml&quot;</span><span class="p">)</span>
+            <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">][</span><span class="s1">&#39;prefix&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">keys</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">)</span></div></div>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;PPRINT&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">config</span> <span class="o">=</span> <span class="n">ConfigDict</span><span class="p">({</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}},</span>
+                        <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;cloudmesh.debug&quot;</span><span class="p">,</span>
+                        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;./etc/cloudmesh_debug.yaml&quot;</span><span class="p">)</span>
+
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;PPRINT&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
     <span class="n">pprint</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;PRINT&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;PRINT&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">pprint</span><span class="p">())</span>
     <span class="k">print</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s">&quot;=&quot;</span><span class="p">)</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;A =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s">&quot;a&quot;</span><span class="p">])</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config_file</span><span class="p">(</span><span class="s">&quot;/d.yaml&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;dict&quot;</span><span class="p">)</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config_file</span><span class="p">(</span><span class="s">&quot;/j.yaml&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;json&quot;</span><span class="p">)</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config_file</span><span class="p">(</span><span class="s">&quot;/y.yaml&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">=</span><span class="s">&quot;yaml&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="mi">70</span> <span class="o">*</span> <span class="s2">&quot;=&quot;</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;A =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">])</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config_file</span><span class="p">(</span><span class="s2">&quot;/d.yaml&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config_file</span><span class="p">(</span><span class="s2">&quot;/j.yaml&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config_file</span><span class="p">(</span><span class="s2">&quot;/y.yaml&quot;</span><span class="p">),</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">)</span>
 
-    <span class="c"># this does not work</span>
-    <span class="c"># config.write(config_file(&quot;/print.yaml&quot;), output=&quot;print&quot;)</span>
+    <span class="c1"># this does not work</span>
+    <span class="c1"># config.write(config_file(&quot;/print.yaml&quot;), output=&quot;print&quot;)</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;mongo.path GET =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cloudmesh.server.mongo.path&quot;</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;mongo.path ATTRIBUTE =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s">&quot;mongo.path&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;mongo.path GET =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloudmesh.server.mongo.path&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;mongo.path ATTRIBUTE =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s2">&quot;mongo.path&quot;</span><span class="p">))</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;get A =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;get A =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">))</span>
 
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;wrong mongo.path ATTRIBUTE =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s">&quot;mongo.path.wrong&quot;</span><span class="p">))</span>
-    <span class="k">print</span><span class="p">(</span><span class="s">&quot;wrong mongo.path GET =&quot;</span><span class="p">,</span>
-          <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;cloudmesh.server.mongo.path.wrong&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;wrong mongo.path ATTRIBUTE =&quot;</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">attribute</span><span class="p">(</span><span class="s2">&quot;mongo.path.wrong&quot;</span><span class="p">))</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;wrong mongo.path GET =&quot;</span><span class="p">,</span>
+          <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloudmesh.server.mongo.path.wrong&quot;</span><span class="p">))</span>
 
-    <span class="c"># print config[&quot;dummy&quot;]</span>
-    <span class="c"># config[&quot;x&quot;] = &quot;2&quot;</span>
-    <span class="c"># print config[&quot;x&quot;]</span>
-    <span class="c"># print config.x</span>
+    <span class="c1"># print config[&quot;dummy&quot;]</span>
+    <span class="c1"># config[&quot;x&quot;] = &quot;2&quot;</span>
+    <span class="c1"># print config[&quot;x&quot;]</span>
+    <span class="c1"># print config.x</span>
 </pre></div>
 
            </div>
@@ -685,7 +688,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

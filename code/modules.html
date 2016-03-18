@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -121,6 +121,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -143,7 +145,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -175,6 +177,7 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.ListResource">cloudmesh_client.cloud.ListResource module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.attributes">cloudmesh_client.cloud.attributes module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.counter">cloudmesh_client.cloud.counter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.experiment">cloudmesh_client.cloud.experiment module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.cloud.html#module-cloudmesh_client.cloud.flavor">cloudmesh_client.cloud.flavor module</a></li>
@@ -212,6 +215,8 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.DictDB">cloudmesh_client.common.DictDB module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Error">cloudmesh_client.common.Error module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.FlatDict">cloudmesh_client.common.FlatDict module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#cloudmesh-client-common-gitinfo-module">cloudmesh_client.common.GitInfo module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LibcloudDict">cloudmesh_client.common.LibcloudDict module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.LogUtil">cloudmesh_client.common.LogUtil module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Printer">cloudmesh_client.common.Printer module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.common.html#module-cloudmesh_client.common.Shell">cloudmesh_client.common.Shell module</a></li>
@@ -253,7 +258,6 @@
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.cm_shell_status">cloudmesh_client.shell.cm_shell_status module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.command">cloudmesh_client.shell.command module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.console">cloudmesh_client.shell.console module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell.ghost">cloudmesh_client.shell.ghost module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="cloudmesh_client.shell.html#module-cloudmesh_client.shell">Module contents</a></li>
 </ul>
 </li>
@@ -313,7 +317,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

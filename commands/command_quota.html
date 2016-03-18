@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quota Command &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>Quota Command &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../index.html"/>
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../index.html"/>
         <link rel="up" title="User Manual" href="index.html"/>
         <link rel="next" title="Usage Command" href="command_usage.html"/>
         <link rel="prev" title="Limits Command" href="command_limits.html"/> 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -151,6 +151,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -173,7 +175,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -207,7 +209,7 @@ quota command.</p>
 <div class="section" id="quota-list">
 <h2>quota list<a class="headerlink" href="#quota-list" title="Permalink to this headline">¶</a></h2>
 <p>To list the quota limit on a default project/tenant you can use:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm quota list
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm quota list
   +-----------------------------+-------+
   | Quota                       | Limit |
   +-----------------------------+-------+
@@ -229,7 +231,7 @@ quota command.</p>
 </pre></div>
 </div>
 <p>To export it in csv format,:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ cm quota list --format=csv
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm quota list --format=csv
 Quota,Limit
 instances,10
 cores,20
@@ -290,7 +292,7 @@ server_group_members,10
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

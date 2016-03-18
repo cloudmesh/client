@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using python 2 and 3 for development &mdash; cloudmesh_client 3.1.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="index.html"/>
+        <link rel="prev" title="cloudmesh_client.system package" href="code/cloudmesh_client.system.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> cloudmesh_client
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.1.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="prefix.html">Prefix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Short Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_card.html">Reference Card</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scripts.html">Example Scripts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="comet.html">Comet Virtual Cluster</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commands/index.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="man/man.html">Commands</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Teaching</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="exercises.html">Exercises</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Manuals</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hacking.html">Hacking</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Appendix</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="appendix.html">Appendix</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Future and Old</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Code</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="code/cloudmesh_client.html">cloudmesh_client package</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Todo</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="todo.html">ToDos</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Using python 2 and 3 for development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-python-3-5-and-2-7-11">Install python 3.5 and 2.7.11</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#osx">OSX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#python-guidelines">Python Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#exceptions">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#developing-compatible-code">Developing Compatible Code</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#print">print</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#raise">raise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#traceback">traceback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exception">exception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#integer-division">integer division</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#metaclass">metaclass</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#strings">strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#import">import</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dict">Dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file">File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#input">input</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bytechar">bytechar</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">cloudmesh_client</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Using python 2 and 3 for development</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/hackathon.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-python-2-and-3-for-development">
+<h1>Using python 2 and 3 for development<a class="headerlink" href="#using-python-2-and-3-for-development" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-python-3-5-and-2-7-11">
+<h2>Install python 3.5 and 2.7.11<a class="headerlink" href="#install-python-3-5-and-2-7-11" title="Permalink to this headline">¶</a></h2>
+<p>Then use virtualenv -p to do
+~/ENV2 and ~/ENV3 create alias in bashrc for ENV2 and ENV3</p>
+<div class="section" id="osx">
+<h3>OSX<a class="headerlink" href="#osx" title="Permalink to this headline">¶</a></h3>
+<p>We assume that you have downloaded and installed both python packages for 2.7.11 and 3.5
+while getting them from</p>
+<p><a class="reference external" href="http://python.org">http://python.org</a></p>
+<p>Make sure you have both versions installed:</p>
+<pre class="highlight"><style type="text/css">
+span.prompt1:before {
+  content: "$ ";
+}
+</style><span class="prompt1">$ ls /Library/Frameworks/Python.framework/Versions/3.5/bin</span>
+<span class="prompt1">$ ls /Library/Frameworks/Python.framework/Versions/2.7/bin</span>
+</pre><p>Next you may run outdated versions of pip that you need to update and install virtualenv:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>.. prompt:: bash
+</pre></div>
+</div>
+<blockquote>
+<div>pip3.5 install pip -U
+pip3.5 install &#8211;user virtualenv
+pip2.7 install pip -U
+pip2.7 install &#8211;user virtualenv</div></blockquote>
+<p>Edit the  bash_profile with your prefered editor and append some useful aliasses:</p>
+<pre class="highlight"><span class="prompt1">emacs ~/.bash_profile</span>
+</pre><p>Append the following aliasses:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>alias virtualenv3=&#39;~/Library/Python/3.5/bin/virtualenv&#39;
+alias virtualenv2=&#39;~/Library/Python/2.7/bin/virtualenv&#39;
+alias ENV2=`source ~/ENV2/bin/activate`
+alias ENV3=`source ~/ENV3/bin/activate`
+</pre></div>
+</div>
+<p>Next source the bashrc file so you have accesss to the new commands</p>
+<pre class="highlight"><span class="prompt1"><span class="nb">source</span> ~/.bash_profile</span>
+</pre><p>Next let us create two virtualenv&#8217;s one for python 2, the other for
+python 3 in the directories <cite>~/ENV2</cite> and <cite>~/ENV3</cite>.</p>
+<pre class="highlight"><span class="prompt1">virtualenv3 ~/ENV3</span>
+<span class="prompt1">virtualenv2 ~/ENV2</span>
+</pre><p>Now we can use the ENV2 and ENV3 commands to activate selectively
+which version of python we use:</p>
+<pre class="highlight"><span class="prompt1">ENV2</span>
+<span class="prompt1">python --version</span>
+<span class="prompt1"></span>
+<span class="prompt1">ENV3</span>
+<span class="prompt1">python --version</span>
+</pre><p>The python versions should be 2.7.11 or 3.5.1 or greater. To do a check on pip, say</p>
+<pre class="highlight"><span class="prompt1">pip --version</span>
+</pre><p>The pip version should be 8.0.2 or greater</p>
+</div>
+</div>
+</div>
+<div class="section" id="python-guidelines">
+<h1>Python Guidelines<a class="headerlink" href="#python-guidelines" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span>from cloudmesh_client.common.Error import Error
+Error.msg(“msg&quot;)
+Error.info(“msg”)
+Error.debug(“msg”)
+Error.warning(“msg”)
+Error.exit(“msg)
+
+
+try:
+   ...
+except:
+   Error.debug(“my debug msg”)
+</pre></div>
+</div>
+</div>
+<div class="section" id="developing-compatible-code">
+<h2>Developing Compatible Code<a class="headerlink" href="#developing-compatible-code" title="Permalink to this headline">¶</a></h2>
+<p>A good resource is the Python 2 and 3 compatibility cheat sheet:</p>
+<p><a class="reference external" href="http://python-future.org/compatible_idioms.html">http://python-future.org/compatible_idioms.html</a></p>
+<p>We have adopted the following</p>
+<div class="section" id="print">
+<h3>print<a class="headerlink" href="#print" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Hello&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="raise">
+<h3>raise<a class="headerlink" href="#raise" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;dodgy value&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="traceback">
+<h3>traceback<a class="headerlink" href="#traceback" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">raise_</span>
+
+<span class="n">traceback</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">raise_</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="s2">&quot;dodgy value&quot;</span><span class="p">,</span> <span class="n">traceback</span><span class="p">)</span>
+
+<span class="c1"># we will need to create function for that as we want to control</span>
+<span class="c1"># with flag in db</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exception">
+<h3>exception<a class="headerlink" href="#exception" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="integer-division">
+<h3>integer division<a class="headerlink" href="#integer-division" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+
+<span class="k">assert</span> <span class="mi">2</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="metaclass">
+<h3>metaclass<a class="headerlink" href="#metaclass" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">with_metaclass</span>
+
+<span class="k">class</span> <span class="nc">Form</span><span class="p">(</span><span class="n">with_metaclass</span><span class="p">(</span><span class="n">FormType</span><span class="p">,</span> <span class="n">BaseForm</span><span class="p">)):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="strings">
+<h3>strings<a class="headerlink" href="#strings" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+
+<span class="n">s1</span> <span class="o">=</span> <span class="s1">&#39;The Zen of Python&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="import">
+<h3>import<a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nb">all</span> <span class="n">files</span> <span class="n">will</span> <span class="n">need</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dict">
+<h3>Dict<a class="headerlink" href="#dict" title="Permalink to this headline">¶</a></h3>
+<p>Using dict heights = {&#8216;Fred&#8217;: 175, &#8216;Anne&#8217;: 166, &#8216;Joe&#8217;: 192}
+as an example</p>
+<p>Iterable dict keys:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">heights</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Iterable dict values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="n">itervalues</span>
+<span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">itervalues</span><span class="p">(</span><span class="n">heights</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Iterable dict items:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">iteritems</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">heights</span><span class="p">):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>dict keys as a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>keylist = heights.keys() NO!
+keylist = list(heights) YES!
+</pre></div>
+</div>
+<p>dict values as a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">itervalues</span>
+<span class="n">valuelist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itervalues</span><span class="p">(</span><span class="n">heights</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>dict items as a list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">future.utils</span> <span class="kn">import</span> <span class="n">iteritems</span>
+<span class="n">itemlist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">iteritems</span><span class="p">(</span><span class="n">heights</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>dict comparison not supported any more!:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>a = {&quot;key&quot;:&quot;value1&quot;}
+b = {&quot;key&quot;:&quot;value2&quot;}
+if a &gt; b:     # NOT WORKING!!!
+    DO SOMETHING!
+</pre></div>
+</div>
+</div>
+<div class="section" id="file">
+<h3>File<a class="headerlink" href="#file" title="Permalink to this headline">¶</a></h3>
+<p>Open file to read:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>f = file(pathname) NO!
+f = open(pathname) YES!
+</pre></div>
+</div>
+<p>Reading the file into an array</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+   <span class="n">content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="input">
+<h3>input<a class="headerlink" href="#input" title="Permalink to this headline">¶</a></h3>
+<p>Getting raw input from keyboard:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>name = raw_input(&#39;What is your name? &#39;) NO!
+
+from builtins import input
+name = input(&#39;What is your name? &#39;)
+YES!
+</pre></div>
+</div>
+</div>
+<div class="section" id="bytechar">
+<h3>bytechar<a class="headerlink" href="#bytechar" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">bytes</span>
+
+<span class="k">for</span> <span class="n">myint</span> <span class="ow">in</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">b</span><span class="s1">&#39;byte-string with high-bit chars like&#39;</span><span class="p">):</span>
+    <span class="n">bytechar</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">([</span><span class="n">myint</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="code/cloudmesh_client.system.html" class="btn btn-neutral" title="cloudmesh_client.system package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Gregor von Laszewski.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'3.1.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cloudmesh_client.common.hostlist &mdash; cloudmesh_client 2.1.2 documentation</title>
+  <title>cloudmesh_client.common.hostlist &mdash; cloudmesh_client 3.1.1 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="cloudmesh_client 2.1.2 documentation" href="../../../index.html"/>
-        <link rel="up" title="Module code" href="../../index.html"/> 
+    <link rel="top" title="cloudmesh_client 3.1.1 documentation" href="../../../index.html"/>
+        <link rel="up" title="cloudmesh_client" href="../../cloudmesh_client.html"/> 
 
   
   <script src="../../../_static/js/modernizr.min.js"></script>
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                2.1.2
+                3.1.1
               </div>
             
           
@@ -122,6 +122,8 @@
 <p class="caption"><span class="caption-text">Todo</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../todo.html">ToDos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html">Using python 2 and 3 for development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../hackathon.html#python-guidelines">Python Guidelines</a></li>
 </ul>
 
             
@@ -154,6 +156,8 @@
       
           <li><a href="../../index.html">Module code</a> &raquo;</li>
       
+          <li><a href="../../cloudmesh_client.html">cloudmesh_client</a> &raquo;</li>
+      
     <li>cloudmesh_client.common.hostlist</li>
       <li class="wy-breadcrumbs-aside">
         
@@ -167,38 +171,38 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cloudmesh_client.common.hostlist</h1><div class="highlight"><pre>
-<span class="c">#!/usr/bin/env python</span>
-<span class="c"># -*- coding: utf-8 -*-</span>
-<span class="c">#</span>
-<span class="c"># Changes:</span>
-<span class="c"># * June 2015, Gregor von Laszewski, using new style raise of exceptions</span>
-<span class="c"># * June 2015, We assume we can redictibute it under LGPL license, we contacted the authors</span>
-<span class="c">#              but have not yet heard back from them. We asked if we can distribute under</span>
-<span class="c">#              apache license.</span>
-<span class="c"># * June 2015  added class wrapper Parameter</span>
-<span class="c">#</span>
-<span class="c"># Hostlist library</span>
-<span class="c">#</span>
-<span class="c"># Copyright (C) 2008 Kent Engström &lt;kent@nsc.liu.se&gt;,</span>
-<span class="c">#                    Thomas Bellman &lt;bellman@nsc.liu.se&gt; and</span>
-<span class="c">#                    Pär Andersson &lt;paran@nsc.liu.se&gt;,</span>
-<span class="c">#                    National Supercomputer Centre</span>
-<span class="c">#</span>
-<span class="c"># This program is free software; you can redistribute it and/or modify</span>
-<span class="c"># it under the terms of the GNU General Public License as published by</span>
-<span class="c"># the Free Software Foundation; either version 2 of the License, or</span>
-<span class="c"># (at your option) any later version.</span>
-<span class="c">#</span>
-<span class="c">#</span>
-<span class="c"># This program is distributed in the hope that it will be useful, but</span>
-<span class="c"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
-<span class="c"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
-<span class="c"># General Public License for more details.</span>
-<span class="c">#</span>
-<span class="c"># You should have received a copy of the GNU General Public License</span>
-<span class="c"># along with this program; if not, write to the Free Software</span>
-<span class="c"># Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA</span>
-<span class="c"># 02110-1301, USA.</span>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Changes:</span>
+<span class="c1"># * June 2015, Gregor von Laszewski, using new style raise of exceptions</span>
+<span class="c1"># * June 2015, We assume we can redictibute it under LGPL license, we contacted the authors</span>
+<span class="c1">#              but have not yet heard back from them. We asked if we can distribute under</span>
+<span class="c1">#              apache license.</span>
+<span class="c1"># * June 2015  added class wrapper Parameter</span>
+<span class="c1">#</span>
+<span class="c1"># Hostlist library</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2008 Kent Engström &lt;kent@nsc.liu.se&gt;,</span>
+<span class="c1">#                    Thomas Bellman &lt;bellman@nsc.liu.se&gt; and</span>
+<span class="c1">#                    Pär Andersson &lt;paran@nsc.liu.se&gt;,</span>
+<span class="c1">#                    National Supercomputer Centre</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software; you can redistribute it and/or modify</span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation; either version 2 of the License, or</span>
+<span class="c1"># (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1"># This program is distributed in the hope that it will be useful, but</span>
+<span class="c1"># WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span>
+<span class="c1"># General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1"># You should have received a copy of the GNU General Public License</span>
+<span class="c1"># along with this program; if not, write to the Free Software</span>
+<span class="c1"># Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA</span>
+<span class="c1"># 02110-1301, USA.</span>
 
 <span class="sd">&quot;&quot;&quot;Handle hostlist expressions.</span>
 
@@ -211,29 +215,29 @@
 <span class="sd">compatibility with pdsh/dshbak/SLURM et al.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s">&quot;1.14&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.14&quot;</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">itertools</span>
 
 
-<span class="c"># Exception used for error reporting to the caller</span>
+<span class="c1"># Exception used for error reporting to the caller</span>
 <div class="viewcode-block" id="BadHostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.BadHostlist">[docs]</a><span class="k">class</span> <span class="nc">BadHostlist</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">pass</span>
+    <span class="k">pass</span></div>
 
-<span class="c"># Configuration to guard against ridiculously long expanded lists</span></div>
+<span class="c1"># Configuration to guard against ridiculously long expanded lists</span>
 <span class="n">MAX_SIZE</span> <span class="o">=</span> <span class="mi">100000</span>
 
-<span class="c"># Hostlist expansion</span>
+<span class="c1"># Hostlist expansion</span>
 
 
 <div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Parameter.expand"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.Parameter.expand">[docs]</a>    <span class="k">def</span> <span class="nf">expand</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">expand_hostlist</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">expand_hostlist</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div></div>
 
-</div></div>
+
 <div class="viewcode-block" id="expand_hostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_hostlist">[docs]</a><span class="k">def</span> <span class="nf">expand_hostlist</span><span class="p">(</span><span class="n">hostlist</span><span class="p">,</span> <span class="n">allow_duplicates</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Expand a hostlist expression string to a Python list.</span>
 
@@ -246,96 +250,96 @@
 
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">bracket_level</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">part</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="n">part</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">hostlist</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&quot;,&quot;</span> <span class="ow">and</span> <span class="n">bracket_level</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c"># Comma at top level, split!</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">hostlist</span> <span class="o">+</span> <span class="s2">&quot;,&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;,&quot;</span> <span class="ow">and</span> <span class="n">bracket_level</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Comma at top level, split!</span>
             <span class="k">if</span> <span class="n">part</span><span class="p">:</span>
                 <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">expand_part</span><span class="p">(</span><span class="n">part</span><span class="p">))</span>
-            <span class="n">part</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+            <span class="n">part</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
             <span class="n">bad_part</span> <span class="o">=</span> <span class="bp">False</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">part</span> <span class="o">+=</span> <span class="n">c</span>
 
-        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&quot;[&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;[&quot;</span><span class="p">:</span>
             <span class="n">bracket_level</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s">&quot;]&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">c</span> <span class="o">==</span> <span class="s2">&quot;]&quot;</span><span class="p">:</span>
             <span class="n">bracket_level</span> <span class="o">-=</span> <span class="mi">1</span>
 
         <span class="k">if</span> <span class="n">bracket_level</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;nested brackets&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;nested brackets&quot;</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">bracket_level</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;unbalanced brackets&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;unbalanced brackets&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">bracket_level</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;unbalanced brackets&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;unbalanced brackets&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">allow_duplicates</span><span class="p">:</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">remove_duplicates</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">sort</span><span class="p">:</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">numerically_sorted</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">results</span>
+    <span class="k">return</span> <span class="n">results</span></div>
 
-</div>
+
 <div class="viewcode-block" id="expand_part"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_part">[docs]</a><span class="k">def</span> <span class="nf">expand_part</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Expand a part (e.g. &quot;x[1-2]y[1-3][1-3]&quot;) (no outer level commas).&quot;&quot;&quot;</span>
 
-    <span class="c"># Base case: the empty part expand to the singleton list of &quot;&quot;</span>
-    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s">&quot;&quot;</span><span class="p">]</span>
+    <span class="c1"># Base case: the empty part expand to the singleton list of &quot;&quot;</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">]</span>
 
-    <span class="c"># Split into:</span>
-    <span class="c"># 1) prefix string (may be empty)</span>
-    <span class="c"># 2) rangelist in brackets (may be missing)</span>
-    <span class="c"># 3) the rest</span>
+    <span class="c1"># Split into:</span>
+    <span class="c1"># 1) prefix string (may be empty)</span>
+    <span class="c1"># 2) rangelist in brackets (may be missing)</span>
+    <span class="c1"># 3) the rest</span>
 
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;([^,\[]*)(\[[^\]]*\])?(.*)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;([^,\[]*)(\[[^\]]*\])?(.*)&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
     <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">rangelist</span><span class="p">,</span> <span class="n">rest</span><span class="p">)</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-    <span class="c"># Expand the rest first (here is where we recurse!)</span>
+    <span class="c1"># Expand the rest first (here is where we recurse!)</span>
     <span class="n">rest_expanded</span> <span class="o">=</span> <span class="n">expand_part</span><span class="p">(</span><span class="n">rest</span><span class="p">)</span>
 
-    <span class="c"># Expand our own part</span>
+    <span class="c1"># Expand our own part</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">rangelist</span><span class="p">:</span>
-        <span class="c"># If there is no rangelist, our own contribution is the prefix only</span>
+        <span class="c1"># If there is no rangelist, our own contribution is the prefix only</span>
         <span class="n">us_expanded</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c"># Otherwise expand the rangelist (adding the prefix before)</span>
+        <span class="c1"># Otherwise expand the rangelist (adding the prefix before)</span>
         <span class="n">us_expanded</span> <span class="o">=</span> <span class="n">expand_rangelist</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">rangelist</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-    <span class="c"># Combine our list with the list from the expansion of the rest</span>
-    <span class="c"># (but guard against too large results first)</span>
+    <span class="c1"># Combine our list with the list from the expansion of the rest</span>
+    <span class="c1"># (but guard against too large results first)</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">us_expanded</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">rest_expanded</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;results too large&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;results too large&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="p">[</span><span class="n">us_part</span> <span class="o">+</span> <span class="n">rest_part</span>
             <span class="k">for</span> <span class="n">us_part</span> <span class="ow">in</span> <span class="n">us_expanded</span>
-            <span class="k">for</span> <span class="n">rest_part</span> <span class="ow">in</span> <span class="n">rest_expanded</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">rest_part</span> <span class="ow">in</span> <span class="n">rest_expanded</span><span class="p">]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="expand_rangelist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_rangelist">[docs]</a><span class="k">def</span> <span class="nf">expand_rangelist</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">rangelist</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Expand a rangelist (e.g. &quot;1-10,14&quot;), putting a prefix before.&quot;&quot;&quot;</span>
 
-    <span class="c"># Split at commas and expand each range separately</span>
+    <span class="c1"># Split at commas and expand each range separately</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">range_</span> <span class="ow">in</span> <span class="n">rangelist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">range_</span> <span class="ow">in</span> <span class="n">rangelist</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
         <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">expand_range</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">range_</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">results</span>
+    <span class="k">return</span> <span class="n">results</span></div>
 
-</div>
+
 <div class="viewcode-block" id="expand_range"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.expand_range">[docs]</a><span class="k">def</span> <span class="nf">expand_range</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">range_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Expand a range (e.g. 1-10 or 14), putting a prefix before.&quot;&quot;&quot;</span>
 
-    <span class="c"># Check for a single number first</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;^[0-9]+$&#39;</span><span class="p">,</span> <span class="n">range_</span><span class="p">)</span>
+    <span class="c1"># Check for a single number first</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^[0-9]+$&#39;</span><span class="p">,</span> <span class="n">range_</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="s">&quot;</span><span class="si">%s%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">range_</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">%s%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">range_</span><span class="p">)]</span>
 
-    <span class="c"># Otherwise split low-high</span>
-    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;^([0-9]+)-([0-9]+)$&#39;</span><span class="p">,</span> <span class="n">range_</span><span class="p">)</span>
+    <span class="c1"># Otherwise split low-high</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^([0-9]+)-([0-9]+)$&#39;</span><span class="p">,</span> <span class="n">range_</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">m</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;bad range&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;bad range&quot;</span><span class="p">)</span>
 
     <span class="p">(</span><span class="n">s_low</span><span class="p">,</span> <span class="n">s_high</span><span class="p">)</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">low</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">s_low</span><span class="p">)</span>
@@ -343,16 +347,16 @@
     <span class="n">width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s_low</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">high</span> <span class="o">&lt;</span> <span class="n">low</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;start &gt; stop&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;start &gt; stop&quot;</span><span class="p">)</span>
     <span class="k">elif</span> <span class="n">high</span> <span class="o">-</span> <span class="n">low</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;range too large&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;range too large&quot;</span><span class="p">)</span>
 
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s%0*d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">results</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)):</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s%0*d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">results</span></div>
 
-</div>
+
 <div class="viewcode-block" id="remove_duplicates"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.remove_duplicates">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Remove duplicates from a list (but keep the order).&quot;&quot;&quot;</span>
     <span class="n">seen</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -361,11 +365,11 @@
         <span class="k">if</span> <span class="n">e</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
             <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
             <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">results</span>
+    <span class="k">return</span> <span class="n">results</span></div>
 
 
-<span class="c"># Hostlist collection</span>
-</div>
+<span class="c1"># Hostlist collection</span>
+
 <div class="viewcode-block" id="collect_hostlist"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.collect_hostlist">[docs]</a><span class="k">def</span> <span class="nf">collect_hostlist</span><span class="p">(</span><span class="n">hosts</span><span class="p">,</span> <span class="n">silently_discard_bad</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Collect a hostlist string from a Python list of hosts.</span>
 
@@ -376,35 +380,35 @@
 <span class="sd">    is true causing the bad hostname to be silently discarded instead).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c"># Split hostlist into a list of (host, &quot;&quot;) for the iterative part.</span>
-    <span class="c"># (Also check for bad node names now)</span>
-    <span class="c"># The idea is to move already collected numerical parts from the</span>
-    <span class="c"># left side (seen by each loop) to the right side (just copied).</span>
+    <span class="c1"># Split hostlist into a list of (host, &quot;&quot;) for the iterative part.</span>
+    <span class="c1"># (Also check for bad node names now)</span>
+    <span class="c1"># The idea is to move already collected numerical parts from the</span>
+    <span class="c1"># left side (seen by each loop) to the right side (just copied).</span>
 
     <span class="n">left_right</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">hosts</span><span class="p">:</span>
-        <span class="c"># We remove leading and trailing whitespace first, and skip empty lines</span>
+        <span class="c1"># We remove leading and trailing whitespace first, and skip empty lines</span>
         <span class="n">host</span> <span class="o">=</span> <span class="n">host</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">host</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">host</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
             <span class="k">continue</span>
 
-        <span class="c"># We cannot accept a host containing any of the three special</span>
-        <span class="c"># characters in the hostlist syntax (comma and flat brackets)</span>
-        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s">r&#39;[][,]&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
+        <span class="c1"># We cannot accept a host containing any of the three special</span>
+        <span class="c1"># characters in the hostlist syntax (comma and flat brackets)</span>
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s1">r&#39;[][,]&#39;</span><span class="p">,</span> <span class="n">host</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">silently_discard_bad</span><span class="p">:</span>
                 <span class="k">continue</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;forbidden character&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;forbidden character&quot;</span><span class="p">)</span>
 
-        <span class="n">left_right</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">))</span>
+        <span class="n">left_right</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">host</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 
-    <span class="c"># Call the iterative function until it says it&#39;s done</span>
+    <span class="c1"># Call the iterative function until it says it&#39;s done</span>
     <span class="n">looping</span> <span class="o">=</span> <span class="bp">True</span>
     <span class="k">while</span> <span class="n">looping</span><span class="p">:</span>
         <span class="n">left_right</span><span class="p">,</span> <span class="n">looping</span> <span class="o">=</span> <span class="n">collect_hostlist_1</span><span class="p">(</span><span class="n">left_right</span><span class="p">)</span>
-    <span class="k">return</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">left_right</span><span class="p">])</span>
+    <span class="k">return</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="k">for</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span> <span class="ow">in</span> <span class="n">left_right</span><span class="p">])</span></div>
 
-</div>
+
 <div class="viewcode-block" id="collect_hostlist_1"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.collect_hostlist_1">[docs]</a><span class="k">def</span> <span class="nf">collect_hostlist_1</span><span class="p">(</span><span class="n">left_right</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Collect a hostlist string from a list of hosts (left+right).</span>
 
@@ -413,9 +417,9 @@
 <span class="sd">    (it can contain already collected range expressions).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c"># Scan the list of hosts (left+right) and build two things:</span>
-    <span class="c"># *) a set of all hosts seen (used later)</span>
-    <span class="c"># *) a list where each host entry is preprocessed for correct sorting</span>
+    <span class="c1"># Scan the list of hosts (left+right) and build two things:</span>
+    <span class="c1"># *) a set of all hosts seen (used later)</span>
+    <span class="c1"># *) a list where each host entry is preprocessed for correct sorting</span>
 
     <span class="n">sortlist</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">remaining</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
@@ -423,72 +427,72 @@
         <span class="n">host</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span>
         <span class="n">remaining</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
 
-        <span class="c"># Match the left part into parts</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;^(.*?)([0-9]+)?([^0-9]*)$&#39;</span><span class="p">,</span> <span class="n">left</span><span class="p">)</span>
+        <span class="c1"># Match the left part into parts</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^(.*?)([0-9]+)?([^0-9]*)$&#39;</span><span class="p">,</span> <span class="n">left</span><span class="p">)</span>
         <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_str</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
-        <span class="c"># Add the right part unprocessed to the suffix.</span>
-        <span class="c"># This ensures than an already computed range expression</span>
-        <span class="c"># in the right part is not analyzed again.</span>
+        <span class="c1"># Add the right part unprocessed to the suffix.</span>
+        <span class="c1"># This ensures than an already computed range expression</span>
+        <span class="c1"># in the right part is not analyzed again.</span>
         <span class="n">suffix</span> <span class="o">=</span> <span class="n">suffix</span> <span class="o">+</span> <span class="n">right</span>
 
         <span class="k">if</span> <span class="n">num_str</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c"># A left part with no numeric part at all gets special treatment!</span>
-            <span class="c"># The regexp matches with the whole string as the suffix,</span>
-            <span class="c"># with nothing in the prefix or numeric parts.</span>
-            <span class="c"># We do not want that, so we move it to the prefix and put</span>
-            <span class="c"># None as a special marker where the suffix should be.</span>
-            <span class="k">assert</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s">&quot;&quot;</span>
+            <span class="c1"># A left part with no numeric part at all gets special treatment!</span>
+            <span class="c1"># The regexp matches with the whole string as the suffix,</span>
+            <span class="c1"># with nothing in the prefix or numeric parts.</span>
+            <span class="c1"># We do not want that, so we move it to the prefix and put</span>
+            <span class="c1"># None as a special marker where the suffix should be.</span>
+            <span class="k">assert</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span>
             <span class="n">sortlist</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">host</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span> <span class="bp">None</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">host</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># A left part with at least an numeric part</span>
-            <span class="c"># (we care about the rightmost numeric part)</span>
+            <span class="c1"># A left part with at least an numeric part</span>
+            <span class="c1"># (we care about the rightmost numeric part)</span>
             <span class="n">num_int</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_str</span><span class="p">)</span>
-            <span class="n">num_width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_str</span><span class="p">)</span>  <span class="c"># This width includes leading zeroes</span>
+            <span class="n">num_width</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">num_str</span><span class="p">)</span>  <span class="c1"># This width includes leading zeroes</span>
             <span class="n">sortlist</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span><span class="p">),</span> <span class="n">num_int</span><span class="p">,</span> <span class="n">num_width</span><span class="p">,</span> <span class="n">host</span><span class="p">))</span>
 
-    <span class="c"># Sort lexicographically, first on prefix, then on suffix, then on</span>
-    <span class="c"># num_int (numerically), then...</span>
-    <span class="c"># This determines the order of the final result.</span>
+    <span class="c1"># Sort lexicographically, first on prefix, then on suffix, then on</span>
+    <span class="c1"># num_int (numerically), then...</span>
+    <span class="c1"># This determines the order of the final result.</span>
 
     <span class="n">sortlist</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
 
-    <span class="c"># We are ready to collect the result parts as a list of new (left,</span>
-    <span class="c"># right) tuples.</span>
+    <span class="c1"># We are ready to collect the result parts as a list of new (left,</span>
+    <span class="c1"># right) tuples.</span>
 
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">needs_another_loop</span> <span class="o">=</span> <span class="bp">False</span>
 
-    <span class="c"># Now group entries with the same prefix+suffix combination (the</span>
-    <span class="c"># key is the first element in the sortlist) to loop over them and</span>
-    <span class="c"># then to loop over the list of hosts sharing the same</span>
-    <span class="c"># prefix+suffix combination.</span>
+    <span class="c1"># Now group entries with the same prefix+suffix combination (the</span>
+    <span class="c1"># key is the first element in the sortlist) to loop over them and</span>
+    <span class="c1"># then to loop over the list of hosts sharing the same</span>
+    <span class="c1"># prefix+suffix combination.</span>
 
     <span class="k">for</span> <span class="p">((</span><span class="n">prefix</span><span class="p">,</span> <span class="n">suffix</span><span class="p">),</span> <span class="n">group</span><span class="p">)</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">sortlist</span><span class="p">,</span>
                                                        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
 
         <span class="k">if</span> <span class="n">suffix</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="c"># Special case: a host with no numeric part</span>
-            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="p">))</span>  <span class="c"># Move everything to the right part</span>
+            <span class="c1"># Special case: a host with no numeric part</span>
+            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">prefix</span><span class="p">))</span>  <span class="c1"># Move everything to the right part</span>
             <span class="n">remaining</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="c"># The general case. We prepare to collect a list of</span>
-            <span class="c"># ranges expressed as (low, high, width) for later</span>
-            <span class="c"># formatting.</span>
+            <span class="c1"># The general case. We prepare to collect a list of</span>
+            <span class="c1"># ranges expressed as (low, high, width) for later</span>
+            <span class="c1"># formatting.</span>
             <span class="n">range_list</span> <span class="o">=</span> <span class="p">[]</span>
 
             <span class="k">for</span> <span class="p">((</span><span class="n">prefix2</span><span class="p">,</span> <span class="n">suffix2</span><span class="p">),</span> <span class="n">num_int</span><span class="p">,</span> <span class="n">num_width</span><span class="p">,</span> <span class="n">host</span><span class="p">)</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">host</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">remaining</span><span class="p">:</span>
-                    <span class="c"># Below, we will loop internally to enumate a whole range</span>
-                    <span class="c"># at a time. We then remove the covered hosts from the set.</span>
-                    <span class="c"># Therefore, skip the host here if it is gone from the set.</span>
+                    <span class="c1"># Below, we will loop internally to enumate a whole range</span>
+                    <span class="c1"># at a time. We then remove the covered hosts from the set.</span>
+                    <span class="c1"># Therefore, skip the host here if it is gone from the set.</span>
                     <span class="k">continue</span>
                 <span class="k">assert</span> <span class="n">num_int</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
 
-                <span class="c"># Scan for a range starting at the current host</span>
+                <span class="c1"># Scan for a range starting at the current host</span>
                 <span class="n">low</span> <span class="o">=</span> <span class="n">num_int</span>
                 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-                    <span class="n">host</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s%0*d%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_width</span><span class="p">,</span> <span class="n">num_int</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
+                    <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%0*d%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">num_width</span><span class="p">,</span> <span class="n">num_int</span><span class="p">,</span> <span class="n">suffix</span><span class="p">)</span>
                     <span class="k">if</span> <span class="n">host</span> <span class="ow">in</span> <span class="n">remaining</span><span class="p">:</span>
                         <span class="n">remaining</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">host</span><span class="p">)</span>
                         <span class="n">num_int</span> <span class="o">+=</span> <span class="mi">1</span>
@@ -498,80 +502,80 @@
                 <span class="k">assert</span> <span class="n">high</span> <span class="o">&gt;=</span> <span class="n">low</span>
                 <span class="n">range_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">num_width</span><span class="p">))</span>
 
-            <span class="c"># We have a list of ranges to format. We make sure</span>
-            <span class="c"># we move our handled numerical part to the right to</span>
-            <span class="c"># stop it from being processed again.</span>
+            <span class="c1"># We have a list of ranges to format. We make sure</span>
+            <span class="c1"># we move our handled numerical part to the right to</span>
+            <span class="c1"># stop it from being processed again.</span>
             <span class="n">needs_another_loop</span> <span class="o">=</span> <span class="bp">True</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">range_list</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">range_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">range_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="c"># Special case to make sure that n1 is not shown as n[1] etc</span>
+                <span class="c1"># Special case to make sure that n1 is not shown as n[1] etc</span>
                 <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prefix</span><span class="p">,</span>
-                                <span class="s">&quot;</span><span class="si">%0*d%s</span><span class="s">&quot;</span> <span class="o">%</span>
+                                <span class="s2">&quot;</span><span class="si">%0*d%s</span><span class="s2">&quot;</span> <span class="o">%</span>
                                 <span class="p">(</span><span class="n">range_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span> <span class="n">range_list</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">suffix</span><span class="p">)))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="c"># General case where high &gt; low</span>
-                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prefix</span><span class="p">,</span> <span class="s">&quot;[&quot;</span> <span class="o">+</span>
-                                <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">format_range</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+                <span class="c1"># General case where high &gt; low</span>
+                <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">prefix</span><span class="p">,</span> <span class="s2">&quot;[&quot;</span> <span class="o">+</span>
+                                <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">format_range</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
                                           <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">range_list</span><span class="p">])</span> <span class="o">+</span>
-                                <span class="s">&quot;]&quot;</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">))</span>
+                                <span class="s2">&quot;]&quot;</span> <span class="o">+</span> <span class="n">suffix</span><span class="p">))</span>
 
-    <span class="c"># At this point, the set of remaining hosts should be empty and we</span>
-    <span class="c"># are ready to return the result, together with the flag that says</span>
-    <span class="c"># if we need to loop again (we do if we have added something to a</span>
-    <span class="c"># left part).</span>
+    <span class="c1"># At this point, the set of remaining hosts should be empty and we</span>
+    <span class="c1"># are ready to return the result, together with the flag that says</span>
+    <span class="c1"># if we need to loop again (we do if we have added something to a</span>
+    <span class="c1"># left part).</span>
     <span class="k">assert</span> <span class="ow">not</span> <span class="n">remaining</span>
-    <span class="k">return</span> <span class="n">results</span><span class="p">,</span> <span class="n">needs_another_loop</span>
+    <span class="k">return</span> <span class="n">results</span><span class="p">,</span> <span class="n">needs_another_loop</span></div>
 
-</div>
+
 <div class="viewcode-block" id="format_range"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.format_range">[docs]</a><span class="k">def</span> <span class="nf">format_range</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Format a range from low to high inclusively, with a certain width.&quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">low</span> <span class="o">==</span> <span class="n">high</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%0*d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">low</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%0*d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">low</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s">&quot;</span><span class="si">%0*d</span><span class="s">-</span><span class="si">%0*d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%0*d</span><span class="s2">-</span><span class="si">%0*d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">high</span><span class="p">)</span></div>
 
 
-<span class="c"># Sort a list of hosts numerically</span>
-</div>
+<span class="c1"># Sort a list of hosts numerically</span>
+
 <div class="viewcode-block" id="numerically_sorted"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.numerically_sorted">[docs]</a><span class="k">def</span> <span class="nf">numerically_sorted</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Sort a list of hosts numerically.</span>
 
 <span class="sd">    E.g. sorted order should be n1, n2, n10; not n1, n10, n2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">numeric_sort_key</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">numeric_sort_key</span><span class="p">)</span></div>
 
-</div>
-<span class="n">nsk_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;([0-9]+)|([^0-9]+)&quot;</span><span class="p">)</span>
+
+<span class="n">nsk_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;([0-9]+)|([^0-9]+)&quot;</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="numeric_sort_key"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.numeric_sort_key">[docs]</a><span class="k">def</span> <span class="nf">numeric_sort_key</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">handle_int_nonint</span><span class="p">(</span><span class="n">i_ni</span><span class="p">)</span> <span class="k">for</span> <span class="n">i_ni</span> <span class="ow">in</span> <span class="n">nsk_re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">handle_int_nonint</span><span class="p">(</span><span class="n">i_ni</span><span class="p">)</span> <span class="k">for</span> <span class="n">i_ni</span> <span class="ow">in</span> <span class="n">nsk_re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span></div>
 
-</div>
+
 <div class="viewcode-block" id="handle_int_nonint"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.handle_int_nonint">[docs]</a><span class="k">def</span> <span class="nf">handle_int_nonint</span><span class="p">(</span><span class="n">int_nonint_tuple</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">int_nonint_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">int_nonint_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">int_nonint_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">int_nonint_tuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
 
-<span class="c"># Parse SLURM_TASKS_PER_NODE into a list of task numbers</span>
-<span class="c">#</span>
-<span class="c"># Description from the SLURM sbatch man page:</span>
-<span class="c">#              Number of tasks to be initiated on each node. Values</span>
-<span class="c">#              are comma separated and in the same order as</span>
-<span class="c">#              SLURM_NODELIST.  If two or more consecutive nodes are</span>
-<span class="c">#              to have the same task count, that count is followed by</span>
-<span class="c">#              &quot;(x#)&quot; where &quot;#&quot; is the repetition count. For example,</span>
-<span class="c">#              &quot;SLURM_TASKS_PER_NODE=2(x3),1&quot; indicates that the first</span>
-<span class="c">#              three nodes will each execute three tasks and the</span>
-<span class="c">#              fourth node will execute one task.</span>
-</div>
+<span class="c1"># Parse SLURM_TASKS_PER_NODE into a list of task numbers</span>
+<span class="c1">#</span>
+<span class="c1"># Description from the SLURM sbatch man page:</span>
+<span class="c1">#              Number of tasks to be initiated on each node. Values</span>
+<span class="c1">#              are comma separated and in the same order as</span>
+<span class="c1">#              SLURM_NODELIST.  If two or more consecutive nodes are</span>
+<span class="c1">#              to have the same task count, that count is followed by</span>
+<span class="c1">#              &quot;(x#)&quot; where &quot;#&quot; is the repetition count. For example,</span>
+<span class="c1">#              &quot;SLURM_TASKS_PER_NODE=2(x3),1&quot; indicates that the first</span>
+<span class="c1">#              three nodes will each execute three tasks and the</span>
+<span class="c1">#              fourth node will execute one task.</span>
+
 <div class="viewcode-block" id="parse_slurm_tasks_per_node"><a class="viewcode-back" href="../../../code/cloudmesh_client.common.html#cloudmesh_client.common.hostlist.parse_slurm_tasks_per_node">[docs]</a><span class="k">def</span> <span class="nf">parse_slurm_tasks_per_node</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&quot;,&quot;</span><span class="p">):</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">r&#39;^([0-9]+)(\(x([0-9]+)\))?$&#39;</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">r&#39;^([0-9]+)(\(x([0-9]+)\))?$&#39;</span><span class="p">,</span> <span class="n">part</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">m</span><span class="p">:</span>
             <span class="n">tasks</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
             <span class="n">repetitions</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -580,22 +584,22 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">repetitions</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">repetitions</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">repetitions</span> <span class="o">&gt;</span> <span class="n">MAX_SIZE</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;task list repetitions too large&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;task list repetitions too large&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repetitions</span><span class="p">):</span>
                 <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tasks</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s">&quot;bad task list syntax&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">res</span>
+            <span class="k">raise</span> <span class="n">BadHostlist</span><span class="p">(</span><span class="s2">&quot;bad task list syntax&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span></div>
 
-<span class="c">#</span>
-<span class="c"># Keep this part to tell users where the command line interface went</span>
-<span class="c">#</span>
-</div>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="c1">#</span>
+<span class="c1"># Keep this part to tell users where the command line interface went</span>
+<span class="c1">#</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">os</span>
     <span class="kn">import</span> <span class="nn">sys</span>
 
-    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;The command line utility has been moved to a separate &#39;hostlist&#39; program.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;The command line utility has been moved to a separate &#39;hostlist&#39; program.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">EX_USAGE</span><span class="p">)</span>
 </pre></div>
 
@@ -629,7 +633,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'2.1.2',
+            VERSION:'3.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
