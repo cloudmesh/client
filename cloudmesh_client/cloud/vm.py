@@ -9,7 +9,6 @@ from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
-
 from uuid import UUID
 
 from builtins import input
@@ -294,3 +293,17 @@ class Vm(ListResource):
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")
         return vm_data
+
+    @classmethod
+    def get_vm_public_ip(cls, vm_name, cloud):
+        """
+
+        :param vm_name: Name of the VM instance whose Public IP has to be retrieved from the DB
+        :param cloud: Libcloud supported Cloud provider name
+        :return: Public IP as a list
+        """
+        public_ip = []
+        vms = cls.get_vms_by_name(vm_name, cloud)
+        if len(vms) > 0:
+            public_ip.append(vms[1]["public_ips"])
+        return public_ip
