@@ -3,7 +3,8 @@ Quickstart
 
 .. warning:: This quickstart quide assumes that you have prepared your
 	     system according to the steps documented in the Section
-	     :ref:`preparation`.
+	     :ref:`preparation`. We also strongly recommend you read the
+	     sections :ref:`installation` and :ref:`configuration`.
 		  
 
 Setup
