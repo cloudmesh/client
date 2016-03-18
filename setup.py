@@ -41,6 +41,7 @@ if command is not None:
     print("Install readline")
     os.system(command)
 
+    
 requirements = [
     'pbr>=1.6',
     'apache-libcloud',
