@@ -15,7 +15,7 @@ Install Cloudmesh Client via pip
 ----------------------------------
 
 .. warning:: at this time we recommend you use the source install and not
-the pip install
+             the pip install, as we have not updated the code to pypi.
 
 Users can install the cloudmesh client via pip
 
@@ -25,7 +25,7 @@ Users can install the cloudmesh client via pip
    pip install cloudmesh_client
 
 Please note that the directory in which you call pip install does not have a
-directory called cloudmesh_client THis may prevent pip from working properly.
+directory called cloudmesh_client This may prevent pip from working properly.
 
 
 Cloudmesh Installation from Source
@@ -48,15 +48,30 @@ Please use the following commands
    cd github/cloudmesh
    git clone https://github.com/cloudmesh/client.git
    cd client
+   # make sure you have a virtualenv configured and activated
    python setup.py install
+
+We have two branches in the code. THe `master` branch and the `dev` branch.
+
+The master branch provides a snapshot of the code that should work and has
+passed the unit tests. If you have issues, please send us mail.
+
+However, in some circumstances you may which to use the newest version of
+cloudmesh which you can get from the `dev` branch. To get the newest version issue the command
+
+.. prompt:: bash
+
+   git checkout dev
+
+before you call the command `python setup.py install`. For more information about git see the
+github manual on the github.com web page.
 
 
 Updating an existing source distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 During the development phase of cloudmesh you may need to update the
-code from source, as cloudmesh client uses three different
-repositories please do not forget to update them accordingly
+code from source. Please do not forget to update them accordingly
 
 .. prompt:: bash
   
