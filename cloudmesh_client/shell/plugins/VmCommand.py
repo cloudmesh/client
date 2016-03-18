@@ -19,7 +19,7 @@ from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.Error import Error
-
+from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from builtins import input
 
 
@@ -588,14 +588,16 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default login_key not set.")
                 return ""
 
-            cloud_provider = CloudProvider(cloud).provider
-            # print("Name : {:}".format(name))
-            ip_addr = cloud_provider.get_ips(name)
-
             ip_addresses = []
-            ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
-            for entry in ipaddr_dict:
-                ip_addresses.append(ipaddr_dict[entry]["addr"])
+            if cloud in LibcloudDict.Libcloud_category_list:
+                ip_addresses = Vm.get_vm_public_ip(name, cloud)
+            else:
+                cloud_provider = CloudProvider(cloud).provider
+                # print("Name : {:}".format(name))
+                ip_addr = cloud_provider.get_ips(name)
+                ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
+                for entry in ipaddr_dict:
+                    ip_addresses.append(ipaddr_dict[entry]["addr"])
 
             if ip is not None:
                 if ip not in ip_addresses:
@@ -620,7 +622,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             else:
                 print("IP to be used is: {:}".format(ip))
 
-            SecGroup.enable_ssh(cloud=cloud)
+            if not cloud in LibcloudDict.Libcloud_category_list:
+                SecGroup.enable_ssh(cloud=cloud)
+            #TODO: Need to implement Create Security group which allows SSH and ICMP for new VMs
             # print("COMMANDS : {:}".format(commands))
 
             # Constructing the ssh command to connect to the machine.
