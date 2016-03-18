@@ -287,6 +287,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     secgroup_list.append(secgroup)
 
                 key_name = arguments["--key"] or Default.get_key()
+                print ("DDD", Default.get_key())
                 # if default keypair not set, return error
                 if not key_name:
                     Console.error("Default key not set.")
@@ -603,8 +604,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Default cloud not set.")
                 return ""
 
-            key = arguments["--key"] or Default.get("key",
-                                                    category=cloud)
+            key = arguments["--key"] or Default.get_key()
             if not key:
                 Console.error("Default key not set.")
                 return ""
@@ -638,7 +638,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         print("Cannot reach {:}.".format(ipadd))
 
             if ip is None:
-                print("SORRY. Unable to connect to the machine")
+                print("Unable to connect to the machine")
                 return ""
             else:
                 print("IP to be used is: {:}".format(ip))
