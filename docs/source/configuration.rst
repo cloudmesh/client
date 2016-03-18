@@ -403,7 +403,7 @@ Here is what we found out and did
 Registration of CloudLab Openstack Cloud
 --------------------------------------
 
-.. todo:: not yet tested but should work. 
+.. todo:: not yet tested but should work.
 
 Registration of AWS Cloud
 --------------------------------------

@@ -8,7 +8,10 @@ Quickstart
 
 Setup
 ------
-	     
+
+.. warning:: At this time do not use the pip install as we have not yet uploaded the newest
+             version to pypi. Instead, plase use the source install discussed in our manual
+
 The setup of cloudmesh client is quite simple and can be done with::
 
     pip install cloudmesh_client
@@ -93,15 +96,18 @@ To list the images/flavors use the following:
 
 .. prompt:: cm, cm>
 
-	     list image
-	     list flavor
+	     image list
+	     flavor list
 
-To set default flavor and image use:
+To set default flavor and image use from the image list that you obtained through
+image list and image flavor commands. Also asure that the flavor of the image is not to
+small. Some imageges may not work in m1.tiny.
+Please asure proper spelling of the image name:
 
 .. prompt:: cm, cm>
 
-	     default image=Ubuntu 14.04
-	     default flavor=m1.tiny
+	     default image=Ubuntu-14.04-64
+	     default flavor=m1.small
 
 You also need to set your default group. If you already have a group
 created you can use that or else you can specify a new group name.
@@ -247,7 +253,7 @@ To delete a VM, you use:
 HPC
 -----
 
-IN order to use the HPC experiment management functionality, you must
+In order to use the HPC experiment management functionality, you must
 register the queuing system in the yaml file and register the login
 node in the .ssh/config file. If you are using india and have used the
 clouds before, you may have already done this.
