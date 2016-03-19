@@ -21,7 +21,9 @@ from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.Error import Error
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from builtins import input
-
+from cloudmesh_client.common.hostlist import Parameter
+from cloudmesh_client.common.Shell import Shell
+from pprint import pprint
 
 class VmCommand(PluginCommand, CloudPluginCommand):
     topics = {"vm": "cloud"}
@@ -155,6 +157,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 sample[1-3,18] => ['sample1', 'sample2', 'sample3', 'sample18']
 
         """
+
+
 
         def _print_dict(d, header=None, format='table'):
             if format == "json":
@@ -389,16 +393,55 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem retrieving status of the VM")
 
         elif arguments["check"]:
+
+            test = {}
             try:
 
-                names = []
 
-                names = arguments["NAME"]
-
-
-
+                names = Parameter.expand(arguments["NAME"])
+                id = 0
                 for name in names:
                     print ("Not implemented: {}".format(name))
+                    # TODO: check the status of the vms
+                    status = "active"
+                    # TODO: check if they have a floating ip
+                    # TODO: get ip
+                    floating_ip = "127.0.0.1"
+                    ip = True
+                    # ping
+                    # TODO: ping the machine with the shell command
+                    ping = True
+                    # check if one can login and run a command
+                    check = False
+                    try:
+                        r = Shell.execute("uname", "-a")
+                        # do a real check
+                        check = True
+                    except:
+                        check = False
+                    test[name] = {
+                        "id" : id,
+                        "name": name,
+                        "status": status,
+                        "ip": ip,
+                        "ping": ping,
+                        "login": check
+                    }
+                    id = id + 1
+
+                pprint (test)
+
+                print (dict_printer(test,
+                                    order=["id",
+                                           "name",
+                                           "status",
+                                           "ip",
+                                           "ping",
+                                           "login"],
+                                    output="table",
+                                    sort_keys=True))
+
+
                 msg = "not yet implemented. failed."
                 Console.error(msg)
             except Exception as e:

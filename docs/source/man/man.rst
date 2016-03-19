@@ -1769,6 +1769,7 @@ Command - vm::
         vm status [--cloud=CLOUD]
         vm info [--cloud=CLOUD]
                 [--format=FORMAT]
+        vm check NAME...
 
     Arguments:
         COMMAND        positional arguments, the commands you want to
@@ -1778,7 +1779,8 @@ Command - vm::
                        you input the commands
         NAME           server name. By default it is set to the name of last vm from database.
         NAME_OR_ID     server name or ID
-        KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is not a path to key.
+        KEYPAIR_NAME   Name of the openstack keypair to be used to create VM. Note this is
+                       not a path to key.
         NEWNAME        New name of the VM while renaming.
 
     Options:

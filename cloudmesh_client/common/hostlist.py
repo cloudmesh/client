@@ -61,8 +61,17 @@ MAX_SIZE = 100000
 class Parameter(object):
 
     @classmethod
-    def expand(cls, parameter, allow_duplicates=False, sort=False):
-        return expand_hostlist(parameter, allow_duplicates=False, sort=False)
+    def expand(cls, *args, **kwargs):
+
+        allow_duplicates=False
+        sort = False
+        if "allow_duplicates" in kwargs:
+            allow_duplicates=kwargs["allow_duplicates"]
+        if "sort" in kwargs:
+            sort=kwargs["sort"]
+
+        parameters = ','.join(*args)
+        return expand_hostlist(parameters, allow_duplicates=allow_duplicates, sort=sort)
 
 
 def expand_hostlist(hostlist, allow_duplicates=False, sort=False):
