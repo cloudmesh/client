@@ -738,7 +738,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         if result is not None:
                             print(result)
                         else:
-                            print("Sorry. No data found with requested parameters in DB.")
+                            print("No data found with requested parameters.")
                     msg = "info. OK."
                     Console.ok(msg)
                 except Exception as e:
