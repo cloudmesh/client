@@ -30,6 +30,8 @@ class CloudProviderLibcloud(CloudProviderBase):
         self.flat = flat
         self.cloud_type = "libcloud"
         self.kind = ["image", "flavor", "vm", "key"]
+        self.dbobject = ["libcloud_image", "libcloud_flavor", "libcloud_vm", "key"]
+
         self.default_image = None
         self.default_flavor = None
         self.cloud = None

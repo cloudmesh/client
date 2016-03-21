@@ -79,6 +79,435 @@ class CloudmeshMixin(object):
     kind = Column(String, default="undefined")
     project = Column(String, default="undefined")
     cloud = Column(String, default="undefined")
+    group = Column(String, default="undefined")
+
+class VMUSERMAP(CloudmeshMixin, db.Base):
+    """
+    Table to store mapping of VM and login username.
+    """
+    vm_uuid = Column(String, primary_key=True)
+    username = Column(String)
+
+    def __init__(self, **kwargs):
+        self.id = kwargs["vm_uuid"]
+        self.vm_uuid = kwargs["vm_uuid"]
+        self.username = kwargs["username"]
+        self.kind = self.__tablename__
+
+
+class COUNTER(CloudmeshMixin, db.Base):
+    """
+    Table to store Prefix Count for VM auto-naming.
+    """
+    type = Column(String, default="integer")
+    value = Column(Integer)
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
+
+# OLD: TODO delete this when done
+#
+#    def __init__(self, **kwargs):
+#        self.id = kwargs["prefix"]
+#        self.prefix = kwargs["prefix"]
+#        self.count = kwargs["count"]
+#        self.kind = self.__tablename__
+
+
+class DEFAULT(CloudmeshMixin, db.Base):
+    """table to store default values
+
+    if the category is "global" it is meant to be a global variable
+
+    todo: check if its global or general
+    """
+    # name defined in mixin
+    value = Column(String)
+    type = Column(String, default="string")
+
+    # category = Column(String)
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 category=None,
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.category = category or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
+
+class VAR(CloudmeshMixin, db.Base):
+    """table to store peristant variable values
+    """
+    # name defined in mixin
+    value = Column(String)
+    type = Column(String, default="string")
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 category="var",
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.category = category or "var"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
+class LAUNCHER(CloudmeshMixin, db.Base):
+    """table to store default values
+
+    if the category is "global" it is meant to be a global variable
+
+    todo: check if its global or general
+    """
+    # name defined in mixin
+    value = Column(String)
+    type = Column(String, default="string")
+    parameters = Column(String)  # This is the parameter represented as yaml object
+
+    # category = Column(String)
+
+    def __init__(self,
+                 name,
+                 value,
+                 type="string",
+                 category=None,
+                 user=None):
+        # self.kind = __tablename__
+        self.label = name
+        self.category = category or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.value = value
+        self.kind = self.__tablename__
+
+
+# TODO: BUG the value is not properly used here
+class KEY(CloudmeshMixin, db.Base):
+    value = Column(String)
+    fingerprint = Column(String, unique=True)
+    source = Column(String)
+    comment = Column(String)
+    uri = Column(String)
+    is_default = Column(String)
+
+    def __init__(self,
+                 name,
+                 value,
+                 uri=None,
+                 source=None,
+                 fingerprint=None,
+                 comment=None,
+                 type="string",
+                 category=None,
+                 user=None,
+                 is_default="False"):
+        # self.kind = __tablename__
+        self.value = value
+        self.label = name
+        self.category = category or "general"
+        self.uri = uri
+        self.comment = comment
+        self.fingerprint = fingerprint
+        self.source = source
+        self.type = type
+        self.name = name
+        self.user = user
+        self.kind = self.__tablename__
+        self.is_default = is_default
+
+
+class KEYCLOUDMAP(CloudmeshMixin, db.Base):
+
+    user = Column(String)
+    key_name = Column(String)
+    cloud_name = Column(String)
+    key_name_on_cloud = Column(String)
+
+    def __init__(self,
+                 user,
+                 name,
+                 category,
+                 name_on_cloud):
+        self.user = user
+        self.key_name = name
+        self.category = category or "general"
+        self.cloud_name = category
+        self.key_name_on_cloud = name_on_cloud
+
+
+class GROUP(CloudmeshMixin, db.Base):
+    member = Column(String)
+    type = Column(String)
+
+    def __init__(self,
+                 name,
+                 member,
+                 type="vm",
+                 category=None,
+                 user=None):
+
+        self.label = name
+        self.category = category or "general"
+        self.type = type
+        self.name = name
+        self.member = member
+        self.user = user
+        self.kind = self.__tablename__
+
+
+class RESERVATION(CloudmeshMixin, db.Base):
+    hosts = Column(String)  # should be list of strings
+    description = Column(String)
+    start_time = Column(String)  # date, time
+    end_time = Column(String)  # date, time
+
+    def __init__(self, **kwargs):
+        # self.kind = __tablename__
+        self.label = kwargs['name']
+        self.hosts = kwargs['hosts']
+        if 'category' in kwargs:
+            self.category = kwargs['category'] or "general"
+        else:
+            self.category = 'general'
+        self.start_time = kwargs['start']
+        self.end_time = kwargs['end']
+        self.description = kwargs['description']
+        self.name = kwargs['name']
+        self.user = kwargs['user']
+        self.project = kwargs['project']
+        self.kind = self.__tablename__
+
+
+class SECGROUP(CloudmeshMixin, db.Base):
+    uuid = Column(String)
+
+    def __init__(self,
+                 name,
+                 uuid,
+                 type="string",
+                 category=None,
+                 user=None,
+                 project=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.label = name
+        self.category = category or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.uuid = uuid
+        self.project = project
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.items():
+                print("{} = {}".format(key, value))
+                self[key] = value
+
+
+class SECGROUPRULE(CloudmeshMixin, db.Base):
+    groupid = Column(String)
+    fromPort = Column(String)
+    toPort = Column(String)
+    protocol = Column(String)
+    cidr = Column(String)
+    uuid = Column(String)
+
+    # noinspection PyPep8Naming
+    def __init__(self,
+                 uuid,
+                 name,
+                 groupid,
+                 type="string",
+                 category=None,
+                 user=None,
+                 project=None,
+                 fromPort=None,
+                 toPort=None,
+                 protocol=None,
+                 cidr=None,
+                 **kwargs):
+        # self.kind = __tablename__
+        self.uuid = uuid
+        self.label = name
+        self.category = category or "general"
+        self.type = type
+        self.name = name
+        self.user = user
+        self.groupid = groupid
+        self.project = project
+        self.fromPort = fromPort
+        self.toPort = toPort
+        self.protocol = protocol
+        self.cidr = cidr
+        self.kind = self.__tablename__
+
+        if kwargs is not None:
+            for key, value in kwargs.items():
+                print("{} = {}".format(key, value))
+                self[key] = value
+
+
+class BATCHJOB(CloudmeshMixin, db.Base):
+    """table to store default values
+
+    if the category is "global" it is meant to be a global variable
+
+    todo: check if its global or general
+    """
+    # name defined in mixin
+    type = Column(String, default="string")
+    dir = Column(String, default="string")
+    nodes = Column(String, default="string")
+    output_file = Column(String, default="string")
+    queue = Column(String, default="string")
+    time = Column(String, default="string")
+    cluster = Column(String, default="string")
+    sbatch_file_path = Column(String, default="string")
+    cmd = Column(String, default="string")
+    # noinspection PyRedeclaration
+    time = Column(String, default="string")
+    group = Column(String, default="string")
+    job_id = Column(String, default="string")
+    category = Column(String, default="string")
+
+    def __init__(self,
+                 name,
+                 type="string",
+                 user=None,
+                 category=None,
+                 **kwargs
+                 ):
+        self.label = name
+        self.type = type
+        self.name = name
+        self.user = user
+
+        self.dir = kwargs.get('dir')
+        self.nodes = kwargs.get('nodes')
+        self.output_file = kwargs.get('output_file')
+        self.queue = kwargs.get('queue')
+        self.time = kwargs.get('time')
+        self.cluster = kwargs.get('cluster')
+        self.sbatch_file_path = kwargs.get('sbatch_file_path')
+        self.cmd = kwargs.get('cmd')
+        self.time = kwargs.get('time')
+        self.group = kwargs.get('group')
+        self.job_id = kwargs.get('job_id')
+        self.kind = self.__tablename__
+        self.category = category or "general"
+
+
+def tables():
+    """
+    :return: the list of tables in model
+    """
+    classes = [cls for cls in db.Base.__subclasses__()]
+    return classes
+
+
+def tablenames():
+    """
+    :return: the list of table names in model
+    """
+    names = [name.__tablename__ for name in tables()]
+    return names
+
+
+def table(name):
+    """
+    :return: the table class based on a given table name.
+             In case the table does not exist an exception is thrown
+    """
+    for t in tables():
+        if t.__tablename__ == name:
+            return t
+
+    raise ("ERROR: unkown table {}".format(name))
+
+
+"""
+db.Base.metadata.create_all()
+
+Session = sessionmaker(bind=db.engine)
+session = Session()
+
+def add(o):
+    session.add(o)
+    session.commit()
+    session.flush()
+
+
+m = DEFAULT("hallo", "world")
+
+add(m)
+
+
+n = session.query(DEFAULT).filter_by(name='hallo').first()
+
+print ("\n\n")
+
+pprint (n.__dict__)
+
+"""
+
+"""
+d = Default()
+
+d.name  = "image"
+d.value = "no image found"
+add(d)
+
+c = Default()
+
+c.name  = "cloud"
+c.value = "kilo"
+add(c)
+
+
+for n in session.query(Default).filter_by(name='image').all():
+    print ("------\n")
+    pprint (n.__dict__)
+
+
+for n in session.query(Default).all():
+    print ("------\n")
+    pprint (n.__dict__)
+
+
+#session.query(MyModel).filter(name=name).first()
+"""
+
+
+
+#
+# OPENSTACK
+#
 
 class IMAGE(CloudmeshMixin, db.Base):
     uuid = Column(String)
@@ -328,347 +757,10 @@ class VM(CloudmeshMixin, db.Base):
                 self[key] = value
         """
 
-
-class VMUSERMAP(CloudmeshMixin, db.Base):
-    """
-    Table to store mapping of VM and login username.
-    """
-    vm_uuid = Column(String, primary_key=True)
-    username = Column(String)
-
-    def __init__(self, **kwargs):
-        self.id = kwargs["vm_uuid"]
-        self.vm_uuid = kwargs["vm_uuid"]
-        self.username = kwargs["username"]
-        self.kind = self.__tablename__
-
-
-class COUNTER(CloudmeshMixin, db.Base):
-    """
-    Table to store Prefix Count for VM auto-naming.
-    """
-    type = Column(String, default="integer")
-    value = Column(Integer)
-
-    def __init__(self,
-                 name,
-                 value,
-                 type="string",
-                 user=None):
-        # self.kind = __tablename__
-        self.label = name
-        self.type = type
-        self.name = name
-        self.user = user
-        self.value = value
-        self.kind = self.__tablename__
-
-
-# OLD: TODO delete this when done
 #
-#    def __init__(self, **kwargs):
-#        self.id = kwargs["prefix"]
-#        self.prefix = kwargs["prefix"]
-#        self.count = kwargs["count"]
-#        self.kind = self.__tablename__
+# LIBCLOUD
+#
 
-
-class DEFAULT(CloudmeshMixin, db.Base):
-    """table to store default values
-
-    if the category is "global" it is meant to be a global variable
-
-    todo: check if its global or general
-    """
-    # name defined in mixin
-    value = Column(String)
-    type = Column(String, default="string")
-
-    # category = Column(String)
-
-    def __init__(self,
-                 name,
-                 value,
-                 type="string",
-                 category=None,
-                 user=None):
-        # self.kind = __tablename__
-        self.label = name
-        self.category = category or "general"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.value = value
-        self.kind = self.__tablename__
-
-
-class VAR(CloudmeshMixin, db.Base):
-    """table to store peristant variable values
-    """
-    # name defined in mixin
-    value = Column(String)
-    type = Column(String, default="string")
-
-    def __init__(self,
-                 name,
-                 value,
-                 type="string",
-                 category="var",
-                 user=None):
-        # self.kind = __tablename__
-        self.label = name
-        self.category = category or "var"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.value = value
-        self.kind = self.__tablename__
-
-class LAUNCHER(CloudmeshMixin, db.Base):
-    """table to store default values
-
-    if the category is "global" it is meant to be a global variable
-
-    todo: check if its global or general
-    """
-    # name defined in mixin
-    value = Column(String)
-    type = Column(String, default="string")
-    parameters = Column(String)  # This is the parameter represented as yaml object
-
-    # category = Column(String)
-
-    def __init__(self,
-                 name,
-                 value,
-                 type="string",
-                 category=None,
-                 user=None):
-        # self.kind = __tablename__
-        self.label = name
-        self.category = category or "general"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.value = value
-        self.kind = self.__tablename__
-
-
-# TODO: BUG the value is not properly used here
-class KEY(CloudmeshMixin, db.Base):
-    value = Column(String)
-    fingerprint = Column(String, unique=True)
-    source = Column(String)
-    comment = Column(String)
-    uri = Column(String)
-    is_default = Column(String)
-
-    def __init__(self,
-                 name,
-                 value,
-                 uri=None,
-                 source=None,
-                 fingerprint=None,
-                 comment=None,
-                 type="string",
-                 category=None,
-                 user=None,
-                 is_default="False"):
-        # self.kind = __tablename__
-        self.value = value
-        self.label = name
-        self.category = category or "general"
-        self.uri = uri
-        self.comment = comment
-        self.fingerprint = fingerprint
-        self.source = source
-        self.type = type
-        self.name = name
-        self.user = user
-        self.kind = self.__tablename__
-        self.is_default = is_default
-
-
-class KEYCLOUDMAP(CloudmeshMixin, db.Base):
-
-    user = Column(String)
-    key_name = Column(String)
-    cloud_name = Column(String)
-    key_name_on_cloud = Column(String)
-
-    def __init__(self,
-                 user,
-                 name,
-                 category,
-                 name_on_cloud):
-        self.user = user
-        self.key_name = name
-        self.category = category or "general"
-        self.cloud_name = category
-        self.key_name_on_cloud = name_on_cloud
-
-
-class GROUP(CloudmeshMixin, db.Base):
-    value = Column(String)
-    type = Column(String)
-
-    def __init__(self,
-                 name,
-                 value,
-                 type="vm",
-                 category=None,
-                 user=None):
-        # self.kind = __tablename__
-        self.label = name
-        self.category = category or "general"
-        self.type = type
-        self.name = name
-        self.value = value
-        self.user = user
-        self.kind = self.__tablename__
-
-
-class RESERVATION(CloudmeshMixin, db.Base):
-    hosts = Column(String)  # should be list of strings
-    description = Column(String)
-    start_time = Column(String)  # date, time
-    end_time = Column(String)  # date, time
-
-    def __init__(self, **kwargs):
-        # self.kind = __tablename__
-        self.label = kwargs['name']
-        self.hosts = kwargs['hosts']
-        if 'category' in kwargs:
-            self.category = kwargs['category'] or "general"
-        else:
-            self.category = 'general'
-        self.start_time = kwargs['start']
-        self.end_time = kwargs['end']
-        self.description = kwargs['description']
-        self.name = kwargs['name']
-        self.user = kwargs['user']
-        self.project = kwargs['project']
-        self.kind = self.__tablename__
-
-
-class SECGROUP(CloudmeshMixin, db.Base):
-    uuid = Column(String)
-
-    def __init__(self,
-                 name,
-                 uuid,
-                 type="string",
-                 category=None,
-                 user=None,
-                 project=None,
-                 **kwargs):
-        # self.kind = __tablename__
-        self.label = name
-        self.category = category or "general"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.uuid = uuid
-        self.project = project
-        self.kind = self.__tablename__
-
-        if kwargs is not None:
-            for key, value in kwargs.items():
-                print("{} = {}".format(key, value))
-                self[key] = value
-
-
-class SECGROUPRULE(CloudmeshMixin, db.Base):
-    groupid = Column(String)
-    fromPort = Column(String)
-    toPort = Column(String)
-    protocol = Column(String)
-    cidr = Column(String)
-    uuid = Column(String)
-
-    # noinspection PyPep8Naming
-    def __init__(self,
-                 uuid,
-                 name,
-                 groupid,
-                 type="string",
-                 category=None,
-                 user=None,
-                 project=None,
-                 fromPort=None,
-                 toPort=None,
-                 protocol=None,
-                 cidr=None,
-                 **kwargs):
-        # self.kind = __tablename__
-        self.uuid = uuid
-        self.label = name
-        self.category = category or "general"
-        self.type = type
-        self.name = name
-        self.user = user
-        self.groupid = groupid
-        self.project = project
-        self.fromPort = fromPort
-        self.toPort = toPort
-        self.protocol = protocol
-        self.cidr = cidr
-        self.kind = self.__tablename__
-
-        if kwargs is not None:
-            for key, value in kwargs.items():
-                print("{} = {}".format(key, value))
-                self[key] = value
-
-
-class BATCHJOB(CloudmeshMixin, db.Base):
-    """table to store default values
-
-    if the category is "global" it is meant to be a global variable
-
-    todo: check if its global or general
-    """
-    # name defined in mixin
-    type = Column(String, default="string")
-    dir = Column(String, default="string")
-    nodes = Column(String, default="string")
-    output_file = Column(String, default="string")
-    queue = Column(String, default="string")
-    time = Column(String, default="string")
-    cluster = Column(String, default="string")
-    sbatch_file_path = Column(String, default="string")
-    cmd = Column(String, default="string")
-    # noinspection PyRedeclaration
-    time = Column(String, default="string")
-    group = Column(String, default="string")
-    job_id = Column(String, default="string")
-    category = Column(String, default="string")
-
-    def __init__(self,
-                 name,
-                 type="string",
-                 user=None,
-                 category=None,
-                 **kwargs
-                 ):
-        self.label = name
-        self.type = type
-        self.name = name
-        self.user = user
-
-        self.dir = kwargs.get('dir')
-        self.nodes = kwargs.get('nodes')
-        self.output_file = kwargs.get('output_file')
-        self.queue = kwargs.get('queue')
-        self.time = kwargs.get('time')
-        self.cluster = kwargs.get('cluster')
-        self.sbatch_file_path = kwargs.get('sbatch_file_path')
-        self.cmd = kwargs.get('cmd')
-        self.time = kwargs.get('time')
-        self.group = kwargs.get('group')
-        self.job_id = kwargs.get('job_id')
-        self.kind = self.__tablename__
-        self.category = category or "general"
 
 class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
     uuid = Column(String)
@@ -817,82 +909,3 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
             self.status = kwargs["status"]
         self.kind = self.__tablename__
 
-def tables():
-    """
-    :return: the list of tables in model
-    """
-    classes = [cls for cls in db.Base.__subclasses__()]
-    return classes
-
-
-def tablenames():
-    """
-    :return: the list of table names in model
-    """
-    names = [name.__tablename__ for name in tables()]
-    return names
-
-
-def table(name):
-    """
-    :return: the table class based on a given table name.
-             In case the table does not exist an exception is thrown
-    """
-    for t in tables():
-        if t.__tablename__ == name:
-            return t
-
-    raise ("ERROR: unkown table {}".format(name))
-
-
-"""
-db.Base.metadata.create_all()
-
-Session = sessionmaker(bind=db.engine)
-session = Session()
-
-def add(o):
-    session.add(o)
-    session.commit()
-    session.flush()
-
-
-m = DEFAULT("hallo", "world")
-
-add(m)
-
-
-n = session.query(DEFAULT).filter_by(name='hallo').first()
-
-print ("\n\n")
-
-pprint (n.__dict__)
-
-"""
-
-"""
-d = Default()
-
-d.name  = "image"
-d.value = "no image found"
-add(d)
-
-c = Default()
-
-c.name  = "cloud"
-c.value = "kilo"
-add(c)
-
-
-for n in session.query(Default).filter_by(name='image').all():
-    print ("------\n")
-    pprint (n.__dict__)
-
-
-for n in session.query(Default).all():
-    print ("------\n")
-    pprint (n.__dict__)
-
-
-#session.query(MyModel).filter(name=name).first()
-"""

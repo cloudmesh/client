@@ -396,7 +396,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
         elif arguments['delete']:
 
             delete_on_cloud = arguments["--force"] or False
-            # print ("DDD", delete_on_cloud)
+
             if arguments['--all']:
                 try:
                     sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)

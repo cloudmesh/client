@@ -47,7 +47,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         super(CloudProviderOpenstackAPI, self).__init__(cloud_name, user=user)
         self.flat = flat
         self.cloud_type = "openstack"
-        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key"]
+        self.kind = ["image", "flavor", "vm", "quota", "limits", "usage", "key", "group"]
+        self.dbobject = ["image", "flavor", "vm", "quota", "limits", "usage", "key", "group"]
+
         self.provider = None
         self.default_image = None
         self.default_flavor = None
@@ -396,11 +398,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                                               security_groups=secgroup,
                                               nics=nics)
         # return the server id
-        pprint (server.__dict__)
         id = server.__dict__["id"]
-
-        servers = self.list_vm(cloud)
-        pprint(servers)
         return id
 
     def delete_vm(self, name, group=None, force=None):
@@ -753,7 +751,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             'vm': {
                 'order': [
                     'id',
-                    'uuid',
+                    'group',
                     'label',
                     'status',
                     'static_ip',
@@ -766,7 +764,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 ],
                 'header': [
                     'id',
-                    'uuid',
+                    'group',
                     'label',
                     'status',
                     'static_ip',
@@ -871,6 +869,21 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'created_at',
                     'updated_at'
                      ],
+            },
+            'group':{
+                'order': [
+                    "name",
+                    "member",
+                    "user",
+                    "category",
+                    "type"],
+                'header': [
+                    "name",
+                    "member",
+                    "user",
+                    "category",
+                    "type"]
+
             }
         }
 
