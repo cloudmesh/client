@@ -10,8 +10,9 @@ from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
 from uuid import UUID
-
+from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
+from pprint import pprint
 
 
 # noinspection PyPep8Naming
@@ -61,41 +62,50 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
 
-        key_name = kwargs["key_name"]
-        cloud_name = kwargs["cloud"]
+        pprint (kwargs)
+        data = dotdict(kwargs)
+
+        data.key = data.key_name  # using better argument
+
+        # key = kwargs["key"]
+        # cloud = kwargs["cloud"]
 
         conf = ConfigDict("cloudmesh.yaml")
-        username = conf["cloudmesh"]["profile"]["username"]
+        data.username = conf["cloudmesh"]["profile"]["username"]
 
-        keycloudmap = cls.cm.get_key_cloud_mapping(username, key_name, cloud_name)
+        keycloudmap = cls.cm.get_key_cloud_mapping(data.username, data.key, data.cloud)
 
         if keycloudmap is None or len(keycloudmap) == 0:
-            raise RuntimeError("No key cloud mapping found for user {:}, key name {:} and cloud {:} in database."
-                               .format(username, key_name, cloud_name))
+            raise RuntimeError("No key cloud mapping found for user {username}, key name {key} and cloud {cloud} in database."
+                               .format(**data))
 
         # print("Keycloudmap = {:}".format(keycloudmap))
+        #
+        # Bug we are no longer using this, we just use key and it s the same on all clouds
+        #
         key_name_on_cloud = keycloudmap["key_name_on_cloud"]
+
 
         # print("Booting with key_name_on_cloud as " + key_name_on_cloud)
 
-        cloud_provider = CloudProvider(cloud_name).provider
+        cloud_provider = CloudProvider(data.cloud).provider
 
-        if "nics" in kwargs:
-            vm = cloud_provider.boot_vm(kwargs["name"],
-                                        kwargs["image"],
-                                        kwargs["flavor"],
-                                        key=key_name_on_cloud,
-                                        secgroup=kwargs["secgroup_list"],
-                                        nics=kwargs["nics"])
+        if "nics" in data:
+            nics = data.nics
         else:
-            vm = cloud_provider.boot_vm(kwargs["name"],
-                                        kwargs["image"],
-                                        kwargs["flavor"],
-                                        key=key_name_on_cloud,
-                                        secgroup=kwargs["secgroup_list"],
-                                        nics=None)
+            nics = None
 
-        print("Machine {:} is being booted on {:} Cloud...".format(kwargs["name"], cloud_provider.cloud))
+        vm = cloud_provider.boot_vm(data.name,
+                                    data.image,
+                                    data.flavor,
+                                    key=key_name_on_cloud,
+                                    secgroup=kwargs["secgroup_list"],
+                                    nics=nics)
+
+        data.cloud = cloud_provider.cloud # why will this be overwritten?
+
+        print("Machine {name} is being booted on {cloud} Cloud...".format(**data))
+        pprint (vm)
         return vm
 
     @classmethod
