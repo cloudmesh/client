@@ -516,7 +516,7 @@ class CloudRegister(object):
             cm_type = provider
 
         while cm_type not in ["openstack", "azure", "ec2"]:
-            print("\nSorry! Type of cloud '{:}' is invalid and should be one "
+            print("\nType of cloud '{:}' is invalid and should be one "
                   "of openstack/ azure/ ec2.\n"
                   .format(cm_type))
             cm_type = input("Type of the cloud- openstack/azure/ec2 "
