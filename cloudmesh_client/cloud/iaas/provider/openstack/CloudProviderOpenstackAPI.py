@@ -399,10 +399,8 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         pprint (server.__dict__)
         id = server.__dict__["id"]
 
-        servers = self.provider.servers.list()
+        servers = self.list_vm(cloud)
         pprint(servers)
-        for s in servers:
-            pprint (s.__dict__)
         return id
 
     def delete_vm(self, name, group=None, force=None):
