@@ -515,8 +515,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["delete"]:
             try:
-                servers = arguments["NAME"]
-
+                servers = Parameter.expand(arguments["NAME"])
+                print (servers)
                 # If names not provided, take the last vm from DB.
                 if servers is None or len(servers) == 0:
                     last_vm = Vm.get_last_vm(cloud=cloud)
@@ -529,14 +529,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                 group = arguments["--group"]
                 force = arguments["--force"]
-
+                print (servers)
                 # if default cloud not set, return error
                 if not cloud:
                     Console.error("Default cloud not set.")
                     return ""
-
-                Vm.delete(cloud=cloud, servers=servers)
-
+                for server in servers:
+                    Vm.delete(cloud=cloud, servers=[server])
+                    
                 msg = "info. OK."
                 Console.ok(msg)
             except Exception as e:
