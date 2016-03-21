@@ -41,7 +41,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
             Usage:
                 vm default [--cloud=CLOUD][--format=FORMAT]
-                vm refresh [--cloud=CLOUD]
+                vm refresh [all][--cloud=CLOUD]
                 vm boot [--name=NAME]
                         [--cloud=CLOUD]
                         [--image=IMAGE_OR_ID]
@@ -90,7 +90,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 vm check NAME...
 
             Arguments:
-                COMMAND        positional arguments, the commands you want to
+                COMMAND        positional arguments, the commands yo"listu want to
                                execute on the server(e.g. ls -a) separated by ';',
                                you will get a return of executing result instead of login to
                                the server, note that type in -- is suggested before
@@ -225,18 +225,36 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         # pprint(arguments)
 
-        def _refresh():
-            try:
-                msg = "Refresh VMs for cloud {:}.".format(cloud)
-                if Vm.refresh(cloud=cloud):
-                    Console.ok("{:} OK.".format(msg))
-                else:
-                    Console.error("{:} failed".format(msg))
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem running VM refresh")
+        def _refresh_cloud(cloud):
+                try:
+                    msg = "Refresh VMs for cloud {:}.".format(cloud)
+                    if Vm.refresh(cloud=cloud):
+                        Console.ok("{:} OK.".format(msg))
+                    else:
+                        Console.error("{:} failed".format(msg))
+                except Exception as e:
+                    # Error.traceback(e)
+                    Console.error("Problem running VM refresh")
+
+
 
         cloud = arguments["--cloud"] or Default.get_cloud()
+
+
+        config = ConfigDict("cloudmesh.yaml")
+        active_clouds = config["cloudmesh"]["active"]
+
+        def _refresh(cloud):
+            all = arguments["all"] or None
+
+            if all is None:
+                _refresh_cloud(cloud)
+            else:
+                for cloud in active_clouds:
+                    _refresh_cloud(cloud)
+
+
+
 
         if arguments["boot"]:
             name = None
@@ -291,7 +309,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     secgroup_list.append(secgroup)
 
                 key_name = arguments["--key"] or Default.get_key()
-                print ("DDD", Default.get_key())
                 # if default keypair not set, return error
                 if not key_name:
                     Console.error("Default key not set.")
@@ -313,6 +330,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     Console.ok(msg)
                 else:
                     vm_id = Vm.boot(cloud=cloud,
+                                    group=group,
                                     name=name,
                                     image=image,
                                     flavor=flavor,
@@ -330,7 +348,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     if vm_id is not None:
                         Group.add(name=group,
                                   type="vm",
-                                  id=name,
+                                  member=name,
                                   category=cloud)
 
                     msg = "info. OK."
@@ -511,37 +529,38 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["refresh"]:
 
-            _refresh()
+            _refresh(cloud)
 
         elif arguments["delete"]:
-            try:
-                servers = Parameter.expand(arguments["NAME"])
-                print (servers)
-                # If names not provided, take the last vm from DB.
-                if servers is None or len(servers) == 0:
+
+
+            group = arguments["--group"]
+            force = arguments["--force"]
+            cloud = arguments["--cloud"]
+            servers = Parameter.expand(arguments["NAME"])
+
+            if servers is None or len(servers) == 0:
+
                     last_vm = Vm.get_last_vm(cloud=cloud)
                     if last_vm is None:
                         Console.error("No VM records in database. Please run vm refresh.")
                         return ""
+
                     name = last_vm["name"]
                     servers = list()
                     servers.append(name)
 
-                group = arguments["--group"]
-                force = arguments["--force"]
+            else:
+
                 print (servers)
-                # if default cloud not set, return error
-                if not cloud:
-                    Console.error("Default cloud not set.")
-                    return ""
+
                 for server in servers:
-                    Vm.delete(cloud=cloud, servers=[server])
-                    
+                    Vm.delete(servers=[server])
+
                 msg = "info. OK."
                 Console.ok(msg)
-            except Exception as e:
-                # Error.traceback(e)
-                Console.error("Problem deleting instances")
+                return ""
+
 
         elif arguments["ip"] and arguments["assign"]:
             vmids = arguments["NAME"]
@@ -705,14 +724,14 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
         elif arguments["list"]:
 
-            if arguments["--all"]:
+            if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
                 try:
                     _format = arguments["--format"] or "table"
                     d = ConfigDict("cloudmesh.yaml")
-                    for cloud in d["cloudmesh"]["clouds"]:
+                    for cloud in active_clouds:
 
                         if arguments["--refresh"] or Default.refresh():
-                            _refresh()
+                            _refresh(cloud)
 
                         print("Listing VMs on Cloud: {:}".format(cloud))
                         result = Vm.list(cloud=cloud, output_format=_format)
@@ -739,7 +758,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
                     # list_vms_on_cloud(cloud, group, _format)
                     if arguments["--refresh"] or Default.refresh():
-                        _refresh()
+                        _refresh(cloud)
 
                     result = Vm.list(name_or_id=name_or_id, cloud=cloud, output_format=_format)
 
@@ -793,7 +812,10 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                     # BUG THE Z FILL SHOULD BE detected from yaml file
                     new_name = prefix + "-" + str(count).zfill(3)
 
-                Vm.rename(cloud=cloud, servers=servers, new_name=new_name, force=arguments["--force"],
+                Vm.rename(cloud=cloud,
+                          servers=servers,
+                          new_name=new_name,
+                          force=arguments["--force"],
                           is_dry_run=arguments["--dryrun"])
 
                 if is_name_provided is False:

@@ -139,7 +139,7 @@ class CloudmeshDatabase(object):
                 if kind == "secgroup":
                     self.clear("secgrouprule", name)
 
-                if kind in ["flavor", "image", "vm"]:
+                if kind in ["flavor", "image"]:
 
                     # flavors = provider.list_flavor(name)
                     elements = provider.list(kind, name)
@@ -151,6 +151,31 @@ class CloudmeshDatabase(object):
                         element["user"] = user
 
                         db_obj = {0: {kind: element}}
+                        self.add_obj(db_obj)
+                        self.save()
+
+                    return True
+
+                elif kind in ["vm"]:
+
+                    # flavors = provider.list_flavor(name)
+                    elements = provider.list(kind, name)
+
+                    for element in list(elements.values()):
+                        element["uuid"] = element['id']
+                        element['type'] = 'string'
+                        element["category"] = name
+                        element["cloud"] = name
+                        element["user"] = user
+                        vm_name = element["name"]
+
+                        element["group"] = "crap"
+
+                        print (element["group"], element["name"], element["cloud"])
+
+                        db_obj = {0: {kind: element}}
+                        pprint (db_obj)
+
                         self.add_obj(db_obj)
                         self.save()
                     return True

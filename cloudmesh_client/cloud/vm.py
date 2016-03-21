@@ -62,7 +62,6 @@ class Vm(ListResource):
     @classmethod
     def boot(cls, **kwargs):
 
-        pprint (kwargs)
         data = dotdict(kwargs)
 
         data.key = data.key_name  # using better argument
@@ -102,10 +101,12 @@ class Vm(ListResource):
                                     secgroup=kwargs["secgroup_list"],
                                     nics=nics)
 
-        data.cloud = cloud_provider.cloud # why will this be overwritten?
 
         print("Machine {name} is being booted on {cloud} Cloud...".format(**data))
-        pprint (vm)
+        cls.refresh(cloud=data.cloud)
+
+        cls.cm.update("vm", name=data.name, group=data.group)
+
         return vm
 
     @classmethod
@@ -130,13 +131,32 @@ class Vm(ListResource):
 
     @classmethod
     def delete(cls, **kwargs):
-        cloud_provider = CloudProvider(kwargs["cloud"]).provider
-        for server in kwargs["servers"]:
-            cloud_provider.delete_vm(server)
-            print("Machine {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
 
-        # Explicit refresh called after VM delete, to update db.
-        cls.refresh(cloud=kwargs["cloud"])
+        if "cloud" in kwargs:
+            cloud_provider = CloudProvider(kwargs["cloud"]).provider
+            for server in kwargs["servers"]:
+                cloud_provider.delete_vm(server)
+                print("VM {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+
+            cls.refresh(cloud=kwargs["cloud"])
+        else:
+
+            clouds = set()
+            for server in kwargs["servers"]:
+                try:
+                    vm = cls.cm.find_by_name("VM", name=server)
+
+                    cloud = vm["category"]
+                    cloud_provider = CloudProvider(cloud).provider
+                    clouds.add(cloud)
+                    cloud_provider.delete_vm(server)
+                    print("VM {:} is being deleted on {:} Cloud...".format(server, cloud))
+                except:
+                    print("VM {:} can not be found.".format(server))
+
+            for cloud in clouds:
+                cls.refresh(cloud=cloud)
+
 
     @classmethod
     def get_vms_by_name(cls, name, cloud):
