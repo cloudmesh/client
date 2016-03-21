@@ -396,7 +396,14 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                                               security_groups=secgroup,
                                               nics=nics)
         # return the server id
-        return server.__dict__["id"]
+        pprint (server.__dict__)
+        id = server.__dict__["id"]
+
+        servers = self.provider.servers.list()
+        pprint(servers)
+        for s in servers:
+            pprint (s.__dict__)
+        return id
 
     def delete_vm(self, name, group=None, force=None):
         """
