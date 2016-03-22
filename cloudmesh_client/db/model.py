@@ -79,7 +79,6 @@ class CloudmeshMixin(object):
     kind = Column(String, default="undefined")
     project = Column(String, default="undefined")
     cloud = Column(String, default="undefined")
-    group = Column(String, default="undefined")
 
 class VMUSERMAP(CloudmeshMixin, db.Base):
     """

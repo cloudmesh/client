@@ -180,3 +180,74 @@ class Test_group:
 
         return
 
+    def test_011(self):
+        """list vms in group"""
+
+        HEADING()
+
+        setup = [
+            "cm group add vm_1 --group=group_x",
+            "cm group add vm_2 --group=group_x",
+            "cm group add vm_3 --group=group_y",
+            "cm group add vm_3 --group=group_x",
+            "cm group list"]
+
+        for command in setup:
+            self.run(command)
+
+        result = Group.get_vms_in_group("group_x")
+        pprint(result)
+        assert 'vm_1' in result
+        assert 'vm_2' in result
+        assert 'vm_3' in result
+
+        result = Group.get_vms_in_group("group_y")
+        pprint(result)
+        assert 'vm_3' in result
+        assert 'vm_1' not in result
+        assert 'vm_2' not in result
+
+        result = Group.names()
+        pprint(result)
+        assert 'group_x' in result
+        assert 'group_y' in result
+
+
+        result = Group.vm_groups("vm_1")
+        pprint(result)
+        assert 'group_x' in result
+        assert 'group_y' not in result
+
+        result = Group.vm_groups("vm_3")
+        pprint(result)
+        assert 'group_x' in result
+        assert 'group_y' in result
+
+
+
+        result = Group.delete("group_x")
+        print(result)
+        result = self.run ("cm group list")
+
+        assert 'vm_1' not in result
+        assert 'vm_2' not in result
+
+        self.run ("cm group list")
+
+
+        for command in setup:
+            self.run(command)
+
+
+        result = Group.delete("group_y")
+
+        print(result)
+        result = self.run ("cm group list")
+
+        assert 'group_y' not in result
+        assert 'vm_3' in result
+
+
+
+        return
+
