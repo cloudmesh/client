@@ -726,8 +726,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
 
             groups = Group.list(format="dict")
-            pprint (groups)
-
+            
             if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
                 try:
                     _format = arguments["--format"] or "table"
@@ -741,10 +740,6 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         print("Listing VMs on Cloud: {:}".format(cloud))
 
                         vms = Vm.list(cloud=cloud, output_format="dict")
-
-
-
-                        print (result)
 
                         result = Vm.list(cloud=cloud, output_format=_format)
 

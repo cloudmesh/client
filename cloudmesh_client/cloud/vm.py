@@ -14,7 +14,6 @@ from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
 
-
 # noinspection PyPep8Naming
 class Vm(ListResource):
     cm = CloudmeshDatabase()
@@ -105,7 +104,7 @@ class Vm(ListResource):
         print("Machine {name} is being booted on {cloud} Cloud...".format(**data))
         cls.refresh(cloud=data.cloud)
 
-        cls.cm.update("vm", name=data.name, group=data.group)
+        cls.cm.update("vm", name=data.name)
 
         return vm
 
@@ -136,7 +135,7 @@ class Vm(ListResource):
             cloud_provider = CloudProvider(kwargs["cloud"]).provider
             for server in kwargs["servers"]:
                 cloud_provider.delete_vm(server)
-                print("VM {:} is being deleted on {:} Cloud...".format(server, cloud_provider.cloud))
+                print("VM {:} is being deleted on {:} cloud...".format(server, cloud_provider.cloud))
 
             cls.refresh(cloud=kwargs["cloud"])
         else:
@@ -150,7 +149,7 @@ class Vm(ListResource):
                     cloud_provider = CloudProvider(cloud).provider
                     clouds.add(cloud)
                     cloud_provider.delete_vm(server)
-                    print("VM {:} is being deleted on {:} Cloud...".format(server, cloud))
+                    print("VM {:} is being deleted on {:} cloud...".format(server, cloud))
                 except:
                     print("VM {:} can not be found.".format(server))
 
@@ -230,6 +229,28 @@ class Vm(ListResource):
         This method lists all VMs of the cloud
         """
 
+        # prevent circular dependency
+        def vm_groups(vm):
+            """
+
+            :param vm: name of the vm
+            :return: a list of groups the vm is in
+            """
+
+            try:
+                query = {
+                    "type": "vm",
+                    "member": vm
+                }
+
+                d = cls.cm.find("GROUP", **query)
+                groups = set()
+                for vm in d:
+                    groups.add(d[vm]['name'])
+                return list(groups)
+            except Exception as ex:
+                Console.error(ex.message, ex)
+
         try:
             if "name_or_id" in kwargs and kwargs["name_or_id"] is not None:
                 if cls.isUuid(kwargs["name_or_id"]):
@@ -243,6 +264,14 @@ class Vm(ListResource):
             else:
                 elements = cls.cm.find("vm",
                                        category=kwargs["cloud"])
+
+
+
+            for key in elements:
+                element = elements[key]
+                name = element["name"]
+                groups = vm_groups(name)
+                element["group"] = ','.join(groups)
 
             # print(elements)
 
