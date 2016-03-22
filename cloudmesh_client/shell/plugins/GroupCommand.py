@@ -5,7 +5,9 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import command
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
-
+from cloudmesh_client.common.dotdict import dotdict
+from pprint import pprint
+from cloudmesh_client.common.hostlist import Parameter
 
 class GroupCommand(PluginCommand, CloudPluginCommand):
     topics = {"group": "cloud"}
@@ -21,10 +23,10 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
-                group list [--category=CLOUD] [--format=FORMAT] [NAME]
-                group delete NAME [--category=CLOUD]
-                group remove [--category=CLOUD] --name=NAME --id=ID
+                group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUP]
+                group delete GROUP [--category=CLOUD]
+                group remove NAME... [--category=CLOUD] [--group=GROUP]
+                group list [--category=CLOUD] [--format=FORMAT] [GROUP]
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
 
@@ -32,7 +34,8 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             Arguments:
 
-                NAME         name of a group
+                NAME         name of object to be added
+                GROUP        name of a group
                 FROM         name of a group
                 TO           name of a group
                 GROUPA       name of a group
@@ -96,7 +99,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         if arguments["list"]:
 
             output = arguments["--format"] or Default.get("format", category) or "table"
-            name = arguments["NAME"]
+            name = arguments["GROUP"]
 
             if name is None:
 
@@ -129,18 +132,19 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 return
 
         elif arguments["add"]:
-            type = arguments["--type"] or Default.get("type", category)
+            # group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUP]
 
-            category_id = arguments["--id"] or Default.get("id", category)
 
-            data = {
-                "name": arguments["NAME"],
-                "type": type,
+            members = Parameter.expand(arguments["NAME"])
+            data = dotdict({
+                "type": arguments["--type"] or "vm",
                 "category": category,
-                "id": category_id
-            }
+                "name": arguments["--group"] or Default.get_group()
+            })
+            for member in members:
+                data.member = member
+                Group.add(**data)
 
-            Group.add(**data)
             return
 
         elif arguments["delete"]:

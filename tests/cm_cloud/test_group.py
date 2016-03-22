@@ -15,18 +15,19 @@ from cloudmesh_client.util import HEADING
 from cloudmesh_client.util import banner
 
 from cloudmesh_client.cloud.group import Group
-
+from pprint import pprint
 
 
 class Test_group:
 
     data = {
         "cloud": "kilo",
-        "user": "test"
+        "user": "test",
+        "group": "groupA"
     }
 
 
-    def run(command):
+    def run(self, command):
         command = command.format(**self.data)
         banner(command)
         print (command)
@@ -44,10 +45,10 @@ class Test_group:
         pass
 
     def test_001(self):
-        """testing cm group add groupA --category=kilo --id=test-001 --type=vm"""
+        """testing cm group add """
         HEADING()
 
-        c = "cm group add groupA --category={cloud} --id={user}-001 --type=vm"
+        c = "cm group add {user}-001 --group={group} --category={cloud}  --type=vm"
         self.run(c)
 
 
@@ -59,23 +60,29 @@ class Test_group:
     def test_002(self):
         """testing cm group add groupA --category=kilo --id=test-002 --type=vm"""
         HEADING()
-        command = "cm group add groupA --category={cloud} --id={user}-002 --type=vm"
+
+        command = "cm group add {user}-002 --group={group} --category={cloud}  --type=vm"
         self.run(command)
+
         group = Group.get(name="groupA", category="kilo")
-        assert group["category"] == "kilo"
-        assert group["name"] == "groupA"
-        assert group["type"] == "vm"
-        #
-        # TODO: there seems to be a bug here, what is id?
-        # id is internal and should not be set buy this.
-        assert group["value"] == "test-001,test-002"
+
+        names = ["{user}-001".format(**self.data),
+                "{user}-002".format(**self.data)]
+        for id in group:
+            print ("NNN", id)
+            element = group[id]
+            pprint (element)
+            assert element["category"] == "kilo"
+            assert element["name"] == "groupA"
+            assert element["type"] == "vm"
+            assert element["member"] in names
         return
 
     def test_003(self):
         """testing cm group copy groupA groupB"""
         HEADING()
 
-        command = "cm group copy groupA groupB"
+        command = "cm group copy {group} groupB"
 
         result = self.run(command)
         assert "[groupB]" in result
@@ -85,7 +92,7 @@ class Test_group:
     def test_004(self):
         """testing cm group merge groupA groupB groupC"""
         HEADING()
-        command = "cm group merge groupA groupB groupC"
+        command = "cm group merge {group} groupB groupC"
 
         result = self.run(command)
         assert "ok." in result
@@ -94,7 +101,7 @@ class Test_group:
     def test_005(self):
         """testing cm group list --category=kilo groupA"""
         HEADING()
-        command = "cm group list --category=kilo groupA"
+        command = "cm group list --category=kilo {group}"
 
         result = self.run(command)
         assert "groupA" in result
@@ -103,7 +110,7 @@ class Test_group:
     def test_006(self):
         """testing cm group list --category=kilo --format json groupA"""
         HEADING()
-        command= "cm group list --category={cloud} --format=json groupA"
+        command= "cm group list --category={cloud} --format=json {group}"
 
         result = self.run(command)
         assert "groupA" in result
@@ -123,33 +130,33 @@ class Test_group:
         HEADING()
         banner("cm group add --name=groupX --id=albert-00x")
 
-        result1 = self.run("cm default category=kilo")
-        assert "kilo" in result1
-        assert "category" in result1
-        assert "ok" in result1
+        result = self.run("cm default category=kilo")
+        assert "kilo" in result
+        assert "category" in result
+        assert "ok" in result
 
-        result1 = self.run("cm default type=vm")
-        assert "ok." in result1
+        result = self.run("cm default type=vm")
+        assert "ok." in result
 
-        result2 = self.run("cm group add groupX --id=albert-00x")
-        assert "albert-00x" in result2
+        result = self.run("cm group add groupX --id=albert-00x")
+        assert "albert-00x" in result
 
-        result3 = self.run("cm group list --category={cloud} groupX"
-        assert "kilo" in result3
-        assert "vm" in result3
+        result = self.run("cm group list --category={cloud} groupX")
+        assert "kilo" in result
+        assert "vm" in result
 
         return
 
     def test_009(self):
         """testing cm group remove --category=kilo --name=groupA --id=test-002"""
         HEADING()
-        banner("cm group remove --category={cloud} --name=groupA --id=test-002"
+        banner("cm group remove --category={cloud} --name=groupA --id=test-002")
 
-        result = self.run("cm group remove --category={cloud} --name=groupA --id={user}-002"
+        result = self.run("cm group remove --category={cloud} --name={group} --id={user}-002")
         print(result)
         assert "Successfully removed ID" in result
 
-        result = self.run("cm group list groupA")
+        result = self.run("cm group list {group}")
         assert "test-002" not in result
 
         return
@@ -158,8 +165,8 @@ class Test_group:
         """testing cm group delete groupA --category=kilo"""
         HEADING()
         """
-        banner("cm group delete groupA --category=kilo")
-        result = self.run("cm group delete groupA --category=kilo")
+        command = "cm group delete {group} --category=kilo"
+        result = self.run(command)
         print(result)
         assert "ok." in result
         """
