@@ -101,8 +101,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             output = arguments["--format"] or Default.get("format", category) or "table"
             name = arguments["GROUPNAME"]
 
-            print ("GGG", name)
-
             if name is None:
 
                 result = Group.list(format=output, category=category)

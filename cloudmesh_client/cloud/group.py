@@ -231,7 +231,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
-        print ("PPPPP")
+
         try:
             # group = cls.get(name=name, category=category)
             args = {}
@@ -242,8 +242,6 @@ class Group(ListResource):
 
             group = cls.cm.find("group", type="vm", output="dict", **args)
             group_object = cls.cm.find("group", type="vm", output="object", **args)
-
-            print ("GGG", group)
 
 
             if group:
@@ -256,10 +254,8 @@ class Group(ListResource):
 
                     if len(groups) == 1:
 
-                        print ("SSSS", server)
                         try:
-                            # Vm.delete(cloud=category, servers=[server])
-                            print ("DELETE", category, server)
+                            Vm.delete(cloud=category, servers=[server])
                         except Exception as e:
                             Console.error("Failed to delete VM {}, error: {}"
                                           .format(vm, e))

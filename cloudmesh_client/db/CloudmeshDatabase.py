@@ -176,9 +176,6 @@ class CloudmeshDatabase(object):
                         else:
                             element[u"group"] = "undefined"
 
-
-                        print ("DB GGG", element["group"], element["name"], element["cloud"])
-
                         db_obj = {0: {kind: element}}
 
                         self.add_obj(db_obj)
