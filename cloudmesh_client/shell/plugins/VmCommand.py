@@ -726,7 +726,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
 
 
             groups = Group.list(format="dict")
-            
+
             if arguments["--all"] or arguments["NAME_OR_ID"] == "all":
                 try:
                     _format = arguments["--format"] or "table"

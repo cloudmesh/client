@@ -247,6 +247,14 @@ class Default(ListResource):
         get the default group
         :return:
         """
+        try:
+            group = cls.get("group", "general")
+            if group is None:
+                return "default"
+            else:
+                return group
+        except:
+            return "default"
         return cls.get("group", "general")
 
     #
