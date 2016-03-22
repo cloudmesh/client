@@ -273,22 +273,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         secgroup_list_dict = dict()
         for index in vm_dict:
             ip_detail_dict[index] = dict()
-            ip_detail_dict[index]["floating_ip"] = None
-            ip_detail_dict[index]["static_ip"] = None
+            ip_detail_dict[index][u"floating_ip"] = None
+            ip_detail_dict[index][u"static_ip"] = None
             for key in vm_dict[index]:
                 if key.startswith("addresses"):
                     for ip_detail in vm_dict[index][key]:
                         if ip_detail["OS-EXT-IPS:type"] is not None:
                             if ip_detail["OS-EXT-IPS:type"] == "fixed":
-                                ip_detail_dict[index]["static_ip"] = ip_detail["addr"]
+                                ip_detail_dict[index][u"static_ip"] = ip_detail["addr"]
                             elif ip_detail["OS-EXT-IPS:type"] == "floating":
-                                ip_detail_dict[index]["floating_ip"] = ip_detail["addr"]
+                                ip_detail_dict[index][u"floating_ip"] = ip_detail["addr"]
 
             secgroup_list_dict[index] = ""
 
             sec_index = 0
             if "security_groups" in vm_dict[index]:
-                for secgroup in vm_dict[index]["security_groups"]:
+                for secgroup in vm_dict[index][u"security_groups"]:
                     secgroup_list_dict[index] += secgroup["name"]
                     sec_index += 1
                     # Append comma if not the last element
@@ -296,9 +296,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                         secgroup_list_dict[index] += ","
 
         for index in vm_dict:
-            vm_dict[index]["floating_ip"] = ip_detail_dict[index]["floating_ip"]
-            vm_dict[index]["static_ip"] = ip_detail_dict[index]["static_ip"]
-            vm_dict[index]["security_ groups"] = secgroup_list_dict[index]
+            vm_dict[index][u"floating_ip"] = ip_detail_dict[index]["floating_ip"]
+            vm_dict[index][u"static_ip"] = ip_detail_dict[index]["static_ip"]
+            vm_dict[index][u"security_ groups"] = secgroup_list_dict[index]
 
         return vm_dict
 

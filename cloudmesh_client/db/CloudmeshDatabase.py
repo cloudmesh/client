@@ -162,19 +162,24 @@ class CloudmeshDatabase(object):
                     elements = provider.list(kind, name)
 
                     for element in list(elements.values()):
-                        element["uuid"] = element['id']
-                        element['type'] = 'string'
-                        element["category"] = name
-                        element["cloud"] = name
-                        element["user"] = user
+                        element[u"uuid"] = element['id']
+                        element[u'type'] = 'string'
+                        element[u"category"] = name
+                        element[u"cloud"] = name
+                        element[u"user"] = user
                         vm_name = element["name"]
 
-                        element["group"] = "crap"
+                        g = self.find_by_attributes("group", member=vm_name)
 
-                        print (element["group"], element["name"], element["cloud"])
+                        if g is not None:
+                            element[u"group"] = g["name"]
+                        else:
+                            element[u"group"] = "undefined"
+
+
+                        print ("GGG", element["group"], element["name"], element["cloud"])
 
                         db_obj = {0: {kind: element}}
-                        pprint (db_obj)
 
                         self.add_obj(db_obj)
                         self.save()
@@ -225,10 +230,10 @@ class CloudmeshDatabase(object):
 
                 vms = provider.list_job(name)
                 for vm in list(vms.values()):
-                    vm['uuid'] = vm['id']
-                    vm['type'] = 'string'
-                    vm['category'] = name
-                    vm['user'] = user
+                    vm[u'uuid'] = vm['id']
+                    vm[u'type'] = 'string'
+                    vm[u'category'] = name
+                    vm[u'user'] = user
                     db_obj = {0: {kind: vm}}
 
                     self.add_obj(db_obj)
@@ -246,10 +251,10 @@ class CloudmeshDatabase(object):
                 if kind == "libcloud_vm":
                     vms = provider.list_vm(name)
                     for vm in vms.values():
-                        vm['uuid'] = vm['node_id']
-                        vm['type'] = 'string'
+                        vm[u'uuid'] = vm['node_id']
+                        vm[u'type'] = 'string'
                         vm['category'] = name
-                        vm['user'] = user
+                        vm[u'user'] = user
                         db_obj = {0: {kind: vm}}
 
                         self.add_obj(db_obj)
@@ -259,10 +264,10 @@ class CloudmeshDatabase(object):
                 if kind == "libcloud_image":
                     images = provider.list_image(name)
                     for images in images.values():
-                        images['uuid'] = images['image_id']
-                        images['type'] = 'string'
-                        images['category'] = name
-                        images['user'] = user
+                        images[u'uuid'] = images['image_id']
+                        images[u'type'] = 'string'
+                        images[u'category'] = name
+                        images[u'user'] = user
                         db_obj = {0: {kind: images}}
 
                         self.add_obj(db_obj)
@@ -272,10 +277,10 @@ class CloudmeshDatabase(object):
                 if kind == "libcloud_flavor":
                     flavors = provider.list_size(name)
                     for flavor in flavors.values():
-                        flavor['uuid'] = flavor['flavor_id']
-                        flavor['type'] = 'string'
-                        flavor['category'] = name
-                        flavor['user'] = user
+                        flavor[u'uuid'] = flavor['flavor_id']
+                        flavor[u'type'] = 'string'
+                        flavor[u'category'] = name
+                        flavor[u'user'] = user
                         db_obj = {0: {kind: flavor}}
 
                         self.add_obj(db_obj)
@@ -373,6 +378,13 @@ class CloudmeshDatabase(object):
         else:
             return kind
 
+
+    def first(self, result):
+        if len(result) == 0:
+            return None
+        else:
+            return result[list(result.keys())[0]]
+
     def find_by_name(self, kind, **kwargs):
         """
         find an object by name in the given table.
@@ -382,19 +394,29 @@ class CloudmeshDatabase(object):
         :return: the object
         """
 
-        def first(result):
-            if len(result) == 0:
-                return None
-            else:
-                return result[list(result.keys())[0]]
-
         if 'name' not in kwargs:
             raise ValueError("name not specified in find_by_name")
 
         table_type = self.get_table(kind)
 
-        result = first(self.find(table_type, **kwargs))
+        result = self.first(self.find(table_type, **kwargs))
+
         return result
+
+    def find_by_attributes(self, kind, **kwargs):
+        """
+        find an object by name in the given table.
+         If multiple objects have the same name, the first one is returned.
+
+        :param name: the name
+        :return: the object
+        """
+
+        table_type = self.get_table(kind)
+        result = self.first(self.find(table_type, **kwargs))
+
+        return result
+
 
     def find(self, kind, scope="all", output="dict", **kwargs):
         """
