@@ -29,7 +29,7 @@ class Test_group:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command)
+        banner(command, c='-')
         print (command)
         parameter = command.split(" ")
         shell_command = parameter[0]
@@ -126,7 +126,7 @@ class Test_group:
     def test_008(self):
         """testing cm group add --name=groupX --id albert-00x [WITH DEFAULT CLOUD=kilo, TYPE=VM]"""
         HEADING()
-        banner("cm group add --name=groupX --id=albert-00x")
+        banner("cm group add --name=groupX --id=albert-00x", c='-')
 
         result = self.run("cm default category=kilo")
         assert "kilo" in result
@@ -136,7 +136,7 @@ class Test_group:
         result = self.run("cm default type=vm")
         assert "ok." in result
 
-        result = self.run("cm group add groupX --id=albert-00x")
+        result = self.run("cm group add albert-00x --group=groupX ")
         assert "albert-00x" in result
 
         result = self.run("cm group list --category={cloud} groupX")
@@ -148,11 +148,11 @@ class Test_group:
     def test_009(self):
         """testing cm group remove --category=kilo --name=groupA --id=test-002"""
         HEADING()
-        banner("cm group remove --category={cloud} --name=groupA --id=test-002")
+        banner("cm group remove {user}-002 --category={cloud} --group={group}")
 
-        result = self.run("cm group remove --category={cloud} --name={group} --id={user}-002")
+        result = self.run("cm group remove {user}-002 --category={cloud} --group={group} ")
         print(result)
-        assert "Successfully removed ID" in result
+        assert "ok" in result
 
         result = self.run("cm group list {group}")
         assert "test-002" not in result
@@ -169,23 +169,14 @@ class Test_group:
         assert "ok." in result
         """
 
-        banner("cm group delete groupB --category=kilo")
-        result = self.run("cm group delete groupB --category=kilo")
-        assert "ok." in result
 
-        banner("cm group delete groupC --category=kilo")
-        result = self.run("cm group delete groupC --category=kilo")
-        assert "ok." in result
+        for group in ["groupA", "groupB", "groupC", "groupX"]:
 
-        banner("cm group delete groupX")
-        result = self.run("cm group delete groupX")
-        assert "ok." in result
+            command = "cm group delete {} --category=kilo".format(group)
 
+            result = self.run(command)
 
-    def test_999(self):
-        """Cleanup defaults"""
-        self.run("cm default delete category")
-        self.run("cm default delete type")
+            assert "ok." in result
 
         return
 

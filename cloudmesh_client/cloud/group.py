@@ -71,20 +71,19 @@ class Group(ListResource):
         """
         try:
             cloud = category or Default.get("cloud")
+
             args = {
-                "name": name,
                 "category": category
             }
 
-            # group = cls.get(name=name, category=cloud)
-            group = cls.cm.find("group", output="object", **args).first()
+            if name is not None:
+                args["name"] = name
 
-            if group is not None:
-                d = cls.to_dict(group)
-            else:
-                return None
+            print ("AAA", args)
 
-            return dict_printer(d,
+            group = cls.cm.find("group", output="dict", **args)
+
+            return dict_printer(group,
                                 order=cls.order,
                                 output=output)
         except Exception as ex:
@@ -174,6 +173,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
+        print ("PPPPP")
         try:
             # group = cls.get(name=name, category=category)
             args = {}
@@ -182,13 +182,18 @@ class Group(ListResource):
             if category is not None:
                 args["category"] = category
 
-            group = cls.cm.find("group", type="vm", output="object", **args)
+            group = cls.cm.find("group", type="vm", output="dict", **args)
+            group_object = cls.cm.find("group", type="vm", output="object", **args)
+
+            print ("GGG", group)
+
 
             if group:
                 # Delete VM from cloud before deleting group
 
                 for vm in group:
                     server = group[vm]["member"]
+                    print ("SSSS", server)
                     try:
                         Vm.delete(cloud=category, servers=[server])
                     except Exception as e:
@@ -197,9 +202,12 @@ class Group(ListResource):
                         continue
 
                 # Delete group record in local db
-                cls.cm.delete(group)
+
+
+                for element in group_object:
+                    cls.cm.delete(element)
                 cls.cm.save()
-                return "Delete Success"
+                return "Delete. ok."
             else:
                 return None
 
@@ -207,7 +215,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def remove(cls, name, id, category):
+    def remove(cls, name, member, category):
         """
         Method to remove an ID from the group
         in the cloudmesh database
@@ -216,24 +224,32 @@ class Group(ListResource):
         :param category:
         :return:
         """
+        print ("RRRRR")
+
         try:
             # group = cls.get(name=name, category=category)
             args = {
                 "name": name,
                 "category": category,
-                "member": id
+                "member": member,
             }
 
             # Find an existing group with name & category
             group = cls.cm.find("group", output="object", **args)
+            d = cls.cm.find("group", output="dict", **args)
 
-            if group is not None:
-                cls.delete(group)
-                cls.cm.save()
+            pprint (args)
+            pprint(d)
+            print ("GGGGG", group)
+            for g in group:
+                if group is not None:
+                    cls.cm.delete(g)
+                else:
+                    Console.msg("Group: could not find {name} {member}.".format(args))
+            cls.cm.save()
 
-                return "Successfully removed {} from the group {}".format(id, name)
-            else:
-                return "Group: could not find {name} {member}.".format(args)
+            return "Removed {} from the group {}. ok.".format(member, name)
+
 
         except Exception as ex:
             Console.error(ex.message, ex)
@@ -272,7 +288,7 @@ class Group(ListResource):
                     print ("TTT", _toName)
                     cls.add(name=_toName, type=type, member=member, category=category)
                 cls.cm.save()
-                Console.ok("Copy from Group [{}] to Group [{}] ok."
+                Console.ok("Copy from group {} to group {}. ok."
                            .format(_fromName, _toName))
 
             else:
