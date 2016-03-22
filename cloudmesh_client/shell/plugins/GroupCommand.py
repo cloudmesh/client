@@ -151,7 +151,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         elif arguments["delete"]:
             groups = Parameter.expand(arguments["GROUP"])
 
-            print("MMM", groups)
             for group in groups:
                 result = Group.delete(group, category)
 
