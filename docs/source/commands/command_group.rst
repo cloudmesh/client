@@ -1,26 +1,23 @@
 Group Command
 ======================================================================
 
-One of cloudmesh major functionality is to group cloud and other
-resources into a named group. Such named groups can than be used to
-perform actions on them. Upon start the default group is set to general if
-no default group exists.
+Cloudmesh allows to group objects such as virtual machines
+into a named group. Such groups can be used to
+perform actions on them. Groups may contain objects from different
+clouds. Most often groups are used to aggregate virtual machines in
+groups and than manage these groups of virtual machines.
+A  group named default is defined if no other group is specified.
 
-
-
-.. warning:: at this time we have limited to groups to just hold ID
-             of vms.
-
-The manual page of the group command can be found at: `group
-<../man/man.html#group>`_
+The manual page of the group command can be found at:
+`group <../man/man.html#group>`_
 
 
 Group List
 ^^^^^^^^^^^
 
-The named groups can be listed with the following command::
+Named groups can be listed with the following command::
 
-  $ cm group list --cloud india --format table
+  $ cm group list
     +----------+-------+--------+----------+------+
     | user     | cloud | name   | value    | type |
     +----------+-------+--------+----------+------+
@@ -30,6 +27,7 @@ The named groups can be listed with the following command::
     | albert   | india | groupB | test-003 | vm   |
     | albert   | india | groupB | test-005 | vm   |
     +----------+-------+--------+----------+------+
+
 
 Group Info
 ^^^^^^^^^^^

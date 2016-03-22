@@ -137,8 +137,6 @@ class Group(ListResource):
             if name is not None:
                 args["name"] = name
 
-            print ("AAA", args)
-
             group = cls.cm.find("group", output="dict", **args)
 
             return dict_printer(group,

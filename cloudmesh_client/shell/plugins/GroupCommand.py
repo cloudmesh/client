@@ -107,7 +107,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 if result:
                     print(result)
                 else:
-                    print("There are no groups in the cloudmesh database!")
+                    print("No groups found other than the default group but it has no members.")
 
             else:
 
