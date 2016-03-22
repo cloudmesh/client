@@ -177,7 +177,7 @@ class CloudmeshDatabase(object):
                             element[u"group"] = "undefined"
 
 
-                        print ("GGG", element["group"], element["name"], element["cloud"])
+                        print ("DB GGG", element["group"], element["name"], element["cloud"])
 
                         db_obj = {0: {kind: element}}
 

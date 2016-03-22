@@ -23,10 +23,10 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         ::
 
             Usage:
-                group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUP]
-                group delete GROUP [--category=CLOUD]
-                group remove NAME... [--category=CLOUD] [--group=GROUP]
-                group list [--category=CLOUD] [--format=FORMAT] [GROUP]
+                group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
+                group remove NAME... [--category=CLOUD] [--group=GROUPNAME]
+                group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUPNAME]
+                group delete GROUP... [--category=CLOUD]
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP
 
@@ -99,7 +99,9 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
         if arguments["list"]:
 
             output = arguments["--format"] or Default.get("format", category) or "table"
-            name = arguments["GROUP"]
+            name = arguments["GROUPNAME"]
+
+            print ("GGG", name)
 
             if name is None:
 
@@ -111,7 +113,8 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
             else:
 
-                result = Group.get_info(name=name, category=category,
+                result = Group.get_info(name=name,
+                                        category=category,
                                         output=output)
 
                 if result:
@@ -129,7 +132,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                                 "using --category={category}".format(**result)
                         Console.error(msg_a + msg_b)
 
-                return
+                return ""
 
         elif arguments["add"]:
             # group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUP]
@@ -145,45 +148,44 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
                 data.member = member
                 Group.add(**data)
 
-            return
+            return ""
 
         elif arguments["delete"]:
-            data = {
-                "name": arguments["NAME"],
-                "category": category,
-            }
+            groups = Parameter.expand(arguments["GROUP"])
 
-            result = Group.delete(**data)
-            if result:
-                Console.ok("Deletion completed. ok.")
-            else:
-                Console.error(
-                    "No group with name `{name}` found".format(**data))
-            return
+            print("MMM", groups)
+            for group in groups:
+                result = Group.delete(group, category)
+
+                if result:
+                    Console.ok(result)
+                else:
+                    Console.error(
+                        "delete group {}. failed.".format(group))
+            return ""
+
 
         elif arguments["remove"]:
-            name = arguments["--name"]
-            category_id = arguments["--id"]
+            members = Parameter.expand(arguments["NAME"])
 
-            if not category:
-                Console.error("Default category not set!")
-                return
+            group = arguments["--group"] or Default.get_group()
 
-            result = Group.remove(name, category_id, category)
-            if result:
-                Console.ok(result)
-            else:
-                Console.error(
-                    "Failed to delete ID [{}] from group [{}] in the database!".format(
-                        category_id, name))
-            return
+            for member in members:
+                result = Group.remove(group, member, category)
+
+                if result:
+                    Console.ok(result)
+                else:
+                    Console.error(
+                        "remove {} from group {}. failed.".format(group, member))
+            return ""
 
         elif arguments["copy"]:
             _from = arguments["FROM"]
             _to = arguments["TO"]
 
             Group.copy(_from, _to)
-            return
+            return ""
 
         elif arguments["merge"]:
             _groupA = arguments["GROUPA"]
@@ -191,6 +193,6 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             _mergedGroup = arguments["MERGEDGROUP"]
 
             Group.merge(_groupA, _groupB, _mergedGroup)
-            return
+            return ""
 
 
