@@ -40,6 +40,64 @@ class Group(ListResource):
                 "the default value {} in cloud {} does not exist".format(name,
                                                                          cloud))
 
+
+    @classmethod
+    def names(cls):
+        try:
+            query = {}
+
+            d = cls.cm.find("GROUP", **query)
+            names = set()
+            for vm in d:
+                names.add(d[vm]['name'])
+            return list(names)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+
+    @classmethod
+    def get_vms_in_group(cls, name):
+        """
+        returns a list of vms within this group
+        :param name:
+        :return:
+        """
+        try:
+            query = {
+                "type": "vm",
+                "name": name
+            }
+
+            d = cls.cm.find("GROUP", **query)
+            names = set()
+            for vm in d:
+                names.add(d[vm]['member'])
+            return list(names)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
+    @classmethod
+    def vm_groups(cls, vm):
+        """
+
+        :param vm: name of the vm
+        :return: a list of groups the vm is in
+        """
+
+        try:
+            query = {
+                "type": "vm",
+                "member": vm
+            }
+
+            d = cls.cm.find("GROUP", **query)
+            groups = set()
+            for vm in d:
+                groups.add(d[vm]['name'])
+            return list(groups)
+        except Exception as ex:
+            Console.error(ex.message, ex)
+
     @classmethod
     def list(cls, format="table", category="kilo"):
         """
@@ -193,13 +251,19 @@ class Group(ListResource):
 
                 for vm in group:
                     server = group[vm]["member"]
-                    print ("SSSS", server)
-                    try:
-                        Vm.delete(cloud=category, servers=[server])
-                    except Exception as e:
-                        Console.error("Failed to delete VM {}, error: {}"
-                                      .format(vm, e))
-                        continue
+
+                    groups = Group.vm_groups(server)
+
+                    if len(groups) == 1:
+
+                        print ("SSSS", server)
+                        try:
+                            # Vm.delete(cloud=category, servers=[server])
+                            print ("DELETE", category, server)
+                        except Exception as e:
+                            Console.error("Failed to delete VM {}, error: {}"
+                                          .format(vm, e))
+                            continue
 
                 # Delete group record in local db
 
