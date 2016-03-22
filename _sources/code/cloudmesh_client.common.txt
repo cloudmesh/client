@@ -100,6 +100,14 @@ cloudmesh_client.common.TableParser module
     :undoc-members:
     :show-inheritance:
 
+cloudmesh_client.common.dotdict module
+--------------------------------------
+
+.. automodule:: cloudmesh_client.common.dotdict
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cloudmesh_client.common.hostlist module
 ---------------------------------------
 

@@ -481,7 +481,7 @@ the database, then inserting new data
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.cloud.ListResource.ListResource" title="cloudmesh_client.cloud.ListResource.ListResource"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.cloud.ListResource.ListResource</span></code></a></p>
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.add">
-<em class="property">classmethod </em><code class="descname">add</code><span class="sig-paren">(</span><em>name=None</em>, <em>type='vm'</em>, <em>id=None</em>, <em>category='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.add" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">add</code><span class="sig-paren">(</span><em>name=None</em>, <em>type='vm'</em>, <em>member=None</em>, <em>category='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.add" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Add an instance to a new group</dt>
 <dd>or add it to an existing one</dd>
@@ -493,7 +493,7 @@ the database, then inserting new data
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>name</strong> &#8211; </li>
 <li><strong>type</strong> &#8211; </li>
-<li><strong>id</strong> &#8211; </li>
+<li><strong>member</strong> &#8211; </li>
 <li><strong>cloud</strong> &#8211; </li>
 </ul>
 </td>
@@ -576,6 +576,14 @@ with given name filtered by cloud.
 </dd></dl>
 
 <dl class="classmethod">
+<dt id="cloudmesh_client.cloud.group.Group.get_vms_in_group">
+<em class="property">classmethod </em><code class="descname">get_vms_in_group</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.get_vms_in_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.get_vms_in_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of vms within this group
+:param name:
+:return:</p>
+</dd></dl>
+
+<dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.list">
 <em class="property">classmethod </em><code class="descname">list</code><span class="sig-paren">(</span><em>format='table'</em>, <em>category='kilo'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.list" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
@@ -601,7 +609,7 @@ with given name filtered by cloud.
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.merge">
-<em class="property">classmethod </em><code class="descname">merge</code><span class="sig-paren">(</span><em>_nameA</em>, <em>_nameB</em>, <em>mergeName</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.merge" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">merge</code><span class="sig-paren">(</span><em>group_a</em>, <em>group_b</em>, <em>merged_group</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.merge" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
 <dt>Method to merge two groups into</dt>
 <dd>one group</dd>
@@ -611,9 +619,9 @@ with given name filtered by cloud.
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>_nameA</strong> &#8211; </li>
-<li><strong>_nameB</strong> &#8211; </li>
-<li><strong>mergeName</strong> &#8211; </li>
+<li><strong>group_a</strong> &#8211; </li>
+<li><strong>group_b</strong> &#8211; </li>
+<li><strong>merged_group</strong> &#8211; </li>
 </ul>
 </td>
 </tr>
@@ -624,14 +632,19 @@ with given name filtered by cloud.
 </table>
 </dd></dl>
 
+<dl class="classmethod">
+<dt id="cloudmesh_client.cloud.group.Group.names">
+<em class="property">classmethod </em><code class="descname">names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.names" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="attribute">
 <dt id="cloudmesh_client.cloud.group.Group.order">
-<code class="descname">order</code><em class="property"> = ['name', 'value', 'user', 'category', 'type']</em><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.order" title="Permalink to this definition">¶</a></dt>
+<code class="descname">order</code><em class="property"> = ['name', 'member', 'user', 'category', 'type']</em><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.order" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="cloudmesh_client.cloud.group.Group.remove">
-<em class="property">classmethod </em><code class="descname">remove</code><span class="sig-paren">(</span><em>name</em>, <em>id</em>, <em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.remove" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descname">remove</code><span class="sig-paren">(</span><em>name</em>, <em>member</em>, <em>category</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.remove" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method to remove an ID from the group
 in the cloudmesh database
 :param name:
@@ -649,20 +662,15 @@ in the cloudmesh database
 </dd></dl>
 
 <dl class="classmethod">
-<dt id="cloudmesh_client.cloud.group.Group.transform_dict">
-<em class="property">classmethod </em><code class="descname">transform_dict</code><span class="sig-paren">(</span><em>dictionary</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.transform_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.transform_dict" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="docutils">
-<dt>Method to transform a dict,</dt>
-<dd>to display multiple rows
-per instance of a group</dd>
-</dl>
-<table class="docutils field-list" frame="void" rules="none">
+<dt id="cloudmesh_client.cloud.group.Group.vm_groups">
+<em class="property">classmethod </em><code class="descname">vm_groups</code><span class="sig-paren">(</span><em>vm</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/cloud/group.html#Group.vm_groups"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.cloud.group.Group.vm_groups" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>dictionary</strong> &#8211; </td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vm</strong> &#8211; name of the vm</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of groups the vm is in</td>
 </tr>
 </tbody>
 </table>

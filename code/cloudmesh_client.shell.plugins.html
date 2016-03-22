@@ -719,10 +719,10 @@ Examples:
 <dt id="cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.do_group">
 <code class="descname">do_group</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.GroupCommand.GroupCommand.do_group" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
-    group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
-    group list [--category=CLOUD] [--format=FORMAT] [NAME]
-    group delete NAME [--category=CLOUD]
-    group remove [--category=CLOUD] --name=NAME --id=ID
+    group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
+    group remove NAME... [--category=CLOUD] --group=GROUPNAME
+    group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUPNAME]
+    group delete GROUP... [--category=CLOUD]
     group copy FROM TO
     group merge GROUPA GROUPB MERGEDGROUP
 
@@ -730,7 +730,8 @@ manage the groups
 
 Arguments:
 
-    NAME         name of a group
+    NAME         name of object to be added
+    GROUP        name of a group
     FROM         name of a group
     TO           name of a group
     GROUPA       name of a group
@@ -2500,7 +2501,7 @@ Examples:
 <code class="descname">do_vm</code><span class="sig-paren">(</span><em>instance</em>, <em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#cloudmesh_client.shell.plugins.VmCommand.VmCommand.do_vm" title="Permalink to this definition">¶</a></dt>
 <dd><div class="highlight-python"><div class="highlight"><pre><span></span>Usage:
     vm default [--cloud=CLOUD][--format=FORMAT]
-    vm refresh [--cloud=CLOUD]
+    vm refresh [all][--cloud=CLOUD]
     vm boot [--name=NAME]
             [--cloud=CLOUD]
             [--image=IMAGE_OR_ID]
@@ -2549,7 +2550,7 @@ Examples:
     vm check NAME...
 
 Arguments:
-    COMMAND        positional arguments, the commands you want to
+    COMMAND        positional arguments, the commands yo&quot;listu want to
                    execute on the server(e.g. ls -a) separated by &#39;;&#39;,
                    you will get a return of executing result instead of login to
                    the server, note that type in -- is suggested before

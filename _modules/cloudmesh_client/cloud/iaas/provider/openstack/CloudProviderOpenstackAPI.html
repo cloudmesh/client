@@ -220,7 +220,9 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">CloudProviderOpenstackAPI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">cloud_name</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">flat</span> <span class="o">=</span> <span class="n">flat</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cloud_type</span> <span class="o">=</span> <span class="s2">&quot;openstack&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;quota&quot;</span><span class="p">,</span> <span class="s2">&quot;limits&quot;</span><span class="p">,</span> <span class="s2">&quot;usage&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kind</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;quota&quot;</span><span class="p">,</span> <span class="s2">&quot;limits&quot;</span><span class="p">,</span> <span class="s2">&quot;usage&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dbobject</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">,</span> <span class="s2">&quot;flavor&quot;</span><span class="p">,</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="s2">&quot;quota&quot;</span><span class="p">,</span> <span class="s2">&quot;limits&quot;</span><span class="p">,</span> <span class="s2">&quot;usage&quot;</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;group&quot;</span><span class="p">]</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">provider</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_image</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default_flavor</span> <span class="o">=</span> <span class="bp">None</span>
@@ -444,22 +446,22 @@
         <span class="n">secgroup_list_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">:</span>
             <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-            <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;static_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;floating_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;static_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
             <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
                 <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;addresses&quot;</span><span class="p">):</span>
                     <span class="k">for</span> <span class="n">ip_detail</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="n">key</span><span class="p">]:</span>
                         <span class="k">if</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;OS-EXT-IPS:type&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                             <span class="k">if</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;OS-EXT-IPS:type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;fixed&quot;</span><span class="p">:</span>
-                                <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;static_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">]</span>
+                                <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;static_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">]</span>
                             <span class="k">elif</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;OS-EXT-IPS:type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;floating&quot;</span><span class="p">:</span>
-                                <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">]</span>
+                                <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;floating_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail</span><span class="p">[</span><span class="s2">&quot;addr&quot;</span><span class="p">]</span>
 
             <span class="n">secgroup_list_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 
             <span class="n">sec_index</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">if</span> <span class="s2">&quot;security_groups&quot;</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
-                <span class="k">for</span> <span class="n">secgroup</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;security_groups&quot;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">secgroup</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;security_groups&quot;</span><span class="p">]:</span>
                     <span class="n">secgroup_list_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="n">secgroup</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
                     <span class="n">sec_index</span> <span class="o">+=</span> <span class="mi">1</span>
                     <span class="c1"># Append comma if not the last element</span>
@@ -467,9 +469,9 @@
                         <span class="n">secgroup_list_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">+=</span> <span class="s2">&quot;,&quot;</span>
 
         <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">vm_dict</span><span class="p">:</span>
-            <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
-            <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;static_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;static_ip&quot;</span><span class="p">]</span>
-            <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;security_ groups&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secgroup_list_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;floating_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;floating_ip&quot;</span><span class="p">]</span>
+            <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;static_ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip_detail_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">&quot;static_ip&quot;</span><span class="p">]</span>
+            <span class="n">vm_dict</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="s2">u&quot;security_ groups&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secgroup_list_dict</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
 
         <span class="k">return</span> <span class="n">vm_dict</span></div>
 
@@ -569,7 +571,8 @@
                                               <span class="n">security_groups</span><span class="o">=</span><span class="n">secgroup</span><span class="p">,</span>
                                               <span class="n">nics</span><span class="o">=</span><span class="n">nics</span><span class="p">)</span>
         <span class="c1"># return the server id</span>
-        <span class="k">return</span> <span class="n">server</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span></div>
+        <span class="nb">id</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">id</span></div>
 
 <div class="viewcode-block" id="CloudProviderOpenstackAPI.delete_vm"><a class="viewcode-back" href="../../../../../../code/cloudmesh_client.cloud.iaas.provider.openstack.html#cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI.CloudProviderOpenstackAPI.delete_vm">[docs]</a>    <span class="k">def</span> <span class="nf">delete_vm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -921,7 +924,7 @@
             <span class="s1">&#39;vm&#39;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
                     <span class="s1">&#39;id&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;group&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;label&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;status&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;static_ip&#39;</span><span class="p">,</span>
@@ -934,7 +937,7 @@
                 <span class="p">],</span>
                 <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
                     <span class="s1">&#39;id&#39;</span><span class="p">,</span>
-                    <span class="s1">&#39;uuid&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;group&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;label&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;status&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;static_ip&#39;</span><span class="p">,</span>
@@ -1039,6 +1042,21 @@
                     <span class="s1">&#39;created_at&#39;</span><span class="p">,</span>
                     <span class="s1">&#39;updated_at&#39;</span>
                      <span class="p">],</span>
+            <span class="p">},</span>
+            <span class="s1">&#39;group&#39;</span><span class="p">:{</span>
+                <span class="s1">&#39;order&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;member&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;category&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">],</span>
+                <span class="s1">&#39;header&#39;</span><span class="p">:</span> <span class="p">[</span>
+                    <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;member&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;category&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;type&quot;</span><span class="p">]</span>
+
             <span class="p">}</span>
         <span class="p">}</span>
 

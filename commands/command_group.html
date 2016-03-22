@@ -104,8 +104,7 @@
 <li class="toctree-l3"><a class="reference internal" href="command_default.html">Default Command</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">Group Command</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#group-list">Group List</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#group-info">Group Info</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#group-remove-id">Group Remove ID</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#group-remove-member">Group Remove Member</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#group-add">Group Add</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#group-copy">Group Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#group-merge">Group Merge</a></li>
@@ -198,108 +197,109 @@
             
   <div class="section" id="group-command">
 <h1>Group Command<a class="headerlink" href="#group-command" title="Permalink to this headline">¶</a></h1>
-<p>One of cloudmesh major functionality is to group cloud and other
-resources into a named group. Such named groups can than be used to
-perform actions on them. Upon start the default group is set to general if
-no default group exists.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">at this time we have limited to groups to just hold ID
-of vms.</p>
-</div>
-<p>The manual page of the group command can be found at: <a class="reference external" href="../man/man.html#group">group</a></p>
+<p>Cloudmesh allows to group objects such as virtual machines
+into a named group. Such groups can be used to
+perform actions on them. Groups may contain objects from different
+clouds. Most often groups are used to aggregate virtual machines in
+groups and than manage these groups of virtual machines.
+A  group named default is defined if no other group is specified.</p>
+<p>The manual page of the group command can be found at:
+<a class="reference external" href="../man/man.html#group">group</a></p>
 <div class="section" id="group-list">
 <h2>Group List<a class="headerlink" href="#group-list" title="Permalink to this headline">¶</a></h2>
-<p>The named groups can be listed with the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list --cloud india --format table
-  +----------+-------+--------+----------+------+
-  | user     | cloud | name   | value    | type |
-  +----------+-------+--------+----------+------+
-  | albert   | india | groupA | test-001 | vm   |
-  | albert   | india | groupA | test-002 | vm   |
-  | albert   | india | groupA | test-004 | vm   |
-  | albert   | india | groupB | test-003 | vm   |
-  | albert   | india | groupB | test-005 | vm   |
-  +----------+-------+--------+----------+------+
+<p>Named groups can be listed with the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list
+  +--------+----------+----------+----------+------+
+  | name   | member   | user     | category | type |
+  +--------+----------+----------+----------+------+
+  | groupA | test-001 | albert   | kilo     | vm   |
+  | groupA | test-002 | albert   | kilo     | vm   |
+  | groupA | test-003 | albert   | kilo     | vm   |
+  | groupB | test-004 | albert   | kilo     | vm   |
+  | groupB | test-005 | albert   | kilo     | vm   |
+  +--------+----------+----------+----------+------+
 </pre></div>
 </div>
-</div>
-<div class="section" id="group-info">
-<h2>Group Info<a class="headerlink" href="#group-info" title="Permalink to this headline">¶</a></h2>
 <p>To get details about a particular group with specific name you can use
 the info option:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group list groupA
-  +----------+-------+--------+----------+------+
-  | user     | cloud | name   | value    | type |
-  +----------+-------+--------+----------+------+
-  | albert   | india | groupA | test-001 | vm   |
-  | albert   | india | groupA | test-002 | vm   |
-  | albert   | india | groupA | test-004 | vm   |
-  +----------+-------+--------+----------+------+
+  +--------+----------+----------+----------+------+
+  | name   | member   | user     | category | type |
+  +--------+----------+----------+----------+------+
+  | groupA | test-001 | albert   | kilo     | vm   |
+  | groupA | test-002 | albert   | kilo     | vm   |
+  | groupA | test-003 | albert   | kilo     | vm   |
+  +--------+----------+----------+----------+------+
 </pre></div>
 </div>
 </div>
-<div class="section" id="group-remove-id">
-<h2>Group Remove ID<a class="headerlink" href="#group-remove-id" title="Permalink to this headline">¶</a></h2>
-<p>To remove a VM from a particular group, you can use
+<div class="section" id="group-remove-member">
+<h2>Group Remove Member<a class="headerlink" href="#group-remove-member" title="Permalink to this headline">¶</a></h2>
+<p>To remove a member such as a VM from a particular group, you can use
 the remove option:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group remove --name groupA --id test-002
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group remove test-002 --group=groupA
   Successfully removed ID [test-002] from the group [groupA]
 
 $ cm group list groupA
-  +----------+-------+--------+----------+------+
-  | user     | cloud | name   | value    | type |
-  +----------+-------+--------+----------+------+
-  | albert   | india | groupA | test-001 | vm   |
-  | albert   | india | groupA | test-004 | vm   |
-  +----------+-------+--------+----------+------+
+  +--------+----------+----------+----------+------+
+  | name   | member   | user     | category | type |
+  +--------+----------+----------+----------+------+
+  | groupA | test-001 | albert   | kilo     | vm   |
+  | groupA | test-003 | albert   | kilo     | vm   |
+  +--------+----------+----------+----------+------+
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-add">
 <h2>Group Add<a class="headerlink" href="#group-add" title="Permalink to this headline">¶</a></h2>
-<p>To add a vm resource with specified id to a group with given name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group add groupA --id test-001 --type vm
+<p>To add a vm to a group use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group add test-002 --group=groupA
 Created a new group [groupA] and added ID [test-001] to it
 
-$ cm group info groupA
-  +-----------+---------+--------+----------+------+
-  | user      | cloud   | name   | value    | type |
-  +-----------+---------+--------+----------+------+
-  | albert    | general | groupA | test-001 | vm   |
-  +-----------+---------+--------+----------+------+
+$ cm group list groupA
+  +--------+----------+----------+----------+------+
+  | name   | member   | user     | category | type |
+  +--------+----------+----------+----------+------+
+  | groupA | test-001 | albert   | kilo     | vm   |
+  | groupA | test-002 | albert   | kilo     | vm   |
+  | groupA | test-003 | albert   | kilo     | vm   |
+  +--------+----------+----------+----------+------+
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-copy">
 <h2>Group Copy<a class="headerlink" href="#group-copy" title="Permalink to this headline">¶</a></h2>
-<p>To copy the VM(s) from one group to another use the command:</p>
+<p>To copy a group use the command:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group copy groupA groupB
 Created a new group [groupB] and added ID [test-001] to it
 
-$ cm group info groupB
-  +-----------+---------+--------+----------+------+
-  | user      | cloud   | name   | value    | type |
-  +-----------+---------+--------+----------+------+
-  | albert    | general | groupB | test-001 | vm   |
-  +-----------+---------+--------+----------+------+
+$ cm group list groupC
+  +--------+----------+----------+----------+------+
+  | name   | member   | user     | category | type |
+  +--------+----------+----------+----------+------+
+  | groupC | test-001 | albert   | kilo     | vm   |
+  | groupC | test-002 | albert   | kilo     | vm   |
+  | groupC | test-003 | albert   | kilo     | vm   |
+  +--------+----------+----------+----------+------+
 </pre></div>
 </div>
 </div>
 <div class="section" id="group-merge">
 <h2>Group Merge<a class="headerlink" href="#group-merge" title="Permalink to this headline">¶</a></h2>
 <p>Groups can be merged as follows:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group merge group01 groupB groupC
+<div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group merge groupA groupB groupC
 Merge of group [group01] &amp; [groupB] to group [groupC] ok.
 
-$ cm group info groupC
-  +-----------+---------+--------+------------+------+
-  | user      | cloud   | name   | value      | type |
-  +-----------+---------+--------+------------+------+
-  | albert    | general | groupC | albert-001 | vm   |
-  | albert    | general | groupC | albert-002 | vm   |
-  | albert    | general | groupC | test-001   | vm   |
-  +-----------+---------+--------+------------+------+
+$ cm group list groupC
+  +--------+----------+----------+----------+------+
+  | name   | member   | user     | category | type |
+  +--------+----------+----------+----------+------+
+  | groupC | test-001 | albert   | kilo     | vm   |
+  | groupC | test-002 | albert   | kilo     | vm   |
+  | groupC | test-003 | albert   | kilo     | vm   |
+  | groupC | test-004 | albert   | kilo     | vm   |
+  | groupC | test-005 | albert   | kilo     | vm   |
+  +--------+----------+----------+----------+------+
 </pre></div>
 </div>
 </div>
@@ -307,10 +307,11 @@ $ cm group info groupC
 <h2>Group Delete<a class="headerlink" href="#group-delete" title="Permalink to this headline">¶</a></h2>
 <p>A named group can be easily deleted.:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span>$ cm group delete groupC
-Request to delete server albert-001 has been accepted.
-Request to delete server albert-002 has been accepted.
-Request to delete server test-001 has been accepted.
-Deletion ok.
+Deleting test-001.
+Deleting test-002.
+Deleting test-003.
+Deleting test-004.
+Deleting test-005.
 
 $ cm group list groupC
 ERROR: No group with name groupC found in the cloudmesh database!

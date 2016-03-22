@@ -32,7 +32,7 @@
   
     <link rel="top" title="cloudmesh_client 3.1.2 documentation" href="../index.html"/>
         <link rel="up" title="cloudmesh_client package" href="cloudmesh_client.html"/>
-        <link rel="next" title="cloudmesh_client.db.libcloud package" href="cloudmesh_client.db.libcloud.html"/>
+        <link rel="next" title="cloudmesh_client.etc package" href="cloudmesh_client.etc.html"/>
         <link rel="prev" title="cloudmesh_client.common package" href="cloudmesh_client.common.html"/> 
 
   
@@ -125,7 +125,6 @@
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.comet.html">cloudmesh_client.comet package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cloudmesh_client.common.html">cloudmesh_client.common package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="">cloudmesh_client.db package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-cloudmesh_client.db.CloudmeshDatabase">cloudmesh_client.db.CloudmeshDatabase module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#cloudmesh-client-db-sshkeydbmanager-module">cloudmesh_client.db.SSHKeyDBManager module</a></li>
@@ -205,19 +204,6 @@
             
   <div class="section" id="cloudmesh-client-db-package">
 <h1>cloudmesh_client.db package<a class="headerlink" href="#cloudmesh-client-db-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="cloudmesh_client.db.libcloud.html">cloudmesh_client.db.libcloud package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.db.libcloud.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.db.libcloud.html#module-cloudmesh_client.db.libcloud.model">cloudmesh_client.db.libcloud.model module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cloudmesh_client.db.libcloud.html#module-cloudmesh_client.db.libcloud">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -396,6 +382,25 @@ objects.
 </dd></dl>
 
 <dl class="method">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_attributes">
+<code class="descname">find_by_attributes</code><span class="sig-paren">(</span><em>kind</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.find_by_attributes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>find an object by name in the given table.</dt>
+<dd>If multiple objects have the same name, the first one is returned.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> &#8211; the name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_name">
 <code class="descname">find_by_name</code><span class="sig-paren">(</span><em>kind</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.find_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.find_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="docutils">
@@ -413,6 +418,11 @@ objects.
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="method">
+<dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.first">
+<code class="descname">first</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/CloudmeshDatabase.html#CloudmeshDatabase.first"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.first" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="cloudmesh_client.db.CloudmeshDatabase.CloudmeshDatabase.get">
@@ -735,7 +745,7 @@ with the live cloud details
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.CloudmeshMixin.created_at">
-<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-03-18 14:36:24'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">created_at</code><em class="property"> = Column(None, String(), table=None, default=ColumnDefault('2016-03-22 17:16:58'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -765,7 +775,7 @@ with the live cloud details
 
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.CloudmeshMixin.updated_at">
-<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-03-18 14:36:24'), default=ColumnDefault('2016-03-18 14:36:24'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
+<code class="descname">updated_at</code><em class="property"> = Column(None, String(), table=None, onupdate=ColumnDefault('2016-03-22 17:16:58'), default=ColumnDefault('2016-03-22 17:16:58'))</em><a class="headerlink" href="#cloudmesh_client.db.model.CloudmeshMixin.updated_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -952,7 +962,7 @@ self[key] = value</div></blockquote>
 
 <dl class="class">
 <dt id="cloudmesh_client.db.model.GROUP">
-<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">GROUP</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>type='vm'</em>, <em>category=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#GROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.GROUP" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">cloudmesh_client.db.model.</code><code class="descname">GROUP</code><span class="sig-paren">(</span><em>name</em>, <em>member</em>, <em>type='vm'</em>, <em>category=None</em>, <em>user=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cloudmesh_client/db/model.html#GROUP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cloudmesh_client.db.model.GROUP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#cloudmesh_client.db.model.CloudmeshMixin" title="cloudmesh_client.db.model.CloudmeshMixin"><code class="xref py py-class docutils literal"><span class="pre">cloudmesh_client.db.model.CloudmeshMixin</span></code></a>, <code class="xref py py-class docutils literal"><span class="pre">sqlalchemy.ext.declarative.api.Base</span></code></p>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.GROUP.category">
@@ -985,6 +995,11 @@ self[key] = value</div></blockquote>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="cloudmesh_client.db.model.GROUP.member">
+<code class="descname">member</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.member" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="cloudmesh_client.db.model.GROUP.name">
 <code class="descname">name</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -1007,11 +1022,6 @@ self[key] = value</div></blockquote>
 <dl class="attribute">
 <dt id="cloudmesh_client.db.model.GROUP.user">
 <code class="descname">user</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.user" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="cloudmesh_client.db.model.GROUP.value">
-<code class="descname">value</code><a class="headerlink" href="#cloudmesh_client.db.model.GROUP.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2428,7 +2438,7 @@ In case the table does not exist an exception is thrown</td>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cloudmesh_client.db.libcloud.html" class="btn btn-neutral float-right" title="cloudmesh_client.db.libcloud package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="cloudmesh_client.etc.html" class="btn btn-neutral float-right" title="cloudmesh_client.etc package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="cloudmesh_client.common.html" class="btn btn-neutral" title="cloudmesh_client.common package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>

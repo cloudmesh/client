@@ -433,10 +433,10 @@ group
 Command - group::
 
     Usage:
-        group add NAME [--type=TYPE] [--category=CLOUD] --id=IDs
-        group list [--category=CLOUD] [--format=FORMAT] [NAME]
-        group delete NAME [--category=CLOUD]
-        group remove [--category=CLOUD] --name=NAME --id=ID
+        group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
+        group remove NAME... [--category=CLOUD] --group=GROUPNAME
+        group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUPNAME]
+        group delete GROUP... [--category=CLOUD]
         group copy FROM TO
         group merge GROUPA GROUPB MERGEDGROUP
 
@@ -444,7 +444,8 @@ Command - group::
 
     Arguments:
 
-        NAME         name of a group
+        NAME         name of object to be added
+        GROUP        name of a group
         FROM         name of a group
         TO           name of a group
         GROUPA       name of a group
@@ -1723,7 +1724,7 @@ Command - vm::
 
     Usage:
         vm default [--cloud=CLOUD][--format=FORMAT]
-        vm refresh [--cloud=CLOUD]
+        vm refresh [all][--cloud=CLOUD]
         vm boot [--name=NAME]
                 [--cloud=CLOUD]
                 [--image=IMAGE_OR_ID]
@@ -1772,7 +1773,7 @@ Command - vm::
         vm check NAME...
 
     Arguments:
-        COMMAND        positional arguments, the commands you want to
+        COMMAND        positional arguments, the commands yo"listu want to
                        execute on the server(e.g. ls -a) separated by ';',
                        you will get a return of executing result instead of login to
                        the server, note that type in -- is suggested before

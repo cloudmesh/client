@@ -181,13 +181,15 @@
 <span class="kn">from</span> <span class="nn">cloudmesh_client.default</span> <span class="kn">import</span> <span class="n">Default</span>
 <span class="kn">from</span> <span class="nn">cloudmesh_client.cloud.vm</span> <span class="kn">import</span> <span class="n">Vm</span>
 
+<span class="kn">from</span> <span class="nn">cloudmesh_client.common.dotdict</span> <span class="kn">import</span> <span class="n">dotdict</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 
 <span class="c1"># noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming</span>
 <div class="viewcode-block" id="Group"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group">[docs]</a><span class="k">class</span> <span class="nc">Group</span><span class="p">(</span><span class="n">ListResource</span><span class="p">):</span>
     <span class="n">cm</span> <span class="o">=</span> <span class="n">CloudmeshDatabase</span><span class="p">()</span>  <span class="c1"># Instance to communicate with the cloudmesh database</span>
 
     <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span>
-             <span class="s2">&quot;value&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;member&quot;</span><span class="p">,</span>
              <span class="s2">&quot;user&quot;</span><span class="p">,</span>
              <span class="s2">&quot;category&quot;</span><span class="p">,</span>
              <span class="s2">&quot;type&quot;</span><span class="p">]</span>
@@ -211,6 +213,64 @@
                 <span class="s2">&quot;the default value {} in cloud {} does not exist&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span>
                                                                          <span class="n">cloud</span><span class="p">))</span></div>
 
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Group.names"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.names">[docs]</a>    <span class="k">def</span> <span class="nf">names</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;GROUP&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">vm</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Group.get_vms_in_group"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.get_vms_in_group">[docs]</a>    <span class="k">def</span> <span class="nf">get_vms_in_group</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns a list of vms within this group</span>
+<span class="sd">        :param name:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span>
+            <span class="p">}</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;GROUP&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">vm</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Group.vm_groups"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.vm_groups">[docs]</a>    <span class="k">def</span> <span class="nf">vm_groups</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">vm</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param vm: name of the vm</span>
+<span class="sd">        :return: a list of groups the vm is in</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;vm&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;member&quot;</span><span class="p">:</span> <span class="n">vm</span>
+            <span class="p">}</span>
+
+            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;GROUP&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">groups</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">groups</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">vm</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
+
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Group.list"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.list">[docs]</a>    <span class="k">def</span> <span class="nf">list</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -224,9 +284,8 @@
             <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;GROUP&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
             <span class="c1"># d = cls.cm.all(model.GROUP)</span>
-            <span class="c1"># Transform the dict to show multiple rows per vm</span>
-            <span class="n">newdict</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">transform_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">newdict</span><span class="p">,</span>
+
+            <span class="k">return</span> <span class="p">(</span><span class="n">dict_printer</span><span class="p">(</span><span class="n">d</span><span class="p">,</span>
                                  <span class="n">order</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
                                  <span class="n">output</span><span class="o">=</span><span class="n">format</span><span class="p">))</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
@@ -243,35 +302,30 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">cloud</span> <span class="o">=</span> <span class="n">category</span> <span class="ow">or</span> <span class="n">Default</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cloud&quot;</span><span class="p">)</span>
+
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
                 <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span>
             <span class="p">}</span>
 
-            <span class="c1"># group = cls.get(name=name, category=cloud)</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">args</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
 
-            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-                <span class="c1"># Transform the dict to show multiple rows per vm</span>
-                <span class="n">newdict</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">transform_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">newdict</span><span class="p">,</span>
+            <span class="k">return</span> <span class="n">dict_printer</span><span class="p">(</span><span class="n">group</span><span class="p">,</span>
                                 <span class="n">order</span><span class="o">=</span><span class="n">cls</span><span class="o">.</span><span class="n">order</span><span class="p">,</span>
                                 <span class="n">output</span><span class="o">=</span><span class="n">output</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.add"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">member</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="s2">&quot;kilo&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add an instance to a new group</span>
 <span class="sd">            or add it to an existing one</span>
 <span class="sd">        :param name:</span>
 <span class="sd">        :param type:</span>
-<span class="sd">        :param id:</span>
+<span class="sd">        :param member:</span>
 <span class="sd">        :param cloud:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -280,55 +334,32 @@
 
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># See if group already exists. If yes, add id to the group</span>
-            <span class="n">query</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span>
-            <span class="p">}</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">dotdict</span><span class="p">({</span>
+                <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+                <span class="s1">&#39;member&#39;</span><span class="p">:</span> <span class="n">member</span><span class="p">,</span>
+                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span>
+            <span class="p">})</span>
 
-            <span class="c1"># Find an existing group with name</span>
-            <span class="n">existing_group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                                         <span class="o">**</span><span class="n">query</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span><span class="o">**</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
 
-            <span class="c1"># Existing group</span>
-            <span class="k">if</span> <span class="n">existing_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">id_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">existing_group</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-                <span class="n">ids</span> <span class="o">=</span> <span class="n">id_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-
-                <span class="c1"># check if id is already in group</span>
-                <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;ID [{}] is already part of Group [{}]&quot;</span>
-                                  <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">id_str</span> <span class="o">+=</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="nb">id</span>  <span class="c1"># add the id to the group</span>
-                    <span class="n">existing_group</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">id_str</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Added ID [{}] to Group [{}]&quot;</span>
-                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-
-            <span class="c1"># Create a new group</span>
-            <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">obj_d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
                                            <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-                                           <span class="n">value</span><span class="o">=</span><span class="nb">id</span><span class="p">,</span>
+                                           <span class="n">member</span><span class="o">=</span><span class="n">member</span><span class="p">,</span>
                                            <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span>
                                            <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">,</span>
                                            <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">obj_d</span><span class="p">)</span>
                 <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Group: add {} to group {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">group</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="n">group</span><span class="o">.</span><span class="n">member</span> <span class="o">=</span> <span class="n">member</span>
 
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                group_obj = model.GROUP(</span>
-<span class="sd">                    name,</span>
-<span class="sd">                    id,</span>
-<span class="sd">                    type,</span>
-<span class="sd">                    category=category,</span>
-<span class="sd">                    user=user</span>
-<span class="sd">                )</span>
-<span class="sd">                cls.cm.add(group_obj)</span>
-<span class="sd">                cls.cm.save()</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Created a new group [{}] and added ID [{}] to it&quot;</span>
-                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Group: move {} to group {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
@@ -352,7 +383,7 @@
                     <span class="n">query</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;None&quot;</span>
             <span class="k">del</span> <span class="n">query</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">query</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> \
                     <span class="ow">and</span> <span class="s2">&quot;output&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;0&quot;</span><span class="p">:</span> <span class="n">group</span><span class="p">}</span>
@@ -371,6 +402,7 @@
 <span class="sd">        :param cloud:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># group = cls.get(name=name, category=category)</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
@@ -379,27 +411,34 @@
             <span class="k">if</span> <span class="n">category</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="n">args</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">category</span>
 
-            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">group_object</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;vm&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
 
             <span class="k">if</span> <span class="n">group</span><span class="p">:</span>
                 <span class="c1"># Delete VM from cloud before deleting group</span>
-                <span class="n">vm_ids</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-                <span class="k">for</span> <span class="n">vm_id</span> <span class="ow">in</span> <span class="n">vm_ids</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="c1"># Submit request to delete VM</span>
-                        <span class="c1"># args = [&quot;delete&quot;, vm_id]</span>
-                        <span class="c1"># result = Shell.execute(&quot;nova&quot;, args)</span>
 
-                        <span class="c1"># FIX: Using vm.delete instead of nova</span>
-                        <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="p">[</span><span class="n">vm_id</span><span class="p">])</span>
-                    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                        <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to delete VM {}, error: {}&quot;</span>
-                                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm_id</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
-                        <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">vm</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
+                    <span class="n">server</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="n">vm</span><span class="p">][</span><span class="s2">&quot;member&quot;</span><span class="p">]</span>
+
+                    <span class="n">groups</span> <span class="o">=</span> <span class="n">Group</span><span class="o">.</span><span class="n">vm_groups</span><span class="p">(</span><span class="n">server</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">groups</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">Vm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">cloud</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">servers</span><span class="o">=</span><span class="p">[</span><span class="n">server</span><span class="p">])</span>
+                        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Failed to delete VM {}, error: {}&quot;</span>
+                                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">e</span><span class="p">))</span>
+                            <span class="k">continue</span>
 
                 <span class="c1"># Delete group record in local db</span>
-                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">group</span><span class="p">)</span>
-                <span class="k">return</span> <span class="s2">&quot;Delete Success&quot;</span>
+
+
+                <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">group_object</span><span class="p">:</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="k">return</span> <span class="s2">&quot;Delete. ok.&quot;</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">None</span>
 
@@ -407,7 +446,7 @@
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.remove"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.remove"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to remove an ID from the group</span>
 <span class="sd">        in the cloudmesh database</span>
@@ -416,50 +455,32 @@
 <span class="sd">        :param category:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;RRRRR&quot;</span><span class="p">)</span>
+
         <span class="k">try</span><span class="p">:</span>
             <span class="c1"># group = cls.get(name=name, category=category)</span>
             <span class="n">args</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
-                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span>
+                <span class="s2">&quot;category&quot;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+                <span class="s2">&quot;member&quot;</span><span class="p">:</span> <span class="n">member</span><span class="p">,</span>
             <span class="p">}</span>
 
             <span class="c1"># Find an existing group with name &amp; category</span>
-            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">vm_ids</span> <span class="o">=</span> <span class="n">group</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
-                <span class="n">new_id_str</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span>
-                <span class="n">del_group</span> <span class="o">=</span> <span class="bp">False</span>
-
-                <span class="c1"># If group has single ID, then set delete flag</span>
-                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">vm_ids</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">del_group</span> <span class="o">=</span> <span class="bp">True</span>
-
-                <span class="k">if</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">vm_ids</span><span class="p">:</span>
-                    <span class="k">for</span> <span class="n">vm_id</span> <span class="ow">in</span> <span class="n">vm_ids</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="nb">id</span> <span class="o">==</span> <span class="n">vm_id</span><span class="p">:</span>
-                            <span class="n">vm_ids</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">vm_id</span><span class="p">)</span>
-
-                    <span class="c1"># Update the list of IDs for group</span>
-                    <span class="n">new_id_str</span> <span class="o">=</span> <span class="n">new_id_str</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">vm_ids</span><span class="p">)</span>
-                    <span class="n">group</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">new_id_str</span>
-
-                    <span class="c1"># Save the db record</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-                    <span class="c1"># If delete flag set, then delete group</span>
-                    <span class="k">if</span> <span class="n">del_group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                        <span class="n">Group</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">category</span><span class="p">)</span>
-
-                    <span class="k">return</span> <span class="s2">&quot;Successfully removed ID [{}] from the group [{}]&quot;</span> \
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="n">pprint</span> <span class="p">(</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;GGGGG&quot;</span><span class="p">,</span> <span class="n">group</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">group</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">group</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                        <span class="s2">&quot;The ID [{}] supplied does not belong to group [{}]&quot;</span>
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
-                    <span class="k">return</span> <span class="bp">None</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">return</span> <span class="bp">None</span>
+                    <span class="n">Console</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="s2">&quot;Group: could not find {name} {member}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">))</span>
+            <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="s2">&quot;Removed {} from the group {}. ok.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">member</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
 
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span>
@@ -482,61 +503,25 @@
                 <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_toName</span>
             <span class="p">}</span>
 
-            <span class="c1"># _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)</span>
-            <span class="c1"># _toGroup = cls.cm.find_by_name(model.GROUP, _toName)</span>
-            <span class="n">_fromGroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span>
-                                     <span class="o">**</span><span class="n">from_args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-            <span class="n">_toGroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">to_args</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+            <span class="n">_fromGroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">from_args</span><span class="p">)</span>
+            <span class="n">_toGroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;dict&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">to_args</span><span class="p">)</span>
 
-            <span class="c1"># Get IDs from _fromName group</span>
-            <span class="n">from_id_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_fromGroup</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-            <span class="n">from_ids</span> <span class="o">=</span> <span class="n">from_id_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">pprint</span> <span class="p">(</span><span class="n">_fromGroup</span><span class="p">)</span>
+            <span class="n">pprint</span><span class="p">(</span><span class="n">_toGroup</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">_fromGroup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="c1"># Check if _to group exists, if so add from _fromName</span>
-                <span class="k">if</span> <span class="n">_toGroup</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                    <span class="c1"># Get existing list of IDs from _to group</span>
-                    <span class="n">to_id_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">_toGroup</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-                    <span class="n">to_ids</span> <span class="o">=</span> <span class="n">to_id_str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
 
-                    <span class="c1"># Iterate and check if IDs are already present</span>
-                    <span class="c1"># If not present in _toName, then add else pass</span>
-                    <span class="k">for</span> <span class="n">_id</span> <span class="ow">in</span> <span class="n">from_ids</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="n">_id</span> <span class="ow">in</span> <span class="n">to_ids</span><span class="p">:</span>
-                            <span class="k">pass</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="n">to_id_str</span> <span class="o">+=</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="n">_id</span>
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">_fromGroup</span><span class="p">:</span>
+                    <span class="n">from_element</span><span class="o">=</span><span class="n">_fromGroup</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="n">member</span> <span class="o">=</span> <span class="n">from_element</span><span class="p">[</span><span class="s2">&quot;member&quot;</span><span class="p">]</span>
+                    <span class="nb">type</span> <span class="o">=</span> <span class="n">from_element</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+                    <span class="n">category</span> <span class="o">=</span> <span class="n">from_element</span><span class="p">[</span><span class="s2">&quot;category&quot;</span><span class="p">]</span>
+                    <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;TTT&quot;</span><span class="p">,</span> <span class="n">_toName</span><span class="p">)</span>
+                    <span class="n">cls</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">_toName</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span> <span class="n">member</span><span class="o">=</span><span class="n">member</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Copy from group {} to group {}. ok.&quot;</span>
+                           <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_fromName</span><span class="p">,</span> <span class="n">_toName</span><span class="p">))</span>
 
-                    <span class="n">_toGroup</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">to_id_str</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span><span class="s2">&quot;Copy from Group [{}] to Group [{}] ok.&quot;</span>
-                               <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_fromName</span><span class="p">,</span> <span class="n">_toName</span><span class="p">))</span>
-
-                <span class="c1"># Create a new group &amp; copy details from _fromName</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">group_obj</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
-                                                   <span class="n">name</span><span class="o">=</span><span class="n">_toName</span><span class="p">,</span>
-                                                   <span class="n">value</span><span class="o">=</span><span class="n">from_id_str</span><span class="p">,</span>
-                                                   <span class="nb">type</span><span class="o">=</span><span class="n">_fromGroup</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
-                                                   <span class="n">category</span><span class="o">=</span><span class="n">_fromGroup</span><span class="o">.</span><span class="n">category</span><span class="p">,</span>
-                                                   <span class="n">user</span><span class="o">=</span><span class="n">_fromGroup</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">group_obj</span><span class="p">)</span>
-                    <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-                    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                    group_obj = model.GROUP(</span>
-<span class="sd">                        _toName,</span>
-<span class="sd">                        from_id_str,</span>
-<span class="sd">                        _fromGroup.type,</span>
-<span class="sd">                        category=_fromGroup.category,</span>
-<span class="sd">                        user=_fromGroup.user</span>
-<span class="sd">                    )</span>
-<span class="sd">                    cls.cm.add(group_obj)</span>
-<span class="sd">                    &quot;&quot;&quot;</span>
-                    <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span>
-                        <span class="s2">&quot;Created a new group [{}] and added ID [{}] to it&quot;</span>
-                        <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_toName</span><span class="p">,</span> <span class="n">from_id_str</span><span class="p">))</span>
-
-            <span class="c1"># _fromName group does not exist, error!</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                     <span class="s2">&quot;Group [{}] does not exist in the cloudmesh database!&quot;</span>
@@ -546,67 +531,22 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
             <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
 
+
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.merge"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">_nameA</span><span class="p">,</span> <span class="n">_nameB</span><span class="p">,</span> <span class="n">mergeName</span><span class="p">):</span>
+<div class="viewcode-block" id="Group.merge"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.merge">[docs]</a>    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">group_a</span><span class="p">,</span> <span class="n">group_b</span><span class="p">,</span> <span class="n">merged_group</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Method to merge two groups into</span>
 <span class="sd">            one group</span>
-<span class="sd">        :param _nameA:</span>
-<span class="sd">        :param _nameB:</span>
-<span class="sd">        :param mergeName:</span>
+<span class="sd">        :param group_a:</span>
+<span class="sd">        :param group_b:</span>
+<span class="sd">        :param merged_group:</span>
 <span class="sd">        :return:</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">args_a</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_nameA</span>
-            <span class="p">}</span>
-            <span class="n">args_b</span> <span class="o">=</span> <span class="p">{</span>
-                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">_nameB</span>
-            <span class="p">}</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">group_a</span><span class="p">,</span> <span class="n">merged_group</span><span class="p">)</span>
+        <span class="n">cls</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">group_b</span><span class="p">,</span> <span class="n">merged_group</span><span class="p">)</span></div>
 
-            <span class="c1"># groupA = cls.cm.find_by_name(model.GROUP, _nameA)</span>
-            <span class="c1"># groupB = cls.cm.find_by_name(model.GROUP, _nameB)</span>
 
-            <span class="n">groupA</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args_a</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-            <span class="n">groupB</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">args_b</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
-
-            <span class="k">if</span> <span class="n">groupA</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> \
-                    <span class="ow">and</span> <span class="n">groupB</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="n">id_str_a</span> <span class="o">=</span> <span class="n">groupA</span><span class="o">.</span><span class="n">value</span>
-                <span class="n">id_str_b</span> <span class="o">=</span> <span class="n">groupB</span><span class="o">.</span><span class="n">value</span>
-                <span class="n">merge_str</span> <span class="o">=</span> <span class="n">id_str_a</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="n">id_str_b</span>
-
-                <span class="c1"># Copy default parameters</span>
-                <span class="n">user</span> <span class="o">=</span> <span class="n">groupA</span><span class="o">.</span><span class="n">user</span>
-                <span class="n">category</span> <span class="o">=</span> <span class="n">groupA</span><span class="o">.</span><span class="n">category</span>
-
-                <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                mergeGroup = model.GROUP(</span>
-<span class="sd">                    mergeName,</span>
-<span class="sd">                    merge_str,</span>
-<span class="sd">                    user=user,</span>
-<span class="sd">                    category=category</span>
-<span class="sd">                )</span>
-<span class="sd">                cls.cm.add(mergeGroup)</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-
-                <span class="n">mergeGroup</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">db_obj_dict</span><span class="p">(</span><span class="s2">&quot;group&quot;</span><span class="p">,</span>
-                                                <span class="n">name</span><span class="o">=</span><span class="n">mergeName</span><span class="p">,</span>
-                                                <span class="n">value</span><span class="o">=</span><span class="n">merge_str</span><span class="p">,</span>
-                                                <span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span>
-                                                <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
-                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">add_obj</span><span class="p">(</span><span class="n">mergeGroup</span><span class="p">)</span>
-                <span class="n">cls</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
-
-                <span class="n">Console</span><span class="o">.</span><span class="n">ok</span><span class="p">(</span>
-                    <span class="s2">&quot;Merge of group [{}] &amp; [{}] to group [{}] ok.&quot;</span>
-                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_nameA</span><span class="p">,</span> <span class="n">_nameB</span><span class="p">,</span> <span class="n">mergeName</span><span class="p">))</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Your groups [{}] and/or [{}] do not exist!&quot;</span>
-                              <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">_nameA</span><span class="p">,</span> <span class="n">_nameB</span><span class="p">))</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
-            <span class="n">Console</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">ex</span><span class="o">.</span><span class="n">message</span><span class="p">,</span> <span class="n">ex</span><span class="p">)</span></div>
-
+    <span class="c1"># TODO: this is dependent on the provider This needs to be imported from the provider</span>
     <span class="nd">@classmethod</span>
 <div class="viewcode-block" id="Group.to_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -618,31 +558,6 @@
         <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_sa&quot;</span><span class="p">):</span>
                 <span class="n">d</span><span class="p">[</span><span class="n">item</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
-        <span class="k">return</span> <span class="n">d</span></div>
-
-    <span class="c1"># TODO we have a dict transformer elsewhere</span>
-    <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Group.transform_dict"><a class="viewcode-back" href="../../../code/cloudmesh_client.cloud.html#cloudmesh_client.cloud.group.Group.transform_dict">[docs]</a>    <span class="k">def</span> <span class="nf">transform_dict</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">dictionary</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Method to transform a dict,</span>
-<span class="sd">            to display multiple rows</span>
-<span class="sd">            per instance of a group</span>
-<span class="sd">        :param dictionary:</span>
-<span class="sd">        :return:</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">dictionary</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
-            <span class="n">item</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;value&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">):</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">]</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-                <span class="n">d</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
-                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">d</span></div></div>
 
 </pre></div>
