@@ -154,7 +154,7 @@ class Group(ListResource):
                     query[key] = "None"
             del query['output']
         try:
-            group = cls.cm.find_by_name("group", **query)
+            group = cls.cm.find("group", **query)
             if group is not None \
                     and "output" in kwargs:
                 d = {"0": group}
