@@ -69,9 +69,7 @@ class Test_group:
         names = ["{user}-001".format(**self.data),
                 "{user}-002".format(**self.data)]
         for id in group:
-            print ("NNN", id)
             element = group[id]
-            pprint (element)
             assert element["category"] == "kilo"
             assert element["name"] == "groupA"
             assert element["type"] == "vm"
@@ -85,7 +83,7 @@ class Test_group:
         command = "cm group copy {group} groupB"
 
         result = self.run(command)
-        assert "[groupB]" in result
+        assert "groupB" in result
 
         return
 

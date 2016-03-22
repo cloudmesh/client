@@ -9,6 +9,7 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.vm import Vm
 
 from cloudmesh_client.common.dotdict import dotdict
+from pprint import pprint
 
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
 class Group(ListResource):
@@ -108,7 +109,8 @@ class Group(ListResource):
             data = dotdict({
                 'category': category,
                 'member': member,
-                'type': type
+                'type': type,
+                'name': name
             })
 
             group = cls.cm.find("group", output="object",**data).first()
@@ -124,7 +126,6 @@ class Group(ListResource):
                 cls.cm.save()
                 Console.ok("Group: add {} to group {}".format(member, name))
             else:
-
                 group.name = name
                 group.member = member
 
@@ -255,19 +256,21 @@ class Group(ListResource):
                 "name": _toName
             }
 
-            # _fromGroup = cls.cm.find_by_name(model.GROUP, _fromName)
-            # _toGroup = cls.cm.find_by_name(model.GROUP, _toName)
-            _fromGroup = cls.cm.find("group", output="object", **from_args)
-            _toGroup = cls.cm.find("group", output="object", **to_args)
+            _fromGroup = cls.cm.find("group", output="dict", **from_args)
+            _toGroup = cls.cm.find("group", output="dict", **to_args)
 
+            pprint (_fromGroup)
+            pprint(_toGroup)
 
             if _fromGroup is not None:
 
-                for from_element in _fromGroup:
+                for key in _fromGroup:
+                    from_element=_fromGroup[key]
                     member = from_element["member"]
                     type = from_element["type"]
                     category = from_element["category"]
-                    cls.add(cls, name=_toName, type=type, member=member, category=category)
+                    print ("TTT", _toName)
+                    cls.add(name=_toName, type=type, member=member, category=category)
                 cls.cm.save()
                 Console.ok("Copy from Group [{}] to Group [{}] ok."
                            .format(_fromName, _toName))
@@ -283,65 +286,17 @@ class Group(ListResource):
 
 
     @classmethod
-    def merge(cls, _nameA, _nameB, mergeName):
+    def merge(cls, group_a, group_b, merged_group):
         """
         Method to merge two groups into
             one group
-        :param _nameA:
-        :param _nameB:
-        :param mergeName:
+        :param group_a:
+        :param group_b:
+        :param merged_group:
         :return:
         """
-
-        ValueError("group merge not yet implemented")
-        '''
-        try:
-            args_a = {
-                "name": _nameA
-            }
-            args_b = {
-                "name": _nameB
-            }
-
-            # groupA = cls.cm.find_by_name(model.GROUP, _nameA)
-            # groupB = cls.cm.find_by_name(model.GROUP, _nameB)
-
-            groupA = cls.cm.find("group", output="object", **args_a)
-            groupB = cls.cm.find("group", output="object", **args_b)
-
-            if groupA is not None and groupB is not None:
-
-                # Copy default parameters
-                user = groupA.user
-                category = groupA.category
-
-                """
-                mergeGroup = model.GROUP(
-                    mergeName,
-                    merge_str,
-                    user=user,
-                    category=category
-                )
-                cls.cm.add(mergeGroup)
-                """
-
-                mergeGroup = cls.cm.db_obj_dict("group",
-                                                name=mergeName,
-                                                value=merge_str,
-                                                user=user,
-                                                category=category)
-                cls.cm.add_obj(mergeGroup)
-                cls.cm.save()
-
-                Console.ok(
-                    "Merge of group [{}] & [{}] to group [{}] ok."
-                    .format(_nameA, _nameB, mergeName))
-            else:
-                Console.error("Your groups [{}] and/or [{}] do not exist!"
-                              .format(_nameA, _nameB))
-        except Exception as ex:
-            Console.error(ex.message, ex)
-        '''
+        cls.copy(group_a, merged_group)
+        cls.copy(group_b, merged_group)
 
 
     # TODO: this is dependent on the provider This needs to be imported from the provider
