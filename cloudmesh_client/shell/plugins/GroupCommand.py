@@ -98,9 +98,9 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
         if arguments["list"]:
 
+
             output = arguments["--format"] or Default.get("format", category) or "table"
             name = arguments["GROUPNAME"]
-
             if name is None:
 
                 result = Group.list(format=output, category=category)
@@ -123,12 +123,15 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
 
                     # find alternate
                     result = Group.get(name=name)
+
                     msg_b = ""
-                    if result is not None:
+                    if result is not None and len(result) < 0:
                         msg_b = " However we found such a variable in " \
                                 "category `{category}`. Please consider " \
-                                "using --category={category}".format(**result)
+                                "using --category={category}".format(**locals())
                         Console.error(msg_a + msg_b)
+                    else:
+                        Console.error("No group with name {name} exists.".format(**locals()))
 
                 return ""
 

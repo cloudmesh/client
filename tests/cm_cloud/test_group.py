@@ -251,3 +251,9 @@ class Test_group:
 
         return
 
+    def test_012(self):
+        HEADING()
+        command = "cm group list DOESNOTEXIST"
+        result = self.run (command)
+
+        assert "ERROR" in result
