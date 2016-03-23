@@ -252,6 +252,9 @@ class Test_group:
         return
 
     def test_012(self):
+        """
+        :return:list non existing group"""
+        """
         HEADING()
         command = "cm group list DOESNOTEXIST"
         result = self.run (command)
