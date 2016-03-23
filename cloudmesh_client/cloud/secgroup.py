@@ -8,7 +8,7 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
-
+from cloudmesh_client.common.LibcloudDict import LibcloudDict
 requests.packages.urllib3.disable_warnings()
 
 
@@ -114,33 +114,39 @@ class SecGroup(ListResource):
     @classmethod
     def enable_ssh(cls, secgroup_name='default', cloud="general"):
         ret = False
-        cloud_provider = CloudProvider(cloud).provider.provider
-        secgroups = cloud_provider.security_groups.list()
-        for asecgroup in secgroups:
-            if asecgroup.name == secgroup_name:
-                rules = asecgroup.rules
-                rule_exists = False
-                # structure of a secgroup rule:
-                # {u'from_port': 22, u'group': {}, u'ip_protocol': u'tcp', u'to_port': 22, u'parent_group_id': u'UUIDHERE', u'ip_range': {u'cidr': u'0.0.0.0/0'}, u'id': u'UUIDHERE'}
-                for arule in rules:
-                    if arule["from_port"] == 22 and \
-                                    arule["to_port"] == 22 and \
-                                    arule["ip_protocol"] == 'tcp' and \
-                                    arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
-                        # print (arule["id"])
-                        rule_exists = True
-                        break
-                if not rule_exists:
-                    cloud_provider.security_group_rules.create(
-                        asecgroup.id,
-                        ip_protocol='tcp',
-                        from_port=22,
-                        to_port=22,
-                        cidr='0.0.0.0/0')
-                # else:
-                #    print ("The rule allowing ssh login did exist!")
-                ret = True
-                break
+        if cloud in LibcloudDict.Libcloud_category_list:
+            Console.info("Creating and adding security group for libcloud")
+            cloud_provider = CloudProvider(cloud).provider
+            cloud_provider.create_sec_group(cloud, secgroup_name)
+            cloud_provider.enable_ssh(cloud, secgroup_name)
+        else:
+            cloud_provider = CloudProvider(cloud).provider.provider
+            secgroups = cloud_provider.security_groups.list()
+            for asecgroup in secgroups:
+                if asecgroup.name == secgroup_name:
+                    rules = asecgroup.rules
+                    rule_exists = False
+                    # structure of a secgroup rule:
+                    # {u'from_port': 22, u'group': {}, u'ip_protocol': u'tcp', u'to_port': 22, u'parent_group_id': u'UUIDHERE', u'ip_range': {u'cidr': u'0.0.0.0/0'}, u'id': u'UUIDHERE'}
+                    for arule in rules:
+                        if arule["from_port"] == 22 and \
+                                        arule["to_port"] == 22 and \
+                                        arule["ip_protocol"] == 'tcp' and \
+                                        arule["ip_range"] == {'cidr': '0.0.0.0/0'}:
+                            # print (arule["id"])
+                            rule_exists = True
+                            break
+                    if not rule_exists:
+                        cloud_provider.security_group_rules.create(
+                            asecgroup.id,
+                            ip_protocol='tcp',
+                            from_port=22,
+                            to_port=22,
+                            cidr='0.0.0.0/0')
+                    # else:
+                    #    print ("The rule allowing ssh login did exist!")
+                    ret = True
+                    break
 
         # print ("*" * 80)
         # d = SecGroup.convert_list_to_dict(secgroups)

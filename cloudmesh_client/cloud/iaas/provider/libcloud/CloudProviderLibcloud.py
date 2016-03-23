@@ -376,3 +376,26 @@ class CloudProviderLibcloud(CloudProviderBase):
                 return size
         raise ValueError("flavor id not found")
         # return None
+
+    def create_sec_group(self, cloud, secgroup_name='default'):
+        try:
+            self.provider.ex_create_security_group(secgroup_name, "Default Security Group")
+        except Exception, e:
+            Console.info("create_sec_group exception."+e.args[0])
+
+    def enable_ssh(self, cloud, secgroup_name='default'):
+        if cloud == "aws":
+            params = {'Action': 'AuthorizeSecurityGroupIngress',
+              'GroupName': secgroup_name,
+              'IpProtocol': 'tcp',
+              'FromPort': '22',
+              'ToPort': '22',
+              'CidrIp': '0.0.0.0/0'}
+            try:
+                self.provider.connection.request(self.provider.path, params=params).object
+                Console.info("Permission added.ok")
+            except Exception, e:
+                if e.args[0].find("InvalidPermission.Duplicate") == -1:
+                    Console.info("Permission already exists.ok")
+        else:
+            Console.error("Enable SSH not implemented for others")
