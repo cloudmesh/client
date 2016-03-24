@@ -4,7 +4,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.keys.SSHKeyManager import SSHkey
-from cloudmesh_client.db.model import KEY, KEYCLOUDMAP
+from cloudmesh_client.db.model import KEY
 from cloudmesh_client.db import CloudmeshDatabase
 
 
@@ -36,8 +36,6 @@ class SSHKeyDBManager(object):
             raise ValueError("Key already exists")
 
     def add_from_dict(self, d):
-        pprint(d)
-
         key_obj = KEY(name='{keyname}'.format(**d),
                       uri='{uri}'.format(**d),
                       source='{source}'.format(**d),
@@ -48,7 +46,7 @@ class SSHKeyDBManager(object):
                       value='{string} {comment}'.format(**d),
                       )
 
-        self._add([key_obj])
+        self._add(key_obj)
 
     def add_from_sshkey(self,
                         sshkey,
@@ -168,67 +166,6 @@ class SSHKeyDBManager(object):
         """
         return self.db.object_to_dict(obj)
 
-    def add_key_cloud_map_entry(self, user, keyname, cloud, name_on_cloud):
-        """
-        Adds an entry to Key-Cloud map table.
-        :param keyname: Name of the key in db.
-        :param cloud: Cloud on which the key is being uploaded.
-        :param name_on_cloud: Name of the key on cloud.
-        :return:
-        """
-
-        keycloudmap = self.db.find(KEYCLOUDMAP,
-                                   output="object",
-                                   user=user,
-                                   key_name=keyname,
-                                   cloud_name=cloud)
-        keycloudmapdict = self.db.object_to_dict(keycloudmap)
-        # print(keycloudmap)
-        if keycloudmapdict is not None and len(keycloudmapdict) != 0:
-            keycloudmap.update({'user': user,
-                                'key_name': keyname,
-                                'cloud_name': cloud,
-                                'key_name_on_cloud': name_on_cloud})
-            self.db.save()
-        else:
-            keycloudmap = KEYCLOUDMAP(user, keyname, cloud, name_on_cloud)
-            self._add(keycloudmap)
-
-    def get_key_cloud_maps(self):
-        """
-        Returns entries in Key-Cloud map table.
-        :return:
-        """
-
-        keycloudmap = self.db.find(KEYCLOUDMAP)
-
-        return keycloudmap
-
-    def get_key_cloud_map_entry(self, keyname):
-        """
-        Returns entries in Key-Cloud map table.
-        :param keyname: Name of the key in db.
-        :return:
-        """
-
-        keycloudmap = self.db.find(KEYCLOUDMAP, key_name=keyname)
-
-        return keycloudmap
-
-    def delete_key_cloud_map_entry(self, keyname):
-        """
-        Deletes an entry to Key-Cloud map table.
-        :param keyname: Name of the key in db.
-        :return:
-        """
-
-        keycloudmap = self.db.find(KEYCLOUDMAP,
-                                   output="object",
-                                   key_name=keyname)
-        # print(keycloudmap.values())
-        for key in keycloudmap:
-            # print("Deleting: {:}".format(key))
-            self.db.delete(key)
     """
     def load(self):
 

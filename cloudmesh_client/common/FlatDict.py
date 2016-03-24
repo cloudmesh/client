@@ -143,7 +143,7 @@ def main():
                   'flavorId': '1',
                   'hostId': '',
                   'imageId': 'abcd',
-                  'key_name': None,
+                  'key': None,
                   'metadata': {},
                   'password': '********',
                   'tenantId': '1234',

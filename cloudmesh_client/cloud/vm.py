@@ -63,28 +63,14 @@ class Vm(ListResource):
 
         data = dotdict(kwargs)
 
-        data.key = data.key_name  # using better argument
+        pprint (data)
 
-        # key = kwargs["key"]
-        # cloud = kwargs["cloud"]
+        for a in ["key", "name", "image", "flavor"]:
+            if a not in kwargs:
+                raise ValueError (a + " not in arguments to vm boot")
 
         conf = ConfigDict("cloudmesh.yaml")
         data.username = conf["cloudmesh"]["profile"]["username"]
-
-        keycloudmap = cls.cm.get_key_cloud_mapping(data.username, data.key, data.cloud)
-
-        if keycloudmap is None or len(keycloudmap) == 0:
-            raise RuntimeError("No key cloud mapping found for user {username}, key name {key} and cloud {cloud} in database."
-                               .format(**data))
-
-        # print("Keycloudmap = {:}".format(keycloudmap))
-        #
-        # Bug we are no longer using this, we just use key and it s the same on all clouds
-        #
-        key_name_on_cloud = keycloudmap["key_name_on_cloud"]
-
-
-        # print("Booting with key_name_on_cloud as " + key_name_on_cloud)
 
         cloud_provider = CloudProvider(data.cloud).provider
 
@@ -96,7 +82,7 @@ class Vm(ListResource):
         vm = cloud_provider.boot_vm(data.name,
                                     data.image,
                                     data.flavor,
-                                    key=key_name_on_cloud,
+                                    key=data.key,
                                     secgroup=kwargs["secgroup_list"],
                                     nics=nics)
 

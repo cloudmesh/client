@@ -308,9 +308,9 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 if secgroup is not None:
                     secgroup_list.append(secgroup)
 
-                key_name = arguments["--key"] or Default.get_key()
+                key = arguments["--key"] or Default.get_key()
                 # if default keypair not set, return error
-                if not key_name:
+                if not key:
                     Console.error("Default key not set.")
                     return ""
 
@@ -321,7 +321,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                         "name": name,
                         "image": image,
                         "flavor": flavor,
-                        "key_name": key_name,
+                        "key": key,
                         "secgroup_list": secgroup_list,
                         "group": group
                     }
@@ -334,7 +334,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                     name=name,
                                     image=image,
                                     flavor=flavor,
-                                    key_name=key_name,
+                                    key=key,
                                     secgroup_list=secgroup_list)
                     Default.set("last_vm_id", vm_id)
                     Default.set("last_vm_name", name)

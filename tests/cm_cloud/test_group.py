@@ -253,7 +253,7 @@ class Test_group:
 
     def test_012(self):
         """
-        :return:list non existing group"""
+        list non existing group
         """
         HEADING()
         command = "cm group list DOESNOTEXIST"
