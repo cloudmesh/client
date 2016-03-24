@@ -681,46 +681,46 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                 ipaddr_dict = Vm.construct_ip_dict(ip_addr, cloud)
                 for entry in ipaddr_dict:
                     ip_addresses.append(ipaddr_dict[entry]["addr"])
+            if len(ip_addresses) > 0:
+                if ip is not None:
+                    if ip not in ip_addresses:
+                        print(
+                            "ERROR: IP Address specified does not match with the host.")
+                        return ""
+                else:
+                    print("Determining IP Address to use with a ping test.")
+                    # This part assumes that the ping is allowed to the machine.
+                    for ipadd in ip_addresses:
+                        print("Checking {:}...".format(ipadd))
+                        try:
+                            socket.gethostbyaddr(ipadd)
+                            # ip will be set if above command is successful.
+                            ip = ipadd
+                        except socket.herror:
+                            print("Cannot reach {:}.".format(ipadd))
 
-            if ip is not None:
-                if ip not in ip_addresses:
-                    print(
-                        "ERROR: IP Address specified does not match with the host.")
+                if ip is None:
+                    print("Unable to connect to the machine")
                     return ""
-            else:
-                print("Determining IP Address to use with a ping test.")
-                # This part assumes that the ping is allowed to the machine.
-                for ipadd in ip_addresses:
-                    print("Checking {:}...".format(ipadd))
-                    try:
-                        socket.gethostbyaddr(ipadd)
-                        # ip will be set if above command is successful.
-                        ip = ipadd
-                    except socket.herror:
-                        print("Cannot reach {:}.".format(ipadd))
+                else:
+                    print("IP to be used is: {:}".format(ip))
 
-            if ip is None:
-                print("Unable to connect to the machine")
-                return ""
-            else:
-                print("IP to be used is: {:}".format(ip))
-
-            if not cloud in LibcloudDict.Libcloud_category_list:
                 SecGroup.enable_ssh(cloud=cloud)
-            #TODO: Need to implement Create Security group which allows SSH and ICMP for new VMs
-            # print("COMMANDS : {:}".format(commands))
 
-            # Constructing the ssh command to connect to the machine.
-            sshcommand = "ssh"
-            if key is not None:
-                sshcommand += " -i {:}".format(key)
-            sshcommand += " -o StrictHostKeyChecking=no"
-            sshcommand += " {:}@{:}".format(user, ip)
-            if commands is not None:
-                sshcommand += " \"{:}\"".format(commands)
+                Console.info("Connecting to Instance at IP:"+format(ip))
+                # Constructing the ssh command to connect to the machine.
+                sshcommand = "ssh"
+                if key is not None:
+                    sshcommand += " -i {:}".format(key)
+                sshcommand += " -o StrictHostKeyChecking=no"
+                sshcommand += " {:}@{:}".format(user, ip)
+                if commands is not None:
+                    sshcommand += " \"{:}\"".format(commands)
 
-            # print(sshcommand)
-            os.system(sshcommand)
+                # print(sshcommand)
+                os.system(sshcommand)
+            else:
+                Console.error("No Public IPs found for the instance")
 
         elif arguments["list"]:
 
