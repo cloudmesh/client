@@ -185,9 +185,6 @@ class SSHKeyManager(object):
             Console.error("Key with the name {:} not found in database.".format(keyname))
             return 1
 
-        # Add map entry
-        sshdb.add_key_cloud_map_entry(user, keyname, cloud, name_on_cloud)
-
         print("Adding key {:} to cloud {:} as {:}".format(keyname, cloud, name_on_cloud))
         cloud_provider = CloudProvider(cloud).provider
         cloud_provider.add_key_to_cloud(name_on_cloud, key_from_db["value"])
