@@ -10,24 +10,38 @@ nosetests -v tests/test_flavor.py
 
 """
 
-from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
 
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.dotdict import dotdict
 
-def run(command):
-    print(command)
-    parameter = command.split(" ")
-    shell_command = parameter[0]
-    args = parameter[1:]
-    result = Shell.execute(shell_command, args)
-    print (result)
-    return result
-
-
-class Test_flavor():
+class Test_flavor:
     """
         This class tests the FlavorCommand
     """
+
+    data = dotdict({
+        "cloud": "kilo",
+        "wrong_cloud": "kilo_wrong"
+    })
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c ="-")
+        print (command)
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return str(result)
+
+    def setup(self):
+        pass
+
+    def tearDown(self):
+        pass
 
     def test_001(self):
         """
@@ -35,7 +49,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor refresh")
+        result = self.run("cm flavor refresh --cloud={cloud}")
         assert "ok" in result
 
     def test_002(self):
@@ -44,7 +58,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor refresh --cloud=kilo11")
+        result = self.run("cm flavor refresh --cloud={wrong_cloud}")
         assert "failed" in result
 
     def test_003(self):
@@ -53,7 +67,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list")
+        result = self.run("cm flavor list --cloud={cloud}")
         assert "Name" in result
 
     def test_004(self):
@@ -62,7 +76,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list --cloud=kilo11")
+        result = self.run("cm flavor list --cloud={wrong_cloud}")
         assert "failed" in result
 
     def test_005(self):
@@ -71,7 +85,7 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list 1 --cloud=kilo")
+        result = self.run("cm flavor list 1 --cloud={cloud}")
         assert "Value" in result
 
     def test_006(self):
@@ -80,6 +94,6 @@ class Test_flavor():
         :return:
         """
         HEADING()
-        result = run("cm flavor list i --cloud=kilo11")
+        result = self.run("cm flavor list i --cloud={wrong_cloud}")
         assert "failed" in result
 
