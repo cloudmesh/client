@@ -29,7 +29,7 @@ class Key(ListResource):
         :param cloud: the cloud name
         """
         try:
-            keys= CloudProvider(cloud).list("key", cloud)
+            keys= CloudProvider(cloud).list_key(cloud)
 
             return dict_printer(keys,
                                 output=format)
