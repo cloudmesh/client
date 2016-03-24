@@ -10,34 +10,44 @@ nosetests -v tests/test_hpc.py
 
 """
 
-from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
 
-
-def run(command):
-    print(command)
-    parameter = command.split(" ")
-    shell_command = parameter[0]
-    args = parameter[1:]
-    result = Shell.execute(shell_command, args)
-    print(result)
-    return result
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.dotdict import dotdict
 
 
-class Test_hpc():
+class Test_hpc:
     """
         This class tests the HpcCommand
     """
-    data = {
-        "cluster": "comet"
-    }
+    data = dotdict({
+        "cloud": "kilo",
+        "cluster": "comet",
+        "wrong_cloud": "kilo_wrong"
+    })
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c ="-")
+        print (command)
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return str(result)
+
+    def setup(self):
+        pass
+
+    def tearDown(self):
+        pass
 
     def setup(self):
         HEADING()
-        result = run("cm default cluster={cluster}".format(**self.data))
-        print (type(self.data["cluster"]))
-        print (type(result))
-        assert self.data["cluster"] in result
+        result = self.run("cm default cluster={cluster}")
+        assert "{cluster}".format(**self.data) in result
 
     def test_001(self):
         """
@@ -45,8 +55,8 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc info --cluster={cluster}".format(**self.data))
-        assert self.data["cluster"] in result
+        result = self.run("cm hpc info --cluster={cluster}")
+        assert "{cluster}".format(**self.data) in result
 
     def test_002(self):
         """
@@ -54,8 +64,8 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc queue --cluster={cluster}".format(**self.data))
-        assert self.data["cluster"] in result
+        result = self.run("cm hpc queue --cluster={cluster}")
+        assert "{cluster}".format(**self.data) in result
 
     def test_003(self):
         """
@@ -63,5 +73,5 @@ class Test_hpc():
         :return:
         """
         HEADING()
-        result = run("cm hpc status --cluster={cluster}".format(**self.data))
-        assert self.data["cluster"] in result
+        result = self.run("cm hpc status --cluster={cluster}")
+        assert "{cluster}".format(**self.data) in result
