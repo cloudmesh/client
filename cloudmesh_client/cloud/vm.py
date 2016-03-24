@@ -347,8 +347,11 @@ class Vm(ListResource):
         :param cloud: Libcloud supported Cloud provider name
         :return: Public IP as a list
         """
-        public_ip = []
+        public_ip_list = []
         vms = cls.get_vms_by_name(vm_name, cloud)
-        if len(vms) > 0:
-            public_ip.append(vms[1]["public_ips"])
-        return public_ip
+        keys = vms.keys()
+        if keys is not None and len(keys) > 0:
+            public_ip = vms[keys[0]]["public_ips"]
+            if public_ip is not None and public_ip != "":
+                public_ip_list.append(public_ip)
+        return public_ip_list
