@@ -29,9 +29,15 @@ class Key(ListResource):
         :param cloud: the cloud name
         """
         try:
-            keys= CloudProvider(cloud).list_key(cloud)
+
+            keys= CloudProvider(cloud).provider.list_key(cloud)
+
+
+            (order, header) = CloudProvider(cloud).get_attributes("key")
 
             return dict_printer(keys,
+                                order=order,
+                                header=header,
                                 output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
