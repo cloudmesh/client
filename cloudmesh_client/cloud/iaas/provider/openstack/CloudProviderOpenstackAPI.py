@@ -264,13 +264,19 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # TODO: this needs to be move to the provider
         _keys = self._to_dict(self.provider.keypairs.list())
 
-        pprint(_keys)
-
         for id in _keys:
             key = _keys[id]
-            key["type"], key["string"], key["comment"] = key["keypair__public_key"].split(" ", 3)
 
-        pprint (_keys)
+            #key["type"], key["string"], key["comment"] = (key["keypair__public_key"] + " ").split(" ", 3)
+            #key["comment"] = key["comment"].strip()
+            key_segments = key["keypair__public_key"].split(" ")
+            key["type"] = key_segments[0]
+            key["string"] = key_segments[1]
+            key["comment"] = ''
+            if len(key_segments) == 3:
+                key["comment"] = key_segments[2]
+            elif len(key_segments) > 3:
+                key["comment"] = " ".join(key_segments[2:])
 
         return _keys
         #return self._to_dict(self.provider.keypairs.list())
@@ -904,6 +910,19 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "category",
                     "type"]
 
+            },
+            'key':{
+                'order':[
+                    'keypair__name',
+                    "type",
+                    "comment",
+                    "keypair__fingerprint"
+                    ],
+                'header': [
+                    "Name",
+                    "Type",
+                    "Comment",
+                    "Fingerprint"]
             }
         }
 
