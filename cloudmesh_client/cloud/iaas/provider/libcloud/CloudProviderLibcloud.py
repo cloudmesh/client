@@ -380,7 +380,7 @@ class CloudProviderLibcloud(CloudProviderBase):
     def create_sec_group(self, cloud, secgroup_name='default'):
         try:
             self.provider.ex_create_security_group(secgroup_name, "Default Security Group")
-        except Exception, e:
+        except Exception as e:
             Console.info("create_sec_group exception."+e.args[0])
 
     def enable_ssh(self, cloud, secgroup_name='default'):
@@ -394,7 +394,7 @@ class CloudProviderLibcloud(CloudProviderBase):
             try:
                 self.provider.connection.request(self.provider.path, params=params).object
                 Console.info("Permission added.ok")
-            except Exception, e:
+            except Exception as e:
                 if e.args[0].find("InvalidPermission.Duplicate") == -1:
                     Console.info("Permission already exists.ok")
         else:
