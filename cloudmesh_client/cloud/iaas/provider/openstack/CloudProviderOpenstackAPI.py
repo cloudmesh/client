@@ -264,8 +264,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         # TODO: this needs to be move to the provider
         _keys = self._to_dict(self.provider.keypairs.list())
 
-        pprint(_keys)
-
         for id in _keys:
             key = _keys[id]
 
@@ -279,8 +277,6 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                 key["comment"] = key_segments[2]
             elif len(key_segments) > 3:
                 key["comment"] = " ".join(key_segments[2:])
-
-        pprint (_keys)
 
         return _keys
         #return self._to_dict(self.provider.keypairs.list())
@@ -914,6 +910,19 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     "category",
                     "type"]
 
+            },
+            'key':{
+                'order':[
+                    'keypair__name',
+                    "type",
+                    "comment",
+                    "keypair__fingerprint"
+                    ],
+                'header': [
+                    "Name",
+                    "Type",
+                    "Comment",
+                    "Fingerprint"]
             }
         }
 
