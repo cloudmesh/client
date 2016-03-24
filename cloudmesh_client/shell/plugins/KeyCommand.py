@@ -37,7 +37,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key  -h | --help
              key list --cloud=CLOUD
              key list [--source=db] [--format=FORMAT]
-             key list --source=cloudmesh [--format=FORMAT]
+             key list --source=yaml [--format=FORMAT]
              key list --source=ssh [--dir=DIR] [--format=FORMAT]
              key load [--format=FORMAT]
              key list --source=git [--format=FORMAT] [--username=USERNAME]
@@ -47,6 +47,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [--force]
+             key delete KEYNAME --cloud=CLOUD
              key upload [KEYNAME] [--cloud=CLOUD]
 
            Manages the keys
@@ -85,7 +86,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
               lists all keys in the directory. If the directory is not
               specified the default will be ~/.ssh
 
-           key list --source=cloudmesh  [--dir=DIR] [--format=FORMAT]
+           key list --source=yaml  [--dir=DIR] [--format=FORMAT]
 
               lists all keys in cloudmesh.yaml file in the specified directory.
                dir is by default ~/.cloudmesh
@@ -163,31 +164,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 # get key list from openstack cloud
                 #
                 keys = Key.list(cloud, format=_format)
-
-
                 print(keys)
-
-                '''
-                # TODO: this needs to be move to the provider
-                keys = CloudProvider(cloud).provider.list_key(cloud)
-
-                for id in keys:
-                    key = keys[id]
-                    key["type"], key["string"], key["comment"] = key["keypair__public_key"].split(" ", 3)
-
-                print (dict_printer(keys,
-                                    order=["keypair__name",
-                                           "type",
-                                           "comment",
-                                           "keypair__fingerprint"
-                                           ],
-                                    header=["Name",
-                                            "Type",
-                                            "Comment",
-                                            "Fingerprint"],
-                                    output="table",
-                                    sort_keys=True))
-                '''
                 return ""
 
             elif arguments['--source'] == 'ssh':
@@ -203,7 +180,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Problem listing keys from ssh")
 
-            elif arguments['--source'] in ['cm', 'cloudmesh']:
+            elif arguments['--source'] in ['cm', 'cloudmesh', 'yaml']:
 
                 try:
                     sshm = SSHKeyManager()
@@ -435,6 +412,19 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Problem retrieving default key.")
 
+
+        elif arguments['delete'] and arguments["--cloud"]:
+
+            key = dotdict({
+                'cloud': arguments["--cloud"],
+                'name': arguments["KEYNAME"]
+            })
+            try:
+                Key.delete(key.name, key.cloud)
+                msg = "info. OK."
+                Console.ok(msg)
+            except:
+                Console.error("Problem deleting the key {name} on teh cloud {cloud}".format(**key))
         elif arguments['delete']:
 
             delete_on_cloud = arguments["--force"] or False

@@ -213,9 +213,6 @@ class SSHKeyManager(object):
         sshdb = SSHKeyDBManager()
         keys = sshdb.find_all()
 
-        for key in list(keys.values()):
-            sshdb.delete_key_cloud_map_entry(key["name"])
-
         sshdb.delete_all()
 
     def delete_key(self, keyname):
