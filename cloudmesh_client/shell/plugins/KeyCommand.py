@@ -46,9 +46,10 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
              key add [NAME] [--ssh]
              key get NAME
              key default [KEYNAME | --select]
-             key delete (KEYNAME | --select | --all) [--force]
+             key delete (KEYNAME | --select | --all) [--force] [--active]
              key delete KEYNAME --cloud=CLOUD
              key upload [KEYNAME] [--cloud=CLOUD]
+             key upload [KEYNAME] --active
 
            Manages the keys
 
@@ -427,47 +428,48 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Console.error("Problem deleting the key {name} on teh cloud {cloud}".format(**key))
         elif arguments['delete']:
 
-            delete_on_cloud = arguments["--force"] or False
 
-            if arguments['--all']:
+            # key delete (KEYNAME | --select| --all) [--force] [--active]
+
+
+            data = dotdict({
+                "on_cloud": arguments["--force"] or False,
+                'all': arguments['--all'] or False,
+                'active': arguments['--active'] or False,
+                'keyname': arguments['KEYNAME'] or False,
+                'clouds': arguments["--cloud"] or Default.get_cloud()
+            })
+
+
+            if data.active or data.all:
+                config = ConfigDict("cloudmesh.yaml")
+                data.clouds = config["cloudmesh"]["active"]
+
+
+            remove = []
+            for cloud in data.clouds:
+                if data.all:
+
+                    keys = Key.list(cloud, format="dict", live=True)
+                    for id in keys:
+                        key = keys[id]
+                        name = key["keypair__name"]
+                        remove.append((name, cloud))
+
+            for name, cloud in remove:
                 try:
-                    sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
-                    sshm.delete_all_keys()
-                    print("All keys from the database deleted successfully.")
-                    msg = "info. OK."
-                    Console.ok(msg)
+                    Key.delete(name, cloud)
+                    Console.ok("Remove key {} from cloud {}.".format(name, cloud))
                 except Exception as e:
                     Error.traceback(e)
-                    Console.error("Problem deleting keys")
-            elif arguments['--select']:
-                keyname = None
-                sshdb = SSHKeyDBManager()
-                select = sshdb.select()
-                if select != 'q':
-                    try:
-                        keyname = select.split(':')[0]
-                        print("Deleting key: {:}...".format(keyname))
-                        sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
-                        sshm.delete_key(keyname)
-                        msg = "info. OK."
-                        Console.ok(msg)
-                    except Exception as e:
-                        Error.traceback(e)
-                        Console.error("Problem deleting the key `{:}`".format(keyname))
-            else:
-                keyname = None
-                try:
-                    keyname = arguments['KEYNAME']
-                    sshm = SSHKeyManager(delete_on_cloud=delete_on_cloud)
-                    sshm.delete_key(keyname)
-                    print("Key {:} deleted successfully from database.".format(keyname))
-                    msg = "info. OK."
-                    Console.ok(msg)
-                except Exception as e:
-                    Error.traceback(e)
-                    Console.error("Problem deleting the key `{:}`".format(keyname))
+                    Console.error("Remove key {} from cloud {}.".format(name, cloud), traceflag=False)
+
+            msg = "info. OK."
+            Console.ok(msg)
 
         elif arguments['upload']:
+
+            pprint (arguments)
 
             try:
                 #
@@ -482,13 +484,23 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 # get cloudnames
                 #
                 clouds = []
-                cloud = arguments["--cloud"] or Default.get_cloud()
+
+                if arguments["--active"]:
+                    cloud = 'active'
+                else:
+                    cloud = arguments["--cloud"] or Default.get_cloud()
+
                 if cloud == "all":
                     config = ConfigDict("cloudmesh.yaml")
                     clouds = config["cloudmesh"]["clouds"]
+                elif cloud == 'active':
+                    config = ConfigDict("cloudmesh.yaml")
+                    clouds = config["cloudmesh"]["active"]
                 else:
                     clouds.append(cloud)
 
+
+                print ("CCC", cloud, clouds)
                 #
                 # get keyname
                 #
@@ -517,7 +529,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                                 print ("key already exists. Skipping "
                                        "upload. ok.")
                         if status == 1:
-                            print("Problem uploading key. failed.")
+                            print("Problem uploading key {} to {}. failed.".format(key["name"],
+                                                            cloud))
                 msg = "info. OK."
                 Console.ok(msg)
 
