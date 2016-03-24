@@ -142,13 +142,12 @@ class Test_keys:
 
 
 
-    '''
-    def test_001(self):
+    def test_101(self):
         """
         cm key add --name=testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
-        self.cleandb()
+        self.clean_db()
         result = self.run("cm key add testkey --source=~/.ssh/id_rsa.pub")
         result = self.run("cm key list")
 
@@ -158,12 +157,12 @@ class Test_keys:
         assert "file:" in result
 
 
-    def test_002(self):
+    def test_102(self):
         """
         cm key add --git --name=testkey ~/.ssh/id_rsa.pub
         """
         HEADING()
-        self.cleandb()
+        self.clean_db()
 
         result = self.run("cm key add --git ")
         result = self.run("cm key list")
@@ -175,12 +174,12 @@ class Test_keys:
 
 
 
-    def test_003(self):
+    def test_103(self):
         """
         key add --ssh --name=testkey
         """
         HEADING()
-        self.cleandb()
+        self.clean_db()
         result = self.run("cm key add testkey --ssh")
         result = self.run("cm key list")
         assert "OK." in result
@@ -191,13 +190,13 @@ class Test_keys:
 
 
 
-    def test_005(self):
+    def test_105(self):
         """
         cm key list --source=db
         """
 
         HEADING()
-        self.cleandb()
+        self.clean_db()
         result = self.run("cm key add testkey --ssh")
         result = self.run("cm key list --source=db")
 
@@ -207,7 +206,7 @@ class Test_keys:
 
 
 
-    def test_006(self):
+    def test_106(self):
         """
         cm key list --source=db --format=json
         """
@@ -220,7 +219,7 @@ class Test_keys:
         assert "testkey" in result
 
 
-    def test_007(self):
+    def test_107(self):
         """
         cm key list --source=db --format=yaml
         """
@@ -233,7 +232,7 @@ class Test_keys:
         assert "testkey" in result
 
 
-    def test_009(self):
+    def test_109(self):
         """
         cm key list --source=git
         """
@@ -248,7 +247,7 @@ class Test_keys:
 
 
 
-    def test_010(self):
+    def test_110(self):
         """
         cm key list --source=cloudmesh
         """
@@ -259,7 +258,7 @@ class Test_keys:
         assert "OK." in result
 
 
-    def test_011(self):
+    def test_111(self):
         """
         cm key list --source=ssh
         """
@@ -269,7 +268,7 @@ class Test_keys:
         assert "rsa" in result
         assert "OK." in result
 
-    def test_012(self):
+    def test_112(self):
         """
         cm key list --source=cloudmesh
         """
@@ -279,7 +278,7 @@ class Test_keys:
         assert "fingerprint" in result
         assert "OK." in result
 
-    def test_013(self):
+    def test_113(self):
         """
         cm key get testkey
         """
@@ -289,7 +288,7 @@ class Test_keys:
         assert "testkey" in result
         assert "OK." in result
 
-    def test_014(self):
+    def test_114(self):
         """
         cm key default testkey
         """
@@ -302,13 +301,13 @@ class Test_keys:
         assert "testkey" in result
 
 
-    def test_015(self):
+    def test_115(self):
         """
         cm key delete testkey
         """
 
         HEADING()
-        self.cleandb()
+        self.clean_db()
         result = self.run("cm key add testkey --ssh")
         result = self.run("cm key delete testkey")
         assert "OK." in result
@@ -319,8 +318,7 @@ class Test_keys:
         assert "testkey" not in result
 
 
-
-    def test_016(self):
+    def test_116(self):
         """
         cm key delete --all
         """
@@ -330,8 +328,13 @@ class Test_keys:
         result = self.run("cm key delete --all --force")
         assert "OK." in result
 
-    def test_17(self):
-        cloudname = 'kilo'
+    def test_117(self):
+        HEADING()
+        self.clean_db()
+        result = self.run("cm key add testkey --ssh")
+        result = self.run("cm key upload testkey")
+
+        cloudname = self.data.cloud
         d = ConfigDict("cloudmesh.yaml")
         cloud_details = d["cloudmesh"]["clouds"][cloudname]
 
@@ -341,4 +344,5 @@ class Test_keys:
         pprint (d)
 
         assert len(d) > 0
-    '''
+        result = self.run("cm key delete testkey --cloud=kilo")
+        assert 'OK' in result
