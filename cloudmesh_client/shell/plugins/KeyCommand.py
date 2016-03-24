@@ -157,16 +157,15 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
             if arguments['--cloud']:
 
-                print ("ZZZZ")
                 cloud = arguments["--cloud"]
 
                 #
                 # get key list from openstack cloud
                 #
-                keys = Key.list(cloud)
+                keys = Key.list(cloud, format=_format)
 
-                pprint(keys)
 
+                print(keys)
 
                 '''
                 # TODO: this needs to be move to the provider
