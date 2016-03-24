@@ -195,9 +195,9 @@ class SSHKeyManager(object):
         sshdb = SSHKeyDBManager()
         return sshdb.get_key_cloud_maps()
 
-    def delete_key_on_cloud(self, cloud, name_on_cloud):
+    def delete_key_on_cloud(self, cloud, name):
         cloud_provider = CloudProvider(cloud).provider
-        cloud_provider.delete_key_from_cloud(name_on_cloud)
+        cloud_provider.delete_key_from_cloud(name)
 
     def delete_all_keys(self):
 
