@@ -268,7 +268,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
 
         for id in _keys:
             key = _keys[id]
-            key["type"], key["string"], key["comment"] = key["keypair__public_key"].split(" ", 3)
+
+            key["type"], key["string"], key["comment"] = (key["keypair__public_key"] + " ").split(" ", 3)
+            key["comment"] = key["comment"].strip()
 
         pprint (_keys)
 

@@ -32,8 +32,6 @@ class Key(ListResource):
             print (type(CloudProvider(cloud).provider))
             keys= CloudProvider(cloud).provider.list_key(cloud)
 
-            
-
 
             return dict_printer(keys,
                                 output=format)
