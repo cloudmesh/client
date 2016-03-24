@@ -12,28 +12,35 @@ nosetests -v
 
 """
 
-# from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-# from cloudmesh_client.keys.SSHkey import SSHkey
-# from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-# from cloudmesh_client.common.Printer import dict_printer
-
-from __future__ import print_function
+from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
-
-
-def run(command):
-    print (command)
-    parameter = command.split(" ")
-    shell_command = parameter[0]
-    args = parameter[1:]
-    result = Shell.execute(shell_command, args)
-    print (result)
-    return result
+from cloudmesh_client.common.dotdict import dotdict
 
 
 class Test_reservation:
+    data = dotdict({
+        "cloud": "kilo",
+        "json": "json",
+        "yaml": "yaml",
+        "user": "albert",
+        "name": "test_name",
+        "project": "cloudmesh",
+        "wrong_cloud": "kilo_wrong"
+    })
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c ="-")
+        print (command)
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return str(result)
+
     def setup(self):
         pass
 
@@ -46,8 +53,8 @@ class Test_reservation:
         --user=albert --project=cloudmesh --hosts=host001 --description=desc
         """
         HEADING()
-        result = run("cm reservation add --name=test_name --start='10/31/1988\ at\ 8:09\ pm' \
-                      --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh")
+        result = self.run("cm reservation add --name={name} --start='10/31/1988\ at\ 8:09\ pm' \
+                      --end='10/21/2015\ at\ 9:00\ pm' --user={user} --project={project}")
         assert "OK." in result
 
     def test_002(self):
@@ -55,7 +62,7 @@ class Test_reservation:
         cm reservation list
         """
         HEADING()
-        result = run("cm reservation list")
+        result = self.run("cm reservation list")
         assert "OK." in result
 
     def test_003(self):
@@ -63,7 +70,7 @@ class Test_reservation:
         cm reservation list --user=albert
         """
         HEADING()
-        result = run("cm reservation list --user=albert")
+        result = self.run("cm reservation list --user={user}")
         assert "OK." in result
 
     def test_004(self):
@@ -72,7 +79,7 @@ class Test_reservation:
         """
 
         HEADING()
-        result = run("cm reservation list --user=albert --format=json")
+        result = self.run("cm reservation list --user={user} --format={json}")
         assert "OK." in result
 
     def test_005(self):
@@ -81,7 +88,7 @@ class Test_reservation:
         """
 
         HEADING()
-        result = run("cm reservation list --user=albert --format=yaml")
+        result = self.run("cm reservation list --user={user} --format={yaml}")
         assert "OK." in result
 
     def test_006(self):
@@ -90,7 +97,7 @@ class Test_reservation:
         """
 
         HEADING()
-        result = run("cm reservation update --name=test_name --project=another_proj")
+        result = self.run("cm reservation update --name={name} --project=another_proj")
         assert "OK." in result
 
     def test_007(self):
@@ -99,7 +106,7 @@ class Test_reservation:
         """
 
         HEADING()
-        result = run("cm reservation delete --name=test_name")
+        result = self.run("cm reservation delete --name={name}")
         assert "OK." in result
 
     def test_008(self):
@@ -108,5 +115,5 @@ class Test_reservation:
         """
 
         HEADING()
-        result = run("cm reservation delete all")
+        result = self.run("cm reservation delete all")
         assert "OK." in result
