@@ -149,6 +149,9 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         elif os_password.lower() == "env":
             os_password = os.environ.get("OS_PASSWORD", getpass.getpass())
 
+        #
+        # TODO: pwd is not standing for passwd
+        #
         CloudProviderOpenstackAPI.cloud_pwd[cloudname]["pwd"] = os_password
         CloudProviderOpenstackAPI.cloud_pwd[cloudname]["status"] = "Active"
 
@@ -255,6 +258,22 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         the database can be bypassed in mode "cloud"
         """
         TODO.implement()
+
+    def list_key(self, cloudname, **kwargs):
+
+        # TODO: this needs to be move to the provider
+        _keys = self._to_dict(self.provider.keypairs.list())
+
+        pprint(_keys)
+
+        for id in _keys:
+            key = _keys[id]
+            key["type"], key["string"], key["comment"] = key["keypair__public_key"].split(" ", 3)
+
+        pprint (_keys)
+
+        return _keys
+        #return self._to_dict(self.provider.keypairs.list())
 
     def list_flavor(self, cloudname, **kwargs):
         return self._to_dict(self.provider.flavors.list())
@@ -571,6 +590,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
         keypair = self.provider.keypairs.delete(name)
         return keypair
 
+
     def create_floating_ip(self, float_pool):
         """
         Method creates a new floating ip under the specified pool
@@ -756,7 +776,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'status',
                     'static_ip',
                     'floating_ip',
-                    'key_name',
+                    'key',
                     'project',
                     'user',
                     'category',
@@ -769,7 +789,7 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
                     'status',
                     'static_ip',
                     'floating_ip',
-                    'key_name',
+                    'key',
                     'project',
                     'user',
                     'cloud',
@@ -908,3 +928,5 @@ if __name__ == "__main__":
 
     d = {'name': '390792c3-66a0-4c83-a0d7-c81e1c787710'}
     pprint(cp.list_quota(cloudname))
+
+    pprint(cp.list_key(cloudname))

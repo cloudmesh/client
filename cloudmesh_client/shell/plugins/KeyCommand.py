@@ -13,7 +13,10 @@ from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.default import Default
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 from cloudmesh_client.common.Error import Error
+from cloudmesh_client.cloud.key import Key
 
+from cloudmesh_client.common.dotdict import dotdict
+from pprint import pprint
 
 class KeyCommand(PluginCommand, CloudPluginCommand):
 
@@ -32,24 +35,26 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
 
            Usage:
              key  -h | --help
+             key list --cloud=CLOUD
              key list [--source=db] [--format=FORMAT]
              key list --source=cloudmesh [--format=FORMAT]
              key list --source=ssh [--dir=DIR] [--format=FORMAT]
              key load [--format=FORMAT]
              key list --source=git [--format=FORMAT] [--username=USERNAME]
-             key add --git [--name=KEYNAME] FILENAME
-             key add --ssh [--name=KEYNAME]
-             key add [--name=KEYNAME] FILENAME
+             key add [NAME] [--source=FILENAME]
+             key add [NAME] [--git]
+             key add [NAME] [--ssh]
              key get NAME
              key default [KEYNAME | --select]
              key delete (KEYNAME | --select | --all) [--force]
              key upload [KEYNAME] [--cloud=CLOUD]
-             key map [--cloud=CLOUD]
 
            Manages the keys
 
            Arguments:
 
+             CLOUD          The cloud
+             NAME           The name of the key.
              SOURCE         db, ssh, all
              KEYNAME        The name of a key. For key upload it defaults to the default key name.
              FORMAT         The format of the output (table, json, yaml)
@@ -123,6 +128,8 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
         """
         # pprint(arguments)
 
+        invalid_names = ['tbd', 'none', "", 'id_rsa']
+
         def _print_dict(d, header=None, format='table'):
             if format == "json":
                 return json.dumps(d, indent=4)
@@ -148,7 +155,43 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
             _source = arguments['--source']
             _dir = arguments['--dir']
 
-            if arguments['--source'] == 'ssh':
+            if arguments['--cloud']:
+
+                print ("ZZZZ")
+                cloud = arguments["--cloud"]
+
+                #
+                # get key list from openstack cloud
+                #
+                keys = Key.list(cloud)
+
+                pprint(keys)
+
+
+                '''
+                # TODO: this needs to be move to the provider
+                keys = CloudProvider(cloud).provider.list_key(cloud)
+
+                for id in keys:
+                    key = keys[id]
+                    key["type"], key["string"], key["comment"] = key["keypair__public_key"].split(" ", 3)
+
+                print (dict_printer(keys,
+                                    order=["keypair__name",
+                                           "type",
+                                           "comment",
+                                           "keypair__fingerprint"
+                                           ],
+                                    header=["Name",
+                                            "Type",
+                                            "Comment",
+                                            "Fingerprint"],
+                                    output="table",
+                                    sort_keys=True))
+                '''
+                return ""
+
+            elif arguments['--source'] == 'ssh':
 
                 try:
                     sshm = SSHKeyManager()
@@ -209,33 +252,7 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                     Error.traceback(e)
                     Console.error("Problem listing keys from database")
 
-        elif arguments['load']:
-            _format = arguments['--format']
-            _dir = arguments['--dir']
 
-            try:
-                sshm = SSHKeyManager()
-                m = sshm.get_from_yaml(load_order=directory)
-                d = dict(m.__keys__)
-
-                sshdb = SSHKeyDBManager()
-
-                for keyname in m.__keys__:
-                    filename = m[keyname]["path"]
-                    try:
-                        sshdb.add(filename,
-                                  keyname,
-                                  source="yaml",
-                                  uri="file://" + filename)
-                    except Exception as e:
-                        Console.error("problem adding key {}:{}".format(
-                            keyname, filename))
-
-                print(_print_dict(d, format=_format))
-                msg = "info. OK."
-                Console.ok(msg)
-            except Exception as e:
-                Console.error("Problem adding keys from yaml file")
 
         elif arguments['get']:
 
@@ -258,87 +275,113 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Error.traceback(e)
                 Console.error("The key is not in the database")
 
-        # key add --git KEYNAME
-        #      key add --ssh KEYNAME
-        #      key add [--path=PATH]  KEYNAME
+
+        #     key add [NAME] [--source=FILENAME]
+        #     key add [NAME] [--git]
 
         elif arguments['add'] and arguments["--git"]:
 
+            #Console.error("This feature is not yet implemented", traceflag=False)
+            #return ""
+
             print('git add')
             sshdb = SSHKeyDBManager()
-            keyname = arguments['--name']
-            gitkeyname = arguments['NAME']
-            filename = arguments['FILENAME']
 
-            # Are we adding to the database as well?
-            # sshdb.add(filename, keyname, source="ssh", uri="file://"+filename)
+            data = dotdict(arguments)
 
-            username = arguments["--username"]
+            keyname = data.NAME
 
-            if username == 'none':
-                conf = ConfigDict("cloudmesh.yaml")
-                username = conf["cloudmesh.github.username"]
-            print(username)
+#
+            # get name
+            #
+            conf = ConfigDict("cloudmesh.yaml")
+            data.username = conf["cloudmesh.github.username"]
+            data.name = arguments['NAME'] or data.username
 
-            sshm = SSHKeyManager()
-            try:
-                sshm.get_from_git(username)
-                d = dict(sshm.__keys__)
-                print(d)
-            except Exception as e:
-                Error.traceback(e)
-                Console.error("Problem adding keys to git for user: " + username)
+            #
+            # get git username
+            #
+            data.username = ConfigDict("cloudmesh.yaml")["cloudmesh.github.username"]
+
+            if str(data.name).lower() in invalid_names:
+                Console.error("The github user name is not set in the yaml file", traceflag=False)
                 return ""
 
-            try:
-                # FIXME: correct code to add to git
-                d[gitkeyname]['keyname'] = keyname
-                d[gitkeyname]['user'] = None
-                d[gitkeyname]['source'] = 'git'
-                # sshdb.add_from_dict(d[gitkeyname])
-            except Exception as e:
-                Console.error("The key already exists")
 
-        elif arguments['add'] and arguments["--ssh"]:
-
-            # print('ssh add')
-            sshdb = SSHKeyDBManager()
-            keyname = arguments['--name']
-            filename = Config.path_expand("~/.ssh/id_rsa.pub")
             try:
-                sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
-                print("Key {:} successfully added to the database".format(keyname or ""))
-                msg = "info. OK."
-                Console.ok(msg)
+                Console.msg("Retrieving github ssh keys for user {username}".format(**data))
+                sshm = SSHKeyManager()
+                sshm.get_from_git(data.username)
+                d = dict(sshm.__keys__)
+                # pprint(d)
             except Exception as e:
-                """
-                Error.traceback(e)
-                print (keyname)
-                print (filename)
-                """
-                Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
+                Console.error("Problem adding keys to git for user: {username}".format(**data))
+                return ""
+
+            for name in d:
+                key = d[name]
+                if key['key'] is not None:
+                    key["keyname"] = data.name + "_" + name
+                    key["keyname"] = key["keyname"].replace("-", "_")
+                    key["source"] = "git"
+                    key["user"] = data.name
+                    try:
+                        o = dict(key)
+                        o['key'] = "AAA"
+                        sshdb.add_from_dict(key)
+                    except Exception as e:
+                        Console.error("The key {keyname} with that finger print already exists".format(**key), traceflag=False)
 
         elif arguments['add'] and not arguments["--git"]:
 
-            # print('ssh add')
+        #     key add [NAME] [--source=FILENAME]
+        #     key add [NAME] [--git]
+
+
             sshdb = SSHKeyDBManager()
-            keyname = arguments['--name']
-            filename = arguments['FILENAME']
+
+            data = dotdict()
+
+            #
+            # get name
+            #
+            conf = ConfigDict("cloudmesh.yaml")
+            data.username = conf["cloudmesh.profile.username"]
+            data.name = arguments['NAME'] or data.username
+
+
+
+            data.filename = arguments['--source']
+            if data.filename == "db" or data.filename is None:
+                data.filename = Config.path_expand("~/.ssh/id_rsa.pub")
+
+
+            if str(data.name).lower() in invalid_names:
+
+                msg = ("Your choice of keyname {username} is insufficient. \n"
+                              "You must be chosing a keyname that is distingct on all clouds. \n"
+                              "Possible choices are your gmail name, your XSEDE name, or \n"
+                              "some name that is uniqe. "
+                              "Best is also to set this name in \n"
+                              "cloudmesh.profile.username as "
+                              "part of your \n~/cloudmesh/cloudmesh.yaml file.")
+                Console.error(msg.format(**data), traceflag=False)
+                return ""
+
             try:
-                sshdb.add(filename, keyname, source="ssh", uri="file://" + filename)
-                print("Key {:} successfully added to the database".format(keyname or ""))
+                sshdb.add(data.filename,
+                          data.name,
+                          source="ssh",
+                          uri="file://" + data.filename)
+                print("Key {name} successfully added to the database".format(**data))
                 msg = "info. OK."
                 Console.ok(msg)
 
             except ValueError as e:
-                Console.error("The key `{}` already exists".format(keyname), traceflag=False)
-            """
-            except Exception as e:
-                Error.traceback(e)
-                print (keyname)
-                print (filename)
-                Console.error("Problem adding the key `{}` from file `{}`".format(keyname, filename))
-            """
+                Console.error("A key with this fingerprint already exists".format(**data), traceflag=False)
+                Console.msg("Please use check with: key list")
+
+
             return ""
 
         elif arguments['default']:
@@ -493,14 +536,3 @@ class KeyCommand(PluginCommand, CloudPluginCommand):
                 Error.traceback(e)
                 Console.error("Problem adding key to cloud")
 
-        elif arguments['map']:
-            try:
-                cloud = arguments["--cloud"] or Default.get_cloud()
-                sshm = SSHKeyManager()
-                map_dict = sshm.get_key_cloud_maps(cloud)
-                print(dict_printer(map_dict,
-                                   order=["user", "key_name", "cloud_name", "key_name_on_cloud"]))
-
-            except Exception as e:
-                Error.traceback(e)
-                Console.error("Problem adding key to cloud")

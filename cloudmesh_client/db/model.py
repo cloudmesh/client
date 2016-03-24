@@ -240,25 +240,6 @@ class KEY(CloudmeshMixin, db.Base):
         self.is_default = is_default
 
 
-class KEYCLOUDMAP(CloudmeshMixin, db.Base):
-
-    user = Column(String)
-    key_name = Column(String)
-    cloud_name = Column(String)
-    key_name_on_cloud = Column(String)
-
-    def __init__(self,
-                 user,
-                 name,
-                 category,
-                 name_on_cloud):
-        self.user = user
-        self.key_name = name
-        self.category = category or "general"
-        self.cloud_name = category
-        self.key_name_on_cloud = name_on_cloud
-
-
 class GROUP(CloudmeshMixin, db.Base):
     member = Column(String)
     type = Column(String)
@@ -657,7 +638,7 @@ class VM(CloudmeshMixin, db.Base):
     flavor__id = Column(String)
     hostId = Column(String)
     image__id = Column(String)
-    key_name = Column(String)
+    key = Column(String)
     name = Column(String)
     volumes_attached = Column(String)
     progress = Column(String)
@@ -722,8 +703,8 @@ class VM(CloudmeshMixin, db.Base):
         if "image__id" in kwargs:
             self.image__id = kwargs["image__id"]
 
-        if "key_name" in kwargs:
-            self.key_name = kwargs["key_name"]
+        if "key" in kwargs:
+            self.key = kwargs["key"]
 
         if "name" in kwargs:
             self.name = kwargs["name"]
@@ -864,7 +845,7 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     image_id = Column(String)
     instance_id = Column(String)
     instance_type = Column(String)
-    key_name = Column(String)
+    key = Column(String)
     private_dns = Column(String)
     root_device_name = Column(String)
     root_device_type = Column(String)
@@ -896,8 +877,8 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
             self.instance_id = kwargs["instance_id"]
         if "instance_type" in kwargs:
             self.instance_type = kwargs["instance_type"]
-        if "key_name" in kwargs:
-            self.key_name = kwargs["key_name"]
+        if "key" in kwargs:
+            self.key = kwargs["key"]
         if "private_dns" in kwargs:
             self.private_dns = kwargs["private_dns"]
         if "root_device_name" in kwargs:

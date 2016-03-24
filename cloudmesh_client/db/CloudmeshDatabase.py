@@ -11,7 +11,7 @@ from cloudmesh_client.util import banner
 from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, VAR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, \
-    VMUSERMAP, BATCHJOB, KEYCLOUDMAP, SECGROUP, \
+    VMUSERMAP, BATCHJOB, SECGROUP, \
     SECGROUPRULE, LIBCLOUD_FLAVOR, LIBCLOUD_IMAGE, LIBCLOUD_VM
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -618,9 +618,6 @@ class CloudmeshDatabase(object):
 
     def get(self, table, **kwargs):
         return self.session.query(table).filter_by(**kwargs).first()
-
-    def get_key_cloud_mapping(self, username, key_name, cloud_name):
-        return self.find(KEYCLOUDMAP, scope='first', user=username, key_name=key_name, cloud_name=cloud_name)
 
 
 def main():

@@ -63,7 +63,7 @@ def main():
     r = provider.list_flavor(cloud)
     pprint(r)
 
-    for kind in ["flavor", "image", "vm", "limits", "quota"]:
+    for kind in ["flavor", "image", "vm", "key"]: # "limits", "quota"]:
         r = provider.list(kind, cloud)
         pprint(r)
 

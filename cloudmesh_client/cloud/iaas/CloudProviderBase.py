@@ -304,6 +304,10 @@ class CloudProviderBase(object):
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return
 
+    # ####################################
+    # KEYS
+    # ####################################
+
     def add_key_to_cloud(self, name, public_key):
         """
         Adds key to cloud for given public key.
@@ -332,6 +336,44 @@ class CloudProviderBase(object):
         raise ValueError(
             "{}: Not implemented yet.".format(inspect.stack()[0][3]))
         return None
+
+    def get_key(self, **kwargs):
+        """
+        finds the flavor based on a query
+        TODO: details TBD
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return
+
+    # noinspection PyUnusedLocal
+    def refresh_key(self, cloudname, identifier, **kwargs):
+        """
+        Listing of vm instances
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return
+
+
+    def list_key(self, cloudname, **kwargs):
+        """
+        returns the objects in json format
+        :param cloudname:
+        :return:
+        """
+        """
+        Listing of iamge
+        :return:
+        """
+        raise ValueError(
+            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
+        return None
+
+    # ####################################
+    # DETAILS
+    # ####################################
 
     def details(self, kind, cloud, id, format="table"):
         from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
@@ -362,21 +404,3 @@ class CloudProviderBase(object):
                                     output=format)
         except Exception as ex:
             Console.error(ex.message, ex)
-
-    # ##################
-    # KEY
-    # ##################
-
-    def list_key(self, cloudname, **kwargs):
-        """
-        returns the objects in json format
-        :param cloudname:
-        :return:
-        """
-        """
-        Listing of iamge
-        :return:
-        """
-        raise ValueError(
-            "{}: Not implemented yet.".format(inspect.stack()[0][3]))
-        return None

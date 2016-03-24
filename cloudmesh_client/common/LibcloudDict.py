@@ -43,7 +43,7 @@ class LibcloudDict(object):
                 extra_vm_dict[key] = value
             if key == "instance_type":
                 extra_vm_dict[key] = value
-            if key == "key_name":
+            if key == "key":
                 extra_vm_dict[key] = value
             if key == "private_dns":
                 extra_vm_dict[key] = value
