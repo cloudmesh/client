@@ -9,31 +9,32 @@ or
 nosetests -v tests/test_scripts.py
 
 """
-from __future__ import print_function
 
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import banner
+from cloudmesh_client.util import HEADING
+
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.dotdict import dotdict
 
 
-
-class Test_script():
+class Test_script:
     """tests script command"""
 
-    data = {
+    data = dotdict({
         "cloud": "kilo",
         "group": "mygroup"
-    }
+    })
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command)
+        banner(command, c ="-")
+        print (command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
         result = Shell.execute(shell_command, args)
-        print (result)
-        return result
+        print(result)
+        return str(result)
 
     def setup(self):
         self.scripts = [
@@ -61,6 +62,9 @@ class Test_script():
         ]
         pass
 
+    def tearDown(self):
+        pass
+
     def test_001(self):
         """
         cm script set india
@@ -68,9 +72,7 @@ class Test_script():
 
         HEADING()
         for self.data["script"], self.data["check"] in self.scripts:
-            command = "cm scripts/{script}"
-            result = self.run(command)
-            print (result)
+            result = self.run("cm scripts/{script}")
             assert self.data["check"] in result
 
 

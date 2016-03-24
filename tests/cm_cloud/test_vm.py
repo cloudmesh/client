@@ -9,49 +9,47 @@ or
 nosetests -v
 
 """
-from __future__ import print_function
 
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import banner
+from cloudmesh_client.util import HEADING
 
+from cloudmesh_client.common.Shell import Shell
+from cloudmesh_client.common.dotdict import dotdict
 
 
 class Test_vm:
 
+    data = dotdict({
+        "wrong_cloud": "kilo_wrong",
+        "cloud": "kilo",
+        "group": "test",
+        "image": "Ubuntu-14.04-64",
+        "vm": "testvm",
+        "flavor": "m1.small",
+        "vm_rename": "test_renamed_vm"
+    })
+
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c='-')
+        banner(command, c ="-")
+        print (command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
         result = Shell.execute(shell_command, args)
         print(result)
-        return result
+        return str(result)
 
     def setup(self):
-
-        self.data = {
-            "cloud": "kilo",
-            "group": "test",
-            "image": "Ubuntu-14.04-64",
-            "vm": "testvm",
-            "flavor": "m1.small",
-            "vm_rename": "test_renamed_vm"
-        }
+        pass
 
     def tearDown(self):
         pass
 
     def load_key(self):
         try:
-            command = "cm key load"
-            result = self.run(command)
-            print(result)
-
-            command = "cm key upload"
-            result = self.run(command)
-            print(result)
+            self.run("cm key load")
+            result = self.run("cm key upload")
         except Exception as e:
             print(e.message)
 
@@ -65,7 +63,6 @@ class Test_vm:
         command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
                   " --flavor={flavor} --group={group}"
         result = self.run(command)
-        print(result)
         assert "OK." in result
 
     def test_002(self):
@@ -74,7 +71,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm refresh --cloud={cloud}")
-        print (result)
         assert "OK." in result
 
     def test_003(self):
@@ -83,7 +79,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm list --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_004(self):
@@ -92,7 +87,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm list {vm} --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_005(self):
@@ -101,7 +95,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm status --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_006(self):
@@ -110,7 +103,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_007(self):
@@ -119,7 +111,6 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm rename {vm} --new={vm_rename} --cloud={cloud}")
-        print(result)
         assert "OK." in result
 
     def test_008(self):
@@ -128,5 +119,4 @@ class Test_vm:
         """
         HEADING()
         result = self.run("cm vm delete {vm_rename} --cloud={cloud}")
-        print(result)
         assert "OK." in result
