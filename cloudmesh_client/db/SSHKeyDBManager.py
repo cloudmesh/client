@@ -134,6 +134,15 @@ class SSHKeyDBManager(object):
         """
         return self.db.dict(KEY)
 
+    def dict(self):
+        """
+
+        :return: Query object from all the entries
+        """
+        return self.db.find(KEY)
+
+
+
     def update(self, **kwargs):
         # i'm not sure how this function works
         self.db.update("key", kwargs)

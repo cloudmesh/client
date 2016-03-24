@@ -50,3 +50,9 @@ class Key(ListResource):
     @classmethod
     def refresh(cls, **kwargs):
         raise NotImplementedError()
+
+    @classmethod
+    def delete(self, name, cloud=None):
+
+        result = CloudProvider(cloud).provider.delete_key_from_cloud(name)
+
