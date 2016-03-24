@@ -17,6 +17,8 @@ from cloudmesh_client.common.Error import Error
 
 from cloudmesh_client.shell.command import PluginCommand, CloudPluginCommand
 
+from builtins import input
+
 
 # noinspection PyBroadException
 class RegisterCommand(PluginCommand, CloudPluginCommand):
@@ -53,8 +55,7 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
               register env [--provider=PROVIDER]
               register profile --username=[USERNAME]
               register yaml ENTRY
-              register CLOUD [--force]
-              register CLOUD [--dir=DIR]
+              register cloud [CLOUD] [--force]
               register ec2 CLOUD EC2ZIP
 
           managing the registered clouds in the cloudmesh.yaml file.
@@ -414,23 +415,45 @@ class RegisterCommand(PluginCommand, CloudPluginCommand):
                 Error.traceback(e)
             return ""
 
-        elif arguments['CLOUD']:
+        elif arguments['cloud']:
+            """
             if arguments['--dir']:
-                cloud = arguments['CLOUD']
+                cloud = arguments['--name']
                 directory = arguments['--dir']
                 Console.ok(directory)
                 CloudRegister.directory(cloud, directory)
+
             else:
-                cloud = arguments['CLOUD']
+            """
 
-                if cloud is None:
-                    clouds = ["kilo"]
-                else:
-                    clouds = [cloud]
+            values_to_replace = ['tbd', 'null', 'tbd_not_used']
 
-                for cloud in clouds:
-                    CloudRegister.remote(cloud, True)
-                    export(cloud, "table")
+            cloud = arguments['CLOUD']
+            if cloud is None:
+                clouds = ["kilo"]
+            else:
+                clouds = [cloud]
+
+            for cloud in clouds:
+
+                config = ConfigDict("cloudmesh.yaml")
+
+                cloud_config = config["cloudmesh.clouds"][cloud]
+
+                # Checking credentials
+                print("Checking cloud credentials...")
+                for prop in cloud_config["credentials"]:
+                    if cloud_config["credentials"][prop].lower() in values_to_replace:
+                        value = input(prop + "(" + cloud_config["credentials"][prop] + "): ")
+                        cloud_config["credentials"][prop] = value
+                # Checking defaults
+                print("Checking cloud defaults...")
+                for prop in cloud_config["default"]:
+                    if cloud_config["default"][prop].lower() in values_to_replace:
+                        value = input(prop + "(" + cloud_config["default"][prop] + "): ")
+                        cloud_config["default"][prop] = value
+                config.save()
+                export(cloud, "table")
             return ""
 
         elif arguments['profile']:
