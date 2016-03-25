@@ -32,8 +32,7 @@ class Test_configdict:
         pass
 
     def test_001_read(self):
-        """test if cloudmesh.yaml is loaded"""
-        HEADING()
+        HEADING("test if cloudmesh.yaml is loaded")
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
 
@@ -48,8 +47,7 @@ class Test_configdict:
             assert str(e).startswith("could not find")
 
     def test_002_set(self):
-        """testing to set a value in the dict"""
-        HEADING()
+        HEADING("testing to set a value in the dict")
         shutil.copy(self.etc_yaml,self.tmp_yaml)
         d = ConfigDict("cloudmesh.yaml",
                        load_order=[self.tmp_dir],
@@ -64,8 +62,7 @@ class Test_configdict:
 
 
     def test_003_json(self):
-        """test if json is produced"""
-        HEADING()
+        HEADING("test if json is produced")
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
 
@@ -79,8 +76,8 @@ class Test_configdict:
             assert isinstance(d.json, str)
 
     def test_004_yaml(self):
-        """test if yaml is produced"""
-        HEADING()
+        
+        HEADING("test if yaml is produced")
         d = ConfigDict("cloudmesh.yaml",
                        verbose=True)
         result = d.yaml
