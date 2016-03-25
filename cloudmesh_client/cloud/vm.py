@@ -62,7 +62,6 @@ class Vm(ListResource):
     def boot(cls, **kwargs):
 
         data = dotdict(kwargs)
-
         pprint (data)
 
         for a in ["key", "name", "image", "flavor"]:

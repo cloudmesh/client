@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+from pprint import pprint
 from cloudmesh_client.common import Printer
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
@@ -73,7 +74,6 @@ class Default(ListResource):
         """
         try:
             o = Default.get_object(key, category)
-
             me = cls.cm.user or user
             if o is None:
                 o = cls.cm.db_obj_dict('default',
