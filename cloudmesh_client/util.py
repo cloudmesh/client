@@ -127,10 +127,15 @@ def HEADING(txt=None):
     :param txt: a text message to be printed
     :type txt: string
     """
-    if txt is None:
-        txt = inspect.getouterframes(inspect.currentframe())[1][3]
+    frame = inspect.getouterframes(inspect.currentframe())
+
+    filename = frame[1][1].replace(os.getcwd(), "")
+    line = frame[1][2] - 1
+    method = frame[1][3]
+    msg = "{}\n# {} {} {}".format(txt, method, filename, line)
+
     print()
-    banner(txt)
+    banner(msg)
 
 
 def backup_name(filename):
