@@ -58,7 +58,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
                   finds the first test that contains var and than executes the test with number 004
 
         """
-        pprint(arguments)
 
         data = dotdict({
             'test': arguments["TEST"],
