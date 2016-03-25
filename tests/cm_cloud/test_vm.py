@@ -21,7 +21,7 @@ from cloudmesh_client.default import Default
 class Test_vm:
 
     data = dotdict({
-        "wrong_cloud": "kilo_wrong",
+        "wrong_cloud": "no_cloud",
         "cloud": Default.get_cloud(),
         "group": "test",
         "image": "TBD",
@@ -58,7 +58,7 @@ class Test_vm:
 
     def test_001(self):
         """
-        cm vm boot --name=testvm --cloud=kilo --image=<image_id> --flavor=2
+        cm vm boot --name=testvm --cloud=cloud --image=<image_id> --flavor=2
         --group=test
         """
         self.load_key()
@@ -70,7 +70,7 @@ class Test_vm:
 
     def test_002(self):
         """
-        cm vm refresh --cloud=kilo
+        cm vm refresh --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm refresh --cloud={cloud}")
@@ -78,7 +78,7 @@ class Test_vm:
 
     def test_003(self):
         """
-        cm vm list --cloud=kilo
+        cm vm list --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm list --cloud={cloud}")
@@ -86,7 +86,7 @@ class Test_vm:
 
     def test_004(self):
         """
-        cm vm list testvm --cloud=kilo
+        cm vm list testvm --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm list {vm} --cloud={cloud}")
@@ -94,7 +94,7 @@ class Test_vm:
 
     def test_005(self):
         """
-        cm vm status --cloud=kilo
+        cm vm status --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm status --cloud={cloud}")
@@ -102,7 +102,7 @@ class Test_vm:
 
     def test_006(self):
         """
-        cm vm ip_show testvm --cloud=kilo
+        cm vm ip_show testvm --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
@@ -110,7 +110,7 @@ class Test_vm:
 
     def test_007(self):
         """
-        cm vm rename testvm --new=test_renamed_vm --cloud=kilo
+        cm vm rename testvm --new=test_renamed_vm --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm rename {vm} --new={vm_rename} --cloud={cloud}")
@@ -118,7 +118,7 @@ class Test_vm:
 
     def test_008(self):
         """
-        cm vm delete test_renamed_vm --cloud=kilo
+        cm vm delete test_renamed_vm --cloud=cloud
         """
         HEADING()
         result = self.run("cm vm delete {vm_rename} --cloud={cloud}")

@@ -22,9 +22,7 @@ class Test_hpc:
         This class tests the HpcCommand
     """
     data = dotdict({
-        "cloud": "kilo",
         "cluster": "comet",
-        "wrong_cloud": "kilo_wrong"
     })
 
     def run(self, command):
