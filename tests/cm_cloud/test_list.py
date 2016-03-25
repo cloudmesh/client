@@ -15,15 +15,15 @@ from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
-
+from cloudmesh_client.default import Default
 
 class Test_list:
 
     data = dotdict({
-        "cloud": "kilo",
+        "cloud": Default.get_cloud(),
         "format": "json",
         "fake": "fake",
-        "wrong_cloud": "kilo_wrong",
+        "wrong_cloud": "no_cloud",
         "default_key": "my_default_key",
         "default_value": "my_default_value"
     })

@@ -15,6 +15,7 @@ from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.default import Default
 
 class Test_flavor:
     """
@@ -22,7 +23,7 @@ class Test_flavor:
     """
 
     data = dotdict({
-        "cloud": "kilo",
+        "cloud": Default.get_cloud(),
         "wrong_cloud": "kilo_wrong"
     })
 
