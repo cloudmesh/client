@@ -49,7 +49,7 @@ class Test_list:
         return (line.format(**self.data))
 
     def test_001(self):
-        """testing cm list --cloud kilo default"""
+        """testing cm list --cloud cloud default"""
         HEADING()
 
         result = self.run('cm default {default_key}="{default_value}')
@@ -68,7 +68,7 @@ class Test_list:
         return
 
     def test_002(self):
-        """testing cm list --cloud kilo --format json default"""
+        """testing cm list --cloud cloud --format json default"""
         HEADING()
 
         result = self.run("cm default --cloud={cloud} {default_key}={default_value}")
