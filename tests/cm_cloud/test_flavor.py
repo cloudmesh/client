@@ -24,7 +24,7 @@ class Test_flavor:
 
     data = dotdict({
         "cloud": Default.get_cloud(),
-        "wrong_cloud": "kilo_wrong"
+        "wrong_cloud": "no_cloud"
     })
 
     def run(self, command):

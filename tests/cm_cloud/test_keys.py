@@ -31,7 +31,7 @@ from cloudmesh_client.default import Default
 class Test_keys:
 
     data = dotdict({
-        "cloud": "kilo",
+        "cloud": Default.get_cloud()
         "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"]}
     )
 
@@ -57,7 +57,7 @@ class Test_keys:
         "create new db"
         command = "make db"
         result = self.run(command)
-        assert "kilo" in result
+        assert self.data.cloud in result
 
     def test_001(self):
         '''reading the keys from ~/.ssh'''
@@ -345,5 +345,5 @@ class Test_keys:
         pprint (d)
 
         assert len(d) > 0
-        result = self.run("cm key delete testkey --cloud=kilo")
+        result = self.run("cm key delete testkey --cloud={cloud}")
         assert 'OK' in result
