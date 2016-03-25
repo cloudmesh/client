@@ -35,10 +35,7 @@ class Test_default():
         pass
 
     def test_001(self):
-        """
-        delete defaults
-        :return:
-        """
+        """delete defaults"""
         HEADING()
         Default.clear()
         assert Default.list() == None
@@ -49,10 +46,7 @@ class Test_default():
         assert content in str(result)
 
     def test_002(self):
-        """
-        set default cloud
-        :return:
-        """
+        """set default cloud"""
         HEADING()
         result = Default.list()
         print(result)

@@ -88,7 +88,7 @@ class Test_cloud_model(object):
         pass
 
     def test_001(self):
-        HEADING()
+        HEADING("check the model")
         d = self.d
 
         banner("VM Data")
