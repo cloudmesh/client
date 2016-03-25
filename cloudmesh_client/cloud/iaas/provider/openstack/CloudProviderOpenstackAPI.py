@@ -832,12 +832,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             },
             'clouds': {
                 'order': [
+                    "default",
                     "cloud",
+                    "active",
                     "status"
                 ],
                 'header': [
-                    "cloud",
-                    "status"
+                    "Default",
+                    "Cloud",
+                    "Active",
+                    "Status"
                 ],
             },
             'limits': {

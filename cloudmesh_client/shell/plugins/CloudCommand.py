@@ -5,7 +5,8 @@ from cloudmesh_client.default import Default
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.command import command, PluginCommand, CloudPluginCommand
-
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from pprint import pprint
 
 class CloudCommand(PluginCommand, CloudPluginCommand):
     topics = {"cloud": "cloud"}
@@ -105,6 +106,20 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
         elif arguments["list"]:
             provider = CloudProvider(cloudname).provider
             clouds = provider.list_clouds()
+            default = Default.get_cloud()
+            active = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
+
+
+            print (default)
+            print (active)
+
+            for index in clouds:
+                cloud = clouds[index]
+                cloud["active"] = cloud["cloud"] in active
+                cloud["default"] = cloud["cloud"] == default
+ 
+
+            pprint (clouds)
             (order, header) = CloudProvider(cloudname).get_attributes("clouds")
 
             Console.msg(dict_printer(clouds, order=order, header=header))
