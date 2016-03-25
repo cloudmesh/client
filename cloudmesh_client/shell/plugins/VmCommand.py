@@ -336,6 +336,7 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                     flavor=flavor,
                                     key=key,
                                     secgroup_list=secgroup_list)
+
                     Default.set("last_vm_id", vm_id)
                     Default.set("last_vm_name", name)
 

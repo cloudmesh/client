@@ -732,24 +732,28 @@ Command - key::
 
     Usage:
       key  -h | --help
+      key list --cloud=CLOUD
       key list [--source=db] [--format=FORMAT]
-      key list --source=cloudmesh [--format=FORMAT]
+      key list --source=yaml [--format=FORMAT]
       key list --source=ssh [--dir=DIR] [--format=FORMAT]
       key load [--format=FORMAT]
       key list --source=git [--format=FORMAT] [--username=USERNAME]
-      key add --git [--name=KEYNAME] FILENAME
-      key add --ssh [--name=KEYNAME]
-      key add [--name=KEYNAME] FILENAME
+      key add [NAME] [--source=FILENAME]
+      key add [NAME] [--git]
+      key add [NAME] [--ssh]
       key get NAME
       key default [KEYNAME | --select]
-      key delete (KEYNAME | --select | --all) [--force]
+      key delete (KEYNAME | --select | --all) [--force] [--active]
+      key delete KEYNAME --cloud=CLOUD
       key upload [KEYNAME] [--cloud=CLOUD]
-      key map [--cloud=CLOUD]
+      key upload [KEYNAME] --active
 
     Manages the keys
 
     Arguments:
 
+      CLOUD          The cloud
+      NAME           The name of the key.
       SOURCE         db, ssh, all
       KEYNAME        The name of a key. For key upload it defaults to the default key name.
       FORMAT         The format of the output (table, json, yaml)
@@ -780,7 +784,7 @@ Command - key::
        lists all keys in the directory. If the directory is not
        specified the default will be ~/.ssh
 
-    key list --source=cloudmesh  [--dir=DIR] [--format=FORMAT]
+    key list --source=yaml  [--dir=DIR] [--format=FORMAT]
 
        lists all keys in cloudmesh.yaml file in the specified directory.
         dir is by default ~/.cloudmesh
@@ -1207,8 +1211,7 @@ Command - register::
         register env [--provider=PROVIDER]
         register profile --username=[USERNAME]
         register yaml ENTRY
-        register CLOUD [--force]
-        register CLOUD [--dir=DIR]
+        register cloud [CLOUD] [--force]
         register ec2 CLOUD EC2ZIP
 
     managing the registered clouds in the cloudmesh.yaml file.
