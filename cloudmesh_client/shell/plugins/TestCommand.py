@@ -114,7 +114,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             data.basename = os.path.basename(data.file).replace(".py","")
             data.basename = data.basename.replace("test_", "")
             data.number = data.number.zfill(3)
-            print (data)
 
             command = "{tester} {file}:Test_{basename}.test_{number}"
 
