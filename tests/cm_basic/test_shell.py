@@ -32,10 +32,7 @@ class Test_shell():
 
 
     def test_001(self):
-        """
-        check if we can run help
-        :return:
-        """
+        """check if we can run help:return: """
         HEADING()
         r = run("cm help")
         print(r)

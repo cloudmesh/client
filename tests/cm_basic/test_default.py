@@ -27,18 +27,13 @@ def run(command):
 
 
 class Test_default():
-    """
-
-    """
+    """  """
 
     def setup(self):
         pass
 
     def test_001(self):
-        """
-        delete defaults
-        :return:
-        """
+        """delete defaults:return:"""
         HEADING()
         Default.clear()
         assert Default.list() == None
@@ -49,10 +44,7 @@ class Test_default():
         assert content in str(result)
 
     def test_002(self):
-        """
-        set default cloud
-        :return:
-        """
+        """set default cloud:return:"""
         HEADING()
         result = Default.list()
         print(result)
@@ -70,10 +62,7 @@ class Test_default():
         self._check(name)
 
     def test_003(self):
-        """
-        set default image
-        :return:
-        """
+        """set default image:return:"""
         HEADING()
         name = "myimage"
         Default.set_image(name, "mycloud")
@@ -81,10 +70,7 @@ class Test_default():
         self._check(name)
 
     def test_004(self):
-        """
-        set default flavor
-        :return:
-        """
+        """set default flavor:return:"""
         HEADING()
         name = "myflavor"
         Default.set_flavor(name, "mycloud")
@@ -92,10 +78,7 @@ class Test_default():
         self._check(name)
 
     def test_005(self):
-        """
-        set default key
-        :return:
-        """
+        """set default key:return: """
         HEADING()
         name = "mykey"
         Default.set_key(name)
@@ -103,10 +86,7 @@ class Test_default():
         self._check(name)
 
     def test_006(self):
-        """
-        set default key
-        :return:
-        """
+        """set default key :return: """
         HEADING()
         name = "mygroup"
         Default.set_group(name)
@@ -114,10 +94,7 @@ class Test_default():
         self._check(name)
 
     def test_007(self):
-        """
-        set default variable
-        :return:
-        """
+        """ set default variable :return:"""
         HEADING()
         name = "myvar"
         value = "myvalue"
@@ -162,10 +139,7 @@ class Test_default():
 
 
     def test_999(self):
-        """
-        clear the defaults
-        :return:
-        """
+        """clear the defaults:return:"""
         HEADING()
 
         Default.clear()
