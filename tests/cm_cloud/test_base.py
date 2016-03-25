@@ -44,14 +44,11 @@ class Test_base:
         pass
 
     def test_001(self):
-        """
-        test flavor refresh
-        :return:
-        """
-        HEADING()
+        HEADING("test flavor refresh")
         result = self.run("cm default cloud={cloud}")
         assert "ok" in result
 
     def test_002(self):
+        HEADING("get default cloud")
         result = self.run("cm default cloud")
         print (result)

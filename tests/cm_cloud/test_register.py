@@ -8,7 +8,7 @@ or
 
 nosetests -v tests/test_register.py
 
-"""
+
 from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
 
@@ -52,8 +52,8 @@ class Test_register:
         pass
 
     def test_001(self):
-        """testing cm register india"""
-        HEADING()
+        
+        HEADING("testing cm register india")
         # os.sytem("yes | cm register india")
         result = self.run("cm register {cloud}")
         print(result)
@@ -63,67 +63,56 @@ class Test_register:
 
 
     def test_002(self):
-        """testing cm register random1 --force"""
-        HEADING()
+        HEADING("testing cm register random1 --force")
         result = self.run ("cm register random1")
         assert "ERROR: executing" in result
 
     def test_003(self):
-        """testing cm register list"""
-        HEADING()
+        HEADING("testing cm register list")
         result = self.run ("cm register list")
         assert "{cloud}".format(**self.data) in result
 
     def test_004(self):
-        """testing cm register CLOUD CERT"""
-        HEADING()
+        HEADING("testing cm register CLOUD CERT")
         result = self.run ("cm register {cloud}")
         assert "https://kilo.futuresystems.org:5000/v3" in result
 
     def test_005(self):
-        """testing cm register info"""
-        HEADING()
+        HEADING("testing cm register info")
         result = self.run("cm register info")
         assert "exists" in result
 
     def test_006(self):
-        """testing cm register cat"""
-        HEADING()
+        HEADING("testing cm register cat")
         result = self.run("cm register cat")
         assert "yaml_version:" in result
 
     def test_007(self):
-        """testing cm register cat --yaml=cloudmesh1.yaml"""
-        HEADING()
+        HEADING("testing cm register cat --yaml=cloudmesh1.yaml")
         result = self.run("cm register cat --yaml=cloudmesh1.yaml")
         assert "ERROR: executing command" in result
 
     def test_008(self):
-        """testing cm register edit --yaml=cloudmesh1.yaml"""
-        HEADING()
+        HEADING("testing cm register edit --yaml=cloudmesh1.yaml")
         result = self.run("cm register edit --yaml=cloudmesh1.yaml")
         assert "ERROR: executing command" in result
 
     def test_009(self):
-        """testing cm register list ssh"""
-        HEADING()
+        HEADING("testing cm register list ssh")
         result = self.run("cm register list ssh")
         assert "india" in result
 
     def test_010(self):
-        """testing cm register rc india"""
-        HEADING()
+        HEADING("testing cm register rc india")
         result = self.run("cm register remote")
         assert "Reading rc file from" in result
 
     def test_011(self):
-        """testing cm register json india"""
-        HEADING()
+        HEADING("testing cm register json india")
         result = self.run ("cm register json {cloud}")
         assert "openstack" in result
 
     def test_012(self):
-        """testing cm register json hadoop"""
-        HEADING()
+        HEADING("testing cm register json hadoop")
         result = self.run ("cm register json hadoop")
         assert "Cloud hadoop is not described in cloudmesh.yaml" in result

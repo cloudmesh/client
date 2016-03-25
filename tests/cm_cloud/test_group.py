@@ -45,8 +45,7 @@ class Test_group:
         pass
 
     def test_001(self):
-        """testing cm group add """
-        HEADING()
+        HEADING("testing cm group add ")
 
         c = "cm group add {user}-001 --group={group} --category={cloud}  --type=vm"
         self.run(c)
@@ -58,8 +57,7 @@ class Test_group:
         return
 
     def test_002(self):
-        """testing cm group add groupA --category=cloud --id=test-002 --type=vm"""
-        HEADING()
+        HEADING("testing cm group add groupA --category=cloud --id=test-002 --type=vm")
 
         command = "cm group add {user}-002 --group={group} --category={cloud}  --type=vm"
         self.run(command)
@@ -77,8 +75,7 @@ class Test_group:
         return
 
     def test_003(self):
-        """testing cm group copy groupA groupB"""
-        HEADING()
+        HEADING("testing cm group copy groupA groupB")
 
         command = "cm group copy {group} groupB"
 
@@ -88,8 +85,7 @@ class Test_group:
         return
 
     def test_004(self):
-        """testing cm group merge groupA groupB groupC"""
-        HEADING()
+        HEADING("testing cm group merge groupA groupB groupC")
         command = "cm group merge {group} groupB groupC"
 
         result = self.run(command)
@@ -97,8 +93,7 @@ class Test_group:
         return
 
     def test_005(self):
-        """testing cm group list --category=cloud groupA"""
-        HEADING()
+        HEADING("testing cm group list --category=cloud groupA")
         command = "cm group list --category={cloud} {group}"
 
         result = self.run(command)
@@ -106,8 +101,7 @@ class Test_group:
         return
 
     def test_006(self):
-        """testing cm group list --category=cloud --format json groupA"""
-        HEADING()
+        HEADING("testing cm group list --category=cloud --format json groupA")
         command= "cm group list --category={cloud} --format=json {group}"
 
         result = self.run(command)
@@ -115,8 +109,7 @@ class Test_group:
         return
 
     def test_007(self):
-        """testing cm group list --category=cloud --format table"""
-        HEADING()
+        HEADING("testing cm group list --category=cloud --format table")
         command = "cm group list --category={cloud} --format=table"
 
         result = self.run(command)
@@ -124,8 +117,7 @@ class Test_group:
         return
 
     def test_008(self):
-        """testing cm group add --name=groupX --id albert-00x [WITH DEFAULT CLOUD=cloud, TYPE=VM]"""
-        HEADING()
+        HEADING("testing cm group add --name=groupX --id albert-00x [WITH DEFAULT CLOUD=cloud, TYPE=VM]")
         banner("cm group add --name=groupX --id=albert-00x", c='-')
 
         result = self.run("cm default category={cloud}")
@@ -146,8 +138,7 @@ class Test_group:
         return
 
     def test_009(self):
-        """testing cm group remove --category=cloud --name=groupA --id=test-002"""
-        HEADING()
+        HEADING("testing cm group remove --category=cloud --name=groupA --id=test-002")
         banner("cm group remove {user}-002 --category={cloud} --group={group}")
 
         result = self.run("cm group remove {user}-002 --category={cloud} --group={group} ")
@@ -160,14 +151,13 @@ class Test_group:
         return
 
     def test_010(self):
-        """testing cm group delete groupA --category=cloud"""
-        HEADING()
-        """
+        HEADING("testing cm group delete groupA --category=cloud")
+        
         command = "cm group delete {group} --category={cloud}"
-        result = self.run(command)
+        result = self.run("command)
         print(result)
-        assert "ok." in result
-        """
+
+        "
 
 
         for group in ["groupA", "groupB", "groupC", "groupX"]:
@@ -181,9 +171,8 @@ class Test_group:
         return
 
     def test_011(self):
-        """list vms in group"""
-
-        HEADING()
+        
+        HEADING("list vms in group")
 
         setup = [
             "cm group add vm_1 --group=group_x",
@@ -252,10 +241,7 @@ class Test_group:
         return
 
     def test_012(self):
-        """
-        list non existing group
-        """
-        HEADING()
+        HEADING("list non existing group")
         command = "cm group list DOESNOTEXIST"
         result = self.run (command)
 

@@ -49,37 +49,21 @@ class Test_limits:
         pass
 
     def test_001(self):
-        """
-        test limits list
-        :return:
-        """
-        HEADING()
+        HEADING("test limits list")
         result = self.run("cm limits list --cloud={cloud}")
         assert "Name" in result
 
     def test_002(self):
-        """
-        test limits list with csv output
-        :return:
-        """
-        HEADING()
+        HEADING("test limits list with csv output")
         result = self.run("cm limits list --format={format}").split('\n')
         assert "maxTotalFloatingIps" in result[0]
 
     def test_003(self):
-        """
-        test limits class where cloud doesnt exist
-        :return:
-        """
-        HEADING()
+        HEADING("test limits class where cloud doesnt exist")
         result = self.run("cm limits list --cloud={wrong_cloud}")
         assert "Error" in result
 
     def test_004(self):
-        """
-        test limits class with unauthorised access
-        :return:
-        """
-        HEADING()
+        HEADING("test limits class with unauthorised access")
         result = self.run("cm limits list --tenant={tenant}")
         assert "Not authorized" in result
