@@ -78,18 +78,26 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             command = command.format(**data)
             banner(command, c ="-")
             parameter = command.split(" ")
-            shell_command = parameter[0]
-            args = parameter[1:]
-            result = Shell.execute(shell_command, args)
-            print(result)
-            return str(result)
+
+            os.system(command)
+
+            # shell_command = parameter[0]
+            # args = parameter[1:]
+
+            #result = Shell.execute(shell_command, args)
+            #print(result)
+            #return str(result)
 
         # command = "nosetests -v  --nocapture {0}:{1}.{2}".format(filename, classname, name)
 
+
         files = []
+        dirs = []
         for root, dirnames, filenames in os.walk('tests'):
-            for filename in fnmatch.filter(filenames, '*.py'):
-                if filename not in ["__init__.py"]:
+            for filename in filenames:
+                if ".py" not in filename:
+                    dirs.append(os.path.join(root, filename))
+                elif filename not in ["__init__.py"]:
                     files.append(os.path.join(root, filename))
 
         if arguments["list"]:
@@ -99,8 +107,13 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             return ""
 
 
+
         if data.test is None:
             command = "{tester}"
+
+        elif data.test in dirs:
+            command = "{tester} {test}"
+
         elif data.number is None:
             get_file()
             command = "{tester} {file}"
