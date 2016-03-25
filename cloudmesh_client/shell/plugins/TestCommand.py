@@ -91,12 +91,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
         # command = "nosetests -v  --nocapture {0}:{1}.{2}".format(filename, classname, name)
 
 
-        if arguments["list"]:
-            print ('\n'.join(files))
-
-            # find tests
-            return ""
-
         files = []
         for root, dirnames, filenames in os.walk('tests'):
             for filename in fnmatch.filter(filenames, '*.py'):
@@ -108,6 +102,13 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             for filename in filenames:
                 if ".py" not in filename:
                     files.append(os.path.join(root, filename))
+
+        if arguments["list"]:
+            print ('\n'.join(files))
+
+            # find tests
+            return ""
+
 
         if data.test is None:
             command = "{tester}"
