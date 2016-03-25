@@ -75,7 +75,6 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
           See also:
              register
         """
-        # pprint(arguments)
 
         cloudname = arguments["--cloud"] or Default.get_cloud()
 
@@ -110,17 +109,20 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
             active = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
 
 
-            print (default)
-            print (active)
+            def yes(state):
+                if state:
+                    return "*"
+                else:
+                    return " "
+
 
             for index in clouds:
                 cloud = clouds[index]
-                cloud["active"] = cloud["cloud"] in active
-                cloud["default"] = cloud["cloud"] == default
- 
+                cloud["active"] = yes(cloud["cloud"] in active)
+                cloud["default"] = yes(cloud["cloud"] == default)
 
-            pprint (clouds)
+
             (order, header) = CloudProvider(cloudname).get_attributes("clouds")
 
             Console.msg(dict_printer(clouds, order=order, header=header))
-        pass
+        return ""
