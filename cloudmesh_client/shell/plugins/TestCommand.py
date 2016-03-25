@@ -77,7 +77,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
         def run( command):
             command = command.format(**data)
             banner(command, c ="-")
-            print (command)
             parameter = command.split(" ")
             shell_command = parameter[0]
             args = parameter[1:]
@@ -106,7 +105,6 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             get_file()
             command = "{tester} {file}"
             # run all in that file
-            print (data)
         else:
             # run specific test
             get_file()
