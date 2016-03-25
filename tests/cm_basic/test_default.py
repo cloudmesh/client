@@ -27,16 +27,13 @@ def run(command):
 
 
 class Test_default():
-    """
-
-    """
+    """  """
 
     def setup(self):
         pass
 
     def test_001(self):
-        """delete defaults"""
-        HEADING()
+        HEADING("delete defaults")
         Default.clear()
         assert Default.list() == None
 
@@ -46,8 +43,7 @@ class Test_default():
         assert content in str(result)
 
     def test_002(self):
-        """set default cloud"""
-        HEADING()
+        HEADING("set default cloud")
         result = Default.list()
         print(result)
 
@@ -64,55 +60,35 @@ class Test_default():
         self._check(name)
 
     def test_003(self):
-        """
-        set default image
-        :return:
-        """
-        HEADING()
+        HEADING("set default image")
         name = "myimage"
         Default.set_image(name, "mycloud")
         assert Default.get_image("mycloud") == name
         self._check(name)
 
     def test_004(self):
-        """
-        set default flavor
-        :return:
-        """
-        HEADING()
+        HEADING("set default flavor")
         name = "myflavor"
         Default.set_flavor(name, "mycloud")
         assert Default.get_flavor("mycloud") == name
         self._check(name)
 
     def test_005(self):
-        """
-        set default key
-        :return:
-        """
-        HEADING()
+        HEADING("set default key ")
         name = "mykey"
         Default.set_key(name)
         assert Default.get_key() == name
         self._check(name)
 
     def test_006(self):
-        """
-        set default key
-        :return:
-        """
-        HEADING()
+        HEADING("set default key  ")
         name = "mygroup"
         Default.set_group(name)
         assert Default.get_group() == name
         self._check(name)
 
     def test_007(self):
-        """
-        set default variable
-        :return:
-        """
-        HEADING()
+        HEADING(" set default variable ")
         name = "myvar"
         value = "myvalue"
         cloud = "mycloud"
@@ -121,57 +97,44 @@ class Test_default():
         self._check(value)
 
     def test_008(self):
-        """cm default test=testValue --cloud=mycloud"""
-        HEADING()
+        HEADING("cm default test=testValue --cloud=mycloud")
         result = run("cm default test=testValue --cloud=mycloud")
         print ("HHHH", result)
 
         assert "ok." in result
 
     def test_009(self):
-        """cm default test --cloud=mycloud"""
-        HEADING()
+        HEADING("cm default test --cloud=mycloud")
         run("cm default test=testValue --cloud=mycloud")
         result = run("cm default test --cloud=mycloud")
         assert "testValue" in result
 
     def test_010(self):
-        """cm default doesnotexist --cloud=mycloud"""
-        HEADING()
+        HEADING("cm default doesnotexist --cloud=mycloud")
         result = run("cm default doesnotexist --cloud=mycloud")
         assert "No default values found" in result
 
     def test_011(self):
-        """cm default delete test"""
-        HEADING()
+        HEADING("cm default delete test")
         run("cm default test=testValue --cloud=mycloud")
         result = run("cm default delete test --cloud=mycloud")
         assert "Deleted key" in result
 
     def test_012(self):
-        """cm default delete doesnotexist --cloud=mycloud"""
-        HEADING()
+        HEADING("cm default delete doesnotexist --cloud=mycloud")
         result = run("cm default delete doesnotexist --cloud=mycloud")
         assert "Key doesnotexist not present" in result
 
 
     def test_999(self):
-        """
-        clear the defaults
-        :return:
-        """
-        HEADING()
+        HEADING("clear the defaults")
 
         Default.clear()
         assert True
 
     '''
     def test_002(self):
-        """
-        tries to start a vm with an invalid image
-        :return:
-        """
-        HEADING()
+        HEADING("tries to start a vm with an invalid image")
         result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/linux>windows")
 
         assert "not found" in result

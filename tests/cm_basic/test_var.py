@@ -35,7 +35,7 @@ class Test_var():
         pass
 
     def test_001(self):
-        HEADING("delete defaults")
+        HEADING(" delete defaults  ""delete defaults")
         Var.clear()
         print (Var.list())
         assert Var.list() == None
@@ -46,7 +46,7 @@ class Test_var():
         assert content in str(result)
 
     def test_002(self):
-        HEADING("set default variable")
+        HEADING(" set default variable""set default variable")
         name = "myvar"
         value = "myvalue"
         Var.set(name, value)
@@ -55,7 +55,7 @@ class Test_var():
         self._check(value)
 
     def test_003(self):
-        HEADING("delete default variable")
+        HEADING(" delete default variable ""delete default variable")
         Var.clear()
         name = "deleteme"
         value = "myvalue"
@@ -64,7 +64,6 @@ class Test_var():
         Var.delete(name)
         print (Var.list())
         self._check("None")
-
 
     def test_004(self):
         HEADING("assign a variable")
@@ -80,7 +79,7 @@ class Test_var():
         assert "myvalue" in result
 
     def test_999(self):
-        HEADING("clear the defaults")
+        HEADING("clear the defaults  ""clear the defaults")
 
         Var.clear()
         result = Var.list()
@@ -89,11 +88,7 @@ class Test_var():
 
     '''
     def test_002(self):
-        """
-        tries to start a vm with an invalid image
-        :return:
-        """
-        HEADING()
+        HEADING("tries to start a vm with an invalid image")
 
         result = run ("cm vm start --cloud=india --flavor=m1.medium --image=futuresystems/linux>windows")
 

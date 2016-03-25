@@ -43,33 +43,21 @@ class Test_hpc:
         pass
 
     def setup(self):
-        HEADING()
+        HEADING("set default cluster")
         result = self.run("cm default cluster={cluster}")
         assert "{cluster}".format(**self.data) in result
 
     def test_001(self):
-        """
-        test hpc info
-        :return:
-        """
-        HEADING()
+        HEADING("test hpc info")
         result = self.run("cm hpc info --cluster={cluster}")
         assert "{cluster}".format(**self.data) in result
 
     def test_002(self):
-        """
-        test hpc queue
-        :return:
-        """
-        HEADING()
+        HEADING("test hpc queue ")
         result = self.run("cm hpc queue --cluster={cluster}")
         assert "{cluster}".format(**self.data) in result
 
     def test_003(self):
-        """
-        test hpc status
-        :return:
-        """
-        HEADING()
+        HEADING(" test hpc status  ")
         result = self.run("cm hpc status --cluster={cluster}")
         assert "{cluster}".format(**self.data) in result

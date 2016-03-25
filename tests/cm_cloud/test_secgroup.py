@@ -48,64 +48,55 @@ class Test_secgroup:
         pass
 
     def test_001(self):
-        """testing cm secgroup create --cloud=india test-group"""
-        HEADING()
+        HEADING("testing cm secgroup create --cloud=india test-group")
         result = self.run("cm secgroup create --cloud={cloud} {group}")
         assert "Created a new security group [test-group]" in result
         return
 
     def test_002(self):
-        """testing cm secgroup refresh"""
-        HEADING()
+        HEADING("testing cm secgroup refresh")
         result = self.run("cm secgroup refresh")
         assert "ok" in result
         return
 
     def test_003(self):
-        """testing cm secgroup list --cloud=india"""
-        HEADING()
+        HEADING("testing cm secgroup list --cloud=india")
         result = self.run("cm secgroup list --cloud={cloud}")
         assert "test-group" in result
         return
 
     def test_004(self):
-        """testing cm secgroup rules-add --cloud=india test-group 80 80 tcp  0.0.0.0/0"""
-        HEADING()
+        HEADING("testing cm secgroup rules-add --cloud=india test-group 80 80 tcp  0.0.0.0/0")
         result = self.run("cm secgroup rules-add --cloud={cloud} {group} {rule-80}")
         assert "Added rule" in result
         return
 
     def test_005(self):
-        """testing cm secgroup rules-add --cloud=india test-group 443 443 udp  0.0.0.0/0"""
-        HEADING()
+        HEADING("testing cm secgroup rules-add --cloud=india test-group 443 443 udp  0.0.0.0/0")
         result = self.run("cm secgroup rules-add --cloud={cloud} {group} {rule-443}")
         assert "Added rule" in result
         return
 
     def test_006(self):
-        """cm secgroup rules-list --cloud=india test-group"""
-        HEADING()
+        HEADING("cm secgroup rules-list --cloud=india test-group")
         result = self.run("cm secgroup rules-list --cloud={cloud} {group}")
         assert "0.0.0.0/0" in result
         return
 
     def test_007(self):
-        """cm secgroup rules-delete --cloud=india test-group 80 80 tcp  0.0.0.0/0"""
-        HEADING()
+        HEADING("cm secgroup rules-delete --cloud=india test-group 80 80 tcp  0.0.0.0/0")
         result = self.run("cm secgroup rules-delete --cloud={cloud} {group} {rule-80}")
         assert "Rule [80 | 80 | tcp | 0.0.0.0/0] deleted" in result
         return
 
     def test_008(self):
-        """cm secgroup rules-delete --cloud=india test-group --all"""
-        HEADING()
+        HEADING("cm secgroup rules-delete --cloud=india test-group --all")
         result = self.run("cm secgroup rules-delete --cloud={cloud} {group} --all")
         assert "Rule [443 | 443 | tcp | 0.0.0.0/0] deleted" in result
         return
 
     def test_009(self):
-        """cm secgroup delete --cloud=india test-group"""
-        HEADING()
+        HEADING("cm secgroup delete --cloud=india test-group")
         result = self.run("cm secgroup delete --cloud={cloud} {group}")
         assert "deleted successfully" in result
         return

@@ -26,17 +26,17 @@ class Test_model:
         pass
 
     def test_001(self):
-        HEADING()
+        HEADING("db.tables")
         pprint(cloudmesh_client.db.tables())
         assert True
 
     def test_002(self):
-        HEADING()
+        HEADING("db.tablenames")
         print(cloudmesh_client.db.tablenames())
         assert True
 
     def test_003(self):
-        HEADING()
+        HEADING("loop over tablenames")
         for name in cloudmesh_client.db.tablenames():
             print(cloudmesh_client.db.table(name))
         assert True

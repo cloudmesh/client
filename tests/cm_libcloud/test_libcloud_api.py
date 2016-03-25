@@ -47,10 +47,7 @@ class Test_libcloud_api():
     '''
 
     def test_001(self):
-        """
-        test image list
-        :return:
-        """
+        """test image list :return: """
         HEADING()
 
 
@@ -75,10 +72,7 @@ class Test_libcloud_api():
 
 
     def test_002(self):
-        """
-        test flavor list
-        :return:
-        """
+        """ test flavor list :return:  """
         HEADING()
 
 
@@ -116,10 +110,7 @@ class Test_libcloud_api():
 
 
     def test_003(self):
-        """
-        test vm list
-        :return:
-        """
+        """ test vm list:return:  """
         HEADING()
 
 
@@ -144,10 +135,7 @@ class Test_libcloud_api():
 
 
     def test_004(self):
-        """
-        test key list
-        :return:
-        """
+        """ test key list:return:"""
         HEADING()
 
 
