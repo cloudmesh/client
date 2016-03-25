@@ -337,8 +337,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
                                     key=key,
                                     secgroup_list=secgroup_list)
 
-                    Default.set("last_vm_id", vm_id)
-                    Default.set("last_vm_name", name)
+                    # Default.set("last_vm_id", vm_id)
+                    Default.set_last_vm_name(value=name)
 
                     # SHOULD WE NOT DO THIS BY DEFAULT EVEN IF WE SPECIFY THE NAME?
                     if is_name_provided is False:
