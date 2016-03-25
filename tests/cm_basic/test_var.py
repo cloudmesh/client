@@ -35,11 +35,7 @@ class Test_var():
         pass
 
     def test_001(self):
-        """
-        delete defaults
-        :return:
-        """
-        HEADING()
+        HEADING("delete defaults")
         Var.clear()
         print (Var.list())
         assert Var.list() == None
@@ -50,11 +46,7 @@ class Test_var():
         assert content in str(result)
 
     def test_002(self):
-        """
-        set default variable
-        :return:
-        """
-        HEADING()
+        HEADING("set default variable")
         name = "myvar"
         value = "myvalue"
         Var.set(name, value)
@@ -63,11 +55,7 @@ class Test_var():
         self._check(value)
 
     def test_003(self):
-        """
-        delete default variable
-        :return:
-        """
-        HEADING()
+        HEADING("delete default variable")
         Var.clear()
         name = "deleteme"
         value = "myvalue"
@@ -79,28 +67,25 @@ class Test_var():
 
 
     def test_004(self):
-        HEADING()
+        HEADING("assign a variable")
         command = "cm var myvar=myvalue"
         result = run(command)
         result = run("cm var list")
         assert "myvalue" in result
 
     def test_005(self):
-        HEADING()
+        HEADING("print a variable")
         command = "cm banner $myvar"
         result = run(command)
         assert "myvalue" in result
 
     def test_999(self):
-        """
-        clear the defaults
-        :return:
-        """
-        HEADING()
+        HEADING("clear the defaults")
 
         Var.clear()
-        Var.list()
-        assert True
+        result = Var.list()
+        print(result)
+        assert result is None
 
     '''
     def test_002(self):

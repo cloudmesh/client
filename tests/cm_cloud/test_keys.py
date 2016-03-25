@@ -31,7 +31,7 @@ from cloudmesh_client.default import Default
 class Test_keys:
 
     data = dotdict({
-        "cloud": Default.get_cloud()
+        "cloud": Default.get_cloud(),
         "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"]}
     )
 
