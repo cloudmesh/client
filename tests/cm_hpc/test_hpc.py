@@ -48,28 +48,19 @@ class Test_hpc:
         assert "{cluster}".format(**self.data) in result
 
     def test_001(self):
-        """
-        test hpc info
-        :return:
-        """
+        """test hpc info:return:"""
         HEADING()
         result = self.run("cm hpc info --cluster={cluster}")
         assert "{cluster}".format(**self.data) in result
 
     def test_002(self):
-        """
-        test hpc queue
-        :return:
-        """
+        """test hpc queue:return: """
         HEADING()
         result = self.run("cm hpc queue --cluster={cluster}")
         assert "{cluster}".format(**self.data) in result
 
     def test_003(self):
-        """
-        test hpc status
-        :return:
-        """
+        """ test hpc status :return: """
         HEADING()
         result = self.run("cm hpc status --cluster={cluster}")
         assert "{cluster}".format(**self.data) in result
