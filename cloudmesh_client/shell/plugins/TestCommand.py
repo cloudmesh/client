@@ -92,15 +92,12 @@ class TestCommand(PluginCommand, CloudPluginCommand):
 
 
         files = []
-        for root, dirnames, filenames in os.walk('tests'):
-            for filename in fnmatch.filter(filenames, '*.py'):
-                if filename not in ["__init__.py"]:
-                    files.append(os.path.join(root, filename))
-
         dirs = []
         for root, dirnames, filenames in os.walk('tests'):
             for filename in filenames:
                 if ".py" not in filename:
+                    dirs.append(os.path.join(root, filename))
+                elif filename not in ["__init__.py"]:
                     files.append(os.path.join(root, filename))
 
         if arguments["list"]:
@@ -110,10 +107,11 @@ class TestCommand(PluginCommand, CloudPluginCommand):
             return ""
 
 
+
         if data.test is None:
             command = "{tester}"
 
-        if data.test in dirs:
+        elif data.test in dirs:
             command = "{tester} {test}"
 
         elif data.number is None:
