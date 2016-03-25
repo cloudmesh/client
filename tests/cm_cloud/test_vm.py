@@ -57,69 +57,44 @@ class Test_vm:
             print(e.message)
 
     def test_001(self):
-        """
-        cm vm boot --name=testvm --cloud=cloud --image=<image_id> --flavor=2
-        --group=test
-        """
+        HEADING("cm vm boot --name=testvm --cloud=cloud --image=<image_id> --flavor=2 --group=test")
         self.load_key()
-        HEADING()
         command = "cm vm boot --name={vm} --cloud={cloud} --image={image}" + \
                   " --flavor={flavor} --group={group}"
         result = self.run(command)
         assert "OK." in result
 
     def test_002(self):
-        """
-        cm vm refresh --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm refresh --cloud=cloud")
         result = self.run("cm vm refresh --cloud={cloud}")
         assert "OK." in result
 
     def test_003(self):
-        """
-        cm vm list --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm list --cloud=cloud")
         result = self.run("cm vm list --cloud={cloud}")
         assert "OK." in result
 
     def test_004(self):
-        """
-        cm vm list testvm --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm list testvm --cloud=cloud")
         result = self.run("cm vm list {vm} --cloud={cloud}")
         assert "OK." in result
 
     def test_005(self):
-        """
-        cm vm status --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm status --cloud=cloud")
         result = self.run("cm vm status --cloud={cloud}")
         assert "OK." in result
 
     def test_006(self):
-        """
-        cm vm ip_show testvm --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm ip_show testvm --cloud=cloud")
         result = self.run("cm vm ip show {vm} --cloud={cloud}")
         assert "OK." in result
 
     def test_007(self):
-        """
-        cm vm rename testvm --new=test_renamed_vm --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm rename testvm --new=test_renamed_vm --cloud=cloud")
         result = self.run("cm vm rename {vm} --new={vm_rename} --cloud={cloud}")
         assert "OK." in result
 
     def test_008(self):
-        """
-        cm vm delete test_renamed_vm --cloud=cloud
-        """
-        HEADING()
+        HEADING("cm vm delete test_renamed_vm --cloud=cloud")
         result = self.run("cm vm delete {vm_rename} --cloud={cloud}")
         assert "OK." in result

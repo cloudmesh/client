@@ -45,56 +45,32 @@ class Test_flavor:
         pass
 
     def test_001(self):
-        """
-        test flavor refresh
-        :return:
-        """
-        HEADING()
+        HEADING("test flavor refresh")
         result = self.run("cm flavor refresh --cloud={cloud}")
         assert "ok" in result
 
     def test_002(self):
-        """
-        test flavor refresh fail
-        :return:
-        """
-        HEADING()
+        HEADING("test flavor refresh fail")
         result = self.run("cm flavor refresh --cloud={wrong_cloud}")
         assert "failed" in result
 
     def test_003(self):
-        """
-        test flavor list
-        :return:
-        """
-        HEADING()
+        HEADING("test flavor list")
         result = self.run("cm flavor list --cloud={cloud}")
         assert "Name" in result
 
     def test_004(self):
-        """
-        test flavor list fail
-        :return:
-        """
-        HEADING()
+        HEADING("test flavor list fail")
         result = self.run("cm flavor list --cloud={wrong_cloud}")
         assert "failed" in result
 
     def test_005(self):
-        """
-        test flavor list ID
-        :return:
-        """
-        HEADING()
+        HEADING("test flavor list ID")
         result = self.run("cm flavor list 1 --cloud={cloud}")
         assert "Value" in result
 
     def test_006(self):
-        """
-        test flavor list ID fail
-        :return:
-        """
-        HEADING()
+        HEADING('test flavor list ID fail')
         result = self.run("cm flavor list i --cloud={wrong_cloud}")
         assert "failed" in result
 

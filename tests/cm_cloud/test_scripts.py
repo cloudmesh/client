@@ -66,11 +66,7 @@ class Test_script:
         pass
 
     def test_001(self):
-        """
-        cm script set india
-        """
-
-        HEADING()
+        HEADING("cm script set india")
         for self.data["script"], self.data["check"] in self.scripts:
             result = self.run("cm scripts/{script}")
             assert self.data["check"] in result
