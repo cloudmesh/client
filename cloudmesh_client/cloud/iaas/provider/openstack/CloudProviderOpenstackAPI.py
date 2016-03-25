@@ -833,16 +833,16 @@ class CloudProviderOpenstackAPI(CloudProviderBase):
             'clouds': {
                 'order': [
                     "id",
-                    "default",
                     "cloud",
+                    "default",
                     "active",
                     "status",
                     "key"
                 ],
                 'header': [
                     "id",
-                    "Default",
                     "Cloud",
+                    "Default",
                     "Active",
                     "Status",
                     "Key"
