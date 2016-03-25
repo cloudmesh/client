@@ -14,6 +14,7 @@ from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.default import Default
 
 class Test_register:
     """
@@ -21,12 +22,12 @@ class Test_register:
     """
 
     data = dotdict({
-        "cloud": "kilo",
+        "cloud": Default.get_cloud(),
         "group": "test",
         "image": "Ubuntu-14.04-64",
         "vm": "testvm",
         "flavor": "m1.small",
-        "wrong_cloud": "kilo_wrong",
+        "wrong_cloud": "no_cloud",
         "cert": "~/.cloudmesh/clouds/india/{cloud}/cacert.pem"
     })
 

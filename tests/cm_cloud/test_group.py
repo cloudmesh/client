@@ -16,12 +16,12 @@ from cloudmesh_client.util import banner
 
 from cloudmesh_client.cloud.group import Group
 from pprint import pprint
-
+from cloudmesh_client.default import Default
 
 class Test_group:
 
     data = {
-        "cloud": "kilo",
+        "cloud": Default.get_cloud(),
         "user": "test",
         "group": "groupA"
     }

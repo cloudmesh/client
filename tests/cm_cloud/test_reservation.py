@@ -17,17 +17,17 @@ from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
-
+from cloudmesh_client.default import Default
 
 class Test_reservation:
     data = dotdict({
-        "cloud": "kilo",
+        "cloud": Default.get_cloud(),
         "json": "json",
         "yaml": "yaml",
         "user": "albert",
         "name": "test_name",
         "project": "cloudmesh",
-        "wrong_cloud": "kilo_wrong"
+        "wrong_cloud": "no_cloud"
     })
 
     def run(self, command):

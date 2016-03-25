@@ -17,14 +17,14 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 
 from cloudmesh_client.common.ConfigDict import ConfigDict
-
+from cloudmesh_client.default import Default
 
 class Test_secgroup:
 
     data = dotdict({
-        "cloud": "kilo",
+        "cloud": Default.get_cloud(),
         "group": "test_group",
-        "wrong_cloud": "kilo_wrong",
+        "wrong_cloud": "no_cloud",
         "rule-80": "80 80 tcp  0.0.0.0/0",
         "rule-443": "443 443 tcp  0.0.0.0/0",
         "tenant": ConfigDict("cloudmesh.yaml")["cloudmesh.clouds"]["{cloud}"]["credentials"]["OS_TENANT_NAME"]
