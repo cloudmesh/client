@@ -35,10 +35,7 @@ class Test_var():
         pass
 
     def test_001(self):
-        """
-        delete defaults
-        :return:
-        """
+        """ delete defaults :return: """
         HEADING()
         Var.clear()
         print (Var.list())
@@ -50,10 +47,7 @@ class Test_var():
         assert content in str(result)
 
     def test_002(self):
-        """
-        set default variable
-        :return:
-        """
+        """ set default variable:return:"""
         HEADING()
         name = "myvar"
         value = "myvalue"
@@ -63,10 +57,7 @@ class Test_var():
         self._check(value)
 
     def test_003(self):
-        """
-        delete default variable
-        :return:
-        """
+        """ delete default variable:return: """
         HEADING()
         Var.clear()
         name = "deleteme"
@@ -76,7 +67,6 @@ class Test_var():
         Var.delete(name)
         print (Var.list())
         self._check("None")
-
 
     def test_004(self):
         HEADING()
@@ -92,10 +82,7 @@ class Test_var():
         assert "myvalue" in result
 
     def test_999(self):
-        """
-        clear the defaults
-        :return:
-        """
+        """ clear the defaults:return:  """
         HEADING()
 
         Var.clear()

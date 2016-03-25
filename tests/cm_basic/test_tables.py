@@ -17,17 +17,13 @@ from pprint import pprint
 
 class Test_tables:
 
-    """
-    define tests for dict printer so you test
-
+    """define tests for dict printer so you test
     yaml
     json
     table
     csv
     dict
-
     printing
-
     """
     def setup(self):
         self.d = {
