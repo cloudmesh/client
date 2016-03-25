@@ -183,6 +183,27 @@ class Default(ListResource):
         cls.set("cloud", value, category="general")
 
     #
+    # Set the default last_vm_name
+    #
+    @classmethod
+    def get_last_vm_name(cls):
+        """
+        returns the last_vm_name in teh category general
+        :return:
+        """
+        o = cls.get("last_vm_name", category="general")
+        return o
+
+    @classmethod
+    def set_last_vm_name(cls, value):
+        """
+        sets the cloud in the category general
+        :param value: the cloud as defined in cloudmesh.yaml
+        :return:
+        """
+        cls.set("last_vm_name", value, category="general")
+
+    #
     # Set the default image
     #
 
