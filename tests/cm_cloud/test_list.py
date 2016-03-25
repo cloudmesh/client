@@ -49,8 +49,7 @@ class Test_list:
         return (line.format(**self.data))
 
     def test_001(self):
-        """testing cm list --cloud cloud default"""
-        HEADING()
+        HEADING("testing cm list --cloud cloud default")
 
         result = self.run('cm default {default_key}="{default_value}')
         # set default
@@ -68,8 +67,7 @@ class Test_list:
         return
 
     def test_002(self):
-        """testing cm list --cloud cloud --format json default"""
-        HEADING()
+        HEADING("testing cm list --cloud cloud --format json default")
 
         result = self.run("cm default --cloud={cloud} {default_key}={default_value}")
         assert "ok." in result
@@ -84,8 +82,7 @@ class Test_list:
         return
 
     def test_003(self):
-        """testing cm list --cloud trial --user fake default"""
-        HEADING()
+        HEADING("testing cm list --cloud trial --user fake default")
         banner("cm list --cloud={wrong_cloud} --user={fake} default")
 
         result = self.run("cm list --cloud={wrong_cloud} --user={fake} default")

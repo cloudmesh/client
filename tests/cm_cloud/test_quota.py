@@ -46,28 +46,16 @@ class Test_quota:
         pass
 
     def test_001(self):
-        """
-        test quota list
-        :return:
-        """
-        HEADING()
+        HEADING("test quota list")
         result = self.run("cm quota list")
         assert "Quota" in result
 
     def test_002(self):
-        """
-        test quota list with csv output
-        :return:
-        """
-        HEADING()
+        HEADING("test quota list with csv output")
         result = self.run("cm quota list --cloud={cloud} --format={format}")
         assert "ram" in result
 
     def test_003(self):
-        """
-        test quota class where cloud doesnt exist
-        :return:
-        """
-        HEADING()
+        HEADING("test quota class where cloud doesnt exist")
         result = self.run("cm quota list --cloud={wrong_cloud}")
         assert "is not defined in the yaml file" in result

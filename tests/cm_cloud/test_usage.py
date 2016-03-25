@@ -45,10 +45,6 @@ class Test_usage:
         pass
 
     def test_001(self):
-        """
-        test list
-        :return:
-        """
-        HEADING()
+        HEADING("test list")
         result = self.run("cm usage list --cloud={cloud}")
         assert "start" in result

@@ -33,7 +33,6 @@ class Test_libcloud_api():
         This class tests the lib cloud connection to chameleon
     """
 
-
     def test_001(self):
         self.config = ConfigDict("cloudmesh.yaml")
         self.credentials = self.config['cloudmesh']['clouds']['aws']['credentials']
@@ -64,7 +63,6 @@ class Test_libcloud_api():
         self.sizes = self.driver.list_sizes()
         # print sizes
         assert True
-
 
     def test_005(self):
         # specify flavor and image

@@ -54,14 +54,13 @@ class Test_keys:
         pass
 
     def clean_db(self):
-        "create new db"
+        """create new db"""
         command = "make db"
         result = self.run(command)
         assert self.data.cloud in result
 
     def test_001(self):
-        '''reading the keys from ~/.ssh'''
-        HEADING()
+        HEADING("reading the keys from ~/.ssh")
 
         mykeys = SSHKeyManager()
 
@@ -72,8 +71,7 @@ class Test_keys:
         assert len(mykeys) > 0
 
     def test_002(self):
-        '''reading the keys from github'''
-        HEADING()
+        HEADING("reading the keys from github")
 
         # from cloudmesh_client.common import cloudmesh_yaml
         #config = ConfigDict(filename=cloudmesh_yaml")
@@ -102,8 +100,7 @@ class Test_keys:
 
 
     def test_003(self):
-        '''testing properties in SSHKey'''
-        HEADING()
+        HEADING("testing properties in SSHKey")
 
 
         sshkey = SSHkey("~/.ssh/id_rsa.pub")

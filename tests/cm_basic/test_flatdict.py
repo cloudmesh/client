@@ -79,14 +79,14 @@ class Test_pass:
     def tearDown(self):
         pass
 
-    def test_001_flatten(self):
-        HEADING()
+    def test_001(self):
+        HEADING("flatten")
         f = flatten(self.d)
         pprint (f)
         assert f['extra__minDisk'] == 40
 
-    def test_002_FlatDict(self):
-        HEADING()
+    def test_002(self):
+        HEADING("FlatDict")
 
         f = FlatDict(self.d)
         pprint(f.dict)

@@ -32,11 +32,7 @@ class Test_shell():
 
 
     def test_001(self):
-        """
-        check if we can run help
-        :return:
-        """
-        HEADING()
+        HEADING("check if we can run help:return: ")
         r = run("cm help")
         print(r)
         assert "Documented commands" in r
