@@ -49,6 +49,14 @@ class TestCommand(PluginCommand, CloudPluginCommand):
 
           Options:
             --test=TESTER   nosetests or py.test. [default: nosetests -v --nocapture]
+
+          Examples:
+              cm test var
+                  finds the first test that contains var and than executes all tests in it
+
+              cm test var 4
+                  finds the first test that contains var and than executes the test with number 004
+
         """
         pprint(arguments)
 
