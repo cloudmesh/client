@@ -107,7 +107,7 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
             clouds = provider.list_clouds()
             default = Default.get_cloud()
             active = ConfigDict("cloudmesh.yaml")["cloudmesh"]["active"]
-
+            key = Default.get_key()
 
             def yes(state):
                 if state:
@@ -120,7 +120,8 @@ class CloudCommand(PluginCommand, CloudPluginCommand):
                 cloud = clouds[index]
                 cloud["active"] = yes(cloud["cloud"] in active)
                 cloud["default"] = yes(cloud["cloud"] == default)
-
+                cloud["key"] = key
+                cloud["id"] = index
 
             (order, header) = CloudProvider(cloudname).get_attributes("clouds")
 
