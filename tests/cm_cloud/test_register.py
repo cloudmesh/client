@@ -24,12 +24,15 @@ class Test_register:
     data = dotdict({
         "cloud": Default.get_cloud(),
         "group": "test",
-        "image": "Ubuntu-14.04-64",
         "vm": "testvm",
-        "flavor": "m1.small",
+        "flavor": "TBD",
+        "image": "TBD",
         "wrong_cloud": "no_cloud",
         "cert": "~/.cloudmesh/clouds/india/{cloud}/cacert.pem"
     })
+    data.image = Default.get_image()
+    data.flavor = Default.get_flavor()
+
 
     def run(self, command):
         command = command.format(**self.data)
