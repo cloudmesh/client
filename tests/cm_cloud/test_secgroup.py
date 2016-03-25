@@ -27,8 +27,8 @@ class Test_secgroup:
         "wrong_cloud": "no_cloud",
         "rule-80": "80 80 tcp  0.0.0.0/0",
         "rule-443": "443 443 tcp  0.0.0.0/0",
-        "tenant": ConfigDict("cloudmesh.yaml")["cloudmesh.clouds"]["{cloud}"]["credentials"]["OS_TENANT_NAME"]
     })
+    data.tenant = ConfigDict("cloudmesh.yaml")["cloudmesh.clouds"][data.cloud]["credentials"]["OS_TENANT_NAME"]
 
     def run(self, command):
         command = command.format(**self.data)
@@ -50,7 +50,8 @@ class Test_secgroup:
     def test_001(self):
         HEADING("testing cm secgroup create --cloud=india test-group")
         result = self.run("cm secgroup create --cloud={cloud} {group}")
-        assert "Created a new security group [test-group]" in result
+        assert "Created a new security group"  in result
+        assert self.data.group in result
         return
 
     def test_002(self):
@@ -62,7 +63,7 @@ class Test_secgroup:
     def test_003(self):
         HEADING("testing cm secgroup list --cloud=india")
         result = self.run("cm secgroup list --cloud={cloud}")
-        assert "test-group" in result
+        assert self.data.group in result
         return
 
     def test_004(self):
@@ -98,5 +99,5 @@ class Test_secgroup:
     def test_009(self):
         HEADING("cm secgroup delete --cloud=india test-group")
         result = self.run("cm secgroup delete --cloud={cloud} {group}")
-        assert "deleted successfully" in result
+        assert "deleted" in result
         return
