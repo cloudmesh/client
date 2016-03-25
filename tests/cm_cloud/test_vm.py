@@ -24,11 +24,13 @@ class Test_vm:
         "wrong_cloud": "kilo_wrong",
         "cloud": Default.get_cloud(),
         "group": "test",
-        "image": "Ubuntu-14.04-64",
+        "image": "TBD",
+        "flavor": "TBD",
         "vm": "testvm",
-        "flavor": "m1.small",
         "vm_rename": "test_renamed_vm"
     })
+    data.image = Default.get_image()
+    data.flavor = Default.get_flavor()
 
     def run(self, command):
         command = command.format(**self.data)

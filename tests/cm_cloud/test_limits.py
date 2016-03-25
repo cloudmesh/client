@@ -16,6 +16,7 @@ from cloudmesh_client.util import HEADING
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class Test_limits:
     """
@@ -25,8 +26,10 @@ class Test_limits:
     data = dotdict({
         "cloud": Default.get_cloud(),
         "wrong_cloud": "no_cloud",
-        "tenant": "fg232"
+        "tenant": "TBD"
     })
+    config = ConfigDict("cloudmesh.yaml")
+    data.tenant = config["cloudmesh"]["clouds"][data.cloud]["credentials"]["OS_TENANT_ID"]
 
     def run(self, command):
         command = command.format(**self.data)
