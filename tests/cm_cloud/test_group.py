@@ -18,19 +18,18 @@ from cloudmesh_client.cloud.group import Group
 from pprint import pprint
 from cloudmesh_client.default import Default
 
-class Test_group:
 
+class Test_group:
     data = {
         "cloud": Default.get_cloud(),
         "user": "test",
         "group": "groupA"
     }
 
-
     def run(self, command):
         command = command.format(**self.data)
         banner(command, c='-')
-        print (command)
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -50,14 +49,13 @@ class Test_group:
         c = "cm group add {user}-001 --group={group} --category={cloud}  --type=vm"
         self.run(c)
 
-
         id = str(Group.get(name="groupA", category=self.data.cloud))
-        print (id)
+        print(id)
         assert "test-001" in id
         return
 
     def test_002(self):
-        HEADING("testing cm group add groupA --category=cloud --id=test-002 --type=vm")
+        HEADING("testing cm group add")
 
         command = "cm group add {user}-002 --group={group} --category={cloud}  --type=vm"
         self.run(command)
@@ -65,7 +63,7 @@ class Test_group:
         group = Group.get(name="groupA", category=self.data.cloud)
 
         names = ["{user}-001".format(**self.data),
-                "{user}-002".format(**self.data)]
+                 "{user}-002".format(**self.data)]
         for id in group:
             element = group[id]
             assert element["category"] == self.data.cloud
@@ -102,7 +100,7 @@ class Test_group:
 
     def test_006(self):
         HEADING("testing cm group list --category=cloud --format json groupA")
-        command= "cm group list --category={cloud} --format=json {group}"
+        command = "cm group list --category={cloud} --format=json {group}"
 
         result = self.run(command)
         assert "groupA" in result
@@ -117,7 +115,7 @@ class Test_group:
         return
 
     def test_008(self):
-        HEADING("testing cm group add --name=groupX --id albert-00x [WITH DEFAULT CLOUD=cloud, TYPE=VM]")
+        HEADING("testing cm group add with default cloud")
         banner("cm group add --name=groupX --id=albert-00x", c='-')
 
         result = self.run("cm default category={cloud}")
@@ -138,7 +136,7 @@ class Test_group:
         return
 
     def test_009(self):
-        HEADING("testing cm group remove --category=cloud --name=groupA --id=test-002")
+        HEADING("testing cm group remove ")
         banner("cm group remove {user}-002 --category={cloud} --group={group}")
 
         result = self.run("cm group remove {user}-002 --category={cloud} --group={group} ")
@@ -151,27 +149,24 @@ class Test_group:
         return
 
     def test_010(self):
-        HEADING("testing cm group delete groupA --category=cloud")
-        
+        HEADING("testing cm group delete ")
+
         command = "cm group delete {group} --category={cloud}"
-        result = self.run("command)
+        result = self.run(command)
         print(result)
-
-        "
-
 
         for group in ["groupA", "groupB", "groupC", "groupX"]:
             self.data.group = group
-            command = "cm group delete {group} --category={cloud}"
+        command = "cm group delete {group} --category={cloud}"
 
-            result = self.run(command)
+        result = self.run(command)
 
-            assert "ok." in result
+        assert "ok." in result
 
         return
 
     def test_011(self):
-        
+
         HEADING("list vms in group")
 
         setup = [
@@ -201,7 +196,6 @@ class Test_group:
         assert 'group_x' in result
         assert 'group_y' in result
 
-
         result = Group.vm_groups("vm_1")
         pprint(result)
         assert 'group_x' in result
@@ -212,37 +206,31 @@ class Test_group:
         assert 'group_x' in result
         assert 'group_y' in result
 
-
-
         result = Group.delete("group_x")
         print(result)
-        result = self.run ("cm group list")
+        result = self.run("cm group list")
 
         assert 'vm_1' not in result
         assert 'vm_2' not in result
 
-        self.run ("cm group list")
-
+        self.run("cm group list")
 
         for command in setup:
             self.run(command)
 
-
         result = Group.delete("group_y")
 
         print(result)
-        result = self.run ("cm group list")
+        result = self.run("cm group list")
 
         assert 'group_y' not in result
         assert 'vm_3' in result
-
-
 
         return
 
     def test_012(self):
         HEADING("list non existing group")
         command = "cm group list DOESNOTEXIST"
-        result = self.run (command)
+        result = self.run(command)
 
         assert "ERROR" in result

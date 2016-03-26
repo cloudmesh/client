@@ -147,7 +147,7 @@ class Test_default():
         Default.set_cloud(self.data.cloud)
         assert True
 
-    
+
 
     '''
     def test_002(self):
