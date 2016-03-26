@@ -95,6 +95,8 @@ class TestCommand(PluginCommand, CloudPluginCommand):
         dirs = []
         for root, dirnames, filenames in os.walk('tests'):
             for filename in filenames:
+                if ".pyc" in filename:
+                    continue
                 if ".py" not in filename:
                     dirs.append(os.path.join(root, filename))
                 elif filename not in ["__init__.py"]:
