@@ -17,6 +17,8 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 
+
+# noinspection PyPep8Naming
 class Test_nova:
     """tests nova command"""
 
@@ -28,8 +30,8 @@ class Test_nova:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -40,30 +42,31 @@ class Test_nova:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_000(self):
         HEADING("set the defaoult group")
         result = self.run("cm default group={group}")
-        #assert "{cloud} is set".format(**self.data) in result
+        # assert "{cloud} is set".format(**self.data) in result
 
     def test_001(self):
         HEADING("cm nova set <cloud>")
-        result = self.run ("cm nova set {cloud}")
+        result = self.run("cm nova set {cloud}")
         assert "{cloud} is set".format(**self.data) in result
 
     def test_002(self):
         HEADING("cm nova info <cloud>")
-        result = self.run ("cm nova info {cloud}")
+        result = self.run("cm nova info {cloud}")
         assert "OK." in result
 
     def test_003(self):
         HEADING("cm nova list")
-        result = self.run ("cm nova list")
+        result = self.run("cm nova list")
         assert "+" in result
 
     def test_004(self):
         HEADING("cm nova image-list")
-        result = self.run ("cm nova image-list")
+        result = self.run("cm nova image-list")
         assert "ACTIVE" in result

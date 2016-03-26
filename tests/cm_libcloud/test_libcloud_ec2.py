@@ -1,20 +1,3 @@
-from __future__ import print_function
-
-from libcloud.compute.types import Provider
-from libcloud.compute.providers import get_driver
-import libcloud.security
-
-from cloudmesh_client.common.ConfigDict import ConfigDict
-from time import sleep
-from pprint import pprint
-import re
-
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.common.ConfigDict import ConfigDict
-from pprint import pprint
-
-
 """ run with
 
 python setup.py install; nosetests -v --nocapture  tests/cm_libcloud/test_libcloud_api.py:Test_libcloud_native.test_001
@@ -27,13 +10,26 @@ nosetests -v tests/test_image.py
 
 """
 
-class Test_libcloud_native():
+from __future__ import print_function
+
+import re
+from pprint import pprint
+
+from libcloud.compute.providers import get_driver
+from libcloud.compute.types import Provider
+
+from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.util import HEADING
+
+
+# noinspection PyPep8Naming
+class Test_libcloud_native(object):
     """
     Tests the libcloud native connection to chameleon
     """
 
     driver = None
-    credential=None
+    credential = None
     clouddefault = None
 
     def setup(self):
@@ -48,7 +44,7 @@ class Test_libcloud_native():
         data = re.match(r'^http[s]?://(.+):([0-9]+)/([a-zA-Z/]*)',
                         auth_url,
                         re.M | re.I)
-        host, port, path = data.group(1),data.group(2),data.group(3)
+        host, port, path = data.group(1), data.group(2), data.group(3)
         print("host: " + host)
         print("port: " + port)
         print("path: " + path)
@@ -61,48 +57,47 @@ class Test_libcloud_native():
             host=host,
             port=port,
             **extra_args)
-        print ("DRIVER", self.driver)
+        print("DRIVER", self.driver)
         assert "libcloud.compute.drivers.ec2.EC2NodeDriver object at" in str(self.driver)
 
     def test_002(self):
         """list VMs"""
         HEADING()
-        pprint (self.driver)
+        pprint(self.driver)
         nodes = self.driver.list_nodes()
-        pprint ("Nodes", nodes)
+        pprint("Nodes", nodes)
         assert True
-
 
     def test_003(self):
         """list images"""
         HEADING()
-        print (self.driver)
+        print(self.driver)
         images = self.driver.list_images()
-        print ("Images", images)
+        print("Images", images)
         assert len(images) > 0
 
     def test__004(self):
         """list flavors"""
         HEADING()
-        print (self.driver)
+        print(self.driver)
         sizes = self.driver.list_sizes()
-        print ("Flavor", sizes[0])
+        print("Flavor", sizes[0])
         assert len(sizes) > 0
 
     def test_005(self):
         # specify flavor and image
         HEADING()
-        print (self.driver)
+        print(self.driver)
         myflavor = self.clouddefault['flavor']
         sizes = self.driver.list_sizes()
         size = [s for s in sizes if s.id == myflavor][0]
-        print (size)
+        print(size)
         assert True
 
     def test_006(self):
         # Changed "name" -> "id" (diff from openstack)
         HEADING()
-        print (self.driver)
+        print(self.driver)
         myimage = self.clouddefault['image']
         images = self.driver.list_images()
         image = [i for i in images if i.name == myimage][0]
@@ -112,7 +107,7 @@ class Test_libcloud_native():
     def test_007(self):
         """launch a new VM"""
         HEADING()
-        print (self.driver)
+        print(self.driver)
 
         myimage = self.clouddefault['image']
         images = self.driver.list_images()
@@ -122,18 +117,17 @@ class Test_libcloud_native():
         sizes = self.driver.list_sizes()
         size = [s for s in sizes if s.id == myflavor][0]
 
-
         name = "{:}-libcloud".format(self.credential['userid'])
         node = self.driver.create_node(name=name, image=image, size=size)
-        print (node)
+        print(node)
         assert True
 
     def test_008(self):
         """check if the new VM is in the list"""
         HEADING()
-        print (self.driver)
+        print(self.driver)
         nodes = self.driver.list_nodes()
-        print (nodes)
+        print(nodes)
         assert True
 
     '''

@@ -18,13 +18,16 @@ import cloudmesh_client.db
 import cloudmesh_client.db.model
 
 
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_model:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
+    # noinspection PyMethodMayBeStatic
     def test_001(self):
         HEADING("db.tables")
         pprint(cloudmesh_client.db.tables())

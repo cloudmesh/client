@@ -19,6 +19,8 @@ from pprint import pprint
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.dotdict import dotdict
 
+
+# noinspection PyPep8Naming
 class Test_group:
     data = dotdict({
         "cloud": Default.get_cloud(),
@@ -40,6 +42,7 @@ class Test_group:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -49,9 +52,9 @@ class Test_group:
         c = "cm group add {user}-001 --group={group}  --type=vm"
         self.run(c)
 
-        id = str(Group.get(name="groupA"))
-        print(id)
-        assert "test-001" in id
+        index = str(Group.get(name="groupA"))
+        print(index)
+        assert "test-001" in index
         return
 
     def test_002(self):
@@ -64,8 +67,8 @@ class Test_group:
 
         names = ["{user}-001".format(**self.data),
                  "{user}-002".format(**self.data)]
-        for id in group:
-            element = group[id]
+        for index in group:
+            element = group[index]
             assert element["name"] == "groupA"
             assert element["type"] == "vm"
             assert element["member"] in names
@@ -117,7 +120,6 @@ class Test_group:
         HEADING("testing cm group add with default cloud")
         banner("cm group add --name=groupX --id=albert-00x", c='-')
 
-
         result = self.run("cm default cloud")
         pprint(self.data)
         assert self.data.cloud in result
@@ -153,7 +155,6 @@ class Test_group:
         command = "cm group delete {group} "
         result = self.run(command)
         print(result)
-
 
         for group in ["groupA", "groupB", "groupC", "groupX"]:
             self.data.group = group

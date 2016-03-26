@@ -19,6 +19,8 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 
+
+# noinspection PyPep8Naming
 class Test_reservation:
     data = dotdict({
         "cloud": Default.get_cloud(),
@@ -32,8 +34,8 @@ class Test_reservation:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -44,13 +46,21 @@ class Test_reservation:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001(self):
-        HEADING("cm reservation add --name=test --start='10/31/1988\ at\ 8:09\ pm' --end='10/21/2015\ at\ 9:00\ pm' --user=albert --project=cloudmesh --hosts=host001 --description=desc")
-        result = self.run("cm reservation add --name={name} --start='10/31/1988\ at\ 8:09\ pm' \
-                      --end='10/21/2015\ at\ 9:00\ pm' --user={user} --project={project}")
+        HEADING(
+            "cm reservation add --name=test "
+            "--start='10/31/1988\ at\ 8:09\ pm' "
+            "--end='10/21/2015\ at\ 9:00\ pm' "
+            "--user=albert --project=cloudmesh "
+            "--hosts=host001 --description=desc")
+        result = self.run("cm reservation add --name={name} "
+                          "--start='10/31/1988\ at\ 8:09\ pm' "
+                          "--end='10/21/2015\ at\ 9:00\ pm' "
+                          "--user={user} --project={project}")
         assert "OK." in result
 
     def test_002(self):

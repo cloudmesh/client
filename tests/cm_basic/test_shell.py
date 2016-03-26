@@ -13,6 +13,7 @@ from __future__ import print_function
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import HEADING
 
+
 def run(command):
     parameter = command.split(" ")
     shell_command = parameter[0]
@@ -20,16 +21,15 @@ def run(command):
     result = Shell.execute(shell_command, args)
     return str(result)
 
-class Test_shell():
+
+# noinspection PyMethodMayBeStatic,PyPep8Naming
+class Test_shell(object):
     """
 
     """
-
 
     def setup(self):
         pass
-
-
 
     def test_001(self):
         HEADING("check if we can run help:return: ")

@@ -18,8 +18,8 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 
 
+# noinspection PyPep8Naming
 class Test_vm:
-
     data = dotdict({
         "wrong_cloud": "no_cloud",
         "cloud": Default.get_cloud(),
@@ -34,8 +34,8 @@ class Test_vm:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -46,6 +46,7 @@ class Test_vm:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -54,7 +55,7 @@ class Test_vm:
             self.run("cm key load")
             result = self.run("cm key upload")
         except Exception as e:
-            print(e.message)
+            print(e)
 
     def test_001(self):
         HEADING("cm vm boot --name=testvm --cloud=cloud --image=<image_id> --flavor=2 --group=test")

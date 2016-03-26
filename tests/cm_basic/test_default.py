@@ -18,8 +18,8 @@ from cloudmesh_client.util import banner
 from cloudmesh_client.common.dotdict import dotdict
 
 
-
-class Test_default():
+# noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming
+class Test_default(object):
     """  """
 
     data = dotdict({
@@ -30,8 +30,8 @@ class Test_default():
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -39,14 +39,13 @@ class Test_default():
         print(result)
         return str(result)
 
-
     def setup(self):
         pass
 
     def test_001(self):
         HEADING("delete defaults")
         Default.clear()
-        assert Default.list() == None
+        assert Default.list() is None
 
     def _check(self, content):
         result = Default.list()
@@ -64,7 +63,7 @@ class Test_default():
         result = Default.list()
         print(result)
 
-        print    ("KKK", Default.get_cloud())
+        print("KKK", Default.get_cloud())
 
         assert Default.get_cloud() == name
         self._check(name)
@@ -110,7 +109,7 @@ class Test_default():
         HEADING("cm default test=testValue --cloud={cloud}"
                 .format(**self.data))
         result = self.run("cm default test=testValue --cloud={cloud}")
-        print ("HHHH", result)
+        print("HHHH", result)
 
         assert "ok." in result
 
@@ -139,15 +138,12 @@ class Test_default():
         result = self.run("cm default delete doesnotexist --cloud={cloud}")
         assert "Key doesnotexist not present" in result
 
-
     def test_999(self):
         HEADING("clear the defaults")
 
         Default.clear()
         Default.set_cloud(self.data.cloud)
         assert True
-
-
 
     '''
     def test_002(self):

@@ -19,8 +19,9 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.default import Default
 
-class Test_secgroup:
 
+# noinspection PyPep8Naming
+class Test_secgroup:
     data = dotdict({
         "cloud": Default.get_cloud(),
         "group": "test_group",
@@ -32,8 +33,8 @@ class Test_secgroup:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -44,13 +45,14 @@ class Test_secgroup:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001(self):
         HEADING("testing cm secgroup create --cloud=india test-group")
         result = self.run("cm secgroup create --cloud={cloud} {group}")
-        assert "Created a new security group"  in result
+        assert "Created a new security group" in result
         assert self.data.group in result
         return
 

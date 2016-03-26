@@ -1,3 +1,4 @@
+# noinspection PyPep8
 """ run with
 
 python setup.py install; nosetests -v --nocapture tests/cm_basic/test_CloudmeshDatabase.py:Test_CloudmeshDatabase.test_001
@@ -9,24 +10,20 @@ or
 nosetests -v tests/cm_basic/test_CloudmeshDatabase.py
 
 """
-import os
 
-from cloudmesh_client.common.Shell import Shell
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.util import banner
-from cloudmesh_client.cloud.list import List
 from pprint import pprint
-from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION
+
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from pprint import pprint
+from cloudmesh_client.db.model import DEFAULT
+from cloudmesh_client.util import HEADING
 
+
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_CloudmeshDatabase:
-
     def setup(self):
-
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -38,10 +35,10 @@ class Test_CloudmeshDatabase:
 
         n = cm.query(DEFAULT).filter_by(name='hallo').first()
 
-        print (n.__dict__)
+        print(n.__dict__)
 
-        #assert n.__dict__["name"] == 'hallo'
-        #assert n.__dict__["value"] == 'world'
+        # assert n.__dict__["name"] == 'hallo'
+        # assert n.__dict__["value"] == 'world'
 
         pprint(n.__dict__)
 
@@ -52,7 +49,7 @@ class Test_CloudmeshDatabase:
 
         n = cm.find("default", scope="first", name='hallo')
         first = list(n)[0]
-        pprint (n)
+        pprint(n)
 
         assert n["name"] == 'hallo'
         assert n["value"] == 'world'
@@ -65,4 +62,3 @@ class Test_CloudmeshDatabase:
         n = cm.find("default", scope="all", name='hallo')
         print(list(n))
         assert (len(list(n)) > 0)
-

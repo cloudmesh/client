@@ -18,9 +18,9 @@ from cloudmesh_client.default import Default
 
 class Test_register:
     """
-        tests for india only
-    """
-
+# tests
+# for india only
+"""
     data = dotdict({
         "cloud": Default.get_cloud(),
         "group": "test",
@@ -116,3 +116,4 @@ class Test_register:
         HEADING("testing cm register json hadoop")
         result = self.run ("cm register json hadoop")
         assert "Cloud hadoop is not described in cloudmesh.yaml" in result
+"""
