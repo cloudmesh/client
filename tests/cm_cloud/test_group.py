@@ -17,14 +17,14 @@ from cloudmesh_client.util import banner
 from cloudmesh_client.cloud.group import Group
 from pprint import pprint
 from cloudmesh_client.default import Default
-
+from cloudmesh_client.common.dotdict import dotdict
 
 class Test_group:
-    data = {
+    data = dotdict({
         "cloud": Default.get_cloud(),
         "user": "test",
         "group": "groupA"
-    }
+    })
 
     def run(self, command):
         command = command.format(**self.data)
@@ -46,10 +46,10 @@ class Test_group:
     def test_001(self):
         HEADING("testing cm group add ")
 
-        c = "cm group add {user}-001 --group={group} --category={cloud}  --type=vm"
+        c = "cm group add {user}-001 --group={group}  --type=vm"
         self.run(c)
 
-        id = str(Group.get(name="groupA", category=self.data.cloud))
+        id = str(Group.get(name="groupA"))
         print(id)
         assert "test-001" in id
         return
@@ -57,16 +57,15 @@ class Test_group:
     def test_002(self):
         HEADING("testing cm group add")
 
-        command = "cm group add {user}-002 --group={group} --category={cloud}  --type=vm"
+        command = "cm group add {user}-002 --group={group}   --type=vm"
         self.run(command)
 
-        group = Group.get(name="groupA", category=self.data.cloud)
+        group = Group.get(name="groupA")
 
         names = ["{user}-001".format(**self.data),
                  "{user}-002".format(**self.data)]
         for id in group:
             element = group[id]
-            assert element["category"] == self.data.cloud
             assert element["name"] == "groupA"
             assert element["type"] == "vm"
             assert element["member"] in names
@@ -91,24 +90,24 @@ class Test_group:
         return
 
     def test_005(self):
-        HEADING("testing cm group list --category=cloud groupA")
-        command = "cm group list --category={cloud} {group}"
+        HEADING("testing cm group list  groupA")
+        command = "cm group list  {group}"
 
         result = self.run(command)
         assert "groupA" in result
         return
 
     def test_006(self):
-        HEADING("testing cm group list --category=cloud --format json groupA")
-        command = "cm group list --category={cloud} --format=json {group}"
+        HEADING("testing cm group list  --format json groupA")
+        command = "cm group list  --format=json {group}"
 
         result = self.run(command)
         assert "groupA" in result
         return
 
     def test_007(self):
-        HEADING("testing cm group list --category=cloud --format table")
-        command = "cm group list --category={cloud} --format=table"
+        HEADING("testing cm group list  --format table")
+        command = "cm group list  --format=table"
 
         result = self.run(command)
         assert "groupA" in result
@@ -118,10 +117,10 @@ class Test_group:
         HEADING("testing cm group add with default cloud")
         banner("cm group add --name=groupX --id=albert-00x", c='-')
 
-        result = self.run("cm default category={cloud}")
+
+        result = self.run("cm default cloud")
+        pprint(self.data)
         assert self.data.cloud in result
-        assert "category" in result
-        assert "ok" in result
 
         result = self.run("cm default type=vm")
         assert "ok." in result
@@ -129,7 +128,7 @@ class Test_group:
         result = self.run("cm group add albert-00x --group=groupX ")
         assert "albert-00x" in result
 
-        result = self.run("cm group list --category={cloud} groupX")
+        result = self.run("cm group list  groupX")
         assert self.data.cloud in result
         assert "vm" in result
 
@@ -137,9 +136,9 @@ class Test_group:
 
     def test_009(self):
         HEADING("testing cm group remove ")
-        banner("cm group remove {user}-002 --category={cloud} --group={group}")
+        banner("cm group remove {user}-002  --group={group}")
 
-        result = self.run("cm group remove {user}-002 --category={cloud} --group={group} ")
+        result = self.run("cm group remove {user}-002  --group={group} ")
         print(result)
         assert "ok" in result
 
@@ -151,13 +150,14 @@ class Test_group:
     def test_010(self):
         HEADING("testing cm group delete ")
 
-        command = "cm group delete {group} --category={cloud}"
+        command = "cm group delete {group} "
         result = self.run(command)
         print(result)
 
+
         for group in ["groupA", "groupB", "groupC", "groupX"]:
             self.data.group = group
-        command = "cm group delete {group} --category={cloud}"
+        command = "cm group delete {group} "
 
         result = self.run(command)
 

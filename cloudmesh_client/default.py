@@ -218,12 +218,14 @@ class Default(ListResource):
         cls.set("image", value, category=category)
 
     @classmethod
-    def get_image(cls, category):
+    def get_image(cls, category=None):
         """
         returns the image for a particular category
         :param category: the category
         :return:
         """
+        if category is None:
+            category = cls.get_cloud()
         return cls.get("image", category)
 
     #
@@ -241,12 +243,14 @@ class Default(ListResource):
         cls.set("flavor", value, category=category)
 
     @classmethod
-    def get_flavor(cls, category):
+    def get_flavor(cls, category=None):
         """
         gets ths flavor default for a category
         :param category: the category
         :return:
         """
+        if category is None:
+            category = cls.get_cloud()
         return cls.get("flavor", category)
 
     #
