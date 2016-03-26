@@ -57,6 +57,8 @@ class Test_keys:
         """create new db"""
         command = "make db"
         result = self.run(command)
+        result = self.run("cm default cloud={cloud}")
+        result = self.run("cm default cloud")
         assert self.data.cloud in result
 
     def test_001(self):
