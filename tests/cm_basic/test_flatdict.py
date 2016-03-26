@@ -14,6 +14,8 @@ from cloudmesh_client.util import HEADING
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict, flatten
 
+
+# noinspection PyPep8Naming
 class Test_pass:
     def setup(self):
         self.d = {
@@ -76,13 +78,14 @@ class Test_pass:
         }
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
     def test_001(self):
         HEADING("flatten")
         f = flatten(self.d)
-        pprint (f)
+        pprint(f)
         assert f['extra__minDisk'] == 40
 
     def test_002(self):
@@ -99,4 +102,3 @@ class Test_pass:
         f.user = 'GREGOR'
         assert f.user == 'GREGOR'
         assert f['extra__minDisk'] == 40
-

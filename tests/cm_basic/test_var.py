@@ -14,7 +14,7 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.util import HEADING
 
 from cloudmesh_client.var import Var
-import sys
+
 
 def run(command):
     print(command)
@@ -26,7 +26,8 @@ def run(command):
     return result
 
 
-class Test_var():
+# noinspection PyMethodMayBeStatic,PyPep8Naming
+class Test_var(object):
     """
 
     """
@@ -37,8 +38,8 @@ class Test_var():
     def test_001(self):
         HEADING(" delete defaults")
         Var.clear()
-        print (Var.list())
-        assert Var.list() == None
+        print(Var.list())
+        assert Var.list() is None
 
     def _check(self, content):
         result = Var.list()
@@ -50,7 +51,7 @@ class Test_var():
         name = "myvar"
         value = "myvalue"
         Var.set(name, value)
-        print (Var.list())
+        print(Var.list())
         assert Var.get(name) == value
         self._check(value)
 
@@ -60,9 +61,9 @@ class Test_var():
         name = "deleteme"
         value = "myvalue"
         Var.set(name, value)
-        print (Var.list())
+        print(Var.list())
         Var.delete(name)
-        print (Var.list())
+        print(Var.list())
         self._check("None")
 
     def test_004(self):

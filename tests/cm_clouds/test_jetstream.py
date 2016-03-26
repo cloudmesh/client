@@ -10,27 +10,29 @@ nosetests -v tests/test_chameleon.py
 
 """
 
-from cloudmesh_client.util import banner
-from cloudmesh_client.util import HEADING
+import os
 
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
-from cloudmesh_client.default import Default
-import os
+from cloudmesh_client.util import HEADING
+from cloudmesh_client.util import banner
 
+
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_chameleon:
     """
         This class tests the ImageCommand
     """
 
+    # noinspection PyTypeChecker
     data = dotdict({
         "cloud": "jetstream",
     })
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -41,6 +43,7 @@ class Test_chameleon:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -53,7 +56,7 @@ class Test_chameleon:
         result = self.run("make db")
         assert "ok." in result
 
-    def test_001(self):
+    def test_002(self):
         """
         test image refresh
         :return:
@@ -62,13 +65,12 @@ class Test_chameleon:
         result = self.run("cm default cloud={cloud}")
         assert "ok." in result
 
-    def test_002(self):
+    def test_003(self):
         """
         test image refresh
         :return:
         """
         HEADING()
         os.system("py.test tests/cm_cloud")
-        #assert "ok." in result
+        # assert "ok." in result
         assert True
-

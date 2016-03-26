@@ -13,23 +13,24 @@ from __future__ import print_function
 
 from pprint import pprint
 
-from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
-from cloudmesh_client.keys.SSHkey import SSHkey
-from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.common.Printer import dict_printer
+import yaml
 
 from cloudmesh_client.cloud.iaas.provider.openstack.CloudProviderOpenstackAPI import CloudProviderOpenstackAPI
-from cloudmesh_client.util import HEADING
-from cloudmesh_client.common.Shell import Shell
-import os
-from cloudmesh_client.util import banner
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.Printer import dict_printer
+from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
-import yaml
+from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.default import Default
+from cloudmesh_client.keys.SSHKeyManager import SSHKeyManager
+from cloudmesh_client.keys.SSHkey import SSHkey
+from cloudmesh_client.util import HEADING
+from cloudmesh_client.util import banner
 
+
+# noinspection PyMethodMayBeStatic,PyMethodMayBeStatic,PyPep8Naming
 class Test_keys:
-
+    # noinspection PyTypeChecker
     data = dotdict({
         "cloud": Default.get_cloud(),
         "username": ConfigDict("cloudmesh.yaml")["cloudmesh"]["github"]["username"]}
@@ -37,8 +38,8 @@ class Test_keys:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -46,10 +47,10 @@ class Test_keys:
         print(result)
         return result
 
-
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -69,15 +70,14 @@ class Test_keys:
         banner("ssh keys")
         mykeys.get_from_dir("~/.ssh")
 
-
         assert len(mykeys) > 0
 
     def test_002(self):
         HEADING("reading the keys from github")
 
         # from cloudmesh_client.common import cloudmesh_yaml
-        #config = ConfigDict(filename=cloudmesh_yaml")
-        #git_username = config['cloudmesh']['github']['username']
+        # config = ConfigDict(filename=cloudmesh_yaml")
+        # git_username = config['cloudmesh']['github']['username']
         git_username = 'laszewsk'
 
         mykeys = SSHKeyManager()
@@ -93,25 +93,23 @@ class Test_keys:
         count2 = len(mykeys)
 
         # d = mykeys.dict()
-        print (mykeys.table)
+        print(mykeys.table)
 
         mykeys.__delitem__('github-0')
-        print (mykeys.table)
+        print(mykeys.table)
 
-        assert count1 > 0 and count2 >0
-
+        assert count1 > 0 and count2 > 0
 
     def test_003(self):
         HEADING("testing properties in SSHKey")
 
-
         sshkey = SSHkey("~/.ssh/id_rsa.pub")
-        pprint (sshkey.key)
-        print ("Fingerprint:", sshkey.fingerprint)
-        pprint (sshkey.__key__)
-        print ("sshkey", sshkey)
-        print ("str", str(sshkey))
-        print (sshkey.type)
+        pprint(sshkey.key)
+        print("Fingerprint:", sshkey.fingerprint)
+        pprint(sshkey.__key__)
+        print("sshkey", sshkey)
+        print("str", str(sshkey))
+        print(sshkey.type)
         assert True
 
     def test_004(self):
@@ -121,26 +119,24 @@ class Test_keys:
         sshdb.add("~/.ssh/id_rsa.pub")
 
         d = sshdb.dict()
-        print (d)
+        print(d)
 
-        print (dict_printer(d, output="table"))
+        print(dict_printer(d, output="table"))
         assert 'id_rsa.pub' in d[1]['uri']
 
         d = sshdb.find('rsa')
-        print ('find function: ', d)
+        print('find function: ', d)
 
         sshdb.delete('rsa')
 
         d = sshdb.object_to_dict(sshdb.find_all())
-        print ("DICT", d)
+        print("DICT", d)
         assert len(d) == 0
 
     def test_005(self):
         HEADING()
         sshm = SSHKeyManager()
-        print (sshm.get_from_yaml())
-
-
+        print(sshm.get_from_yaml())
 
     def test_101(self):
         """
@@ -151,11 +147,9 @@ class Test_keys:
         result = self.run("cm key add testkey --source=~/.ssh/id_rsa.pub")
         result = self.run("cm key list")
 
-
         assert "OK." in result
         assert "testkey" in result
         assert "file:" in result
-
 
     def test_102(self):
         """
@@ -167,12 +161,9 @@ class Test_keys:
         result = self.run("cm key add --git ")
         result = self.run("cm key list")
 
-
         username = "{username}_github".format(**self.data)
 
         assert username in result
-
-
 
     def test_103(self):
         """
@@ -185,10 +176,6 @@ class Test_keys:
         assert "OK." in result
         assert "testkey" in result
         assert "ssh" in result
-
-
-
-
 
     def test_105(self):
         """
@@ -204,8 +191,6 @@ class Test_keys:
         assert "ssh" in result
         assert "OK." in result
 
-
-
     def test_106(self):
         """
         cm key list --source=db --format=json
@@ -213,11 +198,10 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm key list --source=db --format=json")
-        print (result)
+        print(result)
         assert "OK." in result
         assert "{" in result
         assert "testkey" in result
-
 
     def test_107(self):
         """
@@ -231,7 +215,6 @@ class Test_keys:
         assert "OK." in result
         assert "testkey" in result
 
-
     def test_109(self):
         """
         cm key list --source=git
@@ -239,13 +222,9 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm key list --source=git")
-        print (result)
+        print(result)
         assert "github-" in result
         assert "OK." in result
-
-
-
-
 
     def test_110(self):
         """
@@ -254,9 +233,8 @@ class Test_keys:
 
         HEADING()
         result = self.run("cm key list --source=yaml")
-        print (result)
+        print(result)
         assert "OK." in result
-
 
     def test_111(self):
         """
@@ -300,7 +278,6 @@ class Test_keys:
         result = self.run("cm default key")
         assert "testkey" in result
 
-
     def test_115(self):
         """
         cm key delete testkey
@@ -316,7 +293,6 @@ class Test_keys:
 
         assert "No keys" in result
         assert "testkey" not in result
-
 
     def test_116(self):
         """
@@ -341,7 +317,7 @@ class Test_keys:
         cloud = CloudProviderOpenstackAPI(cloudname, cloud_details)
 
         d = cloud.list_key(cloudname)
-        pprint (d)
+        pprint(d)
 
         assert len(d) > 0
         result = self.run("cm key delete testkey --cloud={cloud}")

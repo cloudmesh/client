@@ -11,10 +11,12 @@ nosetests -v
 from cloudmesh_client.util import HEADING
 
 
+# noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_pass:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 

@@ -10,14 +10,12 @@ nosetests -v tests/test_image.py
 
 """
 
-from cloudmesh_client.util import HEADING
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.util import HEADING
 
 
-from pprint import pprint
-
-class Test_libcloud_api():
+# noinspection PyMethodMayBeStatic,PyPep8Naming
+class Test_libcloud_api(object):
     """
         This class tests the ImageCommand
     """
@@ -50,31 +48,28 @@ class Test_libcloud_api():
         """test image list :return: """
         HEADING()
 
-
         from pprint import pprint
 
         cloud = "chameleon-ec2"
         provider = CloudProvider(cloud).provider
 
-        print (provider, type(provider))
+        print(provider, type(provider))
 
         # pprint (provider.__dict__)
         # pprint (dir(provider))
 
-        #r = provider.list_flavor(cloud)
-        #pprint(r)
+        # r = provider.list_flavor(cloud)
+        # pprint(r)
 
-        for kind in ["image"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+        for kind in ["image"]:  # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
             r = provider.list(kind, cloud)
             pprint(r)
 
         assert True
 
-
     def test_002(self):
         """ test flavor list :return:  """
         HEADING()
-
 
         from pprint import pprint
 
@@ -96,63 +91,54 @@ class Test_libcloud_api():
         r = provider.list_flavor(cloud)
         pprint(r)
 
-
         assert 't2.small' in str(r)
-
 
         r = provider.provider.list_sizes(cloud)
         pprint(r)
 
-
         assert 't2.small' in str(r)
-
-
-
 
     def test_003(self):
         """ test vm list:return:  """
         HEADING()
 
-
         from pprint import pprint
 
         cloud = "chameleon-ec2"
         provider = CloudProvider(cloud).provider
 
-        print (provider, type(provider))
+        print(provider, type(provider))
 
         # pprint (provider.__dict__)
         # pprint (dir(provider))
 
-        #r = provider.list_flavor(cloud)
-        #pprint(r)
+        # r = provider.list_flavor(cloud)
+        # pprint(r)
 
-        for kind in ["vm"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+        for kind in ["vm"]:  # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
             r = provider.list(kind, cloud)
             pprint(r)
 
         assert True
 
-
     def test_004(self):
         """ test key list:return:"""
         HEADING()
-
 
         from pprint import pprint
 
         cloud = "chameleon-ec2"
         provider = CloudProvider(cloud).provider
 
-        print (provider, type(provider))
+        print(provider, type(provider))
 
         # pprint (provider.__dict__)
         # pprint (dir(provider))
 
-        #r = provider.list_flavor(cloud)
-        #pprint(r)
+        # r = provider.list_flavor(cloud)
+        # pprint(r)
 
-        for kind in ["key"]: # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
+        for kind in ["key"]:  # ["image", "vm", "flavor", "key"]: # , "flavor", "vm", "limits", "quota"]:
             r = provider.list(kind, cloud)
             pprint(r)
 

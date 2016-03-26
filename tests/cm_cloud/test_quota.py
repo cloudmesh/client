@@ -17,6 +17,8 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 
+
+# noinspection PyPep8Naming
 class Test_quota:
     """
         This class tests the QuotaCommand
@@ -30,8 +32,8 @@ class Test_quota:
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -42,6 +44,7 @@ class Test_quota:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 

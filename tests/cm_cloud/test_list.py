@@ -18,6 +18,7 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 
 
+# noinspection PyPep8Naming
 class Test_list:
     data = dotdict({
         "cloud": Default.get_cloud(),
@@ -42,6 +43,7 @@ class Test_list:
     def setup(self):
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 

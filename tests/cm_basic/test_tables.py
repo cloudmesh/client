@@ -15,8 +15,9 @@ from cloudmesh_client.util import HEADING
 from cloudmesh_client.common.Printer import dict_printer
 from pprint import pprint
 
-class Test_tables:
 
+# noinspection PyPep8Naming
+class Test_tables:
     """define tests for dict printer so you test
     yaml
     json
@@ -25,20 +26,22 @@ class Test_tables:
     dict
     printing
     """
+
     def setup(self):
         self.d = {
-            "a:" : {
+            "a:": {
                 "id": "a",
                 "x": 1,
                 "y": 2,
-                },
-            "b:" : {
+            },
+            "b:": {
                 "id": "b",
                 "x": 3,
                 "y": 4,
-                },
-            }
+            },
+        }
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -71,5 +74,3 @@ class Test_tables:
         output = dict_printer(self.d, order=None, header=None, output="csv", sort_keys=True)
         print(output)
         assert "id" in str(output)
-
-

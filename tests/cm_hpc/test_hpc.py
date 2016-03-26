@@ -17,18 +17,20 @@ from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.common.dotdict import dotdict
 
 
+# noinspection PyPep8Naming
 class Test_hpc:
     """
         This class tests the HpcCommand
     """
+    # noinspection PyTypeChecker
     data = dotdict({
         "cluster": "comet",
     })
 
     def run(self, command):
         command = command.format(**self.data)
-        banner(command, c ="-")
-        print (command)
+        banner(command, c="-")
+        print(command)
         parameter = command.split(" ")
         shell_command = parameter[0]
         args = parameter[1:]
@@ -36,9 +38,7 @@ class Test_hpc:
         print(result)
         return str(result)
 
-    def setup(self):
-        pass
-
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 

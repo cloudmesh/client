@@ -12,13 +12,14 @@ nosetests -v tests/cm_basic/test_model.py
 
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
-from  cloudmesh_client.db.model import VM
+from cloudmesh_client.db.model import VM
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
 
 
+# noinspection PyPep8Naming
 class Test_cloud_model(object):
     def setup(self):
         self.d = {
@@ -80,10 +81,10 @@ class Test_cloud_model(object):
             'state': 3
         }
 
-
         self.d = FlatDict(self.vm)
         pass
 
+    # noinspection PyPep8Naming
     def tearDown(self):
         pass
 
@@ -108,18 +109,15 @@ class Test_cloud_model(object):
                 **d)
         banner("VM added")
 
-        pprint (vm.__dict__)
+        pprint(vm.__dict__)
         vm.bla = "bla"
         cm.add(vm)
         cm.save()
 
-
         banner("Get VM from Database")
 
         o = cm.find(VM, name=name)
-        #o = cm.find_by_name(VM, name)
-        pprint (o)
-
+        # o = cm.find_by_name(VM, name)
+        pprint(o)
 
         assert True
-
