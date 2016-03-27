@@ -10,7 +10,7 @@ from cloudmesh_client.cloud.ListResource import ListResource
 
 class Reservation(ListResource):
     def __init__(self, user=None):
-        self.db = CloudmeshDatabase.CloudmeshDatabase(user)
+        self.db = CloudmeshDatabase.CloudmeshDatabase(user=user)
 
     def info(self, user=None, project=None):
         """
