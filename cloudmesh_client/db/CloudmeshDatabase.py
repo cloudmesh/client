@@ -95,8 +95,10 @@ class CloudmeshDatabase(object):
         :param category: the category name
         """
         try:
-            elements = self.find(kind, output='object',
-                                 scope="all", category=category)
+            elements = self.find(kind,
+                                 output='object',
+                                 scope="all",
+                                 category=category)
             # pprint(elements)
             for element in elements:
                 # pprint(element)
@@ -238,8 +240,10 @@ class CloudmeshDatabase(object):
                 return True
 
             elif kind in ["libcloud_vm", "libcloud_image", "libcloud_flavor"]:
-
-                 # get provider for specific cloud
+                # BUG: TODO: this does not belong here
+                # only "vm", "image" and other kind are allowed
+                # the provider should take care of the mapping, not the db class
+                # get provider for specific cloud
                 provider = CloudProvider(name).provider
                 pprint("In CloudmeshDatabase found provider "+str(provider.__dict__))
                 # clear local db records for kind
@@ -422,7 +426,7 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-        # print("KW", kwargs)
+        print("KW", kwargs)
         if "category" in kwargs:
             kind = self.cloud_to_kind_mapper(kwargs["category"], kind)
         result = self.query(kind, **kwargs)

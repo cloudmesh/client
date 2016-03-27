@@ -25,7 +25,7 @@ class GroupCommand(PluginCommand, CloudPluginCommand):
             Usage:
                 group list [--category=CLOUD] [--format=FORMAT] [GROUPNAME]
                 group remove NAME... [--category=CLOUD] --group=GROUPNAME
-                group add NAME... [--type=TYPE] [--category=CLOUD] [--group=GROUPNAME]
+                group add NAME... [--type=TYPE] [--group=GROUPNAME]
                 group delete GROUP... [--category=CLOUD]
                 group copy FROM TO
                 group merge GROUPA GROUPB MERGEDGROUP

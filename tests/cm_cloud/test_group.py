@@ -101,7 +101,7 @@ class Test_group:
         return
 
     def test_006(self):
-        HEADING("testing cm group list  --format json groupA")
+        HEADING("testing cm group list  --format=json groupA")
         command = "cm group list  --format=json {group}"
 
         result = self.run(command)
@@ -109,7 +109,7 @@ class Test_group:
         return
 
     def test_007(self):
-        HEADING("testing cm group list  --format table")
+        HEADING("testing cm group list  --format=table")
         command = "cm group list  --format=table"
 
         result = self.run(command)
@@ -180,46 +180,57 @@ class Test_group:
         for command in setup:
             self.run(command)
 
-        result = Group.get_vms_in_group("group_x")
-        pprint(result)
+        print("T1")
+        result = Group.get_vms("group_x")
+        print("group x", result)
         assert 'vm_1' in result
         assert 'vm_2' in result
         assert 'vm_3' in result
 
-        result = Group.get_vms_in_group("group_y")
-        pprint(result)
+        print("T2")
+        result = Group.get_vms("group_y")
+        print("group y", result)
         assert 'vm_3' in result
         assert 'vm_1' not in result
         assert 'vm_2' not in result
 
+        print("T3")
         result = Group.names()
-        pprint(result)
+        print("names", result)
         assert 'group_x' in result
         assert 'group_y' in result
 
+        print("T4")
         result = Group.vm_groups("vm_1")
-        pprint(result)
+        print("vm_1", result)
         assert 'group_x' in result
         assert 'group_y' not in result
 
+        print("T5")
         result = Group.vm_groups("vm_3")
-        pprint(result)
+        print("vm_3", result)
         assert 'group_x' in result
         assert 'group_y' in result
 
-        result = Group.delete("group_x")
+
+        print("T6")
+        result = Group.delete(name="group_x")
         print(result)
         result = self.run("cm group list")
+        print (result)
 
         assert 'vm_1' not in result
         assert 'vm_2' not in result
 
+        print("T7")
         self.run("cm group list")
 
         for command in setup:
             self.run(command)
+        result = self.run("cm group list")
+        print (result)
 
-        result = Group.delete("group_y")
+        result = Group.delete(name="group_y")
 
         print(result)
         result = self.run("cm group list")

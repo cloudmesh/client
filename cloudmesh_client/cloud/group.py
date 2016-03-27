@@ -56,7 +56,7 @@ class Group(ListResource):
 
 
     @classmethod
-    def get_vms_in_group(cls, name):
+    def get_vms(cls, name):
         """
         returns a list of vms within this group
         :param name:
@@ -65,8 +65,10 @@ class Group(ListResource):
         try:
             query = {
                 "type": "vm",
-                "name": name
             }
+
+            if name is not None:
+                query["name"] = name
 
             d = cls.cm.find("GROUP", **query)
             names = set()
@@ -99,7 +101,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def list(cls, format="table", category="kilo"):
+    def list(cls, format="table", category="general"):
         """
         Method to get list of groups in
             the cloudmesh database
@@ -119,7 +121,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def get_info(cls, category="kilo", name=None, output="table"):
+    def get_info(cls, category="general", name=None, output="table"):
         """
         Method to get info about a group
         :param cloud:
@@ -146,7 +148,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def add(cls, name=None, type="vm", member=None, category="kilo"):
+    def add(cls, name=None, type="vm", member=None, category="general"):
         """
         Add an instance to a new group
             or add it to an existing one
@@ -221,7 +223,7 @@ class Group(ListResource):
             Console.error(ex.message, ex)
 
     @classmethod
-    def delete(cls, name=None, category="kilo"):
+    def delete(cls, name=None, category="general"):
         """
         Method to delete a group from
             the cloudmesh database
@@ -230,6 +232,7 @@ class Group(ListResource):
         :return:
         """
 
+        print ("DELETE")
         try:
             # group = cls.get(name=name, category=category)
             args = {}
@@ -238,9 +241,13 @@ class Group(ListResource):
             if category is not None:
                 args["category"] = category
 
-            group = cls.cm.find("group", type="vm", output="dict", **args)
-            group_object = cls.cm.find("group", type="vm", output="object", **args)
+            print ("AAA", args)
 
+            group = cls.cm.find("group",  output="dict", **args)
+            group_object = cls.cm.find("group", output="object", **args)
+
+
+            print ("A", group, group_object)
 
             if group:
                 # Delete VM from cloud before deleting group
@@ -261,7 +268,7 @@ class Group(ListResource):
 
                 # Delete group record in local db
 
-
+                print("G", group_object)
                 for element in group_object:
                     cls.cm.delete(element)
                 cls.cm.save()
