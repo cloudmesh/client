@@ -8,6 +8,7 @@ from sqlalchemy.ext.declarative import declared_attr
 from sqlalchemy import Column, Integer, String, MetaData, \
     create_engine, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 # noinspection PyPep8Naming
 class database(object):
@@ -30,6 +31,9 @@ class database(object):
         self.engine = None
         self.Base = None
         self.meta = None
+        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+
+
         if not database.__monostate:
             database.__monostate = self.__dict__
             self.activate()
@@ -75,7 +79,7 @@ class CloudmeshMixin(object):
     label = Column(String, default="undefined")
     name = Column(String, default="undefined")
     category = Column(String, default="undefined")
-    user = Column(String, default="undefined")
+    user = Column(String, default=db.user)
     kind = Column(String, default="undefined")
     project = Column(String, default="undefined")
     cloud = Column(String, default="undefined")
@@ -110,10 +114,13 @@ class COUNTER(CloudmeshMixin, db.Base):
         self.label = name
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.value = value
         self.kind = self.__tablename__
-
+        print ("UUUU", self.user, db.user, user)
 
 # OLD: TODO delete this when done
 #
@@ -148,7 +155,10 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.value = value
         self.kind = self.__tablename__
 
@@ -171,7 +181,10 @@ class VAR(CloudmeshMixin, db.Base):
         self.category = category or "var"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.value = value
         self.kind = self.__tablename__
 
@@ -200,7 +213,10 @@ class LAUNCHER(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.value = value
         self.kind = self.__tablename__
 
@@ -235,7 +251,10 @@ class KEY(CloudmeshMixin, db.Base):
         self.source = source
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.kind = self.__tablename__
         self.is_default = is_default
 
@@ -256,7 +275,10 @@ class GROUP(CloudmeshMixin, db.Base):
         self.type = type
         self.name = name
         self.member = member
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.kind = self.__tablename__
 
 
@@ -278,7 +300,10 @@ class RESERVATION(CloudmeshMixin, db.Base):
         self.end_time = kwargs['end']
         self.description = kwargs['description']
         self.name = kwargs['name']
-        self.user = kwargs['user']
+        if kwargs['user'] is None:
+            self.user = db.user
+        else:
+            self.user = kwargs['user']
         self.project = kwargs['project']
         self.kind = self.__tablename__
 
@@ -299,7 +324,10 @@ class SECGROUP(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.uuid = uuid
         self.project = project
         self.kind = self.__tablename__
@@ -338,7 +366,10 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.groupid = groupid
         self.project = project
         self.fromPort = fromPort
@@ -386,7 +417,10 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.label = name
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
 
         self.dir = kwargs.get('dir')
         self.nodes = kwargs.get('nodes')
@@ -497,6 +531,7 @@ class IMAGE(CloudmeshMixin, db.Base):
     minDisk = Column(String)
     progress = Column(String)
     minRam = Column(String)
+    username = Column(String)
     os_image_size = Column(String)  # This is OS-EXT-IMG-SIZE:size
     # metadata info..
     metadata__base_image_ref = Column(String)
@@ -532,7 +567,16 @@ class IMAGE(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
+
+        if "username" in kwargs["username"]:
+            self.username = kwargs["username"]
+        else:
+            self.username = 'undefined'
+
         self.uuid = uuid
         self.kind = self.__tablename__
         self.status = kwargs.get('status')
@@ -602,7 +646,10 @@ class FLAVOR(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.type = type
         self.name = name
-        self.user = user
+        if user is None:
+            self.user = db.user
+        else:
+            self.user = user
         self.uuid = uuid
         self.ram = kwargs.get('ram')
         self.os_flv_disabled = kwargs.get('OS-FLV-DISABLED:disabled')
@@ -646,7 +693,8 @@ class VM(CloudmeshMixin, db.Base):
     status = Column(String)
     tenant_id = Column(String)
     updated = Column(String)
-    user_id = Column(String)
+    user_id = Column(String) # what is this used for?
+    username = Column(String)
 
     def __init__(self, **kwargs):
         # self.kind = __tablename__
@@ -654,9 +702,15 @@ class VM(CloudmeshMixin, db.Base):
         self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
         self.name = kwargs["name"]
-        self.user = kwargs["user"]
+        if kwargs['user'] is None:
+            self.user = db.user
+        else:
+            self.user = kwargs['user']
         self.uuid = kwargs["uuid"]
-
+        if "username" in kwargs["username"]:
+            self.username = kwargs["username"]
+        else:
+            self.username = 'undefined'
         if "OS-DCF:diskConfig" in kwargs:
             self.diskConfig = kwargs["OS-DCF:diskConfig"]
         if "OS-EXT-AZ:availability_zone" in kwargs:
@@ -768,7 +822,10 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
         self.label = kwargs["image_name"]
         self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
-        self.user = kwargs["user"]
+        if kwargs['user'] is None:
+            self.user = db.user
+        else:
+            self.user = kwargs['user']
         self.uuid = kwargs["uuid"]
         if 'image_name' in kwargs:
             self.name = kwargs['image_name']
@@ -818,7 +875,10 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
         self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
         self.name = kwargs["name"]
-        self.user = kwargs["user"]
+        if kwargs['user'] is None:
+            self.user = db.user
+        else:
+            self.user = kwargs['user']
         self.uuid = kwargs["uuid"]
         if "flavor_id" in kwargs:
             self.flavor_id = kwargs["flavor_id"]
@@ -856,7 +916,10 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
         self.type = kwargs["type"]
-        self.user = kwargs["user"]
+        if kwargs['user'] is None:
+            self.user = db.user
+        else:
+            self.user = kwargs['user']
         if "node_id" in kwargs:
             self.uuid = kwargs["node_id"]
         if "name" in kwargs:

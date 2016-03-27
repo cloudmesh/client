@@ -1,7 +1,6 @@
-import getpass
-
 from cloudmesh_client.default import Default
 
+from cloudmesh_client.common.ConfigDict import ConfigDict
 
 class VMName(object):
     @staticmethod
@@ -37,7 +36,7 @@ class VMName(object):
             digit or arithmetic e.g. +5 or -3 can be used
 
         """
-        user = user or getpass.getuser()
+        user = user or ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
         prefix = prefix or user
         if type(idx) is not int:
             idx = int(idx)

@@ -655,6 +655,8 @@ class VmCommand(PluginCommand, CloudPluginCommand):
             # Get user if user argument not specified.
             if user is None:
                 user_from_db = Vm.get_vm_login_user(name, cloud)
+                # bug
+                # self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
                 user_suggest = user_from_db or getpass.getuser()
                 user = input("Enter the user to login (Default: {}):".format(user_suggest)) or user_suggest
                 Vm.set_vm_login_user(name, cloud, user)
