@@ -13,7 +13,7 @@ from __future__ import print_function
 
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
-from cloudmesh_client.db.model import VM, LIBCLOUD_VM, table, tablenames, tables
+from cloudmesh_client.db.model import VM_OPENSTACK, VM_LIBCLOUD, table, tablenames, tables
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 from cloudmesh_client.util import banner
@@ -22,6 +22,8 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.shell.console import Console
+
+
 
 # noinspection PyPep8Naming
 class Test_cloud_model(object):
@@ -122,11 +124,11 @@ class Test_cloud_model(object):
         name = "vm1"
         uuid = d.id
 
-        vm = VM(name=name,
-                uuid=uuid,
-                user="test",
-                category=self.data.cloud,
-                **d)
+        vm = VM_OPENSTACK(name=name,
+                          uuid=uuid,
+                          user="test",
+                          category=self.data.cloud,
+                          **d)
         banner("VM added")
 
         pprint(vm.__dict__)
@@ -136,7 +138,7 @@ class Test_cloud_model(object):
 
         banner("Get VM from Database")
 
-        o = cm.find(VM, name=name)
+        o = cm.find(VM_OPENSTACK, name=name)
         # o = cm.find_by_name(VM, name)
         pprint(o)
 
@@ -152,10 +154,10 @@ class Test_cloud_model(object):
             name = "vm_" + str(index).zfill(3)
             print ("ADD", name)
             try:
-                vm = VM(name=name,
-                        uuid="uuid_"+str(index),
-                        user="test",
-                        category=self.data.cloud)
+                vm = VM_OPENSTACK(name=name,
+                                  uuid="uuid_"+str(index),
+                                  user="test",
+                                  category=self.data.cloud)
             except Exception as e:
                 Console.error("issue adding vm", traceflag=True)
             print ("VM", vm.__dict__)
@@ -163,10 +165,10 @@ class Test_cloud_model(object):
         print ("ADD TO LIBCLOUD ")
         for index in range(6,11):
             name = "vm_" + str(index).zfill(3)
-            vm = LIBCLOUD_VM(name=name,
-                    uuid="uuid_"+str(index),
-                    user="test",
-                    category=self.data.cloud)
+            vm = VM_LIBCLOUD(name=name,
+                             uuid="uuid_"+str(index),
+                             user="test",
+                             category=self.data.cloud)
             cm.add(vm)
         cm.save()
 
