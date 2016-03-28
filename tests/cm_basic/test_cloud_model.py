@@ -15,7 +15,7 @@ from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
 from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
 from cloudmesh_client.db import tablenames, tables
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
