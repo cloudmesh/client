@@ -38,6 +38,10 @@ please note that kind and type seem to be confusingly named as the kind is used 
 """
 
 
+
+
+
+
 # noinspection PyPep8Naming
 class database(object):
     """
@@ -88,6 +92,43 @@ class database(object):
 db = database()
 
 
+
+def tables(kind=None):
+    """
+    :return: the list of tables in model
+    """
+    if kind is None:
+        classes = [cls for cls in db.Base.__subclasses__()]
+    else:
+
+        classes = []
+        for cls in db.Base.__subclasses__():
+            if cls.kind == kind:
+                classes.append(cls)
+    return classes
+
+
+def tablenames():
+    """
+    :return: the list of table names in model
+    """
+    names = [name.__tablename__ for name in tables()]
+    return names
+
+
+def table(name):
+    """
+    :return: the table class based on a given table name.
+             In case the table does not exist an exception is thrown
+    """
+    for t in tables():
+        if t.__tablename__ == name:
+            return t
+
+    raise ("ERROR: unkown table {}".format(name))
+
+
+
 class CloudmeshMixin(object):
     @declared_attr
     def __tablename__(cls):
@@ -120,12 +161,13 @@ class COUNTER(CloudmeshMixin, db.Base):
     Table to store Prefix Count for VM auto-naming.
     """
     value = Column(Integer)
+    kind = "counter"
 
     def __init__(self,
                  name,
                  value,
                  user=None):
-        self.kind = "counter"
+
         self.label = name
         self.name = name
         if user is None:
@@ -134,7 +176,6 @@ class COUNTER(CloudmeshMixin, db.Base):
             self.user = user
         self.value = value
         self.type = self.__tablename__
-        print ("UUUU", self.user, db.user, user)
 
 # OLD: TODO delete this when done
 #
@@ -155,6 +196,7 @@ class DEFAULT(CloudmeshMixin, db.Base):
     # name defined in mixin
     value = Column(String)
     type = Column(String, default="string")
+    kind = 'default'
 
     # category = Column(String)
 
@@ -166,7 +208,6 @@ class DEFAULT(CloudmeshMixin, db.Base):
         # self.kind = __tablename__
         self.label = name
         self.category = category or "general"
-        self.kind = 'default'
         self.name = name
         if user is None:
             self.user = db.user
@@ -182,6 +223,7 @@ class VAR(CloudmeshMixin, db.Base):
     # name defined in mixin
     value = Column(String)
     type = Column(String, default="string")
+    kind = 'var'
 
     def __init__(self,
                  name,
@@ -191,7 +233,6 @@ class VAR(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "var"
-        self.kind = 'var'
         self.name = name
         if user is None:
             self.user = db.user
@@ -211,8 +252,7 @@ class LAUNCHER(CloudmeshMixin, db.Base):
     value = Column(String)
     type = Column(String, default="string")
     parameters = Column(String)  # This is the parameter represented as yaml object
-
-    # category = Column(String)
+    kind = 'launcher'
 
     def __init__(self,
                  name,
@@ -222,7 +262,6 @@ class LAUNCHER(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.kind = 'launcher'
         self.name = name
         if user is None:
             self.user = db.user
@@ -240,6 +279,7 @@ class KEY(CloudmeshMixin, db.Base):
     comment = Column(String)
     uri = Column(String)
     is_default = Column(String)
+    kind = 'key'
 
     def __init__(self,
                  name,
@@ -259,7 +299,6 @@ class KEY(CloudmeshMixin, db.Base):
         self.comment = comment
         self.fingerprint = fingerprint
         self.source = source
-        self.kind = 'key'
         self.name = name
         if user is None:
             self.user = db.user
@@ -272,6 +311,7 @@ class KEY(CloudmeshMixin, db.Base):
 class GROUP(CloudmeshMixin, db.Base):
     member = Column(String)
     species = Column(String)
+    kind = 'group'
 
     def __init__(self,
                  name,
@@ -282,7 +322,6 @@ class GROUP(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.kind = 'group'
         self.species = species or "vm"
         self.name = name
         self.member = member
@@ -299,10 +338,11 @@ class RESERVATION(CloudmeshMixin, db.Base):
     start_time = Column(String)  # date, time
     end_time = Column(String)  # date, time
     type = Column(String)
+    kind="reservation"
 
     def __init__(self, **kwargs):
 
-        self.kind="reservation"
+
         self.label = kwargs['name']
         self.hosts = kwargs['hosts']
         if 'category' in kwargs:
@@ -323,6 +363,7 @@ class RESERVATION(CloudmeshMixin, db.Base):
 
 class SECGROUP(CloudmeshMixin, db.Base):
     uuid = Column(String)
+    kind = 'secgroup'
 
     def __init__(self,
                  name,
@@ -334,7 +375,6 @@ class SECGROUP(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.kind = 'secgroup'
         self.name = name
         if user is None:
             self.user = db.user
@@ -346,7 +386,7 @@ class SECGROUP(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.items():
-                print("{} = {}".format(key, value))
+                # print("{} = {}".format(key, value))
                 self[key] = value
 
 
@@ -357,6 +397,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
     protocol = Column(String)
     cidr = Column(String)
     uuid = Column(String)
+    kind = "secgrouprule"
 
     # noinspection PyPep8Naming
     def __init__(self,
@@ -375,7 +416,6 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
         self.uuid = uuid
         self.label = name
         self.category = category or "general"
-        self.kind = "secgrouprule",
         self.name = name
         if user is None:
             self.user = db.user
@@ -391,7 +431,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
 
         if kwargs is not None:
             for key, value in kwargs.items():
-                print("{} = {}".format(key, value))
+                # print("{} = {}".format(key, value))
                 self[key] = value
 
 
@@ -417,7 +457,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
     group = Column(String, default="string")
     job_id = Column(String, default="string")
     category = Column(String, default="string")
-
+    kind = 'batchjob'
 
     def __init__(self,
                  name,
@@ -425,14 +465,14 @@ class BATCHJOB(CloudmeshMixin, db.Base):
                  category=None,
                  **kwargs
                  ):
+        self.provider = "slurm"
         self.label = name
-        self.kind = 'batchjob'
         self.name = name
         if user is None:
             self.user = db.user
         else:
             self.user = user
-        type = 'batchjob'
+        self.type = 'batchjob'
         self.dir = kwargs.get('dir')
         self.nodes = kwargs.get('nodes')
         self.output_file = kwargs.get('output_file')
@@ -446,35 +486,6 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.job_id = kwargs.get('job_id')
         self.type = self.__tablename__
         self.category = category or "general"
-
-
-def tables():
-    """
-    :return: the list of tables in model
-    """
-    classes = [cls for cls in db.Base.__subclasses__()]
-    return classes
-
-
-def tablenames():
-    """
-    :return: the list of table names in model
-    """
-    names = [name.__tablename__ for name in tables()]
-    return names
-
-
-def table(name):
-    """
-    :return: the table class based on a given table name.
-             In case the table does not exist an exception is thrown
-    """
-    for t in tables():
-        if t.__tablename__ == name:
-            return t
-
-    raise ("ERROR: unkown table {}".format(name))
-
 
 """
 db.Base.metadata.create_all()
@@ -565,6 +576,7 @@ class IMAGE(CloudmeshMixin, db.Base):
     metadata__owner_id = Column(String)
     metadata__ramdisk_id = Column(String)
     metadata__user_id = Column(String)
+    kind = 'image'
 
     def __init__(self,
                  name,
@@ -573,9 +585,9 @@ class IMAGE(CloudmeshMixin, db.Base):
                  user=None,
                  **kwargs):
 
+        self.provider = "openstack"
         self.label = name
         self.category = category or "general"
-        self.kind = 'image'
         self.name = name
         if user is None:
             self.user = db.user
@@ -639,6 +651,7 @@ class FLAVOR(CloudmeshMixin, db.Base):
     rxtx_factor = Column(String)
     os_flv_ext_data = Column(String)
     disk = Column(String)
+    kind = 'image'
 
     def __init__(self,
                  name,
@@ -647,9 +660,10 @@ class FLAVOR(CloudmeshMixin, db.Base):
                  user=None,
                  **kwargs):
 
+        self.provider = "openstack"
         self.label = name
         self.category = category or "general"
-        self.kind = 'image'
+
         self.name = name
         if user is None:
             self.user = db.user
@@ -700,12 +714,14 @@ class VM(CloudmeshMixin, db.Base):
     updated = Column(String)
     user_id = Column(String) # what is this used for?
     username = Column(String)
+    kind = 'vm'
 
     def __init__(self, **kwargs):
 
+        self.provider = "openstack"
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
-        self.kind = 'vm'
+
         self.name = kwargs["name"]
         if kwargs['user'] is None:
             self.user = db.user
@@ -817,13 +833,14 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
     ramdisk_id = Column(String)
     state = Column(String)
     virtualization_type = Column(String)
+    kind = 'image'
 
     def __init__(self,
                  **kwargs):
 
+        self.provider = "libcloud"
         self.label = kwargs["image_name"]
         self.category = kwargs["category"] or "general"
-        self.kind = 'image'
         if kwargs['user'] is None:
             self.user = db.user
         else:
@@ -869,13 +886,15 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
     bandwidth = Column(String)
     price = Column(String)
     cpu = Column(String)
+    kind = 'flavor'
+
 
     def __init__(self,
                  **kwargs):
 
+        self.provider = "libcloud"
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
-        self.kind = 'flavor'
         self.name = kwargs["name"]
         if kwargs['user'] is None:
             self.user = db.user
@@ -912,12 +931,14 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     root_device_name = Column(String)
     root_device_type = Column(String)
     status = Column(String)
+    kind = 'vm'
 
     def __init__(self, **kwargs):
 
+        self.provider = "libcloud"
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
-        self.kind = 'vm'
+
         if kwargs['user'] is None:
             self.user = db.user
         else:

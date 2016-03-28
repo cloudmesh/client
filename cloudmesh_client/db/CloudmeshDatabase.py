@@ -13,6 +13,8 @@ from cloudmesh_client.db.model import database, table, tablenames, \
     FLAVOR, VAR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, \
     BATCHJOB, SECGROUP, \
     SECGROUPRULE, LIBCLOUD_FLAVOR, LIBCLOUD_IMAGE, LIBCLOUD_VM
+from cloudmesh_client.db.model import tables
+
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
@@ -218,6 +220,23 @@ class CloudmeshDatabase(object):
 
         return result
 
+    def x_find(self, **kwargs):
+        output = kwargs.get("output", "dict")
+        kind = kwargs.get("kind", "vm")
+
+        object_tables = tables(kind="vm")
+
+        result = []
+        for t in tables(kind=kind):
+            part = self.session.query(t).filter_by(**kwargs)
+            result.extend(part)
+
+        if output == "dict":
+            return self.object_to_dict(result)
+        else:
+            return result
+
+
 
     def find(self, kind, scope="all", output="dict", **kwargs):
         """
@@ -227,7 +246,6 @@ class CloudmeshDatabase(object):
         :return:
         """
         # bug: user = self.user or Username()
-        print("KWWW", kwargs)
         if "category" in kwargs:
             kind = self.cloud_to_kind_mapper(kwargs["category"], kind)
         result = self.query(kind, **kwargs)
@@ -325,7 +343,7 @@ class CloudmeshDatabase(object):
                 if not key.startswith("_sa"):
                     values[key] = u.__dict__[key]
             result[_id] = values
-        pprint(result)
+        # pprint(result)
         return result
 
     def parse_objs(self, elements):

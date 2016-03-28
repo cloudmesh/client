@@ -12,15 +12,36 @@ nosetests -v tests/cm_basic/test_model.py
 
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
-from cloudmesh_client.db.model import VM
+from cloudmesh_client.db.model import VM, LIBCLOUD_VM, table, tablenames, tables
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
-
+from cloudmesh_client.common.dotdict import dotdict
+from cloudmesh_client.default import Default
+from cloudmesh_client.common.Shell import Shell
 
 # noinspection PyPep8Naming
 class Test_cloud_model(object):
+
+
+    data = dotdict({
+        "cloud": Default.get_cloud(),
+        "cm": CloudmeshDatabase()
+
+    })
+
+    def run(self, command):
+        command = command.format(**self.data)
+        banner(command, c="-")
+        print(command)
+        parameter = command.split(" ")
+        shell_command = parameter[0]
+        args = parameter[1:]
+        result = Shell.execute(shell_command, args)
+        print(result)
+        return str(result)
+
     def setup(self):
         self.d = {
             'cloud': 'india',
@@ -96,7 +117,7 @@ class Test_cloud_model(object):
         pprint(d.__dict__)
 
         banner("Add VM")
-        cm = CloudmeshDatabase()
+        cm = self.data.cm
 
         name = "vm1"
         uuid = d.id
@@ -104,8 +125,7 @@ class Test_cloud_model(object):
         vm = VM(name=name,
                 uuid=uuid,
                 user="test",
-                type="VM",
-                category="mycloud",
+                category=self.data.cloud,
                 **d)
         banner("VM added")
 
@@ -121,3 +141,62 @@ class Test_cloud_model(object):
         pprint(o)
 
         assert True
+
+    def test_002(self):
+        HEADING("VM DB test")
+        result = self.run("make db")
+
+        cm = self.data.cm
+        for index in range(0,5):
+            name = "vm_" + str(index).zfill(3)
+            vm = VM(name=name,
+                    uuid="uuid_"+str(index),
+                    user="test",
+                    category=self.data.cloud)
+            cm.add(vm)
+        for index in range(5,10):
+            name = "vm_" + str(index).zfill(3)
+            vm = LIBCLOUD_VM(name=name,
+                    uuid="uuid_"+str(index),
+                    user="test",
+                    category=self.data.cloud)
+            cm.add(vm)
+        cm.save()
+
+        result = self.run("cm refresh off")
+        result = self.run("cm vm list")
+        print(result)
+
+
+        print (cm.tables())
+
+    def test_003(self):
+        HEADING("find vm tables")
+        cm = self.data.cm
+
+        print ("---------")
+        all_tables = tables()
+        for t in all_tables:
+            print (t.__tablename__, t.kind)
+
+        print ("---------")
+        vm_tables = tables(kind="vm")
+        for t in vm_tables:
+            print (t.__tablename__, t.kind)
+        assert len(vm_tables) == 2
+
+
+    def test_004(self):
+        HEADING("find vm tables")
+        cm = self.data.cm
+
+        print ("-------------")
+        vm = dotdict(cm.first(cm.x_find(name="vm_001")))
+        pprint (vm)
+        assert vm.provider == 'openstack'
+
+
+        print ("-------------")
+        vm = dotdict(cm.first(cm.x_find(name="vm_006")))
+        pprint (vm)
+        assert vm.provider == 'libcloud'
