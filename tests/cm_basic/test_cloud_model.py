@@ -13,7 +13,7 @@ from __future__ import print_function
 
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
-from cloudmesh_client.db.model import VM_OPENSTACK, VM_LIBCLOUD
+from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
 from cloudmesh_client.db import tablenames, tables
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
