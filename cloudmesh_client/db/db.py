@@ -4,14 +4,14 @@ from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 import os
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-
+from ..borg import Borg
 
 import os
 from datetime import datetime
 
 
 # noinspection PyPep8Naming
-class database(object):
+class database(Borg):
     """
     A simple class with all the details to create and
     provide some elementary methods for the database.
@@ -25,18 +25,11 @@ class database(object):
 
     def __init__(self):
         """Initializes the database and shares the state with other instantiations of it"""
-        self.debug = False
-        self.filename = None
-        self.endpoint = None
-        self.engine = None
-        self.Base = None
-        self.meta = None
-        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+        Borg.__init__(self)
 
         if not database.__monostate:
-            database.__monostate = self.__dict__
             self.activate()
-
+            database.__monostate = self.__dict__
         else:
             self.__dict__ = database.__monostate
 
@@ -44,6 +37,13 @@ class database(object):
         """activates the shared variables"""
 
         # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
+        self.debug = False
+        self.filename = None
+        self.endpoint = None
+        self.engine = None
+        self.Base = None
+        self.meta = None
+        self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
 
         self.filename = Config.path_expand(
             os.path.join("~", ".cloudmesh", "cloudmesh.db"))
