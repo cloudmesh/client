@@ -237,10 +237,10 @@ class CloudmeshDatabase(object):
         kind = kwargs.get("kind", "vm")
         scope = kwargs.pop("scope", "first")
 
-        object_tables = tables(kind="vm")
+        object_tables = self.db.tables(kind="vm")
 
         result = []
-        for t in tables(kind=kind):
+        for t in self.db.tables(kind=kind):
             part = self.session.query(t).filter_by(**kwargs)
             result.extend(self.to_list(part))
 
