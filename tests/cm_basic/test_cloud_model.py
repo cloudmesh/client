@@ -14,8 +14,8 @@ from __future__ import print_function
 from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
 from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
-from cloudmesh_client.db import tablenames, tables
 from cloudmesh_client.db import CloudmeshDatabase
+from cloudmesh_client.db import database
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
@@ -186,12 +186,12 @@ class Test_cloud_model(object):
 
 
         print ("---------")
-        all_tables = tables()
+        all_tables = cm.db.tables()
         for t in all_tables:
             print (t.__tablename__, t.kind)
 
         print ("---------")
-        vm_tables = tables(kind="vm")
+        vm_tables = cm.db.tables(kind="vm")
         for t in vm_tables:
             print (t.__tablename__, t.kind)
         assert len(vm_tables) == 2
