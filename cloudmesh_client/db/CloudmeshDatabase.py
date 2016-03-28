@@ -9,13 +9,12 @@ from sqlalchemy import inspect
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.common.hostlist import Parameter
-from cloudmesh_client.db.db import database, table, tablenames
+from cloudmesh_client.db.db import database
 from cloudmesh_client.db import \
     FLAVOR_OPENSTACK, VAR, DEFAULT, KEY, IMAGE_OPENSTACK, VM_OPENSTACK, \
     GROUP, RESERVATION, COUNTER, \
     BATCHJOB, SECGROUP, \
     SECGROUPRULE, FLAVOR_LIBCLOUD, IMAGE_LIBCLOUD, VM_LIBCLOUD
-from cloudmesh_client.db import tables
 
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider

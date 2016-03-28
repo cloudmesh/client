@@ -1,6 +1,3 @@
-from cloudmesh_client.db.db import tables, tablenames, table
-
-
 from .base.model import COUNTER
 from .base.model import DEFAULT
 from .base.model import BATCHJOB
@@ -23,3 +20,4 @@ from .libcloud.model import VM_LIBCLOUD
 
 
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db.db import database
