@@ -168,7 +168,6 @@ class Test_cloud_model(object):
         print(result)
 
 
-        print (cm.tables())
 
     def test_003(self):
         HEADING("find vm tables")
@@ -191,12 +190,19 @@ class Test_cloud_model(object):
         cm = self.data.cm
 
         print ("-------------")
-        vm = dotdict(cm.first(cm.x_find(name="vm_001")))
+        vm = cm.x_find(name="vm_001")
         pprint (vm)
         assert vm.provider == 'openstack'
 
 
         print ("-------------")
-        vm = dotdict(cm.first(cm.x_find(name="vm_006")))
+        vm = cm.x_find(name="vm_006")
         pprint (vm)
         assert vm.provider == 'libcloud'
+
+        print ("-------------")
+        vms = cm.x_find(kind="vm", scope="all")
+        pprint (vms)
+        print (len(vms))
+        assert len(vms) == 10
+
