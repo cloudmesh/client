@@ -3,8 +3,7 @@ from __future__ import print_function
 import os
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, MetaData, \
-    create_engine
+from sqlalchemy import Column, Integer, String, MetaData, create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.declarative import declared_attr
 

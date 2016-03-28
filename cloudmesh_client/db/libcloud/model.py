@@ -5,7 +5,7 @@ from ..base.model import CloudmeshMixin
 
 from ..db import database
 
-db = database
+db = database()
 
 class IMAGE_LIBCLOUD(CloudmeshMixin, db.Base):
     uuid = Column(String)
