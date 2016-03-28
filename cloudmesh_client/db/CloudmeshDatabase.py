@@ -146,7 +146,7 @@ class CloudmeshDatabase(object):
         except:
             connected = False
         if not connected:
-            Session = sessionmaker(bind=self.db.engine)
+            Session = sessionmaker(bind=self.db.engine, autoflush=True)
             self.session = Session()
             self.connected = True
         return self.session
