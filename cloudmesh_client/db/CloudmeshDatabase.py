@@ -294,8 +294,10 @@ class CloudmeshDatabase(object):
         :return:
         """
         # what is this
-        self.find(VMUSERMAP, output="object", vm_uuid=kwargs["vm_uuid"]).update(kwargs)
-        self.save()
+        print ("SET USERNAME", kwargs)
+        ValueError("Setting the username is not yet supported")
+        # self.find(VMUSERMAP, output="object", vm_uuid=kwargs["vm_uuid"]).update(kwargs)
+        # self.save()
 
     def delete_by_name(self, kind, name):
         """

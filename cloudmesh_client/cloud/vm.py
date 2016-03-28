@@ -291,7 +291,9 @@ class Vm(ListResource):
 
     @classmethod
     def set_vm_login_user(cls, name_or_id, cloud, username):
-
+        print(name_or_id, username)
+        ValueError("this method is wrong implemented")
+        '''
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
@@ -308,10 +310,14 @@ class Vm(ListResource):
             cls.cm.save()
         else:
             cls.cm.update_vm_username(vm_uuid=uuid, username=username)
+        '''
 
     @classmethod
     def get_vm_login_user(cls, name_or_id, cloud):
+        print(name_or_id, cloud)
 
+        ValueError("this method is wrong implemented")
+        '''
         if cls.isUuid(name_or_id):
             uuid = name_or_id
         else:
@@ -330,6 +336,7 @@ class Vm(ListResource):
             return None
         else:
             return list(user_map_entry.values())[0]["username"]
+        '''
 
     @classmethod
     def get_last_vm(cls, cloud):
