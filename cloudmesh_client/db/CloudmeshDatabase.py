@@ -21,6 +21,7 @@ from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.dotdict import dotdict
 
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshDatabase(object):
@@ -221,21 +222,22 @@ class CloudmeshDatabase(object):
         return result
 
     def x_find(self, **kwargs):
-        output = kwargs.get("output", "dict")
         kind = kwargs.get("kind", "vm")
+        scope = kwargs.pop("scope", "first")
 
         object_tables = tables(kind="vm")
 
         result = []
         for t in tables(kind=kind):
             part = self.session.query(t).filter_by(**kwargs)
-            result.extend(part)
+            result.extend(self.to_list(part))
 
-        if output == "dict":
-            return self.object_to_dict(result)
-        else:
-            return result
+        objects = result
 
+        if scope == "first" and result is not None:
+            objects = dotdict(result[0])
+
+        return objects
 
 
     def find(self, kind, scope="all", output="dict", **kwargs):
@@ -327,6 +329,24 @@ class CloudmeshDatabase(object):
         # bug user = self.user or Username()
         item = self.find(kind, name=name, output="item").first()
         self.delete(item)
+
+    def to_list(self, obj):
+        """
+        convert the object to dict
+
+        :param obj:
+        :return:
+        """
+        result = list()
+        for u in obj:
+            _id = u.id
+            values = {}
+            for key in list(u.__dict__.keys()):
+                if not key.startswith("_sa"):
+                    values[key] = u.__dict__[key]
+            result.append(values)
+        # pprint(result)
+        return result
 
     def object_to_dict(self, obj):
         """
