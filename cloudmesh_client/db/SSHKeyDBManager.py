@@ -4,7 +4,7 @@ from pprint import pprint
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.menu import menu_return_num
 from cloudmesh_client.keys.SSHKeyManager import SSHkey
-from cloudmesh_client.db.model import KEY
+from cloudmesh_client.db import KEY
 from cloudmesh_client.db import CloudmeshDatabase
 
 
