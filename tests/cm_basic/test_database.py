@@ -14,7 +14,7 @@ nosetests -v tests/cm_basic/test_database.py
 from pprint import pprint
 
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-from cloudmesh_client.db.model import DEFAULT, COUNTER, VM
+from cloudmesh_client.db.model import DEFAULT, COUNTER, VM_OPENSTACK
 from cloudmesh_client.util import HEADING
 
 

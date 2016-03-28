@@ -10,9 +10,9 @@ from sqlalchemy import inspect
 from cloudmesh_client.util import banner
 from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.model import database, table, tablenames, \
-    FLAVOR, VAR, DEFAULT, KEY, IMAGE, VM, GROUP, RESERVATION, COUNTER, \
+    FLAVOR_OPENSTACK, VAR, DEFAULT, KEY, IMAGE_OPENSTACK, VM_OPENSTACK, GROUP, RESERVATION, COUNTER, \
     BATCHJOB, SECGROUP, \
-    SECGROUPRULE, LIBCLOUD_FLAVOR, LIBCLOUD_IMAGE, LIBCLOUD_VM
+    SECGROUPRULE, FLAVOR_LIBCLOUD, IMAGE_LIBCLOUD, VM_LIBCLOUD
 from cloudmesh_client.db.model import tables
 
 from cloudmesh_client.common.todo import TODO
@@ -507,21 +507,21 @@ class CloudmeshDatabase(object):
     def get_table(self, kind):
         if type(kind) == str:
             if kind.lower() in ["flavor"]:
-                return FLAVOR
+                return FLAVOR_OPENSTACK
             elif kind.lower() in ["libcloud_flavor"]:
-                return LIBCLOUD_FLAVOR
+                return FLAVOR_LIBCLOUD
             elif kind.lower() in ["default"]:
                 return DEFAULT
             elif kind.lower() in ["var"]:
                 return VAR
             elif kind.lower() in ["image"]:
-                return IMAGE
+                return IMAGE_OPENSTACK
             elif kind.lower() in ["libcloud_image"]:
-                return LIBCLOUD_IMAGE
+                return IMAGE_LIBCLOUD
             elif kind.lower() in ["vm"]:
-                return VM
+                return VM_OPENSTACK
             elif kind.lower() in ["libcloud_vm"]:
-                return LIBCLOUD_VM
+                return VM_LIBCLOUD
             elif kind.lower() in ["key"]:
                 return KEY
             elif kind.lower() in ["group"]:
