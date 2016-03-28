@@ -55,40 +55,38 @@ class database(Borg):
         self.meta.reflect(bind=self.engine)
         # self.session = sessionmaker(bind=self.engine)
 
+    def tables(self, kind=None):
+        """
+        :return: the list of tables in model
+        """
+        if kind is None:
+            classes = [cls for cls in db.Base.__subclasses__()]
+        else:
+
+            classes = []
+            for cls in self.Base.__subclasses__():
+                if cls.kind == kind:
+                    classes.append(cls)
+        return classes
+
+    def tablenames(self):
+        """
+        :return: the list of table names in model
+        """
+        names = [name.__tablename__ for name in self.tables()]
+        return names
+
+    def table(self, name):
+        """
+        :return: the table class based on a given table name.
+                 In case the table does not exist an exception is thrown
+        """
+        for t in self.tables():
+            if t.__tablename__ == name:
+                return t
+
+        raise ("ERROR: unkown table {}".format(name))
+
 
 db = database()
 
-
-def tables(kind=None):
-    """
-    :return: the list of tables in model
-    """
-    if kind is None:
-        classes = [cls for cls in db.Base.__subclasses__()]
-    else:
-
-        classes = []
-        for cls in db.Base.__subclasses__():
-            if cls.kind == kind:
-                classes.append(cls)
-    return classes
-
-
-def tablenames():
-    """
-    :return: the list of table names in model
-    """
-    names = [name.__tablename__ for name in tables()]
-    return names
-
-
-def table(name):
-    """
-    :return: the table class based on a given table name.
-             In case the table does not exist an exception is thrown
-    """
-    for t in tables():
-        if t.__tablename__ == name:
-            return t
-
-    raise ("ERROR: unkown table {}".format(name))

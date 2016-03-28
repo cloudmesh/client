@@ -15,11 +15,13 @@ from pprint import pprint
 
 from cloudmesh_client.util import HEADING
 import cloudmesh_client.db
-import cloudmesh_client.db.model
-
+from cloudmesh_client.db import database
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_model:
+
+    db = database()
+
     def setup(self):
         pass
 
@@ -30,16 +32,16 @@ class Test_model:
     # noinspection PyMethodMayBeStatic
     def test_001(self):
         HEADING("db.tables")
-        pprint(cloudmesh_client.db.tables())
+        pprint(self.db.tables())
         assert True
 
     def test_002(self):
         HEADING("db.tablenames")
-        print(cloudmesh_client.db.tablenames())
+        print(self.db.tablenames())
         assert True
 
     def test_003(self):
         HEADING("loop over tablenames")
-        for name in cloudmesh_client.db.tablenames():
-            print(cloudmesh_client.db.table(name))
+        for name in self.db.tablenames():
+            print(self.db.table(name))
         assert True
