@@ -227,7 +227,7 @@ class CloudmeshDatabase(object):
         :return:
         """
         # bug: user = self.user or Username()
-        print("KW", kwargs)
+        print("KWWW", kwargs)
         if "category" in kwargs:
             kind = self.cloud_to_kind_mapper(kwargs["category"], kind)
         result = self.query(kind, **kwargs)

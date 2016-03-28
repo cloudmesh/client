@@ -241,7 +241,7 @@ class Group(ListResource):
             if category is not None:
                 args["category"] = category
 
-            print ("AAA", args)
+            print ("DDD", args)
 
             group = cls.cm.find("group",  output="dict", **args)
             group_object = cls.cm.find("group", output="object", **args)

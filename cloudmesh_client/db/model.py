@@ -10,6 +10,34 @@ from sqlalchemy import Column, Integer, String, MetaData, \
 from sqlalchemy.ext.declarative import declarative_base
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
+
+"""
+
+kind = the general type of the object that can be helpful for the location
+       of similar objects accross providers
+
+        examples: vm, image, flavor, ...
+
+type = the table name of the object
+
+provider name of the providor
+
+            example: "openstack", "libcloud", "aws", ...
+
+
+category = name of the category, this can be the name of the clod,
+            batch system or other
+            from the name of the category other information can be derived
+            while retrieving it from the yaml file
+
+            examples: kilo, chameleon, cybera-e, aws, ...
+                      e..g. the names of the clouds
+
+please note that kind and type seem to be confusingly named as the kind is used in
+
+"""
+
+
 # noinspection PyPep8Naming
 class database(object):
     """
@@ -78,11 +106,11 @@ class CloudmeshMixin(object):
                         onupdate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     label = Column(String, default="undefined")
     name = Column(String, default="undefined")
-    category = Column(String, default="undefined")
     user = Column(String, default=db.user)
-    kind = Column(String, default="undefined")
     project = Column(String, default="undefined")
-    cloud = Column(String, default="undefined")
+
+    category = Column(String, default="undefined") # general or the name of teh cloud/queue in the yaml files
+    kind = Column(String, default="undefined")
     type = Column(String, default="undefined")
     provider = Column(String, default="undefined")
 
@@ -91,14 +119,13 @@ class COUNTER(CloudmeshMixin, db.Base):
     """
     Table to store Prefix Count for VM auto-naming.
     """
-    type = Column(String, default="integer")
     value = Column(Integer)
 
     def __init__(self,
                  name,
                  value,
                  user=None):
-        self.type = "counter"
+        self.kind = "counter"
         self.label = name
         self.name = name
         if user is None:
@@ -106,7 +133,7 @@ class COUNTER(CloudmeshMixin, db.Base):
         else:
             self.user = user
         self.value = value
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
         print ("UUUU", self.user, db.user, user)
 
 # OLD: TODO delete this when done
@@ -139,14 +166,14 @@ class DEFAULT(CloudmeshMixin, db.Base):
         # self.kind = __tablename__
         self.label = name
         self.category = category or "general"
-        self.type = 'default'
+        self.kind = 'default'
         self.name = name
         if user is None:
             self.user = db.user
         else:
             self.user = user
         self.value = value
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 
 class VAR(CloudmeshMixin, db.Base):
@@ -164,14 +191,14 @@ class VAR(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "var"
-        self.type = 'var'
+        self.kind = 'var'
         self.name = name
         if user is None:
             self.user = db.user
         else:
             self.user = user
         self.value = value
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 class LAUNCHER(CloudmeshMixin, db.Base):
     """table to store default values
@@ -195,14 +222,14 @@ class LAUNCHER(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.type = 'launcher'
+        self.kind = 'launcher'
         self.name = name
         if user is None:
             self.user = db.user
         else:
             self.user = user
         self.value = value
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 
 # TODO: BUG the value is not properly used here
@@ -232,36 +259,38 @@ class KEY(CloudmeshMixin, db.Base):
         self.comment = comment
         self.fingerprint = fingerprint
         self.source = source
-        self.type = 'key'
+        self.kind = 'key'
         self.name = name
         if user is None:
             self.user = db.user
         else:
             self.user = user
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
         self.is_default = is_default
 
 
 class GROUP(CloudmeshMixin, db.Base):
     member = Column(String)
-    type = Column(String)
+    species = Column(String)
 
     def __init__(self,
                  name,
                  member,
+                 species=None,
                  category=None,
                  user=None):
 
         self.label = name
         self.category = category or "general"
-        self.type = 'group'
+        self.kind = 'group'
+        self.species = species or "vm"
         self.name = name
         self.member = member
         if user is None:
             self.user = db.user
         else:
             self.user = user
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 
 class RESERVATION(CloudmeshMixin, db.Base):
@@ -273,7 +302,7 @@ class RESERVATION(CloudmeshMixin, db.Base):
 
     def __init__(self, **kwargs):
 
-        self.type="reservation"
+        self.kind="reservation"
         self.label = kwargs['name']
         self.hosts = kwargs['hosts']
         if 'category' in kwargs:
@@ -289,7 +318,7 @@ class RESERVATION(CloudmeshMixin, db.Base):
         else:
             self.user = kwargs['user']
         self.project = kwargs['project']
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 
 class SECGROUP(CloudmeshMixin, db.Base):
@@ -305,7 +334,7 @@ class SECGROUP(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.type = 'secgroup'
+        self.kind = 'secgroup'
         self.name = name
         if user is None:
             self.user = db.user
@@ -313,7 +342,7 @@ class SECGROUP(CloudmeshMixin, db.Base):
             self.user = user
         self.uuid = uuid
         self.project = project
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
         if kwargs is not None:
             for key, value in kwargs.items():
@@ -346,7 +375,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
         self.uuid = uuid
         self.label = name
         self.category = category or "general"
-        self.type = "secgrouprule",
+        self.kind = "secgrouprule",
         self.name = name
         if user is None:
             self.user = db.user
@@ -358,7 +387,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
         self.toPort = toPort
         self.protocol = protocol
         self.cidr = cidr
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
         if kwargs is not None:
             for key, value in kwargs.items():
@@ -397,7 +426,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
                  **kwargs
                  ):
         self.label = name
-        self.type = type
+        self.kind = 'batchjob'
         self.name = name
         if user is None:
             self.user = db.user
@@ -415,7 +444,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.time = kwargs.get('time')
         self.group = kwargs.get('group')
         self.job_id = kwargs.get('job_id')
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
         self.category = category or "general"
 
 
@@ -546,7 +575,7 @@ class IMAGE(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.type = 'image'
+        self.kind = 'image'
         self.name = name
         if user is None:
             self.user = db.user
@@ -555,7 +584,7 @@ class IMAGE(CloudmeshMixin, db.Base):
 
         self.username = kwargs.get("username", 'undefined')
         self.uuid = uuid
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
         self.status = kwargs.get('status')
         self.updated = kwargs.get('updated')
         self.created = kwargs.get('created')
@@ -620,7 +649,7 @@ class FLAVOR(CloudmeshMixin, db.Base):
 
         self.label = name
         self.category = category or "general"
-        self.type = 'image'
+        self.kind = 'image'
         self.name = name
         if user is None:
             self.user = db.user
@@ -635,7 +664,7 @@ class FLAVOR(CloudmeshMixin, db.Base):
         self.rxtx_factor = kwargs.get('rxtx_factor')
         self.os_flv_ext_data = kwargs.get('OS-FLV-EXT-DATA:ephemeral')
         self.disk = kwargs.get('disk')
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
         """if kwargs is not None:
             for key, value in kwargs.iteritems():
@@ -676,7 +705,7 @@ class VM(CloudmeshMixin, db.Base):
 
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
-        self.type = 'vm'
+        self.kind = 'vm'
         self.name = kwargs["name"]
         if kwargs['user'] is None:
             self.user = db.user
@@ -755,7 +784,7 @@ class VM(CloudmeshMixin, db.Base):
         if "user_id" in kwargs:
             self.user_id = kwargs["user_id"]
 
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
         """
         if kwargs is not None:
@@ -794,7 +823,7 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
 
         self.label = kwargs["image_name"]
         self.category = kwargs["category"] or "general"
-        self.type = 'image'
+        self.kind = 'image'
         if kwargs['user'] is None:
             self.user = db.user
         else:
@@ -830,7 +859,7 @@ class LIBCLOUD_IMAGE(CloudmeshMixin, db.Base):
             self.ramdisk_id = kwargs.get('ramdisk_id')
         if 'state' in kwargs:
             self.state = kwargs.get('state')
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
     uuid = Column(String)
@@ -846,7 +875,7 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
 
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
-        self.type = 'flavor'
+        self.kind = 'flavor'
         self.name = kwargs["name"]
         if kwargs['user'] is None:
             self.user = db.user
@@ -865,7 +894,7 @@ class LIBCLOUD_FLAVOR(CloudmeshMixin, db.Base):
             self.price = kwargs["price"]
         if "cpu" in kwargs:
             self.cpu = kwargs["cpu"]
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
 class LIBCLOUD_VM(CloudmeshMixin, db.Base):
     uuid = Column(String)
@@ -888,7 +917,7 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
 
         self.label = kwargs["name"]
         self.category = kwargs["category"] or "general"
-        self.type = 'vm'
+        self.kind = 'vm'
         if kwargs['user'] is None:
             self.user = db.user
         else:
@@ -923,5 +952,5 @@ class LIBCLOUD_VM(CloudmeshMixin, db.Base):
             self.root_device_type = kwargs["root_device_type"]
         if "status" in kwargs:
             self.status = kwargs["status"]
-        self.kind = self.__tablename__
+        self.type = self.__tablename__
 
