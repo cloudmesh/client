@@ -435,7 +435,7 @@ class CloudmeshDatabase(object):
         """
         result = {}
         if kind is None:
-            kinds = tablenames()
+            kinds = self.db.tablenames()
         else:
             kinds = Parameter.expand(kind)
         if what is None:
@@ -460,7 +460,7 @@ class CloudmeshDatabase(object):
             result['count'] = {}
             for table_name in inspector.get_table_names():
                 if table_name in kinds:
-                    t = table(table_name)
+                    t = self.db.table(table_name)
                     rows = self.session.query(t).count()
                     result['count'][table_name] = rows
                     # print("Count {:}: {:}".format(table_name, rows))
