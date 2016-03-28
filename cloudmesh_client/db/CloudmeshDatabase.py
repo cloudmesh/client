@@ -222,6 +222,17 @@ class CloudmeshDatabase(object):
         return result
 
     def x_find(self, **kwargs):
+        """
+        This method returns either
+        a) an array of objects from the database in dict format, that match a particular kind.
+           If the kind is not specified vm is used. one of the arguments must be scope="all"
+        b) a single entry that matches the first occurance of the query specified by kwargs,
+           such as name="vm_001"
+
+        :param kwargs: the arguments to be matched, scope defines if all or just the first value
+               is returned. first is default.
+        :return: a list of objects, if scope is first a single object in dotdict format is returned
+        """
         kind = kwargs.get("kind", "vm")
         scope = kwargs.pop("scope", "first")
 
