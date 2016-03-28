@@ -572,11 +572,7 @@ class IMAGE(CloudmeshMixin, db.Base):
         else:
             self.user = user
 
-        if "username" in kwargs["username"]:
-            self.username = kwargs["username"]
-        else:
-            self.username = 'undefined'
-
+        self.username = kwargs.get("username", 'undefined')
         self.uuid = uuid
         self.kind = self.__tablename__
         self.status = kwargs.get('status')
@@ -707,10 +703,7 @@ class VM(CloudmeshMixin, db.Base):
         else:
             self.user = kwargs['user']
         self.uuid = kwargs["uuid"]
-        if "username" in kwargs["username"]:
-            self.username = kwargs["username"]
-        else:
-            self.username = 'undefined'
+        self.username = kwargs.get("username", 'undefined')
         if "OS-DCF:diskConfig" in kwargs:
             self.diskConfig = kwargs["OS-DCF:diskConfig"]
         if "OS-EXT-AZ:availability_zone" in kwargs:
