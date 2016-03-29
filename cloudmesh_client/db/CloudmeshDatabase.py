@@ -11,10 +11,11 @@ from cloudmesh_client.util import banner
 from cloudmesh_client.common.hostlist import Parameter
 from cloudmesh_client.db.db import database
 from cloudmesh_client.db import \
-    FLAVOR_OPENSTACK, VAR, DEFAULT, KEY, IMAGE_OPENSTACK, VM_OPENSTACK, \
     GROUP, RESERVATION, COUNTER, \
-    BATCHJOB, SECGROUP, \
-    SECGROUPRULE, FLAVOR_LIBCLOUD, IMAGE_LIBCLOUD, VM_LIBCLOUD
+    BATCHJOB, SECGROUP, SECGROUPRULE, \
+    VAR, DEFAULT, KEY, \
+    FLAVOR_OPENSTACK, IMAGE_OPENSTACK, VM_OPENSTACK, \
+    FLAVOR_LIBCLOUD, IMAGE_LIBCLOUD, VM_LIBCLOUD
 
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
@@ -24,10 +25,11 @@ from cloudmesh_client.common.LibcloudDict import LibcloudDict
 from cloudmesh_client.common.ConfigDict import ConfigDict
 from cloudmesh_client.common.dotdict import dotdict
 
+
+
 # noinspection PyBroadException,PyPep8Naming
 class CloudmeshDatabase(object):
     # TODO: see also common/VMname
-
 
     # ###################################
     # INIT
@@ -147,7 +149,7 @@ class CloudmeshDatabase(object):
         except:
             connected = False
         if not connected:
-            Session = sessionmaker(bind=self.db.engine, autoflush=True)
+            Session = sessionmaker(bind=self.db.engine, autoflush=False)
             self.session = Session()
             self.connected = True
         return self.session
@@ -155,10 +157,12 @@ class CloudmeshDatabase(object):
     def save(self):
         self.session.commit()
         self.session.flush()
+        pass
 
     def close(self):
-        self.session.close()
-
+        #self.session.close()
+        #self.connected = False
+        pass
 
     def delete(self, item):
         """
@@ -238,10 +242,12 @@ class CloudmeshDatabase(object):
         scope = kwargs.pop("scope", "first")
 
         object_tables = self.db.tables(kind="vm")
+        print ("TTT", object_tables)
 
         result = []
         for t in self.db.tables(kind=kind):
             part = self.session.query(t).filter_by(**kwargs)
+            print ("PPP", self.to_list(part))
             result.extend(self.to_list(part))
 
         objects = result
@@ -352,6 +358,7 @@ class CloudmeshDatabase(object):
         result = list()
         for u in obj:
             _id = u.id
+            print ("ID", u.id)
             values = {}
             for key in list(u.__dict__.keys()):
                 if not key.startswith("_sa"):
@@ -557,6 +564,9 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
+
+        return True
+
         try:
             # print(cloudname)
             # get the user
