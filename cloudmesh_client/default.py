@@ -1,13 +1,12 @@
 from __future__ import print_function
 
-from pprint import pprint
 from cloudmesh_client.common import Printer
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
-from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+# from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 
 # noinspection PyBroadException
@@ -23,13 +22,12 @@ class Default(ListResource):
 
     """cm is  a static variable so that db is used uniformly."""
     cm = CloudmeshDatabase()
-    
+
     @classmethod
     def list(cls,
              category=None,
-             format="table",
              order=None,
-             output=format):
+             output='table'):
         """
         lists the default values in the specified format.
         TODO: This method has a bug as it uses format and output,
@@ -37,17 +35,17 @@ class Default(ListResource):
 
         :param category: the category of the default value. If general is used
                       it is a special category that is used for global values.
-        :param format: json, table, yaml, dict, csv
         :param order: The order in which the attributes are returned
-        :param output: The output format.
+        :param output: The output format. json, table, yaml, dict, csv
         :return:
         """
 
-        # # cm = CloudmeshDatabase()
-
         if order is None:
             # (order, header) = CloudProvider(category).get_attributes("default")
-            order = ['user', 'category', 'name', 'value',
+            order = ['user',
+                     'category',
+                     'name',
+                     'value',
                      'updated_at']
         try:
             if category is None:
@@ -56,7 +54,7 @@ class Default(ListResource):
                 d = cls.cm.find('default', category=category)
             return (Printer.dict_printer(d,
                                          order=order,
-                                         output=format))
+                                         output=output))
         except:
             return None
 
@@ -75,7 +73,6 @@ class Default(ListResource):
         :return:
         """
         try:
-            # cm = CloudmeshDatabase()
 
             o = Default.get_object(key, category)
             me = cls.cm.user or user
@@ -105,7 +102,6 @@ class Default(ListResource):
         :return:
         """
         try:
-            # cm = CloudmeshDatabase()
 
             arguments = {'name': key,
                          'category': category}
@@ -126,7 +122,6 @@ class Default(ListResource):
         :param category: The category
         :return:
         """
-        # cm = CloudmeshDatabase()
 
         arguments = {'name': key,
                      'category': category}
@@ -145,7 +140,6 @@ class Default(ListResource):
         # TODO: this is wrong implemented,
         #
         try:
-            # cm = CloudmeshDatabase()
 
             o = Default.get_object(key, category)
             if o is not None:
@@ -163,7 +157,6 @@ class Default(ListResource):
         :return:
         """
         try:
-            # cm = CloudmeshDatabase()
 
             d = cls.cm.all('default')
             for item in d:
@@ -285,8 +278,6 @@ class Default(ListResource):
         :return:
         """
         try:
-            # cm = CloudmeshDatabase()
-
             group = cls.get("group", "general")
             if group is None:
                 return "default"
@@ -294,7 +285,6 @@ class Default(ListResource):
                 return group
         except:
             return "default"
-        return cls.get("group", "general")
 
     #
     # Set the default key
@@ -474,5 +464,3 @@ class Default(ListResource):
         # Set the key only if there is no existing value in the DB.
         if exist_key is None:
             Default.set_key(name)
-
-

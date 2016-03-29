@@ -131,7 +131,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
             order = ['name', 'value']
             output_format = arguments["--format"]
             result = Default.list(category=cloud, order=order,
-                                  format=output_format)
+                                  output=output_format)
             print (result)
             return ""
 
@@ -143,7 +143,7 @@ class DefaultCommand(PluginCommand, CloudPluginCommand, CometPluginCommand):
 
             if arguments['--all'] or arguments["--cloud"] is None:
                 cloud = None
-            result = Default.list(category=cloud, format=output_format)
+            result = Default.list(category=cloud, output=output_format)
 
             if result is None:
                 Console.error("No default values found")
