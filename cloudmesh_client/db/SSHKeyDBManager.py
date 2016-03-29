@@ -11,7 +11,7 @@ from cloudmesh_client.db import CloudmeshDatabase
 # noinspection PyBroadException
 class SSHKeyDBManager(object):
     def __init__(self, user=None):
-        self.db = CloudmeshDatabase.CloudmeshDatabase(user=user)
+        self.db = CloudmeshDatabase(user=user)
 
     def add(self, key_path, keyname=None, user=None, source=None, uri=None):
         """
@@ -76,7 +76,6 @@ class SSHKeyDBManager(object):
             source=sshkey['source'],
             fingerprint=sshkey['fingerprint'],
             comment=sshkey['comment'],
-            type="sshkey",
             # group=None,
             category="general",
             user=user)
