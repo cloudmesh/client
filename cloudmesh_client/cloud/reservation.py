@@ -8,11 +8,12 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
-class Reservation(ListResource):
-    def __init__(self, user=None):
-        self.db = CloudmeshDatabase.CloudmeshDatabase(user=user)
 
-    def info(self, user=None, project=None):
+class Reservation(ListResource):
+
+    cm = CloudmeshDatabase()
+    
+    def info(cls, user=None, project=None):
         """
         prints if the user has access to the reservation an on which host.
 
@@ -22,15 +23,16 @@ class Reservation(ListResource):
         """
         TODO.implement()
 
-    def add_from_file(self, filename):
+    def add_from_file(cls, filename):
         """
 
         :param filename:
         :return:
         """
         TODO.implement()
-
-    def add(self,
+    
+    @classmethod
+    def add(cls,
             name,
             start,
             end,
@@ -51,7 +53,7 @@ class Reservation(ListResource):
         :param cloud: Cloud into which reservation done
         :return:
         """
-        obj_d = self.db.db_obj_dict("reservation",
+        obj_d = cls.cm.db_obj_dict("reservation",
                                     name=name,
                                     hosts=hosts,
                                     start=start,
@@ -60,10 +62,11 @@ class Reservation(ListResource):
                                     cloud=cloud,
                                     user=user,
                                     project=project)
-        self.db.add_obj(obj_d)
-        self.db.save()
+        cls.cm.add_obj(obj_d)
+        cls.cm.save()
 
-    def delete(self,
+    @classmethod
+    def delete(cls,
                name=None,
                start=None,
                end=None,
@@ -80,7 +83,7 @@ class Reservation(ListResource):
         :param hosts: Hosts reserved
         :return:
         """
-
+     
         args = {}
 
         if name is not None:
@@ -97,32 +100,38 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # TODO: Improve this logic
-        result = self.db.find("RESERVATION", output="object", **args).first()
+        result = cls.cm.find("RESERVATION", output="object", **args).first()
         while result is not None:
-            self.db.delete(result)
-            result = self.db.find("RESERVATION", output="object", **args).first()
+            cls.cm.delete(result)
+            result = cls.cm.find("RESERVATION", output="object", **args).first()
 
-    def delete_from_file(self, filename):
+    @classmethod
+    def delete_from_file(cls, filename):
         """
 
         :param filename:
         :return:
         """
         TODO.implement()
-
-    def suspend(self, names=None):
+    
+    @classmethod
+    def suspend(cls, names=None):
         TODO.implement()
 
-    def clear(self, names=None):
+    @classmethod
+    def clear(cls, names=None):
         TODO.implement()
 
-    def refresh(self, names=None):
+    @classmethod
+    def refresh(cls, names=None):
         TODO.implement()
 
-    def resume(self, names=None):
+    @classmethod
+    def resume(cls, names=None):
         TODO.implement()
 
-    def list(self,
+    @classmethod
+    def list(cls,
              name=None,
              start=None,
              end=None,
@@ -140,6 +149,7 @@ class Reservation(ListResource):
         :param hosts: Hosts reserved
         :return:
         """
+       
         args = {}
 
         if name is not None:
@@ -156,11 +166,12 @@ class Reservation(ListResource):
             args['hosts'] = hosts
 
         # print(args)
-        result = self.db.find("RESERVATION", **args)
+        result = cls.cm.find("RESERVATION", **args)
         # print("RESULT:- {}".format(result))
         return result
 
-    def update(self,
+    @classmethod
+    def update(cls,
                name,
                start,
                end,
@@ -189,4 +200,4 @@ class Reservation(ListResource):
         if cloud is not None:
             args['cloud'] = cloud
 
-        self.db.update("RESERVATION", **args)
+        cls.cm.update("RESERVATION", **args)
