@@ -43,7 +43,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                comet iso upload [--isoname=ISONAME] PATHISOFILE
                comet iso attach ISONAME CLUSTERID [COMPUTENODEIDS]
                comet iso detach CLUSTERID [COMPUTENODEIDS]
-               comet node rename CLUSTERID OLDNAME NEWNAME
+               comet node rename CLUSTERID OLDNAMES NEWNAMES
 
             Options:
                 --format=FORMAT         Format is either table, json, yaml,
@@ -82,6 +82,10 @@ class CometCommand(PluginCommand, CometPluginCommand):
                                 e.g., vm-vc1-0
                 ISONAME         Name of an iso image at remote server
                 PATHISOFILE     The full path to the iso image file to be uploaded
+                OLDNAMES        The list of current node names to be renamed, in hostlist
+                                format. A single host is also acceptable.
+                NEWNAMES        The list of new names to rename to, in hostlist format.
+                                A single host is also acceptable.
         """
         # back up of all the proposed commands/options
         """
@@ -497,6 +501,7 @@ class CometCommand(PluginCommand, CometPluginCommand):
                 computenodeids = arguments["COMPUTENODEIDS"] or None
                 print (Cluster.detach_iso(clusterid, computenodeids))
         elif arguments["node"]:
+            '''
             if arguments["rename"]:
                 clusterid = arguments["CLUSTERID"]
                 oldname = arguments["OLDNAME"]
@@ -510,20 +515,64 @@ class CometCommand(PluginCommand, CometPluginCommand):
             # bulk rename
 
             if arguments["rename"]:
-               oldnames = Parameter.expand(arguments["OLDNAME"])
-               newnames = Parameter.expand(arguments["NEWNAME"])
-
-               # check if new names ar not already taken
-               # to be implemented
-
-               if len(oldnames) == len(newnames):
-                   for i in range(0,len(oldnames)):
-                       oldname = oldnames[i]
-                       newname = newnames[i]
-                   if newname is None or newname == '':
-                       print ("New node name cannot be empty")
-                   else:
-                       print (Cluster.rename_node(clusterid, oldname, newname))
-            '''
+                clusterid = arguments["CLUSTERID"]
+                oldnames = Parameter.expand(arguments["OLDNAME"])
+                newnames = Parameter.expand(arguments["NEWNAME"])
+                if len(oldnames) != len(newnames):
+                    Console.error("Length of OLDNAMES and NEWNAMES have to be the same",
+                                  traceflag=False)
+                    return ""
+                else:
+                    for newname in newnames:
+                        if newname.strip() == "":
+                            Console.error("Newname cannot be empty string",
+                                          traceflag=False)
+                            return ""
+                    cluster_data = Cluster.list(clusterid, format="rest")
+                    if len(cluster_data) > 0:
+                        computes = cluster_data[0]["computes"]
+                        nodenames = [x["name"] for x in computes]
+                    else:
+                        Console.error("Error obtaining the cluster information",
+                                      traceflag=False)
+                        return ""
+                    # check if new names ar not already taken
+                    # to be implemented
+                    # print (oldnames)
+                    # print (newnames)
+                    # print (nodenames)
+                    oldset = set(oldnames)
+                    newset = set(newnames)
+                    currentset = set(nodenames)
+                    # at least one OLDNAME does not exist
+                    if  not oldset <= currentset:
+                        Console.error("Not all OLDNAMES are valid", traceflag=False)
+                        return ""
+                    else:
+                        # those unchanged nodes
+                        keptset = currentset - oldset
+                        # duplication between name of unchanged nodes and
+                        # the requested NEWNAMES
+                        if keptset & newset != set():
+                            Console.error("Not proceeding as otherwise introducing "\
+                                          "duplicated names",
+                                          traceflag=False)
+                        else:
+                            for i in range(0,len(oldnames)):
+                                oldname = oldnames[i]
+                                newname = newnames[i]
+                                print ("%s -> %s" % (oldname, newname))
+                            confirm = input("Confirm batch renaming (Y/y to confirm, "\
+                                            "any other key to abort):")
+                            if confirm.lower() == 'y':
+                                print ("Conducting batch renaming")
+                                for i in range(0,len(oldnames)):
+                                    oldname = oldnames[i]
+                                    newname = newnames[i]
+                                    print (Cluster.rename_node(clusterid,
+                                                               oldname,
+                                                               newname))
+                            else:
+                                print ("Action aborted!")
 
         return ""
