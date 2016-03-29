@@ -22,7 +22,8 @@ class Default(ListResource):
     """
 
     """cm is  a static variable so that db is used uniformly."""
-
+    cm = CloudmeshDatabase()
+    
     @classmethod
     def list(cls,
              category=None,
@@ -42,7 +43,7 @@ class Default(ListResource):
         :return:
         """
 
-        cm = CloudmeshDatabase()
+        # # cm = CloudmeshDatabase()
 
         if order is None:
             # (order, header) = CloudProvider(category).get_attributes("default")
@@ -50,9 +51,9 @@ class Default(ListResource):
                      'updated_at']
         try:
             if category is None:
-                d = cm.all("default")
+                d = cls.cm.all("default")
             else:
-                d = cm.find('default', category=category)
+                d = cls.cm.find('default', category=category)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
@@ -74,22 +75,22 @@ class Default(ListResource):
         :return:
         """
         try:
-            cm = CloudmeshDatabase()
+            # cm = CloudmeshDatabase()
 
             o = Default.get_object(key, category)
-            me = cm.user or user
+            me = cls.cm.user or user
             if o is None:
-                o = cm.db_obj_dict('default',
+                o = cls.cm.db_obj_dict('default',
                                        name=key,
                                        value=value,
                                        category=category,
                                        user=me)
-                cm.add_obj(o)
+                cls.cm.add_obj(o)
             else:
                 o.value = value
-                cm.add(o)
-                # cm.update(o)
-            cm.save()
+                cls.cm.add(o)
+                # cls.cm.update(o)
+            cls.cm.save()
         except:
             return None
 
@@ -104,11 +105,11 @@ class Default(ListResource):
         :return:
         """
         try:
-            cm = CloudmeshDatabase()
+            # cm = CloudmeshDatabase()
 
             arguments = {'name': key,
                          'category': category}
-            o = cm.find('default',
+            o = cls.cm.find('default',
                             output='object',
                             **arguments).first()
             return o
@@ -125,11 +126,11 @@ class Default(ListResource):
         :param category: The category
         :return:
         """
-        cm = CloudmeshDatabase()
+        # cm = CloudmeshDatabase()
 
         arguments = {'name': key,
                      'category': category}
-        o = cm.find('default',
+        o = cls.cm.find('default',
                         output='dict',
                         scope='first',
                         **arguments)
@@ -144,11 +145,11 @@ class Default(ListResource):
         # TODO: this is wrong implemented,
         #
         try:
-            cm = CloudmeshDatabase()
+            # cm = CloudmeshDatabase()
 
             o = Default.get_object(key, category)
             if o is not None:
-                cm.delete(o)
+                cls.cm.delete(o)
                 return "Deletion. ok."
             else:
                 return None
@@ -162,13 +163,13 @@ class Default(ListResource):
         :return:
         """
         try:
-            cm = CloudmeshDatabase()
+            # cm = CloudmeshDatabase()
 
-            d = cm.all('default')
+            d = cls.cm.all('default')
             for item in d:
                 name = d[item]["name"]
-                cm.delete_by_name('default', name)
-            cm.save()
+                cls.cm.delete_by_name('default', name)
+            cls.cm.save()
         except:
             return None
 
@@ -284,7 +285,7 @@ class Default(ListResource):
         :return:
         """
         try:
-            cm = CloudmeshDatabase()
+            # cm = CloudmeshDatabase()
 
             group = cls.get("group", "general")
             if group is None:
