@@ -4,14 +4,23 @@ from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 import os
 from sqlalchemy import MetaData, create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from ..borg import Borg
+from ..borg import borg
 
 import os
 from datetime import datetime
 
+def singleton(cls):
+    instances = {}
+    def getinstance():
+        if cls not in instances:
+            instances[cls] = cls()
+        return instances[cls]
+    return getinstance
 
 # noinspection PyPep8Naming
-class database(Borg):
+
+@singleton
+class database(object):
     """
     A simple class with all the details to create and
     provide some elementary methods for the database.
@@ -21,22 +30,9 @@ class database(Borg):
 
     TODO: An import to the model.py will instantiate the db object.
     """
-    __monostate = None
-
     def __init__(self):
         """Initializes the database and shares the state with other instantiations of it"""
-        Borg.__init__(self)
 
-        if not database.__monostate:
-            self.activate()
-            database.__monostate = self.__dict__
-        else:
-            self.__dict__ = database.__monostate
-
-    def activate(self):
-        """activates the shared variables"""
-
-        # engine = create_engine('sqlite:////tmp/test.db', echo=debug)
         self.debug = False
         self.filename = None
         self.endpoint = None
@@ -60,7 +56,7 @@ class database(Borg):
         :return: the list of tables in model
         """
         if kind is None:
-            classes = [cls for cls in db.Base.__subclasses__()]
+            classes = [cls for cls in self.Base.__subclasses__()]
         else:
 
             classes = []
@@ -87,6 +83,4 @@ class database(Borg):
 
         raise ("ERROR: unkown table {}".format(name))
 
-
-db = database()
 

@@ -21,7 +21,6 @@ class Default(ListResource):
 
     """
 
-    cm = CloudmeshDatabase()
     """cm is  a static variable so that db is used uniformly."""
 
     @classmethod
@@ -43,15 +42,17 @@ class Default(ListResource):
         :return:
         """
 
+        cm = CloudmeshDatabase()
+
         if order is None:
             # (order, header) = CloudProvider(category).get_attributes("default")
             order = ['user', 'category', 'name', 'value',
                      'updated_at']
         try:
             if category is None:
-                d = cls.cm.all("default")
+                d = cm.all("default")
             else:
-                d = cls.cm.find('default', category=category)
+                d = cm.find('default', category=category)
             return (Printer.dict_printer(d,
                                          order=order,
                                          output=format))
@@ -73,20 +74,22 @@ class Default(ListResource):
         :return:
         """
         try:
+            cm = CloudmeshDatabase()
+
             o = Default.get_object(key, category)
-            me = cls.cm.user or user
+            me = cm.user or user
             if o is None:
-                o = cls.cm.db_obj_dict('default',
+                o = cm.db_obj_dict('default',
                                        name=key,
                                        value=value,
                                        category=category,
                                        user=me)
-                cls.cm.add_obj(o)
+                cm.add_obj(o)
             else:
                 o.value = value
-                cls.cm.add(o)
-                # cls.cm.update(o)
-            cls.cm.save()
+                cm.add(o)
+                # cm.update(o)
+            cm.save()
         except:
             return None
 
@@ -101,9 +104,11 @@ class Default(ListResource):
         :return:
         """
         try:
+            cm = CloudmeshDatabase()
+
             arguments = {'name': key,
                          'category': category}
-            o = cls.cm.find('default',
+            o = cm.find('default',
                             output='object',
                             **arguments).first()
             return o
@@ -120,9 +125,11 @@ class Default(ListResource):
         :param category: The category
         :return:
         """
+        cm = CloudmeshDatabase()
+
         arguments = {'name': key,
                      'category': category}
-        o = cls.cm.find('default',
+        o = cm.find('default',
                         output='dict',
                         scope='first',
                         **arguments)
@@ -137,9 +144,11 @@ class Default(ListResource):
         # TODO: this is wrong implemented,
         #
         try:
+            cm = CloudmeshDatabase()
+
             o = Default.get_object(key, category)
             if o is not None:
-                cls.cm.delete(o)
+                cm.delete(o)
                 return "Deletion. ok."
             else:
                 return None
@@ -153,11 +162,13 @@ class Default(ListResource):
         :return:
         """
         try:
-            d = cls.cm.all('default')
+            cm = CloudmeshDatabase()
+
+            d = cm.all('default')
             for item in d:
                 name = d[item]["name"]
-                cls.cm.delete_by_name('default', name)
-            cls.cm.save()
+                cm.delete_by_name('default', name)
+            cm.save()
         except:
             return None
 
@@ -273,6 +284,8 @@ class Default(ListResource):
         :return:
         """
         try:
+            cm = CloudmeshDatabase()
+
             group = cls.get("group", "general")
             if group is None:
                 return "default"

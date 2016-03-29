@@ -111,6 +111,10 @@ class Test_cloud_model(object):
     def tearDown(self):
         pass
 
+    def test_000(self):
+        result = self.run("cm refresh off")
+
+
     def test_001(self):
         HEADING("check the model")
         d = self.d
@@ -166,10 +170,12 @@ class Test_cloud_model(object):
         print ("ADD TO LIBCLOUD ")
         for index in range(6,11):
             name = "vm_" + str(index).zfill(3)
+            print ("ADD", name)
             vm = VM_LIBCLOUD(name=name,
                              uuid="uuid_"+str(index),
                              user="test",
                              category=self.data.cloud)
+            print ("VM", vm.__dict__)
             cm.add(vm)
         cm.save()
 

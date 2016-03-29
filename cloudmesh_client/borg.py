@@ -1,6 +1,9 @@
-class Borg:
+def borg(cls):
+    cls._state = {}
+    orig_init = cls.__init__
+    def new_init(self, *args, **kwargs):
+        self.__dict__ = cls._state
+        orig_init(self, *args, **kwargs)
+    cls.__init__ = new_init
+    return cls
 
-    __shared_state = {}
-
-    def __init__(self):
-         self.__dict__ = self.__shared_state
