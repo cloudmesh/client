@@ -572,15 +572,12 @@ class CloudmeshDatabase(object):
         :return:
         """
 
-        return True
 
         try:
             # print(cloudname)
             # get the user
             # TODO: Confirm user
             user = self.user
-
-            kind = self.cloud_to_kind_mapper(name, kind)
 
             if kind in ["flavor", "image", "vm", "secgroup"]:
 
@@ -691,55 +688,6 @@ class CloudmeshDatabase(object):
                     self.add_obj(db_obj)
                     self.save()
                 return True
-
-            elif kind in ["libcloud_vm", "libcloud_image", "libcloud_flavor"]:
-                # BUG: TODO: this does not belong here
-                # only "vm", "image" and other kind are allowed
-                # the provider should take care of the mapping, not the db class
-                # get provider for specific cloud
-                provider = CloudProvider(name).provider
-                pprint("In CloudmeshDatabase found provider " + str(provider.__dict__))
-                # clear local db records for kind
-                self.clear(kind, name)
-
-                if kind == "libcloud_vm":
-                    vms = provider.list_vm(name)
-                    for vm in vms.values():
-                        vm[u'uuid'] = vm['node_id']
-                        vm[u'type'] = 'string'
-                        vm['category'] = name
-                        vm[u'user'] = user
-                        db_obj = {0: {kind: vm}}
-
-                        self.add_obj(db_obj)
-                        self.save()
-                    return True
-
-                if kind == "libcloud_image":
-                    images = provider.list_image(name)
-                    for images in images.values():
-                        images[u'uuid'] = images['image_id']
-                        images[u'type'] = 'string'
-                        images[u'category'] = name
-                        images[u'user'] = user
-                        db_obj = {0: {kind: images}}
-
-                        self.add_obj(db_obj)
-                        self.save()
-                    return True
-
-                if kind == "libcloud_flavor":
-                    flavors = provider.list_size(name)
-                    for flavor in flavors.values():
-                        flavor[u'uuid'] = flavor['flavor_id']
-                        flavor[u'type'] = 'string'
-                        flavor[u'category'] = name
-                        flavor[u'user'] = user
-                        db_obj = {0: {kind: flavor}}
-
-                        self.add_obj(db_obj)
-                        self.save()
-                    return True
 
             else:
                 Console.error("refresh not supported for this kind: {}".format(kind))
