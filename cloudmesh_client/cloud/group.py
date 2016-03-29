@@ -176,7 +176,6 @@ class Group(ListResource):
                 obj_d = cls.cm.db_obj_dict("group",
                                            name=name,
                                            member=member,
-                                           type=type,
                                            category=category,
                                            user=user)
                 cls.cm.add_obj(obj_d)

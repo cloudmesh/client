@@ -69,8 +69,9 @@ class Test_group:
                  "{user}-002".format(**self.data)]
         for index in group:
             element = group[index]
+            pprint(element)
             assert element["name"] == "groupA"
-            assert element["type"] == "vm"
+            assert element["species"] == "vm"
             assert element["member"] in names
         return
 
