@@ -110,7 +110,9 @@ class Cluster(object):
                               .format(id))
                 return result
             r = [r]
-
+        #
+        # stuck state included in cluster data via API
+        '''
         stuck_computesets = {}
         computesets = Comet.get_computeset()
         if computesets:
@@ -125,12 +127,12 @@ class Cluster(object):
                     for node in nodes:
                         stuck_computesets[cluster][node["name"]] = \
                             "{}({})".format (id, computeset["state"])
-
+        '''
         if r is not None:
             if format == "rest":
                 result = r
             else:
-
+                result = ''
                 data = []
 
                 empty = {
@@ -148,13 +150,19 @@ class Cluster(object):
                     'kind': 'frontend'
                 }
 
-                for cluster in r:
+                for cluster in sorted(r, key=lambda x: x["name"]):
 
                     clients = cluster["computes"]
                     for client in clients:
                         client["kind"] = "compute"
                     frontend = dict(empty)
                     frontend.update(cluster["frontend"])
+                    pubip = cluster["frontend"]["pub_ip"]
+                    frontend["ip"] = pubip
+                    result += "Cluster: %s\tFrontend: %s\tIP: %s\n" % \
+                                (cluster["name"],
+                                 cluster["frontend"]["name"],
+                                 pubip)
                     if len(clients) > 0:
                         frontend['cluster'] = clients[0]['cluster']
                     else:
@@ -174,16 +182,26 @@ class Cluster(object):
                             bnode["mac"] = "\n".join(macs)
                         else:
                             bnode["mac"] = ";".join(macs)
+                        if "active_computeset_state" in anode and \
+                                    anode["active_computeset"] is not None and \
+                                    anode["active_computeset_state"] is not None and \
+                                    anode["active_computeset_state"] != 'running':
+                            bnode["active_computeset"] = "%s(%s)" % \
+                                                    (anode["active_computeset"],
+                                                     anode["active_computeset_state"])
                         #anode["ip"] = "; ".join(ips)
                     del bnode["interface"]
-
+                    #
+                    # stuck state included in cluster data via API
+                    '''
                     if bnode["cluster"] in stuck_computesets and \
                             bnode["name"] in stuck_computesets[bnode["cluster"]]:
                         bnode["active_computeset"] = \
                             stuck_computesets[bnode["cluster"]][bnode["name"]]
+                    '''
                     data[index] = bnode
 
-                result = list_printer(data,
+                result_print = list_printer(data,
                                       order=[
                                           "name",
                                           "state",
@@ -211,6 +229,67 @@ class Cluster(object):
                                       ],
                                       output=format,
                                       sort_keys=('cluster','mac'))
+                if "table" == format:
+                    result_print = list_printer(data,
+                          order=[
+                              "name",
+                              "state",
+                              "kind",
+                              "type",
+                              "mac",
+                              #"ip",
+                              "cpus",
+                              "cluster",
+                              "memory",
+                              "disksize",
+                              "active_computeset"
+                          ],
+                          header=[
+                              "name",
+                              "state",
+                              "kind",
+                              "type",
+                              "mac",
+                              "cpus",
+                              "cluster",
+                              "RAM(M)",
+                              "disk(G)",
+                              "computeset"
+                          ],
+                          output=format,
+                          sort_keys=('cluster','mac'))
+                    result += str(result_print)
+                else:
+                    result_print = list_printer(data,
+                      order=[
+                          "name",
+                          "state",
+                          "kind",
+                          "type",
+                          "mac",
+                          "ip",
+                          "cpus",
+                          "cluster",
+                          "memory",
+                          "disksize",
+                          "active_computeset"
+                      ],
+                      header=[
+                          "name",
+                          "state",
+                          "kind",
+                          "type",
+                          "mac",
+                          "ip",
+                          "cpus",
+                          "cluster",
+                          "RAM(M)",
+                          "disk(G)",
+                          "computeset"
+                      ],
+                      output=format,
+                      sort_keys=('cluster','mac'))
+                    result = result_print
             return result
 
     @staticmethod
@@ -506,7 +585,7 @@ class Cluster(object):
     def computeset_terminate(computesetid):
         ret = ''
         url = Comet.url("computeset/")
-        action = "poweroff"
+        action = "shutdown"
         puturl = "{:}{:}/{}".format(url, computesetid, action)
         # print (puturl)
         r = Comet.put(puturl)
