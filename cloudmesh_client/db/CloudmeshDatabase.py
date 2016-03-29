@@ -31,6 +31,7 @@ from cloudmesh_client.common.dotdict import dotdict
 class CloudmeshDatabase(object):
     # TODO: see also common/VMname
 
+    __shared_state = {}
     # ###################################
     # INIT
     # ###################################
@@ -43,6 +44,8 @@ class CloudmeshDatabase(object):
                         objects in teh database
         """
 
+        self.__dict__ = self.__shared_state
+
         self.connected = False
         self.db = database()
         self.db.Base.metadata.create_all()
@@ -52,6 +55,34 @@ class CloudmeshDatabase(object):
             self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
         else:
             self.user = user
+
+
+    def connect(self):
+        """
+        before any method is called we need to connect to the database
+
+        :return: the session of the database
+        """
+        try:
+            connected = self.connected
+        except:
+            connected = False
+        if not connected:
+            Session = sessionmaker(bind=self.db.engine,
+                                   autoflush=False)
+            self.session = Session()
+            self.connected = True
+        return self.session
+
+    def save(self):
+        self.session.commit()
+        self.session.flush()
+        pass
+
+    def close(self):
+        #self.session.close()
+        #self.connected = False
+        pass
 
     # ###################################
     # COUNTER
@@ -138,31 +169,7 @@ class CloudmeshDatabase(object):
         except Exception as ex:
             Console.error(ex.message, ex)
 
-    def connect(self):
-        """
-        before any method is called we need to connect to the database
 
-        :return: the session of the database
-        """
-        try:
-            connected = self.connected
-        except:
-            connected = False
-        if not connected:
-            Session = sessionmaker(bind=self.db.engine, autoflush=False)
-            self.session = Session()
-            self.connected = True
-        return self.session
-
-    def save(self):
-        self.session.commit()
-        self.session.flush()
-        pass
-
-    def close(self):
-        #self.session.close()
-        #self.connected = False
-        pass
 
     def delete(self, item):
         """
