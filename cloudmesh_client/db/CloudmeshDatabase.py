@@ -208,12 +208,7 @@ class CloudmeshDatabase(object):
     #
     # SESSION
     #
-    @classmethod
-    def start(cls):
-        if cls.session is None:
-            print("start session")
-            Session = sessionmaker(bind=cls.engine)
-            cls.session = Session()
+
 
     @classmethod
     def old_find(cls, table, **kwargs):
