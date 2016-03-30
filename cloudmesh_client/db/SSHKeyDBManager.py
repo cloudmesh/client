@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-from pprint import pprint
 
 from cloudmesh_client.common.ConfigDict import Config
 from cloudmesh_client.common.menu import menu_return_num
@@ -11,7 +10,7 @@ from cloudmesh_client.db import CloudmeshDatabase
 # noinspection PyBroadException
 class SSHKeyDBManager(object):
     def __init__(self, user=None):
-        self.db = CloudmeshDatabase(user=user)
+        self.cm = CloudmeshDatabase()
 
     def add(self, key_path, keyname=None, user=None, source=None, uri=None):
         """
@@ -29,9 +28,10 @@ class SSHKeyDBManager(object):
                              uri=uri)
 
     def _add(self, obj):
+
         try:
-            self.db.add(obj)
-            self.db.save()
+            self.cm.add(obj)
+            self.cm.save()
         except Exception as e:
             raise ValueError("Key already exists")
 
@@ -61,7 +61,7 @@ class SSHKeyDBManager(object):
             except:
                 pass
         if keyname is None:
-            print ("ERROR: keyname is None")
+            print("ERROR: keyname is None")
 
         # pprint(sshkey)
 
@@ -90,9 +90,11 @@ class SSHKeyDBManager(object):
         :param keyname: name of the key to be delete
         :return:
         """
-        self.db.delete_by_name(KEY, name=keyname)
+
+        self.cm.delete_by_name(KEY, name=keyname)
 
     def set_default(self, keyname):
+
         default_key = self.get_default()
         if default_key:
             default_key.is_default = 'False'
@@ -100,15 +102,16 @@ class SSHKeyDBManager(object):
         key = self.find(keyname)
         key["is_default"] = True
 
-        self.db.find("KEY", output="object", name=key["name"]).update(key)
-        self.db.save()
-        # self.db.update("KEY", key)
-        # self.db.find(keyname).is_default = 'True'
-        self.db.save()
+        self.cm.find("KEY", output="object", name=key["name"]).update(key)
+        self.cm.save()
+        # self.cm.update("KEY", key)
+        # self.cm.find(keyname).is_default = 'True'
+        self.cm.save()
 
     def get_default(self):
+
         value = "True"
-        return self.db.get(KEY, is_default=value)
+        return self.cm.get(KEY, is_default=value)
 
     def find(self, keyname):
         """
@@ -117,34 +120,37 @@ class SSHKeyDBManager(object):
         :param keyname: name of the key to be found
         :return: Query object of the search
         """
-        return self.db.find_by_name(KEY, name=keyname)
+
+        return self.cm.find_by_name(KEY, name=keyname)
 
     def find_all(self):
         """
 
         :return: Query object from all the entries
         """
-        return self.db.find(KEY)
+
+        return self.cm.find(KEY)
 
     def table_dict(self):
         """
 
         :return: dict from all elements in the table KEY
         """
-        return self.db.dict(KEY)
+
+        return self.cm.dict(KEY)
 
     def dict(self):
         """
 
         :return: Query object from all the entries
         """
-        return self.db.find(KEY)
 
-
+        return self.cm.find(KEY)
 
     def update(self, **kwargs):
         # i'm not sure how this function works
-        self.db.update("key", kwargs)
+
+        self.cm.update("key", kwargs)
 
     def delete_all(self):
         """
@@ -152,7 +158,8 @@ class SSHKeyDBManager(object):
 
         :return:
         """
-        self.db.delete_all(KEY)
+
+        self.cm.delete_all(KEY)
 
     def select(self):
         options = []
@@ -172,7 +179,8 @@ class SSHKeyDBManager(object):
         :param obj: object to be converted to dict
         :return: dict from the object
         """
-        return self.db.object_to_dict(obj)
+
+        return self.cm.object_to_dict(obj)
 
     """
     def load(self):

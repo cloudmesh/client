@@ -8,13 +8,16 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.common.TableParser import TableParser
 from cloudmesh_client.common.ConfigDict import Config, ConfigDict
 from cloudmesh_client.cloud.hpc.BatchProviderBase import BatchProviderBase
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 import os
 from cloudmesh_client.common.Error import Error
 
 
 # noinspection PyBroadException
 class BatchProviderSLURM(BatchProviderBase):
+    
+    cm = CloudmeshDatabase()
+
     kind = "slurm"
 
     @classmethod
@@ -370,10 +373,10 @@ class BatchProviderSLURM(BatchProviderBase):
         try:
             if group is not None:
                 # get the job ids from the db
-                cm = CloudmeshDatabase()
+                
                 arguments = {'cluster': cluster,
                              'group': group}
-                db_jobs = cm.find('batchjob',
+                db_jobs = cls.cm.find('batchjob',
                                   **arguments)
 
                 list1 = []
@@ -413,10 +416,10 @@ class BatchProviderSLURM(BatchProviderBase):
 
     @classmethod
     def add_db(cls, **kwargs):
-        cm = CloudmeshDatabase()
+        
 
         kwargs['name'] = kwargs.get('script_name')
 
         db_obj = {0: {"batchjob": kwargs}}
-        cm.add_obj(db_obj)
-        cm.save()
+        cls.cm.add_obj(db_obj)
+        cls.cm.save()

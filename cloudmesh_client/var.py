@@ -2,9 +2,11 @@ from __future__ import print_function
 
 from cloudmesh_client.common import Printer
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
+
+
 
 
 # noinspection PyBroadException
@@ -61,6 +63,7 @@ class Var(ListResource):
         :param user: the username to store this default value at.
         :return:
         """
+    
         try:
             o = cls.get_object(key)
 
@@ -90,11 +93,11 @@ class Var(ListResource):
         :param category: The category
         :return:
         """
+      
         try:
-            arguments = {'name': key}
-            o = cls.cm.find('var',
+            o = cls.cm.find(kind='var',
                             output='object',
-                            **arguments).first()
+                            name=key).first()
             return o
         except Exception:
             return None
@@ -109,11 +112,11 @@ class Var(ListResource):
         :param category: The category
         :return:
         """
-        arguments = {'name': key}
-        o = cls.cm.find('var',
+
+        o = cls.cm.find(kind='var',
                         output='dict',
                         scope='first',
-                        **arguments)
+                        name =key)
         if o is not None:
             return o['value']
         else:
@@ -121,6 +124,7 @@ class Var(ListResource):
 
     @classmethod
     def delete(cls, key):
+  
         try:
             o = Var.get_object(key)
             if o is not None:
@@ -137,6 +141,7 @@ class Var(ListResource):
         deletes all default values in the database.
         :return:
         """
+
         try:
             d = cls.cm.all('var')
             for item in d:

@@ -6,7 +6,7 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
 from uuid import UUID
@@ -14,10 +14,13 @@ from cloudmesh_client.common.dotdict import dotdict
 from builtins import input
 from pprint import pprint
 
+
+
 # noinspection PyPep8Naming
 class Vm(ListResource):
-    cm = CloudmeshDatabase()
 
+    cm = CloudmeshDatabase()
+    
     @classmethod
     def construct_ip_dict(cls, ip_addr, name="kilo"):
         try:
@@ -144,6 +147,7 @@ class Vm(ListResource):
 
     @classmethod
     def get_vms_by_name(cls, name, cloud):
+       
         vm_data = cls.cm.find("vm", name=name, category=cloud)
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")
@@ -213,7 +217,7 @@ class Vm(ListResource):
         """
         This method lists all VMs of the cloud
         """
-
+        
         # prevent circular dependency
         def vm_groups(vm):
             """
@@ -221,7 +225,7 @@ class Vm(ListResource):
             :param vm: name of the vm
             :return: a list of groups the vm is in
             """
-
+            
             try:
                 query = {
                     "type": "vm",
@@ -281,6 +285,7 @@ class Vm(ListResource):
     @classmethod
     def refresh(cls, **kwargs):
         # print("Inside refresh")
+        
         return cls.cm.refresh("vm", kwargs["cloud"])
 
     @classmethod
@@ -293,6 +298,7 @@ class Vm(ListResource):
     def set_vm_login_user(cls, name_or_id, cloud, username):
         print(name_or_id, username)
         ValueError("this method is wrong implemented")
+       
         '''
         if cls.isUuid(name_or_id):
             uuid = name_or_id
@@ -317,6 +323,7 @@ class Vm(ListResource):
         print(name_or_id, cloud)
 
         ValueError("this method is wrong implemented")
+       
         '''
         if cls.isUuid(name_or_id):
             uuid = name_or_id
@@ -340,6 +347,7 @@ class Vm(ListResource):
 
     @classmethod
     def get_last_vm(cls, cloud):
+       
         vm_data = cls.cm.find("vm", scope="first", category=cloud)
         if vm_data is None or len(vm_data) == 0:
             raise RuntimeError("VM data not found in database.")

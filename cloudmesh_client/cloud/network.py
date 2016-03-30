@@ -8,14 +8,19 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import attribute_printer
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 
 from builtins import input
 
 # noinspection PyBroadException,PyPep8Naming,PyPep8Naming,PyPep8Naming
 
 
+
+
 class Network(ListResource):
+    
+    cm = CloudmeshDatabase()
+    
     @classmethod
     def get_fixed_ip(cls, cloudname, fixed_ip_addr):
         """
@@ -363,10 +368,10 @@ class Network(ListResource):
         instance_id = kwargs["instance_id"]
 
         # Cloudmesh database instance
-        db = CloudmeshDatabase()
+        
 
         # Lookup instance details from db
-        instance_dict = db.find(kind="vm", category=cloudname,
+        instance_dict = cls.cm.find(kind="vm", category=cloudname,
                                 uuid=instance_id)
 
         # Get instance_name for vm
@@ -386,20 +391,20 @@ class Network(ListResource):
         instance_id = kwargs["instance_id"]
 
         # Cloudmesh database instance
-        db = CloudmeshDatabase()
+        
 
         # Lookup instance details from db
         if cls.isUuid(instance_id):
-            instance_dict = db.find(kind="vm", category=cloudname,
+            instance_dict = cls.cm.find(kind="vm", category=cloudname,
                                     uuid=instance_id)
         else:
-            instance_dict = db.find(kind="vm", category=cloudname,
+            instance_dict = cls.cm.find(kind="vm", category=cloudname,
                                     name=instance_id)
 
         # Instance not found in DB
         if cls.isDictEmpty(instance_dict):
             # auto detect instance_id feature
-            vms = db.find("vm", category=cloudname)
+            vms = cls.cm.find("vm", category=cloudname)
             # check for each instance in db
             for vm in list(vms.values()):
                 # if match found in either name/id

@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.ConfigDict import ConfigDict
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.default import Default
 from cloudmesh_client.cloud.vm import Vm
@@ -11,10 +11,13 @@ from cloudmesh_client.cloud.vm import Vm
 from cloudmesh_client.common.dotdict import dotdict
 from pprint import pprint
 
+
+
 # noinspection PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming,PyPep8Naming
 class Group(ListResource):
-    cm = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
 
+    cm = CloudmeshDatabase()
+    
     order = ["name",
              "member",
              "user",
@@ -44,6 +47,7 @@ class Group(ListResource):
     @classmethod
     def names(cls):
         try:
+            
             query = {}
 
             d = cls.cm.find("GROUP", **query)
@@ -63,6 +67,7 @@ class Group(ListResource):
         :return:
         """
         try:
+            
             query = {
                 "type": "vm",
             }
@@ -110,6 +115,7 @@ class Group(ListResource):
         :return:
         """
         try:
+            
             args = {}
             d = cls.cm.find("GROUP", **args)
             # d = cls.cm.all(model.GROUP)
@@ -129,6 +135,7 @@ class Group(ListResource):
         :param output:
         :return:
         """
+        
         try:
             cloud = category or Default.get("cloud")
 
@@ -158,6 +165,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
+        
         # user logged into cloudmesh
         user = ConfigDict.getUser(category) or cls.cm.user
 
@@ -203,6 +211,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
+        
         query = dict(kwargs)
 
         if 'output' in kwargs:
@@ -230,6 +239,7 @@ class Group(ListResource):
         :param cloud:
         :return:
         """
+        
 
         print ("DELETE")
         try:
@@ -289,6 +299,7 @@ class Group(ListResource):
         :return:
         """
         print ("RRRRR")
+        
 
         try:
             # group = cls.get(name=name, category=category)
@@ -328,6 +339,7 @@ class Group(ListResource):
         :param _toName:
         :return:
         """
+        
         try:
             from_args = {
                 "name": _fromName

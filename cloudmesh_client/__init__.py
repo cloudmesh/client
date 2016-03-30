@@ -10,6 +10,8 @@ from cloudmesh_client.shell.console import Console
 import os
 import shutil
 
+from cloudmesh_client.db import CloudmeshDatabase
+
 __version__ = cloudmesh_client.version.__version__
 
 def create_cloudmesh_yaml(filename):
@@ -28,5 +30,5 @@ def setup_yaml():
     filename = path_expand("~/.cloudmesh/cloudmesh.yaml")
     create_cloudmesh_yaml(filename)
 
-setup_yaml()
 
+setup_yaml()

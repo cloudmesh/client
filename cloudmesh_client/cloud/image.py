@@ -2,13 +2,15 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
+
 class Image(ListResource):
+
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -29,7 +31,7 @@ class Image(ListResource):
         :param cloud: the cloud name
         """
         # TODO: make a CloudmeshDatabase without requiring the user=
-        # cm = CloudmeshDatabase()
+
 
         try:
             elements = cls.cm.find("image", category=cloud)

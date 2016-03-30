@@ -15,7 +15,6 @@ from pprint import pprint
 from cloudmesh_client.common.FlatDict import FlatDict
 from cloudmesh_client.db import VM_OPENSTACK, VM_LIBCLOUD
 from cloudmesh_client.db import CloudmeshDatabase
-from cloudmesh_client.db import database
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.util import HEADING
@@ -23,11 +22,17 @@ from cloudmesh_client.common.dotdict import dotdict
 from cloudmesh_client.default import Default
 from cloudmesh_client.common.Shell import Shell
 from cloudmesh_client.shell.console import Console
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+
+# import cloudmesh_client
+# cloudmesh_client.init()
 
 
 
 # noinspection PyPep8Naming
 class Test_cloud_model(object):
+
+    cm = CloudmeshDatabase()
 
     data = dotdict({
         "cloud": Default.get_cloud(),
@@ -113,7 +118,7 @@ class Test_cloud_model(object):
 
     def test_000(self):
         result = self.run("cm refresh off")
-
+        print
 
     def test_001(self):
         HEADING("check the model")
@@ -123,7 +128,7 @@ class Test_cloud_model(object):
         pprint(d.__dict__)
 
         banner("Add VM")
-        cm = CloudmeshDatabase()
+        
 
 
         name = "vm1"
@@ -138,13 +143,13 @@ class Test_cloud_model(object):
 
         pprint(vm.__dict__)
         vm.bla = "bla"
-        cm.add(vm)
-        cm.save()
+        self.cm.add(vm)
+        self.cm.save()
 
         banner("Get VM from Database")
 
-        o = cm.find(VM_OPENSTACK, name=name)
-        # o = cm.find_by_name(VM, name)
+        o = self.cm.find(VM_OPENSTACK, name=name)
+        # o = self.cm.find_by_name(VM, name)
         pprint(o)
 
         assert True
@@ -152,8 +157,8 @@ class Test_cloud_model(object):
     def test_002(self):
         HEADING("VM DB test")
         result = self.run("make db")
-        cm = CloudmeshDatabase()
 
+        
         print ("ADD TO OS ")
         for index in range(1,6):
             name = "vm_" + str(index).zfill(3)
@@ -166,7 +171,7 @@ class Test_cloud_model(object):
             except Exception as e:
                 Console.error("issue adding vm", traceflag=True)
             print ("VM", vm.__dict__)
-            cm.add(vm)
+            self.cm.add(vm)
         print ("ADD TO LIBCLOUD ")
         for index in range(6,11):
             name = "vm_" + str(index).zfill(3)
@@ -176,8 +181,8 @@ class Test_cloud_model(object):
                              user="test",
                              category=self.data.cloud)
             print ("VM", vm.__dict__)
-            cm.add(vm)
-        cm.save()
+            self.cm.add(vm)
+        self.cm.save()
 
         result = self.run("cm refresh off")
         print (result)
@@ -188,16 +193,15 @@ class Test_cloud_model(object):
 
     def test_003(self):
         HEADING("find vm tables")
-        cm = CloudmeshDatabase()
-
+        
 
         print ("---------")
-        all_tables = cm.db.tables()
+        all_tables = self.cm.db.tables()
         for t in all_tables:
             print (t.__tablename__, t.kind)
 
         print ("---------")
-        vm_tables = cm.db.tables(kind="vm")
+        vm_tables = self.cm.db.tables(kind="vm")
         for t in vm_tables:
             print (t.__tablename__, t.kind)
         assert len(vm_tables) == 2
@@ -205,21 +209,20 @@ class Test_cloud_model(object):
 
     def test_004(self):
         HEADING("find vm tables")
-        cm = CloudmeshDatabase()
-
+        
         print ("-------------")
-        vm = cm.x_find(name="vm_001")
+        vm = self.cm.x_find(name="vm_001")
         pprint (vm)
         #assert vm.provider == 'openstack'
 
 
         print ("-------------")
-        vm = cm.x_find(name="vm_006")
+        vm = self.cm.x_find(name="vm_006")
         pprint (vm)
         #assert vm.provider == 'libcloud'
 
         print ("-------------")
-        vms = cm.x_find(kind="vm", scope="all")
+        vms = self.cm.x_find(kind="vm", scope="all")
         pprint (vms)
         print (len(vms))
         #assert len(vms) == 10

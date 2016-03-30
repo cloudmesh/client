@@ -14,7 +14,6 @@ import getpass
 
 requests.packages.urllib3.disable_warnings()
 
-
 # TODO: unset as not allowing to smoothly switch
 def set_os_environ(cloudname):
     """Set os environment variables on a given cloudname"""

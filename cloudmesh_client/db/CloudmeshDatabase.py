@@ -1,78 +1,223 @@
 from __future__ import print_function
 
 import json
-import getpass
 from pprint import pprint
 
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy import inspect
 
 from cloudmesh_client.util import banner
 from cloudmesh_client.common.hostlist import Parameter
-from cloudmesh_client.db.db import database
-from cloudmesh_client.db import \
-    GROUP, RESERVATION, COUNTER, \
-    BATCHJOB, SECGROUP, SECGROUPRULE, \
-    VAR, DEFAULT, KEY, \
-    FLAVOR_OPENSTACK, IMAGE_OPENSTACK, VM_OPENSTACK, \
-    FLAVOR_LIBCLOUD, IMAGE_LIBCLOUD, VM_LIBCLOUD
-
 from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.shell.console import Console
-from cloudmesh_client.common.ConfigDict import Username
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
-from cloudmesh_client.common.ConfigDict import ConfigDict
+from cloudmesh_client.common.ConfigDict import ConfigDict, Config
 from cloudmesh_client.common.dotdict import dotdict
 
+from sqlalchemy.ext.declarative import declarative_base
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
 
-# noinspection PyBroadException,PyPep8Naming
 class CloudmeshDatabase(object):
-    # TODO: see also common/VMname
-
     __shared_state = {}
-    # ###################################
-    # INIT
-    # ###################################
+    initialized = None
+    data = None
+    user = None
+    engine = None
+    session = None
+    filename = None
+    Base = declarative_base()
+
     def __init__(self, user=None):
-        """
-        initializes the CloudmeshDatabase for a specific user.
-        The user is used to add entries augmented with it.
-
-        :param user: The username that is used to be added to the
-                        objects in teh database
-        """
-
         self.__dict__ = self.__shared_state
 
-        self.connected = False
-        self.db = database()
-        self.db.Base.metadata.create_all()
-        self.session = self.connect()
-
-        if user is None:
+        if self.initialized is None:
             self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+            self.filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
+            self.engine = create_engine('sqlite:///{}'.format(self.filename), echo=False)
+            self.data = {"filename": self.filename}
+
+            if user is None:
+                self.user = ConfigDict("cloudmesh.yaml")["cloudmesh.profile.username"]
+            else:
+                self.user = user
+            CloudmeshDatabase.create()
+            CloudmeshDatabase.create_tables()
+            CloudmeshDatabase.start()
+
+    #
+    # MODEL
+    #
+    @classmethod
+    def create(cls):
+        # cls.clean()
+        filename = Config.path_expand(os.path.join("~", ".cloudmesh", "cloudmesh.db"))
+        if not os.path.isfile(filename):
+            cls.create_model()
+
+    @classmethod
+    def create_model(cls):
+        cls.Base.metadata.create_all(cls.engine)
+        print ("Model created")
+
+    @classmethod
+    def clean(cls):
+        os.system("rm -f {filename}".format(**cls.data))
+
+    @classmethod
+    def create_tables(cls):
+        """
+        :return: the list of tables in model
+        """
+        cls.tables = [c for c in cls.Base.__subclasses__()]
+
+    @classmethod
+    def info(cls):
+        print ("Info")
+        for t in cls.tables:
+            print (t.__category__, t.__tablename__)
+
+    @classmethod
+    def table(cls, category=None, type=None):
+        """
+        :return: the table class based on a given table name.
+                 In case the table does not exist an exception is thrown
+        """
+        for t in cls.tables:
+            if (t.__type__ == type) and (t.__category__ == category):
+                return t
+
+        ValueError("ERROR: unkown table {} {}".format(category, type))
+    #
+    # SESSION
+    #
+    @classmethod
+    def start(cls):
+        if cls.session is None:
+            print ("start session")
+            Session = sessionmaker(bind=cls.engine)
+            cls.session = Session()
+
+    @classmethod
+    def find(cls, **kwargs):
+        """
+        find (category="openstack", kind="vm", name="vm_002")
+        find (VM_OPENSTACK, kind="vm", name="vm_002") # do not use this one its only used internally
+
+        :param category:
+        :param kind:
+        :param table:
+        :param kwargs:
+        :return:
+        """
+
+        scope = kwargs.pop('scope', 'first')
+        category = kwargs.pop('category', 'general')
+        kind = kwargs.pop('kind', None)
+        table = kwargs.pop('table', None)
+        output = kwargs.pop('output', 'dict')
+
+        t = table
+
+        pprint (locals())
+        if category is not None and kind is not None:
+            print ("TTTT", t, category, kind)
+
+            t = cls.table(category=category, type=kind)
+            print ("T=", t)
         else:
-            self.user = user
+            data = {
+                "category": category,
+                "kind": kind,
+                "table": table,
+                "args": kwargs
+            }
+            ValueError("find is improperly used category={category} kind={kind} table={table} args=args"
+                       .format(**data))
+        pprint(kwargs)
+        result = cls.session.query(t).filter_by(**kwargs)
+        if scope=='first':
+            return result.first()
+        else:
+            return result
 
-
-    def connect(self):
+    @classmethod
+    def x_find(cls, **kwargs):
         """
-        before any method is called we need to connect to the database
+        This method returns either
+        a) an array of objects from the database in dict format, that match a particular kind.
+           If the kind is not specified vm is used. one of the arguments must be scope="all"
+        b) a single entry that matches the first occurance of the query specified by kwargs,
+           such as name="vm_001"
 
-        :return: the session of the database
+        :param kwargs: the arguments to be matched, scope defines if all or just the first value
+               is returned. first is default.
+        :return: a list of objects, if scope is first a single object in dotdict format is returned
         """
-        try:
-            connected = self.connected
-        except:
-            connected = False
-        if not connected:
-            Session = sessionmaker(bind=self.db.engine,
-                                   autoflush=False)
-            self.session = Session()
-            self.connected = True
-        return self.session
+        kind = kwargs.pop("kind", "vm")
+        scope = kwargs.pop("scope", "first")
+
+        result = []
+
+        for t in cls.tables:
+            if (t.__type__ == kind):
+                part = cls.session.query(t).filter_by(**kwargs)
+                print("PPP", cls.to_list(part))
+                result.extend(cls.to_list(part))
+
+        objects = result
+        print("OOO", objects)
+        if scope == "first" and objects is not None:
+            objects = dotdict(result[0])
+
+        return objects
+
+    @classmethod
+    def add(cls, o):
+        cls.session.add(o)
+        cls.session.commit()
+
+    @classmethod
+    def to_list(cls, obj):
+        """
+        convert the object to dict
+
+        :param obj:
+        :return:
+        """
+        result = list()
+        for u in obj:
+            _id = u.id
+            print("ID", u.id)
+            values = {}
+            for key in list(u.__dict__.keys()):
+                if not key.startswith("_sa"):
+                    values[key] = u.__dict__[key]
+            result.append(values)
+        # pprint(result)
+        return result
+
+
+
+    ################
+    # UNCHECKED
+    ################
+
+    #
+    # SESSION
+    #
+    @classmethod
+    def start(cls):
+        if cls.session is None:
+            print("start session")
+            Session = sessionmaker(bind=cls.engine)
+            cls.session = Session()
+
+    @classmethod
+    def old_find(cls, table, **kwargs):
+        return cls.session.query(table).filter_by(**kwargs).first()
 
     def save(self):
         self.session.commit()
@@ -80,8 +225,8 @@ class CloudmeshDatabase(object):
         pass
 
     def close(self):
-        #self.session.close()
-        #self.connected = False
+        # self.session.close()
+        # self.connected = False
         pass
 
     # ###################################
@@ -100,7 +245,7 @@ class CloudmeshDatabase(object):
         self.counter_set(name=name, user=self.user, value=count)
         self.save()
 
-    def counter_get(self, name="counter",user=None):
+    def counter_get(self, name="counter", user=None):
         """
         Function that returns the prefix username and count for vm naming.
         If it is not present in db, it creates a new entry.
@@ -109,9 +254,8 @@ class CloudmeshDatabase(object):
         if user is None:
             user = self.user
 
-
         try:
-            count = self.query("COUNTER", name=name, user=user).first().value
+            count = self.find(kind="counter", name=name, user=user).first().value
         except:
             count = 1
             c = COUNTER(name=name, value=count, user=user)
@@ -132,13 +276,13 @@ class CloudmeshDatabase(object):
         if user is None:
             user = self.user
 
-
         if type(value) != int:
             raise ValueError("counter must be integer")
         if value is None:
             value = 0
 
-        element = self.find(COUNTER, output="object", name=name, user=user)
+        element = self.find(kind="counter", output="object", name=name, user=user)
+        # BUG
         element.first().value = value
         self.save()
 
@@ -168,8 +312,6 @@ class CloudmeshDatabase(object):
 
         except Exception as ex:
             Console.error(ex.message, ex)
-
-
 
     def delete(self, item):
         """
@@ -213,8 +355,8 @@ class CloudmeshDatabase(object):
         if 'name' not in kwargs:
             raise ValueError("name not specified in find_by_name")
 
-        table_type = self.get_table(kind)
-
+        # table_type = self.get_table(kind)
+        table_type = kind
         result = self.first(self.find(table_type, **kwargs))
 
         return result
@@ -228,7 +370,8 @@ class CloudmeshDatabase(object):
         :return: the object
         """
         # bug: user = self.user or Username()
-        table_type = self.get_table(kind)
+        # table_type = self.get_table(kind)
+        table_type = kind
         result = self.first(self.find(table_type, **kwargs))
 
         return result
@@ -248,13 +391,13 @@ class CloudmeshDatabase(object):
         kind = kwargs.get("kind", "vm")
         scope = kwargs.pop("scope", "first")
 
-        object_tables = self.db.tables(kind="vm")
-        print ("TTT", object_tables)
+        object_tables = self.tables(kind="vm")
+        print("TTT", object_tables)
 
         result = []
-        for t in self.db.tables(kind=kind):
+        for t in self.tables(kind=kind):
             part = self.session.query(t).filter_by(**kwargs)
-            print ("PPP", self.to_list(part))
+            print("PPP", self.to_list(part))
             result.extend(self.to_list(part))
 
         objects = result
@@ -264,7 +407,7 @@ class CloudmeshDatabase(object):
 
         return objects
 
-
+    '''
     def find(self, kind, scope="all", output="dict", **kwargs):
         """
         NOT tested
@@ -289,12 +432,13 @@ class CloudmeshDatabase(object):
         #    return None
 
         return result
+    '''
 
     def cloud_to_kind_mapper(self, cloud, kind):
         # bug: this should be done differently
         if cloud in LibcloudDict.Libcloud_category_list:
             if kind in ["image", "vm", "flavor"]:
-                kind = "libcloud_"+kind
+                kind = "libcloud_" + kind
         return kind
 
     def query(self, kind, **kwargs):
@@ -306,9 +450,8 @@ class CloudmeshDatabase(object):
         """
         # bug: user = self.user or Username()
         # print("AAA")
-        table = self.get_table(kind)
-        # print(table)
-
+        # table = self.get_table(kind)
+        table = kind
         result = self.session.query(table).filter_by(**kwargs)
         # print("OK")
         # print(result.__dict__)
@@ -316,7 +459,8 @@ class CloudmeshDatabase(object):
 
     def all(self, table):
         # bug: user = self.user or Username()
-        table_type = self.get_table(table)
+        #table_type = self.get_table(table)
+        table_type = table
         elements = self.session.query(table_type).all()
         d = self.parse_objs(elements)
         return d
@@ -339,7 +483,7 @@ class CloudmeshDatabase(object):
         :return:
         """
         # what is this
-        print ("SET USERNAME", kwargs)
+        print("SET USERNAME", kwargs)
         ValueError("Setting the username is not yet supported")
         # self.find(VMUSERMAP, output="object", vm_uuid=kwargs["vm_uuid"]).update(kwargs)
         # self.save()
@@ -355,24 +499,6 @@ class CloudmeshDatabase(object):
         item = self.find(kind, name=name, output="item").first()
         self.delete(item)
 
-    def to_list(self, obj):
-        """
-        convert the object to dict
-
-        :param obj:
-        :return:
-        """
-        result = list()
-        for u in obj:
-            _id = u.id
-            print ("ID", u.id)
-            values = {}
-            for key in list(u.__dict__.keys()):
-                if not key.startswith("_sa"):
-                    values[key] = u.__dict__[key]
-            result.append(values)
-        # pprint(result)
-        return result
 
     def object_to_dict(self, obj):
         """
@@ -449,7 +575,7 @@ class CloudmeshDatabase(object):
         """
         result = {}
         if kind is None:
-            kinds = self.db.tablenames()
+            kinds = self.tablenames()
         else:
             kinds = Parameter.expand(kind)
         if what is None:
@@ -458,7 +584,7 @@ class CloudmeshDatabase(object):
             infos = Parameter.expand(what)
 
         banner("Databse table information", c="-")
-        inspector = inspect(self.db.engine)
+        inspector = inspect(self.engine)
 
         result["username"] = self.user
         if "table" in infos:
@@ -474,16 +600,14 @@ class CloudmeshDatabase(object):
             result['count'] = {}
             for table_name in inspector.get_table_names():
                 if table_name in kinds:
-                    t = self.db.table(table_name)
+                    t = self.table(table_name)
                     rows = self.session.query(t).count()
                     result['count'][table_name] = rows
                     # print("Count {:}: {:}".format(table_name, rows))
                     counter = counter + rows
-            # result['count']['sum'] = counter
+                    # result['count']['sum'] = counter
 
         return result
-
-
 
     def add(self, o):
         o.user = self.user
@@ -505,13 +629,14 @@ class CloudmeshDatabase(object):
     def get(self, table, **kwargs):
         return self.session.query(table).filter_by(**kwargs).first()
 
-
     # ###################################
     # ATTRIBUTES
     # ###################################
     def attributes(self, kind, name):
         provider = CloudProvider(name).provider
         return provider.attributes(kind)
+
+    '''
 
     def db_table(self, kind):
         _type = kind
@@ -545,19 +670,19 @@ class CloudmeshDatabase(object):
                 return RESERVATION
             elif kind.lower() in ["counter"]:
                 return COUNTER
-            elif kind.lower() in ["vmusermap"]:
-                return VMUSERMAP
             elif kind.lower() in ["batchjob"]:
                 return BATCHJOB
             elif kind.lower() in ["secgroup"]:
                 return SECGROUP
             elif kind.lower() in ["secgrouprule"]:
                 return SECGROUPRULE
+            elif kind.lower() in ["launcher"]:
+                return LAUNCHER
             else:
                 TODO.implement("wrong table type: `{}`".format(kind))
         else:
             return kind
-
+    '''
     # ###################################
     # REFRESH
     # ###################################
@@ -571,7 +696,6 @@ class CloudmeshDatabase(object):
         :param kwargs:
         :return:
         """
-
 
         try:
             # print(cloudname)
@@ -695,6 +819,7 @@ class CloudmeshDatabase(object):
         except Exception as ex:
             Console.error(ex.message)
             return False
+
 
 def main():
     cm = CloudmeshDatabase()

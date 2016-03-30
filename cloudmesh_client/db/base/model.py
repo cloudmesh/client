@@ -1,21 +1,11 @@
 from __future__ import print_function
 
-import os
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, String, MetaData, \
-    create_engine
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declared_attr
 
-from cloudmesh_client.common.ConfigDict import Config
-from cloudmesh_client.common.ConfigDict import ConfigDict
-
-from ..db import database
-
-
-db = database()
-
+from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 """
 
 kind = the general type of the object that can be helpful for the location
@@ -44,10 +34,12 @@ please note that kind and type seem to be confusingly named as the kind is used 
 
 
 class CloudmeshMixin(object):
-    @declared_attr
-    def __tablename__(cls):
-        return cls.__name__.lower()
-
+    #
+    # @declared_attr
+    # def __tablename__(cls):
+    #    return cls.__name__.lower()
+    #
+    
     # __table_args__ = {'mysql_engine': 'InnoDB'}
     __mapper_args__ = {'always_refresh': True}
 
@@ -61,7 +53,7 @@ class CloudmeshMixin(object):
                         onupdate=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     label = Column(String, default="undefined")
     name = Column(String, default="undefined")
-    user = Column(String, default=db.user)
+    user = Column(String, default=CloudmeshDatabase.user)
     project = Column(String, default="undefined")
 
     category = Column(String, default="undefined")  # general or the name of teh cloud/queue in the yaml files
@@ -70,7 +62,10 @@ class CloudmeshMixin(object):
     provider = Column(String, default="undefined")
 
 
-class COUNTER(CloudmeshMixin, db.Base):
+class COUNTER(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "counter"
+    __category__ = "general"
+    __type__ = 'counter'
     """
     Table to store Prefix Count for VM auto-naming.
     """
@@ -85,7 +80,7 @@ class COUNTER(CloudmeshMixin, db.Base):
         self.label = name
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.value = value
@@ -101,13 +96,17 @@ class COUNTER(CloudmeshMixin, db.Base):
 #        self.kind = self.__tablename__
 
 
-class DEFAULT(CloudmeshMixin, db.Base):
+class DEFAULT(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
 
     if the category is "global" it is meant to be a global variable
 
     todo: check if its global or general
     """
+    __tablename__ = "default"
+    __category__ = "general"
+    __type__ = 'default'
+    
     # name defined in mixin
     value = Column(String)
     type = Column(String, default="string")
@@ -125,17 +124,23 @@ class DEFAULT(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.value = value
         self.type = self.__tablename__
 
 
-class VAR(CloudmeshMixin, db.Base):
+class VAR(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store peristant variable values
     """
     # name defined in mixin
+    
+    __tablename__ = "var"
+    __category__ = "general"
+    __type__ = 'default'
+    
+    
     value = Column(String)
     type = Column(String, default="string")
     kind = 'var'
@@ -150,20 +155,26 @@ class VAR(CloudmeshMixin, db.Base):
         self.category = category or "var"
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.value = value
         self.type = self.__tablename__
 
 
-class LAUNCHER(CloudmeshMixin, db.Base):
+class LAUNCHER(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
 
     if the category is "global" it is meant to be a global variable
 
     todo: check if its global or general
     """
+    
+    __tablename__ = "launcher"
+    __category__ = "general"
+    __type__ = 'launcher'
+
+    
     # name defined in mixin
     value = Column(String)
     type = Column(String, default="string")
@@ -180,7 +191,7 @@ class LAUNCHER(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.value = value
@@ -188,7 +199,12 @@ class LAUNCHER(CloudmeshMixin, db.Base):
 
 
 # TODO: BUG the value is not properly used here
-class KEY(CloudmeshMixin, db.Base):
+class KEY(CloudmeshMixin, CloudmeshDatabase.Base):
+    
+    __tablename__ = "key"
+    __category__ = "general"
+    __type__ = 'key'
+    
     value = Column(String)
     fingerprint = Column(String, unique=True)
     source = Column(String)
@@ -217,14 +233,19 @@ class KEY(CloudmeshMixin, db.Base):
         self.source = source
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.type = self.__tablename__
         self.is_default = is_default
 
 
-class GROUP(CloudmeshMixin, db.Base):
+class GROUP(CloudmeshMixin, CloudmeshDatabase.Base):
+    
+    __tablename__ = "group"
+    __category__ = "general"
+    __type__ = 'group'
+    
     member = Column(String)
     species = Column(String)
     kind = 'group'
@@ -242,13 +263,18 @@ class GROUP(CloudmeshMixin, db.Base):
         self.name = name
         self.member = member
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.type = self.__tablename__
 
 
-class RESERVATION(CloudmeshMixin, db.Base):
+class RESERVATION(CloudmeshMixin, CloudmeshDatabase.Base):
+    
+    __tablename__ = "reservation"
+    __category__ = "general"
+    __type__ = 'reservation'
+
     hosts = Column(String)  # should be list of strings
     description = Column(String)
     start_time = Column(String)  # date, time
@@ -269,14 +295,19 @@ class RESERVATION(CloudmeshMixin, db.Base):
         self.description = kwargs['description']
         self.name = kwargs['name']
         if kwargs['user'] is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = kwargs['user']
         self.project = kwargs['project']
         self.type = self.__tablename__
 
 
-class SECGROUP(CloudmeshMixin, db.Base):
+class SECGROUP(CloudmeshMixin, CloudmeshDatabase.Base):
+    
+    __tablename__ = "secgroup"
+    __category__ = "general"
+    __type__ = 'secgroup'
+
     uuid = Column(String)
     kind = 'secgroup'
 
@@ -292,7 +323,7 @@ class SECGROUP(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.uuid = uuid
@@ -305,7 +336,11 @@ class SECGROUP(CloudmeshMixin, db.Base):
                 self[key] = value
 
 
-class SECGROUPRULE(CloudmeshMixin, db.Base):
+class SECGROUPRULE(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "secgrouprule"
+    __category__ = "general"
+    __type__ = 'secgrouprule'
+
     groupid = Column(String)
     fromPort = Column(String)
     toPort = Column(String)
@@ -333,7 +368,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.groupid = groupid
@@ -350,7 +385,7 @@ class SECGROUPRULE(CloudmeshMixin, db.Base):
                 self[key] = value
 
 
-class BATCHJOB(CloudmeshMixin, db.Base):
+class BATCHJOB(CloudmeshMixin, CloudmeshDatabase.Base):
     """table to store default values
 
     if the category is "global" it is meant to be a global variable
@@ -358,6 +393,11 @@ class BATCHJOB(CloudmeshMixin, db.Base):
     todo: check if its global or general
     """
     # name defined in mixin
+    __tablename__ = "batchjob"
+    __category__ = "general"
+    __type__ = 'batchjob'
+
+    
     type = Column(String, default="string")
     dir = Column(String, default="string")
     nodes = Column(String, default="string")
@@ -384,7 +424,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
         self.label = name
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.type = 'batchjob'
@@ -404,7 +444,7 @@ class BATCHJOB(CloudmeshMixin, db.Base):
 
 
 """
-db.Base.metadata.create_all()
+CloudmeshDatabase.Base.metadata.create_all()
 
 Session = sessionmaker(bind=db.engine)
 session = Session()
