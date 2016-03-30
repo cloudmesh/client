@@ -516,8 +516,8 @@ class CometCommand(PluginCommand, CometPluginCommand):
 
             if arguments["rename"]:
                 clusterid = arguments["CLUSTERID"]
-                oldnames = Parameter.expand(arguments["OLDNAME"])
-                newnames = Parameter.expand(arguments["NEWNAME"])
+                oldnames = Parameter.expand(arguments["OLDNAMES"])
+                newnames = Parameter.expand(arguments["NEWNAMES"])
                 if len(oldnames) != len(newnames):
                     Console.error("Length of OLDNAMES and NEWNAMES have to be the same",
                                   traceflag=False)
