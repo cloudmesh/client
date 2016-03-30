@@ -1,13 +1,15 @@
-from sqlalchemy import Column, Integer, String, MetaData, \
-    create_engine, ForeignKey
+from sqlalchemy import Column, String
 
 from ..base.model import CloudmeshMixin
 
-from ..db import database
+from ..CloudmeshDatabase import CloudmeshDatabase
 
-db = database()
 
-class IMAGE_LIBCLOUD(CloudmeshMixin, db.Base):
+class IMAGE_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "image_libcloud"
+    __category__ = "libcloud"
+    __type__ = 'image'
+    
     uuid = Column(String)
     status = Column(String)
     updated = Column(String)
@@ -35,7 +37,7 @@ class IMAGE_LIBCLOUD(CloudmeshMixin, db.Base):
         self.label = kwargs["image_name"]
         self.category = kwargs["category"] or "general"
         if kwargs['user'] is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = kwargs['user']
         self.uuid = kwargs["uuid"]
@@ -71,7 +73,12 @@ class IMAGE_LIBCLOUD(CloudmeshMixin, db.Base):
             self.state = kwargs.get('state')
         self.type = self.__tablename__
 
-class FLAVOR_LIBCLOUD(CloudmeshMixin, db.Base):
+
+class FLAVOR_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "flavor_libcloud"
+    __category__ = "general"
+    __type__ = 'flavor'
+    
     uuid = Column(String)
     flavor_id = Column(String)
     ram = Column(String)
@@ -81,7 +88,6 @@ class FLAVOR_LIBCLOUD(CloudmeshMixin, db.Base):
     cpu = Column(String)
     kind = 'flavor'
 
-
     def __init__(self,
                  **kwargs):
 
@@ -90,7 +96,7 @@ class FLAVOR_LIBCLOUD(CloudmeshMixin, db.Base):
         self.category = kwargs["category"] or "general"
         self.name = kwargs["name"]
         if kwargs['user'] is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = kwargs['user']
         self.uuid = kwargs["uuid"]
@@ -108,7 +114,12 @@ class FLAVOR_LIBCLOUD(CloudmeshMixin, db.Base):
             self.cpu = kwargs["cpu"]
         self.type = self.__tablename__
 
-class VM_LIBCLOUD(CloudmeshMixin, db.Base):
+
+class VM_LIBCLOUD(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "vm_libcloud"
+    __category__ = "general"
+    __type__ = 'vm'
+    
     uuid = Column(String)
     name = Column(String)
     state = Column(String)
@@ -133,7 +144,7 @@ class VM_LIBCLOUD(CloudmeshMixin, db.Base):
         self.category = kwargs["category"] or "general"
 
         if kwargs['user'] is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = kwargs['user']
         if "node_id" in kwargs:

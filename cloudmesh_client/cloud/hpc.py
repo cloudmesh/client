@@ -2,12 +2,15 @@ from __future__ import print_function
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 
 
+
+
 class Hpc(ListResource):
+
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -17,6 +20,7 @@ class Hpc(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
+
         return cls.cm.refresh('hpc', cloud)
 
     @classmethod
@@ -25,7 +29,7 @@ class Hpc(ListResource):
         This method lists all hpcs of the cloud
         :param cloud: the cloud name
         """
-        # cm = CloudmeshDatabase()
+
         try:
 
             if live:

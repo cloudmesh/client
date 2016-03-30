@@ -6,7 +6,7 @@ from cloudmesh_client.common.todo import TODO
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.Printer import dict_printer, attribute_printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.common.Error import Error
 from uuid import UUID
@@ -16,7 +16,6 @@ from pprint import pprint
 
 # noinspection PyPep8Naming
 class Key(ListResource):
-    cm = CloudmeshDatabase()
 
     @classmethod
     def info(cls, **kwargs):

@@ -5,15 +5,17 @@ from pprint import pprint
 
 from cloudmesh_client.shell.console import Console
 from cloudmesh_client.common.Printer import dict_printer
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.LibcloudDict import LibcloudDict
 requests.packages.urllib3.disable_warnings()
 
 
+
 class SecGroup(ListResource):
-    cm_db = CloudmeshDatabase()  # Instance to communicate with the cloudmesh database
+
+    cm = CloudmeshDatabase()
 
     @classmethod
     def convert_list_to_dict(cls, os_result):
@@ -49,7 +51,8 @@ class SecGroup(ListResource):
         the database, then inserting new data
         :param cloud: the cloud name
         """
-        return cls.cm_db.refresh('secgroup', cloud)
+        
+        return cls.cm.refresh('secgroup', cloud)
 
     # noinspection PyPep8Naming
     @classmethod
@@ -98,8 +101,9 @@ class SecGroup(ListResource):
         :return:
         """
         try:
-            elements = cls.cm_db.find("secgroup",
-                                      category=cloud)
+            global cm
+            elements = cls.cm.find("secgroup",
+                                   category=cloud)
             #pprint(elements)
             (order, header) = CloudProvider(cloud).get_attributes("secgroup")
 
@@ -162,14 +166,15 @@ class SecGroup(ListResource):
         :param cloud:
         :return:
         """
+        global cm
         try:
             args = {
                 "name": name,
                 "category": cloud,
             }
-            secgroup = cls.cm_db.find("secgroup",
-                                      output="object",
-                                      **args).first()
+            secgroup = cls.cm.find("secgroup",
+                                   output="object",
+                                   **args).first()
             return secgroup
 
         except Exception as ex:
@@ -178,6 +183,7 @@ class SecGroup(ListResource):
     @classmethod
     def add_rule(cls, cloud, secgroup, from_port, to_port, protocol, cidr):
         try:
+            global cm
             # Get the nova client object
             cloud_provider = CloudProvider(cloud).provider
 
@@ -192,20 +198,20 @@ class SecGroup(ListResource):
             rule_id = cloud_provider.add_secgroup_rule(**args)
 
             # create local db record
-            ruleObj = cls.cm_db.db_obj_dict("secgrouprule",
-                                            uuid=str(rule_id),
-                                            name=secgroup.name,
-                                            groupid=secgroup.uuid,
-                                            category=secgroup.category,
-                                            user=secgroup.user,
-                                            project=secgroup.project,
-                                            fromPort=from_port,
-                                            toPort=to_port,
-                                            protocol=protocol,
-                                            cidr=cidr)
+            ruleObj = cls.cm.db_obj_dict("secgrouprule",
+                                         uuid=str(rule_id),
+                                         name=secgroup.name,
+                                         groupid=secgroup.uuid,
+                                         category=secgroup.category,
+                                         user=secgroup.user,
+                                         project=secgroup.project,
+                                         fromPort=from_port,
+                                         toPort=to_port,
+                                         protocol=protocol,
+                                         cidr=cidr)
 
-            cls.cm_db.add_obj(ruleObj)
-            cls.cm_db.save()
+            cls.cm.add_obj(ruleObj)
+            cls.cm.save()
 
             Console.ok("Added rule [{} | {} | {} | {}] to secgroup [{}]"
                        .format(from_port, to_port, protocol, cidr,
@@ -226,12 +232,13 @@ class SecGroup(ListResource):
         :param uuid:
         :return:
         """
+
         try:
             args = {
                 "groupid": uuid
             }
-
-            rule = cls.cm_db.find("secgrouprule", **args)
+            global cm
+            rule = cls.cm.find("secgrouprule", **args)
 
             # check if rules exist
             if rule is None:
@@ -273,9 +280,10 @@ class SecGroup(ListResource):
                 "protocol": protocol,
                 "cidr": cidr
             }
+            global cm
 
-            rule = cls.cm_db.find("secgrouprule", output="object",
-                                  **args).first()
+            rule = cls.cm.find("secgrouprule", output="object",
+                               **args).first()
 
             if rule is not None:
                 # get the nova client for cloud
@@ -283,7 +291,7 @@ class SecGroup(ListResource):
                 # delete the rule from the cloud
                 cloud_provider.delete_secgroup_rule(rule.uuid)
                 # delete the local db record
-                cls.cm_db.delete(rule)
+                cls.cm.delete(rule)
                 return "Rule [{} | {} | {} | {}] deleted" \
                     .format(from_port, to_port, protocol, cidr)
             else:
@@ -297,15 +305,15 @@ class SecGroup(ListResource):
     @classmethod
     def delete_all_rules(cls, secgroup):
         try:
-
+            global cm
             args = {
                 "groupid": secgroup.uuid
             }
-            rules = cls.cm_db.find("secgrouprule", output="object", **args)
+            rules = cls.cm.find("secgrouprule", output="object", **args)
 
             if rules is not None:
                 for rule in rules:
-                    cls.cm_db.delete(rule)
+                    cls.cm.delete(rule)
                     Console.ok("Rule [{} | {} | {} | {}] deleted"
                                .format(rule.fromPort, rule.toPort,
                                        rule.protocol, rule.cidr))

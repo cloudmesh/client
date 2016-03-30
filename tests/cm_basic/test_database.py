@@ -13,13 +13,18 @@ nosetests -v tests/cm_basic/test_database.py
 
 from pprint import pprint
 
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.db import DEFAULT, COUNTER, VM_OPENSTACK
 from cloudmesh_client.util import HEADING
+
+from cloudmesh_client.db import CloudmeshDatabase
 
 
 # noinspection PyMethodMayBeStatic,PyPep8Naming
 class Test_database:
+
+    cm = CloudmeshDatabase()
+
+
     def setup(self):
         pass
 
@@ -30,19 +35,19 @@ class Test_database:
 
     def test_000(self):
         HEADING("testing DEFAULT add")
-        cm = CloudmeshDatabase()
-        result = cm.info()
+        
+        result = self.cm.info()
         print (result['username'])
         assert "var" in str(result)
         assert "VARCHAR" in str(result)
 
     def test_001(self):
         HEADING("testing DEFAULT add")
-        cm = CloudmeshDatabase()
+        
         m = DEFAULT("hallo", "world")
-        cm.add(m)
+        self.cm.add(m)
 
-        n = cm.query(DEFAULT).filter_by(name='hallo').first()
+        n = self.cm.query(DEFAULT).filter_by(name='hallo').first()
 
         print(n.__dict__)
 
@@ -53,10 +58,10 @@ class Test_database:
 
     def test_002(self):
         HEADING("testing list")
-        cm = CloudmeshDatabase()
+        
         m = DEFAULT("hallo", "world")
 
-        n = cm.find("default", scope="first", name='hallo')
+        n = self.cm.find("default", scope="first", name='hallo')
         first = list(n)[0]
         pprint(n)
 
@@ -65,36 +70,63 @@ class Test_database:
 
     def test_003(self):
         HEADING("testing find")
-        cm = CloudmeshDatabase()
+        
         m = DEFAULT("hallo", "world")
 
-        n = cm.find("default", scope="all", name='hallo')
+        n = self.cm.find("default", scope="all", name='hallo')
         print(list(n))
         assert (len(list(n)) > 0)
 
 
+
     def test_004(self):
-        cm = CloudmeshDatabase(user="gregor")
+        
 
-        cm.info()
+        self.cm.info()
 
 
-        m = COUNTER("counter", 2, user="gregor")
-        cm.add(m)
+        m = COUNTER("counter", 2)
+        self.cm.add(m)
 
-        o = cm.get(COUNTER, name='counter', user="gregor")
+        o = self.cm.get(COUNTER, name='counter')
 
         print("OOO", o)
 
-        cm.counter_set(name="counter", user="gregor", value=0)
+        self.cm.counter_set(name="counter", value=0)
 
         for i in range(0, 10):
-            cm.counter_incr(name="counter", user="gregor")
+            self.cm.counter_incr(name="counter")
 
-        print(cm.counter_get(name="counter", user="gregor"))
+        print(self.cm.counter_get(name="counter"))
 
-        cm.info()
-        c = cm.first(cm.all(COUNTER))
+        self.cm.info()
+        c = self.cm.first(self.cm.all(COUNTER))
+        print ("CCC", c)
+        assert c["value"] == '10'
+
+
+    def test_005(self):
+        
+
+        self.cm.info()
+
+
+        m = COUNTER("counter", 2, user="gregor")
+        self.cm.add(m)
+
+        o = self.cm.get(COUNTER, name='counter', user="gregor")
+
+        print("OOO", o)
+
+        self.cm.counter_set(name="counter", user="gregor", value=0)
+
+        for i in range(0, 10):
+            self.cm.counter_incr(name="counter", user="gregor")
+
+        print(self.cm.counter_get(name="counter", user="gregor"))
+
+        self.cm.info()
+        c = self.cm.first(self.cm.all(COUNTER))
         print ("CCC", c)
         assert c["value"] == '10'
 
@@ -103,28 +135,28 @@ class Test_database:
 
 """
     def test_005(self):
-        cm = CloudmeshDatabase()
+        
 
         m = DEFAULT("newfield", "world")
         m.newfield__hhh = 13.9
 
 
 
-        cm.add(m)
+        self.cm.add(m)
 
 
-        n = cm.find("default", scope="first", name='newfield')
+        n = self.cm.find("default", scope="first", name='newfield')
 
         pprint(n)
 
 
     def test_006(self):
-        cm = CloudmeshDatabase()
+        
         m = DEFAULT("other", "world")
         m.other = "ooo"
-        cm.add(m)
+        self.cm.add(m)
 
         print("\n\n")
-        pprint(cm.get(DEFAULT, other='other').__dict__)
+        pprint(self.cm.get(DEFAULT, other='other').__dict__)
 
 """

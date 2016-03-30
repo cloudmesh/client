@@ -8,6 +8,7 @@ from cloudmesh_client.common.Printer import dict_printer
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 from cloudmesh_client.default import Default
 
+cm = CloudmeshDatabase()
 
 class Mesh(object):
     """
@@ -37,7 +38,8 @@ class Mesh(object):
     t_vm = "vm"
 
     def __init__(self):
-        self.db = CloudmeshDatabase()
+        global cm
+        self.db = cm
 
     @classmethod
     def clouds(self, format='json', order=None):

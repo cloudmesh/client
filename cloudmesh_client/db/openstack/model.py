@@ -1,17 +1,16 @@
-from sqlalchemy import Column, Integer, String, MetaData, \
-    create_engine, ForeignKey
+from sqlalchemy import Column, String
 
 
 from ..base.model import CloudmeshMixin
 
-from ..db import database
-db = database()
+from ..CloudmeshDatabase import CloudmeshDatabase
 
-#
-# OPENSTACK
-#
 
-class IMAGE_OPENSTACK(CloudmeshMixin, db.Base):
+class IMAGE_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "image_openstack"
+    __category__ = "openstack"
+    __type__ = 'image'
+
     uuid = Column(String)
     status = Column(String)
     updated = Column(String)
@@ -56,7 +55,7 @@ class IMAGE_OPENSTACK(CloudmeshMixin, db.Base):
         self.category = category or "general"
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
 
@@ -107,7 +106,11 @@ class IMAGE_OPENSTACK(CloudmeshMixin, db.Base):
                 self[key] = value"""
 
 
-class FLAVOR_OPENSTACK(CloudmeshMixin, db.Base):
+class FLAVOR_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "flavor_openstack"
+    __category__ = "openstack"
+    __type__ = 'flavor'
+
     uuid = Column(String)
     ram = Column(String)
     os_flv_disabled = Column(String)
@@ -117,7 +120,7 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, db.Base):
     rxtx_factor = Column(String)
     os_flv_ext_data = Column(String)
     disk = Column(String)
-    kind = 'image'
+    kind = 'flavor'
 
     def __init__(self,
                  name,
@@ -132,7 +135,7 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, db.Base):
 
         self.name = name
         if user is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = user
         self.uuid = uuid
@@ -152,7 +155,11 @@ class FLAVOR_OPENSTACK(CloudmeshMixin, db.Base):
                 self[key] = value"""
 
 
-class VM_OPENSTACK(CloudmeshMixin, db.Base):
+class VM_OPENSTACK(CloudmeshMixin, CloudmeshDatabase.Base):
+    __tablename__ = "vm_openstack"
+    __category__ = "openstack"
+    __type__ = 'vm'
+
     uuid = Column(String)
     diskConfig = Column(String)
     availability_zone = Column(String)
@@ -178,7 +185,7 @@ class VM_OPENSTACK(CloudmeshMixin, db.Base):
     status = Column(String)
     tenant_id = Column(String)
     updated = Column(String)
-    user_id = Column(String) # what is this used for?
+    user_id = Column(String)  # what is this used for?
     username = Column(String)
     kind = 'vm'
 
@@ -190,7 +197,7 @@ class VM_OPENSTACK(CloudmeshMixin, db.Base):
 
         self.name = kwargs["name"]
         if kwargs['user'] is None:
-            self.user = db.user
+            self.user = CloudmeshDatabase.user
         else:
             self.user = kwargs['user']
         self.uuid = kwargs["uuid"]

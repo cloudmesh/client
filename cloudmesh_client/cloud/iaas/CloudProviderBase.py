@@ -6,6 +6,7 @@ from cloudmesh_client.common.Printer import dict_printer, attribute_printer
 from cloudmesh_client.shell.console import Console
 
 
+
 # noinspection PyBroadException,PyUnreachableCode,PyUnusedLocal
 class CloudProviderBase(object):
     #    __metaclass__ = ABCMeta
@@ -376,10 +377,12 @@ class CloudProviderBase(object):
     # ####################################
 
     def details(self, kind, cloud, id, format="table"):
-        from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
-        try:
-            cm = CloudmeshDatabase()
 
+        from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+
+        cm = CloudmeshDatabase()
+
+        try:
             if kind not in self.kind:
                 raise ValueError('{} not defined'.format(kind))
 

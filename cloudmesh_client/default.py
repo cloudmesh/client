@@ -2,11 +2,13 @@ from __future__ import print_function
 
 from cloudmesh_client.common import Printer
 # from cloudmesh_client.db.SSHKeyDBManager import SSHKeyDBManager
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+import  cloudmesh_client
 from cloudmesh_client.cloud.ListResource import ListResource
 from cloudmesh_client.common.ConfigDict import ConfigDict
 
 # from cloudmesh_client.cloud.iaas.CloudProvider import CloudProvider
+from cloudmesh_client.db import CloudmeshDatabase
+
 
 
 # noinspection PyBroadException
@@ -20,7 +22,6 @@ class Default(ListResource):
 
     """
 
-    """cm is  a static variable so that db is used uniformly."""
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -39,7 +40,7 @@ class Default(ListResource):
         :param output: The output format. json, table, yaml, dict, csv
         :return:
         """
-
+    
         if order is None:
             # (order, header) = CloudProvider(category).get_attributes("default")
             order = ['user',
@@ -72,9 +73,10 @@ class Default(ListResource):
         :param user: the username to store this default value at.
         :return:
         """
+        
         try:
 
-            o = Default.get_object(key, category)
+            o = cls.get_object(key, category)
             me = cls.cm.user or user
             if o is None:
                 o = cls.cm.db_obj_dict('default',
@@ -101,13 +103,13 @@ class Default(ListResource):
         :param category: The category
         :return:
         """
+        
         try:
-
-            arguments = {'name': key,
-                         'category': category}
-            o = cls.cm.find('default',
+            o = cls.cm.find(category=category,
+                            kind='default',
                             output='object',
-                            **arguments).first()
+                            name=key,
+                            scope='first')
             return o
         except Exception:
             return None
@@ -123,12 +125,11 @@ class Default(ListResource):
         :return:
         """
 
-        arguments = {'name': key,
-                     'category': category}
-        o = cls.cm.find('default',
+        o = cls.cm.find(category= category,
+                        kind='default',
                         output='dict',
                         scope='first',
-                        **arguments)
+                        name=key)
         if o is not None:
             return o['value']
         else:
@@ -140,7 +141,6 @@ class Default(ListResource):
         # TODO: this is wrong implemented,
         #
         try:
-
             o = Default.get_object(key, category)
             if o is not None:
                 cls.cm.delete(o)
@@ -157,7 +157,6 @@ class Default(ListResource):
         :return:
         """
         try:
-
             d = cls.cm.all('default')
             for item in d:
                 name = d[item]["name"]

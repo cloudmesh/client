@@ -9,6 +9,7 @@ from cloudmesh_client.common.ConfigDict import Config
 from time import sleep
 from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
 
+cm = CloudmeshDatabase()
 
 class Command_vm(object):
 
@@ -43,7 +44,7 @@ class Command_vm(object):
 
 
         config = CloudRegister.get(cloud)
-        if cm_type in ["openstack"]:
+        if 'cm_type' in ["openstack"]:
             provider = Provider.OPENSTACK
             OpenStack = get_driver(provider)
             try:
@@ -112,22 +113,22 @@ class Command_vm(object):
 
             # set vm name
             sufix = __findsufix()
-            c = CloudmeshDatabase()
+            global cm
             if name is None:
-                c.name(cloud_credentials['OS_USERNAME'] + "-" + sufix)
+                cm.name(cloud_credentials['OS_USERNAME'] + "-" + sufix)
             else:
-                c.name(name + "-" + sufix)
+                cm.name(name + "-" + sufix)
 
             # launch a new VM
             Console.ok("Booting Virtual Machine...")
             for i in range(0, count):
-                name = c.get_name()
+                name = cm.get_name()
                 try:
                     node = driver.create_node(name=name, image=image, size=size)
                 except Exception as e:
                     Console.error("{:} virtual machines have not been created. {:}".format(count - i, e.message))
                     return
-                c.name(c.next_name())
+                cm.name(cm.next_name())
 
             # wait the node to be ready before assigning public IP
             sleep(10)

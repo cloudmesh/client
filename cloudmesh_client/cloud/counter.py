@@ -1,6 +1,6 @@
 from __future__ import print_function
 
-from cloudmesh_client.db.CloudmeshDatabase import CloudmeshDatabase
+from cloudmesh_client.db import CloudmeshDatabase
 
 
 class Counter(object):
@@ -9,6 +9,8 @@ class Counter(object):
     and is associated with a user. Typically it is used to increment the
     vm id or the job id.
     """
+
+
     cm = CloudmeshDatabase()
 
     @classmethod
@@ -20,6 +22,7 @@ class Counter(object):
         :param user: username associated with the counter
         :return:
         """
+
         cls.cm.counter_incr(name=name, user=user)
 
     @classmethod
@@ -31,6 +34,7 @@ class Counter(object):
         :param user: username associated with the counter
         :return: the value of the counter
         """
+
         return cls.cm.counter_get(name=name, user=user)
 
     @classmethod
@@ -42,4 +46,5 @@ class Counter(object):
         :param value: the value
         :return:
         """
+
         cls.cm.counter_set(name=name, value=value, user=user)

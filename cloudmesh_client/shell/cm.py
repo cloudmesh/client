@@ -33,7 +33,9 @@ import cloudmesh_client.shell.plugins
 from cloudmesh_client.common.StopWatch import StopWatch
 
 
+from cloudmesh_client.db import CloudmeshDatabase
 
+cm = CloudmeshDatabase()
 
 class CloudmeshContext(object):
     def __init__(self, **kwargs):

@@ -43,7 +43,7 @@ if command is not None:
 
     
 requirements = [
-    'pbr>=1.6',
+    'pbr>1.6',
     'apache-libcloud',
     'nose',
     'pytest',
